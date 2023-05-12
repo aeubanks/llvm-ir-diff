@@ -177,14 +177,14 @@ while.end22.i:                                    ; preds = %if.end20.i
 
 if.else:                                          ; preds = %entry
   %call3 = tail call ptr @messageToText(ptr noundef %aMessage) #5
-  br i1 %cmp.i, label %return, label %if.end10.i
+  br i1 %cmp.i, label %return, label %if.then4
 
-if.end10.i:                                       ; preds = %if.else
+if.then4:                                         ; preds = %if.else
   %cmp1.i12 = icmp eq ptr %call3, null
   br i1 %cmp1.i12, label %return, label %while.cond.i18
 
-while.cond.i18:                                   ; preds = %if.end10.i, %while.cond.i18
-  %t_head.addr.0.i16 = phi ptr [ %7, %while.cond.i18 ], [ %aText, %if.end10.i ]
+while.cond.i18:                                   ; preds = %if.then4, %while.cond.i18
+  %t_head.addr.0.i16 = phi ptr [ %7, %while.cond.i18 ], [ %aText, %if.then4 ]
   %t_next14.i = getelementptr inbounds %struct.text, ptr %t_head.addr.0.i16, i64 0, i32 1
   %7 = load ptr, ptr %t_next14.i, align 8, !tbaa !5
   %tobool.not.i17 = icmp eq ptr %7, null
@@ -216,8 +216,8 @@ if.end30.i:                                       ; preds = %if.then25.i, %if.en
   store ptr null, ptr %t_next31.i, align 8, !tbaa !5
   br label %return
 
-return:                                           ; preds = %if.end.i.i.i, %if.end30.i, %while.end.i, %if.end10.i, %while.end22.i, %if.end3.i, %if.then19.i.i, %while.end.i.i, %if.then4.i.i, %if.then2.i, %if.else
-  %retval.1 = phi ptr [ %call3, %if.else ], [ null, %if.then2.i ], [ %aText, %while.end22.i ], [ %aText, %if.end3.i ], [ null, %if.then4.i.i ], [ %first.1.i.i, %if.then19.i.i ], [ null, %while.end.i.i ], [ %aText, %if.end30.i ], [ %aText, %if.end10.i ], [ null, %while.end.i ], [ null, %if.end.i.i.i ]
+return:                                           ; preds = %if.end.i.i.i, %if.then4, %while.end.i, %if.end30.i, %if.else, %while.end22.i, %if.end3.i, %if.then19.i.i, %while.end.i.i, %if.then4.i.i, %if.then2.i
+  %retval.1 = phi ptr [ null, %if.then2.i ], [ %aText, %while.end22.i ], [ null, %if.then4.i.i ], [ %first.1.i.i, %if.then19.i.i ], [ null, %while.end.i.i ], [ %aText, %if.end3.i ], [ %aText, %if.end30.i ], [ %aText, %if.then4 ], [ null, %while.end.i ], [ %call3, %if.else ], [ null, %if.end.i.i.i ]
   ret ptr %retval.1
 }
 

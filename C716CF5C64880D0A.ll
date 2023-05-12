@@ -41,21 +41,21 @@ entry:
   %0 = load ptr, ptr %compare, align 8, !tbaa !9
   %1 = load i32, ptr %y, align 8, !tbaa !12
   %cmp.not = icmp eq i32 %1, 0
-  br i1 %cmp.not, label %if.end, label %land.lhs.true
+  br i1 %cmp.not, label %if.end, label %land.lhs.true1
 
-land.lhs.true:                                    ; preds = %entry
+land.lhs.true1:                                   ; preds = %entry
   %2 = load i32, ptr %x, align 8, !tbaa !12
   %call4 = tail call i32 %0(i32 noundef %2) #5
   %cmp5.not = icmp eq i32 %call4, 0
   br i1 %cmp5.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %land.lhs.true
+if.then:                                          ; preds = %land.lhs.true1
   %3 = load i32, ptr @errors, align 4, !tbaa !5
   %inc = add nsw i32 %3, 1
   store i32 %inc, ptr @errors, align 4, !tbaa !5
   br label %if.end
 
-if.end:                                           ; preds = %if.then, %land.lhs.true, %entry
+if.end:                                           ; preds = %if.then, %land.lhs.true1, %entry
   %call6 = tail call i32 %0(i32 noundef %1) #5
   ret i32 %call6
 }

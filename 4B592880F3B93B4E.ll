@@ -23,7 +23,7 @@ return:                                           ; preds = %entry, %if.then2
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #1 {
-if.end:
+entry:
   tail call void @exit(i32 noundef 0) #4
   unreachable
 }

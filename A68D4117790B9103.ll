@@ -120,89 +120,89 @@ do.body3.preheader.i:                             ; preds = %_ZN13CRecordVectorI
   %19 = load i32, ptr %2, align 4, !tbaa !13
   store i32 %19, ptr %arrayidx69.i, align 4, !tbaa !13
   store i32 %18, ptr %2, align 4, !tbaa !13
-  %cmp44.i2971.i = icmp slt i32 %1, 3
-  br i1 %cmp44.i2971.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.thread.i, label %if.end.i33.preheader.i
+  %cmp44.i2871.i = icmp slt i32 %1, 3
+  br i1 %cmp44.i2871.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.thread.i, label %if.end.i32.preheader.i
 
-if.end.i33.preheader.i:                           ; preds = %do.body3.preheader.i, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i
-  %temp.i27.i.0 = phi i32 [ %32, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i ], [ %18, %do.body3.preheader.i ]
-  %indvars.iv79.i = phi i64 [ %indvars.iv.next80.i, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i ], [ %idxprom68.i, %do.body3.preheader.i ]
+if.end.i32.preheader.i:                           ; preds = %do.body3.preheader.i, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i
+  %temp.i26.i.0 = phi i32 [ %32, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i ], [ %18, %do.body3.preheader.i ]
+  %indvars.iv79.i = phi i64 [ %indvars.iv.next80.i, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i ], [ %idxprom68.i, %do.body3.preheader.i ]
   %indvars.iv.next80.i = add nsw i64 %indvars.iv79.i, -1
-  %idxprom.i.i.i = sext i32 %temp.i27.i.0 to i64
-  br label %if.end.i33.i
+  %idxprom.i.i.i = sext i32 %temp.i26.i.0 to i64
+  br label %if.end.i32.i
 
-_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.thread.i: ; preds = %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i, %do.body3.preheader.i
-  %.lcssa.i = phi i32 [ %18, %do.body3.preheader.i ], [ %32, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i ]
+_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.thread.i: ; preds = %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i, %do.body3.preheader.i
+  %.lcssa.i = phi i32 [ %18, %do.body3.preheader.i ], [ %32, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i ]
   store i32 %.lcssa.i, ptr %2, align 4, !tbaa !13
   br label %_ZN13CRecordVectorIiE4SortEPFiPKiS2_PvES3_.exit
 
-if.end.i33.i:                                     ; preds = %cleanup.i54.i, %if.end.i33.preheader.i
-  %shl46.i30.i = phi i32 [ %shl.i52.i, %cleanup.i54.i ], [ 2, %if.end.i33.preheader.i ]
-  %k.addr.045.i31.i = phi i32 [ %s.0.i42.i, %cleanup.i54.i ], [ 1, %if.end.i33.preheader.i ]
-  %20 = sext i32 %shl46.i30.i to i64
-  %cmp1.i32.i = icmp sgt i64 %indvars.iv.next80.i, %20
-  br i1 %cmp1.i32.i, label %land.lhs.true.i41.i, label %if.end7.i47.i
+if.end.i32.i:                                     ; preds = %cleanup.i53.i, %if.end.i32.preheader.i
+  %shl46.i29.i = phi i32 [ %shl.i51.i, %cleanup.i53.i ], [ 2, %if.end.i32.preheader.i ]
+  %k.addr.045.i30.i = phi i32 [ %s.0.i41.i, %cleanup.i53.i ], [ 1, %if.end.i32.preheader.i ]
+  %20 = sext i32 %shl46.i29.i to i64
+  %cmp1.i31.i = icmp sgt i64 %indvars.iv.next80.i, %20
+  br i1 %cmp1.i31.i, label %land.lhs.true.i40.i, label %if.end7.i46.i
 
-land.lhs.true.i41.i:                              ; preds = %if.end.i33.i
-  %add.ptr.i35.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %20
-  %add.ptr2.i36.i = getelementptr inbounds i32, ptr %add.ptr.i35.i, i64 1
-  %21 = load i32, ptr %add.ptr2.i36.i, align 4, !tbaa !13
+land.lhs.true.i40.i:                              ; preds = %if.end.i32.i
+  %add.ptr.i34.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %20
+  %add.ptr2.i35.i = getelementptr inbounds i32, ptr %add.ptr.i34.i, i64 1
+  %21 = load i32, ptr %add.ptr2.i35.i, align 4, !tbaa !13
   %22 = load ptr, ptr %_items.i.i.i25, align 8, !tbaa !12
   %idxprom.i.i.i14 = sext i32 %21 to i64
   %arrayidx.i.i.i15 = getelementptr inbounds ptr, ptr %22, i64 %idxprom.i.i.i14
   %23 = load ptr, ptr %arrayidx.i.i.i15, align 8, !tbaa !14
-  %24 = load i32, ptr %add.ptr.i35.i, align 4, !tbaa !13
+  %24 = load i32, ptr %add.ptr.i34.i, align 4, !tbaa !13
   %idxprom.i.i5.i16 = sext i32 %24 to i64
   %arrayidx.i.i6.i17 = getelementptr inbounds ptr, ptr %22, i64 %idxprom.i.i5.i16
   %25 = load ptr, ptr %arrayidx.i.i6.i17, align 8, !tbaa !14
   %call2.i18 = tail call noundef i32 @_Z16CompareFileNamesRK11CStringBaseIwES2_(ptr noundef nonnull align 8 dereferenceable(16) %23, ptr noundef nonnull align 8 dereferenceable(16) %25)
-  %cmp5.i38.i = icmp sgt i32 %call2.i18, 0
-  %inc.i39.i = zext i1 %cmp5.i38.i to i32
-  %spec.select.i40.i = or i32 %shl46.i30.i, %inc.i39.i
-  %.pre.i = sext i32 %spec.select.i40.i to i64
-  br label %if.end7.i47.i
+  %cmp5.i37.i = icmp sgt i32 %call2.i18, 0
+  %inc.i38.i = zext i1 %cmp5.i37.i to i32
+  %spec.select.i39.i = or i32 %shl46.i29.i, %inc.i38.i
+  %.pre.i = sext i32 %spec.select.i39.i to i64
+  br label %if.end7.i46.i
 
-if.end7.i47.i:                                    ; preds = %land.lhs.true.i41.i, %if.end.i33.i
-  %idx.ext8.i43.pre-phi.i = phi i64 [ %.pre.i, %land.lhs.true.i41.i ], [ %20, %if.end.i33.i ]
-  %s.0.i42.i = phi i32 [ %spec.select.i40.i, %land.lhs.true.i41.i ], [ %shl46.i30.i, %if.end.i33.i ]
-  %add.ptr9.i44.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %idx.ext8.i43.pre-phi.i
+if.end7.i46.i:                                    ; preds = %land.lhs.true.i40.i, %if.end.i32.i
+  %idx.ext8.i42.pre-phi.i = phi i64 [ %.pre.i, %land.lhs.true.i40.i ], [ %20, %if.end.i32.i ]
+  %s.0.i41.i = phi i32 [ %spec.select.i39.i, %land.lhs.true.i40.i ], [ %shl46.i29.i, %if.end.i32.i ]
+  %add.ptr9.i43.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %idx.ext8.i42.pre-phi.i
   %26 = load ptr, ptr %_items.i.i.i25, align 8, !tbaa !12
   %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %26, i64 %idxprom.i.i.i
   %27 = load ptr, ptr %arrayidx.i.i.i, align 8, !tbaa !14
-  %28 = load i32, ptr %add.ptr9.i44.i, align 4, !tbaa !13
+  %28 = load i32, ptr %add.ptr9.i43.i, align 4, !tbaa !13
   %idxprom.i.i5.i = sext i32 %28 to i64
   %arrayidx.i.i6.i = getelementptr inbounds ptr, ptr %26, i64 %idxprom.i.i5.i
   %29 = load ptr, ptr %arrayidx.i.i6.i, align 8, !tbaa !14
   %call2.i = tail call noundef i32 @_Z16CompareFileNamesRK11CStringBaseIwES2_(ptr noundef nonnull align 8 dereferenceable(16) %27, ptr noundef nonnull align 8 dereferenceable(16) %29)
-  %cmp11.i46.i = icmp sgt i32 %call2.i, -1
-  br i1 %cmp11.i46.i, label %if.end7.for.end.loopexit_crit_edge.i49.i, label %cleanup.i54.i
+  %cmp11.i45.i = icmp sgt i32 %call2.i, -1
+  br i1 %cmp11.i45.i, label %if.end7.for.end.loopexit_crit_edge.i48.i, label %cleanup.i53.i
 
-if.end7.for.end.loopexit_crit_edge.i49.i:         ; preds = %if.end7.i47.i
-  %.pre49.i48.i = sext i32 %k.addr.045.i31.i to i64
-  br label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i
+if.end7.for.end.loopexit_crit_edge.i48.i:         ; preds = %if.end7.i46.i
+  %.pre49.i47.i = sext i32 %k.addr.045.i30.i to i64
+  br label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i
 
-cleanup.i54.i:                                    ; preds = %if.end7.i47.i
-  %30 = load i32, ptr %add.ptr9.i44.i, align 4, !tbaa !13
-  %idxprom16.i50.i = sext i32 %k.addr.045.i31.i to i64
-  %arrayidx17.i51.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %idxprom16.i50.i
-  store i32 %30, ptr %arrayidx17.i51.i, align 4, !tbaa !13
-  %shl.i52.i = shl i32 %s.0.i42.i, 1
-  %31 = sext i32 %shl.i52.i to i64
-  %cmp.i53.not.i = icmp sgt i64 %indvars.iv79.i, %31
-  br i1 %cmp.i53.not.i, label %if.end.i33.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i
+cleanup.i53.i:                                    ; preds = %if.end7.i46.i
+  %30 = load i32, ptr %add.ptr9.i43.i, align 4, !tbaa !13
+  %idxprom16.i49.i = sext i32 %k.addr.045.i30.i to i64
+  %arrayidx17.i50.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %idxprom16.i49.i
+  store i32 %30, ptr %arrayidx17.i50.i, align 4, !tbaa !13
+  %shl.i51.i = shl i32 %s.0.i41.i, 1
+  %31 = sext i32 %shl.i51.i to i64
+  %cmp.i52.not.i = icmp sgt i64 %indvars.iv79.i, %31
+  br i1 %cmp.i52.not.i, label %if.end.i32.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i
 
-_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.i: ; preds = %cleanup.i54.i, %if.end7.for.end.loopexit_crit_edge.i49.i
-  %.pre48.pre-phi.i55.i = phi i64 [ %.pre49.i48.i, %if.end7.for.end.loopexit_crit_edge.i49.i ], [ %idx.ext8.i43.pre-phi.i, %cleanup.i54.i ]
-  %arrayidx19.i59.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %.pre48.pre-phi.i55.i
-  store i32 %temp.i27.i.0, ptr %arrayidx19.i59.i, align 4, !tbaa !13
+_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.i: ; preds = %cleanup.i53.i, %if.end7.for.end.loopexit_crit_edge.i48.i
+  %.pre48.pre-phi.i54.i = phi i64 [ %.pre49.i47.i, %if.end7.for.end.loopexit_crit_edge.i48.i ], [ %idx.ext8.i42.pre-phi.i, %cleanup.i53.i ]
+  %arrayidx19.i58.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %.pre48.pre-phi.i54.i
+  store i32 %temp.i26.i.0, ptr %arrayidx19.i58.i, align 4, !tbaa !13
   %arrayidx.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 %indvars.iv.next80.i
   %32 = load i32, ptr %arrayidx.i, align 4, !tbaa !13
   %33 = load i32, ptr %2, align 4, !tbaa !13
   store i32 %33, ptr %arrayidx.i, align 4, !tbaa !13
   store i32 %32, ptr %2, align 4, !tbaa !13
-  %cmp44.i29.i = icmp slt i64 %indvars.iv79.i, 4
-  br i1 %cmp44.i29.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.thread.i, label %if.end.i33.preheader.i, !llvm.loop !17
+  %cmp44.i28.i = icmp slt i64 %indvars.iv79.i, 4
+  br i1 %cmp44.i28.i, label %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.thread.i, label %if.end.i32.preheader.i, !llvm.loop !17
 
-_ZN13CRecordVectorIiE4SortEPFiPKiS2_PvES3_.exit:  ; preds = %for.cond.cleanup, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit60.thread.i
+_ZN13CRecordVectorIiE4SortEPFiPKiS2_PvES3_.exit:  ; preds = %for.cond.cleanup, %_ZN13CRecordVectorIiE11SortRefDownEPiiiPFiPKiS3_PvES4_.exit59.thread.i
   ret void
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body

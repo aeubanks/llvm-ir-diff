@@ -141,13 +141,13 @@ cond.true9:                                       ; preds = %if.end
 cond.end12:                                       ; preds = %if.end, %cond.true9
   %cond13 = phi i32 [ %call10, %cond.true9 ], [ 0, %if.end ]
   %tobool14.not = icmp ne i32 %mvscale, 0
-  %arrayidx16 = getelementptr inbounds i32, ptr %PMV, i64 1
-  %1 = load i32, ptr %arrayidx16, align 4, !tbaa !5
+  %arrayidx18.phi.trans.insert = getelementptr inbounds i32, ptr %PMV, i64 1
+  %.pre = load i32, ptr %arrayidx18.phi.trans.insert, align 4, !tbaa !5
   %shr = zext i1 %tobool14.not to i32
-  %2 = ashr i32 %1, %shr
+  %1 = ashr i32 %.pre, %shr
   %arrayidx18 = getelementptr inbounds i32, ptr %PMV, i64 1
   %shl.i44 = shl i32 16, %v_r_size
-  %cond.i47 = ashr i32 %2, %shr.i
+  %cond.i47 = ashr i32 %1, %shr.i
   %cmp.i48 = icmp sgt i32 %call5, 0
   br i1 %cmp.i48, label %if.then.i55, label %if.else.i60
 

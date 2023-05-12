@@ -1023,7 +1023,7 @@ if.then20:                                        ; preds = %while.body
   %mul = mul nuw nsw i32 %sub26, %sub23
   %div.lhs.trunc = trunc i32 %mul to i16
   %div252 = udiv i16 %div.lhs.trunc, 255
-  %conv27 = trunc i16 %div252 to i8
+  %div.zext = trunc i16 %div252 to i8
   %arrayidx28 = getelementptr inbounds i8, ptr %psrc.0257, i64 1
   %16 = load i8, ptr %arrayidx28, align 1, !tbaa !64
   %17 = xor i8 %16, -1
@@ -1031,7 +1031,7 @@ if.then20:                                        ; preds = %while.body
   %mul31 = mul nuw nsw i32 %sub30, %sub23
   %div32.lhs.trunc = trunc i32 %mul31 to i16
   %div32253 = udiv i16 %div32.lhs.trunc, 255
-  %conv33 = trunc i16 %div32253 to i8
+  %div32.zext = trunc i16 %div32253 to i8
   %arrayidx34 = getelementptr inbounds i8, ptr %psrc.0257, i64 2
   %18 = load i8, ptr %arrayidx34, align 1, !tbaa !64
   %19 = xor i8 %18, -1
@@ -1039,7 +1039,7 @@ if.then20:                                        ; preds = %while.body
   %mul37 = mul nuw nsw i32 %sub36, %sub23
   %div38.lhs.trunc = trunc i32 %mul37 to i16
   %div38254 = udiv i16 %div38.lhs.trunc, 255
-  %conv39 = trunc i16 %div38254 to i8
+  %div38.zext = trunc i16 %div38254 to i8
   br label %if.end49
 
 if.else41:                                        ; preds = %while.body
@@ -1052,9 +1052,9 @@ if.else41:                                        ; preds = %while.body
 
 if.end49:                                         ; preds = %if.else41, %if.then20
   %.sink = phi i64 [ 3, %if.else41 ], [ 4, %if.then20 ]
-  %next.sroa.13.0 = phi i8 [ %22, %if.else41 ], [ %conv39, %if.then20 ]
-  %next.sroa.9.0 = phi i8 [ %21, %if.else41 ], [ %conv33, %if.then20 ]
-  %next.sroa.0.0 = phi i8 [ %20, %if.else41 ], [ %conv27, %if.then20 ]
+  %next.sroa.13.0 = phi i8 [ %22, %if.else41 ], [ %div38.zext, %if.then20 ]
+  %next.sroa.9.0 = phi i8 [ %21, %if.else41 ], [ %div32.zext, %if.then20 ]
+  %next.sroa.0.0 = phi i8 [ %20, %if.else41 ], [ %div.zext, %if.then20 ]
   %add.ptr48 = getelementptr inbounds i8, ptr %psrc.0257, i64 %.sink
   %next.sroa.13.0.insert.ext = zext i8 %next.sroa.13.0 to i64
   %next.sroa.13.0.insert.shift = shl nuw nsw i64 %next.sroa.13.0.insert.ext, 16
@@ -1669,15 +1669,15 @@ while.body.lr.ph:                                 ; preds = %if.end10
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %cleanup
-  %pos.0115 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
+  %pos.0116 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
   %dpos.0114 = phi i32 [ 0, %while.body.lr.ph ], [ %add26, %cleanup ]
   %dleft.0113 = phi i32 [ %dsize, %while.body.lr.ph ], [ %sub27, %cleanup ]
-  %sub = sub i32 %0, %pos.0115
+  %sub = sub i32 %0, %pos.0116
   %cond = tail call i32 @llvm.umin.i32(i32 %dleft.0113, i32 %sub)
   %6 = load ptr, ptr %buffer, align 8, !tbaa !37
   %7 = load i32, ptr %log2_bps, align 8, !tbaa !24
   %sub14 = sub nsw i32 3, %7
-  %shl = shl i32 %pos.0115, %sub14
+  %shl = shl i32 %pos.0116, %sub14
   %8 = load i32, ptr %spread, align 8, !tbaa !26
   %mul = mul i32 %shl, %8
   %idx.ext = zext i32 %mul to i64
@@ -1704,7 +1704,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp17, label %for.body, label %for.end, !llvm.loop !104
 
 for.end:                                          ; preds = %for.body, %while.body
-  %add = add i32 %cond, %pos.0115
+  %add = add i32 %cond, %pos.0116
   %add26 = add i32 %cond, %dpos.0114
   %sub27 = sub i32 %dleft.0113, %cond
   %cmp28 = icmp eq i32 %add, %0
@@ -1779,9 +1779,6 @@ declare i32 @gz_fill_rectangle(...) local_unnamed_addr #2
 declare i32 @gx_color_from_rgb(...) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -1789,6 +1786,9 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

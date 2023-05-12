@@ -13,24 +13,23 @@ define dso_local void @_ZN12ClassVersion4readEP9Classfile(ptr nocapture noundef 
 entry:
   %0 = load ptr, ptr %c, align 8, !tbaa !5
   %call.i.i = tail call i32 @getc(ptr noundef %0)
-  %conv.i.i = trunc i32 %call.i.i to i16
   %call.i8.i = tail call i32 @getc(ptr noundef %0)
-  %conv.i9.i = trunc i32 %call.i8.i to i16
-  %conv3.i = shl i16 %conv.i.i, 8
-  %conv4.i = and i16 %conv.i9.i, 255
-  %or.i = or i16 %conv4.i, %conv3.i
-  store i16 %or.i, ptr %this, align 2, !tbaa !16
+  %conv2.i = and i32 %call.i8.i, 255
+  %conv.i = shl i32 %call.i.i, 8
+  %or.i = or i32 %conv2.i, %conv.i
+  %conv5.i = trunc i32 %or.i to i16
+  store i16 %conv5.i, ptr %this, align 2, !tbaa !16
   %1 = load ptr, ptr %c, align 8, !tbaa !5
   %call.i.i16 = tail call i32 @getc(ptr noundef %1)
-  %conv.i.i17 = trunc i32 %call.i.i16 to i16
-  %call.i8.i18 = tail call i32 @getc(ptr noundef %1)
-  %conv.i9.i19 = trunc i32 %call.i8.i18 to i16
-  %conv3.i20 = shl i16 %conv.i.i17, 8
-  %conv4.i21 = and i16 %conv.i9.i19, 255
-  %or.i22 = or i16 %conv4.i21, %conv3.i20
+  %call.i8.i17 = tail call i32 @getc(ptr noundef %1)
+  %conv2.i18 = and i32 %call.i8.i17, 255
+  %conv.i19 = shl i32 %call.i.i16, 8
+  %or.i20 = or i32 %conv2.i18, %conv.i19
+  %conv5.i21 = trunc i32 %or.i20 to i16
   %major_version = getelementptr inbounds %struct.ClassVersion, ptr %this, i64 0, i32 1
-  store i16 %or.i22, ptr %major_version, align 2, !tbaa !17
-  %cmp.not = icmp eq i16 %or.i22, 45
+  store i16 %conv5.i21, ptr %major_version, align 2, !tbaa !17
+  %conv = and i32 %or.i20, 65535
+  %cmp.not = icmp eq i32 %conv, 45
   br i1 %cmp.not, label %if.else, label %if.then
 
 if.then:                                          ; preds = %entry

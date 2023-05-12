@@ -114,7 +114,7 @@ entry:
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #5 personality ptr @__gxx_personality_v0 {
 entry:
-  %__c.addr.i165 = alloca i8, align 1
+  %__c.addr.i162 = alloca i8, align 1
   %__c.addr.i = alloca i8, align 1
   %c = alloca %class.car, align 8
   %b2 = alloca %class.car, align 8
@@ -179,50 +179,50 @@ invoke.cont10:                                    ; preds = %for.body
 invoke.cont15:                                    ; preds = %invoke.cont10
   %agg.tmp16.sroa.0.0.copyload = load i32, ptr @N, align 4
   %agg.tmp17.sroa.0.0.copyload = load i32, ptr @S, align 4
-  %idxprom.i.i121 = sext i32 %agg.tmp16.sroa.0.0.copyload to i64
-  %arrayidx.i.i122 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 2, i64 %idxprom.i.i121
-  store ptr %call8, ptr %arrayidx.i.i122, align 8, !tbaa !10
-  %idxprom.i11.i123 = sext i32 %agg.tmp17.sroa.0.0.copyload to i64
-  %arrayidx.i12.i124 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i11.i123
-  store ptr %r1.0185, ptr %arrayidx.i12.i124, align 8, !tbaa !10
-  %arrayidx.i14.i125 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 3, i64 %idxprom.i.i121
-  store ptr @_Z8is_emptyP7roadletP7vehicle9direction, ptr %arrayidx.i14.i125, align 8, !tbaa !10
-  %arrayidx.i.i127 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 2, i64 %idxprom.i.i121
-  store ptr %call13, ptr %arrayidx.i.i127, align 8, !tbaa !10
-  %arrayidx.i12.i129 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i123
-  store ptr %r3.0184, ptr %arrayidx.i12.i129, align 8, !tbaa !10
-  %arrayidx.i14.i130 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 3, i64 %idxprom.i.i121
-  store ptr @_Z8is_emptyP7roadletP7vehicle9direction, ptr %arrayidx.i14.i130, align 8, !tbaa !10
+  %idxprom.i.i118 = sext i32 %agg.tmp16.sroa.0.0.copyload to i64
+  %arrayidx.i.i119 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 2, i64 %idxprom.i.i118
+  store ptr %call8, ptr %arrayidx.i.i119, align 8, !tbaa !10
+  %idxprom.i11.i120 = sext i32 %agg.tmp17.sroa.0.0.copyload to i64
+  %arrayidx.i12.i121 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i11.i120
+  store ptr %r1.0185, ptr %arrayidx.i12.i121, align 8, !tbaa !10
+  %arrayidx.i14.i122 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 3, i64 %idxprom.i.i118
+  store ptr @_Z8is_emptyP7roadletP7vehicle9direction, ptr %arrayidx.i14.i122, align 8, !tbaa !10
+  %arrayidx.i.i124 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 2, i64 %idxprom.i.i118
+  store ptr %call13, ptr %arrayidx.i.i124, align 8, !tbaa !10
+  %arrayidx.i12.i126 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i120
+  store ptr %r3.0184, ptr %arrayidx.i12.i126, align 8, !tbaa !10
+  %arrayidx.i14.i127 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 3, i64 %idxprom.i.i118
+  store ptr @_Z8is_emptyP7roadletP7vehicle9direction, ptr %arrayidx.i14.i127, align 8, !tbaa !10
   %agg.tmp24.sroa.0.0.copyload = load i32, ptr @NW, align 4, !tbaa.struct !19
   %agg.tmp25.sroa.0.0.copyload = load i32, ptr @SE, align 4, !tbaa.struct !19
-  %idxprom.i.i131 = sext i32 %agg.tmp24.sroa.0.0.copyload to i64
-  %arrayidx.i.i132 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 2, i64 %idxprom.i.i131
-  store ptr %call13, ptr %arrayidx.i.i132, align 8, !tbaa !10
-  %idxprom.i11.i133 = sext i32 %agg.tmp25.sroa.0.0.copyload to i64
-  %arrayidx.i12.i134 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i133
-  store ptr %r1.0185, ptr %arrayidx.i12.i134, align 8, !tbaa !10
-  %arrayidx.i14.i135 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 3, i64 %idxprom.i.i131
-  store ptr @_Z14lane_switch_okP7roadletP7vehicle9direction, ptr %arrayidx.i14.i135, align 8, !tbaa !10
+  %idxprom.i.i128 = sext i32 %agg.tmp24.sroa.0.0.copyload to i64
+  %arrayidx.i.i129 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 2, i64 %idxprom.i.i128
+  store ptr %call13, ptr %arrayidx.i.i129, align 8, !tbaa !10
+  %idxprom.i11.i130 = sext i32 %agg.tmp25.sroa.0.0.copyload to i64
+  %arrayidx.i12.i131 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i130
+  store ptr %r1.0185, ptr %arrayidx.i12.i131, align 8, !tbaa !10
+  %arrayidx.i14.i132 = getelementptr inbounds %class.roadlet, ptr %r1.0185, i64 0, i32 3, i64 %idxprom.i.i128
+  store ptr @_Z14lane_switch_okP7roadletP7vehicle9direction, ptr %arrayidx.i14.i132, align 8, !tbaa !10
   %agg.tmp28.sroa.0.0.copyload = load i32, ptr @NE, align 4, !tbaa.struct !19
   %agg.tmp29.sroa.0.0.copyload = load i32, ptr @SW, align 4, !tbaa.struct !19
-  %idxprom.i.i136 = sext i32 %agg.tmp28.sroa.0.0.copyload to i64
-  %arrayidx.i.i137 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 2, i64 %idxprom.i.i136
-  store ptr %call8, ptr %arrayidx.i.i137, align 8, !tbaa !10
-  %idxprom.i11.i138 = sext i32 %agg.tmp29.sroa.0.0.copyload to i64
-  %arrayidx.i12.i139 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i11.i138
-  store ptr %r3.0184, ptr %arrayidx.i12.i139, align 8, !tbaa !10
-  %arrayidx.i14.i140 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 3, i64 %idxprom.i.i136
-  store ptr @_Z14lane_switch_okP7roadletP7vehicle9direction, ptr %arrayidx.i14.i140, align 8, !tbaa !10
+  %idxprom.i.i133 = sext i32 %agg.tmp28.sroa.0.0.copyload to i64
+  %arrayidx.i.i134 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 2, i64 %idxprom.i.i133
+  store ptr %call8, ptr %arrayidx.i.i134, align 8, !tbaa !10
+  %idxprom.i11.i135 = sext i32 %agg.tmp29.sroa.0.0.copyload to i64
+  %arrayidx.i12.i136 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i11.i135
+  store ptr %r3.0184, ptr %arrayidx.i12.i136, align 8, !tbaa !10
+  %arrayidx.i14.i137 = getelementptr inbounds %class.roadlet, ptr %r3.0184, i64 0, i32 3, i64 %idxprom.i.i133
+  store ptr @_Z14lane_switch_okP7roadletP7vehicle9direction, ptr %arrayidx.i14.i137, align 8, !tbaa !10
   %agg.tmp32.sroa.0.0.copyload = load i32, ptr @W, align 4, !tbaa.struct !19
   %agg.tmp33.sroa.0.0.copyload = load i32, ptr @E, align 4, !tbaa.struct !19
-  %idxprom.i.i141 = sext i32 %agg.tmp32.sroa.0.0.copyload to i64
-  %arrayidx.i.i142 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i.i141
-  store ptr %call13, ptr %arrayidx.i.i142, align 8, !tbaa !10
-  %idxprom.i11.i143 = sext i32 %agg.tmp33.sroa.0.0.copyload to i64
-  %arrayidx.i12.i144 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i143
-  store ptr %call8, ptr %arrayidx.i12.i144, align 8, !tbaa !10
-  %arrayidx.i14.i145 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 3, i64 %idxprom.i.i141
-  store ptr @_Z11return_nullP7roadletP7vehicle9direction, ptr %arrayidx.i14.i145, align 8, !tbaa !10
+  %idxprom.i.i138 = sext i32 %agg.tmp32.sroa.0.0.copyload to i64
+  %arrayidx.i.i139 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 2, i64 %idxprom.i.i138
+  store ptr %call13, ptr %arrayidx.i.i139, align 8, !tbaa !10
+  %idxprom.i11.i140 = sext i32 %agg.tmp33.sroa.0.0.copyload to i64
+  %arrayidx.i12.i141 = getelementptr inbounds %class.roadlet, ptr %call13, i64 0, i32 2, i64 %idxprom.i11.i140
+  store ptr %call8, ptr %arrayidx.i12.i141, align 8, !tbaa !10
+  %arrayidx.i14.i142 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 3, i64 %idxprom.i.i138
+  store ptr @_Z11return_nullP7roadletP7vehicle9direction, ptr %arrayidx.i14.i142, align 8, !tbaa !10
   %inc = add nuw nsw i32 %i.0183, 1
   %exitcond.not = icmp eq i32 %inc, 10
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !23
@@ -253,19 +253,19 @@ lpad14:                                           ; preds = %invoke.cont10
 
 for.end:                                          ; preds = %invoke.cont15
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %b2) #13
-  %dir.i.i146 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 4
-  %plan.i.i.i147 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 5
-  store i32 -1, ptr %plan.i.i.i147, align 4, !tbaa !12
-  %name.i.i.i148 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 1
-  store ptr @.str.5, ptr %name.i.i.i148, align 8, !tbaa !15
-  %speed.i.i.i149 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 2
-  store i32 100, ptr %speed.i.i.i149, align 8, !tbaa !16
-  %move_points.i.i.i150 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 3
-  store i32 0, ptr %move_points.i.i.i150, align 4, !tbaa !17
-  store i32 %agg.tmp16.sroa.0.0.copyload, ptr %dir.i.i146, align 8, !tbaa !18
+  %dir.i.i143 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 4
+  %plan.i.i.i144 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 5
+  store i32 -1, ptr %plan.i.i.i144, align 4, !tbaa !12
+  %name.i.i.i145 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 1
+  store ptr @.str.5, ptr %name.i.i.i145, align 8, !tbaa !15
+  %speed.i.i.i146 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 2
+  store i32 100, ptr %speed.i.i.i146, align 8, !tbaa !16
+  %move_points.i.i.i147 = getelementptr inbounds %class.vehicle, ptr %b2, i64 0, i32 3
+  store i32 0, ptr %move_points.i.i.i147, align 4, !tbaa !17
+  store i32 %agg.tmp16.sroa.0.0.copyload, ptr %dir.i.i143, align 8, !tbaa !18
   store ptr %call8, ptr %b2, align 8, !tbaa !20
-  %occupant.i151 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 1
-  store ptr %b2, ptr %occupant.i151, align 8, !tbaa !21
+  %occupant.i148 = getelementptr inbounds %class.roadlet, ptr %call8, i64 0, i32 1
+  store ptr %b2, ptr %occupant.i148, align 8, !tbaa !21
   %call37 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo3car(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull byval(%class.car) align 8 %b2)
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
   store i8 10, ptr %__c.addr.i, align 1, !tbaa !25
@@ -325,55 +325,55 @@ invoke.cont54:                                    ; preds = %for.end51
 invoke.cont57:                                    ; preds = %invoke.cont54
   %agg.tmp58.sroa.0.0.copyload = load i32, ptr @N, align 4
   %agg.tmp59.sroa.0.0.copyload = load i32, ptr @S, align 4, !tbaa.struct !19
-  %idxprom.i.i154 = sext i32 %agg.tmp58.sroa.0.0.copyload to i64
-  %arrayidx.i.i155 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 2, i64 %idxprom.i.i154
-  store ptr %call55, ptr %arrayidx.i.i155, align 8, !tbaa !10
-  %idxprom.i11.i156 = sext i32 %agg.tmp59.sroa.0.0.copyload to i64
-  %arrayidx.i12.i157 = getelementptr inbounds %class.roadlet, ptr %call55, i64 0, i32 2, i64 %idxprom.i11.i156
-  store ptr %call52, ptr %arrayidx.i12.i157, align 8, !tbaa !10
-  %arrayidx.i14.i158 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 3, i64 %idxprom.i.i154
-  store ptr @_Z11return_nullP7roadletP7vehicle9direction, ptr %arrayidx.i14.i158, align 8, !tbaa !10
+  %idxprom.i.i151 = sext i32 %agg.tmp58.sroa.0.0.copyload to i64
+  %arrayidx.i.i152 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 2, i64 %idxprom.i.i151
+  store ptr %call55, ptr %arrayidx.i.i152, align 8, !tbaa !10
+  %idxprom.i11.i153 = sext i32 %agg.tmp59.sroa.0.0.copyload to i64
+  %arrayidx.i12.i154 = getelementptr inbounds %class.roadlet, ptr %call55, i64 0, i32 2, i64 %idxprom.i11.i153
+  store ptr %call52, ptr %arrayidx.i12.i154, align 8, !tbaa !10
+  %arrayidx.i14.i155 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 3, i64 %idxprom.i.i151
+  store ptr @_Z11return_nullP7roadletP7vehicle9direction, ptr %arrayidx.i14.i155, align 8, !tbaa !10
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %b) #13
-  %dir.i.i159 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 4
-  %plan.i.i.i160 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 5
-  store i32 -1, ptr %plan.i.i.i160, align 4, !tbaa !12
-  %name.i.i.i161 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 1
-  store ptr @.str.9, ptr %name.i.i.i161, align 8, !tbaa !15
-  %speed.i.i.i162 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 2
-  store i32 100, ptr %speed.i.i.i162, align 8, !tbaa !16
-  %move_points.i.i.i163 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 3
-  store i32 0, ptr %move_points.i.i.i163, align 4, !tbaa !17
-  store i32 %agg.tmp58.sroa.0.0.copyload, ptr %dir.i.i159, align 8, !tbaa !18
+  %dir.i.i156 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 4
+  %plan.i.i.i157 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 5
+  store i32 -1, ptr %plan.i.i.i157, align 4, !tbaa !12
+  %name.i.i.i158 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 1
+  store ptr @.str.9, ptr %name.i.i.i158, align 8, !tbaa !15
+  %speed.i.i.i159 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 2
+  store i32 100, ptr %speed.i.i.i159, align 8, !tbaa !16
+  %move_points.i.i.i160 = getelementptr inbounds %class.vehicle, ptr %b, i64 0, i32 3
+  store i32 0, ptr %move_points.i.i.i160, align 4, !tbaa !17
+  store i32 %agg.tmp58.sroa.0.0.copyload, ptr %dir.i.i156, align 8, !tbaa !18
   store ptr %call52, ptr %b, align 8, !tbaa !20
-  %occupant.i164 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 1
-  store ptr %b, ptr %occupant.i164, align 8, !tbaa !21
+  %occupant.i161 = getelementptr inbounds %class.roadlet, ptr %call52, i64 0, i32 1
+  store ptr %b, ptr %occupant.i161, align 8, !tbaa !21
   %call63 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo3car(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull byval(%class.car) align 8 %b)
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i165)
-  store i8 10, ptr %__c.addr.i165, align 1, !tbaa !25
-  %vtable.i166 = load ptr, ptr %call63, align 8, !tbaa !26
-  %vbase.offset.ptr.i167 = getelementptr i8, ptr %vtable.i166, i64 -24
-  %vbase.offset.i168 = load i64, ptr %vbase.offset.ptr.i167, align 8
-  %add.ptr.i169 = getelementptr inbounds i8, ptr %call63, i64 %vbase.offset.i168
-  %_M_width.i.i170 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i169, i64 0, i32 2
-  %7 = load i64, ptr %_M_width.i.i170, align 8, !tbaa !28
-  %cmp.not.i171 = icmp eq i64 %7, 0
-  br i1 %cmp.not.i171, label %if.end.i175, label %if.then.i173
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i162)
+  store i8 10, ptr %__c.addr.i162, align 1, !tbaa !25
+  %vtable.i163 = load ptr, ptr %call63, align 8, !tbaa !26
+  %vbase.offset.ptr.i164 = getelementptr i8, ptr %vtable.i163, i64 -24
+  %vbase.offset.i165 = load i64, ptr %vbase.offset.ptr.i164, align 8
+  %add.ptr.i166 = getelementptr inbounds i8, ptr %call63, i64 %vbase.offset.i165
+  %_M_width.i.i167 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i166, i64 0, i32 2
+  %7 = load i64, ptr %_M_width.i.i167, align 8, !tbaa !28
+  %cmp.not.i168 = icmp eq i64 %7, 0
+  br i1 %cmp.not.i168, label %if.end.i172, label %if.then.i170
 
-if.then.i173:                                     ; preds = %invoke.cont57
-  %call1.i172 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call63, ptr noundef nonnull %__c.addr.i165, i64 noundef 1)
-  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit177
+if.then.i170:                                     ; preds = %invoke.cont57
+  %call1.i169 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call63, ptr noundef nonnull %__c.addr.i162, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit174
 
-if.end.i175:                                      ; preds = %invoke.cont57
-  %call2.i174 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call63, i8 noundef signext 10)
-  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit177
+if.end.i172:                                      ; preds = %invoke.cont57
+  %call2.i171 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call63, i8 noundef signext 10)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit174
 
-_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit177: ; preds = %if.then.i173, %if.end.i175
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i165)
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit174: ; preds = %if.then.i170, %if.end.i172
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i162)
   call void @_ZN16intersection_4x411connectEoutEP7roadletS1_(ptr noundef nonnull align 8 dereferenceable(136) %i1, ptr noundef nonnull %call55, ptr noundef nonnull %call52)
   br label %for.body67
 
-for.body67:                                       ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit177, %for.body67
-  %i.3188 = phi i32 [ 0, %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit177 ], [ %inc69, %for.body67 ]
+for.body67:                                       ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit174, %for.body67
+  %i.3188 = phi i32 [ 0, %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit174 ], [ %inc69, %for.body67 ]
   call void @_ZN7vehicle4tickEv(ptr noundef nonnull align 8 dereferenceable(32) %c)
   %inc69 = add nuw nsw i32 %i.3188, 1
   %exitcond194.not = icmp eq i32 %inc69, 100000
@@ -407,9 +407,9 @@ ehcleanup:                                        ; preds = %lpad56, %lpad53
   br label %ehcleanup73
 
 ehcleanup73:                                      ; preds = %ehcleanup, %lpad14, %lpad9, %lpad2, %lpad
-  %.pn115 = phi { ptr, i32 } [ %4, %lpad14 ], [ %3, %lpad9 ], [ %.pn, %ehcleanup ], [ %2, %lpad2 ], [ %1, %lpad ]
+  %.pn175 = phi { ptr, i32 } [ %4, %lpad14 ], [ %3, %lpad9 ], [ %.pn, %ehcleanup ], [ %2, %lpad2 ], [ %1, %lpad ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %c) #13
-  resume { ptr, i32 } %.pn115
+  resume { ptr, i32 } %.pn175
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

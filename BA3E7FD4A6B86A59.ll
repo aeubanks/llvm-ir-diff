@@ -139,19 +139,19 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.96 = private unnamed_addr constant [25 x i8] c"  Number of arrays: %lu\0A\00", align 1
 @.str.97 = private unnamed_addr constant [23 x i8] c" Number of loops: %lu\0A\00", align 1
 @str = private unnamed_addr constant [14 x i8] c" -v = verbose\00", align 1
-@str.98 = private unnamed_addr constant [48 x i8] c" -c = input parameters thru command file <FILE>\00", align 1
+@str.99 = private unnamed_addr constant [48 x i8] c" -c = input parameters thru command file <FILE>\00", align 1
 @str.100 = private unnamed_addr constant [35 x i8] c"BBBBBB   YYY   Y  TTTTTTT  EEEEEEE\00", align 1
 @str.102 = private unnamed_addr constant [31 x i8] c"BBB   B  YYY   Y    TTT    EEE\00", align 1
 @str.103 = private unnamed_addr constant [35 x i8] c"BBBBBB    YYY Y     TTT    EEEEEEE\00", align 1
 @str.105 = private unnamed_addr constant [31 x i8] c"BBB   B    YYY      TTT    EEE\00", align 1
 @str.106 = private unnamed_addr constant [36 x i8] c"BBBBBB     YYY      TTT    EEEEEEE\0A\00", align 1
 @str.107 = private unnamed_addr constant [52 x i8] c"\0ABYTEmark (tm) Native Mode Benchmark ver. 2 (10/95)\00", align 1
-@str.108 = private unnamed_addr constant [78 x i8] c"============================== ALL STATISTICS ===============================\00", align 1
-@str.109 = private unnamed_addr constant [78 x i8] c"=============================================================================\00", align 1
-@str.110 = private unnamed_addr constant [67 x i8] c"\0ANOTE!!! Iteration display disabled to prevent diffs from failing!\00", align 1
-@str.111 = private unnamed_addr constant [78 x i8] c"==========================ORIGINAL BYTEMARK RESULTS==========================\00", align 1
-@str.112 = private unnamed_addr constant [74 x i8] c"Baseline (MSDOS*)   : Pentium* 90, 256 KB L2-cache, Watcom* compiler 10.0\00", align 1
-@str.113 = private unnamed_addr constant [54 x i8] c"* Trademarks are property of their respective holder.\00", align 1
+@str.108 = private unnamed_addr constant [67 x i8] c"\0ANOTE!!! Iteration display disabled to prevent diffs from failing!\00", align 1
+@str.109 = private unnamed_addr constant [78 x i8] c"==========================ORIGINAL BYTEMARK RESULTS==========================\00", align 1
+@str.110 = private unnamed_addr constant [74 x i8] c"Baseline (MSDOS*)   : Pentium* 90, 256 KB L2-cache, Watcom* compiler 10.0\00", align 1
+@str.111 = private unnamed_addr constant [54 x i8] c"* Trademarks are property of their respective holder.\00", align 1
+@str.112 = private unnamed_addr constant [78 x i8] c"============================== ALL STATISTICS ===============================\00", align 1
+@str.113 = private unnamed_addr constant [78 x i8] c"=============================================================================\00", align 1
 
 declare void @DoNumSort() #0
 
@@ -231,12 +231,12 @@ for.body4:                                        ; preds = %for.body4.preheader
   %incdec.ptr.i = getelementptr inbounds i8, ptr %0, i64 1
   %1 = load i8, ptr %0, align 1, !tbaa !30
   %cmp.not.i = icmp eq i8 %1, 45
-  br i1 %cmp.not.i, label %for.cond.preheader.i, label %if.then8
+  br i1 %cmp.not.i, label %for.cond.preheader.i, label %if.then8.critedge
 
 for.cond.preheader.i:                             ; preds = %for.body4
   %char0.i = load i8, ptr %incdec.ptr.i, align 1
   %cmp359.not.i = icmp eq i8 %char0.i, 0
-  br i1 %cmp359.not.i, label %if.then8, label %for.body.i.preheader
+  br i1 %cmp359.not.i, label %if.then8.critedge, label %for.body.i.preheader
 
 for.body.i.preheader:                             ; preds = %for.cond.preheader.i
   %call14.i = tail call ptr @__ctype_toupper_loc() #12
@@ -260,7 +260,7 @@ for.body.i:                                       ; preds = %for.body.i.preheade
 for.end.i:                                        ; preds = %for.body.i
   %.pre.i = load i8, ptr %incdec.ptr.i, align 1, !tbaa !30
   %4 = sext i8 %.pre.i to i32
-  switch i32 %4, label %if.then8 [
+  switch i32 %4, label %if.then8.critedge [
     i32 67, label %sw.bb28.i
     i32 86, label %sw.bb27.i
   ]
@@ -277,7 +277,7 @@ sw.bb28.i:                                        ; preds = %for.end.i
 
 if.then32.i:                                      ; preds = %sw.bb28.i
   %call33.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.80, ptr noundef nonnull %incdec.ptr25.i)
-  br label %if.then8
+  br label %if.then8.critedge
 
 if.end34.i:                                       ; preds = %sw.bb28.i
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %inbuf.i.i) #11
@@ -723,7 +723,7 @@ read_comfile.exit.i:                              ; preds = %skipswitch.i.i, %if
   %call35.i = call i32 @fclose(ptr noundef nonnull %call29.i)
   br label %for.inc10
 
-if.then8:                                         ; preds = %for.body4, %for.end.i, %for.cond.preheader.i, %if.then32.i
+if.then8.critedge:                                ; preds = %for.end.i, %for.cond.preheader.i, %for.body4, %if.then32.i
   %24 = load ptr, ptr %argv, align 8, !tbaa !28
   call fastcc void @display_help(ptr noundef %24)
   unreachable
@@ -745,7 +745,7 @@ if.then.i:                                        ; preds = %if.end13
   br label %output_string.exit
 
 output_string.exit:                               ; preds = %if.end13, %if.then.i
-  %puts278 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %puts276 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   %28 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i141 = icmp eq i32 %28, 0
   br i1 %cmp.not.i141, label %output_string.exit144, label %if.then.i143
@@ -756,7 +756,7 @@ if.then.i143:                                     ; preds = %output_string.exit
   br label %output_string.exit144
 
 output_string.exit144:                            ; preds = %output_string.exit, %if.then.i143
-  %puts279 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %puts277 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   %31 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i146 = icmp eq i32 %31, 0
   br i1 %cmp.not.i146, label %output_string.exit149, label %if.then.i148
@@ -767,7 +767,7 @@ if.then.i148:                                     ; preds = %output_string.exit1
   br label %output_string.exit149
 
 output_string.exit149:                            ; preds = %output_string.exit144, %if.then.i148
-  %puts280 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
+  %puts278 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
   %34 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i151 = icmp eq i32 %34, 0
   br i1 %cmp.not.i151, label %output_string.exit154, label %if.then.i153
@@ -778,7 +778,7 @@ if.then.i153:                                     ; preds = %output_string.exit1
   br label %output_string.exit154
 
 output_string.exit154:                            ; preds = %output_string.exit149, %if.then.i153
-  %puts281 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %puts279 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
   %37 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i156 = icmp eq i32 %37, 0
   br i1 %cmp.not.i156, label %output_string.exit159, label %if.then.i158
@@ -789,7 +789,7 @@ if.then.i158:                                     ; preds = %output_string.exit1
   br label %output_string.exit159
 
 output_string.exit159:                            ; preds = %output_string.exit154, %if.then.i158
-  %puts282 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %puts280 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
   %40 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i161 = icmp eq i32 %40, 0
   br i1 %cmp.not.i161, label %output_string.exit164, label %if.then.i163
@@ -800,7 +800,7 @@ if.then.i163:                                     ; preds = %output_string.exit1
   br label %output_string.exit164
 
 output_string.exit164:                            ; preds = %output_string.exit159, %if.then.i163
-  %puts283 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
+  %puts281 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
   %43 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i166 = icmp eq i32 %43, 0
   br i1 %cmp.not.i166, label %output_string.exit169, label %if.then.i168
@@ -811,7 +811,7 @@ if.then.i168:                                     ; preds = %output_string.exit1
   br label %output_string.exit169
 
 output_string.exit169:                            ; preds = %output_string.exit164, %if.then.i168
-  %puts284 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
+  %puts282 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
   %46 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i171 = icmp eq i32 %46, 0
   br i1 %cmp.not.i171, label %output_string.exit174, label %if.then.i173
@@ -838,7 +838,7 @@ if.then.i178:                                     ; preds = %if.then14
   br label %output_string.exit179
 
 output_string.exit179:                            ; preds = %if.then14, %if.then.i178
-  %puts285 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %puts287 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
   %52 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i181 = icmp eq i32 %52, 0
   br i1 %cmp.not.i181, label %output_string.exit184, label %if.then.i183
@@ -915,7 +915,7 @@ if.then.i208:                                     ; preds = %output_string.exit2
   br label %output_string.exit209
 
 output_string.exit209:                            ; preds = %output_string.exit204, %if.then.i208
-  %puts286 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %puts288 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
   %68 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i211 = icmp eq i32 %68, 0
   br i1 %cmp.not.i211, label %if.end23, label %if.then.i213
@@ -926,7 +926,7 @@ if.then.i213:                                     ; preds = %output_string.exit2
   br label %if.end23
 
 if.end23:                                         ; preds = %if.then.i213, %output_string.exit209, %output_string.exit174
-  %puts287 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %puts283 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
   %71 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i216 = icmp eq i32 %71, 0
   br i1 %cmp.not.i216, label %for.body26.preheader, label %if.then.i218
@@ -940,14 +940,14 @@ for.body26.preheader:                             ; preds = %if.end23, %if.then.
   br label %for.body26
 
 for.body26:                                       ; preds = %for.body26.preheader, %for.inc92
-  %indvars.iv304 = phi i64 [ %indvars.iv.next305, %for.inc92 ], [ 0, %for.body26.preheader ]
-  %arrayidx28 = getelementptr inbounds [10 x i32], ptr @tests_to_do, i64 0, i64 %indvars.iv304
+  %indvars.iv302 = phi i64 [ %indvars.iv.next303, %for.inc92 ], [ 0, %for.body26.preheader ]
+  %arrayidx28 = getelementptr inbounds [10 x i32], ptr @tests_to_do, i64 0, i64 %indvars.iv302
   %74 = load i32, ptr %arrayidx28, align 4, !tbaa !9
   %tobool29.not = icmp eq i32 %74, 0
   br i1 %tobool29.not, label %for.inc92, label %if.then30
 
 if.then30:                                        ; preds = %for.body26
-  %arrayidx32 = getelementptr inbounds [10 x ptr], ptr @ftestnames, i64 0, i64 %indvars.iv304
+  %arrayidx32 = getelementptr inbounds [10 x ptr], ptr @ftestnames, i64 0, i64 %indvars.iv302
   %75 = load ptr, ptr %arrayidx32, align 8, !tbaa !28
   %call33 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @buffer, ptr noundef nonnull dereferenceable(1) @.str.68, ptr noundef %75) #11
   %call.i220 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.88, ptr noundef nonnull @buffer)
@@ -961,7 +961,7 @@ if.then.i223:                                     ; preds = %if.then30
   br label %output_string.exit224
 
 output_string.exit224:                            ; preds = %if.then30, %if.then.i223
-  %arrayidx38 = getelementptr inbounds [10 x ptr], ptr @funcpointer, i64 0, i64 %indvars.iv304
+  %arrayidx38 = getelementptr inbounds [10 x ptr], ptr @funcpointer, i64 0, i64 %indvars.iv302
   %78 = load ptr, ptr %arrayidx38, align 8, !tbaa !28
   call void %78() #11
   %call42 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @buffer, ptr noundef nonnull dereferenceable(1) @.str.69, double noundef 0.000000e+00, double noundef 0.000000e+00) #11
@@ -976,7 +976,7 @@ if.then.i228:                                     ; preds = %output_string.exit2
   br label %output_string.exit229
 
 output_string.exit229:                            ; preds = %output_string.exit224, %if.then.i228
-  %81 = trunc i64 %indvars.iv304 to i32
+  %81 = trunc i64 %indvars.iv302 to i32
   %82 = load i32, ptr @global_allstats, align 4, !tbaa !9
   %tobool77.not = icmp eq i32 %82, 0
   br i1 %tobool77.not, label %for.inc92, label %if.then78
@@ -986,26 +986,26 @@ if.then78:                                        ; preds = %output_string.exit2
   %call.i230 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.88, ptr noundef nonnull @buffer)
   %83 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i231 = icmp eq i32 %83, 0
-  br i1 %cmp.not.i231, label %output_string.exit234, label %if.then.i233
+  br i1 %cmp.not.i231, label %if.end85, label %if.then.i233
 
 if.then.i233:                                     ; preds = %if.then78
   %84 = load ptr, ptr @global_ofile, align 8, !tbaa !28
   %fputs.i232 = call i32 @fputs(ptr nonnull @buffer, ptr %84)
-  br label %output_string.exit234
+  br label %if.end85
 
-output_string.exit234:                            ; preds = %if.then78, %if.then.i233
+if.end85:                                         ; preds = %if.then.i233, %if.then78
   %call86 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @buffer, ptr noundef nonnull dereferenceable(1) @.str.72, i64 noundef undef) #11
   %call.i235 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.88, ptr noundef nonnull @buffer)
   %85 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i236 = icmp eq i32 %85, 0
   br i1 %cmp.not.i236, label %output_string.exit239, label %if.then.i238
 
-if.then.i238:                                     ; preds = %output_string.exit234
+if.then.i238:                                     ; preds = %if.end85
   %86 = load ptr, ptr @global_ofile, align 8, !tbaa !28
   %fputs.i237 = call i32 @fputs(ptr nonnull @buffer, ptr %86)
   br label %output_string.exit239
 
-output_string.exit239:                            ; preds = %output_string.exit234, %if.then.i238
+output_string.exit239:                            ; preds = %if.end85, %if.then.i238
   call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %buffer.i) #11
   switch i32 %81, label %show_stats.exit [
     i32 0, label %sw.bb.i
@@ -1200,9 +1200,9 @@ if.then.i249:                                     ; preds = %show_stats.exit
   br label %for.inc92
 
 for.inc92:                                        ; preds = %if.then.i249, %show_stats.exit, %for.body26, %output_string.exit229
-  %indvars.iv.next305 = add nuw nsw i64 %indvars.iv304, 1
-  %exitcond307.not = icmp eq i64 %indvars.iv.next305, 10
-  br i1 %exitcond307.not, label %for.end94, label %for.body26, !llvm.loop !41
+  %indvars.iv.next303 = add nuw nsw i64 %indvars.iv302, 1
+  %exitcond305.not = icmp eq i64 %indvars.iv.next303, 10
+  br i1 %exitcond305.not, label %for.end94, label %for.body26, !llvm.loop !41
 
 for.end94:                                        ; preds = %for.inc92
   %129 = load i32, ptr @global_custrun, align 4, !tbaa !9
@@ -1210,7 +1210,7 @@ for.end94:                                        ; preds = %for.inc92
   br i1 %cmp95, label %if.then96, label %if.end99
 
 if.then96:                                        ; preds = %for.end94
-  %puts288 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %puts284 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
   %130 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i252 = icmp eq i32 %130, 0
   br i1 %cmp.not.i252, label %output_string.exit255, label %if.then.i254
@@ -1245,7 +1245,7 @@ if.then.i264:                                     ; preds = %output_string.exit2
   br label %output_string.exit265
 
 output_string.exit265:                            ; preds = %output_string.exit260, %if.then.i264
-  %puts289 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %puts285 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
   %137 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i267 = icmp eq i32 %137, 0
   br i1 %cmp.not.i267, label %output_string.exit270, label %if.then.i269
@@ -1256,7 +1256,7 @@ if.then.i269:                                     ; preds = %output_string.exit2
   br label %output_string.exit270
 
 output_string.exit270:                            ; preds = %output_string.exit265, %if.then.i269
-  %puts290 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %puts286 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
   %140 = load i32, ptr @write_to_file, align 4, !tbaa !9
   %cmp.not.i272 = icmp eq i32 %140, 0
   br i1 %cmp.not.i272, label %if.end99, label %if.then.i274
@@ -1279,7 +1279,7 @@ define internal fastcc void @display_help(ptr noundef %progname) unnamed_addr #1
 entry:
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.85, ptr noundef %progname)
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %puts3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
+  %puts3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
   tail call void @exit(i32 noundef 0) #14
   unreachable
 }

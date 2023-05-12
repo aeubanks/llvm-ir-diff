@@ -75,15 +75,15 @@ for.body18:                                       ; preds = %entry, %if.end
   %cmv.sroa.13.0 = phi double [ 0.000000e+00, %entry ], [ %add50.2, %if.end ]
   %cmr.sroa.13.0 = phi double [ 0.000000e+00, %entry ], [ %add35.2, %if.end ]
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %if.end ]
-  %prev.0260 = phi ptr [ null, %entry ], [ %points.sroa.10.0.copyload, %if.end ]
+  %prev.0265 = phi ptr [ null, %entry ], [ %points.sroa.10.0.copyload, %if.end ]
   %1 = phi <2 x double> [ zeroinitializer, %entry ], [ %8, %if.end ]
   %2 = phi <2 x double> [ zeroinitializer, %entry ], [ %9, %if.end ]
   %3 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %div19 = sdiv i32 32, %3
   %div20.lhs.trunc = trunc i64 %indvars.iv to i8
   %div20.rhs.trunc = trunc i32 %div19 to i8
-  %div20255 = sdiv i8 %div20.lhs.trunc, %div20.rhs.trunc
-  %div20.sext = sext i8 %div20255 to i32
+  %div20260 = sdiv i8 %div20.lhs.trunc, %div20.rhs.trunc
+  %div20.sext = sext i8 %div20260 to i32
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %tmp21) #25
   %4 = load i32, ptr @nbody, align 4, !tbaa !5
   %div22 = sdiv i32 %4, 32
@@ -99,11 +99,11 @@ for.body18:                                       ; preds = %entry, %if.end
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %tmp21) #25
   %arrayidx24 = getelementptr inbounds %struct.tree, ptr %call, i64 0, i32 3, i64 %indvars.iv
   store ptr %points.sroa.9.0.copyload, ptr %arrayidx24, align 8, !tbaa !16
-  %tobool.not = icmp eq ptr %prev.0260, null
+  %tobool.not = icmp eq ptr %prev.0265, null
   br i1 %tobool.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %for.body18
-  %next = getelementptr inbounds %struct.bnode, ptr %prev.0260, i64 0, i32 9
+  %next = getelementptr inbounds %struct.bnode, ptr %prev.0265, i64 0, i32 9
   store ptr %points.sroa.9.0.copyload, ptr %next, align 8, !tbaa !20
   br label %if.end
 
@@ -129,25 +129,25 @@ for.end58:                                        ; preds = %if.end
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(512) %ptrper, i8 0, i64 512, i1 false), !tbaa !16
   %div = sdiv i32 64, %0
   %bodytab97 = getelementptr inbounds %struct.tree, ptr %call, i64 0, i32 3
-  %p.0267 = load ptr, ptr %bodytab97, align 8, !tbaa !16
-  %cmp100.not268 = icmp eq ptr %p.0267, null
-  br i1 %cmp100.not268, label %for.cond150.preheader, label %for.cond104.preheader
+  %p.0272 = load ptr, ptr %bodytab97, align 8, !tbaa !16
+  %cmp100.not273 = icmp eq ptr %p.0272, null
+  br i1 %cmp100.not273, label %for.cond150.preheader, label %for.cond104.preheader
 
 for.cond104.preheader:                            ; preds = %for.end58, %intcoord.exit
-  %p.0269 = phi ptr [ %p.0, %intcoord.exit ], [ %p.0267, %for.end58 ]
-  %arrayidx109 = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 2, i64 0
+  %p.0274 = phi ptr [ %p.0, %intcoord.exit ], [ %p.0272, %for.end58 ]
+  %arrayidx109 = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 2, i64 0
   %15 = load <2 x double>, ptr %arrayidx109, align 8, !tbaa !13
   %16 = fsub <2 x double> %15, %13
   store <2 x double> %16, ptr %arrayidx109, align 8, !tbaa !13
-  %arrayidx109.2 = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 2, i64 2
+  %arrayidx109.2 = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 2, i64 2
   %17 = load double, ptr %arrayidx109.2, align 8, !tbaa !13
   %sub.2 = fsub double %17, %div66.2
   store double %sub.2, ptr %arrayidx109.2, align 8, !tbaa !13
-  %arrayidx124 = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 5, i64 0
+  %arrayidx124 = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 5, i64 0
   %18 = load <2 x double>, ptr %arrayidx124, align 8, !tbaa !13
   %19 = fsub <2 x double> %18, %14
   store <2 x double> %19, ptr %arrayidx124, align 8, !tbaa !13
-  %arrayidx124.2 = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 5, i64 2
+  %arrayidx124.2 = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 5, i64 2
   %20 = load double, ptr %arrayidx124.2, align 8, !tbaa !13
   %sub127.2 = fsub double %20, %div80.2
   store double %sub127.2, ptr %arrayidx124.2, align 8, !tbaa !13
@@ -161,8 +161,8 @@ for.cond104.preheader:                            ; preds = %for.end58, %intcoor
 
 for.cond150.preheader:                            ; preds = %intcoord.exit, %for.end58
   %22 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %cmp151270 = icmp sgt i32 %22, 0
-  br i1 %cmp151270, label %for.body153, label %while.body.preheader
+  %cmp151275 = icmp sgt i32 %22, 0
+  br i1 %cmp151275, label %for.body153, label %while.body.preheader
 
 if.then.i:                                        ; preds = %for.cond104.preheader
   %mul.i = fmul double %div.i, 0x41D0000000000000
@@ -184,10 +184,12 @@ if.then27.i:                                      ; preds = %if.end.i
   %mul28.i = fmul double %div21.i, 0x41D0000000000000
   %25 = tail call double @llvm.floor.f64(double %mul28.i)
   %conv29.i = fptosi double %25 to i32
+  %26 = zext i32 %conv29.i to i64
+  %27 = shl nuw i64 %26, 32
   br label %if.end36.i
 
 if.end36.i:                                       ; preds = %if.then27.i, %if.end.i
-  %retval.sroa.3.0.i = phi i32 [ %conv29.i, %if.then27.i ], [ 0, %if.end.i ]
+  %retval.sroa.3.0.i = phi i64 [ %27, %if.then27.i ], [ 0, %if.end.i ]
   %sub40.i = fadd double %sub.2, 2.000000e+00
   %div41.i = fmul double %sub40.i, 2.500000e-01
   %cmp42.i = fcmp oge double %div41.i, 0.000000e+00
@@ -197,25 +199,27 @@ if.end36.i:                                       ; preds = %if.then27.i, %if.en
 
 if.then47.i:                                      ; preds = %if.end36.i
   %mul48.i = fmul double %div41.i, 0x41D0000000000000
-  %26 = tail call double @llvm.floor.f64(double %mul48.i)
-  %conv49.i = fptosi double %26 to i32
+  %28 = tail call double @llvm.floor.f64(double %mul48.i)
+  %conv49.i = fptosi double %28 to i32
   br label %intcoord.exit
 
 intcoord.exit:                                    ; preds = %if.end36.i, %if.then47.i
   %retval.sroa.5.0.i = phi i32 [ %conv49.i, %if.then47.i ], [ 0, %if.end36.i ]
-  %and.i = lshr i32 %retval.sroa.0.0.i, 27
-  %add1.i = and i32 %and.i, 4
-  %and.1.i = lshr i32 %retval.sroa.3.0.i, 28
-  %add1.1.i = and i32 %and.1.i, 2
+  %29 = lshr i32 %retval.sroa.0.0.i, 27
+  %add1.i = and i32 %29, 4
+  %30 = lshr i64 %retval.sroa.3.0.i, 60
+  %31 = trunc i64 %30 to i32
+  %add1.1.i = and i32 %31, 2
   %i.1.1.i = or i32 %add1.i, %add1.1.i
-  %and.2.i = lshr i32 %retval.sroa.5.0.i, 29
-  %and.2.i.lobit = and i32 %and.2.i, 1
-  %i.1.2.i = or i32 %and.2.i.lobit, %i.1.1.i
+  %32 = lshr i32 %retval.sroa.5.0.i, 29
+  %add1.2.i = and i32 %32, 1
+  %i.1.2.i = or i32 %add1.2.i, %i.1.1.i
   %shl = shl nuw nsw i32 %i.1.2.i, 3
-  %and.i244 = lshr i32 %retval.sroa.0.0.i, 26
-  %add1.i246 = and i32 %and.i244, 4
-  %and.1.i247 = lshr i32 %retval.sroa.3.0.i, 27
-  %add1.1.i249 = and i32 %and.1.i247, 2
+  %33 = lshr i32 %retval.sroa.0.0.i, 26
+  %add1.i246 = and i32 %33, 4
+  %34 = lshr i64 %retval.sroa.3.0.i, 59
+  %35 = trunc i64 %34 to i32
+  %add1.1.i249 = and i32 %35, 2
   %i.1.1.i250 = or i32 %add1.1.i249, %add1.i246
   %and.2.i251 = lshr i32 %retval.sroa.5.0.i, 28
   %and.2.i251.lobit = and i32 %and.2.i251, 1
@@ -224,50 +228,50 @@ intcoord.exit:                                    ; preds = %if.end36.i, %if.the
   %div139 = sdiv i32 %add138, %div
   %idxprom140 = sext i32 %div139 to i64
   %arrayidx141 = getelementptr inbounds [64 x i32], ptr %bodiesper, i64 0, i64 %idxprom140
-  %27 = load i32, ptr %arrayidx141, align 4, !tbaa !5
-  %inc142 = add nsw i32 %27, 1
+  %36 = load i32, ptr %arrayidx141, align 4, !tbaa !5
+  %inc142 = add nsw i32 %36, 1
   store i32 %inc142, ptr %arrayidx141, align 4, !tbaa !5
   %arrayidx144 = getelementptr inbounds [64 x ptr], ptr %ptrper, i64 0, i64 %idxprom140
-  %28 = load ptr, ptr %arrayidx144, align 8, !tbaa !16
-  %proc_next = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 10
-  store ptr %28, ptr %proc_next, align 8, !tbaa !25
-  store ptr %p.0269, ptr %arrayidx144, align 8, !tbaa !16
-  %proc = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 3
+  %37 = load ptr, ptr %arrayidx144, align 8, !tbaa !16
+  %proc_next = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 10
+  store ptr %37, ptr %proc_next, align 8, !tbaa !25
+  store ptr %p.0274, ptr %arrayidx144, align 8, !tbaa !16
+  %proc = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 3
   store i32 %div139, ptr %proc, align 8, !tbaa !26
-  %next148 = getelementptr inbounds %struct.bnode, ptr %p.0269, i64 0, i32 9
+  %next148 = getelementptr inbounds %struct.bnode, ptr %p.0274, i64 0, i32 9
   %p.0 = load ptr, ptr %next148, align 8, !tbaa !16
   %cmp100.not = icmp eq ptr %p.0, null
   br i1 %cmp100.not, label %for.cond150.preheader, label %for.cond104.preheader, !llvm.loop !27
 
 for.body153:                                      ; preds = %for.cond150.preheader, %for.body153
-  %indvars.iv298 = phi i64 [ %indvars.iv.next299, %for.body153 ], [ 0, %for.cond150.preheader ]
-  %arrayidx155 = getelementptr inbounds [64 x i32], ptr %bodiesper, i64 0, i64 %indvars.iv298
-  %29 = load i32, ptr %arrayidx155, align 4, !tbaa !5
-  %30 = trunc i64 %indvars.iv298 to i32
-  %call156 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %30, i32 noundef %29)
-  %arrayidx158 = getelementptr inbounds [64 x ptr], ptr %ptrper, i64 0, i64 %indvars.iv298
-  %31 = load ptr, ptr %arrayidx158, align 8, !tbaa !16
-  %arrayidx160 = getelementptr inbounds %struct.tree, ptr %call, i64 0, i32 4, i64 %indvars.iv298
-  store ptr %31, ptr %arrayidx160, align 8, !tbaa !16
-  %indvars.iv.next299 = add nuw nsw i64 %indvars.iv298, 1
-  %32 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %33 = sext i32 %32 to i64
-  %cmp151 = icmp slt i64 %indvars.iv.next299, %33
+  %indvars.iv303 = phi i64 [ %indvars.iv.next304, %for.body153 ], [ 0, %for.cond150.preheader ]
+  %arrayidx155 = getelementptr inbounds [64 x i32], ptr %bodiesper, i64 0, i64 %indvars.iv303
+  %38 = load i32, ptr %arrayidx155, align 4, !tbaa !5
+  %39 = trunc i64 %indvars.iv303 to i32
+  %call156 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %39, i32 noundef %38)
+  %arrayidx158 = getelementptr inbounds [64 x ptr], ptr %ptrper, i64 0, i64 %indvars.iv303
+  %40 = load ptr, ptr %arrayidx158, align 8, !tbaa !16
+  %arrayidx160 = getelementptr inbounds %struct.tree, ptr %call, i64 0, i32 4, i64 %indvars.iv303
+  store ptr %40, ptr %arrayidx160, align 8, !tbaa !16
+  %indvars.iv.next304 = add nuw nsw i64 %indvars.iv303, 1
+  %41 = load i32, ptr @NumNodes, align 4, !tbaa !5
+  %42 = sext i32 %41 to i64
+  %cmp151 = icmp slt i64 %indvars.iv.next304, %42
   br i1 %cmp151, label %for.body153, label %while.body.preheader, !llvm.loop !28
 
 while.body.preheader:                             ; preds = %for.body153, %for.cond150.preheader
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
-  %tnow.0273 = phi double [ %add168, %while.body ], [ 0.000000e+00, %while.body.preheader ]
-  %i.1272 = phi i32 [ %inc169, %while.body ], [ 0, %while.body.preheader ]
-  tail call void @stepsystem(ptr noundef nonnull %call, i32 noundef %i.1272)
-  %add168 = fadd double %tnow.0273, 1.250000e-02
-  %inc169 = add nuw nsw i32 %i.1272, 1
+  %tnow.0278 = phi double [ %add168, %while.body ], [ 0.000000e+00, %while.body.preheader ]
+  %i.1277 = phi i32 [ %inc169, %while.body ], [ 0, %while.body.preheader ]
+  tail call void @stepsystem(ptr noundef nonnull %call, i32 noundef %i.1277)
+  %add168 = fadd double %tnow.0278, 1.250000e-02
+  %inc169 = add nuw nsw i32 %i.1277, 1
   %cmp164 = fcmp olt double %add168, 2.001250e+00
-  %cmp166 = icmp ult i32 %i.1272, 9
-  %34 = and i1 %cmp164, %cmp166
-  br i1 %34, label %while.body, label %while.end, !llvm.loop !29
+  %cmp166 = icmp ult i32 %i.1277, 9
+  %43 = and i1 %cmp164, %cmp166
+  br i1 %43, label %while.body, label %while.end, !llvm.loop !29
 
 while.end:                                        ; preds = %while.body
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %ptrper) #25
@@ -295,25 +299,25 @@ entry:
   %new_proc.i = getelementptr inbounds %struct.bnode, ptr %call.i, i64 0, i32 4
   store i32 %proc, ptr %new_proc.i, align 4, !tbaa !31
   %cmp15218 = icmp sgt i32 %nbodyx, 0
-  br i1 %cmp15218, label %if.end.lr.ph, label %for.end142
+  br i1 %cmp15218, label %for.body17.lr.ph, label %for.end142
 
-if.end.lr.ph:                                     ; preds = %entry
+for.body17.lr.ph:                                 ; preds = %entry
   %conv = sitofp i32 %seedfactor to double
   %mul = fmul double %conv, 1.230000e+02
   %conv22 = sitofp i32 %nbodyx to double
   %div23 = fdiv double 1.000000e+00, %conv22
   %arrayidx48.2 = getelementptr inbounds [3 x double], ptr %agg.result, i64 0, i64 2
   %arrayidx129.2 = getelementptr inbounds %struct.datapoints, ptr %agg.result, i64 0, i32 1, i64 2
-  br label %if.end
+  br label %for.body17
 
-if.end:                                           ; preds = %if.end.lr.ph, %do.end104
-  %0 = phi double [ 0.000000e+00, %if.end.lr.ph ], [ %add133.2, %do.end104 ]
-  %1 = phi double [ 0.000000e+00, %if.end.lr.ph ], [ %add.2, %do.end104 ]
-  %prev.0221 = phi ptr [ %call.i, %if.end.lr.ph ], [ %call.i203, %do.end104 ]
-  %i.0220 = phi i32 [ 0, %if.end.lr.ph ], [ %inc141, %do.end104 ]
-  %seed.0219 = phi double [ %mul, %if.end.lr.ph ], [ %call79.2, %do.end104 ]
-  %2 = phi <2 x double> [ zeroinitializer, %if.end.lr.ph ], [ %18, %do.end104 ]
-  %3 = phi <2 x double> [ zeroinitializer, %if.end.lr.ph ], [ %5, %do.end104 ]
+for.body17:                                       ; preds = %for.body17.lr.ph, %do.end104
+  %0 = phi double [ 0.000000e+00, %for.body17.lr.ph ], [ %add133.2, %do.end104 ]
+  %1 = phi double [ 0.000000e+00, %for.body17.lr.ph ], [ %add.2, %do.end104 ]
+  %prev.0221 = phi ptr [ %call.i, %for.body17.lr.ph ], [ %call.i203, %do.end104 ]
+  %i.0220 = phi i32 [ 0, %for.body17.lr.ph ], [ %inc141, %do.end104 ]
+  %seed.0219 = phi double [ %mul, %for.body17.lr.ph ], [ %call79.2, %do.end104 ]
+  %2 = phi <2 x double> [ zeroinitializer, %for.body17.lr.ph ], [ %18, %do.end104 ]
+  %3 = phi <2 x double> [ zeroinitializer, %for.body17.lr.ph ], [ %5, %do.end104 ]
   %call.i203 = tail call noalias dereferenceable_or_null(144) ptr @malloc(i64 noundef 144) #26
   %proc.i204 = getelementptr inbounds %struct.bnode, ptr %call.i203, i64 0, i32 3
   store i32 %proc, ptr %proc.i204, align 8, !tbaa !26
@@ -353,8 +357,8 @@ if.end:                                           ; preds = %if.end.lr.ph, %do.e
   store double %add.2, ptr %arrayidx48.2, align 8, !tbaa !13
   br label %do.body
 
-do.body:                                          ; preds = %if.end, %do.body
-  %seed.2 = phi double [ %call60, %do.body ], [ %call33.2, %if.end ]
+do.body:                                          ; preds = %for.body17, %do.body
+  %seed.2 = phi double [ %call60, %do.body ], [ %call33.2, %for.body17 ]
   %call58 = tail call double (double, ...) @my_rand(double noundef %seed.2) #25
   %call59 = tail call double (double, double, double, ...) @xrand(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %call58) #25
   %call60 = tail call double (double, ...) @my_rand(double noundef %call58) #25
@@ -415,7 +419,7 @@ do.end104:                                        ; preds = %do.body74
   store double %add133.2, ptr %arrayidx129.2, align 8, !tbaa !13
   %inc141 = add nuw nsw i32 %i.0220, 1
   %exitcond.not = icmp eq i32 %inc141, %nbodyx
-  br i1 %exitcond.not, label %for.end142, label %if.end, !llvm.loop !35
+  br i1 %exitcond.not, label %for.end142, label %for.body17, !llvm.loop !35
 
 for.end142:                                       ; preds = %do.end104, %entry
   %prev.0.lcssa = phi ptr [ %call.i, %entry ], [ %call.i203, %do.end104 ]
@@ -522,7 +526,7 @@ entry:
   %and.1 = and i32 %ic.sroa.2.0.extract.trunc, %l
   %tobool.not.1 = icmp eq i32 %and.1, 0
   %add1.1 = select i1 %tobool.not.1, i32 0, i32 2
-  %i.1.1 = or i32 %add1.1, %add1
+  %i.1.1 = or i32 %add1, %add1.1
   %and.2 = and i32 %ic.sroa.3.8.extract.trunc, %l
   %tobool.not.2 = icmp ne i32 %and.2, 0
   %add1.2 = zext i1 %tobool.not.2 to i32
@@ -550,8 +554,8 @@ if.end:                                           ; preds = %if.then, %entry
   %call = tail call ptr @maketree(ptr poison, i32 noundef %1, ptr noundef nonnull %t, i32 noundef %nstep, i32 noundef 0)
   store ptr %call, ptr %root1, align 8, !tbaa !9
   %2 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %cmp7.i = icmp sgt i32 %2, 0
-  br i1 %cmp7.i, label %for.body.lr.ph.i, label %computegrav.exit
+  %cmp8.i = icmp sgt i32 %2, 0
+  br i1 %cmp8.i, label %for.body.lr.ph.i, label %computegrav.exit
 
 for.body.lr.ph.i:                                 ; preds = %if.end
   %rsize1.i = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 1
@@ -756,8 +760,8 @@ entry:
   %hg.i.i.i = alloca %struct.hgstruct, align 8
   %tmp.i.i.i = alloca %struct.hgstruct, align 8
   %0 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %cmp7 = icmp sgt i32 %0, 0
-  br i1 %cmp7, label %for.body.lr.ph, label %for.end
+  %cmp8 = icmp sgt i32 %0, 0
+  br i1 %cmp8, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %entry
   %rsize1 = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 1
@@ -1790,7 +1794,7 @@ if.end8:                                          ; preds = %cell_alloc.exit, %i
   %and.1.i = and i32 %ic.sroa.2.0.extract.trunc.i, %l
   %tobool.not.1.i = icmp eq i32 %and.1.i, 0
   %add1.1.i = select i1 %tobool.not.1.i, i64 0, i64 2
-  %i.1.1.i = or i64 %add1.1.i, %add1.i
+  %i.1.1.i = or i64 %add1.i, %add1.1.i
   %and.2.i = and i32 %ic.sroa.3.8.extract.trunc.i, %l
   %tobool.not.2.i = icmp ne i32 %and.2.i, 0
   %add1.2.i = zext i1 %tobool.not.2.i to i64
@@ -2203,7 +2207,7 @@ if.end42:                                         ; preds = %if.end26
   %add50 = select i1 %17, i32 0, i32 4
   %18 = extractelement <2 x i1> %16, i64 0
   %add50.1 = select i1 %18, i32 0, i32 2
-  %i.1.1 = or i32 %add50.1, %add50
+  %i.1.1 = or i32 %add50, %add50.1
   %and.2 = and i32 %conv44, %l
   %tobool.not.2 = icmp ne i32 %and.2, 0
   %add50.2 = zext i1 %tobool.not.2 to i32
@@ -2354,11 +2358,11 @@ return:                                           ; preds = %tailrecurse, %if.th
   ret i32 %retval.0
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #22
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #23
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #22
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.floor.v2f64(<2 x double>) #24
@@ -2385,8 +2389,8 @@ attributes #18 = { nofree nosync nounwind memory(read, argmem: readwrite, inacce
 attributes #19 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #20 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #21 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #22 = { nofree nounwind }
-attributes #23 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #22 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #23 = { nofree nounwind }
 attributes #24 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #25 = { nounwind }
 attributes #26 = { nounwind allocsize(0) }

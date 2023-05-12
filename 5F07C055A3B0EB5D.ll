@@ -55,7 +55,7 @@ for.end:                                          ; preds = %for.cond
   %tobool.not = icmp eq i64 %and, 0
   %shr2 = lshr i64 %shl, 1
   %add = select i1 %tobool.not, i64 0, i64 %shr2
-  %s.1 = add nuw i64 %add, %shl
+  %s.1 = add nuw i64 %shl, %add
   br label %do.body
 
 do.body:                                          ; preds = %do.body, %for.end

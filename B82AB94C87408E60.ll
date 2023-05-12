@@ -117,8 +117,8 @@ if.end:                                           ; preds = %entry
   %tobool1.not = icmp eq ptr %2, null
   %buffer = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 11
   %cmp.not = icmp eq ptr %2, %buffer
-  %or.cond478 = select i1 %tobool1.not, i1 true, i1 %cmp.not
-  br i1 %or.cond478, label %if.end5, label %if.then3
+  %or.cond513 = select i1 %tobool1.not, i1 true, i1 %cmp.not
+  br i1 %or.cond513, label %if.end5, label %if.then3
 
 if.then3:                                         ; preds = %if.end
   tail call void @free(ptr noundef nonnull %2) #9
@@ -282,78 +282,78 @@ if.else53:                                        ; preds = %if.else50
 if.else60:                                        ; preds = %for.cond
   %16 = add i32 %call, -65
   %or.cond312 = icmp ult i32 %16, 26
-  br i1 %or.cond312, label %for.cond.i484.preheader, label %lor.lhs.false64
+  br i1 %or.cond312, label %for.cond.i483.preheader, label %lor.lhs.false64
 
 lor.lhs.false64:                                  ; preds = %if.else60
   %17 = add i32 %call, -97
   %or.cond313 = icmp ult i32 %17, 26
   %cmp69 = icmp eq i32 %call, 95
   %or.cond314 = or i1 %cmp69, %or.cond313
-  br i1 %or.cond314, label %for.cond.i484.preheader, label %if.else72
+  br i1 %or.cond314, label %for.cond.i483.preheader, label %if.else72
 
-for.cond.i484.preheader:                          ; preds = %lor.lhs.false64, %if.else60
-  br label %for.cond.i484
+for.cond.i483.preheader:                          ; preds = %lor.lhs.false64, %if.else60
+  br label %for.cond.i483
 
-for.cond.i484:                                    ; preds = %for.cond.i484.backedge, %for.cond.i484.preheader
-  %ch.addr.0.i480 = phi i32 [ %call, %for.cond.i484.preheader ], [ %call.i492, %for.cond.i484.backedge ]
-  %len.0.i481 = phi i32 [ 0, %for.cond.i484.preheader ], [ %len.1.i490, %for.cond.i484.backedge ]
-  %overflow.0.i482 = phi i32 [ 0, %for.cond.i484.preheader ], [ %overflow.1.i491, %for.cond.i484.backedge ]
-  %cmp.i483 = icmp slt i32 %len.0.i481, 1023
-  br i1 %cmp.i483, label %if.then.i489, label %if.end.i494
+for.cond.i483:                                    ; preds = %for.cond.i483.backedge, %for.cond.i483.preheader
+  %ch.addr.0.i479 = phi i32 [ %call, %for.cond.i483.preheader ], [ %call.i491, %for.cond.i483.backedge ]
+  %len.0.i480 = phi i32 [ 0, %for.cond.i483.preheader ], [ %len.1.i489, %for.cond.i483.backedge ]
+  %overflow.0.i481 = phi i32 [ 0, %for.cond.i483.preheader ], [ %overflow.1.i490, %for.cond.i483.backedge ]
+  %cmp.i482 = icmp slt i32 %len.0.i480, 1023
+  br i1 %cmp.i482, label %if.then.i488, label %if.end.i493
 
-if.then.i489:                                     ; preds = %for.cond.i484
-  %conv.i485 = trunc i32 %ch.addr.0.i480 to i8
-  %inc.i486 = add nsw i32 %len.0.i481, 1
-  %idxprom.i487 = sext i32 %len.0.i481 to i64
-  %arrayidx.i488 = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 11, i64 %idxprom.i487
-  store i8 %conv.i485, ptr %arrayidx.i488, align 1, !tbaa !20
-  br label %if.end.i494
+if.then.i488:                                     ; preds = %for.cond.i483
+  %conv.i484 = trunc i32 %ch.addr.0.i479 to i8
+  %inc.i485 = add nsw i32 %len.0.i480, 1
+  %idxprom.i486 = sext i32 %len.0.i480 to i64
+  %arrayidx.i487 = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 11, i64 %idxprom.i486
+  store i8 %conv.i484, ptr %arrayidx.i487, align 1, !tbaa !20
+  br label %if.end.i493
 
-if.end.i494:                                      ; preds = %if.then.i489, %for.cond.i484
-  %len.1.i490 = phi i32 [ %inc.i486, %if.then.i489 ], [ %len.0.i481, %for.cond.i484 ]
-  %overflow.1.i491 = phi i32 [ %overflow.0.i482, %if.then.i489 ], [ 1, %for.cond.i484 ]
+if.end.i493:                                      ; preds = %if.then.i488, %for.cond.i483
+  %len.1.i489 = phi i32 [ %inc.i485, %if.then.i488 ], [ %len.0.i480, %for.cond.i483 ]
+  %overflow.1.i490 = phi i32 [ %overflow.0.i481, %if.then.i488 ], [ 1, %for.cond.i483 ]
   %18 = load ptr, ptr %stream, align 8, !tbaa !14
-  %call.i492 = tail call i32 @getc(ptr noundef %18)
-  %cmp1.i493 = icmp eq i32 %call.i492, -1
-  br i1 %cmp1.i493, label %if.then3.i496, label %if.else4.i498
+  %call.i491 = tail call i32 @getc(ptr noundef %18)
+  %cmp1.i492 = icmp eq i32 %call.i491, -1
+  br i1 %cmp1.i492, label %if.then3.i495, label %if.else4.i497
 
-if.then3.i496:                                    ; preds = %if.end.i494
+if.then3.i495:                                    ; preds = %if.end.i493
   store i32 1, ptr %sawEOF, align 4, !tbaa !19
-  br label %for.end.i507
+  br label %for.end.i506
 
-if.else4.i498:                                    ; preds = %if.end.i494
-  %19 = and i32 %call.i492, -33
+if.else4.i497:                                    ; preds = %if.end.i493
+  %19 = and i32 %call.i491, -33
   %20 = add i32 %19, -65
-  %or.cond55.i497 = icmp ult i32 %20, 26
-  br i1 %or.cond55.i497, label %for.cond.i484.backedge, label %lor.lhs.false14.i502
+  %or.cond55.i496 = icmp ult i32 %20, 26
+  br i1 %or.cond55.i496, label %for.cond.i483.backedge, label %lor.lhs.false14.i501
 
-lor.lhs.false14.i502:                             ; preds = %if.else4.i498
-  %21 = add i32 %call.i492, -48
-  %or.cond35.i499 = icmp ult i32 %21, 10
-  %cmp21.i500 = icmp eq i32 %call.i492, 95
-  %or.cond36.i501 = or i1 %cmp21.i500, %or.cond35.i499
-  br i1 %or.cond36.i501, label %for.cond.i484.backedge, label %if.then23.i504
+lor.lhs.false14.i501:                             ; preds = %if.else4.i497
+  %21 = add i32 %call.i491, -48
+  %or.cond35.i498 = icmp ult i32 %21, 10
+  %cmp21.i499 = icmp eq i32 %call.i491, 95
+  %or.cond36.i500 = or i1 %cmp21.i499, %or.cond35.i498
+  br i1 %or.cond36.i500, label %for.cond.i483.backedge, label %if.then23.i503
 
-for.cond.i484.backedge:                           ; preds = %lor.lhs.false14.i502, %if.else4.i498
-  br label %for.cond.i484
+for.cond.i483.backedge:                           ; preds = %lor.lhs.false14.i501, %if.else4.i497
+  br label %for.cond.i483
 
-if.then23.i504:                                   ; preds = %lor.lhs.false14.i502
+if.then23.i503:                                   ; preds = %lor.lhs.false14.i501
   %22 = load ptr, ptr %stream, align 8, !tbaa !14
-  %call25.i503 = tail call i32 @ungetc(i32 noundef %call.i492, ptr noundef %22)
-  br label %for.end.i507
+  %call25.i502 = tail call i32 @ungetc(i32 noundef %call.i491, ptr noundef %22)
+  br label %for.end.i506
 
-for.end.i507:                                     ; preds = %if.then23.i504, %if.then3.i496
-  %tobool.not.i506 = icmp eq i32 %overflow.1.i491, 0
-  br i1 %tobool.not.i506, label %RecogIdentifier.exit513, label %if.then28.i508
+for.end.i506:                                     ; preds = %if.then23.i503, %if.then3.i495
+  %tobool.not.i505 = icmp eq i32 %overflow.1.i490, 0
+  br i1 %tobool.not.i505, label %RecogIdentifier.exit512, label %if.then28.i507
 
-if.then28.i508:                                   ; preds = %for.end.i507
+if.then28.i507:                                   ; preds = %for.end.i506
   tail call void (ptr, ptr, ...) @TreeCCError(ptr noundef nonnull %input, ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.3) #9
-  br label %RecogIdentifier.exit513
+  br label %RecogIdentifier.exit512
 
-RecogIdentifier.exit513:                          ; preds = %for.end.i507, %if.then28.i508
-  %idxprom31.i510 = sext i32 %len.1.i490 to i64
-  %arrayidx32.i511 = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 11, i64 %idxprom31.i510
-  store i8 0, ptr %arrayidx32.i511, align 1, !tbaa !20
+RecogIdentifier.exit512:                          ; preds = %for.end.i506, %if.then28.i507
+  %idxprom31.i509 = sext i32 %len.1.i489 to i64
+  %arrayidx32.i510 = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 11, i64 %idxprom31.i509
+  store i8 0, ptr %arrayidx32.i510, align 1, !tbaa !20
   store ptr %buffer, ptr %text, align 8, !tbaa !12
   store i32 1, ptr %input, align 8, !tbaa !5
   br label %cleanup
@@ -629,8 +629,8 @@ for.end302:                                       ; preds = %for.cond, %if.else2
   store i32 1, ptr %sawEOF, align 4, !tbaa !19
   br label %cleanup
 
-cleanup:                                          ; preds = %for.end302, %if.then243, %eofInComment, %if.else165, %if.then163, %if.then136, %if.then122, %if.then118, %if.then110, %if.then106, %if.then102, %if.then98, %if.then94, %if.then90, %if.then86, %if.then82, %if.then78, %if.then74, %RecogIdentifier.exit513, %while.end, %if.then36, %if.then20, %if.then16, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ 0, %for.end302 ], [ 1, %if.then16 ], [ 1, %if.then20 ], [ 1, %if.then36 ], [ 1, %while.end ], [ 1, %RecogIdentifier.exit513 ], [ 1, %if.then74 ], [ 1, %if.then78 ], [ 1, %if.then82 ], [ 1, %if.then86 ], [ 1, %if.then90 ], [ 1, %if.then94 ], [ 1, %if.then98 ], [ 1, %if.then102 ], [ 1, %if.then106 ], [ 1, %if.then110 ], [ 1, %if.then118 ], [ 0, %if.then122 ], [ 1, %if.then136 ], [ 1, %if.then163 ], [ 1, %if.else165 ], [ 0, %eofInComment ], [ 0, %if.then243 ]
+cleanup:                                          ; preds = %for.end302, %if.then243, %eofInComment, %if.else165, %if.then163, %if.then136, %if.then122, %if.then118, %if.then110, %if.then106, %if.then102, %if.then98, %if.then94, %if.then90, %if.then86, %if.then82, %if.then78, %if.then74, %RecogIdentifier.exit512, %while.end, %if.then36, %if.then20, %if.then16, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ 0, %for.end302 ], [ 1, %if.then16 ], [ 1, %if.then20 ], [ 1, %if.then36 ], [ 1, %while.end ], [ 1, %RecogIdentifier.exit512 ], [ 1, %if.then74 ], [ 1, %if.then78 ], [ 1, %if.then82 ], [ 1, %if.then86 ], [ 1, %if.then90 ], [ 1, %if.then94 ], [ 1, %if.then98 ], [ 1, %if.then102 ], [ 1, %if.then106 ], [ 1, %if.then110 ], [ 1, %if.then118 ], [ 0, %if.then122 ], [ 1, %if.then136 ], [ 1, %if.then163 ], [ 1, %if.else165 ], [ 0, %eofInComment ], [ 0, %if.then243 ]
   ret i32 %retval.0
 }
 
@@ -920,13 +920,13 @@ if.end.i:                                         ; preds = %if.else12
   %conv.i = sext i32 %add1.i to i64
   %call.i = tail call ptr @realloc(ptr noundef %2, i64 noundef %conv.i) #11
   %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.then3.i, label %FlushBuffer.exit
+  br i1 %cmp.i, label %if.then3.i, label %if.end4.i
 
 if.then3.i:                                       ; preds = %if.end.i
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit
+  br label %if.end4.i
 
-FlushBuffer.exit:                                 ; preds = %if.end.i, %if.then3.i
+if.end4.i:                                        ; preds = %if.then3.i, %if.end.i
   store ptr %call.i, ptr %text.i, align 8, !tbaa !12
   %idx.ext.i = sext i32 %currlen.057 to i64
   %add.ptr.i = getelementptr inbounds i8, ptr %call.i, i64 %idx.ext.i
@@ -937,9 +937,9 @@ FlushBuffer.exit:                                 ; preds = %if.end.i, %if.then3
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !20
   br label %if.end20
 
-if.end20:                                         ; preds = %if.then11, %FlushBuffer.exit, %if.else12
-  %currlen.1 = phi i32 [ %currlen.057, %if.then11 ], [ %add.i, %FlushBuffer.exit ], [ %currlen.057, %if.else12 ]
-  %len.1 = phi i32 [ %len.058, %if.then11 ], [ 0, %FlushBuffer.exit ], [ %inc, %if.else12 ]
+if.end20:                                         ; preds = %if.end4.i, %if.then11, %if.else12
+  %currlen.1 = phi i32 [ %currlen.057, %if.then11 ], [ %currlen.057, %if.else12 ], [ %add.i, %if.end4.i ]
+  %len.1 = phi i32 [ %len.058, %if.then11 ], [ %inc, %if.else12 ], [ 0, %if.end4.i ]
   %3 = load ptr, ptr %stream, align 8, !tbaa !14
   %call = tail call i32 @getc(ptr noundef %3)
   %cmp = icmp eq i32 %call, %quotech
@@ -1071,13 +1071,13 @@ if.end.i:                                         ; preds = %if.then16
   %conv.i = sext i32 %add1.i to i64
   %call.i = tail call ptr @realloc(ptr noundef %1, i64 noundef %conv.i) #11
   %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.then3.i, label %FlushBuffer.exit
+  br i1 %cmp.i, label %if.then3.i, label %if.end4.i
 
 if.then3.i:                                       ; preds = %if.end.i
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit
+  br label %if.end4.i
 
-FlushBuffer.exit:                                 ; preds = %if.end.i, %if.then3.i
+if.end4.i:                                        ; preds = %if.then3.i, %if.end.i
   store ptr %call.i, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i = sext i32 %currlen.0.ph to i64
   %add.ptr.i = getelementptr inbounds i8, ptr %call.i, i64 %idx.ext.i
@@ -1088,9 +1088,9 @@ FlushBuffer.exit:                                 ; preds = %if.end.i, %if.then3
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !20
   br label %if.end25
 
-if.end25:                                         ; preds = %FlushBuffer.exit, %if.then16
-  %len.1 = phi i32 [ 0, %FlushBuffer.exit ], [ %inc18, %if.then16 ]
-  %currlen.1 = phi i32 [ %add.i, %FlushBuffer.exit ], [ %currlen.0.ph, %if.then16 ]
+if.end25:                                         ; preds = %if.end4.i, %if.then16
+  %len.1 = phi i32 [ %inc18, %if.then16 ], [ 0, %if.end4.i ]
+  %currlen.1 = phi i32 [ %currlen.0.ph, %if.then16 ], [ %add.i, %if.end4.i ]
   %2 = load ptr, ptr %stream, align 8, !tbaa !14
   %call27708 = tail call i32 @getc(ptr noundef %2)
   %cmp28709 = icmp ne i32 %call27708, -1
@@ -1120,13 +1120,13 @@ if.end.i477:                                      ; preds = %if.then34
   %conv.i474 = sext i32 %add1.i473 to i64
   %call.i475 = tail call ptr @realloc(ptr noundef %4, i64 noundef %conv.i474) #11
   %cmp.i476 = icmp eq ptr %call.i475, null
-  br i1 %cmp.i476, label %if.then3.i478, label %FlushBuffer.exit488
+  br i1 %cmp.i476, label %if.then3.i478, label %if.end4.i486
 
 if.then3.i478:                                    ; preds = %if.end.i477
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit488
+  br label %if.end4.i486
 
-FlushBuffer.exit488:                              ; preds = %if.end.i477, %if.then3.i478
+if.end4.i486:                                     ; preds = %if.then3.i478, %if.end.i477
   store ptr %call.i475, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i479 = sext i32 %currlen.2712 to i64
   %add.ptr.i480 = getelementptr inbounds i8, ptr %call.i475, i64 %idx.ext.i479
@@ -1137,9 +1137,9 @@ FlushBuffer.exit488:                              ; preds = %if.end.i477, %if.th
   store i8 0, ptr %arrayidx.i485, align 1, !tbaa !20
   br label %if.end44
 
-if.end44:                                         ; preds = %FlushBuffer.exit488, %if.then34
-  %len.3 = phi i32 [ 0, %FlushBuffer.exit488 ], [ %inc37, %if.then34 ]
-  %currlen.3 = phi i32 [ %add.i472, %FlushBuffer.exit488 ], [ %currlen.2712, %if.then34 ]
+if.end44:                                         ; preds = %if.end4.i486, %if.then34
+  %len.3 = phi i32 [ %inc37, %if.then34 ], [ 0, %if.end4.i486 ]
+  %currlen.3 = phi i32 [ %currlen.2712, %if.then34 ], [ %add.i472, %if.end4.i486 ]
   %5 = load ptr, ptr %stream, align 8, !tbaa !14
   %call46 = tail call i32 @getc(ptr noundef %5)
   %cmp47 = icmp eq i32 %call46, -1
@@ -1176,13 +1176,13 @@ if.end.i496:                                      ; preds = %if.end60
   %conv.i493 = sext i32 %add1.i492 to i64
   %call.i494 = tail call ptr @realloc(ptr noundef %7, i64 noundef %conv.i493) #11
   %cmp.i495 = icmp eq ptr %call.i494, null
-  br i1 %cmp.i495, label %if.then3.i497, label %FlushBuffer.exit507
+  br i1 %cmp.i495, label %if.then3.i497, label %if.end4.i505
 
 if.then3.i497:                                    ; preds = %if.end.i496
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit507
+  br label %if.end4.i505
 
-FlushBuffer.exit507:                              ; preds = %if.end.i496, %if.then3.i497
+if.end4.i505:                                     ; preds = %if.then3.i497, %if.end.i496
   store ptr %call.i494, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i498 = sext i32 %currlen.4 to i64
   %add.ptr.i499 = getelementptr inbounds i8, ptr %call.i494, i64 %idx.ext.i498
@@ -1193,9 +1193,9 @@ FlushBuffer.exit507:                              ; preds = %if.end.i496, %if.th
   store i8 0, ptr %arrayidx.i504, align 1, !tbaa !20
   br label %if.end70
 
-if.end70:                                         ; preds = %FlushBuffer.exit507, %if.end60
-  %len.5 = phi i32 [ 0, %FlushBuffer.exit507 ], [ %inc63, %if.end60 ]
-  %currlen.5 = phi i32 [ %add.i491, %FlushBuffer.exit507 ], [ %currlen.4, %if.end60 ]
+if.end70:                                         ; preds = %if.end4.i505, %if.end60
+  %len.5 = phi i32 [ %inc63, %if.end60 ], [ 0, %if.end4.i505 ]
+  %currlen.5 = phi i32 [ %currlen.4, %if.end60 ], [ %add.i491, %if.end4.i505 ]
   %8 = load ptr, ptr %stream, align 8, !tbaa !14
   %call27 = tail call i32 @getc(ptr noundef %8)
   %cmp28 = icmp ne i32 %call27, -1
@@ -1234,13 +1234,13 @@ if.end.i515:                                      ; preds = %if.then85
   %conv.i512 = sext i32 %add1.i511 to i64
   %call.i513 = tail call ptr @realloc(ptr noundef %10, i64 noundef %conv.i512) #11
   %cmp.i514 = icmp eq ptr %call.i513, null
-  br i1 %cmp.i514, label %if.then3.i516, label %FlushBuffer.exit526
+  br i1 %cmp.i514, label %if.then3.i516, label %if.end4.i524
 
 if.then3.i516:                                    ; preds = %if.end.i515
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit526
+  br label %if.end4.i524
 
-FlushBuffer.exit526:                              ; preds = %if.end.i515, %if.then3.i516
+if.end4.i524:                                     ; preds = %if.then3.i516, %if.end.i515
   store ptr %call.i513, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i517 = sext i32 %currlen.0.ph to i64
   %add.ptr.i518 = getelementptr inbounds i8, ptr %call.i513, i64 %idx.ext.i517
@@ -1251,9 +1251,9 @@ FlushBuffer.exit526:                              ; preds = %if.end.i515, %if.th
   store i8 0, ptr %arrayidx.i523, align 1, !tbaa !20
   br label %if.end94
 
-if.end94:                                         ; preds = %FlushBuffer.exit526, %if.then85
-  %len.7 = phi i32 [ 0, %FlushBuffer.exit526 ], [ %inc87, %if.then85 ]
-  %currlen.7 = phi i32 [ %add.i510, %FlushBuffer.exit526 ], [ %currlen.0.ph, %if.then85 ]
+if.end94:                                         ; preds = %if.end4.i524, %if.then85
+  %len.7 = phi i32 [ %inc87, %if.then85 ], [ 0, %if.end4.i524 ]
+  %currlen.7 = phi i32 [ %currlen.0.ph, %if.then85 ], [ %add.i510, %if.end4.i524 ]
   %11 = load ptr, ptr %stream, align 8, !tbaa !14
   %call96 = tail call i32 @getc(ptr noundef %11)
   switch i32 %call96, label %if.else242 [
@@ -1277,13 +1277,13 @@ if.end.i534:                                      ; preds = %if.then104
   %conv.i531 = sext i32 %add1.i530 to i64
   %call.i532 = tail call ptr @realloc(ptr noundef %12, i64 noundef %conv.i531) #11
   %cmp.i533 = icmp eq ptr %call.i532, null
-  br i1 %cmp.i533, label %if.then3.i535, label %FlushBuffer.exit545
+  br i1 %cmp.i533, label %if.then3.i535, label %if.end4.i543
 
 if.then3.i535:                                    ; preds = %if.end.i534
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit545
+  br label %if.end4.i543
 
-FlushBuffer.exit545:                              ; preds = %if.end.i534, %if.then3.i535
+if.end4.i543:                                     ; preds = %if.then3.i535, %if.end.i534
   store ptr %call.i532, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i536 = sext i32 %currlen.7 to i64
   %add.ptr.i537 = getelementptr inbounds i8, ptr %call.i532, i64 %idx.ext.i536
@@ -1294,14 +1294,14 @@ FlushBuffer.exit545:                              ; preds = %if.end.i534, %if.th
   store i8 0, ptr %arrayidx.i542, align 1, !tbaa !20
   br label %while.cond114.preheader
 
-while.cond114.preheader:                          ; preds = %FlushBuffer.exit545, %if.then104
-  %len.9.ph = phi i32 [ %inc106, %if.then104 ], [ 0, %FlushBuffer.exit545 ]
-  %currlen.9.ph = phi i32 [ %currlen.7, %if.then104 ], [ %add.i529, %FlushBuffer.exit545 ]
+while.cond114.preheader:                          ; preds = %if.end4.i543, %if.then104
+  %len.9.ph = phi i32 [ 0, %if.end4.i543 ], [ %inc106, %if.then104 ]
+  %currlen.9.ph = phi i32 [ %add.i529, %if.end4.i543 ], [ %currlen.7, %if.then104 ]
   br label %while.cond114.outer.outer
 
-while.cond114.outer.outer:                        ; preds = %FlushBuffer.exit564, %while.cond114.preheader
-  %len.9.ph827.ph = phi i32 [ 0, %FlushBuffer.exit564 ], [ %len.9.ph, %while.cond114.preheader ]
-  %currlen.9.ph828.ph = phi i32 [ %add.i548, %FlushBuffer.exit564 ], [ %currlen.9.ph, %while.cond114.preheader ]
+while.cond114.outer.outer:                        ; preds = %if.end4.i562, %while.cond114.preheader
+  %len.9.ph827.ph = phi i32 [ 0, %if.end4.i562 ], [ %len.9.ph, %while.cond114.preheader ]
+  %currlen.9.ph828.ph = phi i32 [ %add.i548, %if.end4.i562 ], [ %currlen.9.ph, %while.cond114.preheader ]
   br label %while.cond114.outer
 
 while.cond114.outer:                              ; preds = %while.cond114.outer.outer, %if.then128
@@ -1334,13 +1334,13 @@ if.end.i553:                                      ; preds = %if.then128
   %conv.i550 = sext i32 %add1.i549 to i64
   %call.i551 = tail call ptr @realloc(ptr noundef %14, i64 noundef %conv.i550) #11
   %cmp.i552 = icmp eq ptr %call.i551, null
-  br i1 %cmp.i552, label %if.then3.i554, label %FlushBuffer.exit564
+  br i1 %cmp.i552, label %if.then3.i554, label %if.end4.i562
 
 if.then3.i554:                                    ; preds = %if.end.i553
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit564
+  br label %if.end4.i562
 
-FlushBuffer.exit564:                              ; preds = %if.end.i553, %if.then3.i554
+if.end4.i562:                                     ; preds = %if.then3.i554, %if.end.i553
   store ptr %call.i551, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i555 = sext i32 %currlen.9.ph828.ph to i64
   %add.ptr.i556 = getelementptr inbounds i8, ptr %call.i551, i64 %idx.ext.i555
@@ -1375,13 +1375,13 @@ if.end.i572:                                      ; preds = %if.then152
   %conv.i569 = sext i32 %add1.i568 to i64
   %call.i570 = tail call ptr @realloc(ptr noundef %16, i64 noundef %conv.i569) #11
   %cmp.i571 = icmp eq ptr %call.i570, null
-  br i1 %cmp.i571, label %if.then3.i573, label %FlushBuffer.exit583
+  br i1 %cmp.i571, label %if.then3.i573, label %if.end4.i581
 
 if.then3.i573:                                    ; preds = %if.end.i572
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit583
+  br label %if.end4.i581
 
-FlushBuffer.exit583:                              ; preds = %if.end.i572, %if.then3.i573
+if.end4.i581:                                     ; preds = %if.then3.i573, %if.end.i572
   store ptr %call.i570, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i574 = sext i32 %currlen.7 to i64
   %add.ptr.i575 = getelementptr inbounds i8, ptr %call.i570, i64 %idx.ext.i574
@@ -1392,9 +1392,9 @@ FlushBuffer.exit583:                              ; preds = %if.end.i572, %if.th
   store i8 0, ptr %arrayidx.i580, align 1, !tbaa !20
   br label %for.cond162.preheader
 
-for.cond162.preheader:                            ; preds = %FlushBuffer.exit583, %if.then152
-  %len.12.ph = phi i32 [ %inc154, %if.then152 ], [ 0, %FlushBuffer.exit583 ]
-  %currlen.12.ph = phi i32 [ %currlen.7, %if.then152 ], [ %add.i567, %FlushBuffer.exit583 ]
+for.cond162.preheader:                            ; preds = %if.end4.i581, %if.then152
+  %len.12.ph = phi i32 [ 0, %if.end4.i581 ], [ %inc154, %if.then152 ]
+  %currlen.12.ph = phi i32 [ %add.i567, %if.end4.i581 ], [ %currlen.7, %if.then152 ]
   br label %for.cond162.outer
 
 for.cond162.outer:                                ; preds = %for.cond162.outer.backedge, %for.cond162.preheader
@@ -1428,13 +1428,13 @@ if.end.i591:                                      ; preds = %if.then172
   %conv.i588 = sext i32 %add1.i587 to i64
   %call.i589 = tail call ptr @realloc(ptr noundef %18, i64 noundef %conv.i588) #11
   %cmp.i590 = icmp eq ptr %call.i589, null
-  br i1 %cmp.i590, label %if.then3.i592, label %FlushBuffer.exit602
+  br i1 %cmp.i590, label %if.then3.i592, label %if.end4.i600
 
 if.then3.i592:                                    ; preds = %if.end.i591
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit602
+  br label %if.end4.i600
 
-FlushBuffer.exit602:                              ; preds = %if.end.i591, %if.then3.i592
+if.end4.i600:                                     ; preds = %if.then3.i592, %if.end.i591
   store ptr %call.i589, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i593 = sext i32 %currlen.12.ph831 to i64
   %add.ptr.i594 = getelementptr inbounds i8, ptr %call.i589, i64 %idx.ext.i593
@@ -1445,9 +1445,9 @@ FlushBuffer.exit602:                              ; preds = %if.end.i591, %if.th
   store i8 0, ptr %arrayidx.i599, align 1, !tbaa !20
   br label %if.end181
 
-if.end181:                                        ; preds = %FlushBuffer.exit602, %if.then172
-  %len.13 = phi i32 [ 0, %FlushBuffer.exit602 ], [ %inc174, %if.then172 ]
-  %currlen.13 = phi i32 [ %add.i586, %FlushBuffer.exit602 ], [ %currlen.12.ph831, %if.then172 ]
+if.end181:                                        ; preds = %if.end4.i600, %if.then172
+  %len.13 = phi i32 [ %inc174, %if.then172 ], [ 0, %if.end4.i600 ]
+  %currlen.13 = phi i32 [ %currlen.12.ph831, %if.then172 ], [ %add.i586, %if.end4.i600 ]
   %19 = load ptr, ptr %stream, align 8, !tbaa !14
   %call183 = tail call i32 @getc(ptr noundef %19)
   switch i32 %call183, label %if.else196 [
@@ -1467,9 +1467,9 @@ if.else196:                                       ; preds = %if.end181
   %call198 = tail call i32 @ungetc(i32 noundef %call183, ptr noundef %20)
   br label %for.cond162.outer.backedge
 
-for.cond162.outer.backedge:                       ; preds = %if.else196, %FlushBuffer.exit621
-  %len.12.ph830.be = phi i32 [ 0, %FlushBuffer.exit621 ], [ %len.13, %if.else196 ]
-  %currlen.12.ph831.be = phi i32 [ %add.i605, %FlushBuffer.exit621 ], [ %currlen.13, %if.else196 ]
+for.cond162.outer.backedge:                       ; preds = %if.else196, %if.end4.i619
+  %len.12.ph830.be = phi i32 [ 0, %if.end4.i619 ], [ %len.13, %if.else196 ]
+  %currlen.12.ph831.be = phi i32 [ %add.i605, %if.end4.i619 ], [ %currlen.13, %if.else196 ]
   br label %for.cond162.outer
 
 if.then202:                                       ; preds = %for.cond162
@@ -1518,13 +1518,13 @@ if.end.i610:                                      ; preds = %if.end231
   %conv.i607 = sext i32 %add1.i606 to i64
   %call.i608 = tail call ptr @realloc(ptr noundef %25, i64 noundef %conv.i607) #11
   %cmp.i609 = icmp eq ptr %call.i608, null
-  br i1 %cmp.i609, label %if.then3.i611, label %FlushBuffer.exit621
+  br i1 %cmp.i609, label %if.then3.i611, label %if.end4.i619
 
 if.then3.i611:                                    ; preds = %if.end.i610
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit621
+  br label %if.end4.i619
 
-FlushBuffer.exit621:                              ; preds = %if.end.i610, %if.then3.i611
+if.end4.i619:                                     ; preds = %if.then3.i611, %if.end.i610
   store ptr %call.i608, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i612 = sext i32 %currlen.12.ph831 to i64
   %add.ptr.i613 = getelementptr inbounds i8, ptr %call.i608, i64 %idx.ext.i612
@@ -1589,9 +1589,9 @@ if.end299:                                        ; preds = %if.then261, %if.end
   %cmp300 = icmp sgt i32 %len.15, 1022
   br i1 %cmp300, label %if.end.i629, label %for.cond.outer.outer.backedge
 
-for.cond.outer.outer.backedge:                    ; preds = %if.end299, %FlushBuffer.exit640
-  %len.0.ph.ph.be = phi i32 [ 0, %FlushBuffer.exit640 ], [ %len.15, %if.end299 ]
-  %currlen.0.ph.ph.be = phi i32 [ %add.i624, %FlushBuffer.exit640 ], [ %currlen.15, %if.end299 ]
+for.cond.outer.outer.backedge:                    ; preds = %if.end299, %if.end4.i638
+  %len.0.ph.ph.be = phi i32 [ 0, %if.end4.i638 ], [ %len.15, %if.end299 ]
+  %currlen.0.ph.ph.be = phi i32 [ %add.i624, %if.end4.i638 ], [ %currlen.15, %if.end299 ]
   br label %for.cond.outer.outer
 
 if.end.i629:                                      ; preds = %if.end299
@@ -1601,13 +1601,13 @@ if.end.i629:                                      ; preds = %if.end299
   %conv.i626 = sext i32 %add1.i625 to i64
   %call.i627 = tail call ptr @realloc(ptr noundef %31, i64 noundef %conv.i626) #11
   %cmp.i628 = icmp eq ptr %call.i627, null
-  br i1 %cmp.i628, label %if.then3.i630, label %FlushBuffer.exit640
+  br i1 %cmp.i628, label %if.then3.i630, label %if.end4.i638
 
 if.then3.i630:                                    ; preds = %if.end.i629
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %input) #9
-  br label %FlushBuffer.exit640
+  br label %if.end4.i638
 
-FlushBuffer.exit640:                              ; preds = %if.end.i629, %if.then3.i630
+if.end4.i638:                                     ; preds = %if.then3.i630, %if.end.i629
   store ptr %call.i627, ptr %text.i509, align 8, !tbaa !12
   %idx.ext.i631 = sext i32 %currlen.15 to i64
   %add.ptr.i632 = getelementptr inbounds i8, ptr %call.i627, i64 %idx.ext.i631

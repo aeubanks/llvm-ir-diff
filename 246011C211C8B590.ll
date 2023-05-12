@@ -24,36 +24,36 @@ declare void @abort() local_unnamed_addr #1
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @test_neg() local_unnamed_addr #2 {
 entry:
-  br label %lor.lhs.false
+  br label %for.cond
 
-lor.lhs.false:                                    ; preds = %lor.lhs.false, %entry
-  %indvars.iv = phi i32 [ %indvars.iv.next, %lor.lhs.false ], [ -128, %entry ]
+for.cond:                                         ; preds = %for.cond, %entry
+  %indvars.iv = phi i32 [ %indvars.iv.next, %for.cond ], [ -128, %entry ]
   %.neg = mul i32 %indvars.iv, -16777216
   %conv1 = ashr exact i32 %.neg, 24
   tail call void @foo(i32 poison, i32 noundef %conv1, i32 poison)
   %0 = icmp eq i32 %indvars.iv, 127
   %indvars.iv.next = add nsw i32 %indvars.iv, 1
-  br i1 %0, label %for.end, label %lor.lhs.false
+  br i1 %0, label %for.end, label %for.cond
 
-for.end:                                          ; preds = %lor.lhs.false
+for.end:                                          ; preds = %for.cond
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
 entry:
-  br label %lor.lhs.false.i
+  br label %for.cond.i
 
-lor.lhs.false.i:                                  ; preds = %lor.lhs.false.i, %entry
-  %indvars.iv.i = phi i32 [ %indvars.iv.next.i, %lor.lhs.false.i ], [ -128, %entry ]
+for.cond.i:                                       ; preds = %for.cond.i, %entry
+  %indvars.iv.i = phi i32 [ %indvars.iv.next.i, %for.cond.i ], [ -128, %entry ]
   %.neg.i = mul i32 %indvars.iv.i, -16777216
   %conv1.i = ashr exact i32 %.neg.i, 24
   tail call void @foo(i32 poison, i32 noundef %conv1.i, i32 poison)
   %0 = icmp eq i32 %indvars.iv.i, 127
   %indvars.iv.next.i = add nsw i32 %indvars.iv.i, 1
-  br i1 %0, label %if.end, label %lor.lhs.false.i
+  br i1 %0, label %if.end, label %for.cond.i
 
-if.end:                                           ; preds = %lor.lhs.false.i
+if.end:                                           ; preds = %for.cond.i
   ret i32 0
 }
 

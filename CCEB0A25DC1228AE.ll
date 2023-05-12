@@ -77,38 +77,38 @@ entry:
 
 for.cond1.preheader.lr.ph:                        ; preds = %entry
   %cmp2405 = icmp sgt i32 %1, 0
-  %key5.sroa.4.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i112 = getelementptr inbounds i8, ptr %byval-temp994, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i114 = getelementptr inbounds i8, ptr %byval-temp994, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i116 = getelementptr inbounds i8, ptr %byval-temp994, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i118 = getelementptr inbounds i8, ptr %byval-temp994, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i141 = getelementptr inbounds i8, ptr %byval-temp14123, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i143 = getelementptr inbounds i8, ptr %byval-temp14123, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i145 = getelementptr inbounds i8, ptr %byval-temp14123, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i147 = getelementptr inbounds i8, ptr %byval-temp14123, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i170 = getelementptr inbounds i8, ptr %byval-temp21152, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i172 = getelementptr inbounds i8, ptr %byval-temp21152, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i174 = getelementptr inbounds i8, ptr %byval-temp21152, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i176 = getelementptr inbounds i8, ptr %byval-temp21152, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i199 = getelementptr inbounds i8, ptr %byval-temp24181, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i201 = getelementptr inbounds i8, ptr %byval-temp24181, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i203 = getelementptr inbounds i8, ptr %byval-temp24181, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i205 = getelementptr inbounds i8, ptr %byval-temp24181, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i227 = getelementptr inbounds i8, ptr %byval-temp29209, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i229 = getelementptr inbounds i8, ptr %byval-temp29209, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i231 = getelementptr inbounds i8, ptr %byval-temp29209, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i233 = getelementptr inbounds i8, ptr %byval-temp29209, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i256 = getelementptr inbounds i8, ptr %byval-temp34238, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i258 = getelementptr inbounds i8, ptr %byval-temp34238, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i260 = getelementptr inbounds i8, ptr %byval-temp34238, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i262 = getelementptr inbounds i8, ptr %byval-temp34238, i64 16
-  %key5.sroa.4.0.key.sroa_idx.i285 = getelementptr inbounds i8, ptr %byval-temp41267, i64 4
-  %key5.sroa.5.0.key.sroa_idx.i287 = getelementptr inbounds i8, ptr %byval-temp41267, i64 8
-  %key5.sroa.6.0.key.sroa_idx.i289 = getelementptr inbounds i8, ptr %byval-temp41267, i64 12
-  %key5.sroa.7.0.key.sroa_idx.i291 = getelementptr inbounds i8, ptr %byval-temp41267, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i = getelementptr inbounds i8, ptr %byval-temp93, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i112 = getelementptr inbounds i8, ptr %byval-temp994, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i114 = getelementptr inbounds i8, ptr %byval-temp994, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i116 = getelementptr inbounds i8, ptr %byval-temp994, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i118 = getelementptr inbounds i8, ptr %byval-temp994, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i141 = getelementptr inbounds i8, ptr %byval-temp14123, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i143 = getelementptr inbounds i8, ptr %byval-temp14123, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i145 = getelementptr inbounds i8, ptr %byval-temp14123, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i147 = getelementptr inbounds i8, ptr %byval-temp14123, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i170 = getelementptr inbounds i8, ptr %byval-temp21152, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i172 = getelementptr inbounds i8, ptr %byval-temp21152, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i174 = getelementptr inbounds i8, ptr %byval-temp21152, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i176 = getelementptr inbounds i8, ptr %byval-temp21152, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i199 = getelementptr inbounds i8, ptr %byval-temp24181, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i201 = getelementptr inbounds i8, ptr %byval-temp24181, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i203 = getelementptr inbounds i8, ptr %byval-temp24181, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i205 = getelementptr inbounds i8, ptr %byval-temp24181, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i227 = getelementptr inbounds i8, ptr %byval-temp29209, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i229 = getelementptr inbounds i8, ptr %byval-temp29209, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i231 = getelementptr inbounds i8, ptr %byval-temp29209, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i233 = getelementptr inbounds i8, ptr %byval-temp29209, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i256 = getelementptr inbounds i8, ptr %byval-temp34238, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i258 = getelementptr inbounds i8, ptr %byval-temp34238, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i260 = getelementptr inbounds i8, ptr %byval-temp34238, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i262 = getelementptr inbounds i8, ptr %byval-temp34238, i64 16
+  %key4.sroa.4.0.key.sroa_idx.i285 = getelementptr inbounds i8, ptr %byval-temp41267, i64 4
+  %key4.sroa.5.0.key.sroa_idx.i287 = getelementptr inbounds i8, ptr %byval-temp41267, i64 8
+  %key4.sroa.6.0.key.sroa_idx.i289 = getelementptr inbounds i8, ptr %byval-temp41267, i64 12
+  %key4.sroa.7.0.key.sroa_idx.i291 = getelementptr inbounds i8, ptr %byval-temp41267, i64 16
   br i1 %cmp2405, label %for.cond1.preheader.us.preheader, label %for.end44
 
 for.cond1.preheader.us.preheader:                 ; preds = %for.cond1.preheader.lr.ph
@@ -136,8 +136,8 @@ for.body3.us:                                     ; preds = %for.cond1.preheader
   %add23.us = add nsw i32 %j.0406.us, %mul.us
   %div.i182.us = sdiv i32 %add23.us, 32
   %idxprom.i183.us = sext i32 %div.i182.us to i64
-  %rem4.i185.us = and i32 %add23.us, 31
-  %shl.i186.us = shl nuw i32 1, %rem4.i185.us
+  %rem6.i185.us = and i32 %add23.us, 31
+  %shl.i186.us = shl nuw i32 1, %rem6.i185.us
   br i1 %tobool.not.us, label %if.else.us, label %if.then.us
 
 if.then.us:                                       ; preds = %for.body3.us
@@ -167,13 +167,13 @@ for.body.i.i.us:                                  ; preds = %if.then.i.us, %for.
   br i1 %cmp.not.i.i.us, label %print_bitboard.exit.i.us, label %for.body.i.i.us, !llvm.loop !9
 
 print_bitboard.exit.i.us:                         ; preds = %for.body.i.i.us, %if.then.i.us
-  %key5.sroa.0.0.copyload.i.us = load i32, ptr %byval-temp93, align 8
-  %key5.sroa.4.0.copyload.i.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i, align 4
-  %key5.sroa.5.0.copyload.i.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i, align 8
-  %key5.sroa.6.0.copyload.i.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i, align 4
-  %key5.sroa.7.0.copyload.i.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i, align 8
-  %call.i6.i.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i.us, i32 noundef %key5.sroa.4.0.copyload.i.us, i32 noundef %key5.sroa.5.0.copyload.i.us, i32 noundef %key5.sroa.6.0.copyload.i.us, i32 noundef %key5.sroa.7.0.copyload.i.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i.us = load i32, ptr %byval-temp93, align 8
+  %key4.sroa.4.0.copyload.i.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i, align 4
+  %key4.sroa.5.0.copyload.i.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i, align 8
+  %key4.sroa.6.0.copyload.i.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i, align 4
+  %key4.sroa.7.0.copyload.i.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i, align 8
+  %call.i5.i.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i.us, i32 noundef %key4.sroa.4.0.copyload.i.us, i32 noundef %key4.sroa.5.0.copyload.i.us, i32 noundef %key4.sroa.6.0.copyload.i.us, i32 noundef %key4.sroa.7.0.copyload.i.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_set.exit.us
 
 check_hashkey_bit_set.exit.us:                    ; preds = %print_bitboard.exit.i.us, %if.then.us
@@ -187,8 +187,8 @@ check_hashkey_bit_set.exit.us:                    ; preds = %print_bitboard.exit
   %idxprom.i96.us = sext i32 %div.i95.us to i64
   %arrayidx.i97.us = getelementptr inbounds [4 x i32], ptr %byval-temp994, i64 0, i64 %idxprom.i96.us
   %10 = load i32, ptr %arrayidx.i97.us, align 4, !tbaa !5
-  %rem4.i98.us = and i32 %add8.us, 31
-  %shl.i99.us = shl nuw i32 1, %rem4.i98.us
+  %rem6.i98.us = and i32 %add8.us, 31
+  %shl.i99.us = shl nuw i32 1, %rem6.i98.us
   %and.i100.us = and i32 %10, %shl.i99.us
   %tobool.not.i101.us = icmp eq i32 %and.i100.us, 0
   br i1 %tobool.not.i101.us, label %if.then.i104.us, label %check_hashkey_bit_set.exit122.us
@@ -211,13 +211,13 @@ for.body.i.i110.us:                               ; preds = %if.then.i104.us, %f
   br i1 %cmp.not.i.i109.us, label %print_bitboard.exit.i121.us, label %for.body.i.i110.us, !llvm.loop !9
 
 print_bitboard.exit.i121.us:                      ; preds = %for.body.i.i110.us, %if.then.i104.us
-  %key5.sroa.0.0.copyload.i111.us = load i32, ptr %byval-temp994, align 8
-  %key5.sroa.4.0.copyload.i113.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i112, align 4
-  %key5.sroa.5.0.copyload.i115.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i114, align 8
-  %key5.sroa.6.0.copyload.i117.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i116, align 4
-  %key5.sroa.7.0.copyload.i119.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i118, align 8
-  %call.i6.i120.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i111.us, i32 noundef %key5.sroa.4.0.copyload.i113.us, i32 noundef %key5.sroa.5.0.copyload.i115.us, i32 noundef %key5.sroa.6.0.copyload.i117.us, i32 noundef %key5.sroa.7.0.copyload.i119.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i111.us = load i32, ptr %byval-temp994, align 8
+  %key4.sroa.4.0.copyload.i113.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i112, align 4
+  %key4.sroa.5.0.copyload.i115.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i114, align 8
+  %key4.sroa.6.0.copyload.i117.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i116, align 4
+  %key4.sroa.7.0.copyload.i119.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i118, align 8
+  %call.i5.i120.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i111.us, i32 noundef %key4.sroa.4.0.copyload.i113.us, i32 noundef %key4.sroa.5.0.copyload.i115.us, i32 noundef %key4.sroa.6.0.copyload.i117.us, i32 noundef %key4.sroa.7.0.copyload.i119.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_set.exit122.us
 
 check_hashkey_bit_set.exit122.us:                 ; preds = %print_bitboard.exit.i121.us, %check_hashkey_bit_set.exit.us
@@ -229,8 +229,8 @@ check_hashkey_bit_set.exit122.us:                 ; preds = %print_bitboard.exit
   %idxprom.i125.us = sext i32 %div.i124.us to i64
   %arrayidx.i126.us = getelementptr inbounds [4 x i32], ptr %byval-temp14123, i64 0, i64 %idxprom.i125.us
   %15 = load i32, ptr %arrayidx.i126.us, align 4, !tbaa !5
-  %rem4.i127.us = and i32 %add13.us, 31
-  %shl.i128.us = shl nuw i32 1, %rem4.i127.us
+  %rem6.i127.us = and i32 %add13.us, 31
+  %shl.i128.us = shl nuw i32 1, %rem6.i127.us
   %and.i129.us = and i32 %15, %shl.i128.us
   %tobool.not.i130.us = icmp eq i32 %and.i129.us, 0
   br i1 %tobool.not.i130.us, label %if.then.i133.us, label %check_hashkey_bit_set.exit151.us
@@ -253,13 +253,13 @@ for.body.i.i139.us:                               ; preds = %if.then.i133.us, %f
   br i1 %cmp.not.i.i138.us, label %print_bitboard.exit.i150.us, label %for.body.i.i139.us, !llvm.loop !9
 
 print_bitboard.exit.i150.us:                      ; preds = %for.body.i.i139.us, %if.then.i133.us
-  %key5.sroa.0.0.copyload.i140.us = load i32, ptr %byval-temp14123, align 8
-  %key5.sroa.4.0.copyload.i142.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i141, align 4
-  %key5.sroa.5.0.copyload.i144.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i143, align 8
-  %key5.sroa.6.0.copyload.i146.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i145, align 4
-  %key5.sroa.7.0.copyload.i148.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i147, align 8
-  %call.i6.i149.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i140.us, i32 noundef %key5.sroa.4.0.copyload.i142.us, i32 noundef %key5.sroa.5.0.copyload.i144.us, i32 noundef %key5.sroa.6.0.copyload.i146.us, i32 noundef %key5.sroa.7.0.copyload.i148.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i140.us = load i32, ptr %byval-temp14123, align 8
+  %key4.sroa.4.0.copyload.i142.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i141, align 4
+  %key4.sroa.5.0.copyload.i144.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i143, align 8
+  %key4.sroa.6.0.copyload.i146.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i145, align 4
+  %key4.sroa.7.0.copyload.i148.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i147, align 8
+  %call.i5.i149.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i140.us, i32 noundef %key4.sroa.4.0.copyload.i142.us, i32 noundef %key4.sroa.5.0.copyload.i144.us, i32 noundef %key4.sroa.6.0.copyload.i146.us, i32 noundef %key4.sroa.7.0.copyload.i148.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_set.exit151.us
 
 check_hashkey_bit_set.exit151.us:                 ; preds = %print_bitboard.exit.i150.us, %check_hashkey_bit_set.exit122.us
@@ -271,8 +271,8 @@ check_hashkey_bit_set.exit151.us:                 ; preds = %print_bitboard.exit
   %idxprom.i154.us = sext i32 %div.i153.us to i64
   %arrayidx.i155.us = getelementptr inbounds [4 x i32], ptr %byval-temp21152, i64 0, i64 %idxprom.i154.us
   %20 = load i32, ptr %arrayidx.i155.us, align 4, !tbaa !5
-  %rem4.i156.us = and i32 %add20.us, 31
-  %shl.i157.us = shl nuw i32 1, %rem4.i156.us
+  %rem6.i156.us = and i32 %add20.us, 31
+  %shl.i157.us = shl nuw i32 1, %rem6.i156.us
   %and.i158.us = and i32 %20, %shl.i157.us
   %tobool.not.i159.us = icmp eq i32 %and.i158.us, 0
   br i1 %tobool.not.i159.us, label %if.then.i162.us, label %check_hashkey_bit_set.exit180.us
@@ -295,13 +295,13 @@ for.body.i.i168.us:                               ; preds = %if.then.i162.us, %f
   br i1 %cmp.not.i.i167.us, label %print_bitboard.exit.i179.us, label %for.body.i.i168.us, !llvm.loop !9
 
 print_bitboard.exit.i179.us:                      ; preds = %for.body.i.i168.us, %if.then.i162.us
-  %key5.sroa.0.0.copyload.i169.us = load i32, ptr %byval-temp21152, align 8
-  %key5.sroa.4.0.copyload.i171.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i170, align 4
-  %key5.sroa.5.0.copyload.i173.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i172, align 8
-  %key5.sroa.6.0.copyload.i175.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i174, align 4
-  %key5.sroa.7.0.copyload.i177.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i176, align 8
-  %call.i6.i178.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i169.us, i32 noundef %key5.sroa.4.0.copyload.i171.us, i32 noundef %key5.sroa.5.0.copyload.i173.us, i32 noundef %key5.sroa.6.0.copyload.i175.us, i32 noundef %key5.sroa.7.0.copyload.i177.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i169.us = load i32, ptr %byval-temp21152, align 8
+  %key4.sroa.4.0.copyload.i171.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i170, align 4
+  %key4.sroa.5.0.copyload.i173.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i172, align 8
+  %key4.sroa.6.0.copyload.i175.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i174, align 4
+  %key4.sroa.7.0.copyload.i177.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i176, align 8
+  %call.i5.i178.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i169.us, i32 noundef %key4.sroa.4.0.copyload.i171.us, i32 noundef %key4.sroa.5.0.copyload.i173.us, i32 noundef %key4.sroa.6.0.copyload.i175.us, i32 noundef %key4.sroa.7.0.copyload.i177.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_set.exit180.us
 
 check_hashkey_bit_set.exit180.us:                 ; preds = %print_bitboard.exit.i179.us, %check_hashkey_bit_set.exit151.us
@@ -335,13 +335,13 @@ for.body.i.i197.us:                               ; preds = %if.then.i191.us, %f
   br i1 %cmp.not.i.i196.us, label %print_bitboard.exit.i208.us, label %for.body.i.i197.us, !llvm.loop !9
 
 print_bitboard.exit.i208.us:                      ; preds = %for.body.i.i197.us, %if.then.i191.us
-  %key5.sroa.0.0.copyload.i198.us = load i32, ptr %byval-temp24181, align 8
-  %key5.sroa.4.0.copyload.i200.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i199, align 4
-  %key5.sroa.5.0.copyload.i202.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i201, align 8
-  %key5.sroa.6.0.copyload.i204.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i203, align 4
-  %key5.sroa.7.0.copyload.i206.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i205, align 8
-  %call.i6.i207.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i198.us, i32 noundef %key5.sroa.4.0.copyload.i200.us, i32 noundef %key5.sroa.5.0.copyload.i202.us, i32 noundef %key5.sroa.6.0.copyload.i204.us, i32 noundef %key5.sroa.7.0.copyload.i206.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i198.us = load i32, ptr %byval-temp24181, align 8
+  %key4.sroa.4.0.copyload.i200.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i199, align 4
+  %key4.sroa.5.0.copyload.i202.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i201, align 8
+  %key4.sroa.6.0.copyload.i204.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i203, align 4
+  %key4.sroa.7.0.copyload.i206.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i205, align 8
+  %call.i5.i207.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i198.us, i32 noundef %key4.sroa.4.0.copyload.i200.us, i32 noundef %key4.sroa.5.0.copyload.i202.us, i32 noundef %key4.sroa.6.0.copyload.i204.us, i32 noundef %key4.sroa.7.0.copyload.i206.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_not_set.exit.us
 
 check_hashkey_bit_not_set.exit.us:                ; preds = %print_bitboard.exit.i208.us, %if.else.us
@@ -355,8 +355,8 @@ check_hashkey_bit_not_set.exit.us:                ; preds = %print_bitboard.exit
   %idxprom.i211.us = sext i32 %div.i210.us to i64
   %arrayidx.i212.us = getelementptr inbounds [4 x i32], ptr %byval-temp29209, i64 0, i64 %idxprom.i211.us
   %31 = load i32, ptr %arrayidx.i212.us, align 4, !tbaa !5
-  %rem4.i213.us = and i32 %add28.us, 31
-  %shl.i214.us = shl nuw i32 1, %rem4.i213.us
+  %rem6.i213.us = and i32 %add28.us, 31
+  %shl.i214.us = shl nuw i32 1, %rem6.i213.us
   %and.i215.us = and i32 %31, %shl.i214.us
   %tobool.not.i216.us = icmp eq i32 %and.i215.us, 0
   br i1 %tobool.not.i216.us, label %check_hashkey_bit_not_set.exit237.us, label %if.then.i219.us
@@ -379,13 +379,13 @@ for.body.i.i225.us:                               ; preds = %if.then.i219.us, %f
   br i1 %cmp.not.i.i224.us, label %print_bitboard.exit.i236.us, label %for.body.i.i225.us, !llvm.loop !9
 
 print_bitboard.exit.i236.us:                      ; preds = %for.body.i.i225.us, %if.then.i219.us
-  %key5.sroa.0.0.copyload.i226.us = load i32, ptr %byval-temp29209, align 8
-  %key5.sroa.4.0.copyload.i228.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i227, align 4
-  %key5.sroa.5.0.copyload.i230.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i229, align 8
-  %key5.sroa.6.0.copyload.i232.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i231, align 4
-  %key5.sroa.7.0.copyload.i234.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i233, align 8
-  %call.i6.i235.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i226.us, i32 noundef %key5.sroa.4.0.copyload.i228.us, i32 noundef %key5.sroa.5.0.copyload.i230.us, i32 noundef %key5.sroa.6.0.copyload.i232.us, i32 noundef %key5.sroa.7.0.copyload.i234.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i226.us = load i32, ptr %byval-temp29209, align 8
+  %key4.sroa.4.0.copyload.i228.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i227, align 4
+  %key4.sroa.5.0.copyload.i230.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i229, align 8
+  %key4.sroa.6.0.copyload.i232.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i231, align 4
+  %key4.sroa.7.0.copyload.i234.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i233, align 8
+  %call.i5.i235.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i226.us, i32 noundef %key4.sroa.4.0.copyload.i228.us, i32 noundef %key4.sroa.5.0.copyload.i230.us, i32 noundef %key4.sroa.6.0.copyload.i232.us, i32 noundef %key4.sroa.7.0.copyload.i234.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_not_set.exit237.us
 
 check_hashkey_bit_not_set.exit237.us:             ; preds = %print_bitboard.exit.i236.us, %check_hashkey_bit_not_set.exit.us
@@ -397,8 +397,8 @@ check_hashkey_bit_not_set.exit237.us:             ; preds = %print_bitboard.exit
   %idxprom.i240.us = sext i32 %div.i239.us to i64
   %arrayidx.i241.us = getelementptr inbounds [4 x i32], ptr %byval-temp34238, i64 0, i64 %idxprom.i240.us
   %36 = load i32, ptr %arrayidx.i241.us, align 4, !tbaa !5
-  %rem4.i242.us = and i32 %add33.us, 31
-  %shl.i243.us = shl nuw i32 1, %rem4.i242.us
+  %rem6.i242.us = and i32 %add33.us, 31
+  %shl.i243.us = shl nuw i32 1, %rem6.i242.us
   %and.i244.us = and i32 %36, %shl.i243.us
   %tobool.not.i245.us = icmp eq i32 %and.i244.us, 0
   br i1 %tobool.not.i245.us, label %check_hashkey_bit_not_set.exit266.us, label %if.then.i248.us
@@ -421,13 +421,13 @@ for.body.i.i254.us:                               ; preds = %if.then.i248.us, %f
   br i1 %cmp.not.i.i253.us, label %print_bitboard.exit.i265.us, label %for.body.i.i254.us, !llvm.loop !9
 
 print_bitboard.exit.i265.us:                      ; preds = %for.body.i.i254.us, %if.then.i248.us
-  %key5.sroa.0.0.copyload.i255.us = load i32, ptr %byval-temp34238, align 8
-  %key5.sroa.4.0.copyload.i257.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i256, align 4
-  %key5.sroa.5.0.copyload.i259.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i258, align 8
-  %key5.sroa.6.0.copyload.i261.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i260, align 4
-  %key5.sroa.7.0.copyload.i263.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i262, align 8
-  %call.i6.i264.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i255.us, i32 noundef %key5.sroa.4.0.copyload.i257.us, i32 noundef %key5.sroa.5.0.copyload.i259.us, i32 noundef %key5.sroa.6.0.copyload.i261.us, i32 noundef %key5.sroa.7.0.copyload.i263.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i255.us = load i32, ptr %byval-temp34238, align 8
+  %key4.sroa.4.0.copyload.i257.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i256, align 4
+  %key4.sroa.5.0.copyload.i259.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i258, align 8
+  %key4.sroa.6.0.copyload.i261.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i260, align 4
+  %key4.sroa.7.0.copyload.i263.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i262, align 8
+  %call.i5.i264.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i255.us, i32 noundef %key4.sroa.4.0.copyload.i257.us, i32 noundef %key4.sroa.5.0.copyload.i259.us, i32 noundef %key4.sroa.6.0.copyload.i261.us, i32 noundef %key4.sroa.7.0.copyload.i263.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_not_set.exit266.us
 
 check_hashkey_bit_not_set.exit266.us:             ; preds = %print_bitboard.exit.i265.us, %check_hashkey_bit_not_set.exit237.us
@@ -439,8 +439,8 @@ check_hashkey_bit_not_set.exit266.us:             ; preds = %print_bitboard.exit
   %idxprom.i269.us = sext i32 %div.i268.us to i64
   %arrayidx.i270.us = getelementptr inbounds [4 x i32], ptr %byval-temp41267, i64 0, i64 %idxprom.i269.us
   %41 = load i32, ptr %arrayidx.i270.us, align 4, !tbaa !5
-  %rem4.i271.us = and i32 %add40.us, 31
-  %shl.i272.us = shl nuw i32 1, %rem4.i271.us
+  %rem6.i271.us = and i32 %add40.us, 31
+  %shl.i272.us = shl nuw i32 1, %rem6.i271.us
   %and.i273.us = and i32 %41, %shl.i272.us
   %tobool.not.i274.us = icmp eq i32 %and.i273.us, 0
   br i1 %tobool.not.i274.us, label %check_hashkey_bit_not_set.exit295.us, label %if.then.i277.us
@@ -463,13 +463,13 @@ for.body.i.i283.us:                               ; preds = %if.then.i277.us, %f
   br i1 %cmp.not.i.i282.us, label %print_bitboard.exit.i294.us, label %for.body.i.i283.us, !llvm.loop !9
 
 print_bitboard.exit.i294.us:                      ; preds = %for.body.i.i283.us, %if.then.i277.us
-  %key5.sroa.0.0.copyload.i284.us = load i32, ptr %byval-temp41267, align 8
-  %key5.sroa.4.0.copyload.i286.us = load i32, ptr %key5.sroa.4.0.key.sroa_idx.i285, align 4
-  %key5.sroa.5.0.copyload.i288.us = load i32, ptr %key5.sroa.5.0.key.sroa_idx.i287, align 8
-  %key5.sroa.6.0.copyload.i290.us = load i32, ptr %key5.sroa.6.0.key.sroa_idx.i289, align 4
-  %key5.sroa.7.0.copyload.i292.us = load i32, ptr %key5.sroa.7.0.key.sroa_idx.i291, align 8
-  %call.i6.i293.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key5.sroa.0.0.copyload.i284.us, i32 noundef %key5.sroa.4.0.copyload.i286.us, i32 noundef %key5.sroa.5.0.copyload.i288.us, i32 noundef %key5.sroa.6.0.copyload.i290.us, i32 noundef %key5.sroa.7.0.copyload.i292.us)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  %key4.sroa.0.0.copyload.i284.us = load i32, ptr %byval-temp41267, align 8
+  %key4.sroa.4.0.copyload.i286.us = load i32, ptr %key4.sroa.4.0.key.sroa_idx.i285, align 4
+  %key4.sroa.5.0.copyload.i288.us = load i32, ptr %key4.sroa.5.0.key.sroa_idx.i287, align 8
+  %key4.sroa.6.0.copyload.i290.us = load i32, ptr %key4.sroa.6.0.key.sroa_idx.i289, align 4
+  %key4.sroa.7.0.copyload.i292.us = load i32, ptr %key4.sroa.7.0.key.sroa_idx.i291, align 8
+  %call.i5.i293.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %key4.sroa.0.0.copyload.i284.us, i32 noundef %key4.sroa.4.0.copyload.i286.us, i32 noundef %key4.sroa.5.0.copyload.i288.us, i32 noundef %key4.sroa.6.0.copyload.i290.us, i32 noundef %key4.sroa.7.0.copyload.i292.us)
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %check_hashkey_bit_not_set.exit295.us
 
 check_hashkey_bit_not_set.exit295.us:             ; preds = %print_bitboard.exit.i294.us, %check_hashkey_bit_not_set.exit266.us
@@ -550,7 +550,7 @@ for.end14.i:                                      ; preds = %for.cond2.for.inc12
   br i1 %cmp15.not.i, label %check_hashkey_code.exit, label %if.then16.i
 
 if.then16.i:                                      ; preds = %for.end14.i
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %.pre413 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %.pre414 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %check_hashkey_code.exit
@@ -617,7 +617,7 @@ for.end14.i330:                                   ; preds = %for.cond2.for.inc12
   br i1 %cmp15.not.i329, label %check_hashkey_code.exit332, label %if.then16.i331
 
 if.then16.i331:                                   ; preds = %for.end14.i330
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %.pre415 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %.pre416 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %check_hashkey_code.exit332
@@ -684,7 +684,7 @@ for.end14.i366:                                   ; preds = %for.cond2.for.inc12
   br i1 %cmp15.not.i365, label %check_hashkey_code.exit368, label %if.then16.i367
 
 if.then16.i367:                                   ; preds = %for.end14.i366
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %.pre417 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %.pre418 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %check_hashkey_code.exit368
@@ -751,7 +751,7 @@ for.end14.i402:                                   ; preds = %for.cond2.for.inc12
   br i1 %cmp15.not.i401, label %check_hashkey_code.exit404, label %if.then16.i403
 
 if.then16.i403:                                   ; preds = %for.end14.i402
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   br label %check_hashkey_code.exit404
 
 check_hashkey_code.exit404:                       ; preds = %for.end14.i402, %if.then16.i403
@@ -772,8 +772,8 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 define dso_local void @check_board_sanity() local_unnamed_addr #0 {
 entry:
   %0 = load i32, ptr @g_board_size, align 4, !tbaa !5
-  %cmp64 = icmp sgt i32 %0, -2
-  br i1 %cmp64, label %for.cond1.preheader.preheader, label %for.end19
+  %cmp67 = icmp sgt i32 %0, -2
+  br i1 %cmp67, label %for.cond1.preheader.preheader, label %for.end19
 
 for.cond1.preheader.preheader:                    ; preds = %entry
   %.pre = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
@@ -783,13 +783,13 @@ for.cond1.preheader:                              ; preds = %for.cond1.preheader
   %1 = phi i32 [ %0, %for.cond1.preheader.preheader ], [ %23, %for.inc17 ]
   %2 = phi i32 [ %.pre, %for.cond1.preheader.preheader ], [ %24, %for.inc17 ]
   %3 = phi i32 [ %.pre, %for.cond1.preheader.preheader ], [ %25, %for.inc17 ]
-  %indvars.iv69 = phi i64 [ 0, %for.cond1.preheader.preheader ], [ %indvars.iv.next70, %for.inc17 ]
-  %cmp361 = icmp sgt i32 %3, -2
-  br i1 %cmp361, label %for.body4.lr.ph, label %for.inc17
+  %indvars.iv72 = phi i64 [ 0, %for.cond1.preheader.preheader ], [ %indvars.iv.next73, %for.inc17 ]
+  %cmp364 = icmp sgt i32 %3, -2
+  br i1 %cmp364, label %for.body4.lr.ph, label %for.inc17
 
 for.body4.lr.ph:                                  ; preds = %for.cond1.preheader
-  %arrayidx6 = getelementptr inbounds [32 x i32], ptr @g_board, i64 0, i64 %indvars.iv69
-  %4 = trunc i64 %indvars.iv69 to i32
+  %arrayidx6 = getelementptr inbounds [32 x i32], ptr @g_board, i64 0, i64 %indvars.iv72
+  %4 = trunc i64 %indvars.iv72 to i32
   br label %for.body4
 
 for.body4:                                        ; preds = %for.body4.lr.ph, %for.inc
@@ -804,7 +804,7 @@ for.body4:                                        ; preds = %for.body4.lr.ph, %f
   %10 = trunc i64 %indvars.iv to i32
   %11 = lshr i32 %9, %10
   %inc11 = and i32 %11, 1
-  %count.1 = add nuw nsw i32 %inc11, %spec.select
+  %count.1 = add nuw nsw i32 %spec.select, %inc11
   %cmp13 = icmp eq i32 %count.1, 1
   br i1 %cmp13, label %if.then14, label %for.inc
 
@@ -841,25 +841,25 @@ for.body5.us.i:                                   ; preds = %for.body5.us.i, %fo
 
 for.cond3.for.end_crit_edge.us.i:                 ; preds = %for.body5.us.i
   %14 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.us.i = tail call i32 @putc(i32 noundef 10, ptr noundef %14)
+  %call.i58 = tail call i32 @putc(i32 noundef 10, ptr noundef %14)
   %exitcond30.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
   br i1 %exitcond30.not.i, label %print_board.exitthread-pre-split, label %for.cond3.preheader.us.i, !llvm.loop !20
 
 for.cond3.preheader.i:                            ; preds = %for.cond3.preheader.lr.ph.i, %for.cond3.preheader.i
   %i.026.i = phi i32 [ %inc15.i, %for.cond3.preheader.i ], [ 0, %for.cond3.preheader.lr.ph.i ]
   %15 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.i = tail call i32 @putc(i32 noundef 10, ptr noundef %15)
+  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %15)
   %inc15.i = add nuw nsw i32 %i.026.i, 1
   %exitcond.not.i = icmp eq i32 %inc15.i, %6
   br i1 %exitcond.not.i, label %print_board.exitthread-pre-split, label %for.cond3.preheader.i, !llvm.loop !20
 
 print_board.exitthread-pre-split:                 ; preds = %for.cond3.preheader.i, %for.cond3.for.end_crit_edge.us.i
   %.pr = load i32, ptr @g_board_size, align 4, !tbaa !5
-  %.pre72 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
+  %.pre75 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %print_board.exit
 
 print_board.exit:                                 ; preds = %print_board.exitthread-pre-split, %if.then14
-  %16 = phi i32 [ %.pre72, %print_board.exitthread-pre-split ], [ %6, %if.then14 ]
+  %16 = phi i32 [ %.pre75, %print_board.exitthread-pre-split ], [ %6, %if.then14 ]
   %17 = phi i32 [ %.pr, %print_board.exitthread-pre-split ], [ %12, %if.then14 ]
   %cmp25.i31 = icmp sgt i32 %17, 0
   br i1 %cmp25.i31, label %for.cond3.preheader.lr.ph.i33, label %print_board.exit57
@@ -892,42 +892,42 @@ for.body5.us.i48:                                 ; preds = %for.body5.us.i48, %
 
 for.cond3.for.end_crit_edge.us.i51:               ; preds = %for.body5.us.i48
   %19 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.us.i49 = tail call i32 @putc(i32 noundef 10, ptr noundef %19)
+  %call.i60 = tail call i32 @putc(i32 noundef 10, ptr noundef %19)
   %exitcond30.not.i50 = icmp eq i64 %indvars.iv.next.i37, %wide.trip.count.i34
   br i1 %exitcond30.not.i50, label %print_board.exit57, label %for.cond3.preheader.us.i39, !llvm.loop !20
 
 for.cond3.preheader.i56:                          ; preds = %for.cond3.preheader.lr.ph.i33, %for.cond3.preheader.i56
   %i.026.i52 = phi i32 [ %inc15.i54, %for.cond3.preheader.i56 ], [ 0, %for.cond3.preheader.lr.ph.i33 ]
   %20 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.i53 = tail call i32 @putc(i32 noundef 10, ptr noundef %20)
+  %call.i59 = tail call i32 @putc(i32 noundef 10, ptr noundef %20)
   %inc15.i54 = add nuw nsw i32 %i.026.i52, 1
   %exitcond.not.i55 = icmp eq i32 %inc15.i54, %17
   br i1 %exitcond.not.i55, label %print_board.exit57, label %for.cond3.preheader.i56, !llvm.loop !20
 
 print_board.exit57:                               ; preds = %for.cond3.preheader.i56, %for.cond3.for.end_crit_edge.us.i51, %print_board.exit
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %4, i32 noundef %10, i32 noundef 1)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 136, i32 noundef 1, ptr noundef nonnull @.str.2) #9
-  %.pre73 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 136, i32 noundef 1, ptr noundef nonnull @.str.2) #10
+  %.pre76 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %for.inc
 
 for.inc:                                          ; preds = %for.body4, %print_board.exit57
-  %21 = phi i32 [ %5, %for.body4 ], [ %.pre73, %print_board.exit57 ]
+  %21 = phi i32 [ %5, %for.body4 ], [ %.pre76, %print_board.exit57 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %22 = sext i32 %21 to i64
   %cmp3.not = icmp sgt i64 %indvars.iv, %22
   br i1 %cmp3.not, label %for.inc17.loopexit, label %for.body4, !llvm.loop !21
 
 for.inc17.loopexit:                               ; preds = %for.inc
-  %.pre74 = load i32, ptr @g_board_size, align 4, !tbaa !5
+  %.pre77 = load i32, ptr @g_board_size, align 4, !tbaa !5
   br label %for.inc17
 
 for.inc17:                                        ; preds = %for.inc17.loopexit, %for.cond1.preheader
-  %23 = phi i32 [ %.pre74, %for.inc17.loopexit ], [ %1, %for.cond1.preheader ]
+  %23 = phi i32 [ %.pre77, %for.inc17.loopexit ], [ %1, %for.cond1.preheader ]
   %24 = phi i32 [ %21, %for.inc17.loopexit ], [ %2, %for.cond1.preheader ]
   %25 = phi i32 [ %21, %for.inc17.loopexit ], [ %3, %for.cond1.preheader ]
-  %indvars.iv.next70 = add nuw nsw i64 %indvars.iv69, 1
+  %indvars.iv.next73 = add nuw nsw i64 %indvars.iv72, 1
   %26 = sext i32 %23 to i64
-  %cmp.not = icmp sgt i64 %indvars.iv69, %26
+  %cmp.not = icmp sgt i64 %indvars.iv72, %26
   br i1 %cmp.not, label %for.end19, label %for.cond1.preheader, !llvm.loop !22
 
 for.end19:                                        ; preds = %for.inc17, %entry
@@ -975,15 +975,13 @@ for.body5.us:                                     ; preds = %for.cond3.preheader
   br i1 %exitcond28.not, label %for.cond3.for.end_crit_edge.us, label %for.body5.us, !llvm.loop !17
 
 for.cond3.for.end_crit_edge.us:                   ; preds = %for.body5.us
-  %3 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.us = tail call i32 @putc(i32 noundef 10, ptr noundef %3)
+  %putchar.us = tail call i32 @putchar(i32 10)
   %exitcond30.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond30.not, label %for.end16, label %for.cond3.preheader.us, !llvm.loop !20
 
 for.cond3.preheader:                              ; preds = %for.cond3.preheader.lr.ph, %for.cond3.preheader
   %i.026 = phi i32 [ %inc15, %for.cond3.preheader ], [ 0, %for.cond3.preheader.lr.ph ]
-  %4 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %4)
+  %putchar = tail call i32 @putchar(i32 10)
   %inc15 = add nuw nsw i32 %i.026, 1
   %exitcond.not = icmp eq i32 %inc15, %0
   br i1 %exitcond.not, label %for.end16, label %for.cond3.preheader, !llvm.loop !20
@@ -1039,17 +1037,17 @@ define dso_local void @print_board_info(i32 %player) local_unnamed_addr #3 {
 entry:
   %str = alloca [32 x [80 x i8]], align 16
   %null_str = alloca [1 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 2560, ptr nonnull %str) #9
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %null_str) #9
+  call void @llvm.lifetime.start.p0(i64 2560, ptr nonnull %str) #10
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %null_str) #10
   store i8 0, ptr %null_str, align 1
   %0 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %1 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   %cond = tail call i32 @llvm.smax.i32(i32 %0, i32 %1)
   %arrayidx = getelementptr inbounds [32 x [80 x i8]], ptr %str, i64 0, i64 1
-  %call = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %arrayidx, ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %0) #9
+  %call = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %arrayidx, ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %0) #10
   %arrayidx1 = getelementptr inbounds [32 x [80 x i8]], ptr %str, i64 0, i64 2
   %2 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
-  %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %arrayidx1, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %2) #9
+  %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %arrayidx1, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %2) #10
   %call5 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, ptr noundef nonnull %null_str, ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.12)
   %call7 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, ptr noundef nonnull %null_str, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15)
   %cmp844 = icmp sgt i32 %cond, 0
@@ -1084,8 +1082,8 @@ for.end:                                          ; preds = %for.body, %entry
   %10 = load i32, ptr getelementptr inbounds ([2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 0, i32 1), align 4, !tbaa !33
   %11 = load i32, ptr @g_info_totals, align 16, !tbaa !35
   %call33 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %8, i32 noundef %9, i32 noundef %10, i32 noundef %11)
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %null_str) #9
-  call void @llvm.lifetime.end.p0(i64 2560, ptr nonnull %str) #9
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %null_str) #10
+  call void @llvm.lifetime.end.p0(i64 2560, ptr nonnull %str) #10
   ret void
 }
 
@@ -1137,7 +1135,7 @@ entry:
 define dso_local void @print_u64bit(i64 noundef %val) local_unnamed_addr #0 {
 entry:
   %vals = alloca [10 x i32], align 16
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %vals) #9
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %vals) #10
   br label %do.body
 
 do.body:                                          ; preds = %do.body, %entry
@@ -1158,7 +1156,7 @@ do.end:                                           ; preds = %do.body
   br i1 %cmp2, label %if.end.thread, label %if.end
 
 if.end.thread:                                    ; preds = %do.end
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 255, i32 noundef 1, ptr noundef nonnull @.str.20) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 255, i32 noundef 1, ptr noundef nonnull @.str.20) #10
   %call25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.21, i32 noundef %conv)
   br label %while.body.preheader
 
@@ -1180,7 +1178,7 @@ while.body:                                       ; preds = %while.body.preheade
   br i1 %2, label %while.end, label %while.body, !llvm.loop !38
 
 while.end:                                        ; preds = %while.body, %if.end
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %vals) #9
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %vals) #10
   ret void
 }
 
@@ -1194,7 +1192,7 @@ entry:
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %entry
@@ -1245,7 +1243,7 @@ if.then:                                          ; preds = %for.body3
   br i1 %cmp.i, label %if.then.i, label %if.end.i
 
 if.then.i:                                        ; preds = %if.then
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i, %if.then
@@ -1271,7 +1269,7 @@ print_keyinfo.exit:                               ; preds = %if.then1.i, %if.els
   br i1 %cmp.i62, label %if.then.i63, label %if.end.i65
 
 if.then.i63:                                      ; preds = %print_keyinfo.exit
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %if.end.i65
 
 if.end.i65:                                       ; preds = %if.then.i63, %print_keyinfo.exit
@@ -1297,7 +1295,7 @@ print_keyinfo.exit70:                             ; preds = %if.then1.i67, %if.e
   br i1 %cmp.i74, label %if.then.i75, label %if.end.i77
 
 if.then.i75:                                      ; preds = %print_keyinfo.exit70
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %if.end.i77
 
 if.end.i77:                                       ; preds = %if.then.i75, %print_keyinfo.exit70
@@ -1323,7 +1321,7 @@ print_keyinfo.exit82:                             ; preds = %if.then1.i79, %if.e
   br i1 %cmp.i86, label %if.then.i87, label %if.end.i89
 
 if.then.i87:                                      ; preds = %print_keyinfo.exit82
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %if.end.i89
 
 if.end.i89:                                       ; preds = %if.then.i87, %print_keyinfo.exit82
@@ -1355,6 +1353,9 @@ for.inc35:                                        ; preds = %for.inc
 for.end37:                                        ; preds = %for.inc35
   ret void
 }
+
+; Function Attrs: inlinehint nofree nounwind uwtable
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @print_external() local_unnamed_addr #0 {
@@ -1399,21 +1400,20 @@ for.body5.us.i:                                   ; preds = %for.body5.us.i, %fo
 
 for.cond3.for.end_crit_edge.us.i:                 ; preds = %for.body5.us.i
   %3 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.us.i = tail call i32 @putc(i32 noundef 10, ptr noundef %3)
+  %call.i1 = tail call i32 @putc(i32 noundef 10, ptr noundef %3)
   %exitcond30.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
   br i1 %exitcond30.not.i, label %print_board.exit, label %for.cond3.preheader.us.i, !llvm.loop !20
 
 for.cond3.preheader.i:                            ; preds = %for.cond3.preheader.lr.ph.i, %for.cond3.preheader.i
   %i.026.i = phi i32 [ %inc15.i, %for.cond3.preheader.i ], [ 0, %for.cond3.preheader.lr.ph.i ]
   %4 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i.i = tail call i32 @putc(i32 noundef 10, ptr noundef %4)
+  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %4)
   %inc15.i = add nuw nsw i32 %i.026.i, 1
   %exitcond.not.i = icmp eq i32 %inc15.i, %0
   br i1 %exitcond.not.i, label %print_board.exit, label %for.cond3.preheader.i, !llvm.loop !20
 
 print_board.exit:                                 ; preds = %for.cond3.preheader.i, %for.cond3.for.end_crit_edge.us.i, %entry
-  %5 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %5)
+  %putchar = tail call i32 @putchar(i32 10)
   tail call void @print_board_info(i32 poison)
   store i32 0, ptr @g_print, align 4, !tbaa !5
   ret void
@@ -1428,12 +1428,12 @@ entry:
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
-  tail call void @free(ptr noundef nonnull %0) #9
+  tail call void @free(ptr noundef nonnull %0) #10
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %entry
   %1 = load i64, ptr @g_num_nodes, align 8, !tbaa !43
-  %call = tail call ptr @u64bit_to_string(i64 noundef %1) #9
+  %call = tail call ptr @u64bit_to_string(i64 noundef %1) #10
   %2 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 1), align 4, !tbaa !5
   %3 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 2), align 8, !tbaa !5
   %4 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 3), align 4, !tbaa !5
@@ -1443,16 +1443,16 @@ if.end:                                           ; preds = %if.then, %entry
   %8 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 7), align 4, !tbaa !5
   %9 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 8), align 16, !tbaa !5
   %10 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 9), align 4, !tbaa !5
-  %call1 = tail call i32 (ptr, ptr, ...) @asprintf(ptr noundef nonnull @current_search_state.str, ptr noundef nonnull @.str.27, ptr noundef %call, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %10) #9
+  %call1 = tail call i32 (ptr, ptr, ...) @asprintf(ptr noundef nonnull @current_search_state.str, ptr noundef nonnull @.str.27, ptr noundef %call, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %10) #10
   %11 = load ptr, ptr @current_search_state.str, align 8, !tbaa !18
   ret ptr %11
 }
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #6
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: nounwind
-declare i32 @asprintf(ptr noundef, ptr noundef, ...) local_unnamed_addr #7
+declare i32 @asprintf(ptr noundef, ptr noundef, ...) local_unnamed_addr #8
 
 declare ptr @u64bit_to_string(i64 noundef) local_unnamed_addr #5
 
@@ -1460,7 +1460,7 @@ declare ptr @u64bit_to_string(i64 noundef) local_unnamed_addr #5
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #8
+declare i32 @llvm.smax.i32(i32, i32) #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1468,10 +1468,11 @@ attributes #2 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nounwind }
+attributes #6 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

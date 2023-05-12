@@ -11,26 +11,33 @@ entry:
   %tobool.not = icmp eq i32 %fname, 0
   %tobool1.not = icmp eq i32 %nparts, 0
   %or.cond = or i1 %tobool.not, %tobool1.not
-  br i1 %or.cond, label %while.cond.preheader, label %if.then2
-
-while.cond.preheader:                             ; preds = %entry
-  br i1 %tobool1.not, label %while.cond.us, label %while.cond, !llvm.loop !5
-
-while.cond.us:                                    ; preds = %while.cond.preheader
-  store i32 0, ptr @f3.x, align 4, !tbaa !7
-  ret void
+  br i1 %or.cond, label %while.condthread-pre-split, label %if.then2
 
 if.then2:                                         ; preds = %entry
   tail call void @abort() #5
   unreachable
 
-while.cond:                                       ; preds = %while.cond.preheader
-  %f3.x.promoted = load i32, ptr @f3.x, align 4, !tbaa !7
-  %0 = icmp eq i32 %f3.x.promoted, 0
-  %lnot.ext.i = zext i1 %0 to i32
-  store i32 %lnot.ext.i, ptr @f3.x, align 4, !tbaa !7
+while.condthread-pre-split:                       ; preds = %entry
+  br i1 %tobool1.not, label %if.end16, label %while.cond, !llvm.loop !5
+
+while.cond:                                       ; preds = %while.condthread-pre-split
+  %.pr = load i32, ptr @f3.x, align 4, !tbaa !7
+  %tobool.not.i = icmp eq i32 %.pr, 0
+  br i1 %tobool.not.i, label %land.lhs.true, label %if.then15
+
+land.lhs.true:                                    ; preds = %while.cond
+  store i32 1, ptr @f3.x, align 4, !tbaa !7
   tail call void @abort() #5
   unreachable
+
+if.then15:                                        ; preds = %while.cond
+  store i32 0, ptr @f3.x, align 4, !tbaa !7
+  tail call void @abort() #5
+  unreachable
+
+if.end16:                                         ; preds = %while.condthread-pre-split
+  store i32 0, ptr @f3.x, align 4, !tbaa !7
+  ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable

@@ -203,14 +203,14 @@ entry:
   br i1 %tobool.not, label %cleanup62, label %while.body
 
 while.body:                                       ; preds = %entry, %while.body
-  %indvars.iv131 = phi i32 [ %indvars.iv.next132, %while.body ], [ 1, %entry ]
+  %indvars.iv132 = phi i32 [ %indvars.iv.next133, %while.body ], [ 1, %entry ]
   %o.0118 = phi ptr [ %1, %while.body ], [ %0, %entry ]
   %n.0117 = phi i32 [ %inc, %while.body ], [ 0, %entry ]
   %inc = add nuw nsw i32 %n.0117, 1
   %next = getelementptr inbounds %struct.MyOptionSt, ptr %o.0118, i64 0, i32 7
   %1 = load ptr, ptr %next, align 8, !tbaa !18
   %tobool1.not = icmp eq ptr %1, null
-  %indvars.iv.next132 = add nuw i32 %indvars.iv131, 1
+  %indvars.iv.next133 = add nuw i32 %indvars.iv132, 1
   br i1 %tobool1.not, label %for.body.preheader, label %while.body
 
 for.body.preheader:                               ; preds = %while.body
@@ -220,30 +220,31 @@ for.body.preheader:                               ; preds = %while.body
   %call.i = tail call noalias ptr @calloc(i64 noundef %conv, i64 noundef 1) #10
   %conv2 = zext i32 %inc to i64
   %call.i106 = tail call noalias ptr @calloc(i64 noundef %conv2, i64 noundef 32) #10
-  %wide.trip.count = zext i32 %indvars.iv131 to i64
+  %wide.trip.count = zext i32 %indvars.iv132 to i64
   br label %for.body
 
 while.cond22.preheader:                           ; preds = %if.end19
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %option_index) #12
   store i32 0, ptr %option_index, align 4, !tbaa !12
-  %call24122 = call i32 @getopt_long(i32 noundef %argc, ptr noundef %argv, ptr noundef %call.i, ptr noundef nonnull %call.i106, ptr noundef nonnull %option_index) #12
-  %cmp25123 = icmp eq i32 %call24122, -1
-  br i1 %cmp25123, label %while.end61, label %if.end28
+  %call24123 = call i32 @getopt_long(i32 noundef %argc, ptr noundef %argv, ptr noundef %call.i, ptr noundef nonnull %call.i106, ptr noundef nonnull %option_index) #12
+  %cmp25124 = icmp eq i32 %call24123, -1
+  br i1 %cmp25124, label %while.end61, label %if.end28
 
 for.body:                                         ; preds = %for.body.preheader, %if.end19
   %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %if.end19 ]
-  %o.1121 = phi ptr [ %0, %for.body.preheader ], [ %6, %if.end19 ]
-  %longArg = getelementptr inbounds %struct.MyOptionSt, ptr %o.1121, i64 0, i32 1
+  %o.1122.in = phi ptr [ @myargs, %for.body.preheader ], [ %next20, %if.end19 ]
+  %o.1122 = load ptr, ptr %o.1122.in, align 8, !tbaa !17
+  %longArg = getelementptr inbounds %struct.MyOptionSt, ptr %o.1122, i64 0, i32 1
   %2 = load ptr, ptr %longArg, align 8, !tbaa !11
   %arrayidx = getelementptr inbounds %struct.option, ptr %call.i106, i64 %indvars.iv
   store ptr %2, ptr %arrayidx, align 8, !tbaa !20
-  %argFlag = getelementptr inbounds %struct.MyOptionSt, ptr %o.1121, i64 0, i32 3
+  %argFlag = getelementptr inbounds %struct.MyOptionSt, ptr %o.1122, i64 0, i32 3
   %3 = load i32, ptr %argFlag, align 4, !tbaa !13
   %has_arg = getelementptr inbounds %struct.option, ptr %call.i106, i64 %indvars.iv, i32 1
   store i32 %3, ptr %has_arg, align 8, !tbaa !22
   %flag = getelementptr inbounds %struct.option, ptr %call.i106, i64 %indvars.iv, i32 2
   store ptr null, ptr %flag, align 8, !tbaa !23
-  %shortArg = getelementptr inbounds %struct.MyOptionSt, ptr %o.1121, i64 0, i32 2
+  %shortArg = getelementptr inbounds %struct.MyOptionSt, ptr %o.1122, i64 0, i32 2
   %4 = load i8, ptr %shortArg, align 8, !tbaa !19
   %conv10 = zext i8 %4 to i32
   %val = getelementptr inbounds %struct.option, ptr %call.i106, i64 %indvars.iv, i32 3
@@ -260,53 +261,52 @@ if.then17:                                        ; preds = %for.body
   br label %if.end19
 
 if.end19:                                         ; preds = %if.then17, %for.body
-  %next20 = getelementptr inbounds %struct.MyOptionSt, ptr %o.1121, i64 0, i32 7
-  %6 = load ptr, ptr %next20, align 8, !tbaa !18
+  %next20 = getelementptr inbounds %struct.MyOptionSt, ptr %o.1122, i64 0, i32 7
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %while.cond22.preheader, label %for.body
 
 if.end28:                                         ; preds = %while.cond22.preheader, %cleanup
-  %call24124 = phi i32 [ %call24, %cleanup ], [ %call24122, %while.cond22.preheader ]
-  %7 = load ptr, ptr @myargs, align 8, !tbaa !17
-  %conv29 = trunc i32 %call24124 to i8
-  %tobool.not8.i = icmp eq ptr %7, null
+  %call24125 = phi i32 [ %call24, %cleanup ], [ %call24123, %while.cond22.preheader ]
+  %6 = load ptr, ptr @myargs, align 8, !tbaa !17
+  %conv29 = trunc i32 %call24125 to i8
+  %tobool.not8.i = icmp eq ptr %6, null
   br i1 %tobool.not8.i, label %if.then32, label %while.body.i
 
 while.body.i:                                     ; preds = %if.end28, %if.end.i
-  %o.addr.09.i = phi ptr [ %9, %if.end.i ], [ %7, %if.end28 ]
+  %o.addr.09.i = phi ptr [ %8, %if.end.i ], [ %6, %if.end28 ]
   %shortArg1.i = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 2
-  %8 = load i8, ptr %shortArg1.i, align 8, !tbaa !19
-  %cmp.i = icmp eq i8 %8, %conv29
+  %7 = load i8, ptr %shortArg1.i, align 8, !tbaa !19
+  %cmp.i = icmp eq i8 %7, %conv29
   br i1 %cmp.i, label %if.end34, label %if.end.i
 
 if.end.i:                                         ; preds = %while.body.i
   %next.i = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 7
-  %9 = load ptr, ptr %next.i, align 8, !tbaa !18
-  %tobool.not.i = icmp eq ptr %9, null
+  %8 = load ptr, ptr %next.i, align 8, !tbaa !18
+  %tobool.not.i = icmp eq ptr %8, null
   br i1 %tobool.not.i, label %if.then32, label %while.body.i
 
 if.then32:                                        ; preds = %if.end28, %if.end.i
-  %10 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call33 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.6, i32 noundef %call24124)
+  %9 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %call33 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.6, i32 noundef %call24125)
   br label %while.end61
 
 if.end34:                                         ; preds = %while.body.i
   %argFlag35 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 3
-  %11 = load i32, ptr %argFlag35, align 4, !tbaa !13
-  %tobool36.not = icmp eq i32 %11, 0
+  %10 = load i32, ptr %argFlag35, align 4, !tbaa !13
+  %tobool36.not = icmp eq i32 %10, 0
   br i1 %tobool36.not, label %if.then37, label %if.else
 
 if.then37:                                        ; preds = %if.end34
   %ptr = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %12 = load ptr, ptr %ptr, align 8, !tbaa !15
-  store i32 1, ptr %12, align 4, !tbaa !12
+  %11 = load ptr, ptr %ptr, align 8, !tbaa !15
+  store i32 1, ptr %11, align 4, !tbaa !12
   br label %cleanup
 
 if.else:                                          ; preds = %if.end34
   %type = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 4
-  %13 = load i8, ptr %type, align 8, !tbaa !14
-  %conv39 = sext i8 %13 to i32
+  %12 = load i8, ptr %type, align 8, !tbaa !14
+  %conv39 = sext i8 %12 to i32
   switch i32 %conv39, label %sw.default [
     i32 105, label %sw.bb
     i32 102, label %sw.bb42
@@ -316,52 +316,52 @@ if.else:                                          ; preds = %if.end34
   ]
 
 sw.bb:                                            ; preds = %if.else
-  %14 = load ptr, ptr @optarg, align 8, !tbaa !17
+  %13 = load ptr, ptr @optarg, align 8, !tbaa !17
   %ptr40 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %15 = load ptr, ptr %ptr40, align 8, !tbaa !15
-  %call41 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %14, ptr noundef nonnull @.str.7, ptr noundef %15) #12
+  %14 = load ptr, ptr %ptr40, align 8, !tbaa !15
+  %call41 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %13, ptr noundef nonnull @.str.7, ptr noundef %14) #12
   br label %cleanup
 
 sw.bb42:                                          ; preds = %if.else
-  %16 = load ptr, ptr @optarg, align 8, !tbaa !17
+  %15 = load ptr, ptr @optarg, align 8, !tbaa !17
   %ptr43 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %17 = load ptr, ptr %ptr43, align 8, !tbaa !15
-  %call44 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %16, ptr noundef nonnull @.str.8, ptr noundef %17) #12
+  %16 = load ptr, ptr %ptr43, align 8, !tbaa !15
+  %call44 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %15, ptr noundef nonnull @.str.8, ptr noundef %16) #12
   br label %cleanup
 
 sw.bb45:                                          ; preds = %if.else
-  %18 = load ptr, ptr @optarg, align 8, !tbaa !17
+  %17 = load ptr, ptr @optarg, align 8, !tbaa !17
   %ptr46 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %19 = load ptr, ptr %ptr46, align 8, !tbaa !15
-  %call47 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %18, ptr noundef nonnull @.str.9, ptr noundef %19) #12
+  %18 = load ptr, ptr %ptr46, align 8, !tbaa !15
+  %call47 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %17, ptr noundef nonnull @.str.9, ptr noundef %18) #12
   br label %cleanup
 
 sw.bb48:                                          ; preds = %if.else
   %ptr49 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %20 = load ptr, ptr %ptr49, align 8, !tbaa !15
-  %21 = load ptr, ptr @optarg, align 8, !tbaa !17
+  %19 = load ptr, ptr %ptr49, align 8, !tbaa !15
+  %20 = load ptr, ptr @optarg, align 8, !tbaa !17
   %sz = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 5
-  %22 = load i32, ptr %sz, align 4, !tbaa !16
-  %conv50 = sext i32 %22 to i64
-  %call51 = call ptr @strncpy(ptr noundef %20, ptr noundef %21, i64 noundef %conv50) #12
-  %23 = load ptr, ptr %ptr49, align 8, !tbaa !15
-  %24 = load i32, ptr %sz, align 4, !tbaa !16
-  %sub = add nsw i32 %24, -1
+  %21 = load i32, ptr %sz, align 4, !tbaa !16
+  %conv50 = sext i32 %21 to i64
+  %call51 = call ptr @strncpy(ptr noundef %19, ptr noundef %20, i64 noundef %conv50) #12
+  %22 = load ptr, ptr %ptr49, align 8, !tbaa !15
+  %23 = load i32, ptr %sz, align 4, !tbaa !16
+  %sub = add nsw i32 %23, -1
   %idxprom54 = sext i32 %sub to i64
-  %arrayidx55 = getelementptr inbounds i8, ptr %23, i64 %idxprom54
+  %arrayidx55 = getelementptr inbounds i8, ptr %22, i64 %idxprom54
   store i8 0, ptr %arrayidx55, align 1, !tbaa !19
   br label %cleanup
 
 sw.bb56:                                          ; preds = %if.else
-  %25 = load ptr, ptr @optarg, align 8, !tbaa !17
+  %24 = load ptr, ptr @optarg, align 8, !tbaa !17
   %ptr57 = getelementptr inbounds %struct.MyOptionSt, ptr %o.addr.09.i, i64 0, i32 6
-  %26 = load ptr, ptr %ptr57, align 8, !tbaa !15
-  %call58 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %25, ptr noundef nonnull @.str.10, ptr noundef %26) #12
+  %25 = load ptr, ptr %ptr57, align 8, !tbaa !15
+  %call58 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %24, ptr noundef nonnull @.str.10, ptr noundef %25) #12
   br label %cleanup
 
 sw.default:                                       ; preds = %if.else
-  %27 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call59 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %27, ptr noundef nonnull @.str.11, i32 noundef %call24124)
+  %26 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %call59 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %26, ptr noundef nonnull @.str.11, i32 noundef %call24125)
   br label %cleanup
 
 cleanup:                                          ; preds = %if.then37, %sw.default, %sw.bb56, %sw.bb48, %sw.bb45, %sw.bb42, %sw.bb

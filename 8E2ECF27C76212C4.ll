@@ -253,7 +253,7 @@ while.end:                                        ; preds = %if.end112, %if.end7
 
 if.then115:                                       ; preds = %while.end.thread, %while.end
   %18 = load ptr, ptr @stdin, align 8, !tbaa !12
-  %call.i141 = call i32 @getc(ptr noundef %18)
+  %call.i136 = call i32 @getc(ptr noundef %18)
   %call117 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10)
   %call119 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.2, ptr noundef nonnull %ans)
   %19 = load i8, ptr %ans, align 1, !tbaa !9

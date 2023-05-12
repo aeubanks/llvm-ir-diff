@@ -84,7 +84,7 @@ for.body.prol.loopexit:                           ; preds = %for.body.prol, %for
   %.unr = phi i32 [ %.pr, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
   %tobool19.unr = phi i1 [ %6, %for.body.preheader ], [ %spec.select.prol, %for.body.prol ]
   %9 = icmp ugt i32 %.pr, -8
-  br i1 %9, label %for.cond.for.end_crit_edge.loopexit39, label %for.body
+  br i1 %9, label %for.cond.for.end_crit_edge.loopexit40, label %for.body
 
 for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
   %10 = phi i32 [ %inc.7, %for.body ], [ %.unr, %for.body.prol.loopexit ]
@@ -92,15 +92,15 @@ for.body:                                         ; preds = %for.body.prol.loope
   %spec.select.7 = select i1 %tobool19, i1 true, i1 %tobool23
   %inc.7 = add nsw i32 %10, 8
   %tobool13.not.7 = icmp eq i32 %inc.7, 0
-  br i1 %tobool13.not.7, label %for.cond.for.end_crit_edge.loopexit39, label %for.body, !llvm.loop !14
+  br i1 %tobool13.not.7, label %for.cond.for.end_crit_edge.loopexit40, label %for.body, !llvm.loop !14
 
-for.cond.for.end_crit_edge.loopexit39:            ; preds = %for.body, %for.body.prol.loopexit
+for.cond.for.end_crit_edge.loopexit40:            ; preds = %for.body, %for.body.prol.loopexit
   %spec.select.lcssa = phi i1 [ %spec.select.lcssa.unr, %for.body.prol.loopexit ], [ %spec.select.7, %for.body ]
   %conv26 = zext i1 %spec.select.lcssa to i8
   br label %for.cond.for.end_crit_edge
 
-for.cond.for.end_crit_edge:                       ; preds = %for.body.lr.ph, %for.cond.for.end_crit_edge.loopexit39
-  %.us-phi38 = phi i8 [ %conv26, %for.cond.for.end_crit_edge.loopexit39 ], [ 1, %for.body.lr.ph ]
+for.cond.for.end_crit_edge:                       ; preds = %for.body.lr.ph, %for.cond.for.end_crit_edge.loopexit40
+  %.us-phi38 = phi i8 [ %conv26, %for.cond.for.end_crit_edge.loopexit40 ], [ 1, %for.body.lr.ph ]
   store i8 %.us-phi38, ptr @m, align 1, !tbaa !5
   store i32 0, ptr @j, align 4, !tbaa !10
   br label %for.end
@@ -110,17 +110,17 @@ for.end:                                          ; preds = %for.cond.for.end_cr
   %12 = trunc i32 %11 to i8
   %conv27 = add i8 %12, 1
   store i8 %conv27, ptr @l, align 1, !tbaa !5
-  %13 = icmp slt i32 %11, 1
-  br i1 %13, label %for.body31, label %for.end36
+  %cmp2939 = icmp slt i32 %11, 1
+  br i1 %cmp2939, label %for.body31.lr.ph, label %for.end36
 
-for.body31:                                       ; preds = %for.end
-  %14 = load i8, ptr @h, align 1, !tbaa !5
-  %add33 = add i8 %14, 1
+for.body31.lr.ph:                                 ; preds = %for.end
+  %13 = load i8, ptr @h, align 1, !tbaa !5
+  %add33 = add i8 %13, 1
   store i8 %add33, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
   br label %for.end36
 
-for.end36:                                        ; preds = %for.body31, %for.end
+for.end36:                                        ; preds = %for.body31.lr.ph, %for.end
   ret void
 }
 
@@ -192,17 +192,17 @@ for.body.lr.ph.i.us.us.peel:                      ; preds = %for.body.us.us.peel
   br label %for.end.i.us.us.peel
 
 for.end.i.us.us.peel:                             ; preds = %for.body.lr.ph.i.us.us.peel, %for.body.us.us.peel
-  %9 = icmp slt i32 %f.promoted, 1
-  br i1 %9, label %for.body31.i.us.us.peel, label %fn1.exit.us.us.peel
+  %cmp2939.i.us.us.peel = icmp slt i32 %f.promoted, 1
+  br i1 %cmp2939.i.us.us.peel, label %for.body31.lr.ph.i.us.us.peel, label %fn1.exit.us.us.peel
 
-for.body31.i.us.us.peel:                          ; preds = %for.end.i.us.us.peel
+for.body31.lr.ph.i.us.us.peel:                    ; preds = %for.end.i.us.us.peel
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
   br label %fn1.exit.us.us.peel
 
-fn1.exit.us.us.peel:                              ; preds = %for.body31.i.us.us.peel, %for.end.i.us.us.peel
-  %add33.i9.us.us.peel = phi i8 [ %k.promoted, %for.end.i.us.us.peel ], [ %add33.i, %for.body31.i.us.us.peel ]
-  %10 = phi i32 [ %f.promoted, %for.end.i.us.us.peel ], [ 1, %for.body31.i.us.us.peel ]
+fn1.exit.us.us.peel:                              ; preds = %for.body31.lr.ph.i.us.us.peel, %for.end.i.us.us.peel
+  %add33.i9.us.us.peel = phi i8 [ %k.promoted, %for.end.i.us.us.peel ], [ %add33.i, %for.body31.lr.ph.i.us.us.peel ]
+  %9 = phi i32 [ %f.promoted, %for.end.i.us.us.peel ], [ 1, %for.body31.lr.ph.i.us.us.peel ]
   %conv.us.us.peel = sext i8 %add33.i9.us.us.peel to i32
   %cmp1.us.us.peel = icmp slt i32 %7, %conv.us.us.peel
   br i1 %cmp1.us.us.peel, label %if.then3.us.us.peel, label %for.inc.us.us.peel
@@ -212,15 +212,15 @@ if.then3.us.us.peel:                              ; preds = %fn1.exit.us.us.peel
   br label %for.inc.us.us.peel
 
 for.inc.us.us.peel:                               ; preds = %if.then3.us.us.peel, %fn1.exit.us.us.peel
-  %exitcond122.not.peel = icmp eq i32 %.pr, 0
-  br i1 %exitcond122.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us.us
+  %exitcond125.not.peel = icmp eq i32 %.pr, 0
+  br i1 %exitcond125.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us.us
 
 for.body.us.us:                                   ; preds = %for.inc.us.us.peel, %for.inc.us.us
   %i.013.us.us = phi i8 [ %spec.select.us.us, %for.inc.us.us ], [ %add33.i9.us.us.peel, %for.inc.us.us.peel ]
-  %.in165 = phi i32 [ %12, %for.inc.us.us ], [ %.pr, %for.inc.us.us.peel ]
-  %11 = phi i32 [ %11, %for.inc.us.us ], [ %10, %for.inc.us.us.peel ]
+  %.in168 = phi i32 [ %11, %for.inc.us.us ], [ %.pr, %for.inc.us.us.peel ]
+  %10 = phi i32 [ %10, %for.inc.us.us ], [ %9, %for.inc.us.us.peel ]
   %add33.i811.us.us = phi i8 [ %add33.i811.us.us, %for.inc.us.us ], [ %add33.i9.us.us.peel, %for.inc.us.us.peel ]
-  %12 = add i32 %.in165, 1
+  %11 = add i32 %.in168, 1
   %tobool.not.us.us = icmp eq i8 %add33.i811.us.us, 0
   %spec.select.us.us = select i1 %tobool.not.us.us, i8 %i.013.us.us, i8 %add33.i811.us.us
   %conv.us.us = sext i8 %spec.select.us.us to i32
@@ -232,11 +232,11 @@ if.then3.us.us:                                   ; preds = %for.body.us.us
   br label %for.inc.us.us
 
 for.inc.us.us:                                    ; preds = %if.then3.us.us, %for.body.us.us
-  %exitcond122.not = icmp eq i32 %12, 0
-  br i1 %exitcond122.not, label %for.cond.for.end_crit_edge, label %for.body.us.us, !llvm.loop !16
+  %exitcond125.not = icmp eq i32 %11, 0
+  br i1 %exitcond125.not, label %for.cond.for.end_crit_edge, label %for.body.us.us, !llvm.loop !16
 
 for.body.lr.ph.split.us.split:                    ; preds = %for.body.lr.ph.split.us
-  br i1 %cmp7.i, label %for.body.us.us82.peel, label %for.body.us.peel
+  br i1 %cmp7.i, label %for.body.us.us84.peel, label %for.body.us.peel
 
 for.body.us.peel:                                 ; preds = %for.body.lr.ph.split.us.split
   br i1 %8, label %for.end.i.us.peel, label %for.body.lr.ph.i.us.peel
@@ -247,17 +247,17 @@ for.body.lr.ph.i.us.peel:                         ; preds = %for.body.us.peel
   br label %for.end.i.us.peel
 
 for.end.i.us.peel:                                ; preds = %for.body.lr.ph.i.us.peel, %for.body.us.peel
-  %13 = icmp slt i32 %f.promoted, 1
-  br i1 %13, label %for.body31.i.us.peel, label %fn1.exit.us.peel
+  %cmp2939.i.us.peel = icmp slt i32 %f.promoted, 1
+  br i1 %cmp2939.i.us.peel, label %for.body31.lr.ph.i.us.peel, label %fn1.exit.us.peel
 
-for.body31.i.us.peel:                             ; preds = %for.end.i.us.peel
+for.body31.lr.ph.i.us.peel:                       ; preds = %for.end.i.us.peel
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
   br label %fn1.exit.us.peel
 
-fn1.exit.us.peel:                                 ; preds = %for.body31.i.us.peel, %for.end.i.us.peel
-  %add33.i9.us.peel = phi i8 [ %k.promoted, %for.end.i.us.peel ], [ %add33.i, %for.body31.i.us.peel ]
-  %14 = phi i32 [ %f.promoted, %for.end.i.us.peel ], [ 1, %for.body31.i.us.peel ]
+fn1.exit.us.peel:                                 ; preds = %for.body31.lr.ph.i.us.peel, %for.end.i.us.peel
+  %add33.i9.us.peel = phi i8 [ %k.promoted, %for.end.i.us.peel ], [ %add33.i, %for.body31.lr.ph.i.us.peel ]
+  %12 = phi i32 [ %f.promoted, %for.end.i.us.peel ], [ 1, %for.body31.lr.ph.i.us.peel ]
   %conv.us.peel = sext i8 %add33.i9.us.peel to i32
   %cmp1.us.peel = icmp slt i32 %7, %conv.us.peel
   br i1 %cmp1.us.peel, label %if.then3.us.peel, label %for.inc.us.peel
@@ -267,67 +267,67 @@ if.then3.us.peel:                                 ; preds = %fn1.exit.us.peel
   br label %for.inc.us.peel
 
 for.inc.us.peel:                                  ; preds = %if.then3.us.peel, %fn1.exit.us.peel
-  %exitcond120.not.peel = icmp eq i32 %.pr, 0
-  br i1 %exitcond120.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us
+  %exitcond123.not.peel = icmp eq i32 %.pr, 0
+  br i1 %exitcond123.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us
 
-for.body.us.us82.peel:                            ; preds = %for.body.lr.ph.split.us.split
-  br i1 %8, label %for.end.i.us.us90.peel, label %for.body.lr.ph.i.us.us89.peel
+for.body.us.us84.peel:                            ; preds = %for.body.lr.ph.split.us.split
+  br i1 %8, label %for.end.i.us.us92.peel, label %for.body.lr.ph.i.us.us91.peel
 
-for.body.lr.ph.i.us.us89.peel:                    ; preds = %for.body.us.us82.peel
+for.body.lr.ph.i.us.us91.peel:                    ; preds = %for.body.us.us84.peel
   store i8 1, ptr @m, align 1, !tbaa !5
   store i32 0, ptr @j, align 4, !tbaa !10
-  br label %for.end.i.us.us90.peel
+  br label %for.end.i.us.us92.peel
 
-for.end.i.us.us90.peel:                           ; preds = %for.body.lr.ph.i.us.us89.peel, %for.body.us.us82.peel
-  %15 = icmp slt i32 %f.promoted, 1
-  br i1 %15, label %for.body31.i.us.us92.peel, label %fn1.exit.us.us93.peel
+for.end.i.us.us92.peel:                           ; preds = %for.body.lr.ph.i.us.us91.peel, %for.body.us.us84.peel
+  %cmp2939.i.us.us94.peel = icmp slt i32 %f.promoted, 1
+  br i1 %cmp2939.i.us.us94.peel, label %for.body31.lr.ph.i.us.us95.peel, label %fn1.exit.us.us96.peel
 
-for.body31.i.us.us92.peel:                        ; preds = %for.end.i.us.us90.peel
+for.body31.lr.ph.i.us.us95.peel:                  ; preds = %for.end.i.us.us92.peel
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
-  br label %fn1.exit.us.us93.peel
+  br label %fn1.exit.us.us96.peel
 
-fn1.exit.us.us93.peel:                            ; preds = %for.body31.i.us.us92.peel, %for.end.i.us.us90.peel
-  %add33.i9.us.us94.peel = phi i8 [ %k.promoted, %for.end.i.us.us90.peel ], [ %add33.i, %for.body31.i.us.us92.peel ]
-  %16 = phi i32 [ %f.promoted, %for.end.i.us.us90.peel ], [ 1, %for.body31.i.us.us92.peel ]
-  %conv.us.us97.peel = sext i8 %add33.i9.us.us94.peel to i32
-  %cmp1.us.us98.peel = icmp slt i32 %7, %conv.us.us97.peel
-  br i1 %cmp1.us.us98.peel, label %if.then3.us.us99.peel, label %for.inc.us.us100.peel
+fn1.exit.us.us96.peel:                            ; preds = %for.body31.lr.ph.i.us.us95.peel, %for.end.i.us.us92.peel
+  %add33.i9.us.us97.peel = phi i8 [ %k.promoted, %for.end.i.us.us92.peel ], [ %add33.i, %for.body31.lr.ph.i.us.us95.peel ]
+  %13 = phi i32 [ %f.promoted, %for.end.i.us.us92.peel ], [ 1, %for.body31.lr.ph.i.us.us95.peel ]
+  %conv.us.us100.peel = sext i8 %add33.i9.us.us97.peel to i32
+  %cmp1.us.us101.peel = icmp slt i32 %7, %conv.us.us100.peel
+  br i1 %cmp1.us.us101.peel, label %if.then3.us.us102.peel, label %for.inc.us.us103.peel
 
-if.then3.us.us99.peel:                            ; preds = %fn1.exit.us.us93.peel
+if.then3.us.us102.peel:                           ; preds = %fn1.exit.us.us96.peel
   store i32 0, ptr @g, align 4, !tbaa !10
-  br label %for.inc.us.us100.peel
+  br label %for.inc.us.us103.peel
 
-for.inc.us.us100.peel:                            ; preds = %if.then3.us.us99.peel, %fn1.exit.us.us93.peel
-  %exitcond121.not.peel = icmp eq i32 %.pr, 0
-  br i1 %exitcond121.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us.us82
+for.inc.us.us103.peel:                            ; preds = %if.then3.us.us102.peel, %fn1.exit.us.us96.peel
+  %exitcond124.not.peel = icmp eq i32 %.pr, 0
+  br i1 %exitcond124.not.peel, label %for.cond.for.end_crit_edge, label %for.body.us.us84
 
-for.body.us.us82:                                 ; preds = %for.inc.us.us100.peel, %for.inc.us.us100
-  %i.013.us.us83 = phi i8 [ %spec.select.us.us96, %for.inc.us.us100 ], [ %add33.i9.us.us94.peel, %for.inc.us.us100.peel ]
-  %.in164 = phi i32 [ %18, %for.inc.us.us100 ], [ %.pr, %for.inc.us.us100.peel ]
-  %17 = phi i32 [ %17, %for.inc.us.us100 ], [ %16, %for.inc.us.us100.peel ]
-  %add33.i811.us.us85 = phi i8 [ %add33.i811.us.us85, %for.inc.us.us100 ], [ %add33.i9.us.us94.peel, %for.inc.us.us100.peel ]
-  %18 = add i32 %.in164, 1
-  %tobool.not.us.us95 = icmp eq i8 %add33.i811.us.us85, 0
-  %spec.select.us.us96 = select i1 %tobool.not.us.us95, i8 %i.013.us.us83, i8 %add33.i811.us.us85
-  %conv.us.us97 = sext i8 %spec.select.us.us96 to i32
-  %cmp1.us.us98 = icmp slt i32 %7, %conv.us.us97
-  br i1 %cmp1.us.us98, label %if.then3.us.us99, label %for.inc.us.us100
+for.body.us.us84:                                 ; preds = %for.inc.us.us103.peel, %for.inc.us.us103
+  %i.013.us.us85 = phi i8 [ %spec.select.us.us99, %for.inc.us.us103 ], [ %add33.i9.us.us97.peel, %for.inc.us.us103.peel ]
+  %.in167 = phi i32 [ %15, %for.inc.us.us103 ], [ %.pr, %for.inc.us.us103.peel ]
+  %14 = phi i32 [ %14, %for.inc.us.us103 ], [ %13, %for.inc.us.us103.peel ]
+  %add33.i811.us.us87 = phi i8 [ %add33.i811.us.us87, %for.inc.us.us103 ], [ %add33.i9.us.us97.peel, %for.inc.us.us103.peel ]
+  %15 = add i32 %.in167, 1
+  %tobool.not.us.us98 = icmp eq i8 %add33.i811.us.us87, 0
+  %spec.select.us.us99 = select i1 %tobool.not.us.us98, i8 %i.013.us.us85, i8 %add33.i811.us.us87
+  %conv.us.us100 = sext i8 %spec.select.us.us99 to i32
+  %cmp1.us.us101 = icmp slt i32 %7, %conv.us.us100
+  br i1 %cmp1.us.us101, label %if.then3.us.us102, label %for.inc.us.us103
 
-if.then3.us.us99:                                 ; preds = %for.body.us.us82
+if.then3.us.us102:                                ; preds = %for.body.us.us84
   store i32 0, ptr @g, align 4, !tbaa !10
-  br label %for.inc.us.us100
+  br label %for.inc.us.us103
 
-for.inc.us.us100:                                 ; preds = %if.then3.us.us99, %for.body.us.us82
-  %exitcond121.not = icmp eq i32 %18, 0
-  br i1 %exitcond121.not, label %for.cond.for.end_crit_edge, label %for.body.us.us82, !llvm.loop !18
+for.inc.us.us103:                                 ; preds = %if.then3.us.us102, %for.body.us.us84
+  %exitcond124.not = icmp eq i32 %15, 0
+  br i1 %exitcond124.not, label %for.cond.for.end_crit_edge, label %for.body.us.us84, !llvm.loop !18
 
 for.body.us:                                      ; preds = %for.inc.us.peel, %for.inc.us
   %i.013.us = phi i8 [ %spec.select.us, %for.inc.us ], [ %add33.i9.us.peel, %for.inc.us.peel ]
-  %.in = phi i32 [ %20, %for.inc.us ], [ %.pr, %for.inc.us.peel ]
-  %19 = phi i32 [ %19, %for.inc.us ], [ %14, %for.inc.us.peel ]
+  %.in = phi i32 [ %17, %for.inc.us ], [ %.pr, %for.inc.us.peel ]
+  %16 = phi i32 [ %16, %for.inc.us ], [ %12, %for.inc.us.peel ]
   %add33.i811.us = phi i8 [ %add33.i811.us, %for.inc.us ], [ %add33.i9.us.peel, %for.inc.us.peel ]
-  %20 = add i32 %.in, 1
+  %17 = add i32 %.in, 1
   %tobool.not.us = icmp eq i8 %add33.i811.us, 0
   %spec.select.us = select i1 %tobool.not.us, i8 %i.013.us, i8 %add33.i811.us
   %conv.us = sext i8 %spec.select.us to i32
@@ -339,231 +339,231 @@ if.then3.us:                                      ; preds = %for.body.us
   br label %for.inc.us
 
 for.inc.us:                                       ; preds = %if.then3.us, %for.body.us
-  %exitcond120.not = icmp eq i32 %20, 0
-  br i1 %exitcond120.not, label %for.cond.for.end_crit_edge, label %for.body.us, !llvm.loop !19
+  %exitcond123.not = icmp eq i32 %17, 0
+  br i1 %exitcond123.not, label %for.cond.for.end_crit_edge, label %for.body.us, !llvm.loop !19
 
 for.body.lr.ph.split:                             ; preds = %for.body.lr.ph
   br i1 %cmp.i, label %for.body.us17, label %for.body.lr.ph.split.split
 
-for.body.us17:                                    ; preds = %for.body.lr.ph.split, %for.inc.us35
-  %i.013.us18 = phi i8 [ %spec.select.us31, %for.inc.us35 ], [ undef, %for.body.lr.ph.split ]
-  %21 = phi i32 [ %inc.us36, %for.inc.us35 ], [ %.pr, %for.body.lr.ph.split ]
-  %22 = phi i32 [ 0, %for.inc.us35 ], [ %j.promoted, %for.body.lr.ph.split ]
-  %.us-phi38.i712.us19 = phi i8 [ %.us-phi38.i6.us26, %for.inc.us35 ], [ %m.promoted, %for.body.lr.ph.split ]
-  %23 = phi i32 [ %30, %for.inc.us35 ], [ %f.promoted, %for.body.lr.ph.split ]
-  %add33.i811.us20 = phi i8 [ %add33.i9.us29, %for.inc.us35 ], [ %k.promoted, %for.body.lr.ph.split ]
-  %tobool13.not37.i.us23 = icmp eq i32 %22, 0
+for.body.us17:                                    ; preds = %for.body.lr.ph.split, %for.inc.us36
+  %i.013.us18 = phi i8 [ %spec.select.us32, %for.inc.us36 ], [ undef, %for.body.lr.ph.split ]
+  %18 = phi i32 [ %inc.us37, %for.inc.us36 ], [ %.pr, %for.body.lr.ph.split ]
+  %19 = phi i32 [ 0, %for.inc.us36 ], [ %j.promoted, %for.body.lr.ph.split ]
+  %.us-phi38.i712.us19 = phi i8 [ %.us-phi38.i6.us26, %for.inc.us36 ], [ %m.promoted, %for.body.lr.ph.split ]
+  %20 = phi i32 [ %26, %for.inc.us36 ], [ %f.promoted, %for.body.lr.ph.split ]
+  %add33.i811.us20 = phi i8 [ %add33.i9.us30, %for.inc.us36 ], [ %k.promoted, %for.body.lr.ph.split ]
+  %tobool13.not37.i.us23 = icmp eq i32 %19, 0
   br i1 %tobool13.not37.i.us23, label %for.end.i.us25, label %for.body.lr.ph.i.us24
 
 for.body.lr.ph.i.us24:                            ; preds = %for.body.us17
-  %24 = icmp ne i8 %.us-phi38.i712.us19, 0
-  %25 = sub i32 0, %22
-  %xtraiter157 = and i32 %25, 7
-  %lcmp.mod158.not = icmp eq i32 %xtraiter157, 0
-  br i1 %lcmp.mod158.not, label %for.body.i.us.prol.loopexit, label %for.body.i.us.prol
+  %21 = icmp ne i8 %.us-phi38.i712.us19, 0
+  %22 = sub i32 0, %19
+  %xtraiter160 = and i32 %22, 7
+  %lcmp.mod161.not = icmp eq i32 %xtraiter160, 0
+  br i1 %lcmp.mod161.not, label %for.body.i.us.prol.loopexit, label %for.body.i.us.prol
 
 for.body.i.us.prol:                               ; preds = %for.body.lr.ph.i.us24, %for.body.i.us.prol
-  %26 = phi i32 [ %inc.i.us.prol, %for.body.i.us.prol ], [ %22, %for.body.lr.ph.i.us24 ]
-  %tobool19.i.us.prol = phi i1 [ %spec.select.i.us.prol, %for.body.i.us.prol ], [ %24, %for.body.lr.ph.i.us24 ]
-  %prol.iter159 = phi i32 [ %prol.iter159.next, %for.body.i.us.prol ], [ 0, %for.body.lr.ph.i.us24 ]
+  %23 = phi i32 [ %inc.i.us.prol, %for.body.i.us.prol ], [ %19, %for.body.lr.ph.i.us24 ]
+  %tobool19.i.us.prol = phi i1 [ %spec.select.i.us.prol, %for.body.i.us.prol ], [ %21, %for.body.lr.ph.i.us24 ]
+  %prol.iter162 = phi i32 [ %prol.iter162.next, %for.body.i.us.prol ], [ 0, %for.body.lr.ph.i.us24 ]
   %spec.select.i.us.prol = select i1 %tobool19.i.us.prol, i1 true, i1 %tobool23.i
-  %inc.i.us.prol = add nsw i32 %26, 1
-  %prol.iter159.next = add i32 %prol.iter159, 1
-  %prol.iter159.cmp.not = icmp eq i32 %prol.iter159.next, %xtraiter157
-  br i1 %prol.iter159.cmp.not, label %for.body.i.us.prol.loopexit, label %for.body.i.us.prol, !llvm.loop !20
+  %inc.i.us.prol = add nsw i32 %23, 1
+  %prol.iter162.next = add i32 %prol.iter162, 1
+  %prol.iter162.cmp.not = icmp eq i32 %prol.iter162.next, %xtraiter160
+  br i1 %prol.iter162.cmp.not, label %for.body.i.us.prol.loopexit, label %for.body.i.us.prol, !llvm.loop !20
 
 for.body.i.us.prol.loopexit:                      ; preds = %for.body.i.us.prol, %for.body.lr.ph.i.us24
   %spec.select.i.us.lcssa.unr = phi i1 [ undef, %for.body.lr.ph.i.us24 ], [ %spec.select.i.us.prol, %for.body.i.us.prol ]
-  %.unr160 = phi i32 [ %22, %for.body.lr.ph.i.us24 ], [ %inc.i.us.prol, %for.body.i.us.prol ]
-  %tobool19.i.us.unr = phi i1 [ %24, %for.body.lr.ph.i.us24 ], [ %spec.select.i.us.prol, %for.body.i.us.prol ]
-  %27 = icmp ugt i32 %22, -8
-  br i1 %27, label %for.cond.for.end_crit_edge.loopexit39.i.us, label %for.body.i.us
+  %.unr163 = phi i32 [ %19, %for.body.lr.ph.i.us24 ], [ %inc.i.us.prol, %for.body.i.us.prol ]
+  %tobool19.i.us.unr = phi i1 [ %21, %for.body.lr.ph.i.us24 ], [ %spec.select.i.us.prol, %for.body.i.us.prol ]
+  %24 = icmp ugt i32 %19, -8
+  br i1 %24, label %for.cond.for.end_crit_edge.loopexit40.i.us, label %for.body.i.us
 
 for.body.i.us:                                    ; preds = %for.body.i.us.prol.loopexit, %for.body.i.us
-  %28 = phi i32 [ %inc.i.us.7, %for.body.i.us ], [ %.unr160, %for.body.i.us.prol.loopexit ]
+  %25 = phi i32 [ %inc.i.us.7, %for.body.i.us ], [ %.unr163, %for.body.i.us.prol.loopexit ]
   %tobool19.i.us = phi i1 [ %spec.select.i.us.7, %for.body.i.us ], [ %tobool19.i.us.unr, %for.body.i.us.prol.loopexit ]
   %spec.select.i.us.7 = select i1 %tobool19.i.us, i1 true, i1 %tobool23.i
-  %inc.i.us.7 = add nsw i32 %28, 8
+  %inc.i.us.7 = add nsw i32 %25, 8
   %tobool13.not.i.us.7 = icmp eq i32 %inc.i.us.7, 0
-  br i1 %tobool13.not.i.us.7, label %for.cond.for.end_crit_edge.loopexit39.i.us, label %for.body.i.us, !llvm.loop !14
+  br i1 %tobool13.not.i.us.7, label %for.cond.for.end_crit_edge.loopexit40.i.us, label %for.body.i.us, !llvm.loop !14
 
-for.cond.for.end_crit_edge.loopexit39.i.us:       ; preds = %for.body.i.us, %for.body.i.us.prol.loopexit
+for.cond.for.end_crit_edge.loopexit40.i.us:       ; preds = %for.body.i.us, %for.body.i.us.prol.loopexit
   %spec.select.i.us.lcssa = phi i1 [ %spec.select.i.us.lcssa.unr, %for.body.i.us.prol.loopexit ], [ %spec.select.i.us.7, %for.body.i.us ]
   %conv26.i.us = zext i1 %spec.select.i.us.lcssa to i8
   store i8 %conv26.i.us, ptr @m, align 1, !tbaa !5
   store i32 0, ptr @j, align 4, !tbaa !10
   br label %for.end.i.us25
 
-for.end.i.us25:                                   ; preds = %for.cond.for.end_crit_edge.loopexit39.i.us, %for.body.us17
-  %.us-phi38.i6.us26 = phi i8 [ %conv26.i.us, %for.cond.for.end_crit_edge.loopexit39.i.us ], [ %.us-phi38.i712.us19, %for.body.us17 ]
-  %29 = icmp slt i32 %23, 1
-  br i1 %29, label %for.body31.i.us27, label %fn1.exit.us28
+for.end.i.us25:                                   ; preds = %for.cond.for.end_crit_edge.loopexit40.i.us, %for.body.us17
+  %.us-phi38.i6.us26 = phi i8 [ %conv26.i.us, %for.cond.for.end_crit_edge.loopexit40.i.us ], [ %.us-phi38.i712.us19, %for.body.us17 ]
+  %cmp2939.i.us27 = icmp slt i32 %20, 1
+  br i1 %cmp2939.i.us27, label %for.body31.lr.ph.i.us28, label %fn1.exit.us29
 
-for.body31.i.us27:                                ; preds = %for.end.i.us25
+for.body31.lr.ph.i.us28:                          ; preds = %for.end.i.us25
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
-  br label %fn1.exit.us28
+  br label %fn1.exit.us29
 
-fn1.exit.us28:                                    ; preds = %for.body31.i.us27, %for.end.i.us25
-  %add33.i9.us29 = phi i8 [ %add33.i811.us20, %for.end.i.us25 ], [ %add33.i, %for.body31.i.us27 ]
-  %30 = phi i32 [ %23, %for.end.i.us25 ], [ 1, %for.body31.i.us27 ]
-  %tobool.not.us30 = icmp eq i8 %add33.i9.us29, 0
-  %spec.select.us31 = select i1 %tobool.not.us30, i8 %i.013.us18, i8 %add33.i9.us29
-  %conv.us32 = sext i8 %spec.select.us31 to i32
-  %cmp1.us33 = icmp slt i32 %7, %conv.us32
-  br i1 %cmp1.us33, label %if.then3.us34, label %for.inc.us35
+fn1.exit.us29:                                    ; preds = %for.body31.lr.ph.i.us28, %for.end.i.us25
+  %add33.i9.us30 = phi i8 [ %add33.i811.us20, %for.end.i.us25 ], [ %add33.i, %for.body31.lr.ph.i.us28 ]
+  %26 = phi i32 [ %20, %for.end.i.us25 ], [ 1, %for.body31.lr.ph.i.us28 ]
+  %tobool.not.us31 = icmp eq i8 %add33.i9.us30, 0
+  %spec.select.us32 = select i1 %tobool.not.us31, i8 %i.013.us18, i8 %add33.i9.us30
+  %conv.us33 = sext i8 %spec.select.us32 to i32
+  %cmp1.us34 = icmp slt i32 %7, %conv.us33
+  br i1 %cmp1.us34, label %if.then3.us35, label %for.inc.us36
 
-if.then3.us34:                                    ; preds = %fn1.exit.us28
+if.then3.us35:                                    ; preds = %fn1.exit.us29
   store i32 0, ptr @g, align 4, !tbaa !10
-  br label %for.inc.us35
+  br label %for.inc.us36
 
-for.inc.us35:                                     ; preds = %if.then3.us34, %fn1.exit.us28
-  %inc.us36 = add i32 %21, 1
-  %exitcond119.not = icmp eq i32 %21, 0
-  br i1 %exitcond119.not, label %for.cond.for.end_crit_edge, label %for.body.us17, !llvm.loop !21
+for.inc.us36:                                     ; preds = %if.then3.us35, %fn1.exit.us29
+  %inc.us37 = add i32 %18, 1
+  %exitcond122.not = icmp eq i32 %18, 0
+  br i1 %exitcond122.not, label %for.cond.for.end_crit_edge, label %for.body.us17, !llvm.loop !21
 
 for.body.lr.ph.split.split:                       ; preds = %for.body.lr.ph.split
-  br i1 %cmp7.i, label %for.body.us43, label %for.body
+  br i1 %cmp7.i, label %for.body.us44, label %for.body
 
-for.body.us43:                                    ; preds = %for.body.lr.ph.split.split, %for.inc.us69
-  %i.013.us44 = phi i8 [ %spec.select.us65, %for.inc.us69 ], [ undef, %for.body.lr.ph.split.split ]
-  %31 = phi i32 [ %inc.us70, %for.inc.us69 ], [ %.pr, %for.body.lr.ph.split.split ]
-  %32 = phi i32 [ 0, %for.inc.us69 ], [ %j.promoted, %for.body.lr.ph.split.split ]
-  %.us-phi38.i712.us45 = phi i8 [ %.us-phi38.i6.us60, %for.inc.us69 ], [ %m.promoted, %for.body.lr.ph.split.split ]
-  %33 = phi i32 [ %40, %for.inc.us69 ], [ %f.promoted, %for.body.lr.ph.split.split ]
-  %add33.i811.us46 = phi i8 [ %add33.i9.us63, %for.inc.us69 ], [ %k.promoted, %for.body.lr.ph.split.split ]
-  %tobool13.not37.i.us49 = icmp eq i32 %32, 0
-  br i1 %tobool13.not37.i.us49, label %for.end.i.us59, label %for.body.lr.ph.i.us50
+for.body.us44:                                    ; preds = %for.body.lr.ph.split.split, %for.inc.us71
+  %i.013.us45 = phi i8 [ %spec.select.us67, %for.inc.us71 ], [ undef, %for.body.lr.ph.split.split ]
+  %27 = phi i32 [ %inc.us72, %for.inc.us71 ], [ %.pr, %for.body.lr.ph.split.split ]
+  %28 = phi i32 [ 0, %for.inc.us71 ], [ %j.promoted, %for.body.lr.ph.split.split ]
+  %.us-phi38.i712.us46 = phi i8 [ %.us-phi38.i6.us61, %for.inc.us71 ], [ %m.promoted, %for.body.lr.ph.split.split ]
+  %29 = phi i32 [ %35, %for.inc.us71 ], [ %f.promoted, %for.body.lr.ph.split.split ]
+  %add33.i811.us47 = phi i8 [ %add33.i9.us65, %for.inc.us71 ], [ %k.promoted, %for.body.lr.ph.split.split ]
+  %tobool13.not37.i.us50 = icmp eq i32 %28, 0
+  br i1 %tobool13.not37.i.us50, label %for.end.i.us60, label %for.body.lr.ph.i.us51
 
-for.body.lr.ph.i.us50:                            ; preds = %for.body.us43
-  %34 = icmp ne i8 %.us-phi38.i712.us45, 0
-  %35 = sub i32 0, %32
-  %xtraiter153 = and i32 %35, 7
-  %lcmp.mod154.not = icmp eq i32 %xtraiter153, 0
-  br i1 %lcmp.mod154.not, label %for.body.i.us51.prol.loopexit, label %for.body.i.us51.prol
+for.body.lr.ph.i.us51:                            ; preds = %for.body.us44
+  %30 = icmp ne i8 %.us-phi38.i712.us46, 0
+  %31 = sub i32 0, %28
+  %xtraiter156 = and i32 %31, 7
+  %lcmp.mod157.not = icmp eq i32 %xtraiter156, 0
+  br i1 %lcmp.mod157.not, label %for.body.i.us52.prol.loopexit, label %for.body.i.us52.prol
 
-for.body.i.us51.prol:                             ; preds = %for.body.lr.ph.i.us50, %for.body.i.us51.prol
-  %36 = phi i32 [ %inc.i.us54.prol, %for.body.i.us51.prol ], [ %32, %for.body.lr.ph.i.us50 ]
-  %tobool19.i.us52.prol = phi i1 [ %spec.select.i.us53.prol, %for.body.i.us51.prol ], [ %34, %for.body.lr.ph.i.us50 ]
-  %prol.iter155 = phi i32 [ %prol.iter155.next, %for.body.i.us51.prol ], [ 0, %for.body.lr.ph.i.us50 ]
-  %spec.select.i.us53.prol = select i1 %tobool19.i.us52.prol, i1 true, i1 %tobool23.i
-  %inc.i.us54.prol = add nsw i32 %36, 1
-  %prol.iter155.next = add i32 %prol.iter155, 1
-  %prol.iter155.cmp.not = icmp eq i32 %prol.iter155.next, %xtraiter153
-  br i1 %prol.iter155.cmp.not, label %for.body.i.us51.prol.loopexit, label %for.body.i.us51.prol, !llvm.loop !22
+for.body.i.us52.prol:                             ; preds = %for.body.lr.ph.i.us51, %for.body.i.us52.prol
+  %32 = phi i32 [ %inc.i.us55.prol, %for.body.i.us52.prol ], [ %28, %for.body.lr.ph.i.us51 ]
+  %tobool19.i.us53.prol = phi i1 [ %spec.select.i.us54.prol, %for.body.i.us52.prol ], [ %30, %for.body.lr.ph.i.us51 ]
+  %prol.iter158 = phi i32 [ %prol.iter158.next, %for.body.i.us52.prol ], [ 0, %for.body.lr.ph.i.us51 ]
+  %spec.select.i.us54.prol = select i1 %tobool19.i.us53.prol, i1 true, i1 %tobool23.i
+  %inc.i.us55.prol = add nsw i32 %32, 1
+  %prol.iter158.next = add i32 %prol.iter158, 1
+  %prol.iter158.cmp.not = icmp eq i32 %prol.iter158.next, %xtraiter156
+  br i1 %prol.iter158.cmp.not, label %for.body.i.us52.prol.loopexit, label %for.body.i.us52.prol, !llvm.loop !22
 
-for.body.i.us51.prol.loopexit:                    ; preds = %for.body.i.us51.prol, %for.body.lr.ph.i.us50
-  %spec.select.i.us53.lcssa.unr = phi i1 [ undef, %for.body.lr.ph.i.us50 ], [ %spec.select.i.us53.prol, %for.body.i.us51.prol ]
-  %.unr156 = phi i32 [ %32, %for.body.lr.ph.i.us50 ], [ %inc.i.us54.prol, %for.body.i.us51.prol ]
-  %tobool19.i.us52.unr = phi i1 [ %34, %for.body.lr.ph.i.us50 ], [ %spec.select.i.us53.prol, %for.body.i.us51.prol ]
-  %37 = icmp ugt i32 %32, -8
-  br i1 %37, label %for.cond.for.end_crit_edge.loopexit39.i.us56, label %for.body.i.us51
+for.body.i.us52.prol.loopexit:                    ; preds = %for.body.i.us52.prol, %for.body.lr.ph.i.us51
+  %spec.select.i.us54.lcssa.unr = phi i1 [ undef, %for.body.lr.ph.i.us51 ], [ %spec.select.i.us54.prol, %for.body.i.us52.prol ]
+  %.unr159 = phi i32 [ %28, %for.body.lr.ph.i.us51 ], [ %inc.i.us55.prol, %for.body.i.us52.prol ]
+  %tobool19.i.us53.unr = phi i1 [ %30, %for.body.lr.ph.i.us51 ], [ %spec.select.i.us54.prol, %for.body.i.us52.prol ]
+  %33 = icmp ugt i32 %28, -8
+  br i1 %33, label %for.cond.for.end_crit_edge.loopexit40.i.us57, label %for.body.i.us52
 
-for.body.i.us51:                                  ; preds = %for.body.i.us51.prol.loopexit, %for.body.i.us51
-  %38 = phi i32 [ %inc.i.us54.7, %for.body.i.us51 ], [ %.unr156, %for.body.i.us51.prol.loopexit ]
-  %tobool19.i.us52 = phi i1 [ %spec.select.i.us53.7, %for.body.i.us51 ], [ %tobool19.i.us52.unr, %for.body.i.us51.prol.loopexit ]
-  %spec.select.i.us53.7 = select i1 %tobool19.i.us52, i1 true, i1 %tobool23.i
-  %inc.i.us54.7 = add nsw i32 %38, 8
-  %tobool13.not.i.us55.7 = icmp eq i32 %inc.i.us54.7, 0
-  br i1 %tobool13.not.i.us55.7, label %for.cond.for.end_crit_edge.loopexit39.i.us56, label %for.body.i.us51, !llvm.loop !14
+for.body.i.us52:                                  ; preds = %for.body.i.us52.prol.loopexit, %for.body.i.us52
+  %34 = phi i32 [ %inc.i.us55.7, %for.body.i.us52 ], [ %.unr159, %for.body.i.us52.prol.loopexit ]
+  %tobool19.i.us53 = phi i1 [ %spec.select.i.us54.7, %for.body.i.us52 ], [ %tobool19.i.us53.unr, %for.body.i.us52.prol.loopexit ]
+  %spec.select.i.us54.7 = select i1 %tobool19.i.us53, i1 true, i1 %tobool23.i
+  %inc.i.us55.7 = add nsw i32 %34, 8
+  %tobool13.not.i.us56.7 = icmp eq i32 %inc.i.us55.7, 0
+  br i1 %tobool13.not.i.us56.7, label %for.cond.for.end_crit_edge.loopexit40.i.us57, label %for.body.i.us52, !llvm.loop !14
 
-for.cond.for.end_crit_edge.loopexit39.i.us56:     ; preds = %for.body.i.us51, %for.body.i.us51.prol.loopexit
-  %spec.select.i.us53.lcssa = phi i1 [ %spec.select.i.us53.lcssa.unr, %for.body.i.us51.prol.loopexit ], [ %spec.select.i.us53.7, %for.body.i.us51 ]
-  %conv26.i.us58 = zext i1 %spec.select.i.us53.lcssa to i8
-  store i8 %conv26.i.us58, ptr @m, align 1, !tbaa !5
+for.cond.for.end_crit_edge.loopexit40.i.us57:     ; preds = %for.body.i.us52, %for.body.i.us52.prol.loopexit
+  %spec.select.i.us54.lcssa = phi i1 [ %spec.select.i.us54.lcssa.unr, %for.body.i.us52.prol.loopexit ], [ %spec.select.i.us54.7, %for.body.i.us52 ]
+  %conv26.i.us59 = zext i1 %spec.select.i.us54.lcssa to i8
+  store i8 %conv26.i.us59, ptr @m, align 1, !tbaa !5
   store i32 0, ptr @j, align 4, !tbaa !10
-  br label %for.end.i.us59
+  br label %for.end.i.us60
 
-for.end.i.us59:                                   ; preds = %for.cond.for.end_crit_edge.loopexit39.i.us56, %for.body.us43
-  %.us-phi38.i6.us60 = phi i8 [ %conv26.i.us58, %for.cond.for.end_crit_edge.loopexit39.i.us56 ], [ %.us-phi38.i712.us45, %for.body.us43 ]
-  %39 = icmp slt i32 %33, 1
-  br i1 %39, label %for.body31.i.us61, label %fn1.exit.us62
+for.end.i.us60:                                   ; preds = %for.cond.for.end_crit_edge.loopexit40.i.us57, %for.body.us44
+  %.us-phi38.i6.us61 = phi i8 [ %conv26.i.us59, %for.cond.for.end_crit_edge.loopexit40.i.us57 ], [ %.us-phi38.i712.us46, %for.body.us44 ]
+  %cmp2939.i.us62 = icmp slt i32 %29, 1
+  br i1 %cmp2939.i.us62, label %for.body31.lr.ph.i.us63, label %fn1.exit.us64
 
-for.body31.i.us61:                                ; preds = %for.end.i.us59
+for.body31.lr.ph.i.us63:                          ; preds = %for.end.i.us60
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
-  br label %fn1.exit.us62
+  br label %fn1.exit.us64
 
-fn1.exit.us62:                                    ; preds = %for.body31.i.us61, %for.end.i.us59
-  %add33.i9.us63 = phi i8 [ %add33.i811.us46, %for.end.i.us59 ], [ %add33.i, %for.body31.i.us61 ]
-  %40 = phi i32 [ %33, %for.end.i.us59 ], [ 1, %for.body31.i.us61 ]
-  %tobool.not.us64 = icmp eq i8 %add33.i9.us63, 0
-  %spec.select.us65 = select i1 %tobool.not.us64, i8 %i.013.us44, i8 %add33.i9.us63
-  %conv.us66 = sext i8 %spec.select.us65 to i32
-  %cmp1.us67 = icmp slt i32 %7, %conv.us66
-  br i1 %cmp1.us67, label %if.then3.us68, label %for.inc.us69
+fn1.exit.us64:                                    ; preds = %for.body31.lr.ph.i.us63, %for.end.i.us60
+  %add33.i9.us65 = phi i8 [ %add33.i811.us47, %for.end.i.us60 ], [ %add33.i, %for.body31.lr.ph.i.us63 ]
+  %35 = phi i32 [ %29, %for.end.i.us60 ], [ 1, %for.body31.lr.ph.i.us63 ]
+  %tobool.not.us66 = icmp eq i8 %add33.i9.us65, 0
+  %spec.select.us67 = select i1 %tobool.not.us66, i8 %i.013.us45, i8 %add33.i9.us65
+  %conv.us68 = sext i8 %spec.select.us67 to i32
+  %cmp1.us69 = icmp slt i32 %7, %conv.us68
+  br i1 %cmp1.us69, label %if.then3.us70, label %for.inc.us71
 
-if.then3.us68:                                    ; preds = %fn1.exit.us62
+if.then3.us70:                                    ; preds = %fn1.exit.us64
   store i32 0, ptr @g, align 4, !tbaa !10
-  br label %for.inc.us69
+  br label %for.inc.us71
 
-for.inc.us69:                                     ; preds = %if.then3.us68, %fn1.exit.us62
-  %inc.us70 = add i32 %31, 1
-  %exitcond118.not = icmp eq i32 %31, 0
-  br i1 %exitcond118.not, label %for.cond.for.end_crit_edge, label %for.body.us43, !llvm.loop !21
+for.inc.us71:                                     ; preds = %if.then3.us70, %fn1.exit.us64
+  %inc.us72 = add i32 %27, 1
+  %exitcond121.not = icmp eq i32 %27, 0
+  br i1 %exitcond121.not, label %for.cond.for.end_crit_edge, label %for.body.us44, !llvm.loop !21
 
 for.body:                                         ; preds = %for.body.lr.ph.split.split, %for.inc
   %i.013 = phi i8 [ %spec.select, %for.inc ], [ undef, %for.body.lr.ph.split.split ]
-  %41 = phi i32 [ %inc, %for.inc ], [ %.pr, %for.body.lr.ph.split.split ]
-  %42 = phi i32 [ 0, %for.inc ], [ %j.promoted, %for.body.lr.ph.split.split ]
+  %36 = phi i32 [ %inc, %for.inc ], [ %.pr, %for.body.lr.ph.split.split ]
+  %37 = phi i32 [ 0, %for.inc ], [ %j.promoted, %for.body.lr.ph.split.split ]
   %.us-phi38.i712 = phi i8 [ %.us-phi38.i6, %for.inc ], [ %m.promoted, %for.body.lr.ph.split.split ]
-  %43 = phi i32 [ %50, %for.inc ], [ %f.promoted, %for.body.lr.ph.split.split ]
+  %38 = phi i32 [ %44, %for.inc ], [ %f.promoted, %for.body.lr.ph.split.split ]
   %add33.i811 = phi i8 [ %add33.i9, %for.inc ], [ %k.promoted, %for.body.lr.ph.split.split ]
-  %tobool13.not37.i = icmp eq i32 %42, 0
+  %tobool13.not37.i = icmp eq i32 %37, 0
   br i1 %tobool13.not37.i, label %for.end.i, label %for.body.lr.ph.i
 
 for.body.lr.ph.i:                                 ; preds = %for.body
-  %44 = icmp ne i8 %.us-phi38.i712, 0
-  %45 = sub i32 0, %42
-  %xtraiter = and i32 %45, 7
+  %39 = icmp ne i8 %.us-phi38.i712, 0
+  %40 = sub i32 0, %37
+  %xtraiter = and i32 %40, 7
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.prol.loopexit, label %for.body.i.prol
 
 for.body.i.prol:                                  ; preds = %for.body.lr.ph.i, %for.body.i.prol
-  %46 = phi i32 [ %inc.i.prol, %for.body.i.prol ], [ %42, %for.body.lr.ph.i ]
-  %tobool19.i.prol = phi i1 [ %spec.select.i.prol, %for.body.i.prol ], [ %44, %for.body.lr.ph.i ]
+  %41 = phi i32 [ %inc.i.prol, %for.body.i.prol ], [ %37, %for.body.lr.ph.i ]
+  %tobool19.i.prol = phi i1 [ %spec.select.i.prol, %for.body.i.prol ], [ %39, %for.body.lr.ph.i ]
   %prol.iter = phi i32 [ %prol.iter.next, %for.body.i.prol ], [ 0, %for.body.lr.ph.i ]
   %spec.select.i.prol = select i1 %tobool19.i.prol, i1 true, i1 %tobool23.i
-  %inc.i.prol = add nsw i32 %46, 1
+  %inc.i.prol = add nsw i32 %41, 1
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
   br i1 %prol.iter.cmp.not, label %for.body.i.prol.loopexit, label %for.body.i.prol, !llvm.loop !23
 
 for.body.i.prol.loopexit:                         ; preds = %for.body.i.prol, %for.body.lr.ph.i
   %spec.select.i.lcssa.unr = phi i1 [ undef, %for.body.lr.ph.i ], [ %spec.select.i.prol, %for.body.i.prol ]
-  %.unr = phi i32 [ %42, %for.body.lr.ph.i ], [ %inc.i.prol, %for.body.i.prol ]
-  %tobool19.i.unr = phi i1 [ %44, %for.body.lr.ph.i ], [ %spec.select.i.prol, %for.body.i.prol ]
-  %47 = icmp ugt i32 %42, -8
-  br i1 %47, label %for.cond.for.end_crit_edge.loopexit39.i, label %for.body.i
+  %.unr = phi i32 [ %37, %for.body.lr.ph.i ], [ %inc.i.prol, %for.body.i.prol ]
+  %tobool19.i.unr = phi i1 [ %39, %for.body.lr.ph.i ], [ %spec.select.i.prol, %for.body.i.prol ]
+  %42 = icmp ugt i32 %37, -8
+  br i1 %42, label %for.cond.for.end_crit_edge.loopexit40.i, label %for.body.i
 
 for.body.i:                                       ; preds = %for.body.i.prol.loopexit, %for.body.i
-  %48 = phi i32 [ %inc.i.7, %for.body.i ], [ %.unr, %for.body.i.prol.loopexit ]
+  %43 = phi i32 [ %inc.i.7, %for.body.i ], [ %.unr, %for.body.i.prol.loopexit ]
   %tobool19.i = phi i1 [ %spec.select.i.7, %for.body.i ], [ %tobool19.i.unr, %for.body.i.prol.loopexit ]
   %spec.select.i.7 = select i1 %tobool19.i, i1 true, i1 %tobool23.i
-  %inc.i.7 = add nsw i32 %48, 8
+  %inc.i.7 = add nsw i32 %43, 8
   %tobool13.not.i.7 = icmp eq i32 %inc.i.7, 0
-  br i1 %tobool13.not.i.7, label %for.cond.for.end_crit_edge.loopexit39.i, label %for.body.i, !llvm.loop !14
+  br i1 %tobool13.not.i.7, label %for.cond.for.end_crit_edge.loopexit40.i, label %for.body.i, !llvm.loop !14
 
-for.cond.for.end_crit_edge.loopexit39.i:          ; preds = %for.body.i, %for.body.i.prol.loopexit
+for.cond.for.end_crit_edge.loopexit40.i:          ; preds = %for.body.i, %for.body.i.prol.loopexit
   %spec.select.i.lcssa = phi i1 [ %spec.select.i.lcssa.unr, %for.body.i.prol.loopexit ], [ %spec.select.i.7, %for.body.i ]
   %conv26.i = zext i1 %spec.select.i.lcssa to i8
   store i8 %conv26.i, ptr @m, align 1, !tbaa !5
   store i32 0, ptr @j, align 4, !tbaa !10
   br label %for.end.i
 
-for.end.i:                                        ; preds = %for.cond.for.end_crit_edge.loopexit39.i, %for.body
-  %.us-phi38.i6 = phi i8 [ %conv26.i, %for.cond.for.end_crit_edge.loopexit39.i ], [ %.us-phi38.i712, %for.body ]
-  %49 = icmp slt i32 %43, 1
-  br i1 %49, label %for.body31.i, label %fn1.exit
+for.end.i:                                        ; preds = %for.cond.for.end_crit_edge.loopexit40.i, %for.body
+  %.us-phi38.i6 = phi i8 [ %conv26.i, %for.cond.for.end_crit_edge.loopexit40.i ], [ %.us-phi38.i712, %for.body ]
+  %cmp2939.i = icmp slt i32 %38, 1
+  br i1 %cmp2939.i, label %for.body31.lr.ph.i, label %fn1.exit
 
-for.body31.i:                                     ; preds = %for.end.i
+for.body31.lr.ph.i:                               ; preds = %for.end.i
   store i8 %add33.i, ptr @k, align 1, !tbaa !5
   store i32 1, ptr @f, align 4, !tbaa !10
   br label %fn1.exit
 
-fn1.exit:                                         ; preds = %for.end.i, %for.body31.i
-  %add33.i9 = phi i8 [ %add33.i811, %for.end.i ], [ %add33.i, %for.body31.i ]
-  %50 = phi i32 [ %43, %for.end.i ], [ 1, %for.body31.i ]
+fn1.exit:                                         ; preds = %for.end.i, %for.body31.lr.ph.i
+  %add33.i9 = phi i8 [ %add33.i811, %for.end.i ], [ %add33.i, %for.body31.lr.ph.i ]
+  %44 = phi i32 [ %38, %for.end.i ], [ 1, %for.body31.lr.ph.i ]
   %tobool.not = icmp eq i8 %add33.i9, 0
   %spec.select = select i1 %tobool.not, i8 %i.013, i8 %add33.i9
   %conv = sext i8 %spec.select to i32
@@ -575,14 +575,14 @@ if.then3:                                         ; preds = %fn1.exit
   br label %for.inc
 
 for.inc:                                          ; preds = %fn1.exit, %if.then3
-  %inc = add i32 %41, 1
-  %exitcond.not = icmp eq i32 %41, 0
+  %inc = add i32 %36, 1
+  %exitcond.not = icmp eq i32 %36, 0
   br i1 %exitcond.not, label %for.cond.for.end_crit_edge, label %for.body, !llvm.loop !21
 
-for.cond.for.end_crit_edge:                       ; preds = %for.inc, %for.inc.us69, %for.inc.us35, %for.inc.us.peel, %for.inc.us, %for.inc.us.us100.peel, %for.inc.us.us100, %for.inc.us.us.peel, %for.inc.us.us
-  %51 = phi i8 [ %add33.i9.us.us.peel, %for.inc.us.us.peel ], [ %add33.i811.us.us, %for.inc.us.us ], [ %add33.i9.us.us94.peel, %for.inc.us.us100.peel ], [ %add33.i811.us.us85, %for.inc.us.us100 ], [ %add33.i9.us.peel, %for.inc.us.peel ], [ %add33.i811.us, %for.inc.us ], [ %add33.i9.us29, %for.inc.us35 ], [ %add33.i9.us63, %for.inc.us69 ], [ %add33.i9, %for.inc ]
-  %.us-phi14.in.in = phi i32 [ %f.promoted, %for.inc.us.us.peel ], [ %11, %for.inc.us.us ], [ %f.promoted, %for.inc.us.us100.peel ], [ %17, %for.inc.us.us100 ], [ %f.promoted, %for.inc.us.peel ], [ %19, %for.inc.us ], [ %23, %for.inc.us35 ], [ %33, %for.inc.us69 ], [ %43, %for.inc ]
-  %.us-phi15 = phi i16 [ %.pre.i, %for.inc.us.us ], [ %.pre.i, %for.inc.us.us.peel ], [ %.pre.i, %for.inc.us.us100 ], [ %.pre.i, %for.inc.us.us100.peel ], [ %4, %for.inc.us ], [ %4, %for.inc.us.peel ], [ %.pre.i, %for.inc.us35 ], [ %.pre.i, %for.inc.us69 ], [ %4, %for.inc ]
+for.cond.for.end_crit_edge:                       ; preds = %for.inc, %for.inc.us71, %for.inc.us36, %for.inc.us.peel, %for.inc.us, %for.inc.us.us103.peel, %for.inc.us.us103, %for.inc.us.us.peel, %for.inc.us.us
+  %45 = phi i8 [ %add33.i9.us.us.peel, %for.inc.us.us.peel ], [ %add33.i811.us.us, %for.inc.us.us ], [ %add33.i9.us.us97.peel, %for.inc.us.us103.peel ], [ %add33.i811.us.us87, %for.inc.us.us103 ], [ %add33.i9.us.peel, %for.inc.us.peel ], [ %add33.i811.us, %for.inc.us ], [ %add33.i9.us30, %for.inc.us36 ], [ %add33.i9.us65, %for.inc.us71 ], [ %add33.i9, %for.inc ]
+  %.us-phi14.in.in = phi i32 [ %f.promoted, %for.inc.us.us.peel ], [ %10, %for.inc.us.us ], [ %f.promoted, %for.inc.us.us103.peel ], [ %14, %for.inc.us.us103 ], [ %f.promoted, %for.inc.us.peel ], [ %16, %for.inc.us ], [ %20, %for.inc.us36 ], [ %29, %for.inc.us71 ], [ %38, %for.inc ]
+  %.us-phi15 = phi i16 [ %.pre.i, %for.inc.us.us ], [ %.pre.i, %for.inc.us.us.peel ], [ %.pre.i, %for.inc.us.us103 ], [ %.pre.i, %for.inc.us.us103.peel ], [ %4, %for.inc.us ], [ %4, %for.inc.us.peel ], [ %.pre.i, %for.inc.us36 ], [ %.pre.i, %for.inc.us71 ], [ %4, %for.inc ]
   %.us-phi14.in = trunc i32 %.us-phi14.in.in to i8
   %.us-phi14 = add i8 %.us-phi14.in, 1
   store i16 %.us-phi15, ptr @n, align 2, !tbaa !8
@@ -591,8 +591,8 @@ for.cond.for.end_crit_edge:                       ; preds = %for.inc, %for.inc.u
   br label %for.end
 
 for.end:                                          ; preds = %for.cond.for.end_crit_edge, %entry
-  %52 = phi i8 [ %51, %for.cond.for.end_crit_edge ], [ %k.promoted, %entry ]
-  %conv5 = sext i8 %52 to i32
+  %46 = phi i8 [ %45, %for.cond.for.end_crit_edge ], [ %k.promoted, %entry ]
+  %conv5 = sext i8 %46 to i32
   tail call void @fn2(i32 noundef %conv5)
   ret i32 0
 }

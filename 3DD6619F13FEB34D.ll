@@ -69,9 +69,9 @@ entry:
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18ICryptoSetPassword, i64 0, inrange i32 0, i64 2), ptr %1, align 8, !tbaa !5
   %2 = getelementptr inbounds i8, ptr %call, i64 24
   invoke void @_ZN7NCrypto7NSevenZ5CBaseC2Ev(ptr noundef nonnull align 8 dereferenceable(140) %2)
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN7NCrypto7NSevenZ8CDecoderC2Ev.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN7NCrypto7NSevenZ8CDecoderC2Ev.exit:            ; preds = %entry
   %_aesFilter.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CBaseCoder", ptr %call, i64 0, i32 5
   store ptr null, ptr %_aesFilter.i.i, align 8, !tbaa !8
   %3 = getelementptr inbounds i8, ptr %call, i64 176
@@ -98,9 +98,9 @@ entry:
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18ICryptoSetPassword, i64 0, inrange i32 0, i64 2), ptr %1, align 8, !tbaa !5
   %2 = getelementptr inbounds i8, ptr %call, i64 24
   invoke void @_ZN7NCrypto7NSevenZ5CBaseC2Ev(ptr noundef nonnull align 8 dereferenceable(140) %2)
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN7NCrypto7NSevenZ8CEncoderC2Ev.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN7NCrypto7NSevenZ8CEncoderC2Ev.exit:            ; preds = %entry
   %_aesFilter.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CBaseCoder", ptr %call, i64 0, i32 5
   store ptr null, ptr %_aesFilter.i.i, align 8, !tbaa !8
   %3 = getelementptr inbounds i8, ptr %call, i64 176

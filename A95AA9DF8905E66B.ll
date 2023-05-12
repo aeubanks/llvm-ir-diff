@@ -113,22 +113,22 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %started_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 3
   %batch_leftover_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 1
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
+if.end.i:                                         ; preds = %_ZNK9benchmark5State10iterationsEv.exit, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %__begin1.sroa.0.011 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZNK9benchmark5State10iterationsEv.exit
+  %__begin1.sroa.0.011 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZNK9benchmark5State10iterationsEv.exit ]
   %2 = load i8, ptr %started_.i, align 8, !tbaa !28, !range !25, !noundef !26
   %tobool.not.i = icmp eq i8 %2, 0
-  br i1 %tobool.not.i, label %_ZN9benchmark5State13StateIteratorppEv.exit, label %if.end.i7, !prof !27
+  br i1 %tobool.not.i, label %_ZNK9benchmark5State10iterationsEv.exit, label %if.end.i7, !prof !27
 
 if.end.i7:                                        ; preds = %for.body
   %3 = load i64, ptr %max_iterations.i.i, align 8, !tbaa !29
@@ -136,14 +136,14 @@ if.end.i7:                                        ; preds = %for.body
   %sub.i = sub i64 %3, %4
   %5 = load i64, ptr %batch_leftover_.i, align 8, !tbaa !31
   %add.i = add i64 %sub.i, %5
-  br label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br label %_ZNK9benchmark5State10iterationsEv.exit
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %if.end.i7, %for.body
+_ZNK9benchmark5State10iterationsEv.exit:          ; preds = %for.body, %if.end.i7
   %retval.0.i = phi i64 [ %add.i, %if.end.i7 ], [ 0, %for.body ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %retval.0.i) #8, !srcloc !32
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -176,7 +176,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1719 = icmp eq i64 %1, 0
   %cmp.not.i.not17 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1719
-  br i1 %cmp.not.i.not17, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not17, label %if.end.i, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -185,14 +185,14 @@ for.body.lr.ph:                                   ; preds = %entry
   %.pre21 = load ptr, ptr %range_.i, align 8, !tbaa !34
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup5, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %2 = phi ptr [ %.pre21, %for.body.lr.ph ], [ %.lcssa28, %_ZN9benchmark5State13StateIteratorppEv.exit ]
-  %3 = phi ptr [ %.pre, %for.body.lr.ph ], [ %.lcssa, %_ZN9benchmark5State13StateIteratorppEv.exit ]
-  %__begin1.sroa.0.018 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond.cleanup5
+  %2 = phi ptr [ %.pre21, %for.body.lr.ph ], [ %.lcssa28, %for.cond.cleanup5 ]
+  %3 = phi ptr [ %.pre, %for.body.lr.ph ], [ %.lcssa, %for.cond.cleanup5 ]
+  %__begin1.sroa.0.018 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %for.cond.cleanup5 ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %x) #8
   store i32 0, ptr %x, align 4, !tbaa !35
   %cmp.i.not15 = icmp eq ptr %3, %2
@@ -201,7 +201,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
 _ZNK9benchmark5State5rangeEm.exit.preheader:      ; preds = %for.body
   %4 = load i64, ptr %2, align 8, !tbaa !36
   %cmp30 = icmp sgt i64 %4, 0
-  br i1 %cmp30, label %for.body6, label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br i1 %cmp30, label %for.body6, label %for.cond.cleanup5
 
 cond.false.i:                                     ; preds = %for.body, %for.body6
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
@@ -211,15 +211,15 @@ _ZNK9benchmark5State5rangeEm.exit:                ; preds = %for.body6
   %conv = sext i32 %inc to i64
   %5 = load i64, ptr %8, align 8, !tbaa !36
   %cmp = icmp sgt i64 %5, %conv
-  br i1 %cmp, label %for.body6, label %_ZN9benchmark5State13StateIteratorppEv.exit, !llvm.loop !37
+  br i1 %cmp, label %for.body6, label %for.cond.cleanup5, !llvm.loop !37
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZNK9benchmark5State5rangeEm.exit, %_ZNK9benchmark5State5rangeEm.exit.preheader
+for.cond.cleanup5:                                ; preds = %_ZNK9benchmark5State5rangeEm.exit, %_ZNK9benchmark5State5rangeEm.exit.preheader
   %.lcssa28 = phi ptr [ %2, %_ZNK9benchmark5State5rangeEm.exit.preheader ], [ %8, %_ZNK9benchmark5State5rangeEm.exit ]
   %.lcssa = phi ptr [ %3, %_ZNK9benchmark5State5rangeEm.exit.preheader ], [ %7, %_ZNK9benchmark5State5rangeEm.exit ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %x) #8
   %dec.i = add i64 %__begin1.sroa.0.018, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
 
 for.body6:                                        ; preds = %_ZNK9benchmark5State5rangeEm.exit.preheader, %_ZNK9benchmark5State5rangeEm.exit
   %storemerge1631 = phi i32 [ %inc, %_ZNK9benchmark5State5rangeEm.exit ], [ 0, %_ZNK9benchmark5State5rangeEm.exit.preheader ]
@@ -271,7 +271,7 @@ for.cond.cleanup:                                 ; preds = %_ZNK9benchmark5Stat
   call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not4246 = icmp eq i64 %5, 0
   %cmp.not.i.not42 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4246
-  br i1 %cmp.not.i.not42, label %for.cond.cleanup5, label %for.body6.preheader, !prof !27
+  br i1 %cmp.not.i.not42, label %if.end.i, label %for.body6.preheader, !prof !27
 
 for.body6.preheader:                              ; preds = %for.cond.cleanup
   %.pre = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
@@ -288,52 +288,52 @@ for.body:                                         ; preds = %_ZNK9benchmark5Stat
   %cmp.i.not = icmp eq ptr %7, %8
   br i1 %cmp.i.not, label %cond.false.i, label %_ZNK9benchmark5State5rangeEm.exit, !llvm.loop !40
 
-for.cond.cleanup5:                                ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %for.cond.cleanup
+if.end.i:                                         ; preds = %for.cond.cleanup12, %for.cond.cleanup
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.body6:                                        ; preds = %for.body6.preheader, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %9 = phi ptr [ %.lcssa53, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %.pre45, %for.body6.preheader ]
-  %10 = phi ptr [ %.lcssa, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %.pre, %for.body6.preheader ]
-  %__begin1.sroa.0.043 = phi i64 [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %5, %for.body6.preheader ]
+for.body6:                                        ; preds = %for.body6.preheader, %for.cond.cleanup12
+  %9 = phi ptr [ %.lcssa53, %for.cond.cleanup12 ], [ %.pre45, %for.body6.preheader ]
+  %10 = phi ptr [ %.lcssa, %for.cond.cleanup12 ], [ %.pre, %for.body6.preheader ]
+  %__begin1.sroa.0.043 = phi i64 [ %dec.i, %for.cond.cleanup12 ], [ %5, %for.body6.preheader ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i7) #8
   store i32 0, ptr %i7, align 4, !tbaa !35
-  %cmp.i30.not40 = icmp eq ptr %10, %9
-  br i1 %cmp.i30.not40, label %cond.false.i31, label %_ZNK9benchmark5State5rangeEm.exit32.preheader
+  %cmp.i29.not40 = icmp eq ptr %10, %9
+  br i1 %cmp.i29.not40, label %cond.false.i30, label %_ZNK9benchmark5State5rangeEm.exit31.preheader
 
-_ZNK9benchmark5State5rangeEm.exit32.preheader:    ; preds = %for.body6
+_ZNK9benchmark5State5rangeEm.exit31.preheader:    ; preds = %for.body6
   %11 = load i64, ptr %9, align 8, !tbaa !36
   %cmp1155 = icmp sgt i64 %11, 0
-  br i1 %cmp1155, label %for.body13, label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br i1 %cmp1155, label %for.body13, label %for.cond.cleanup12
 
-cond.false.i31:                                   ; preds = %for.body6, %for.body13
+cond.false.i30:                                   ; preds = %for.body6, %for.body13
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
   unreachable
 
-_ZNK9benchmark5State5rangeEm.exit32:              ; preds = %for.body13
+_ZNK9benchmark5State5rangeEm.exit31:              ; preds = %for.body13
   %conv9 = sext i32 %inc15 to i64
   %12 = load i64, ptr %15, align 8, !tbaa !36
   %cmp11 = icmp sgt i64 %12, %conv9
-  br i1 %cmp11, label %for.body13, label %_ZN9benchmark5State13StateIteratorppEv.exit, !llvm.loop !41
+  br i1 %cmp11, label %for.body13, label %for.cond.cleanup12, !llvm.loop !41
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZNK9benchmark5State5rangeEm.exit32, %_ZNK9benchmark5State5rangeEm.exit32.preheader
-  %.lcssa53 = phi ptr [ %9, %_ZNK9benchmark5State5rangeEm.exit32.preheader ], [ %15, %_ZNK9benchmark5State5rangeEm.exit32 ]
-  %.lcssa = phi ptr [ %10, %_ZNK9benchmark5State5rangeEm.exit32.preheader ], [ %14, %_ZNK9benchmark5State5rangeEm.exit32 ]
+for.cond.cleanup12:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit31, %_ZNK9benchmark5State5rangeEm.exit31.preheader
+  %.lcssa53 = phi ptr [ %9, %_ZNK9benchmark5State5rangeEm.exit31.preheader ], [ %15, %_ZNK9benchmark5State5rangeEm.exit31 ]
+  %.lcssa = phi ptr [ %10, %_ZNK9benchmark5State5rangeEm.exit31.preheader ], [ %14, %_ZNK9benchmark5State5rangeEm.exit31 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i7) #8
   %dec.i = add i64 %__begin1.sroa.0.043, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup5, label %for.body6, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body6, !prof !27
 
-for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit32.preheader, %_ZNK9benchmark5State5rangeEm.exit32
-  %storemerge234156 = phi i32 [ %inc15, %_ZNK9benchmark5State5rangeEm.exit32 ], [ 0, %_ZNK9benchmark5State5rangeEm.exit32.preheader ]
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge234156) #8, !srcloc !39
+for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit31.preheader, %_ZNK9benchmark5State5rangeEm.exit31
+  %storemerge354156 = phi i32 [ %inc15, %_ZNK9benchmark5State5rangeEm.exit31 ], [ 0, %_ZNK9benchmark5State5rangeEm.exit31.preheader ]
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge354156) #8, !srcloc !39
   %13 = load i32, ptr %i7, align 4, !tbaa !35
   %inc15 = add nsw i32 %13, 1
   store i32 %inc15, ptr %i7, align 4, !tbaa !35
   %14 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %15 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i30.not = icmp eq ptr %14, %15
-  br i1 %cmp.i30.not, label %cond.false.i31, label %_ZNK9benchmark5State5rangeEm.exit32, !llvm.loop !41
+  %cmp.i29.not = icmp eq ptr %14, %15
+  br i1 %cmp.i29.not, label %cond.false.i30, label %_ZNK9benchmark5State5rangeEm.exit31, !llvm.loop !41
 }
 
 ; Function Attrs: uwtable
@@ -349,19 +349,19 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not4446 = icmp eq i64 %1, 0
   %cmp.not.i.not44 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4446
-  br i1 %cmp.not.i.not44, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not44, label %if.end.i, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %_M_finish.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6, i32 0, i32 0, i32 0, i32 1
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup12, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %__begin1.sroa.0.045 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond.cleanup12
+  %__begin1.sroa.0.045 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %for.cond.cleanup12 ]
   call void @_ZN9benchmark5State11PauseTimingEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i) #8
   store i32 0, ptr %i, align 4, !tbaa !35
@@ -389,8 +389,8 @@ for.cond.cleanup5:                                ; preds = %_ZNK9benchmark5Stat
   store i32 0, ptr %i7, align 4, !tbaa !35
   %6 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %7 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i32.not42 = icmp eq ptr %6, %7
-  br i1 %cmp.i32.not42, label %cond.false.i33, label %_ZNK9benchmark5State5rangeEm.exit34
+  %cmp.i31.not42 = icmp eq ptr %6, %7
+  br i1 %cmp.i31.not42, label %cond.false.i32, label %_ZNK9benchmark5State5rangeEm.exit33
 
 for.body6:                                        ; preds = %_ZNK9benchmark5State5rangeEm.exit
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i, i32 %storemerge41) #8, !srcloc !39
@@ -402,33 +402,33 @@ for.body6:                                        ; preds = %_ZNK9benchmark5Stat
   %cmp.i.not = icmp eq ptr %9, %10
   br i1 %cmp.i.not, label %cond.false.i, label %_ZNK9benchmark5State5rangeEm.exit, !llvm.loop !42
 
-cond.false.i33:                                   ; preds = %for.cond.cleanup5, %for.body13
+cond.false.i32:                                   ; preds = %for.cond.cleanup5, %for.body13
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
   unreachable
 
-_ZNK9benchmark5State5rangeEm.exit34:              ; preds = %for.cond.cleanup5, %for.body13
+_ZNK9benchmark5State5rangeEm.exit33:              ; preds = %for.cond.cleanup5, %for.body13
   %11 = phi ptr [ %15, %for.body13 ], [ %7, %for.cond.cleanup5 ]
-  %storemerge2543 = phi i32 [ %inc15, %for.body13 ], [ 0, %for.cond.cleanup5 ]
-  %conv9 = sext i32 %storemerge2543 to i64
+  %storemerge3743 = phi i32 [ %inc15, %for.body13 ], [ 0, %for.cond.cleanup5 ]
+  %conv9 = sext i32 %storemerge3743 to i64
   %12 = load i64, ptr %11, align 8, !tbaa !36
   %cmp11 = icmp sgt i64 %12, %conv9
-  br i1 %cmp11, label %for.body13, label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br i1 %cmp11, label %for.body13, label %for.cond.cleanup12
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZNK9benchmark5State5rangeEm.exit34
+for.cond.cleanup12:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit33
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i7) #8
   %dec.i = add i64 %__begin1.sroa.0.045, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
 
-for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit34
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge2543) #8, !srcloc !39
+for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit33
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge3743) #8, !srcloc !39
   %13 = load i32, ptr %i7, align 4, !tbaa !35
   %inc15 = add nsw i32 %13, 1
   store i32 %inc15, ptr %i7, align 4, !tbaa !35
   %14 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %15 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i32.not = icmp eq ptr %14, %15
-  br i1 %cmp.i32.not, label %cond.false.i33, label %_ZNK9benchmark5State5rangeEm.exit34, !llvm.loop !43
+  %cmp.i31.not = icmp eq ptr %14, %15
+  br i1 %cmp.i31.not, label %cond.false.i32, label %_ZNK9benchmark5State5rangeEm.exit33, !llvm.loop !43
 }
 
 declare void @_ZN9benchmark5State11PauseTimingEv(ptr noundef nonnull align 8 dereferenceable(144)) local_unnamed_addr #0
@@ -446,19 +446,19 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %_ZN9benchmark5State13StateIteratorppEv.exit, !prof !27
+  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body, !prof !27
 
-for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
+if.end.i:                                         ; preds = %for.body, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %entry, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %__begin1.sroa.0.010 = phi i64 [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %1, %entry ]
+for.body:                                         ; preds = %entry, %for.body
+  %__begin1.sroa.0.010 = phi i64 [ %dec.i, %for.body ], [ %1, %entry ]
   tail call void @_ZN9benchmark5State11PauseTimingEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   tail call void @_ZN9benchmark5State12ResumeTimingEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %_ZN9benchmark5State13StateIteratorppEv.exit, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
 }
 
 declare noundef ptr @_ZN9benchmark8internal9Benchmark11UseRealTimeEv(ptr noundef nonnull align 8 dereferenceable(216)) local_unnamed_addr #0
@@ -476,7 +476,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3842 = icmp eq i64 %1, 0
   %cmp.not.i.not38 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3842
-  br i1 %cmp.not.i.not38, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not38, label %if.end.i, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -485,21 +485,21 @@ for.body.lr.ph:                                   ; preds = %entry
   %.pre44 = load ptr, ptr %range_.i, align 8, !tbaa !34
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup5, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i10) #8
-  %range_.i26 = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
-  %_M_finish.i.i27 = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6, i32 0, i32 0, i32 0, i32 1
+  %range_.i25 = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
+  %_M_finish.i.i26 = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6, i32 0, i32 0, i32 0, i32 1
   store i32 0, ptr %i10, align 4, !tbaa !35
-  %2 = load ptr, ptr %_M_finish.i.i27, align 8, !tbaa !33
-  %3 = load ptr, ptr %range_.i26, align 8, !tbaa !34
-  %cmp.i32.not40 = icmp eq ptr %2, %3
-  br i1 %cmp.i32.not40, label %cond.false.i33, label %_ZNK9benchmark5State5rangeEm.exit34
+  %2 = load ptr, ptr %_M_finish.i.i26, align 8, !tbaa !33
+  %3 = load ptr, ptr %range_.i25, align 8, !tbaa !34
+  %cmp.i31.not40 = icmp eq ptr %2, %3
+  br i1 %cmp.i31.not40, label %cond.false.i32, label %_ZNK9benchmark5State5rangeEm.exit33
 
-for.body:                                         ; preds = %for.body.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %4 = phi ptr [ %.pre44, %for.body.lr.ph ], [ %.lcssa51, %_ZN9benchmark5State13StateIteratorppEv.exit ]
-  %5 = phi ptr [ %.pre, %for.body.lr.ph ], [ %.lcssa, %_ZN9benchmark5State13StateIteratorppEv.exit ]
-  %__begin1.sroa.0.039 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond.cleanup5
+  %4 = phi ptr [ %.pre44, %for.body.lr.ph ], [ %.lcssa51, %for.cond.cleanup5 ]
+  %5 = phi ptr [ %.pre, %for.body.lr.ph ], [ %.lcssa, %for.cond.cleanup5 ]
+  %__begin1.sroa.0.039 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %for.cond.cleanup5 ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i) #8
   store i32 0, ptr %i, align 4, !tbaa !35
   %cmp.i.not36 = icmp eq ptr %5, %4
@@ -508,7 +508,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
 _ZNK9benchmark5State5rangeEm.exit.preheader:      ; preds = %for.body
   %6 = load i64, ptr %4, align 8, !tbaa !36
   %cmp53 = icmp sgt i64 %6, 0
-  br i1 %cmp53, label %for.body6, label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br i1 %cmp53, label %for.body6, label %for.cond.cleanup5
 
 cond.false.i:                                     ; preds = %for.body, %for.body6
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
@@ -518,19 +518,19 @@ _ZNK9benchmark5State5rangeEm.exit:                ; preds = %for.body6
   %conv = sext i32 %inc to i64
   %7 = load i64, ptr %10, align 8, !tbaa !36
   %cmp = icmp sgt i64 %7, %conv
-  br i1 %cmp, label %for.body6, label %_ZN9benchmark5State13StateIteratorppEv.exit, !llvm.loop !44
+  br i1 %cmp, label %for.body6, label %for.cond.cleanup5, !llvm.loop !44
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZNK9benchmark5State5rangeEm.exit, %_ZNK9benchmark5State5rangeEm.exit.preheader
+for.cond.cleanup5:                                ; preds = %_ZNK9benchmark5State5rangeEm.exit, %_ZNK9benchmark5State5rangeEm.exit.preheader
   %.lcssa51 = phi ptr [ %4, %_ZNK9benchmark5State5rangeEm.exit.preheader ], [ %10, %_ZNK9benchmark5State5rangeEm.exit ]
   %.lcssa = phi ptr [ %5, %_ZNK9benchmark5State5rangeEm.exit.preheader ], [ %9, %_ZNK9benchmark5State5rangeEm.exit ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i) #8
   %dec.i = add i64 %__begin1.sroa.0.039, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
 
 for.body6:                                        ; preds = %_ZNK9benchmark5State5rangeEm.exit.preheader, %_ZNK9benchmark5State5rangeEm.exit
-  %storemerge233754 = phi i32 [ %inc, %_ZNK9benchmark5State5rangeEm.exit ], [ 0, %_ZNK9benchmark5State5rangeEm.exit.preheader ]
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i, i32 %storemerge233754) #8, !srcloc !39
+  %storemerge353754 = phi i32 [ %inc, %_ZNK9benchmark5State5rangeEm.exit ], [ 0, %_ZNK9benchmark5State5rangeEm.exit.preheader ]
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i, i32 %storemerge353754) #8, !srcloc !39
   %8 = load i32, ptr %i, align 4, !tbaa !35
   %inc = add nsw i32 %8, 1
   store i32 %inc, ptr %i, align 4, !tbaa !35
@@ -539,31 +539,31 @@ for.body6:                                        ; preds = %_ZNK9benchmark5Stat
   %cmp.i.not = icmp eq ptr %9, %10
   br i1 %cmp.i.not, label %cond.false.i, label %_ZNK9benchmark5State5rangeEm.exit, !llvm.loop !44
 
-cond.false.i33:                                   ; preds = %for.body16, %for.cond.cleanup
+cond.false.i32:                                   ; preds = %for.body16, %if.end.i
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
   unreachable
 
-_ZNK9benchmark5State5rangeEm.exit34:              ; preds = %for.cond.cleanup, %for.body16
-  %11 = phi ptr [ %15, %for.body16 ], [ %3, %for.cond.cleanup ]
-  %storemerge41 = phi i32 [ %inc18, %for.body16 ], [ 0, %for.cond.cleanup ]
+_ZNK9benchmark5State5rangeEm.exit33:              ; preds = %if.end.i, %for.body16
+  %11 = phi ptr [ %15, %for.body16 ], [ %3, %if.end.i ]
+  %storemerge41 = phi i32 [ %inc18, %for.body16 ], [ 0, %if.end.i ]
   %conv12 = sext i32 %storemerge41 to i64
   %12 = load i64, ptr %11, align 8, !tbaa !36
   %cmp14 = icmp sgt i64 %12, %conv12
   br i1 %cmp14, label %for.body16, label %for.cond.cleanup15
 
-for.cond.cleanup15:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit34
+for.cond.cleanup15:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit33
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i10) #8
   ret void
 
-for.body16:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit34
+for.body16:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit33
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i10, i32 %storemerge41) #8, !srcloc !39
   %13 = load i32, ptr %i10, align 4, !tbaa !35
   %inc18 = add nsw i32 %13, 1
   store i32 %inc18, ptr %i10, align 4, !tbaa !35
-  %14 = load ptr, ptr %_M_finish.i.i27, align 8, !tbaa !33
-  %15 = load ptr, ptr %range_.i26, align 8, !tbaa !34
-  %cmp.i32.not = icmp eq ptr %14, %15
-  br i1 %cmp.i32.not, label %cond.false.i33, label %_ZNK9benchmark5State5rangeEm.exit34, !llvm.loop !45
+  %14 = load ptr, ptr %_M_finish.i.i26, align 8, !tbaa !33
+  %15 = load ptr, ptr %range_.i25, align 8, !tbaa !34
+  %cmp.i31.not = icmp eq ptr %14, %15
+  br i1 %cmp.i31.not, label %cond.false.i32, label %_ZNK9benchmark5State5rangeEm.exit33, !llvm.loop !45
 }
 
 ; Function Attrs: uwtable
@@ -603,7 +603,7 @@ for.cond.cleanup:                                 ; preds = %_ZNK9benchmark5Stat
   call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not6369 = icmp eq i64 %5, 0
   %cmp.not.i.not63 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6369
-  br i1 %cmp.not.i.not63, label %for.cond.cleanup5, label %for.body6.preheader, !prof !27
+  br i1 %cmp.not.i.not63, label %if.end.i, label %for.body6.preheader, !prof !27
 
 for.body6.preheader:                              ; preds = %for.cond.cleanup
   %.pre = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
@@ -620,83 +620,83 @@ for.body:                                         ; preds = %_ZNK9benchmark5Stat
   %cmp.i.not = icmp eq ptr %7, %8
   br i1 %cmp.i.not, label %cond.false.i, label %_ZNK9benchmark5State5rangeEm.exit, !llvm.loop !46
 
-for.cond.cleanup5:                                ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %for.cond.cleanup
+if.end.i:                                         ; preds = %for.cond.cleanup12, %for.cond.cleanup
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i20) #8
   store i32 0, ptr %i20, align 4, !tbaa !35
   %9 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %10 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i53.not65 = icmp eq ptr %9, %10
-  br i1 %cmp.i53.not65, label %cond.false.i54, label %_ZNK9benchmark5State5rangeEm.exit55
+  %cmp.i51.not65 = icmp eq ptr %9, %10
+  br i1 %cmp.i51.not65, label %cond.false.i52, label %_ZNK9benchmark5State5rangeEm.exit53
 
-for.body6:                                        ; preds = %for.body6.preheader, %_ZN9benchmark5State13StateIteratorppEv.exit
-  %11 = phi ptr [ %.lcssa76, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %.pre68, %for.body6.preheader ]
-  %12 = phi ptr [ %.lcssa, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %.pre, %for.body6.preheader ]
-  %__begin1.sroa.0.064 = phi i64 [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %5, %for.body6.preheader ]
+for.body6:                                        ; preds = %for.body6.preheader, %for.cond.cleanup12
+  %11 = phi ptr [ %.lcssa76, %for.cond.cleanup12 ], [ %.pre68, %for.body6.preheader ]
+  %12 = phi ptr [ %.lcssa, %for.cond.cleanup12 ], [ %.pre, %for.body6.preheader ]
+  %__begin1.sroa.0.064 = phi i64 [ %dec.i, %for.cond.cleanup12 ], [ %5, %for.body6.preheader ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i7) #8
   store i32 0, ptr %i7, align 4, !tbaa !35
-  %cmp.i42.not61 = icmp eq ptr %12, %11
-  br i1 %cmp.i42.not61, label %cond.false.i43, label %_ZNK9benchmark5State5rangeEm.exit44.preheader
+  %cmp.i40.not61 = icmp eq ptr %12, %11
+  br i1 %cmp.i40.not61, label %cond.false.i41, label %_ZNK9benchmark5State5rangeEm.exit42.preheader
 
-_ZNK9benchmark5State5rangeEm.exit44.preheader:    ; preds = %for.body6
+_ZNK9benchmark5State5rangeEm.exit42.preheader:    ; preds = %for.body6
   %13 = load i64, ptr %11, align 8, !tbaa !36
   %cmp1178 = icmp sgt i64 %13, 0
-  br i1 %cmp1178, label %for.body13, label %_ZN9benchmark5State13StateIteratorppEv.exit
+  br i1 %cmp1178, label %for.body13, label %for.cond.cleanup12
 
-cond.false.i43:                                   ; preds = %for.body6, %for.body13
+cond.false.i41:                                   ; preds = %for.body6, %for.body13
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
   unreachable
 
-_ZNK9benchmark5State5rangeEm.exit44:              ; preds = %for.body13
+_ZNK9benchmark5State5rangeEm.exit42:              ; preds = %for.body13
   %conv9 = sext i32 %inc15 to i64
   %14 = load i64, ptr %17, align 8, !tbaa !36
   %cmp11 = icmp sgt i64 %14, %conv9
-  br i1 %cmp11, label %for.body13, label %_ZN9benchmark5State13StateIteratorppEv.exit, !llvm.loop !47
+  br i1 %cmp11, label %for.body13, label %for.cond.cleanup12, !llvm.loop !47
 
-_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZNK9benchmark5State5rangeEm.exit44, %_ZNK9benchmark5State5rangeEm.exit44.preheader
-  %.lcssa76 = phi ptr [ %11, %_ZNK9benchmark5State5rangeEm.exit44.preheader ], [ %17, %_ZNK9benchmark5State5rangeEm.exit44 ]
-  %.lcssa = phi ptr [ %12, %_ZNK9benchmark5State5rangeEm.exit44.preheader ], [ %16, %_ZNK9benchmark5State5rangeEm.exit44 ]
+for.cond.cleanup12:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit42, %_ZNK9benchmark5State5rangeEm.exit42.preheader
+  %.lcssa76 = phi ptr [ %11, %_ZNK9benchmark5State5rangeEm.exit42.preheader ], [ %17, %_ZNK9benchmark5State5rangeEm.exit42 ]
+  %.lcssa = phi ptr [ %12, %_ZNK9benchmark5State5rangeEm.exit42.preheader ], [ %16, %_ZNK9benchmark5State5rangeEm.exit42 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i7) #8
   %dec.i = add i64 %__begin1.sroa.0.064, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup5, label %for.body6, !prof !27
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body6, !prof !27
 
-for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit44.preheader, %_ZNK9benchmark5State5rangeEm.exit44
-  %storemerge356279 = phi i32 [ %inc15, %_ZNK9benchmark5State5rangeEm.exit44 ], [ 0, %_ZNK9benchmark5State5rangeEm.exit44.preheader ]
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge356279) #8, !srcloc !39
+for.body13:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit42.preheader, %_ZNK9benchmark5State5rangeEm.exit42
+  %storemerge566279 = phi i32 [ %inc15, %_ZNK9benchmark5State5rangeEm.exit42 ], [ 0, %_ZNK9benchmark5State5rangeEm.exit42.preheader ]
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i7, i32 %storemerge566279) #8, !srcloc !39
   %15 = load i32, ptr %i7, align 4, !tbaa !35
   %inc15 = add nsw i32 %15, 1
   store i32 %inc15, ptr %i7, align 4, !tbaa !35
   %16 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %17 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i42.not = icmp eq ptr %16, %17
-  br i1 %cmp.i42.not, label %cond.false.i43, label %_ZNK9benchmark5State5rangeEm.exit44, !llvm.loop !47
+  %cmp.i40.not = icmp eq ptr %16, %17
+  br i1 %cmp.i40.not, label %cond.false.i41, label %_ZNK9benchmark5State5rangeEm.exit42, !llvm.loop !47
 
-cond.false.i54:                                   ; preds = %for.body26, %for.cond.cleanup5
+cond.false.i52:                                   ; preds = %for.body26, %if.end.i
   call void @__assert_fail(ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.46, i32 noundef 762, ptr noundef nonnull @__PRETTY_FUNCTION__._ZNK9benchmark5State5rangeEm) #9
   unreachable
 
-_ZNK9benchmark5State5rangeEm.exit55:              ; preds = %for.cond.cleanup5, %for.body26
-  %18 = phi ptr [ %22, %for.body26 ], [ %10, %for.cond.cleanup5 ]
-  %storemerge3466 = phi i32 [ %inc28, %for.body26 ], [ 0, %for.cond.cleanup5 ]
-  %conv22 = sext i32 %storemerge3466 to i64
+_ZNK9benchmark5State5rangeEm.exit53:              ; preds = %if.end.i, %for.body26
+  %18 = phi ptr [ %22, %for.body26 ], [ %10, %if.end.i ]
+  %storemerge5566 = phi i32 [ %inc28, %for.body26 ], [ 0, %if.end.i ]
+  %conv22 = sext i32 %storemerge5566 to i64
   %19 = load i64, ptr %18, align 8, !tbaa !36
   %cmp24 = icmp sgt i64 %19, %conv22
   br i1 %cmp24, label %for.body26, label %for.cond.cleanup25
 
-for.cond.cleanup25:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit55
+for.cond.cleanup25:                               ; preds = %_ZNK9benchmark5State5rangeEm.exit53
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i20) #8
   ret void
 
-for.body26:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit55
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i20, i32 %storemerge3466) #8, !srcloc !39
+for.body26:                                       ; preds = %_ZNK9benchmark5State5rangeEm.exit53
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %i20, i32 %storemerge5566) #8, !srcloc !39
   %20 = load i32, ptr %i20, align 4, !tbaa !35
   %inc28 = add nsw i32 %20, 1
   store i32 %inc28, ptr %i20, align 4, !tbaa !35
   %21 = load ptr, ptr %_M_finish.i.i, align 8, !tbaa !33
   %22 = load ptr, ptr %range_.i, align 8, !tbaa !34
-  %cmp.i53.not = icmp eq ptr %21, %22
-  br i1 %cmp.i53.not, label %cond.false.i54, label %_ZNK9benchmark5State5rangeEm.exit55, !llvm.loop !48
+  %cmp.i51.not = icmp eq ptr %21, %22
+  br i1 %cmp.i51.not, label %cond.false.i52, label %_ZNK9benchmark5State5rangeEm.exit53, !llvm.loop !48
 }
 
 ; Function Attrs: uwtable
@@ -739,16 +739,16 @@ cond.false:                                       ; preds = %if.end.i
   tail call void @__assert_fail(ptr noundef nonnull @.str.26, ptr noundef nonnull @.str.27, i32 noundef 101, ptr noundef nonnull @__PRETTY_FUNCTION__._Z14BM_KeepRunningRN9benchmark5StateE) #9
   unreachable
 
-while.cond:                                       ; preds = %while.cond.preheader, %while.body
-  %5 = phi i64 [ %storemerge, %while.body ], [ %.pre, %while.cond.preheader ]
-  %iter_count.0 = phi i64 [ %inc, %while.body ], [ 0, %while.cond.preheader ]
+while.cond:                                       ; preds = %while.cond.preheader, %while.body.critedge
+  %5 = phi i64 [ %storemerge, %while.body.critedge ], [ %.pre, %while.cond.preheader ]
+  %iter_count.0 = phi i64 [ %inc, %while.body.critedge ], [ 0, %while.cond.preheader ]
   %cmp6.not.i.i = icmp eq i64 %5, 0
-  br i1 %cmp6.not.i.i, label %if.end.i.i, label %while.body, !prof !27
+  br i1 %cmp6.not.i.i, label %if.end.i.i, label %while.body.critedge, !prof !27
 
 if.end.i.i:                                       ; preds = %while.cond
   %6 = load i8, ptr %started_.i, align 8, !tbaa !28, !range !25, !noundef !26
   %tobool9.not.i.i = icmp eq i8 %6, 0
-  br i1 %tobool9.not.i.i, label %if.then10.i.i, label %while.end
+  br i1 %tobool9.not.i.i, label %if.then10.i.i, label %if.end18.i.i
 
 if.then10.i.i:                                    ; preds = %if.end.i.i
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -757,22 +757,22 @@ if.then10.i.i:                                    ; preds = %if.end.i.i
   %8 = load i64, ptr %state, align 8
   %cmp13.not.i.i = icmp eq i64 %8, 0
   %or.cond = select i1 %tobool11.not.i.i, i1 true, i1 %cmp13.not.i.i
-  br i1 %or.cond, label %while.end, label %while.body
+  br i1 %or.cond, label %if.end18.i.i, label %while.body.critedge
 
-while.body:                                       ; preds = %if.then10.i.i, %while.cond
+if.end18.i.i:                                     ; preds = %if.then10.i.i, %if.end.i.i
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %9 = load i8, ptr %started_.i, align 8, !tbaa !28, !range !25, !noundef !26
+  %tobool.not.i12 = icmp eq i8 %9, 0
+  br i1 %tobool.not.i12, label %_ZNK9benchmark5State10iterationsEv.exit19, label %if.end.i17, !prof !27
+
+while.body.critedge:                              ; preds = %if.then10.i.i, %while.cond
   %storemerge.in = phi i64 [ %5, %while.cond ], [ %8, %if.then10.i.i ]
   %storemerge = add i64 %storemerge.in, -1
   store i64 %storemerge, ptr %state, align 8, !tbaa !30
   %inc = add i64 %iter_count.0, 1
   br label %while.cond, !llvm.loop !49
 
-while.end:                                        ; preds = %if.then10.i.i, %if.end.i.i
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %9 = load i8, ptr %started_.i, align 8, !tbaa !28, !range !25, !noundef !26
-  %tobool.not.i12 = icmp eq i8 %9, 0
-  br i1 %tobool.not.i12, label %_ZNK9benchmark5State10iterationsEv.exit19, label %if.end.i17, !prof !27
-
-if.end.i17:                                       ; preds = %while.end
+if.end.i17:                                       ; preds = %if.end18.i.i
   %max_iterations.i13 = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %10 = load i64, ptr %max_iterations.i13, align 8, !tbaa !29
   %11 = load i64, ptr %state, align 8, !tbaa !30
@@ -782,8 +782,8 @@ if.end.i17:                                       ; preds = %while.end
   %add.i16 = add i64 %sub.i14, %12
   br label %_ZNK9benchmark5State10iterationsEv.exit19
 
-_ZNK9benchmark5State10iterationsEv.exit19:        ; preds = %while.end, %if.end.i17
-  %retval.0.i18 = phi i64 [ %add.i16, %if.end.i17 ], [ 0, %while.end ]
+_ZNK9benchmark5State10iterationsEv.exit19:        ; preds = %if.end18.i.i, %if.end.i17
+  %retval.0.i18 = phi i64 [ %add.i16, %if.end.i17 ], [ 0, %if.end18.i.i ]
   %cmp3 = icmp eq i64 %iter_count.0, %retval.0.i18
   br i1 %cmp3, label %cond.end6, label %cond.false5
 
@@ -807,15 +807,15 @@ entry:
   %.pre = load i64, ptr %state, align 8, !tbaa !30
   br label %while.cond
 
-while.cond:                                       ; preds = %while.body, %entry
-  %0 = phi i64 [ %.pre, %entry ], [ %sub.i.i.sink, %while.body ]
-  %iter_count.0 = phi i64 [ 0, %entry ], [ %add, %while.body ]
+while.cond:                                       ; preds = %while.body.critedge, %entry
+  %0 = phi i64 [ %.pre, %entry ], [ %sub16.i.i.sink, %while.body.critedge ]
+  %iter_count.0 = phi i64 [ 0, %entry ], [ %add, %while.body.critedge ]
   %cmp6.not.i.i = icmp ult i64 %0, 1009
   br i1 %cmp6.not.i.i, label %if.end.i.i, label %if.then.i.i, !prof !27
 
 if.then.i.i:                                      ; preds = %while.cond
   %sub.i.i = add i64 %0, -1009
-  br label %while.body
+  br label %while.body.critedge
 
 if.end.i.i:                                       ; preds = %while.cond
   %1 = load i8, ptr %started_.i.i, align 8, !tbaa !28, !range !25, !noundef !26
@@ -833,31 +833,31 @@ if.then10.i.i:                                    ; preds = %if.end.i.i
 
 if.then14.i.i:                                    ; preds = %if.then10.i.i
   %sub16.i.i = add i64 %3, -1009
-  br label %while.body
+  br label %while.body.critedge
 
 if.end18.i.i:                                     ; preds = %if.then10.i.i, %if.end.i.i
   %4 = phi i64 [ %0, %if.end.i.i ], [ %3, %if.then10.i.i ]
   %cmp22.not.i.i = icmp eq i64 %4, 0
-  br i1 %cmp22.not.i.i, label %while.end, label %if.then23.i.i
+  br i1 %cmp22.not.i.i, label %if.end27.i.i, label %if.then23.i.i
 
 if.then23.i.i:                                    ; preds = %if.end18.i.i
   %sub25.i.i = sub i64 1009, %4
   store i64 %sub25.i.i, ptr %batch_leftover_.i.i, align 8, !tbaa !31
-  br label %while.body
+  br label %while.body.critedge
 
-while.body:                                       ; preds = %if.then.i.i, %if.then23.i.i, %if.then14.i.i
-  %sub.i.i.sink = phi i64 [ %sub.i.i, %if.then.i.i ], [ 0, %if.then23.i.i ], [ %sub16.i.i, %if.then14.i.i ]
-  store i64 %sub.i.i.sink, ptr %state, align 8, !tbaa !30
-  %add = add i64 %iter_count.0, 1009
-  br label %while.cond, !llvm.loop !50
-
-while.end:                                        ; preds = %if.end18.i.i
+if.end27.i.i:                                     ; preds = %if.end18.i.i
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %5 = load i8, ptr %started_.i.i, align 8, !tbaa !28, !range !25, !noundef !26
   %tobool.not.i = icmp eq i8 %5, 0
   br i1 %tobool.not.i, label %_ZNK9benchmark5State10iterationsEv.exit, label %if.end.i, !prof !27
 
-if.end.i:                                         ; preds = %while.end
+while.body.critedge:                              ; preds = %if.then14.i.i, %if.then23.i.i, %if.then.i.i
+  %sub16.i.i.sink = phi i64 [ %sub16.i.i, %if.then14.i.i ], [ 0, %if.then23.i.i ], [ %sub.i.i, %if.then.i.i ]
+  store i64 %sub16.i.i.sink, ptr %state, align 8, !tbaa !30
+  %add = add i64 %iter_count.0, 1009
+  br label %while.cond, !llvm.loop !50
+
+if.end.i:                                         ; preds = %if.end27.i.i
   %max_iterations.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %6 = load i64, ptr %max_iterations.i, align 8, !tbaa !29
   %7 = load i64, ptr %state, align 8, !tbaa !30
@@ -866,8 +866,8 @@ if.end.i:                                         ; preds = %while.end
   %add.i = add i64 %sub.i, %8
   br label %_ZNK9benchmark5State10iterationsEv.exit
 
-_ZNK9benchmark5State10iterationsEv.exit:          ; preds = %while.end, %if.end.i
-  %retval.0.i = phi i64 [ %add.i, %if.end.i ], [ 0, %while.end ]
+_ZNK9benchmark5State10iterationsEv.exit:          ; preds = %if.end27.i.i, %if.end.i
+  %retval.0.i = phi i64 [ %add.i, %if.end.i ], [ 0, %if.end27.i.i ]
   %cmp = icmp eq i64 %retval.0.i, %iter_count.0
   br i1 %cmp, label %cond.end, label %cond.false
 
@@ -902,12 +902,12 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %1 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not912 = icmp eq i64 %1, 0
-  %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not912
-  %spec.select = select i1 %cmp.not.i.not9, i64 0, i64 %1, !prof !27
+  %cmp.not.i.not913 = icmp eq i64 %1, 0
+  %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not913
+  %spec.select12 = select i1 %cmp.not.i.not9, i64 0, i64 %1, !prof !27
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %2 = load i64, ptr %max_iterations.i.i, align 8, !tbaa !29
-  %cmp = icmp eq i64 %spec.select, %2
+  %cmp = icmp eq i64 %spec.select12, %2
   br i1 %cmp, label %cond.end, label %cond.false
 
 cond.false:                                       ; preds = %entry

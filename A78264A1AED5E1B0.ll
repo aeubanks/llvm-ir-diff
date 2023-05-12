@@ -101,7 +101,7 @@ if.then13:                                        ; preds = %if.then10
   br label %cleanup
 
 if.else:                                          ; preds = %if.then10
-  %puts250 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts262 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @free(ptr noundef %call) #9
   br label %cleanup
 
@@ -115,7 +115,7 @@ if.end15:                                         ; preds = %while.end
   br i1 %cmp19.not, label %if.end23, label %if.then21
 
 if.then21:                                        ; preds = %if.end15
-  %puts249 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts261 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
@@ -124,7 +124,7 @@ if.end23:                                         ; preds = %if.end15
   br i1 %cmp24, label %if.then26, label %if.else28
 
 if.then26:                                        ; preds = %if.end23
-  %puts248 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts260 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
@@ -141,7 +141,7 @@ if.else28:                                        ; preds = %if.end23
   br i1 %or.cond, label %if.then40, label %if.end42
 
 if.then40:                                        ; preds = %if.else28
-  %puts247 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts259 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
@@ -218,7 +218,7 @@ if.end83:                                         ; preds = %while.body45
   %24 = add nsw i64 %indvars.iv277, -3
   %arrayidx91 = getelementptr inbounds i8, ptr %call, i64 %24
   %25 = load i8, ptr %arrayidx91, align 1, !tbaa !12
-  %cmp1.not.i = icmp ne i8 %25, 0
+  %cmp1.not.i = icmp eq i8 %25, 0
   %arrayidx.i.1 = getelementptr inbounds i8, ptr %arrayidx91, i64 1
   %26 = load i8, ptr %arrayidx.i.1, align 1, !tbaa !12
   %cmp1.not.i.1 = icmp eq i8 %26, 0
@@ -229,16 +229,14 @@ if.end83:                                         ; preds = %while.body45
   %cmp6.not.i = icmp eq i8 %conv85, 1
   %28 = select i1 %cmp6.not.i, i1 %cmp1.not.i.2, i1 false
   %29 = select i1 %28, i1 %cmp1.not.i.1, i1 false
-  %not. = xor i1 %29, true
-  %narrow = select i1 %not., i1 true, i1 %cmp1.not.i
-  br i1 %narrow, label %if.end100, label %while.cond109.preheader
+  %narrow = select i1 %29, i1 %cmp1.not.i, i1 false
+  br i1 %narrow, label %while.cond109.preheader, label %if.end100
 
 if.end100:                                        ; preds = %if.end83
   %30 = select i1 %cmp6.not.i, i1 %cmp1.not.i.2, i1 false
   %narrow296 = select i1 %30, i1 %cmp1.not.i.1, i1 false
-  %cmp101 = xor i1 %narrow296, true
-  %.not = and i1 %narrow, %cmp101
-  br i1 %.not, label %while.body45, label %if.else124, !llvm.loop !23
+  %.not.not = or i1 %narrow296, %narrow
+  br i1 %.not.not, label %if.else124, label %while.body45, !llvm.loop !23
 
 while.cond109.preheader:                          ; preds = %if.end83
   %sub110 = add i64 %indvars.iv277, 4294967292
@@ -267,7 +265,7 @@ if.else128:                                       ; preds = %if.else124
   br label %if.end131
 
 if.end131:                                        ; preds = %if.end120, %if.else124, %if.else128
-  %TrailingZero8Bits.2264 = phi i32 [ 0, %if.else128 ], [ %32, %if.end120 ], [ 0, %if.else124 ]
+  %TrailingZero8Bits.2265 = phi i32 [ 0, %if.else128 ], [ %32, %if.end120 ], [ 0, %if.else124 ]
   %rewind.0 = phi i32 [ 0, %if.else128 ], [ -4, %if.end120 ], [ -3, %if.else124 ]
   %33 = trunc i64 %indvars.iv.next278 to i32
   %34 = load ptr, ptr @bits, align 8, !tbaa !11
@@ -286,7 +284,7 @@ if.end138:                                        ; preds = %if.then136, %if.end
   %add139 = add nsw i32 %rewind.0, %33
   %35 = load i32, ptr %nalu, align 8, !tbaa !15
   %36 = add i32 %35, %LeadingZero8BitsCount.0
-  %37 = add i32 %TrailingZero8Bits.2264, %36
+  %37 = add i32 %TrailingZero8Bits.2265, %36
   %sub143 = sub i32 %add139, %37
   %len144 = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 1
   store i32 %sub143, ptr %len144, align 4, !tbaa !18
@@ -420,7 +418,7 @@ if.end29:                                         ; preds = %if.then26, %if.then
   %inc = add nsw i32 %4, 1
   store i32 %inc, ptr @NALUCount, align 4, !tbaa !16
   %cmp30 = icmp ne i32 %4, 0
-  %narrow.not = and i1 %switch, %cmp30
+  %narrow.not = and i1 %cmp30, %switch
   br i1 %narrow.not, label %cleanup, label %land.lhs.true34
 
 land.lhs.true34:                                  ; preds = %if.end29

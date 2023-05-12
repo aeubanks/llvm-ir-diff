@@ -464,7 +464,7 @@ _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit51: ; preds = %if.th
 
 ; Function Attrs: mustprogress norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #5 personality ptr @__gxx_personality_v0 {
-invoke.cont9:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #10
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10supervisor, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !5
   %name.i = getelementptr inbounds %class.person, ptr %call, i64 0, i32 1
@@ -476,32 +476,32 @@ invoke.cont9:
   store ptr %call, ptr @staff1, align 8, !tbaa !32
   %call1 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #10
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10programmer, i64 0, inrange i32 0, i64 2), ptr %call1, align 8, !tbaa !5
-  %name.i21 = getelementptr inbounds %class.person, ptr %call1, i64 0, i32 1
-  store ptr @.str.20, ptr %name.i21, align 8, !tbaa !8
-  %salary.i22 = getelementptr inbounds %class.person, ptr %call1, i64 0, i32 2
-  store i32 3500, ptr %salary.i22, align 8, !tbaa !13
-  %title.i23 = getelementptr inbounds %class.programmer, ptr %call1, i64 0, i32 1
-  store ptr @.str.21, ptr %title.i23, align 8, !tbaa !23
+  %name.i20 = getelementptr inbounds %class.person, ptr %call1, i64 0, i32 1
+  store ptr @.str.20, ptr %name.i20, align 8, !tbaa !8
+  %salary.i21 = getelementptr inbounds %class.person, ptr %call1, i64 0, i32 2
+  store i32 3500, ptr %salary.i21, align 8, !tbaa !13
+  %title.i22 = getelementptr inbounds %class.programmer, ptr %call1, i64 0, i32 1
+  store ptr @.str.21, ptr %title.i22, align 8, !tbaa !23
   %language.i = getelementptr inbounds %class.programmer, ptr %call1, i64 0, i32 2
   store ptr @.str.22, ptr %language.i, align 8, !tbaa !25
   store ptr %call1, ptr @staff2, align 8, !tbaa !32
   %call4 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #10
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10programmer, i64 0, inrange i32 0, i64 2), ptr %call4, align 8, !tbaa !5
-  %name.i24 = getelementptr inbounds %class.person, ptr %call4, i64 0, i32 1
-  store ptr @.str.23, ptr %name.i24, align 8, !tbaa !8
-  %salary.i25 = getelementptr inbounds %class.person, ptr %call4, i64 0, i32 2
-  store i32 7700, ptr %salary.i25, align 8, !tbaa !13
-  %title.i26 = getelementptr inbounds %class.programmer, ptr %call4, i64 0, i32 1
-  store ptr @.str.24, ptr %title.i26, align 8, !tbaa !23
-  %language.i27 = getelementptr inbounds %class.programmer, ptr %call4, i64 0, i32 2
-  store ptr @.str.25, ptr %language.i27, align 8, !tbaa !25
+  %name.i23 = getelementptr inbounds %class.person, ptr %call4, i64 0, i32 1
+  store ptr @.str.23, ptr %name.i23, align 8, !tbaa !8
+  %salary.i24 = getelementptr inbounds %class.person, ptr %call4, i64 0, i32 2
+  store i32 7700, ptr %salary.i24, align 8, !tbaa !13
+  %title.i25 = getelementptr inbounds %class.programmer, ptr %call4, i64 0, i32 1
+  store ptr @.str.24, ptr %title.i25, align 8, !tbaa !23
+  %language.i26 = getelementptr inbounds %class.programmer, ptr %call4, i64 0, i32 2
+  store ptr @.str.25, ptr %language.i26, align 8, !tbaa !25
   store ptr %call4, ptr @staff3, align 8, !tbaa !32
   %call7 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #10
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV9secretary, i64 0, inrange i32 0, i64 2), ptr %call7, align 8, !tbaa !5
-  %name.i28 = getelementptr inbounds %class.person, ptr %call7, i64 0, i32 1
-  store ptr @.str.26, ptr %name.i28, align 8, !tbaa !8
-  %salary.i29 = getelementptr inbounds %class.person, ptr %call7, i64 0, i32 2
-  store i32 2200, ptr %salary.i29, align 8, !tbaa !13
+  %name.i27 = getelementptr inbounds %class.person, ptr %call7, i64 0, i32 1
+  store ptr @.str.26, ptr %name.i27, align 8, !tbaa !8
+  %salary.i28 = getelementptr inbounds %class.person, ptr %call7, i64 0, i32 2
+  store i32 2200, ptr %salary.i28, align 8, !tbaa !13
   %shorthand.i = getelementptr inbounds %class.secretary, ptr %call7, i64 0, i32 1
   store i8 1, ptr %shorthand.i, align 4, !tbaa !26
   %typing_speed.i = getelementptr inbounds %class.secretary, ptr %call7, i64 0, i32 2

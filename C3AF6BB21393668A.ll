@@ -187,7 +187,7 @@ entry:
   %Child = getelementptr inbounds %class.CProfileNode, ptr %this, i64 0, i32 6
   %child.013 = load ptr, ptr %Child, align 8, !tbaa !18
   %tobool.not14 = icmp eq ptr %child.013, null
-  br i1 %tobool.not14, label %invoke.cont, label %while.body
+  br i1 %tobool.not14, label %while.end, label %while.body
 
 while.body:                                       ; preds = %entry, %if.end
   %child.015 = phi ptr [ %child.0, %if.end ], [ %child.013, %entry ]
@@ -199,9 +199,9 @@ if.end:                                           ; preds = %while.body
   %Sibling = getelementptr inbounds %class.CProfileNode, ptr %child.015, i64 0, i32 7
   %child.0 = load ptr, ptr %Sibling, align 8, !tbaa !18
   %tobool.not = icmp eq ptr %child.0, null
-  br i1 %tobool.not, label %invoke.cont, label %while.body
+  br i1 %tobool.not, label %while.end, label %while.body
 
-invoke.cont:                                      ; preds = %if.end, %entry
+while.end:                                        ; preds = %if.end, %entry
   %call = tail call noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #15
   store ptr %name, ptr %call, align 8, !tbaa !5
   %TotalCalls.i = getelementptr inbounds %class.CProfileNode, ptr %call, i64 0, i32 1
@@ -216,8 +216,8 @@ invoke.cont:                                      ; preds = %if.end, %entry
   store ptr %call, ptr %Child, align 8, !tbaa !16
   br label %cleanup
 
-cleanup:                                          ; preds = %while.body, %invoke.cont
-  %retval.0 = phi ptr [ %call, %invoke.cont ], [ %child.015, %while.body ]
+cleanup:                                          ; preds = %while.body, %while.end
+  %retval.0 = phi ptr [ %call, %while.end ], [ %child.015, %while.body ]
   ret ptr %retval.0
 }
 
@@ -430,7 +430,7 @@ if.then:                                          ; preds = %entry
   %Child.i = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 6
   %child.013.i = load ptr, ptr %Child.i, align 8, !tbaa !18
   %tobool.not14.i = icmp eq ptr %child.013.i, null
-  br i1 %tobool.not14.i, label %invoke.cont.i, label %while.body.i
+  br i1 %tobool.not14.i, label %while.end.i, label %while.body.i
 
 while.body.i:                                     ; preds = %if.then, %if.end.i
   %child.015.i = phi ptr [ %child.0.i, %if.end.i ], [ %child.013.i, %if.then ]
@@ -442,9 +442,9 @@ if.end.i:                                         ; preds = %while.body.i
   %Sibling.i = getelementptr inbounds %class.CProfileNode, ptr %child.015.i, i64 0, i32 7
   %child.0.i = load ptr, ptr %Sibling.i, align 8, !tbaa !18
   %tobool.not.i = icmp eq ptr %child.0.i, null
-  br i1 %tobool.not.i, label %invoke.cont.i, label %while.body.i
+  br i1 %tobool.not.i, label %while.end.i, label %while.body.i
 
-invoke.cont.i:                                    ; preds = %if.end.i, %if.then
+while.end.i:                                      ; preds = %if.end.i, %if.then
   %call.i = tail call noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #15
   store ptr %name, ptr %call.i, align 8, !tbaa !5
   %TotalCalls.i.i = getelementptr inbounds %class.CProfileNode, ptr %call.i, i64 0, i32 1
@@ -459,8 +459,8 @@ invoke.cont.i:                                    ; preds = %if.end.i, %if.then
   store ptr %call.i, ptr %Child.i, align 8, !tbaa !16
   br label %_ZN12CProfileNode12Get_Sub_NodeEPKc.exit
 
-_ZN12CProfileNode12Get_Sub_NodeEPKc.exit:         ; preds = %while.body.i, %invoke.cont.i
-  %retval.0.i = phi ptr [ %call.i, %invoke.cont.i ], [ %child.015.i, %while.body.i ]
+_ZN12CProfileNode12Get_Sub_NodeEPKc.exit:         ; preds = %while.body.i, %while.end.i
+  %retval.0.i = phi ptr [ %call.i, %while.end.i ], [ %child.015.i, %while.body.i ]
   store ptr %retval.0.i, ptr @_ZN15CProfileManager11CurrentNodeE, align 8, !tbaa !18
   br label %if.end
 
@@ -652,8 +652,8 @@ entry:
 if.end:                                           ; preds = %entry
   %Parent.i.i = getelementptr inbounds %class.CProfileNode, ptr %0, i64 0, i32 5
   %2 = load ptr, ptr %Parent.i.i, align 8, !tbaa !13
-  %cmp.i120 = icmp eq ptr %2, null
-  br i1 %cmp.i120, label %cond.true, label %cond.false
+  %cmp.i116 = icmp eq ptr %2, null
+  br i1 %cmp.i116, label %cond.true, label %cond.false
 
 cond.true:                                        ; preds = %if.end
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %currentTime.i.i.i) #16
@@ -691,7 +691,7 @@ for.end.thread:                                   ; preds = %cond.end
 
 for.body:                                         ; preds = %cond.end, %for.body
   %i.0139 = phi i32 [ %inc, %for.body ], [ 0, %cond.end ]
-  %putchar118 = tail call i32 @putchar(i32 46)
+  %putchar135 = tail call i32 @putchar(i32 46)
   %inc = add nuw nsw i32 %i.0139, 1
   %exitcond.not = icmp eq i32 %inc, %spacing
   br i1 %exitcond.not, label %for.end, label %for.body
@@ -702,7 +702,7 @@ for.end:                                          ; preds = %for.body
 
 for.body9:                                        ; preds = %for.end, %for.body9
   %i.1141 = phi i32 [ %inc12, %for.body9 ], [ 0, %for.end ]
-  %putchar117 = tail call i32 @putchar(i32 46)
+  %putchar134 = tail call i32 @putchar(i32 46)
   %inc12 = add nuw nsw i32 %i.1141, 1
   %exitcond155.not = icmp eq i32 %inc12, %spacing
   br i1 %exitcond155.not, label %for.end13, label %for.body9
@@ -713,8 +713,8 @@ for.end13:                                        ; preds = %for.body9, %for.end
   %conv = fpext float %cond to double
   %call15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %12, double noundef %conv)
   %.pr = load ptr, ptr %CurrentChild.i, align 8, !tbaa !30
-  %cmp.i122144 = icmp eq ptr %.pr, null
-  br i1 %cmp.i122144, label %for.end44, label %for.body18.lr.ph
+  %cmp.i118.not144 = icmp eq ptr %.pr, null
+  br i1 %cmp.i118.not144, label %for.end44, label %for.body18.lr.ph
 
 for.body18.lr.ph:                                 ; preds = %for.end13
   %cmp21 = fcmp ogt float %cond, 0x3E80000000000000
@@ -725,15 +725,15 @@ for.body18.us:                                    ; preds = %for.body18.lr.ph, %
   %accumulated_time.0147.us = phi float [ %add.us, %for.cond27.for.end33_crit_edge.us ], [ 0.000000e+00, %for.body18.lr.ph ]
   %i.2146.us = phi i32 [ %inc43.us, %for.cond27.for.end33_crit_edge.us ], [ 0, %for.body18.lr.ph ]
   %13 = phi ptr [ %19, %for.cond27.for.end33_crit_edge.us ], [ %.pr, %for.body18.lr.ph ]
-  %TotalTime.i.i124.us = getelementptr inbounds %class.CProfileNode, ptr %13, i64 0, i32 2
-  %14 = load float, ptr %TotalTime.i.i124.us, align 4, !tbaa !15
+  %TotalTime.i.i120.us = getelementptr inbounds %class.CProfileNode, ptr %13, i64 0, i32 2
+  %14 = load float, ptr %TotalTime.i.i120.us, align 4, !tbaa !15
   %div.us = fdiv float %14, %cond
   %mul.us = fmul float %div.us, 1.000000e+02
   br label %for.body29.us
 
 for.body29.us:                                    ; preds = %for.body18.us, %for.body29.us
   %i26.0143.us = phi i32 [ 0, %for.body18.us ], [ %inc32.us, %for.body29.us ]
-  %putchar116.us = tail call i32 @putchar(i32 46)
+  %putchar133.us = tail call i32 @putchar(i32 46)
   %inc32.us = add nuw nsw i32 %i26.0143.us, 1
   %exitcond156.not = icmp eq i32 %inc32.us, %spacing
   br i1 %exitcond156.not, label %for.cond27.for.end33_crit_edge.us, label %for.body29.us
@@ -754,16 +754,16 @@ for.cond27.for.end33_crit_edge.us:                ; preds = %for.body29.us
   %Sibling.i.i.us = getelementptr inbounds %class.CProfileNode, ptr %18, i64 0, i32 7
   %19 = load ptr, ptr %Sibling.i.i.us, align 8, !tbaa !17
   store ptr %19, ptr %CurrentChild.i, align 8, !tbaa !30
-  %cmp.i122.us = icmp eq ptr %19, null
-  br i1 %cmp.i122.us, label %for.end44, label %for.body18.us
+  %cmp.i118.not.us = icmp eq ptr %19, null
+  br i1 %cmp.i118.not.us, label %for.end44, label %for.body18.us
 
 for.body18:                                       ; preds = %for.body18.lr.ph, %for.body18
   %accumulated_time.0147 = phi float [ %add, %for.body18 ], [ 0.000000e+00, %for.body18.lr.ph ]
   %i.2146 = phi i32 [ %inc43, %for.body18 ], [ 0, %for.body18.lr.ph ]
   %20 = phi ptr [ %25, %for.body18 ], [ %.pr, %for.body18.lr.ph ]
   %inc43 = add nuw i32 %i.2146, 1
-  %TotalTime.i.i124 = getelementptr inbounds %class.CProfileNode, ptr %20, i64 0, i32 2
-  %21 = load float, ptr %TotalTime.i.i124, align 4, !tbaa !15
+  %TotalTime.i.i120 = getelementptr inbounds %class.CProfileNode, ptr %20, i64 0, i32 2
+  %21 = load float, ptr %TotalTime.i.i120, align 4, !tbaa !15
   %add = fadd float %accumulated_time.0147, %21
   %div = fdiv float %21, %cond
   %mul = fmul float %div, 1.000000e+02
@@ -779,8 +779,8 @@ for.body18:                                       ; preds = %for.body18.lr.ph, %
   %Sibling.i.i = getelementptr inbounds %class.CProfileNode, ptr %24, i64 0, i32 7
   %25 = load ptr, ptr %Sibling.i.i, align 8, !tbaa !17
   store ptr %25, ptr %CurrentChild.i, align 8, !tbaa !30
-  %cmp.i122 = icmp eq ptr %25, null
-  br i1 %cmp.i122, label %for.end44, label %for.body18
+  %cmp.i118.not = icmp eq ptr %25, null
+  br i1 %cmp.i118.not, label %for.end44, label %for.body18
 
 for.end44:                                        ; preds = %for.body18, %for.cond27.for.end33_crit_edge.us, %for.end13
   %numChildren.0.lcssa = phi i32 [ 0, %for.end13 ], [ %inc43.us, %for.cond27.for.end33_crit_edge.us ], [ %inc43, %for.body18 ]
@@ -789,7 +789,7 @@ for.end44:                                        ; preds = %for.body18, %for.co
   br i1 %cmp45, label %if.then46, label %if.end48
 
 if.then46:                                        ; preds = %for.end44
-  %puts115 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   br label %if.end48
 
 if.end48:                                         ; preds = %if.then46, %for.end44
@@ -822,8 +822,8 @@ for.body69.lr.ph:                                 ; preds = %for.end55
 for.body69:                                       ; preds = %for.body69.lr.ph, %_ZN16CProfileIterator12Enter_ParentEv.exit
   %27 = phi ptr [ %.pre, %for.body69.lr.ph ], [ %33, %_ZN16CProfileIterator12Enter_ParentEv.exit ]
   %i.4153 = phi i32 [ 0, %for.body69.lr.ph ], [ %inc72, %_ZN16CProfileIterator12Enter_ParentEv.exit ]
-  %Child.i.i128 = getelementptr inbounds %class.CProfileNode, ptr %27, i64 0, i32 6
-  %storemerge16.i = load ptr, ptr %Child.i.i128, align 8, !tbaa !18
+  %Child.i.i124 = getelementptr inbounds %class.CProfileNode, ptr %27, i64 0, i32 6
+  %storemerge16.i = load ptr, ptr %Child.i.i124, align 8, !tbaa !18
   store ptr %storemerge16.i, ptr %CurrentChild.i, align 8, !tbaa !30
   %cmp17.i = icmp ne ptr %storemerge16.i, null
   %cmp318.i = icmp ne i32 %i.4153, 0
@@ -834,17 +834,17 @@ while.body.i:                                     ; preds = %for.body69, %while.
   %storemerge20.i = phi ptr [ %storemerge.i, %while.body.i ], [ %storemerge16.i, %for.body69 ]
   %index.addr.019.i = phi i32 [ %dec.i, %while.body.i ], [ %i.4153, %for.body69 ]
   %dec.i = add nsw i32 %index.addr.019.i, -1
-  %Sibling.i.i130 = getelementptr inbounds %class.CProfileNode, ptr %storemerge20.i, i64 0, i32 7
-  %storemerge.i = load ptr, ptr %Sibling.i.i130, align 8, !tbaa !18
+  %Sibling.i.i126 = getelementptr inbounds %class.CProfileNode, ptr %storemerge20.i, i64 0, i32 7
+  %storemerge.i = load ptr, ptr %Sibling.i.i126, align 8, !tbaa !18
   store ptr %storemerge.i, ptr %CurrentChild.i, align 8, !tbaa !30
-  %cmp.i131 = icmp ne ptr %storemerge.i, null
+  %cmp.i127 = icmp ne ptr %storemerge.i, null
   %cmp3.i = icmp ne i32 %dec.i, 0
-  %29 = select i1 %cmp.i131, i1 %cmp3.i, i1 false
+  %29 = select i1 %cmp.i127, i1 %cmp3.i, i1 false
   br i1 %29, label %while.body.i, label %while.end.i
 
 while.end.i:                                      ; preds = %while.body.i, %for.body69
   %storemerge.lcssa.i = phi ptr [ %storemerge16.i, %for.body69 ], [ %storemerge.i, %while.body.i ]
-  %cmp.lcssa.i = phi i1 [ %cmp17.i, %for.body69 ], [ %cmp.i131, %while.body.i ]
+  %cmp.lcssa.i = phi i1 [ %cmp17.i, %for.body69 ], [ %cmp.i127, %while.body.i ]
   br i1 %cmp.lcssa.i, label %if.then.i, label %_ZN16CProfileIterator11Enter_ChildEi.exit
 
 if.then.i:                                        ; preds = %while.end.i
@@ -857,19 +857,19 @@ if.then.i:                                        ; preds = %while.end.i
 _ZN16CProfileIterator11Enter_ChildEi.exit:        ; preds = %while.end.i, %if.then.i
   tail call void @_ZN15CProfileManager13dumpRecursiveEP16CProfileIteratori(ptr noundef nonnull %profileIterator, i32 noundef %add70)
   %31 = load ptr, ptr %profileIterator, align 8, !tbaa !28
-  %Parent.i.i132 = getelementptr inbounds %class.CProfileNode, ptr %31, i64 0, i32 5
-  %32 = load ptr, ptr %Parent.i.i132, align 8, !tbaa !13
+  %Parent.i.i128 = getelementptr inbounds %class.CProfileNode, ptr %31, i64 0, i32 5
+  %32 = load ptr, ptr %Parent.i.i128, align 8, !tbaa !13
   %cmp.not.i = icmp eq ptr %32, null
-  br i1 %cmp.not.i, label %_ZN16CProfileIterator12Enter_ParentEv.exit, label %if.then.i133
+  br i1 %cmp.not.i, label %_ZN16CProfileIterator12Enter_ParentEv.exit, label %if.then.i129
 
-if.then.i133:                                     ; preds = %_ZN16CProfileIterator11Enter_ChildEi.exit
+if.then.i129:                                     ; preds = %_ZN16CProfileIterator11Enter_ChildEi.exit
   store ptr %32, ptr %profileIterator, align 8, !tbaa !28
   br label %_ZN16CProfileIterator12Enter_ParentEv.exit
 
-_ZN16CProfileIterator12Enter_ParentEv.exit:       ; preds = %_ZN16CProfileIterator11Enter_ChildEi.exit, %if.then.i133
-  %33 = phi ptr [ %32, %if.then.i133 ], [ %31, %_ZN16CProfileIterator11Enter_ChildEi.exit ]
-  %Child.i.i134 = getelementptr inbounds %class.CProfileNode, ptr %33, i64 0, i32 6
-  %34 = load ptr, ptr %Child.i.i134, align 8, !tbaa !16
+_ZN16CProfileIterator12Enter_ParentEv.exit:       ; preds = %_ZN16CProfileIterator11Enter_ChildEi.exit, %if.then.i129
+  %33 = phi ptr [ %32, %if.then.i129 ], [ %31, %_ZN16CProfileIterator11Enter_ChildEi.exit ]
+  %Child.i.i130 = getelementptr inbounds %class.CProfileNode, ptr %33, i64 0, i32 6
+  %34 = load ptr, ptr %Child.i.i130, align 8, !tbaa !16
   store ptr %34, ptr %CurrentChild.i, align 8, !tbaa !30
   %inc72 = add nuw i32 %i.4153, 1
   %exitcond158.not = icmp eq i32 %inc72, %numChildren.0.lcssa
@@ -910,14 +910,14 @@ entry:
   ret void
 }
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #0
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #0
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
 
 attributes #0 = { nofree nounwind }
 attributes #1 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

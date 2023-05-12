@@ -42,147 +42,147 @@ while.body.lr.ph:                                 ; preds = %if.end
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.end67
-  %inPtr.0246 = phi ptr [ %pc, %while.body.lr.ph ], [ %inPtr.5, %if.end67 ]
-  %bitPos.0245 = phi i32 [ %4, %while.body.lr.ph ], [ %bitPos.2, %if.end67 ]
-  %rowPos.0244 = phi i32 [ 0, %while.body.lr.ph ], [ %rowPos.5, %if.end67 ]
-  %c.0243 = phi i32 [ 0, %while.body.lr.ph ], [ %c.3, %if.end67 ]
-  %mb.0242 = phi i32 [ %5, %while.body.lr.ph ], [ %mb.1, %if.end67 ]
-  %zmode.0.neg241 = phi i32 [ 0, %while.body.lr.ph ], [ %zmode.2.neg, %if.end67 ]
-  %shr = lshr i32 %mb.0242, 9
+  %inPtr.0247 = phi ptr [ %pc, %while.body.lr.ph ], [ %inPtr.5, %if.end67 ]
+  %bitPos.0246 = phi i32 [ %4, %while.body.lr.ph ], [ %bitPos.2, %if.end67 ]
+  %rowPos.0245 = phi i32 [ 0, %while.body.lr.ph ], [ %rowPos.5, %if.end67 ]
+  %c.0244 = phi i32 [ 0, %while.body.lr.ph ], [ %c.3, %if.end67 ]
+  %mb.0243 = phi i32 [ %5, %while.body.lr.ph ], [ %mb.1, %if.end67 ]
+  %zmode.0.neg242 = phi i32 [ 0, %while.body.lr.ph ], [ %zmode.2.neg, %if.end67 ]
+  %shr = lshr i32 %mb.0243, 9
   %add.i = add nuw nsw i32 %shr, 3
   %call.i = tail call fastcc i32 @lead(i32 noundef %add.i)
   %sub.i = sub nsw i32 31, %call.i
   %spec.select = tail call i32 @llvm.umin.i32(i32 %sub.i, i32 %7)
   %notmask = shl nsw i32 -1, %spec.select
   %sub10 = xor i32 %notmask, -1
-  %incdec.ptr = getelementptr inbounds i32, ptr %inPtr.0246, i64 1
-  %9 = load i32, ptr %inPtr.0246, align 4, !tbaa !11
-  %inc = add nsw i32 %rowPos.0244, 1
-  %sub.i155 = tail call i32 @llvm.abs.i32(i32 %9, i1 true)
-  %shl12 = shl nuw i32 %sub.i155, 1
-  %shr13152.neg = ashr i32 %9, 31
-  %sub14 = add i32 %shl12, %shr13152.neg
-  %sub15 = add i32 %sub14, %zmode.0.neg241
+  %incdec.ptr = getelementptr inbounds i32, ptr %inPtr.0247, i64 1
+  %9 = load i32, ptr %inPtr.0247, align 4, !tbaa !11
+  %inc = add nsw i32 %rowPos.0245, 1
+  %sub.i152 = tail call i32 @llvm.abs.i32(i32 %9, i1 true)
+  %shl12 = shl nuw i32 %sub.i152, 1
+  %shr13227.neg = ashr i32 %9, 31
+  %sub14 = add i32 %shl12, %shr13227.neg
+  %sub15 = add i32 %sub14, %zmode.0.neg242
   %div1.i = udiv i32 %sub15, %sub10
-  %reass.sub.recomposed = urem i32 %sub15, %sub10
-  %cmp.i201 = icmp ult i32 %div1.i, 9
-  br i1 %cmp.i201, label %if.then.i204, label %if.then17
+  %cmp.i198 = icmp ult i32 %div1.i, 9
+  br i1 %cmp.i198, label %if.then.i201, label %if.then17
 
-if.then.i204:                                     ; preds = %while.body
+if.then.i201:                                     ; preds = %while.body
   %mul.i = mul i32 %div1.i, %sub10
-  %cmp2.i = icmp eq i32 %sub15, %mul.i
+  %cmp2.i = icmp eq i32 %mul.i, %sub15
   %conv.neg26.i = sext i1 %cmp2.i to i32
-  %add.i202 = add i32 %spec.select, 1
-  %add3.i = add i32 %add.i202, %div1.i
+  %add.i199 = add nuw nsw i32 %div1.i, 1
+  %add3.i = add i32 %add.i199, %spec.select
   %sub4.i = add i32 %add3.i, %conv.neg26.i
   %cmp11.i = icmp ugt i32 %sub4.i, 25
   br i1 %cmp11.i, label %if.then17, label %if.else
 
-if.then17:                                        ; preds = %if.then.i204, %while.body
-  %shr.i = lshr i32 %bitPos.0245, 3
+if.then17:                                        ; preds = %if.then.i201, %while.body
+  %shr.i = lshr i32 %bitPos.0246, 3
   %idx.ext.i = zext i32 %shr.i to i64
   %add.ptr.i = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i
   %add.ptr.val.i = load i32, ptr %add.ptr.i, align 4, !tbaa !11
   %call.i.i = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i) #4
-  %and.i = and i32 %bitPos.0245, 7
+  %and.i = and i32 %bitPos.0246, 7
   %sub1.i = sub nuw nsw i32 23, %and.i
   %shl.i = shl nuw i32 511, %sub1.i
   %or.i = or i32 %call.i.i, %shl.i
-  %call.i16.i = tail call i32 @Swap32BtoN(i32 noundef %or.i) #4
-  store i32 %call.i16.i, ptr %add.ptr.i, align 4, !tbaa !11
-  %add = add i32 %bitPos.0245, 9
-  %shr.i156 = lshr i32 %add, 3
-  %idx.ext.i157 = zext i32 %shr.i156 to i64
-  %add.ptr.i158 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i157
-  %and.i159 = and i32 %add, 7
-  %10 = add i32 %and.i159, %bitSize
-  %sub1.i160 = sub i32 32, %10
-  %add.ptr.val.i161 = load i32, ptr %add.ptr.i158, align 4, !tbaa !11
-  %call.i.i162 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i161) #4
-  %cmp.i = icmp slt i32 %sub1.i160, 0
+  %call.i15.i = tail call i32 @Swap32BtoN(i32 noundef %or.i) #4
+  store i32 %call.i15.i, ptr %add.ptr.i, align 4, !tbaa !11
+  %add = add i32 %bitPos.0246, 9
+  %shr.i153 = lshr i32 %add, 3
+  %idx.ext.i154 = zext i32 %shr.i153 to i64
+  %add.ptr.i155 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i154
+  %and.i156 = and i32 %add, 7
+  %10 = add i32 %and.i156, %bitSize
+  %sub1.i157 = sub i32 32, %10
+  %add.ptr.val.i158 = load i32, ptr %add.ptr.i155, align 4, !tbaa !11
+  %call.i.i159 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i158) #4
+  %cmp.i = icmp slt i32 %sub1.i157, 0
   br i1 %cmp.i, label %if.then.i, label %if.else.i
 
 if.then.i:                                        ; preds = %if.then17
   %sub1.neg.i = add i32 %10, -32
-  %shr3.i163 = lshr i32 %sub15, %sub1.neg.i
+  %shr3.i160 = lshr i32 %sub15, %sub1.neg.i
   %shr5.i = lshr i32 -1, %sub1.neg.i
-  %not.i164 = xor i32 %shr5.i, -1
-  %and6.i165 = and i32 %call.i.i162, %not.i164
-  %or.i166 = or i32 %and6.i165, %shr3.i163
-  %add.ptr7.i = getelementptr inbounds i8, ptr %add.ptr.i158, i64 4
-  %add.i167 = sub i32 40, %10
-  %shl.i168 = shl i32 %sub15, %add.i167
-  %conv.i = trunc i32 %shl.i168 to i8
+  %not.i161 = xor i32 %shr5.i, -1
+  %and6.i162 = and i32 %call.i.i159, %not.i161
+  %or.i163 = or i32 %and6.i162, %shr3.i160
+  %add.ptr7.i = getelementptr inbounds i8, ptr %add.ptr.i155, i64 4
+  %add.i164 = sub i32 40, %10
+  %shl.i165 = shl i32 %sub15, %add.i164
+  %conv.i = trunc i32 %shl.i165 to i8
   store i8 %conv.i, ptr %add.ptr7.i, align 1, !tbaa !21
   br label %dyn_jam_noDeref_large.exit
 
 if.else.i:                                        ; preds = %if.then17
-  %shl11.i = shl i32 %shr10.i, %sub1.i160
-  %shl1234.i = and i32 %sub15, %shr10.i
-  %and13.i = shl i32 %shl1234.i, %sub1.i160
+  %shl11.i = shl i32 %shr10.i, %sub1.i157
+  %shl1235.i = and i32 %sub15, %shr10.i
+  %and13.i = shl i32 %shl1235.i, %sub1.i157
   %not14.i = xor i32 %shl11.i, -1
-  %and15.i = and i32 %call.i.i162, %not14.i
+  %and15.i = and i32 %call.i.i159, %not14.i
   %or16.i = or i32 %and15.i, %and13.i
   br label %dyn_jam_noDeref_large.exit
 
 dyn_jam_noDeref_large.exit:                       ; preds = %if.then.i, %if.else.i
-  %w.0.i = phi i32 [ %or.i166, %if.then.i ], [ %or16.i, %if.else.i ]
-  %call.i35.i = tail call i32 @Swap32BtoN(i32 noundef %w.0.i) #4
-  store i32 %call.i35.i, ptr %add.ptr.i158, align 4, !tbaa !11
+  %w.0.i = phi i32 [ %or.i163, %if.then.i ], [ %or16.i, %if.else.i ]
+  %call.i34.i = tail call i32 @Swap32BtoN(i32 noundef %w.0.i) #4
+  store i32 %call.i34.i, ptr %add.ptr.i155, align 4, !tbaa !11
   %add18 = add i32 %add, %bitSize
   br label %if.end20
 
-if.else:                                          ; preds = %if.then.i204
+if.else:                                          ; preds = %if.then.i201
+  %sub.i200 = add i32 %sub15, 1
+  %add8.i = sub i32 %sub.i200, %mul.i
+  %add9.i = add i32 %add8.i, %conv.neg26.i
   %notmask.i = shl nsw i32 -1, %div1.i
   %sub5.i = xor i32 %notmask.i, -1
   %sub6.i = sub nsw i32 %sub4.i, %div1.i
   %shl7.i = shl i32 %sub5.i, %sub6.i
-  %add8.i = add i32 %reass.sub.recomposed, 1
-  %add9.i = add i32 %add8.i, %conv.neg26.i
   %sub10.i = add i32 %add9.i, %shl7.i
-  %shr.i169 = lshr i32 %bitPos.0245, 3
-  %idx.ext.i170 = zext i32 %shr.i169 to i64
-  %add.ptr.i171 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i170
-  %add.ptr.val.i172 = load i32, ptr %add.ptr.i171, align 4, !tbaa !11
-  %call.i.i173 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i172) #4
-  %and.i174 = and i32 %bitPos.0245, 7
-  %11 = add nuw nsw i32 %and.i174, %sub4.i
-  %sub1.i175 = sub nuw nsw i32 32, %11
-  %sub2.i176 = sub nuw nsw i32 32, %sub4.i
-  %shr3.i177 = lshr i32 -1, %sub2.i176
-  %shl.i178 = shl i32 %shr3.i177, %sub1.i175
-  %shl415.i179 = and i32 %sub10.i, %shr3.i177
-  %and5.i180 = shl i32 %shl415.i179, %sub1.i175
-  %not.i181 = xor i32 %shl.i178, -1
-  %and6.i182 = and i32 %call.i.i173, %not.i181
-  %or.i183 = or i32 %and6.i182, %and5.i180
-  %call.i16.i184 = tail call i32 @Swap32BtoN(i32 noundef %or.i183) #4
-  store i32 %call.i16.i184, ptr %add.ptr.i171, align 4, !tbaa !11
-  %add19 = add i32 %sub4.i, %bitPos.0245
+  %shr.i166 = lshr i32 %bitPos.0246, 3
+  %idx.ext.i167 = zext i32 %shr.i166 to i64
+  %add.ptr.i168 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i167
+  %add.ptr.val.i169 = load i32, ptr %add.ptr.i168, align 4, !tbaa !11
+  %call.i.i170 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i169) #4
+  %and.i171 = and i32 %bitPos.0246, 7
+  %11 = add nuw nsw i32 %and.i171, %sub4.i
+  %sub1.i172 = sub nuw nsw i32 32, %11
+  %sub2.i173 = sub nuw nsw i32 32, %sub4.i
+  %shr3.i174 = lshr i32 -1, %sub2.i173
+  %shl.i175 = shl i32 %shr3.i174, %sub1.i172
+  %shl416.i176 = and i32 %sub10.i, %shr3.i174
+  %and5.i177 = shl i32 %shl416.i176, %sub1.i172
+  %not.i178 = xor i32 %shl.i175, -1
+  %and6.i179 = and i32 %call.i.i170, %not.i178
+  %or.i180 = or i32 %and6.i179, %and5.i177
+  %call.i15.i181 = tail call i32 @Swap32BtoN(i32 noundef %or.i180) #4
+  store i32 %call.i15.i181, ptr %add.ptr.i168, align 4, !tbaa !11
+  %add19 = add i32 %sub4.i, %bitPos.0246
   br label %if.end20
 
 if.end20:                                         ; preds = %if.else, %dyn_jam_noDeref_large.exit
   %bitPos.1 = phi i32 [ %add18, %dyn_jam_noDeref_large.exit ], [ %add19, %if.else ]
+  %inc21 = add nuw i32 %c.0244, 1
+  %cmp22.not = icmp slt i32 %inc, %0
+  %rowPos.1 = select i1 %cmp22.not, i32 %inc, i32 0
+  %inPtr.1.idx = select i1 %cmp22.not, i64 0, i64 %idx.ext
+  %inPtr.1 = getelementptr i32, ptr %incdec.ptr, i64 %inPtr.1.idx
   %mul = mul i32 %sub14, %6
-  %mul27 = mul i32 %mb.0242, %6
+  %mul27 = mul i32 %mb.0243, %6
   %shr28 = lshr i32 %mul27, 9
-  %add26 = sub i32 %mb.0242, %shr28
+  %add26 = sub i32 %mb.0243, %shr28
   %sub29 = add i32 %add26, %mul
   %cmp30 = icmp ugt i32 %sub15, 65535
   %spec.store.select = select i1 %cmp30, i32 65535, i32 %sub29
-  %inc21 = add nuw i32 %c.0243, 1
-  %cmp22.not = icmp slt i32 %inc, %0
-  %inPtr.1.idx = select i1 %cmp22.not, i64 0, i64 %idx.ext
-  %inPtr.1 = getelementptr i32, ptr %incdec.ptr, i64 %inPtr.1.idx
-  %rowPos.1 = select i1 %cmp22.not, i32 %inc, i32 0
   %12 = and i32 %spec.store.select, 1073741696
   %cmp37 = icmp eq i32 %12, 0
   %cmp39 = icmp ult i32 %inc21, %numSamples
-  %or.cond154 = and i1 %cmp39, %cmp37
-  br i1 %or.cond154, label %while.cond41.preheader, label %if.end67
+  %or.cond229 = and i1 %cmp39, %cmp37
+  br i1 %or.cond229, label %while.cond41.preheader, label %if.end67
 
 while.cond41.preheader:                           ; preds = %if.end20
-  %13 = add i32 %c.0243, 65536
+  %13 = add i32 %c.0244, 65536
   br label %while.cond41
 
 while.cond41:                                     ; preds = %while.body44.1, %while.cond41.preheader
@@ -241,57 +241,57 @@ while.end:                                        ; preds = %land.rhs.1, %while.
   %shr60 = lshr i32 %add59, 6
   %sub58 = add nsw i32 %shr60, -24
   %add61 = add i32 %sub58, %call57
-  %notmask153 = shl nsw i32 -1, %add61
-  %sub63 = xor i32 %notmask153, -1
+  %notmask228 = shl nsw i32 -1, %add61
+  %sub63 = xor i32 %notmask228, -1
   %and64 = and i32 %8, %sub63
-  %div1.i205 = sdiv i32 %nz.1, %and64
+  %div1.i202 = sdiv i32 %nz.1, %and64
   %rem.i = srem i32 %nz.1, %and64
-  %cmp.i206 = icmp ugt i32 %div1.i205, 8
-  br i1 %cmp.i206, label %if.then.i208, label %if.else.i220
+  %cmp.i203 = icmp ugt i32 %div1.i202, 8
+  br i1 %cmp.i203, label %if.then.i205, label %if.else.i217
 
-if.then.i208:                                     ; preds = %while.end
-  %add.i207 = add nuw nsw i32 %nz.1, 33488896
+if.then.i205:                                     ; preds = %while.end
+  %add.i204 = add nuw nsw i32 %nz.1, 33488896
   br label %dyn_code.exit
 
-if.else.i220:                                     ; preds = %while.end
-  %cmp2.i209 = icmp ne i32 %rem.i, 0
-  %add3.i210 = zext i1 %cmp2.i209 to i32
-  %add4.i = add nuw nsw i32 %div1.i205, %add3.i210
-  %sub.i211 = add i32 %add4.i, %add61
-  %notmask.i212 = shl nsw i32 -1, %div1.i205
-  %sub5.i213 = xor i32 %notmask.i212, -1
-  %sub6.i214 = sub i32 %sub.i211, %div1.i205
-  %shl7.i215 = shl i32 %sub5.i213, %sub6.i214
-  %add9.i217 = add i32 %shl7.i215, %add3.i210
-  %sub10.i218 = add i32 %add9.i217, %rem.i
-  %cmp11.i219 = icmp ugt i32 %sub.i211, 25
+if.else.i217:                                     ; preds = %while.end
+  %cmp2.i206 = icmp ne i32 %rem.i, 0
+  %add3.i207 = zext i1 %cmp2.i206 to i32
+  %add4.i = add nuw nsw i32 %div1.i202, %add3.i207
+  %sub.i208 = add i32 %add4.i, %add61
+  %notmask.i209 = shl nsw i32 -1, %div1.i202
+  %sub5.i210 = xor i32 %notmask.i209, -1
+  %sub6.i211 = sub i32 %sub.i208, %div1.i202
+  %shl7.i212 = shl i32 %sub5.i210, %sub6.i211
+  %add9.i214 = add i32 %shl7.i212, %add3.i207
+  %sub10.i215 = add i32 %add9.i214, %rem.i
+  %cmp11.i216 = icmp ugt i32 %sub.i208, 25
   %add14.i = add nuw nsw i32 %nz.1, 33488896
-  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %sub.i211, i32 25)
-  %spec.select27.i = select i1 %cmp11.i219, i32 %add14.i, i32 %sub10.i218
+  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %sub.i208, i32 25)
+  %spec.select27.i = select i1 %cmp11.i216, i32 %add14.i, i32 %sub10.i215
   br label %dyn_code.exit
 
-dyn_code.exit:                                    ; preds = %if.then.i208, %if.else.i220
-  %numBits.0.i221 = phi i32 [ 25, %if.then.i208 ], [ %spec.select.i, %if.else.i220 ]
-  %value.0.i222 = phi i32 [ %add.i207, %if.then.i208 ], [ %spec.select27.i, %if.else.i220 ]
-  %shr.i185 = lshr i32 %bitPos.1, 3
-  %idx.ext.i186 = zext i32 %shr.i185 to i64
-  %add.ptr.i187 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i186
-  %add.ptr.val.i188 = load i32, ptr %add.ptr.i187, align 4, !tbaa !11
-  %call.i.i189 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i188) #4
-  %and.i190 = and i32 %bitPos.1, 7
-  %16 = add nuw nsw i32 %and.i190, %numBits.0.i221
-  %sub1.i191 = sub nuw nsw i32 32, %16
-  %sub2.i192 = sub nuw nsw i32 32, %numBits.0.i221
-  %shr3.i193 = lshr i32 -1, %sub2.i192
-  %shl.i194 = shl i32 %shr3.i193, %sub1.i191
-  %shl415.i195 = and i32 %shr3.i193, %value.0.i222
-  %and5.i196 = shl i32 %shl415.i195, %sub1.i191
-  %not.i197 = xor i32 %shl.i194, -1
-  %and6.i198 = and i32 %call.i.i189, %not.i197
-  %or.i199 = or i32 %and6.i198, %and5.i196
-  %call.i16.i200 = tail call i32 @Swap32BtoN(i32 noundef %or.i199) #4
-  store i32 %call.i16.i200, ptr %add.ptr.i187, align 4, !tbaa !11
-  %add66 = add i32 %numBits.0.i221, %bitPos.1
+dyn_code.exit:                                    ; preds = %if.then.i205, %if.else.i217
+  %numBits.0.i218 = phi i32 [ 25, %if.then.i205 ], [ %spec.select.i, %if.else.i217 ]
+  %value.0.i219 = phi i32 [ %add.i204, %if.then.i205 ], [ %spec.select27.i, %if.else.i217 ]
+  %shr.i182 = lshr i32 %bitPos.1, 3
+  %idx.ext.i183 = zext i32 %shr.i182 to i64
+  %add.ptr.i184 = getelementptr inbounds i8, ptr %3, i64 %idx.ext.i183
+  %add.ptr.val.i185 = load i32, ptr %add.ptr.i184, align 4, !tbaa !11
+  %call.i.i186 = tail call i32 @Swap32NtoB(i32 noundef %add.ptr.val.i185) #4
+  %and.i187 = and i32 %bitPos.1, 7
+  %16 = add nuw nsw i32 %and.i187, %numBits.0.i218
+  %sub1.i188 = sub nuw nsw i32 32, %16
+  %sub2.i189 = sub nuw nsw i32 32, %numBits.0.i218
+  %shr3.i190 = lshr i32 -1, %sub2.i189
+  %shl.i191 = shl i32 %shr3.i190, %sub1.i188
+  %shl416.i192 = and i32 %shr3.i190, %value.0.i219
+  %and5.i193 = shl i32 %shl416.i192, %sub1.i188
+  %not.i194 = xor i32 %shl.i191, -1
+  %and6.i195 = and i32 %call.i.i186, %not.i194
+  %or.i196 = or i32 %and6.i195, %and5.i193
+  %call.i15.i197 = tail call i32 @Swap32BtoN(i32 noundef %or.i196) #4
+  store i32 %call.i15.i197, ptr %add.ptr.i184, align 4, !tbaa !11
+  %add66 = add i32 %numBits.0.i218, %bitPos.1
   br label %if.end67
 
 if.end67:                                         ; preds = %dyn_code.exit, %if.end20

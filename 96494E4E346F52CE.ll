@@ -15,7 +15,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test_float() local_unnamed_addr #0 {
-if.end:
+entry:
   ret void
 }
 
@@ -30,7 +30,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test_double() local_unnamed_addr #1 {
-if.end:
+entry:
   ret void
 }
 
@@ -48,7 +48,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test_long_double() local_unnamed_addr #1 {
-if.end:
+entry:
   ret void
 }
 
@@ -63,7 +63,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test_int() local_unnamed_addr #1 {
-if.end:
+entry:
   ret void
 }
 
@@ -78,13 +78,13 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test_long_int() local_unnamed_addr #1 {
-if.end:
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
-if.end:
+entry:
   store i32 0, ptr @err, align 4, !tbaa !5
   ret i32 0
 }

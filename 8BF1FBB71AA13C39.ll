@@ -837,18 +837,18 @@ if.end24:                                         ; preds = %if.end11
   %e_entry = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 4
   %3 = load i32, ptr %e_entry, align 4, !tbaa !13
   %or5.i = tail call i32 @llvm.bswap.i32(i32 %3)
-  %retval.0.i209 = select i1 %cmp15, i32 %or5.i, i32 %3
+  %retval.0.i210 = select i1 %cmp15, i32 %or5.i, i32 %3
   %tobool27 = icmp ne i16 %retval.0.i, 0
-  %tobool28 = icmp ne i32 %retval.0.i209, 0
+  %tobool28 = icmp ne i32 %retval.0.i210, 0
   %or.cond = select i1 %tobool27, i1 %tobool28, i1 false
   br i1 %or.cond, label %if.then29, label %if.end65
 
 if.then29:                                        ; preds = %if.end24
   %e_phentsize = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 9
   %4 = load i16, ptr %e_phentsize, align 2, !tbaa !20
-  %add.i210 = tail call i16 @llvm.bswap.i16(i16 %4)
-  %retval.0.i211 = select i1 %cmp15, i16 %add.i210, i16 %4
-  %cmp32.not = icmp eq i16 %retval.0.i211, 32
+  %add.i212 = tail call i16 @llvm.bswap.i16(i16 %4)
+  %retval.0.i213 = select i1 %cmp15, i16 %add.i212, i16 %4
+  %cmp32.not = icmp eq i16 %retval.0.i213, 32
   br i1 %cmp32.not, label %if.end35, label %if.then34
 
 if.then34:                                        ; preds = %if.then29
@@ -858,12 +858,12 @@ if.then34:                                        ; preds = %if.then29
 if.end35:                                         ; preds = %if.then29
   %e_phoff = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 5
   %5 = load i32, ptr %e_phoff, align 4, !tbaa !21
-  %or5.i212 = tail call i32 @llvm.bswap.i32(i32 %5)
-  %retval.0.i213 = select i1 %cmp15, i32 %or5.i212, i32 %5
-  %conv37 = zext i32 %retval.0.i213 to i64
+  %or5.i215 = tail call i32 @llvm.bswap.i32(i32 %5)
+  %retval.0.i216 = select i1 %cmp15, i32 %or5.i215, i32 %5
+  %conv37 = zext i32 %retval.0.i216 to i64
   %call38 = tail call i64 @lseek(i32 noundef %desc, i64 noundef %conv37, i32 noundef 0) #8
   %conv39 = trunc i64 %call38 to i32
-  %cmp40.not = icmp eq i32 %retval.0.i213, %conv39
+  %cmp40.not = icmp eq i32 %retval.0.i216, %conv39
   br i1 %cmp40.not, label %if.end43, label %cleanup
 
 if.end43:                                         ; preds = %if.end35
@@ -896,7 +896,7 @@ for.inc:                                          ; preds = %for.body
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !40
 
 for.end:                                          ; preds = %for.inc
-  %call61 = call fastcc i32 @cli_rawaddr(i32 noundef %retval.0.i209, ptr noundef nonnull %call46, i16 noundef zeroext %retval.0.i, i8 noundef zeroext %spec.select, ptr noundef nonnull %err)
+  %call61 = call fastcc i32 @cli_rawaddr(i32 noundef %retval.0.i210, ptr noundef nonnull %call46, i16 noundef zeroext %retval.0.i, i8 noundef zeroext %spec.select, ptr noundef nonnull %err)
   tail call void @free(ptr noundef %call46) #8
   %7 = load i8, ptr %err, align 1, !tbaa !5
   %tobool62.not = icmp eq i8 %7, 0
@@ -911,9 +911,9 @@ if.end65:                                         ; preds = %for.end, %if.end24
   store i32 %fentry.0, ptr %elfinfo, align 8, !tbaa !41
   %e_shnum = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 12
   %8 = load i16, ptr %e_shnum, align 4, !tbaa !30
-  %add.i214 = tail call i16 @llvm.bswap.i16(i16 %8)
-  %retval.0.i215 = select i1 %cmp15, i16 %add.i214, i16 %8
-  %cmp68 = icmp ugt i16 %retval.0.i215, 256
+  %add.i218 = tail call i16 @llvm.bswap.i16(i16 %8)
+  %retval.0.i219 = select i1 %cmp15, i16 %add.i218, i16 %8
+  %cmp68 = icmp ugt i16 %retval.0.i219, 256
   br i1 %cmp68, label %if.then70, label %if.end71
 
 if.then70:                                        ; preds = %if.end65
@@ -922,12 +922,12 @@ if.then70:                                        ; preds = %if.end65
 
 if.end71:                                         ; preds = %if.end65
   %nsections = getelementptr inbounds %struct.cli_exe_info, ptr %elfinfo, i64 0, i32 1
-  store i16 %retval.0.i215, ptr %nsections, align 4, !tbaa !44
+  store i16 %retval.0.i219, ptr %nsections, align 4, !tbaa !44
   %e_shentsize = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 11
   %9 = load i16, ptr %e_shentsize, align 2, !tbaa !31
-  %add.i216 = tail call i16 @llvm.bswap.i16(i16 %9)
-  %retval.0.i217 = select i1 %cmp15, i16 %add.i216, i16 %9
-  %cmp74.not = icmp eq i16 %retval.0.i217, 40
+  %add.i221 = tail call i16 @llvm.bswap.i16(i16 %9)
+  %retval.0.i222 = select i1 %cmp15, i16 %add.i221, i16 %9
+  %cmp74.not = icmp eq i16 %retval.0.i222, 40
   br i1 %cmp74.not, label %if.end77, label %if.then76
 
 if.then76:                                        ; preds = %if.end71
@@ -937,12 +937,12 @@ if.then76:                                        ; preds = %if.end71
 if.end77:                                         ; preds = %if.end71
   %e_shoff = getelementptr inbounds %struct.elf_file_hdr32, ptr %file_hdr, i64 0, i32 6
   %10 = load i32, ptr %e_shoff, align 4, !tbaa !32
-  %or5.i218 = tail call i32 @llvm.bswap.i32(i32 %10)
-  %retval.0.i219 = select i1 %cmp15, i32 %or5.i218, i32 %10
-  %conv79 = zext i32 %retval.0.i219 to i64
+  %or5.i224 = tail call i32 @llvm.bswap.i32(i32 %10)
+  %retval.0.i225 = select i1 %cmp15, i32 %or5.i224, i32 %10
+  %conv79 = zext i32 %retval.0.i225 to i64
   %call80 = tail call i64 @lseek(i32 noundef %desc, i64 noundef %conv79, i32 noundef 0) #8
   %conv81 = trunc i64 %call80 to i32
-  %cmp82.not = icmp eq i32 %retval.0.i219, %conv81
+  %cmp82.not = icmp eq i32 %retval.0.i225, %conv81
   br i1 %cmp82.not, label %if.end85, label %cleanup
 
 if.end85:                                         ; preds = %if.end77
@@ -959,14 +959,14 @@ if.then91:                                        ; preds = %if.end85
   br label %cleanup
 
 if.end92:                                         ; preds = %if.end85
-  %conv93 = zext i16 %retval.0.i215 to i64
+  %conv93 = zext i16 %retval.0.i219 to i64
   %call95 = tail call ptr @cli_calloc(i64 noundef %conv93, i64 noundef 40) #8
   %tobool96.not = icmp eq ptr %call95, null
   br i1 %tobool96.not, label %if.then97, label %for.cond101.preheader
 
 for.cond101.preheader:                            ; preds = %if.end92
-  %cmp104229.not = icmp eq i16 %retval.0.i215, 0
-  br i1 %cmp104229.not, label %for.end136, label %for.body106
+  %cmp104238.not = icmp eq i16 %retval.0.i219, 0
+  br i1 %cmp104238.not, label %for.end136, label %for.body106
 
 if.then97:                                        ; preds = %if.end92
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.48) #8
@@ -976,8 +976,8 @@ if.then97:                                        ; preds = %if.end92
   br label %cleanup
 
 for.body106:                                      ; preds = %for.cond101.preheader, %if.end115
-  %indvars.iv233 = phi i64 [ %indvars.iv.next234, %if.end115 ], [ 0, %for.cond101.preheader ]
-  %arrayidx108 = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv233
+  %indvars.iv242 = phi i64 [ %indvars.iv.next243, %if.end115 ], [ 0, %for.cond101.preheader ]
+  %arrayidx108 = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv242
   %call109 = tail call i64 @read(i32 noundef %desc, ptr noundef nonnull %arrayidx108, i64 noundef 40) #8
   %cmp110.not = icmp eq i64 %call109, 40
   br i1 %cmp110.not, label %if.end115, label %if.then112
@@ -990,28 +990,28 @@ if.then112:                                       ; preds = %for.body106
   br label %cleanup
 
 if.end115:                                        ; preds = %for.body106
-  %sh_addr = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv233, i32 3
+  %sh_addr = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv242, i32 3
   %14 = load i32, ptr %sh_addr, align 4, !tbaa !46
-  %or5.i220 = tail call i32 @llvm.bswap.i32(i32 %14)
-  %retval.0.i221 = select i1 %cmp15, i32 %or5.i220, i32 %14
+  %or5.i227 = tail call i32 @llvm.bswap.i32(i32 %14)
+  %retval.0.i228 = select i1 %cmp15, i32 %or5.i227, i32 %14
   %15 = load ptr, ptr %section, align 8, !tbaa !45
-  %arrayidx121 = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv233
-  store i32 %retval.0.i221, ptr %arrayidx121, align 4, !tbaa !47
-  %sh_offset = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv233, i32 4
+  %arrayidx121 = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv242
+  store i32 %retval.0.i228, ptr %arrayidx121, align 4, !tbaa !47
+  %sh_offset = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv242, i32 4
   %16 = load i32, ptr %sh_offset, align 4, !tbaa !33
-  %or5.i222 = tail call i32 @llvm.bswap.i32(i32 %16)
-  %retval.0.i223 = select i1 %cmp15, i32 %or5.i222, i32 %16
-  %raw = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv233, i32 2
-  store i32 %retval.0.i223, ptr %raw, align 4, !tbaa !49
-  %sh_size = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv233, i32 5
+  %or5.i230 = tail call i32 @llvm.bswap.i32(i32 %16)
+  %retval.0.i231 = select i1 %cmp15, i32 %or5.i230, i32 %16
+  %raw = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv242, i32 2
+  store i32 %retval.0.i231, ptr %raw, align 4, !tbaa !49
+  %sh_size = getelementptr inbounds %struct.elf_section_hdr32, ptr %call95, i64 %indvars.iv242, i32 5
   %17 = load i32, ptr %sh_size, align 4, !tbaa !35
-  %or5.i224 = tail call i32 @llvm.bswap.i32(i32 %17)
-  %retval.0.i225 = select i1 %cmp15, i32 %or5.i224, i32 %17
-  %rsz = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv233, i32 3
-  store i32 %retval.0.i225, ptr %rsz, align 4, !tbaa !50
-  %indvars.iv.next234 = add nuw nsw i64 %indvars.iv233, 1
-  %exitcond237.not = icmp eq i64 %indvars.iv.next234, %conv93
-  br i1 %exitcond237.not, label %for.end136, label %for.body106, !llvm.loop !51
+  %or5.i233 = tail call i32 @llvm.bswap.i32(i32 %17)
+  %retval.0.i234 = select i1 %cmp15, i32 %or5.i233, i32 %17
+  %rsz = getelementptr inbounds %struct.cli_exe_section, ptr %15, i64 %indvars.iv242, i32 3
+  store i32 %retval.0.i234, ptr %rsz, align 4, !tbaa !50
+  %indvars.iv.next243 = add nuw nsw i64 %indvars.iv242, 1
+  %exitcond246.not = icmp eq i64 %indvars.iv.next243, %conv93
+  br i1 %exitcond246.not, label %for.end136, label %for.body106, !llvm.loop !51
 
 for.end136:                                       ; preds = %if.end115, %for.cond101.preheader
   tail call void @free(ptr noundef nonnull %call95) #8

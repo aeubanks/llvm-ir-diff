@@ -121,10 +121,10 @@ for.body:                                         ; preds = %entry, %calc.exit
   %shr = lshr i32 %0, 9
   %shr1 = lshr i32 %0, 8
   %and2 = and i32 %shr1, 1
-  %and = lshr i32 %0, 3
-  %shr.i = and i32 %and, 31
+  %shr.i = lshr i32 %0, 3
+  %and.i = and i32 %shr.i, 31
   %shl.i = shl nuw nsw i32 %and2, 5
-  %or.i = or i32 %shl.i, %shr.i
+  %or.i = or i32 %shl.i, %and.i
   %and1.i = and i32 %0, 7
   %shl2.i = shl nuw nsw i32 %and2, 3
   %or3.i = or i32 %shl2.i, %and1.i
@@ -151,7 +151,7 @@ if.else.i:                                        ; preds = %for.body
   %result.0.i = select i1 %cmp.i, i32 %and12.i, i32 %xor.i
   %4 = lshr i32 %1, 19
   %.lobit = and i32 %4, 1
-  %spec.select.i = xor i32 %.lobit, %shr
+  %spec.select.i = xor i32 %shr, %.lobit
   br label %if.end22.i
 
 if.end22.i:                                       ; preds = %if.else.i, %if.then.i

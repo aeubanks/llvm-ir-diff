@@ -6,8 +6,8 @@ target triple = "x86_64-unknown-linux-gnu"
 %union.yystype = type { ptr }
 %union.yyalloc = type { %union.yystype }
 %struct.LIST_HELP = type { ptr, ptr }
-%struct.MEMORY_RESOURCEHELP = type { ptr, ptr, ptr, ptr, i32, i32, i32 }
 %struct.signature = type { ptr, i32, i32, i32, i32, i32, ptr }
+%struct.MEMORY_RESOURCEHELP = type { ptr, ptr, ptr, ptr, i32, i32, i32 }
 %struct.DFG_SYMENTRY = type { i32, i32, i32 }
 %struct.DFG_VARENTRY = type { ptr, i32 }
 
@@ -359,8 +359,8 @@ if.end:                                           ; preds = %if.then
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %2, ptr align 2 %yyss.0, i64 %mul15, i1 false)
   %mul16 = shl nuw nsw i64 %spec.store.select, 1
   %add17 = add nuw nsw i64 %mul16, 7
-  %div1519 = lshr i64 %add17, 3
-  %add.ptr18 = getelementptr inbounds %union.yyalloc, ptr %2, i64 %div1519
+  %div1837 = lshr i64 %add17, 3
+  %add.ptr18 = getelementptr inbounds %union.yyalloc, ptr %2, i64 %div1837
   %mul21 = shl i64 %add, 3
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %add.ptr18, ptr align 8 %yyvs.0, i64 %mul21, i1 false)
   %add.ptr38 = getelementptr inbounds i16, ptr %2, i64 %sub.ptr.div
@@ -608,8 +608,8 @@ yyreduce:                                         ; preds = %yydefault
 for.cond.preheader:                               ; preds = %yyreduce
   %arrayidx815 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
   %13 = load ptr, ptr %arrayidx815, align 8
-  %cmp.i1797.not2066 = icmp eq ptr %13, null
-  br i1 %cmp.i1797.not2066, label %sw.epilog929, label %for.body
+  %cmp.i1749.not1923 = icmp eq ptr %13, null
+  br i1 %cmp.i1749.not1923, label %sw.epilog929, label %for.body
 
 sw.bb:                                            ; preds = %yyreduce
   %arrayidx121 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -7
@@ -747,163 +747,52 @@ sw.bb166:                                         ; preds = %yyreduce
   %37 = load ptr, ptr %arrayidx167, align 8
   %arrayidx168 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
   %38 = load ptr, ptr %arrayidx168, align 8
-  %call.i = call fastcc i32 @dfg_Symbol(ptr noundef %37, i32 noundef 1)
-  %call1.i = call fastcc i32 @dfg_Symbol(ptr noundef %38, i32 noundef 1)
-  %tobool.not.i.i = icmp sgt i32 %call.i, -1
-  br i1 %tobool.not.i.i, label %if.then.i, label %symbol_IsPredicate.exit.i
-
-symbol_IsPredicate.exit.i:                        ; preds = %sw.bb166
-  %sub.i.i.i = sub nsw i32 0, %call.i
-  %and.i.i.i = and i32 %1, %sub.i.i.i
-  %cmp.i.not.i = icmp eq i32 %and.i.i.i, 2
-  br i1 %cmp.i.not.i, label %if.end.i, label %if.then.i
-
-if.then.i:                                        ; preds = %symbol_IsPredicate.exit.i, %sw.bb166
-  %39 = load ptr, ptr @stdout, align 8
-  %call3.i = call i32 @fflush(ptr noundef %39)
-  %40 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %40) #14
-  %41 = load ptr, ptr @stderr, align 8
-  %call.i.i = call i32 @fflush(ptr noundef %41)
-  %42 = load ptr, ptr @stdout, align 8
-  %call1.i.i = call i32 @fflush(ptr noundef %42)
-  %43 = load ptr, ptr @stderr, align 8
-  %call2.i.i = call i32 @fflush(ptr noundef %43)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.end.i:                                         ; preds = %symbol_IsPredicate.exit.i
-  %tobool.not.i34.i = icmp sgt i32 %call1.i, -1
-  br i1 %tobool.not.i34.i, label %if.then6.i, label %symbol_IsPredicate.exit40.i
-
-symbol_IsPredicate.exit40.i:                      ; preds = %if.end.i
-  %sub.i.i35.i = sub nsw i32 0, %call1.i
-  %and.i.i36.i = and i32 %1, %sub.i.i35.i
-  %cmp.i37.not.i = icmp eq i32 %and.i.i36.i, 2
-  br i1 %cmp.i37.not.i, label %if.end8.i, label %if.then6.i
-
-if.then6.i:                                       ; preds = %symbol_IsPredicate.exit40.i, %if.end.i
-  %44 = load ptr, ptr @stdout, align 8
-  %call7.i = call i32 @fflush(ptr noundef %44)
-  %45 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %45) #14
-  %46 = load ptr, ptr @stderr, align 8
-  %call.i41.i = call i32 @fflush(ptr noundef %46)
-  %47 = load ptr, ptr @stdout, align 8
-  %call1.i42.i = call i32 @fflush(ptr noundef %47)
-  %48 = load ptr, ptr @stderr, align 8
-  %call2.i43.i = call i32 @fflush(ptr noundef %48)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.end8.i:                                        ; preds = %symbol_IsPredicate.exit40.i
-  %49 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %inc.i.i = add nsw i32 %49, 1
-  store i32 %inc.i.i, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %call11.i = call ptr @term_Create(i32 noundef %inc.i.i, ptr noundef null) #14
-  store i32 0, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %call.i.i.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i, i64 0, i32 1
-  store ptr %call11.i, ptr %car.i.i.i, align 8
-  store ptr null, ptr %call.i.i.i, align 8
-  %call13.i = call ptr @term_Create(i32 noundef %call.i, ptr noundef nonnull %call.i.i.i) #14
-  %call14.i = call ptr @term_Copy(ptr noundef %call11.i) #14
-  %call.i.i45.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i46.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i45.i, i64 0, i32 1
-  store ptr %call14.i, ptr %car.i.i46.i, align 8
-  store ptr null, ptr %call.i.i45.i, align 8
-  %call16.i = call ptr @term_Create(i32 noundef %call1.i, ptr noundef nonnull %call.i.i45.i) #14
-  %50 = load i32, ptr @fol_IMPLIES, align 4
-  %call.i.i47.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i48.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i47.i, i64 0, i32 1
-  store ptr %call16.i, ptr %car.i.i48.i, align 8
-  store ptr null, ptr %call.i.i47.i, align 8
-  %call.i49.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i49.i, i64 0, i32 1
-  store ptr %call13.i, ptr %car.i.i, align 8
-  store ptr %call.i.i47.i, ptr %call.i49.i, align 8
-  %call20.i = call ptr @term_Create(i32 noundef %50, ptr noundef nonnull %call.i49.i) #14
-  %51 = load i32, ptr @fol_ALL, align 4
-  %call22.i = call ptr @term_Copy(ptr noundef %call11.i) #14
-  %call.i.i50.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i51.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i50.i, i64 0, i32 1
-  store ptr %call22.i, ptr %car.i.i51.i, align 8
-  store ptr null, ptr %call.i.i50.i, align 8
-  %call.i.i52.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i53.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i52.i, i64 0, i32 1
-  store ptr %call20.i, ptr %car.i.i53.i, align 8
-  store ptr null, ptr %call.i.i52.i, align 8
-  %call25.i = call ptr @fol_CreateQuantifier(i32 noundef %51, ptr noundef nonnull %call.i.i50.i, ptr noundef nonnull %call.i.i52.i) #14
-  %52 = load ptr, ptr @dfg_SORTDECLLIST, align 8
-  %call.i.i54.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i55.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i54.i, i64 0, i32 1
-  store ptr null, ptr %car.i.i55.i, align 8
-  store ptr %call25.i, ptr %call.i.i54.i, align 8
-  %call.i.i56.i = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i57.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i56.i, i64 0, i32 1
-  store ptr %call.i.i54.i, ptr %car.i.i57.i, align 8
-  store ptr null, ptr %call.i.i56.i, align 8
-  %cmp.i.not.i.i = icmp eq ptr %52, null
-  br i1 %cmp.i.not.i.i, label %dfg_SubSort.exit, label %for.cond.i.i
-
-for.cond.i.i:                                     ; preds = %if.end8.i, %for.cond.i.i
-  %List1.addr.0.i.i = phi ptr [ %List1.addr.0.val17.i.i, %for.cond.i.i ], [ %52, %if.end8.i ]
-  %List1.addr.0.val17.i.i = load ptr, ptr %List1.addr.0.i.i, align 8
-  %cmp.i20.not.i.i = icmp eq ptr %List1.addr.0.val17.i.i, null
-  br i1 %cmp.i20.not.i.i, label %for.end.i.i, label %for.cond.i.i, !llvm.loop !5
-
-for.end.i.i:                                      ; preds = %for.cond.i.i
-  store ptr %call.i.i56.i, ptr %List1.addr.0.i.i, align 8
-  br label %dfg_SubSort.exit
-
-dfg_SubSort.exit:                                 ; preds = %if.end8.i, %for.end.i.i
-  %retval.0.i.i = phi ptr [ %52, %for.end.i.i ], [ %call.i.i56.i, %if.end8.i ]
-  store ptr %retval.0.i.i, ptr @dfg_SORTDECLLIST, align 8
+  call fastcc void @dfg_SubSort(ptr noundef %37, ptr noundef %38)
   br label %sw.epilog929
 
 sw.bb169:                                         ; preds = %yyreduce
-  %53 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %39 = load ptr, ptr @dfg_SORTDECLLIST, align 8
   %arrayidx170 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %54 = load ptr, ptr %arrayidx170, align 8
-  %call.i.i1525 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1526 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1525, i64 0, i32 1
-  store ptr null, ptr %car.i.i1526, align 8
-  store ptr %54, ptr %call.i.i1525, align 8
-  %call.i.i1527 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1528 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1527, i64 0, i32 1
-  store ptr %call.i.i1525, ptr %car.i.i1528, align 8
-  store ptr null, ptr %call.i.i1527, align 8
-  %cmp.i.not.i1529 = icmp eq ptr %53, null
-  br i1 %cmp.i.not.i1529, label %list_Nconc.exit, label %for.cond.i
+  %40 = load ptr, ptr %arrayidx170, align 8
+  %call.i.i = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i, i64 0, i32 1
+  store ptr null, ptr %car.i.i, align 8
+  store ptr %40, ptr %call.i.i, align 8
+  %call.i.i1521 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1522 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1521, i64 0, i32 1
+  store ptr %call.i.i, ptr %car.i.i1522, align 8
+  store ptr null, ptr %call.i.i1521, align 8
+  %cmp.i.i = icmp eq ptr %39, null
+  br i1 %cmp.i.i, label %list_Nconc.exit, label %for.cond.i
 
 for.cond.i:                                       ; preds = %sw.bb169, %for.cond.i
-  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %53, %sw.bb169 ]
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %39, %sw.bb169 ]
   %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
   %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
   br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !5
 
 for.end.i:                                        ; preds = %for.cond.i
-  store ptr %call.i.i1527, ptr %List1.addr.0.i, align 8
+  store ptr %call.i.i1521, ptr %List1.addr.0.i, align 8
   br label %list_Nconc.exit
 
 list_Nconc.exit:                                  ; preds = %sw.bb169, %for.end.i
-  %retval.0.i = phi ptr [ %53, %for.end.i ], [ %call.i.i1527, %sw.bb169 ]
+  %retval.0.i = phi ptr [ %39, %for.end.i ], [ %call.i.i1521, %sw.bb169 ]
   store ptr %retval.0.i, ptr @dfg_SORTDECLLIST, align 8
   br label %sw.epilog929
 
 sw.bb174:                                         ; preds = %yyreduce
   %arrayidx175 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -4
-  %55 = load ptr, ptr %arrayidx175, align 8
-  call void @string_StringFree(ptr noundef %55) #14
+  %41 = load ptr, ptr %arrayidx175, align 8
+  call void @string_StringFree(ptr noundef %41) #14
   br label %sw.epilog929
 
 sw.bb176:                                         ; preds = %yyreduce
-  %56 = load ptr, ptr @dfg_VARLIST, align 8
-  %call.i.i.i1531 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i.i1532 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1531, i64 0, i32 1
-  store ptr null, ptr %car.i.i.i1532, align 8
-  store ptr %56, ptr %call.i.i.i1531, align 8
-  store ptr %call.i.i.i1531, ptr @dfg_VARLIST, align 8
+  %42 = load ptr, ptr @dfg_VARLIST, align 8
+  %call.i.i.i = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i, i64 0, i32 1
+  store ptr null, ptr %car.i.i.i, align 8
+  store ptr %42, ptr %call.i.i.i, align 8
+  store ptr %call.i.i.i, ptr @dfg_VARLIST, align 8
   store i1 true, ptr @dfg_VARDECL, align 4
   br label %sw.epilog929
 
@@ -912,292 +801,50 @@ sw.bb177:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb178:                                         ; preds = %yyreduce
-  %57 = load ptr, ptr @dfg_VARLIST, align 8
-  %58 = getelementptr i8, ptr %57, i64 8
-  %.val.i = load ptr, ptr %58, align 8
-  call void @list_DeleteWithElement(ptr noundef %.val.i, ptr noundef nonnull @dfg_VarFree) #14
-  %59 = load ptr, ptr @dfg_VARLIST, align 8
-  %L.val.i.i = load ptr, ptr %59, align 8
-  %60 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %60, i64 0, i32 4
-  %61 = load i32, ptr %total_size.i.i.i.i, align 8
-  %conv26.i.i.i.i = sext i32 %61 to i64
-  %62 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i = add i64 %62, %conv26.i.i.i.i
-  store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %63 = load ptr, ptr %60, align 8
-  store ptr %63, ptr %59, align 8
-  %64 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %59, ptr %64, align 8
-  store ptr %L.val.i.i, ptr @dfg_VARLIST, align 8
+  call fastcc void @dfg_VarBacktrack()
   call fastcc void @dfg_VarCheck()
-  %65 = load i32, ptr @fol_ALL, align 4
+  %43 = load i32, ptr @fol_ALL, align 4
   %arrayidx180 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %66 = load ptr, ptr %arrayidx180, align 8
+  %44 = load ptr, ptr %arrayidx180, align 8
   %arrayidx181 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %67 = load ptr, ptr %arrayidx181, align 8
-  %call182 = call ptr @dfg_CreateQuantifier(i32 noundef %65, ptr noundef %66, ptr noundef %67)
-  %68 = load ptr, ptr @dfg_SORTDECLLIST, align 8
-  %call.i.i1533 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1534 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1533, i64 0, i32 1
-  store ptr null, ptr %car.i.i1534, align 8
-  store ptr %call182, ptr %call.i.i1533, align 8
-  %call.i.i1535 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1536 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1535, i64 0, i32 1
-  store ptr %call.i.i1533, ptr %car.i.i1536, align 8
-  store ptr null, ptr %call.i.i1535, align 8
-  %cmp.i.not.i1537 = icmp eq ptr %68, null
-  br i1 %cmp.i.not.i1537, label %list_Nconc.exit1546, label %for.cond.i1543
+  %45 = load ptr, ptr %arrayidx181, align 8
+  %call182 = call ptr @dfg_CreateQuantifier(i32 noundef %43, ptr noundef %44, ptr noundef %45)
+  %46 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %call.i.i1523 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1524 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1523, i64 0, i32 1
+  store ptr null, ptr %car.i.i1524, align 8
+  store ptr %call182, ptr %call.i.i1523, align 8
+  %call.i.i1525 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1526 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1525, i64 0, i32 1
+  store ptr %call.i.i1523, ptr %car.i.i1526, align 8
+  store ptr null, ptr %call.i.i1525, align 8
+  %cmp.i.i1527 = icmp eq ptr %46, null
+  br i1 %cmp.i.i1527, label %list_Nconc.exit1536, label %for.cond.i1533
 
-for.cond.i1543:                                   ; preds = %sw.bb178, %for.cond.i1543
-  %List1.addr.0.i1540 = phi ptr [ %List1.addr.0.val17.i1541, %for.cond.i1543 ], [ %68, %sw.bb178 ]
-  %List1.addr.0.val17.i1541 = load ptr, ptr %List1.addr.0.i1540, align 8
-  %cmp.i20.not.i1542 = icmp eq ptr %List1.addr.0.val17.i1541, null
-  br i1 %cmp.i20.not.i1542, label %for.end.i1544, label %for.cond.i1543, !llvm.loop !5
+for.cond.i1533:                                   ; preds = %sw.bb178, %for.cond.i1533
+  %List1.addr.0.i1530 = phi ptr [ %List1.addr.0.val17.i1531, %for.cond.i1533 ], [ %46, %sw.bb178 ]
+  %List1.addr.0.val17.i1531 = load ptr, ptr %List1.addr.0.i1530, align 8
+  %cmp.i20.not.i1532 = icmp eq ptr %List1.addr.0.val17.i1531, null
+  br i1 %cmp.i20.not.i1532, label %for.end.i1534, label %for.cond.i1533, !llvm.loop !5
 
-for.end.i1544:                                    ; preds = %for.cond.i1543
-  store ptr %call.i.i1535, ptr %List1.addr.0.i1540, align 8
-  br label %list_Nconc.exit1546
+for.end.i1534:                                    ; preds = %for.cond.i1533
+  store ptr %call.i.i1525, ptr %List1.addr.0.i1530, align 8
+  br label %list_Nconc.exit1536
 
-list_Nconc.exit1546:                              ; preds = %sw.bb178, %for.end.i1544
-  %retval.0.i1545 = phi ptr [ %68, %for.end.i1544 ], [ %call.i.i1535, %sw.bb178 ]
-  store ptr %retval.0.i1545, ptr @dfg_SORTDECLLIST, align 8
+list_Nconc.exit1536:                              ; preds = %sw.bb178, %for.end.i1534
+  %retval.0.i1535 = phi ptr [ %46, %for.end.i1534 ], [ %call.i.i1525, %sw.bb178 ]
+  store ptr %retval.0.i1535, ptr @dfg_SORTDECLLIST, align 8
   br label %sw.epilog929
 
 sw.bb186:                                         ; preds = %yyreduce
   %arrayidx187 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -7
-  %69 = load ptr, ptr %arrayidx187, align 8
-  %call188 = call fastcc i32 @dfg_Symbol(ptr noundef %69, i32 noundef 1)
+  %47 = load ptr, ptr %arrayidx187, align 8
+  %call188 = call fastcc i32 @dfg_Symbol(ptr noundef %47, i32 noundef 1)
   %arrayidx189 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %70 = load i32, ptr %arrayidx189, align 8
+  %48 = load i32, ptr %arrayidx189, align 8
   %arrayidx190 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %71 = load ptr, ptr %arrayidx190, align 8
-  %tobool.not.i.i1547 = icmp sgt i32 %call188, -1
-  br i1 %tobool.not.i.i1547, label %if.then.i1556, label %symbol_IsPredicate.exit.i1551
-
-symbol_IsPredicate.exit.i1551:                    ; preds = %sw.bb186
-  %sub.i.i.i1548 = sub nsw i32 0, %call188
-  %and.i.i.i1549 = and i32 %1, %sub.i.i.i1548
-  %cmp.i.not.i1550 = icmp eq i32 %and.i.i.i1549, 2
-  br i1 %cmp.i.not.i1550, label %if.end.i1557, label %if.then.i1556
-
-if.then.i1556:                                    ; preds = %symbol_IsPredicate.exit.i1551, %sw.bb186
-  %72 = load ptr, ptr @stdout, align 8
-  %call1.i1552 = call i32 @fflush(ptr noundef %72)
-  %73 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %73) #14
-  %74 = load ptr, ptr @stderr, align 8
-  %call.i.i1553 = call i32 @fflush(ptr noundef %74)
-  %75 = load ptr, ptr @stdout, align 8
-  %call1.i.i1554 = call i32 @fflush(ptr noundef %75)
-  %76 = load ptr, ptr @stderr, align 8
-  %call2.i.i1555 = call i32 @fflush(ptr noundef %76)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.end.i1557:                                     ; preds = %symbol_IsPredicate.exit.i1551
-  %shr.i.i.i = lshr i32 %sub.i.i.i1548, %0
-  %77 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %idxprom.i.i.i = zext i32 %shr.i.i.i to i64
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %77, i64 %idxprom.i.i.i
-  %78 = load ptr, ptr %arrayidx.i.i.i, align 8
-  %props.i.i = getelementptr inbounds %struct.signature, ptr %78, i64 0, i32 4
-  %79 = load i32, ptr %props.i.i, align 4
-  %and.i.i = and i32 %79, 512
-  %tobool.not.i45.i = icmp eq i32 %and.i.i, 0
-  br i1 %tobool.not.i45.i, label %symbol_RemoveProperty.exit.i, label %if.then.i.i
-
-if.then.i.i:                                      ; preds = %if.end.i1557
-  %sub.i.i = add i32 %79, -512
-  store i32 %sub.i.i, ptr %props.i.i, align 4
-  %.pre.i = load ptr, ptr %arrayidx.i.i.i, align 8
-  %props.i50.phi.trans.insert.i = getelementptr inbounds %struct.signature, ptr %.pre.i, i64 0, i32 4
-  %.pre121.i = load i32, ptr %props.i50.phi.trans.insert.i, align 4
-  br label %symbol_RemoveProperty.exit.i
-
-symbol_RemoveProperty.exit.i:                     ; preds = %if.then.i.i, %if.end.i1557
-  %80 = phi i32 [ %79, %if.end.i1557 ], [ %.pre121.i, %if.then.i.i ]
-  %81 = phi ptr [ %78, %if.end.i1557 ], [ %.pre.i, %if.then.i.i ]
-  %and.i51.i = and i32 %80, 256
-  %tobool.not.i52.i = icmp eq i32 %and.i51.i, 0
-  br i1 %tobool.not.i52.i, label %symbol_RemoveProperty.exit55.i, label %if.then.i54.i
-
-if.then.i54.i:                                    ; preds = %symbol_RemoveProperty.exit.i
-  %props.i50.i = getelementptr inbounds %struct.signature, ptr %81, i64 0, i32 4
-  %sub.i53.i = add i32 %80, -256
-  store i32 %sub.i53.i, ptr %props.i50.i, align 4
-  %.pre122.i = load ptr, ptr %arrayidx.i.i.i, align 8
-  br label %symbol_RemoveProperty.exit55.i
-
-symbol_RemoveProperty.exit55.i:                   ; preds = %if.then.i54.i, %symbol_RemoveProperty.exit.i
-  %82 = phi ptr [ %81, %symbol_RemoveProperty.exit.i ], [ %.pre122.i, %if.then.i54.i ]
-  %generatedBy.i.i = getelementptr inbounds %struct.signature, ptr %82, i64 0, i32 6
-  %83 = load ptr, ptr %generatedBy.i.i, align 8
-  %cmp.i.not5.i.i = icmp eq ptr %83, null
-  br i1 %cmp.i.not5.i.i, label %list_Delete.exit.i, label %while.body.i.i
-
-while.body.i.i:                                   ; preds = %symbol_RemoveProperty.exit55.i, %while.body.i.i
-  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %83, %symbol_RemoveProperty.exit55.i ]
-  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
-  %84 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i1558 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %84, i64 0, i32 4
-  %85 = load i32, ptr %total_size.i.i.i.i1558, align 8
-  %conv26.i.i.i.i1559 = sext i32 %85 to i64
-  %86 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i1560 = add i64 %86, %conv26.i.i.i.i1559
-  store i64 %add27.i.i.i.i1560, ptr @memory_FREEDBYTES, align 8
-  %87 = load ptr, ptr %84, align 8
-  store ptr %87, ptr %Current.06.i.i, align 8
-  %88 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Current.06.i.i, ptr %88, align 8
-  %cmp.i.not.i.i1561 = icmp eq ptr %Current.0.val.i.i, null
-  br i1 %cmp.i.not.i.i1561, label %list_Delete.exit.loopexit.i, label %while.body.i.i, !llvm.loop !7
-
-list_Delete.exit.loopexit.i:                      ; preds = %while.body.i.i
-  %.pre123.i = load ptr, ptr @symbol_SIGNATURE, align 8
-  %arrayidx.i.i63.phi.trans.insert.i = getelementptr inbounds ptr, ptr %.pre123.i, i64 %idxprom.i.i.i
-  %.pre124.i = load ptr, ptr %arrayidx.i.i63.phi.trans.insert.i, align 8
-  br label %list_Delete.exit.i
-
-list_Delete.exit.i:                               ; preds = %list_Delete.exit.loopexit.i, %symbol_RemoveProperty.exit55.i
-  %89 = phi ptr [ %.pre124.i, %list_Delete.exit.loopexit.i ], [ %82, %symbol_RemoveProperty.exit55.i ]
-  %90 = phi ptr [ %.pre123.i, %list_Delete.exit.loopexit.i ], [ %77, %symbol_RemoveProperty.exit55.i ]
-  %props.i64.i = getelementptr inbounds %struct.signature, ptr %89, i64 0, i32 4
-  %91 = load i32, ptr %props.i64.i, align 4
-  %or.i.i = or i32 %91, 512
-  store i32 %or.i.i, ptr %props.i64.i, align 4
-  %tobool3.not.i = icmp eq i32 %70, 0
-  br i1 %tobool3.not.i, label %if.end5.i, label %if.end5.thread.i
-
-if.end5.i:                                        ; preds = %list_Delete.exit.i
-  %cmp.i71.not111.i = icmp eq ptr %71, null
-  br i1 %cmp.i71.not111.i, label %dfg_SymbolGenerated.exit, label %for.body.us.i
-
-if.end5.thread.i:                                 ; preds = %list_Delete.exit.i
-  %arrayidx.i.i63.i = getelementptr inbounds ptr, ptr %90, i64 %idxprom.i.i.i
-  %92 = load ptr, ptr %arrayidx.i.i63.i, align 8
-  %props.i69.i = getelementptr inbounds %struct.signature, ptr %92, i64 0, i32 4
-  %93 = load i32, ptr %props.i69.i, align 4
-  %or.i70.i = or i32 %93, 256
-  store i32 %or.i70.i, ptr %props.i69.i, align 4
-  %cmp.i71.not111125.i = icmp eq ptr %71, null
-  br i1 %cmp.i71.not111125.i, label %dfg_SymbolGenerated.exit, label %for.body.i
-
-for.body.us.i:                                    ; preds = %if.end5.i, %if.end18.us.i
-  %scan.0112.us.i = phi ptr [ %scan.0.val43.us.i, %if.end18.us.i ], [ %71, %if.end5.i ]
-  %94 = getelementptr i8, ptr %scan.0112.us.i, i64 8
-  %scan.0.val42.us.i = load ptr, ptr %94, align 8
-  %call9.us.i = call i32 @symbol_Lookup(ptr noundef %scan.0.val42.us.i) #14
-  %cmp.us.i = icmp eq i32 %call9.us.i, 0
-  br i1 %cmp.us.i, label %if.then10.i, label %if.else.us.i
-
-if.else.us.i:                                     ; preds = %for.body.us.i
-  %tobool.not.i76.us.i = icmp sgt i32 %call9.us.i, -1
-  br i1 %tobool.not.i76.us.i, label %if.then15.i, label %land.rhs.i80.us.i
-
-land.rhs.i80.us.i:                                ; preds = %if.else.us.i
-  %sub.i.i77.us.i = sub nsw i32 0, %call9.us.i
-  %and.i.i78.us.i = and i32 %1, %sub.i.i77.us.i
-  %switch.us.i = icmp ult i32 %and.i.i78.us.i, 2
-  br i1 %switch.us.i, label %if.end18.us.i, label %if.then15.i
-
-if.end18.us.i:                                    ; preds = %land.rhs.i80.us.i
-  %scan.0.val.us.i = load ptr, ptr %94, align 8
-  call void @string_StringFree(ptr noundef %scan.0.val.us.i) #14
-  %conv.us.i = sext i32 %call9.us.i to i64
-  %95 = inttoptr i64 %conv.us.i to ptr
-  store ptr %95, ptr %94, align 8
-  %shr.i.i87.us.i = lshr i32 %sub.i.i77.us.i, %0
-  %96 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %idxprom.i.i88.us.i = zext i32 %shr.i.i87.us.i to i64
-  %arrayidx.i.i89.us.i = getelementptr inbounds ptr, ptr %96, i64 %idxprom.i.i88.us.i
-  %97 = load ptr, ptr %arrayidx.i.i89.us.i, align 8
-  %props.i90.us.i = getelementptr inbounds %struct.signature, ptr %97, i64 0, i32 4
-  %98 = load i32, ptr %props.i90.us.i, align 4
-  %or.i91.us.i = or i32 %98, 512
-  store i32 %or.i91.us.i, ptr %props.i90.us.i, align 4
-  %scan.0.val43.us.i = load ptr, ptr %scan.0112.us.i, align 8
-  %cmp.i71.not.us.i = icmp eq ptr %scan.0.val43.us.i, null
-  br i1 %cmp.i71.not.us.i, label %dfg_SymbolGenerated.exit, label %for.body.us.i, !llvm.loop !8
-
-for.body.i:                                       ; preds = %if.end5.thread.i, %if.end18.i
-  %scan.0112.i = phi ptr [ %scan.0.val43.i, %if.end18.i ], [ %71, %if.end5.thread.i ]
-  %99 = getelementptr i8, ptr %scan.0112.i, i64 8
-  %scan.0.val42.i = load ptr, ptr %99, align 8
-  %call9.i = call i32 @symbol_Lookup(ptr noundef %scan.0.val42.i) #14
-  %cmp.i = icmp eq i32 %call9.i, 0
-  br i1 %cmp.i, label %if.then10.i, label %if.else.i
-
-if.then10.i:                                      ; preds = %for.body.i, %for.body.us.i
-  %.us-phi.i = phi ptr [ %94, %for.body.us.i ], [ %99, %for.body.i ]
-  %100 = load ptr, ptr @stdout, align 8
-  %call11.i1562 = call i32 @fflush(ptr noundef %100)
-  %101 = load i32, ptr @dfg_LINENUMBER, align 4
-  %scan.0.val41.i = load ptr, ptr %.us-phi.i, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.231, i32 noundef %101, ptr noundef %scan.0.val41.i) #14
-  %102 = load ptr, ptr @stderr, align 8
-  %call.i72.i = call i32 @fflush(ptr noundef %102)
-  %103 = load ptr, ptr @stdout, align 8
-  %call1.i73.i = call i32 @fflush(ptr noundef %103)
-  %104 = load ptr, ptr @stderr, align 8
-  %call2.i74.i = call i32 @fflush(ptr noundef %104)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.else.i:                                        ; preds = %for.body.i
-  %tobool.not.i76.i = icmp sgt i32 %call9.i, -1
-  br i1 %tobool.not.i76.i, label %if.then15.i, label %land.rhs.i80.i
-
-land.rhs.i80.i:                                   ; preds = %if.else.i
-  %sub.i.i77.i = sub nsw i32 0, %call9.i
-  %and.i.i78.i = and i32 %1, %sub.i.i77.i
-  %switch.i = icmp ult i32 %and.i.i78.i, 2
-  br i1 %switch.i, label %if.end18.i, label %if.then15.i
-
-if.then15.i:                                      ; preds = %land.rhs.i80.i, %if.else.i, %land.rhs.i80.us.i, %if.else.us.i
-  %105 = load ptr, ptr @stdout, align 8
-  %call16.i1563 = call i32 @fflush(ptr noundef %105)
-  %106 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.232, i32 noundef %106) #14
-  %107 = load ptr, ptr @stderr, align 8
-  %call.i82.i = call i32 @fflush(ptr noundef %107)
-  %108 = load ptr, ptr @stdout, align 8
-  %call1.i83.i = call i32 @fflush(ptr noundef %108)
-  %109 = load ptr, ptr @stderr, align 8
-  %call2.i84.i = call i32 @fflush(ptr noundef %109)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.end18.i:                                       ; preds = %land.rhs.i80.i
-  %scan.0.val.i = load ptr, ptr %99, align 8
-  call void @string_StringFree(ptr noundef %scan.0.val.i) #14
-  %conv.i = sext i32 %call9.i to i64
-  %110 = inttoptr i64 %conv.i to ptr
-  store ptr %110, ptr %99, align 8
-  %shr.i.i87.i = lshr i32 %sub.i.i77.i, %0
-  %111 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %idxprom.i.i88.i = zext i32 %shr.i.i87.i to i64
-  %arrayidx.i.i89.i = getelementptr inbounds ptr, ptr %111, i64 %idxprom.i.i88.i
-  %112 = load ptr, ptr %arrayidx.i.i89.i, align 8
-  %props.i90.i = getelementptr inbounds %struct.signature, ptr %112, i64 0, i32 4
-  %113 = load i32, ptr %props.i90.i, align 4
-  %or.i91.i = or i32 %113, 512
-  store i32 %or.i91.i, ptr %props.i90.i, align 4
-  %114 = load ptr, ptr %arrayidx.i.i89.i, align 8
-  %props.i96.i = getelementptr inbounds %struct.signature, ptr %114, i64 0, i32 4
-  %115 = load i32, ptr %props.i96.i, align 4
-  %or.i97.i = or i32 %115, 256
-  store i32 %or.i97.i, ptr %props.i96.i, align 4
-  %scan.0.val43.i = load ptr, ptr %scan.0112.i, align 8
-  %cmp.i71.not.i = icmp eq ptr %scan.0.val43.i, null
-  br i1 %cmp.i71.not.i, label %dfg_SymbolGenerated.exit, label %for.body.i, !llvm.loop !8
-
-dfg_SymbolGenerated.exit:                         ; preds = %if.end18.i, %if.end18.us.i, %if.end5.i, %if.end5.thread.i
-  %116 = phi ptr [ %90, %if.end5.i ], [ %90, %if.end5.thread.i ], [ %96, %if.end18.us.i ], [ %111, %if.end18.i ]
-  %arrayidx.i.i101.i = getelementptr inbounds ptr, ptr %116, i64 %idxprom.i.i.i
-  %117 = load ptr, ptr %arrayidx.i.i101.i, align 8
-  %generatedBy.i102.i = getelementptr inbounds %struct.signature, ptr %117, i64 0, i32 6
-  store ptr %71, ptr %generatedBy.i102.i, align 8
+  %49 = load ptr, ptr %arrayidx190, align 8
+  call fastcc void @dfg_SymbolGenerated(i32 noundef %call188, i32 noundef %48, ptr noundef %49)
   br label %sw.epilog929
 
 sw.bb191:                                         ; preds = %yyreduce
@@ -1209,91 +856,91 @@ sw.bb192:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb193:                                         ; preds = %yyreduce
-  %118 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1565 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1566 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1565, i64 0, i32 1
-  store ptr %118, ptr %car.i.i1566, align 8
-  store ptr null, ptr %call.i.i1565, align 8
-  store ptr %call.i.i1565, ptr %yyval, align 8
+  %50 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1537 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1538 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1537, i64 0, i32 1
+  store ptr %50, ptr %car.i.i1538, align 8
+  store ptr null, ptr %call.i.i1537, align 8
+  store ptr %call.i.i1537, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb196:                                         ; preds = %yyreduce
-  %119 = load ptr, ptr %yyvsp.3, align 8
+  %51 = load ptr, ptr %yyvsp.3, align 8
   %arrayidx198 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %120 = load ptr, ptr %arrayidx198, align 8
-  %call.i1567 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1567, i64 0, i32 1
-  store ptr %119, ptr %car.i, align 8
-  store ptr %120, ptr %call.i1567, align 8
-  store ptr %call.i1567, ptr %yyval, align 8
+  %52 = load ptr, ptr %arrayidx198, align 8
+  %call.i = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
+  store ptr %51, ptr %car.i, align 8
+  store ptr %52, ptr %call.i, align 8
+  store ptr %call.i, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb200:                                         ; preds = %yyreduce
-  %121 = load ptr, ptr %yyvsp.3, align 8
-  call void @string_StringFree(ptr noundef %121) #14
+  %53 = load ptr, ptr %yyvsp.3, align 8
+  call void @string_StringFree(ptr noundef %53) #14
   br label %sw.epilog929
 
 sw.bb202:                                         ; preds = %yyreduce
-  %122 = load ptr, ptr %yyvsp.3, align 8
-  call void @string_StringFree(ptr noundef %122) #14
+  %54 = load ptr, ptr %yyvsp.3, align 8
+  call void @string_StringFree(ptr noundef %54) #14
   br label %sw.epilog929
 
 sw.bb204:                                         ; preds = %yyreduce
   %arrayidx205 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %123 = load ptr, ptr %arrayidx205, align 8
-  %call206 = call ptr @list_NReverse(ptr noundef %123) #14
+  %55 = load ptr, ptr %arrayidx205, align 8
+  %call206 = call ptr @list_NReverse(ptr noundef %55) #14
   %arrayidx207 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -5
-  %124 = load i32, ptr %arrayidx207, align 8
-  %tobool208.not = icmp eq i32 %124, 0
-  %125 = load ptr, ptr %arrayidx205, align 8
+  %56 = load i32, ptr %arrayidx207, align 8
+  %tobool208.not = icmp eq i32 %56, 0
+  %57 = load ptr, ptr %arrayidx205, align 8
   br i1 %tobool208.not, label %if.else212, label %if.then209
 
 if.then209:                                       ; preds = %sw.bb204
-  %126 = load ptr, ptr @dfg_AXIOMLIST, align 8
-  %cmp.i.not.i1568 = icmp eq ptr %126, null
-  br i1 %cmp.i.not.i1568, label %list_Nconc.exit1577, label %if.end.i1570
+  %58 = load ptr, ptr @dfg_AXIOMLIST, align 8
+  %cmp.i.i1539 = icmp eq ptr %58, null
+  br i1 %cmp.i.i1539, label %list_Nconc.exit1548, label %if.end.i1541
 
-if.end.i1570:                                     ; preds = %if.then209
-  %cmp.i18.not.i1569 = icmp eq ptr %125, null
-  br i1 %cmp.i18.not.i1569, label %list_Nconc.exit1577, label %for.cond.i1574
+if.end.i1541:                                     ; preds = %if.then209
+  %cmp.i18.i1540 = icmp eq ptr %57, null
+  br i1 %cmp.i18.i1540, label %list_Nconc.exit1548, label %for.cond.i1545
 
-for.cond.i1574:                                   ; preds = %if.end.i1570, %for.cond.i1574
-  %List1.addr.0.i1571 = phi ptr [ %List1.addr.0.val17.i1572, %for.cond.i1574 ], [ %126, %if.end.i1570 ]
-  %List1.addr.0.val17.i1572 = load ptr, ptr %List1.addr.0.i1571, align 8
-  %cmp.i20.not.i1573 = icmp eq ptr %List1.addr.0.val17.i1572, null
-  br i1 %cmp.i20.not.i1573, label %for.end.i1575, label %for.cond.i1574, !llvm.loop !5
+for.cond.i1545:                                   ; preds = %if.end.i1541, %for.cond.i1545
+  %List1.addr.0.i1542 = phi ptr [ %List1.addr.0.val17.i1543, %for.cond.i1545 ], [ %58, %if.end.i1541 ]
+  %List1.addr.0.val17.i1543 = load ptr, ptr %List1.addr.0.i1542, align 8
+  %cmp.i20.not.i1544 = icmp eq ptr %List1.addr.0.val17.i1543, null
+  br i1 %cmp.i20.not.i1544, label %for.end.i1546, label %for.cond.i1545, !llvm.loop !5
 
-for.end.i1575:                                    ; preds = %for.cond.i1574
-  store ptr %125, ptr %List1.addr.0.i1571, align 8
-  br label %list_Nconc.exit1577
+for.end.i1546:                                    ; preds = %for.cond.i1545
+  store ptr %57, ptr %List1.addr.0.i1542, align 8
+  br label %list_Nconc.exit1548
 
-list_Nconc.exit1577:                              ; preds = %if.then209, %if.end.i1570, %for.end.i1575
-  %retval.0.i1576 = phi ptr [ %126, %for.end.i1575 ], [ %125, %if.then209 ], [ %126, %if.end.i1570 ]
-  store ptr %retval.0.i1576, ptr @dfg_AXIOMLIST, align 8
+list_Nconc.exit1548:                              ; preds = %if.then209, %if.end.i1541, %for.end.i1546
+  %retval.0.i1547 = phi ptr [ %58, %for.end.i1546 ], [ %57, %if.then209 ], [ %58, %if.end.i1541 ]
+  store ptr %retval.0.i1547, ptr @dfg_AXIOMLIST, align 8
   br label %sw.epilog929
 
 if.else212:                                       ; preds = %sw.bb204
-  %127 = load ptr, ptr @dfg_CONJECLIST, align 8
-  %cmp.i.not.i1578 = icmp eq ptr %127, null
-  br i1 %cmp.i.not.i1578, label %list_Nconc.exit1587, label %if.end.i1580
+  %59 = load ptr, ptr @dfg_CONJECLIST, align 8
+  %cmp.i.i1549 = icmp eq ptr %59, null
+  br i1 %cmp.i.i1549, label %list_Nconc.exit1558, label %if.end.i1551
 
-if.end.i1580:                                     ; preds = %if.else212
-  %cmp.i18.not.i1579 = icmp eq ptr %125, null
-  br i1 %cmp.i18.not.i1579, label %list_Nconc.exit1587, label %for.cond.i1584
+if.end.i1551:                                     ; preds = %if.else212
+  %cmp.i18.i1550 = icmp eq ptr %57, null
+  br i1 %cmp.i18.i1550, label %list_Nconc.exit1558, label %for.cond.i1555
 
-for.cond.i1584:                                   ; preds = %if.end.i1580, %for.cond.i1584
-  %List1.addr.0.i1581 = phi ptr [ %List1.addr.0.val17.i1582, %for.cond.i1584 ], [ %127, %if.end.i1580 ]
-  %List1.addr.0.val17.i1582 = load ptr, ptr %List1.addr.0.i1581, align 8
-  %cmp.i20.not.i1583 = icmp eq ptr %List1.addr.0.val17.i1582, null
-  br i1 %cmp.i20.not.i1583, label %for.end.i1585, label %for.cond.i1584, !llvm.loop !5
+for.cond.i1555:                                   ; preds = %if.end.i1551, %for.cond.i1555
+  %List1.addr.0.i1552 = phi ptr [ %List1.addr.0.val17.i1553, %for.cond.i1555 ], [ %59, %if.end.i1551 ]
+  %List1.addr.0.val17.i1553 = load ptr, ptr %List1.addr.0.i1552, align 8
+  %cmp.i20.not.i1554 = icmp eq ptr %List1.addr.0.val17.i1553, null
+  br i1 %cmp.i20.not.i1554, label %for.end.i1556, label %for.cond.i1555, !llvm.loop !5
 
-for.end.i1585:                                    ; preds = %for.cond.i1584
-  store ptr %125, ptr %List1.addr.0.i1581, align 8
-  br label %list_Nconc.exit1587
+for.end.i1556:                                    ; preds = %for.cond.i1555
+  store ptr %57, ptr %List1.addr.0.i1552, align 8
+  br label %list_Nconc.exit1558
 
-list_Nconc.exit1587:                              ; preds = %if.else212, %if.end.i1580, %for.end.i1585
-  %retval.0.i1586 = phi ptr [ %127, %for.end.i1585 ], [ %125, %if.else212 ], [ %127, %if.end.i1580 ]
-  store ptr %retval.0.i1586, ptr @dfg_CONJECLIST, align 8
+list_Nconc.exit1558:                              ; preds = %if.else212, %if.end.i1551, %for.end.i1556
+  %retval.0.i1557 = phi ptr [ %59, %for.end.i1556 ], [ %57, %if.else212 ], [ %59, %if.end.i1551 ]
+  store ptr %retval.0.i1557, ptr @dfg_CONJECLIST, align 8
   br label %sw.epilog929
 
 sw.bb216:                                         ; preds = %yyreduce
@@ -1310,41 +957,41 @@ sw.bb218:                                         ; preds = %yyreduce
 
 sw.bb220:                                         ; preds = %yyreduce
   %arrayidx221 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %128 = load ptr, ptr %arrayidx221, align 8
-  %cmp222 = icmp eq ptr %128, null
+  %60 = load ptr, ptr %arrayidx221, align 8
+  %cmp222 = icmp eq ptr %60, null
   %arrayidx225 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %129 = load ptr, ptr %arrayidx225, align 8
+  %61 = load ptr, ptr %arrayidx225, align 8
   br i1 %cmp222, label %if.then224, label %if.else232
 
 if.then224:                                       ; preds = %sw.bb220
-  %cmp226.not = icmp eq ptr %129, null
+  %cmp226.not = icmp eq ptr %61, null
   br i1 %cmp226.not, label %if.end230, label %if.then228
 
 if.then228:                                       ; preds = %if.then224
-  call void @string_StringFree(ptr noundef nonnull %129) #14
+  call void @string_StringFree(ptr noundef nonnull %61) #14
   br label %if.end230
 
 if.end230:                                        ; preds = %if.then228, %if.then224
   %arrayidx231 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %130 = load ptr, ptr %arrayidx231, align 8
+  %62 = load ptr, ptr %arrayidx231, align 8
   br label %if.end238
 
 if.else232:                                       ; preds = %sw.bb220
-  %call.i.i1588 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1589 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1588, i64 0, i32 1
-  store ptr %129, ptr %car.i.i1589, align 8
-  store ptr %128, ptr %call.i.i1588, align 8
+  %call.i.i1559 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1560 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1559, i64 0, i32 1
+  store ptr %61, ptr %car.i.i1560, align 8
+  store ptr %60, ptr %call.i.i1559, align 8
   %arrayidx236 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %131 = load ptr, ptr %arrayidx236, align 8
-  %call.i1590 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1591 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1590, i64 0, i32 1
-  store ptr %call.i.i1588, ptr %car.i1591, align 8
-  store ptr %131, ptr %call.i1590, align 8
+  %63 = load ptr, ptr %arrayidx236, align 8
+  %call.i1561 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1562 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1561, i64 0, i32 1
+  store ptr %call.i.i1559, ptr %car.i1562, align 8
+  store ptr %63, ptr %call.i1561, align 8
   br label %if.end238
 
 if.end238:                                        ; preds = %if.else232, %if.end230
-  %storemerge1518 = phi ptr [ %call.i1590, %if.else232 ], [ %130, %if.end230 ]
-  store ptr %storemerge1518, ptr %yyval, align 8
+  %storemerge1836 = phi ptr [ %call.i1561, %if.else232 ], [ %62, %if.end230 ]
+  store ptr %storemerge1836, ptr %yyval, align 8
   call fastcc void @dfg_VarCheck()
   br label %sw.epilog929
 
@@ -1353,29 +1000,29 @@ sw.bb239:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb240:                                         ; preds = %yyreduce
-  %132 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %132, ptr %yyval, align 8
+  %64 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %64, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb242:                                         ; preds = %yyreduce
-  %133 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %133, ptr %yyval, align 8
+  %65 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %65, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb244:                                         ; preds = %yyreduce
-  %134 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool245.not = icmp eq i32 %134, 0
+  %66 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool245.not = icmp eq i32 %66, 0
   br i1 %tobool245.not, label %cond.false247, label %cond.end252
 
 cond.false247:                                    ; preds = %sw.bb244
-  %135 = load i32, ptr @fol_NOT, align 4
+  %67 = load i32, ptr @fol_NOT, align 4
   %arrayidx249 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %136 = load ptr, ptr %arrayidx249, align 8
-  %call.i.i1592 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1593 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1592, i64 0, i32 1
-  store ptr %136, ptr %car.i.i1593, align 8
-  store ptr null, ptr %call.i.i1592, align 8
-  %call251 = call ptr @term_Create(i32 noundef %135, ptr noundef nonnull %call.i.i1592) #14
+  %68 = load ptr, ptr %arrayidx249, align 8
+  %call.i.i1563 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1564 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1563, i64 0, i32 1
+  store ptr %68, ptr %car.i.i1564, align 8
+  store ptr null, ptr %call.i.i1563, align 8
+  %call251 = call ptr @term_Create(i32 noundef %67, ptr noundef nonnull %call.i.i1563) #14
   br label %cond.end252
 
 cond.end252:                                      ; preds = %sw.bb244, %cond.false247
@@ -1384,26 +1031,26 @@ cond.end252:                                      ; preds = %sw.bb244, %cond.fal
   br label %sw.epilog929
 
 sw.bb254:                                         ; preds = %yyreduce
-  %137 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool255.not = icmp eq i32 %137, 0
+  %69 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool255.not = icmp eq i32 %69, 0
   br i1 %tobool255.not, label %cond.false257, label %cond.end264
 
 cond.false257:                                    ; preds = %sw.bb254
   %arrayidx258 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -5
-  %138 = load i32, ptr %arrayidx258, align 8
+  %70 = load i32, ptr %arrayidx258, align 8
   %arrayidx259 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %139 = load ptr, ptr %arrayidx259, align 8
+  %71 = load ptr, ptr %arrayidx259, align 8
   %arrayidx260 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %140 = load ptr, ptr %arrayidx260, align 8
-  %call.i.i1594 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1595 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1594, i64 0, i32 1
-  store ptr %140, ptr %car.i.i1595, align 8
-  store ptr null, ptr %call.i.i1594, align 8
-  %call.i1596 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1597 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1596, i64 0, i32 1
-  store ptr %139, ptr %car.i1597, align 8
-  store ptr %call.i.i1594, ptr %call.i1596, align 8
-  %call263 = call ptr @term_Create(i32 noundef %138, ptr noundef nonnull %call.i1596) #14
+  %72 = load ptr, ptr %arrayidx260, align 8
+  %call.i.i1565 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1566 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1565, i64 0, i32 1
+  store ptr %72, ptr %car.i.i1566, align 8
+  store ptr null, ptr %call.i.i1565, align 8
+  %call.i1567 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1568 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1567, i64 0, i32 1
+  store ptr %71, ptr %car.i1568, align 8
+  store ptr %call.i.i1565, ptr %call.i1567, align 8
+  %call263 = call ptr @term_Create(i32 noundef %70, ptr noundef nonnull %call.i1567) #14
   br label %cond.end264
 
 cond.end264:                                      ; preds = %sw.bb254, %cond.false257
@@ -1412,16 +1059,16 @@ cond.end264:                                      ; preds = %sw.bb254, %cond.fal
   br label %sw.epilog929
 
 sw.bb266:                                         ; preds = %yyreduce
-  %141 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool267.not = icmp eq i32 %141, 0
+  %73 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool267.not = icmp eq i32 %73, 0
   br i1 %tobool267.not, label %cond.false269, label %cond.end273
 
 cond.false269:                                    ; preds = %sw.bb266
   %arrayidx270 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %142 = load i32, ptr %arrayidx270, align 8
+  %74 = load i32, ptr %arrayidx270, align 8
   %arrayidx271 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %143 = load ptr, ptr %arrayidx271, align 8
-  %call272 = call ptr @term_Create(i32 noundef %142, ptr noundef %143) #14
+  %75 = load ptr, ptr %arrayidx271, align 8
+  %call272 = call ptr @term_Create(i32 noundef %74, ptr noundef %75) #14
   br label %cond.end273
 
 cond.end273:                                      ; preds = %sw.bb266, %cond.false269
@@ -1430,12 +1077,12 @@ cond.end273:                                      ; preds = %sw.bb266, %cond.fal
   br label %sw.epilog929
 
 sw.bb275:                                         ; preds = %yyreduce
-  %144 = load ptr, ptr @dfg_VARLIST, align 8
-  %call.i.i.i1598 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i.i1599 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1598, i64 0, i32 1
-  store ptr null, ptr %car.i.i.i1599, align 8
-  store ptr %144, ptr %call.i.i.i1598, align 8
-  store ptr %call.i.i.i1598, ptr @dfg_VARLIST, align 8
+  %76 = load ptr, ptr @dfg_VARLIST, align 8
+  %call.i.i.i1569 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i.i1570 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1569, i64 0, i32 1
+  store ptr null, ptr %car.i.i.i1570, align 8
+  store ptr %76, ptr %call.i.i.i1569, align 8
+  store ptr %call.i.i.i1569, ptr @dfg_VARLIST, align 8
   store i1 true, ptr @dfg_VARDECL, align 4
   br label %sw.epilog929
 
@@ -1444,36 +1091,19 @@ sw.bb276:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb277:                                         ; preds = %yyreduce
-  %145 = load ptr, ptr @dfg_VARLIST, align 8
-  %146 = getelementptr i8, ptr %145, i64 8
-  %.val.i1600 = load ptr, ptr %146, align 8
-  call void @list_DeleteWithElement(ptr noundef %.val.i1600, ptr noundef nonnull @dfg_VarFree) #14
-  %147 = load ptr, ptr @dfg_VARLIST, align 8
-  %L.val.i.i1601 = load ptr, ptr %147, align 8
-  %148 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i1602 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %148, i64 0, i32 4
-  %149 = load i32, ptr %total_size.i.i.i.i1602, align 8
-  %conv26.i.i.i.i1603 = sext i32 %149 to i64
-  %150 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i1604 = add i64 %150, %conv26.i.i.i.i1603
-  store i64 %add27.i.i.i.i1604, ptr @memory_FREEDBYTES, align 8
-  %151 = load ptr, ptr %148, align 8
-  store ptr %151, ptr %147, align 8
-  %152 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %147, ptr %152, align 8
-  store ptr %L.val.i.i1601, ptr @dfg_VARLIST, align 8
-  %153 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool278.not = icmp eq i32 %153, 0
+  call fastcc void @dfg_VarBacktrack()
+  %77 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool278.not = icmp eq i32 %77, 0
   br i1 %tobool278.not, label %cond.false280, label %cond.end285
 
 cond.false280:                                    ; preds = %sw.bb277
   %arrayidx281 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -9
-  %154 = load i32, ptr %arrayidx281, align 8
+  %78 = load i32, ptr %arrayidx281, align 8
   %arrayidx282 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -5
-  %155 = load ptr, ptr %arrayidx282, align 8
+  %79 = load ptr, ptr %arrayidx282, align 8
   %arrayidx283 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %156 = load ptr, ptr %arrayidx283, align 8
-  %call284 = call ptr @dfg_CreateQuantifier(i32 noundef %154, ptr noundef %155, ptr noundef %156)
+  %80 = load ptr, ptr %arrayidx283, align 8
+  %call284 = call ptr @dfg_CreateQuantifier(i32 noundef %78, ptr noundef %79, ptr noundef %80)
   br label %cond.end285
 
 cond.end285:                                      ; preds = %sw.bb277, %cond.false280
@@ -1486,117 +1116,117 @@ sw.bb287:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb288:                                         ; preds = %yyreduce
-  %157 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %157, ptr %yyval, align 8
+  %81 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %81, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb290:                                         ; preds = %yyreduce
-  %158 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool291.not = icmp eq i32 %158, 0
+  %82 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool291.not = icmp eq i32 %82, 0
   br i1 %tobool291.not, label %cond.false294, label %cond.end297
 
 cond.false294:                                    ; preds = %sw.bb290
-  %159 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1605 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1606 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1605, i64 0, i32 1
-  store ptr %159, ptr %car.i.i1606, align 8
-  store ptr null, ptr %call.i.i1605, align 8
+  %83 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1571 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1572 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1571, i64 0, i32 1
+  store ptr %83, ptr %car.i.i1572, align 8
+  store ptr null, ptr %call.i.i1571, align 8
   br label %cond.end297
 
 cond.end297:                                      ; preds = %sw.bb290, %cond.false294
-  %cond298 = phi ptr [ %call.i.i1605, %cond.false294 ], [ null, %sw.bb290 ]
+  %cond298 = phi ptr [ %call.i.i1571, %cond.false294 ], [ null, %sw.bb290 ]
   store ptr %cond298, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb299:                                         ; preds = %yyreduce
-  %160 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool300.not = icmp eq i32 %160, 0
+  %84 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool300.not = icmp eq i32 %84, 0
   %arrayidx304 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %161 = load ptr, ptr %arrayidx304, align 8
+  %85 = load ptr, ptr %arrayidx304, align 8
   br i1 %tobool300.not, label %cond.false303, label %cond.end308
 
 cond.false303:                                    ; preds = %sw.bb299
-  %162 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1607 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1608 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1607, i64 0, i32 1
-  store ptr %162, ptr %car.i.i1608, align 8
-  store ptr null, ptr %call.i.i1607, align 8
-  %cmp.i.not.i1609 = icmp eq ptr %161, null
-  br i1 %cmp.i.not.i1609, label %cond.end308, label %for.cond.i1615
+  %86 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1573 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1574 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1573, i64 0, i32 1
+  store ptr %86, ptr %car.i.i1574, align 8
+  store ptr null, ptr %call.i.i1573, align 8
+  %cmp.i.i1575 = icmp eq ptr %85, null
+  br i1 %cmp.i.i1575, label %cond.end308, label %for.cond.i1581
 
-for.cond.i1615:                                   ; preds = %cond.false303, %for.cond.i1615
-  %List1.addr.0.i1612 = phi ptr [ %List1.addr.0.val17.i1613, %for.cond.i1615 ], [ %161, %cond.false303 ]
-  %List1.addr.0.val17.i1613 = load ptr, ptr %List1.addr.0.i1612, align 8
-  %cmp.i20.not.i1614 = icmp eq ptr %List1.addr.0.val17.i1613, null
-  br i1 %cmp.i20.not.i1614, label %for.end.i1616, label %for.cond.i1615, !llvm.loop !5
+for.cond.i1581:                                   ; preds = %cond.false303, %for.cond.i1581
+  %List1.addr.0.i1578 = phi ptr [ %List1.addr.0.val17.i1579, %for.cond.i1581 ], [ %85, %cond.false303 ]
+  %List1.addr.0.val17.i1579 = load ptr, ptr %List1.addr.0.i1578, align 8
+  %cmp.i20.not.i1580 = icmp eq ptr %List1.addr.0.val17.i1579, null
+  br i1 %cmp.i20.not.i1580, label %for.end.i1582, label %for.cond.i1581, !llvm.loop !5
 
-for.end.i1616:                                    ; preds = %for.cond.i1615
-  store ptr %call.i.i1607, ptr %List1.addr.0.i1612, align 8
+for.end.i1582:                                    ; preds = %for.cond.i1581
+  store ptr %call.i.i1573, ptr %List1.addr.0.i1578, align 8
   br label %cond.end308
 
-cond.end308:                                      ; preds = %sw.bb299, %for.end.i1616, %cond.false303
-  %cond309 = phi ptr [ %161, %for.end.i1616 ], [ %call.i.i1607, %cond.false303 ], [ %161, %sw.bb299 ]
+cond.end308:                                      ; preds = %sw.bb299, %for.end.i1582, %cond.false303
+  %cond309 = phi ptr [ %85, %for.end.i1582 ], [ %call.i.i1573, %cond.false303 ], [ %85, %sw.bb299 ]
   store ptr %cond309, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb310:                                         ; preds = %yyreduce
-  %163 = load i32, ptr @fol_EQUIV, align 4
-  store i32 %163, ptr %yyval, align 8
+  %87 = load i32, ptr @fol_EQUIV, align 4
+  store i32 %87, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb312:                                         ; preds = %yyreduce
-  %164 = load i32, ptr @fol_IMPLIED, align 4
-  store i32 %164, ptr %yyval, align 8
+  %88 = load i32, ptr @fol_IMPLIED, align 4
+  store i32 %88, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb314:                                         ; preds = %yyreduce
-  %165 = load i32, ptr @fol_IMPLIES, align 4
-  store i32 %165, ptr %yyval, align 8
+  %89 = load i32, ptr @fol_IMPLIES, align 4
+  store i32 %89, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb316:                                         ; preds = %yyreduce
-  %166 = load i32, ptr @fol_AND, align 4
-  store i32 %166, ptr %yyval, align 8
+  %90 = load i32, ptr @fol_AND, align 4
+  store i32 %90, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb318:                                         ; preds = %yyreduce
-  %167 = load i32, ptr @fol_OR, align 4
-  store i32 %167, ptr %yyval, align 8
+  %91 = load i32, ptr @fol_OR, align 4
+  store i32 %91, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb320:                                         ; preds = %yyreduce
-  %168 = load i32, ptr @fol_EXIST, align 4
-  store i32 %168, ptr %yyval, align 8
+  %92 = load i32, ptr @fol_EXIST, align 4
+  store i32 %92, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb322:                                         ; preds = %yyreduce
-  %169 = load i32, ptr @fol_ALL, align 4
-  store i32 %169, ptr %yyval, align 8
+  %93 = load i32, ptr @fol_ALL, align 4
+  store i32 %93, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb324:                                         ; preds = %yyreduce
-  %170 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool325.not = icmp eq i32 %170, 0
-  %171 = load ptr, ptr %yyvsp.3, align 8
+  %94 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool325.not = icmp eq i32 %94, 0
+  %95 = load ptr, ptr %yyvsp.3, align 8
   br i1 %tobool325.not, label %if.else328, label %if.then326
 
 if.then326:                                       ; preds = %sw.bb324
-  call void @string_StringFree(ptr noundef %171) #14
+  call void @string_StringFree(ptr noundef %95) #14
   store ptr null, ptr %yyval, align 8
   br label %sw.epilog929
 
 if.else328:                                       ; preds = %sw.bb324
-  store ptr %171, ptr %yyval, align 8
+  store ptr %95, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb331:                                         ; preds = %yyreduce
-  %172 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool332.not = icmp eq i32 %172, 0
+  %96 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool332.not = icmp eq i32 %96, 0
   br i1 %tobool332.not, label %cond.false334, label %cond.end337
 
 cond.false334:                                    ; preds = %sw.bb331
-  %173 = load i32, ptr %yyvsp.3, align 8
-  %call336 = call ptr @string_IntToString(i32 noundef %173) #14
+  %97 = load i32, ptr %yyvsp.3, align 8
+  %call336 = call ptr @string_IntToString(i32 noundef %97) #14
   br label %cond.end337
 
 cond.end337:                                      ; preds = %sw.bb331, %cond.false334
@@ -1605,8 +1235,8 @@ cond.end337:                                      ; preds = %sw.bb331, %cond.fal
   br label %sw.epilog929
 
 sw.bb339:                                         ; preds = %yyreduce
-  %174 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool340.not = icmp eq i32 %174, 0
+  %98 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool340.not = icmp eq i32 %98, 0
   br i1 %tobool340.not, label %cond.false342, label %cond.end344
 
 cond.false342:                                    ; preds = %sw.bb339
@@ -1619,8 +1249,8 @@ cond.end344:                                      ; preds = %sw.bb339, %cond.fal
   br label %sw.epilog929
 
 sw.bb346:                                         ; preds = %yyreduce
-  %175 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool347.not = icmp eq i32 %175, 0
+  %99 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool347.not = icmp eq i32 %99, 0
   br i1 %tobool347.not, label %cond.false349, label %cond.end351
 
 cond.false349:                                    ; preds = %sw.bb346
@@ -1633,8 +1263,8 @@ cond.end351:                                      ; preds = %sw.bb346, %cond.fal
   br label %sw.epilog929
 
 sw.bb353:                                         ; preds = %yyreduce
-  %176 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool354.not = icmp eq i32 %176, 0
+  %100 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool354.not = icmp eq i32 %100, 0
   br i1 %tobool354.not, label %cond.false356, label %cond.end358
 
 cond.false356:                                    ; preds = %sw.bb353
@@ -1647,70 +1277,70 @@ cond.end358:                                      ; preds = %sw.bb353, %cond.fal
   br label %sw.epilog929
 
 sw.bb360:                                         ; preds = %yyreduce
-  %177 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool361.not = icmp eq i32 %177, 0
+  %101 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool361.not = icmp eq i32 %101, 0
   br i1 %tobool361.not, label %cond.false364, label %cond.end367
 
 cond.false364:                                    ; preds = %sw.bb360
-  %178 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1619 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1620 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1619, i64 0, i32 1
-  store ptr %178, ptr %car.i.i1620, align 8
-  store ptr null, ptr %call.i.i1619, align 8
+  %102 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1585 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1586 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1585, i64 0, i32 1
+  store ptr %102, ptr %car.i.i1586, align 8
+  store ptr null, ptr %call.i.i1585, align 8
   br label %cond.end367
 
 cond.end367:                                      ; preds = %sw.bb360, %cond.false364
-  %cond368 = phi ptr [ %call.i.i1619, %cond.false364 ], [ null, %sw.bb360 ]
+  %cond368 = phi ptr [ %call.i.i1585, %cond.false364 ], [ null, %sw.bb360 ]
   store ptr %cond368, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb369:                                         ; preds = %yyreduce
-  %179 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool370.not = icmp eq i32 %179, 0
+  %103 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool370.not = icmp eq i32 %103, 0
   %arrayidx374 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %180 = load ptr, ptr %arrayidx374, align 8
+  %104 = load ptr, ptr %arrayidx374, align 8
   br i1 %tobool370.not, label %cond.false373, label %cond.end378
 
 cond.false373:                                    ; preds = %sw.bb369
-  %181 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1621 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1622 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1621, i64 0, i32 1
-  store ptr %181, ptr %car.i.i1622, align 8
-  store ptr null, ptr %call.i.i1621, align 8
-  %cmp.i.not.i1623 = icmp eq ptr %180, null
-  br i1 %cmp.i.not.i1623, label %cond.end378, label %for.cond.i1629
+  %105 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1587 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1588 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1587, i64 0, i32 1
+  store ptr %105, ptr %car.i.i1588, align 8
+  store ptr null, ptr %call.i.i1587, align 8
+  %cmp.i.i1589 = icmp eq ptr %104, null
+  br i1 %cmp.i.i1589, label %cond.end378, label %for.cond.i1595
 
-for.cond.i1629:                                   ; preds = %cond.false373, %for.cond.i1629
-  %List1.addr.0.i1626 = phi ptr [ %List1.addr.0.val17.i1627, %for.cond.i1629 ], [ %180, %cond.false373 ]
-  %List1.addr.0.val17.i1627 = load ptr, ptr %List1.addr.0.i1626, align 8
-  %cmp.i20.not.i1628 = icmp eq ptr %List1.addr.0.val17.i1627, null
-  br i1 %cmp.i20.not.i1628, label %for.end.i1630, label %for.cond.i1629, !llvm.loop !5
+for.cond.i1595:                                   ; preds = %cond.false373, %for.cond.i1595
+  %List1.addr.0.i1592 = phi ptr [ %List1.addr.0.val17.i1593, %for.cond.i1595 ], [ %104, %cond.false373 ]
+  %List1.addr.0.val17.i1593 = load ptr, ptr %List1.addr.0.i1592, align 8
+  %cmp.i20.not.i1594 = icmp eq ptr %List1.addr.0.val17.i1593, null
+  br i1 %cmp.i20.not.i1594, label %for.end.i1596, label %for.cond.i1595, !llvm.loop !5
 
-for.end.i1630:                                    ; preds = %for.cond.i1629
-  store ptr %call.i.i1621, ptr %List1.addr.0.i1626, align 8
+for.end.i1596:                                    ; preds = %for.cond.i1595
+  store ptr %call.i.i1587, ptr %List1.addr.0.i1592, align 8
   br label %cond.end378
 
-cond.end378:                                      ; preds = %sw.bb369, %for.end.i1630, %cond.false373
-  %cond379 = phi ptr [ %180, %for.end.i1630 ], [ %call.i.i1621, %cond.false373 ], [ %180, %sw.bb369 ]
+cond.end378:                                      ; preds = %sw.bb369, %for.end.i1596, %cond.false373
+  %cond379 = phi ptr [ %104, %for.end.i1596 ], [ %call.i.i1587, %cond.false373 ], [ %104, %sw.bb369 ]
   store ptr %cond379, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb380:                                         ; preds = %yyreduce
-  %182 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool381.not = icmp eq i32 %182, 0
+  %106 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool381.not = icmp eq i32 %106, 0
   br i1 %tobool381.not, label %if.then382, label %sw.epilog929
 
 if.then382:                                       ; preds = %sw.bb380
-  %183 = load ptr, ptr %yyvsp.3, align 8
-  %call384 = call fastcc i32 @dfg_Symbol(ptr noundef %183, i32 noundef 0)
-  %cmp.i1633 = icmp slt i32 %call384, 1
-  br i1 %cmp.i1633, label %if.then387, label %if.end389
+  %107 = load ptr, ptr %yyvsp.3, align 8
+  %call384 = call fastcc i32 @dfg_Symbol(ptr noundef %107, i32 noundef 0)
+  %cmp.i = icmp sgt i32 %call384, 0
+  br i1 %cmp.i, label %if.end389, label %if.then387
 
 if.then387:                                       ; preds = %if.then382
-  %184 = load ptr, ptr @stdout, align 8
-  %call388 = call i32 @fflush(ptr noundef %184)
-  %185 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3, i32 noundef %185) #14
+  %108 = load ptr, ptr @stdout, align 8
+  %call388 = call i32 @fflush(ptr noundef %108)
+  %109 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3, i32 noundef %109) #14
   call fastcc void @misc_Error()
   unreachable
 
@@ -1720,137 +1350,137 @@ if.end389:                                        ; preds = %if.then382
   br label %sw.epilog929
 
 sw.bb393:                                         ; preds = %yyreduce
-  %186 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool394.not = icmp eq i32 %186, 0
+  %110 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool394.not = icmp eq i32 %110, 0
   br i1 %tobool394.not, label %if.then395, label %sw.epilog929
 
 if.then395:                                       ; preds = %sw.bb393
   %arrayidx396 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %187 = load ptr, ptr %arrayidx396, align 8
-  %call397 = call fastcc i32 @dfg_Symbol(ptr noundef %187, i32 noundef 1)
+  %111 = load ptr, ptr %arrayidx396, align 8
+  %call397 = call fastcc i32 @dfg_Symbol(ptr noundef %111, i32 noundef 1)
   %tobool.not.i = icmp sgt i32 %call397, -1
   br i1 %tobool.not.i, label %if.then400, label %symbol_IsPredicate.exit
 
 symbol_IsPredicate.exit:                          ; preds = %if.then395
-  %sub.i.i1635 = sub nsw i32 0, %call397
-  %and.i.i1636 = and i32 %1, %sub.i.i1635
-  %cmp.i1637.not = icmp eq i32 %and.i.i1636, 2
-  br i1 %cmp.i1637.not, label %if.end402, label %if.then400
+  %sub.i.i = sub nsw i32 0, %call397
+  %and.i.i = and i32 %1, %sub.i.i
+  %cmp.i1599.not = icmp eq i32 %and.i.i, 2
+  br i1 %cmp.i1599.not, label %if.end402, label %if.then400
 
 if.then400:                                       ; preds = %if.then395, %symbol_IsPredicate.exit
-  %188 = load ptr, ptr @stdout, align 8
-  %call401 = call i32 @fflush(ptr noundef %188)
-  %189 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.4, i32 noundef %189) #14
+  %112 = load ptr, ptr @stdout, align 8
+  %call401 = call i32 @fflush(ptr noundef %112)
+  %113 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.4, i32 noundef %113) #14
   call fastcc void @misc_Error()
   unreachable
 
 if.end402:                                        ; preds = %symbol_IsPredicate.exit
   %arrayidx403 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %190 = load ptr, ptr %arrayidx403, align 8
-  %call404 = call fastcc i32 @dfg_Symbol(ptr noundef %190, i32 noundef 0)
-  %cmp.i1638 = icmp slt i32 %call404, 1
-  br i1 %cmp.i1638, label %if.then407, label %if.end409
+  %114 = load ptr, ptr %arrayidx403, align 8
+  %call404 = call fastcc i32 @dfg_Symbol(ptr noundef %114, i32 noundef 0)
+  %cmp.i1600 = icmp sgt i32 %call404, 0
+  br i1 %cmp.i1600, label %if.end409, label %if.then407
 
 if.then407:                                       ; preds = %if.end402
-  %191 = load ptr, ptr @stdout, align 8
-  %call408 = call i32 @fflush(ptr noundef %191)
-  %192 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3, i32 noundef %192) #14
+  %115 = load ptr, ptr @stdout, align 8
+  %call408 = call i32 @fflush(ptr noundef %115)
+  %116 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3, i32 noundef %116) #14
   call fastcc void @misc_Error()
   unreachable
 
 if.end409:                                        ; preds = %if.end402
   %call411 = call ptr @term_Create(i32 noundef %call404, ptr noundef null) #14
-  %call.i.i1640 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1641 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1640, i64 0, i32 1
-  store ptr %call411, ptr %car.i.i1641, align 8
-  store ptr null, ptr %call.i.i1640, align 8
-  %call413 = call ptr @term_Create(i32 noundef %call397, ptr noundef nonnull %call.i.i1640) #14
+  %call.i.i1602 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1603 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1602, i64 0, i32 1
+  store ptr %call411, ptr %car.i.i1603, align 8
+  store ptr null, ptr %call.i.i1602, align 8
+  %call413 = call ptr @term_Create(i32 noundef %call397, ptr noundef nonnull %call.i.i1602) #14
   store ptr %call413, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb415:                                         ; preds = %yyreduce
   %arrayidx416 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %193 = load ptr, ptr %arrayidx416, align 8
-  %call417 = call ptr @list_NReverse(ptr noundef %193) #14
+  %117 = load ptr, ptr %arrayidx416, align 8
+  %call417 = call ptr @list_NReverse(ptr noundef %117) #14
   %arrayidx418 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -7
-  %194 = load i32, ptr %arrayidx418, align 8
-  %tobool419.not = icmp eq i32 %194, 0
-  %195 = load ptr, ptr %arrayidx416, align 8
+  %118 = load i32, ptr %arrayidx418, align 8
+  %tobool419.not = icmp eq i32 %118, 0
+  %119 = load ptr, ptr %arrayidx416, align 8
   br i1 %tobool419.not, label %if.else423, label %if.then420
 
 if.then420:                                       ; preds = %sw.bb415
-  %196 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %cmp.i.not.i1642 = icmp eq ptr %196, null
-  br i1 %cmp.i.not.i1642, label %list_Nconc.exit1651, label %if.end.i1644
+  %120 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %cmp.i.i1604 = icmp eq ptr %120, null
+  br i1 %cmp.i.i1604, label %list_Nconc.exit1613, label %if.end.i1606
 
-if.end.i1644:                                     ; preds = %if.then420
-  %cmp.i18.not.i1643 = icmp eq ptr %195, null
-  br i1 %cmp.i18.not.i1643, label %list_Nconc.exit1651, label %for.cond.i1648
+if.end.i1606:                                     ; preds = %if.then420
+  %cmp.i18.i1605 = icmp eq ptr %119, null
+  br i1 %cmp.i18.i1605, label %list_Nconc.exit1613, label %for.cond.i1610
 
-for.cond.i1648:                                   ; preds = %if.end.i1644, %for.cond.i1648
-  %List1.addr.0.i1645 = phi ptr [ %List1.addr.0.val17.i1646, %for.cond.i1648 ], [ %196, %if.end.i1644 ]
-  %List1.addr.0.val17.i1646 = load ptr, ptr %List1.addr.0.i1645, align 8
-  %cmp.i20.not.i1647 = icmp eq ptr %List1.addr.0.val17.i1646, null
-  br i1 %cmp.i20.not.i1647, label %for.end.i1649, label %for.cond.i1648, !llvm.loop !5
+for.cond.i1610:                                   ; preds = %if.end.i1606, %for.cond.i1610
+  %List1.addr.0.i1607 = phi ptr [ %List1.addr.0.val17.i1608, %for.cond.i1610 ], [ %120, %if.end.i1606 ]
+  %List1.addr.0.val17.i1608 = load ptr, ptr %List1.addr.0.i1607, align 8
+  %cmp.i20.not.i1609 = icmp eq ptr %List1.addr.0.val17.i1608, null
+  br i1 %cmp.i20.not.i1609, label %for.end.i1611, label %for.cond.i1610, !llvm.loop !5
 
-for.end.i1649:                                    ; preds = %for.cond.i1648
-  store ptr %195, ptr %List1.addr.0.i1645, align 8
-  br label %list_Nconc.exit1651
+for.end.i1611:                                    ; preds = %for.cond.i1610
+  store ptr %119, ptr %List1.addr.0.i1607, align 8
+  br label %list_Nconc.exit1613
 
-list_Nconc.exit1651:                              ; preds = %if.then420, %if.end.i1644, %for.end.i1649
-  %retval.0.i1650 = phi ptr [ %196, %for.end.i1649 ], [ %195, %if.then420 ], [ %196, %if.end.i1644 ]
-  store ptr %retval.0.i1650, ptr @dfg_AXCLAUSES, align 8
+list_Nconc.exit1613:                              ; preds = %if.then420, %if.end.i1606, %for.end.i1611
+  %retval.0.i1612 = phi ptr [ %120, %for.end.i1611 ], [ %119, %if.then420 ], [ %120, %if.end.i1606 ]
+  store ptr %retval.0.i1612, ptr @dfg_AXCLAUSES, align 8
   br label %sw.epilog929
 
 if.else423:                                       ; preds = %sw.bb415
-  %197 = load ptr, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i.not.i1652 = icmp eq ptr %197, null
-  br i1 %cmp.i.not.i1652, label %list_Nconc.exit1661, label %if.end.i1654
+  %121 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %cmp.i.i1614 = icmp eq ptr %121, null
+  br i1 %cmp.i.i1614, label %list_Nconc.exit1623, label %if.end.i1616
 
-if.end.i1654:                                     ; preds = %if.else423
-  %cmp.i18.not.i1653 = icmp eq ptr %195, null
-  br i1 %cmp.i18.not.i1653, label %list_Nconc.exit1661, label %for.cond.i1658
+if.end.i1616:                                     ; preds = %if.else423
+  %cmp.i18.i1615 = icmp eq ptr %119, null
+  br i1 %cmp.i18.i1615, label %list_Nconc.exit1623, label %for.cond.i1620
 
-for.cond.i1658:                                   ; preds = %if.end.i1654, %for.cond.i1658
-  %List1.addr.0.i1655 = phi ptr [ %List1.addr.0.val17.i1656, %for.cond.i1658 ], [ %197, %if.end.i1654 ]
-  %List1.addr.0.val17.i1656 = load ptr, ptr %List1.addr.0.i1655, align 8
-  %cmp.i20.not.i1657 = icmp eq ptr %List1.addr.0.val17.i1656, null
-  br i1 %cmp.i20.not.i1657, label %for.end.i1659, label %for.cond.i1658, !llvm.loop !5
+for.cond.i1620:                                   ; preds = %if.end.i1616, %for.cond.i1620
+  %List1.addr.0.i1617 = phi ptr [ %List1.addr.0.val17.i1618, %for.cond.i1620 ], [ %121, %if.end.i1616 ]
+  %List1.addr.0.val17.i1618 = load ptr, ptr %List1.addr.0.i1617, align 8
+  %cmp.i20.not.i1619 = icmp eq ptr %List1.addr.0.val17.i1618, null
+  br i1 %cmp.i20.not.i1619, label %for.end.i1621, label %for.cond.i1620, !llvm.loop !5
 
-for.end.i1659:                                    ; preds = %for.cond.i1658
-  store ptr %195, ptr %List1.addr.0.i1655, align 8
-  br label %list_Nconc.exit1661
+for.end.i1621:                                    ; preds = %for.cond.i1620
+  store ptr %119, ptr %List1.addr.0.i1617, align 8
+  br label %list_Nconc.exit1623
 
-list_Nconc.exit1661:                              ; preds = %if.else423, %if.end.i1654, %for.end.i1659
-  %retval.0.i1660 = phi ptr [ %197, %for.end.i1659 ], [ %195, %if.else423 ], [ %197, %if.end.i1654 ]
-  store ptr %retval.0.i1660, ptr @dfg_CONCLAUSES, align 8
+list_Nconc.exit1623:                              ; preds = %if.else423, %if.end.i1616, %for.end.i1621
+  %retval.0.i1622 = phi ptr [ %121, %for.end.i1621 ], [ %119, %if.else423 ], [ %121, %if.end.i1616 ]
+  store ptr %retval.0.i1622, ptr @dfg_CONCLAUSES, align 8
   br label %sw.epilog929
 
 sw.bb427:                                         ; preds = %yyreduce
-  %198 = load i32, ptr @dfg_IGNORE, align 4
-  %conv428 = zext i32 %198 to i64
-  %199 = inttoptr i64 %conv428 to ptr
-  %200 = load i32, ptr @stack_POINTER, align 4
-  %inc.i = add i32 %200, 1
+  %122 = load i32, ptr @dfg_IGNORE, align 4
+  %conv428 = zext i32 %122 to i64
+  %123 = inttoptr i64 %conv428 to ptr
+  %124 = load i32, ptr @stack_POINTER, align 4
+  %inc.i = add i32 %124, 1
   store i32 %inc.i, ptr @stack_POINTER, align 4
-  %idxprom.i = zext i32 %200 to i64
+  %idxprom.i = zext i32 %124 to i64
   %arrayidx.i = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i
-  store ptr %199, ptr %arrayidx.i, align 8
+  store ptr %123, ptr %arrayidx.i, align 8
   store i32 1, ptr @dfg_IGNORE, align 4
   br label %sw.epilog929
 
 sw.bb429:                                         ; preds = %yyreduce
-  %201 = load i32, ptr @stack_POINTER, align 4
-  %dec.i = add i32 %201, -1
+  %125 = load i32, ptr @stack_POINTER, align 4
+  %dec.i = add i32 %125, -1
   store i32 %dec.i, ptr @stack_POINTER, align 4
-  %idxprom.i1662 = zext i32 %dec.i to i64
-  %arrayidx.i1663 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1662
-  %202 = load ptr, ptr %arrayidx.i1663, align 8
-  %203 = ptrtoint ptr %202 to i64
-  %204 = trunc i64 %203 to i32
-  store i32 %204, ptr @dfg_IGNORE, align 4
+  %idxprom.i1624 = zext i32 %dec.i to i64
+  %arrayidx.i1625 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1624
+  %126 = load ptr, ptr %arrayidx.i1625, align 8
+  %127 = ptrtoint ptr %126 to i64
+  %128 = trunc i64 %127 to i32
+  store i32 %128, ptr @dfg_IGNORE, align 4
   br label %sw.epilog929
 
 sw.bb431:                                         ; preds = %yyreduce
@@ -1859,40 +1489,40 @@ sw.bb431:                                         ; preds = %yyreduce
 
 sw.bb433:                                         ; preds = %yyreduce
   %arrayidx435 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %205 = load ptr, ptr %arrayidx435, align 8
-  %cmp436 = icmp eq ptr %205, null
+  %129 = load ptr, ptr %arrayidx435, align 8
+  %cmp436 = icmp eq ptr %129, null
   %arrayidx439 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %206 = load ptr, ptr %arrayidx439, align 8
+  %130 = load ptr, ptr %arrayidx439, align 8
   br i1 %cmp436, label %if.then438, label %if.else446
 
 if.then438:                                       ; preds = %sw.bb433
-  %cmp440.not = icmp eq ptr %206, null
+  %cmp440.not = icmp eq ptr %130, null
   br i1 %cmp440.not, label %if.end444, label %if.then442
 
 if.then442:                                       ; preds = %if.then438
-  call void @string_StringFree(ptr noundef nonnull %206) #14
+  call void @string_StringFree(ptr noundef nonnull %130) #14
   br label %if.end444
 
 if.end444:                                        ; preds = %if.then442, %if.then438
   %arrayidx445 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %207 = load ptr, ptr %arrayidx445, align 8
+  %131 = load ptr, ptr %arrayidx445, align 8
   br label %if.end452
 
 if.else446:                                       ; preds = %sw.bb433
-  %call.i.i1664 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1665 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1664, i64 0, i32 1
-  store ptr %206, ptr %car.i.i1665, align 8
-  store ptr %205, ptr %call.i.i1664, align 8
+  %call.i.i1626 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1627 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1626, i64 0, i32 1
+  store ptr %130, ptr %car.i.i1627, align 8
+  store ptr %129, ptr %call.i.i1626, align 8
   %arrayidx450 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %208 = load ptr, ptr %arrayidx450, align 8
-  %call.i1666 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1667 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1666, i64 0, i32 1
-  store ptr %call.i.i1664, ptr %car.i1667, align 8
-  store ptr %208, ptr %call.i1666, align 8
+  %132 = load ptr, ptr %arrayidx450, align 8
+  %call.i1628 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1629 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1628, i64 0, i32 1
+  store ptr %call.i.i1626, ptr %car.i1629, align 8
+  store ptr %132, ptr %call.i1628, align 8
   br label %if.end452
 
 if.end452:                                        ; preds = %if.else446, %if.end444
-  %storemerge = phi ptr [ %call.i1666, %if.else446 ], [ %207, %if.end444 ]
+  %storemerge = phi ptr [ %call.i1628, %if.else446 ], [ %131, %if.end444 ]
   store ptr %storemerge, ptr %yyval, align 8
   call fastcc void @dfg_VarCheck()
   br label %sw.epilog929
@@ -1902,22 +1532,22 @@ sw.bb453:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb454:                                         ; preds = %yyreduce
-  %209 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %209, ptr %yyval, align 8
+  %133 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %133, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb456:                                         ; preds = %yyreduce
-  %210 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %210, ptr %yyval, align 8
+  %134 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %134, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb458:                                         ; preds = %yyreduce
-  %211 = load ptr, ptr @dfg_VARLIST, align 8
-  %call.i.i.i1668 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i.i1669 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1668, i64 0, i32 1
-  store ptr null, ptr %car.i.i.i1669, align 8
-  store ptr %211, ptr %call.i.i.i1668, align 8
-  store ptr %call.i.i.i1668, ptr @dfg_VARLIST, align 8
+  %135 = load ptr, ptr @dfg_VARLIST, align 8
+  %call.i.i.i1630 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i.i1631 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1630, i64 0, i32 1
+  store ptr null, ptr %car.i.i.i1631, align 8
+  store ptr %135, ptr %call.i.i.i1630, align 8
+  store ptr %call.i.i.i1630, ptr @dfg_VARLIST, align 8
   store i1 true, ptr @dfg_VARDECL, align 4
   br label %sw.epilog929
 
@@ -1926,35 +1556,18 @@ sw.bb459:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb460:                                         ; preds = %yyreduce
-  %212 = load ptr, ptr @dfg_VARLIST, align 8
-  %213 = getelementptr i8, ptr %212, i64 8
-  %.val.i1670 = load ptr, ptr %213, align 8
-  call void @list_DeleteWithElement(ptr noundef %.val.i1670, ptr noundef nonnull @dfg_VarFree) #14
-  %214 = load ptr, ptr @dfg_VARLIST, align 8
-  %L.val.i.i1671 = load ptr, ptr %214, align 8
-  %215 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i1672 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %215, i64 0, i32 4
-  %216 = load i32, ptr %total_size.i.i.i.i1672, align 8
-  %conv26.i.i.i.i1673 = sext i32 %216 to i64
-  %217 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i1674 = add i64 %217, %conv26.i.i.i.i1673
-  store i64 %add27.i.i.i.i1674, ptr @memory_FREEDBYTES, align 8
-  %218 = load ptr, ptr %215, align 8
-  store ptr %218, ptr %214, align 8
-  %219 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %214, ptr %219, align 8
-  store ptr %L.val.i.i1671, ptr @dfg_VARLIST, align 8
-  %220 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool461.not = icmp eq i32 %220, 0
+  call fastcc void @dfg_VarBacktrack()
+  %136 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool461.not = icmp eq i32 %136, 0
   br i1 %tobool461.not, label %cond.false463, label %cond.end468
 
 cond.false463:                                    ; preds = %sw.bb460
-  %221 = load i32, ptr @fol_ALL, align 4
+  %137 = load i32, ptr @fol_ALL, align 4
   %arrayidx465 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -5
-  %222 = load ptr, ptr %arrayidx465, align 8
+  %138 = load ptr, ptr %arrayidx465, align 8
   %arrayidx466 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %223 = load ptr, ptr %arrayidx466, align 8
-  %call467 = call ptr @dfg_CreateQuantifier(i32 noundef %221, ptr noundef %222, ptr noundef %223)
+  %139 = load ptr, ptr %arrayidx466, align 8
+  %call467 = call ptr @dfg_CreateQuantifier(i32 noundef %137, ptr noundef %138, ptr noundef %139)
   br label %cond.end468
 
 cond.end468:                                      ; preds = %sw.bb460, %cond.false463
@@ -1963,15 +1576,15 @@ cond.end468:                                      ; preds = %sw.bb460, %cond.fal
   br label %sw.epilog929
 
 sw.bb470:                                         ; preds = %yyreduce
-  %224 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool471.not = icmp eq i32 %224, 0
+  %140 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool471.not = icmp eq i32 %140, 0
   br i1 %tobool471.not, label %cond.false473, label %cond.end477
 
 cond.false473:                                    ; preds = %sw.bb470
-  %225 = load i32, ptr @fol_OR, align 4
+  %141 = load i32, ptr @fol_OR, align 4
   %arrayidx475 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %226 = load ptr, ptr %arrayidx475, align 8
-  %call476 = call ptr @term_Create(i32 noundef %225, ptr noundef %226) #14
+  %142 = load ptr, ptr %arrayidx475, align 8
+  %call476 = call ptr @term_Create(i32 noundef %141, ptr noundef %142) #14
   br label %cond.end477
 
 cond.end477:                                      ; preds = %sw.bb470, %cond.false473
@@ -1980,128 +1593,128 @@ cond.end477:                                      ; preds = %sw.bb470, %cond.fal
   br label %sw.epilog929
 
 sw.bb479:                                         ; preds = %yyreduce
-  %227 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool480.not = icmp eq i32 %227, 0
+  %143 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool480.not = icmp eq i32 %143, 0
   br i1 %tobool480.not, label %cond.false483, label %cond.end486
 
 cond.false483:                                    ; preds = %sw.bb479
-  %228 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1675 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1676 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1675, i64 0, i32 1
-  store ptr %228, ptr %car.i.i1676, align 8
-  store ptr null, ptr %call.i.i1675, align 8
+  %144 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1632 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1633 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1632, i64 0, i32 1
+  store ptr %144, ptr %car.i.i1633, align 8
+  store ptr null, ptr %call.i.i1632, align 8
   br label %cond.end486
 
 cond.end486:                                      ; preds = %sw.bb479, %cond.false483
-  %cond487 = phi ptr [ %call.i.i1675, %cond.false483 ], [ null, %sw.bb479 ]
+  %cond487 = phi ptr [ %call.i.i1632, %cond.false483 ], [ null, %sw.bb479 ]
   store ptr %cond487, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb488:                                         ; preds = %yyreduce
-  %229 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool489.not = icmp eq i32 %229, 0
+  %145 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool489.not = icmp eq i32 %145, 0
   %arrayidx493 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %230 = load ptr, ptr %arrayidx493, align 8
+  %146 = load ptr, ptr %arrayidx493, align 8
   br i1 %tobool489.not, label %cond.false492, label %cond.end497
 
 cond.false492:                                    ; preds = %sw.bb488
-  %231 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1677 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1678 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1677, i64 0, i32 1
-  store ptr %231, ptr %car.i.i1678, align 8
-  store ptr null, ptr %call.i.i1677, align 8
-  %cmp.i.not.i1679 = icmp eq ptr %230, null
-  br i1 %cmp.i.not.i1679, label %cond.end497, label %for.cond.i1685
+  %147 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1634 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1635 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1634, i64 0, i32 1
+  store ptr %147, ptr %car.i.i1635, align 8
+  store ptr null, ptr %call.i.i1634, align 8
+  %cmp.i.i1636 = icmp eq ptr %146, null
+  br i1 %cmp.i.i1636, label %cond.end497, label %for.cond.i1642
 
-for.cond.i1685:                                   ; preds = %cond.false492, %for.cond.i1685
-  %List1.addr.0.i1682 = phi ptr [ %List1.addr.0.val17.i1683, %for.cond.i1685 ], [ %230, %cond.false492 ]
-  %List1.addr.0.val17.i1683 = load ptr, ptr %List1.addr.0.i1682, align 8
-  %cmp.i20.not.i1684 = icmp eq ptr %List1.addr.0.val17.i1683, null
-  br i1 %cmp.i20.not.i1684, label %for.end.i1686, label %for.cond.i1685, !llvm.loop !5
+for.cond.i1642:                                   ; preds = %cond.false492, %for.cond.i1642
+  %List1.addr.0.i1639 = phi ptr [ %List1.addr.0.val17.i1640, %for.cond.i1642 ], [ %146, %cond.false492 ]
+  %List1.addr.0.val17.i1640 = load ptr, ptr %List1.addr.0.i1639, align 8
+  %cmp.i20.not.i1641 = icmp eq ptr %List1.addr.0.val17.i1640, null
+  br i1 %cmp.i20.not.i1641, label %for.end.i1643, label %for.cond.i1642, !llvm.loop !5
 
-for.end.i1686:                                    ; preds = %for.cond.i1685
-  store ptr %call.i.i1677, ptr %List1.addr.0.i1682, align 8
+for.end.i1643:                                    ; preds = %for.cond.i1642
+  store ptr %call.i.i1634, ptr %List1.addr.0.i1639, align 8
   br label %cond.end497
 
-cond.end497:                                      ; preds = %sw.bb488, %for.end.i1686, %cond.false492
-  %cond498 = phi ptr [ %230, %for.end.i1686 ], [ %call.i.i1677, %cond.false492 ], [ %230, %sw.bb488 ]
+cond.end497:                                      ; preds = %sw.bb488, %for.end.i1643, %cond.false492
+  %cond498 = phi ptr [ %146, %for.end.i1643 ], [ %call.i.i1634, %cond.false492 ], [ %146, %sw.bb488 ]
   store ptr %cond498, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb499:                                         ; preds = %yyreduce
-  %232 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %232, ptr %yyval, align 8
+  %148 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %148, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb501:                                         ; preds = %yyreduce
-  %233 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool502.not = icmp eq i32 %233, 0
+  %149 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool502.not = icmp eq i32 %149, 0
   br i1 %tobool502.not, label %cond.false505, label %cond.true503
 
 cond.true503:                                     ; preds = %sw.bb501
   %arrayidx504 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %234 = load ptr, ptr %arrayidx504, align 8
+  %150 = load ptr, ptr %arrayidx504, align 8
   br label %cond.end510
 
 cond.false505:                                    ; preds = %sw.bb501
-  %235 = load i32, ptr @fol_NOT, align 4
+  %151 = load i32, ptr @fol_NOT, align 4
   %arrayidx507 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %236 = load ptr, ptr %arrayidx507, align 8
-  %call.i.i1689 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1690 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1689, i64 0, i32 1
-  store ptr %236, ptr %car.i.i1690, align 8
-  store ptr null, ptr %call.i.i1689, align 8
-  %call509 = call ptr @term_Create(i32 noundef %235, ptr noundef nonnull %call.i.i1689) #14
+  %152 = load ptr, ptr %arrayidx507, align 8
+  %call.i.i1646 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1647 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1646, i64 0, i32 1
+  store ptr %152, ptr %car.i.i1647, align 8
+  store ptr null, ptr %call.i.i1646, align 8
+  %call509 = call ptr @term_Create(i32 noundef %151, ptr noundef nonnull %call.i.i1646) #14
   br label %cond.end510
 
 cond.end510:                                      ; preds = %cond.false505, %cond.true503
-  %cond511 = phi ptr [ %234, %cond.true503 ], [ %call509, %cond.false505 ]
+  %cond511 = phi ptr [ %150, %cond.true503 ], [ %call509, %cond.false505 ]
   store ptr %cond511, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb512:                                         ; preds = %yyreduce
-  %237 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1691 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1692 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1691, i64 0, i32 1
-  store ptr %237, ptr %car.i.i1692, align 8
-  store ptr null, ptr %call.i.i1691, align 8
-  store ptr %call.i.i1691, ptr %yyval, align 8
+  %153 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1648 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1649 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1648, i64 0, i32 1
+  store ptr %153, ptr %car.i.i1649, align 8
+  store ptr null, ptr %call.i.i1648, align 8
+  store ptr %call.i.i1648, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb515:                                         ; preds = %yyreduce
   %arrayidx516 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %238 = load ptr, ptr %arrayidx516, align 8
-  %239 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1693 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1694 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1693, i64 0, i32 1
-  store ptr %239, ptr %car.i.i1694, align 8
-  store ptr null, ptr %call.i.i1693, align 8
-  %cmp.i.not.i1695 = icmp eq ptr %238, null
-  br i1 %cmp.i.not.i1695, label %list_Nconc.exit1704, label %for.cond.i1701
+  %154 = load ptr, ptr %arrayidx516, align 8
+  %155 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1650 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1651 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1650, i64 0, i32 1
+  store ptr %155, ptr %car.i.i1651, align 8
+  store ptr null, ptr %call.i.i1650, align 8
+  %cmp.i.i1652 = icmp eq ptr %154, null
+  br i1 %cmp.i.i1652, label %list_Nconc.exit1661, label %for.cond.i1658
 
-for.cond.i1701:                                   ; preds = %sw.bb515, %for.cond.i1701
-  %List1.addr.0.i1698 = phi ptr [ %List1.addr.0.val17.i1699, %for.cond.i1701 ], [ %238, %sw.bb515 ]
-  %List1.addr.0.val17.i1699 = load ptr, ptr %List1.addr.0.i1698, align 8
-  %cmp.i20.not.i1700 = icmp eq ptr %List1.addr.0.val17.i1699, null
-  br i1 %cmp.i20.not.i1700, label %for.end.i1702, label %for.cond.i1701, !llvm.loop !5
+for.cond.i1658:                                   ; preds = %sw.bb515, %for.cond.i1658
+  %List1.addr.0.i1655 = phi ptr [ %List1.addr.0.val17.i1656, %for.cond.i1658 ], [ %154, %sw.bb515 ]
+  %List1.addr.0.val17.i1656 = load ptr, ptr %List1.addr.0.i1655, align 8
+  %cmp.i20.not.i1657 = icmp eq ptr %List1.addr.0.val17.i1656, null
+  br i1 %cmp.i20.not.i1657, label %for.end.i1659, label %for.cond.i1658, !llvm.loop !5
 
-for.end.i1702:                                    ; preds = %for.cond.i1701
-  store ptr %call.i.i1693, ptr %List1.addr.0.i1698, align 8
-  br label %list_Nconc.exit1704
+for.end.i1659:                                    ; preds = %for.cond.i1658
+  store ptr %call.i.i1650, ptr %List1.addr.0.i1655, align 8
+  br label %list_Nconc.exit1661
 
-list_Nconc.exit1704:                              ; preds = %sw.bb515, %for.end.i1702
-  %retval.0.i1703 = phi ptr [ %238, %for.end.i1702 ], [ %call.i.i1693, %sw.bb515 ]
-  store ptr %retval.0.i1703, ptr %yyval, align 8
+list_Nconc.exit1661:                              ; preds = %sw.bb515, %for.end.i1659
+  %retval.0.i1660 = phi ptr [ %154, %for.end.i1659 ], [ %call.i.i1650, %sw.bb515 ]
+  store ptr %retval.0.i1660, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb520:                                         ; preds = %yyreduce
-  %240 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool521.not = icmp eq i32 %240, 0
+  %156 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool521.not = icmp eq i32 %156, 0
   br i1 %tobool521.not, label %cond.false523, label %cond.end527
 
 cond.false523:                                    ; preds = %sw.bb520
-  %241 = load ptr, ptr %yyvsp.3, align 8
-  %call526 = call fastcc ptr @dfg_AtomCreate(ptr noundef %241, ptr noundef null)
+  %157 = load ptr, ptr %yyvsp.3, align 8
+  %call526 = call fastcc ptr @dfg_AtomCreate(ptr noundef %157, ptr noundef null)
   br label %cond.end527
 
 cond.end527:                                      ; preds = %sw.bb520, %cond.false523
@@ -2110,13 +1723,13 @@ cond.end527:                                      ; preds = %sw.bb520, %cond.fal
   br label %sw.epilog929
 
 sw.bb529:                                         ; preds = %yyreduce
-  %242 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool530.not = icmp eq i32 %242, 0
+  %158 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool530.not = icmp eq i32 %158, 0
   br i1 %tobool530.not, label %cond.false532, label %cond.end536
 
 cond.false532:                                    ; preds = %sw.bb529
-  %243 = load i32, ptr @fol_TRUE, align 4
-  %call535 = call ptr @term_Create(i32 noundef %243, ptr noundef null) #14
+  %159 = load i32, ptr @fol_TRUE, align 4
+  %call535 = call ptr @term_Create(i32 noundef %159, ptr noundef null) #14
   br label %cond.end536
 
 cond.end536:                                      ; preds = %sw.bb529, %cond.false532
@@ -2125,13 +1738,13 @@ cond.end536:                                      ; preds = %sw.bb529, %cond.fal
   br label %sw.epilog929
 
 sw.bb538:                                         ; preds = %yyreduce
-  %244 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool539.not = icmp eq i32 %244, 0
+  %160 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool539.not = icmp eq i32 %160, 0
   br i1 %tobool539.not, label %cond.false541, label %cond.end545
 
 cond.false541:                                    ; preds = %sw.bb538
-  %245 = load i32, ptr @fol_FALSE, align 4
-  %call544 = call ptr @term_Create(i32 noundef %245, ptr noundef null) #14
+  %161 = load i32, ptr @fol_FALSE, align 4
+  %call544 = call ptr @term_Create(i32 noundef %161, ptr noundef null) #14
   br label %cond.end545
 
 cond.end545:                                      ; preds = %sw.bb538, %cond.false541
@@ -2140,25 +1753,25 @@ cond.end545:                                      ; preds = %sw.bb538, %cond.fal
   br label %sw.epilog929
 
 sw.bb547:                                         ; preds = %yyreduce
-  %246 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool548.not = icmp eq i32 %246, 0
+  %162 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool548.not = icmp eq i32 %162, 0
   br i1 %tobool548.not, label %cond.false550, label %cond.end557
 
 cond.false550:                                    ; preds = %sw.bb547
-  %247 = load i32, ptr @fol_EQUALITY, align 4
+  %163 = load i32, ptr @fol_EQUALITY, align 4
   %arrayidx552 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %248 = load ptr, ptr %arrayidx552, align 8
+  %164 = load ptr, ptr %arrayidx552, align 8
   %arrayidx553 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %249 = load ptr, ptr %arrayidx553, align 8
-  %call.i.i1705 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1706 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1705, i64 0, i32 1
-  store ptr %249, ptr %car.i.i1706, align 8
-  store ptr null, ptr %call.i.i1705, align 8
-  %call.i1707 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1708 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1707, i64 0, i32 1
-  store ptr %248, ptr %car.i1708, align 8
-  store ptr %call.i.i1705, ptr %call.i1707, align 8
-  %call556 = call ptr @term_Create(i32 noundef %247, ptr noundef nonnull %call.i1707) #14
+  %165 = load ptr, ptr %arrayidx553, align 8
+  %call.i.i1662 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1663 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1662, i64 0, i32 1
+  store ptr %165, ptr %car.i.i1663, align 8
+  store ptr null, ptr %call.i.i1662, align 8
+  %call.i1664 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1665 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1664, i64 0, i32 1
+  store ptr %164, ptr %car.i1665, align 8
+  store ptr %call.i.i1662, ptr %call.i1664, align 8
+  %call556 = call ptr @term_Create(i32 noundef %163, ptr noundef nonnull %call.i1664) #14
   br label %cond.end557
 
 cond.end557:                                      ; preds = %sw.bb547, %cond.false550
@@ -2167,16 +1780,16 @@ cond.end557:                                      ; preds = %sw.bb547, %cond.fal
   br label %sw.epilog929
 
 sw.bb559:                                         ; preds = %yyreduce
-  %250 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool560.not = icmp eq i32 %250, 0
+  %166 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool560.not = icmp eq i32 %166, 0
   br i1 %tobool560.not, label %cond.false562, label %cond.end566
 
 cond.false562:                                    ; preds = %sw.bb559
   %arrayidx563 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %251 = load ptr, ptr %arrayidx563, align 8
+  %167 = load ptr, ptr %arrayidx563, align 8
   %arrayidx564 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %252 = load ptr, ptr %arrayidx564, align 8
-  %call565 = call fastcc ptr @dfg_AtomCreate(ptr noundef %251, ptr noundef %252)
+  %168 = load ptr, ptr %arrayidx564, align 8
+  %call565 = call fastcc ptr @dfg_AtomCreate(ptr noundef %167, ptr noundef %168)
   br label %cond.end566
 
 cond.end566:                                      ; preds = %sw.bb559, %cond.false562
@@ -2185,13 +1798,13 @@ cond.end566:                                      ; preds = %sw.bb559, %cond.fal
   br label %sw.epilog929
 
 sw.bb568:                                         ; preds = %yyreduce
-  %253 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool569.not = icmp eq i32 %253, 0
+  %169 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool569.not = icmp eq i32 %169, 0
   br i1 %tobool569.not, label %cond.false571, label %cond.end575
 
 cond.false571:                                    ; preds = %sw.bb568
-  %254 = load ptr, ptr %yyvsp.3, align 8
-  %call574 = call fastcc ptr @dfg_TermCreate(ptr noundef %254, ptr noundef null)
+  %170 = load ptr, ptr %yyvsp.3, align 8
+  %call574 = call fastcc ptr @dfg_TermCreate(ptr noundef %170, ptr noundef null)
   br label %cond.end575
 
 cond.end575:                                      ; preds = %sw.bb568, %cond.false571
@@ -2200,16 +1813,16 @@ cond.end575:                                      ; preds = %sw.bb568, %cond.fal
   br label %sw.epilog929
 
 sw.bb577:                                         ; preds = %yyreduce
-  %255 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool578.not = icmp eq i32 %255, 0
+  %171 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool578.not = icmp eq i32 %171, 0
   br i1 %tobool578.not, label %cond.false580, label %cond.end584
 
 cond.false580:                                    ; preds = %sw.bb577
   %arrayidx581 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %256 = load ptr, ptr %arrayidx581, align 8
+  %172 = load ptr, ptr %arrayidx581, align 8
   %arrayidx582 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %257 = load ptr, ptr %arrayidx582, align 8
-  %call583 = call fastcc ptr @dfg_TermCreate(ptr noundef %256, ptr noundef %257)
+  %173 = load ptr, ptr %arrayidx582, align 8
+  %call583 = call fastcc ptr @dfg_TermCreate(ptr noundef %172, ptr noundef %173)
   br label %cond.end584
 
 cond.end584:                                      ; preds = %sw.bb577, %cond.false580
@@ -2218,105 +1831,105 @@ cond.end584:                                      ; preds = %sw.bb577, %cond.fal
   br label %sw.epilog929
 
 sw.bb586:                                         ; preds = %yyreduce
-  %258 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool587.not = icmp eq i32 %258, 0
+  %174 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool587.not = icmp eq i32 %174, 0
   br i1 %tobool587.not, label %cond.false590, label %cond.end593
 
 cond.false590:                                    ; preds = %sw.bb586
-  %259 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1709 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1710 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1709, i64 0, i32 1
-  store ptr %259, ptr %car.i.i1710, align 8
-  store ptr null, ptr %call.i.i1709, align 8
+  %175 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1666 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1667 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1666, i64 0, i32 1
+  store ptr %175, ptr %car.i.i1667, align 8
+  store ptr null, ptr %call.i.i1666, align 8
   br label %cond.end593
 
 cond.end593:                                      ; preds = %sw.bb586, %cond.false590
-  %cond594 = phi ptr [ %call.i.i1709, %cond.false590 ], [ null, %sw.bb586 ]
+  %cond594 = phi ptr [ %call.i.i1666, %cond.false590 ], [ null, %sw.bb586 ]
   store ptr %cond594, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb595:                                         ; preds = %yyreduce
-  %260 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool596.not = icmp eq i32 %260, 0
+  %176 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool596.not = icmp eq i32 %176, 0
   %arrayidx600 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %261 = load ptr, ptr %arrayidx600, align 8
+  %177 = load ptr, ptr %arrayidx600, align 8
   br i1 %tobool596.not, label %cond.false599, label %cond.end604
 
 cond.false599:                                    ; preds = %sw.bb595
-  %262 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1711 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1712 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1711, i64 0, i32 1
-  store ptr %262, ptr %car.i.i1712, align 8
-  store ptr null, ptr %call.i.i1711, align 8
-  %cmp.i.not.i1713 = icmp eq ptr %261, null
-  br i1 %cmp.i.not.i1713, label %cond.end604, label %for.cond.i1719
+  %178 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1668 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1669 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1668, i64 0, i32 1
+  store ptr %178, ptr %car.i.i1669, align 8
+  store ptr null, ptr %call.i.i1668, align 8
+  %cmp.i.i1670 = icmp eq ptr %177, null
+  br i1 %cmp.i.i1670, label %cond.end604, label %for.cond.i1676
 
-for.cond.i1719:                                   ; preds = %cond.false599, %for.cond.i1719
-  %List1.addr.0.i1716 = phi ptr [ %List1.addr.0.val17.i1717, %for.cond.i1719 ], [ %261, %cond.false599 ]
-  %List1.addr.0.val17.i1717 = load ptr, ptr %List1.addr.0.i1716, align 8
-  %cmp.i20.not.i1718 = icmp eq ptr %List1.addr.0.val17.i1717, null
-  br i1 %cmp.i20.not.i1718, label %for.end.i1720, label %for.cond.i1719, !llvm.loop !5
+for.cond.i1676:                                   ; preds = %cond.false599, %for.cond.i1676
+  %List1.addr.0.i1673 = phi ptr [ %List1.addr.0.val17.i1674, %for.cond.i1676 ], [ %177, %cond.false599 ]
+  %List1.addr.0.val17.i1674 = load ptr, ptr %List1.addr.0.i1673, align 8
+  %cmp.i20.not.i1675 = icmp eq ptr %List1.addr.0.val17.i1674, null
+  br i1 %cmp.i20.not.i1675, label %for.end.i1677, label %for.cond.i1676, !llvm.loop !5
 
-for.end.i1720:                                    ; preds = %for.cond.i1719
-  store ptr %call.i.i1711, ptr %List1.addr.0.i1716, align 8
+for.end.i1677:                                    ; preds = %for.cond.i1676
+  store ptr %call.i.i1668, ptr %List1.addr.0.i1673, align 8
   br label %cond.end604
 
-cond.end604:                                      ; preds = %sw.bb595, %for.end.i1720, %cond.false599
-  %cond605 = phi ptr [ %261, %for.end.i1720 ], [ %call.i.i1711, %cond.false599 ], [ %261, %sw.bb595 ]
+cond.end604:                                      ; preds = %sw.bb595, %for.end.i1677, %cond.false599
+  %cond605 = phi ptr [ %177, %for.end.i1677 ], [ %call.i.i1668, %cond.false599 ], [ %177, %sw.bb595 ]
   store ptr %cond605, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb606:                                         ; preds = %yyreduce
   %arrayidx607 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %263 = load ptr, ptr %arrayidx607, align 8
-  %call.i1723 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %263, ptr noundef nonnull dereferenceable(6) @.str.5) #16
-  %cmp.i1724.not = icmp eq i32 %call.i1723, 0
-  br i1 %cmp.i1724.not, label %sw.epilog929, label %if.then610
+  %179 = load ptr, ptr %arrayidx607, align 8
+  %call.i1680 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %179, ptr noundef nonnull dereferenceable(6) @.str.5) #15
+  %cmp.i1681 = icmp eq i32 %call.i1680, 0
+  br i1 %cmp.i1681, label %sw.epilog929, label %if.then610
 
 if.then610:                                       ; preds = %sw.bb606
-  %264 = load i32, ptr @dfg_IGNORE, align 4
-  %conv611 = zext i32 %264 to i64
-  %265 = inttoptr i64 %conv611 to ptr
-  %266 = load i32, ptr @stack_POINTER, align 4
-  %inc.i1726 = add i32 %266, 1
-  store i32 %inc.i1726, ptr @stack_POINTER, align 4
-  %idxprom.i1727 = zext i32 %266 to i64
-  %arrayidx.i1728 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1727
-  store ptr %265, ptr %arrayidx.i1728, align 8
+  %180 = load i32, ptr @dfg_IGNORE, align 4
+  %conv611 = zext i32 %180 to i64
+  %181 = inttoptr i64 %conv611 to ptr
+  %182 = load i32, ptr @stack_POINTER, align 4
+  %inc.i1683 = add i32 %182, 1
+  store i32 %inc.i1683, ptr @stack_POINTER, align 4
+  %idxprom.i1684 = zext i32 %182 to i64
+  %arrayidx.i1685 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1684
+  store ptr %181, ptr %arrayidx.i1685, align 8
   store i32 1, ptr @dfg_IGNORE, align 4
   br label %sw.epilog929
 
 sw.bb613:                                         ; preds = %yyreduce
   %arrayidx614 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -6
-  %267 = load ptr, ptr %arrayidx614, align 8
-  %call.i1729 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %267, ptr noundef nonnull dereferenceable(6) @.str.5) #16
-  %cmp.i1730.not = icmp eq i32 %call.i1729, 0
-  br i1 %cmp.i1730.not, label %if.end619, label %if.then617
+  %183 = load ptr, ptr %arrayidx614, align 8
+  %call.i1686 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %183, ptr noundef nonnull dereferenceable(6) @.str.5) #15
+  %cmp.i1687 = icmp eq i32 %call.i1686, 0
+  br i1 %cmp.i1687, label %if.end619, label %if.then617
 
 if.then617:                                       ; preds = %sw.bb613
-  %268 = load i32, ptr @stack_POINTER, align 4
-  %dec.i1732 = add i32 %268, -1
-  store i32 %dec.i1732, ptr @stack_POINTER, align 4
-  %idxprom.i1733 = zext i32 %dec.i1732 to i64
-  %arrayidx.i1734 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1733
-  %269 = load ptr, ptr %arrayidx.i1734, align 8
-  %270 = ptrtoint ptr %269 to i64
-  %271 = trunc i64 %270 to i32
-  store i32 %271, ptr @dfg_IGNORE, align 4
-  %.pre2220 = load ptr, ptr %arrayidx614, align 8
+  %184 = load i32, ptr @stack_POINTER, align 4
+  %dec.i1689 = add i32 %184, -1
+  store i32 %dec.i1689, ptr @stack_POINTER, align 4
+  %idxprom.i1690 = zext i32 %dec.i1689 to i64
+  %arrayidx.i1691 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1690
+  %185 = load ptr, ptr %arrayidx.i1691, align 8
+  %186 = ptrtoint ptr %185 to i64
+  %187 = trunc i64 %186 to i32
+  store i32 %187, ptr @dfg_IGNORE, align 4
+  %.pre2006 = load ptr, ptr %arrayidx614, align 8
   br label %if.end619
 
 if.end619:                                        ; preds = %if.then617, %sw.bb613
-  %272 = phi ptr [ %.pre2220, %if.then617 ], [ %267, %sw.bb613 ]
-  call void @string_StringFree(ptr noundef %272) #14
+  %188 = phi ptr [ %.pre2006, %if.then617 ], [ %183, %sw.bb613 ]
+  call void @string_StringFree(ptr noundef %188) #14
   br label %sw.epilog929
 
 sw.bb621:                                         ; preds = %yyreduce
-  %273 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool622.not = icmp eq i32 %273, 0
+  %189 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool622.not = icmp eq i32 %189, 0
   %arrayidx623 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -11
-  %274 = load ptr, ptr %arrayidx623, align 8
-  %cmp624.not = icmp eq ptr %274, null
+  %190 = load ptr, ptr %arrayidx623, align 8
+  %cmp624.not = icmp eq ptr %190, null
   br i1 %tobool622.not, label %land.lhs.true, label %if.else650
 
 land.lhs.true:                                    ; preds = %sw.bb621
@@ -2324,90 +1937,90 @@ land.lhs.true:                                    ; preds = %sw.bb621
 
 land.lhs.true626:                                 ; preds = %land.lhs.true
   %arrayidx627 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -9
-  %275 = load ptr, ptr %arrayidx627, align 8
-  %cmp628.not = icmp eq ptr %275, null
+  %191 = load ptr, ptr %arrayidx627, align 8
+  %cmp628.not = icmp eq ptr %191, null
   br i1 %cmp628.not, label %if.then654, label %land.lhs.true630
 
 land.lhs.true630:                                 ; preds = %land.lhs.true626
   %arrayidx631 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -4
-  %276 = load ptr, ptr %arrayidx631, align 8
-  %cmp.i1735.not = icmp eq ptr %276, null
-  br i1 %cmp.i1735.not, label %if.then654, label %if.then634
+  %192 = load ptr, ptr %arrayidx631, align 8
+  %cmp.i1692 = icmp eq ptr %192, null
+  br i1 %cmp.i1692, label %if.then654, label %if.then634
 
 if.then634:                                       ; preds = %land.lhs.true630
   %arrayidx635 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -7
-  %277 = load ptr, ptr %arrayidx635, align 8
-  %call636 = call i32 @clause_GetOriginFromString(ptr noundef %277) #14
-  %278 = load ptr, ptr %arrayidx635, align 8
-  call void @string_StringFree(ptr noundef %278) #14
+  %193 = load ptr, ptr %arrayidx635, align 8
+  %call636 = call i32 @clause_GetOriginFromString(ptr noundef %193) #14
+  %194 = load ptr, ptr %arrayidx635, align 8
+  call void @string_StringFree(ptr noundef %194) #14
   %arrayidx638 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %279 = load i32, ptr %arrayidx638, align 8
-  %conv639 = sext i32 %279 to i64
-  %280 = inttoptr i64 %conv639 to ptr
+  %195 = load i32, ptr %arrayidx638, align 8
+  %conv639 = sext i32 %195 to i64
+  %196 = inttoptr i64 %conv639 to ptr
   %conv640 = zext i32 %call636 to i64
-  %281 = inttoptr i64 %conv640 to ptr
-  %call.i.i1737 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1738 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1737, i64 0, i32 1
-  store ptr %281, ptr %car.i.i1738, align 8
-  store ptr null, ptr %call.i.i1737, align 8
-  %call.i1739 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1740 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1739, i64 0, i32 1
-  store ptr %280, ptr %car.i1740, align 8
-  store ptr %call.i.i1737, ptr %call.i1739, align 8
-  %282 = load ptr, ptr %arrayidx623, align 8
-  %283 = load ptr, ptr %arrayidx627, align 8
-  %284 = load ptr, ptr %arrayidx631, align 8
-  %call.i1741 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1742 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1741, i64 0, i32 1
-  store ptr %284, ptr %car.i1742, align 8
-  store ptr %call.i1739, ptr %call.i1741, align 8
-  %call.i1743 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1744 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1743, i64 0, i32 1
-  store ptr %283, ptr %car.i1744, align 8
-  store ptr %call.i1741, ptr %call.i1743, align 8
-  %call.i1745 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1746 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1745, i64 0, i32 1
-  store ptr %282, ptr %car.i1746, align 8
-  store ptr %call.i1743, ptr %call.i1745, align 8
-  %285 = load ptr, ptr @dfg_PROOFLIST, align 8
-  %call.i1747 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1748 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1747, i64 0, i32 1
-  store ptr %call.i1745, ptr %car.i1748, align 8
-  store ptr %285, ptr %call.i1747, align 8
-  store ptr %call.i1747, ptr @dfg_PROOFLIST, align 8
+  %197 = inttoptr i64 %conv640 to ptr
+  %call.i.i1694 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1695 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1694, i64 0, i32 1
+  store ptr %197, ptr %car.i.i1695, align 8
+  store ptr null, ptr %call.i.i1694, align 8
+  %call.i1696 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1697 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1696, i64 0, i32 1
+  store ptr %196, ptr %car.i1697, align 8
+  store ptr %call.i.i1694, ptr %call.i1696, align 8
+  %198 = load ptr, ptr %arrayidx623, align 8
+  %199 = load ptr, ptr %arrayidx627, align 8
+  %200 = load ptr, ptr %arrayidx631, align 8
+  %call.i1698 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1699 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1698, i64 0, i32 1
+  store ptr %200, ptr %car.i1699, align 8
+  store ptr %call.i1696, ptr %call.i1698, align 8
+  %call.i1700 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1701 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1700, i64 0, i32 1
+  store ptr %199, ptr %car.i1701, align 8
+  store ptr %call.i1698, ptr %call.i1700, align 8
+  %call.i1702 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1703 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1702, i64 0, i32 1
+  store ptr %198, ptr %car.i1703, align 8
+  store ptr %call.i1700, ptr %call.i1702, align 8
+  %201 = load ptr, ptr @dfg_PROOFLIST, align 8
+  %call.i1704 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1705 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1704, i64 0, i32 1
+  store ptr %call.i1702, ptr %car.i1705, align 8
+  store ptr %201, ptr %call.i1704, align 8
+  store ptr %call.i1704, ptr @dfg_PROOFLIST, align 8
   br label %if.end670
 
 if.else650:                                       ; preds = %sw.bb621
   br i1 %cmp624.not, label %if.end656, label %if.then654
 
 if.then654:                                       ; preds = %land.lhs.true626, %land.lhs.true630, %if.else650
-  call void @string_StringFree(ptr noundef nonnull %274) #14
+  call void @string_StringFree(ptr noundef nonnull %190) #14
   br label %if.end656
 
 if.end656:                                        ; preds = %land.lhs.true, %if.then654, %if.else650
   %arrayidx657 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -9
-  %286 = load ptr, ptr %arrayidx657, align 8
-  %cmp658.not = icmp eq ptr %286, null
+  %202 = load ptr, ptr %arrayidx657, align 8
+  %cmp658.not = icmp eq ptr %202, null
   br i1 %cmp658.not, label %if.end662, label %if.then660
 
 if.then660:                                       ; preds = %if.end656
-  call void @term_Delete(ptr noundef nonnull %286) #14
+  call void @term_Delete(ptr noundef nonnull %202) #14
   br label %if.end662
 
 if.end662:                                        ; preds = %if.then660, %if.end656
   %arrayidx663 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -7
-  %287 = load ptr, ptr %arrayidx663, align 8
-  %cmp664.not = icmp eq ptr %287, null
+  %203 = load ptr, ptr %arrayidx663, align 8
+  %cmp664.not = icmp eq ptr %203, null
   br i1 %cmp664.not, label %if.end668, label %if.then666
 
 if.then666:                                       ; preds = %if.end662
-  call void @string_StringFree(ptr noundef nonnull %287) #14
+  call void @string_StringFree(ptr noundef nonnull %203) #14
   br label %if.end668
 
 if.end668:                                        ; preds = %if.then666, %if.end662
   %arrayidx669 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -4
-  %288 = load ptr, ptr %arrayidx669, align 8
-  call void @list_DeleteWithElement(ptr noundef %288, ptr noundef nonnull @string_StringFree) #14
+  %204 = load ptr, ptr %arrayidx669, align 8
+  call void @list_DeleteWithElement(ptr noundef %204, ptr noundef nonnull @string_StringFree) #14
   br label %if.end670
 
 if.end670:                                        ; preds = %if.end668, %if.then634
@@ -2415,64 +2028,64 @@ if.end670:                                        ; preds = %if.end668, %if.then
   br label %sw.epilog929
 
 sw.bb671:                                         ; preds = %yyreduce
-  %289 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool672.not = icmp eq i32 %289, 0
+  %205 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool672.not = icmp eq i32 %205, 0
   br i1 %tobool672.not, label %lor.lhs.false673, label %cond.end682
 
 lor.lhs.false673:                                 ; preds = %sw.bb671
-  %290 = load ptr, ptr %yyvsp.3, align 8
-  %cmp675 = icmp eq ptr %290, null
+  %206 = load ptr, ptr %yyvsp.3, align 8
+  %cmp675 = icmp eq ptr %206, null
   br i1 %cmp675, label %cond.end682, label %cond.false679
 
 cond.false679:                                    ; preds = %lor.lhs.false673
-  %call.i.i1749 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1750 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1749, i64 0, i32 1
-  store ptr %290, ptr %car.i.i1750, align 8
-  store ptr null, ptr %call.i.i1749, align 8
+  %call.i.i1706 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1707 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1706, i64 0, i32 1
+  store ptr %206, ptr %car.i.i1707, align 8
+  store ptr null, ptr %call.i.i1706, align 8
   br label %cond.end682
 
 cond.end682:                                      ; preds = %sw.bb671, %lor.lhs.false673, %cond.false679
-  %cond683 = phi ptr [ %call.i.i1749, %cond.false679 ], [ null, %lor.lhs.false673 ], [ null, %sw.bb671 ]
+  %cond683 = phi ptr [ %call.i.i1706, %cond.false679 ], [ null, %lor.lhs.false673 ], [ null, %sw.bb671 ]
   store ptr %cond683, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb684:                                         ; preds = %yyreduce
-  %291 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool685.not = icmp eq i32 %291, 0
+  %207 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool685.not = icmp eq i32 %207, 0
   br i1 %tobool685.not, label %lor.lhs.false686, label %cond.true690
 
 lor.lhs.false686:                                 ; preds = %sw.bb684
-  %292 = load ptr, ptr %yyvsp.3, align 8
-  %cmp688 = icmp eq ptr %292, null
+  %208 = load ptr, ptr %yyvsp.3, align 8
+  %cmp688 = icmp eq ptr %208, null
   br i1 %cmp688, label %cond.true690, label %cond.false692
 
 cond.true690:                                     ; preds = %lor.lhs.false686, %sw.bb684
   %arrayidx691 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %293 = load ptr, ptr %arrayidx691, align 8
+  %209 = load ptr, ptr %arrayidx691, align 8
   br label %cond.end697
 
 cond.false692:                                    ; preds = %lor.lhs.false686
   %arrayidx693 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %294 = load ptr, ptr %arrayidx693, align 8
-  %call.i.i1751 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1752 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1751, i64 0, i32 1
-  store ptr %292, ptr %car.i.i1752, align 8
-  store ptr null, ptr %call.i.i1751, align 8
-  %cmp.i.not.i1753 = icmp eq ptr %294, null
-  br i1 %cmp.i.not.i1753, label %cond.end697, label %for.cond.i1759
+  %210 = load ptr, ptr %arrayidx693, align 8
+  %call.i.i1708 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1709 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1708, i64 0, i32 1
+  store ptr %208, ptr %car.i.i1709, align 8
+  store ptr null, ptr %call.i.i1708, align 8
+  %cmp.i.i1710 = icmp eq ptr %210, null
+  br i1 %cmp.i.i1710, label %cond.end697, label %for.cond.i1716
 
-for.cond.i1759:                                   ; preds = %cond.false692, %for.cond.i1759
-  %List1.addr.0.i1756 = phi ptr [ %List1.addr.0.val17.i1757, %for.cond.i1759 ], [ %294, %cond.false692 ]
-  %List1.addr.0.val17.i1757 = load ptr, ptr %List1.addr.0.i1756, align 8
-  %cmp.i20.not.i1758 = icmp eq ptr %List1.addr.0.val17.i1757, null
-  br i1 %cmp.i20.not.i1758, label %for.end.i1760, label %for.cond.i1759, !llvm.loop !5
+for.cond.i1716:                                   ; preds = %cond.false692, %for.cond.i1716
+  %List1.addr.0.i1713 = phi ptr [ %List1.addr.0.val17.i1714, %for.cond.i1716 ], [ %210, %cond.false692 ]
+  %List1.addr.0.val17.i1714 = load ptr, ptr %List1.addr.0.i1713, align 8
+  %cmp.i20.not.i1715 = icmp eq ptr %List1.addr.0.val17.i1714, null
+  br i1 %cmp.i20.not.i1715, label %for.end.i1717, label %for.cond.i1716, !llvm.loop !5
 
-for.end.i1760:                                    ; preds = %for.cond.i1759
-  store ptr %call.i.i1751, ptr %List1.addr.0.i1756, align 8
+for.end.i1717:                                    ; preds = %for.cond.i1716
+  store ptr %call.i.i1708, ptr %List1.addr.0.i1713, align 8
   br label %cond.end697
 
-cond.end697:                                      ; preds = %for.end.i1760, %cond.false692, %cond.true690
-  %cond698 = phi ptr [ %293, %cond.true690 ], [ %294, %for.end.i1760 ], [ %call.i.i1751, %cond.false692 ]
+cond.end697:                                      ; preds = %for.end.i1717, %cond.false692, %cond.true690
+  %cond698 = phi ptr [ %209, %cond.true690 ], [ %210, %for.end.i1717 ], [ %call.i.i1708, %cond.false692 ]
   store ptr %cond698, ptr %yyval, align 8
   br label %sw.epilog929
 
@@ -2482,33 +2095,33 @@ sw.bb699:                                         ; preds = %yyreduce
 
 sw.bb700:                                         ; preds = %yyreduce
   %arrayidx701 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %295 = load i32, ptr %arrayidx701, align 8
-  store i32 %295, ptr %yyval, align 8
+  %211 = load i32, ptr %arrayidx701, align 8
+  store i32 %211, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb702:                                         ; preds = %yyreduce
-  %296 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool703.not = icmp eq i32 %296, 0
+  %212 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool703.not = icmp eq i32 %212, 0
   br i1 %tobool703.not, label %land.lhs.true704, label %if.else719
 
 land.lhs.true704:                                 ; preds = %sw.bb702
   %arrayidx705 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %297 = load ptr, ptr %arrayidx705, align 8
-  %cmp706.not = icmp eq ptr %297, null
+  %213 = load ptr, ptr %arrayidx705, align 8
+  %cmp706.not = icmp eq ptr %213, null
   br i1 %cmp706.not, label %if.else719, label %land.lhs.true708
 
 land.lhs.true708:                                 ; preds = %land.lhs.true704
-  %298 = load ptr, ptr %yyvsp.3, align 8
-  %cmp710.not = icmp eq ptr %298, null
+  %214 = load ptr, ptr %yyvsp.3, align 8
+  %cmp710.not = icmp eq ptr %214, null
   br i1 %cmp710.not, label %if.else719, label %land.lhs.true712
 
 land.lhs.true712:                                 ; preds = %land.lhs.true708
-  %call.i1763 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %297, ptr noundef nonnull dereferenceable(11) @.str.6) #16
-  %cmp.i1764.not = icmp eq i32 %call.i1763, 0
-  br i1 %cmp.i1764.not, label %if.then716, label %if.else719
+  %call.i1720 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %213, ptr noundef nonnull dereferenceable(11) @.str.6) #15
+  %cmp.i1721 = icmp eq i32 %call.i1720, 0
+  br i1 %cmp.i1721, label %if.then716, label %if.else719
 
 if.then716:                                       ; preds = %land.lhs.true712
-  %call718 = call i32 @string_StringToInt(ptr noundef nonnull %298, i32 noundef 1, ptr noundef nonnull %yyval) #14
+  %call718 = call i32 @string_StringToInt(ptr noundef nonnull %214, i32 noundef 1, ptr noundef nonnull %yyval) #14
   br label %if.end720
 
 if.else719:                                       ; preds = %land.lhs.true712, %land.lhs.true708, %land.lhs.true704, %sw.bb702
@@ -2517,108 +2130,108 @@ if.else719:                                       ; preds = %land.lhs.true712, %
 
 if.end720:                                        ; preds = %if.else719, %if.then716
   %arrayidx721 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %299 = load ptr, ptr %arrayidx721, align 8
-  %cmp722.not = icmp eq ptr %299, null
+  %215 = load ptr, ptr %arrayidx721, align 8
+  %cmp722.not = icmp eq ptr %215, null
   br i1 %cmp722.not, label %if.end726, label %if.then724
 
 if.then724:                                       ; preds = %if.end720
-  call void @string_StringFree(ptr noundef nonnull %299) #14
+  call void @string_StringFree(ptr noundef nonnull %215) #14
   br label %if.end726
 
 if.end726:                                        ; preds = %if.then724, %if.end720
-  %300 = load ptr, ptr %yyvsp.3, align 8
-  %cmp728.not = icmp eq ptr %300, null
+  %216 = load ptr, ptr %yyvsp.3, align 8
+  %cmp728.not = icmp eq ptr %216, null
   br i1 %cmp728.not, label %sw.epilog929, label %if.then730
 
 if.then730:                                       ; preds = %if.end726
-  call void @string_StringFree(ptr noundef nonnull %300) #14
+  call void @string_StringFree(ptr noundef nonnull %216) #14
   br label %sw.epilog929
 
 sw.bb733:                                         ; preds = %yyreduce
-  %301 = load i32, ptr @dfg_IGNORE, align 4
-  %tobool734.not = icmp eq i32 %301, 0
+  %217 = load i32, ptr @dfg_IGNORE, align 4
+  %tobool734.not = icmp eq i32 %217, 0
   br i1 %tobool734.not, label %land.lhs.true735, label %if.else750
 
 land.lhs.true735:                                 ; preds = %sw.bb733
   %arrayidx736 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %302 = load ptr, ptr %arrayidx736, align 8
-  %cmp737.not = icmp eq ptr %302, null
+  %218 = load ptr, ptr %arrayidx736, align 8
+  %cmp737.not = icmp eq ptr %218, null
   br i1 %cmp737.not, label %if.else750, label %land.lhs.true739
 
 land.lhs.true739:                                 ; preds = %land.lhs.true735
-  %303 = load ptr, ptr %yyvsp.3, align 8
-  %cmp741.not = icmp eq ptr %303, null
+  %219 = load ptr, ptr %yyvsp.3, align 8
+  %cmp741.not = icmp eq ptr %219, null
   br i1 %cmp741.not, label %if.else750, label %land.lhs.true743
 
 land.lhs.true743:                                 ; preds = %land.lhs.true739
-  %call.i1766 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %302, ptr noundef nonnull dereferenceable(11) @.str.6) #16
-  %cmp.i1767.not = icmp eq i32 %call.i1766, 0
-  br i1 %cmp.i1767.not, label %if.then747, label %if.else750
+  %call.i1723 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %218, ptr noundef nonnull dereferenceable(11) @.str.6) #15
+  %cmp.i1724 = icmp eq i32 %call.i1723, 0
+  br i1 %cmp.i1724, label %if.then747, label %if.else750
 
 if.then747:                                       ; preds = %land.lhs.true743
-  %call749 = call i32 @string_StringToInt(ptr noundef nonnull %303, i32 noundef 1, ptr noundef nonnull %yyval) #14
+  %call749 = call i32 @string_StringToInt(ptr noundef nonnull %219, i32 noundef 1, ptr noundef nonnull %yyval) #14
   br label %if.end752
 
 if.else750:                                       ; preds = %land.lhs.true743, %land.lhs.true739, %land.lhs.true735, %sw.bb733
   %arrayidx751 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -4
-  %304 = load i32, ptr %arrayidx751, align 8
-  store i32 %304, ptr %yyval, align 8
+  %220 = load i32, ptr %arrayidx751, align 8
+  store i32 %220, ptr %yyval, align 8
   br label %if.end752
 
 if.end752:                                        ; preds = %if.else750, %if.then747
   %arrayidx753 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %305 = load ptr, ptr %arrayidx753, align 8
-  %cmp754.not = icmp eq ptr %305, null
+  %221 = load ptr, ptr %arrayidx753, align 8
+  %cmp754.not = icmp eq ptr %221, null
   br i1 %cmp754.not, label %if.end758, label %if.then756
 
 if.then756:                                       ; preds = %if.end752
-  call void @string_StringFree(ptr noundef nonnull %305) #14
+  call void @string_StringFree(ptr noundef nonnull %221) #14
   br label %if.end758
 
 if.end758:                                        ; preds = %if.then756, %if.end752
-  %306 = load ptr, ptr %yyvsp.3, align 8
-  %cmp760.not = icmp eq ptr %306, null
+  %222 = load ptr, ptr %yyvsp.3, align 8
+  %cmp760.not = icmp eq ptr %222, null
   br i1 %cmp760.not, label %sw.epilog929, label %if.then762
 
 if.then762:                                       ; preds = %if.end758
-  call void @string_StringFree(ptr noundef nonnull %306) #14
+  call void @string_StringFree(ptr noundef nonnull %222) #14
   br label %sw.epilog929
 
 sw.bb765:                                         ; preds = %yyreduce
-  %307 = load i32, ptr @dfg_IGNORE, align 4
-  %conv766 = zext i32 %307 to i64
-  %308 = inttoptr i64 %conv766 to ptr
-  %309 = load i32, ptr @stack_POINTER, align 4
-  %inc.i1769 = add i32 %309, 1
-  store i32 %inc.i1769, ptr @stack_POINTER, align 4
-  %idxprom.i1770 = zext i32 %309 to i64
-  %arrayidx.i1771 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1770
-  store ptr %308, ptr %arrayidx.i1771, align 8
+  %223 = load i32, ptr @dfg_IGNORE, align 4
+  %conv766 = zext i32 %223 to i64
+  %224 = inttoptr i64 %conv766 to ptr
+  %225 = load i32, ptr @stack_POINTER, align 4
+  %inc.i1726 = add i32 %225, 1
+  store i32 %inc.i1726, ptr @stack_POINTER, align 4
+  %idxprom.i1727 = zext i32 %225 to i64
+  %arrayidx.i1728 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1727
+  store ptr %224, ptr %arrayidx.i1728, align 8
   store i32 1, ptr @dfg_IGNORE, align 4
   br label %sw.epilog929
 
 sw.bb767:                                         ; preds = %yyreduce
-  %310 = load i32, ptr @stack_POINTER, align 4
-  %dec.i1772 = add i32 %310, -1
-  store i32 %dec.i1772, ptr @stack_POINTER, align 4
-  %idxprom.i1773 = zext i32 %dec.i1772 to i64
-  %arrayidx.i1774 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1773
-  %311 = load ptr, ptr %arrayidx.i1774, align 8
-  %312 = ptrtoint ptr %311 to i64
-  %313 = trunc i64 %312 to i32
-  store i32 %313, ptr @dfg_IGNORE, align 4
-  %314 = load i32, ptr %yyvsp.3, align 8
-  %tobool770.not = icmp eq i32 %314, 0
+  %226 = load i32, ptr @stack_POINTER, align 4
+  %dec.i1729 = add i32 %226, -1
+  store i32 %dec.i1729, ptr @stack_POINTER, align 4
+  %idxprom.i1730 = zext i32 %dec.i1729 to i64
+  %arrayidx.i1731 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i1730
+  %227 = load ptr, ptr %arrayidx.i1731, align 8
+  %228 = ptrtoint ptr %227 to i64
+  %229 = trunc i64 %228 to i32
+  store i32 %229, ptr @dfg_IGNORE, align 4
+  %230 = load i32, ptr %yyvsp.3, align 8
+  %tobool770.not = icmp eq i32 %230, 0
   %arrayidx779 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %315 = load ptr, ptr %arrayidx779, align 8
+  %231 = load ptr, ptr %arrayidx779, align 8
   br i1 %tobool770.not, label %if.else778, label %if.then771
 
 if.then771:                                       ; preds = %sw.bb767
-  %cmp773.not = icmp eq ptr %315, null
+  %cmp773.not = icmp eq ptr %231, null
   br i1 %cmp773.not, label %if.end777, label %if.then775
 
 if.then775:                                       ; preds = %if.then771
-  call void @string_StringFree(ptr noundef nonnull %315) #14
+  call void @string_StringFree(ptr noundef nonnull %231) #14
   br label %if.end777
 
 if.end777:                                        ; preds = %if.then775, %if.then771
@@ -2626,12 +2239,12 @@ if.end777:                                        ; preds = %if.then775, %if.the
   br label %sw.epilog929
 
 if.else778:                                       ; preds = %sw.bb767
-  store ptr %315, ptr %yyval, align 8
+  store ptr %231, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb781:                                         ; preds = %yyreduce
-  %316 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %316, ptr %yyval, align 8
+  %232 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %232, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb783:                                         ; preds = %yyreduce
@@ -2679,8 +2292,8 @@ sw.bb793:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb794:                                         ; preds = %yyreduce
-  %317 = load ptr, ptr %yyvsp.3, align 8
-  store ptr %317, ptr %yyval, align 8
+  %233 = load ptr, ptr %yyvsp.3, align 8
+  store ptr %233, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb796:                                         ; preds = %yyreduce
@@ -2688,76 +2301,59 @@ sw.bb796:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb797:                                         ; preds = %yyreduce
-  %318 = load ptr, ptr @dfg_VARLIST, align 8
-  %call.i.i.i1775 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i.i1776 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1775, i64 0, i32 1
-  store ptr null, ptr %car.i.i.i1776, align 8
-  store ptr %318, ptr %call.i.i.i1775, align 8
-  store ptr %call.i.i.i1775, ptr @dfg_VARLIST, align 8
+  %234 = load ptr, ptr @dfg_VARLIST, align 8
+  %call.i.i.i1732 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i.i1733 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i.i1732, i64 0, i32 1
+  store ptr null, ptr %car.i.i.i1733, align 8
+  store ptr %234, ptr %call.i.i.i1732, align 8
+  store ptr %call.i.i.i1732, ptr @dfg_VARLIST, align 8
   store i1 true, ptr @dfg_VARDECL, align 4
   br label %sw.epilog929
 
 sw.bb798:                                         ; preds = %yyreduce
   store i1 false, ptr @dfg_VARDECL, align 4
-  %319 = load ptr, ptr @dfg_VARLIST, align 8
-  %320 = getelementptr i8, ptr %319, i64 8
-  %.val.i1777 = load ptr, ptr %320, align 8
-  call void @list_DeleteWithElement(ptr noundef %.val.i1777, ptr noundef nonnull @dfg_VarFree) #14
-  %321 = load ptr, ptr @dfg_VARLIST, align 8
-  %L.val.i.i1778 = load ptr, ptr %321, align 8
-  %322 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i1779 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %322, i64 0, i32 4
-  %323 = load i32, ptr %total_size.i.i.i.i1779, align 8
-  %conv26.i.i.i.i1780 = sext i32 %323 to i64
-  %324 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i1781 = add i64 %324, %conv26.i.i.i.i1780
-  store i64 %add27.i.i.i.i1781, ptr @memory_FREEDBYTES, align 8
-  %325 = load ptr, ptr %322, align 8
-  store ptr %325, ptr %321, align 8
-  %326 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %321, ptr %326, align 8
-  store ptr %L.val.i.i1778, ptr @dfg_VARLIST, align 8
+  call fastcc void @dfg_VarBacktrack()
   call fastcc void @dfg_VarCheck()
   br label %sw.epilog929
 
 sw.bb799:                                         ; preds = %yyreduce
-  %327 = load ptr, ptr @dfg_TERMLIST, align 8
+  %235 = load ptr, ptr @dfg_TERMLIST, align 8
   %arrayidx800 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %328 = load ptr, ptr %arrayidx800, align 8
-  %call.i.i1782 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1783 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1782, i64 0, i32 1
-  store ptr %328, ptr %car.i.i1783, align 8
-  store ptr null, ptr %call.i.i1782, align 8
-  %cmp.i.not.i1784 = icmp eq ptr %327, null
-  br i1 %cmp.i.not.i1784, label %list_Nconc.exit1793, label %for.cond.i1790
+  %236 = load ptr, ptr %arrayidx800, align 8
+  %call.i.i1734 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1735 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1734, i64 0, i32 1
+  store ptr %236, ptr %car.i.i1735, align 8
+  store ptr null, ptr %call.i.i1734, align 8
+  %cmp.i.i1736 = icmp eq ptr %235, null
+  br i1 %cmp.i.i1736, label %list_Nconc.exit1745, label %for.cond.i1742
 
-for.cond.i1790:                                   ; preds = %sw.bb799, %for.cond.i1790
-  %List1.addr.0.i1787 = phi ptr [ %List1.addr.0.val17.i1788, %for.cond.i1790 ], [ %327, %sw.bb799 ]
-  %List1.addr.0.val17.i1788 = load ptr, ptr %List1.addr.0.i1787, align 8
-  %cmp.i20.not.i1789 = icmp eq ptr %List1.addr.0.val17.i1788, null
-  br i1 %cmp.i20.not.i1789, label %for.end.i1791, label %for.cond.i1790, !llvm.loop !5
+for.cond.i1742:                                   ; preds = %sw.bb799, %for.cond.i1742
+  %List1.addr.0.i1739 = phi ptr [ %List1.addr.0.val17.i1740, %for.cond.i1742 ], [ %235, %sw.bb799 ]
+  %List1.addr.0.val17.i1740 = load ptr, ptr %List1.addr.0.i1739, align 8
+  %cmp.i20.not.i1741 = icmp eq ptr %List1.addr.0.val17.i1740, null
+  br i1 %cmp.i20.not.i1741, label %for.end.i1743, label %for.cond.i1742, !llvm.loop !5
 
-for.end.i1791:                                    ; preds = %for.cond.i1790
-  store ptr %call.i.i1782, ptr %List1.addr.0.i1787, align 8
-  br label %list_Nconc.exit1793
+for.end.i1743:                                    ; preds = %for.cond.i1742
+  store ptr %call.i.i1734, ptr %List1.addr.0.i1739, align 8
+  br label %list_Nconc.exit1745
 
-list_Nconc.exit1793:                              ; preds = %sw.bb799, %for.end.i1791
-  %retval.0.i1792 = phi ptr [ %327, %for.end.i1791 ], [ %call.i.i1782, %sw.bb799 ]
-  store ptr %retval.0.i1792, ptr @dfg_TERMLIST, align 8
+list_Nconc.exit1745:                              ; preds = %sw.bb799, %for.end.i1743
+  %retval.0.i1744 = phi ptr [ %235, %for.end.i1743 ], [ %call.i.i1734, %sw.bb799 ]
+  store ptr %retval.0.i1744, ptr @dfg_TERMLIST, align 8
   br label %sw.epilog929
 
 sw.bb803:                                         ; preds = %yyreduce
-  %329 = load ptr, ptr %yyvsp.3, align 8
-  %call.i1794 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %329, ptr noundef nonnull dereferenceable(6) @.str.5) #16
-  %cmp.i1795.not = icmp eq i32 %call.i1794, 0
-  br i1 %cmp.i1795.not, label %if.then807, label %if.end808
+  %237 = load ptr, ptr %yyvsp.3, align 8
+  %call.i1746 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %237, ptr noundef nonnull dereferenceable(6) @.str.5) #15
+  %cmp.i1747 = icmp eq i32 %call.i1746, 0
+  br i1 %cmp.i1747, label %if.then807, label %if.end808
 
 if.then807:                                       ; preds = %sw.bb803
   store i32 0, ptr @dfg_IGNORETEXT, align 4
   br label %if.end808
 
 if.end808:                                        ; preds = %if.then807, %sw.bb803
-  call void @string_StringFree(ptr noundef %329) #14
+  call void @string_StringFree(ptr noundef %237) #14
   br label %sw.epilog929
 
 sw.bb810:                                         ; preds = %yyreduce
@@ -2765,262 +2361,204 @@ sw.bb810:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb811:                                         ; preds = %yyreduce
-  %330 = load ptr, ptr %yyvsp.3, align 8
-  call void @string_StringFree(ptr noundef %330) #14
+  %238 = load ptr, ptr %yyvsp.3, align 8
+  call void @string_StringFree(ptr noundef %238) #14
   br label %sw.epilog929
 
 for.body:                                         ; preds = %for.cond.preheader, %if.end834
-  %331 = phi ptr [ %L.val.i, %if.end834 ], [ %13, %for.cond.preheader ]
-  %332 = getelementptr i8, ptr %331, i64 8
-  %.val1524 = load ptr, ptr %332, align 8
-  %call820 = call i32 @symbol_Lookup(ptr noundef %.val1524) #14
+  %239 = phi ptr [ %L.val.i, %if.end834 ], [ %13, %for.cond.preheader ]
+  %240 = getelementptr i8, ptr %239, i64 8
+  %.val1520 = load ptr, ptr %240, align 8
+  %call820 = call i32 @symbol_Lookup(ptr noundef %.val1520) #14
   %cmp821 = icmp eq i32 %call820, 0
   br i1 %cmp821, label %if.then823, label %for.body.split
 
 for.body.split:                                   ; preds = %for.body
-  %tobool.not.i1799 = icmp sgt i32 %call820, -1
-  br i1 %tobool.not.i1799, label %if.then830, label %if.end827
+  %tobool.not.i1751 = icmp sgt i32 %call820, -1
+  br i1 %tobool.not.i1751, label %if.then830, label %if.end827
 
 if.then823:                                       ; preds = %for.body
-  %333 = load ptr, ptr @stdout, align 8
-  %call824 = call i32 @fflush(ptr noundef %333)
-  %334 = load ptr, ptr %arrayidx815, align 8
-  %335 = getelementptr i8, ptr %334, i64 8
-  %.val1523 = load ptr, ptr %335, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.7, ptr noundef %.val1523) #14
+  %241 = load ptr, ptr @stdout, align 8
+  %call824 = call i32 @fflush(ptr noundef %241)
+  %242 = load ptr, ptr %arrayidx815, align 8
+  %243 = getelementptr i8, ptr %242, i64 8
+  %.val1519 = load ptr, ptr %243, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.7, ptr noundef %.val1519) #14
   call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.8) #14
-  %336 = load ptr, ptr @stderr, align 8
-  %call.i1806 = call i32 @fflush(ptr noundef %336)
-  %337 = load ptr, ptr @stdout, align 8
-  %call1.i1807 = call i32 @fflush(ptr noundef %337)
-  %338 = load ptr, ptr @stderr, align 8
-  %call2.i = call i32 @fflush(ptr noundef %338)
-  call void @exit(i32 noundef 1) #15
+  %244 = load ptr, ptr @stderr, align 8
+  %call.i1758 = call i32 @fflush(ptr noundef %244)
+  %245 = load ptr, ptr @stdout, align 8
+  %call1.i = call i32 @fflush(ptr noundef %245)
+  %246 = load ptr, ptr @stderr, align 8
+  %call2.i = call i32 @fflush(ptr noundef %246)
+  call void @exit(i32 noundef 1) #16
   unreachable
 
 if.end827:                                        ; preds = %for.body.split
-  %sub.i.i1800 = sub nsw i32 0, %call820
-  %and.i.i1801 = and i32 %1, %sub.i.i1800
-  %cmp.i1802.not = icmp eq i32 %and.i.i1801, 2
-  br i1 %cmp.i1802.not, label %if.end834, label %if.then830
+  %sub.i.i1752 = sub nsw i32 0, %call820
+  %and.i.i1753 = and i32 %1, %sub.i.i1752
+  %cmp.i1754.not = icmp eq i32 %and.i.i1753, 2
+  br i1 %cmp.i1754.not, label %if.end834, label %if.then830
 
 if.then830:                                       ; preds = %for.body.split, %if.end827
-  %339 = load ptr, ptr @stdout, align 8
-  %call831 = call i32 @fflush(ptr noundef %339)
-  %340 = load ptr, ptr %arrayidx815, align 8
-  %341 = getelementptr i8, ptr %340, i64 8
-  %.val1522 = load ptr, ptr %341, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.9, ptr noundef %.val1522) #14
+  %247 = load ptr, ptr @stdout, align 8
+  %call831 = call i32 @fflush(ptr noundef %247)
+  %248 = load ptr, ptr %arrayidx815, align 8
+  %249 = getelementptr i8, ptr %248, i64 8
+  %.val1518 = load ptr, ptr %249, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.9, ptr noundef %.val1518) #14
   call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.8) #14
-  %342 = load ptr, ptr @stderr, align 8
-  %call.i1809 = call i32 @fflush(ptr noundef %342)
-  %343 = load ptr, ptr @stdout, align 8
-  %call1.i1810 = call i32 @fflush(ptr noundef %343)
-  %344 = load ptr, ptr @stderr, align 8
-  %call2.i1811 = call i32 @fflush(ptr noundef %344)
-  call void @exit(i32 noundef 1) #15
+  %250 = load ptr, ptr @stderr, align 8
+  %call.i1760 = call i32 @fflush(ptr noundef %250)
+  %251 = load ptr, ptr @stdout, align 8
+  %call1.i1761 = call i32 @fflush(ptr noundef %251)
+  %252 = load ptr, ptr @stderr, align 8
+  %call2.i1762 = call i32 @fflush(ptr noundef %252)
+  call void @exit(i32 noundef 1) #16
   unreachable
 
 if.end834:                                        ; preds = %if.end827
-  %345 = load ptr, ptr %arrayidx815, align 8
-  %346 = getelementptr i8, ptr %345, i64 8
-  %.val = load ptr, ptr %346, align 8
+  %253 = load ptr, ptr %arrayidx815, align 8
+  %254 = getelementptr i8, ptr %253, i64 8
+  %.val = load ptr, ptr %254, align 8
   call void @string_StringFree(ptr noundef %.val) #14
-  %shr.i.i = lshr i32 %sub.i.i1800, %0
-  %347 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %shr.i.i = lshr i32 %sub.i.i1752, %0
+  %255 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i = zext i32 %shr.i.i to i64
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %347, i64 %idxprom.i.i
-  %348 = load ptr, ptr %arrayidx.i.i, align 8
-  %props.i = getelementptr inbounds %struct.signature, ptr %348, i64 0, i32 4
-  %349 = load i32, ptr %props.i, align 4
-  %or.i = or i32 %349, 64
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %255, i64 %idxprom.i.i
+  %256 = load ptr, ptr %arrayidx.i.i, align 8
+  %props.i = getelementptr inbounds %struct.signature, ptr %256, i64 0, i32 4
+  %257 = load i32, ptr %props.i, align 4
+  %or.i = or i32 %257, 64
   store i32 %or.i, ptr %props.i, align 4
-  %350 = load ptr, ptr %arrayidx815, align 8
-  %L.val.i = load ptr, ptr %350, align 8
-  %351 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %351, i64 0, i32 4
-  %352 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %352 to i64
-  %353 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %353, %conv26.i.i.i
+  %258 = load ptr, ptr %arrayidx815, align 8
+  %L.val.i = load ptr, ptr %258, align 8
+  %259 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %259, i64 0, i32 4
+  %260 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %260 to i64
+  %261 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %261, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %354 = load ptr, ptr %351, align 8
-  store ptr %354, ptr %350, align 8
-  %355 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %350, ptr %355, align 8
+  %262 = load ptr, ptr %259, align 8
+  store ptr %262, ptr %258, align 8
+  %263 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %258, ptr %263, align 8
   store ptr %L.val.i, ptr %arrayidx815, align 8
-  %cmp.i1797.not = icmp eq ptr %L.val.i, null
-  br i1 %cmp.i1797.not, label %sw.epilog929, label %for.body, !llvm.loop !9
+  %cmp.i1749.not = icmp eq ptr %L.val.i, null
+  br i1 %cmp.i1749.not, label %sw.epilog929, label %for.body, !llvm.loop !7
 
 sw.bb840:                                         ; preds = %yyreduce
   %arrayidx841 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -3
-  %356 = load ptr, ptr %arrayidx841, align 8
-  %call842 = call i32 @flag_Id(ptr noundef %356) #14
+  %264 = load ptr, ptr %arrayidx841, align 8
+  %call842 = call i32 @flag_Id(ptr noundef %264) #14
   %cmp843 = icmp eq i32 %call842, -1
   br i1 %cmp843, label %if.then845, label %if.end848
 
 if.then845:                                       ; preds = %sw.bb840
-  %357 = load ptr, ptr @stdout, align 8
-  %call846 = call i32 @fflush(ptr noundef %357)
-  %358 = load ptr, ptr %arrayidx841, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, ptr noundef %358) #14
-  %359 = load ptr, ptr @stderr, align 8
-  %call.i1814 = call i32 @fflush(ptr noundef %359)
-  %360 = load ptr, ptr @stdout, align 8
-  %call1.i1815 = call i32 @fflush(ptr noundef %360)
-  %361 = load ptr, ptr @stderr, align 8
-  %call2.i1816 = call i32 @fflush(ptr noundef %361)
-  call void @exit(i32 noundef 1) #15
+  %265 = load ptr, ptr @stdout, align 8
+  %call846 = call i32 @fflush(ptr noundef %265)
+  %266 = load ptr, ptr %arrayidx841, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, ptr noundef %266) #14
+  call fastcc void @misc_Error()
   unreachable
 
 if.end848:                                        ; preds = %sw.bb840
-  %362 = load ptr, ptr %arrayidx841, align 8
-  call void @string_StringFree(ptr noundef %362) #14
-  %363 = load ptr, ptr @dfg_FLAGS, align 8
+  %267 = load ptr, ptr %arrayidx841, align 8
+  call void @string_StringFree(ptr noundef %267) #14
+  %268 = load ptr, ptr @dfg_FLAGS, align 8
   %arrayidx850 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %364 = load i32, ptr %arrayidx850, align 8
-  %call.i.i1818 = call i32 @flag_Minimum(i32 noundef %call842) #14
-  %cmp.not.i.i = icmp slt i32 %call.i.i1818, %364
-  br i1 %cmp.not.i.i, label %if.else.i.i, label %if.then.i.i1822
-
-if.then.i.i1822:                                  ; preds = %if.end848
-  %365 = load ptr, ptr @stdout, align 8
-  %call1.i.i1819 = call i32 @fflush(ptr noundef %365)
-  %call2.i.i1820 = call ptr @flag_Name(i32 noundef %call842) #14
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.42, i32 noundef %364, ptr noundef %call2.i.i1820) #14
-  %366 = load ptr, ptr @stderr, align 8
-  %call.i.i.i1821 = call i32 @fflush(ptr noundef %366)
-  %367 = load ptr, ptr @stdout, align 8
-  %call1.i.i.i = call i32 @fflush(ptr noundef %367)
-  %368 = load ptr, ptr @stderr, align 8
-  %call2.i.i.i = call i32 @fflush(ptr noundef %368)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-if.else.i.i:                                      ; preds = %if.end848
-  %call3.i.i = call i32 @flag_Maximum(i32 noundef %call842) #14
-  %cmp4.not.i.i = icmp sgt i32 %call3.i.i, %364
-  br i1 %cmp4.not.i.i, label %flag_SetFlagValue.exit, label %if.then5.i.i
-
-if.then5.i.i:                                     ; preds = %if.else.i.i
-  %369 = load ptr, ptr @stdout, align 8
-  %call6.i.i = call i32 @fflush(ptr noundef %369)
-  %call7.i.i = call ptr @flag_Name(i32 noundef %call842) #14
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.43, i32 noundef %364, ptr noundef %call7.i.i) #14
-  %370 = load ptr, ptr @stderr, align 8
-  %call.i16.i.i = call i32 @fflush(ptr noundef %370)
-  %371 = load ptr, ptr @stdout, align 8
-  %call1.i17.i.i = call i32 @fflush(ptr noundef %371)
-  %372 = load ptr, ptr @stderr, align 8
-  %call2.i18.i.i = call i32 @fflush(ptr noundef %372)
-  call void @exit(i32 noundef 1) #15
-  unreachable
-
-flag_SetFlagValue.exit:                           ; preds = %if.else.i.i
-  %idxprom.i1823 = zext i32 %call842 to i64
-  %arrayidx.i1824 = getelementptr inbounds i32, ptr %363, i64 %idxprom.i1823
-  store i32 %364, ptr %arrayidx.i1824, align 4
+  %269 = load i32, ptr %arrayidx850, align 8
+  call fastcc void @flag_SetFlagValue(ptr noundef %268, i32 noundef %call842, i32 noundef %269)
   br label %sw.epilog929
 
 sw.bb851:                                         ; preds = %yyreduce
-  %373 = load ptr, ptr %yyvsp.3, align 8
-  %call854 = call i32 @symbol_Lookup(ptr noundef %373) #14
+  %270 = load ptr, ptr %yyvsp.3, align 8
+  %call854 = call i32 @symbol_Lookup(ptr noundef %270) #14
   %cmp855 = icmp eq i32 %call854, 0
   br i1 %cmp855, label %if.then857, label %sw.bb851.split
 
 sw.bb851.split:                                   ; preds = %sw.bb851
-  %374 = load ptr, ptr %yyvsp.3, align 8
-  call void @string_StringFree(ptr noundef %374) #14
-  %375 = load ptr, ptr @dfg_PRECEDENCE, align 8
-  %call.i1825 = call i32 @symbol_GetIncreasedOrderingCounter() #14
-  %sub.i.i.i1826 = sub nsw i32 0, %call854
-  %shr.i.i.i1827 = ashr i32 %sub.i.i.i1826, %0
-  %idxprom.i.i1828 = sext i32 %shr.i.i.i1827 to i64
-  %arrayidx.i.i1829 = getelementptr inbounds i32, ptr %375, i64 %idxprom.i.i1828
-  store i32 %call.i1825, ptr %arrayidx.i.i1829, align 4
+  %271 = load ptr, ptr %yyvsp.3, align 8
+  call void @string_StringFree(ptr noundef %271) #14
+  %272 = load ptr, ptr @dfg_PRECEDENCE, align 8
+  %call.i1765 = call i32 @symbol_GetIncreasedOrderingCounter() #14
+  %sub.i.i.i = sub nsw i32 0, %call854
+  %shr.i.i.i = ashr i32 %sub.i.i.i, %0
+  %idxprom.i.i1766 = sext i32 %shr.i.i.i to i64
+  %arrayidx.i.i1767 = getelementptr inbounds i32, ptr %272, i64 %idxprom.i.i1766
+  store i32 %call.i1765, ptr %arrayidx.i.i1767, align 4
   %conv862 = sext i32 %call854 to i64
-  %376 = inttoptr i64 %conv862 to ptr
-  %377 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
-  %call.i1835 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1836 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1835, i64 0, i32 1
-  store ptr %376, ptr %car.i1836, align 8
-  store ptr %377, ptr %call.i1835, align 8
-  store ptr %call.i1835, ptr @dfg_USERPRECEDENCE, align 8
+  %273 = inttoptr i64 %conv862 to ptr
+  %274 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
+  %call.i1769 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1770 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1769, i64 0, i32 1
+  store ptr %273, ptr %car.i1770, align 8
+  store ptr %274, ptr %call.i1769, align 8
+  store ptr %call.i1769, ptr @dfg_USERPRECEDENCE, align 8
   br label %sw.epilog929
 
 if.then857:                                       ; preds = %sw.bb851
-  %378 = load ptr, ptr @stdout, align 8
-  %call858 = call i32 @fflush(ptr noundef %378)
-  %379 = load ptr, ptr %yyvsp.3, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, ptr noundef %379) #14
+  %275 = load ptr, ptr @stdout, align 8
+  %call858 = call i32 @fflush(ptr noundef %275)
+  %276 = load ptr, ptr %yyvsp.3, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, ptr noundef %276) #14
   call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.12) #14
-  %380 = load ptr, ptr @stderr, align 8
-  %call.i1830 = call i32 @fflush(ptr noundef %380)
-  %381 = load ptr, ptr @stdout, align 8
-  %call1.i1831 = call i32 @fflush(ptr noundef %381)
-  %382 = load ptr, ptr @stderr, align 8
-  %call2.i1832 = call i32 @fflush(ptr noundef %382)
-  call void @exit(i32 noundef 1) #15
+  call fastcc void @misc_Error()
   unreachable
 
 sw.bb864:                                         ; preds = %yyreduce
   %arrayidx866 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -4
-  %383 = load ptr, ptr %arrayidx866, align 8
-  %call867 = call i32 @symbol_Lookup(ptr noundef %383) #14
+  %277 = load ptr, ptr %arrayidx866, align 8
+  %call867 = call i32 @symbol_Lookup(ptr noundef %277) #14
   %cmp868 = icmp eq i32 %call867, 0
   br i1 %cmp868, label %if.then870, label %sw.bb864.split
 
 sw.bb864.split:                                   ; preds = %sw.bb864
-  %384 = load ptr, ptr %arrayidx866, align 8
-  call void @string_StringFree(ptr noundef %384) #14
-  %385 = load ptr, ptr @dfg_PRECEDENCE, align 8
-  %call.i1837 = call i32 @symbol_GetIncreasedOrderingCounter() #14
-  %sub.i.i.i1838 = sub nsw i32 0, %call867
-  %shr.i.i.i1839 = ashr i32 %sub.i.i.i1838, %0
-  %idxprom.i.i1840 = sext i32 %shr.i.i.i1839 to i64
-  %arrayidx.i.i1841 = getelementptr inbounds i32, ptr %385, i64 %idxprom.i.i1840
-  store i32 %call.i1837, ptr %arrayidx.i.i1841, align 4
+  %278 = load ptr, ptr %arrayidx866, align 8
+  call void @string_StringFree(ptr noundef %278) #14
+  %279 = load ptr, ptr @dfg_PRECEDENCE, align 8
+  %call.i1771 = call i32 @symbol_GetIncreasedOrderingCounter() #14
+  %sub.i.i.i1772 = sub nsw i32 0, %call867
+  %shr.i.i.i1773 = ashr i32 %sub.i.i.i1772, %0
+  %idxprom.i.i1774 = sext i32 %shr.i.i.i1773 to i64
+  %arrayidx.i.i1775 = getelementptr inbounds i32, ptr %279, i64 %idxprom.i.i1774
+  store i32 %call.i1771, ptr %arrayidx.i.i1775, align 4
   %conv875 = sext i32 %call867 to i64
-  %386 = inttoptr i64 %conv875 to ptr
-  %387 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
-  %call.i1847 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i1848 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1847, i64 0, i32 1
-  store ptr %386, ptr %car.i1848, align 8
-  store ptr %387, ptr %call.i1847, align 8
-  store ptr %call.i1847, ptr @dfg_USERPRECEDENCE, align 8
+  %280 = inttoptr i64 %conv875 to ptr
+  %281 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
+  %call.i1777 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i1778 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i1777, i64 0, i32 1
+  store ptr %280, ptr %car.i1778, align 8
+  store ptr %281, ptr %call.i1777, align 8
+  store ptr %call.i1777, ptr @dfg_USERPRECEDENCE, align 8
   %arrayidx877 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %388 = load i32, ptr %arrayidx877, align 8
-  %389 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %arrayidx.i.i1852 = getelementptr inbounds ptr, ptr %389, i64 %idxprom.i.i1840
-  %390 = load ptr, ptr %arrayidx.i.i1852, align 8
-  %weight.i = getelementptr inbounds %struct.signature, ptr %390, i64 0, i32 2
-  store i32 %388, ptr %weight.i, align 4
+  %282 = load i32, ptr %arrayidx877, align 8
+  %283 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %arrayidx.i.i1782 = getelementptr inbounds ptr, ptr %283, i64 %idxprom.i.i1774
+  %284 = load ptr, ptr %arrayidx.i.i1782, align 8
+  %weight.i = getelementptr inbounds %struct.signature, ptr %284, i64 0, i32 2
+  store i32 %282, ptr %weight.i, align 4
   %arrayidx878 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -1
-  %391 = load i32, ptr %arrayidx878, align 8
-  %cmp879.not = icmp eq i32 %391, 0
+  %285 = load i32, ptr %arrayidx878, align 8
+  %cmp879.not = icmp eq i32 %285, 0
   br i1 %cmp879.not, label %sw.epilog929, label %if.then881
 
 if.then870:                                       ; preds = %sw.bb864
-  %392 = load ptr, ptr @stdout, align 8
-  %call871 = call i32 @fflush(ptr noundef %392)
-  %393 = load ptr, ptr %arrayidx866, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.7, ptr noundef %393) #14
+  %286 = load ptr, ptr @stdout, align 8
+  %call871 = call i32 @fflush(ptr noundef %286)
+  %287 = load ptr, ptr %arrayidx866, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.7, ptr noundef %287) #14
   call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.13) #14
-  %394 = load ptr, ptr @stderr, align 8
-  %call.i1842 = call i32 @fflush(ptr noundef %394)
-  %395 = load ptr, ptr @stdout, align 8
-  %call1.i1843 = call i32 @fflush(ptr noundef %395)
-  %396 = load ptr, ptr @stderr, align 8
-  %call2.i1844 = call i32 @fflush(ptr noundef %396)
-  call void @exit(i32 noundef 1) #15
+  call fastcc void @misc_Error()
   unreachable
 
 if.then881:                                       ; preds = %sw.bb864.split
-  %397 = load ptr, ptr %arrayidx.i.i1852, align 8
-  %props.i1857 = getelementptr inbounds %struct.signature, ptr %397, i64 0, i32 4
-  %398 = load i32, ptr %props.i1857, align 4
-  %or.i1858 = or i32 %398, %391
-  store i32 %or.i1858, ptr %props.i1857, align 4
+  %288 = load ptr, ptr %arrayidx.i.i1782, align 8
+  %props.i1787 = getelementptr inbounds %struct.signature, ptr %288, i64 0, i32 4
+  %289 = load i32, ptr %props.i1787, align 4
+  %or.i1788 = or i32 %289, %285
+  store i32 %or.i1788, ptr %props.i1787, align 4
   br label %sw.epilog929
 
 sw.bb884:                                         ; preds = %yyreduce
@@ -3028,33 +2566,27 @@ sw.bb884:                                         ; preds = %yyreduce
   br label %sw.epilog929
 
 sw.bb885:                                         ; preds = %yyreduce
-  %399 = load ptr, ptr %yyvsp.3, align 8
-  %arrayidx887 = getelementptr inbounds i8, ptr %399, i64 1
-  %400 = load i8, ptr %arrayidx887, align 1
-  %cmp889.not = icmp eq i8 %400, 0
+  %290 = load ptr, ptr %yyvsp.3, align 8
+  %arrayidx887 = getelementptr inbounds i8, ptr %290, i64 1
+  %291 = load i8, ptr %arrayidx887, align 1
+  %cmp889.not = icmp eq i8 %291, 0
   br i1 %cmp889.not, label %lor.lhs.false891, label %if.then909
 
 lor.lhs.false891:                                 ; preds = %sw.bb885
-  %401 = load i8, ptr %399, align 1
-  switch i8 %401, label %if.then909 [
+  %292 = load i8, ptr %290, align 1
+  switch i8 %292, label %if.then909 [
     i8 109, label %sw.bb916
     i8 114, label %sw.bb917
     i8 108, label %sw.default
   ]
 
 if.then909:                                       ; preds = %lor.lhs.false891, %sw.bb885
-  %402 = load ptr, ptr @stdout, align 8
-  %call910 = call i32 @fflush(ptr noundef %402)
-  %403 = load ptr, ptr %yyvsp.3, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.14, ptr noundef %403) #14
+  %293 = load ptr, ptr @stdout, align 8
+  %call910 = call i32 @fflush(ptr noundef %293)
+  %294 = load ptr, ptr %yyvsp.3, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.14, ptr noundef %294) #14
   call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.15) #14
-  %404 = load ptr, ptr @stderr, align 8
-  %call.i1859 = call i32 @fflush(ptr noundef %404)
-  %405 = load ptr, ptr @stdout, align 8
-  %call1.i1860 = call i32 @fflush(ptr noundef %405)
-  %406 = load ptr, ptr @stderr, align 8
-  %call2.i1861 = call i32 @fflush(ptr noundef %406)
-  call void @exit(i32 noundef 1) #15
+  call fastcc void @misc_Error()
   unreachable
 
 sw.bb916:                                         ; preds = %lor.lhs.false891
@@ -3070,67 +2602,67 @@ sw.default:                                       ; preds = %lor.lhs.false891
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %sw.default, %sw.bb917, %sw.bb916
-  %407 = load ptr, ptr %yyvsp.3, align 8
-  call void @string_StringFree(ptr noundef %407) #14
+  %295 = load ptr, ptr %yyvsp.3, align 8
+  call void @string_StringFree(ptr noundef %295) #14
   br label %sw.epilog929
 
 sw.bb919:                                         ; preds = %yyreduce
   %arrayidx920 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %408 = load ptr, ptr %arrayidx920, align 8
-  call void @list_DeleteWithElement(ptr noundef %408, ptr noundef nonnull @string_StringFree) #14
+  %296 = load ptr, ptr %arrayidx920, align 8
+  call void @list_DeleteWithElement(ptr noundef %296, ptr noundef nonnull @string_StringFree) #14
   br label %sw.epilog929
 
 sw.bb921:                                         ; preds = %yyreduce
-  %409 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1863 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1864 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1863, i64 0, i32 1
-  store ptr %409, ptr %car.i.i1864, align 8
-  store ptr null, ptr %call.i.i1863, align 8
-  store ptr %call.i.i1863, ptr %yyval, align 8
+  %297 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1789 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1790 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1789, i64 0, i32 1
+  store ptr %297, ptr %car.i.i1790, align 8
+  store ptr null, ptr %call.i.i1789, align 8
+  store ptr %call.i.i1789, ptr %yyval, align 8
   br label %sw.epilog929
 
 sw.bb924:                                         ; preds = %yyreduce
   %arrayidx925 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 -2
-  %410 = load ptr, ptr %arrayidx925, align 8
-  %411 = load ptr, ptr %yyvsp.3, align 8
-  %call.i.i1865 = call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i1866 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1865, i64 0, i32 1
-  store ptr %411, ptr %car.i.i1866, align 8
-  store ptr null, ptr %call.i.i1865, align 8
-  %cmp.i.not.i1867 = icmp eq ptr %410, null
-  br i1 %cmp.i.not.i1867, label %list_Nconc.exit1876, label %for.cond.i1873
+  %298 = load ptr, ptr %arrayidx925, align 8
+  %299 = load ptr, ptr %yyvsp.3, align 8
+  %call.i.i1791 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i1792 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i1791, i64 0, i32 1
+  store ptr %299, ptr %car.i.i1792, align 8
+  store ptr null, ptr %call.i.i1791, align 8
+  %cmp.i.i1793 = icmp eq ptr %298, null
+  br i1 %cmp.i.i1793, label %list_Nconc.exit1802, label %for.cond.i1799
 
-for.cond.i1873:                                   ; preds = %sw.bb924, %for.cond.i1873
-  %List1.addr.0.i1870 = phi ptr [ %List1.addr.0.val17.i1871, %for.cond.i1873 ], [ %410, %sw.bb924 ]
-  %List1.addr.0.val17.i1871 = load ptr, ptr %List1.addr.0.i1870, align 8
-  %cmp.i20.not.i1872 = icmp eq ptr %List1.addr.0.val17.i1871, null
-  br i1 %cmp.i20.not.i1872, label %for.end.i1874, label %for.cond.i1873, !llvm.loop !5
+for.cond.i1799:                                   ; preds = %sw.bb924, %for.cond.i1799
+  %List1.addr.0.i1796 = phi ptr [ %List1.addr.0.val17.i1797, %for.cond.i1799 ], [ %298, %sw.bb924 ]
+  %List1.addr.0.val17.i1797 = load ptr, ptr %List1.addr.0.i1796, align 8
+  %cmp.i20.not.i1798 = icmp eq ptr %List1.addr.0.val17.i1797, null
+  br i1 %cmp.i20.not.i1798, label %for.end.i1800, label %for.cond.i1799, !llvm.loop !5
 
-for.end.i1874:                                    ; preds = %for.cond.i1873
-  store ptr %call.i.i1865, ptr %List1.addr.0.i1870, align 8
-  br label %list_Nconc.exit1876
+for.end.i1800:                                    ; preds = %for.cond.i1799
+  store ptr %call.i.i1791, ptr %List1.addr.0.i1796, align 8
+  br label %list_Nconc.exit1802
 
-list_Nconc.exit1876:                              ; preds = %sw.bb924, %for.end.i1874
-  %retval.0.i1875 = phi ptr [ %410, %for.end.i1874 ], [ %call.i.i1865, %sw.bb924 ]
-  store ptr %retval.0.i1875, ptr %yyval, align 8
+list_Nconc.exit1802:                              ; preds = %sw.bb924, %for.end.i1800
+  %retval.0.i1801 = phi ptr [ %298, %for.end.i1800 ], [ %call.i.i1791, %sw.bb924 ]
+  store ptr %retval.0.i1801, ptr %yyval, align 8
   br label %sw.epilog929
 
-sw.epilog929:                                     ; preds = %if.end834, %for.cond.preheader, %sw.bb864.split, %if.then881, %if.end777, %if.else778, %if.end758, %if.then762, %if.end726, %if.then730, %sw.bb606, %if.then610, %list_Nconc.exit1651, %list_Nconc.exit1661, %sw.bb393, %if.end409, %sw.bb380, %if.end389, %if.then326, %if.else328, %list_Nconc.exit1577, %list_Nconc.exit1587, %yyreduce, %list_Nconc.exit1876, %sw.bb921, %sw.bb919, %sw.epilog, %sw.bb884, %sw.bb851.split, %flag_SetFlagValue.exit, %sw.bb811, %sw.bb810, %if.end808, %list_Nconc.exit1793, %sw.bb798, %sw.bb797, %sw.bb796, %sw.bb794, %sw.bb793, %sw.bb792, %sw.bb791, %sw.bb790, %sw.bb789, %sw.bb788, %sw.bb787, %sw.bb786, %sw.bb785, %sw.bb784, %sw.bb783, %sw.bb781, %sw.bb765, %sw.bb700, %sw.bb699, %cond.end697, %cond.end682, %if.end670, %if.end619, %cond.end604, %cond.end593, %cond.end584, %cond.end575, %cond.end566, %cond.end557, %cond.end545, %cond.end536, %cond.end527, %list_Nconc.exit1704, %sw.bb512, %cond.end510, %sw.bb499, %cond.end497, %cond.end486, %cond.end477, %cond.end468, %sw.bb459, %sw.bb458, %sw.bb456, %sw.bb454, %sw.bb453, %if.end452, %sw.bb431, %sw.bb429, %sw.bb427, %cond.end378, %cond.end367, %cond.end358, %cond.end351, %cond.end344, %cond.end337, %sw.bb322, %sw.bb320, %sw.bb318, %sw.bb316, %sw.bb314, %sw.bb312, %sw.bb310, %cond.end308, %cond.end297, %sw.bb288, %sw.bb287, %cond.end285, %sw.bb276, %sw.bb275, %cond.end273, %cond.end264, %cond.end252, %sw.bb242, %sw.bb240, %sw.bb239, %if.end238, %sw.bb218, %sw.bb217, %sw.bb216, %sw.bb202, %sw.bb200, %sw.bb196, %sw.bb193, %sw.bb192, %sw.bb191, %dfg_SymbolGenerated.exit, %list_Nconc.exit1546, %sw.bb177, %sw.bb176, %sw.bb174, %list_Nconc.exit, %dfg_SubSort.exit, %sw.bb164, %sw.bb163, %sw.bb160, %sw.bb158, %sw.bb155, %sw.bb153, %sw.bb151, %sw.bb149, %sw.bb146, %sw.bb144, %sw.bb141, %sw.bb139, %sw.bb138, %sw.bb137, %sw.bb136, %sw.bb134, %sw.bb132, %sw.bb130, %sw.bb128, %sw.bb126, %sw.bb124, %sw.bb122
+sw.epilog929:                                     ; preds = %if.end834, %for.cond.preheader, %sw.bb864.split, %if.then881, %if.end777, %if.else778, %if.end758, %if.then762, %if.end726, %if.then730, %sw.bb606, %if.then610, %list_Nconc.exit1613, %list_Nconc.exit1623, %sw.bb393, %if.end409, %sw.bb380, %if.end389, %if.then326, %if.else328, %list_Nconc.exit1548, %list_Nconc.exit1558, %yyreduce, %list_Nconc.exit1802, %sw.bb921, %sw.bb919, %sw.epilog, %sw.bb884, %sw.bb851.split, %if.end848, %sw.bb811, %sw.bb810, %if.end808, %list_Nconc.exit1745, %sw.bb798, %sw.bb797, %sw.bb796, %sw.bb794, %sw.bb793, %sw.bb792, %sw.bb791, %sw.bb790, %sw.bb789, %sw.bb788, %sw.bb787, %sw.bb786, %sw.bb785, %sw.bb784, %sw.bb783, %sw.bb781, %sw.bb765, %sw.bb700, %sw.bb699, %cond.end697, %cond.end682, %if.end670, %if.end619, %cond.end604, %cond.end593, %cond.end584, %cond.end575, %cond.end566, %cond.end557, %cond.end545, %cond.end536, %cond.end527, %list_Nconc.exit1661, %sw.bb512, %cond.end510, %sw.bb499, %cond.end497, %cond.end486, %cond.end477, %cond.end468, %sw.bb459, %sw.bb458, %sw.bb456, %sw.bb454, %sw.bb453, %if.end452, %sw.bb431, %sw.bb429, %sw.bb427, %cond.end378, %cond.end367, %cond.end358, %cond.end351, %cond.end344, %cond.end337, %sw.bb322, %sw.bb320, %sw.bb318, %sw.bb316, %sw.bb314, %sw.bb312, %sw.bb310, %cond.end308, %cond.end297, %sw.bb288, %sw.bb287, %cond.end285, %sw.bb276, %sw.bb275, %cond.end273, %cond.end264, %cond.end252, %sw.bb242, %sw.bb240, %sw.bb239, %if.end238, %sw.bb218, %sw.bb217, %sw.bb216, %sw.bb202, %sw.bb200, %sw.bb196, %sw.bb193, %sw.bb192, %sw.bb191, %sw.bb186, %list_Nconc.exit1536, %sw.bb177, %sw.bb176, %sw.bb174, %list_Nconc.exit, %sw.bb166, %sw.bb164, %sw.bb163, %sw.bb160, %sw.bb158, %sw.bb155, %sw.bb153, %sw.bb151, %sw.bb149, %sw.bb146, %sw.bb144, %sw.bb141, %sw.bb139, %sw.bb138, %sw.bb137, %sw.bb136, %sw.bb134, %sw.bb132, %sw.bb130, %sw.bb128, %sw.bb126, %sw.bb124, %sw.bb122
   %idx.neg = sub nsw i64 0, %conv117
   %add.ptr930 = getelementptr inbounds %union.yystype, ptr %yyvsp.3, i64 %idx.neg
   %add.ptr933 = getelementptr inbounds i16, ptr %yyssp.3, i64 %idx.neg
   %incdec.ptr934 = getelementptr inbounds %union.yystype, ptr %add.ptr930, i64 1
-  %412 = load i64, ptr %yyval, align 8
-  store i64 %412, ptr %incdec.ptr934, align 8
+  %300 = load i64, ptr %yyval, align 8
+  store i64 %300, ptr %incdec.ptr934, align 8
   %arrayidx936 = getelementptr inbounds [197 x i8], ptr @yyr1, i64 0, i64 %idxprom115
-  %413 = load i8, ptr %arrayidx936, align 1
-  %conv937 = zext i8 %413 to i64
+  %301 = load i8, ptr %arrayidx936, align 1
+  %conv937 = zext i8 %301 to i64
   %sub938 = add nsw i64 %conv937, -71
   %arrayidx940 = getelementptr inbounds [100 x i16], ptr @yypgoto, i64 0, i64 %sub938
-  %414 = load i16, ptr %arrayidx940, align 2
-  %conv941 = sext i16 %414 to i32
-  %415 = load i16, ptr %add.ptr933, align 2
-  %conv942 = sext i16 %415 to i32
+  %302 = load i16, ptr %arrayidx940, align 2
+  %conv941 = sext i16 %302 to i32
+  %303 = load i16, ptr %add.ptr933, align 2
+  %conv942 = sext i16 %303 to i32
   %add943 = add nsw i32 %conv942, %conv941
   %or.cond1162 = icmp ult i32 %add943, 507
   br i1 %or.cond1162, label %land.lhs.true949, label %if.else960
@@ -3138,212 +2670,212 @@ sw.epilog929:                                     ; preds = %if.end834, %for.con
 land.lhs.true949:                                 ; preds = %sw.epilog929
   %idxprom950 = zext i32 %add943 to i64
   %arrayidx951 = getelementptr inbounds [507 x i16], ptr @yycheck, i64 0, i64 %idxprom950
-  %416 = load i16, ptr %arrayidx951, align 2
-  %cmp954 = icmp eq i16 %416, %415
+  %304 = load i16, ptr %arrayidx951, align 2
+  %cmp954 = icmp eq i16 %304, %303
   br i1 %cmp954, label %if.then956, label %if.else960
 
 if.then956:                                       ; preds = %land.lhs.true949
   %arrayidx958 = getelementptr inbounds [507 x i16], ptr @yytable, i64 0, i64 %idxprom950
-  %417 = load i16, ptr %arrayidx958, align 2
-  %conv959 = zext i16 %417 to i32
+  %305 = load i16, ptr %arrayidx958, align 2
+  %conv959 = zext i16 %305 to i32
   br label %yynewstate
 
 if.else960:                                       ; preds = %land.lhs.true949, %sw.epilog929
   %arrayidx963 = getelementptr inbounds [100 x i16], ptr @yydefgoto, i64 0, i64 %sub938
-  %418 = load i16, ptr %arrayidx963, align 2
-  %conv964 = sext i16 %418 to i32
+  %306 = load i16, ptr %arrayidx963, align 2
+  %conv964 = sext i16 %306 to i32
   br label %yynewstate
 
 if.then967:                                       ; preds = %yydefault, %if.end81
-  %419 = load i32, ptr @dfg_nerrs, align 4
-  %inc = add nsw i32 %419, 1
+  %307 = load i32, ptr @dfg_nerrs, align 4
+  %inc = add nsw i32 %307, 1
   store i32 %inc, ptr @dfg_nerrs, align 4
   %cmp971 = icmp sgt i16 %3, -356
   br i1 %cmp971, label %if.then976, label %if.else1072
 
 if.then976:                                       ; preds = %if.then967
-  %420 = load i32, ptr @dfg_char, align 4
-  %cmp978 = icmp ult i32 %420, 319
+  %308 = load i32, ptr @dfg_char, align 4
+  %cmp978 = icmp ult i32 %308, 319
   br i1 %cmp978, label %cond.true980, label %cond.end985
 
 cond.true980:                                     ; preds = %if.then976
-  %idxprom981 = zext i32 %420 to i64
+  %idxprom981 = zext i32 %308 to i64
   %arrayidx982 = getelementptr inbounds [319 x i8], ptr @yytranslate, i64 0, i64 %idxprom981
-  %421 = load i8, ptr %arrayidx982, align 1
-  %conv983 = zext i8 %421 to i64
+  %309 = load i8, ptr %arrayidx982, align 1
+  %310 = zext i8 %309 to i64
   br label %cond.end985
 
 cond.end985:                                      ; preds = %if.then976, %cond.true980
-  %cond986 = phi i64 [ %conv983, %cond.true980 ], [ 2, %if.then976 ]
+  %cond986 = phi i64 [ %310, %cond.true980 ], [ 2, %if.then976 ]
   %cmp987 = icmp slt i16 %3, 0
   %sub990 = sub nsw i32 0, %conv51
   %cond993 = select i1 %cmp987, i32 %sub990, i32 0
-  %cmp9952067 = icmp slt i32 %cond993, 172
-  br i1 %cmp9952067, label %for.body997.preheader, label %for.end1017
+  %cmp9951924 = icmp slt i32 %cond993, 172
+  br i1 %cmp9951924, label %for.body997.preheader, label %for.end1017
 
 for.body997.preheader:                            ; preds = %cond.end985
-  %422 = sext i32 %cond993 to i64
-  %423 = sext i16 %3 to i64
+  %311 = sext i32 %cond993 to i64
+  %312 = sext i16 %3 to i64
   br label %for.body997
 
 for.body997:                                      ; preds = %for.body997.preheader, %for.inc1015
-  %indvars.iv = phi i64 [ %422, %for.body997.preheader ], [ %indvars.iv.next, %for.inc1015 ]
-  %yycount.02070 = phi i32 [ 0, %for.body997.preheader ], [ %yycount.1, %for.inc1015 ]
-  %yysize977.02068 = phi i64 [ 0, %for.body997.preheader ], [ %yysize977.1, %for.inc1015 ]
-  %424 = add nsw i64 %indvars.iv, %423
-  %arrayidx1000 = getelementptr inbounds [507 x i16], ptr @yycheck, i64 0, i64 %424
-  %425 = load i16, ptr %arrayidx1000, align 2
-  %conv1001 = sext i16 %425 to i32
-  %426 = trunc i64 %indvars.iv to i32
-  %cmp1002 = icmp eq i32 %426, %conv1001
-  %427 = icmp ne i64 %indvars.iv, 1
-  %or.cond1164 = and i1 %427, %cmp1002
+  %indvars.iv = phi i64 [ %311, %for.body997.preheader ], [ %indvars.iv.next, %for.inc1015 ]
+  %yycount.01927 = phi i32 [ 0, %for.body997.preheader ], [ %yycount.1, %for.inc1015 ]
+  %yysize977.01925 = phi i64 [ 0, %for.body997.preheader ], [ %yysize977.1, %for.inc1015 ]
+  %313 = add nsw i64 %indvars.iv, %312
+  %arrayidx1000 = getelementptr inbounds [507 x i16], ptr @yycheck, i64 0, i64 %313
+  %314 = load i16, ptr %arrayidx1000, align 2
+  %conv1001 = sext i16 %314 to i32
+  %315 = trunc i64 %indvars.iv to i32
+  %cmp1002 = icmp eq i32 %315, %conv1001
+  %316 = icmp ne i64 %indvars.iv, 1
+  %or.cond1164 = and i1 %316, %cmp1002
   br i1 %or.cond1164, label %if.then1007, label %for.inc1015
 
 if.then1007:                                      ; preds = %for.body997
   %arrayidx1009 = getelementptr inbounds [172 x ptr], ptr @yytname, i64 0, i64 %indvars.iv
-  %428 = load ptr, ptr %arrayidx1009, align 8
-  %call1010 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %428) #16
-  %add1011 = add i64 %yysize977.02068, 15
+  %317 = load ptr, ptr %arrayidx1009, align 8
+  %call1010 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %317) #15
+  %add1011 = add i64 %yysize977.01925, 15
   %add1012 = add i64 %add1011, %call1010
-  %inc1013 = add nsw i32 %yycount.02070, 1
+  %inc1013 = add nsw i32 %yycount.01927, 1
   br label %for.inc1015
 
 for.inc1015:                                      ; preds = %for.body997, %if.then1007
-  %yysize977.1 = phi i64 [ %add1012, %if.then1007 ], [ %yysize977.02068, %for.body997 ]
-  %yycount.1 = phi i32 [ %inc1013, %if.then1007 ], [ %yycount.02070, %for.body997 ]
+  %yysize977.1 = phi i64 [ %add1012, %if.then1007 ], [ %yysize977.01925, %for.body997 ]
+  %yycount.1 = phi i32 [ %inc1013, %if.then1007 ], [ %yycount.01927, %for.body997 ]
   %indvars.iv.next = add nsw i64 %indvars.iv, 1
   %cmp995 = icmp slt i64 %indvars.iv, 171
-  br i1 %cmp995, label %for.body997, label %for.end1017, !llvm.loop !10
+  br i1 %cmp995, label %for.body997, label %for.end1017, !llvm.loop !8
 
 for.end1017:                                      ; preds = %for.inc1015, %cond.end985
   %yysize977.0.lcssa = phi i64 [ 0, %cond.end985 ], [ %yysize977.1, %for.inc1015 ]
   %yycount.0.lcssa = phi i32 [ 0, %cond.end985 ], [ %yycount.1, %for.inc1015 ]
   %add1018 = add i64 %yysize977.0.lcssa, 25
   %arrayidx1020 = getelementptr inbounds [172 x ptr], ptr @yytname, i64 0, i64 %cond986
-  %429 = load ptr, ptr %arrayidx1020, align 8
-  %call1021 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %429) #16
+  %318 = load ptr, ptr %arrayidx1020, align 8
+  %call1021 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %318) #15
   %add1022 = add i64 %add1018, %call1021
-  %430 = alloca i8, i64 %add1022, align 16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(25) %430, ptr noundef nonnull align 1 dereferenceable(25) @.str.16, i64 25, i1 false)
-  %scevgep = getelementptr i8, ptr %430, i64 24
-  br label %while.cond.i1882
+  %319 = alloca i8, i64 %add1022, align 16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(25) %319, ptr noundef nonnull align 1 dereferenceable(25) @.str.16, i64 25, i1 false)
+  %scevgep = getelementptr i8, ptr %319, i64 24
+  br label %while.cond.i1808
 
-while.cond.i1882:                                 ; preds = %for.end1017, %while.cond.i1882
-  %yyd.0.i1877 = phi ptr [ %incdec.ptr1.i1880, %while.cond.i1882 ], [ %scevgep, %for.end1017 ]
-  %yys.0.i1878 = phi ptr [ %incdec.ptr.i1879, %while.cond.i1882 ], [ %429, %for.end1017 ]
-  %incdec.ptr.i1879 = getelementptr inbounds i8, ptr %yys.0.i1878, i64 1
-  %431 = load i8, ptr %yys.0.i1878, align 1
-  %incdec.ptr1.i1880 = getelementptr inbounds i8, ptr %yyd.0.i1877, i64 1
-  store i8 %431, ptr %yyd.0.i1877, align 1
-  %cmp.not.i1881 = icmp eq i8 %431, 0
-  br i1 %cmp.not.i1881, label %yystpcpy.exit1883, label %while.cond.i1882, !llvm.loop !11
+while.cond.i1808:                                 ; preds = %for.end1017, %while.cond.i1808
+  %yyd.0.i1803 = phi ptr [ %incdec.ptr1.i1806, %while.cond.i1808 ], [ %scevgep, %for.end1017 ]
+  %yys.0.i1804 = phi ptr [ %incdec.ptr.i1805, %while.cond.i1808 ], [ %318, %for.end1017 ]
+  %incdec.ptr.i1805 = getelementptr inbounds i8, ptr %yys.0.i1804, i64 1
+  %320 = load i8, ptr %yys.0.i1804, align 1
+  %incdec.ptr1.i1806 = getelementptr inbounds i8, ptr %yyd.0.i1803, i64 1
+  store i8 %320, ptr %yyd.0.i1803, align 1
+  %cmp.not.i1807 = icmp eq i8 %320, 0
+  br i1 %cmp.not.i1807, label %yystpcpy.exit1809, label %while.cond.i1808, !llvm.loop !9
 
-yystpcpy.exit1883:                                ; preds = %while.cond.i1882
+yystpcpy.exit1809:                                ; preds = %while.cond.i1808
   %cmp1030 = icmp slt i32 %yycount.0.lcssa, 5
-  %or.cond2076 = and i1 %cmp1030, %cmp9952067
-  br i1 %or.cond2076, label %for.body1043.preheader, label %if.end1066
+  %or.cond1933 = and i1 %cmp1030, %cmp9951924
+  br i1 %or.cond1933, label %for.body1043.preheader, label %if.end1066
 
-for.body1043.preheader:                           ; preds = %yystpcpy.exit1883
-  %432 = sext i32 %cond993 to i64
-  %433 = sext i16 %3 to i64
+for.body1043.preheader:                           ; preds = %yystpcpy.exit1809
+  %321 = sext i32 %cond993 to i64
+  %322 = sext i16 %3 to i64
   br label %for.body1043
 
 for.body1043:                                     ; preds = %for.body1043.preheader, %for.inc1063
-  %indvars.iv2215 = phi i64 [ %432, %for.body1043.preheader ], [ %indvars.iv.next2216, %for.inc1063 ]
-  %yyp.02075 = phi ptr [ %yyd.0.i1877, %for.body1043.preheader ], [ %yyp.1, %for.inc1063 ]
-  %yycount.22074 = phi i32 [ 0, %for.body1043.preheader ], [ %yycount.3, %for.inc1063 ]
-  %434 = add nsw i64 %indvars.iv2215, %433
-  %arrayidx1046 = getelementptr inbounds [507 x i16], ptr @yycheck, i64 0, i64 %434
-  %435 = load i16, ptr %arrayidx1046, align 2
-  %conv1047 = sext i16 %435 to i32
-  %436 = trunc i64 %indvars.iv2215 to i32
-  %cmp1048 = icmp eq i32 %436, %conv1047
-  %437 = icmp ne i64 %indvars.iv2215, 1
-  %or.cond1165 = and i1 %437, %cmp1048
+  %indvars.iv2001 = phi i64 [ %321, %for.body1043.preheader ], [ %indvars.iv.next2002, %for.inc1063 ]
+  %yyp.01932 = phi ptr [ %yyd.0.i1803, %for.body1043.preheader ], [ %yyp.1, %for.inc1063 ]
+  %yycount.21931 = phi i32 [ 0, %for.body1043.preheader ], [ %yycount.3, %for.inc1063 ]
+  %323 = add nsw i64 %indvars.iv2001, %322
+  %arrayidx1046 = getelementptr inbounds [507 x i16], ptr @yycheck, i64 0, i64 %323
+  %324 = load i16, ptr %arrayidx1046, align 2
+  %conv1047 = sext i16 %324 to i32
+  %325 = trunc i64 %indvars.iv2001 to i32
+  %cmp1048 = icmp eq i32 %325, %conv1047
+  %326 = icmp ne i64 %indvars.iv2001, 1
+  %or.cond1165 = and i1 %326, %cmp1048
   br i1 %or.cond1165, label %if.then1053, label %for.inc1063
 
 if.then1053:                                      ; preds = %for.body1043
-  %tobool1054.not = icmp eq i32 %yycount.22074, 0
+  %tobool1054.not = icmp eq i32 %yycount.21931, 0
   %cond1056 = select i1 %tobool1054.not, ptr @.str.17, ptr @.str.18
-  br label %while.cond.i1889
+  br label %while.cond.i1815
 
-while.cond.i1889:                                 ; preds = %while.cond.i1889, %if.then1053
-  %yyd.0.i1884 = phi ptr [ %yyp.02075, %if.then1053 ], [ %incdec.ptr1.i1887, %while.cond.i1889 ]
-  %yys.0.i1885 = phi ptr [ %cond1056, %if.then1053 ], [ %incdec.ptr.i1886, %while.cond.i1889 ]
-  %incdec.ptr.i1886 = getelementptr inbounds i8, ptr %yys.0.i1885, i64 1
-  %438 = load i8, ptr %yys.0.i1885, align 1
-  %incdec.ptr1.i1887 = getelementptr inbounds i8, ptr %yyd.0.i1884, i64 1
-  store i8 %438, ptr %yyd.0.i1884, align 1
-  %cmp.not.i1888 = icmp eq i8 %438, 0
-  br i1 %cmp.not.i1888, label %yystpcpy.exit1890, label %while.cond.i1889, !llvm.loop !11
+while.cond.i1815:                                 ; preds = %while.cond.i1815, %if.then1053
+  %yyd.0.i1810 = phi ptr [ %yyp.01932, %if.then1053 ], [ %incdec.ptr1.i1813, %while.cond.i1815 ]
+  %yys.0.i1811 = phi ptr [ %cond1056, %if.then1053 ], [ %incdec.ptr.i1812, %while.cond.i1815 ]
+  %incdec.ptr.i1812 = getelementptr inbounds i8, ptr %yys.0.i1811, i64 1
+  %327 = load i8, ptr %yys.0.i1811, align 1
+  %incdec.ptr1.i1813 = getelementptr inbounds i8, ptr %yyd.0.i1810, i64 1
+  store i8 %327, ptr %yyd.0.i1810, align 1
+  %cmp.not.i1814 = icmp eq i8 %327, 0
+  br i1 %cmp.not.i1814, label %yystpcpy.exit1816, label %while.cond.i1815, !llvm.loop !9
 
-yystpcpy.exit1890:                                ; preds = %while.cond.i1889
-  %arrayidx1059 = getelementptr inbounds [172 x ptr], ptr @yytname, i64 0, i64 %indvars.iv2215
-  %439 = load ptr, ptr %arrayidx1059, align 8
-  br label %while.cond.i1896
+yystpcpy.exit1816:                                ; preds = %while.cond.i1815
+  %arrayidx1059 = getelementptr inbounds [172 x ptr], ptr @yytname, i64 0, i64 %indvars.iv2001
+  %328 = load ptr, ptr %arrayidx1059, align 8
+  br label %while.cond.i1822
 
-while.cond.i1896:                                 ; preds = %while.cond.i1896, %yystpcpy.exit1890
-  %yyd.0.i1891 = phi ptr [ %yyd.0.i1884, %yystpcpy.exit1890 ], [ %incdec.ptr1.i1894, %while.cond.i1896 ]
-  %yys.0.i1892 = phi ptr [ %439, %yystpcpy.exit1890 ], [ %incdec.ptr.i1893, %while.cond.i1896 ]
-  %incdec.ptr.i1893 = getelementptr inbounds i8, ptr %yys.0.i1892, i64 1
-  %440 = load i8, ptr %yys.0.i1892, align 1
-  %incdec.ptr1.i1894 = getelementptr inbounds i8, ptr %yyd.0.i1891, i64 1
-  store i8 %440, ptr %yyd.0.i1891, align 1
-  %cmp.not.i1895 = icmp eq i8 %440, 0
-  br i1 %cmp.not.i1895, label %yystpcpy.exit1897, label %while.cond.i1896, !llvm.loop !11
+while.cond.i1822:                                 ; preds = %while.cond.i1822, %yystpcpy.exit1816
+  %yyd.0.i1817 = phi ptr [ %yyd.0.i1810, %yystpcpy.exit1816 ], [ %incdec.ptr1.i1820, %while.cond.i1822 ]
+  %yys.0.i1818 = phi ptr [ %328, %yystpcpy.exit1816 ], [ %incdec.ptr.i1819, %while.cond.i1822 ]
+  %incdec.ptr.i1819 = getelementptr inbounds i8, ptr %yys.0.i1818, i64 1
+  %329 = load i8, ptr %yys.0.i1818, align 1
+  %incdec.ptr1.i1820 = getelementptr inbounds i8, ptr %yyd.0.i1817, i64 1
+  store i8 %329, ptr %yyd.0.i1817, align 1
+  %cmp.not.i1821 = icmp eq i8 %329, 0
+  br i1 %cmp.not.i1821, label %yystpcpy.exit1823, label %while.cond.i1822, !llvm.loop !9
 
-yystpcpy.exit1897:                                ; preds = %while.cond.i1896
-  %inc1061 = add nsw i32 %yycount.22074, 1
+yystpcpy.exit1823:                                ; preds = %while.cond.i1822
+  %inc1061 = add nsw i32 %yycount.21931, 1
   br label %for.inc1063
 
-for.inc1063:                                      ; preds = %for.body1043, %yystpcpy.exit1897
-  %yycount.3 = phi i32 [ %inc1061, %yystpcpy.exit1897 ], [ %yycount.22074, %for.body1043 ]
-  %yyp.1 = phi ptr [ %yyd.0.i1891, %yystpcpy.exit1897 ], [ %yyp.02075, %for.body1043 ]
-  %indvars.iv.next2216 = add nsw i64 %indvars.iv2215, 1
-  %cmp1041 = icmp slt i64 %indvars.iv2215, 171
-  br i1 %cmp1041, label %for.body1043, label %if.end1066, !llvm.loop !12
+for.inc1063:                                      ; preds = %for.body1043, %yystpcpy.exit1823
+  %yycount.3 = phi i32 [ %inc1061, %yystpcpy.exit1823 ], [ %yycount.21931, %for.body1043 ]
+  %yyp.1 = phi ptr [ %yyd.0.i1817, %yystpcpy.exit1823 ], [ %yyp.01932, %for.body1043 ]
+  %indvars.iv.next2002 = add nsw i64 %indvars.iv2001, 1
+  %cmp1041 = icmp slt i64 %indvars.iv2001, 171
+  br i1 %cmp1041, label %for.body1043, label %if.end1066, !llvm.loop !10
 
-if.end1066:                                       ; preds = %for.inc1063, %yystpcpy.exit1883
-  %441 = load ptr, ptr @stdout, align 8
-  %call.i1898 = call i32 @fflush(ptr noundef %441)
-  %442 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %442, ptr noundef nonnull %430) #14
-  %443 = load ptr, ptr @stderr, align 8
-  %call.i.i1899 = call i32 @fflush(ptr noundef %443)
-  %444 = load ptr, ptr @stdout, align 8
-  %call1.i.i1900 = call i32 @fflush(ptr noundef %444)
-  %445 = load ptr, ptr @stderr, align 8
-  %call2.i.i1901 = call i32 @fflush(ptr noundef %445)
-  call void @exit(i32 noundef 1) #15
+if.end1066:                                       ; preds = %for.inc1063, %yystpcpy.exit1809
+  %330 = load ptr, ptr @stdout, align 8
+  %call.i1824 = call i32 @fflush(ptr noundef %330)
+  %331 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %331, ptr noundef nonnull %319) #14
+  %332 = load ptr, ptr @stderr, align 8
+  %call.i.i1825 = call i32 @fflush(ptr noundef %332)
+  %333 = load ptr, ptr @stdout, align 8
+  %call1.i.i = call i32 @fflush(ptr noundef %333)
+  %334 = load ptr, ptr @stderr, align 8
+  %call2.i.i = call i32 @fflush(ptr noundef %334)
+  call void @exit(i32 noundef 1) #16
   unreachable
 
 if.else1072:                                      ; preds = %if.then967
-  %446 = load ptr, ptr @stdout, align 8
-  %call.i1902 = call i32 @fflush(ptr noundef %446)
-  %447 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %447, ptr noundef nonnull @.str.20) #14
-  %448 = load ptr, ptr @stderr, align 8
-  %call.i.i1903 = call i32 @fflush(ptr noundef %448)
-  %449 = load ptr, ptr @stdout, align 8
-  %call1.i.i1904 = call i32 @fflush(ptr noundef %449)
-  %450 = load ptr, ptr @stderr, align 8
-  %call2.i.i1905 = call i32 @fflush(ptr noundef %450)
-  call void @exit(i32 noundef 1) #15
+  %335 = load ptr, ptr @stdout, align 8
+  %call.i1826 = call i32 @fflush(ptr noundef %335)
+  %336 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %336, ptr noundef nonnull @.str.20) #14
+  %337 = load ptr, ptr @stderr, align 8
+  %call.i.i1827 = call i32 @fflush(ptr noundef %337)
+  %338 = load ptr, ptr @stdout, align 8
+  %call1.i.i1828 = call i32 @fflush(ptr noundef %338)
+  %339 = load ptr, ptr @stderr, align 8
+  %call2.i.i1829 = call i32 @fflush(ptr noundef %339)
+  call void @exit(i32 noundef 1) #16
   unreachable
 
 yyoverflowlab:                                    ; preds = %if.then
-  %451 = load ptr, ptr @stdout, align 8
-  %call.i1907 = call i32 @fflush(ptr noundef %451)
-  %452 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %452, ptr noundef nonnull @.str.21) #14
-  %453 = load ptr, ptr @stderr, align 8
-  %call.i.i1908 = call i32 @fflush(ptr noundef %453)
-  %454 = load ptr, ptr @stdout, align 8
-  %call1.i.i1909 = call i32 @fflush(ptr noundef %454)
-  %455 = load ptr, ptr @stderr, align 8
-  %call2.i.i1910 = call i32 @fflush(ptr noundef %455)
-  call void @exit(i32 noundef 1) #15
+  %340 = load ptr, ptr @stdout, align 8
+  %call.i1831 = call i32 @fflush(ptr noundef %340)
+  %341 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, i32 noundef %341, ptr noundef nonnull @.str.21) #14
+  %342 = load ptr, ptr @stderr, align 8
+  %call.i.i1832 = call i32 @fflush(ptr noundef %342)
+  %343 = load ptr, ptr @stdout, align 8
+  %call1.i.i1833 = call i32 @fflush(ptr noundef %343)
+  %344 = load ptr, ptr @stderr, align 8
+  %call2.i.i1834 = call i32 @fflush(ptr noundef %344)
+  call void @exit(i32 noundef 1) #16
   unreachable
 
 cleanup1146:                                      ; preds = %if.end, %if.end95, %sw.bb
@@ -3386,7 +2918,7 @@ sw.bb1:                                           ; preds = %entry
   %call1.i = tail call i32 @fflush(ptr noundef %3)
   %4 = load ptr, ptr @stderr, align 8
   %call2.i = tail call i32 @fflush(ptr noundef %4)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 sw.default:                                       ; preds = %entry
@@ -3394,7 +2926,7 @@ sw.default:                                       ; preds = %entry
 
 sw.epilog:                                        ; preds = %entry, %sw.default
   %arity.0 = phi i32 [ %Arity, %sw.default ], [ 0, %entry ]
-  %call2 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %Name) #16
+  %call2 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %Name) #15
   %5 = and i64 %call2, 4294967232
   %cmp.not = icmp eq i64 %5, 0
   br i1 %cmp.not, label %if.end, label %if.then
@@ -3414,70 +2946,71 @@ if.then7:                                         ; preds = %if.end
   %7 = tail call i32 @llvm.fshl.i32(i32 %SymbolType, i32 %6, i32 31)
   switch i32 %7, label %if.end33 [
     i32 0, label %land.lhs.true
-    i32 7, label %land.lhs.true13
+    i32 7, label %if.then7.land.lhs.true13_crit_edge
     i32 8, label %land.lhs.true22
     i32 5, label %land.lhs.true22
   ]
 
+if.then7.land.lhs.true13_crit_edge:               ; preds = %if.then7
+  %.pre = load i32, ptr @symbol_TYPEMASK, align 4
+  %.pre117 = sub nsw i32 0, %call4
+  br label %land.lhs.true13
+
 land.lhs.true:                                    ; preds = %if.then7
   %tobool.not.i = icmp sgt i32 %call4, -1
-  br i1 %tobool.not.i, label %if.then25, label %land.rhs.i
+  br i1 %tobool.not.i, label %land.lhs.true.if.then25_crit_edge, label %land.rhs.i
+
+land.lhs.true.if.then25_crit_edge:                ; preds = %land.lhs.true
+  %.pre115 = load i32, ptr @symbol_TYPEMASK, align 4
+  %.pre116 = sub nsw i32 0, %call4
+  br label %if.then25
 
 land.rhs.i:                                       ; preds = %land.lhs.true
   %sub.i.i = sub nsw i32 0, %call4
   %8 = load i32, ptr @symbol_TYPEMASK, align 4
   %and.i.i = and i32 %8, %sub.i.i
-  %switch = icmp ult i32 %and.i.i, 2
-  br i1 %switch, label %lor.lhs.false, label %if.then25
+  %spec.select = icmp ugt i32 %and.i.i, 1
+  br i1 %spec.select, label %if.then25, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %land.rhs.i
   switch i32 %SymbolType, label %if.end33 [
-    i32 298, label %symbol_IsPredicate.exit
-    i32 300, label %if.then25
-    i32 294, label %if.then25
+    i32 298, label %land.lhs.true13
+    i32 300, label %land.lhs.true22
+    i32 294, label %land.lhs.true22
   ]
 
-land.lhs.true13:                                  ; preds = %if.then7
+land.lhs.true13:                                  ; preds = %if.then7.land.lhs.true13_crit_edge, %lor.lhs.false
+  %sub.i.i89.pre-phi = phi i32 [ %.pre117, %if.then7.land.lhs.true13_crit_edge ], [ %sub.i.i, %lor.lhs.false ]
+  %9 = phi i32 [ %.pre, %if.then7.land.lhs.true13_crit_edge ], [ %8, %lor.lhs.false ]
   %tobool.not.i88 = icmp sgt i32 %call4, -1
-  br i1 %tobool.not.i88, label %if.then25, label %land.lhs.true13.symbol_IsPredicate.exit_crit_edge
-
-land.lhs.true13.symbol_IsPredicate.exit_crit_edge: ; preds = %land.lhs.true13
-  %.pre = load i32, ptr @symbol_TYPEMASK, align 4
-  %.pre127 = sub nsw i32 0, %call4
-  br label %symbol_IsPredicate.exit
-
-symbol_IsPredicate.exit:                          ; preds = %land.lhs.true13.symbol_IsPredicate.exit_crit_edge, %lor.lhs.false
-  %sub.i.i89.pre-phi = phi i32 [ %.pre127, %land.lhs.true13.symbol_IsPredicate.exit_crit_edge ], [ %sub.i.i, %lor.lhs.false ]
-  %9 = phi i32 [ %.pre, %land.lhs.true13.symbol_IsPredicate.exit_crit_edge ], [ %8, %lor.lhs.false ]
   %and.i.i90 = and i32 %9, %sub.i.i89.pre-phi
-  %cmp.i91.not = icmp eq i32 %and.i.i90, 2
-  br i1 %cmp.i91.not, label %lor.lhs.false16, label %if.then25
+  %cmp.i91 = icmp ne i32 %and.i.i90, 2
+  %land.ext.i93 = select i1 %tobool.not.i88, i1 true, i1 %cmp.i91
+  br i1 %land.ext.i93, label %if.then25, label %lor.lhs.false16
 
-lor.lhs.false16:                                  ; preds = %symbol_IsPredicate.exit
+lor.lhs.false16:                                  ; preds = %land.lhs.true13
   switch i32 %SymbolType, label %if.end33 [
-    i32 300, label %if.then25
-    i32 294, label %if.then25
+    i32 300, label %land.lhs.true22
+    i32 294, label %land.lhs.true22
   ]
 
-land.lhs.true22:                                  ; preds = %if.then7, %if.then7
+land.lhs.true22:                                  ; preds = %if.then7, %if.then7, %lor.lhs.false, %lor.lhs.false, %lor.lhs.false16, %lor.lhs.false16
   %tobool.not.i94 = icmp sgt i32 %call4, -1
-  br i1 %tobool.not.i94, label %if.then25, label %symbol_IsJunctor.exit
+  %sub.i.i95 = sub nsw i32 0, %call4
+  %10 = load i32, ptr @symbol_TYPEMASK, align 4
+  %and.i.i96 = and i32 %10, %sub.i.i95
+  %cmp.i97 = icmp ne i32 %and.i.i96, 3
+  %land.ext.i99 = select i1 %tobool.not.i94, i1 true, i1 %cmp.i97
+  br i1 %land.ext.i99, label %if.then25, label %if.end33
 
-symbol_IsJunctor.exit:                            ; preds = %land.lhs.true22
-  %.pre126 = load i32, ptr @symbol_TYPEMASK, align 4
-  %.pre128 = sub nsw i32 0, %call4
-  %.pre129 = and i32 %.pre126, %.pre128
-  %10 = icmp eq i32 %.pre129, 3
-  br i1 %10, label %if.end33, label %if.then25
-
-if.then25:                                        ; preds = %lor.lhs.false, %lor.lhs.false, %lor.lhs.false16, %lor.lhs.false16, %land.rhs.i, %land.lhs.true22, %land.lhs.true13, %land.lhs.true, %symbol_IsJunctor.exit, %symbol_IsPredicate.exit
-  %11 = load ptr, ptr @stdout, align 8
-  %call26 = tail call i32 @fflush(ptr noundef %11)
-  %12 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.217, i32 noundef %12, ptr noundef %Name) #14
-  %sub.i = sub nsw i32 0, %call4
-  %13 = load i32, ptr @symbol_TYPEMASK, align 4
-  %and.i = and i32 %13, %sub.i
+if.then25:                                        ; preds = %land.lhs.true.if.then25_crit_edge, %land.lhs.true22, %land.lhs.true13, %land.rhs.i
+  %sub.i.pre-phi = phi i32 [ %.pre116, %land.lhs.true.if.then25_crit_edge ], [ %sub.i.i95, %land.lhs.true22 ], [ %sub.i.i89.pre-phi, %land.lhs.true13 ], [ %sub.i.i, %land.rhs.i ]
+  %11 = phi i32 [ %.pre115, %land.lhs.true.if.then25_crit_edge ], [ %10, %land.lhs.true22 ], [ %9, %land.lhs.true13 ], [ %8, %land.rhs.i ]
+  %12 = load ptr, ptr @stdout, align 8
+  %call26 = tail call i32 @fflush(ptr noundef %12)
+  %13 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.217, i32 noundef %13, ptr noundef %Name) #14
+  %and.i = and i32 %11, %sub.i.pre-phi
   %14 = icmp ult i32 %and.i, 4
   br i1 %14, label %switch.lookup, label %sw.epilog32
 
@@ -3496,10 +3029,10 @@ sw.epilog32:                                      ; preds = %if.then25, %switch.
   %call1.i101 = tail call i32 @fflush(ptr noundef %17)
   %18 = load ptr, ptr @stderr, align 8
   %call2.i102 = tail call i32 @fflush(ptr noundef %18)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
-if.end33:                                         ; preds = %if.then7, %lor.lhs.false, %lor.lhs.false16, %symbol_IsJunctor.exit
+if.end33:                                         ; preds = %if.then7, %lor.lhs.false, %lor.lhs.false16, %land.lhs.true22
   %cmp34.not = icmp eq i32 %Arity, -2
   br i1 %cmp34.not, label %if.end55, label %land.lhs.true36
 
@@ -3532,7 +3065,7 @@ if.then40:                                        ; preds = %land.lhs.true36
   %call1.i111 = tail call i32 @fflush(ptr noundef %29)
   %30 = load ptr, ptr @stderr, align 8
   %call2.i112 = tail call i32 @fflush(ptr noundef %30)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 if.else:                                          ; preds = %if.end
@@ -3590,11 +3123,150 @@ if.end60:                                         ; preds = %if.then58, %if.end5
 }
 
 ; Function Attrs: nounwind uwtable
+define internal fastcc void @dfg_SubSort(ptr noundef %Name1, ptr noundef %Name2) unnamed_addr #0 {
+entry:
+  %call = tail call fastcc i32 @dfg_Symbol(ptr noundef %Name1, i32 noundef 1)
+  %call1 = tail call fastcc i32 @dfg_Symbol(ptr noundef %Name2, i32 noundef 1)
+  %tobool.not.i = icmp sgt i32 %call, -1
+  %sub.i.i = sub nsw i32 0, %call
+  %0 = load i32, ptr @symbol_TYPEMASK, align 4
+  %and.i.i = and i32 %0, %sub.i.i
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %land.ext.i = select i1 %tobool.not.i, i1 true, i1 %cmp.i
+  br i1 %land.ext.i, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr @stdout, align 8
+  %call3 = tail call i32 @fflush(ptr noundef %1)
+  %2 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %2) #14
+  %3 = load ptr, ptr @stderr, align 8
+  %call.i = tail call i32 @fflush(ptr noundef %3)
+  %4 = load ptr, ptr @stdout, align 8
+  %call1.i = tail call i32 @fflush(ptr noundef %4)
+  %5 = load ptr, ptr @stderr, align 8
+  %call2.i = tail call i32 @fflush(ptr noundef %5)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.end:                                           ; preds = %entry
+  %tobool.not.i34 = icmp sgt i32 %call1, -1
+  %sub.i.i35 = sub nsw i32 0, %call1
+  %and.i.i36 = and i32 %0, %sub.i.i35
+  %cmp.i37 = icmp ne i32 %and.i.i36, 2
+  %land.ext.i39 = select i1 %tobool.not.i34, i1 true, i1 %cmp.i37
+  br i1 %land.ext.i39, label %if.then6, label %if.end8
+
+if.then6:                                         ; preds = %if.end
+  %6 = load ptr, ptr @stdout, align 8
+  %call7 = tail call i32 @fflush(ptr noundef %6)
+  %7 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %7) #14
+  %8 = load ptr, ptr @stderr, align 8
+  %call.i41 = tail call i32 @fflush(ptr noundef %8)
+  %9 = load ptr, ptr @stdout, align 8
+  %call1.i42 = tail call i32 @fflush(ptr noundef %9)
+  %10 = load ptr, ptr @stderr, align 8
+  %call2.i43 = tail call i32 @fflush(ptr noundef %10)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.end8:                                          ; preds = %if.end
+  %11 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
+  %inc.i = add nsw i32 %11, 1
+  store i32 %inc.i, ptr @symbol_STANDARDVARCOUNTER, align 4
+  %call11 = tail call ptr @term_Create(i32 noundef %inc.i, ptr noundef null) #14
+  store i32 0, ptr @symbol_STANDARDVARCOUNTER, align 4
+  %call.i.i = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i, i64 0, i32 1
+  store ptr %call11, ptr %car.i.i, align 8
+  store ptr null, ptr %call.i.i, align 8
+  %call13 = tail call ptr @term_Create(i32 noundef %call, ptr noundef nonnull %call.i.i) #14
+  %call14 = tail call ptr @term_Copy(ptr noundef %call11) #14
+  %call.i.i45 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i46 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i45, i64 0, i32 1
+  store ptr %call14, ptr %car.i.i46, align 8
+  store ptr null, ptr %call.i.i45, align 8
+  %call16 = tail call ptr @term_Create(i32 noundef %call1, ptr noundef nonnull %call.i.i45) #14
+  %12 = load i32, ptr @fol_IMPLIES, align 4
+  %call.i.i47 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i48 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i47, i64 0, i32 1
+  store ptr %call16, ptr %car.i.i48, align 8
+  store ptr null, ptr %call.i.i47, align 8
+  %call.i49 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i49, i64 0, i32 1
+  store ptr %call13, ptr %car.i, align 8
+  store ptr %call.i.i47, ptr %call.i49, align 8
+  %call20 = tail call ptr @term_Create(i32 noundef %12, ptr noundef nonnull %call.i49) #14
+  %13 = load i32, ptr @fol_ALL, align 4
+  %call22 = tail call ptr @term_Copy(ptr noundef %call11) #14
+  %call.i.i50 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i51 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i50, i64 0, i32 1
+  store ptr %call22, ptr %car.i.i51, align 8
+  store ptr null, ptr %call.i.i50, align 8
+  %call.i.i52 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i53 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i52, i64 0, i32 1
+  store ptr %call20, ptr %car.i.i53, align 8
+  store ptr null, ptr %call.i.i52, align 8
+  %call25 = tail call ptr @fol_CreateQuantifier(i32 noundef %13, ptr noundef nonnull %call.i.i50, ptr noundef nonnull %call.i.i52) #14
+  %14 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %call.i.i54 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i55 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i54, i64 0, i32 1
+  store ptr null, ptr %car.i.i55, align 8
+  store ptr %call25, ptr %call.i.i54, align 8
+  %call.i.i56 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i57 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i56, i64 0, i32 1
+  store ptr %call.i.i54, ptr %car.i.i57, align 8
+  store ptr null, ptr %call.i.i56, align 8
+  %cmp.i.i = icmp eq ptr %14, null
+  br i1 %cmp.i.i, label %list_Nconc.exit, label %for.cond.i
+
+for.cond.i:                                       ; preds = %if.end8, %for.cond.i
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %14, %if.end8 ]
+  %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
+  %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
+  br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !5
+
+for.end.i:                                        ; preds = %for.cond.i
+  store ptr %call.i.i56, ptr %List1.addr.0.i, align 8
+  br label %list_Nconc.exit
+
+list_Nconc.exit:                                  ; preds = %if.end8, %for.end.i
+  %retval.0.i = phi ptr [ %14, %for.end.i ], [ %call.i.i56, %if.end8 ]
+  store ptr %retval.0.i, ptr @dfg_SORTDECLLIST, align 8
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define internal fastcc void @dfg_VarBacktrack() unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr @dfg_VARLIST, align 8
+  %1 = getelementptr i8, ptr %0, i64 8
+  %.val = load ptr, ptr %1, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %.val, ptr noundef nonnull @dfg_VarFree) #14
+  %2 = load ptr, ptr @dfg_VARLIST, align 8
+  %L.val.i = load ptr, ptr %2, align 8
+  %3 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %3, i64 0, i32 4
+  %4 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %4 to i64
+  %5 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %5, %conv26.i.i.i
+  store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %6 = load ptr, ptr %3, align 8
+  store ptr %6, ptr %2, align 8
+  %7 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %2, ptr %7, align 8
+  store ptr %L.val.i, ptr @dfg_VARLIST, align 8
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
 define internal fastcc void @dfg_VarCheck() unnamed_addr #0 {
 entry:
   %0 = load ptr, ptr @dfg_VARLIST, align 8
-  %cmp.i.not = icmp eq ptr %0, null
-  br i1 %cmp.i.not, label %if.end, label %if.then
+  %cmp.i = icmp eq ptr %0, null
+  br i1 %cmp.i, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
   %1 = load ptr, ptr @stdout, align 8
@@ -3612,7 +3284,7 @@ if.then:                                          ; preds = %entry
   %call2.i = tail call i32 @fflush(ptr noundef %8)
   %9 = load ptr, ptr @stderr, align 8
   %call3.i = tail call i32 @fflush(ptr noundef %9)
-  tail call void @abort() #15
+  tail call void @abort() #16
   unreachable
 
 if.end:                                           ; preds = %entry
@@ -3623,18 +3295,18 @@ if.end:                                           ; preds = %entry
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @dfg_CreateQuantifier(i32 noundef %Symbol, ptr noundef %VarTermList, ptr noundef %Term) local_unnamed_addr #0 {
 entry:
-  %cmp.i.not226 = icmp eq ptr %VarTermList, null
-  br i1 %cmp.i.not226, label %for.end, label %for.body
+  %cmp.i.not227 = icmp eq ptr %VarTermList, null
+  br i1 %cmp.i.not227, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc
-  %VarTermList.addr.0229 = phi ptr [ %L.val.i, %for.inc ], [ %VarTermList, %entry ]
-  %sortlist.0228 = phi ptr [ %sortlist.1, %for.inc ], [ null, %entry ]
-  %varlist.0227 = phi ptr [ %varlist.1, %for.inc ], [ null, %entry ]
-  %0 = getelementptr i8, ptr %VarTermList.addr.0229, i64 8
+  %VarTermList.addr.0230 = phi ptr [ %L.val.i, %for.inc ], [ %VarTermList, %entry ]
+  %sortlist.0229 = phi ptr [ %sortlist.1, %for.inc ], [ null, %entry ]
+  %varlist.0228 = phi ptr [ %varlist.1, %for.inc ], [ null, %entry ]
+  %0 = getelementptr i8, ptr %VarTermList.addr.0230, i64 8
   %VarTermList.addr.0.val = load ptr, ptr %0, align 8
   %call2.val139 = load i32, ptr %VarTermList.addr.0.val, align 8
-  %cmp.i.i = icmp slt i32 %call2.val139, 1
-  br i1 %cmp.i.i, label %if.else, label %if.then
+  %cmp.i.i = icmp sgt i32 %call2.val139, 0
+  br i1 %cmp.i.i, label %if.then, label %if.else
 
 if.then:                                          ; preds = %for.body
   %conv = zext i32 %call2.val139 to i64
@@ -3643,11 +3315,11 @@ if.then:                                          ; preds = %for.body
   %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i, i64 0, i32 1
   store ptr %1, ptr %car.i.i, align 8
   store ptr null, ptr %call.i.i, align 8
-  %cmp.i.not.i = icmp eq ptr %varlist.0227, null
-  br i1 %cmp.i.not.i, label %list_Nconc.exit, label %for.cond.i
+  %cmp.i.i143 = icmp eq ptr %varlist.0228, null
+  br i1 %cmp.i.i143, label %list_Nconc.exit, label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.then, %for.cond.i
-  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %varlist.0227, %if.then ]
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %varlist.0228, %if.then ]
   %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
   %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
   br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !5
@@ -3657,7 +3329,7 @@ for.end.i:                                        ; preds = %for.cond.i
   br label %list_Nconc.exit
 
 list_Nconc.exit:                                  ; preds = %if.then, %for.end.i
-  %retval.0.i = phi ptr [ %varlist.0227, %for.end.i ], [ %call.i.i, %if.then ]
+  %retval.0.i = phi ptr [ %varlist.0228, %for.end.i ], [ %call.i.i, %if.then ]
   tail call void @term_Delete(ptr noundef nonnull %VarTermList.addr.0.val) #14
   br label %for.inc
 
@@ -3669,46 +3341,46 @@ if.else:                                          ; preds = %for.body
   %call8.val = load i32, ptr %call2.val140.val, align 8
   %conv10 = sext i32 %call8.val to i64
   %4 = inttoptr i64 %conv10 to ptr
-  %call.i.i143 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i144 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i143, i64 0, i32 1
-  store ptr %4, ptr %car.i.i144, align 8
-  store ptr null, ptr %call.i.i143, align 8
-  %cmp.i.not.i145 = icmp eq ptr %varlist.0227, null
-  br i1 %cmp.i.not.i145, label %list_Nconc.exit154, label %for.cond.i151
+  %call.i.i144 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i145 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i144, i64 0, i32 1
+  store ptr %4, ptr %car.i.i145, align 8
+  store ptr null, ptr %call.i.i144, align 8
+  %cmp.i.i146 = icmp eq ptr %varlist.0228, null
+  br i1 %cmp.i.i146, label %list_Nconc.exit155, label %for.cond.i152
 
-for.cond.i151:                                    ; preds = %if.else, %for.cond.i151
-  %List1.addr.0.i148 = phi ptr [ %List1.addr.0.val17.i149, %for.cond.i151 ], [ %varlist.0227, %if.else ]
-  %List1.addr.0.val17.i149 = load ptr, ptr %List1.addr.0.i148, align 8
-  %cmp.i20.not.i150 = icmp eq ptr %List1.addr.0.val17.i149, null
-  br i1 %cmp.i20.not.i150, label %for.end.i152, label %for.cond.i151, !llvm.loop !5
+for.cond.i152:                                    ; preds = %if.else, %for.cond.i152
+  %List1.addr.0.i149 = phi ptr [ %List1.addr.0.val17.i150, %for.cond.i152 ], [ %varlist.0228, %if.else ]
+  %List1.addr.0.val17.i150 = load ptr, ptr %List1.addr.0.i149, align 8
+  %cmp.i20.not.i151 = icmp eq ptr %List1.addr.0.val17.i150, null
+  br i1 %cmp.i20.not.i151, label %for.end.i153, label %for.cond.i152, !llvm.loop !5
 
-for.end.i152:                                     ; preds = %for.cond.i151
-  store ptr %call.i.i143, ptr %List1.addr.0.i148, align 8
-  br label %list_Nconc.exit154
+for.end.i153:                                     ; preds = %for.cond.i152
+  store ptr %call.i.i144, ptr %List1.addr.0.i149, align 8
+  br label %list_Nconc.exit155
 
-list_Nconc.exit154:                               ; preds = %if.else, %for.end.i152
-  %retval.0.i153 = phi ptr [ %varlist.0227, %for.end.i152 ], [ %call.i.i143, %if.else ]
-  %call.i.i155 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i156 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i155, i64 0, i32 1
-  store ptr %VarTermList.addr.0.val, ptr %car.i.i156, align 8
-  store ptr null, ptr %call.i.i155, align 8
-  %cmp.i.not.i157 = icmp eq ptr %sortlist.0228, null
-  br i1 %cmp.i.not.i157, label %for.inc, label %for.cond.i163
+list_Nconc.exit155:                               ; preds = %if.else, %for.end.i153
+  %retval.0.i154 = phi ptr [ %varlist.0228, %for.end.i153 ], [ %call.i.i144, %if.else ]
+  %call.i.i156 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i157 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i156, i64 0, i32 1
+  store ptr %VarTermList.addr.0.val, ptr %car.i.i157, align 8
+  store ptr null, ptr %call.i.i156, align 8
+  %cmp.i.i158 = icmp eq ptr %sortlist.0229, null
+  br i1 %cmp.i.i158, label %for.inc, label %for.cond.i164
 
-for.cond.i163:                                    ; preds = %list_Nconc.exit154, %for.cond.i163
-  %List1.addr.0.i160 = phi ptr [ %List1.addr.0.val17.i161, %for.cond.i163 ], [ %sortlist.0228, %list_Nconc.exit154 ]
-  %List1.addr.0.val17.i161 = load ptr, ptr %List1.addr.0.i160, align 8
-  %cmp.i20.not.i162 = icmp eq ptr %List1.addr.0.val17.i161, null
-  br i1 %cmp.i20.not.i162, label %for.end.i164, label %for.cond.i163, !llvm.loop !5
+for.cond.i164:                                    ; preds = %list_Nconc.exit155, %for.cond.i164
+  %List1.addr.0.i161 = phi ptr [ %List1.addr.0.val17.i162, %for.cond.i164 ], [ %sortlist.0229, %list_Nconc.exit155 ]
+  %List1.addr.0.val17.i162 = load ptr, ptr %List1.addr.0.i161, align 8
+  %cmp.i20.not.i163 = icmp eq ptr %List1.addr.0.val17.i162, null
+  br i1 %cmp.i20.not.i163, label %for.end.i165, label %for.cond.i164, !llvm.loop !5
 
-for.end.i164:                                     ; preds = %for.cond.i163
-  store ptr %call.i.i155, ptr %List1.addr.0.i160, align 8
+for.end.i165:                                     ; preds = %for.cond.i164
+  store ptr %call.i.i156, ptr %List1.addr.0.i161, align 8
   br label %for.inc
 
-for.inc:                                          ; preds = %for.end.i164, %list_Nconc.exit154, %list_Nconc.exit
-  %varlist.1 = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %retval.0.i153, %list_Nconc.exit154 ], [ %retval.0.i153, %for.end.i164 ]
-  %sortlist.1 = phi ptr [ %sortlist.0228, %list_Nconc.exit ], [ %call.i.i155, %list_Nconc.exit154 ], [ %sortlist.0228, %for.end.i164 ]
-  %L.val.i = load ptr, ptr %VarTermList.addr.0229, align 8
+for.inc:                                          ; preds = %for.end.i165, %list_Nconc.exit155, %list_Nconc.exit
+  %varlist.1 = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %retval.0.i154, %list_Nconc.exit155 ], [ %retval.0.i154, %for.end.i165 ]
+  %sortlist.1 = phi ptr [ %sortlist.0229, %list_Nconc.exit ], [ %call.i.i156, %list_Nconc.exit155 ], [ %sortlist.0229, %for.end.i165 ]
+  %L.val.i = load ptr, ptr %VarTermList.addr.0230, align 8
   %5 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %5, i64 0, i32 4
   %6 = load i32, ptr %total_size.i.i.i, align 8
@@ -3717,92 +3389,92 @@ for.inc:                                          ; preds = %for.end.i164, %list
   %add27.i.i.i = add i64 %7, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %8 = load ptr, ptr %5, align 8
-  store ptr %8, ptr %VarTermList.addr.0229, align 8
+  store ptr %8, ptr %VarTermList.addr.0230, align 8
   %9 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %VarTermList.addr.0229, ptr %9, align 8
+  store ptr %VarTermList.addr.0230, ptr %9, align 8
   %cmp.i.not = icmp eq ptr %L.val.i, null
-  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !13
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !11
 
 for.end:                                          ; preds = %for.inc, %entry
   %varlist.0.lcssa = phi ptr [ null, %entry ], [ %varlist.1, %for.inc ]
   %sortlist.0.lcssa = phi ptr [ null, %entry ], [ %sortlist.1, %for.inc ]
   %call16 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef %varlist.0.lcssa) #14
-  %cmp.i167.not231 = icmp eq ptr %call16, null
-  br i1 %cmp.i167.not231, label %for.end27, label %for.body21
+  %cmp.i168.not232 = icmp eq ptr %call16, null
+  br i1 %cmp.i168.not232, label %for.end27, label %for.body21
 
 for.body21:                                       ; preds = %for.end, %for.body21
-  %scan.0232 = phi ptr [ %scan.0.val137, %for.body21 ], [ %call16, %for.end ]
-  %10 = getelementptr i8, ptr %scan.0232, i64 8
+  %scan.0233 = phi ptr [ %scan.0.val137, %for.body21 ], [ %call16, %for.end ]
+  %10 = getelementptr i8, ptr %scan.0233, i64 8
   %scan.0.val = load ptr, ptr %10, align 8
   %11 = ptrtoint ptr %scan.0.val to i64
   %12 = trunc i64 %11 to i32
   %call24 = tail call ptr @term_Create(i32 noundef %12, ptr noundef null) #14
   store ptr %call24, ptr %10, align 8
-  %scan.0.val137 = load ptr, ptr %scan.0232, align 8
-  %cmp.i167.not = icmp eq ptr %scan.0.val137, null
-  br i1 %cmp.i167.not, label %for.end27, label %for.body21, !llvm.loop !14
+  %scan.0.val137 = load ptr, ptr %scan.0233, align 8
+  %cmp.i168.not = icmp eq ptr %scan.0.val137, null
+  br i1 %cmp.i168.not, label %for.end27, label %for.body21, !llvm.loop !12
 
 for.end27:                                        ; preds = %for.body21, %for.end
-  %cmp.i169.not = icmp eq ptr %sortlist.0.lcssa, null
-  br i1 %cmp.i169.not, label %if.end91, label %if.then30
+  %cmp.i170 = icmp eq ptr %sortlist.0.lcssa, null
+  br i1 %cmp.i170, label %if.end91, label %if.then30
 
 if.then30:                                        ; preds = %for.end27
   %13 = load i32, ptr @fol_ALL, align 4
-  %cmp.i171.not = icmp eq i32 %13, %Symbol
-  br i1 %cmp.i171.not, label %if.then34, label %if.else71
+  %cmp.i172 = icmp eq i32 %13, %Symbol
+  br i1 %cmp.i172, label %if.then34, label %if.else71
 
 if.then34:                                        ; preds = %if.then30
   %14 = load i32, ptr @fol_OR, align 4
   %Term.val138 = load i32, ptr %Term, align 8
-  %cmp.i173.not = icmp eq i32 %14, %Term.val138
-  br i1 %cmp.i173.not, label %for.body44, label %if.else54
+  %cmp.i174 = icmp eq i32 %14, %Term.val138
+  br i1 %cmp.i174, label %for.body44, label %if.else54
 
 for.body44:                                       ; preds = %if.then34, %for.body44
-  %scan.1234 = phi ptr [ %scan.1.val136, %for.body44 ], [ %sortlist.0.lcssa, %if.then34 ]
+  %scan.1235 = phi ptr [ %scan.1.val136, %for.body44 ], [ %sortlist.0.lcssa, %if.then34 ]
   %15 = load i32, ptr @fol_NOT, align 4
-  %16 = getelementptr i8, ptr %scan.1234, i64 8
+  %16 = getelementptr i8, ptr %scan.1235, i64 8
   %scan.1.val = load ptr, ptr %16, align 8
-  %call.i.i177 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i178 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i177, i64 0, i32 1
-  store ptr %scan.1.val, ptr %car.i.i178, align 8
-  store ptr null, ptr %call.i.i177, align 8
-  %call48 = tail call ptr @term_Create(i32 noundef %15, ptr noundef nonnull %call.i.i177) #14
+  %call.i.i178 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i179 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i178, i64 0, i32 1
+  store ptr %scan.1.val, ptr %car.i.i179, align 8
+  store ptr null, ptr %call.i.i178, align 8
+  %call48 = tail call ptr @term_Create(i32 noundef %15, ptr noundef nonnull %call.i.i178) #14
   store ptr %call48, ptr %16, align 8
-  %scan.1.val136 = load ptr, ptr %scan.1234, align 8
-  %cmp.i175.not = icmp eq ptr %scan.1.val136, null
-  br i1 %cmp.i175.not, label %if.end.i182, label %for.body44, !llvm.loop !15
+  %scan.1.val136 = load ptr, ptr %scan.1235, align 8
+  %cmp.i176.not = icmp eq ptr %scan.1.val136, null
+  br i1 %cmp.i176.not, label %for.end51, label %for.body44, !llvm.loop !13
 
-if.end.i182:                                      ; preds = %for.body44
+for.end51:                                        ; preds = %for.body44
   %17 = getelementptr i8, ptr %Term, i64 16
   %Term.val142 = load ptr, ptr %17, align 8
-  %cmp.i18.not.i181 = icmp eq ptr %Term.val142, null
-  br i1 %cmp.i18.not.i181, label %list_Nconc.exit189, label %for.cond.i186
+  %cmp.i18.i182 = icmp eq ptr %Term.val142, null
+  br i1 %cmp.i18.i182, label %list_Nconc.exit190, label %for.cond.i187
 
-for.cond.i186:                                    ; preds = %if.end.i182, %for.cond.i186
-  %List1.addr.0.i183 = phi ptr [ %List1.addr.0.val17.i184, %for.cond.i186 ], [ %sortlist.0.lcssa, %if.end.i182 ]
-  %List1.addr.0.val17.i184 = load ptr, ptr %List1.addr.0.i183, align 8
-  %cmp.i20.not.i185 = icmp eq ptr %List1.addr.0.val17.i184, null
-  br i1 %cmp.i20.not.i185, label %for.end.i187, label %for.cond.i186, !llvm.loop !5
+for.cond.i187:                                    ; preds = %for.end51, %for.cond.i187
+  %List1.addr.0.i184 = phi ptr [ %List1.addr.0.val17.i185, %for.cond.i187 ], [ %sortlist.0.lcssa, %for.end51 ]
+  %List1.addr.0.val17.i185 = load ptr, ptr %List1.addr.0.i184, align 8
+  %cmp.i20.not.i186 = icmp eq ptr %List1.addr.0.val17.i185, null
+  br i1 %cmp.i20.not.i186, label %for.end.i188, label %for.cond.i187, !llvm.loop !5
 
-for.end.i187:                                     ; preds = %for.cond.i186
-  store ptr %Term.val142, ptr %List1.addr.0.i183, align 8
-  br label %list_Nconc.exit189
+for.end.i188:                                     ; preds = %for.cond.i187
+  store ptr %Term.val142, ptr %List1.addr.0.i184, align 8
+  br label %list_Nconc.exit190
 
-list_Nconc.exit189:                               ; preds = %if.end.i182, %for.end.i187
+list_Nconc.exit190:                               ; preds = %for.end51, %for.end.i188
   store ptr %sortlist.0.lcssa, ptr %17, align 8
   br label %if.end91
 
 if.else54:                                        ; preds = %if.then34
   %sortlist.0.val = load ptr, ptr %sortlist.0.lcssa, align 8
-  %cmp.i190.not = icmp eq ptr %sortlist.0.val, null
-  br i1 %cmp.i190.not, label %if.then58, label %if.else62
+  %cmp.i191 = icmp eq ptr %sortlist.0.val, null
+  br i1 %cmp.i191, label %if.then58, label %if.else62
 
 if.then58:                                        ; preds = %if.else54
-  %call.i.i192 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i193 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i192, i64 0, i32 1
-  store ptr %Term, ptr %car.i.i193, align 8
-  store ptr null, ptr %call.i.i192, align 8
-  store ptr %call.i.i192, ptr %sortlist.0.lcssa, align 8
+  %call.i.i193 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i194 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i193, i64 0, i32 1
+  store ptr %Term, ptr %car.i.i194, align 8
+  store ptr null, ptr %call.i.i193, align 8
+  store ptr %call.i.i193, ptr %sortlist.0.lcssa, align 8
   %18 = load i32, ptr @fol_IMPLIES, align 4
   %call61 = tail call ptr @term_Create(i32 noundef %18, ptr noundef nonnull %sortlist.0.lcssa) #14
   br label %if.end91
@@ -3811,81 +3483,313 @@ if.else62:                                        ; preds = %if.else54
   %19 = load i32, ptr @fol_AND, align 4
   %call64 = tail call ptr @term_Create(i32 noundef %19, ptr noundef nonnull %sortlist.0.lcssa) #14
   %20 = load i32, ptr @fol_IMPLIES, align 4
-  %call.i.i194 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i195 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i194, i64 0, i32 1
-  store ptr %Term, ptr %car.i.i195, align 8
-  store ptr null, ptr %call.i.i194, align 8
+  %call.i.i195 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i196 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i195, i64 0, i32 1
+  store ptr %Term, ptr %car.i.i196, align 8
+  store ptr null, ptr %call.i.i195, align 8
   %call.i = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i196 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
-  store ptr %call64, ptr %car.i196, align 8
-  store ptr %call.i.i194, ptr %call.i, align 8
+  %car.i197 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
+  store ptr %call64, ptr %car.i197, align 8
+  store ptr %call.i.i195, ptr %call.i, align 8
   %call68 = tail call ptr @term_Create(i32 noundef %20, ptr noundef nonnull %call.i) #14
   br label %if.end91
 
 if.else71:                                        ; preds = %if.then30
   %21 = load i32, ptr @fol_EXIST, align 4
-  %cmp.i197.not = icmp eq i32 %21, %Symbol
-  br i1 %cmp.i197.not, label %if.then75, label %if.end91
+  %cmp.i198 = icmp eq i32 %21, %Symbol
+  br i1 %cmp.i198, label %if.then75, label %if.end91
 
 if.then75:                                        ; preds = %if.else71
   %22 = load i32, ptr @fol_AND, align 4
   %Term.val = load i32, ptr %Term, align 8
-  %cmp.i199.not = icmp eq i32 %22, %Term.val
-  br i1 %cmp.i199.not, label %if.end.i203, label %for.cond.i220.preheader
+  %cmp.i200 = icmp eq i32 %22, %Term.val
+  br i1 %cmp.i200, label %if.then80, label %if.else83
 
-if.end.i203:                                      ; preds = %if.then75
+if.then80:                                        ; preds = %if.then75
   %23 = getelementptr i8, ptr %Term, i64 16
   %Term.val141 = load ptr, ptr %23, align 8
-  %cmp.i18.not.i202 = icmp eq ptr %Term.val141, null
-  br i1 %cmp.i18.not.i202, label %list_Nconc.exit210, label %for.cond.i207
+  %cmp.i18.i203 = icmp eq ptr %Term.val141, null
+  br i1 %cmp.i18.i203, label %list_Nconc.exit211, label %for.cond.i208
 
-for.cond.i207:                                    ; preds = %if.end.i203, %for.cond.i207
-  %List1.addr.0.i204 = phi ptr [ %List1.addr.0.val17.i205, %for.cond.i207 ], [ %sortlist.0.lcssa, %if.end.i203 ]
-  %List1.addr.0.val17.i205 = load ptr, ptr %List1.addr.0.i204, align 8
-  %cmp.i20.not.i206 = icmp eq ptr %List1.addr.0.val17.i205, null
-  br i1 %cmp.i20.not.i206, label %for.end.i208, label %for.cond.i207, !llvm.loop !5
+for.cond.i208:                                    ; preds = %if.then80, %for.cond.i208
+  %List1.addr.0.i205 = phi ptr [ %List1.addr.0.val17.i206, %for.cond.i208 ], [ %sortlist.0.lcssa, %if.then80 ]
+  %List1.addr.0.val17.i206 = load ptr, ptr %List1.addr.0.i205, align 8
+  %cmp.i20.not.i207 = icmp eq ptr %List1.addr.0.val17.i206, null
+  br i1 %cmp.i20.not.i207, label %for.end.i209, label %for.cond.i208, !llvm.loop !5
 
-for.end.i208:                                     ; preds = %for.cond.i207
-  store ptr %Term.val141, ptr %List1.addr.0.i204, align 8
-  br label %list_Nconc.exit210
+for.end.i209:                                     ; preds = %for.cond.i208
+  store ptr %Term.val141, ptr %List1.addr.0.i205, align 8
+  br label %list_Nconc.exit211
 
-list_Nconc.exit210:                               ; preds = %if.end.i203, %for.end.i208
+list_Nconc.exit211:                               ; preds = %if.then80, %for.end.i209
   store ptr %sortlist.0.lcssa, ptr %23, align 8
   br label %if.end91
 
-for.cond.i220.preheader:                          ; preds = %if.then75
-  %call.i.i212 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i213 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i212, i64 0, i32 1
-  store ptr %Term, ptr %car.i.i213, align 8
-  store ptr null, ptr %call.i.i212, align 8
-  br label %for.cond.i220
+if.else83:                                        ; preds = %if.then75
+  %call.i.i213 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i214 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i213, i64 0, i32 1
+  store ptr %Term, ptr %car.i.i214, align 8
+  store ptr null, ptr %call.i.i213, align 8
+  br label %for.cond.i221
 
-for.cond.i220:                                    ; preds = %for.cond.i220.preheader, %for.cond.i220
-  %List1.addr.0.i217 = phi ptr [ %List1.addr.0.val17.i218, %for.cond.i220 ], [ %sortlist.0.lcssa, %for.cond.i220.preheader ]
-  %List1.addr.0.val17.i218 = load ptr, ptr %List1.addr.0.i217, align 8
-  %cmp.i20.not.i219 = icmp eq ptr %List1.addr.0.val17.i218, null
-  br i1 %cmp.i20.not.i219, label %list_Nconc.exit223, label %for.cond.i220, !llvm.loop !5
+for.cond.i221:                                    ; preds = %if.else83, %for.cond.i221
+  %List1.addr.0.i218 = phi ptr [ %List1.addr.0.val17.i219, %for.cond.i221 ], [ %sortlist.0.lcssa, %if.else83 ]
+  %List1.addr.0.val17.i219 = load ptr, ptr %List1.addr.0.i218, align 8
+  %cmp.i20.not.i220 = icmp eq ptr %List1.addr.0.val17.i219, null
+  br i1 %cmp.i20.not.i220, label %for.end.i222, label %for.cond.i221, !llvm.loop !5
 
-list_Nconc.exit223:                               ; preds = %for.cond.i220
-  store ptr %call.i.i212, ptr %List1.addr.0.i217, align 8
+for.end.i222:                                     ; preds = %for.cond.i221
+  store ptr %call.i.i213, ptr %List1.addr.0.i218, align 8
   %24 = load i32, ptr @fol_AND, align 4
   %call87 = tail call ptr @term_Create(i32 noundef %24, ptr noundef nonnull %sortlist.0.lcssa) #14
   br label %if.end91
 
-if.end91:                                         ; preds = %if.then58, %if.else62, %list_Nconc.exit189, %list_Nconc.exit210, %list_Nconc.exit223, %if.else71, %for.end27
-  %Term.addr.0 = phi ptr [ %Term, %for.end27 ], [ %Term, %list_Nconc.exit189 ], [ %call61, %if.then58 ], [ %call68, %if.else62 ], [ %Term, %list_Nconc.exit210 ], [ %call87, %list_Nconc.exit223 ], [ %Term, %if.else71 ]
-  %call.i.i224 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i.i225 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i224, i64 0, i32 1
-  store ptr %Term.addr.0, ptr %car.i.i225, align 8
-  store ptr null, ptr %call.i.i224, align 8
-  %call93 = tail call ptr @fol_CreateQuantifier(i32 noundef %Symbol, ptr noundef %call16, ptr noundef nonnull %call.i.i224) #14
+if.end91:                                         ; preds = %if.then58, %if.else62, %list_Nconc.exit190, %list_Nconc.exit211, %for.end.i222, %if.else71, %for.end27
+  %Term.addr.0 = phi ptr [ %Term, %for.end27 ], [ %Term, %list_Nconc.exit190 ], [ %call61, %if.then58 ], [ %call68, %if.else62 ], [ %Term, %list_Nconc.exit211 ], [ %call87, %for.end.i222 ], [ %Term, %if.else71 ]
+  %call.i.i225 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i.i226 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i225, i64 0, i32 1
+  store ptr %Term.addr.0, ptr %car.i.i226, align 8
+  store ptr null, ptr %call.i.i225, align 8
+  %call93 = tail call ptr @fol_CreateQuantifier(i32 noundef %Symbol, ptr noundef %call16, ptr noundef nonnull %call.i.i225) #14
   ret ptr %call93
+}
+
+; Function Attrs: nounwind uwtable
+define internal fastcc void @dfg_SymbolGenerated(i32 noundef %SortPredicate, i32 noundef %FreelyGenerated, ptr noundef %GeneratedBy) unnamed_addr #0 {
+entry:
+  %tobool.not.i = icmp sgt i32 %SortPredicate, -1
+  %sub.i.i = sub nsw i32 0, %SortPredicate
+  %0 = load i32, ptr @symbol_TYPEMASK, align 4
+  %and.i.i = and i32 %0, %sub.i.i
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %land.ext.i = select i1 %tobool.not.i, i1 true, i1 %cmp.i
+  br i1 %land.ext.i, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr @stdout, align 8
+  %call1 = tail call i32 @fflush(ptr noundef %1)
+  %2 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.230, i32 noundef %2) #14
+  %3 = load ptr, ptr @stderr, align 8
+  %call.i = tail call i32 @fflush(ptr noundef %3)
+  %4 = load ptr, ptr @stdout, align 8
+  %call1.i = tail call i32 @fflush(ptr noundef %4)
+  %5 = load ptr, ptr @stderr, align 8
+  %call2.i = tail call i32 @fflush(ptr noundef %5)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.end:                                           ; preds = %entry
+  %6 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %shr.i.i = ashr i32 %sub.i.i, %6
+  %7 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %idxprom.i.i = sext i32 %shr.i.i to i64
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %7, i64 %idxprom.i.i
+  %8 = load ptr, ptr %arrayidx.i.i, align 8
+  %props.i = getelementptr inbounds %struct.signature, ptr %8, i64 0, i32 4
+  %9 = load i32, ptr %props.i, align 4
+  %and.i = and i32 %9, 512
+  %tobool.not.i45 = icmp eq i32 %and.i, 0
+  br i1 %tobool.not.i45, label %symbol_RemoveProperty.exit, label %if.then.i
+
+if.then.i:                                        ; preds = %if.end
+  %sub.i = add i32 %9, -512
+  store i32 %sub.i, ptr %props.i, align 4
+  %.pre = load ptr, ptr %arrayidx.i.i, align 8
+  %props.i50.phi.trans.insert = getelementptr inbounds %struct.signature, ptr %.pre, i64 0, i32 4
+  %.pre119 = load i32, ptr %props.i50.phi.trans.insert, align 4
+  br label %symbol_RemoveProperty.exit
+
+symbol_RemoveProperty.exit:                       ; preds = %if.end, %if.then.i
+  %10 = phi i32 [ %9, %if.end ], [ %.pre119, %if.then.i ]
+  %11 = phi ptr [ %8, %if.end ], [ %.pre, %if.then.i ]
+  %and.i51 = and i32 %10, 256
+  %tobool.not.i52 = icmp eq i32 %and.i51, 0
+  br i1 %tobool.not.i52, label %symbol_RemoveProperty.exit55, label %if.then.i54
+
+if.then.i54:                                      ; preds = %symbol_RemoveProperty.exit
+  %props.i50 = getelementptr inbounds %struct.signature, ptr %11, i64 0, i32 4
+  %sub.i53 = add i32 %10, -256
+  store i32 %sub.i53, ptr %props.i50, align 4
+  %.pre120 = load ptr, ptr %arrayidx.i.i, align 8
+  br label %symbol_RemoveProperty.exit55
+
+symbol_RemoveProperty.exit55:                     ; preds = %symbol_RemoveProperty.exit, %if.then.i54
+  %12 = phi ptr [ %11, %symbol_RemoveProperty.exit ], [ %.pre120, %if.then.i54 ]
+  %generatedBy.i = getelementptr inbounds %struct.signature, ptr %12, i64 0, i32 6
+  %13 = load ptr, ptr %generatedBy.i, align 8
+  %cmp.i.not5.i = icmp eq ptr %13, null
+  br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
+
+while.body.i:                                     ; preds = %symbol_RemoveProperty.exit55, %while.body.i
+  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %13, %symbol_RemoveProperty.exit55 ]
+  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %14 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %14, i64 0, i32 4
+  %15 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %15 to i64
+  %16 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %16, %conv26.i.i.i
+  store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %17 = load ptr, ptr %14, align 8
+  store ptr %17, ptr %Current.06.i, align 8
+  %18 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i, ptr %18, align 8
+  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  br i1 %cmp.i.not.i, label %list_Delete.exit.loopexit, label %while.body.i, !llvm.loop !14
+
+list_Delete.exit.loopexit:                        ; preds = %while.body.i
+  %.pre121 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %arrayidx.i.i63.phi.trans.insert = getelementptr inbounds ptr, ptr %.pre121, i64 %idxprom.i.i
+  %.pre122 = load ptr, ptr %arrayidx.i.i63.phi.trans.insert, align 8
+  br label %list_Delete.exit
+
+list_Delete.exit:                                 ; preds = %list_Delete.exit.loopexit, %symbol_RemoveProperty.exit55
+  %19 = phi ptr [ %.pre122, %list_Delete.exit.loopexit ], [ %12, %symbol_RemoveProperty.exit55 ]
+  %20 = phi ptr [ %.pre121, %list_Delete.exit.loopexit ], [ %7, %symbol_RemoveProperty.exit55 ]
+  %props.i64 = getelementptr inbounds %struct.signature, ptr %19, i64 0, i32 4
+  %21 = load i32, ptr %props.i64, align 4
+  %or.i = or i32 %21, 512
+  store i32 %or.i, ptr %props.i64, align 4
+  %tobool3.not = icmp eq i32 %FreelyGenerated, 0
+  br i1 %tobool3.not, label %if.end5, label %if.end5.thread
+
+if.end5:                                          ; preds = %list_Delete.exit
+  %cmp.i71.not109 = icmp eq ptr %GeneratedBy, null
+  br i1 %cmp.i71.not109, label %for.end, label %for.body.us
+
+if.end5.thread:                                   ; preds = %list_Delete.exit
+  %arrayidx.i.i63 = getelementptr inbounds ptr, ptr %20, i64 %idxprom.i.i
+  %22 = load ptr, ptr %arrayidx.i.i63, align 8
+  %props.i69 = getelementptr inbounds %struct.signature, ptr %22, i64 0, i32 4
+  %23 = load i32, ptr %props.i69, align 4
+  %or.i70 = or i32 %23, 256
+  store i32 %or.i70, ptr %props.i69, align 4
+  %cmp.i71.not109123 = icmp eq ptr %GeneratedBy, null
+  br i1 %cmp.i71.not109123, label %for.end, label %for.body
+
+for.body.us:                                      ; preds = %if.end5, %if.end18.us
+  %scan.0110.us = phi ptr [ %scan.0.val43.us, %if.end18.us ], [ %GeneratedBy, %if.end5 ]
+  %24 = getelementptr i8, ptr %scan.0110.us, i64 8
+  %scan.0.val42.us = load ptr, ptr %24, align 8
+  %call9.us = tail call i32 @symbol_Lookup(ptr noundef %scan.0.val42.us) #14
+  %cmp.us = icmp eq i32 %call9.us, 0
+  br i1 %cmp.us, label %if.then10, label %if.else.us
+
+if.else.us:                                       ; preds = %for.body.us
+  %tobool.not.i76.us = icmp sgt i32 %call9.us, -1
+  br i1 %tobool.not.i76.us, label %if.then15, label %land.rhs.i80.us
+
+land.rhs.i80.us:                                  ; preds = %if.else.us
+  %sub.i.i77.us = sub nsw i32 0, %call9.us
+  %and.i.i78.us = and i32 %0, %sub.i.i77.us
+  %switch = icmp ult i32 %and.i.i78.us, 2
+  br i1 %switch, label %if.end18.us, label %if.then15
+
+if.end18.us:                                      ; preds = %land.rhs.i80.us
+  %scan.0.val.us = load ptr, ptr %24, align 8
+  tail call void @string_StringFree(ptr noundef %scan.0.val.us) #14
+  %conv.us = sext i32 %call9.us to i64
+  %25 = inttoptr i64 %conv.us to ptr
+  store ptr %25, ptr %24, align 8
+  %shr.i.i87.us = lshr i32 %sub.i.i77.us, %6
+  %26 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %idxprom.i.i88.us = zext i32 %shr.i.i87.us to i64
+  %arrayidx.i.i89.us = getelementptr inbounds ptr, ptr %26, i64 %idxprom.i.i88.us
+  %27 = load ptr, ptr %arrayidx.i.i89.us, align 8
+  %props.i90.us = getelementptr inbounds %struct.signature, ptr %27, i64 0, i32 4
+  %28 = load i32, ptr %props.i90.us, align 4
+  %or.i91.us = or i32 %28, 512
+  store i32 %or.i91.us, ptr %props.i90.us, align 4
+  %scan.0.val43.us = load ptr, ptr %scan.0110.us, align 8
+  %cmp.i71.not.us = icmp eq ptr %scan.0.val43.us, null
+  br i1 %cmp.i71.not.us, label %for.end, label %for.body.us, !llvm.loop !15
+
+for.body:                                         ; preds = %if.end5.thread, %if.end18
+  %scan.0110 = phi ptr [ %scan.0.val43, %if.end18 ], [ %GeneratedBy, %if.end5.thread ]
+  %29 = getelementptr i8, ptr %scan.0110, i64 8
+  %scan.0.val42 = load ptr, ptr %29, align 8
+  %call9 = tail call i32 @symbol_Lookup(ptr noundef %scan.0.val42) #14
+  %cmp = icmp eq i32 %call9, 0
+  br i1 %cmp, label %if.then10, label %if.else
+
+if.then10:                                        ; preds = %for.body, %for.body.us
+  %.us-phi = phi ptr [ %24, %for.body.us ], [ %29, %for.body ]
+  %30 = load ptr, ptr @stdout, align 8
+  %call11 = tail call i32 @fflush(ptr noundef %30)
+  %31 = load i32, ptr @dfg_LINENUMBER, align 4
+  %scan.0.val41 = load ptr, ptr %.us-phi, align 8
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.231, i32 noundef %31, ptr noundef %scan.0.val41) #14
+  %32 = load ptr, ptr @stderr, align 8
+  %call.i72 = tail call i32 @fflush(ptr noundef %32)
+  %33 = load ptr, ptr @stdout, align 8
+  %call1.i73 = tail call i32 @fflush(ptr noundef %33)
+  %34 = load ptr, ptr @stderr, align 8
+  %call2.i74 = tail call i32 @fflush(ptr noundef %34)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.else:                                          ; preds = %for.body
+  %tobool.not.i76 = icmp sgt i32 %call9, -1
+  br i1 %tobool.not.i76, label %if.then15, label %land.rhs.i80
+
+land.rhs.i80:                                     ; preds = %if.else
+  %sub.i.i77 = sub nsw i32 0, %call9
+  %and.i.i78 = and i32 %0, %sub.i.i77
+  %switch134 = icmp ult i32 %and.i.i78, 2
+  br i1 %switch134, label %if.end18, label %if.then15
+
+if.then15:                                        ; preds = %land.rhs.i80, %if.else, %land.rhs.i80.us, %if.else.us
+  %35 = load ptr, ptr @stdout, align 8
+  %call16 = tail call i32 @fflush(ptr noundef %35)
+  %36 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.232, i32 noundef %36) #14
+  %37 = load ptr, ptr @stderr, align 8
+  %call.i82 = tail call i32 @fflush(ptr noundef %37)
+  %38 = load ptr, ptr @stdout, align 8
+  %call1.i83 = tail call i32 @fflush(ptr noundef %38)
+  %39 = load ptr, ptr @stderr, align 8
+  %call2.i84 = tail call i32 @fflush(ptr noundef %39)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.end18:                                         ; preds = %land.rhs.i80
+  %scan.0.val = load ptr, ptr %29, align 8
+  tail call void @string_StringFree(ptr noundef %scan.0.val) #14
+  %conv = sext i32 %call9 to i64
+  %40 = inttoptr i64 %conv to ptr
+  store ptr %40, ptr %29, align 8
+  %shr.i.i87 = lshr i32 %sub.i.i77, %6
+  %41 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %idxprom.i.i88 = zext i32 %shr.i.i87 to i64
+  %arrayidx.i.i89 = getelementptr inbounds ptr, ptr %41, i64 %idxprom.i.i88
+  %42 = load ptr, ptr %arrayidx.i.i89, align 8
+  %props.i90 = getelementptr inbounds %struct.signature, ptr %42, i64 0, i32 4
+  %43 = load i32, ptr %props.i90, align 4
+  %or.i91 = or i32 %43, 512
+  store i32 %or.i91, ptr %props.i90, align 4
+  %44 = load ptr, ptr %arrayidx.i.i89, align 8
+  %props.i96 = getelementptr inbounds %struct.signature, ptr %44, i64 0, i32 4
+  %45 = load i32, ptr %props.i96, align 4
+  %or.i97 = or i32 %45, 256
+  store i32 %or.i97, ptr %props.i96, align 4
+  %scan.0.val43 = load ptr, ptr %scan.0110, align 8
+  %cmp.i71.not = icmp eq ptr %scan.0.val43, null
+  br i1 %cmp.i71.not, label %for.end, label %for.body, !llvm.loop !15
+
+for.end:                                          ; preds = %if.end18, %if.end18.us, %if.end5.thread, %if.end5
+  %46 = phi ptr [ %20, %if.end5 ], [ %20, %if.end5.thread ], [ %26, %if.end18.us ], [ %41, %if.end18 ]
+  %arrayidx.i.i101 = getelementptr inbounds ptr, ptr %46, i64 %idxprom.i.i
+  %47 = load ptr, ptr %arrayidx.i.i101, align 8
+  %generatedBy.i102 = getelementptr inbounds %struct.signature, ptr %47, i64 0, i32 6
+  store ptr %GeneratedBy, ptr %generatedBy.i102, align 8
+  ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @dfg_Symbol(ptr noundef %Name, i32 noundef %Arity) unnamed_addr #0 {
 entry:
-  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %Name) #16
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %Name) #15
   %0 = and i64 %call, 4294967232
   %cmp.not = icmp eq i64 %0, 0
   br i1 %cmp.not, label %if.end.thread, label %if.then6
@@ -3909,57 +3813,54 @@ if.end8:                                          ; preds = %if.end.thread, %if.
 
 if.then11:                                        ; preds = %if.end8
   tail call void @string_StringFree(ptr noundef %Name) #14
-  br label %while.cond.i
+  %2 = load ptr, ptr @dfg_SYMBOLLIST, align 8
+  %cmp.i.not57.i = icmp eq ptr %2, null
+  br i1 %cmp.i.not57.i, label %while.end.i, label %while.body.i
 
-while.cond.i:                                     ; preds = %while.body.i, %if.then11
-  %scan.0.in.i = phi ptr [ @dfg_SYMBOLLIST, %if.then11 ], [ %scan.0.i, %while.body.i ]
-  %scan.0.i = load ptr, ptr %scan.0.in.i, align 8
-  %cmp.i.not.i = icmp eq ptr %scan.0.i, null
-  br i1 %cmp.i.not.i, label %while.end.i, label %while.body.i
-
-while.body.i:                                     ; preds = %while.cond.i
-  %2 = getelementptr i8, ptr %scan.0.i, i64 8
-  %scan.0.val.i = load ptr, ptr %2, align 8
-  %3 = load i32, ptr %scan.0.val.i, align 4
-  %cmp.not.i = icmp eq i32 %3, %call340
-  br i1 %cmp.not.i, label %if.then.i, label %while.cond.i, !llvm.loop !16
+while.body.i:                                     ; preds = %if.then11, %cleanup.i
+  %scan.058.i = phi ptr [ %scan.0.val38.i, %cleanup.i ], [ %2, %if.then11 ]
+  %3 = getelementptr i8, ptr %scan.058.i, i64 8
+  %scan.0.val.i = load ptr, ptr %3, align 8
+  %4 = load i32, ptr %scan.0.val.i, align 4
+  %cmp.not.i = icmp eq i32 %4, %call340
+  br i1 %cmp.not.i, label %if.then.i, label %cleanup.i
 
 if.then.i:                                        ; preds = %while.body.i
   %valid.i = getelementptr inbounds %struct.DFG_SYMENTRY, ptr %scan.0.val.i, i64 0, i32 1
-  %4 = load i32, ptr %valid.i, align 4
-  %tobool2.not.i = icmp eq i32 %4, 0
+  %5 = load i32, ptr %valid.i, align 4
+  %tobool2.not.i = icmp eq i32 %5, 0
   %arity9.i = getelementptr inbounds %struct.DFG_SYMENTRY, ptr %scan.0.val.i, i64 0, i32 2
   br i1 %tobool2.not.i, label %if.else.i, label %if.then3.i
 
 if.then3.i:                                       ; preds = %if.then.i
-  %5 = load i32, ptr %arity9.i, align 4
-  %cmp4.not.i = icmp eq i32 %5, %Arity
+  %6 = load i32, ptr %arity9.i, align 4
+  %cmp4.not.i = icmp eq i32 %6, %Arity
   br i1 %cmp4.not.i, label %if.end18, label %if.then5.i
 
 if.then5.i:                                       ; preds = %if.then3.i
-  %6 = load ptr, ptr @stdout, align 8
-  %call6.i = tail call i32 @fflush(ptr noundef %6)
-  %7 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.224, i32 noundef %7) #14
+  %7 = load ptr, ptr @stdout, align 8
+  %call6.i = tail call i32 @fflush(ptr noundef %7)
+  %8 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.224, i32 noundef %8) #14
   tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.225, i32 noundef %Arity) #14
   %sub.i.i.i = sub nsw i32 0, %call340
-  %8 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %shr.i.i.i = ashr i32 %sub.i.i.i, %8
-  %9 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %9 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %shr.i.i.i = ashr i32 %sub.i.i.i, %9
+  %10 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i.i = sext i32 %shr.i.i.i to i64
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %9, i64 %idxprom.i.i.i
-  %10 = load ptr, ptr %arrayidx.i.i.i, align 8
-  %11 = load ptr, ptr %10, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.226, ptr noundef %11) #14
-  %12 = load i32, ptr %arity9.i, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.227, i32 noundef %12) #14
-  %13 = load ptr, ptr @stderr, align 8
-  %call.i.i = tail call i32 @fflush(ptr noundef %13)
-  %14 = load ptr, ptr @stdout, align 8
-  %call1.i.i = tail call i32 @fflush(ptr noundef %14)
-  %15 = load ptr, ptr @stderr, align 8
-  %call2.i.i = tail call i32 @fflush(ptr noundef %15)
-  tail call void @exit(i32 noundef 1) #15
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %10, i64 %idxprom.i.i.i
+  %11 = load ptr, ptr %arrayidx.i.i.i, align 8
+  %12 = load ptr, ptr %11, align 8
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.226, ptr noundef %12) #14
+  %13 = load i32, ptr %arity9.i, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.227, i32 noundef %13) #14
+  %14 = load ptr, ptr @stderr, align 8
+  %call.i.i = tail call i32 @fflush(ptr noundef %14)
+  %15 = load ptr, ptr @stdout, align 8
+  %call1.i.i = tail call i32 @fflush(ptr noundef %15)
+  %16 = load ptr, ptr @stderr, align 8
+  %call2.i.i = tail call i32 @fflush(ptr noundef %16)
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 if.else.i:                                        ; preds = %if.then.i
@@ -3967,37 +3868,42 @@ if.else.i:                                        ; preds = %if.then.i
   store i32 1, ptr %valid.i, align 4
   br label %if.end18
 
-while.end.i:                                      ; preds = %while.cond.i
+cleanup.i:                                        ; preds = %while.body.i
+  %scan.0.val38.i = load ptr, ptr %scan.058.i, align 8
+  %cmp.i.not.i = icmp eq ptr %scan.0.val38.i, null
+  br i1 %cmp.i.not.i, label %while.end.i, label %while.body.i
+
+while.end.i:                                      ; preds = %cleanup.i, %if.then11
   %sub.i.i39.i = sub nsw i32 0, %call340
-  %16 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %shr.i.i40.i = ashr i32 %sub.i.i39.i, %16
-  %17 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %17 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %shr.i.i40.i = ashr i32 %sub.i.i39.i, %17
+  %18 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i41.i = sext i32 %shr.i.i40.i to i64
-  %arrayidx.i.i42.i = getelementptr inbounds ptr, ptr %17, i64 %idxprom.i.i41.i
-  %18 = load ptr, ptr %arrayidx.i.i42.i, align 8
-  %arity.i.i = getelementptr inbounds %struct.signature, ptr %18, i64 0, i32 3
-  %19 = load i32, ptr %arity.i.i, align 8
-  %cmp15.not.i = icmp eq i32 %19, %Arity
+  %arrayidx.i.i42.i = getelementptr inbounds ptr, ptr %18, i64 %idxprom.i.i41.i
+  %19 = load ptr, ptr %arrayidx.i.i42.i, align 8
+  %arity.i.i = getelementptr inbounds %struct.signature, ptr %19, i64 0, i32 3
+  %20 = load i32, ptr %arity.i.i, align 8
+  %cmp15.not.i = icmp eq i32 %20, %Arity
   br i1 %cmp15.not.i, label %if.end18, label %if.then16.i
 
 if.then16.i:                                      ; preds = %while.end.i
-  %20 = load ptr, ptr @stdout, align 8
-  %call17.i = tail call i32 @fflush(ptr noundef %20)
-  %21 = load i32, ptr @dfg_LINENUMBER, align 4
-  %22 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %arrayidx.i.i46.i = getelementptr inbounds ptr, ptr %22, i64 %idxprom.i.i41.i
-  %23 = load ptr, ptr %arrayidx.i.i46.i, align 8
-  %24 = load ptr, ptr %23, align 8
-  %arity.i51.i = getelementptr inbounds %struct.signature, ptr %23, i64 0, i32 3
-  %25 = load i32, ptr %arity.i51.i, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.228, i32 noundef %21, ptr noundef %24, i32 noundef %25) #14
-  %26 = load ptr, ptr @stderr, align 8
-  %call.i52.i = tail call i32 @fflush(ptr noundef %26)
-  %27 = load ptr, ptr @stdout, align 8
-  %call1.i53.i = tail call i32 @fflush(ptr noundef %27)
-  %28 = load ptr, ptr @stderr, align 8
-  %call2.i54.i = tail call i32 @fflush(ptr noundef %28)
-  tail call void @exit(i32 noundef 1) #15
+  %21 = load ptr, ptr @stdout, align 8
+  %call17.i = tail call i32 @fflush(ptr noundef %21)
+  %22 = load i32, ptr @dfg_LINENUMBER, align 4
+  %23 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %arrayidx.i.i46.i = getelementptr inbounds ptr, ptr %23, i64 %idxprom.i.i41.i
+  %24 = load ptr, ptr %arrayidx.i.i46.i, align 8
+  %25 = load ptr, ptr %24, align 8
+  %arity.i51.i = getelementptr inbounds %struct.signature, ptr %24, i64 0, i32 3
+  %26 = load i32, ptr %arity.i51.i, align 8
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.228, i32 noundef %22, ptr noundef %25, i32 noundef %26) #14
+  %27 = load ptr, ptr @stderr, align 8
+  %call.i52.i = tail call i32 @fflush(ptr noundef %27)
+  %28 = load ptr, ptr @stdout, align 8
+  %call1.i53.i = tail call i32 @fflush(ptr noundef %28)
+  %29 = load ptr, ptr @stderr, align 8
+  %call2.i54.i = tail call i32 @fflush(ptr noundef %29)
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 if.else:                                          ; preds = %if.end8
@@ -4005,52 +3911,52 @@ if.else:                                          ; preds = %if.end8
   br i1 %cmp12.not, label %if.end16, label %if.then14
 
 if.then14:                                        ; preds = %if.else
-  %29 = load ptr, ptr @stdout, align 8
-  %call15 = tail call i32 @fflush(ptr noundef %29)
-  %30 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.223, i32 noundef %30, ptr noundef %Name) #14
-  %31 = load ptr, ptr @stderr, align 8
-  %call.i = tail call i32 @fflush(ptr noundef %31)
-  %32 = load ptr, ptr @stdout, align 8
-  %call1.i = tail call i32 @fflush(ptr noundef %32)
-  %33 = load ptr, ptr @stderr, align 8
-  %call2.i = tail call i32 @fflush(ptr noundef %33)
-  tail call void @exit(i32 noundef 1) #15
+  %30 = load ptr, ptr @stdout, align 8
+  %call15 = tail call i32 @fflush(ptr noundef %30)
+  %31 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.223, i32 noundef %31, ptr noundef %Name) #14
+  %32 = load ptr, ptr @stderr, align 8
+  %call.i = tail call i32 @fflush(ptr noundef %32)
+  %33 = load ptr, ptr @stdout, align 8
+  %call1.i = tail call i32 @fflush(ptr noundef %33)
+  %34 = load ptr, ptr @stderr, align 8
+  %call2.i = tail call i32 @fflush(ptr noundef %34)
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 if.end16:                                         ; preds = %if.else
   %scan.061.i = load ptr, ptr @dfg_VARLIST, align 8
-  %cmp.i.not62.not.i = icmp eq ptr %scan.061.i, null
-  br i1 %cmp.i.not62.not.i, label %if.else.i35, label %while.body.i30
+  %cmp.i62.not.i = icmp eq ptr %scan.061.i, null
+  br i1 %cmp.i62.not.i, label %if.else.i35, label %while.body.i30
 
 while.body.i30:                                   ; preds = %if.end16, %while.end.i33
-  %scan.063.i = phi ptr [ %scan.0.i32, %while.end.i33 ], [ %scan.061.i, %if.end16 ]
-  %34 = getelementptr i8, ptr %scan.063.i, i64 8
+  %scan.063.i = phi ptr [ %scan.0.i, %while.end.i33 ], [ %scan.061.i, %if.end16 ]
+  %35 = getelementptr i8, ptr %scan.063.i, i64 8
   br label %while.cond6.i
 
 while.cond6.i:                                    ; preds = %land.rhs9.i, %while.body.i30
-  %scan2.1.in.i = phi ptr [ %34, %while.body.i30 ], [ %scan2.1.i, %land.rhs9.i ]
+  %scan2.1.in.i = phi ptr [ %35, %while.body.i30 ], [ %scan2.1.i, %land.rhs9.i ]
   %scan2.1.i = load ptr, ptr %scan2.1.in.i, align 8
-  %cmp.i51.not.i = icmp eq ptr %scan2.1.i, null
-  br i1 %cmp.i51.not.i, label %while.end.i33, label %land.rhs9.i
+  %cmp.i51.i = icmp eq ptr %scan2.1.i, null
+  br i1 %cmp.i51.i, label %while.end.i33, label %land.rhs9.i
 
 land.rhs9.i:                                      ; preds = %while.cond6.i
-  %35 = getelementptr i8, ptr %scan2.1.i, i64 8
-  %scan2.1.val.i = load ptr, ptr %35, align 8
+  %36 = getelementptr i8, ptr %scan2.1.i, i64 8
+  %scan2.1.val.i = load ptr, ptr %36, align 8
   %call10.val.i = load ptr, ptr %scan2.1.val.i, align 8
-  %call.i.i31 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call10.val.i, ptr noundef nonnull dereferenceable(1) %Name) #16
+  %call.i.i31 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call10.val.i, ptr noundef nonnull dereferenceable(1) %Name) #15
   %cmp.i53.not.i = icmp eq i32 %call.i.i31, 0
-  br i1 %cmp.i53.not.i, label %if.then.i34, label %while.cond6.i, !llvm.loop !17
+  br i1 %cmp.i53.not.i, label %if.then.i34, label %while.cond6.i, !llvm.loop !16
 
 while.end.i33:                                    ; preds = %while.cond6.i
-  %scan.0.i32 = load ptr, ptr %scan.063.i, align 8
-  %cmp.i.not.not.i = icmp eq ptr %scan.0.i32, null
-  br i1 %cmp.i.not.not.i, label %if.else.i35, label %while.body.i30, !llvm.loop !18
+  %scan.0.i = load ptr, ptr %scan.063.i, align 8
+  %cmp.i.not.i32 = icmp eq ptr %scan.0.i, null
+  br i1 %cmp.i.not.i32, label %if.else.i35, label %while.body.i30, !llvm.loop !17
 
 if.then.i34:                                      ; preds = %land.rhs9.i
-  %36 = getelementptr i8, ptr %scan2.1.i, i64 8
+  %37 = getelementptr i8, ptr %scan2.1.i, i64 8
   tail call void @string_StringFree(ptr noundef %Name) #14
-  %scan2.0.val.i = load ptr, ptr %36, align 8
+  %scan2.0.val.i = load ptr, ptr %37, align 8
   br label %dfg_VarLookup.exit
 
 if.else.i35:                                      ; preds = %while.end.i33, %if.end16
@@ -4060,33 +3966,33 @@ if.else.i35:                                      ; preds = %while.end.i33, %if.
 if.then24.i:                                      ; preds = %if.else.i35
   %call.i57.i = tail call ptr @memory_Malloc(i32 noundef 16) #14
   store ptr %Name, ptr %call.i57.i, align 8
-  %37 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %inc.i.i = add nsw i32 %37, 1
+  %38 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
+  %inc.i.i = add nsw i32 %38, 1
   store i32 %inc.i.i, ptr @symbol_STANDARDVARCOUNTER, align 4
   %symbol27.i = getelementptr inbounds %struct.DFG_VARENTRY, ptr %call.i57.i, i64 0, i32 1
   store i32 %inc.i.i, ptr %symbol27.i, align 8
-  %38 = load ptr, ptr @dfg_VARLIST, align 8
-  %39 = getelementptr i8, ptr %38, i64 8
-  %.val.i = load ptr, ptr %39, align 8
+  %39 = load ptr, ptr @dfg_VARLIST, align 8
+  %40 = getelementptr i8, ptr %39, i64 8
+  %.val.i = load ptr, ptr %40, align 8
   %call.i58.i = tail call ptr @memory_Malloc(i32 noundef 16) #14
   %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i58.i, i64 0, i32 1
   store ptr %call.i57.i, ptr %car.i.i, align 8
   store ptr %.val.i, ptr %call.i58.i, align 8
-  store ptr %call.i58.i, ptr %39, align 8
+  store ptr %call.i58.i, ptr %40, align 8
   br label %dfg_VarLookup.exit
 
 if.else31.i:                                      ; preds = %if.else.i35
-  %40 = load ptr, ptr @stdout, align 8
-  %call32.i = tail call i32 @fflush(ptr noundef %40)
-  %41 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.229, i32 noundef %41, ptr noundef %Name) #14
-  %42 = load ptr, ptr @stderr, align 8
-  %call.i60.i = tail call i32 @fflush(ptr noundef %42)
-  %43 = load ptr, ptr @stdout, align 8
-  %call1.i.i36 = tail call i32 @fflush(ptr noundef %43)
-  %44 = load ptr, ptr @stderr, align 8
-  %call2.i.i37 = tail call i32 @fflush(ptr noundef %44)
-  tail call void @exit(i32 noundef 1) #15
+  %41 = load ptr, ptr @stdout, align 8
+  %call32.i = tail call i32 @fflush(ptr noundef %41)
+  %42 = load i32, ptr @dfg_LINENUMBER, align 4
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.229, i32 noundef %42, ptr noundef %Name) #14
+  %43 = load ptr, ptr @stderr, align 8
+  %call.i60.i = tail call i32 @fflush(ptr noundef %43)
+  %44 = load ptr, ptr @stdout, align 8
+  %call1.i.i36 = tail call i32 @fflush(ptr noundef %44)
+  %45 = load ptr, ptr @stderr, align 8
+  %call2.i.i37 = tail call i32 @fflush(ptr noundef %45)
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 dfg_VarLookup.exit:                               ; preds = %if.then.i34, %if.then24.i
@@ -4122,7 +4028,7 @@ entry:
   %call1 = tail call i32 @fflush(ptr noundef %1)
   %2 = load ptr, ptr @stderr, align 8
   %call2 = tail call i32 @fflush(ptr noundef %2)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 }
 
@@ -4131,17 +4037,19 @@ define internal fastcc ptr @dfg_AtomCreate(ptr noundef %Name, ptr noundef %Argum
 entry:
   %call = tail call i32 @list_Length(ptr noundef %Arguments) #14
   %call1 = tail call fastcc i32 @dfg_Symbol(ptr noundef %Name, i32 noundef %call)
-  %tobool.not.i = icmp sgt i32 %call1, -1
-  br i1 %tobool.not.i, label %if.then, label %symbol_IsPredicate.exit
+  %cmp.i = icmp sgt i32 %call1, 0
+  br i1 %cmp.i, label %if.then, label %lor.lhs.false
 
-symbol_IsPredicate.exit:                          ; preds = %entry
+lor.lhs.false:                                    ; preds = %entry
+  %tobool.not.i = icmp eq i32 %call1, 0
   %sub.i.i = sub nsw i32 0, %call1
   %0 = load i32, ptr @symbol_TYPEMASK, align 4
   %and.i.i = and i32 %0, %sub.i.i
-  %cmp.i10.not = icmp eq i32 %and.i.i, 2
-  br i1 %cmp.i10.not, label %if.end, label %if.then
+  %cmp.i10 = icmp ne i32 %and.i.i, 2
+  %land.ext.i = select i1 %tobool.not.i, i1 true, i1 %cmp.i10
+  br i1 %land.ext.i, label %if.then, label %if.end
 
-if.then:                                          ; preds = %symbol_IsPredicate.exit, %entry
+if.then:                                          ; preds = %lor.lhs.false, %entry
   %1 = load ptr, ptr @stdout, align 8
   %call5 = tail call i32 @fflush(ptr noundef %1)
   %2 = load i32, ptr @dfg_LINENUMBER, align 4
@@ -4152,10 +4060,10 @@ if.then:                                          ; preds = %symbol_IsPredicate.
   %call1.i = tail call i32 @fflush(ptr noundef %4)
   %5 = load ptr, ptr @stderr, align 8
   %call2.i = tail call i32 @fflush(ptr noundef %5)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
-if.end:                                           ; preds = %symbol_IsPredicate.exit
+if.end:                                           ; preds = %lor.lhs.false
   %call6 = tail call ptr @term_Create(i32 noundef %call1, ptr noundef %Arguments) #14
   ret ptr %call6
 }
@@ -4165,8 +4073,8 @@ define internal fastcc ptr @dfg_TermCreate(ptr noundef %Name, ptr noundef %Argum
 entry:
   %call = tail call i32 @list_Length(ptr noundef %Arguments) #14
   %call1 = tail call fastcc i32 @dfg_Symbol(ptr noundef %Name, i32 noundef %call)
-  %cmp.i = icmp slt i32 %call1, 1
-  br i1 %cmp.i, label %land.lhs.true, label %if.end
+  %cmp.i = icmp sgt i32 %call1, 0
+  br i1 %cmp.i, label %if.end, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %entry
   %tobool.not.i = icmp sgt i32 %call1, -1
@@ -4176,10 +4084,10 @@ land.rhs.i:                                       ; preds = %land.lhs.true
   %sub.i.i = sub nsw i32 0, %call1
   %0 = load i32, ptr @symbol_TYPEMASK, align 4
   %and.i.i = and i32 %0, %sub.i.i
-  %switch = icmp ult i32 %and.i.i, 2
-  br i1 %switch, label %if.end, label %if.then
+  %spec.select = icmp ugt i32 %and.i.i, 1
+  br i1 %spec.select, label %if.then, label %if.end
 
-if.then:                                          ; preds = %land.rhs.i, %land.lhs.true
+if.then:                                          ; preds = %land.lhs.true, %land.rhs.i
   %1 = load ptr, ptr @stdout, align 8
   %call5 = tail call i32 @fflush(ptr noundef %1)
   %2 = load i32, ptr @dfg_LINENUMBER, align 4
@@ -4190,7 +4098,7 @@ if.then:                                          ; preds = %land.rhs.i, %land.l
   %call1.i = tail call i32 @fflush(ptr noundef %4)
   %5 = load ptr, ptr @stderr, align 8
   %call2.i = tail call i32 @fflush(ptr noundef %5)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 
 if.end:                                           ; preds = %land.rhs.i, %entry
@@ -4208,6 +4116,53 @@ declare i32 @symbol_Lookup(ptr noundef) local_unnamed_addr #3
 
 declare i32 @flag_Id(ptr noundef) local_unnamed_addr #3
 
+; Function Attrs: inlinehint nounwind uwtable
+define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %Store, i32 noundef %FlagId, i32 noundef %Value) unnamed_addr #6 {
+entry:
+  %call.i = tail call i32 @flag_Minimum(i32 noundef %FlagId) #14
+  %cmp.not.i = icmp slt i32 %call.i, %Value
+  br i1 %cmp.not.i, label %if.else.i, label %if.then.i
+
+if.then.i:                                        ; preds = %entry
+  %0 = load ptr, ptr @stdout, align 8
+  %call1.i = tail call i32 @fflush(ptr noundef %0)
+  %call2.i = tail call ptr @flag_Name(i32 noundef %FlagId) #14
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.42, i32 noundef %Value, ptr noundef %call2.i) #14
+  %1 = load ptr, ptr @stderr, align 8
+  %call.i.i = tail call i32 @fflush(ptr noundef %1)
+  %2 = load ptr, ptr @stdout, align 8
+  %call1.i.i = tail call i32 @fflush(ptr noundef %2)
+  %3 = load ptr, ptr @stderr, align 8
+  %call2.i.i = tail call i32 @fflush(ptr noundef %3)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+if.else.i:                                        ; preds = %entry
+  %call3.i = tail call i32 @flag_Maximum(i32 noundef %FlagId) #14
+  %cmp4.not.i = icmp sgt i32 %call3.i, %Value
+  br i1 %cmp4.not.i, label %flag_CheckFlagValueInRange.exit, label %if.then5.i
+
+if.then5.i:                                       ; preds = %if.else.i
+  %4 = load ptr, ptr @stdout, align 8
+  %call6.i = tail call i32 @fflush(ptr noundef %4)
+  %call7.i = tail call ptr @flag_Name(i32 noundef %FlagId) #14
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.43, i32 noundef %Value, ptr noundef %call7.i) #14
+  %5 = load ptr, ptr @stderr, align 8
+  %call.i16.i = tail call i32 @fflush(ptr noundef %5)
+  %6 = load ptr, ptr @stdout, align 8
+  %call1.i17.i = tail call i32 @fflush(ptr noundef %6)
+  %7 = load ptr, ptr @stderr, align 8
+  %call2.i18.i = tail call i32 @fflush(ptr noundef %7)
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
+flag_CheckFlagValueInRange.exit:                  ; preds = %if.else.i
+  %idxprom = zext i32 %FlagId to i64
+  %arrayidx = getelementptr inbounds i32, ptr %Store, i64 %idxprom
+  store i32 %Value, ptr %arrayidx, align 4
+  ret void
+}
+
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #7
 
@@ -4224,7 +4179,7 @@ entry:
   %call1.i = tail call i32 @fflush(ptr noundef %3)
   %4 = load ptr, ptr @stderr, align 8
   %call2.i = tail call i32 @fflush(ptr noundef %4)
-  tail call void @exit(i32 noundef 1) #15
+  tail call void @exit(i32 noundef 1) #16
   unreachable
 }
 
@@ -4346,7 +4301,7 @@ sw.default:                                       ; preds = %entry
   %call2.i = tail call i32 @fflush(ptr noundef %9)
   %10 = load ptr, ptr @stderr, align 8
   %call3.i = tail call i32 @fflush(ptr noundef %10)
-  tail call void @abort() #15
+  tail call void @abort() #16
   unreachable
 
 switch.lookup:                                    ; preds = %entry
@@ -4496,78 +4451,78 @@ entry:
   store ptr null, ptr @dfg_DESC.5, align 8
   store ptr null, ptr @dfg_DESC.6, align 8
   %call1 = tail call i32 @dfg_parse()
-  %dfg_SYMBOLLIST.promoted.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
-  %cmp.i.not15.i = icmp eq ptr %dfg_SYMBOLLIST.promoted.i, null
-  br i1 %cmp.i.not15.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
+  %.pr.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
+  %cmp.i.not14.i = icmp eq ptr %.pr.i, null
+  br i1 %cmp.i.not14.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %entry
   %0 = load i32, ptr @symbol_TYPESTATBITS, align 4
   br label %while.body.i
 
 while.body.i:                                     ; preds = %if.end.i, %while.body.lr.ph.i
-  %L.val.i1416.i = phi ptr [ %dfg_SYMBOLLIST.promoted.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
-  %1 = getelementptr i8, ptr %L.val.i1416.i, i64 8
-  %.val.i = load ptr, ptr %1, align 8
-  %2 = load i32, ptr %.val.i, align 4
+  %1 = phi ptr [ %.pr.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
+  %2 = getelementptr i8, ptr %1, i64 8
+  %.val.i = load ptr, ptr %2, align 8
+  %3 = load i32, ptr %.val.i, align 4
   %arity.i = getelementptr inbounds %struct.DFG_SYMENTRY, ptr %.val.i, i64 0, i32 2
-  %3 = load i32, ptr %arity.i, align 4
-  %sub.i.i.i = sub nsw i32 0, %2
+  %4 = load i32, ptr %arity.i, align 4
+  %sub.i.i.i = sub nsw i32 0, %3
   %shr.i.i.i = ashr i32 %sub.i.i.i, %0
-  %4 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %5 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i.i = sext i32 %shr.i.i.i to i64
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %4, i64 %idxprom.i.i.i
-  %5 = load ptr, ptr %arrayidx.i.i.i, align 8
-  %arity.i.i = getelementptr inbounds %struct.signature, ptr %5, i64 0, i32 3
-  %6 = load i32, ptr %arity.i.i, align 8
-  %cmp.not.i = icmp eq i32 %3, %6
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %5, i64 %idxprom.i.i.i
+  %6 = load ptr, ptr %arrayidx.i.i.i, align 8
+  %arity.i.i = getelementptr inbounds %struct.signature, ptr %6, i64 0, i32 3
+  %7 = load i32, ptr %arity.i.i, align 8
+  %cmp.not.i = icmp eq i32 %4, %7
   br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
 if.then.i:                                        ; preds = %while.body.i
-  store i32 %3, ptr %arity.i.i, align 8
+  store i32 %4, ptr %arity.i.i, align 8
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i, %while.body.i
-  %7 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
-  %8 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %8 to i64
-  %9 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %9, %conv26.i.i.i
+  %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
+  %9 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %9 to i64
+  %10 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %10, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %.val.i, align 8
-  %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  store ptr %.val.i, ptr %11, align 8
-  %L.val.i.i = load ptr, ptr %L.val.i1416.i, align 8
-  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %12, i64 0, i32 4
-  %13 = load i32, ptr %total_size.i.i.i.i, align 8
-  %conv26.i.i.i.i = sext i32 %13 to i64
-  %14 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i = add i64 %14, %conv26.i.i.i.i
+  %11 = load ptr, ptr %8, align 8
+  store ptr %11, ptr %.val.i, align 8
+  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  store ptr %.val.i, ptr %12, align 8
+  %L.val.i.i = load ptr, ptr %1, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %13, i64 0, i32 4
+  %14 = load i32, ptr %total_size.i.i.i.i, align 8
+  %conv26.i.i.i.i = sext i32 %14 to i64
+  %15 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i = add i64 %15, %conv26.i.i.i.i
   store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %15 = load ptr, ptr %12, align 8
-  store ptr %15, ptr %L.val.i1416.i, align 8
-  %16 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %L.val.i1416.i, ptr %16, align 8
+  %16 = load ptr, ptr %13, align 8
+  store ptr %16, ptr %1, align 8
+  %17 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %1, ptr %17, align 8
   store ptr %L.val.i.i, ptr @dfg_SYMBOLLIST, align 8
   %cmp.i.not.i = icmp eq ptr %L.val.i.i, null
-  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !19
+  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !18
 
 dfg_SymCleanUp.exit:                              ; preds = %if.end.i, %entry
-  %scan.0119 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %cmp.i.not120 = icmp eq ptr %scan.0119, null
-  br i1 %cmp.i.not120, label %for.end, label %for.body
+  %scan.0118 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %cmp.i.not119 = icmp eq ptr %scan.0118, null
+  br i1 %cmp.i.not119, label %for.end, label %for.body
 
 for.body:                                         ; preds = %dfg_SymCleanUp.exit, %if.end
-  %scan.0121 = phi ptr [ %scan.0, %if.end ], [ %scan.0119, %dfg_SymCleanUp.exit ]
-  %17 = getelementptr i8, ptr %scan.0121, i64 8
-  %scan.0.val = load ptr, ptr %17, align 8
+  %scan.0120 = phi ptr [ %scan.0, %if.end ], [ %scan.0118, %dfg_SymCleanUp.exit ]
+  %18 = getelementptr i8, ptr %scan.0120, i64 8
+  %scan.0.val = load ptr, ptr %18, align 8
   %call3.val = load ptr, ptr %scan.0.val, align 8
   %call5 = tail call ptr @dfg_CreateClauseFromTerm(ptr noundef %call3.val, i32 noundef 1, ptr noundef %Flags, ptr noundef %Precedence)
-  store ptr %call5, ptr %17, align 8
-  %18 = getelementptr i8, ptr %scan.0.val, i64 8
-  %call3.val62 = load ptr, ptr %18, align 8
+  store ptr %call5, ptr %18, align 8
+  %19 = getelementptr i8, ptr %scan.0.val, i64 8
+  %call3.val62 = load ptr, ptr %19, align 8
   %cmp.not = icmp eq ptr %call3.val62, null
   br i1 %cmp.not, label %if.end, label %if.then
 
@@ -4576,42 +4531,42 @@ if.then:                                          ; preds = %for.body
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %for.body
-  %19 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i63 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %19, i64 0, i32 4
-  %20 = load i32, ptr %total_size.i.i.i63, align 8
-  %conv26.i.i.i64 = sext i32 %20 to i64
-  %21 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i65 = add i64 %21, %conv26.i.i.i64
+  %20 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i63 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %20, i64 0, i32 4
+  %21 = load i32, ptr %total_size.i.i.i63, align 8
+  %conv26.i.i.i64 = sext i32 %21 to i64
+  %22 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i65 = add i64 %22, %conv26.i.i.i64
   store i64 %add27.i.i.i65, ptr @memory_FREEDBYTES, align 8
-  %22 = load ptr, ptr %19, align 8
-  store ptr %22, ptr %scan.0.val, align 8
-  %23 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %scan.0.val, ptr %23, align 8
-  %scan.0 = load ptr, ptr %scan.0121, align 8
+  %23 = load ptr, ptr %20, align 8
+  store ptr %23, ptr %scan.0.val, align 8
+  %24 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %scan.0.val, ptr %24, align 8
+  %scan.0 = load ptr, ptr %scan.0120, align 8
   %cmp.i.not = icmp eq ptr %scan.0, null
-  br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !20
+  br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !19
 
 for.end.loopexit:                                 ; preds = %if.end
   %.pre = load ptr, ptr @dfg_AXCLAUSES, align 8
   br label %for.end
 
 for.end:                                          ; preds = %for.end.loopexit, %dfg_SymCleanUp.exit
-  %24 = phi ptr [ %.pre, %for.end.loopexit ], [ null, %dfg_SymCleanUp.exit ]
-  %call9 = tail call ptr @list_PointerDeleteElement(ptr noundef %24, ptr noundef null) #14
+  %25 = phi ptr [ %.pre, %for.end.loopexit ], [ null, %dfg_SymCleanUp.exit ]
+  %call9 = tail call ptr @list_PointerDeleteElement(ptr noundef %25, ptr noundef null) #14
   store ptr %call9, ptr @dfg_AXCLAUSES, align 8
-  %scan.1122 = load ptr, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i66.not123 = icmp eq ptr %scan.1122, null
-  br i1 %cmp.i66.not123, label %for.end25, label %for.body14
+  %scan.1121 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %cmp.i66.not122 = icmp eq ptr %scan.1121, null
+  br i1 %cmp.i66.not122, label %for.end25, label %for.body14
 
 for.body14:                                       ; preds = %for.end, %if.end22
-  %scan.1124 = phi ptr [ %scan.1, %if.end22 ], [ %scan.1122, %for.end ]
-  %25 = getelementptr i8, ptr %scan.1124, i64 8
-  %scan.1.val = load ptr, ptr %25, align 8
+  %scan.1123 = phi ptr [ %scan.1, %if.end22 ], [ %scan.1121, %for.end ]
+  %26 = getelementptr i8, ptr %scan.1123, i64 8
+  %scan.1.val = load ptr, ptr %26, align 8
   %call15.val = load ptr, ptr %scan.1.val, align 8
   %call17 = tail call ptr @dfg_CreateClauseFromTerm(ptr noundef %call15.val, i32 noundef 0, ptr noundef %Flags, ptr noundef %Precedence)
-  store ptr %call17, ptr %25, align 8
-  %26 = getelementptr i8, ptr %scan.1.val, i64 8
-  %call15.val60 = load ptr, ptr %26, align 8
+  store ptr %call17, ptr %26, align 8
+  %27 = getelementptr i8, ptr %scan.1.val, i64 8
+  %call15.val60 = load ptr, ptr %27, align 8
   %cmp19.not = icmp eq ptr %call15.val60, null
   br i1 %cmp19.not, label %if.end22, label %if.then20
 
@@ -4620,198 +4575,198 @@ if.then20:                                        ; preds = %for.body14
   br label %if.end22
 
 if.end22:                                         ; preds = %if.then20, %for.body14
-  %27 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i69 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %27, i64 0, i32 4
-  %28 = load i32, ptr %total_size.i.i.i69, align 8
-  %conv26.i.i.i70 = sext i32 %28 to i64
-  %29 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i71 = add i64 %29, %conv26.i.i.i70
+  %28 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i69 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %28, i64 0, i32 4
+  %29 = load i32, ptr %total_size.i.i.i69, align 8
+  %conv26.i.i.i70 = sext i32 %29 to i64
+  %30 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i71 = add i64 %30, %conv26.i.i.i70
   store i64 %add27.i.i.i71, ptr @memory_FREEDBYTES, align 8
-  %30 = load ptr, ptr %27, align 8
-  store ptr %30, ptr %scan.1.val, align 8
-  %31 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %scan.1.val, ptr %31, align 8
-  %scan.1 = load ptr, ptr %scan.1124, align 8
+  %31 = load ptr, ptr %28, align 8
+  store ptr %31, ptr %scan.1.val, align 8
+  %32 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %scan.1.val, ptr %32, align 8
+  %scan.1 = load ptr, ptr %scan.1123, align 8
   %cmp.i66.not = icmp eq ptr %scan.1, null
-  br i1 %cmp.i66.not, label %for.end25.loopexit, label %for.body14, !llvm.loop !21
+  br i1 %cmp.i66.not, label %for.end25.loopexit, label %for.body14, !llvm.loop !20
 
 for.end25.loopexit:                               ; preds = %if.end22
-  %.pre125 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %.pre124 = load ptr, ptr @dfg_CONCLAUSES, align 8
   br label %for.end25
 
 for.end25:                                        ; preds = %for.end25.loopexit, %for.end
-  %32 = phi ptr [ %.pre125, %for.end25.loopexit ], [ null, %for.end ]
-  %call26 = tail call ptr @list_PointerDeleteElement(ptr noundef %32, ptr noundef null) #14
+  %33 = phi ptr [ %.pre124, %for.end25.loopexit ], [ null, %for.end ]
+  %call26 = tail call ptr @list_PointerDeleteElement(ptr noundef %33, ptr noundef null) #14
   store ptr %call26, ptr @dfg_CONCLAUSES, align 8
-  %33 = load ptr, ptr @dfg_PROOFLIST, align 8
-  %cmp.i.not16.i = icmp eq ptr %33, null
+  %34 = load ptr, ptr @dfg_PROOFLIST, align 8
+  %cmp.i.not16.i = icmp eq ptr %34, null
   br i1 %cmp.i.not16.i, label %dfg_DeleteProofList.exit, label %for.body.i
 
 for.body.i:                                       ; preds = %for.end25, %list_Delete.exit.i
-  %Proof.addr.017.i = phi ptr [ %L.val.i.i75, %list_Delete.exit.i ], [ %33, %for.end25 ]
-  %34 = getelementptr i8, ptr %Proof.addr.017.i, i64 8
-  %Proof.addr.0.val.i = load ptr, ptr %34, align 8
-  %35 = getelementptr i8, ptr %Proof.addr.0.val.i, i64 8
-  %call1.val.i = load ptr, ptr %35, align 8
+  %Proof.addr.017.i = phi ptr [ %L.val.i.i75, %list_Delete.exit.i ], [ %34, %for.end25 ]
+  %35 = getelementptr i8, ptr %Proof.addr.017.i, i64 8
+  %Proof.addr.0.val.i = load ptr, ptr %35, align 8
+  %36 = getelementptr i8, ptr %Proof.addr.0.val.i, i64 8
+  %call1.val.i = load ptr, ptr %36, align 8
   tail call void @string_StringFree(ptr noundef %call1.val.i) #14
   %call1.val11.i = load ptr, ptr %Proof.addr.0.val.i, align 8
-  %36 = getelementptr i8, ptr %call1.val11.i, i64 8
-  %call1.val11.val.i = load ptr, ptr %36, align 8
+  %37 = getelementptr i8, ptr %call1.val11.i, i64 8
+  %call1.val11.val.i = load ptr, ptr %37, align 8
   tail call void @term_Delete(ptr noundef %call1.val11.val.i) #14
   %call1.val12.i = load ptr, ptr %Proof.addr.0.val.i, align 8
   %call1.val12.val.i = load ptr, ptr %call1.val12.i, align 8
-  %37 = getelementptr i8, ptr %call1.val12.val.i, i64 8
-  %call1.val12.val.val.i = load ptr, ptr %37, align 8
+  %38 = getelementptr i8, ptr %call1.val12.val.i, i64 8
+  %call1.val12.val.val.i = load ptr, ptr %38, align 8
   tail call void @list_DeleteWithElement(ptr noundef %call1.val12.val.val.i, ptr noundef nonnull @string_StringFree) #14
   br label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %while.body.i.i, %for.body.i
-  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %Proof.addr.0.val.i, %for.body.i ]
-  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
-  %38 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i72 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %38, i64 0, i32 4
-  %39 = load i32, ptr %total_size.i.i.i.i72, align 8
-  %conv26.i.i.i.i73 = sext i32 %39 to i64
-  %40 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i74 = add i64 %40, %conv26.i.i.i.i73
+  %Current.06.i.i = phi ptr [ %L.addr.0.val.i.i, %while.body.i.i ], [ %Proof.addr.0.val.i, %for.body.i ]
+  %L.addr.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %39 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i72 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %39, i64 0, i32 4
+  %40 = load i32, ptr %total_size.i.i.i.i72, align 8
+  %conv26.i.i.i.i73 = sext i32 %40 to i64
+  %41 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i74 = add i64 %41, %conv26.i.i.i.i73
   store i64 %add27.i.i.i.i74, ptr @memory_FREEDBYTES, align 8
-  %41 = load ptr, ptr %38, align 8
-  store ptr %41, ptr %Current.06.i.i, align 8
-  %42 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Current.06.i.i, ptr %42, align 8
-  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
-  br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !7
+  %42 = load ptr, ptr %39, align 8
+  store ptr %42, ptr %Current.06.i.i, align 8
+  %43 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i.i, ptr %43, align 8
+  %cmp.i.not.i.i = icmp eq ptr %L.addr.0.val.i.i, null
+  br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !14
 
 list_Delete.exit.i:                               ; preds = %while.body.i.i
   %L.val.i.i75 = load ptr, ptr %Proof.addr.017.i, align 8
-  %43 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %43, i64 0, i32 4
-  %44 = load i32, ptr %total_size.i.i.i13.i, align 8
-  %conv26.i.i.i14.i = sext i32 %44 to i64
-  %45 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i = add i64 %45, %conv26.i.i.i14.i
+  %44 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %44, i64 0, i32 4
+  %45 = load i32, ptr %total_size.i.i.i13.i, align 8
+  %conv26.i.i.i14.i = sext i32 %45 to i64
+  %46 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i = add i64 %46, %conv26.i.i.i14.i
   store i64 %add27.i.i.i15.i, ptr @memory_FREEDBYTES, align 8
-  %46 = load ptr, ptr %43, align 8
-  store ptr %46, ptr %Proof.addr.017.i, align 8
-  %47 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Proof.addr.017.i, ptr %47, align 8
+  %47 = load ptr, ptr %44, align 8
+  store ptr %47, ptr %Proof.addr.017.i, align 8
+  %48 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Proof.addr.017.i, ptr %48, align 8
   %cmp.i.not.i76 = icmp eq ptr %L.val.i.i75, null
-  br i1 %cmp.i.not.i76, label %dfg_DeleteProofList.exit, label %for.body.i, !llvm.loop !22
+  br i1 %cmp.i.not.i76, label %dfg_DeleteProofList.exit, label %for.body.i, !llvm.loop !21
 
 dfg_DeleteProofList.exit:                         ; preds = %list_Delete.exit.i, %for.end25
-  %48 = load ptr, ptr @dfg_TERMLIST, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %48, ptr noundef nonnull @term_Delete) #14
-  %49 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %50 = load ptr, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i.not.i77 = icmp eq ptr %49, null
-  br i1 %cmp.i.not.i77, label %list_Nconc.exit, label %if.end.i78
+  %49 = load ptr, ptr @dfg_TERMLIST, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %49, ptr noundef nonnull @term_Delete) #14
+  %50 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %51 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %cmp.i.i = icmp eq ptr %50, null
+  br i1 %cmp.i.i, label %list_Nconc.exit, label %if.end.i77
 
-if.end.i78:                                       ; preds = %dfg_DeleteProofList.exit
-  %cmp.i18.not.i = icmp eq ptr %50, null
-  br i1 %cmp.i18.not.i, label %list_Nconc.exit, label %for.cond.i
+if.end.i77:                                       ; preds = %dfg_DeleteProofList.exit
+  %cmp.i18.i = icmp eq ptr %51, null
+  br i1 %cmp.i18.i, label %list_Nconc.exit, label %for.cond.i
 
-for.cond.i:                                       ; preds = %if.end.i78, %for.cond.i
-  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %49, %if.end.i78 ]
+for.cond.i:                                       ; preds = %if.end.i77, %for.cond.i
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %50, %if.end.i77 ]
   %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
   %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
   br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !5
 
 for.end.i:                                        ; preds = %for.cond.i
-  store ptr %50, ptr %List1.addr.0.i, align 8
+  store ptr %51, ptr %List1.addr.0.i, align 8
   br label %list_Nconc.exit
 
-list_Nconc.exit:                                  ; preds = %dfg_DeleteProofList.exit, %if.end.i78, %for.end.i
-  %retval.0.i = phi ptr [ %49, %for.end.i ], [ %50, %dfg_DeleteProofList.exit ], [ %49, %if.end.i78 ]
-  %51 = load ptr, ptr %Axioms, align 8
-  %52 = load ptr, ptr @dfg_AXIOMLIST, align 8
-  %cmp.i.not.i79 = icmp eq ptr %51, null
-  br i1 %cmp.i.not.i79, label %list_Nconc.exit88, label %if.end.i81
+list_Nconc.exit:                                  ; preds = %dfg_DeleteProofList.exit, %if.end.i77, %for.end.i
+  %retval.0.i = phi ptr [ %50, %for.end.i ], [ %51, %dfg_DeleteProofList.exit ], [ %50, %if.end.i77 ]
+  %52 = load ptr, ptr %Axioms, align 8
+  %53 = load ptr, ptr @dfg_AXIOMLIST, align 8
+  %cmp.i.i78 = icmp eq ptr %52, null
+  br i1 %cmp.i.i78, label %list_Nconc.exit87, label %if.end.i80
 
-if.end.i81:                                       ; preds = %list_Nconc.exit
-  %cmp.i18.not.i80 = icmp eq ptr %52, null
-  br i1 %cmp.i18.not.i80, label %list_Nconc.exit88, label %for.cond.i85
+if.end.i80:                                       ; preds = %list_Nconc.exit
+  %cmp.i18.i79 = icmp eq ptr %53, null
+  br i1 %cmp.i18.i79, label %list_Nconc.exit87, label %for.cond.i84
 
-for.cond.i85:                                     ; preds = %if.end.i81, %for.cond.i85
-  %List1.addr.0.i82 = phi ptr [ %List1.addr.0.val17.i83, %for.cond.i85 ], [ %51, %if.end.i81 ]
-  %List1.addr.0.val17.i83 = load ptr, ptr %List1.addr.0.i82, align 8
-  %cmp.i20.not.i84 = icmp eq ptr %List1.addr.0.val17.i83, null
-  br i1 %cmp.i20.not.i84, label %for.end.i86, label %for.cond.i85, !llvm.loop !5
+for.cond.i84:                                     ; preds = %if.end.i80, %for.cond.i84
+  %List1.addr.0.i81 = phi ptr [ %List1.addr.0.val17.i82, %for.cond.i84 ], [ %52, %if.end.i80 ]
+  %List1.addr.0.val17.i82 = load ptr, ptr %List1.addr.0.i81, align 8
+  %cmp.i20.not.i83 = icmp eq ptr %List1.addr.0.val17.i82, null
+  br i1 %cmp.i20.not.i83, label %for.end.i85, label %for.cond.i84, !llvm.loop !5
 
-for.end.i86:                                      ; preds = %for.cond.i85
-  store ptr %52, ptr %List1.addr.0.i82, align 8
-  br label %list_Nconc.exit88
+for.end.i85:                                      ; preds = %for.cond.i84
+  store ptr %53, ptr %List1.addr.0.i81, align 8
+  br label %list_Nconc.exit87
 
-list_Nconc.exit88:                                ; preds = %list_Nconc.exit, %if.end.i81, %for.end.i86
-  %retval.0.i87 = phi ptr [ %51, %for.end.i86 ], [ %52, %list_Nconc.exit ], [ %51, %if.end.i81 ]
-  store ptr %retval.0.i87, ptr %Axioms, align 8
-  %53 = load ptr, ptr %Conjectures, align 8
-  %54 = load ptr, ptr @dfg_CONJECLIST, align 8
-  %cmp.i.not.i89 = icmp eq ptr %53, null
-  br i1 %cmp.i.not.i89, label %list_Nconc.exit98, label %if.end.i91
+list_Nconc.exit87:                                ; preds = %list_Nconc.exit, %if.end.i80, %for.end.i85
+  %retval.0.i86 = phi ptr [ %52, %for.end.i85 ], [ %53, %list_Nconc.exit ], [ %52, %if.end.i80 ]
+  store ptr %retval.0.i86, ptr %Axioms, align 8
+  %54 = load ptr, ptr %Conjectures, align 8
+  %55 = load ptr, ptr @dfg_CONJECLIST, align 8
+  %cmp.i.i88 = icmp eq ptr %54, null
+  br i1 %cmp.i.i88, label %list_Nconc.exit97, label %if.end.i90
 
-if.end.i91:                                       ; preds = %list_Nconc.exit88
-  %cmp.i18.not.i90 = icmp eq ptr %54, null
-  br i1 %cmp.i18.not.i90, label %list_Nconc.exit98, label %for.cond.i95
+if.end.i90:                                       ; preds = %list_Nconc.exit87
+  %cmp.i18.i89 = icmp eq ptr %55, null
+  br i1 %cmp.i18.i89, label %list_Nconc.exit97, label %for.cond.i94
 
-for.cond.i95:                                     ; preds = %if.end.i91, %for.cond.i95
-  %List1.addr.0.i92 = phi ptr [ %List1.addr.0.val17.i93, %for.cond.i95 ], [ %53, %if.end.i91 ]
-  %List1.addr.0.val17.i93 = load ptr, ptr %List1.addr.0.i92, align 8
-  %cmp.i20.not.i94 = icmp eq ptr %List1.addr.0.val17.i93, null
-  br i1 %cmp.i20.not.i94, label %for.end.i96, label %for.cond.i95, !llvm.loop !5
+for.cond.i94:                                     ; preds = %if.end.i90, %for.cond.i94
+  %List1.addr.0.i91 = phi ptr [ %List1.addr.0.val17.i92, %for.cond.i94 ], [ %54, %if.end.i90 ]
+  %List1.addr.0.val17.i92 = load ptr, ptr %List1.addr.0.i91, align 8
+  %cmp.i20.not.i93 = icmp eq ptr %List1.addr.0.val17.i92, null
+  br i1 %cmp.i20.not.i93, label %for.end.i95, label %for.cond.i94, !llvm.loop !5
 
-for.end.i96:                                      ; preds = %for.cond.i95
-  store ptr %54, ptr %List1.addr.0.i92, align 8
-  br label %list_Nconc.exit98
+for.end.i95:                                      ; preds = %for.cond.i94
+  store ptr %55, ptr %List1.addr.0.i91, align 8
+  br label %list_Nconc.exit97
 
-list_Nconc.exit98:                                ; preds = %list_Nconc.exit88, %if.end.i91, %for.end.i96
-  %retval.0.i97 = phi ptr [ %53, %for.end.i96 ], [ %54, %list_Nconc.exit88 ], [ %53, %if.end.i91 ]
-  store ptr %retval.0.i97, ptr %Conjectures, align 8
-  %55 = load ptr, ptr %SortDecl, align 8
-  %56 = load ptr, ptr @dfg_SORTDECLLIST, align 8
-  %cmp.i.not.i99 = icmp eq ptr %55, null
-  br i1 %cmp.i.not.i99, label %list_Nconc.exit108, label %if.end.i101
+list_Nconc.exit97:                                ; preds = %list_Nconc.exit87, %if.end.i90, %for.end.i95
+  %retval.0.i96 = phi ptr [ %54, %for.end.i95 ], [ %55, %list_Nconc.exit87 ], [ %54, %if.end.i90 ]
+  store ptr %retval.0.i96, ptr %Conjectures, align 8
+  %56 = load ptr, ptr %SortDecl, align 8
+  %57 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %cmp.i.i98 = icmp eq ptr %56, null
+  br i1 %cmp.i.i98, label %list_Nconc.exit107, label %if.end.i100
 
-if.end.i101:                                      ; preds = %list_Nconc.exit98
-  %cmp.i18.not.i100 = icmp eq ptr %56, null
-  br i1 %cmp.i18.not.i100, label %list_Nconc.exit108, label %for.cond.i105
+if.end.i100:                                      ; preds = %list_Nconc.exit97
+  %cmp.i18.i99 = icmp eq ptr %57, null
+  br i1 %cmp.i18.i99, label %list_Nconc.exit107, label %for.cond.i104
 
-for.cond.i105:                                    ; preds = %if.end.i101, %for.cond.i105
-  %List1.addr.0.i102 = phi ptr [ %List1.addr.0.val17.i103, %for.cond.i105 ], [ %55, %if.end.i101 ]
-  %List1.addr.0.val17.i103 = load ptr, ptr %List1.addr.0.i102, align 8
-  %cmp.i20.not.i104 = icmp eq ptr %List1.addr.0.val17.i103, null
-  br i1 %cmp.i20.not.i104, label %for.end.i106, label %for.cond.i105, !llvm.loop !5
+for.cond.i104:                                    ; preds = %if.end.i100, %for.cond.i104
+  %List1.addr.0.i101 = phi ptr [ %List1.addr.0.val17.i102, %for.cond.i104 ], [ %56, %if.end.i100 ]
+  %List1.addr.0.val17.i102 = load ptr, ptr %List1.addr.0.i101, align 8
+  %cmp.i20.not.i103 = icmp eq ptr %List1.addr.0.val17.i102, null
+  br i1 %cmp.i20.not.i103, label %for.end.i105, label %for.cond.i104, !llvm.loop !5
 
-for.end.i106:                                     ; preds = %for.cond.i105
-  store ptr %56, ptr %List1.addr.0.i102, align 8
-  br label %list_Nconc.exit108
+for.end.i105:                                     ; preds = %for.cond.i104
+  store ptr %57, ptr %List1.addr.0.i101, align 8
+  br label %list_Nconc.exit107
 
-list_Nconc.exit108:                               ; preds = %list_Nconc.exit98, %if.end.i101, %for.end.i106
-  %retval.0.i107 = phi ptr [ %55, %for.end.i106 ], [ %56, %list_Nconc.exit98 ], [ %55, %if.end.i101 ]
-  store ptr %retval.0.i107, ptr %SortDecl, align 8
-  %57 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
-  %call31 = tail call ptr @list_NReverse(ptr noundef %57) #14
-  %58 = load ptr, ptr %UserDefinedPrecedence, align 8
-  %59 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
-  %cmp.i.not.i109 = icmp eq ptr %58, null
-  br i1 %cmp.i.not.i109, label %list_Nconc.exit118, label %if.end.i111
+list_Nconc.exit107:                               ; preds = %list_Nconc.exit97, %if.end.i100, %for.end.i105
+  %retval.0.i106 = phi ptr [ %56, %for.end.i105 ], [ %57, %list_Nconc.exit97 ], [ %56, %if.end.i100 ]
+  store ptr %retval.0.i106, ptr %SortDecl, align 8
+  %58 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
+  %call31 = tail call ptr @list_NReverse(ptr noundef %58) #14
+  %59 = load ptr, ptr %UserDefinedPrecedence, align 8
+  %60 = load ptr, ptr @dfg_USERPRECEDENCE, align 8
+  %cmp.i.i108 = icmp eq ptr %59, null
+  br i1 %cmp.i.i108, label %list_Nconc.exit117, label %if.end.i110
 
-if.end.i111:                                      ; preds = %list_Nconc.exit108
-  %cmp.i18.not.i110 = icmp eq ptr %59, null
-  br i1 %cmp.i18.not.i110, label %list_Nconc.exit118, label %for.cond.i115
+if.end.i110:                                      ; preds = %list_Nconc.exit107
+  %cmp.i18.i109 = icmp eq ptr %60, null
+  br i1 %cmp.i18.i109, label %list_Nconc.exit117, label %for.cond.i114
 
-for.cond.i115:                                    ; preds = %if.end.i111, %for.cond.i115
-  %List1.addr.0.i112 = phi ptr [ %List1.addr.0.val17.i113, %for.cond.i115 ], [ %58, %if.end.i111 ]
-  %List1.addr.0.val17.i113 = load ptr, ptr %List1.addr.0.i112, align 8
-  %cmp.i20.not.i114 = icmp eq ptr %List1.addr.0.val17.i113, null
-  br i1 %cmp.i20.not.i114, label %for.end.i116, label %for.cond.i115, !llvm.loop !5
+for.cond.i114:                                    ; preds = %if.end.i110, %for.cond.i114
+  %List1.addr.0.i111 = phi ptr [ %List1.addr.0.val17.i112, %for.cond.i114 ], [ %59, %if.end.i110 ]
+  %List1.addr.0.val17.i112 = load ptr, ptr %List1.addr.0.i111, align 8
+  %cmp.i20.not.i113 = icmp eq ptr %List1.addr.0.val17.i112, null
+  br i1 %cmp.i20.not.i113, label %for.end.i115, label %for.cond.i114, !llvm.loop !5
 
-for.end.i116:                                     ; preds = %for.cond.i115
-  store ptr %59, ptr %List1.addr.0.i112, align 8
-  br label %list_Nconc.exit118
+for.end.i115:                                     ; preds = %for.cond.i114
+  store ptr %60, ptr %List1.addr.0.i111, align 8
+  br label %list_Nconc.exit117
 
-list_Nconc.exit118:                               ; preds = %list_Nconc.exit108, %if.end.i111, %for.end.i116
-  %retval.0.i117 = phi ptr [ %58, %for.end.i116 ], [ %59, %list_Nconc.exit108 ], [ %58, %if.end.i111 ]
-  store ptr %retval.0.i117, ptr %UserDefinedPrecedence, align 8
+list_Nconc.exit117:                               ; preds = %list_Nconc.exit107, %if.end.i110, %for.end.i115
+  %retval.0.i116 = phi ptr [ %59, %for.end.i115 ], [ %60, %list_Nconc.exit107 ], [ %59, %if.end.i110 ]
+  store ptr %retval.0.i116, ptr %UserDefinedPrecedence, align 8
   ret ptr %retval.0.i
 }
 
@@ -4862,13 +4817,13 @@ symbol_IsPredicate.exit:                          ; preds = %for.body
 
 if.then13:                                        ; preds = %symbol_IsPredicate.exit
   %6 = load i32, ptr @fol_TRUE, align 4
-  %cmp.i.i.not = icmp eq i32 %6, %call9.val
-  br i1 %cmp.i.i.not, label %cleanup42.sink.split, label %if.else18
+  %cmp.i.i = icmp eq i32 %6, %call9.val
+  br i1 %cmp.i.i, label %cleanup42.sink.split, label %if.else18
 
 if.else18:                                        ; preds = %if.then13
   %7 = load i32, ptr @fol_FALSE, align 4
-  %cmp.i.i78.not = icmp eq i32 %7, %call9.val
-  br i1 %cmp.i.i78.not, label %for.inc.sink.split, label %for.inc
+  %cmp.i.i78 = icmp eq i32 %7, %call9.val
+  br i1 %cmp.i.i78, label %for.inc.sink.split, label %for.inc
 
 if.else24:                                        ; preds = %for.body, %symbol_IsPredicate.exit
   %8 = getelementptr i8, ptr %scan.0.val, i64 16
@@ -4882,8 +4837,8 @@ if.else24:                                        ; preds = %for.body, %symbol_I
 
 if.else30:                                        ; preds = %if.else24
   %11 = load i32, ptr @fol_TRUE, align 4
-  %cmp.i.i82.not = icmp eq i32 %11, %call25.val74
-  br i1 %cmp.i.i82.not, label %for.inc.sink.split, label %for.inc
+  %cmp.i.i82 = icmp eq i32 %11, %call25.val74
+  br i1 %cmp.i.i82, label %for.inc.sink.split, label %for.inc
 
 for.inc.sink.split:                               ; preds = %if.else30, %if.else18
   %car.i84.sink = phi ptr [ %5, %if.else18 ], [ %car.i84, %if.else30 ]
@@ -4894,7 +4849,7 @@ for.inc.sink.split:                               ; preds = %if.else30, %if.else
 for.inc:                                          ; preds = %for.inc.sink.split, %if.else30, %if.else18
   %scan.0.val68 = load ptr, ptr %scan.088, align 8
   %cmp.i.not = icmp eq ptr %scan.0.val68, null
-  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !23
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !22
 
 for.end:                                          ; preds = %for.inc, %if.end
   %call38 = tail call ptr @list_PointerDeleteElement(ptr noundef %literals.0, ptr noundef null) #14
@@ -4905,8 +4860,8 @@ for.end:                                          ; preds = %for.inc, %if.end
   br i1 %cmp.i.not5.i, label %cleanup42, label %while.body.i
 
 while.body.i:                                     ; preds = %for.end, %while.body.i
-  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call38, %for.end ]
-  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %call38, %for.end ]
+  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
   %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %12, i64 0, i32 4
   %13 = load i32, ptr %total_size.i.i.i, align 8
@@ -4918,8 +4873,8 @@ while.body.i:                                     ; preds = %for.end, %while.bod
   store ptr %15, ptr %Current.06.i, align 8
   %16 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %16, align 8
-  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
-  br i1 %cmp.i.not.i, label %cleanup42, label %while.body.i, !llvm.loop !7
+  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  br i1 %cmp.i.not.i, label %cleanup42, label %while.body.i, !llvm.loop !14
 
 cleanup42.sink.split:                             ; preds = %if.else24, %if.then13
   %call29 = tail call ptr @list_PointerDeleteElement(ptr noundef nonnull %literals.0, ptr noundef null) #14
@@ -4958,8 +4913,8 @@ for.body:                                         ; preds = %entry, %list_Delete
   br label %while.body.i
 
 while.body.i:                                     ; preds = %for.body, %while.body.i
-  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %Proof.addr.0.val, %for.body ]
-  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %Proof.addr.0.val, %for.body ]
+  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
   %4 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %4, i64 0, i32 4
   %5 = load i32, ptr %total_size.i.i.i, align 8
@@ -4971,8 +4926,8 @@ while.body.i:                                     ; preds = %for.body, %while.bo
   store ptr %7, ptr %Current.06.i, align 8
   %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %8, align 8
-  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
-  br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !7
+  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !14
 
 list_Delete.exit:                                 ; preds = %while.body.i
   %L.val.i = load ptr, ptr %Proof.addr.017, align 8
@@ -4988,7 +4943,7 @@ list_Delete.exit:                                 ; preds = %while.body.i
   %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Proof.addr.017, ptr %13, align 8
   %cmp.i.not = icmp eq ptr %L.val.i, null
-  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !22
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !21
 
 for.end:                                          ; preds = %list_Delete.exit, %entry
   ret void
@@ -5022,123 +4977,123 @@ entry:
   store ptr null, ptr @dfg_DESC.5, align 8
   store ptr null, ptr @dfg_DESC.6, align 8
   %call1 = tail call i32 @dfg_parse()
-  %dfg_SYMBOLLIST.promoted.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
-  %cmp.i.not15.i = icmp eq ptr %dfg_SYMBOLLIST.promoted.i, null
-  br i1 %cmp.i.not15.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
+  %.pr.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
+  %cmp.i.not14.i = icmp eq ptr %.pr.i, null
+  br i1 %cmp.i.not14.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %entry
   %0 = load i32, ptr @symbol_TYPESTATBITS, align 4
   br label %while.body.i
 
 while.body.i:                                     ; preds = %if.end.i, %while.body.lr.ph.i
-  %L.val.i1416.i = phi ptr [ %dfg_SYMBOLLIST.promoted.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
-  %1 = getelementptr i8, ptr %L.val.i1416.i, i64 8
-  %.val.i = load ptr, ptr %1, align 8
-  %2 = load i32, ptr %.val.i, align 4
+  %1 = phi ptr [ %.pr.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
+  %2 = getelementptr i8, ptr %1, i64 8
+  %.val.i = load ptr, ptr %2, align 8
+  %3 = load i32, ptr %.val.i, align 4
   %arity.i = getelementptr inbounds %struct.DFG_SYMENTRY, ptr %.val.i, i64 0, i32 2
-  %3 = load i32, ptr %arity.i, align 4
-  %sub.i.i.i = sub nsw i32 0, %2
+  %4 = load i32, ptr %arity.i, align 4
+  %sub.i.i.i = sub nsw i32 0, %3
   %shr.i.i.i = ashr i32 %sub.i.i.i, %0
-  %4 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %5 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i.i = sext i32 %shr.i.i.i to i64
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %4, i64 %idxprom.i.i.i
-  %5 = load ptr, ptr %arrayidx.i.i.i, align 8
-  %arity.i.i = getelementptr inbounds %struct.signature, ptr %5, i64 0, i32 3
-  %6 = load i32, ptr %arity.i.i, align 8
-  %cmp.not.i = icmp eq i32 %3, %6
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %5, i64 %idxprom.i.i.i
+  %6 = load ptr, ptr %arrayidx.i.i.i, align 8
+  %arity.i.i = getelementptr inbounds %struct.signature, ptr %6, i64 0, i32 3
+  %7 = load i32, ptr %arity.i.i, align 8
+  %cmp.not.i = icmp eq i32 %4, %7
   br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
 if.then.i:                                        ; preds = %while.body.i
-  store i32 %3, ptr %arity.i.i, align 8
+  store i32 %4, ptr %arity.i.i, align 8
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i, %while.body.i
-  %7 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
-  %8 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %8 to i64
-  %9 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %9, %conv26.i.i.i
+  %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
+  %9 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %9 to i64
+  %10 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %10, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %.val.i, align 8
-  %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  store ptr %.val.i, ptr %11, align 8
-  %L.val.i.i = load ptr, ptr %L.val.i1416.i, align 8
-  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %12, i64 0, i32 4
-  %13 = load i32, ptr %total_size.i.i.i.i, align 8
-  %conv26.i.i.i.i = sext i32 %13 to i64
-  %14 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i = add i64 %14, %conv26.i.i.i.i
+  %11 = load ptr, ptr %8, align 8
+  store ptr %11, ptr %.val.i, align 8
+  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  store ptr %.val.i, ptr %12, align 8
+  %L.val.i.i = load ptr, ptr %1, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %13, i64 0, i32 4
+  %14 = load i32, ptr %total_size.i.i.i.i, align 8
+  %conv26.i.i.i.i = sext i32 %14 to i64
+  %15 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i = add i64 %15, %conv26.i.i.i.i
   store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %15 = load ptr, ptr %12, align 8
-  store ptr %15, ptr %L.val.i1416.i, align 8
-  %16 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %L.val.i1416.i, ptr %16, align 8
+  %16 = load ptr, ptr %13, align 8
+  store ptr %16, ptr %1, align 8
+  %17 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %1, ptr %17, align 8
   store ptr %L.val.i.i, ptr @dfg_SYMBOLLIST, align 8
   %cmp.i.not.i = icmp eq ptr %L.val.i.i, null
-  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !19
+  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !18
 
 dfg_SymCleanUp.exit:                              ; preds = %if.end.i, %entry
-  %17 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %18 = load ptr, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i.not.i26 = icmp eq ptr %17, null
-  br i1 %cmp.i.not.i26, label %list_Nconc.exit, label %if.end.i27
+  %18 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %19 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %cmp.i.i = icmp eq ptr %18, null
+  br i1 %cmp.i.i, label %list_Nconc.exit, label %if.end.i26
 
-if.end.i27:                                       ; preds = %dfg_SymCleanUp.exit
-  %cmp.i18.not.i = icmp eq ptr %18, null
-  br i1 %cmp.i18.not.i, label %list_Nconc.exit.thread, label %for.cond.i
+if.end.i26:                                       ; preds = %dfg_SymCleanUp.exit
+  %cmp.i18.i = icmp eq ptr %19, null
+  br i1 %cmp.i18.i, label %list_Nconc.exit.thread, label %for.cond.i
 
-list_Nconc.exit.thread:                           ; preds = %if.end.i27
+list_Nconc.exit.thread:                           ; preds = %if.end.i26
   store ptr null, ptr @dfg_CONCLAUSES, align 8
   br label %for.body.preheader
 
-for.cond.i:                                       ; preds = %if.end.i27, %for.cond.i
-  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %17, %if.end.i27 ]
+for.cond.i:                                       ; preds = %if.end.i26, %for.cond.i
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %18, %if.end.i26 ]
   %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
   %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
   br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !5
 
 for.end.i:                                        ; preds = %for.cond.i
-  store ptr %18, ptr %List1.addr.0.i, align 8
+  store ptr %19, ptr %List1.addr.0.i, align 8
   br label %list_Nconc.exit
 
 list_Nconc.exit:                                  ; preds = %dfg_SymCleanUp.exit, %for.end.i
-  %retval.0.i = phi ptr [ %17, %for.end.i ], [ %18, %dfg_SymCleanUp.exit ]
+  %retval.0.i = phi ptr [ %18, %for.end.i ], [ %19, %dfg_SymCleanUp.exit ]
   store ptr %retval.0.i, ptr @dfg_AXCLAUSES, align 8
   store ptr null, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i.not93 = icmp eq ptr %retval.0.i, null
-  br i1 %cmp.i.not93, label %for.end, label %for.body.preheader
+  %cmp.i.not92 = icmp eq ptr %retval.0.i, null
+  br i1 %cmp.i.not92, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %list_Nconc.exit.thread, %list_Nconc.exit
-  %scan.094.ph = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %17, %list_Nconc.exit.thread ]
+  %scan.093.ph = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %18, %list_Nconc.exit.thread ]
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
-  %scan.094 = phi ptr [ %scan.0.val24, %for.inc ], [ %scan.094.ph, %for.body.preheader ]
-  %19 = getelementptr i8, ptr %scan.094, i64 8
-  %scan.0.val = load ptr, ptr %19, align 8
+  %scan.093 = phi ptr [ %scan.0.val24, %for.inc ], [ %scan.093.ph, %for.body.preheader ]
+  %20 = getelementptr i8, ptr %scan.093, i64 8
+  %scan.0.val = load ptr, ptr %20, align 8
   %call5.val = load ptr, ptr %scan.0.val, align 8
-  %20 = getelementptr i8, ptr %scan.0.val, i64 8
-  %call5.val25 = load ptr, ptr %20, align 8
+  %21 = getelementptr i8, ptr %scan.0.val, i64 8
+  %call5.val25 = load ptr, ptr %21, align 8
   %cmp = icmp eq ptr %call5.val25, null
   br i1 %cmp, label %if.then, label %if.else
 
 if.then:                                          ; preds = %for.body
   tail call void @term_Delete(ptr noundef %call5.val) #14
-  %21 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i28 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %21, i64 0, i32 4
-  %22 = load i32, ptr %total_size.i.i.i28, align 8
-  %conv26.i.i.i29 = sext i32 %22 to i64
-  %23 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i30 = add i64 %23, %conv26.i.i.i29
-  store i64 %add27.i.i.i30, ptr @memory_FREEDBYTES, align 8
-  %24 = load ptr, ptr %21, align 8
-  store ptr %24, ptr %scan.0.val, align 8
-  %25 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %scan.0.val, ptr %25, align 8
-  store ptr null, ptr %19, align 8
+  %22 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i27 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %22, i64 0, i32 4
+  %23 = load i32, ptr %total_size.i.i.i27, align 8
+  %conv26.i.i.i28 = sext i32 %23 to i64
+  %24 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i29 = add i64 %24, %conv26.i.i.i28
+  store i64 %add27.i.i.i29, ptr @memory_FREEDBYTES, align 8
+  %25 = load ptr, ptr %22, align 8
+  store ptr %25, ptr %scan.0.val, align 8
+  %26 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %scan.0.val, ptr %26, align 8
+  store ptr null, ptr %20, align 8
   br label %for.inc
 
 if.else:                                          ; preds = %for.body
@@ -5147,201 +5102,201 @@ if.else:                                          ; preds = %for.body
   store ptr inttoptr (i64 16 to ptr), ptr %car.i.i, align 8
   store ptr null, ptr %call.i.i, align 8
   %call.i = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i31 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
-  store ptr null, ptr %car.i31, align 8
+  %car.i30 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
+  store ptr null, ptr %car.i30, align 8
   store ptr %call.i.i, ptr %call.i, align 8
-  %call.i32 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i33 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i32, i64 0, i32 1
-  store ptr null, ptr %car.i33, align 8
-  store ptr %call.i, ptr %call.i32, align 8
-  %call.i34 = tail call ptr @memory_Malloc(i32 noundef 16) #14
-  %car.i35 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i34, i64 0, i32 1
-  store ptr %call5.val, ptr %car.i35, align 8
-  store ptr %call.i32, ptr %call.i34, align 8
-  store ptr %call.i34, ptr %scan.0.val, align 8
+  %call.i31 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i32 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i31, i64 0, i32 1
+  store ptr null, ptr %car.i32, align 8
+  store ptr %call.i, ptr %call.i31, align 8
+  %call.i33 = tail call ptr @memory_Malloc(i32 noundef 16) #14
+  %car.i34 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i33, i64 0, i32 1
+  store ptr %call5.val, ptr %car.i34, align 8
+  store ptr %call.i31, ptr %call.i33, align 8
+  store ptr %call.i33, ptr %scan.0.val, align 8
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then, %if.else
-  %scan.0.val24 = load ptr, ptr %scan.094, align 8
+  %scan.0.val24 = load ptr, ptr %scan.093, align 8
   %cmp.i.not = icmp eq ptr %scan.0.val24, null
-  br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !24
+  br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !23
 
 for.end.loopexit:                                 ; preds = %for.inc
   %.pre = load ptr, ptr @dfg_AXCLAUSES, align 8
   br label %for.end
 
 for.end:                                          ; preds = %for.end.loopexit, %list_Nconc.exit
-  %26 = phi ptr [ %.pre, %for.end.loopexit ], [ null, %list_Nconc.exit ]
-  %call14 = tail call ptr @list_PointerDeleteElement(ptr noundef %26, ptr noundef null) #14
+  %27 = phi ptr [ %.pre, %for.end.loopexit ], [ null, %list_Nconc.exit ]
+  %call14 = tail call ptr @list_PointerDeleteElement(ptr noundef %27, ptr noundef null) #14
   store ptr %call14, ptr @dfg_AXCLAUSES, align 8
-  %27 = load ptr, ptr @dfg_AXIOMLIST, align 8
-  %cmp.i.not16.i = icmp eq ptr %27, null
+  %28 = load ptr, ptr @dfg_AXIOMLIST, align 8
+  %cmp.i.not16.i = icmp eq ptr %28, null
   br i1 %cmp.i.not16.i, label %dfg_DeleteFormulaPairList.exit, label %for.body.i
 
-for.body.i:                                       ; preds = %for.end, %if.end.i43
-  %FormulaPairs.addr.017.i = phi ptr [ %L.val.i.i41, %if.end.i43 ], [ %27, %for.end ]
-  %28 = getelementptr i8, ptr %FormulaPairs.addr.017.i, i64 8
-  %FormulaPairs.addr.0.val.i = load ptr, ptr %28, align 8
+for.body.i:                                       ; preds = %for.end, %if.end.i42
+  %FormulaPairs.addr.017.i = phi ptr [ %L.val.i.i40, %if.end.i42 ], [ %28, %for.end ]
+  %29 = getelementptr i8, ptr %FormulaPairs.addr.017.i, i64 8
+  %FormulaPairs.addr.0.val.i = load ptr, ptr %29, align 8
   %call1.val.i = load ptr, ptr %FormulaPairs.addr.0.val.i, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i) #14
-  %29 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i, i64 8
-  %call1.val12.i = load ptr, ptr %29, align 8
-  %cmp.not.i36 = icmp eq ptr %call1.val12.i, null
-  br i1 %cmp.not.i36, label %if.end.i43, label %if.then.i37
+  %30 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i, i64 8
+  %call1.val12.i = load ptr, ptr %30, align 8
+  %cmp.not.i35 = icmp eq ptr %call1.val12.i, null
+  br i1 %cmp.not.i35, label %if.end.i42, label %if.then.i36
 
-if.then.i37:                                      ; preds = %for.body.i
+if.then.i36:                                      ; preds = %for.body.i
   tail call void @string_StringFree(ptr noundef nonnull %call1.val12.i) #14
-  br label %if.end.i43
+  br label %if.end.i42
 
-if.end.i43:                                       ; preds = %if.then.i37, %for.body.i
-  %30 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i38 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %30, i64 0, i32 4
-  %31 = load i32, ptr %total_size.i.i.i.i38, align 8
-  %conv26.i.i.i.i39 = sext i32 %31 to i64
-  %32 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i40 = add i64 %32, %conv26.i.i.i.i39
-  store i64 %add27.i.i.i.i40, ptr @memory_FREEDBYTES, align 8
-  %33 = load ptr, ptr %30, align 8
-  store ptr %33, ptr %FormulaPairs.addr.0.val.i, align 8
-  %34 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i, ptr %34, align 8
-  %L.val.i.i41 = load ptr, ptr %FormulaPairs.addr.017.i, align 8
+if.end.i42:                                       ; preds = %if.then.i36, %for.body.i
+  %31 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i37 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %31, i64 0, i32 4
+  %32 = load i32, ptr %total_size.i.i.i.i37, align 8
+  %conv26.i.i.i.i38 = sext i32 %32 to i64
+  %33 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i39 = add i64 %33, %conv26.i.i.i.i38
+  store i64 %add27.i.i.i.i39, ptr @memory_FREEDBYTES, align 8
+  %34 = load ptr, ptr %31, align 8
+  store ptr %34, ptr %FormulaPairs.addr.0.val.i, align 8
   %35 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %35, i64 0, i32 4
-  %36 = load i32, ptr %total_size.i.i.i13.i, align 8
-  %conv26.i.i.i14.i = sext i32 %36 to i64
-  %37 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i = add i64 %37, %conv26.i.i.i14.i
+  store ptr %FormulaPairs.addr.0.val.i, ptr %35, align 8
+  %L.val.i.i40 = load ptr, ptr %FormulaPairs.addr.017.i, align 8
+  %36 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %36, i64 0, i32 4
+  %37 = load i32, ptr %total_size.i.i.i13.i, align 8
+  %conv26.i.i.i14.i = sext i32 %37 to i64
+  %38 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i = add i64 %38, %conv26.i.i.i14.i
   store i64 %add27.i.i.i15.i, ptr @memory_FREEDBYTES, align 8
-  %38 = load ptr, ptr %35, align 8
-  store ptr %38, ptr %FormulaPairs.addr.017.i, align 8
-  %39 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i, ptr %39, align 8
-  %cmp.i.not.i42 = icmp eq ptr %L.val.i.i41, null
-  br i1 %cmp.i.not.i42, label %dfg_DeleteFormulaPairList.exit, label %for.body.i, !llvm.loop !25
+  %39 = load ptr, ptr %36, align 8
+  store ptr %39, ptr %FormulaPairs.addr.017.i, align 8
+  %40 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i, ptr %40, align 8
+  %cmp.i.not.i41 = icmp eq ptr %L.val.i.i40, null
+  br i1 %cmp.i.not.i41, label %dfg_DeleteFormulaPairList.exit, label %for.body.i, !llvm.loop !24
 
-dfg_DeleteFormulaPairList.exit:                   ; preds = %if.end.i43, %for.end
-  %40 = load ptr, ptr @dfg_CONJECLIST, align 8
-  %cmp.i.not16.i45 = icmp eq ptr %40, null
-  br i1 %cmp.i.not16.i45, label %dfg_DeleteFormulaPairList.exit63, label %for.body.i51
+dfg_DeleteFormulaPairList.exit:                   ; preds = %if.end.i42, %for.end
+  %41 = load ptr, ptr @dfg_CONJECLIST, align 8
+  %cmp.i.not16.i44 = icmp eq ptr %41, null
+  br i1 %cmp.i.not16.i44, label %dfg_DeleteFormulaPairList.exit62, label %for.body.i50
 
-for.body.i51:                                     ; preds = %dfg_DeleteFormulaPairList.exit, %if.end.i61
-  %FormulaPairs.addr.017.i46 = phi ptr [ %L.val.i.i56, %if.end.i61 ], [ %40, %dfg_DeleteFormulaPairList.exit ]
-  %41 = getelementptr i8, ptr %FormulaPairs.addr.017.i46, i64 8
-  %FormulaPairs.addr.0.val.i47 = load ptr, ptr %41, align 8
-  %call1.val.i48 = load ptr, ptr %FormulaPairs.addr.0.val.i47, align 8
-  tail call void @term_Delete(ptr noundef %call1.val.i48) #14
-  %42 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i47, i64 8
-  %call1.val12.i49 = load ptr, ptr %42, align 8
-  %cmp.not.i50 = icmp eq ptr %call1.val12.i49, null
-  br i1 %cmp.not.i50, label %if.end.i61, label %if.then.i52
+for.body.i50:                                     ; preds = %dfg_DeleteFormulaPairList.exit, %if.end.i60
+  %FormulaPairs.addr.017.i45 = phi ptr [ %L.val.i.i55, %if.end.i60 ], [ %41, %dfg_DeleteFormulaPairList.exit ]
+  %42 = getelementptr i8, ptr %FormulaPairs.addr.017.i45, i64 8
+  %FormulaPairs.addr.0.val.i46 = load ptr, ptr %42, align 8
+  %call1.val.i47 = load ptr, ptr %FormulaPairs.addr.0.val.i46, align 8
+  tail call void @term_Delete(ptr noundef %call1.val.i47) #14
+  %43 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i46, i64 8
+  %call1.val12.i48 = load ptr, ptr %43, align 8
+  %cmp.not.i49 = icmp eq ptr %call1.val12.i48, null
+  br i1 %cmp.not.i49, label %if.end.i60, label %if.then.i51
 
-if.then.i52:                                      ; preds = %for.body.i51
-  tail call void @string_StringFree(ptr noundef nonnull %call1.val12.i49) #14
-  br label %if.end.i61
+if.then.i51:                                      ; preds = %for.body.i50
+  tail call void @string_StringFree(ptr noundef nonnull %call1.val12.i48) #14
+  br label %if.end.i60
 
-if.end.i61:                                       ; preds = %if.then.i52, %for.body.i51
-  %43 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i53 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %43, i64 0, i32 4
-  %44 = load i32, ptr %total_size.i.i.i.i53, align 8
-  %conv26.i.i.i.i54 = sext i32 %44 to i64
-  %45 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i55 = add i64 %45, %conv26.i.i.i.i54
-  store i64 %add27.i.i.i.i55, ptr @memory_FREEDBYTES, align 8
-  %46 = load ptr, ptr %43, align 8
-  store ptr %46, ptr %FormulaPairs.addr.0.val.i47, align 8
-  %47 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i47, ptr %47, align 8
-  %L.val.i.i56 = load ptr, ptr %FormulaPairs.addr.017.i46, align 8
+if.end.i60:                                       ; preds = %if.then.i51, %for.body.i50
+  %44 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i52 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %44, i64 0, i32 4
+  %45 = load i32, ptr %total_size.i.i.i.i52, align 8
+  %conv26.i.i.i.i53 = sext i32 %45 to i64
+  %46 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i54 = add i64 %46, %conv26.i.i.i.i53
+  store i64 %add27.i.i.i.i54, ptr @memory_FREEDBYTES, align 8
+  %47 = load ptr, ptr %44, align 8
+  store ptr %47, ptr %FormulaPairs.addr.0.val.i46, align 8
   %48 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i57 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %48, i64 0, i32 4
-  %49 = load i32, ptr %total_size.i.i.i13.i57, align 8
-  %conv26.i.i.i14.i58 = sext i32 %49 to i64
-  %50 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i59 = add i64 %50, %conv26.i.i.i14.i58
-  store i64 %add27.i.i.i15.i59, ptr @memory_FREEDBYTES, align 8
-  %51 = load ptr, ptr %48, align 8
-  store ptr %51, ptr %FormulaPairs.addr.017.i46, align 8
-  %52 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i46, ptr %52, align 8
-  %cmp.i.not.i60 = icmp eq ptr %L.val.i.i56, null
-  br i1 %cmp.i.not.i60, label %dfg_DeleteFormulaPairList.exit63, label %for.body.i51, !llvm.loop !25
+  store ptr %FormulaPairs.addr.0.val.i46, ptr %48, align 8
+  %L.val.i.i55 = load ptr, ptr %FormulaPairs.addr.017.i45, align 8
+  %49 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i56 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %49, i64 0, i32 4
+  %50 = load i32, ptr %total_size.i.i.i13.i56, align 8
+  %conv26.i.i.i14.i57 = sext i32 %50 to i64
+  %51 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i58 = add i64 %51, %conv26.i.i.i14.i57
+  store i64 %add27.i.i.i15.i58, ptr @memory_FREEDBYTES, align 8
+  %52 = load ptr, ptr %49, align 8
+  store ptr %52, ptr %FormulaPairs.addr.017.i45, align 8
+  %53 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i45, ptr %53, align 8
+  %cmp.i.not.i59 = icmp eq ptr %L.val.i.i55, null
+  br i1 %cmp.i.not.i59, label %dfg_DeleteFormulaPairList.exit62, label %for.body.i50, !llvm.loop !24
 
-dfg_DeleteFormulaPairList.exit63:                 ; preds = %if.end.i61, %dfg_DeleteFormulaPairList.exit
-  %53 = load ptr, ptr @dfg_SORTDECLLIST, align 8
-  %cmp.i.not16.i64 = icmp eq ptr %53, null
-  br i1 %cmp.i.not16.i64, label %dfg_DeleteFormulaPairList.exit82, label %for.body.i70
+dfg_DeleteFormulaPairList.exit62:                 ; preds = %if.end.i60, %dfg_DeleteFormulaPairList.exit
+  %54 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %cmp.i.not16.i63 = icmp eq ptr %54, null
+  br i1 %cmp.i.not16.i63, label %dfg_DeleteFormulaPairList.exit81, label %for.body.i69
 
-for.body.i70:                                     ; preds = %dfg_DeleteFormulaPairList.exit63, %if.end.i80
-  %FormulaPairs.addr.017.i65 = phi ptr [ %L.val.i.i75, %if.end.i80 ], [ %53, %dfg_DeleteFormulaPairList.exit63 ]
-  %54 = getelementptr i8, ptr %FormulaPairs.addr.017.i65, i64 8
-  %FormulaPairs.addr.0.val.i66 = load ptr, ptr %54, align 8
-  %call1.val.i67 = load ptr, ptr %FormulaPairs.addr.0.val.i66, align 8
-  tail call void @term_Delete(ptr noundef %call1.val.i67) #14
-  %55 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i66, i64 8
-  %call1.val12.i68 = load ptr, ptr %55, align 8
-  %cmp.not.i69 = icmp eq ptr %call1.val12.i68, null
-  br i1 %cmp.not.i69, label %if.end.i80, label %if.then.i71
+for.body.i69:                                     ; preds = %dfg_DeleteFormulaPairList.exit62, %if.end.i79
+  %FormulaPairs.addr.017.i64 = phi ptr [ %L.val.i.i74, %if.end.i79 ], [ %54, %dfg_DeleteFormulaPairList.exit62 ]
+  %55 = getelementptr i8, ptr %FormulaPairs.addr.017.i64, i64 8
+  %FormulaPairs.addr.0.val.i65 = load ptr, ptr %55, align 8
+  %call1.val.i66 = load ptr, ptr %FormulaPairs.addr.0.val.i65, align 8
+  tail call void @term_Delete(ptr noundef %call1.val.i66) #14
+  %56 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i65, i64 8
+  %call1.val12.i67 = load ptr, ptr %56, align 8
+  %cmp.not.i68 = icmp eq ptr %call1.val12.i67, null
+  br i1 %cmp.not.i68, label %if.end.i79, label %if.then.i70
 
-if.then.i71:                                      ; preds = %for.body.i70
-  tail call void @string_StringFree(ptr noundef nonnull %call1.val12.i68) #14
-  br label %if.end.i80
+if.then.i70:                                      ; preds = %for.body.i69
+  tail call void @string_StringFree(ptr noundef nonnull %call1.val12.i67) #14
+  br label %if.end.i79
 
-if.end.i80:                                       ; preds = %if.then.i71, %for.body.i70
-  %56 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i72 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %56, i64 0, i32 4
-  %57 = load i32, ptr %total_size.i.i.i.i72, align 8
-  %conv26.i.i.i.i73 = sext i32 %57 to i64
-  %58 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i74 = add i64 %58, %conv26.i.i.i.i73
-  store i64 %add27.i.i.i.i74, ptr @memory_FREEDBYTES, align 8
-  %59 = load ptr, ptr %56, align 8
-  store ptr %59, ptr %FormulaPairs.addr.0.val.i66, align 8
-  %60 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i66, ptr %60, align 8
-  %L.val.i.i75 = load ptr, ptr %FormulaPairs.addr.017.i65, align 8
+if.end.i79:                                       ; preds = %if.then.i70, %for.body.i69
+  %57 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i71 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %57, i64 0, i32 4
+  %58 = load i32, ptr %total_size.i.i.i.i71, align 8
+  %conv26.i.i.i.i72 = sext i32 %58 to i64
+  %59 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i73 = add i64 %59, %conv26.i.i.i.i72
+  store i64 %add27.i.i.i.i73, ptr @memory_FREEDBYTES, align 8
+  %60 = load ptr, ptr %57, align 8
+  store ptr %60, ptr %FormulaPairs.addr.0.val.i65, align 8
   %61 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i76 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %61, i64 0, i32 4
-  %62 = load i32, ptr %total_size.i.i.i13.i76, align 8
-  %conv26.i.i.i14.i77 = sext i32 %62 to i64
-  %63 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i78 = add i64 %63, %conv26.i.i.i14.i77
-  store i64 %add27.i.i.i15.i78, ptr @memory_FREEDBYTES, align 8
-  %64 = load ptr, ptr %61, align 8
-  store ptr %64, ptr %FormulaPairs.addr.017.i65, align 8
-  %65 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i65, ptr %65, align 8
-  %cmp.i.not.i79 = icmp eq ptr %L.val.i.i75, null
-  br i1 %cmp.i.not.i79, label %dfg_DeleteFormulaPairList.exit82, label %for.body.i70, !llvm.loop !25
+  store ptr %FormulaPairs.addr.0.val.i65, ptr %61, align 8
+  %L.val.i.i74 = load ptr, ptr %FormulaPairs.addr.017.i64, align 8
+  %62 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i75 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %62, i64 0, i32 4
+  %63 = load i32, ptr %total_size.i.i.i13.i75, align 8
+  %conv26.i.i.i14.i76 = sext i32 %63 to i64
+  %64 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i77 = add i64 %64, %conv26.i.i.i14.i76
+  store i64 %add27.i.i.i15.i77, ptr @memory_FREEDBYTES, align 8
+  %65 = load ptr, ptr %62, align 8
+  store ptr %65, ptr %FormulaPairs.addr.017.i64, align 8
+  %66 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i64, ptr %66, align 8
+  %cmp.i.not.i78 = icmp eq ptr %L.val.i.i74, null
+  br i1 %cmp.i.not.i78, label %dfg_DeleteFormulaPairList.exit81, label %for.body.i69, !llvm.loop !24
 
-dfg_DeleteFormulaPairList.exit82:                 ; preds = %if.end.i80, %dfg_DeleteFormulaPairList.exit63
-  %66 = load ptr, ptr @dfg_TERMLIST, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %66, ptr noundef nonnull @term_Delete) #14
-  %67 = load ptr, ptr @dfg_PROOFLIST, align 8
-  %call15 = tail call ptr @list_NReverse(ptr noundef %67) #14
+dfg_DeleteFormulaPairList.exit81:                 ; preds = %if.end.i79, %dfg_DeleteFormulaPairList.exit62
+  %67 = load ptr, ptr @dfg_TERMLIST, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %67, ptr noundef nonnull @term_Delete) #14
+  %68 = load ptr, ptr @dfg_PROOFLIST, align 8
+  %call15 = tail call ptr @list_NReverse(ptr noundef %68) #14
   store ptr %call15, ptr @dfg_PROOFLIST, align 8
-  %68 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %cmp.i.not.i83 = icmp eq ptr %68, null
-  br i1 %cmp.i.not.i83, label %list_Nconc.exit92, label %if.end.i85
+  %69 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %cmp.i.i82 = icmp eq ptr %69, null
+  br i1 %cmp.i.i82, label %list_Nconc.exit91, label %if.end.i84
 
-if.end.i85:                                       ; preds = %dfg_DeleteFormulaPairList.exit82
-  %cmp.i18.not.i84 = icmp eq ptr %call15, null
-  br i1 %cmp.i18.not.i84, label %list_Nconc.exit92, label %for.cond.i89
+if.end.i84:                                       ; preds = %dfg_DeleteFormulaPairList.exit81
+  %cmp.i18.i83 = icmp eq ptr %call15, null
+  br i1 %cmp.i18.i83, label %list_Nconc.exit91, label %for.cond.i88
 
-for.cond.i89:                                     ; preds = %if.end.i85, %for.cond.i89
-  %List1.addr.0.i86 = phi ptr [ %List1.addr.0.val17.i87, %for.cond.i89 ], [ %68, %if.end.i85 ]
-  %List1.addr.0.val17.i87 = load ptr, ptr %List1.addr.0.i86, align 8
-  %cmp.i20.not.i88 = icmp eq ptr %List1.addr.0.val17.i87, null
-  br i1 %cmp.i20.not.i88, label %for.end.i90, label %for.cond.i89, !llvm.loop !5
+for.cond.i88:                                     ; preds = %if.end.i84, %for.cond.i88
+  %List1.addr.0.i85 = phi ptr [ %List1.addr.0.val17.i86, %for.cond.i88 ], [ %69, %if.end.i84 ]
+  %List1.addr.0.val17.i86 = load ptr, ptr %List1.addr.0.i85, align 8
+  %cmp.i20.not.i87 = icmp eq ptr %List1.addr.0.val17.i86, null
+  br i1 %cmp.i20.not.i87, label %for.end.i89, label %for.cond.i88, !llvm.loop !5
 
-for.end.i90:                                      ; preds = %for.cond.i89
-  store ptr %call15, ptr %List1.addr.0.i86, align 8
-  br label %list_Nconc.exit92
+for.end.i89:                                      ; preds = %for.cond.i88
+  store ptr %call15, ptr %List1.addr.0.i85, align 8
+  br label %list_Nconc.exit91
 
-list_Nconc.exit92:                                ; preds = %dfg_DeleteFormulaPairList.exit82, %if.end.i85, %for.end.i90
-  %retval.0.i91 = phi ptr [ %68, %for.end.i90 ], [ %call15, %dfg_DeleteFormulaPairList.exit82 ], [ %68, %if.end.i85 ]
-  store ptr %retval.0.i91, ptr @dfg_AXCLAUSES, align 8
-  ret ptr %retval.0.i91
+list_Nconc.exit91:                                ; preds = %dfg_DeleteFormulaPairList.exit81, %if.end.i84, %for.end.i89
+  %retval.0.i90 = phi ptr [ %69, %for.end.i89 ], [ %call15, %dfg_DeleteFormulaPairList.exit81 ], [ %69, %if.end.i84 ]
+  store ptr %retval.0.i90, ptr @dfg_AXCLAUSES, align 8
+  ret ptr %retval.0.i90
 }
 
 ; Function Attrs: nounwind uwtable
@@ -5390,7 +5345,7 @@ if.end:                                           ; preds = %if.then, %for.body
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %FormulaPairs.addr.017, ptr %11, align 8
   %cmp.i.not = icmp eq ptr %L.val.i, null
-  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !25
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !24
 
 for.end:                                          ; preds = %if.end, %entry
   ret void
@@ -5424,77 +5379,77 @@ entry:
   store ptr null, ptr @dfg_DESC.5, align 8
   store ptr null, ptr @dfg_DESC.6, align 8
   %call1 = tail call i32 @dfg_parse()
-  %dfg_SYMBOLLIST.promoted.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
-  %cmp.i.not15.i = icmp eq ptr %dfg_SYMBOLLIST.promoted.i, null
-  br i1 %cmp.i.not15.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
+  %.pr.i = load ptr, ptr @dfg_SYMBOLLIST, align 8
+  %cmp.i.not14.i = icmp eq ptr %.pr.i, null
+  br i1 %cmp.i.not14.i, label %dfg_SymCleanUp.exit, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %entry
   %0 = load i32, ptr @symbol_TYPESTATBITS, align 4
   br label %while.body.i
 
 while.body.i:                                     ; preds = %if.end.i, %while.body.lr.ph.i
-  %L.val.i1416.i = phi ptr [ %dfg_SYMBOLLIST.promoted.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
-  %1 = getelementptr i8, ptr %L.val.i1416.i, i64 8
-  %.val.i = load ptr, ptr %1, align 8
-  %2 = load i32, ptr %.val.i, align 4
+  %1 = phi ptr [ %.pr.i, %while.body.lr.ph.i ], [ %L.val.i.i, %if.end.i ]
+  %2 = getelementptr i8, ptr %1, i64 8
+  %.val.i = load ptr, ptr %2, align 8
+  %3 = load i32, ptr %.val.i, align 4
   %arity.i = getelementptr inbounds %struct.DFG_SYMENTRY, ptr %.val.i, i64 0, i32 2
-  %3 = load i32, ptr %arity.i, align 4
-  %sub.i.i.i = sub nsw i32 0, %2
+  %4 = load i32, ptr %arity.i, align 4
+  %sub.i.i.i = sub nsw i32 0, %3
   %shr.i.i.i = ashr i32 %sub.i.i.i, %0
-  %4 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %5 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i.i = sext i32 %shr.i.i.i to i64
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %4, i64 %idxprom.i.i.i
-  %5 = load ptr, ptr %arrayidx.i.i.i, align 8
-  %arity.i.i = getelementptr inbounds %struct.signature, ptr %5, i64 0, i32 3
-  %6 = load i32, ptr %arity.i.i, align 8
-  %cmp.not.i = icmp eq i32 %3, %6
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %5, i64 %idxprom.i.i.i
+  %6 = load ptr, ptr %arrayidx.i.i.i, align 8
+  %arity.i.i = getelementptr inbounds %struct.signature, ptr %6, i64 0, i32 3
+  %7 = load i32, ptr %arity.i.i, align 8
+  %cmp.not.i = icmp eq i32 %4, %7
   br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
 if.then.i:                                        ; preds = %while.body.i
-  store i32 %3, ptr %arity.i.i, align 8
+  store i32 %4, ptr %arity.i.i, align 8
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i, %while.body.i
-  %7 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
-  %8 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %8 to i64
-  %9 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %9, %conv26.i.i.i
+  %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
+  %9 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %9 to i64
+  %10 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %10, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %.val.i, align 8
-  %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
-  store ptr %.val.i, ptr %11, align 8
-  %L.val.i.i = load ptr, ptr %L.val.i1416.i, align 8
-  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %12, i64 0, i32 4
-  %13 = load i32, ptr %total_size.i.i.i.i, align 8
-  %conv26.i.i.i.i = sext i32 %13 to i64
-  %14 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i = add i64 %14, %conv26.i.i.i.i
+  %11 = load ptr, ptr %8, align 8
+  store ptr %11, ptr %.val.i, align 8
+  %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 12), align 8
+  store ptr %.val.i, ptr %12, align 8
+  %L.val.i.i = load ptr, ptr %1, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %13, i64 0, i32 4
+  %14 = load i32, ptr %total_size.i.i.i.i, align 8
+  %conv26.i.i.i.i = sext i32 %14 to i64
+  %15 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i = add i64 %15, %conv26.i.i.i.i
   store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %15 = load ptr, ptr %12, align 8
-  store ptr %15, ptr %L.val.i1416.i, align 8
-  %16 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %L.val.i1416.i, ptr %16, align 8
+  %16 = load ptr, ptr %13, align 8
+  store ptr %16, ptr %1, align 8
+  %17 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %1, ptr %17, align 8
   store ptr %L.val.i.i, ptr @dfg_SYMBOLLIST, align 8
   %cmp.i.not.i = icmp eq ptr %L.val.i.i, null
-  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !19
+  br i1 %cmp.i.not.i, label %dfg_SymCleanUp.exit, label %while.body.i, !llvm.loop !18
 
 dfg_SymCleanUp.exit:                              ; preds = %if.end.i, %entry
-  %17 = load ptr, ptr @dfg_AXCLAUSES, align 8
-  %cmp.i.not16.i = icmp eq ptr %17, null
+  %18 = load ptr, ptr @dfg_AXCLAUSES, align 8
+  %cmp.i.not16.i = icmp eq ptr %18, null
   br i1 %cmp.i.not16.i, label %dfg_DeleteFormulaPairList.exit, label %for.body.i
 
 for.body.i:                                       ; preds = %dfg_SymCleanUp.exit, %if.end.i9
-  %FormulaPairs.addr.017.i = phi ptr [ %L.val.i.i7, %if.end.i9 ], [ %17, %dfg_SymCleanUp.exit ]
-  %18 = getelementptr i8, ptr %FormulaPairs.addr.017.i, i64 8
-  %FormulaPairs.addr.0.val.i = load ptr, ptr %18, align 8
+  %FormulaPairs.addr.017.i = phi ptr [ %L.val.i.i7, %if.end.i9 ], [ %18, %dfg_SymCleanUp.exit ]
+  %19 = getelementptr i8, ptr %FormulaPairs.addr.017.i, i64 8
+  %FormulaPairs.addr.0.val.i = load ptr, ptr %19, align 8
   %call1.val.i = load ptr, ptr %FormulaPairs.addr.0.val.i, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i) #14
-  %19 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i, i64 8
-  %call1.val12.i = load ptr, ptr %19, align 8
+  %20 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i, i64 8
+  %call1.val12.i = load ptr, ptr %20, align 8
   %cmp.not.i2 = icmp eq ptr %call1.val12.i, null
   br i1 %cmp.not.i2, label %if.end.i9, label %if.then.i3
 
@@ -5503,45 +5458,45 @@ if.then.i3:                                       ; preds = %for.body.i
   br label %if.end.i9
 
 if.end.i9:                                        ; preds = %if.then.i3, %for.body.i
-  %20 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i4 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %20, i64 0, i32 4
-  %21 = load i32, ptr %total_size.i.i.i.i4, align 8
-  %conv26.i.i.i.i5 = sext i32 %21 to i64
-  %22 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i6 = add i64 %22, %conv26.i.i.i.i5
+  %21 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i4 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %21, i64 0, i32 4
+  %22 = load i32, ptr %total_size.i.i.i.i4, align 8
+  %conv26.i.i.i.i5 = sext i32 %22 to i64
+  %23 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i6 = add i64 %23, %conv26.i.i.i.i5
   store i64 %add27.i.i.i.i6, ptr @memory_FREEDBYTES, align 8
-  %23 = load ptr, ptr %20, align 8
-  store ptr %23, ptr %FormulaPairs.addr.0.val.i, align 8
-  %24 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i, ptr %24, align 8
-  %L.val.i.i7 = load ptr, ptr %FormulaPairs.addr.017.i, align 8
+  %24 = load ptr, ptr %21, align 8
+  store ptr %24, ptr %FormulaPairs.addr.0.val.i, align 8
   %25 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %25, i64 0, i32 4
-  %26 = load i32, ptr %total_size.i.i.i13.i, align 8
-  %conv26.i.i.i14.i = sext i32 %26 to i64
-  %27 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i = add i64 %27, %conv26.i.i.i14.i
+  store ptr %FormulaPairs.addr.0.val.i, ptr %25, align 8
+  %L.val.i.i7 = load ptr, ptr %FormulaPairs.addr.017.i, align 8
+  %26 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %26, i64 0, i32 4
+  %27 = load i32, ptr %total_size.i.i.i13.i, align 8
+  %conv26.i.i.i14.i = sext i32 %27 to i64
+  %28 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i = add i64 %28, %conv26.i.i.i14.i
   store i64 %add27.i.i.i15.i, ptr @memory_FREEDBYTES, align 8
-  %28 = load ptr, ptr %25, align 8
-  store ptr %28, ptr %FormulaPairs.addr.017.i, align 8
-  %29 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i, ptr %29, align 8
+  %29 = load ptr, ptr %26, align 8
+  store ptr %29, ptr %FormulaPairs.addr.017.i, align 8
+  %30 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i, ptr %30, align 8
   %cmp.i.not.i8 = icmp eq ptr %L.val.i.i7, null
-  br i1 %cmp.i.not.i8, label %dfg_DeleteFormulaPairList.exit, label %for.body.i, !llvm.loop !25
+  br i1 %cmp.i.not.i8, label %dfg_DeleteFormulaPairList.exit, label %for.body.i, !llvm.loop !24
 
 dfg_DeleteFormulaPairList.exit:                   ; preds = %if.end.i9, %dfg_SymCleanUp.exit
-  %30 = load ptr, ptr @dfg_CONCLAUSES, align 8
-  %cmp.i.not16.i10 = icmp eq ptr %30, null
+  %31 = load ptr, ptr @dfg_CONCLAUSES, align 8
+  %cmp.i.not16.i10 = icmp eq ptr %31, null
   br i1 %cmp.i.not16.i10, label %dfg_DeleteFormulaPairList.exit27, label %for.body.i16
 
 for.body.i16:                                     ; preds = %dfg_DeleteFormulaPairList.exit, %if.end.i26
-  %FormulaPairs.addr.017.i11 = phi ptr [ %L.val.i.i21, %if.end.i26 ], [ %30, %dfg_DeleteFormulaPairList.exit ]
-  %31 = getelementptr i8, ptr %FormulaPairs.addr.017.i11, i64 8
-  %FormulaPairs.addr.0.val.i12 = load ptr, ptr %31, align 8
+  %FormulaPairs.addr.017.i11 = phi ptr [ %L.val.i.i21, %if.end.i26 ], [ %31, %dfg_DeleteFormulaPairList.exit ]
+  %32 = getelementptr i8, ptr %FormulaPairs.addr.017.i11, i64 8
+  %FormulaPairs.addr.0.val.i12 = load ptr, ptr %32, align 8
   %call1.val.i13 = load ptr, ptr %FormulaPairs.addr.0.val.i12, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i13) #14
-  %32 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i12, i64 8
-  %call1.val12.i14 = load ptr, ptr %32, align 8
+  %33 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i12, i64 8
+  %call1.val12.i14 = load ptr, ptr %33, align 8
   %cmp.not.i15 = icmp eq ptr %call1.val12.i14, null
   br i1 %cmp.not.i15, label %if.end.i26, label %if.then.i17
 
@@ -5550,45 +5505,45 @@ if.then.i17:                                      ; preds = %for.body.i16
   br label %if.end.i26
 
 if.end.i26:                                       ; preds = %if.then.i17, %for.body.i16
-  %33 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i18 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %33, i64 0, i32 4
-  %34 = load i32, ptr %total_size.i.i.i.i18, align 8
-  %conv26.i.i.i.i19 = sext i32 %34 to i64
-  %35 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i20 = add i64 %35, %conv26.i.i.i.i19
+  %34 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i18 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %34, i64 0, i32 4
+  %35 = load i32, ptr %total_size.i.i.i.i18, align 8
+  %conv26.i.i.i.i19 = sext i32 %35 to i64
+  %36 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i20 = add i64 %36, %conv26.i.i.i.i19
   store i64 %add27.i.i.i.i20, ptr @memory_FREEDBYTES, align 8
-  %36 = load ptr, ptr %33, align 8
-  store ptr %36, ptr %FormulaPairs.addr.0.val.i12, align 8
-  %37 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i12, ptr %37, align 8
-  %L.val.i.i21 = load ptr, ptr %FormulaPairs.addr.017.i11, align 8
+  %37 = load ptr, ptr %34, align 8
+  store ptr %37, ptr %FormulaPairs.addr.0.val.i12, align 8
   %38 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i22 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %38, i64 0, i32 4
-  %39 = load i32, ptr %total_size.i.i.i13.i22, align 8
-  %conv26.i.i.i14.i23 = sext i32 %39 to i64
-  %40 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i24 = add i64 %40, %conv26.i.i.i14.i23
+  store ptr %FormulaPairs.addr.0.val.i12, ptr %38, align 8
+  %L.val.i.i21 = load ptr, ptr %FormulaPairs.addr.017.i11, align 8
+  %39 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i22 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %39, i64 0, i32 4
+  %40 = load i32, ptr %total_size.i.i.i13.i22, align 8
+  %conv26.i.i.i14.i23 = sext i32 %40 to i64
+  %41 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i24 = add i64 %41, %conv26.i.i.i14.i23
   store i64 %add27.i.i.i15.i24, ptr @memory_FREEDBYTES, align 8
-  %41 = load ptr, ptr %38, align 8
-  store ptr %41, ptr %FormulaPairs.addr.017.i11, align 8
-  %42 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i11, ptr %42, align 8
+  %42 = load ptr, ptr %39, align 8
+  store ptr %42, ptr %FormulaPairs.addr.017.i11, align 8
+  %43 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i11, ptr %43, align 8
   %cmp.i.not.i25 = icmp eq ptr %L.val.i.i21, null
-  br i1 %cmp.i.not.i25, label %dfg_DeleteFormulaPairList.exit27, label %for.body.i16, !llvm.loop !25
+  br i1 %cmp.i.not.i25, label %dfg_DeleteFormulaPairList.exit27, label %for.body.i16, !llvm.loop !24
 
 dfg_DeleteFormulaPairList.exit27:                 ; preds = %if.end.i26, %dfg_DeleteFormulaPairList.exit
-  %43 = load ptr, ptr @dfg_AXIOMLIST, align 8
-  %cmp.i.not16.i28 = icmp eq ptr %43, null
+  %44 = load ptr, ptr @dfg_AXIOMLIST, align 8
+  %cmp.i.not16.i28 = icmp eq ptr %44, null
   br i1 %cmp.i.not16.i28, label %dfg_DeleteFormulaPairList.exit45, label %for.body.i34
 
 for.body.i34:                                     ; preds = %dfg_DeleteFormulaPairList.exit27, %if.end.i44
-  %FormulaPairs.addr.017.i29 = phi ptr [ %L.val.i.i39, %if.end.i44 ], [ %43, %dfg_DeleteFormulaPairList.exit27 ]
-  %44 = getelementptr i8, ptr %FormulaPairs.addr.017.i29, i64 8
-  %FormulaPairs.addr.0.val.i30 = load ptr, ptr %44, align 8
+  %FormulaPairs.addr.017.i29 = phi ptr [ %L.val.i.i39, %if.end.i44 ], [ %44, %dfg_DeleteFormulaPairList.exit27 ]
+  %45 = getelementptr i8, ptr %FormulaPairs.addr.017.i29, i64 8
+  %FormulaPairs.addr.0.val.i30 = load ptr, ptr %45, align 8
   %call1.val.i31 = load ptr, ptr %FormulaPairs.addr.0.val.i30, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i31) #14
-  %45 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i30, i64 8
-  %call1.val12.i32 = load ptr, ptr %45, align 8
+  %46 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i30, i64 8
+  %call1.val12.i32 = load ptr, ptr %46, align 8
   %cmp.not.i33 = icmp eq ptr %call1.val12.i32, null
   br i1 %cmp.not.i33, label %if.end.i44, label %if.then.i35
 
@@ -5597,45 +5552,45 @@ if.then.i35:                                      ; preds = %for.body.i34
   br label %if.end.i44
 
 if.end.i44:                                       ; preds = %if.then.i35, %for.body.i34
-  %46 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i36 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %46, i64 0, i32 4
-  %47 = load i32, ptr %total_size.i.i.i.i36, align 8
-  %conv26.i.i.i.i37 = sext i32 %47 to i64
-  %48 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i38 = add i64 %48, %conv26.i.i.i.i37
+  %47 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i36 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %47, i64 0, i32 4
+  %48 = load i32, ptr %total_size.i.i.i.i36, align 8
+  %conv26.i.i.i.i37 = sext i32 %48 to i64
+  %49 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i38 = add i64 %49, %conv26.i.i.i.i37
   store i64 %add27.i.i.i.i38, ptr @memory_FREEDBYTES, align 8
-  %49 = load ptr, ptr %46, align 8
-  store ptr %49, ptr %FormulaPairs.addr.0.val.i30, align 8
-  %50 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i30, ptr %50, align 8
-  %L.val.i.i39 = load ptr, ptr %FormulaPairs.addr.017.i29, align 8
+  %50 = load ptr, ptr %47, align 8
+  store ptr %50, ptr %FormulaPairs.addr.0.val.i30, align 8
   %51 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i40 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %51, i64 0, i32 4
-  %52 = load i32, ptr %total_size.i.i.i13.i40, align 8
-  %conv26.i.i.i14.i41 = sext i32 %52 to i64
-  %53 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i42 = add i64 %53, %conv26.i.i.i14.i41
+  store ptr %FormulaPairs.addr.0.val.i30, ptr %51, align 8
+  %L.val.i.i39 = load ptr, ptr %FormulaPairs.addr.017.i29, align 8
+  %52 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i40 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %52, i64 0, i32 4
+  %53 = load i32, ptr %total_size.i.i.i13.i40, align 8
+  %conv26.i.i.i14.i41 = sext i32 %53 to i64
+  %54 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i42 = add i64 %54, %conv26.i.i.i14.i41
   store i64 %add27.i.i.i15.i42, ptr @memory_FREEDBYTES, align 8
-  %54 = load ptr, ptr %51, align 8
-  store ptr %54, ptr %FormulaPairs.addr.017.i29, align 8
-  %55 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i29, ptr %55, align 8
+  %55 = load ptr, ptr %52, align 8
+  store ptr %55, ptr %FormulaPairs.addr.017.i29, align 8
+  %56 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i29, ptr %56, align 8
   %cmp.i.not.i43 = icmp eq ptr %L.val.i.i39, null
-  br i1 %cmp.i.not.i43, label %dfg_DeleteFormulaPairList.exit45, label %for.body.i34, !llvm.loop !25
+  br i1 %cmp.i.not.i43, label %dfg_DeleteFormulaPairList.exit45, label %for.body.i34, !llvm.loop !24
 
 dfg_DeleteFormulaPairList.exit45:                 ; preds = %if.end.i44, %dfg_DeleteFormulaPairList.exit27
-  %56 = load ptr, ptr @dfg_CONJECLIST, align 8
-  %cmp.i.not16.i46 = icmp eq ptr %56, null
+  %57 = load ptr, ptr @dfg_CONJECLIST, align 8
+  %cmp.i.not16.i46 = icmp eq ptr %57, null
   br i1 %cmp.i.not16.i46, label %dfg_DeleteFormulaPairList.exit63, label %for.body.i52
 
 for.body.i52:                                     ; preds = %dfg_DeleteFormulaPairList.exit45, %if.end.i62
-  %FormulaPairs.addr.017.i47 = phi ptr [ %L.val.i.i57, %if.end.i62 ], [ %56, %dfg_DeleteFormulaPairList.exit45 ]
-  %57 = getelementptr i8, ptr %FormulaPairs.addr.017.i47, i64 8
-  %FormulaPairs.addr.0.val.i48 = load ptr, ptr %57, align 8
+  %FormulaPairs.addr.017.i47 = phi ptr [ %L.val.i.i57, %if.end.i62 ], [ %57, %dfg_DeleteFormulaPairList.exit45 ]
+  %58 = getelementptr i8, ptr %FormulaPairs.addr.017.i47, i64 8
+  %FormulaPairs.addr.0.val.i48 = load ptr, ptr %58, align 8
   %call1.val.i49 = load ptr, ptr %FormulaPairs.addr.0.val.i48, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i49) #14
-  %58 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i48, i64 8
-  %call1.val12.i50 = load ptr, ptr %58, align 8
+  %59 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i48, i64 8
+  %call1.val12.i50 = load ptr, ptr %59, align 8
   %cmp.not.i51 = icmp eq ptr %call1.val12.i50, null
   br i1 %cmp.not.i51, label %if.end.i62, label %if.then.i53
 
@@ -5644,101 +5599,101 @@ if.then.i53:                                      ; preds = %for.body.i52
   br label %if.end.i62
 
 if.end.i62:                                       ; preds = %if.then.i53, %for.body.i52
-  %59 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i54 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %59, i64 0, i32 4
-  %60 = load i32, ptr %total_size.i.i.i.i54, align 8
-  %conv26.i.i.i.i55 = sext i32 %60 to i64
-  %61 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i56 = add i64 %61, %conv26.i.i.i.i55
+  %60 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i54 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %60, i64 0, i32 4
+  %61 = load i32, ptr %total_size.i.i.i.i54, align 8
+  %conv26.i.i.i.i55 = sext i32 %61 to i64
+  %62 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i56 = add i64 %62, %conv26.i.i.i.i55
   store i64 %add27.i.i.i.i56, ptr @memory_FREEDBYTES, align 8
-  %62 = load ptr, ptr %59, align 8
-  store ptr %62, ptr %FormulaPairs.addr.0.val.i48, align 8
-  %63 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i48, ptr %63, align 8
-  %L.val.i.i57 = load ptr, ptr %FormulaPairs.addr.017.i47, align 8
+  %63 = load ptr, ptr %60, align 8
+  store ptr %63, ptr %FormulaPairs.addr.0.val.i48, align 8
   %64 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i58 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %64, i64 0, i32 4
-  %65 = load i32, ptr %total_size.i.i.i13.i58, align 8
-  %conv26.i.i.i14.i59 = sext i32 %65 to i64
-  %66 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i60 = add i64 %66, %conv26.i.i.i14.i59
+  store ptr %FormulaPairs.addr.0.val.i48, ptr %64, align 8
+  %L.val.i.i57 = load ptr, ptr %FormulaPairs.addr.017.i47, align 8
+  %65 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i58 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %65, i64 0, i32 4
+  %66 = load i32, ptr %total_size.i.i.i13.i58, align 8
+  %conv26.i.i.i14.i59 = sext i32 %66 to i64
+  %67 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i60 = add i64 %67, %conv26.i.i.i14.i59
   store i64 %add27.i.i.i15.i60, ptr @memory_FREEDBYTES, align 8
-  %67 = load ptr, ptr %64, align 8
-  store ptr %67, ptr %FormulaPairs.addr.017.i47, align 8
-  %68 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i47, ptr %68, align 8
+  %68 = load ptr, ptr %65, align 8
+  store ptr %68, ptr %FormulaPairs.addr.017.i47, align 8
+  %69 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i47, ptr %69, align 8
   %cmp.i.not.i61 = icmp eq ptr %L.val.i.i57, null
-  br i1 %cmp.i.not.i61, label %dfg_DeleteFormulaPairList.exit63, label %for.body.i52, !llvm.loop !25
+  br i1 %cmp.i.not.i61, label %dfg_DeleteFormulaPairList.exit63, label %for.body.i52, !llvm.loop !24
 
 dfg_DeleteFormulaPairList.exit63:                 ; preds = %if.end.i62, %dfg_DeleteFormulaPairList.exit45
-  %69 = load ptr, ptr @dfg_PROOFLIST, align 8
-  %cmp.i.not16.i64 = icmp eq ptr %69, null
+  %70 = load ptr, ptr @dfg_PROOFLIST, align 8
+  %cmp.i.not16.i64 = icmp eq ptr %70, null
   br i1 %cmp.i.not16.i64, label %dfg_DeleteProofList.exit, label %for.body.i67
 
 for.body.i67:                                     ; preds = %dfg_DeleteFormulaPairList.exit63, %list_Delete.exit.i
-  %Proof.addr.017.i = phi ptr [ %L.val.i.i71, %list_Delete.exit.i ], [ %69, %dfg_DeleteFormulaPairList.exit63 ]
-  %70 = getelementptr i8, ptr %Proof.addr.017.i, i64 8
-  %Proof.addr.0.val.i = load ptr, ptr %70, align 8
-  %71 = getelementptr i8, ptr %Proof.addr.0.val.i, i64 8
-  %call1.val.i65 = load ptr, ptr %71, align 8
+  %Proof.addr.017.i = phi ptr [ %L.val.i.i71, %list_Delete.exit.i ], [ %70, %dfg_DeleteFormulaPairList.exit63 ]
+  %71 = getelementptr i8, ptr %Proof.addr.017.i, i64 8
+  %Proof.addr.0.val.i = load ptr, ptr %71, align 8
+  %72 = getelementptr i8, ptr %Proof.addr.0.val.i, i64 8
+  %call1.val.i65 = load ptr, ptr %72, align 8
   tail call void @string_StringFree(ptr noundef %call1.val.i65) #14
   %call1.val11.i = load ptr, ptr %Proof.addr.0.val.i, align 8
-  %72 = getelementptr i8, ptr %call1.val11.i, i64 8
-  %call1.val11.val.i = load ptr, ptr %72, align 8
+  %73 = getelementptr i8, ptr %call1.val11.i, i64 8
+  %call1.val11.val.i = load ptr, ptr %73, align 8
   tail call void @term_Delete(ptr noundef %call1.val11.val.i) #14
   %call1.val12.i66 = load ptr, ptr %Proof.addr.0.val.i, align 8
   %call1.val12.val.i = load ptr, ptr %call1.val12.i66, align 8
-  %73 = getelementptr i8, ptr %call1.val12.val.i, i64 8
-  %call1.val12.val.val.i = load ptr, ptr %73, align 8
+  %74 = getelementptr i8, ptr %call1.val12.val.i, i64 8
+  %call1.val12.val.val.i = load ptr, ptr %74, align 8
   tail call void @list_DeleteWithElement(ptr noundef %call1.val12.val.val.i, ptr noundef nonnull @string_StringFree) #14
   br label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %while.body.i.i, %for.body.i67
-  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %Proof.addr.0.val.i, %for.body.i67 ]
-  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
-  %74 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i68 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %74, i64 0, i32 4
-  %75 = load i32, ptr %total_size.i.i.i.i68, align 8
-  %conv26.i.i.i.i69 = sext i32 %75 to i64
-  %76 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i70 = add i64 %76, %conv26.i.i.i.i69
+  %Current.06.i.i = phi ptr [ %L.addr.0.val.i.i, %while.body.i.i ], [ %Proof.addr.0.val.i, %for.body.i67 ]
+  %L.addr.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %75 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i68 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %75, i64 0, i32 4
+  %76 = load i32, ptr %total_size.i.i.i.i68, align 8
+  %conv26.i.i.i.i69 = sext i32 %76 to i64
+  %77 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i70 = add i64 %77, %conv26.i.i.i.i69
   store i64 %add27.i.i.i.i70, ptr @memory_FREEDBYTES, align 8
-  %77 = load ptr, ptr %74, align 8
-  store ptr %77, ptr %Current.06.i.i, align 8
-  %78 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Current.06.i.i, ptr %78, align 8
-  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
-  br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !7
+  %78 = load ptr, ptr %75, align 8
+  store ptr %78, ptr %Current.06.i.i, align 8
+  %79 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i.i, ptr %79, align 8
+  %cmp.i.not.i.i = icmp eq ptr %L.addr.0.val.i.i, null
+  br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !14
 
 list_Delete.exit.i:                               ; preds = %while.body.i.i
   %L.val.i.i71 = load ptr, ptr %Proof.addr.017.i, align 8
-  %79 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i72 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %79, i64 0, i32 4
-  %80 = load i32, ptr %total_size.i.i.i13.i72, align 8
-  %conv26.i.i.i14.i73 = sext i32 %80 to i64
-  %81 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i74 = add i64 %81, %conv26.i.i.i14.i73
+  %80 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i72 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %80, i64 0, i32 4
+  %81 = load i32, ptr %total_size.i.i.i13.i72, align 8
+  %conv26.i.i.i14.i73 = sext i32 %81 to i64
+  %82 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i74 = add i64 %82, %conv26.i.i.i14.i73
   store i64 %add27.i.i.i15.i74, ptr @memory_FREEDBYTES, align 8
-  %82 = load ptr, ptr %79, align 8
-  store ptr %82, ptr %Proof.addr.017.i, align 8
-  %83 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Proof.addr.017.i, ptr %83, align 8
+  %83 = load ptr, ptr %80, align 8
+  store ptr %83, ptr %Proof.addr.017.i, align 8
+  %84 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Proof.addr.017.i, ptr %84, align 8
   %cmp.i.not.i75 = icmp eq ptr %L.val.i.i71, null
-  br i1 %cmp.i.not.i75, label %dfg_DeleteProofList.exit, label %for.body.i67, !llvm.loop !22
+  br i1 %cmp.i.not.i75, label %dfg_DeleteProofList.exit, label %for.body.i67, !llvm.loop !21
 
 dfg_DeleteProofList.exit:                         ; preds = %list_Delete.exit.i, %dfg_DeleteFormulaPairList.exit63
-  %84 = load ptr, ptr @dfg_SORTDECLLIST, align 8
-  %cmp.i.not16.i76 = icmp eq ptr %84, null
+  %85 = load ptr, ptr @dfg_SORTDECLLIST, align 8
+  %cmp.i.not16.i76 = icmp eq ptr %85, null
   br i1 %cmp.i.not16.i76, label %dfg_DeleteFormulaPairList.exit93, label %for.body.i82
 
 for.body.i82:                                     ; preds = %dfg_DeleteProofList.exit, %if.end.i92
-  %FormulaPairs.addr.017.i77 = phi ptr [ %L.val.i.i87, %if.end.i92 ], [ %84, %dfg_DeleteProofList.exit ]
-  %85 = getelementptr i8, ptr %FormulaPairs.addr.017.i77, i64 8
-  %FormulaPairs.addr.0.val.i78 = load ptr, ptr %85, align 8
+  %FormulaPairs.addr.017.i77 = phi ptr [ %L.val.i.i87, %if.end.i92 ], [ %85, %dfg_DeleteProofList.exit ]
+  %86 = getelementptr i8, ptr %FormulaPairs.addr.017.i77, i64 8
+  %FormulaPairs.addr.0.val.i78 = load ptr, ptr %86, align 8
   %call1.val.i79 = load ptr, ptr %FormulaPairs.addr.0.val.i78, align 8
   tail call void @term_Delete(ptr noundef %call1.val.i79) #14
-  %86 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i78, i64 8
-  %call1.val12.i80 = load ptr, ptr %86, align 8
+  %87 = getelementptr i8, ptr %FormulaPairs.addr.0.val.i78, i64 8
+  %call1.val12.i80 = load ptr, ptr %87, align 8
   %cmp.not.i81 = icmp eq ptr %call1.val12.i80, null
   br i1 %cmp.not.i81, label %if.end.i92, label %if.then.i83
 
@@ -5747,35 +5702,35 @@ if.then.i83:                                      ; preds = %for.body.i82
   br label %if.end.i92
 
 if.end.i92:                                       ; preds = %if.then.i83, %for.body.i82
-  %87 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i.i84 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %87, i64 0, i32 4
-  %88 = load i32, ptr %total_size.i.i.i.i84, align 8
-  %conv26.i.i.i.i85 = sext i32 %88 to i64
-  %89 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i.i86 = add i64 %89, %conv26.i.i.i.i85
+  %88 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i84 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %88, i64 0, i32 4
+  %89 = load i32, ptr %total_size.i.i.i.i84, align 8
+  %conv26.i.i.i.i85 = sext i32 %89 to i64
+  %90 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i86 = add i64 %90, %conv26.i.i.i.i85
   store i64 %add27.i.i.i.i86, ptr @memory_FREEDBYTES, align 8
-  %90 = load ptr, ptr %87, align 8
-  store ptr %90, ptr %FormulaPairs.addr.0.val.i78, align 8
-  %91 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.0.val.i78, ptr %91, align 8
-  %L.val.i.i87 = load ptr, ptr %FormulaPairs.addr.017.i77, align 8
+  %91 = load ptr, ptr %88, align 8
+  store ptr %91, ptr %FormulaPairs.addr.0.val.i78, align 8
   %92 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i13.i88 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %92, i64 0, i32 4
-  %93 = load i32, ptr %total_size.i.i.i13.i88, align 8
-  %conv26.i.i.i14.i89 = sext i32 %93 to i64
-  %94 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i15.i90 = add i64 %94, %conv26.i.i.i14.i89
+  store ptr %FormulaPairs.addr.0.val.i78, ptr %92, align 8
+  %L.val.i.i87 = load ptr, ptr %FormulaPairs.addr.017.i77, align 8
+  %93 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i13.i88 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %93, i64 0, i32 4
+  %94 = load i32, ptr %total_size.i.i.i13.i88, align 8
+  %conv26.i.i.i14.i89 = sext i32 %94 to i64
+  %95 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i15.i90 = add i64 %95, %conv26.i.i.i14.i89
   store i64 %add27.i.i.i15.i90, ptr @memory_FREEDBYTES, align 8
-  %95 = load ptr, ptr %92, align 8
-  store ptr %95, ptr %FormulaPairs.addr.017.i77, align 8
-  %96 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %FormulaPairs.addr.017.i77, ptr %96, align 8
+  %96 = load ptr, ptr %93, align 8
+  store ptr %96, ptr %FormulaPairs.addr.017.i77, align 8
+  %97 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %FormulaPairs.addr.017.i77, ptr %97, align 8
   %cmp.i.not.i91 = icmp eq ptr %L.val.i.i87, null
-  br i1 %cmp.i.not.i91, label %dfg_DeleteFormulaPairList.exit93, label %for.body.i82, !llvm.loop !25
+  br i1 %cmp.i.not.i91, label %dfg_DeleteFormulaPairList.exit93, label %for.body.i82, !llvm.loop !24
 
 dfg_DeleteFormulaPairList.exit93:                 ; preds = %if.end.i92, %dfg_DeleteProofList.exit
-  %97 = load ptr, ptr @dfg_TERMLIST, align 8
-  ret ptr %97
+  %98 = load ptr, ptr @dfg_TERMLIST, align 8
+  ret ptr %98
 }
 
 ; Function Attrs: nounwind uwtable
@@ -5813,7 +5768,7 @@ if.end:                                           ; preds = %if.then, %for.body
   store ptr %scan.0.val, ptr %6, align 8
   %scan.0.val12 = load ptr, ptr %scan.016, align 8
   %cmp.i.not = icmp eq ptr %scan.0.val12, null
-  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !26
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !25
 
 for.end:                                          ; preds = %if.end, %entry
   ret void
@@ -5876,13 +5831,13 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #11
+declare i32 @llvm.fshl.i32(i32, i32, i32) #11
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.fshl.i32(i32, i32, i32) #11
+declare i64 @llvm.umin.i64(i64, i64) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #13
@@ -5902,8 +5857,8 @@ attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn mem
 attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
 attributes #14 = { nounwind }
-attributes #15 = { noreturn nounwind }
-attributes #16 = { nounwind willreturn memory(read) }
+attributes #15 = { nounwind willreturn memory(read) }
+attributes #16 = { noreturn nounwind }
 attributes #17 = { cold }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
@@ -5935,4 +5890,3 @@ attributes #17 = { cold }
 !23 = distinct !{!23, !6}
 !24 = distinct !{!24, !6}
 !25 = distinct !{!25, !6}
-!26 = distinct !{!26, !6}

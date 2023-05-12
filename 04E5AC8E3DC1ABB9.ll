@@ -409,7 +409,7 @@ lor.lhs.false:                                    ; preds = %for.end316
   %55 = load ptr, ptr %51, align 8, !tbaa !5
   %cmp335.not = icmp eq ptr %52, %55
   %cmp338.not = icmp eq ptr %storemerge, %storemerge3591
-  %or.cond3593 = and i1 %cmp338.not, %cmp335.not
+  %or.cond3593 = and i1 %cmp335.not, %cmp338.not
   br i1 %or.cond3593, label %if.end345, label %if.then340
 
 if.then340:                                       ; preds = %lor.lhs.false, %for.end316

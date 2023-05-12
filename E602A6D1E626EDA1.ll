@@ -140,10 +140,14 @@ for.cond8.us:                                     ; preds = %for.cond8.us.prehea
   %indvars.iv = phi i64 [ %9, %for.cond8.us.preheader ], [ %indvars.iv.next, %for.body10.us ]
   %indvars.iv.next = add i64 %indvars.iv, %0
   %cmp9.us = icmp slt i64 %indvars.iv.next, %1
-  br i1 %cmp9.us, label %for.body10.us, label %for.cond22.preheader.us
+  br i1 %cmp9.us, label %for.body10.us, label %for.end.us
 
-for.body24.us:                                    ; preds = %for.cond22.preheader.us, %for.inc59.us
-  %indvars.iv587 = phi i64 [ %indvars.iv.next588, %for.inc59.us ], [ %9, %for.cond22.preheader.us ]
+for.end.us:                                       ; preds = %for.cond8.us
+  %cmp23569.us = icmp slt i32 %row.0578.us, %lastRow
+  br i1 %cmp23569.us, label %for.body24.us, label %for.inc180.us
+
+for.body24.us:                                    ; preds = %for.end.us, %for.inc59.us
+  %indvars.iv587 = phi i64 [ %indvars.iv.next588, %for.inc59.us ], [ %9, %for.end.us ]
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %predBlocks, i8 0, i64 32, i1 false)
   %cmp.i.us = icmp sgt i64 %indvars.iv587, 0
   %cmp11.i.us = icmp slt i64 %indvars.iv587, %3
@@ -343,7 +347,7 @@ for.body120.us:                                   ; preds = %if.else114.us, %for
   %sub122.us = select i1 %tobool.not.us, i32 0, i32 %.
   %lastCorruptedRow.3.us = sub nsw i32 %lastCorruptedRow.2572.us, %sub122.us
   %add124.us = select i1 %tobool.not.us, i32 %., i32 0
-  %firstCorruptedRow.1.us = add nsw i32 %add124.us, %firstCorruptedRow.0573.us
+  %firstCorruptedRow.1.us = add nsw i32 %firstCorruptedRow.0573.us, %add124.us
   %currRow.2.us = select i1 %tobool.not.us, i32 %firstCorruptedRow.0573.us, i32 %lastCorruptedRow.2572.us
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %predBlocks, i8 0, i64 32, i1 false)
   %cmp.i464.us = icmp sgt i32 %currRow.2.us, 0
@@ -422,7 +426,7 @@ if.then107.peel.i530.us:                          ; preds = %if.then99.peel.i528
 if.end162.peel.i535.us:                           ; preds = %if.then107.peel.i530.us, %if.then99.peel.i528.us, %if.end95.peel.i526.us
   %srcCounter.7.peel.i533.us = phi i32 [ %srcCounter.4.peel.i525.us, %if.end95.peel.i526.us ], [ %inc114.peel.i529.us, %if.then107.peel.i530.us ], [ %srcCounter.4.peel.i525.us, %if.then99.peel.i528.us ]
   %cmp167.peel.i534.us = icmp ult i32 %srcCounter.7.peel.i533.us, 2
-  br i1 %cmp167.peel.i534.us, label %do.body.i536.us, label %ercCollect8PredBlocks.exit563.us
+  br i1 %cmp167.peel.i534.us, label %do.body.i536.us, label %if.end133.us
 
 do.body.i536.us:                                  ; preds = %if.end162.peel.i535.us
   br i1 %cmp.i464.us, label %land.lhs.true.i538.us, label %if.end.i541.us
@@ -461,28 +465,28 @@ if.then40.i551.us:                                ; preds = %if.then32.i549.us
   br label %if.end95.i555.us
 
 if.end95.i555.us:                                 ; preds = %if.then40.i551.us, %if.then32.i549.us, %if.end29.i547.us
-  br i1 %cmp97.i.us, label %if.then99.i557.us, label %ercCollect8PredBlocks.exit563.us
+  br i1 %cmp97.i.us, label %if.then99.i557.us, label %if.end133.us
 
 if.then99.i557.us:                                ; preds = %if.end95.i555.us
   %49 = load i32, ptr %arrayidx104.i499.us, align 4, !tbaa !15
   %cmp105.not.i556.us = icmp slt i32 %49, 2
-  br i1 %cmp105.not.i556.us, label %ercCollect8PredBlocks.exit563.us, label %if.then107.i559.us
+  br i1 %cmp105.not.i556.us, label %if.end133.us, label %if.then107.i559.us
 
 if.then107.i559.us:                               ; preds = %if.then99.i557.us
   store i32 %49, ptr %arrayidx113.i, align 4, !tbaa !15
-  br label %ercCollect8PredBlocks.exit563.us
+  br label %if.end133.us
 
-ercCollect8PredBlocks.exit563.us:                 ; preds = %if.then107.i559.us, %if.then99.i557.us, %if.end95.i555.us, %if.end162.peel.i535.us
+if.end133.us:                                     ; preds = %if.then107.i559.us, %if.then99.i557.us, %if.end95.i555.us, %if.end162.peel.i535.us
   switch i32 %comp, label %if.else168.us [
     i32 0, label %if.then147.us
     i32 1, label %sw.bb137.us
     i32 2, label %if.else168.us.sink.split
   ]
 
-sw.bb137.us:                                      ; preds = %ercCollect8PredBlocks.exit563.us
+sw.bb137.us:                                      ; preds = %if.end133.us
   br label %if.else168.us.sink.split
 
-if.then147.us:                                    ; preds = %ercCollect8PredBlocks.exit563.us
+if.then147.us:                                    ; preds = %if.end133.us
   %50 = load ptr, ptr %recfr, align 8, !tbaa !16
   call void @ercPixConcealIMB(ptr noundef %50, i32 noundef %currRow.2.us, i32 noundef %5, ptr noundef nonnull %predBlocks, i32 noundef %picSizeX, i32 noundef 2)
   %idxprom150.us = sext i32 %add34.i483.us to i64
@@ -500,13 +504,13 @@ if.then147.us:                                    ; preds = %ercCollect8PredBloc
   %idxprom166.us = sext i32 %add165.us to i64
   br label %for.inc174.us
 
-if.else168.us.sink.split:                         ; preds = %ercCollect8PredBlocks.exit563.us, %sw.bb137.us
-  %uptr.sink615 = phi ptr [ %uptr, %sw.bb137.us ], [ %vptr, %ercCollect8PredBlocks.exit563.us ]
+if.else168.us.sink.split:                         ; preds = %if.end133.us, %sw.bb137.us
+  %uptr.sink615 = phi ptr [ %uptr, %sw.bb137.us ], [ %vptr, %if.end133.us ]
   %51 = load ptr, ptr %uptr.sink615, align 8, !tbaa !18
   call void @ercPixConcealIMB(ptr noundef %51, i32 noundef %currRow.2.us, i32 noundef %5, ptr noundef nonnull %predBlocks, i32 noundef %shr30, i32 noundef 1)
   br label %if.else168.us
 
-if.else168.us:                                    ; preds = %if.else168.us.sink.split, %ercCollect8PredBlocks.exit563.us
+if.else168.us:                                    ; preds = %if.else168.us.sink.split, %if.end133.us
   %52 = sext i32 %mul33.i482.us to i64
   %53 = add nsw i64 %indvars.iv601, %52
   br label %for.inc174.us
@@ -523,8 +527,8 @@ for.end112.us:                                    ; preds = %for.inc110.us, %for
   %add113.us = add nsw i32 %., %37
   br label %for.inc180.us
 
-for.inc180.us:                                    ; preds = %for.inc59.us, %for.inc174.us, %for.cond22.preheader.us, %if.else114.us, %for.end112.us, %for.body4.us
-  %row.2.us = phi i32 [ %row.0578.us, %for.body4.us ], [ %add113.us, %for.end112.us ], [ %add115.us, %if.else114.us ], [ %lastRow, %for.cond22.preheader.us ], [ %add115.us, %for.inc174.us ], [ %lastRow, %for.inc59.us ]
+for.inc180.us:                                    ; preds = %for.inc59.us, %for.inc174.us, %for.end.us, %if.else114.us, %for.end112.us, %for.body4.us
+  %row.2.us = phi i32 [ %row.0578.us, %for.body4.us ], [ %add113.us, %for.end112.us ], [ %add115.us, %if.else114.us ], [ %lastRow, %for.end.us ], [ %add115.us, %for.inc174.us ], [ %lastRow, %for.inc59.us ]
   %add181.us = add nsw i32 %row.2.us, %.
   %cmp3.us = icmp slt i32 %add181.us, %lastRow
   br i1 %cmp3.us, label %for.body4.us, label %for.cond2.for.inc183_crit_edge.us, !llvm.loop !23
@@ -709,10 +713,6 @@ for.cond65.preheader.us:                          ; preds = %if.else62.us
   %cmp66575.us = icmp sgt i32 %37, -1
   br i1 %cmp66575.us, label %for.body67.us, label %for.end112.us
 
-for.cond22.preheader.us:                          ; preds = %for.cond8.us
-  %cmp23569.us = icmp slt i32 %row.0578.us, %lastRow
-  br i1 %cmp23569.us, label %for.body24.us, label %for.inc180.us
-
 for.cond2.for.inc183_crit_edge.us:                ; preds = %for.inc180.us
   %indvars.iv.next602 = add i64 %indvars.iv601, %0
   %cmp1.us = icmp slt i64 %indvars.iv.next602, %2
@@ -747,7 +747,7 @@ if.then50:                                        ; preds = %entry
   br label %if.end60
 
 if.end60:                                         ; preds = %if.then50, %entry
-  %src.sroa.7.0 = phi ptr [ null, %entry ], [ %add.ptr58, %if.then50 ]
+  %src.sroa.7.0 = phi ptr [ %add.ptr58, %if.then50 ], [ null, %entry ]
   %src.sroa.7.0261 = ptrtoint ptr %src.sroa.7.0 to i64
   %arrayidx61 = getelementptr inbounds i32, ptr %predBlocks, i64 5
   %1 = load i32, ptr %arrayidx61, align 4, !tbaa !15
@@ -766,7 +766,7 @@ if.then63:                                        ; preds = %if.end60
   br label %if.end73
 
 if.end73:                                         ; preds = %if.then63, %if.end60
-  %src.sroa.9.0 = phi ptr [ null, %if.end60 ], [ %add.ptr71, %if.then63 ]
+  %src.sroa.9.0 = phi ptr [ %add.ptr71, %if.then63 ], [ null, %if.end60 ]
   %arrayidx74 = getelementptr inbounds i32, ptr %predBlocks, i64 6
   %2 = load i32, ptr %arrayidx74, align 4, !tbaa !15
   %tobool75.not = icmp eq i32 %2, 0
@@ -784,7 +784,7 @@ if.then76:                                        ; preds = %if.end73
   br label %if.end86
 
 if.end86:                                         ; preds = %if.then76, %if.end73
-  %src.sroa.11.0 = phi ptr [ null, %if.end73 ], [ %add.ptr84, %if.then76 ]
+  %src.sroa.11.0 = phi ptr [ %add.ptr84, %if.then76 ], [ null, %if.end73 ]
   %src.sroa.11.0256 = ptrtoint ptr %src.sroa.11.0 to i64
   %arrayidx87 = getelementptr inbounds i32, ptr %predBlocks, i64 7
   %3 = load i32, ptr %arrayidx87, align 4, !tbaa !15

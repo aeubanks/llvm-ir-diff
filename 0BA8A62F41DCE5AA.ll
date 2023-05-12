@@ -25,11 +25,11 @@ entry:
   store i32 1, ptr @x, align 4, !tbaa !5
   tail call void asm sideeffect "", "=*m,=*m,*m,*m,~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y, ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y) #3, !srcloc !9
   %0 = load i32, ptr @x, align 4, !tbaa !5
-  %tobool.not.i = icmp eq i32 %0, 0
+  %tobool.not.i = icmp ne i32 %0, 0
   %1 = load i32, ptr @y, align 4
-  %cmp.i = icmp eq i32 %1, 0
-  %narrow.i.not = select i1 %tobool.not.i, i1 true, i1 %cmp.i
-  br i1 %narrow.i.not, label %if.end, label %if.then
+  %cmp.i = icmp ne i32 %1, 0
+  %narrow.i = select i1 %tobool.not.i, i1 %cmp.i, i1 false
+  br i1 %narrow.i, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #4

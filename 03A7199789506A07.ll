@@ -196,7 +196,7 @@ if.end7.i:                                        ; preds = %if.end.i
 
 for.cond.preheader.i:                             ; preds = %if.end7.i
   %cmp1327.i = icmp ugt i64 %numBlocks, 1
-  br i1 %cmp1327.i, label %for.body.lr.ph.i, label %if.end3
+  br i1 %cmp1327.i, label %for.body.lr.ph.i, label %for.cond.cleanup.i
 
 for.body.lr.ph.i:                                 ; preds = %for.cond.preheader.i
   %2 = load i64, ptr %_blockSize.i, align 8, !tbaa !12
@@ -204,11 +204,38 @@ for.body.lr.ph.i:                                 ; preds = %for.cond.preheader.
   %4 = add i64 %numBlocks, -2
   %xtraiter = and i64 %3, 7
   %5 = icmp ult i64 %4, 7
-  br i1 %5, label %if.end3.loopexit.unr-lcssa, label %for.body.lr.ph.i.new
+  br i1 %5, label %for.cond.cleanup.i.loopexit.unr-lcssa, label %for.body.lr.ph.i.new
 
 for.body.lr.ph.i.new:                             ; preds = %for.body.lr.ph.i
   %unroll_iter = and i64 %3, -8
   br label %for.body.i
+
+for.cond.cleanup.i.loopexit.unr-lcssa:            ; preds = %for.body.i, %for.body.lr.ph.i
+  %add.ptr.i.lcssa.ph = phi ptr [ undef, %for.body.lr.ph.i ], [ %add.ptr.i.7, %for.body.i ]
+  %p.028.i.unr = phi ptr [ %call.i, %for.body.lr.ph.i ], [ %add.ptr.i.7, %for.body.i ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.cond.cleanup.i, label %for.body.i.epil
+
+for.body.i.epil:                                  ; preds = %for.cond.cleanup.i.loopexit.unr-lcssa, %for.body.i.epil
+  %p.028.i.epil = phi ptr [ %add.ptr.i.epil, %for.body.i.epil ], [ %p.028.i.unr, %for.cond.cleanup.i.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i.epil ], [ 0, %for.cond.cleanup.i.loopexit.unr-lcssa ]
+  %add.ptr.i.epil = getelementptr inbounds i8, ptr %p.028.i.epil, i64 %2
+  store ptr %add.ptr.i.epil, ptr %p.028.i.epil, align 8, !tbaa !13
+  %epil.iter.next = add i64 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.cond.cleanup.i, label %for.body.i.epil, !llvm.loop !18
+
+for.cond.cleanup.i:                               ; preds = %for.cond.cleanup.i.loopexit.unr-lcssa, %for.body.i.epil, %for.cond.preheader.i
+  %p.0.lcssa.i = phi ptr [ %call.i, %for.cond.preheader.i ], [ %add.ptr.i.lcssa.ph, %for.cond.cleanup.i.loopexit.unr-lcssa ], [ %add.ptr.i.epil, %for.body.i.epil ]
+  store ptr null, ptr %p.0.lcssa.i, align 8, !tbaa !13
+  %6 = load ptr, ptr %this, align 8, !tbaa !5
+  store ptr %6, ptr %_headFree.i.i, align 8, !tbaa !11
+  %sub = sub i64 %numBlocks, %numNoLockBlocks
+  %_sync.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 2, i32 0, i32 1
+  store ptr null, ptr %_sync.i, align 8, !tbaa !19
+  %conv = trunc i64 %sub to i32
+  %or.cond = icmp slt i32 %conv, 1
+  br i1 %or.cond, label %return, label %if.end.i14
 
 for.body.i:                                       ; preds = %for.body.i, %for.body.lr.ph.i.new
   %p.028.i = phi ptr [ %call.i, %for.body.lr.ph.i.new ], [ %add.ptr.i.7, %for.body.i ]
@@ -231,36 +258,9 @@ for.body.i:                                       ; preds = %for.body.i, %for.bo
   store ptr %add.ptr.i.7, ptr %add.ptr.i.6, align 8, !tbaa !13
   %niter.next.7 = add i64 %niter, 8
   %niter.ncmp.7 = icmp eq i64 %niter.next.7, %unroll_iter
-  br i1 %niter.ncmp.7, label %if.end3.loopexit.unr-lcssa, label %for.body.i, !llvm.loop !16
+  br i1 %niter.ncmp.7, label %for.cond.cleanup.i.loopexit.unr-lcssa, label %for.body.i, !llvm.loop !16
 
-if.end3.loopexit.unr-lcssa:                       ; preds = %for.body.i, %for.body.lr.ph.i
-  %add.ptr.i.lcssa.ph = phi ptr [ undef, %for.body.lr.ph.i ], [ %add.ptr.i.7, %for.body.i ]
-  %p.028.i.unr = phi ptr [ %call.i, %for.body.lr.ph.i ], [ %add.ptr.i.7, %for.body.i ]
-  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %if.end3, label %for.body.i.epil
-
-for.body.i.epil:                                  ; preds = %if.end3.loopexit.unr-lcssa, %for.body.i.epil
-  %p.028.i.epil = phi ptr [ %add.ptr.i.epil, %for.body.i.epil ], [ %p.028.i.unr, %if.end3.loopexit.unr-lcssa ]
-  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i.epil ], [ 0, %if.end3.loopexit.unr-lcssa ]
-  %add.ptr.i.epil = getelementptr inbounds i8, ptr %p.028.i.epil, i64 %2
-  store ptr %add.ptr.i.epil, ptr %p.028.i.epil, align 8, !tbaa !13
-  %epil.iter.next = add i64 %epil.iter, 1
-  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %if.end3, label %for.body.i.epil, !llvm.loop !18
-
-if.end3:                                          ; preds = %if.end3.loopexit.unr-lcssa, %for.body.i.epil, %for.cond.preheader.i
-  %p.0.lcssa.i = phi ptr [ %call.i, %for.cond.preheader.i ], [ %add.ptr.i.lcssa.ph, %if.end3.loopexit.unr-lcssa ], [ %add.ptr.i.epil, %for.body.i.epil ]
-  store ptr null, ptr %p.0.lcssa.i, align 8, !tbaa !13
-  %6 = load ptr, ptr %this, align 8, !tbaa !5
-  store ptr %6, ptr %_headFree.i.i, align 8, !tbaa !11
-  %sub = sub i64 %numBlocks, %numNoLockBlocks
-  %_sync.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 2, i32 0, i32 1
-  store ptr null, ptr %_sync.i, align 8, !tbaa !19
-  %conv = trunc i64 %sub to i32
-  %or.cond = icmp slt i32 %conv, 1
-  br i1 %or.cond, label %return, label %if.end.i14
-
-if.end.i14:                                       ; preds = %if.end3
+if.end.i14:                                       ; preds = %for.cond.cleanup.i
   store ptr %sync, ptr %_sync.i, align 8, !tbaa !19
   %_count.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 2, i32 1
   store i32 %conv, ptr %_count.i, align 8, !tbaa !21
@@ -268,8 +268,8 @@ if.end.i14:                                       ; preds = %if.end3
   store i32 %conv, ptr %_maxCount.i, align 4, !tbaa !24
   br label %return
 
-return:                                           ; preds = %if.end7.i, %if.end.i, %if.end, %if.end.i14, %if.end3, %entry
-  %retval.0 = phi i32 [ -2147024809, %entry ], [ 0, %if.end.i14 ], [ 1, %if.end3 ], [ -2147024882, %if.end ], [ -2147024882, %if.end.i ], [ -2147024882, %if.end7.i ]
+return:                                           ; preds = %if.end, %if.end.i, %if.end7.i, %if.end.i14, %for.cond.cleanup.i, %entry
+  %retval.0 = phi i32 [ -2147024809, %entry ], [ 0, %if.end.i14 ], [ 1, %for.cond.cleanup.i ], [ -2147024882, %if.end7.i ], [ -2147024882, %if.end.i ], [ -2147024882, %if.end ]
   ret i32 %retval.0
 }
 
@@ -315,7 +315,7 @@ if.end7.i.i:                                      ; preds = %if.end.i.i
 
 for.cond.preheader.i.i:                           ; preds = %if.end7.i.i
   %cmp1327.i.i = icmp ugt i64 %desiredNumberOfBlocks.addr.0, 1
-  br i1 %cmp1327.i.i, label %for.body.lr.ph.i.i, label %if.end3.i
+  br i1 %cmp1327.i.i, label %for.body.lr.ph.i.i, label %for.cond.cleanup.i.i
 
 for.body.lr.ph.i.i:                               ; preds = %for.cond.preheader.i.i
   %2 = load i64, ptr %_blockSize.i.i, align 8, !tbaa !12
@@ -323,11 +323,37 @@ for.body.lr.ph.i.i:                               ; preds = %for.cond.preheader.
   %4 = add i64 %desiredNumberOfBlocks.addr.0, -2
   %xtraiter = and i64 %3, 7
   %5 = icmp ult i64 %4, 7
-  br i1 %5, label %if.end3.i.loopexit.unr-lcssa, label %for.body.lr.ph.i.i.new
+  br i1 %5, label %for.cond.cleanup.i.i.loopexit.unr-lcssa, label %for.body.lr.ph.i.i.new
 
 for.body.lr.ph.i.i.new:                           ; preds = %for.body.lr.ph.i.i
   %unroll_iter = and i64 %3, -8
   br label %for.body.i.i
+
+for.cond.cleanup.i.i.loopexit.unr-lcssa:          ; preds = %for.body.i.i, %for.body.lr.ph.i.i
+  %add.ptr.i.i.lcssa.ph = phi ptr [ undef, %for.body.lr.ph.i.i ], [ %add.ptr.i.i.7, %for.body.i.i ]
+  %p.028.i.i.unr = phi ptr [ %call.i.i, %for.body.lr.ph.i.i ], [ %add.ptr.i.i.7, %for.body.i.i ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.cond.cleanup.i.i, label %for.body.i.i.epil
+
+for.body.i.i.epil:                                ; preds = %for.cond.cleanup.i.i.loopexit.unr-lcssa, %for.body.i.i.epil
+  %p.028.i.i.epil = phi ptr [ %add.ptr.i.i.epil, %for.body.i.i.epil ], [ %p.028.i.i.unr, %for.cond.cleanup.i.i.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %for.cond.cleanup.i.i.loopexit.unr-lcssa ]
+  %add.ptr.i.i.epil = getelementptr inbounds i8, ptr %p.028.i.i.epil, i64 %2
+  store ptr %add.ptr.i.i.epil, ptr %p.028.i.i.epil, align 8, !tbaa !13
+  %epil.iter.next = add i64 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.cond.cleanup.i.i, label %for.body.i.i.epil, !llvm.loop !25
+
+for.cond.cleanup.i.i:                             ; preds = %for.cond.cleanup.i.i.loopexit.unr-lcssa, %for.body.i.i.epil, %for.cond.preheader.i.i
+  %p.0.lcssa.i.i = phi ptr [ %call.i.i, %for.cond.preheader.i.i ], [ %add.ptr.i.i.lcssa.ph, %for.cond.cleanup.i.i.loopexit.unr-lcssa ], [ %add.ptr.i.i.epil, %for.body.i.i.epil ]
+  store ptr null, ptr %p.0.lcssa.i.i, align 8, !tbaa !13
+  %6 = load ptr, ptr %this, align 8, !tbaa !5
+  store ptr %6, ptr %_headFree.i.i.i, align 8, !tbaa !11
+  %sub.i = sub i64 %desiredNumberOfBlocks.addr.0, %numNoLockBlocks
+  store ptr null, ptr %_sync.i.i, align 8, !tbaa !19
+  %conv.i = trunc i64 %sub.i to i32
+  %or.cond.i = icmp slt i32 %conv.i, 1
+  br i1 %or.cond.i, label %if.end4, label %if.end.i14.i
 
 for.body.i.i:                                     ; preds = %for.body.i.i, %for.body.lr.ph.i.i.new
   %p.028.i.i = phi ptr [ %call.i.i, %for.body.lr.ph.i.i.new ], [ %add.ptr.i.i.7, %for.body.i.i ]
@@ -350,35 +376,9 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
   store ptr %add.ptr.i.i.7, ptr %add.ptr.i.i.6, align 8, !tbaa !13
   %niter.next.7 = add i64 %niter, 8
   %niter.ncmp.7 = icmp eq i64 %niter.next.7, %unroll_iter
-  br i1 %niter.ncmp.7, label %if.end3.i.loopexit.unr-lcssa, label %for.body.i.i, !llvm.loop !16
+  br i1 %niter.ncmp.7, label %for.cond.cleanup.i.i.loopexit.unr-lcssa, label %for.body.i.i, !llvm.loop !16
 
-if.end3.i.loopexit.unr-lcssa:                     ; preds = %for.body.i.i, %for.body.lr.ph.i.i
-  %add.ptr.i.i.lcssa.ph = phi ptr [ undef, %for.body.lr.ph.i.i ], [ %add.ptr.i.i.7, %for.body.i.i ]
-  %p.028.i.i.unr = phi ptr [ %call.i.i, %for.body.lr.ph.i.i ], [ %add.ptr.i.i.7, %for.body.i.i ]
-  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %if.end3.i, label %for.body.i.i.epil
-
-for.body.i.i.epil:                                ; preds = %if.end3.i.loopexit.unr-lcssa, %for.body.i.i.epil
-  %p.028.i.i.epil = phi ptr [ %add.ptr.i.i.epil, %for.body.i.i.epil ], [ %p.028.i.i.unr, %if.end3.i.loopexit.unr-lcssa ]
-  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %if.end3.i.loopexit.unr-lcssa ]
-  %add.ptr.i.i.epil = getelementptr inbounds i8, ptr %p.028.i.i.epil, i64 %2
-  store ptr %add.ptr.i.i.epil, ptr %p.028.i.i.epil, align 8, !tbaa !13
-  %epil.iter.next = add i64 %epil.iter, 1
-  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %if.end3.i, label %for.body.i.i.epil, !llvm.loop !25
-
-if.end3.i:                                        ; preds = %if.end3.i.loopexit.unr-lcssa, %for.body.i.i.epil, %for.cond.preheader.i.i
-  %p.0.lcssa.i.i = phi ptr [ %call.i.i, %for.cond.preheader.i.i ], [ %add.ptr.i.i.lcssa.ph, %if.end3.i.loopexit.unr-lcssa ], [ %add.ptr.i.i.epil, %for.body.i.i.epil ]
-  store ptr null, ptr %p.0.lcssa.i.i, align 8, !tbaa !13
-  %6 = load ptr, ptr %this, align 8, !tbaa !5
-  store ptr %6, ptr %_headFree.i.i.i, align 8, !tbaa !11
-  %sub.i = sub i64 %desiredNumberOfBlocks.addr.0, %numNoLockBlocks
-  store ptr null, ptr %_sync.i.i, align 8, !tbaa !19
-  %conv.i = trunc i64 %sub.i to i32
-  %or.cond.i = icmp slt i32 %conv.i, 1
-  br i1 %or.cond.i, label %if.end4, label %_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows16NSynchronization8CSynchroEmm.exit
-
-_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows16NSynchronization8CSynchroEmm.exit: ; preds = %if.end3.i
+if.end.i14.i:                                     ; preds = %for.cond.cleanup.i.i
   store ptr %sync, ptr %_sync.i.i, align 8, !tbaa !19
   %_count.i.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 2, i32 1
   store i32 %conv.i, ptr %_count.i.i, align 8, !tbaa !21
@@ -386,7 +386,7 @@ _ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows16NSynchronization8CSynchroEmm
   store i32 %conv.i, ptr %_maxCount.i.i, align 4, !tbaa !24
   br label %return
 
-if.end4:                                          ; preds = %for.cond, %if.end3.i, %if.end.i, %if.end.i.i, %if.end7.i.i
+if.end4:                                          ; preds = %for.cond, %if.end.i, %if.end.i.i, %if.end7.i.i, %for.cond.cleanup.i.i
   %cmp5 = icmp eq i64 %desiredNumberOfBlocks.addr.0, %numNoLockBlocks
   br i1 %cmp5, label %return, label %if.end7
 
@@ -396,8 +396,8 @@ if.end7:                                          ; preds = %if.end4
   %add = add i64 %shr, %numNoLockBlocks
   br label %for.cond, !llvm.loop !26
 
-return:                                           ; preds = %if.end4, %_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows16NSynchronization8CSynchroEmm.exit, %entry
-  %retval.0 = phi i32 [ -2147024809, %entry ], [ 0, %_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows16NSynchronization8CSynchroEmm.exit ], [ -2147024882, %if.end4 ]
+return:                                           ; preds = %if.end4, %entry, %if.end.i14.i
+  %retval.0 = phi i32 [ 0, %if.end.i14.i ], [ -2147024809, %entry ], [ -2147024882, %if.end4 ]
   ret i32 %retval.0
 }
 
@@ -438,9 +438,9 @@ _ZN16CMemBlockManager13AllocateBlockEv.exit:      ; preds = %entry, %if.end.i
 define dso_local void @_ZN18CMemBlockManagerMt9FreeBlockEPvb(ptr noundef nonnull align 8 dereferenceable(88) %this, ptr noundef %p, i1 noundef zeroext %lockMode) local_unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 {
 entry:
   %cmp = icmp eq ptr %p, null
-  br i1 %cmp, label %if.end3, label %_ZN16CMemBlockManager9FreeBlockEPv.exit
+  br i1 %cmp, label %if.end3, label %if.end
 
-_ZN16CMemBlockManager9FreeBlockEPv.exit:          ; preds = %entry
+if.end:                                           ; preds = %entry
   %_criticalSection = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 1
   %call.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %_criticalSection) #9
   %_headFree.i = getelementptr inbounds %class.CMemBlockManager, ptr %this, i64 0, i32 2
@@ -450,7 +450,7 @@ _ZN16CMemBlockManager9FreeBlockEPv.exit:          ; preds = %entry
   %call.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %_criticalSection) #9
   br i1 %lockMode, label %if.then2, label %if.end3
 
-if.then2:                                         ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit
+if.then2:                                         ; preds = %if.end
   %_sync.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %this, i64 0, i32 2, i32 0, i32 1
   %1 = load ptr, ptr %_sync.i, align 8, !tbaa !19
   %call.i.i5 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %1) #9
@@ -478,7 +478,7 @@ _ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit: ; preds = %if.the
   %call.i10.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %.sink.i) #9
   br label %if.end3
 
-if.end3:                                          ; preds = %entry, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit, %_ZN16CMemBlockManager9FreeBlockEPv.exit
+if.end3:                                          ; preds = %entry, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit, %if.end
   ret void
 }
 
@@ -507,9 +507,9 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %arrayidx.i.i = getelementptr inbounds ptr, ptr %2, i64 %idxprom.i.i
   %3 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !13
   %cmp.i = icmp eq ptr %3, null
-  br i1 %cmp.i, label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit, label %_ZN16CMemBlockManager9FreeBlockEPv.exit.i
+  br i1 %cmp.i, label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit, label %if.end.i
 
-_ZN16CMemBlockManager9FreeBlockEPv.exit.i:        ; preds = %while.body
+if.end.i:                                         ; preds = %while.body
   %call.i.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %_criticalSection.i) #9
   %4 = load ptr, ptr %_headFree.i.i, align 8, !tbaa !11
   store ptr %4, ptr %3, align 8, !tbaa !13
@@ -522,11 +522,11 @@ _ZN16CMemBlockManager9FreeBlockEPv.exit.i:        ; preds = %while.body
   %cmp2.i.not.i = icmp slt i32 %6, %7
   br i1 %cmp2.i.not.i, label %if.end5.i.i, label %if.then3.i.i
 
-if.then3.i.i:                                     ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit.i
+if.then3.i.i:                                     ; preds = %if.end.i
   %8 = load ptr, ptr %_sync.i.i, align 8, !tbaa !19
   br label %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i
 
-if.end5.i.i:                                      ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit.i
+if.end5.i.i:                                      ; preds = %if.end.i
   %add.i.i = add nsw i32 %6, 1
   store i32 %add.i.i, ptr %_count.i.i, align 8, !tbaa !21
   %9 = load ptr, ptr %_sync.i.i, align 8, !tbaa !19
@@ -568,18 +568,24 @@ define dso_local noundef i32 @_ZNK10CMemBlocks13WriteToStreamEmP20ISequentialOut
 entry:
   %TotalSize = getelementptr inbounds %class.CMemBlocks, ptr %this, i64 0, i32 1
   %0 = load i64, ptr %TotalSize, align 8, !tbaa !31
-  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
   %conv2 = and i64 %blockSize, 4294967295
+  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
   %cmp.not40 = icmp eq i64 %0, 0
   br i1 %cmp.not40, label %cleanup19, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
-  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
   br label %for.body
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
-  %totalSize.041 = phi i64 [ %0, %for.body.lr.ph ], [ %sub, %for.inc ]
+for.cond:                                         ; preds = %cleanup16
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %sub = sub i64 %totalSize.041, %conv10
+  %cmp.not = icmp eq i64 %sub, 0
+  br i1 %cmp.not, label %cleanup19, label %for.body, !llvm.loop !35
+
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.cond ]
+  %totalSize.041 = phi i64 [ %0, %for.body.lr.ph ], [ %sub, %for.cond ]
   %1 = load i32, ptr %_size.i, align 4, !tbaa !27
   %2 = sext i32 %1 to i64
   %cmp5.not = icmp slt i64 %indvars.iv, %2
@@ -594,17 +600,11 @@ cleanup16:                                        ; preds = %for.body
   %conv10 = and i64 %spec.select, 4294967295
   %call11 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %outStream, ptr noundef %4, i64 noundef %conv10)
   %cmp12.not = icmp eq i32 %call11, 0
-  br i1 %cmp12.not, label %for.inc, label %cleanup19
+  br i1 %cmp12.not, label %for.cond, label %cleanup19
 
-for.inc:                                          ; preds = %cleanup16
-  %sub = sub i64 %totalSize.041, %conv10
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %cmp.not = icmp eq i64 %sub, 0
-  br i1 %cmp.not, label %cleanup19, label %for.body, !llvm.loop !35
-
-cleanup19:                                        ; preds = %cleanup16, %for.inc, %for.body, %entry
-  %spec.select34 = phi i32 [ 0, %entry ], [ -2147467259, %for.body ], [ 0, %for.inc ], [ %call11, %cleanup16 ]
-  ret i32 %spec.select34
+cleanup19:                                        ; preds = %for.cond, %for.body, %cleanup16, %entry
+  %5 = phi i32 [ 0, %entry ], [ 0, %for.cond ], [ -2147467259, %for.body ], [ %call11, %cleanup16 ]
+  ret i32 %5
 }
 
 declare noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #1
@@ -618,9 +618,9 @@ entry:
   %arrayidx.i = getelementptr inbounds ptr, ptr %0, i64 %idxprom.i
   %1 = load ptr, ptr %arrayidx.i, align 8, !tbaa !13
   %cmp.i = icmp eq ptr %1, null
-  br i1 %cmp.i, label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit, label %_ZN16CMemBlockManager9FreeBlockEPv.exit.i
+  br i1 %cmp.i, label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit, label %if.end.i
 
-_ZN16CMemBlockManager9FreeBlockEPv.exit.i:        ; preds = %entry
+if.end.i:                                         ; preds = %entry
   %LockMode = getelementptr inbounds %struct.CMemLockBlocks, ptr %this, i64 0, i32 1
   %2 = load i8, ptr %LockMode, align 8, !tbaa !36, !range !39, !noundef !40
   %tobool.not = icmp eq i8 %2, 0
@@ -633,7 +633,7 @@ _ZN16CMemBlockManager9FreeBlockEPv.exit.i:        ; preds = %entry
   %call.i.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %_criticalSection.i) #9
   br i1 %tobool.not, label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit, label %if.then2.i
 
-if.then2.i:                                       ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit.i
+if.then2.i:                                       ; preds = %if.end.i
   %_sync.i.i = getelementptr inbounds %class.CMemBlockManagerMt, ptr %memManager, i64 0, i32 2, i32 0, i32 1
   %4 = load ptr, ptr %_sync.i.i, align 8, !tbaa !19
   %call.i.i5.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %4) #9
@@ -661,7 +661,7 @@ _ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i: ; preds = %if.e
   %call.i10.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %.sink.i.i) #9
   br label %_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit
 
-_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit:       ; preds = %entry, %_ZN16CMemBlockManager9FreeBlockEPv.exit.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i
+_ZN18CMemBlockManagerMt9FreeBlockEPvb.exit:       ; preds = %entry, %if.end.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i
   %9 = load ptr, ptr %_items.i, align 8, !tbaa !29
   %arrayidx.i7 = getelementptr inbounds ptr, ptr %9, i64 %idxprom.i
   store ptr null, ptr %arrayidx.i7, align 8, !tbaa !13
@@ -694,9 +694,9 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %arrayidx.i.i = getelementptr inbounds ptr, ptr %2, i64 %idxprom.i.i
   %3 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !13
   %cmp.i.i = icmp eq ptr %3, null
-  br i1 %cmp.i.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i
+  br i1 %cmp.i.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %if.end.i.i
 
-_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i:      ; preds = %while.body
+if.end.i.i:                                       ; preds = %while.body
   %4 = load i8, ptr %LockMode.i, align 8, !tbaa !36, !range !39, !noundef !40
   %tobool.not.i = icmp eq i8 %4, 0
   %call.i.i.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %_criticalSection.i.i) #9
@@ -706,7 +706,7 @@ _ZN16CMemBlockManager9FreeBlockEPv.exit.i.i:      ; preds = %while.body
   %call.i.i.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %_criticalSection.i.i) #9
   br i1 %tobool.not.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %if.then2.i.i
 
-if.then2.i.i:                                     ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i
+if.then2.i.i:                                     ; preds = %if.end.i.i
   %6 = load ptr, ptr %_sync.i.i.i, align 8, !tbaa !19
   %call.i.i5.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %6) #9
   %7 = load i32, ptr %_count.i.i.i, align 8, !tbaa !21
@@ -731,7 +731,7 @@ _ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i: ; preds = %if
   %call.i10.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %.sink.i.i.i) #9
   br label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit
 
-_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit: ; preds = %while.body, %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i
+_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit: ; preds = %while.body, %if.end.i.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i
   %11 = load ptr, ptr %_items.i.i, align 8, !tbaa !29
   %arrayidx.i7.i = getelementptr inbounds ptr, ptr %11, i64 %idxprom.i.i
   store ptr null, ptr %arrayidx.i7.i, align 8, !tbaa !13
@@ -826,7 +826,7 @@ for.cond.cleanup:                                 ; preds = %if.end, %entry
   %3 = load i64, ptr %TotalSize11, align 8, !tbaa !31
   %TotalSize12 = getelementptr inbounds %class.CMemBlocks, ptr %blocks, i64 0, i32 1
   store i64 %3, ptr %TotalSize12, align 8, !tbaa !31
-  tail call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %this, ptr noundef nonnull %memManager)
+  tail call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %this, ptr noundef %memManager)
   ret void
 
 for.body:                                         ; preds = %for.body.lr.ph, %if.end
@@ -852,9 +852,9 @@ if.then:                                          ; preds = %for.body
 
 if.else:                                          ; preds = %for.body
   %cmp.i.i = icmp eq ptr %6, null
-  br i1 %cmp.i.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i
+  br i1 %cmp.i.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %if.end.i.i
 
-_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i:      ; preds = %if.else
+if.end.i.i:                                       ; preds = %if.else
   %9 = load i8, ptr %LockMode, align 8, !tbaa !36, !range !39, !noundef !40
   %tobool.not.i = icmp eq i8 %9, 0
   %call.i.i.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %_criticalSection.i.i) #9
@@ -864,7 +864,7 @@ _ZN16CMemBlockManager9FreeBlockEPv.exit.i.i:      ; preds = %if.else
   %call.i.i.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %_criticalSection.i.i) #9
   br i1 %tobool.not.i, label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit, label %if.then2.i.i
 
-if.then2.i.i:                                     ; preds = %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i
+if.then2.i.i:                                     ; preds = %if.end.i.i
   %11 = load ptr, ptr %_sync.i.i.i, align 8, !tbaa !19
   %call.i.i5.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %11) #9
   %12 = load i32, ptr %_count.i.i.i, align 8, !tbaa !21
@@ -889,7 +889,7 @@ _ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i: ; preds = %if
   %call.i10.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %.sink.i.i.i) #9
   br label %_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit
 
-_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit: ; preds = %if.else, %_ZN16CMemBlockManager9FreeBlockEPv.exit.i.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i
+_ZN14CMemLockBlocks9FreeBlockEiP18CMemBlockManagerMt.exit: ; preds = %if.else, %if.end.i.i, %_ZN8NWindows16NSynchronization14CSemaphoreWFMO7ReleaseEi.exit.i.i
   %16 = load ptr, ptr %_items.i.i, align 8, !tbaa !29
   %arrayidx.i7.i = getelementptr inbounds ptr, ptr %16, i64 %indvars.iv
   store ptr null, ptr %arrayidx.i7.i, align 8, !tbaa !13

@@ -53,9 +53,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @Is_redundant_correct = common dso_local local_unnamed_addr global i32 0, align 4
 @redundant_slice_ref_idx = common dso_local local_unnamed_addr global i32 0, align 4
 @nal_startcode_follows = common dso_local local_unnamed_addr global ptr null, align 8
-@str = private unnamed_addr constant [43 x i8] c"Errors reported by DecomposePacket(), exit\00", align 1
-@str.19 = private unnamed_addr constant [63 x i8] c"RTPReadPacket: File corruption, could not read Timestamp, exit\00", align 1
-@str.20 = private unnamed_addr constant [67 x i8] c"DecomposeRTPpacket, RTP header consistency problem, header follows\00", align 1
+@str = private unnamed_addr constant [67 x i8] c"DecomposeRTPpacket, RTP header consistency problem, header follows\00", align 1
+@str.19 = private unnamed_addr constant [43 x i8] c"Errors reported by DecomposePacket(), exit\00", align 1
+@str.20 = private unnamed_addr constant [63 x i8] c"RTPReadPacket: File corruption, could not read Timestamp, exit\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @OpenRTPFile(ptr nocapture noundef readonly %fn) local_unnamed_addr #0 {
@@ -206,7 +206,7 @@ if.then6:                                         ; preds = %if.end
   %sext = shl i64 %call, 32
   %conv7 = ashr exact i64 %sext, 32
   %call8 = tail call i32 @fseek(ptr noundef %bits, i64 noundef %conv7, i32 noundef 0)
-  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
   tail call void @exit(i32 noundef -1) #13
   unreachable
 
@@ -231,7 +231,7 @@ if.end21:                                         ; preds = %if.end10
   br i1 %cmp23, label %if.then25, label %if.end27
 
 if.then25:                                        ; preds = %if.end21
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   tail call void @exit(i32 noundef -700) #13
   unreachable
 
@@ -320,7 +320,7 @@ entry:
   br i1 %or.cond96, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @DumpRTPHeader(ptr noundef nonnull %p)
   br label %return
 
@@ -539,14 +539,14 @@ declare noundef i32 @fseek(ptr nocapture noundef, i64 noundef, i32 noundef) loca
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i16 @llvm.bswap.i16(i16) #9
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.bswap.i32(i32) #9
+
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bswap.i16(i16) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #10
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -557,8 +557,8 @@ attributes #5 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nounwind }
 attributes #12 = { nounwind allocsize(0) }
 attributes #13 = { noreturn nounwind }

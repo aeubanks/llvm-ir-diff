@@ -62,52 +62,52 @@ entry:
   %call2.i = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %c) #12
-  %call2.i.i20 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+  %call2.i.i18 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
           to label %call2.i.i.noexc unwind label %lpad
 
 call2.i.i.noexc:                                  ; preds = %entry
   %lastName.i.i = getelementptr inbounds %class.Parent, ptr %c, i64 0, i32 1
-  store ptr %call2.i.i20, ptr %lastName.i.i, align 8, !tbaa !5
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i.i20, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
+  store ptr %call2.i.i18, ptr %lastName.i.i, align 8, !tbaa !5
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i.i18, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %c, align 8, !tbaa !10
-  %call2.i18 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-          to label %invoke.cont unwind label %_ZN6ParentD2Ev.exit.i
+  %call2.i16 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+          to label %_ZN5ChildC2EPcS0_.exit unwind label %_ZN6ParentD2Ev.exit.i
 
 _ZN6ParentD2Ev.exit.i:                            ; preds = %call2.i.i.noexc
   %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %call2.i.i20) #13
+  tail call void @_ZdaPv(ptr noundef nonnull %call2.i.i18) #13
   br label %ehcleanup12.thread
 
-invoke.cont:                                      ; preds = %call2.i.i.noexc
+_ZN5ChildC2EPcS0_.exit:                           ; preds = %call2.i.i.noexc
   %firstName.i = getelementptr inbounds %class.Child, ptr %c, i64 0, i32 1
-  store ptr %call2.i18, ptr %firstName.i, align 8, !tbaa !12
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i18, ptr noundef nonnull align 1 dereferenceable(6) @.str.1, i64 6, i1 false) #12
+  store ptr %call2.i16, ptr %firstName.i, align 8, !tbaa !12
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i16, ptr noundef nonnull align 1 dereferenceable(6) @.str.1, i64 6, i1 false) #12
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %g) #12
   invoke void @_ZN10GrandChildC2EPcS0_S0_(ptr noundef nonnull align 8 dereferenceable(32) %g, ptr noundef nonnull @.str, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3)
-          to label %invoke.cont4 unwind label %lpad1
+          to label %invoke.cont2 unwind label %lpad1
 
-invoke.cont4:                                     ; preds = %invoke.cont
+invoke.cont2:                                     ; preds = %_ZN5ChildC2EPcS0_.exit
   %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i)
   %vtable5 = load ptr, ptr %g, align 8, !tbaa !10
   %1 = load ptr, ptr %vtable5, align 8
   invoke void %1(ptr noundef nonnull align 8 dereferenceable(16) %g)
-          to label %invoke.cont10 unwind label %lpad3
+          to label %invoke.cont7 unwind label %lpad3
 
-invoke.cont10:                                    ; preds = %invoke.cont4
-  %puts.i.i = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i.i20)
-  %puts.i45 = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i18)
+invoke.cont7:                                     ; preds = %invoke.cont2
+  %puts.i.i = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i.i18)
+  %puts.i45 = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i16)
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %g, align 8, !tbaa !10
   %grandFatherName.i = getelementptr inbounds %class.GrandChild, ptr %g, i64 0, i32 1
   %2 = load ptr, ptr %grandFatherName.i, align 8, !tbaa !14
   %isnull.i = icmp eq ptr %2, null
   br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-delete.notnull.i:                                 ; preds = %invoke.cont10
+delete.notnull.i:                                 ; preds = %invoke.cont7
   call void @_ZdaPv(ptr noundef nonnull %2) #13
   br label %delete.end.i
 
-delete.end.i:                                     ; preds = %delete.notnull.i, %invoke.cont10
+delete.end.i:                                     ; preds = %delete.notnull.i, %invoke.cont7
   store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %g, align 8, !tbaa !10
   %firstName.i.i = getelementptr inbounds %class.Child, ptr %g, i64 0, i32 1
   %3 = load ptr, ptr %firstName.i.i, align 8, !tbaa !12
@@ -123,16 +123,16 @@ delete.end.i.i:                                   ; preds = %delete.notnull.i.i,
   %lastName.i.i.i = getelementptr inbounds %class.Parent, ptr %g, i64 0, i32 1
   %4 = load ptr, ptr %lastName.i.i.i, align 8, !tbaa !5
   %isnull.i.i.i = icmp eq ptr %4, null
-  br i1 %isnull.i.i.i, label %_ZN6ParentD2Ev.exit, label %delete.notnull.i.i.i
+  br i1 %isnull.i.i.i, label %_ZN5ChildD2Ev.exit, label %delete.notnull.i.i.i
 
 delete.notnull.i.i.i:                             ; preds = %delete.end.i.i
   call void @_ZdaPv(ptr noundef nonnull %4) #13
-  br label %_ZN6ParentD2Ev.exit
+  br label %_ZN5ChildD2Ev.exit
 
-_ZN6ParentD2Ev.exit:                              ; preds = %delete.end.i.i, %delete.notnull.i.i.i
+_ZN5ChildD2Ev.exit:                               ; preds = %delete.end.i.i, %delete.notnull.i.i.i
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %g) #12
-  call void @_ZdaPv(ptr noundef nonnull %call2.i18) #13
-  call void @_ZdaPv(ptr noundef nonnull %call2.i.i20) #13
+  call void @_ZdaPv(ptr noundef nonnull %call2.i16) #13
+  call void @_ZdaPv(ptr noundef nonnull %call2.i.i18) #13
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
   call void @_ZdaPv(ptr noundef nonnull %call2.i) #13
   ret i32 0
@@ -142,12 +142,12 @@ lpad:                                             ; preds = %entry
           cleanup
   br label %ehcleanup12.thread
 
-lpad1:                                            ; preds = %invoke.cont
+lpad1:                                            ; preds = %_ZN5ChildC2EPcS0_.exit
   %6 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup12
 
-lpad3:                                            ; preds = %invoke.cont4
+lpad3:                                            ; preds = %invoke.cont2
   %7 = landingpad { ptr, i32 }
           cleanup
   call void @_ZN10GrandChildD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %g) #12
@@ -156,16 +156,16 @@ lpad3:                                            ; preds = %invoke.cont4
 ehcleanup12.thread:                               ; preds = %lpad, %_ZN6ParentD2Ev.exit.i
   %.pn.pn.ph = phi { ptr, i32 } [ %0, %_ZN6ParentD2Ev.exit.i ], [ %5, %lpad ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
-  br label %_ZN6ParentD2Ev.exit37
+  br label %delete.notnull.i33
 
 ehcleanup12:                                      ; preds = %lpad1, %lpad3
   %.pn = phi { ptr, i32 } [ %7, %lpad3 ], [ %6, %lpad1 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %g) #12
   call void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %c) #12
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
-  br label %_ZN6ParentD2Ev.exit37
+  br label %delete.notnull.i33
 
-_ZN6ParentD2Ev.exit37:                            ; preds = %ehcleanup12.thread, %ehcleanup12
+delete.notnull.i33:                               ; preds = %ehcleanup12, %ehcleanup12.thread
   %.pn.pn40 = phi { ptr, i32 } [ %.pn.pn.ph, %ehcleanup12.thread ], [ %.pn, %ehcleanup12 ]
   call void @_ZdaPv(ptr noundef nonnull %call2.i) #13
   resume { ptr, i32 } %.pn.pn40

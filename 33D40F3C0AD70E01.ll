@@ -712,96 +712,96 @@ entry:
   %inc = and i32 %x, 1
   %0 = lshr i32 %x, 1
   %inc.1 = and i32 %0, 1
-  %spec.select.1 = add nuw nsw i32 %inc.1, %inc
+  %spec.select.1 = add nuw nsw i32 %inc, %inc.1
   %1 = lshr i32 %x, 2
   %inc.2 = and i32 %1, 1
-  %spec.select.2 = add nuw nsw i32 %inc.2, %spec.select.1
+  %spec.select.2 = add nuw nsw i32 %spec.select.1, %inc.2
   %2 = lshr i32 %x, 3
   %inc.3 = and i32 %2, 1
-  %spec.select.3 = add nuw nsw i32 %inc.3, %spec.select.2
+  %spec.select.3 = add nuw nsw i32 %spec.select.2, %inc.3
   %3 = lshr i32 %x, 4
   %inc.4 = and i32 %3, 1
-  %spec.select.4 = add nuw nsw i32 %inc.4, %spec.select.3
+  %spec.select.4 = add nuw nsw i32 %spec.select.3, %inc.4
   %4 = lshr i32 %x, 5
   %inc.5 = and i32 %4, 1
-  %spec.select.5 = add nuw nsw i32 %inc.5, %spec.select.4
+  %spec.select.5 = add nuw nsw i32 %spec.select.4, %inc.5
   %5 = lshr i32 %x, 6
   %inc.6 = and i32 %5, 1
-  %spec.select.6 = add nuw nsw i32 %inc.6, %spec.select.5
+  %spec.select.6 = add nuw nsw i32 %spec.select.5, %inc.6
   %6 = lshr i32 %x, 7
   %inc.7 = and i32 %6, 1
-  %spec.select.7 = add nuw nsw i32 %inc.7, %spec.select.6
+  %spec.select.7 = add nuw nsw i32 %spec.select.6, %inc.7
   %7 = lshr i32 %x, 8
   %inc.8 = and i32 %7, 1
-  %spec.select.8 = add nuw nsw i32 %inc.8, %spec.select.7
+  %spec.select.8 = add nuw nsw i32 %spec.select.7, %inc.8
   %8 = lshr i32 %x, 9
   %inc.9 = and i32 %8, 1
-  %spec.select.9 = add nuw nsw i32 %inc.9, %spec.select.8
+  %spec.select.9 = add nuw nsw i32 %spec.select.8, %inc.9
   %9 = lshr i32 %x, 10
   %inc.10 = and i32 %9, 1
-  %spec.select.10 = add nuw nsw i32 %inc.10, %spec.select.9
+  %spec.select.10 = add nuw nsw i32 %spec.select.9, %inc.10
   %10 = lshr i32 %x, 11
   %inc.11 = and i32 %10, 1
-  %spec.select.11 = add nuw nsw i32 %inc.11, %spec.select.10
+  %spec.select.11 = add nuw nsw i32 %spec.select.10, %inc.11
   %11 = lshr i32 %x, 12
   %inc.12 = and i32 %11, 1
-  %spec.select.12 = add nuw nsw i32 %inc.12, %spec.select.11
+  %spec.select.12 = add nuw nsw i32 %spec.select.11, %inc.12
   %12 = lshr i32 %x, 13
   %inc.13 = and i32 %12, 1
-  %spec.select.13 = add nuw nsw i32 %inc.13, %spec.select.12
+  %spec.select.13 = add nuw nsw i32 %spec.select.12, %inc.13
   %13 = lshr i32 %x, 14
   %inc.14 = and i32 %13, 1
-  %spec.select.14 = add nuw nsw i32 %inc.14, %spec.select.13
+  %spec.select.14 = add nuw nsw i32 %spec.select.13, %inc.14
   %14 = lshr i32 %x, 15
   %inc.15 = and i32 %14, 1
-  %spec.select.15 = add nuw nsw i32 %inc.15, %spec.select.14
+  %spec.select.15 = add nuw nsw i32 %spec.select.14, %inc.15
   %15 = lshr i32 %x, 16
   %inc.16 = and i32 %15, 1
-  %spec.select.16 = add nuw nsw i32 %inc.16, %spec.select.15
+  %spec.select.16 = add nuw nsw i32 %spec.select.15, %inc.16
   %16 = lshr i32 %x, 17
   %inc.17 = and i32 %16, 1
-  %spec.select.17 = add nuw nsw i32 %inc.17, %spec.select.16
+  %spec.select.17 = add nuw nsw i32 %spec.select.16, %inc.17
   %17 = lshr i32 %x, 18
   %inc.18 = and i32 %17, 1
-  %spec.select.18 = add nuw nsw i32 %inc.18, %spec.select.17
+  %spec.select.18 = add nuw nsw i32 %spec.select.17, %inc.18
   %18 = lshr i32 %x, 19
   %inc.19 = and i32 %18, 1
-  %spec.select.19 = add nuw nsw i32 %inc.19, %spec.select.18
+  %spec.select.19 = add nuw nsw i32 %spec.select.18, %inc.19
   %19 = lshr i32 %x, 20
   %inc.20 = and i32 %19, 1
-  %spec.select.20 = add nuw nsw i32 %inc.20, %spec.select.19
+  %spec.select.20 = add nuw nsw i32 %spec.select.19, %inc.20
   %20 = lshr i32 %x, 21
   %inc.21 = and i32 %20, 1
-  %spec.select.21 = add nuw nsw i32 %inc.21, %spec.select.20
+  %spec.select.21 = add nuw nsw i32 %spec.select.20, %inc.21
   %21 = lshr i32 %x, 22
   %inc.22 = and i32 %21, 1
-  %spec.select.22 = add nuw nsw i32 %inc.22, %spec.select.21
+  %spec.select.22 = add nuw nsw i32 %spec.select.21, %inc.22
   %22 = lshr i32 %x, 23
   %inc.23 = and i32 %22, 1
-  %spec.select.23 = add nuw nsw i32 %inc.23, %spec.select.22
+  %spec.select.23 = add nuw nsw i32 %spec.select.22, %inc.23
   %23 = lshr i32 %x, 24
   %inc.24 = and i32 %23, 1
-  %spec.select.24 = add nuw nsw i32 %inc.24, %spec.select.23
+  %spec.select.24 = add nuw nsw i32 %spec.select.23, %inc.24
   %24 = lshr i32 %x, 25
   %inc.25 = and i32 %24, 1
-  %spec.select.25 = add nuw nsw i32 %inc.25, %spec.select.24
+  %spec.select.25 = add nuw nsw i32 %spec.select.24, %inc.25
   %25 = lshr i32 %x, 26
   %inc.26 = and i32 %25, 1
-  %spec.select.26 = add nuw nsw i32 %inc.26, %spec.select.25
+  %spec.select.26 = add nuw nsw i32 %spec.select.25, %inc.26
   %26 = lshr i32 %x, 27
   %inc.27 = and i32 %26, 1
-  %spec.select.27 = add nuw nsw i32 %inc.27, %spec.select.26
+  %spec.select.27 = add nuw nsw i32 %spec.select.26, %inc.27
   %27 = lshr i32 %x, 28
   %inc.28 = and i32 %27, 1
-  %spec.select.28 = add nuw nsw i32 %inc.28, %spec.select.27
+  %spec.select.28 = add nuw nsw i32 %spec.select.27, %inc.28
   %28 = lshr i32 %x, 29
   %inc.29 = and i32 %28, 1
-  %spec.select.29 = add nuw nsw i32 %inc.29, %spec.select.28
+  %spec.select.29 = add nuw nsw i32 %spec.select.28, %inc.29
   %29 = lshr i32 %x, 30
   %inc.30 = and i32 %29, 1
-  %spec.select.30 = add nuw nsw i32 %inc.30, %spec.select.29
+  %spec.select.30 = add nuw nsw i32 %spec.select.29, %inc.30
   %30 = lshr i32 %x, 31
-  %spec.select.31 = add nuw nsw i32 %30, %spec.select.30
+  %spec.select.31 = add nuw nsw i32 %spec.select.30, %30
   ret i32 %spec.select.31
 }
 
@@ -811,93 +811,93 @@ entry:
   %inc = and i32 %x, 1
   %0 = lshr i32 %x, 1
   %inc.1 = and i32 %0, 1
-  %spec.select.1 = add nuw nsw i32 %inc.1, %inc
+  %spec.select.1 = add nuw nsw i32 %inc, %inc.1
   %1 = lshr i32 %x, 2
   %inc.2 = and i32 %1, 1
-  %spec.select.2 = add nuw nsw i32 %inc.2, %spec.select.1
+  %spec.select.2 = add nuw nsw i32 %spec.select.1, %inc.2
   %2 = lshr i32 %x, 3
   %inc.3 = and i32 %2, 1
-  %spec.select.3 = add nuw nsw i32 %inc.3, %spec.select.2
+  %spec.select.3 = add nuw nsw i32 %spec.select.2, %inc.3
   %3 = lshr i32 %x, 4
   %inc.4 = and i32 %3, 1
-  %spec.select.4 = add nuw nsw i32 %inc.4, %spec.select.3
+  %spec.select.4 = add nuw nsw i32 %spec.select.3, %inc.4
   %4 = lshr i32 %x, 5
   %inc.5 = and i32 %4, 1
-  %spec.select.5 = add nuw nsw i32 %inc.5, %spec.select.4
+  %spec.select.5 = add nuw nsw i32 %spec.select.4, %inc.5
   %5 = lshr i32 %x, 6
   %inc.6 = and i32 %5, 1
-  %spec.select.6 = add nuw nsw i32 %inc.6, %spec.select.5
+  %spec.select.6 = add nuw nsw i32 %spec.select.5, %inc.6
   %6 = lshr i32 %x, 7
   %inc.7 = and i32 %6, 1
-  %spec.select.7 = add nuw nsw i32 %inc.7, %spec.select.6
+  %spec.select.7 = add nuw nsw i32 %spec.select.6, %inc.7
   %7 = lshr i32 %x, 8
   %inc.8 = and i32 %7, 1
-  %spec.select.8 = add nuw nsw i32 %inc.8, %spec.select.7
+  %spec.select.8 = add nuw nsw i32 %spec.select.7, %inc.8
   %8 = lshr i32 %x, 9
   %inc.9 = and i32 %8, 1
-  %spec.select.9 = add nuw nsw i32 %inc.9, %spec.select.8
+  %spec.select.9 = add nuw nsw i32 %spec.select.8, %inc.9
   %9 = lshr i32 %x, 10
   %inc.10 = and i32 %9, 1
-  %spec.select.10 = add nuw nsw i32 %inc.10, %spec.select.9
+  %spec.select.10 = add nuw nsw i32 %spec.select.9, %inc.10
   %10 = lshr i32 %x, 11
   %inc.11 = and i32 %10, 1
-  %spec.select.11 = add nuw nsw i32 %inc.11, %spec.select.10
+  %spec.select.11 = add nuw nsw i32 %spec.select.10, %inc.11
   %11 = lshr i32 %x, 12
   %inc.12 = and i32 %11, 1
-  %spec.select.12 = add nuw nsw i32 %inc.12, %spec.select.11
+  %spec.select.12 = add nuw nsw i32 %spec.select.11, %inc.12
   %12 = lshr i32 %x, 13
   %inc.13 = and i32 %12, 1
-  %spec.select.13 = add nuw nsw i32 %inc.13, %spec.select.12
+  %spec.select.13 = add nuw nsw i32 %spec.select.12, %inc.13
   %13 = lshr i32 %x, 14
   %inc.14 = and i32 %13, 1
-  %spec.select.14 = add nuw nsw i32 %inc.14, %spec.select.13
+  %spec.select.14 = add nuw nsw i32 %spec.select.13, %inc.14
   %14 = lshr i32 %x, 15
   %inc.15 = and i32 %14, 1
-  %spec.select.15 = add nuw nsw i32 %inc.15, %spec.select.14
+  %spec.select.15 = add nuw nsw i32 %spec.select.14, %inc.15
   %15 = lshr i32 %x, 16
   %inc.16 = and i32 %15, 1
-  %spec.select.16 = add nuw nsw i32 %inc.16, %spec.select.15
+  %spec.select.16 = add nuw nsw i32 %spec.select.15, %inc.16
   %16 = lshr i32 %x, 17
   %inc.17 = and i32 %16, 1
-  %spec.select.17 = add nuw nsw i32 %inc.17, %spec.select.16
+  %spec.select.17 = add nuw nsw i32 %spec.select.16, %inc.17
   %17 = lshr i32 %x, 18
   %inc.18 = and i32 %17, 1
-  %spec.select.18 = add nuw nsw i32 %inc.18, %spec.select.17
+  %spec.select.18 = add nuw nsw i32 %spec.select.17, %inc.18
   %18 = lshr i32 %x, 19
   %inc.19 = and i32 %18, 1
-  %spec.select.19 = add nuw nsw i32 %inc.19, %spec.select.18
+  %spec.select.19 = add nuw nsw i32 %spec.select.18, %inc.19
   %19 = lshr i32 %x, 20
   %inc.20 = and i32 %19, 1
-  %spec.select.20 = add nuw nsw i32 %inc.20, %spec.select.19
+  %spec.select.20 = add nuw nsw i32 %spec.select.19, %inc.20
   %20 = lshr i32 %x, 21
   %inc.21 = and i32 %20, 1
-  %spec.select.21 = add nuw nsw i32 %inc.21, %spec.select.20
+  %spec.select.21 = add nuw nsw i32 %spec.select.20, %inc.21
   %21 = lshr i32 %x, 22
   %inc.22 = and i32 %21, 1
-  %spec.select.22 = add nuw nsw i32 %inc.22, %spec.select.21
+  %spec.select.22 = add nuw nsw i32 %spec.select.21, %inc.22
   %22 = lshr i32 %x, 23
   %inc.23 = and i32 %22, 1
-  %spec.select.23 = add nuw nsw i32 %inc.23, %spec.select.22
+  %spec.select.23 = add nuw nsw i32 %spec.select.22, %inc.23
   %23 = lshr i32 %x, 24
   %inc.24 = and i32 %23, 1
-  %spec.select.24 = add nuw nsw i32 %inc.24, %spec.select.23
+  %spec.select.24 = add nuw nsw i32 %spec.select.23, %inc.24
   %24 = lshr i32 %x, 25
   %inc.25 = and i32 %24, 1
-  %spec.select.25 = add nuw nsw i32 %inc.25, %spec.select.24
+  %spec.select.25 = add nuw nsw i32 %spec.select.24, %inc.25
   %25 = lshr i32 %x, 26
   %inc.26 = and i32 %25, 1
-  %spec.select.26 = add nuw nsw i32 %inc.26, %spec.select.25
+  %spec.select.26 = add nuw nsw i32 %spec.select.25, %inc.26
   %26 = lshr i32 %x, 27
   %inc.27 = and i32 %26, 1
-  %spec.select.27 = add nuw nsw i32 %inc.27, %spec.select.26
+  %spec.select.27 = add nuw nsw i32 %spec.select.26, %inc.27
   %27 = lshr i32 %x, 28
-  %spec.select.28 = add nuw nsw i32 %27, %spec.select.27
+  %spec.select.28 = add nuw nsw i32 %spec.select.27, %27
   %28 = lshr i32 %x, 29
-  %spec.select.29 = add nuw nsw i32 %28, %spec.select.28
+  %spec.select.29 = add nuw nsw i32 %spec.select.28, %28
   %29 = lshr i32 %x, 30
-  %spec.select.30 = add nuw nsw i32 %29, %spec.select.29
+  %spec.select.30 = add nuw nsw i32 %spec.select.29, %29
   %30 = lshr i32 %x, 31
-  %spec.select.31 = add nuw nsw i32 %30, %spec.select.30
+  %spec.select.31 = add nuw nsw i32 %spec.select.30, %30
   %and3 = and i32 %spec.select.31, 1
   ret i32 %and3
 }
@@ -1474,41 +1474,511 @@ for.body:                                         ; preds = %entry, %for.cond
   %0 = load i32, ptr %arrayidx, align 4, !tbaa !21
   %1 = tail call i32 @llvm.cttz.i32(i32 %0, i1 true), !range !25
   %2 = add nuw nsw i32 %1, 1
-  %iszero = icmp eq i32 %0, 0
-  %ffs = select i1 %iszero, i32 0, i32 %2
-  %call = tail call i32 @my_ffs(i32 noundef %0)
-  %cmp4.not = icmp eq i32 %ffs, %call
-  br i1 %cmp4.not, label %if.end, label %if.then
+  %iszero.not = icmp eq i32 %0, 0
+  br i1 %iszero.not, label %if.end32, label %for.body.preheader.i
 
-if.then:                                          ; preds = %for.body
+for.body.preheader.i:                             ; preds = %for.body
+  %and.i = and i32 %0, 1
+  %tobool.not.i = icmp eq i32 %and.i, 0
+  br i1 %tobool.not.i, label %for.inc.i, label %my_ffs.exit
+
+for.inc.i:                                        ; preds = %for.body.preheader.i
+  %and.1.i = and i32 %0, 2
+  %tobool.not.1.i = icmp eq i32 %and.1.i, 0
+  br i1 %tobool.not.1.i, label %for.inc.1.i, label %my_ffs.exit
+
+for.inc.1.i:                                      ; preds = %for.inc.i
+  %and.2.i = and i32 %0, 4
+  %tobool.not.2.i = icmp eq i32 %and.2.i, 0
+  br i1 %tobool.not.2.i, label %for.inc.2.i, label %my_ffs.exit
+
+for.inc.2.i:                                      ; preds = %for.inc.1.i
+  %and.3.i = and i32 %0, 8
+  %tobool.not.3.i = icmp eq i32 %and.3.i, 0
+  br i1 %tobool.not.3.i, label %for.inc.3.i, label %my_ffs.exit
+
+for.inc.3.i:                                      ; preds = %for.inc.2.i
+  %and.4.i = and i32 %0, 16
+  %tobool.not.4.i = icmp eq i32 %and.4.i, 0
+  br i1 %tobool.not.4.i, label %for.inc.4.i, label %my_ffs.exit
+
+for.inc.4.i:                                      ; preds = %for.inc.3.i
+  %and.5.i = and i32 %0, 32
+  %tobool.not.5.i = icmp eq i32 %and.5.i, 0
+  br i1 %tobool.not.5.i, label %for.inc.5.i, label %my_ffs.exit
+
+for.inc.5.i:                                      ; preds = %for.inc.4.i
+  %and.6.i = and i32 %0, 64
+  %tobool.not.6.i = icmp eq i32 %and.6.i, 0
+  br i1 %tobool.not.6.i, label %for.inc.6.i, label %my_ffs.exit
+
+for.inc.6.i:                                      ; preds = %for.inc.5.i
+  %and.7.i = and i32 %0, 128
+  %tobool.not.7.i = icmp eq i32 %and.7.i, 0
+  br i1 %tobool.not.7.i, label %for.inc.7.i, label %my_ffs.exit
+
+for.inc.7.i:                                      ; preds = %for.inc.6.i
+  %and.8.i = and i32 %0, 256
+  %tobool.not.8.i = icmp eq i32 %and.8.i, 0
+  br i1 %tobool.not.8.i, label %for.inc.8.i, label %my_ffs.exit
+
+for.inc.8.i:                                      ; preds = %for.inc.7.i
+  %and.9.i = and i32 %0, 512
+  %tobool.not.9.i = icmp eq i32 %and.9.i, 0
+  br i1 %tobool.not.9.i, label %for.inc.9.i, label %my_ffs.exit
+
+for.inc.9.i:                                      ; preds = %for.inc.8.i
+  %and.10.i = and i32 %0, 1024
+  %tobool.not.10.i = icmp eq i32 %and.10.i, 0
+  br i1 %tobool.not.10.i, label %for.inc.10.i, label %my_ffs.exit
+
+for.inc.10.i:                                     ; preds = %for.inc.9.i
+  %and.11.i = and i32 %0, 2048
+  %tobool.not.11.i = icmp eq i32 %and.11.i, 0
+  br i1 %tobool.not.11.i, label %for.inc.11.i, label %my_ffs.exit
+
+for.inc.11.i:                                     ; preds = %for.inc.10.i
+  %and.12.i = and i32 %0, 4096
+  %tobool.not.12.i = icmp eq i32 %and.12.i, 0
+  br i1 %tobool.not.12.i, label %for.inc.12.i, label %my_ffs.exit
+
+for.inc.12.i:                                     ; preds = %for.inc.11.i
+  %and.13.i = and i32 %0, 8192
+  %tobool.not.13.i = icmp eq i32 %and.13.i, 0
+  br i1 %tobool.not.13.i, label %for.inc.13.i, label %my_ffs.exit
+
+for.inc.13.i:                                     ; preds = %for.inc.12.i
+  %and.14.i = and i32 %0, 16384
+  %tobool.not.14.i = icmp eq i32 %and.14.i, 0
+  br i1 %tobool.not.14.i, label %for.inc.14.i, label %my_ffs.exit
+
+for.inc.14.i:                                     ; preds = %for.inc.13.i
+  %and.15.i = and i32 %0, 32768
+  %tobool.not.15.i = icmp eq i32 %and.15.i, 0
+  br i1 %tobool.not.15.i, label %for.inc.15.i, label %my_ffs.exit
+
+for.inc.15.i:                                     ; preds = %for.inc.14.i
+  %and.16.i = and i32 %0, 65536
+  %tobool.not.16.i = icmp eq i32 %and.16.i, 0
+  br i1 %tobool.not.16.i, label %for.inc.16.i, label %my_ffs.exit
+
+for.inc.16.i:                                     ; preds = %for.inc.15.i
+  %and.17.i = and i32 %0, 131072
+  %tobool.not.17.i = icmp eq i32 %and.17.i, 0
+  br i1 %tobool.not.17.i, label %for.inc.17.i, label %my_ffs.exit
+
+for.inc.17.i:                                     ; preds = %for.inc.16.i
+  %and.18.i = and i32 %0, 262144
+  %tobool.not.18.i = icmp eq i32 %and.18.i, 0
+  br i1 %tobool.not.18.i, label %for.inc.18.i, label %my_ffs.exit
+
+for.inc.18.i:                                     ; preds = %for.inc.17.i
+  %and.19.i = and i32 %0, 524288
+  %tobool.not.19.i = icmp eq i32 %and.19.i, 0
+  br i1 %tobool.not.19.i, label %for.inc.19.i, label %my_ffs.exit
+
+for.inc.19.i:                                     ; preds = %for.inc.18.i
+  %and.20.i = and i32 %0, 1048576
+  %tobool.not.20.i = icmp eq i32 %and.20.i, 0
+  br i1 %tobool.not.20.i, label %for.inc.20.i, label %my_ffs.exit
+
+for.inc.20.i:                                     ; preds = %for.inc.19.i
+  %and.21.i = and i32 %0, 2097152
+  %tobool.not.21.i = icmp eq i32 %and.21.i, 0
+  br i1 %tobool.not.21.i, label %for.inc.21.i, label %my_ffs.exit
+
+for.inc.21.i:                                     ; preds = %for.inc.20.i
+  %and.22.i = and i32 %0, 4194304
+  %tobool.not.22.i = icmp eq i32 %and.22.i, 0
+  br i1 %tobool.not.22.i, label %for.inc.22.i, label %my_ffs.exit
+
+for.inc.22.i:                                     ; preds = %for.inc.21.i
+  %and.23.i = and i32 %0, 8388608
+  %tobool.not.23.i = icmp eq i32 %and.23.i, 0
+  br i1 %tobool.not.23.i, label %for.inc.23.i, label %my_ffs.exit
+
+for.inc.23.i:                                     ; preds = %for.inc.22.i
+  %and.24.i = and i32 %0, 16777216
+  %tobool.not.24.i = icmp eq i32 %and.24.i, 0
+  br i1 %tobool.not.24.i, label %for.inc.24.i, label %my_ffs.exit
+
+for.inc.24.i:                                     ; preds = %for.inc.23.i
+  %and.25.i = and i32 %0, 33554432
+  %tobool.not.25.i = icmp eq i32 %and.25.i, 0
+  br i1 %tobool.not.25.i, label %for.inc.25.i, label %my_ffs.exit
+
+for.inc.25.i:                                     ; preds = %for.inc.24.i
+  %and.26.i = and i32 %0, 67108864
+  %tobool.not.26.i = icmp eq i32 %and.26.i, 0
+  br i1 %tobool.not.26.i, label %for.inc.26.i, label %my_ffs.exit
+
+for.inc.26.i:                                     ; preds = %for.inc.25.i
+  %and.27.i = and i32 %0, 134217728
+  %tobool.not.27.i = icmp eq i32 %and.27.i, 0
+  br i1 %tobool.not.27.i, label %for.inc.27.i, label %my_ffs.exit
+
+for.inc.27.i:                                     ; preds = %for.inc.26.i
+  %and.28.i = and i32 %0, 268435456
+  %tobool.not.28.i = icmp eq i32 %and.28.i, 0
+  br i1 %tobool.not.28.i, label %for.inc.28.i, label %my_ffs.exit
+
+for.inc.28.i:                                     ; preds = %for.inc.27.i
+  %and.29.i = and i32 %0, 536870912
+  %tobool.not.29.i = icmp eq i32 %and.29.i, 0
+  br i1 %tobool.not.29.i, label %for.inc.29.i, label %my_ffs.exit
+
+for.inc.29.i:                                     ; preds = %for.inc.28.i
+  %and.30.i = and i32 %0, 1073741824
+  %tobool.not.30.i = icmp eq i32 %and.30.i, 0
+  br i1 %tobool.not.30.i, label %for.inc.30.i, label %my_ffs.exit
+
+for.inc.30.i:                                     ; preds = %for.inc.29.i
+  %tobool.not.31.i = icmp sgt i32 %0, -1
+  %spec.select.i = select i1 %tobool.not.31.i, i32 33, i32 32
+  br label %my_ffs.exit
+
+my_ffs.exit:                                      ; preds = %for.body.preheader.i, %for.inc.i, %for.inc.1.i, %for.inc.2.i, %for.inc.3.i, %for.inc.4.i, %for.inc.5.i, %for.inc.6.i, %for.inc.7.i, %for.inc.8.i, %for.inc.9.i, %for.inc.10.i, %for.inc.11.i, %for.inc.12.i, %for.inc.13.i, %for.inc.14.i, %for.inc.15.i, %for.inc.16.i, %for.inc.17.i, %for.inc.18.i, %for.inc.19.i, %for.inc.20.i, %for.inc.21.i, %for.inc.22.i, %for.inc.23.i, %for.inc.24.i, %for.inc.25.i, %for.inc.26.i, %for.inc.27.i, %for.inc.28.i, %for.inc.29.i, %for.inc.30.i
+  %retval.0.i = phi i32 [ 1, %for.body.preheader.i ], [ 2, %for.inc.i ], [ 3, %for.inc.1.i ], [ 4, %for.inc.2.i ], [ 5, %for.inc.3.i ], [ 6, %for.inc.4.i ], [ 7, %for.inc.5.i ], [ 8, %for.inc.6.i ], [ 9, %for.inc.7.i ], [ 10, %for.inc.8.i ], [ 11, %for.inc.9.i ], [ 12, %for.inc.10.i ], [ 13, %for.inc.11.i ], [ 14, %for.inc.12.i ], [ 15, %for.inc.13.i ], [ 16, %for.inc.14.i ], [ 17, %for.inc.15.i ], [ 18, %for.inc.16.i ], [ 19, %for.inc.17.i ], [ 20, %for.inc.18.i ], [ 21, %for.inc.19.i ], [ 22, %for.inc.20.i ], [ 23, %for.inc.21.i ], [ 24, %for.inc.22.i ], [ 25, %for.inc.23.i ], [ 26, %for.inc.24.i ], [ 27, %for.inc.25.i ], [ 28, %for.inc.26.i ], [ 29, %for.inc.27.i ], [ 30, %for.inc.28.i ], [ 31, %for.inc.29.i ], [ %spec.select.i, %for.inc.30.i ]
+  %cmp4.not3004 = icmp eq i32 %2, %retval.0.i
+  br i1 %cmp4.not3004, label %land.lhs.true, label %if.then
+
+if.then:                                          ; preds = %my_ffs.exit
   tail call void @abort() #6
   unreachable
 
-if.end:                                           ; preds = %for.body
-  br i1 %iszero, label %if.end32, label %land.lhs.true
-
-land.lhs.true:                                    ; preds = %if.end
+land.lhs.true:                                    ; preds = %my_ffs.exit
   %3 = tail call i32 @llvm.ctlz.i32(i32 %0, i1 true), !range !25
-  %call14 = tail call i32 @my_clz(i32 noundef %0)
-  %cmp15.not = icmp eq i32 %3, %call14
+  %tobool.not.i1005 = icmp sgt i32 %0, -1
+  br i1 %tobool.not.i1005, label %for.inc.i1008, label %my_clz.exit
+
+for.inc.i1008:                                    ; preds = %land.lhs.true
+  %and.1.i1006 = and i32 %0, 1073741824
+  %tobool.not.1.i1007 = icmp eq i32 %and.1.i1006, 0
+  br i1 %tobool.not.1.i1007, label %for.inc.1.i1011, label %my_clz.exit
+
+for.inc.1.i1011:                                  ; preds = %for.inc.i1008
+  %and.2.i1009 = and i32 %0, 536870912
+  %tobool.not.2.i1010 = icmp eq i32 %and.2.i1009, 0
+  br i1 %tobool.not.2.i1010, label %for.inc.2.i1014, label %my_clz.exit
+
+for.inc.2.i1014:                                  ; preds = %for.inc.1.i1011
+  %and.3.i1012 = and i32 %0, 268435456
+  %tobool.not.3.i1013 = icmp eq i32 %and.3.i1012, 0
+  br i1 %tobool.not.3.i1013, label %for.inc.3.i1017, label %my_clz.exit
+
+for.inc.3.i1017:                                  ; preds = %for.inc.2.i1014
+  %and.4.i1015 = and i32 %0, 134217728
+  %tobool.not.4.i1016 = icmp eq i32 %and.4.i1015, 0
+  br i1 %tobool.not.4.i1016, label %for.inc.4.i1020, label %my_clz.exit
+
+for.inc.4.i1020:                                  ; preds = %for.inc.3.i1017
+  %and.5.i1018 = and i32 %0, 67108864
+  %tobool.not.5.i1019 = icmp eq i32 %and.5.i1018, 0
+  br i1 %tobool.not.5.i1019, label %for.inc.5.i1023, label %my_clz.exit
+
+for.inc.5.i1023:                                  ; preds = %for.inc.4.i1020
+  %and.6.i1021 = and i32 %0, 33554432
+  %tobool.not.6.i1022 = icmp eq i32 %and.6.i1021, 0
+  br i1 %tobool.not.6.i1022, label %for.inc.6.i1026, label %my_clz.exit
+
+for.inc.6.i1026:                                  ; preds = %for.inc.5.i1023
+  %and.7.i1024 = and i32 %0, 16777216
+  %tobool.not.7.i1025 = icmp eq i32 %and.7.i1024, 0
+  br i1 %tobool.not.7.i1025, label %for.inc.7.i1029, label %my_clz.exit
+
+for.inc.7.i1029:                                  ; preds = %for.inc.6.i1026
+  %and.8.i1027 = and i32 %0, 8388608
+  %tobool.not.8.i1028 = icmp eq i32 %and.8.i1027, 0
+  br i1 %tobool.not.8.i1028, label %for.inc.8.i1032, label %my_clz.exit
+
+for.inc.8.i1032:                                  ; preds = %for.inc.7.i1029
+  %and.9.i1030 = and i32 %0, 4194304
+  %tobool.not.9.i1031 = icmp eq i32 %and.9.i1030, 0
+  br i1 %tobool.not.9.i1031, label %for.inc.9.i1035, label %my_clz.exit
+
+for.inc.9.i1035:                                  ; preds = %for.inc.8.i1032
+  %and.10.i1033 = and i32 %0, 2097152
+  %tobool.not.10.i1034 = icmp eq i32 %and.10.i1033, 0
+  br i1 %tobool.not.10.i1034, label %for.inc.10.i1038, label %my_clz.exit
+
+for.inc.10.i1038:                                 ; preds = %for.inc.9.i1035
+  %and.11.i1036 = and i32 %0, 1048576
+  %tobool.not.11.i1037 = icmp eq i32 %and.11.i1036, 0
+  br i1 %tobool.not.11.i1037, label %for.inc.11.i1041, label %my_clz.exit
+
+for.inc.11.i1041:                                 ; preds = %for.inc.10.i1038
+  %and.12.i1039 = and i32 %0, 524288
+  %tobool.not.12.i1040 = icmp eq i32 %and.12.i1039, 0
+  br i1 %tobool.not.12.i1040, label %for.inc.12.i1044, label %my_clz.exit
+
+for.inc.12.i1044:                                 ; preds = %for.inc.11.i1041
+  %and.13.i1042 = and i32 %0, 262144
+  %tobool.not.13.i1043 = icmp eq i32 %and.13.i1042, 0
+  br i1 %tobool.not.13.i1043, label %for.inc.13.i1047, label %my_clz.exit
+
+for.inc.13.i1047:                                 ; preds = %for.inc.12.i1044
+  %and.14.i1045 = and i32 %0, 131072
+  %tobool.not.14.i1046 = icmp eq i32 %and.14.i1045, 0
+  br i1 %tobool.not.14.i1046, label %for.inc.14.i1050, label %my_clz.exit
+
+for.inc.14.i1050:                                 ; preds = %for.inc.13.i1047
+  %and.15.i1048 = and i32 %0, 65536
+  %tobool.not.15.i1049 = icmp eq i32 %and.15.i1048, 0
+  br i1 %tobool.not.15.i1049, label %for.inc.15.i1053, label %my_clz.exit
+
+for.inc.15.i1053:                                 ; preds = %for.inc.14.i1050
+  %and.16.i1051 = and i32 %0, 32768
+  %tobool.not.16.i1052 = icmp eq i32 %and.16.i1051, 0
+  br i1 %tobool.not.16.i1052, label %for.inc.16.i1056, label %my_clz.exit
+
+for.inc.16.i1056:                                 ; preds = %for.inc.15.i1053
+  %and.17.i1054 = and i32 %0, 16384
+  %tobool.not.17.i1055 = icmp eq i32 %and.17.i1054, 0
+  br i1 %tobool.not.17.i1055, label %for.inc.17.i1059, label %my_clz.exit
+
+for.inc.17.i1059:                                 ; preds = %for.inc.16.i1056
+  %and.18.i1057 = and i32 %0, 8192
+  %tobool.not.18.i1058 = icmp eq i32 %and.18.i1057, 0
+  br i1 %tobool.not.18.i1058, label %for.inc.18.i1062, label %my_clz.exit
+
+for.inc.18.i1062:                                 ; preds = %for.inc.17.i1059
+  %and.19.i1060 = and i32 %0, 4096
+  %tobool.not.19.i1061 = icmp eq i32 %and.19.i1060, 0
+  br i1 %tobool.not.19.i1061, label %for.inc.19.i1065, label %my_clz.exit
+
+for.inc.19.i1065:                                 ; preds = %for.inc.18.i1062
+  %and.20.i1063 = and i32 %0, 2048
+  %tobool.not.20.i1064 = icmp eq i32 %and.20.i1063, 0
+  br i1 %tobool.not.20.i1064, label %for.inc.20.i1068, label %my_clz.exit
+
+for.inc.20.i1068:                                 ; preds = %for.inc.19.i1065
+  %and.21.i1066 = and i32 %0, 1024
+  %tobool.not.21.i1067 = icmp eq i32 %and.21.i1066, 0
+  br i1 %tobool.not.21.i1067, label %for.inc.21.i1071, label %my_clz.exit
+
+for.inc.21.i1071:                                 ; preds = %for.inc.20.i1068
+  %and.22.i1069 = and i32 %0, 512
+  %tobool.not.22.i1070 = icmp eq i32 %and.22.i1069, 0
+  br i1 %tobool.not.22.i1070, label %for.inc.22.i1074, label %my_clz.exit
+
+for.inc.22.i1074:                                 ; preds = %for.inc.21.i1071
+  %and.23.i1072 = and i32 %0, 256
+  %tobool.not.23.i1073 = icmp eq i32 %and.23.i1072, 0
+  br i1 %tobool.not.23.i1073, label %for.inc.23.i1077, label %my_clz.exit
+
+for.inc.23.i1077:                                 ; preds = %for.inc.22.i1074
+  %and.24.i1075 = and i32 %0, 128
+  %tobool.not.24.i1076 = icmp eq i32 %and.24.i1075, 0
+  br i1 %tobool.not.24.i1076, label %for.inc.24.i1080, label %my_clz.exit
+
+for.inc.24.i1080:                                 ; preds = %for.inc.23.i1077
+  %and.25.i1078 = and i32 %0, 64
+  %tobool.not.25.i1079 = icmp eq i32 %and.25.i1078, 0
+  br i1 %tobool.not.25.i1079, label %for.inc.25.i1083, label %my_clz.exit
+
+for.inc.25.i1083:                                 ; preds = %for.inc.24.i1080
+  %and.26.i1081 = and i32 %0, 32
+  %tobool.not.26.i1082 = icmp eq i32 %and.26.i1081, 0
+  br i1 %tobool.not.26.i1082, label %for.inc.26.i1086, label %my_clz.exit
+
+for.inc.26.i1086:                                 ; preds = %for.inc.25.i1083
+  %and.27.i1084 = and i32 %0, 16
+  %tobool.not.27.i1085 = icmp eq i32 %and.27.i1084, 0
+  br i1 %tobool.not.27.i1085, label %for.inc.27.i1089, label %my_clz.exit
+
+for.inc.27.i1089:                                 ; preds = %for.inc.26.i1086
+  %and.28.i1087 = and i32 %0, 8
+  %tobool.not.28.i1088 = icmp eq i32 %and.28.i1087, 0
+  br i1 %tobool.not.28.i1088, label %for.inc.28.i1092, label %my_clz.exit
+
+for.inc.28.i1092:                                 ; preds = %for.inc.27.i1089
+  %and.29.i1090 = and i32 %0, 4
+  %tobool.not.29.i1091 = icmp eq i32 %and.29.i1090, 0
+  br i1 %tobool.not.29.i1091, label %for.inc.29.i1095, label %my_clz.exit
+
+for.inc.29.i1095:                                 ; preds = %for.inc.28.i1092
+  %and.30.i1093 = and i32 %0, 2
+  %tobool.not.30.i1094 = icmp eq i32 %and.30.i1093, 0
+  %spec.select.i1097 = select i1 %tobool.not.i, i32 32, i32 31
+  %spec.select = select i1 %tobool.not.30.i1094, i32 %spec.select.i1097, i32 30
+  br label %my_clz.exit
+
+my_clz.exit:                                      ; preds = %for.inc.29.i1095, %land.lhs.true, %for.inc.i1008, %for.inc.1.i1011, %for.inc.2.i1014, %for.inc.3.i1017, %for.inc.4.i1020, %for.inc.5.i1023, %for.inc.6.i1026, %for.inc.7.i1029, %for.inc.8.i1032, %for.inc.9.i1035, %for.inc.10.i1038, %for.inc.11.i1041, %for.inc.12.i1044, %for.inc.13.i1047, %for.inc.14.i1050, %for.inc.15.i1053, %for.inc.16.i1056, %for.inc.17.i1059, %for.inc.18.i1062, %for.inc.19.i1065, %for.inc.20.i1068, %for.inc.21.i1071, %for.inc.22.i1074, %for.inc.23.i1077, %for.inc.24.i1080, %for.inc.25.i1083, %for.inc.26.i1086, %for.inc.27.i1089, %for.inc.28.i1092
+  %i.0.lcssa.i = phi i32 [ 0, %land.lhs.true ], [ 1, %for.inc.i1008 ], [ 2, %for.inc.1.i1011 ], [ 3, %for.inc.2.i1014 ], [ 4, %for.inc.3.i1017 ], [ 5, %for.inc.4.i1020 ], [ 6, %for.inc.5.i1023 ], [ 7, %for.inc.6.i1026 ], [ 8, %for.inc.7.i1029 ], [ 9, %for.inc.8.i1032 ], [ 10, %for.inc.9.i1035 ], [ 11, %for.inc.10.i1038 ], [ 12, %for.inc.11.i1041 ], [ 13, %for.inc.12.i1044 ], [ 14, %for.inc.13.i1047 ], [ 15, %for.inc.14.i1050 ], [ 16, %for.inc.15.i1053 ], [ 17, %for.inc.16.i1056 ], [ 18, %for.inc.17.i1059 ], [ 19, %for.inc.18.i1062 ], [ 20, %for.inc.19.i1065 ], [ 21, %for.inc.20.i1068 ], [ 22, %for.inc.21.i1071 ], [ 23, %for.inc.22.i1074 ], [ 24, %for.inc.23.i1077 ], [ 25, %for.inc.24.i1080 ], [ 26, %for.inc.25.i1083 ], [ 27, %for.inc.26.i1086 ], [ 28, %for.inc.27.i1089 ], [ 29, %for.inc.28.i1092 ], [ %spec.select, %for.inc.29.i1095 ]
+  %cmp15.not = icmp eq i32 %3, %i.0.lcssa.i
   br i1 %cmp15.not, label %land.lhs.true23, label %if.then17
 
-if.then17:                                        ; preds = %land.lhs.true
+if.then17:                                        ; preds = %my_clz.exit
   tail call void @abort() #6
   unreachable
 
-land.lhs.true23:                                  ; preds = %land.lhs.true
-  %call28 = tail call i32 @my_ctz(i32 noundef %0)
-  %cmp29.not = icmp eq i32 %1, %call28
+land.lhs.true23:                                  ; preds = %my_clz.exit
+  br i1 %tobool.not.i, label %for.inc.i1103, label %my_ctz.exit
+
+for.inc.i1103:                                    ; preds = %land.lhs.true23
+  %and.1.i1101 = and i32 %0, 2
+  %tobool.not.1.i1102 = icmp eq i32 %and.1.i1101, 0
+  br i1 %tobool.not.1.i1102, label %for.inc.1.i1106, label %my_ctz.exit
+
+for.inc.1.i1106:                                  ; preds = %for.inc.i1103
+  %and.2.i1104 = and i32 %0, 4
+  %tobool.not.2.i1105 = icmp eq i32 %and.2.i1104, 0
+  br i1 %tobool.not.2.i1105, label %for.inc.2.i1109, label %my_ctz.exit
+
+for.inc.2.i1109:                                  ; preds = %for.inc.1.i1106
+  %and.3.i1107 = and i32 %0, 8
+  %tobool.not.3.i1108 = icmp eq i32 %and.3.i1107, 0
+  br i1 %tobool.not.3.i1108, label %for.inc.3.i1112, label %my_ctz.exit
+
+for.inc.3.i1112:                                  ; preds = %for.inc.2.i1109
+  %and.4.i1110 = and i32 %0, 16
+  %tobool.not.4.i1111 = icmp eq i32 %and.4.i1110, 0
+  br i1 %tobool.not.4.i1111, label %for.inc.4.i1115, label %my_ctz.exit
+
+for.inc.4.i1115:                                  ; preds = %for.inc.3.i1112
+  %and.5.i1113 = and i32 %0, 32
+  %tobool.not.5.i1114 = icmp eq i32 %and.5.i1113, 0
+  br i1 %tobool.not.5.i1114, label %for.inc.5.i1118, label %my_ctz.exit
+
+for.inc.5.i1118:                                  ; preds = %for.inc.4.i1115
+  %and.6.i1116 = and i32 %0, 64
+  %tobool.not.6.i1117 = icmp eq i32 %and.6.i1116, 0
+  br i1 %tobool.not.6.i1117, label %for.inc.6.i1121, label %my_ctz.exit
+
+for.inc.6.i1121:                                  ; preds = %for.inc.5.i1118
+  %and.7.i1119 = and i32 %0, 128
+  %tobool.not.7.i1120 = icmp eq i32 %and.7.i1119, 0
+  br i1 %tobool.not.7.i1120, label %for.inc.7.i1124, label %my_ctz.exit
+
+for.inc.7.i1124:                                  ; preds = %for.inc.6.i1121
+  %and.8.i1122 = and i32 %0, 256
+  %tobool.not.8.i1123 = icmp eq i32 %and.8.i1122, 0
+  br i1 %tobool.not.8.i1123, label %for.inc.8.i1127, label %my_ctz.exit
+
+for.inc.8.i1127:                                  ; preds = %for.inc.7.i1124
+  %and.9.i1125 = and i32 %0, 512
+  %tobool.not.9.i1126 = icmp eq i32 %and.9.i1125, 0
+  br i1 %tobool.not.9.i1126, label %for.inc.9.i1130, label %my_ctz.exit
+
+for.inc.9.i1130:                                  ; preds = %for.inc.8.i1127
+  %and.10.i1128 = and i32 %0, 1024
+  %tobool.not.10.i1129 = icmp eq i32 %and.10.i1128, 0
+  br i1 %tobool.not.10.i1129, label %for.inc.10.i1133, label %my_ctz.exit
+
+for.inc.10.i1133:                                 ; preds = %for.inc.9.i1130
+  %and.11.i1131 = and i32 %0, 2048
+  %tobool.not.11.i1132 = icmp eq i32 %and.11.i1131, 0
+  br i1 %tobool.not.11.i1132, label %for.inc.11.i1136, label %my_ctz.exit
+
+for.inc.11.i1136:                                 ; preds = %for.inc.10.i1133
+  %and.12.i1134 = and i32 %0, 4096
+  %tobool.not.12.i1135 = icmp eq i32 %and.12.i1134, 0
+  br i1 %tobool.not.12.i1135, label %for.inc.12.i1139, label %my_ctz.exit
+
+for.inc.12.i1139:                                 ; preds = %for.inc.11.i1136
+  %and.13.i1137 = and i32 %0, 8192
+  %tobool.not.13.i1138 = icmp eq i32 %and.13.i1137, 0
+  br i1 %tobool.not.13.i1138, label %for.inc.13.i1142, label %my_ctz.exit
+
+for.inc.13.i1142:                                 ; preds = %for.inc.12.i1139
+  %and.14.i1140 = and i32 %0, 16384
+  %tobool.not.14.i1141 = icmp eq i32 %and.14.i1140, 0
+  br i1 %tobool.not.14.i1141, label %for.inc.14.i1145, label %my_ctz.exit
+
+for.inc.14.i1145:                                 ; preds = %for.inc.13.i1142
+  %and.15.i1143 = and i32 %0, 32768
+  %tobool.not.15.i1144 = icmp eq i32 %and.15.i1143, 0
+  br i1 %tobool.not.15.i1144, label %for.inc.15.i1148, label %my_ctz.exit
+
+for.inc.15.i1148:                                 ; preds = %for.inc.14.i1145
+  %and.16.i1146 = and i32 %0, 65536
+  %tobool.not.16.i1147 = icmp eq i32 %and.16.i1146, 0
+  br i1 %tobool.not.16.i1147, label %for.inc.16.i1151, label %my_ctz.exit
+
+for.inc.16.i1151:                                 ; preds = %for.inc.15.i1148
+  %and.17.i1149 = and i32 %0, 131072
+  %tobool.not.17.i1150 = icmp eq i32 %and.17.i1149, 0
+  br i1 %tobool.not.17.i1150, label %for.inc.17.i1154, label %my_ctz.exit
+
+for.inc.17.i1154:                                 ; preds = %for.inc.16.i1151
+  %and.18.i1152 = and i32 %0, 262144
+  %tobool.not.18.i1153 = icmp eq i32 %and.18.i1152, 0
+  br i1 %tobool.not.18.i1153, label %for.inc.18.i1157, label %my_ctz.exit
+
+for.inc.18.i1157:                                 ; preds = %for.inc.17.i1154
+  %and.19.i1155 = and i32 %0, 524288
+  %tobool.not.19.i1156 = icmp eq i32 %and.19.i1155, 0
+  br i1 %tobool.not.19.i1156, label %for.inc.19.i1160, label %my_ctz.exit
+
+for.inc.19.i1160:                                 ; preds = %for.inc.18.i1157
+  %and.20.i1158 = and i32 %0, 1048576
+  %tobool.not.20.i1159 = icmp eq i32 %and.20.i1158, 0
+  br i1 %tobool.not.20.i1159, label %for.inc.20.i1163, label %my_ctz.exit
+
+for.inc.20.i1163:                                 ; preds = %for.inc.19.i1160
+  %and.21.i1161 = and i32 %0, 2097152
+  %tobool.not.21.i1162 = icmp eq i32 %and.21.i1161, 0
+  br i1 %tobool.not.21.i1162, label %for.inc.21.i1166, label %my_ctz.exit
+
+for.inc.21.i1166:                                 ; preds = %for.inc.20.i1163
+  %and.22.i1164 = and i32 %0, 4194304
+  %tobool.not.22.i1165 = icmp eq i32 %and.22.i1164, 0
+  br i1 %tobool.not.22.i1165, label %for.inc.22.i1169, label %my_ctz.exit
+
+for.inc.22.i1169:                                 ; preds = %for.inc.21.i1166
+  %and.23.i1167 = and i32 %0, 8388608
+  %tobool.not.23.i1168 = icmp eq i32 %and.23.i1167, 0
+  br i1 %tobool.not.23.i1168, label %for.inc.23.i1172, label %my_ctz.exit
+
+for.inc.23.i1172:                                 ; preds = %for.inc.22.i1169
+  %and.24.i1170 = and i32 %0, 16777216
+  %tobool.not.24.i1171 = icmp eq i32 %and.24.i1170, 0
+  br i1 %tobool.not.24.i1171, label %for.inc.24.i1175, label %my_ctz.exit
+
+for.inc.24.i1175:                                 ; preds = %for.inc.23.i1172
+  %and.25.i1173 = and i32 %0, 33554432
+  %tobool.not.25.i1174 = icmp eq i32 %and.25.i1173, 0
+  br i1 %tobool.not.25.i1174, label %for.inc.25.i1178, label %my_ctz.exit
+
+for.inc.25.i1178:                                 ; preds = %for.inc.24.i1175
+  %and.26.i1176 = and i32 %0, 67108864
+  %tobool.not.26.i1177 = icmp eq i32 %and.26.i1176, 0
+  br i1 %tobool.not.26.i1177, label %for.inc.26.i1181, label %my_ctz.exit
+
+for.inc.26.i1181:                                 ; preds = %for.inc.25.i1178
+  %and.27.i1179 = and i32 %0, 134217728
+  %tobool.not.27.i1180 = icmp eq i32 %and.27.i1179, 0
+  br i1 %tobool.not.27.i1180, label %for.inc.27.i1184, label %my_ctz.exit
+
+for.inc.27.i1184:                                 ; preds = %for.inc.26.i1181
+  %and.28.i1182 = and i32 %0, 268435456
+  %tobool.not.28.i1183 = icmp eq i32 %and.28.i1182, 0
+  br i1 %tobool.not.28.i1183, label %for.inc.28.i1187, label %my_ctz.exit
+
+for.inc.28.i1187:                                 ; preds = %for.inc.27.i1184
+  %and.29.i1185 = and i32 %0, 536870912
+  %tobool.not.29.i1186 = icmp eq i32 %and.29.i1185, 0
+  br i1 %tobool.not.29.i1186, label %for.inc.29.i1190, label %my_ctz.exit
+
+for.inc.29.i1190:                                 ; preds = %for.inc.28.i1187
+  %and.30.i1188 = and i32 %0, 1073741824
+  %tobool.not.30.i1189 = icmp eq i32 %and.30.i1188, 0
+  %spec.select.i1192 = select i1 %tobool.not.i1005, i32 32, i32 31
+  %spec.select3064 = select i1 %tobool.not.30.i1189, i32 %spec.select.i1192, i32 30
+  br label %my_ctz.exit
+
+my_ctz.exit:                                      ; preds = %for.inc.29.i1190, %land.lhs.true23, %for.inc.i1103, %for.inc.1.i1106, %for.inc.2.i1109, %for.inc.3.i1112, %for.inc.4.i1115, %for.inc.5.i1118, %for.inc.6.i1121, %for.inc.7.i1124, %for.inc.8.i1127, %for.inc.9.i1130, %for.inc.10.i1133, %for.inc.11.i1136, %for.inc.12.i1139, %for.inc.13.i1142, %for.inc.14.i1145, %for.inc.15.i1148, %for.inc.16.i1151, %for.inc.17.i1154, %for.inc.18.i1157, %for.inc.19.i1160, %for.inc.20.i1163, %for.inc.21.i1166, %for.inc.22.i1169, %for.inc.23.i1172, %for.inc.24.i1175, %for.inc.25.i1178, %for.inc.26.i1181, %for.inc.27.i1184, %for.inc.28.i1187
+  %i.0.lcssa.i1194 = phi i32 [ 0, %land.lhs.true23 ], [ 1, %for.inc.i1103 ], [ 2, %for.inc.1.i1106 ], [ 3, %for.inc.2.i1109 ], [ 4, %for.inc.3.i1112 ], [ 5, %for.inc.4.i1115 ], [ 6, %for.inc.5.i1118 ], [ 7, %for.inc.6.i1121 ], [ 8, %for.inc.7.i1124 ], [ 9, %for.inc.8.i1127 ], [ 10, %for.inc.9.i1130 ], [ 11, %for.inc.10.i1133 ], [ 12, %for.inc.11.i1136 ], [ 13, %for.inc.12.i1139 ], [ 14, %for.inc.13.i1142 ], [ 15, %for.inc.14.i1145 ], [ 16, %for.inc.15.i1148 ], [ 17, %for.inc.16.i1151 ], [ 18, %for.inc.17.i1154 ], [ 19, %for.inc.18.i1157 ], [ 20, %for.inc.19.i1160 ], [ 21, %for.inc.20.i1163 ], [ 22, %for.inc.21.i1166 ], [ 23, %for.inc.22.i1169 ], [ 24, %for.inc.23.i1172 ], [ 25, %for.inc.24.i1175 ], [ 26, %for.inc.25.i1178 ], [ 27, %for.inc.26.i1181 ], [ 28, %for.inc.27.i1184 ], [ 29, %for.inc.28.i1187 ], [ %spec.select3064, %for.inc.29.i1190 ]
+  %cmp29.not = icmp eq i32 %1, %i.0.lcssa.i1194
   br i1 %cmp29.not, label %if.end32, label %if.then31
 
-if.then31:                                        ; preds = %land.lhs.true23
+if.then31:                                        ; preds = %my_ctz.exit
   tail call void @abort() #6
   unreachable
 
-if.end32:                                         ; preds = %if.end, %land.lhs.true23
-  %.lobit1006 = ashr i32 %0, 31
-  %4 = xor i32 %.lobit1006, %0
+if.end32:                                         ; preds = %for.body, %my_ctz.exit
+  %.lobit2868 = ashr i32 %0, 31
+  %4 = xor i32 %.lobit2868, %0
   %5 = tail call i32 @llvm.ctlz.i32(i32 %4, i1 false), !range !25
   %6 = add nsw i32 %5, -1
   %call37 = tail call i32 @my_clrsb(i32 noundef %0)
@@ -1521,8 +1991,100 @@ if.then40:                                        ; preds = %if.end32
 
 if.end41:                                         ; preds = %if.end32
   %7 = tail call i32 @llvm.ctpop.i32(i32 %0), !range !25
-  %call46 = tail call i32 @my_popcount(i32 noundef %0)
-  %cmp47.not = icmp eq i32 %7, %call46
+  %inc.i = and i32 %0, 1
+  %8 = lshr i32 %0, 1
+  %inc.1.i = and i32 %8, 1
+  %spec.select.1.i = add nuw nsw i32 %inc.1.i, %inc.i
+  %9 = lshr i32 %0, 2
+  %inc.2.i = and i32 %9, 1
+  %spec.select.2.i = add nuw nsw i32 %spec.select.1.i, %inc.2.i
+  %10 = lshr i32 %0, 3
+  %inc.3.i = and i32 %10, 1
+  %spec.select.3.i = add nuw nsw i32 %spec.select.2.i, %inc.3.i
+  %11 = lshr i32 %0, 4
+  %inc.4.i = and i32 %11, 1
+  %spec.select.4.i = add nuw nsw i32 %spec.select.3.i, %inc.4.i
+  %12 = lshr i32 %0, 5
+  %inc.5.i = and i32 %12, 1
+  %spec.select.5.i = add nuw nsw i32 %spec.select.4.i, %inc.5.i
+  %13 = lshr i32 %0, 6
+  %inc.6.i = and i32 %13, 1
+  %spec.select.6.i = add nuw nsw i32 %spec.select.5.i, %inc.6.i
+  %14 = lshr i32 %0, 7
+  %inc.7.i = and i32 %14, 1
+  %spec.select.7.i = add nuw nsw i32 %spec.select.6.i, %inc.7.i
+  %15 = lshr i32 %0, 8
+  %inc.8.i = and i32 %15, 1
+  %spec.select.8.i = add nuw nsw i32 %spec.select.7.i, %inc.8.i
+  %16 = lshr i32 %0, 9
+  %inc.9.i = and i32 %16, 1
+  %spec.select.9.i = add nuw nsw i32 %spec.select.8.i, %inc.9.i
+  %17 = lshr i32 %0, 10
+  %inc.10.i = and i32 %17, 1
+  %spec.select.10.i = add nuw nsw i32 %spec.select.9.i, %inc.10.i
+  %18 = lshr i32 %0, 11
+  %inc.11.i = and i32 %18, 1
+  %spec.select.11.i = add nuw nsw i32 %spec.select.10.i, %inc.11.i
+  %19 = lshr i32 %0, 12
+  %inc.12.i = and i32 %19, 1
+  %spec.select.12.i = add nuw nsw i32 %spec.select.11.i, %inc.12.i
+  %20 = lshr i32 %0, 13
+  %inc.13.i = and i32 %20, 1
+  %spec.select.13.i = add nuw nsw i32 %spec.select.12.i, %inc.13.i
+  %21 = lshr i32 %0, 14
+  %inc.14.i = and i32 %21, 1
+  %spec.select.14.i = add nuw nsw i32 %spec.select.13.i, %inc.14.i
+  %22 = lshr i32 %0, 15
+  %inc.15.i = and i32 %22, 1
+  %spec.select.15.i = add nuw nsw i32 %spec.select.14.i, %inc.15.i
+  %23 = lshr i32 %0, 16
+  %inc.16.i = and i32 %23, 1
+  %spec.select.16.i = add nuw nsw i32 %spec.select.15.i, %inc.16.i
+  %24 = lshr i32 %0, 17
+  %inc.17.i = and i32 %24, 1
+  %spec.select.17.i = add nuw nsw i32 %spec.select.16.i, %inc.17.i
+  %25 = lshr i32 %0, 18
+  %inc.18.i = and i32 %25, 1
+  %spec.select.18.i = add nuw nsw i32 %spec.select.17.i, %inc.18.i
+  %26 = lshr i32 %0, 19
+  %inc.19.i = and i32 %26, 1
+  %spec.select.19.i = add nuw nsw i32 %spec.select.18.i, %inc.19.i
+  %27 = lshr i32 %0, 20
+  %inc.20.i = and i32 %27, 1
+  %spec.select.20.i = add nuw nsw i32 %spec.select.19.i, %inc.20.i
+  %28 = lshr i32 %0, 21
+  %inc.21.i = and i32 %28, 1
+  %spec.select.21.i = add nuw nsw i32 %spec.select.20.i, %inc.21.i
+  %29 = lshr i32 %0, 22
+  %inc.22.i = and i32 %29, 1
+  %spec.select.22.i = add nuw nsw i32 %spec.select.21.i, %inc.22.i
+  %30 = lshr i32 %0, 23
+  %inc.23.i = and i32 %30, 1
+  %spec.select.23.i = add nuw nsw i32 %spec.select.22.i, %inc.23.i
+  %31 = lshr i32 %0, 24
+  %inc.24.i = and i32 %31, 1
+  %spec.select.24.i = add nuw nsw i32 %spec.select.23.i, %inc.24.i
+  %32 = lshr i32 %0, 25
+  %inc.25.i = and i32 %32, 1
+  %spec.select.25.i = add nuw nsw i32 %spec.select.24.i, %inc.25.i
+  %33 = lshr i32 %0, 26
+  %inc.26.i = and i32 %33, 1
+  %spec.select.26.i = add nuw nsw i32 %spec.select.25.i, %inc.26.i
+  %34 = lshr i32 %0, 27
+  %inc.27.i = and i32 %34, 1
+  %spec.select.27.i = add nuw nsw i32 %spec.select.26.i, %inc.27.i
+  %35 = lshr i32 %0, 28
+  %inc.28.i = and i32 %35, 1
+  %36 = lshr i32 %0, 29
+  %inc.29.i = and i32 %36, 1
+  %37 = lshr i32 %0, 30
+  %inc.30.i = and i32 %37, 1
+  %38 = lshr i32 %0, 31
+  %spec.select.28.i = add nuw nsw i32 %spec.select.27.i, %38
+  %spec.select.29.i = add nuw nsw i32 %spec.select.28.i, %inc.28.i
+  %spec.select.30.i = add nuw nsw i32 %spec.select.29.i, %inc.29.i
+  %spec.select.31.i = add nuw nsw i32 %spec.select.30.i, %inc.30.i
+  %cmp47.not = icmp eq i32 %7, %spec.select.31.i
   br i1 %cmp47.not, label %if.end50, label %if.then49
 
 if.then49:                                        ; preds = %if.end41
@@ -1530,9 +2092,12 @@ if.then49:                                        ; preds = %if.end41
   unreachable
 
 if.end50:                                         ; preds = %if.end41
-  %8 = and i32 %7, 1
-  %call55 = tail call i32 @my_parity(i32 noundef %0), !range !26
-  %cmp56.not = icmp eq i32 %8, %call55
+  %spec.select.29.i1251 = add nuw nsw i32 %spec.select.28.i, %35
+  %spec.select.30.i1252 = add nuw nsw i32 %spec.select.29.i1251, %36
+  %spec.select.31.i1253 = add nuw nsw i32 %spec.select.30.i1252, %37
+  %39 = xor i32 %spec.select.31.i1253, %7
+  %40 = and i32 %39, 1
+  %cmp56.not = icmp eq i32 %40, 0
   br i1 %cmp56.not, label %for.cond, label %if.then58
 
 if.then58:                                        ; preds = %if.end50
@@ -1540,239 +2105,239 @@ if.then58:                                        ; preds = %if.end50
   unreachable
 
 for.cond60:                                       ; preds = %middle.block
-  %indvars.iv.next2382 = add nuw nsw i64 %indvars.iv2381, 1
-  %exitcond2384.not = icmp eq i64 %indvars.iv.next2382, 13
-  br i1 %exitcond2384.not, label %for.body145, label %for.body64, !llvm.loop !27
+  %indvars.iv.next3042 = add nuw nsw i64 %indvars.iv3041, 1
+  %exitcond3044.not = icmp eq i64 %indvars.iv.next3042, 13
+  br i1 %exitcond3044.not, label %for.body145, label %for.body64, !llvm.loop !26
 
 for.body64:                                       ; preds = %for.cond, %for.cond60
-  %indvars.iv2381 = phi i64 [ %indvars.iv.next2382, %for.cond60 ], [ 0, %for.cond ]
-  %arrayidx66 = getelementptr inbounds [13 x i64], ptr @longs, i64 0, i64 %indvars.iv2381
-  %9 = load i64, ptr %arrayidx66, align 8, !tbaa !28
-  %10 = tail call i64 @llvm.cttz.i64(i64 %9, i1 true), !range !30
-  %iszero67.not = icmp eq i64 %9, 0
-  %11 = trunc i64 %10 to i32
-  %12 = add nuw nsw i32 %11, 1
+  %indvars.iv3041 = phi i64 [ %indvars.iv.next3042, %for.cond60 ], [ 0, %for.cond ]
+  %arrayidx66 = getelementptr inbounds [13 x i64], ptr @longs, i64 0, i64 %indvars.iv3041
+  %41 = load i64, ptr %arrayidx66, align 8, !tbaa !27
+  %42 = tail call i64 @llvm.cttz.i64(i64 %41, i1 true), !range !29
+  %iszero67.not = icmp eq i64 %41, 0
+  %43 = trunc i64 %42 to i32
+  %44 = add nuw nsw i32 %43, 1
   br i1 %iszero67.not, label %if.end105, label %for.body.i
 
-for.body.i:                                       ; preds = %for.body64, %for.inc.i.3
-  %indvars.iv.i = phi i64 [ %indvars.iv.next.i.3, %for.inc.i.3 ], [ 0, %for.body64 ]
+for.body.i:                                       ; preds = %for.body64, %for.inc.i1257.3
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i.3, %for.inc.i1257.3 ], [ 0, %for.body64 ]
   %shl.i = shl nuw i64 1, %indvars.iv.i
-  %and.i = and i64 %shl.i, %9
-  %tobool.not.i = icmp eq i64 %and.i, 0
-  br i1 %tobool.not.i, label %for.inc.i, label %for.end.split.loop.exit.i
+  %and.i1255 = and i64 %shl.i, %41
+  %tobool.not.i1256 = icmp eq i64 %and.i1255, 0
+  br i1 %tobool.not.i1256, label %for.inc.i1257, label %for.end.split.loop.exit.i
 
-for.inc.i:                                        ; preds = %for.body.i
+for.inc.i1257:                                    ; preds = %for.body.i
   %shl.i.1 = shl i64 2, %indvars.iv.i
-  %and.i.1 = and i64 %shl.i.1, %9
-  %tobool.not.i.1 = icmp eq i64 %and.i.1, 0
-  br i1 %tobool.not.i.1, label %for.inc.i.1, label %for.end.split.loop.exit.i.split.loop.exit2480
+  %and.i1255.1 = and i64 %shl.i.1, %41
+  %tobool.not.i1256.1 = icmp eq i64 %and.i1255.1, 0
+  br i1 %tobool.not.i1256.1, label %for.inc.i1257.1, label %for.end.split.loop.exit.i.split.loop.exit3141
 
-for.inc.i.1:                                      ; preds = %for.inc.i
+for.inc.i1257.1:                                  ; preds = %for.inc.i1257
   %shl.i.2 = shl i64 4, %indvars.iv.i
-  %and.i.2 = and i64 %shl.i.2, %9
-  %tobool.not.i.2 = icmp eq i64 %and.i.2, 0
-  br i1 %tobool.not.i.2, label %for.inc.i.2, label %for.end.split.loop.exit.i.split.loop.exit2478
+  %and.i1255.2 = and i64 %shl.i.2, %41
+  %tobool.not.i1256.2 = icmp eq i64 %and.i1255.2, 0
+  br i1 %tobool.not.i1256.2, label %for.inc.i1257.2, label %for.end.split.loop.exit.i.split.loop.exit3139
 
-for.inc.i.2:                                      ; preds = %for.inc.i.1
+for.inc.i1257.2:                                  ; preds = %for.inc.i1257.1
   %shl.i.3 = shl i64 8, %indvars.iv.i
-  %and.i.3 = and i64 %shl.i.3, %9
-  %tobool.not.i.3 = icmp eq i64 %and.i.3, 0
-  br i1 %tobool.not.i.3, label %for.inc.i.3, label %for.end.split.loop.exit.i.split.loop.exit
+  %and.i1255.3 = and i64 %shl.i.3, %41
+  %tobool.not.i1256.3 = icmp eq i64 %and.i1255.3, 0
+  br i1 %tobool.not.i1256.3, label %for.inc.i1257.3, label %for.end.split.loop.exit.i.split.loop.exit
 
-for.inc.i.3:                                      ; preds = %for.inc.i.2
+for.inc.i1257.3:                                  ; preds = %for.inc.i1257.2
   %indvars.iv.next.i.3 = add nuw nsw i64 %indvars.iv.i, 4
   %exitcond.not.i.3 = icmp eq i64 %indvars.iv.next.i.3, 64
   br i1 %exitcond.not.i.3, label %my_ffsl.exit, label %for.body.i, !llvm.loop !5
 
-for.end.split.loop.exit.i.split.loop.exit:        ; preds = %for.inc.i.2
+for.end.split.loop.exit.i.split.loop.exit:        ; preds = %for.inc.i1257.2
   %indvars.iv.next.i.2.le = or i64 %indvars.iv.i, 3
   br label %for.end.split.loop.exit.i
 
-for.end.split.loop.exit.i.split.loop.exit2478:    ; preds = %for.inc.i.1
+for.end.split.loop.exit.i.split.loop.exit3139:    ; preds = %for.inc.i1257.1
   %indvars.iv.next.i.1.le = or i64 %indvars.iv.i, 2
   br label %for.end.split.loop.exit.i
 
-for.end.split.loop.exit.i.split.loop.exit2480:    ; preds = %for.inc.i
+for.end.split.loop.exit.i.split.loop.exit3141:    ; preds = %for.inc.i1257
   %indvars.iv.next.i.le = or i64 %indvars.iv.i, 1
   br label %for.end.split.loop.exit.i
 
-for.end.split.loop.exit.i:                        ; preds = %for.body.i, %for.end.split.loop.exit.i.split.loop.exit2480, %for.end.split.loop.exit.i.split.loop.exit2478, %for.end.split.loop.exit.i.split.loop.exit
-  %indvars.iv.i.lcssa = phi i64 [ %indvars.iv.next.i.2.le, %for.end.split.loop.exit.i.split.loop.exit ], [ %indvars.iv.next.i.1.le, %for.end.split.loop.exit.i.split.loop.exit2478 ], [ %indvars.iv.next.i.le, %for.end.split.loop.exit.i.split.loop.exit2480 ], [ %indvars.iv.i, %for.body.i ]
-  %13 = trunc i64 %indvars.iv.i.lcssa to i32
-  %14 = add nuw nsw i32 %13, 1
+for.end.split.loop.exit.i:                        ; preds = %for.body.i, %for.end.split.loop.exit.i.split.loop.exit3141, %for.end.split.loop.exit.i.split.loop.exit3139, %for.end.split.loop.exit.i.split.loop.exit
+  %indvars.iv.i.lcssa = phi i64 [ %indvars.iv.next.i.2.le, %for.end.split.loop.exit.i.split.loop.exit ], [ %indvars.iv.next.i.1.le, %for.end.split.loop.exit.i.split.loop.exit3139 ], [ %indvars.iv.next.i.le, %for.end.split.loop.exit.i.split.loop.exit3141 ], [ %indvars.iv.i, %for.body.i ]
+  %45 = trunc i64 %indvars.iv.i.lcssa to i32
+  %46 = add nuw nsw i32 %45, 1
   br label %my_ffsl.exit
 
-my_ffsl.exit:                                     ; preds = %for.inc.i.3, %for.end.split.loop.exit.i
-  %retval.0.i = phi i32 [ %14, %for.end.split.loop.exit.i ], [ 65, %for.inc.i.3 ]
-  %cmp72.not2264 = icmp eq i32 %12, %retval.0.i
-  br i1 %cmp72.not2264, label %land.lhs.true80, label %if.then74
+my_ffsl.exit:                                     ; preds = %for.inc.i1257.3, %for.end.split.loop.exit.i
+  %retval.0.i1259 = phi i32 [ %46, %for.end.split.loop.exit.i ], [ 65, %for.inc.i1257.3 ]
+  %cmp72.not3005 = icmp eq i32 %44, %retval.0.i1259
+  br i1 %cmp72.not3005, label %land.lhs.true80, label %if.then74
 
 if.then74:                                        ; preds = %my_ffsl.exit
   tail call void @abort() #6
   unreachable
 
 land.lhs.true80:                                  ; preds = %my_ffsl.exit
-  %15 = tail call i64 @llvm.ctlz.i64(i64 %9, i1 true), !range !30
-  %cast83 = trunc i64 %15 to i32
-  br label %for.body.i1011
+  %47 = tail call i64 @llvm.ctlz.i64(i64 %41, i1 true), !range !29
+  %cast83 = trunc i64 %47 to i32
+  br label %for.body.i1264
 
-for.body.i1011:                                   ; preds = %for.inc.i1014.3, %land.lhs.true80
-  %indvars.iv.i1007 = phi i64 [ 0, %land.lhs.true80 ], [ %indvars.iv.next.i1012.3, %for.inc.i1014.3 ]
-  %shl.i1008 = lshr i64 -9223372036854775808, %indvars.iv.i1007
-  %and.i1009 = and i64 %shl.i1008, %9
-  %tobool.not.i1010 = icmp eq i64 %and.i1009, 0
-  br i1 %tobool.not.i1010, label %for.inc.i1014, label %my_clzl.exit
+for.body.i1264:                                   ; preds = %for.inc.i1267.3, %land.lhs.true80
+  %indvars.iv.i1260 = phi i64 [ 0, %land.lhs.true80 ], [ %indvars.iv.next.i1265.3, %for.inc.i1267.3 ]
+  %shl.i1261 = lshr i64 -9223372036854775808, %indvars.iv.i1260
+  %and.i1262 = and i64 %shl.i1261, %41
+  %tobool.not.i1263 = icmp eq i64 %and.i1262, 0
+  br i1 %tobool.not.i1263, label %for.inc.i1267, label %my_clzl.exit
 
-for.inc.i1014:                                    ; preds = %for.body.i1011
-  %shl.i1008.1 = lshr i64 4611686018427387904, %indvars.iv.i1007
-  %and.i1009.1 = and i64 %shl.i1008.1, %9
-  %tobool.not.i1010.1 = icmp eq i64 %and.i1009.1, 0
-  br i1 %tobool.not.i1010.1, label %for.inc.i1014.1, label %my_clzl.exit.split.loop.exit2489
+for.inc.i1267:                                    ; preds = %for.body.i1264
+  %shl.i1261.1 = lshr i64 4611686018427387904, %indvars.iv.i1260
+  %and.i1262.1 = and i64 %shl.i1261.1, %41
+  %tobool.not.i1263.1 = icmp eq i64 %and.i1262.1, 0
+  br i1 %tobool.not.i1263.1, label %for.inc.i1267.1, label %my_clzl.exit.split.loop.exit3150
 
-for.inc.i1014.1:                                  ; preds = %for.inc.i1014
-  %shl.i1008.2 = lshr i64 2305843009213693952, %indvars.iv.i1007
-  %and.i1009.2 = and i64 %shl.i1008.2, %9
-  %tobool.not.i1010.2 = icmp eq i64 %and.i1009.2, 0
-  br i1 %tobool.not.i1010.2, label %for.inc.i1014.2, label %my_clzl.exit.split.loop.exit2487
+for.inc.i1267.1:                                  ; preds = %for.inc.i1267
+  %shl.i1261.2 = lshr i64 2305843009213693952, %indvars.iv.i1260
+  %and.i1262.2 = and i64 %shl.i1261.2, %41
+  %tobool.not.i1263.2 = icmp eq i64 %and.i1262.2, 0
+  br i1 %tobool.not.i1263.2, label %for.inc.i1267.2, label %my_clzl.exit.split.loop.exit3148
 
-for.inc.i1014.2:                                  ; preds = %for.inc.i1014.1
-  %shl.i1008.3 = lshr i64 1152921504606846976, %indvars.iv.i1007
-  %and.i1009.3 = and i64 %shl.i1008.3, %9
-  %tobool.not.i1010.3 = icmp eq i64 %and.i1009.3, 0
-  br i1 %tobool.not.i1010.3, label %for.inc.i1014.3, label %my_clzl.exit.split.loop.exit
+for.inc.i1267.2:                                  ; preds = %for.inc.i1267.1
+  %shl.i1261.3 = lshr i64 1152921504606846976, %indvars.iv.i1260
+  %and.i1262.3 = and i64 %shl.i1261.3, %41
+  %tobool.not.i1263.3 = icmp eq i64 %and.i1262.3, 0
+  br i1 %tobool.not.i1263.3, label %for.inc.i1267.3, label %my_clzl.exit.split.loop.exit
 
-for.inc.i1014.3:                                  ; preds = %for.inc.i1014.2
-  %indvars.iv.next.i1012.3 = add nuw nsw i64 %indvars.iv.i1007, 4
-  %exitcond.not.i1013.3 = icmp eq i64 %indvars.iv.next.i1012.3, 64
-  br i1 %exitcond.not.i1013.3, label %if.then89, label %for.body.i1011, !llvm.loop !8
+for.inc.i1267.3:                                  ; preds = %for.inc.i1267.2
+  %indvars.iv.next.i1265.3 = add nuw nsw i64 %indvars.iv.i1260, 4
+  %exitcond.not.i1266.3 = icmp eq i64 %indvars.iv.next.i1265.3, 64
+  br i1 %exitcond.not.i1266.3, label %if.then89, label %for.body.i1264, !llvm.loop !8
 
-my_clzl.exit.split.loop.exit:                     ; preds = %for.inc.i1014.2
-  %indvars.iv.next.i1012.2.le = or i64 %indvars.iv.i1007, 3
+my_clzl.exit.split.loop.exit:                     ; preds = %for.inc.i1267.2
+  %indvars.iv.next.i1265.2.le = or i64 %indvars.iv.i1260, 3
   br label %my_clzl.exit
 
-my_clzl.exit.split.loop.exit2487:                 ; preds = %for.inc.i1014.1
-  %indvars.iv.next.i1012.1.le = or i64 %indvars.iv.i1007, 2
+my_clzl.exit.split.loop.exit3148:                 ; preds = %for.inc.i1267.1
+  %indvars.iv.next.i1265.1.le = or i64 %indvars.iv.i1260, 2
   br label %my_clzl.exit
 
-my_clzl.exit.split.loop.exit2489:                 ; preds = %for.inc.i1014
-  %indvars.iv.next.i1012.le = or i64 %indvars.iv.i1007, 1
+my_clzl.exit.split.loop.exit3150:                 ; preds = %for.inc.i1267
+  %indvars.iv.next.i1265.le = or i64 %indvars.iv.i1260, 1
   br label %my_clzl.exit
 
-my_clzl.exit:                                     ; preds = %for.body.i1011, %my_clzl.exit.split.loop.exit2489, %my_clzl.exit.split.loop.exit2487, %my_clzl.exit.split.loop.exit
-  %indvars.iv.i1007.lcssa = phi i64 [ %indvars.iv.next.i1012.2.le, %my_clzl.exit.split.loop.exit ], [ %indvars.iv.next.i1012.1.le, %my_clzl.exit.split.loop.exit2487 ], [ %indvars.iv.next.i1012.le, %my_clzl.exit.split.loop.exit2489 ], [ %indvars.iv.i1007, %for.body.i1011 ]
-  %16 = trunc i64 %indvars.iv.i1007.lcssa to i32
-  %cmp87.not = icmp eq i32 %16, %cast83
-  br i1 %cmp87.not, label %for.body.i1022, label %if.then89
+my_clzl.exit:                                     ; preds = %for.body.i1264, %my_clzl.exit.split.loop.exit3150, %my_clzl.exit.split.loop.exit3148, %my_clzl.exit.split.loop.exit
+  %indvars.iv.i1260.lcssa = phi i64 [ %indvars.iv.next.i1265.2.le, %my_clzl.exit.split.loop.exit ], [ %indvars.iv.next.i1265.1.le, %my_clzl.exit.split.loop.exit3148 ], [ %indvars.iv.next.i1265.le, %my_clzl.exit.split.loop.exit3150 ], [ %indvars.iv.i1260, %for.body.i1264 ]
+  %48 = trunc i64 %indvars.iv.i1260.lcssa to i32
+  %cmp87.not = icmp eq i32 %48, %cast83
+  br i1 %cmp87.not, label %for.body.i1275, label %if.then89
 
-if.then89:                                        ; preds = %my_clzl.exit, %for.inc.i1014.3
+if.then89:                                        ; preds = %my_clzl.exit, %for.inc.i1267.3
   tail call void @abort() #6
   unreachable
 
-for.body.i1022:                                   ; preds = %my_clzl.exit, %for.inc.i1025.3
-  %indvars.iv.i1018 = phi i64 [ %indvars.iv.next.i1023.3, %for.inc.i1025.3 ], [ 0, %my_clzl.exit ]
-  %shl.i1019 = shl nuw i64 1, %indvars.iv.i1018
-  %and.i1020 = and i64 %shl.i1019, %9
-  %tobool.not.i1021 = icmp eq i64 %and.i1020, 0
-  br i1 %tobool.not.i1021, label %for.inc.i1025, label %my_ctzl.exit
+for.body.i1275:                                   ; preds = %my_clzl.exit, %for.inc.i1278.3
+  %indvars.iv.i1271 = phi i64 [ %indvars.iv.next.i1276.3, %for.inc.i1278.3 ], [ 0, %my_clzl.exit ]
+  %shl.i1272 = shl nuw i64 1, %indvars.iv.i1271
+  %and.i1273 = and i64 %shl.i1272, %41
+  %tobool.not.i1274 = icmp eq i64 %and.i1273, 0
+  br i1 %tobool.not.i1274, label %for.inc.i1278, label %my_ctzl.exit
 
-for.inc.i1025:                                    ; preds = %for.body.i1022
-  %shl.i1019.1 = shl i64 2, %indvars.iv.i1018
-  %and.i1020.1 = and i64 %shl.i1019.1, %9
-  %tobool.not.i1021.1 = icmp eq i64 %and.i1020.1, 0
-  br i1 %tobool.not.i1021.1, label %for.inc.i1025.1, label %my_ctzl.exit.split.loop.exit2498
+for.inc.i1278:                                    ; preds = %for.body.i1275
+  %shl.i1272.1 = shl i64 2, %indvars.iv.i1271
+  %and.i1273.1 = and i64 %shl.i1272.1, %41
+  %tobool.not.i1274.1 = icmp eq i64 %and.i1273.1, 0
+  br i1 %tobool.not.i1274.1, label %for.inc.i1278.1, label %my_ctzl.exit.split.loop.exit3159
 
-for.inc.i1025.1:                                  ; preds = %for.inc.i1025
-  %shl.i1019.2 = shl i64 4, %indvars.iv.i1018
-  %and.i1020.2 = and i64 %shl.i1019.2, %9
-  %tobool.not.i1021.2 = icmp eq i64 %and.i1020.2, 0
-  br i1 %tobool.not.i1021.2, label %for.inc.i1025.2, label %my_ctzl.exit.split.loop.exit2496
+for.inc.i1278.1:                                  ; preds = %for.inc.i1278
+  %shl.i1272.2 = shl i64 4, %indvars.iv.i1271
+  %and.i1273.2 = and i64 %shl.i1272.2, %41
+  %tobool.not.i1274.2 = icmp eq i64 %and.i1273.2, 0
+  br i1 %tobool.not.i1274.2, label %for.inc.i1278.2, label %my_ctzl.exit.split.loop.exit3157
 
-for.inc.i1025.2:                                  ; preds = %for.inc.i1025.1
-  %shl.i1019.3 = shl i64 8, %indvars.iv.i1018
-  %and.i1020.3 = and i64 %shl.i1019.3, %9
-  %tobool.not.i1021.3 = icmp eq i64 %and.i1020.3, 0
-  br i1 %tobool.not.i1021.3, label %for.inc.i1025.3, label %my_ctzl.exit.split.loop.exit
+for.inc.i1278.2:                                  ; preds = %for.inc.i1278.1
+  %shl.i1272.3 = shl i64 8, %indvars.iv.i1271
+  %and.i1273.3 = and i64 %shl.i1272.3, %41
+  %tobool.not.i1274.3 = icmp eq i64 %and.i1273.3, 0
+  br i1 %tobool.not.i1274.3, label %for.inc.i1278.3, label %my_ctzl.exit.split.loop.exit
 
-for.inc.i1025.3:                                  ; preds = %for.inc.i1025.2
-  %indvars.iv.next.i1023.3 = add nuw nsw i64 %indvars.iv.i1018, 4
-  %exitcond.not.i1024.3 = icmp eq i64 %indvars.iv.next.i1023.3, 64
-  br i1 %exitcond.not.i1024.3, label %if.then104, label %for.body.i1022, !llvm.loop !7
+for.inc.i1278.3:                                  ; preds = %for.inc.i1278.2
+  %indvars.iv.next.i1276.3 = add nuw nsw i64 %indvars.iv.i1271, 4
+  %exitcond.not.i1277.3 = icmp eq i64 %indvars.iv.next.i1276.3, 64
+  br i1 %exitcond.not.i1277.3, label %if.then104, label %for.body.i1275, !llvm.loop !7
 
-my_ctzl.exit.split.loop.exit:                     ; preds = %for.inc.i1025.2
-  %indvars.iv.next.i1023.2.le = or i64 %indvars.iv.i1018, 3
+my_ctzl.exit.split.loop.exit:                     ; preds = %for.inc.i1278.2
+  %indvars.iv.next.i1276.2.le = or i64 %indvars.iv.i1271, 3
   br label %my_ctzl.exit
 
-my_ctzl.exit.split.loop.exit2496:                 ; preds = %for.inc.i1025.1
-  %indvars.iv.next.i1023.1.le = or i64 %indvars.iv.i1018, 2
+my_ctzl.exit.split.loop.exit3157:                 ; preds = %for.inc.i1278.1
+  %indvars.iv.next.i1276.1.le = or i64 %indvars.iv.i1271, 2
   br label %my_ctzl.exit
 
-my_ctzl.exit.split.loop.exit2498:                 ; preds = %for.inc.i1025
-  %indvars.iv.next.i1023.le = or i64 %indvars.iv.i1018, 1
+my_ctzl.exit.split.loop.exit3159:                 ; preds = %for.inc.i1278
+  %indvars.iv.next.i1276.le = or i64 %indvars.iv.i1271, 1
   br label %my_ctzl.exit
 
-my_ctzl.exit:                                     ; preds = %for.body.i1022, %my_ctzl.exit.split.loop.exit2498, %my_ctzl.exit.split.loop.exit2496, %my_ctzl.exit.split.loop.exit
-  %indvars.iv.i1018.lcssa = phi i64 [ %indvars.iv.next.i1023.2.le, %my_ctzl.exit.split.loop.exit ], [ %indvars.iv.next.i1023.1.le, %my_ctzl.exit.split.loop.exit2496 ], [ %indvars.iv.next.i1023.le, %my_ctzl.exit.split.loop.exit2498 ], [ %indvars.iv.i1018, %for.body.i1022 ]
-  %17 = trunc i64 %indvars.iv.i1018.lcssa to i32
-  %cmp102.not = icmp eq i32 %17, %11
+my_ctzl.exit:                                     ; preds = %for.body.i1275, %my_ctzl.exit.split.loop.exit3159, %my_ctzl.exit.split.loop.exit3157, %my_ctzl.exit.split.loop.exit
+  %indvars.iv.i1271.lcssa = phi i64 [ %indvars.iv.next.i1276.2.le, %my_ctzl.exit.split.loop.exit ], [ %indvars.iv.next.i1276.1.le, %my_ctzl.exit.split.loop.exit3157 ], [ %indvars.iv.next.i1276.le, %my_ctzl.exit.split.loop.exit3159 ], [ %indvars.iv.i1271, %for.body.i1275 ]
+  %49 = trunc i64 %indvars.iv.i1271.lcssa to i32
+  %cmp102.not = icmp eq i32 %49, %43
   br i1 %cmp102.not, label %if.end105, label %if.then104
 
-if.then104:                                       ; preds = %my_ctzl.exit, %for.inc.i1025.3
+if.then104:                                       ; preds = %my_ctzl.exit, %for.inc.i1278.3
   tail call void @abort() #6
   unreachable
 
 if.end105:                                        ; preds = %for.body64, %my_ctzl.exit
-  %.lobit1005 = ashr i64 %9, 63
-  %18 = xor i64 %.lobit1005, %9
-  %19 = tail call i64 @llvm.ctlz.i64(i64 %18, i1 false), !range !30
-  %20 = trunc i64 %19 to i32
-  %cast110 = add nsw i32 %20, -1
-  %shr.i = lshr i64 %9, 63
-  br label %for.body.i1030
+  %.lobit2867 = ashr i64 %41, 63
+  %50 = xor i64 %.lobit2867, %41
+  %51 = tail call i64 @llvm.ctlz.i64(i64 %50, i1 false), !range !29
+  %52 = trunc i64 %51 to i32
+  %cast110 = add nsw i32 %52, -1
+  %shr.i = lshr i64 %41, 63
+  br label %for.body.i1283
 
-for.body.i1030:                                   ; preds = %for.inc.i1033.2, %if.end105
-  %indvars.iv.i1029 = phi i64 [ 1, %if.end105 ], [ %indvars.iv.next.i1031.2, %for.inc.i1033.2 ]
-  %sub4.i = sub nuw nsw i64 63, %indvars.iv.i1029
-  %shr5.i = lshr i64 %9, %sub4.i
+for.body.i1283:                                   ; preds = %for.inc.i1286.2, %if.end105
+  %indvars.iv.i1282 = phi i64 [ 1, %if.end105 ], [ %indvars.iv.next.i1284.2, %for.inc.i1286.2 ]
+  %sub4.i = sub nuw nsw i64 63, %indvars.iv.i1282
+  %shr5.i = lshr i64 %41, %sub4.i
   %and6.i = and i64 %shr5.i, 1
   %cmp8.not.i = icmp eq i64 %and6.i, %shr.i
-  br i1 %cmp8.not.i, label %for.inc.i1033, label %for.end.split.loop.exit.i1034
+  br i1 %cmp8.not.i, label %for.inc.i1286, label %for.end.split.loop.exit.i1287
 
-for.inc.i1033:                                    ; preds = %for.body.i1030
-  %sub4.i.1 = sub nsw i64 62, %indvars.iv.i1029
-  %shr5.i.1 = lshr i64 %9, %sub4.i.1
+for.inc.i1286:                                    ; preds = %for.body.i1283
+  %sub4.i.1 = sub nsw i64 62, %indvars.iv.i1282
+  %shr5.i.1 = lshr i64 %41, %sub4.i.1
   %and6.i.1 = and i64 %shr5.i.1, 1
   %cmp8.not.i.1 = icmp eq i64 %and6.i.1, %shr.i
-  br i1 %cmp8.not.i.1, label %for.inc.i1033.1, label %for.end.split.loop.exit.i1034.split.loop.exit2505
+  br i1 %cmp8.not.i.1, label %for.inc.i1286.1, label %for.end.split.loop.exit.i1287.split.loop.exit3166
 
-for.inc.i1033.1:                                  ; preds = %for.inc.i1033
-  %sub4.i.2 = sub nsw i64 61, %indvars.iv.i1029
-  %shr5.i.2 = lshr i64 %9, %sub4.i.2
+for.inc.i1286.1:                                  ; preds = %for.inc.i1286
+  %sub4.i.2 = sub nsw i64 61, %indvars.iv.i1282
+  %shr5.i.2 = lshr i64 %41, %sub4.i.2
   %and6.i.2 = and i64 %shr5.i.2, 1
   %cmp8.not.i.2 = icmp eq i64 %and6.i.2, %shr.i
-  br i1 %cmp8.not.i.2, label %for.inc.i1033.2, label %for.end.split.loop.exit.i1034.split.loop.exit
+  br i1 %cmp8.not.i.2, label %for.inc.i1286.2, label %for.end.split.loop.exit.i1287.split.loop.exit
 
-for.inc.i1033.2:                                  ; preds = %for.inc.i1033.1
-  %indvars.iv.next.i1031.2 = add nuw nsw i64 %indvars.iv.i1029, 3
-  %exitcond.not.i1032.2 = icmp eq i64 %indvars.iv.next.i1031.2, 64
-  br i1 %exitcond.not.i1032.2, label %my_clrsbl.exit, label %for.body.i1030, !llvm.loop !9
+for.inc.i1286.2:                                  ; preds = %for.inc.i1286.1
+  %indvars.iv.next.i1284.2 = add nuw nsw i64 %indvars.iv.i1282, 3
+  %exitcond.not.i1285.2 = icmp eq i64 %indvars.iv.next.i1284.2, 64
+  br i1 %exitcond.not.i1285.2, label %my_clrsbl.exit, label %for.body.i1283, !llvm.loop !9
 
-for.end.split.loop.exit.i1034.split.loop.exit:    ; preds = %for.inc.i1033.1
-  %indvars.iv.next.i1031.1.le = add nuw nsw i64 %indvars.iv.i1029, 2
-  br label %for.end.split.loop.exit.i1034
+for.end.split.loop.exit.i1287.split.loop.exit:    ; preds = %for.inc.i1286.1
+  %indvars.iv.next.i1284.1.le = add nuw nsw i64 %indvars.iv.i1282, 2
+  br label %for.end.split.loop.exit.i1287
 
-for.end.split.loop.exit.i1034.split.loop.exit2505: ; preds = %for.inc.i1033
-  %indvars.iv.next.i1031.le = add nuw nsw i64 %indvars.iv.i1029, 1
-  br label %for.end.split.loop.exit.i1034
+for.end.split.loop.exit.i1287.split.loop.exit3166: ; preds = %for.inc.i1286
+  %indvars.iv.next.i1284.le = add nuw nsw i64 %indvars.iv.i1282, 1
+  br label %for.end.split.loop.exit.i1287
 
-for.end.split.loop.exit.i1034:                    ; preds = %for.body.i1030, %for.end.split.loop.exit.i1034.split.loop.exit2505, %for.end.split.loop.exit.i1034.split.loop.exit
-  %indvars.iv.i1029.lcssa = phi i64 [ %indvars.iv.next.i1031.1.le, %for.end.split.loop.exit.i1034.split.loop.exit ], [ %indvars.iv.next.i1031.le, %for.end.split.loop.exit.i1034.split.loop.exit2505 ], [ %indvars.iv.i1029, %for.body.i1030 ]
-  %21 = trunc i64 %indvars.iv.i1029.lcssa to i32
-  %22 = add nsw i32 %21, -1
+for.end.split.loop.exit.i1287:                    ; preds = %for.body.i1283, %for.end.split.loop.exit.i1287.split.loop.exit3166, %for.end.split.loop.exit.i1287.split.loop.exit
+  %indvars.iv.i1282.lcssa = phi i64 [ %indvars.iv.next.i1284.1.le, %for.end.split.loop.exit.i1287.split.loop.exit ], [ %indvars.iv.next.i1284.le, %for.end.split.loop.exit.i1287.split.loop.exit3166 ], [ %indvars.iv.i1282, %for.body.i1283 ]
+  %53 = trunc i64 %indvars.iv.i1282.lcssa to i32
+  %54 = add nsw i32 %53, -1
   br label %my_clrsbl.exit
 
-my_clrsbl.exit:                                   ; preds = %for.inc.i1033.2, %for.end.split.loop.exit.i1034
-  %i.0.lcssa.i1035 = phi i32 [ %22, %for.end.split.loop.exit.i1034 ], [ 63, %for.inc.i1033.2 ]
-  %cmp114.not = icmp eq i32 %cast110, %i.0.lcssa.i1035
+my_clrsbl.exit:                                   ; preds = %for.inc.i1286.2, %for.end.split.loop.exit.i1287
+  %i.0.lcssa.i1288 = phi i32 [ %54, %for.end.split.loop.exit.i1287 ], [ 63, %for.inc.i1286.2 ]
+  %cmp114.not = icmp eq i32 %cast110, %i.0.lcssa.i1288
   br i1 %cmp114.not, label %if.end117, label %if.then116
 
 if.then116:                                       ; preds = %my_clrsbl.exit
@@ -1780,58 +2345,58 @@ if.then116:                                       ; preds = %my_clrsbl.exit
   unreachable
 
 if.end117:                                        ; preds = %my_clrsbl.exit
-  %23 = tail call i64 @llvm.ctpop.i64(i64 %9), !range !30
-  %broadcast.splatinsert2427 = insertelement <4 x i64> poison, i64 %9, i64 0
-  %broadcast.splat2428 = shufflevector <4 x i64> %broadcast.splatinsert2427, <4 x i64> poison, <4 x i32> zeroinitializer
-  br label %vector.body2422
+  %55 = tail call i64 @llvm.ctpop.i64(i64 %41), !range !29
+  %broadcast.splatinsert3088 = insertelement <4 x i64> poison, i64 %41, i64 0
+  %broadcast.splat3089 = shufflevector <4 x i64> %broadcast.splatinsert3088, <4 x i64> poison, <4 x i32> zeroinitializer
+  br label %vector.body3083
 
-vector.body2422:                                  ; preds = %vector.body2422, %if.end117
-  %index2423 = phi i64 [ 0, %if.end117 ], [ %index.next2429, %vector.body2422 ]
-  %vec.ind2424 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %if.end117 ], [ %vec.ind.next2425, %vector.body2422 ]
-  %vec.phi2426 = phi <4 x i32> [ zeroinitializer, %if.end117 ], [ %28, %vector.body2422 ]
-  %24 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind2424
-  %25 = and <4 x i64> %24, %broadcast.splat2428
-  %26 = icmp ne <4 x i64> %25, zeroinitializer
-  %27 = zext <4 x i1> %26 to <4 x i32>
-  %28 = add <4 x i32> %vec.phi2426, %27
-  %index.next2429 = add nuw i64 %index2423, 4
-  %vec.ind.next2425 = add <4 x i64> %vec.ind2424, <i64 4, i64 4, i64 4, i64 4>
-  %29 = icmp eq i64 %index.next2429, 64
-  br i1 %29, label %middle.block2417, label %vector.body2422, !llvm.loop !31
+vector.body3083:                                  ; preds = %vector.body3083, %if.end117
+  %index3084 = phi i64 [ 0, %if.end117 ], [ %index.next3090, %vector.body3083 ]
+  %vec.ind3085 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %if.end117 ], [ %vec.ind.next3086, %vector.body3083 ]
+  %vec.phi3087 = phi <4 x i32> [ zeroinitializer, %if.end117 ], [ %60, %vector.body3083 ]
+  %56 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind3085
+  %57 = and <4 x i64> %56, %broadcast.splat3089
+  %58 = icmp ne <4 x i64> %57, zeroinitializer
+  %59 = zext <4 x i1> %58 to <4 x i32>
+  %60 = add <4 x i32> %vec.phi3087, %59
+  %index.next3090 = add nuw i64 %index3084, 4
+  %vec.ind.next3086 = add <4 x i64> %vec.ind3085, <i64 4, i64 4, i64 4, i64 4>
+  %61 = icmp eq i64 %index.next3090, 64
+  br i1 %61, label %middle.block3078, label %vector.body3083, !llvm.loop !30
 
-middle.block2417:                                 ; preds = %vector.body2422
-  %30 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %28)
-  %cast120 = trunc i64 %23 to i32
-  %cmp124.not = icmp eq i32 %30, %cast120
+middle.block3078:                                 ; preds = %vector.body3083
+  %62 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %60)
+  %cast120 = trunc i64 %55 to i32
+  %cmp124.not = icmp eq i32 %62, %cast120
   br i1 %cmp124.not, label %vector.ph, label %if.then126
 
-vector.ph:                                        ; preds = %middle.block2417
-  %broadcast.splatinsert = insertelement <4 x i64> poison, i64 %9, i64 0
+vector.ph:                                        ; preds = %middle.block3078
+  %broadcast.splatinsert = insertelement <4 x i64> poison, i64 %41, i64 0
   %broadcast.splat = shufflevector <4 x i64> %broadcast.splatinsert, <4 x i64> poison, <4 x i32> zeroinitializer
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
   %vec.ind = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %vector.ph ], [ %vec.ind.next, %vector.body ]
-  %vec.phi = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %35, %vector.body ]
-  %31 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind
-  %32 = and <4 x i64> %31, %broadcast.splat
-  %33 = icmp ne <4 x i64> %32, zeroinitializer
-  %34 = zext <4 x i1> %33 to <4 x i32>
-  %35 = add <4 x i32> %vec.phi, %34
+  %vec.phi = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %67, %vector.body ]
+  %63 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind
+  %64 = and <4 x i64> %63, %broadcast.splat
+  %65 = icmp ne <4 x i64> %64, zeroinitializer
+  %66 = zext <4 x i1> %65 to <4 x i32>
+  %67 = add <4 x i32> %vec.phi, %66
   %index.next = add nuw i64 %index, 4
   %vec.ind.next = add <4 x i64> %vec.ind, <i64 4, i64 4, i64 4, i64 4>
-  %36 = icmp eq i64 %index.next, 64
-  br i1 %36, label %middle.block, label %vector.body, !llvm.loop !32
+  %68 = icmp eq i64 %index.next, 64
+  br i1 %68, label %middle.block, label %vector.body, !llvm.loop !31
 
 middle.block:                                     ; preds = %vector.body
-  %37 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %35)
-  %38 = xor i32 %37, %30
-  %39 = and i32 %38, 1
-  %cmp134.not = icmp eq i32 %39, 0
+  %69 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %67)
+  %70 = xor i32 %69, %62
+  %71 = and i32 %70, 1
+  %cmp134.not = icmp eq i32 %71, 0
   br i1 %cmp134.not, label %for.cond60, label %if.then136
 
-if.then126:                                       ; preds = %middle.block2417
+if.then126:                                       ; preds = %middle.block3078
   tail call void @abort() #6
   unreachable
 
@@ -1839,240 +2404,240 @@ if.then136:                                       ; preds = %middle.block
   tail call void @abort() #6
   unreachable
 
-for.cond141:                                      ; preds = %middle.block2431
-  %indvars.iv.next2386 = add nuw nsw i64 %indvars.iv2385, 1
-  %exitcond2388.not = icmp eq i64 %indvars.iv.next2386, 13
-  br i1 %exitcond2388.not, label %for.body.i2113, label %for.body145, !llvm.loop !33
+for.cond141:                                      ; preds = %middle.block3092
+  %indvars.iv.next3046 = add nuw nsw i64 %indvars.iv3045, 1
+  %exitcond3048.not = icmp eq i64 %indvars.iv.next3046, 13
+  br i1 %exitcond3048.not, label %for.body.i2819, label %for.body145, !llvm.loop !32
 
 for.body145:                                      ; preds = %for.cond60, %for.cond141
-  %indvars.iv2385 = phi i64 [ %indvars.iv.next2386, %for.cond141 ], [ 0, %for.cond60 ]
-  %arrayidx147 = getelementptr inbounds [13 x i64], ptr @longlongs, i64 0, i64 %indvars.iv2385
-  %40 = load i64, ptr %arrayidx147, align 8, !tbaa !34
-  %41 = tail call i64 @llvm.cttz.i64(i64 %40, i1 true), !range !30
-  %iszero148.not = icmp eq i64 %40, 0
-  %42 = trunc i64 %41 to i32
-  %43 = add nuw nsw i32 %42, 1
-  br i1 %iszero148.not, label %if.end187, label %for.body.i1060
+  %indvars.iv3045 = phi i64 [ %indvars.iv.next3046, %for.cond141 ], [ 0, %for.cond60 ]
+  %arrayidx147 = getelementptr inbounds [13 x i64], ptr @longlongs, i64 0, i64 %indvars.iv3045
+  %72 = load i64, ptr %arrayidx147, align 8, !tbaa !33
+  %73 = tail call i64 @llvm.cttz.i64(i64 %72, i1 true), !range !29
+  %iszero148.not = icmp eq i64 %72, 0
+  %74 = trunc i64 %73 to i32
+  %75 = add nuw nsw i32 %74, 1
+  br i1 %iszero148.not, label %if.end187, label %for.body.i1316
 
-for.body.i1060:                                   ; preds = %for.body145, %for.inc.i1063.3
-  %indvars.iv.i1056 = phi i64 [ %indvars.iv.next.i1061.3, %for.inc.i1063.3 ], [ 0, %for.body145 ]
-  %shl.i1057 = shl nuw i64 1, %indvars.iv.i1056
-  %and.i1058 = and i64 %shl.i1057, %40
-  %tobool.not.i1059 = icmp eq i64 %and.i1058, 0
-  br i1 %tobool.not.i1059, label %for.inc.i1063, label %for.end.split.loop.exit.i1064
+for.body.i1316:                                   ; preds = %for.body145, %for.inc.i1319.3
+  %indvars.iv.i1312 = phi i64 [ %indvars.iv.next.i1317.3, %for.inc.i1319.3 ], [ 0, %for.body145 ]
+  %shl.i1313 = shl nuw i64 1, %indvars.iv.i1312
+  %and.i1314 = and i64 %shl.i1313, %72
+  %tobool.not.i1315 = icmp eq i64 %and.i1314, 0
+  br i1 %tobool.not.i1315, label %for.inc.i1319, label %for.end.split.loop.exit.i1320
 
-for.inc.i1063:                                    ; preds = %for.body.i1060
-  %shl.i1057.1 = shl i64 2, %indvars.iv.i1056
-  %and.i1058.1 = and i64 %shl.i1057.1, %40
-  %tobool.not.i1059.1 = icmp eq i64 %and.i1058.1, 0
-  br i1 %tobool.not.i1059.1, label %for.inc.i1063.1, label %for.end.split.loop.exit.i1064.split.loop.exit2513
+for.inc.i1319:                                    ; preds = %for.body.i1316
+  %shl.i1313.1 = shl i64 2, %indvars.iv.i1312
+  %and.i1314.1 = and i64 %shl.i1313.1, %72
+  %tobool.not.i1315.1 = icmp eq i64 %and.i1314.1, 0
+  br i1 %tobool.not.i1315.1, label %for.inc.i1319.1, label %for.end.split.loop.exit.i1320.split.loop.exit3174
 
-for.inc.i1063.1:                                  ; preds = %for.inc.i1063
-  %shl.i1057.2 = shl i64 4, %indvars.iv.i1056
-  %and.i1058.2 = and i64 %shl.i1057.2, %40
-  %tobool.not.i1059.2 = icmp eq i64 %and.i1058.2, 0
-  br i1 %tobool.not.i1059.2, label %for.inc.i1063.2, label %for.end.split.loop.exit.i1064.split.loop.exit2511
+for.inc.i1319.1:                                  ; preds = %for.inc.i1319
+  %shl.i1313.2 = shl i64 4, %indvars.iv.i1312
+  %and.i1314.2 = and i64 %shl.i1313.2, %72
+  %tobool.not.i1315.2 = icmp eq i64 %and.i1314.2, 0
+  br i1 %tobool.not.i1315.2, label %for.inc.i1319.2, label %for.end.split.loop.exit.i1320.split.loop.exit3172
 
-for.inc.i1063.2:                                  ; preds = %for.inc.i1063.1
-  %shl.i1057.3 = shl i64 8, %indvars.iv.i1056
-  %and.i1058.3 = and i64 %shl.i1057.3, %40
-  %tobool.not.i1059.3 = icmp eq i64 %and.i1058.3, 0
-  br i1 %tobool.not.i1059.3, label %for.inc.i1063.3, label %for.end.split.loop.exit.i1064.split.loop.exit
+for.inc.i1319.2:                                  ; preds = %for.inc.i1319.1
+  %shl.i1313.3 = shl i64 8, %indvars.iv.i1312
+  %and.i1314.3 = and i64 %shl.i1313.3, %72
+  %tobool.not.i1315.3 = icmp eq i64 %and.i1314.3, 0
+  br i1 %tobool.not.i1315.3, label %for.inc.i1319.3, label %for.end.split.loop.exit.i1320.split.loop.exit
 
-for.inc.i1063.3:                                  ; preds = %for.inc.i1063.2
-  %indvars.iv.next.i1061.3 = add nuw nsw i64 %indvars.iv.i1056, 4
-  %exitcond.not.i1062.3 = icmp eq i64 %indvars.iv.next.i1061.3, 64
-  br i1 %exitcond.not.i1062.3, label %my_ffsll.exit, label %for.body.i1060, !llvm.loop !14
+for.inc.i1319.3:                                  ; preds = %for.inc.i1319.2
+  %indvars.iv.next.i1317.3 = add nuw nsw i64 %indvars.iv.i1312, 4
+  %exitcond.not.i1318.3 = icmp eq i64 %indvars.iv.next.i1317.3, 64
+  br i1 %exitcond.not.i1318.3, label %my_ffsll.exit, label %for.body.i1316, !llvm.loop !14
 
-for.end.split.loop.exit.i1064.split.loop.exit:    ; preds = %for.inc.i1063.2
-  %indvars.iv.next.i1061.2.le = or i64 %indvars.iv.i1056, 3
-  br label %for.end.split.loop.exit.i1064
+for.end.split.loop.exit.i1320.split.loop.exit:    ; preds = %for.inc.i1319.2
+  %indvars.iv.next.i1317.2.le = or i64 %indvars.iv.i1312, 3
+  br label %for.end.split.loop.exit.i1320
 
-for.end.split.loop.exit.i1064.split.loop.exit2511: ; preds = %for.inc.i1063.1
-  %indvars.iv.next.i1061.1.le = or i64 %indvars.iv.i1056, 2
-  br label %for.end.split.loop.exit.i1064
+for.end.split.loop.exit.i1320.split.loop.exit3172: ; preds = %for.inc.i1319.1
+  %indvars.iv.next.i1317.1.le = or i64 %indvars.iv.i1312, 2
+  br label %for.end.split.loop.exit.i1320
 
-for.end.split.loop.exit.i1064.split.loop.exit2513: ; preds = %for.inc.i1063
-  %indvars.iv.next.i1061.le = or i64 %indvars.iv.i1056, 1
-  br label %for.end.split.loop.exit.i1064
+for.end.split.loop.exit.i1320.split.loop.exit3174: ; preds = %for.inc.i1319
+  %indvars.iv.next.i1317.le = or i64 %indvars.iv.i1312, 1
+  br label %for.end.split.loop.exit.i1320
 
-for.end.split.loop.exit.i1064:                    ; preds = %for.body.i1060, %for.end.split.loop.exit.i1064.split.loop.exit2513, %for.end.split.loop.exit.i1064.split.loop.exit2511, %for.end.split.loop.exit.i1064.split.loop.exit
-  %indvars.iv.i1056.lcssa = phi i64 [ %indvars.iv.next.i1061.2.le, %for.end.split.loop.exit.i1064.split.loop.exit ], [ %indvars.iv.next.i1061.1.le, %for.end.split.loop.exit.i1064.split.loop.exit2511 ], [ %indvars.iv.next.i1061.le, %for.end.split.loop.exit.i1064.split.loop.exit2513 ], [ %indvars.iv.i1056, %for.body.i1060 ]
-  %44 = trunc i64 %indvars.iv.i1056.lcssa to i32
-  %45 = add nuw nsw i32 %44, 1
+for.end.split.loop.exit.i1320:                    ; preds = %for.body.i1316, %for.end.split.loop.exit.i1320.split.loop.exit3174, %for.end.split.loop.exit.i1320.split.loop.exit3172, %for.end.split.loop.exit.i1320.split.loop.exit
+  %indvars.iv.i1312.lcssa = phi i64 [ %indvars.iv.next.i1317.2.le, %for.end.split.loop.exit.i1320.split.loop.exit ], [ %indvars.iv.next.i1317.1.le, %for.end.split.loop.exit.i1320.split.loop.exit3172 ], [ %indvars.iv.next.i1317.le, %for.end.split.loop.exit.i1320.split.loop.exit3174 ], [ %indvars.iv.i1312, %for.body.i1316 ]
+  %76 = trunc i64 %indvars.iv.i1312.lcssa to i32
+  %77 = add nuw nsw i32 %76, 1
   br label %my_ffsll.exit
 
-my_ffsll.exit:                                    ; preds = %for.inc.i1063.3, %for.end.split.loop.exit.i1064
-  %retval.0.i1067 = phi i32 [ %45, %for.end.split.loop.exit.i1064 ], [ 65, %for.inc.i1063.3 ]
-  %cmp154.not2263 = icmp eq i32 %43, %retval.0.i1067
-  br i1 %cmp154.not2263, label %land.lhs.true162, label %if.then156
+my_ffsll.exit:                                    ; preds = %for.inc.i1319.3, %for.end.split.loop.exit.i1320
+  %retval.0.i1323 = phi i32 [ %77, %for.end.split.loop.exit.i1320 ], [ 65, %for.inc.i1319.3 ]
+  %cmp154.not3006 = icmp eq i32 %75, %retval.0.i1323
+  br i1 %cmp154.not3006, label %land.lhs.true162, label %if.then156
 
 if.then156:                                       ; preds = %my_ffsll.exit
   tail call void @abort() #6
   unreachable
 
 land.lhs.true162:                                 ; preds = %my_ffsll.exit
-  %46 = tail call i64 @llvm.ctlz.i64(i64 %40, i1 true), !range !30
-  %cast165 = trunc i64 %46 to i32
-  br label %for.body.i1072
+  %78 = tail call i64 @llvm.ctlz.i64(i64 %72, i1 true), !range !29
+  %cast165 = trunc i64 %78 to i32
+  br label %for.body.i1328
 
-for.body.i1072:                                   ; preds = %for.inc.i1075.3, %land.lhs.true162
-  %indvars.iv.i1068 = phi i64 [ 0, %land.lhs.true162 ], [ %indvars.iv.next.i1073.3, %for.inc.i1075.3 ]
-  %shl.i1069 = lshr i64 -9223372036854775808, %indvars.iv.i1068
-  %and.i1070 = and i64 %shl.i1069, %40
-  %tobool.not.i1071 = icmp eq i64 %and.i1070, 0
-  br i1 %tobool.not.i1071, label %for.inc.i1075, label %my_clzll.exit
+for.body.i1328:                                   ; preds = %for.inc.i1331.3, %land.lhs.true162
+  %indvars.iv.i1324 = phi i64 [ 0, %land.lhs.true162 ], [ %indvars.iv.next.i1329.3, %for.inc.i1331.3 ]
+  %shl.i1325 = lshr i64 -9223372036854775808, %indvars.iv.i1324
+  %and.i1326 = and i64 %shl.i1325, %72
+  %tobool.not.i1327 = icmp eq i64 %and.i1326, 0
+  br i1 %tobool.not.i1327, label %for.inc.i1331, label %my_clzll.exit
 
-for.inc.i1075:                                    ; preds = %for.body.i1072
-  %shl.i1069.1 = lshr i64 4611686018427387904, %indvars.iv.i1068
-  %and.i1070.1 = and i64 %shl.i1069.1, %40
-  %tobool.not.i1071.1 = icmp eq i64 %and.i1070.1, 0
-  br i1 %tobool.not.i1071.1, label %for.inc.i1075.1, label %my_clzll.exit.split.loop.exit2522
+for.inc.i1331:                                    ; preds = %for.body.i1328
+  %shl.i1325.1 = lshr i64 4611686018427387904, %indvars.iv.i1324
+  %and.i1326.1 = and i64 %shl.i1325.1, %72
+  %tobool.not.i1327.1 = icmp eq i64 %and.i1326.1, 0
+  br i1 %tobool.not.i1327.1, label %for.inc.i1331.1, label %my_clzll.exit.split.loop.exit3183
 
-for.inc.i1075.1:                                  ; preds = %for.inc.i1075
-  %shl.i1069.2 = lshr i64 2305843009213693952, %indvars.iv.i1068
-  %and.i1070.2 = and i64 %shl.i1069.2, %40
-  %tobool.not.i1071.2 = icmp eq i64 %and.i1070.2, 0
-  br i1 %tobool.not.i1071.2, label %for.inc.i1075.2, label %my_clzll.exit.split.loop.exit2520
+for.inc.i1331.1:                                  ; preds = %for.inc.i1331
+  %shl.i1325.2 = lshr i64 2305843009213693952, %indvars.iv.i1324
+  %and.i1326.2 = and i64 %shl.i1325.2, %72
+  %tobool.not.i1327.2 = icmp eq i64 %and.i1326.2, 0
+  br i1 %tobool.not.i1327.2, label %for.inc.i1331.2, label %my_clzll.exit.split.loop.exit3181
 
-for.inc.i1075.2:                                  ; preds = %for.inc.i1075.1
-  %shl.i1069.3 = lshr i64 1152921504606846976, %indvars.iv.i1068
-  %and.i1070.3 = and i64 %shl.i1069.3, %40
-  %tobool.not.i1071.3 = icmp eq i64 %and.i1070.3, 0
-  br i1 %tobool.not.i1071.3, label %for.inc.i1075.3, label %my_clzll.exit.split.loop.exit
+for.inc.i1331.2:                                  ; preds = %for.inc.i1331.1
+  %shl.i1325.3 = lshr i64 1152921504606846976, %indvars.iv.i1324
+  %and.i1326.3 = and i64 %shl.i1325.3, %72
+  %tobool.not.i1327.3 = icmp eq i64 %and.i1326.3, 0
+  br i1 %tobool.not.i1327.3, label %for.inc.i1331.3, label %my_clzll.exit.split.loop.exit
 
-for.inc.i1075.3:                                  ; preds = %for.inc.i1075.2
-  %indvars.iv.next.i1073.3 = add nuw nsw i64 %indvars.iv.i1068, 4
-  %exitcond.not.i1074.3 = icmp eq i64 %indvars.iv.next.i1073.3, 64
-  br i1 %exitcond.not.i1074.3, label %if.then171, label %for.body.i1072, !llvm.loop !16
+for.inc.i1331.3:                                  ; preds = %for.inc.i1331.2
+  %indvars.iv.next.i1329.3 = add nuw nsw i64 %indvars.iv.i1324, 4
+  %exitcond.not.i1330.3 = icmp eq i64 %indvars.iv.next.i1329.3, 64
+  br i1 %exitcond.not.i1330.3, label %if.then171, label %for.body.i1328, !llvm.loop !16
 
-my_clzll.exit.split.loop.exit:                    ; preds = %for.inc.i1075.2
-  %indvars.iv.next.i1073.2.le = or i64 %indvars.iv.i1068, 3
+my_clzll.exit.split.loop.exit:                    ; preds = %for.inc.i1331.2
+  %indvars.iv.next.i1329.2.le = or i64 %indvars.iv.i1324, 3
   br label %my_clzll.exit
 
-my_clzll.exit.split.loop.exit2520:                ; preds = %for.inc.i1075.1
-  %indvars.iv.next.i1073.1.le = or i64 %indvars.iv.i1068, 2
+my_clzll.exit.split.loop.exit3181:                ; preds = %for.inc.i1331.1
+  %indvars.iv.next.i1329.1.le = or i64 %indvars.iv.i1324, 2
   br label %my_clzll.exit
 
-my_clzll.exit.split.loop.exit2522:                ; preds = %for.inc.i1075
-  %indvars.iv.next.i1073.le = or i64 %indvars.iv.i1068, 1
+my_clzll.exit.split.loop.exit3183:                ; preds = %for.inc.i1331
+  %indvars.iv.next.i1329.le = or i64 %indvars.iv.i1324, 1
   br label %my_clzll.exit
 
-my_clzll.exit:                                    ; preds = %for.body.i1072, %my_clzll.exit.split.loop.exit2522, %my_clzll.exit.split.loop.exit2520, %my_clzll.exit.split.loop.exit
-  %indvars.iv.i1068.lcssa = phi i64 [ %indvars.iv.next.i1073.2.le, %my_clzll.exit.split.loop.exit ], [ %indvars.iv.next.i1073.1.le, %my_clzll.exit.split.loop.exit2520 ], [ %indvars.iv.next.i1073.le, %my_clzll.exit.split.loop.exit2522 ], [ %indvars.iv.i1068, %for.body.i1072 ]
-  %47 = trunc i64 %indvars.iv.i1068.lcssa to i32
-  %cmp169.not = icmp eq i32 %47, %cast165
-  br i1 %cmp169.not, label %for.body.i1083, label %if.then171
+my_clzll.exit:                                    ; preds = %for.body.i1328, %my_clzll.exit.split.loop.exit3183, %my_clzll.exit.split.loop.exit3181, %my_clzll.exit.split.loop.exit
+  %indvars.iv.i1324.lcssa = phi i64 [ %indvars.iv.next.i1329.2.le, %my_clzll.exit.split.loop.exit ], [ %indvars.iv.next.i1329.1.le, %my_clzll.exit.split.loop.exit3181 ], [ %indvars.iv.next.i1329.le, %my_clzll.exit.split.loop.exit3183 ], [ %indvars.iv.i1324, %for.body.i1328 ]
+  %79 = trunc i64 %indvars.iv.i1324.lcssa to i32
+  %cmp169.not = icmp eq i32 %79, %cast165
+  br i1 %cmp169.not, label %for.body.i1339, label %if.then171
 
-if.then171:                                       ; preds = %my_clzll.exit, %for.inc.i1075.3
+if.then171:                                       ; preds = %my_clzll.exit, %for.inc.i1331.3
   tail call void @abort() #6
   unreachable
 
-for.body.i1083:                                   ; preds = %my_clzll.exit, %for.inc.i1086.3
-  %indvars.iv.i1079 = phi i64 [ %indvars.iv.next.i1084.3, %for.inc.i1086.3 ], [ 0, %my_clzll.exit ]
-  %shl.i1080 = shl nuw i64 1, %indvars.iv.i1079
-  %and.i1081 = and i64 %shl.i1080, %40
-  %tobool.not.i1082 = icmp eq i64 %and.i1081, 0
-  br i1 %tobool.not.i1082, label %for.inc.i1086, label %my_ctzll.exit
+for.body.i1339:                                   ; preds = %my_clzll.exit, %for.inc.i1342.3
+  %indvars.iv.i1335 = phi i64 [ %indvars.iv.next.i1340.3, %for.inc.i1342.3 ], [ 0, %my_clzll.exit ]
+  %shl.i1336 = shl nuw i64 1, %indvars.iv.i1335
+  %and.i1337 = and i64 %shl.i1336, %72
+  %tobool.not.i1338 = icmp eq i64 %and.i1337, 0
+  br i1 %tobool.not.i1338, label %for.inc.i1342, label %my_ctzll.exit
 
-for.inc.i1086:                                    ; preds = %for.body.i1083
-  %shl.i1080.1 = shl i64 2, %indvars.iv.i1079
-  %and.i1081.1 = and i64 %shl.i1080.1, %40
-  %tobool.not.i1082.1 = icmp eq i64 %and.i1081.1, 0
-  br i1 %tobool.not.i1082.1, label %for.inc.i1086.1, label %my_ctzll.exit.split.loop.exit2531
+for.inc.i1342:                                    ; preds = %for.body.i1339
+  %shl.i1336.1 = shl i64 2, %indvars.iv.i1335
+  %and.i1337.1 = and i64 %shl.i1336.1, %72
+  %tobool.not.i1338.1 = icmp eq i64 %and.i1337.1, 0
+  br i1 %tobool.not.i1338.1, label %for.inc.i1342.1, label %my_ctzll.exit.split.loop.exit3192
 
-for.inc.i1086.1:                                  ; preds = %for.inc.i1086
-  %shl.i1080.2 = shl i64 4, %indvars.iv.i1079
-  %and.i1081.2 = and i64 %shl.i1080.2, %40
-  %tobool.not.i1082.2 = icmp eq i64 %and.i1081.2, 0
-  br i1 %tobool.not.i1082.2, label %for.inc.i1086.2, label %my_ctzll.exit.split.loop.exit2529
+for.inc.i1342.1:                                  ; preds = %for.inc.i1342
+  %shl.i1336.2 = shl i64 4, %indvars.iv.i1335
+  %and.i1337.2 = and i64 %shl.i1336.2, %72
+  %tobool.not.i1338.2 = icmp eq i64 %and.i1337.2, 0
+  br i1 %tobool.not.i1338.2, label %for.inc.i1342.2, label %my_ctzll.exit.split.loop.exit3190
 
-for.inc.i1086.2:                                  ; preds = %for.inc.i1086.1
-  %shl.i1080.3 = shl i64 8, %indvars.iv.i1079
-  %and.i1081.3 = and i64 %shl.i1080.3, %40
-  %tobool.not.i1082.3 = icmp eq i64 %and.i1081.3, 0
-  br i1 %tobool.not.i1082.3, label %for.inc.i1086.3, label %my_ctzll.exit.split.loop.exit
+for.inc.i1342.2:                                  ; preds = %for.inc.i1342.1
+  %shl.i1336.3 = shl i64 8, %indvars.iv.i1335
+  %and.i1337.3 = and i64 %shl.i1336.3, %72
+  %tobool.not.i1338.3 = icmp eq i64 %and.i1337.3, 0
+  br i1 %tobool.not.i1338.3, label %for.inc.i1342.3, label %my_ctzll.exit.split.loop.exit
 
-for.inc.i1086.3:                                  ; preds = %for.inc.i1086.2
-  %indvars.iv.next.i1084.3 = add nuw nsw i64 %indvars.iv.i1079, 4
-  %exitcond.not.i1085.3 = icmp eq i64 %indvars.iv.next.i1084.3, 64
-  br i1 %exitcond.not.i1085.3, label %if.then186, label %for.body.i1083, !llvm.loop !15
+for.inc.i1342.3:                                  ; preds = %for.inc.i1342.2
+  %indvars.iv.next.i1340.3 = add nuw nsw i64 %indvars.iv.i1335, 4
+  %exitcond.not.i1341.3 = icmp eq i64 %indvars.iv.next.i1340.3, 64
+  br i1 %exitcond.not.i1341.3, label %if.then186, label %for.body.i1339, !llvm.loop !15
 
-my_ctzll.exit.split.loop.exit:                    ; preds = %for.inc.i1086.2
-  %indvars.iv.next.i1084.2.le = or i64 %indvars.iv.i1079, 3
+my_ctzll.exit.split.loop.exit:                    ; preds = %for.inc.i1342.2
+  %indvars.iv.next.i1340.2.le = or i64 %indvars.iv.i1335, 3
   br label %my_ctzll.exit
 
-my_ctzll.exit.split.loop.exit2529:                ; preds = %for.inc.i1086.1
-  %indvars.iv.next.i1084.1.le = or i64 %indvars.iv.i1079, 2
+my_ctzll.exit.split.loop.exit3190:                ; preds = %for.inc.i1342.1
+  %indvars.iv.next.i1340.1.le = or i64 %indvars.iv.i1335, 2
   br label %my_ctzll.exit
 
-my_ctzll.exit.split.loop.exit2531:                ; preds = %for.inc.i1086
-  %indvars.iv.next.i1084.le = or i64 %indvars.iv.i1079, 1
+my_ctzll.exit.split.loop.exit3192:                ; preds = %for.inc.i1342
+  %indvars.iv.next.i1340.le = or i64 %indvars.iv.i1335, 1
   br label %my_ctzll.exit
 
-my_ctzll.exit:                                    ; preds = %for.body.i1083, %my_ctzll.exit.split.loop.exit2531, %my_ctzll.exit.split.loop.exit2529, %my_ctzll.exit.split.loop.exit
-  %indvars.iv.i1079.lcssa = phi i64 [ %indvars.iv.next.i1084.2.le, %my_ctzll.exit.split.loop.exit ], [ %indvars.iv.next.i1084.1.le, %my_ctzll.exit.split.loop.exit2529 ], [ %indvars.iv.next.i1084.le, %my_ctzll.exit.split.loop.exit2531 ], [ %indvars.iv.i1079, %for.body.i1083 ]
-  %48 = trunc i64 %indvars.iv.i1079.lcssa to i32
-  %cmp184.not = icmp eq i32 %48, %42
+my_ctzll.exit:                                    ; preds = %for.body.i1339, %my_ctzll.exit.split.loop.exit3192, %my_ctzll.exit.split.loop.exit3190, %my_ctzll.exit.split.loop.exit
+  %indvars.iv.i1335.lcssa = phi i64 [ %indvars.iv.next.i1340.2.le, %my_ctzll.exit.split.loop.exit ], [ %indvars.iv.next.i1340.1.le, %my_ctzll.exit.split.loop.exit3190 ], [ %indvars.iv.next.i1340.le, %my_ctzll.exit.split.loop.exit3192 ], [ %indvars.iv.i1335, %for.body.i1339 ]
+  %80 = trunc i64 %indvars.iv.i1335.lcssa to i32
+  %cmp184.not = icmp eq i32 %80, %74
   br i1 %cmp184.not, label %if.end187, label %if.then186
 
-if.then186:                                       ; preds = %my_ctzll.exit, %for.inc.i1086.3
+if.then186:                                       ; preds = %my_ctzll.exit, %for.inc.i1342.3
   tail call void @abort() #6
   unreachable
 
 if.end187:                                        ; preds = %for.body145, %my_ctzll.exit
-  %.lobit = ashr i64 %40, 63
-  %49 = xor i64 %.lobit, %40
-  %50 = tail call i64 @llvm.ctlz.i64(i64 %49, i1 false), !range !30
-  %51 = trunc i64 %50 to i32
-  %cast192 = add nsw i32 %51, -1
-  %shr.i1090 = lshr i64 %40, 63
-  br label %for.body.i1096
+  %.lobit = ashr i64 %72, 63
+  %81 = xor i64 %.lobit, %72
+  %82 = tail call i64 @llvm.ctlz.i64(i64 %81, i1 false), !range !29
+  %83 = trunc i64 %82 to i32
+  %cast192 = add nsw i32 %83, -1
+  %shr.i1346 = lshr i64 %72, 63
+  br label %for.body.i1352
 
-for.body.i1096:                                   ; preds = %for.inc.i1099.2, %if.end187
-  %indvars.iv.i1091 = phi i64 [ 1, %if.end187 ], [ %indvars.iv.next.i1097.2, %for.inc.i1099.2 ]
-  %sub4.i1092 = sub nuw nsw i64 63, %indvars.iv.i1091
-  %shr5.i1093 = lshr i64 %40, %sub4.i1092
-  %and6.i1094 = and i64 %shr5.i1093, 1
-  %cmp8.not.i1095 = icmp eq i64 %and6.i1094, %shr.i1090
-  br i1 %cmp8.not.i1095, label %for.inc.i1099, label %for.end.split.loop.exit.i1100
+for.body.i1352:                                   ; preds = %for.inc.i1355.2, %if.end187
+  %indvars.iv.i1347 = phi i64 [ 1, %if.end187 ], [ %indvars.iv.next.i1353.2, %for.inc.i1355.2 ]
+  %sub4.i1348 = sub nuw nsw i64 63, %indvars.iv.i1347
+  %shr5.i1349 = lshr i64 %72, %sub4.i1348
+  %and6.i1350 = and i64 %shr5.i1349, 1
+  %cmp8.not.i1351 = icmp eq i64 %and6.i1350, %shr.i1346
+  br i1 %cmp8.not.i1351, label %for.inc.i1355, label %for.end.split.loop.exit.i1356
 
-for.inc.i1099:                                    ; preds = %for.body.i1096
-  %sub4.i1092.1 = sub nsw i64 62, %indvars.iv.i1091
-  %shr5.i1093.1 = lshr i64 %40, %sub4.i1092.1
-  %and6.i1094.1 = and i64 %shr5.i1093.1, 1
-  %cmp8.not.i1095.1 = icmp eq i64 %and6.i1094.1, %shr.i1090
-  br i1 %cmp8.not.i1095.1, label %for.inc.i1099.1, label %for.end.split.loop.exit.i1100.split.loop.exit2538
+for.inc.i1355:                                    ; preds = %for.body.i1352
+  %sub4.i1348.1 = sub nsw i64 62, %indvars.iv.i1347
+  %shr5.i1349.1 = lshr i64 %72, %sub4.i1348.1
+  %and6.i1350.1 = and i64 %shr5.i1349.1, 1
+  %cmp8.not.i1351.1 = icmp eq i64 %and6.i1350.1, %shr.i1346
+  br i1 %cmp8.not.i1351.1, label %for.inc.i1355.1, label %for.end.split.loop.exit.i1356.split.loop.exit3199
 
-for.inc.i1099.1:                                  ; preds = %for.inc.i1099
-  %sub4.i1092.2 = sub nsw i64 61, %indvars.iv.i1091
-  %shr5.i1093.2 = lshr i64 %40, %sub4.i1092.2
-  %and6.i1094.2 = and i64 %shr5.i1093.2, 1
-  %cmp8.not.i1095.2 = icmp eq i64 %and6.i1094.2, %shr.i1090
-  br i1 %cmp8.not.i1095.2, label %for.inc.i1099.2, label %for.end.split.loop.exit.i1100.split.loop.exit
+for.inc.i1355.1:                                  ; preds = %for.inc.i1355
+  %sub4.i1348.2 = sub nsw i64 61, %indvars.iv.i1347
+  %shr5.i1349.2 = lshr i64 %72, %sub4.i1348.2
+  %and6.i1350.2 = and i64 %shr5.i1349.2, 1
+  %cmp8.not.i1351.2 = icmp eq i64 %and6.i1350.2, %shr.i1346
+  br i1 %cmp8.not.i1351.2, label %for.inc.i1355.2, label %for.end.split.loop.exit.i1356.split.loop.exit
 
-for.inc.i1099.2:                                  ; preds = %for.inc.i1099.1
-  %indvars.iv.next.i1097.2 = add nuw nsw i64 %indvars.iv.i1091, 3
-  %exitcond.not.i1098.2 = icmp eq i64 %indvars.iv.next.i1097.2, 64
-  br i1 %exitcond.not.i1098.2, label %my_clrsbll.exit, label %for.body.i1096, !llvm.loop !17
+for.inc.i1355.2:                                  ; preds = %for.inc.i1355.1
+  %indvars.iv.next.i1353.2 = add nuw nsw i64 %indvars.iv.i1347, 3
+  %exitcond.not.i1354.2 = icmp eq i64 %indvars.iv.next.i1353.2, 64
+  br i1 %exitcond.not.i1354.2, label %my_clrsbll.exit, label %for.body.i1352, !llvm.loop !17
 
-for.end.split.loop.exit.i1100.split.loop.exit:    ; preds = %for.inc.i1099.1
-  %indvars.iv.next.i1097.1.le = add nuw nsw i64 %indvars.iv.i1091, 2
-  br label %for.end.split.loop.exit.i1100
+for.end.split.loop.exit.i1356.split.loop.exit:    ; preds = %for.inc.i1355.1
+  %indvars.iv.next.i1353.1.le = add nuw nsw i64 %indvars.iv.i1347, 2
+  br label %for.end.split.loop.exit.i1356
 
-for.end.split.loop.exit.i1100.split.loop.exit2538: ; preds = %for.inc.i1099
-  %indvars.iv.next.i1097.le = add nuw nsw i64 %indvars.iv.i1091, 1
-  br label %for.end.split.loop.exit.i1100
+for.end.split.loop.exit.i1356.split.loop.exit3199: ; preds = %for.inc.i1355
+  %indvars.iv.next.i1353.le = add nuw nsw i64 %indvars.iv.i1347, 1
+  br label %for.end.split.loop.exit.i1356
 
-for.end.split.loop.exit.i1100:                    ; preds = %for.body.i1096, %for.end.split.loop.exit.i1100.split.loop.exit2538, %for.end.split.loop.exit.i1100.split.loop.exit
-  %indvars.iv.i1091.lcssa = phi i64 [ %indvars.iv.next.i1097.1.le, %for.end.split.loop.exit.i1100.split.loop.exit ], [ %indvars.iv.next.i1097.le, %for.end.split.loop.exit.i1100.split.loop.exit2538 ], [ %indvars.iv.i1091, %for.body.i1096 ]
-  %52 = trunc i64 %indvars.iv.i1091.lcssa to i32
-  %53 = add nsw i32 %52, -1
+for.end.split.loop.exit.i1356:                    ; preds = %for.body.i1352, %for.end.split.loop.exit.i1356.split.loop.exit3199, %for.end.split.loop.exit.i1356.split.loop.exit
+  %indvars.iv.i1347.lcssa = phi i64 [ %indvars.iv.next.i1353.1.le, %for.end.split.loop.exit.i1356.split.loop.exit ], [ %indvars.iv.next.i1353.le, %for.end.split.loop.exit.i1356.split.loop.exit3199 ], [ %indvars.iv.i1347, %for.body.i1352 ]
+  %84 = trunc i64 %indvars.iv.i1347.lcssa to i32
+  %85 = add nsw i32 %84, -1
   br label %my_clrsbll.exit
 
-my_clrsbll.exit:                                  ; preds = %for.inc.i1099.2, %for.end.split.loop.exit.i1100
-  %i.0.lcssa.i1101 = phi i32 [ %53, %for.end.split.loop.exit.i1100 ], [ 63, %for.inc.i1099.2 ]
-  %cmp196.not = icmp eq i32 %cast192, %i.0.lcssa.i1101
+my_clrsbll.exit:                                  ; preds = %for.inc.i1355.2, %for.end.split.loop.exit.i1356
+  %i.0.lcssa.i1357 = phi i32 [ %85, %for.end.split.loop.exit.i1356 ], [ 63, %for.inc.i1355.2 ]
+  %cmp196.not = icmp eq i32 %cast192, %i.0.lcssa.i1357
   br i1 %cmp196.not, label %if.end199, label %if.then198
 
 if.then198:                                       ; preds = %my_clrsbll.exit
@@ -2080,111 +2645,111 @@ if.then198:                                       ; preds = %my_clrsbll.exit
   unreachable
 
 if.end199:                                        ; preds = %my_clrsbll.exit
-  %54 = tail call i64 @llvm.ctpop.i64(i64 %40), !range !30
-  %broadcast.splatinsert2455 = insertelement <4 x i64> poison, i64 %40, i64 0
-  %broadcast.splat2456 = shufflevector <4 x i64> %broadcast.splatinsert2455, <4 x i64> poison, <4 x i32> zeroinitializer
-  br label %vector.body2450
+  %86 = tail call i64 @llvm.ctpop.i64(i64 %72), !range !29
+  %broadcast.splatinsert3116 = insertelement <4 x i64> poison, i64 %72, i64 0
+  %broadcast.splat3117 = shufflevector <4 x i64> %broadcast.splatinsert3116, <4 x i64> poison, <4 x i32> zeroinitializer
+  br label %vector.body3111
 
-vector.body2450:                                  ; preds = %vector.body2450, %if.end199
-  %index2451 = phi i64 [ 0, %if.end199 ], [ %index.next2457, %vector.body2450 ]
-  %vec.ind2452 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %if.end199 ], [ %vec.ind.next2453, %vector.body2450 ]
-  %vec.phi2454 = phi <4 x i32> [ zeroinitializer, %if.end199 ], [ %59, %vector.body2450 ]
-  %55 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind2452
-  %56 = and <4 x i64> %55, %broadcast.splat2456
-  %57 = icmp ne <4 x i64> %56, zeroinitializer
-  %58 = zext <4 x i1> %57 to <4 x i32>
-  %59 = add <4 x i32> %vec.phi2454, %58
-  %index.next2457 = add nuw i64 %index2451, 4
-  %vec.ind.next2453 = add <4 x i64> %vec.ind2452, <i64 4, i64 4, i64 4, i64 4>
-  %60 = icmp eq i64 %index.next2457, 64
-  br i1 %60, label %middle.block2445, label %vector.body2450, !llvm.loop !36
+vector.body3111:                                  ; preds = %vector.body3111, %if.end199
+  %index3112 = phi i64 [ 0, %if.end199 ], [ %index.next3118, %vector.body3111 ]
+  %vec.ind3113 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %if.end199 ], [ %vec.ind.next3114, %vector.body3111 ]
+  %vec.phi3115 = phi <4 x i32> [ zeroinitializer, %if.end199 ], [ %91, %vector.body3111 ]
+  %87 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind3113
+  %88 = and <4 x i64> %87, %broadcast.splat3117
+  %89 = icmp ne <4 x i64> %88, zeroinitializer
+  %90 = zext <4 x i1> %89 to <4 x i32>
+  %91 = add <4 x i32> %vec.phi3115, %90
+  %index.next3118 = add nuw i64 %index3112, 4
+  %vec.ind.next3114 = add <4 x i64> %vec.ind3113, <i64 4, i64 4, i64 4, i64 4>
+  %92 = icmp eq i64 %index.next3118, 64
+  br i1 %92, label %middle.block3106, label %vector.body3111, !llvm.loop !35
 
-middle.block2445:                                 ; preds = %vector.body2450
-  %61 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %59)
-  %cast202 = trunc i64 %54 to i32
-  %cmp206.not = icmp eq i32 %61, %cast202
-  br i1 %cmp206.not, label %vector.ph2433, label %if.then208
+middle.block3106:                                 ; preds = %vector.body3111
+  %93 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %91)
+  %cast202 = trunc i64 %86 to i32
+  %cmp206.not = icmp eq i32 %93, %cast202
+  br i1 %cmp206.not, label %vector.ph3094, label %if.then208
 
-vector.ph2433:                                    ; preds = %middle.block2445
-  %broadcast.splatinsert2441 = insertelement <4 x i64> poison, i64 %40, i64 0
-  %broadcast.splat2442 = shufflevector <4 x i64> %broadcast.splatinsert2441, <4 x i64> poison, <4 x i32> zeroinitializer
-  br label %vector.body2436
+vector.ph3094:                                    ; preds = %middle.block3106
+  %broadcast.splatinsert3102 = insertelement <4 x i64> poison, i64 %72, i64 0
+  %broadcast.splat3103 = shufflevector <4 x i64> %broadcast.splatinsert3102, <4 x i64> poison, <4 x i32> zeroinitializer
+  br label %vector.body3097
 
-vector.body2436:                                  ; preds = %vector.body2436, %vector.ph2433
-  %index2437 = phi i64 [ 0, %vector.ph2433 ], [ %index.next2443, %vector.body2436 ]
-  %vec.ind2438 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %vector.ph2433 ], [ %vec.ind.next2439, %vector.body2436 ]
-  %vec.phi2440 = phi <4 x i32> [ zeroinitializer, %vector.ph2433 ], [ %66, %vector.body2436 ]
-  %62 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind2438
-  %63 = and <4 x i64> %62, %broadcast.splat2442
-  %64 = icmp ne <4 x i64> %63, zeroinitializer
-  %65 = zext <4 x i1> %64 to <4 x i32>
-  %66 = add <4 x i32> %vec.phi2440, %65
-  %index.next2443 = add nuw i64 %index2437, 4
-  %vec.ind.next2439 = add <4 x i64> %vec.ind2438, <i64 4, i64 4, i64 4, i64 4>
-  %67 = icmp eq i64 %index.next2443, 64
-  br i1 %67, label %middle.block2431, label %vector.body2436, !llvm.loop !37
+vector.body3097:                                  ; preds = %vector.body3097, %vector.ph3094
+  %index3098 = phi i64 [ 0, %vector.ph3094 ], [ %index.next3104, %vector.body3097 ]
+  %vec.ind3099 = phi <4 x i64> [ <i64 0, i64 1, i64 2, i64 3>, %vector.ph3094 ], [ %vec.ind.next3100, %vector.body3097 ]
+  %vec.phi3101 = phi <4 x i32> [ zeroinitializer, %vector.ph3094 ], [ %98, %vector.body3097 ]
+  %94 = shl nuw <4 x i64> <i64 1, i64 1, i64 1, i64 1>, %vec.ind3099
+  %95 = and <4 x i64> %94, %broadcast.splat3103
+  %96 = icmp ne <4 x i64> %95, zeroinitializer
+  %97 = zext <4 x i1> %96 to <4 x i32>
+  %98 = add <4 x i32> %vec.phi3101, %97
+  %index.next3104 = add nuw i64 %index3098, 4
+  %vec.ind.next3100 = add <4 x i64> %vec.ind3099, <i64 4, i64 4, i64 4, i64 4>
+  %99 = icmp eq i64 %index.next3104, 64
+  br i1 %99, label %middle.block3092, label %vector.body3097, !llvm.loop !36
 
-middle.block2431:                                 ; preds = %vector.body2436
-  %68 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %66)
-  %69 = xor i32 %68, %61
-  %70 = and i32 %69, 1
-  %cmp216.not = icmp eq i32 %70, 0
+middle.block3092:                                 ; preds = %vector.body3097
+  %100 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %98)
+  %101 = xor i32 %100, %93
+  %102 = and i32 %101, 1
+  %cmp216.not = icmp eq i32 %102, 0
   br i1 %cmp216.not, label %for.cond141, label %if.then218
 
-if.then208:                                       ; preds = %middle.block2445
+if.then208:                                       ; preds = %middle.block3106
   tail call void @abort() #6
   unreachable
 
-if.then218:                                       ; preds = %middle.block2431
+if.then218:                                       ; preds = %middle.block3092
   tail call void @abort() #6
   unreachable
 
-for.body.i2113:                                   ; preds = %for.cond141, %for.inc.i2116.2
-  %indvars.iv.i2108 = phi i64 [ %indvars.iv.next.i2114.2, %for.inc.i2116.2 ], [ 1, %for.cond141 ]
-  %sub4.i2109 = sub nuw nsw i64 63, %indvars.iv.i2108
-  %shr5.i2110 = lshr i64 -1, %sub4.i2109
-  %and6.i2111 = and i64 %shr5.i2110, 1
-  %cmp8.not.i2112.not = icmp eq i64 %and6.i2111, 0
-  br i1 %cmp8.not.i2112.not, label %my_clrsbll.exit2120, label %for.inc.i2116
+for.body.i2819:                                   ; preds = %for.cond141, %for.inc.i2822.2
+  %indvars.iv.i2814 = phi i64 [ %indvars.iv.next.i2820.2, %for.inc.i2822.2 ], [ 1, %for.cond141 ]
+  %sub4.i2815 = sub nuw nsw i64 63, %indvars.iv.i2814
+  %shr5.i2816 = lshr i64 -1, %sub4.i2815
+  %and6.i2817 = and i64 %shr5.i2816, 1
+  %cmp8.not.i2818.not = icmp eq i64 %and6.i2817, 0
+  br i1 %cmp8.not.i2818.not, label %for.end.split.loop.exit.i2823, label %for.inc.i2822
 
-for.inc.i2116:                                    ; preds = %for.body.i2113
-  %sub4.i2109.1 = sub nsw i64 62, %indvars.iv.i2108
-  %shr5.i2110.1 = lshr i64 -1, %sub4.i2109.1
-  %and6.i2111.1 = and i64 %shr5.i2110.1, 1
-  %cmp8.not.i2112.not.1 = icmp eq i64 %and6.i2111.1, 0
-  br i1 %cmp8.not.i2112.not.1, label %my_clrsbll.exit2120.split.loop.exit2544, label %for.inc.i2116.1
+for.inc.i2822:                                    ; preds = %for.body.i2819
+  %sub4.i2815.1 = sub nsw i64 62, %indvars.iv.i2814
+  %shr5.i2816.1 = lshr i64 -1, %sub4.i2815.1
+  %and6.i2817.1 = and i64 %shr5.i2816.1, 1
+  %cmp8.not.i2818.not.1 = icmp eq i64 %and6.i2817.1, 0
+  br i1 %cmp8.not.i2818.not.1, label %for.end.split.loop.exit.i2823.split.loop.exit3205, label %for.inc.i2822.1
 
-for.inc.i2116.1:                                  ; preds = %for.inc.i2116
-  %sub4.i2109.2 = sub nsw i64 61, %indvars.iv.i2108
-  %shr5.i2110.2 = lshr i64 -1, %sub4.i2109.2
-  %and6.i2111.2 = and i64 %shr5.i2110.2, 1
-  %cmp8.not.i2112.not.2 = icmp eq i64 %and6.i2111.2, 0
-  br i1 %cmp8.not.i2112.not.2, label %my_clrsbll.exit2120.split.loop.exit, label %for.inc.i2116.2
+for.inc.i2822.1:                                  ; preds = %for.inc.i2822
+  %sub4.i2815.2 = sub nsw i64 61, %indvars.iv.i2814
+  %shr5.i2816.2 = lshr i64 -1, %sub4.i2815.2
+  %and6.i2817.2 = and i64 %shr5.i2816.2, 1
+  %cmp8.not.i2818.not.2 = icmp eq i64 %and6.i2817.2, 0
+  br i1 %cmp8.not.i2818.not.2, label %for.end.split.loop.exit.i2823.split.loop.exit, label %for.inc.i2822.2
 
-for.inc.i2116.2:                                  ; preds = %for.inc.i2116.1
-  %indvars.iv.next.i2114.2 = add nuw nsw i64 %indvars.iv.i2108, 3
-  %exitcond.not.i2115.2 = icmp eq i64 %indvars.iv.next.i2114.2, 64
-  br i1 %exitcond.not.i2115.2, label %if.end952, label %for.body.i2113, !llvm.loop !17
+for.inc.i2822.2:                                  ; preds = %for.inc.i2822.1
+  %indvars.iv.next.i2820.2 = add nuw nsw i64 %indvars.iv.i2814, 3
+  %exitcond.not.i2821.2 = icmp eq i64 %indvars.iv.next.i2820.2, 64
+  br i1 %exitcond.not.i2821.2, label %if.end952, label %for.body.i2819, !llvm.loop !17
 
-my_clrsbll.exit2120.split.loop.exit:              ; preds = %for.inc.i2116.1
-  %indvars.iv.next.i2114.1.le = add nuw nsw i64 %indvars.iv.i2108, 2
-  br label %my_clrsbll.exit2120
+for.end.split.loop.exit.i2823.split.loop.exit:    ; preds = %for.inc.i2822.1
+  %indvars.iv.next.i2820.1.le = add nuw nsw i64 %indvars.iv.i2814, 2
+  br label %for.end.split.loop.exit.i2823
 
-my_clrsbll.exit2120.split.loop.exit2544:          ; preds = %for.inc.i2116
-  %indvars.iv.next.i2114.le = add nuw nsw i64 %indvars.iv.i2108, 1
-  br label %my_clrsbll.exit2120
+for.end.split.loop.exit.i2823.split.loop.exit3205: ; preds = %for.inc.i2822
+  %indvars.iv.next.i2820.le = add nuw nsw i64 %indvars.iv.i2814, 1
+  br label %for.end.split.loop.exit.i2823
 
-my_clrsbll.exit2120:                              ; preds = %for.body.i2113, %my_clrsbll.exit2120.split.loop.exit2544, %my_clrsbll.exit2120.split.loop.exit
-  %indvars.iv.i2108.lcssa = phi i64 [ %indvars.iv.next.i2114.1.le, %my_clrsbll.exit2120.split.loop.exit ], [ %indvars.iv.next.i2114.le, %my_clrsbll.exit2120.split.loop.exit2544 ], [ %indvars.iv.i2108, %for.body.i2113 ]
-  %71 = and i64 %indvars.iv.i2108.lcssa, 4294967295
-  %cmp939.not = icmp eq i64 %71, 64
-  br i1 %cmp939.not, label %if.end952, label %if.then941
+for.end.split.loop.exit.i2823:                    ; preds = %for.body.i2819, %for.end.split.loop.exit.i2823.split.loop.exit3205, %for.end.split.loop.exit.i2823.split.loop.exit
+  %indvars.iv.i2814.lcssa = phi i64 [ %indvars.iv.next.i2820.1.le, %for.end.split.loop.exit.i2823.split.loop.exit ], [ %indvars.iv.next.i2820.le, %for.end.split.loop.exit.i2823.split.loop.exit3205 ], [ %indvars.iv.i2814, %for.body.i2819 ]
+  %103 = and i64 %indvars.iv.i2814.lcssa, 4294967295
+  %104 = icmp eq i64 %103, 64
+  br i1 %104, label %if.end952, label %if.then941
 
-if.then941:                                       ; preds = %my_clrsbll.exit2120
+if.then941:                                       ; preds = %for.end.split.loop.exit.i2823
   tail call void @abort() #6
   unreachable
 
-if.end952:                                        ; preds = %for.inc.i2116.2, %my_clrsbll.exit2120
+if.end952:                                        ; preds = %for.inc.i2822.2, %for.end.split.loop.exit.i2823
   tail call void @exit(i32 noundef 0) #6
   unreachable
 }
@@ -2253,15 +2818,14 @@ attributes #6 = { noreturn nounwind }
 !23 = !{!"omnipotent char", !24, i64 0}
 !24 = !{!"Simple C/C++ TBAA"}
 !25 = !{i32 0, i32 33}
-!26 = !{i32 0, i32 2}
-!27 = distinct !{!27, !6}
-!28 = !{!29, !29, i64 0}
-!29 = !{!"long", !23, i64 0}
-!30 = !{i64 0, i64 65}
+!26 = distinct !{!26, !6}
+!27 = !{!28, !28, i64 0}
+!28 = !{!"long", !23, i64 0}
+!29 = !{i64 0, i64 65}
+!30 = distinct !{!30, !6, !11, !12}
 !31 = distinct !{!31, !6, !11, !12}
-!32 = distinct !{!32, !6, !11, !12}
-!33 = distinct !{!33, !6}
-!34 = !{!35, !35, i64 0}
-!35 = !{!"long long", !23, i64 0}
+!32 = distinct !{!32, !6}
+!33 = !{!34, !34, i64 0}
+!34 = !{!"long long", !23, i64 0}
+!35 = distinct !{!35, !6, !11, !12}
 !36 = distinct !{!36, !6, !11, !12}
-!37 = distinct !{!37, !6, !11, !12}

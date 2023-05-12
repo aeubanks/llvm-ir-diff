@@ -2301,9 +2301,9 @@ lor.lhs.false15:                                  ; preds = %lor.lhs.false11
   br i1 %cmp17, label %return, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %lor.lhs.false15
+  %idx.ext1.i = zext i32 %x to i64
   %idx.ext = sext i32 %sourcex to i64
   %add.ptr = getelementptr inbounds i8, ptr %base, i64 %idx.ext
-  %idx.ext1.i = zext i32 %x to i64
   %line_ptrs.i = getelementptr inbounds %struct.gx_device_memory_s, ptr %dev, i64 0, i32 14
   %7 = load ptr, ptr %line_ptrs.i, align 8, !tbaa !19
   %idx.ext.i = zext i32 %y to i64
@@ -2896,12 +2896,12 @@ lor.lhs.false16:                                  ; preds = %lor.lhs.false12
   br i1 %cmp18, label %return, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %lor.lhs.false16
+  %mul22 = mul nsw i32 %x, 3
+  %idx.ext1.i = sext i32 %mul22 to i64
+  %mul23 = mul nsw i32 %w, 3
   %mul21 = mul nsw i32 %sourcex, 3
   %idx.ext = sext i32 %mul21 to i64
   %add.ptr = getelementptr inbounds i8, ptr %base, i64 %idx.ext
-  %mul22 = mul nsw i32 %x, 3
-  %mul23 = mul nsw i32 %w, 3
-  %idx.ext1.i = sext i32 %mul22 to i64
   %line_ptrs.i = getelementptr inbounds %struct.gx_device_memory_s, ptr %dev, i64 0, i32 14
   %7 = load ptr, ptr %line_ptrs.i, align 8, !tbaa !19
   %idx.ext.i = zext i32 %y to i64
@@ -3408,12 +3408,12 @@ lor.lhs.false16:                                  ; preds = %lor.lhs.false12
   br i1 %cmp18, label %return, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %lor.lhs.false16
+  %shl22 = shl i32 %x, 2
+  %idx.ext1.i = sext i32 %shl22 to i64
+  %shl23 = shl i32 %w, 2
   %shl21 = shl i32 %sourcex, 2
   %idx.ext = sext i32 %shl21 to i64
   %add.ptr = getelementptr inbounds i8, ptr %base, i64 %idx.ext
-  %shl22 = shl i32 %x, 2
-  %shl23 = shl i32 %w, 2
-  %idx.ext1.i = sext i32 %shl22 to i64
   %line_ptrs.i = getelementptr inbounds %struct.gx_device_memory_s, ptr %dev, i64 0, i32 14
   %7 = load ptr, ptr %line_ptrs.i, align 8, !tbaa !19
   %idx.ext.i = zext i32 %y to i64

@@ -37,7 +37,7 @@ declare void @abort() local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
-foo.exit:
+entry:
   store float 1.000000e+00, ptr @a, align 4, !tbaa !11
   store i32 3384, ptr @b, align 4, !tbaa !12
   store i32 2241, ptr getelementptr inbounds (%struct.A, ptr @a, i64 0, i32 1), align 4, !tbaa !5

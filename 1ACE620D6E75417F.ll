@@ -36,9 +36,10 @@ define dso_local void @regrename_optimize(ptr nocapture noundef readonly %this) 
 entry:
   %this_unavailable = alloca [2 x i64], align 16
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %this_unavailable) #6
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %this_unavailable, i8 0, i64 16, i1 false)
   %0 = load ptr, ptr %this, align 8, !tbaa !9
-  %tobool.not32 = icmp eq ptr %0, null
-  br i1 %tobool.not32, label %cleanup, label %for.body
+  %tobool.not33 = icmp eq ptr %0, null
+  br i1 %tobool.not33, label %cleanup, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
   %1 = phi ptr [ %7, %for.body ], [ %0, %entry ]
@@ -56,7 +57,7 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !14
 
 for.end:                                          ; preds = %for.body
-  br i1 %tobool.not32, label %cleanup, label %if.end
+  br i1 %tobool.not33, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %for.end
   %cl10 = getelementptr inbounds %struct.du_chain, ptr %1, i64 0, i32 1

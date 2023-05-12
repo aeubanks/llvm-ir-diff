@@ -33,8 +33,8 @@ entry:
 if.then:                                          ; preds = %entry
   %program3 = getelementptr inbounds %struct.environment_t, ptr %env, i64 0, i32 2
   %1 = load ptr, ptr %program3, align 8, !tbaa !10
-  %cmp4122 = icmp sgt i32 %what, 0
-  br i1 %cmp4122, label %for.body.preheader, label %sim_base_addr.preheader
+  %cmp4121 = icmp sgt i32 %what, 0
+  br i1 %cmp4121, label %for.body.preheader, label %sim_base_addr.preheader
 
 for.body.preheader:                               ; preds = %if.then
   %wide.trip.count = zext i32 %what to i64
@@ -110,15 +110,15 @@ sim_base_addr:                                    ; preds = %sim_base_addr.prehe
 L_LOAD32_RR:                                      ; preds = %indirectgoto
   %div117 = lshr i32 %r2.0, 12
   %insn.sroa.0.0.copyload100 = load i64, ptr %pc.1, align 8, !tbaa.struct !14
-  %x.0124 = and i32 %div117, 255
-  %idxprom26125 = zext i32 %x.0124 to i64
-  %arrayidx27126 = getelementptr inbounds %struct.tlb_entry_t, ptr %tlb_tab, i64 %idxprom26125
-  %6 = load i32, ptr %arrayidx27126, align 8, !tbaa !21
-  %cmp31127 = icmp eq i32 %6, %div117
-  br i1 %cmp31127, label %if.then33, label %if.end55
+  %x.0123 = and i32 %div117, 255
+  %idxprom26124 = zext i32 %x.0123 to i64
+  %arrayidx27125 = getelementptr inbounds %struct.tlb_entry_t, ptr %tlb_tab, i64 %idxprom26124
+  %6 = load i32, ptr %arrayidx27125, align 8, !tbaa !21
+  %cmp31126 = icmp eq i32 %6, %div117
+  br i1 %cmp31126, label %if.then33, label %if.end55
 
 for.cond25:                                       ; preds = %if.end55
-  %sub = add nuw nsw i32 %x.0128, 255
+  %sub = add nuw nsw i32 %x.0127, 255
   %x.0 = and i32 %sub, 255
   %idxprom26 = zext i32 %x.0 to i64
   %arrayidx27 = getelementptr inbounds %struct.tlb_entry_t, ptr %tlb_tab, i64 %idxprom26
@@ -127,7 +127,7 @@ for.cond25:                                       ; preds = %if.end55
   br i1 %cmp31, label %if.then33, label %if.end55
 
 if.then33:                                        ; preds = %for.cond25, %L_LOAD32_RR
-  %idxprom26.lcssa = phi i64 [ %idxprom26125, %L_LOAD32_RR ], [ %idxprom26, %for.cond25 ]
+  %idxprom26.lcssa = phi i64 [ %idxprom26124, %L_LOAD32_RR ], [ %idxprom26, %for.cond25 ]
   %rigged_paddr30 = getelementptr inbounds %struct.tlb_entry_t, ptr %tlb_tab, i64 %idxprom26.lcssa, i32 1
   %8 = load i64, ptr %rigged_paddr30, align 8, !tbaa !24
   %conv34 = zext i32 %r2.0 to i64
@@ -141,12 +141,12 @@ if.then33:                                        ; preds = %for.cond25, %L_LOAD
 
 if.end55:                                         ; preds = %L_LOAD32_RR, %for.cond25
   %11 = phi i32 [ %7, %for.cond25 ], [ %6, %L_LOAD32_RR ]
-  %x.0128 = phi i32 [ %x.0, %for.cond25 ], [ %x.0124, %L_LOAD32_RR ]
+  %x.0127 = phi i32 [ %x.0, %for.cond25 ], [ %x.0123, %L_LOAD32_RR ]
   %cmp56 = icmp slt i32 %11, 0
   br i1 %cmp56, label %if.then58, label %for.cond25
 
 if.then58:                                        ; preds = %if.end55
-  %call = tail call i64 @f()
+  tail call void @abort() #5
   unreachable
 
 L_METAOP_DONE:                                    ; preds = %indirectgoto
@@ -156,18 +156,18 @@ L_METAOP_DONE:                                    ; preds = %indirectgoto
   ret i32 %12
 
 indirectgoto:                                     ; preds = %if.then33, %sim_base_addr
-  %s1.0.in.in.in = phi i64 [ %insn.sroa.0.0.copyload, %sim_base_addr ], [ %insn.sroa.0.0.copyload100, %if.then33 ]
+  %shl.pn.in.in = phi i64 [ %insn.sroa.0.0.copyload, %sim_base_addr ], [ %insn.sroa.0.0.copyload100, %if.then33 ]
   %pc.0.pn = phi ptr [ %pc.0, %sim_base_addr ], [ %pc.1, %if.then33 ]
-  %bf.ashr20.pn.in = shl i64 %s1.0.in.in.in, 46
+  %bf.ashr20.pn.in = shl i64 %shl.pn.in.in, 46
   %bf.ashr20.pn = ashr exact i64 %bf.ashr20.pn.in, 46
   %indirect.goto.dest = getelementptr i8, ptr blockaddress(@simulator_kernel, %sim_base_addr), i64 %bf.ashr20.pn
   %pc.1 = getelementptr inbounds %union.insn_t, ptr %pc.0.pn, i64 1
-  %shl.pn.in = lshr i64 %s1.0.in.in.in, 52
-  %shl.pn = and i64 %shl.pn.in, 1020
-  %r2.0.in = getelementptr inbounds i8, ptr %registers, i64 %shl.pn
-  %s1.0.in.in = trunc i64 %s1.0.in.in.in to i32
+  %s1.0.in.in = trunc i64 %shl.pn.in.in to i32
   %s1.0.in = lshr i32 %s1.0.in.in, 20
   %s1.0 = and i32 %s1.0.in, 1020
+  %shl.pn.in = lshr i64 %shl.pn.in.in, 52
+  %shl.pn = and i64 %shl.pn.in, 1020
+  %r2.0.in = getelementptr inbounds i8, ptr %registers, i64 %shl.pn
   %r2.0 = load i32, ptr %r2.0.in, align 4, !tbaa !15
   indirectbr ptr %indirect.goto.dest, [label %sim_base_addr, label %L_LOAD32_RR, label %L_METAOP_DONE]
 }

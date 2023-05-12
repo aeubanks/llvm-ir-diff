@@ -276,11 +276,11 @@ entry:
   call void @llvm.lifetime.start.p0(i64 68, ptr nonnull %buf32) #19
   %add2 = lshr exact i32 %add.i, 1
   call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %salt) #19
-  %and.i49 = shl i32 %0, 2
-  %mul.i50 = and i32 %and.i49, 12
-  %add.i51 = add nuw nsw i32 %mul.i50, 4
-  %div547 = lshr exact i32 %add.i51, 2
-  %wide.trip.count.i = zext i32 %div547 to i64
+  %and.i46 = shl i32 %0, 2
+  %mul.i47 = and i32 %and.i46, 12
+  %add.i48 = add nuw nsw i32 %mul.i47, 4
+  %div550 = lshr exact i32 %add.i48, 2
+  %wide.trip.count.i = zext i32 %div550 to i64
   %Salt = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 1
   %1 = load i8, ptr %Salt, align 4, !tbaa !15
   %conv.i = zext i8 %1 to i32
@@ -300,7 +300,7 @@ entry:
   %conv18.i = zext i8 %4 to i32
   %or19.i = or i32 %or13.i, %conv18.i
   store i32 %or19.i, ptr %salt, align 16, !tbaa !16
-  %exitcond.not.i = icmp eq i32 %mul.i50, 0
+  %exitcond.not.i = icmp eq i32 %mul.i47, 0
   br i1 %exitcond.not.i, label %_ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit, label %for.body.i.1, !llvm.loop !18
 
 for.body.i.1:                                     ; preds = %entry
@@ -324,7 +324,7 @@ for.body.i.1:                                     ; preds = %entry
   %or19.i.1 = or i32 %or13.i.1, %conv18.i.1
   %arrayidx21.i.1 = getelementptr inbounds i32, ptr %salt, i64 1
   store i32 %or19.i.1, ptr %arrayidx21.i.1, align 4, !tbaa !16
-  %exitcond.not.i.1 = icmp eq i32 %add.i51, 8
+  %exitcond.not.i.1 = icmp eq i32 %add.i48, 8
   br i1 %exitcond.not.i.1, label %_ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit, label %for.body.i.2, !llvm.loop !18
 
 for.body.i.2:                                     ; preds = %for.body.i.1
@@ -348,7 +348,7 @@ for.body.i.2:                                     ; preds = %for.body.i.1
   %or19.i.2 = or i32 %or13.i.2, %conv18.i.2
   %arrayidx21.i.2 = getelementptr inbounds i32, ptr %salt, i64 2
   store i32 %or19.i.2, ptr %arrayidx21.i.2, align 8, !tbaa !16
-  %exitcond.not.i.2 = icmp eq i32 %add.i51, 12
+  %exitcond.not.i.2 = icmp eq i32 %add.i48, 12
   br i1 %exitcond.not.i.2, label %_ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit, label %for.body.i.3, !llvm.loop !18
 
 for.body.i.3:                                     ; preds = %for.body.i.2
@@ -376,12 +376,12 @@ for.body.i.3:                                     ; preds = %for.body.i.2
 
 _ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit: ; preds = %for.body.i.3, %for.body.i.2, %for.body.i.1, %entry
   %add = or i32 %mul, 2
-  %div46 = or i32 %add2, 1
+  %div49 = or i32 %add2, 1
   %_items.i = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 3, i32 2
   %17 = load ptr, ptr %_items.i, align 8, !tbaa !11
   %_capacity.i = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 3, i32 1
   %18 = load i64, ptr %_capacity.i, align 8, !tbaa !5
-  %conv15 = zext i32 %div46 to i64
+  %conv15 = zext i32 %div49 to i64
   call void @_ZN7NCrypto5NSha112Pbkdf2Hmac32EPKhmPKjmjPjm(ptr noundef %17, i64 noundef %18, ptr noundef nonnull %salt, i64 noundef %wide.trip.count.i, i32 noundef 1000, ptr noundef nonnull %buf32, i64 noundef %conv15)
   %wide.trip.count = zext i32 %add to i64
   br label %for.body
@@ -414,8 +414,8 @@ for.cond.cleanup:                                 ; preds = %for.body
 
 for.body:                                         ; preds = %for.body, %_ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit
   %indvars.iv = phi i64 [ 0, %_ZN7NCrypto6NWzAesL16BytesToBeUInt32sEPKhPjj.exit ], [ %indvars.iv.next.1, %for.body ]
-  %div1648 = lshr i64 %indvars.iv, 2
-  %idxprom = and i64 %div1648, 1073741823
+  %div1651 = lshr i64 %indvars.iv, 2
+  %idxprom = and i64 %div1651, 1073741823
   %arrayidx = getelementptr inbounds [17 x i32], ptr %buf32, i64 0, i64 %idxprom
   %21 = load i32, ptr %arrayidx, align 4, !tbaa !16
   %indvars.iv.tr = trunc i64 %indvars.iv to i32
@@ -427,8 +427,8 @@ for.body:                                         ; preds = %for.body, %_ZN7NCry
   %arrayidx20 = getelementptr inbounds [66 x i8], ptr %buf, i64 0, i64 %indvars.iv
   store i8 %conv18, ptr %arrayidx20, align 2, !tbaa !15
   %indvars.iv.next = or i64 %indvars.iv, 1
-  %div1648.1 = lshr i64 %indvars.iv, 2
-  %idxprom.1 = and i64 %div1648.1, 1073741823
+  %div1651.1 = lshr i64 %indvars.iv, 2
+  %idxprom.1 = and i64 %div1651.1, 1073741823
   %arrayidx.1 = getelementptr inbounds [17 x i32], ptr %buf32, i64 0, i64 %idxprom.1
   %23 = load i32, ptr %arrayidx.1, align 4, !tbaa !16
   %indvars.iv.tr.1 = trunc i64 %indvars.iv to i32
@@ -532,11 +532,11 @@ if.end:                                           ; preds = %entry
   %or.cond.i = icmp ult i32 %1, 3
   %spec.store.select = select i1 %or.cond.i, i32 %conv, i32 3
   store i32 %spec.store.select, ptr %_key, align 8
-  %cond = select i1 %or.cond.i, i32 0, i32 -2147024809
+  %spec.select = select i1 %or.cond.i, i32 0, i32 -2147024809
   br label %return
 
-return:                                           ; preds = %entry, %if.end
-  %retval.0 = phi i32 [ %cond, %if.end ], [ -2147024809, %entry ]
+return:                                           ; preds = %if.end, %entry
+  %retval.0 = phi i32 [ -2147024809, %entry ], [ %spec.select, %if.end ]
   ret i32 %retval.0
 }
 
@@ -555,11 +555,11 @@ if.end.i:                                         ; preds = %entry
   %or.cond.i.i = icmp ult i32 %1, 3
   %spec.store.select.i = select i1 %or.cond.i.i, i32 %conv.i, i32 3
   store i32 %spec.store.select.i, ptr %_key.i, align 8
-  %cond.i = select i1 %or.cond.i.i, i32 0, i32 -2147024809
+  %spec.select.i = select i1 %or.cond.i.i, i32 0, i32 -2147024809
   br label %_ZN7NCrypto6NWzAes8CDecoder21SetDecoderProperties2EPKhj.exit
 
 _ZN7NCrypto6NWzAes8CDecoder21SetDecoderProperties2EPKhj.exit: ; preds = %entry, %if.end.i
-  %retval.0.i = phi i32 [ %cond.i, %if.end.i ], [ -2147024809, %entry ]
+  %retval.0.i = phi i32 [ -2147024809, %entry ], [ %spec.select.i, %if.end.i ]
   ret i32 %retval.0.i
 }
 
@@ -601,15 +601,18 @@ declare noundef i32 @_Z15ReadStream_FAILP19ISequentialInStreamPvm(ptr noundef, p
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
 define dso_local noundef zeroext i1 @_ZN7NCrypto6NWzAes8CDecoder23CheckPasswordVerifyCodeEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(600) %this) local_unnamed_addr #7 align 2 {
 entry:
-  %PwdVerifComputed = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 2
   %_pwdVerifFromArchive = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 5
-  %0 = load <2 x i8>, ptr %PwdVerifComputed, align 4
-  %1 = load <2 x i8>, ptr %_pwdVerifFromArchive, align 8
-  %2 = icmp eq <2 x i8> %0, %1
-  %3 = extractelement <2 x i1> %2, i64 0
-  %4 = extractelement <2 x i1> %2, i64 1
-  %cmp.lcssa.i = select i1 %3, i1 %4, i1 false
-  ret i1 %cmp.lcssa.i
+  %PwdVerifComputed = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 2
+  %0 = load i8, ptr %PwdVerifComputed, align 4, !tbaa !15
+  %1 = load i8, ptr %_pwdVerifFromArchive, align 8, !tbaa !15
+  %cmp4.not.i = icmp eq i8 %0, %1
+  %arrayidx.i.1 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 3, i32 2, i64 1
+  %2 = load i8, ptr %arrayidx.i.1, align 1
+  %arrayidx2.i.1 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 5, i64 1
+  %3 = load i8, ptr %arrayidx2.i.1, align 1
+  %cmp4.not.i.1 = icmp eq i8 %2, %3
+  %cmp4.not.i.lcssa = select i1 %cmp4.not.i, i1 %cmp4.not.i.1, i1 %cmp4.not.i
+  ret i1 %cmp4.not.i.lcssa
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -627,93 +630,30 @@ cleanup.cont:                                     ; preds = %entry
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %mac2) #19
   %_hmac = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %this, i64 0, i32 4
   call void @_ZN7NCrypto5NSha15CHmac5FinalEPhm(ptr noundef nonnull align 8 dereferenceable(208) %_hmac, ptr noundef nonnull %mac2, i64 noundef 10)
-  %0 = load i8, ptr %mac1, align 1, !tbaa !15
-  %1 = load i8, ptr %mac2, align 1, !tbaa !15
-  %cmp4.not.i10 = icmp eq i8 %0, %1
-  br i1 %cmp4.not.i10, label %for.cond.i.preheader, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit
+  br label %for.body.i
 
-for.cond.i.preheader:                             ; preds = %cleanup.cont
-  %arrayidx.i = getelementptr inbounds i8, ptr %mac1, i64 1
-  %2 = load i8, ptr %arrayidx.i, align 1, !tbaa !15
-  %arrayidx2.i = getelementptr inbounds i8, ptr %mac2, i64 1
-  %3 = load i8, ptr %arrayidx2.i, align 1, !tbaa !15
-  %cmp4.not.i = icmp eq i8 %2, %3
-  br i1 %cmp4.not.i, label %for.cond.i.1, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
+for.body.i:                                       ; preds = %for.body.i, %cleanup.cont
+  %indvars.iv.i = phi i64 [ 0, %cleanup.cont ], [ %indvars.iv.next.i, %for.body.i ]
+  %arrayidx.i = getelementptr inbounds i8, ptr %mac1, i64 %indvars.iv.i
+  %0 = load i8, ptr %arrayidx.i, align 1, !tbaa !15
+  %arrayidx2.i = getelementptr inbounds i8, ptr %mac2, i64 %indvars.iv.i
+  %1 = load i8, ptr %arrayidx2.i, align 1, !tbaa !15
+  %cmp4.not.i = icmp eq i8 %0, %1
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp ne i64 %indvars.iv.next.i, 10
+  %or.cond.not = select i1 %cmp4.not.i, i1 %exitcond.not.i, i1 false
+  br i1 %or.cond.not, label %for.body.i, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
 
-for.cond.i.1:                                     ; preds = %for.cond.i.preheader
-  %arrayidx.i.1 = getelementptr inbounds i8, ptr %mac1, i64 2
-  %4 = load i8, ptr %arrayidx.i.1, align 1, !tbaa !15
-  %arrayidx2.i.1 = getelementptr inbounds i8, ptr %mac2, i64 2
-  %5 = load i8, ptr %arrayidx2.i.1, align 1, !tbaa !15
-  %cmp4.not.i.1 = icmp eq i8 %4, %5
-  br i1 %cmp4.not.i.1, label %for.cond.i.2, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.2:                                     ; preds = %for.cond.i.1
-  %arrayidx.i.2 = getelementptr inbounds i8, ptr %mac1, i64 3
-  %6 = load i8, ptr %arrayidx.i.2, align 1, !tbaa !15
-  %arrayidx2.i.2 = getelementptr inbounds i8, ptr %mac2, i64 3
-  %7 = load i8, ptr %arrayidx2.i.2, align 1, !tbaa !15
-  %cmp4.not.i.2 = icmp eq i8 %6, %7
-  br i1 %cmp4.not.i.2, label %for.cond.i.3, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.3:                                     ; preds = %for.cond.i.2
-  %arrayidx.i.3 = getelementptr inbounds i8, ptr %mac1, i64 4
-  %8 = load i8, ptr %arrayidx.i.3, align 1, !tbaa !15
-  %arrayidx2.i.3 = getelementptr inbounds i8, ptr %mac2, i64 4
-  %9 = load i8, ptr %arrayidx2.i.3, align 1, !tbaa !15
-  %cmp4.not.i.3 = icmp eq i8 %8, %9
-  br i1 %cmp4.not.i.3, label %for.cond.i.4, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.4:                                     ; preds = %for.cond.i.3
-  %arrayidx.i.4 = getelementptr inbounds i8, ptr %mac1, i64 5
-  %10 = load i8, ptr %arrayidx.i.4, align 1, !tbaa !15
-  %arrayidx2.i.4 = getelementptr inbounds i8, ptr %mac2, i64 5
-  %11 = load i8, ptr %arrayidx2.i.4, align 1, !tbaa !15
-  %cmp4.not.i.4 = icmp eq i8 %10, %11
-  br i1 %cmp4.not.i.4, label %for.cond.i.5, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.5:                                     ; preds = %for.cond.i.4
-  %arrayidx.i.5 = getelementptr inbounds i8, ptr %mac1, i64 6
-  %12 = load i8, ptr %arrayidx.i.5, align 1, !tbaa !15
-  %arrayidx2.i.5 = getelementptr inbounds i8, ptr %mac2, i64 6
-  %13 = load i8, ptr %arrayidx2.i.5, align 1, !tbaa !15
-  %cmp4.not.i.5 = icmp eq i8 %12, %13
-  br i1 %cmp4.not.i.5, label %for.cond.i.6, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.6:                                     ; preds = %for.cond.i.5
-  %arrayidx.i.6 = getelementptr inbounds i8, ptr %mac1, i64 7
-  %14 = load i8, ptr %arrayidx.i.6, align 1, !tbaa !15
-  %arrayidx2.i.6 = getelementptr inbounds i8, ptr %mac2, i64 7
-  %15 = load i8, ptr %arrayidx2.i.6, align 1, !tbaa !15
-  %cmp4.not.i.6 = icmp eq i8 %14, %15
-  br i1 %cmp4.not.i.6, label %for.cond.i.7, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.7:                                     ; preds = %for.cond.i.6
-  %arrayidx.i.7 = getelementptr inbounds i8, ptr %mac1, i64 8
-  %16 = load i8, ptr %arrayidx.i.7, align 1, !tbaa !15
-  %arrayidx2.i.7 = getelementptr inbounds i8, ptr %mac2, i64 8
-  %17 = load i8, ptr %arrayidx2.i.7, align 1, !tbaa !15
-  %cmp4.not.i.7 = icmp eq i8 %16, %17
-  br i1 %cmp4.not.i.7, label %for.cond.i.8, label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-for.cond.i.8:                                     ; preds = %for.cond.i.7
-  %arrayidx.i.8 = getelementptr inbounds i8, ptr %mac1, i64 9
-  %18 = load i8, ptr %arrayidx.i.8, align 1, !tbaa !15
-  %arrayidx2.i.8 = getelementptr inbounds i8, ptr %mac2, i64 9
-  %19 = load i8, ptr %arrayidx2.i.8, align 1, !tbaa !15
-  %cmp4.not.i.8 = icmp eq i8 %18, %19
-  %spec.select = zext i1 %cmp4.not.i.8 to i8
-  br label %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit, !llvm.loop !28
-
-_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit:  ; preds = %for.cond.i.8, %for.cond.i.preheader, %for.cond.i.1, %for.cond.i.2, %for.cond.i.3, %for.cond.i.4, %for.cond.i.5, %for.cond.i.6, %for.cond.i.7, %cleanup.cont
-  %cmp.lcssa.i = phi i8 [ 0, %cleanup.cont ], [ 0, %for.cond.i.preheader ], [ 0, %for.cond.i.1 ], [ 0, %for.cond.i.2 ], [ 0, %for.cond.i.3 ], [ 0, %for.cond.i.4 ], [ 0, %for.cond.i.5 ], [ 0, %for.cond.i.6 ], [ 0, %for.cond.i.7 ], [ %spec.select, %for.cond.i.8 ]
-  store i8 %cmp.lcssa.i, ptr %isOK, align 1, !tbaa !26
+_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit:  ; preds = %for.body.i
+  %frombool = zext i1 %cmp4.not.i to i8
+  store i8 %frombool, ptr %isOK, align 1, !tbaa !26
   call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %mac2) #19
   br label %cleanup7
 
 cleanup7:                                         ; preds = %entry, %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit
+  %retval.1 = phi i32 [ 0, %_ZN7NCrypto6NWzAesL13CompareArraysEPKhS2_j.exit ], [ %call, %entry ]
   call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %mac1) #19
-  ret i32 %call
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
@@ -1502,16 +1442,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !15
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !15
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %if.end
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !15
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !15
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
+if.end:                                           ; preds = %entry, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %for.cond.6.i, %for.cond.7.i, %for.cond.8.i, %for.cond.9.i, %for.cond.10.i, %for.cond.11.i, %for.cond.12.i, %for.cond.13.i, %for.cond.14.i
   %32 = load i8, ptr @IID_ICryptoSetPassword, align 4, !tbaa !15
   %cmp4.not.i13 = icmp eq i8 %0, %32
   br i1 %cmp4.not.i13, label %for.cond.i16, label %return
@@ -1612,16 +1552,16 @@ for.cond.13.i55:                                  ; preds = %for.cond.12.i52
   %59 = load i8, ptr %arrayidx.14.i53, align 2, !tbaa !15
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 6), align 2, !tbaa !15
   %cmp4.not.14.i54 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i54, label %_ZeqRK4GUIDS1_.exit61, label %return
+  br i1 %cmp4.not.14.i54, label %for.cond.14.i59, label %return
 
-_ZeqRK4GUIDS1_.exit61:                            ; preds = %for.cond.13.i55
+for.cond.14.i59:                                  ; preds = %for.cond.13.i55
   %arrayidx.15.i56 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i56, align 1, !tbaa !15
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 7), align 1, !tbaa !15
   %cmp4.not.15.i57.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i57.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit61, %_ZeqRK4GUIDS1_.exit
+return.sink.split:                                ; preds = %for.cond.14.i59, %for.cond.14.i
   %add.ptr6 = getelementptr inbounds i8, ptr %this, i64 8
   store ptr %add.ptr6, ptr %outObject, align 8, !tbaa !38
   %vtable7 = load ptr, ptr %this, align 8, !tbaa !24
@@ -1630,8 +1570,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call9 = tail call noundef i32 %63(ptr noundef nonnull align 8 dereferenceable(592) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end, %_ZeqRK4GUIDS1_.exit61
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit61 ], [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i59, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end
+  %retval.0 = phi i32 [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ -2147467262, %for.cond.14.i59 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 
@@ -2043,16 +1983,16 @@ for.cond.13.i65:                                  ; preds = %for.cond.12.i62
   %59 = load i8, ptr %arrayidx.14.i63, align 2, !tbaa !15
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 6), align 2, !tbaa !15
   %cmp4.not.14.i64 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i64, label %_ZeqRK4GUIDS1_.exit71, label %if.end10
+  br i1 %cmp4.not.14.i64, label %for.cond.14.i69, label %if.end10
 
-_ZeqRK4GUIDS1_.exit71:                            ; preds = %for.cond.13.i65
+for.cond.14.i69:                                  ; preds = %for.cond.13.i65
   %arrayidx.15.i66 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i66, align 1, !tbaa !15
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 7), align 1, !tbaa !15
   %cmp4.not.15.i67.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i67.not, label %return.sink.split, label %if.end10
 
-if.end10:                                         ; preds = %for.cond.13.i65, %for.cond.12.i62, %for.cond.11.i59, %for.cond.10.i56, %for.cond.9.i53, %for.cond.8.i50, %for.cond.7.i47, %for.cond.6.i44, %for.cond.5.i41, %for.cond.4.i38, %for.cond.3.i35, %for.cond.2.i32, %for.cond.1.i29, %for.cond.i26, %if.end, %_ZeqRK4GUIDS1_.exit71
+if.end10:                                         ; preds = %if.end, %for.cond.i26, %for.cond.1.i29, %for.cond.2.i32, %for.cond.3.i35, %for.cond.4.i38, %for.cond.5.i41, %for.cond.6.i44, %for.cond.7.i47, %for.cond.8.i50, %for.cond.9.i53, %for.cond.10.i56, %for.cond.11.i59, %for.cond.12.i62, %for.cond.13.i65, %for.cond.14.i69
   %63 = load i8, ptr @IID_ICompressSetDecoderProperties2, align 4, !tbaa !15
   %cmp4.not.i72 = icmp eq i8 %0, %63
   br i1 %cmp4.not.i72, label %for.cond.i75, label %return
@@ -2153,17 +2093,17 @@ for.cond.13.i114:                                 ; preds = %for.cond.12.i111
   %90 = load i8, ptr %arrayidx.14.i112, align 2, !tbaa !15
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 6), align 2, !tbaa !15
   %cmp4.not.14.i113 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i113, label %_ZeqRK4GUIDS1_.exit120, label %return
+  br i1 %cmp4.not.14.i113, label %for.cond.14.i118, label %return
 
-_ZeqRK4GUIDS1_.exit120:                           ; preds = %for.cond.13.i114
+for.cond.14.i118:                                 ; preds = %for.cond.13.i114
   %arrayidx.15.i115 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i115, align 1, !tbaa !15
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 7), align 1, !tbaa !15
   %cmp4.not.15.i116.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i116.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit120, %_ZeqRK4GUIDS1_.exit71, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit71 ], [ 592, %_ZeqRK4GUIDS1_.exit120 ]
+return.sink.split:                                ; preds = %for.cond.14.i118, %for.cond.14.i69, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %for.cond.14.i69 ], [ 592, %for.cond.14.i118 ]
   %add.ptr14 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr14, ptr %outObject, align 8, !tbaa !38
   %vtable15 = load ptr, ptr %this, align 8, !tbaa !24
@@ -2172,8 +2112,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call17 = tail call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(600) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10, %_ZeqRK4GUIDS1_.exit120
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit120 ], [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i118, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10
+  %retval.0 = phi i32 [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ -2147467262, %for.cond.14.i118 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

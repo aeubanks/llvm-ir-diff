@@ -38,7 +38,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end:
+entry:
   %retval.sroa.0.0.copyload.i.i = load i64, ptr @c, align 8, !tbaa.struct !5
   %retval.sroa.2.0.copyload.i.i = load i48, ptr getelementptr inbounds (%struct.S0, ptr @c, i64 0, i32 2), align 8, !tbaa.struct !12
   store i64 %retval.sroa.0.0.copyload.i.i, ptr @b, align 8, !tbaa.struct !5

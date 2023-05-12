@@ -61,7 +61,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end32:
+entry:
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }

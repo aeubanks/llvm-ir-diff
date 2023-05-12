@@ -659,58 +659,58 @@ if.then:                                          ; preds = %entry
   %9 = lshr <2 x i32> %8, <i32 1, i32 1>
   %10 = and <2 x i32> %9, <i32 1, i32 1>
   store <2 x i32> %10, ptr %pic_scaling_matrix_present_flag, align 4
-  %arrayidx.us.1 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 1
-  %11 = load i32, ptr %arrayidx.us.1, align 4, !tbaa !29
-  %and15.us.1 = lshr i32 %11, 1
-  %shr16.us.1 = and i32 %and15.us.1, 1
+  %arrayidx.1 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 1
+  %11 = load i32, ptr %arrayidx.1, align 4, !tbaa !29
+  %and15.1 = lshr i32 %11, 1
+  %shr16.1 = and i32 %and15.1, 1
   %12 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 1
-  store i32 %shr16.us.1, ptr %12, align 4
-  %arrayidx.us.2 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 2
-  %13 = load i32, ptr %arrayidx.us.2, align 4, !tbaa !29
-  %and15.us.2 = lshr i32 %13, 1
-  %shr16.us.2 = and i32 %and15.us.2, 1
+  store i32 %shr16.1, ptr %12, align 4
+  %arrayidx.2 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 2
+  %13 = load i32, ptr %arrayidx.2, align 4, !tbaa !29
+  %and15.2 = lshr i32 %13, 1
+  %shr16.2 = and i32 %and15.2, 1
   %14 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 2
-  store i32 %shr16.us.2, ptr %14, align 4
-  %arrayidx.us.3 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 3
-  %15 = load i32, ptr %arrayidx.us.3, align 4, !tbaa !29
-  %and15.us.3 = lshr i32 %15, 1
-  %shr16.us.3 = and i32 %and15.us.3, 1
+  store i32 %shr16.2, ptr %14, align 4
+  %arrayidx.3 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 3
+  %15 = load i32, ptr %arrayidx.3, align 4, !tbaa !29
+  %and15.3 = lshr i32 %15, 1
+  %shr16.3 = and i32 %and15.3, 1
   %16 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 3
-  store i32 %shr16.us.3, ptr %16, align 4
-  %arrayidx.us.4 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 4
-  %17 = load i32, ptr %arrayidx.us.4, align 4, !tbaa !29
-  %and15.us.4 = lshr i32 %17, 1
-  %shr16.us.4 = and i32 %and15.us.4, 1
+  store i32 %shr16.3, ptr %16, align 4
+  %arrayidx.4 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 4
+  %17 = load i32, ptr %arrayidx.4, align 4, !tbaa !29
+  %and15.4 = lshr i32 %17, 1
+  %shr16.4 = and i32 %and15.4, 1
   %18 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 4
-  store i32 %shr16.us.4, ptr %18, align 4
-  %arrayidx.us.5 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 5
-  %19 = load i32, ptr %arrayidx.us.5, align 4, !tbaa !29
-  %and15.us.5 = lshr i32 %19, 1
-  %shr16.us.5 = and i32 %and15.us.5, 1
+  store i32 %shr16.4, ptr %18, align 4
+  %arrayidx.5 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 5
+  %19 = load i32, ptr %arrayidx.5, align 4, !tbaa !29
+  %and15.5 = lshr i32 %19, 1
+  %shr16.5 = and i32 %and15.5, 1
   %20 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 5
-  store i32 %shr16.us.5, ptr %20, align 4
-  br i1 %tobool10.not, label %for.inc.us.7, label %for.inc.7
+  store i32 %shr16.5, ptr %20, align 4
+  br i1 %tobool10.not, label %for.inc.7, label %for.inc.us.7
 
 for.inc.us.7:                                     ; preds = %if.then
-  %arrayidx24.us.6 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 6
-  %21 = load i32, ptr %arrayidx24.us.6, align 4, !tbaa !29
-  %and25.us.6 = lshr i32 %21, 1
-  %shr26.us.6 = and i32 %and25.us.6, 1
-  %22 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 6
-  store i32 %shr26.us.6, ptr %22, align 4
-  %arrayidx24.us.7 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 7
-  %23 = load i32, ptr %arrayidx24.us.7, align 4, !tbaa !29
-  %and25.us.7 = lshr i32 %23, 1
-  %shr26.us.7 = and i32 %and25.us.7, 1
-  %24 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 7
-  store i32 %shr26.us.7, ptr %24, align 4
+  %21 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 6
+  store i32 0, ptr %21, align 4
+  %22 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 7
+  store i32 0, ptr %22, align 4
   br label %if.end48
 
 for.inc.7:                                        ; preds = %if.then
-  %25 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 6
-  store i32 0, ptr %25, align 4
+  %arrayidx24.6 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 6
+  %23 = load i32, ptr %arrayidx24.6, align 4, !tbaa !29
+  %and25.6 = lshr i32 %23, 1
+  %shr26.6 = and i32 %and25.6, 1
+  %24 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 6
+  store i32 %shr26.6, ptr %24, align 4
+  %arrayidx24.7 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 168, i64 7
+  %25 = load i32, ptr %arrayidx24.7, align 4, !tbaa !29
+  %and25.7 = lshr i32 %25, 1
+  %shr26.7 = and i32 %and25.7, 1
   %26 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 7
-  store i32 0, ptr %26, align 4
+  store i32 %shr26.7, ptr %26, align 4
   br label %if.end48
 
 if.else35:                                        ; preds = %entry
@@ -720,7 +720,7 @@ if.else35:                                        ; preds = %entry
   store i32 0, ptr %Transform8x8Mode47, align 4, !tbaa !63
   br label %if.end48
 
-if.end48:                                         ; preds = %for.inc.7, %for.inc.us.7, %if.else35
+if.end48:                                         ; preds = %for.inc.us.7, %for.inc.7, %if.else35
   %27 = load ptr, ptr @img, align 8, !tbaa !5
   %pic_order_present_flag = getelementptr inbounds %struct.ImageParameters, ptr %27, i64 0, i32 121
   %28 = load i32, ptr %pic_order_present_flag, align 4, !tbaa !75
@@ -2056,11 +2056,11 @@ declare ptr @strncpy(ptr noalias noundef returned writeonly, ptr noalias nocaptu
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #11
@@ -2074,8 +2074,8 @@ attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }

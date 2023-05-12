@@ -410,8 +410,8 @@ for.inc.3:                                        ; preds = %for.inc.2
   %tobool.not.4 = icmp eq i32 %call3.4, 0
   br i1 %tobool.not.4, label %if.then, label %cleanup28
 
-cleanup28:                                        ; preds = %sw.epilog.i.i, %for.inc.3, %if.end20, %if.then, %if.end
-  %retval.2 = phi i32 [ -7, %if.then ], [ 0, %if.end ], [ 0, %if.end20 ], [ -22, %for.inc.3 ], [ -15, %sw.epilog.i.i ]
+cleanup28:                                        ; preds = %sw.epilog.i.i, %for.inc.3, %if.then, %if.end20, %if.end
+  %retval.2 = phi i32 [ -7, %if.then ], [ 0, %if.end20 ], [ 0, %if.end ], [ -22, %for.inc.3 ], [ -15, %sw.epilog.i.i ]
   ret i32 %retval.2
 }
 
@@ -1112,8 +1112,6 @@ cleanup:                                          ; preds = %if.end6, %if.end, %
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @zreadline(ptr nocapture noundef %op) #0 {
 entry:
-  %count = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %count) #14
   %add.ptr = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
   %type_attrs = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !15
@@ -1150,30 +1148,102 @@ if.end20:                                         ; preds = %if.end13
   br i1 %tobool25.not.not, label %cleanup43, label %if.end27
 
 if.end27:                                         ; preds = %if.end20
-  %7 = load ptr, ptr %op, align 8, !tbaa !14
   %size = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 2
-  %8 = load i16, ptr %size, align 2, !tbaa !24
-  %conv29 = zext i16 %8 to i32
-  %call = call i32 @zreadline_from(ptr noundef %7, i32 noundef %conv29, ptr noundef nonnull %count, ptr noundef nonnull %3), !range !42
-  %cmp30 = icmp slt i32 %call, 0
-  br i1 %cmp30, label %cleanup43, label %if.end33
+  %7 = load i16, ptr %size, align 2, !tbaa !24
+  %conv29 = zext i16 %7 to i32
+  %cmp51.not.i = icmp eq i16 %7, 0
+  br i1 %cmp51.not.i, label %cleanup43, label %while.body.lr.ph.i
 
-if.end33:                                         ; preds = %if.end27
-  %9 = load i32, ptr %count, align 4, !tbaa !26
-  %conv34 = trunc i32 %9 to i16
+while.body.lr.ph.i:                               ; preds = %if.end27
+  %8 = load ptr, ptr %op, align 8, !tbaa !14
+  %endptr.i = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 1
+  %procs.i = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 7
+  br label %while.body.i
+
+while.body.i:                                     ; preds = %sw.epilog.i, %while.body.lr.ph.i
+  %count.053.i = phi i32 [ 0, %while.body.lr.ph.i ], [ %inc.i, %sw.epilog.i ]
+  %ptr.addr.052.i = phi ptr [ %8, %while.body.lr.ph.i ], [ %incdec.ptr26.i, %sw.epilog.i ]
+  %9 = load ptr, ptr %3, align 8, !tbaa !27
+  %10 = load ptr, ptr %endptr.i, align 8, !tbaa !30
+  %cmp1.i = icmp ult ptr %9, %10
+  br i1 %cmp1.i, label %cond.true.i, label %cond.false.i
+
+cond.true.i:                                      ; preds = %while.body.i
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %9, i64 1
+  store ptr %incdec.ptr.i, ptr %3, align 8, !tbaa !27
+  %11 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !14
+  %conv.i = zext i8 %11 to i32
+  br label %cond.end.i
+
+cond.false.i:                                     ; preds = %while.body.i
+  %12 = load ptr, ptr %procs.i, align 8, !tbaa !31
+  %call.i = tail call i32 %12(ptr noundef nonnull %3) #14
+  br label %cond.end.i
+
+cond.end.i:                                       ; preds = %cond.false.i, %cond.true.i
+  %cond.i = phi i32 [ %conv.i, %cond.true.i ], [ %call.i, %cond.false.i ]
+  switch i32 %cond.i, label %sw.epilog.i [
+    i32 13, label %sw.bb.i
+    i32 10, label %if.end33.loopexit
+    i32 -1, label %if.end33
+  ]
+
+sw.bb.i:                                          ; preds = %cond.end.i
+  %13 = load ptr, ptr %3, align 8, !tbaa !27
+  %14 = load ptr, ptr %endptr.i, align 8, !tbaa !30
+  %cmp5.i = icmp ult ptr %13, %14
+  br i1 %cmp5.i, label %cond.true7.i, label %cond.false11.i
+
+cond.true7.i:                                     ; preds = %sw.bb.i
+  %incdec.ptr9.i = getelementptr inbounds i8, ptr %13, i64 1
+  store ptr %incdec.ptr9.i, ptr %3, align 8, !tbaa !27
+  %15 = load i8, ptr %incdec.ptr9.i, align 1, !tbaa !14
+  %conv10.i = zext i8 %15 to i32
+  br label %cond.end15.i
+
+cond.false11.i:                                   ; preds = %sw.bb.i
+  %16 = load ptr, ptr %procs.i, align 8, !tbaa !31
+  %call14.i = tail call i32 %16(ptr noundef nonnull %3) #14
+  br label %cond.end15.i
+
+cond.end15.i:                                     ; preds = %cond.false11.i, %cond.true7.i
+  %cond16.i = phi i32 [ %conv10.i, %cond.true7.i ], [ %call14.i, %cond.false11.i ]
+  switch i32 %cond16.i, label %if.then.i [
+    i32 -1, label %if.end33
+    i32 10, label %if.end33
+  ]
+
+if.then.i:                                        ; preds = %cond.end15.i
+  %17 = load ptr, ptr %3, align 8, !tbaa !27
+  %incdec.ptr22.i = getelementptr inbounds i8, ptr %17, i64 -1
+  store ptr %incdec.ptr22.i, ptr %3, align 8, !tbaa !27
+  br label %if.end33
+
+sw.epilog.i:                                      ; preds = %cond.end.i
+  %conv25.i = trunc i32 %cond.i to i8
+  %incdec.ptr26.i = getelementptr inbounds i8, ptr %ptr.addr.052.i, i64 1
+  store i8 %conv25.i, ptr %ptr.addr.052.i, align 1, !tbaa !14
+  %inc.i = add nuw nsw i32 %count.053.i, 1
+  %exitcond.not.i = icmp eq i32 %inc.i, %conv29
+  br i1 %exitcond.not.i, label %cleanup43, label %while.body.i, !llvm.loop !32
+
+if.end33.loopexit:                                ; preds = %cond.end.i
+  br label %if.end33
+
+if.end33:                                         ; preds = %cond.end.i, %if.end33.loopexit, %cond.end15.i, %cond.end15.i, %if.then.i
+  %retval.0.i.ph = phi i16 [ 1, %if.then.i ], [ 1, %cond.end15.i ], [ 1, %cond.end15.i ], [ 1, %if.end33.loopexit ], [ 0, %cond.end.i ]
+  %conv34 = trunc i32 %count.053.i to i16
   store i16 %conv34, ptr %size, align 2, !tbaa !24
-  %10 = load i16, ptr %type_attrs14, align 8, !tbaa !15
-  %11 = or i16 %10, -32768
-  store i16 %11, ptr %type_attrs14, align 8, !tbaa !15
+  %18 = load i16, ptr %type_attrs14, align 8, !tbaa !15
+  %19 = or i16 %18, -32768
+  store i16 %19, ptr %type_attrs14, align 8, !tbaa !15
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !16
-  %conv40 = trunc i32 %call to i16
-  store i16 %conv40, ptr %op, align 8, !tbaa !14
+  store i16 %retval.0.i.ph, ptr %op, align 8, !tbaa !14
   store i16 4, ptr %type_attrs14, align 8, !tbaa !15
   br label %cleanup43
 
-cleanup43:                                        ; preds = %if.end27, %if.end20, %if.end13, %lor.lhs.false, %if.end, %entry, %if.end33
-  %retval.1 = phi i32 [ 0, %if.end33 ], [ -20, %entry ], [ -7, %if.end ], [ -7, %lor.lhs.false ], [ -20, %if.end13 ], [ -7, %if.end20 ], [ %call, %if.end27 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %count) #14
+cleanup43:                                        ; preds = %sw.epilog.i, %if.end27, %if.end20, %if.end13, %lor.lhs.false, %if.end, %entry, %if.end33
+  %retval.1 = phi i32 [ 0, %if.end33 ], [ -20, %entry ], [ -7, %if.end ], [ -7, %lor.lhs.false ], [ -20, %if.end13 ], [ -7, %if.end20 ], [ -15, %if.end27 ], [ -15, %sw.epilog.i ]
   ret i32 %retval.1
 }
 
@@ -1449,7 +1519,7 @@ lor.lhs.false:                                    ; preds = %if.end
 
 if.end6:                                          ; preds = %lor.lhs.false
   %available = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 7, i32 2
-  %5 = load ptr, ptr %available, align 8, !tbaa !43
+  %5 = load ptr, ptr %available, align 8, !tbaa !42
   %call = call i32 %5(ptr noundef nonnull %3, ptr noundef nonnull %avail) #14
   %cmp7 = icmp slt i32 %call, 0
   br i1 %cmp7, label %cleanup13, label %if.end10
@@ -1471,7 +1541,7 @@ define dso_local i32 @zflush(ptr nocapture readnone %op) #0 {
 entry:
   %0 = load ptr, ptr getelementptr inbounds ([5 x %struct.file_entry_s], ptr @std_files, i64 0, i64 1), align 16, !tbaa !5
   %flush = getelementptr inbounds %struct.stream_s, ptr %0, i64 0, i32 7, i32 4
-  %1 = load ptr, ptr %flush, align 8, !tbaa !44
+  %1 = load ptr, ptr %flush, align 8, !tbaa !43
   %call = tail call i32 %1(ptr noundef %0) #14
   ret i32 0
 }
@@ -1493,7 +1563,7 @@ if.end:                                           ; preds = %entry
 
 cleanup.cont:                                     ; preds = %if.end
   %flush = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 7, i32 4
-  %4 = load ptr, ptr %flush, align 8, !tbaa !44
+  %4 = load ptr, ptr %flush, align 8, !tbaa !43
   %call = tail call i32 %4(ptr noundef nonnull %3) #14
   %writing = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 4
   %5 = load i8, ptr %writing, align 4, !tbaa !38
@@ -1502,7 +1572,7 @@ cleanup.cont:                                     ; preds = %if.end
 
 if.then7:                                         ; preds = %cleanup.cont
   %file = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 9
-  %6 = load ptr, ptr %file, align 8, !tbaa !45
+  %6 = load ptr, ptr %file, align 8, !tbaa !44
   %call8 = tail call i32 @fseek(ptr noundef %6, i64 noundef 0, i32 noundef 2)
   br label %if.end9
 
@@ -1689,7 +1759,7 @@ cleanup.cont:                                     ; preds = %if.end
 
 if.end14:                                         ; preds = %cleanup.cont
   %seek = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 7, i32 3
-  %6 = load ptr, ptr %seek, align 8, !tbaa !46
+  %6 = load ptr, ptr %seek, align 8, !tbaa !45
   %7 = load i64, ptr %op, align 8, !tbaa !14
   %call = tail call i32 %6(ptr noundef nonnull %3, i64 noundef %7) #14
   %cmp16 = icmp slt i32 %call, 0
@@ -2002,7 +2072,7 @@ while.cond:                                       ; preds = %while.cond, %for.co
   %cmp10.not = icmp eq i8 %4, %3
   %or.cond = select i1 %cmp6.not, i1 true, i1 %cmp10.not
   %incdec.ptr = getelementptr inbounds i8, ptr %npath.0, i64 1
-  br i1 %or.cond, label %while.end, label %while.cond, !llvm.loop !47
+  br i1 %or.cond, label %while.end, label %while.cond, !llvm.loop !46
 
 while.end:                                        ; preds = %while.cond
   %sub.ptr.lhs.cast = ptrtoint ptr %npath.0 to i64
@@ -2039,7 +2109,7 @@ for.inc:                                          ; preds = %if.end37
   %incdec.ptr48 = getelementptr inbounds ptr, ptr %ppath.0100, i64 1
   %7 = load ptr, ptr %incdec.ptr48, align 8, !tbaa !13
   %cmp4.not = icmp eq ptr %7, null
-  br i1 %cmp4.not, label %cleanup50, label %for.cond5.preheader, !llvm.loop !48
+  br i1 %cmp4.not, label %cleanup50, label %for.cond5.preheader, !llvm.loop !47
 
 cleanup50:                                        ; preds = %for.inc, %if.then21, %if.end3, %if.end, %entry
   %retval.3 = phi i32 [ 0, %entry ], [ -22, %if.end ], [ %call, %if.end3 ], [ 0, %if.then21 ], [ %code.2, %for.inc ]
@@ -2087,11 +2157,11 @@ if.end20:                                         ; preds = %if.end13
 
 if.end24:                                         ; preds = %if.end20
   %flush = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 7, i32 4
-  %9 = load ptr, ptr %flush, align 8, !tbaa !44
+  %9 = load ptr, ptr %flush, align 8, !tbaa !43
   %call25 = tail call i32 %9(ptr noundef nonnull %3) #14
   %10 = load ptr, ptr %op, align 8, !tbaa !14
   %file = getelementptr inbounds %struct.stream_s, ptr %3, i64 0, i32 9
-  %11 = load ptr, ptr %file, align 8, !tbaa !45
+  %11 = load ptr, ptr %file, align 8, !tbaa !44
   %call27 = tail call i32 (ptr, ptr, ...) @gs_writeppmfile(ptr noundef %10, ptr noundef %11) #14
   %cmp28 = icmp sgt i32 %call27, -1
   br i1 %cmp28, label %if.then30, label %cleanup33
@@ -2161,7 +2231,7 @@ if.end27:                                         ; preds = %if.end23
   %cbuf = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 2
   %12 = load ptr, ptr %cbuf, align 8, !tbaa !34
   %bsize = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 3
-  %13 = load i32, ptr %bsize, align 8, !tbaa !49
+  %13 = load i32, ptr %bsize, align 8, !tbaa !48
   tail call void @sread_decrypt(ptr noundef %9, ptr noundef %11, ptr noundef %12, i32 noundef %13, i16 noundef zeroext %conv3) #14
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, ptr noundef nonnull align 8 dereferenceable(16) %dec_file, i64 16, i1 false), !tbaa.struct !16
   %14 = load ptr, ptr @osp, align 8, !tbaa !13
@@ -2269,7 +2339,7 @@ if.else29:                                        ; preds = %if.end11
   %cbuf = getelementptr inbounds %struct.stream_s, ptr %call8, i64 0, i32 2
   store ptr %call4, ptr %cbuf, align 8, !tbaa !34
   %bsize = getelementptr inbounds %struct.stream_s, ptr %call8, i64 0, i32 3
-  store i32 512, ptr %bsize, align 8, !tbaa !49
+  store i32 512, ptr %bsize, align 8, !tbaa !48
   br label %if.end30
 
 if.end30:                                         ; preds = %if.then26, %if.else, %if.else29
@@ -2452,11 +2522,10 @@ attributes #16 = { nounwind willreturn memory(read) }
 !39 = !{!28, !7, i64 48}
 !40 = !{!28, !18, i64 32}
 !41 = distinct !{!41, !33}
-!42 = !{i32 -15, i32 2}
-!43 = !{!28, !7, i64 56}
-!44 = !{!28, !7, i64 72}
-!45 = !{!28, !7, i64 96}
-!46 = !{!28, !7, i64 64}
+!42 = !{!28, !7, i64 56}
+!43 = !{!28, !7, i64 72}
+!44 = !{!28, !7, i64 96}
+!45 = !{!28, !7, i64 64}
+!46 = distinct !{!46, !33}
 !47 = distinct !{!47, !33}
-!48 = distinct !{!48, !33}
-!49 = !{!28, !10, i64 24}
+!48 = !{!28, !10, i64 24}

@@ -132,7 +132,7 @@ declare void @abort() local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-entry.split.us.i:
+entry:
   %elt = alloca %struct.table_elt, align 8
   call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %elt) #7
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %elt, i8 0, i64 72, i1 false)
@@ -141,8 +141,8 @@ entry.split.us.i:
   store ptr %elt, ptr @table, align 16, !tbaa !5
   br label %for.body.us.i
 
-for.body.us.i:                                    ; preds = %entry.split.us.i, %for.inc15.us.i
-  %indvars.iv43.i = phi i64 [ %indvars.iv.next44.i, %for.inc15.us.i ], [ 0, %entry.split.us.i ]
+for.body.us.i:                                    ; preds = %entry, %for.inc15.us.i
+  %indvars.iv43.i = phi i64 [ %indvars.iv.next44.i, %for.inc15.us.i ], [ 0, %entry ]
   %arrayidx.us.i = getelementptr inbounds [32 x ptr], ptr @table, i64 0, i64 %indvars.iv43.i
   %0 = load ptr, ptr %arrayidx.us.i, align 8, !tbaa !5
   %tobool.not26.us.i = icmp eq ptr %0, null

@@ -2036,10 +2036,10 @@ if.end323:                                        ; preds = %for.body115.prehead
 define dso_local void @UpdateDecoders() local_unnamed_addr #4 {
 entry:
   %0 = load ptr, ptr @input, align 8, !tbaa !5
-  %NoOfDecoders23 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 127
-  %1 = load i32, ptr %NoOfDecoders23, align 8, !tbaa !50
-  %cmp24 = icmp sgt i32 %1, 0
-  br i1 %cmp24, label %for.body, label %for.end
+  %NoOfDecoders21 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 127
+  %1 = load i32, ptr %NoOfDecoders21, align 8, !tbaa !50
+  %cmp22 = icmp sgt i32 %1, 0
+  br i1 %cmp22, label %for.body, label %for.end
 
 for.body:                                         ; preds = %entry, %DecOneForthPix.exit
   %indvars.iv = phi i64 [ %indvars.iv.next, %DecOneForthPix.exit ], [ 0, %entry ]
@@ -2069,10 +2069,10 @@ for.body:                                         ; preds = %entry, %DecOneForth
   br i1 %or.cond.i, label %for.cond2.preheader.us.preheader.i, label %Error_Concealment.exit
 
 for.cond2.preheader.us.preheader.i:               ; preds = %for.body
-  %div1.i1921 = lshr i32 %12, 4
-  %div.i2022 = lshr i32 %11, 4
-  %wide.trip.count26.i = zext i32 %div.i2022 to i64
-  %wide.trip.count.i = zext i32 %div1.i1921 to i64
+  %div1.i1924 = lshr i32 %12, 4
+  %div.i2025 = lshr i32 %11, 4
+  %wide.trip.count26.i = zext i32 %div.i2025 to i64
+  %wide.trip.count.i = zext i32 %div1.i1924 to i64
   br label %for.cond2.preheader.us.i
 
 for.cond2.preheader.us.i:                         ; preds = %for.cond2.for.inc7_crit_edge.us.i, %for.cond2.preheader.us.preheader.i

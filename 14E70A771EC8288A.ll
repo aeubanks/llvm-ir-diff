@@ -65,12 +65,11 @@ entry:
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.body.i, %entry
-  %s.addr.039.i = phi ptr [ %s, %entry ], [ %incdec.ptr.i, %for.body.i ]
-  %msr.038.i = phi i16 [ %16, %entry ], [ %21, %for.body.i ]
-  %k.037.i = phi i32 [ 160, %entry ], [ %dec.i, %for.body.i ]
-  %dec.i = add nsw i32 %k.037.i, -1
-  %conv.i = sext i16 %msr.038.i to i64
-  %17 = load i16, ptr %s.addr.039.i, align 2, !tbaa !5
+  %dec39.i = phi i32 [ 159, %entry ], [ %dec.i, %for.body.i ]
+  %s.addr.038.i = phi ptr [ %s, %entry ], [ %incdec.ptr.i, %for.body.i ]
+  %msr.037.i = phi i16 [ %16, %entry ], [ %21, %for.body.i ]
+  %conv.i = sext i16 %msr.037.i to i64
+  %17 = load i16, ptr %s.addr.038.i, align 2, !tbaa !5
   %add.i = mul nsw i64 %conv.i, 242064356802560
   %18 = add nsw i64 %add.i, 140737488355328
   %19 = lshr i64 %18, 48
@@ -85,9 +84,10 @@ for.body.i:                                       ; preds = %for.body.i, %entry
   %cond25.i = select i1 %cmp16.i, i64 %conv22.i, i64 %add14.i
   %23 = trunc i64 %cond25.i to i16
   %conv26.i = and i16 %23, -8
-  store i16 %conv26.i, ptr %s.addr.039.i, align 2, !tbaa !5
-  %incdec.ptr.i = getelementptr inbounds i16, ptr %s.addr.039.i, i64 1
-  %tobool.not.i = icmp eq i32 %dec.i, 0
+  store i16 %conv26.i, ptr %s.addr.038.i, align 2, !tbaa !5
+  %incdec.ptr.i = getelementptr inbounds i16, ptr %s.addr.038.i, i64 1
+  %dec.i = add nsw i32 %dec39.i, -1
+  %tobool.not.i = icmp eq i32 %dec39.i, 0
   br i1 %tobool.not.i, label %Postprocessing.exit, label %for.body.i, !llvm.loop !13
 
 Postprocessing.exit:                              ; preds = %for.body.i

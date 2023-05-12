@@ -27,16 +27,16 @@ entry:
   %mul = shl nsw i64 %conv, 3
   %call1 = tail call noalias ptr @malloc(i64 noundef %mul) #7
   %call6 = tail call noalias ptr @malloc(i64 noundef %mul) #7
-  %cmp281 = icmp sgt i32 %2, 0
-  br i1 %cmp281, label %for.body.lr.ph, label %if.then106
+  %cmp275 = icmp sgt i32 %2, 0
+  br i1 %cmp275, label %for.body.lr.ph, label %if.then106
 
 for.body.lr.ph:                                   ; preds = %entry
   %R12 = getelementptr inbounds %struct.PLA_t, ptr %PLA, i64 0, i32 2
   br label %for.body
 
 for.cond22.preheader:                             ; preds = %for.body
-  %cmp25294 = icmp sgt i32 %9, 1
-  br i1 %cmp25294, label %for.body27.lr.ph, label %if.then106
+  %cmp25288 = icmp sgt i32 %9, 1
+  br i1 %cmp25288, label %for.body27.lr.ph, label %if.then106
 
 for.body27.lr.ph:                                 ; preds = %for.cond22.preheader
   %label = getelementptr inbounds %struct.PLA_t, ptr %PLA, i64 0, i32 7
@@ -44,9 +44,9 @@ for.body27.lr.ph:                                 ; preds = %for.cond22.preheade
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
-  %idxprom7283 = phi i64 [ %idxprom, %for.body.lr.ph ], [ %idxprom7, %for.body ]
+  %idxprom7277 = phi i64 [ %idxprom, %for.body.lr.ph ], [ %idxprom7, %for.body ]
   %3 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8, !tbaa !13
-  %arrayidx11 = getelementptr inbounds i32, ptr %3, i64 %idxprom7283
+  %arrayidx11 = getelementptr inbounds i32, ptr %3, i64 %idxprom7277
   %4 = load i32, ptr %arrayidx11, align 4, !tbaa !12
   %5 = trunc i64 %indvars.iv to i32
   %add = add nsw i32 %4, %5
@@ -69,49 +69,49 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp, label %for.body, label %for.cond22.preheader
 
 for.cond22.loopexit:                              ; preds = %for.inc99, %for.body27
-  %.pre317321 = phi i32 [ %.pre317, %for.body27 ], [ %60, %for.inc99 ]
+  %.pre311315 = phi i32 [ %.pre311, %for.body27 ], [ %60, %for.inc99 ]
   %11 = phi i32 [ %14, %for.body27 ], [ %59, %for.inc99 ]
   %12 = phi ptr [ %15, %for.body27 ], [ %58, %for.inc99 ]
-  %some_equiv.1.lcssa = phi i32 [ %some_equiv.0296, %for.body27 ], [ %some_equiv.2, %for.inc99 ]
-  %sub = add nsw i32 %.pre317321, -1
+  %some_equiv.1.lcssa = phi i32 [ %some_equiv.0290, %for.body27 ], [ %some_equiv.2, %for.inc99 ]
+  %sub = add nsw i32 %.pre311315, -1
   %13 = sext i32 %sub to i64
-  %cmp25 = icmp slt i64 %indvars.iv.next312, %13
-  %indvars.iv.next307 = add nuw nsw i64 %indvars.iv306, 1
+  %cmp25 = icmp slt i64 %indvars.iv.next306, %13
+  %indvars.iv.next301 = add nuw nsw i64 %indvars.iv300, 1
   br i1 %cmp25, label %for.body27, label %for.end104
 
 for.body27:                                       ; preds = %for.body27.lr.ph, %for.cond22.loopexit
-  %.pre317 = phi i32 [ %9, %for.body27.lr.ph ], [ %.pre317321, %for.cond22.loopexit ]
+  %.pre311 = phi i32 [ %9, %for.body27.lr.ph ], [ %.pre311315, %for.cond22.loopexit ]
   %14 = phi i32 [ %8, %for.body27.lr.ph ], [ %11, %for.cond22.loopexit ]
   %15 = phi ptr [ %7, %for.body27.lr.ph ], [ %12, %for.cond22.loopexit ]
-  %indvars.iv311 = phi i64 [ 0, %for.body27.lr.ph ], [ %indvars.iv.next312, %for.cond22.loopexit ]
-  %indvars.iv306 = phi i64 [ 1, %for.body27.lr.ph ], [ %indvars.iv.next307, %for.cond22.loopexit ]
-  %some_equiv.0296 = phi i32 [ 0, %for.body27.lr.ph ], [ %some_equiv.1.lcssa, %for.cond22.loopexit ]
-  %indvars.iv.next312 = add nuw nsw i64 %indvars.iv311, 1
-  %16 = sext i32 %.pre317 to i64
-  %cmp32286 = icmp slt i64 %indvars.iv.next312, %16
-  br i1 %cmp32286, label %for.body34.lr.ph, label %for.cond22.loopexit
+  %indvars.iv305 = phi i64 [ 0, %for.body27.lr.ph ], [ %indvars.iv.next306, %for.cond22.loopexit ]
+  %indvars.iv300 = phi i64 [ 1, %for.body27.lr.ph ], [ %indvars.iv.next301, %for.cond22.loopexit ]
+  %some_equiv.0290 = phi i32 [ 0, %for.body27.lr.ph ], [ %some_equiv.1.lcssa, %for.cond22.loopexit ]
+  %indvars.iv.next306 = add nuw nsw i64 %indvars.iv305, 1
+  %16 = sext i32 %.pre311 to i64
+  %cmp32280 = icmp slt i64 %indvars.iv.next306, %16
+  br i1 %cmp32280, label %for.body34.lr.ph, label %for.cond22.loopexit
 
 for.body34.lr.ph:                                 ; preds = %for.body27
-  %idxprom30284 = sext i32 %14 to i64
-  %arrayidx42 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv311
+  %idxprom30278 = sext i32 %14 to i64
+  %arrayidx42 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv305
   %17 = load ptr, ptr %arrayidx42, align 8, !tbaa !16
   %data14.i = getelementptr inbounds %struct.set_family, ptr %17, i64 0, i32 5
   %count15.i = getelementptr inbounds %struct.set_family, ptr %17, i64 0, i32 3
-  %arrayidx68 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv311
-  %18 = trunc i64 %indvars.iv311 to i32
+  %arrayidx68 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv305
+  %18 = trunc i64 %indvars.iv305 to i32
   br label %for.body34
 
 for.body34:                                       ; preds = %for.body34.lr.ph, %for.inc99
-  %indvars.iv308 = phi i64 [ %indvars.iv306, %for.body34.lr.ph ], [ %indvars.iv.next309, %for.inc99 ]
-  %idxprom30290 = phi i64 [ %idxprom30284, %for.body34.lr.ph ], [ %idxprom30, %for.inc99 ]
-  %some_equiv.1289 = phi i32 [ %some_equiv.0296, %for.body34.lr.ph ], [ %some_equiv.2, %for.inc99 ]
+  %indvars.iv302 = phi i64 [ %indvars.iv300, %for.body34.lr.ph ], [ %indvars.iv.next303, %for.inc99 ]
+  %idxprom30284 = phi i64 [ %idxprom30278, %for.body34.lr.ph ], [ %idxprom30, %for.inc99 ]
+  %some_equiv.1283 = phi i32 [ %some_equiv.0290, %for.body34.lr.ph ], [ %some_equiv.2, %for.inc99 ]
   %19 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8, !tbaa !13
-  %arrayidx36 = getelementptr inbounds i32, ptr %19, i64 %idxprom30290
+  %arrayidx36 = getelementptr inbounds i32, ptr %19, i64 %idxprom30284
   %20 = load i32, ptr %arrayidx36, align 4, !tbaa !12
   %add37 = add nsw i32 %20, %18
-  %21 = trunc i64 %indvars.iv308 to i32
+  %21 = trunc i64 %indvars.iv302 to i32
   %add40 = add nsw i32 %20, %21
-  %arrayidx44 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv308
+  %arrayidx44 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv302
   %22 = load ptr, ptr %arrayidx44, align 8, !tbaa !16
   %call.i = tail call ptr (ptr, ...) @cube1list(ptr noundef %17) #6
   %data.i = getelementptr inbounds %struct.set_family, ptr %22, i64 0, i32 5
@@ -178,7 +178,7 @@ for.end31.i:                                      ; preds = %for.inc27.i, %if.th
   br i1 %tobool33.not.i, label %for.inc99.sink.split.sink.split, label %for.inc99.sink.split.sink.split.sink.split
 
 if.else:                                          ; preds = %for.body.i, %for.body22.i
-  %arrayidx55 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv308
+  %arrayidx55 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv302
   %33 = load ptr, ptr %arrayidx55, align 8, !tbaa !16
   %call.i190 = tail call ptr (ptr, ...) @cube1list(ptr noundef %17) #6
   %data.i191 = getelementptr inbounds %struct.set_family, ptr %33, i64 0, i32 5
@@ -341,14 +341,14 @@ for.inc99.sink.split:                             ; preds = %for.inc99.sink.spli
   br label %for.inc99
 
 for.inc99:                                        ; preds = %for.inc99.sink.split, %if.else81
-  %some_equiv.2 = phi i32 [ %some_equiv.1289, %if.else81 ], [ 1, %for.inc99.sink.split ]
-  %indvars.iv.next309 = add nuw nsw i64 %indvars.iv308, 1
+  %some_equiv.2 = phi i32 [ %some_equiv.1283, %if.else81 ], [ 1, %for.inc99.sink.split ]
+  %indvars.iv.next303 = add nuw nsw i64 %indvars.iv302, 1
   %58 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !5
   %59 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 18), align 4, !tbaa !11
   %idxprom30 = sext i32 %59 to i64
   %arrayidx31 = getelementptr inbounds i32, ptr %58, i64 %idxprom30
   %60 = load i32, ptr %arrayidx31, align 4, !tbaa !12
-  %61 = trunc i64 %indvars.iv.next309 to i32
+  %61 = trunc i64 %indvars.iv.next303 to i32
   %cmp32 = icmp sgt i32 %60, %61
   br i1 %cmp32, label %for.body34, label %for.cond22.loopexit
 
@@ -358,35 +358,35 @@ for.end104:                                       ; preds = %for.cond22.loopexit
 
 if.then106:                                       ; preds = %entry, %for.cond22.preheader, %for.end104
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %.pre318 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !5
-  %.pre319 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 18), align 4, !tbaa !11
+  %.pre312 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !5
+  %.pre313 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 18), align 4, !tbaa !11
   br label %if.end108
 
 if.end108:                                        ; preds = %if.then106, %for.end104
-  %62 = phi i32 [ %.pre319, %if.then106 ], [ %11, %for.end104 ]
-  %63 = phi ptr [ %.pre318, %if.then106 ], [ %12, %for.end104 ]
-  %idxprom110298 = sext i32 %62 to i64
-  %arrayidx111299 = getelementptr inbounds i32, ptr %63, i64 %idxprom110298
-  %64 = load i32, ptr %arrayidx111299, align 4, !tbaa !12
-  %cmp112300 = icmp sgt i32 %64, 0
-  br i1 %cmp112300, label %for.body114, label %for.end121
+  %62 = phi i32 [ %.pre313, %if.then106 ], [ %11, %for.end104 ]
+  %63 = phi ptr [ %.pre312, %if.then106 ], [ %12, %for.end104 ]
+  %idxprom110292 = sext i32 %62 to i64
+  %arrayidx111293 = getelementptr inbounds i32, ptr %63, i64 %idxprom110292
+  %64 = load i32, ptr %arrayidx111293, align 4, !tbaa !12
+  %cmp112294 = icmp sgt i32 %64, 0
+  br i1 %cmp112294, label %for.body114, label %for.end121
 
 for.body114:                                      ; preds = %if.end108, %for.body114
-  %indvars.iv314 = phi i64 [ %indvars.iv.next315, %for.body114 ], [ 0, %if.end108 ]
-  %arrayidx116 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv314
+  %indvars.iv308 = phi i64 [ %indvars.iv.next309, %for.body114 ], [ 0, %if.end108 ]
+  %arrayidx116 = getelementptr inbounds ptr, ptr %call1, i64 %indvars.iv308
   %65 = load ptr, ptr %arrayidx116, align 8, !tbaa !16
   tail call void (ptr, ...) @sf_free(ptr noundef %65) #6
-  %arrayidx118 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv314
+  %arrayidx118 = getelementptr inbounds ptr, ptr %call6, i64 %indvars.iv308
   %66 = load ptr, ptr %arrayidx118, align 8, !tbaa !16
   tail call void (ptr, ...) @sf_free(ptr noundef %66) #6
-  %indvars.iv.next315 = add nuw nsw i64 %indvars.iv314, 1
+  %indvars.iv.next309 = add nuw nsw i64 %indvars.iv308, 1
   %67 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !5
   %68 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 18), align 4, !tbaa !11
   %idxprom110 = sext i32 %68 to i64
   %arrayidx111 = getelementptr inbounds i32, ptr %67, i64 %idxprom110
   %69 = load i32, ptr %arrayidx111, align 4, !tbaa !12
   %70 = sext i32 %69 to i64
-  %cmp112 = icmp slt i64 %indvars.iv.next315, %70
+  %cmp112 = icmp slt i64 %indvars.iv.next309, %70
   br i1 %cmp112, label %for.body114, label %if.then123
 
 for.end121:                                       ; preds = %if.end108

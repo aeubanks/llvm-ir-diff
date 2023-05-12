@@ -38,7 +38,7 @@ $_ZTIN36btDiscreteCollisionDetectorInterface6ResultE = comdat any
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN16btManifoldResultC2EP17btCollisionObjectS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(176) %this, ptr noundef %body0, ptr noundef %body1) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont10:
+entry:
   store ptr getelementptr inbounds ({ [7 x ptr] }, ptr @_ZTV16btManifoldResult, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_manifoldPtr = getelementptr inbounds %class.btManifoldResult, ptr %this, i64 0, i32 1
   store ptr null, ptr %m_manifoldPtr, align 8, !tbaa !8

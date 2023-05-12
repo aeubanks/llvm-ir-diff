@@ -57,7 +57,7 @@ entry:
   %1 = load i16, ptr %this, align 8, !tbaa !17
   %cmp = icmp ne i16 %1, 10
   %cmp3 = icmp ult i32 %conv, 32
-  %or.cond = or i1 %cmp, %cmp3
+  %or.cond = select i1 %cmp, i1 true, i1 %cmp3
   br i1 %or.cond, label %cleanup28, label %while.body.preheader
 
 while.body.preheader:                             ; preds = %entry
@@ -115,7 +115,7 @@ entry:
   %1 = load i16, ptr %this, align 8, !tbaa !17
   %cmp = icmp ne i16 %1, 21589
   %cmp3 = icmp ult i32 %conv, 5
-  %or.cond = or i1 %cmp, %cmp3
+  %or.cond = select i1 %cmp, i1 true, i1 %cmp3
   br i1 %or.cond, label %cleanup19, label %if.end
 
 if.end:                                           ; preds = %entry
@@ -133,11 +133,11 @@ if.end12:                                         ; preds = %if.end
   %cmp13 = icmp eq i32 %index, 0
   br i1 %cmp13, label %if.then14, label %if.end15
 
-if.then14:                                        ; preds = %for.inc.1, %if.end12.1, %if.end12
-  %p.033.lcssa36 = phi ptr [ %incdec.ptr, %if.end12 ], [ %p.1, %if.end12.1 ], [ %p.1.1, %for.inc.1 ]
+if.then14:                                        ; preds = %if.end12.2, %if.end12.1, %if.end12
+  %p.033.lcssa36 = phi ptr [ %incdec.ptr, %if.end12 ], [ %p.1, %if.end12.1 ], [ %p.1.1, %if.end12.2 ]
   %4 = load i32, ptr %p.033.lcssa36, align 4, !tbaa !22
   store i32 %4, ptr %res, align 4, !tbaa !22
-  br label %cleanup19
+  br label %cleanup
 
 if.end15:                                         ; preds = %if.end12
   %add.ptr = getelementptr inbounds i8, ptr %2, i64 5
@@ -153,7 +153,7 @@ for.inc:                                          ; preds = %if.end, %if.end15
 
 if.then9.1:                                       ; preds = %for.inc
   %cmp10.1 = icmp ult i32 %size.1, 4
-  br i1 %cmp10.1, label %cleanup19, label %if.end12.1
+  br i1 %cmp10.1, label %cleanup, label %if.end12.1
 
 if.end12.1:                                       ; preds = %if.then9.1
   %cmp13.1 = icmp eq i32 %index, 1
@@ -168,15 +168,25 @@ for.inc.1:                                        ; preds = %if.end15.1, %for.in
   %size.1.1 = phi i32 [ %sub.1, %if.end15.1 ], [ %size.1, %for.inc ]
   %p.1.1 = phi ptr [ %add.ptr.1, %if.end15.1 ], [ %p.1, %for.inc ]
   %and.2 = and i32 %conv7, 4
-  %cmp8.not.2 = icmp ne i32 %and.2, 0
-  %cmp10.2 = icmp ugt i32 %size.1.1, 3
-  %or.cond38.not40 = and i1 %cmp8.not.2, %cmp10.2
-  %cmp13.2 = icmp eq i32 %index, 2
-  %or.cond39 = and i1 %or.cond38.not40, %cmp13.2
-  br i1 %or.cond39, label %if.then14, label %cleanup19
+  %cmp8.not.2 = icmp eq i32 %and.2, 0
+  br i1 %cmp8.not.2, label %cleanup, label %if.then9.2
 
-cleanup19:                                        ; preds = %if.then14, %for.inc.1, %if.then9.1, %entry
-  %retval.2 = phi i1 [ false, %entry ], [ true, %if.then14 ], [ false, %for.inc.1 ], [ false, %if.then9.1 ]
+if.then9.2:                                       ; preds = %for.inc.1
+  %cmp10.2 = icmp ult i32 %size.1.1, 4
+  br i1 %cmp10.2, label %cleanup, label %if.end12.2
+
+if.end12.2:                                       ; preds = %if.then9.2
+  %cmp13.2 = icmp eq i32 %index, 2
+  br i1 %cmp13.2, label %if.then14, label %cleanup
+
+cleanup:                                          ; preds = %if.then9.1, %if.then9.2, %if.end12.2, %for.inc.1, %if.then14
+  %cmp630 = phi i1 [ true, %if.then14 ], [ true, %if.then9.1 ], [ true, %if.then9.2 ], [ false, %if.end12.2 ], [ false, %for.inc.1 ]
+  %retval.0 = phi i1 [ true, %if.then14 ], [ false, %if.then9.1 ], [ false, %if.then9.2 ], [ false, %if.end12.2 ], [ false, %for.inc.1 ]
+  %spec.select = and i1 %retval.0, %cmp630
+  br label %cleanup19
+
+cleanup19:                                        ; preds = %entry, %cleanup
+  %retval.2 = phi i1 [ %spec.select, %cleanup ], [ false, %entry ]
   ret i1 %retval.2
 }
 
@@ -266,7 +276,7 @@ sw.bb2:                                           ; preds = %entry
   %and4 = and i32 %3, 1073741824
   %tobool5.not = icmp eq i32 %and4, 0
   %spec.select.v = select i1 %tobool5.not, i32 32768, i32 32784
-  %spec.select = or i32 %spec.select.v, %and
+  %spec.select = or i32 %and, %spec.select.v
   br label %cleanup
 
 sw.epilog:                                        ; preds = %entry, %sw.bb, %if.then

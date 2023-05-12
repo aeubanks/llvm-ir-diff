@@ -109,8 +109,8 @@ for.end:                                          ; preds = %for.cond, %entry
   br label %cleanup15
 
 cleanup15:                                        ; preds = %cleanup.thread, %for.end
-  %storemerge = phi i32 [ 0, %cleanup.thread ], [ 1, %for.end ]
-  %retval.2 = phi ptr [ %0, %cleanup.thread ], [ %call.i, %for.end ]
+  %storemerge = phi i32 [ 1, %for.end ], [ 0, %cleanup.thread ]
+  %retval.2 = phi ptr [ %call.i, %for.end ], [ %0, %cleanup.thread ]
   store i32 %storemerge, ptr %new, align 4, !tbaa !19
   ret ptr %retval.2
 }

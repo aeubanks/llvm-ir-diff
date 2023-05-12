@@ -36,139 +36,143 @@ entry:
   br i1 %cmp, label %if.then, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %entry
-  %call259 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
-  %tobool.not60 = icmp eq i32 %call259, 0
-  br i1 %tobool.not60, label %while.end, label %while.body
+  %call245 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool.not46 = icmp eq i32 %call245, 0
+  br i1 %tobool.not46, label %while.end, label %while.body.preheader
+
+while.body.preheader:                             ; preds = %while.cond.preheader
+  %0 = load i64, ptr %val, align 8, !tbaa !6
+  %conv = trunc i64 %0 to i32
+  store i32 %conv, ptr %table, align 16, !tbaa !10
+  br label %for.body
 
 if.then:                                          ; preds = %entry
-  %0 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.1, ptr noundef %filename) #9
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %1, ptr noundef nonnull @.str.1, ptr noundef %filename) #9
   br label %cleanup
 
-while.body:                                       ; preds = %while.cond.preheader, %for.end
-  %tblno.061 = phi i32 [ %inc18, %for.end ], [ 0, %while.cond.preheader ]
-  %exitcond69 = icmp eq i32 %tblno.061, 4
-  br i1 %exitcond69, label %if.then4, label %if.end7
-
-if.then4:                                         ; preds = %while.body
-  %1 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call5 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %1, ptr noundef nonnull @.str.2, ptr noundef %filename) #9
+if.then4:                                         ; preds = %for.end.3
+  %2 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call5 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.2, ptr noundef %filename) #9
   %call6 = call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
-if.end7:                                          ; preds = %while.body
-  %2 = load i64, ptr %val, align 8, !tbaa !10
-  %conv = trunc i64 %2 to i32
-  store i32 %conv, ptr %table, align 16, !tbaa !12
-  br label %do.body.i.preheader
+for.body:                                         ; preds = %while.body.preheader, %if.end15
+  %indvars.iv = phi i64 [ 1, %while.body.preheader ], [ %indvars.iv.next, %if.end15 ]
+  %call10 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool11.not = icmp eq i32 %call10, 0
+  br i1 %tobool11.not, label %if.then12, label %if.end15
 
-do.body.i.preheader:                              ; preds = %if.end7, %if.end15
-  %indvars.iv = phi i64 [ 1, %if.end7 ], [ %indvars.iv.next, %if.end15 ]
-  br label %do.body.i
-
-do.body.i:                                        ; preds = %do.body.i.preheader, %do.cond.i
-  %call.i.i = call i32 @getc(ptr noundef nonnull %call)
-  %cmp.i.i = icmp eq i32 %call.i.i, 35
-  br i1 %cmp.i.i, label %do.body.i.i, label %text_getc.exit.i
-
-do.body.i.i:                                      ; preds = %do.body.i, %do.body.i.i
-  %call1.i.i = call i32 @getc(ptr noundef nonnull %call)
-  switch i32 %call1.i.i, label %do.body.i.i [
-    i32 -1, label %text_getc.exit.i
-    i32 10, label %text_getc.exit.i
-  ]
-
-text_getc.exit.i:                                 ; preds = %do.body.i.i, %do.body.i.i, %do.body.i
-  %ch.0.i.i = phi i32 [ %call.i.i, %do.body.i ], [ %call1.i.i, %do.body.i.i ], [ %call1.i.i, %do.body.i.i ]
-  %cmp.i = icmp eq i32 %ch.0.i.i, -1
-  br i1 %cmp.i, label %if.then12, label %do.cond.i
-
-do.cond.i:                                        ; preds = %text_getc.exit.i
-  %call1.i = tail call ptr @__ctype_b_loc() #10
-  %3 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom.i = sext i32 %ch.0.i.i to i64
-  %arrayidx.i = getelementptr inbounds i16, ptr %3, i64 %idxprom.i
-  %4 = load i16, ptr %arrayidx.i, align 2, !tbaa !14
-  %conv.i = zext i16 %4 to i32
-  %and.i = and i32 %conv.i, 8192
-  %tobool.not.i = icmp eq i32 %and.i, 0
-  br i1 %tobool.not.i, label %do.end.i, label %do.body.i, !llvm.loop !16
-
-do.end.i:                                         ; preds = %do.cond.i
-  %and6.i = and i32 %conv.i, 2048
-  %tobool7.not.i = icmp eq i32 %and6.i, 0
-  br i1 %tobool7.not.i, label %if.then12, label %if.end9.i
-
-if.end9.i:                                        ; preds = %do.end.i
-  %sub.i = add nsw i32 %ch.0.i.i, -48
-  %conv10.i = sext i32 %sub.i to i64
-  br label %while.cond.i
-
-while.cond.i:                                     ; preds = %if.end21.i, %if.end9.i
-  %val.0.i = phi i64 [ %conv10.i, %if.end9.i ], [ %add.i, %if.end21.i ]
-  %call.i38.i = call i32 @getc(ptr noundef nonnull %call)
-  %cmp.i39.i = icmp eq i32 %call.i38.i, 35
-  br i1 %cmp.i39.i, label %do.body.i41.i, label %text_getc.exit43.i
-
-do.body.i41.i:                                    ; preds = %while.cond.i, %do.body.i41.i
-  %call1.i40.i = call i32 @getc(ptr noundef nonnull %call)
-  switch i32 %call1.i40.i, label %do.body.i41.i [
-    i32 -1, label %text_getc.exit43.i
-    i32 10, label %text_getc.exit43.i
-  ]
-
-text_getc.exit43.i:                               ; preds = %do.body.i41.i, %do.body.i41.i, %while.cond.i
-  %ch.0.i42.i = phi i32 [ %call.i38.i, %while.cond.i ], [ %call1.i40.i, %do.body.i41.i ], [ %call1.i40.i, %do.body.i41.i ]
-  %cmp12.not.i = icmp eq i32 %ch.0.i42.i, -1
-  br i1 %cmp12.not.i, label %if.end15, label %while.body.i
-
-while.body.i:                                     ; preds = %text_getc.exit43.i
-  %5 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom15.i = sext i32 %ch.0.i42.i to i64
-  %arrayidx16.i = getelementptr inbounds i16, ptr %5, i64 %idxprom15.i
-  %6 = load i16, ptr %arrayidx16.i, align 2, !tbaa !14
-  %7 = and i16 %6, 2048
-  %tobool19.not.i = icmp eq i16 %7, 0
-  br i1 %tobool19.not.i, label %if.end15, label %if.end21.i
-
-if.end21.i:                                       ; preds = %while.body.i
-  %mul.i = mul nsw i64 %val.0.i, 10
-  %sub22.i = add nsw i32 %ch.0.i42.i, -48
-  %conv23.i = sext i32 %sub22.i to i64
-  %add.i = add nsw i64 %mul.i, %conv23.i
-  br label %while.cond.i, !llvm.loop !18
-
-if.then12:                                        ; preds = %do.end.i, %text_getc.exit.i
-  %8 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call13 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.3, ptr noundef %filename) #9
+if.then12:                                        ; preds = %for.body, %for.body.1, %for.body.2, %for.body.3
+  %3 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call13 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3, ptr noundef nonnull @.str.3, ptr noundef %filename) #9
   %call14 = call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
-if.end15:                                         ; preds = %while.body.i, %text_getc.exit43.i
-  %conv16 = trunc i64 %val.0.i to i32
+if.end15:                                         ; preds = %for.body
+  %4 = load i64, ptr %val, align 8, !tbaa !6
+  %conv16 = trunc i64 %4 to i32
   %arrayidx17 = getelementptr inbounds [64 x i32], ptr %table, i64 0, i64 %indvars.iv
-  store i32 %conv16, ptr %arrayidx17, align 4, !tbaa !12
+  store i32 %conv16, ptr %arrayidx17, align 4, !tbaa !10
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 64
-  br i1 %exitcond.not, label %for.end, label %do.body.i.preheader, !llvm.loop !19
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !14
 
 for.end:                                          ; preds = %if.end15
-  store i64 %val.0.i, ptr %val, align 8, !tbaa !10
-  store i32 %ch.0.i42.i, ptr %termchar, align 4, !tbaa !12
-  call void @jpeg_add_quant_table(ptr noundef %cinfo, i32 noundef %tblno.061, ptr noundef nonnull %table, i32 noundef %scale_factor, i32 noundef %force_baseline) #8
-  %inc18 = add nuw nsw i32 %tblno.061, 1
+  call void @jpeg_add_quant_table(ptr noundef %cinfo, i32 noundef 0, ptr noundef nonnull %table, i32 noundef %scale_factor, i32 noundef %force_baseline) #8
   %call2 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool.not = icmp eq i32 %call2, 0
-  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !20
+  br i1 %tobool.not, label %while.end, label %while.body.1, !llvm.loop !16
 
-while.end:                                        ; preds = %for.end, %while.cond.preheader
-  %9 = load i32, ptr %termchar, align 4, !tbaa !12
-  %cmp19.not = icmp eq i32 %9, -1
+while.body.1:                                     ; preds = %for.end
+  %5 = load i64, ptr %val, align 8, !tbaa !6
+  %conv.1 = trunc i64 %5 to i32
+  store i32 %conv.1, ptr %table, align 16, !tbaa !10
+  br label %for.body.1
+
+for.body.1:                                       ; preds = %if.end15.1, %while.body.1
+  %indvars.iv.1 = phi i64 [ 1, %while.body.1 ], [ %indvars.iv.next.1, %if.end15.1 ]
+  %call10.1 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool11.not.1 = icmp eq i32 %call10.1, 0
+  br i1 %tobool11.not.1, label %if.then12, label %if.end15.1
+
+if.end15.1:                                       ; preds = %for.body.1
+  %6 = load i64, ptr %val, align 8, !tbaa !6
+  %conv16.1 = trunc i64 %6 to i32
+  %arrayidx17.1 = getelementptr inbounds [64 x i32], ptr %table, i64 0, i64 %indvars.iv.1
+  store i32 %conv16.1, ptr %arrayidx17.1, align 4, !tbaa !10
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv.1, 1
+  %exitcond.1.not = icmp eq i64 %indvars.iv.next.1, 64
+  br i1 %exitcond.1.not, label %for.end.1, label %for.body.1, !llvm.loop !14
+
+for.end.1:                                        ; preds = %if.end15.1
+  call void @jpeg_add_quant_table(ptr noundef %cinfo, i32 noundef 1, ptr noundef nonnull %table, i32 noundef %scale_factor, i32 noundef %force_baseline) #8
+  %call2.1 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool.not.1 = icmp eq i32 %call2.1, 0
+  br i1 %tobool.not.1, label %while.end, label %while.body.2, !llvm.loop !16
+
+while.body.2:                                     ; preds = %for.end.1
+  %7 = load i64, ptr %val, align 8, !tbaa !6
+  %conv.2 = trunc i64 %7 to i32
+  store i32 %conv.2, ptr %table, align 16, !tbaa !10
+  br label %for.body.2
+
+for.body.2:                                       ; preds = %if.end15.2, %while.body.2
+  %indvars.iv.2 = phi i64 [ 1, %while.body.2 ], [ %indvars.iv.next.2, %if.end15.2 ]
+  %call10.2 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool11.not.2 = icmp eq i32 %call10.2, 0
+  br i1 %tobool11.not.2, label %if.then12, label %if.end15.2
+
+if.end15.2:                                       ; preds = %for.body.2
+  %8 = load i64, ptr %val, align 8, !tbaa !6
+  %conv16.2 = trunc i64 %8 to i32
+  %arrayidx17.2 = getelementptr inbounds [64 x i32], ptr %table, i64 0, i64 %indvars.iv.2
+  store i32 %conv16.2, ptr %arrayidx17.2, align 4, !tbaa !10
+  %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv.2, 1
+  %exitcond.2.not = icmp eq i64 %indvars.iv.next.2, 64
+  br i1 %exitcond.2.not, label %for.end.2, label %for.body.2, !llvm.loop !14
+
+for.end.2:                                        ; preds = %if.end15.2
+  call void @jpeg_add_quant_table(ptr noundef %cinfo, i32 noundef 2, ptr noundef nonnull %table, i32 noundef %scale_factor, i32 noundef %force_baseline) #8
+  %call2.2 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool.not.2 = icmp eq i32 %call2.2, 0
+  br i1 %tobool.not.2, label %while.end, label %while.body.3, !llvm.loop !16
+
+while.body.3:                                     ; preds = %for.end.2
+  %9 = load i64, ptr %val, align 8, !tbaa !6
+  %conv.3 = trunc i64 %9 to i32
+  store i32 %conv.3, ptr %table, align 16, !tbaa !10
+  br label %for.body.3
+
+for.body.3:                                       ; preds = %if.end15.3, %while.body.3
+  %indvars.iv.3 = phi i64 [ 1, %while.body.3 ], [ %indvars.iv.next.3, %if.end15.3 ]
+  %call10.3 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool11.not.3 = icmp eq i32 %call10.3, 0
+  br i1 %tobool11.not.3, label %if.then12, label %if.end15.3
+
+if.end15.3:                                       ; preds = %for.body.3
+  %10 = load i64, ptr %val, align 8, !tbaa !6
+  %conv16.3 = trunc i64 %10 to i32
+  %arrayidx17.3 = getelementptr inbounds [64 x i32], ptr %table, i64 0, i64 %indvars.iv.3
+  store i32 %conv16.3, ptr %arrayidx17.3, align 4, !tbaa !10
+  %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv.3, 1
+  %exitcond.3.not = icmp eq i64 %indvars.iv.next.3, 64
+  br i1 %exitcond.3.not, label %for.end.3, label %for.body.3, !llvm.loop !14
+
+for.end.3:                                        ; preds = %if.end15.3
+  call void @jpeg_add_quant_table(ptr noundef %cinfo, i32 noundef 3, ptr noundef nonnull %table, i32 noundef %scale_factor, i32 noundef %force_baseline) #8
+  %call2.3 = call fastcc i32 @read_text_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool.not.3 = icmp eq i32 %call2.3, 0
+  br i1 %tobool.not.3, label %while.end, label %if.then4, !llvm.loop !16
+
+while.end:                                        ; preds = %for.end, %for.end.1, %for.end.2, %for.end.3, %while.cond.preheader
+  %11 = load i32, ptr %termchar, align 4, !tbaa !10
+  %cmp19.not = icmp eq i32 %11, -1
   br i1 %cmp19.not, label %if.end24, label %if.then21
 
 if.then21:                                        ; preds = %while.end
-  %10 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call22 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.4, ptr noundef %filename) #9
+  %12 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call22 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.4, ptr noundef %filename) #9
   %call23 = call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
@@ -217,14 +221,14 @@ text_getc.exit:                                   ; preds = %do.body.i, %do.body
 
 do.cond:                                          ; preds = %text_getc.exit
   %call1 = tail call ptr @__ctype_b_loc() #10
-  %0 = load ptr, ptr %call1, align 8, !tbaa !6
+  %0 = load ptr, ptr %call1, align 8, !tbaa !12
   %idxprom = sext i32 %ch.0.i to i64
   %arrayidx = getelementptr inbounds i16, ptr %0, i64 %idxprom
-  %1 = load i16, ptr %arrayidx, align 2, !tbaa !14
+  %1 = load i16, ptr %arrayidx, align 2, !tbaa !17
   %conv = zext i16 %1 to i32
   %and = and i32 %conv, 8192
   %tobool.not = icmp eq i32 %and, 0
-  br i1 %tobool.not, label %do.end, label %do.body, !llvm.loop !16
+  br i1 %tobool.not, label %do.end, label %do.body, !llvm.loop !19
 
 do.end:                                           ; preds = %do.cond
   %and6 = and i32 %conv, 2048
@@ -255,10 +259,10 @@ text_getc.exit43:                                 ; preds = %do.body.i41, %do.bo
   br i1 %cmp12.not, label %while.end, label %while.body
 
 while.body:                                       ; preds = %text_getc.exit43
-  %2 = load ptr, ptr %call1, align 8, !tbaa !6
+  %2 = load ptr, ptr %call1, align 8, !tbaa !12
   %idxprom15 = sext i32 %ch.0.i42 to i64
   %arrayidx16 = getelementptr inbounds i16, ptr %2, i64 %idxprom15
-  %3 = load i16, ptr %arrayidx16, align 2, !tbaa !14
+  %3 = load i16, ptr %arrayidx16, align 2, !tbaa !17
   %4 = and i16 %3, 2048
   %tobool19.not = icmp eq i16 %4, 0
   br i1 %tobool19.not, label %while.end, label %if.end21
@@ -268,16 +272,16 @@ if.end21:                                         ; preds = %while.body
   %sub22 = add nsw i32 %ch.0.i42, -48
   %conv23 = sext i32 %sub22 to i64
   %add = add nsw i64 %mul, %conv23
-  br label %while.cond, !llvm.loop !18
+  br label %while.cond, !llvm.loop !20
 
 while.end:                                        ; preds = %while.body, %text_getc.exit43
-  store i64 %val.0, ptr %result, align 8, !tbaa !10
+  store i64 %val.0, ptr %result, align 8, !tbaa !6
   br label %cleanup
 
 cleanup:                                          ; preds = %text_getc.exit, %do.end, %while.end
   %ch.0.i42.lcssa.sink = phi i32 [ %ch.0.i42, %while.end ], [ %ch.0.i, %do.end ], [ -1, %text_getc.exit ]
   %retval.0 = phi i32 [ 1, %while.end ], [ 0, %do.end ], [ 0, %text_getc.exit ]
-  store i32 %ch.0.i42.lcssa.sink, ptr %termchar, align 4, !tbaa !12
+  store i32 %ch.0.i42.lcssa.sink, ptr %termchar, align 4, !tbaa !10
   ret i32 %retval.0
 }
 
@@ -303,294 +307,193 @@ entry:
   br i1 %cmp, label %if.then, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %entry
-  %call2186 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
-  %tobool.not187 = icmp eq i32 %call2186, 0
-  br i1 %tobool.not187, label %while.end70.thread, label %while.body
+  %call2147 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool.not148 = icmp eq i32 %call2147, 0
+  br i1 %tobool.not148, label %while.end70.thread, label %while.body
 
 if.then:                                          ; preds = %entry
-  %0 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !12
   %call1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.5, ptr noundef %filename) #9
   br label %cleanup
 
 while.body:                                       ; preds = %while.cond.preheader, %if.end68
-  %scanptr.0189 = phi ptr [ %incdec.ptr, %if.end68 ], [ %scans, %while.cond.preheader ]
-  %scanno.0188 = phi i32 [ %inc69, %if.end68 ], [ 0, %while.cond.preheader ]
-  %exitcond209 = icmp eq i32 %scanno.0188, 100
-  br i1 %exitcond209, label %if.then4, label %if.end7
+  %scanptr.0150 = phi ptr [ %incdec.ptr, %if.end68 ], [ %scans, %while.cond.preheader ]
+  %scanno.0149 = phi i32 [ %inc69, %if.end68 ], [ 0, %while.cond.preheader ]
+  %exitcond = icmp eq i32 %scanno.0149, 100
+  br i1 %exitcond, label %if.then4, label %if.end7
 
 if.then4:                                         ; preds = %while.body
-  %1 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !12
   %call5 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %1, ptr noundef nonnull @.str.6, ptr noundef %filename) #9
   %call6 = tail call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
 if.end7:                                          ; preds = %while.body
-  %2 = load i64, ptr %val, align 8, !tbaa !10
+  %2 = load i64, ptr %val, align 8, !tbaa !6
   %conv = trunc i64 %2 to i32
-  %component_index = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 1
-  store i32 %conv, ptr %component_index, align 4, !tbaa !12
-  %termchar.promoted = load i32, ptr %termchar, align 4, !tbaa !12
-  %cmp9179 = icmp eq i32 %termchar.promoted, 32
-  br i1 %cmp9179, label %while.body11, label %while.end
+  %component_index = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 1
+  store i32 %conv, ptr %component_index, align 4, !tbaa !10
+  %3 = load i32, ptr %termchar, align 4
+  %cmp9144 = icmp eq i32 %3, 32
+  br i1 %cmp9144, label %while.body11.preheader, label %while.end
 
-while.body11:                                     ; preds = %if.end7, %if.end21
-  %indvars.iv = phi i64 [ %indvars.iv.next, %if.end21 ], [ 1, %if.end7 ]
-  %exitcond = icmp eq i64 %indvars.iv, 4
-  br i1 %exitcond, label %if.then14, label %do.body.i
+while.body11.preheader:                           ; preds = %if.end7
+  %call18 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool19.not = icmp eq i32 %call18, 0
+  br i1 %tobool19.not, label %bogus, label %if.end21
 
-if.then14:                                        ; preds = %while.body11
-  %3 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3, ptr noundef nonnull @.str.7, ptr noundef %filename) #9
+if.then14:                                        ; preds = %if.end21.2
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.7, ptr noundef %filename) #9
   %call16 = tail call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
-do.body.i:                                        ; preds = %while.body11, %do.cond.i
-  %call.i.i135 = tail call i32 @getc(ptr noundef nonnull %call)
-  %cmp.i.i136 = icmp eq i32 %call.i.i135, 35
-  br i1 %cmp.i.i136, label %do.body.i.i138, label %text_getc.exit.i140
+if.end21:                                         ; preds = %while.body11.preheader
+  %5 = load i64, ptr %val, align 8, !tbaa !6
+  %conv22 = trunc i64 %5 to i32
+  %arrayidx24 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 1, i64 1
+  store i32 %conv22, ptr %arrayidx24, align 4, !tbaa !10
+  %6 = load i32, ptr %termchar, align 4
+  %cmp9 = icmp eq i32 %6, 32
+  br i1 %cmp9, label %while.body11.1, label %while.end, !llvm.loop !21
 
-do.body.i.i138:                                   ; preds = %do.body.i, %do.body.i.i138
-  %call1.i.i137 = tail call i32 @getc(ptr noundef nonnull %call)
-  switch i32 %call1.i.i137, label %do.body.i.i138 [
-    i32 -1, label %text_getc.exit.i140
-    i32 10, label %text_getc.exit.i140
-  ]
+while.body11.1:                                   ; preds = %if.end21
+  %call18.1 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool19.not.1 = icmp eq i32 %call18.1, 0
+  br i1 %tobool19.not.1, label %bogus, label %if.end21.1
 
-text_getc.exit.i140:                              ; preds = %do.body.i.i138, %do.body.i.i138, %do.body.i
-  %ch.0.i.i139 = phi i32 [ %call.i.i135, %do.body.i ], [ %call1.i.i137, %do.body.i.i138 ], [ %call1.i.i137, %do.body.i.i138 ]
-  %cmp.i = icmp eq i32 %ch.0.i.i139, -1
-  br i1 %cmp.i, label %bogus, label %do.cond.i
+if.end21.1:                                       ; preds = %while.body11.1
+  %7 = load i64, ptr %val, align 8, !tbaa !6
+  %conv22.1 = trunc i64 %7 to i32
+  %arrayidx24.1 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 1, i64 2
+  store i32 %conv22.1, ptr %arrayidx24.1, align 4, !tbaa !10
+  %8 = load i32, ptr %termchar, align 4
+  %cmp9.1 = icmp eq i32 %8, 32
+  br i1 %cmp9.1, label %while.body11.2, label %while.end, !llvm.loop !21
 
-do.cond.i:                                        ; preds = %text_getc.exit.i140
-  %call1.i = tail call ptr @__ctype_b_loc() #10
-  %4 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom.i141 = sext i32 %ch.0.i.i139 to i64
-  %arrayidx.i142 = getelementptr inbounds i16, ptr %4, i64 %idxprom.i141
-  %5 = load i16, ptr %arrayidx.i142, align 2, !tbaa !14
-  %conv.i = zext i16 %5 to i32
-  %and.i = and i32 %conv.i, 8192
-  %tobool.not.i143 = icmp eq i32 %and.i, 0
-  br i1 %tobool.not.i143, label %do.end.i, label %do.body.i, !llvm.loop !16
+while.body11.2:                                   ; preds = %if.end21.1
+  %call18.2 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
+  %tobool19.not.2 = icmp eq i32 %call18.2, 0
+  br i1 %tobool19.not.2, label %bogus, label %if.end21.2
 
-do.end.i:                                         ; preds = %do.cond.i
-  %and6.i = and i32 %conv.i, 2048
-  %tobool7.not.i = icmp eq i32 %and6.i, 0
-  br i1 %tobool7.not.i, label %bogus, label %if.end9.i
+if.end21.2:                                       ; preds = %while.body11.2
+  %9 = load i64, ptr %val, align 8, !tbaa !6
+  %conv22.2 = trunc i64 %9 to i32
+  %arrayidx24.2 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 1, i64 3
+  store i32 %conv22.2, ptr %arrayidx24.2, align 4, !tbaa !10
+  %10 = load i32, ptr %termchar, align 4
+  %cmp9.2 = icmp eq i32 %10, 32
+  br i1 %cmp9.2, label %if.then14, label %while.end, !llvm.loop !21
 
-if.end9.i:                                        ; preds = %do.end.i
-  %sub.i = add nsw i32 %ch.0.i.i139, -48
-  %conv10.i = sext i32 %sub.i to i64
-  br label %while.cond.i
-
-while.cond.i:                                     ; preds = %if.end21.i, %if.end9.i
-  %val.0.i = phi i64 [ %conv10.i, %if.end9.i ], [ %add.i, %if.end21.i ]
-  %call.i38.i = tail call i32 @getc(ptr noundef nonnull %call)
-  %cmp.i39.i = icmp eq i32 %call.i38.i, 35
-  br i1 %cmp.i39.i, label %do.body.i41.i, label %text_getc.exit43.i
-
-do.body.i41.i:                                    ; preds = %while.cond.i, %do.body.i41.i
-  %call1.i40.i = tail call i32 @getc(ptr noundef nonnull %call)
-  switch i32 %call1.i40.i, label %do.body.i41.i [
-    i32 -1, label %text_getc.exit43.i
-    i32 10, label %text_getc.exit43.i
-  ]
-
-text_getc.exit43.i:                               ; preds = %do.body.i41.i, %do.body.i41.i, %while.cond.i
-  %ch.0.i42.i = phi i32 [ %call.i38.i, %while.cond.i ], [ %call1.i40.i, %do.body.i41.i ], [ %call1.i40.i, %do.body.i41.i ]
-  %cmp12.not.i = icmp eq i32 %ch.0.i42.i, -1
-  br i1 %cmp12.not.i, label %while.end.i, label %while.body.i144
-
-while.body.i144:                                  ; preds = %text_getc.exit43.i
-  %6 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom15.i = sext i32 %ch.0.i42.i to i64
-  %arrayidx16.i = getelementptr inbounds i16, ptr %6, i64 %idxprom15.i
-  %7 = load i16, ptr %arrayidx16.i, align 2, !tbaa !14
-  %8 = and i16 %7, 2048
-  %tobool19.not.i = icmp eq i16 %8, 0
-  br i1 %tobool19.not.i, label %land.rhs.i, label %if.end21.i
-
-if.end21.i:                                       ; preds = %while.body.i144
-  %mul.i = mul nsw i64 %val.0.i, 10
-  %sub22.i = add nsw i32 %ch.0.i42.i, -48
-  %conv23.i = sext i32 %sub22.i to i64
-  %add.i = add nsw i64 %mul.i, %conv23.i
-  br label %while.cond.i, !llvm.loop !18
-
-land.rhs.i:                                       ; preds = %while.body.i144, %text_getc.exit.i
-  %ch.039.i = phi i32 [ %ch.0.i.i, %text_getc.exit.i ], [ %ch.0.i42.i, %while.body.i144 ]
-  %9 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom.i = sext i32 %ch.039.i to i64
-  %arrayidx.i = getelementptr inbounds i16, ptr %9, i64 %idxprom.i
-  %10 = load i16, ptr %arrayidx.i, align 2, !tbaa !14
-  %11 = and i16 %10, 8192
-  %tobool2.not.i = icmp eq i16 %11, 0
-  br i1 %tobool2.not.i, label %while.end.i, label %while.body.i
-
-while.body.i:                                     ; preds = %land.rhs.i
-  %call.i.i = tail call i32 @getc(ptr noundef nonnull %call)
-  %cmp.i.i = icmp eq i32 %call.i.i, 35
-  br i1 %cmp.i.i, label %do.body.i.i, label %text_getc.exit.i
-
-do.body.i.i:                                      ; preds = %while.body.i, %do.body.i.i
-  %call1.i.i = tail call i32 @getc(ptr noundef nonnull %call)
-  switch i32 %call1.i.i, label %do.body.i.i [
-    i32 -1, label %text_getc.exit.i
-    i32 10, label %text_getc.exit.i
-  ]
-
-text_getc.exit.i:                                 ; preds = %do.body.i.i, %do.body.i.i, %while.body.i
-  %ch.0.i.i = phi i32 [ %call.i.i, %while.body.i ], [ %call1.i.i, %do.body.i.i ], [ %call1.i.i, %do.body.i.i ]
-  %cmp.not.i = icmp eq i32 %ch.0.i.i, -1
-  br i1 %cmp.not.i, label %while.end.i, label %land.rhs.i, !llvm.loop !21
-
-while.end.i:                                      ; preds = %text_getc.exit43.i, %text_getc.exit.i, %land.rhs.i
-  %ch.0.lcssa.i = phi i32 [ %ch.039.i, %land.rhs.i ], [ -1, %text_getc.exit.i ], [ -1, %text_getc.exit43.i ]
-  %cmp.lcssa.i = phi i1 [ true, %land.rhs.i ], [ %tobool2.not.i, %text_getc.exit.i ], [ false, %text_getc.exit43.i ]
-  %12 = load ptr, ptr %call1.i, align 8, !tbaa !6
-  %idxprom5.i = sext i32 %ch.0.lcssa.i to i64
-  %arrayidx6.i = getelementptr inbounds i16, ptr %12, i64 %idxprom5.i
-  %13 = load i16, ptr %arrayidx6.i, align 2, !tbaa !14
-  %14 = and i16 %13, 2048
-  %tobool9.not.i = icmp eq i16 %14, 0
-  br i1 %tobool9.not.i, label %if.else.i, label %if.then10.i
-
-if.then10.i:                                      ; preds = %while.end.i
-  %call11.i = tail call i32 @ungetc(i32 noundef %ch.0.lcssa.i, ptr noundef nonnull %call)
-  %cmp12.i = icmp eq i32 %call11.i, -1
-  br i1 %cmp12.i, label %bogus, label %if.end21
-
-if.else.i:                                        ; preds = %while.end.i
-  %15 = add i32 %ch.0.lcssa.i, -60
-  %16 = icmp ult i32 %15, -2
-  %or.cond26.i = and i1 %cmp.lcssa.i, %16
-  %spec.select = select i1 %or.cond26.i, i32 32, i32 %ch.0.lcssa.i
-  br label %if.end21
-
-if.end21:                                         ; preds = %if.else.i, %if.then10.i
-  %ch.1.i = phi i32 [ 32, %if.then10.i ], [ %spec.select, %if.else.i ]
-  %conv22 = trunc i64 %val.0.i to i32
-  %arrayidx24 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 1, i64 %indvars.iv
-  store i32 %conv22, ptr %arrayidx24, align 4, !tbaa !12
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %cmp9 = icmp eq i32 %ch.1.i, 32
-  br i1 %cmp9, label %while.body11, label %while.end.loopexit, !llvm.loop !22
-
-while.end.loopexit:                               ; preds = %if.end21
-  %17 = trunc i64 %indvars.iv.next to i32
-  br label %while.end
-
-while.end:                                        ; preds = %while.end.loopexit, %if.end7
-  %val.0.i.lcssa175.lcssa = phi i64 [ %2, %if.end7 ], [ %val.0.i, %while.end.loopexit ]
-  %ch.0.i42.i.lcssa171.lcssa = phi i32 [ %termchar.promoted, %if.end7 ], [ %ch.1.i, %while.end.loopexit ]
-  %ncomps.0.lcssa = phi i32 [ 1, %if.end7 ], [ %17, %while.end.loopexit ]
-  store i32 %ch.0.i42.i.lcssa171.lcssa, ptr %termchar, align 4, !tbaa !12
-  store i64 %val.0.i.lcssa175.lcssa, ptr %val, align 8, !tbaa !10
-  store i32 %ncomps.0.lcssa, ptr %scanptr.0189, align 4, !tbaa !23
-  %cmp25 = icmp eq i32 %ch.0.i42.i.lcssa171.lcssa, 58
+while.end:                                        ; preds = %if.end21, %if.end21.1, %if.end21.2, %if.end7
+  %ncomps.0.lcssa = phi i32 [ 1, %if.end7 ], [ 2, %if.end21 ], [ 3, %if.end21.1 ], [ 4, %if.end21.2 ]
+  %.lcssa = phi i32 [ %3, %if.end7 ], [ %6, %if.end21 ], [ %8, %if.end21.1 ], [ %10, %if.end21.2 ]
+  store i32 %ncomps.0.lcssa, ptr %scanptr.0150, align 4, !tbaa !22
+  %cmp25 = icmp eq i32 %.lcssa, 58
   br i1 %cmp25, label %if.then27, label %if.else
 
 if.then27:                                        ; preds = %while.end
   %call28 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool29 = icmp eq i32 %call28, 0
-  %18 = load i32, ptr %termchar, align 4
-  %cmp30 = icmp ne i32 %18, 32
+  %11 = load i32, ptr %termchar, align 4
+  %cmp30 = icmp ne i32 %11, 32
   %or.cond = select i1 %tobool29, i1 true, i1 %cmp30
   br i1 %or.cond, label %bogus, label %if.end33
 
 if.end33:                                         ; preds = %if.then27
-  %19 = load i64, ptr %val, align 8, !tbaa !10
-  %conv34 = trunc i64 %19 to i32
-  %Ss = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 2
-  store i32 %conv34, ptr %Ss, align 4, !tbaa !25
+  %12 = load i64, ptr %val, align 8, !tbaa !6
+  %conv34 = trunc i64 %12 to i32
+  %Ss = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 2
+  store i32 %conv34, ptr %Ss, align 4, !tbaa !24
   %call35 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool36 = icmp eq i32 %call35, 0
-  %20 = load i32, ptr %termchar, align 4
-  %cmp38 = icmp ne i32 %20, 32
+  %13 = load i32, ptr %termchar, align 4
+  %cmp38 = icmp ne i32 %13, 32
   %or.cond93 = select i1 %tobool36, i1 true, i1 %cmp38
   br i1 %or.cond93, label %bogus, label %if.end41
 
 if.end41:                                         ; preds = %if.end33
-  %21 = load i64, ptr %val, align 8, !tbaa !10
-  %conv42 = trunc i64 %21 to i32
-  %Se = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 3
-  store i32 %conv42, ptr %Se, align 4, !tbaa !26
+  %14 = load i64, ptr %val, align 8, !tbaa !6
+  %conv42 = trunc i64 %14 to i32
+  %Se = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 3
+  store i32 %conv42, ptr %Se, align 4, !tbaa !25
   %call43 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool44 = icmp eq i32 %call43, 0
-  %22 = load i32, ptr %termchar, align 4
-  %cmp46 = icmp ne i32 %22, 32
+  %15 = load i32, ptr %termchar, align 4
+  %cmp46 = icmp ne i32 %15, 32
   %or.cond94 = select i1 %tobool44, i1 true, i1 %cmp46
   br i1 %or.cond94, label %bogus, label %if.end49
 
 if.end49:                                         ; preds = %if.end41
-  %23 = load i64, ptr %val, align 8, !tbaa !10
-  %conv50 = trunc i64 %23 to i32
-  %Ah = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 4
-  store i32 %conv50, ptr %Ah, align 4, !tbaa !27
+  %16 = load i64, ptr %val, align 8, !tbaa !6
+  %conv50 = trunc i64 %16 to i32
+  %Ah = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 4
+  store i32 %conv50, ptr %Ah, align 4, !tbaa !26
   %call51 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool52.not = icmp eq i32 %call51, 0
   br i1 %tobool52.not, label %bogus, label %if.end54
 
 if.end54:                                         ; preds = %if.end49
-  %24 = load i64, ptr %val, align 8, !tbaa !10
-  %conv55 = trunc i64 %24 to i32
-  %Al = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 5
-  store i32 %conv55, ptr %Al, align 4, !tbaa !28
+  %17 = load i64, ptr %val, align 8, !tbaa !6
+  %conv55 = trunc i64 %17 to i32
+  %Al = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 5
+  store i32 %conv55, ptr %Al, align 4, !tbaa !27
   %.pre = load i32, ptr %termchar, align 4
   br label %if.end60
 
 if.else:                                          ; preds = %while.end
-  %Ss56 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 0, i32 2
-  store <4 x i32> <i32 0, i32 63, i32 0, i32 0>, ptr %Ss56, align 4, !tbaa !12
+  %Ss56 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 0, i32 2
+  store <4 x i32> <i32 0, i32 63, i32 0, i32 0>, ptr %Ss56, align 4, !tbaa !10
   br label %if.end60
 
 if.end60:                                         ; preds = %if.else, %if.end54
-  %25 = phi i32 [ %ch.0.i42.i.lcssa171.lcssa, %if.else ], [ %.pre, %if.end54 ]
-  switch i32 %25, label %bogus [
+  %18 = phi i32 [ %.lcssa, %if.else ], [ %.pre, %if.end54 ]
+  switch i32 %18, label %bogus [
     i32 -1, label %if.end68
     i32 59, label %if.end68
   ]
 
-bogus:                                            ; preds = %if.end60, %if.end49, %if.end41, %if.end33, %if.then27, %if.then10.i, %do.end.i, %text_getc.exit.i140
-  %26 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call66 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %26, ptr noundef nonnull @.str.8, ptr noundef %filename) #9
+bogus:                                            ; preds = %if.end60, %if.end49, %if.end41, %if.end33, %if.then27, %while.body11.preheader, %while.body11.1, %while.body11.2
+  %19 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call66 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %19, ptr noundef nonnull @.str.8, ptr noundef %filename) #9
   %call67 = tail call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
 if.end68:                                         ; preds = %if.end60, %if.end60
-  %incdec.ptr = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0189, i64 1
-  %inc69 = add nuw nsw i32 %scanno.0188, 1
+  %incdec.ptr = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.0150, i64 1
+  %inc69 = add nuw nsw i32 %scanno.0149, 1
   %call2 = call fastcc i32 @read_scan_integer(ptr noundef nonnull %call, ptr noundef nonnull %val, ptr noundef nonnull %termchar), !range !5
   %tobool.not = icmp eq i32 %call2, 0
-  br i1 %tobool.not, label %while.end70, label %while.body, !llvm.loop !29
+  br i1 %tobool.not, label %while.end70, label %while.body, !llvm.loop !28
 
 while.end70:                                      ; preds = %if.end68
-  %27 = load i32, ptr %termchar, align 4, !tbaa !12
-  %cmp71.not = icmp eq i32 %27, -1
+  %20 = load i32, ptr %termchar, align 4, !tbaa !10
+  %cmp71.not = icmp eq i32 %20, -1
   br i1 %cmp71.not, label %if.then79, label %if.then73
 
 while.end70.thread:                               ; preds = %while.cond.preheader
-  %28 = load i32, ptr %termchar, align 4, !tbaa !12
-  %cmp71.not214 = icmp eq i32 %28, -1
-  br i1 %cmp71.not214, label %if.end85, label %if.then73
+  %21 = load i32, ptr %termchar, align 4, !tbaa !10
+  %cmp71.not156 = icmp eq i32 %21, -1
+  br i1 %cmp71.not156, label %if.end85, label %if.then73
 
 if.then73:                                        ; preds = %while.end70.thread, %while.end70
-  %29 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %call74 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %29, ptr noundef nonnull @.str.4, ptr noundef %filename) #9
+  %22 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %call74 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %22, ptr noundef nonnull @.str.4, ptr noundef %filename) #9
   %call75 = tail call i32 @fclose(ptr noundef nonnull %call)
   br label %cleanup
 
 if.then79:                                        ; preds = %while.end70
   %mem = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 1
-  %30 = load ptr, ptr %mem, align 8, !tbaa !30
-  %31 = load ptr, ptr %30, align 8, !tbaa !33
+  %23 = load ptr, ptr %mem, align 8, !tbaa !29
+  %24 = load ptr, ptr %23, align 8, !tbaa !32
   %conv80 = zext i32 %inc69 to i64
   %mul = mul nuw nsw i64 %conv80, 36
-  %call81 = tail call ptr %31(ptr noundef %cinfo, i32 noundef 1, i64 noundef %mul) #8
+  %call81 = tail call ptr %24(ptr noundef %cinfo, i32 noundef 1, i64 noundef %mul) #8
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %call81, ptr noundef nonnull align 16 dereferenceable(1) %scans, i64 %mul, i1 false)
   %scan_info = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 22
-  store ptr %call81, ptr %scan_info, align 8, !tbaa !35
+  store ptr %call81, ptr %scan_info, align 8, !tbaa !34
   %num_scans = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 21
-  store i32 %inc69, ptr %num_scans, align 8, !tbaa !36
+  store i32 %inc69, ptr %num_scans, align 8, !tbaa !35
   br label %if.end85
 
 if.end85:                                         ; preds = %while.end70.thread, %if.then79
@@ -613,17 +516,17 @@ entry:
   br i1 %tobool.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
-  %0 = load i32, ptr %termchar, align 4, !tbaa !12
+  %0 = load i32, ptr %termchar, align 4, !tbaa !10
   %cmp38.not = icmp eq i32 %0, -1
   %.pre = tail call ptr @__ctype_b_loc() #10
   br i1 %cmp38.not, label %while.end, label %land.rhs
 
 land.rhs:                                         ; preds = %if.end, %text_getc.exit
   %ch.039 = phi i32 [ %ch.0.i, %text_getc.exit ], [ %0, %if.end ]
-  %1 = load ptr, ptr %.pre, align 8, !tbaa !6
+  %1 = load ptr, ptr %.pre, align 8, !tbaa !12
   %idxprom = sext i32 %ch.039 to i64
   %arrayidx = getelementptr inbounds i16, ptr %1, i64 %idxprom
-  %2 = load i16, ptr %arrayidx, align 2, !tbaa !14
+  %2 = load i16, ptr %arrayidx, align 2, !tbaa !17
   %3 = and i16 %2, 8192
   %tobool2.not = icmp eq i16 %3, 0
   br i1 %tobool2.not, label %while.end, label %while.body
@@ -643,15 +546,15 @@ do.body.i:                                        ; preds = %while.body, %do.bod
 text_getc.exit:                                   ; preds = %do.body.i, %do.body.i, %while.body
   %ch.0.i = phi i32 [ %call.i, %while.body ], [ %call1.i, %do.body.i ], [ %call1.i, %do.body.i ]
   %cmp.not = icmp eq i32 %ch.0.i, -1
-  br i1 %cmp.not, label %while.end, label %land.rhs, !llvm.loop !21
+  br i1 %cmp.not, label %while.end, label %land.rhs, !llvm.loop !36
 
 while.end:                                        ; preds = %land.rhs, %text_getc.exit, %if.end
   %ch.0.lcssa = phi i32 [ -1, %if.end ], [ -1, %text_getc.exit ], [ %ch.039, %land.rhs ]
   %cmp.lcssa = phi i1 [ false, %if.end ], [ %tobool2.not, %text_getc.exit ], [ true, %land.rhs ]
-  %4 = load ptr, ptr %.pre, align 8, !tbaa !6
+  %4 = load ptr, ptr %.pre, align 8, !tbaa !12
   %idxprom5 = sext i32 %ch.0.lcssa to i64
   %arrayidx6 = getelementptr inbounds i16, ptr %4, i64 %idxprom5
-  %5 = load i16, ptr %arrayidx6, align 2, !tbaa !14
+  %5 = load i16, ptr %arrayidx6, align 2, !tbaa !17
   %6 = and i16 %5, 2048
   %tobool9.not = icmp eq i16 %6, 0
   br i1 %tobool9.not, label %if.else, label %if.then10
@@ -670,7 +573,7 @@ if.else:                                          ; preds = %while.end
 
 if.end25:                                         ; preds = %if.then10, %if.else
   %ch.1 = phi i32 [ %spec.store.select, %if.else ], [ 32, %if.then10 ]
-  store i32 %ch.1, ptr %termchar, align 4, !tbaa !12
+  store i32 %ch.1, ptr %termchar, align 4, !tbaa !10
   br label %cleanup
 
 cleanup:                                          ; preds = %if.then10, %entry, %if.end25
@@ -687,7 +590,7 @@ entry:
   %val = alloca i32, align 4
   %ch = alloca i8, align 1
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %val) #8
-  store i32 0, ptr %val, align 4, !tbaa !12
+  store i32 0, ptr %val, align 4, !tbaa !10
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %ch) #8
   %comp_info = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 14
   br label %for.body
@@ -714,7 +617,7 @@ if.end6:                                          ; preds = %if.then
   br i1 %or.cond, label %if.then11, label %if.end13
 
 if.then11:                                        ; preds = %if.end6
-  %3 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %3 = load ptr, ptr @stderr, align 8, !tbaa !12
   %call12 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3, ptr noundef nonnull @.str.10, i32 noundef 3) #9
   br label %cleanup
 
@@ -736,7 +639,7 @@ land.rhs:                                         ; preds = %while.cond
   br i1 %cmp17.not, label %for.inc, label %while.cond, !llvm.loop !41
 
 if.else:                                          ; preds = %for.body
-  %6 = load i32, ptr %val, align 4, !tbaa !12
+  %6 = load i32, ptr %val, align 4, !tbaa !10
   %7 = load ptr, ptr %comp_info, align 8, !tbaa !38
   %quant_tbl_no22 = getelementptr inbounds %struct.jpeg_component_info, ptr %7, i64 %indvars.iv, i32 4
   store i32 %6, ptr %quant_tbl_no22, align 8, !tbaa !39
@@ -806,7 +709,7 @@ if.end12:                                         ; preds = %if.end
   br i1 %or.cond51, label %if.then24, label %if.end26
 
 if.then24:                                        ; preds = %if.end12
-  %7 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %7 = load ptr, ptr @stderr, align 8, !tbaa !12
   %8 = call i64 @fwrite(ptr nonnull @.str.12, i64 35, i64 1, ptr %7) #9
   br label %cleanup
 
@@ -814,7 +717,7 @@ if.end26:                                         ; preds = %if.end12
   %9 = load ptr, ptr %comp_info, align 8, !tbaa !38
   %h_samp_factor = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 %indvars.iv, i32 2
   store i32 %4, ptr %h_samp_factor, align 8, !tbaa !43
-  %10 = load i32, ptr %val2, align 4, !tbaa !12
+  %10 = load i32, ptr %val2, align 4, !tbaa !10
   %v_samp_factor = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 %indvars.iv, i32 3
   store i32 %10, ptr %v_samp_factor, align 4, !tbaa !44
   br label %while.cond
@@ -887,43 +790,43 @@ attributes #10 = { nounwind willreturn memory(none) }
 !4 = !{!"clang version 17.0.0"}
 !5 = !{i32 0, i32 2}
 !6 = !{!7, !7, i64 0}
-!7 = !{!"any pointer", !8, i64 0}
+!7 = !{!"long", !8, i64 0}
 !8 = !{!"omnipotent char", !9, i64 0}
 !9 = !{!"Simple C/C++ TBAA"}
 !10 = !{!11, !11, i64 0}
-!11 = !{!"long", !8, i64 0}
+!11 = !{!"int", !8, i64 0}
 !12 = !{!13, !13, i64 0}
-!13 = !{!"int", !8, i64 0}
-!14 = !{!15, !15, i64 0}
-!15 = !{!"short", !8, i64 0}
-!16 = distinct !{!16, !17}
-!17 = !{!"llvm.loop.mustprogress"}
-!18 = distinct !{!18, !17}
-!19 = distinct !{!19, !17}
-!20 = distinct !{!20, !17}
-!21 = distinct !{!21, !17}
-!22 = distinct !{!22, !17}
-!23 = !{!24, !13, i64 0}
-!24 = !{!"", !13, i64 0, !8, i64 4, !13, i64 20, !13, i64 24, !13, i64 28, !13, i64 32}
-!25 = !{!24, !13, i64 20}
-!26 = !{!24, !13, i64 24}
-!27 = !{!24, !13, i64 28}
-!28 = !{!24, !13, i64 32}
-!29 = distinct !{!29, !17}
-!30 = !{!31, !7, i64 8}
-!31 = !{!"jpeg_compress_struct", !7, i64 0, !7, i64 8, !7, i64 16, !13, i64 24, !13, i64 28, !7, i64 32, !13, i64 40, !13, i64 44, !13, i64 48, !8, i64 52, !32, i64 56, !13, i64 64, !13, i64 68, !8, i64 72, !7, i64 80, !8, i64 88, !8, i64 120, !8, i64 152, !8, i64 184, !8, i64 200, !8, i64 216, !13, i64 232, !7, i64 240, !13, i64 248, !13, i64 252, !13, i64 256, !13, i64 260, !13, i64 264, !8, i64 268, !13, i64 272, !13, i64 276, !13, i64 280, !8, i64 284, !15, i64 286, !15, i64 288, !13, i64 292, !13, i64 296, !13, i64 300, !13, i64 304, !13, i64 308, !13, i64 312, !13, i64 316, !8, i64 320, !13, i64 352, !13, i64 356, !13, i64 360, !8, i64 364, !13, i64 404, !13, i64 408, !13, i64 412, !13, i64 416, !7, i64 424, !7, i64 432, !7, i64 440, !7, i64 448, !7, i64 456, !7, i64 464, !7, i64 472, !7, i64 480, !7, i64 488}
-!32 = !{!"double", !8, i64 0}
-!33 = !{!34, !7, i64 0}
-!34 = !{!"jpeg_memory_mgr", !7, i64 0, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32, !7, i64 40, !7, i64 48, !7, i64 56, !7, i64 64, !7, i64 72, !7, i64 80, !11, i64 88}
-!35 = !{!31, !7, i64 240}
-!36 = !{!31, !13, i64 232}
+!13 = !{!"any pointer", !8, i64 0}
+!14 = distinct !{!14, !15}
+!15 = !{!"llvm.loop.mustprogress"}
+!16 = distinct !{!16, !15}
+!17 = !{!18, !18, i64 0}
+!18 = !{!"short", !8, i64 0}
+!19 = distinct !{!19, !15}
+!20 = distinct !{!20, !15}
+!21 = distinct !{!21, !15}
+!22 = !{!23, !11, i64 0}
+!23 = !{!"", !11, i64 0, !8, i64 4, !11, i64 20, !11, i64 24, !11, i64 28, !11, i64 32}
+!24 = !{!23, !11, i64 20}
+!25 = !{!23, !11, i64 24}
+!26 = !{!23, !11, i64 28}
+!27 = !{!23, !11, i64 32}
+!28 = distinct !{!28, !15}
+!29 = !{!30, !13, i64 8}
+!30 = !{!"jpeg_compress_struct", !13, i64 0, !13, i64 8, !13, i64 16, !11, i64 24, !11, i64 28, !13, i64 32, !11, i64 40, !11, i64 44, !11, i64 48, !8, i64 52, !31, i64 56, !11, i64 64, !11, i64 68, !8, i64 72, !13, i64 80, !8, i64 88, !8, i64 120, !8, i64 152, !8, i64 184, !8, i64 200, !8, i64 216, !11, i64 232, !13, i64 240, !11, i64 248, !11, i64 252, !11, i64 256, !11, i64 260, !11, i64 264, !8, i64 268, !11, i64 272, !11, i64 276, !11, i64 280, !8, i64 284, !18, i64 286, !18, i64 288, !11, i64 292, !11, i64 296, !11, i64 300, !11, i64 304, !11, i64 308, !11, i64 312, !11, i64 316, !8, i64 320, !11, i64 352, !11, i64 356, !11, i64 360, !8, i64 364, !11, i64 404, !11, i64 408, !11, i64 412, !11, i64 416, !13, i64 424, !13, i64 432, !13, i64 440, !13, i64 448, !13, i64 456, !13, i64 464, !13, i64 472, !13, i64 480, !13, i64 488}
+!31 = !{!"double", !8, i64 0}
+!32 = !{!33, !13, i64 0}
+!33 = !{!"jpeg_memory_mgr", !13, i64 0, !13, i64 8, !13, i64 16, !13, i64 24, !13, i64 32, !13, i64 40, !13, i64 48, !13, i64 56, !13, i64 64, !13, i64 72, !13, i64 80, !7, i64 88}
+!34 = !{!30, !13, i64 240}
+!35 = !{!30, !11, i64 232}
+!36 = distinct !{!36, !15}
 !37 = !{!8, !8, i64 0}
-!38 = !{!31, !7, i64 80}
-!39 = !{!40, !13, i64 16}
-!40 = !{!"", !13, i64 0, !13, i64 4, !13, i64 8, !13, i64 12, !13, i64 16, !13, i64 20, !13, i64 24, !13, i64 28, !13, i64 32, !13, i64 36, !13, i64 40, !13, i64 44, !13, i64 48, !13, i64 52, !13, i64 56, !13, i64 60, !13, i64 64, !13, i64 68, !13, i64 72, !7, i64 80, !7, i64 88}
-!41 = distinct !{!41, !17}
-!42 = distinct !{!42, !17}
-!43 = !{!40, !13, i64 8}
-!44 = !{!40, !13, i64 12}
-!45 = distinct !{!45, !17}
-!46 = distinct !{!46, !17}
+!38 = !{!30, !13, i64 80}
+!39 = !{!40, !11, i64 16}
+!40 = !{!"", !11, i64 0, !11, i64 4, !11, i64 8, !11, i64 12, !11, i64 16, !11, i64 20, !11, i64 24, !11, i64 28, !11, i64 32, !11, i64 36, !11, i64 40, !11, i64 44, !11, i64 48, !11, i64 52, !11, i64 56, !11, i64 60, !11, i64 64, !11, i64 68, !11, i64 72, !13, i64 80, !13, i64 88}
+!41 = distinct !{!41, !15}
+!42 = distinct !{!42, !15}
+!43 = !{!40, !11, i64 8}
+!44 = !{!40, !11, i64 12}
+!45 = distinct !{!45, !15}
+!46 = distinct !{!46, !15}

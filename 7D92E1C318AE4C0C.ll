@@ -14,7 +14,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @f1() local_unnamed_addr #1 {
-f2.exit:
+entry:
   ret void
 }
 

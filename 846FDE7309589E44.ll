@@ -28,13 +28,13 @@ foo.exit:                                         ; preds = %entry, %for.body.i
   store i32 1, ptr @m, align 4, !tbaa !5
   %3 = load i32, ptr @a, align 4, !tbaa !5
   %cmp.not = icmp eq i32 %3, 1
-  br i1 %cmp.not, label %bar.exit, label %if.then
+  br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %foo.exit
   tail call void @abort() #2
   unreachable
 
-bar.exit:                                         ; preds = %foo.exit
+if.end:                                           ; preds = %foo.exit
   store i32 0, ptr @e, align 4, !tbaa !5
   %4 = load ptr, ptr @c, align 8, !tbaa !9
   %5 = load i32, ptr %4, align 4, !tbaa !5
@@ -47,11 +47,11 @@ bar.exit:                                         ; preds = %foo.exit
   %cmp8.not = icmp eq i32 %7, 0
   br i1 %cmp8.not, label %if.end11, label %if.then10
 
-if.then10:                                        ; preds = %bar.exit
+if.then10:                                        ; preds = %if.end
   tail call void @abort() #2
   unreachable
 
-if.end11:                                         ; preds = %bar.exit
+if.end11:                                         ; preds = %if.end
   ret i32 0
 }
 

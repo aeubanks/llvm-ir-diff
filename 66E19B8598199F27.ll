@@ -182,10 +182,10 @@ for.body120.i:                                    ; preds = %vector.body369, %fo
   %sub.i.i = fsub <4 x float> %arrayidx149.val.i, %arrayidx153.val.i
   %shufp.i = shufflevector <4 x float> %sub.i.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
   %mul.i.i = fmul <4 x float> %wr.sroa.0.12.vec.insert.i, %sub.i.i
-  %mul.i633.i = fmul <4 x float> %shufp.i, %wu.sroa.0.12.vec.insert.i
-  %add.i634.i = fadd <4 x float> %mul.i.i, %mul.i633.i
+  %mul.i630.i = fmul <4 x float> %shufp.i, %wu.sroa.0.12.vec.insert.i
+  %add.i631.i = fadd <4 x float> %mul.i.i, %mul.i630.i
   %arrayidx165.i = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @x, i64 0, i64 4), i64 %37
-  store <4 x float> %add.i634.i, ptr %arrayidx165.i, align 16, !tbaa !16
+  store <4 x float> %add.i631.i, ptr %arrayidx165.i, align 16, !tbaa !16
   %indvars.iv.next690.i = add nuw nsw i64 %indvars.iv689.i, 1
   %exitcond696.not.i = icmp eq i64 %indvars.iv.next690.i, 256
   br i1 %exitcond696.not.i, label %for.body181.i, label %for.body120.i, !llvm.loop !17
@@ -228,13 +228,13 @@ for.body209.us.i:                                 ; preds = %for.cond238.for.inc
   %44 = load float, ptr %arrayidx213.us.i, align 16, !tbaa !5
   %arrayidx217.us.i = getelementptr inbounds [2 x float], ptr @w, i64 %42, i64 1
   %45 = load float, ptr %arrayidx217.us.i, align 4, !tbaa !5
-  %wr.sroa.0.0.vec.insert662.us.i = insertelement <4 x float> poison, float %44, i64 0
-  %wr.sroa.0.12.vec.insert668.us.i = shufflevector <4 x float> %wr.sroa.0.0.vec.insert662.us.i, <4 x float> poison, <4 x i32> zeroinitializer
+  %wr.sroa.0.0.vec.insert659.us.i = insertelement <4 x float> poison, float %44, i64 0
+  %wr.sroa.0.12.vec.insert665.us.i = shufflevector <4 x float> %wr.sroa.0.0.vec.insert659.us.i, <4 x float> poison, <4 x i32> zeroinitializer
   %fneg228.us.i = fneg float %45
-  %wu.sroa.0.0.vec.insert652.us.i = insertelement <4 x float> poison, float %fneg228.us.i, i64 0
-  %wu.sroa.0.4.vec.insert654.us.i = insertelement <4 x float> %wu.sroa.0.0.vec.insert652.us.i, float %45, i64 1
-  %wu.sroa.0.8.vec.insert656.us.i = insertelement <4 x float> %wu.sroa.0.4.vec.insert654.us.i, float %fneg228.us.i, i64 2
-  %wu.sroa.0.12.vec.insert658.us.i = insertelement <4 x float> %wu.sroa.0.8.vec.insert656.us.i, float %45, i64 3
+  %wu.sroa.0.0.vec.insert649.us.i = insertelement <4 x float> poison, float %fneg228.us.i, i64 0
+  %wu.sroa.0.4.vec.insert651.us.i = insertelement <4 x float> %wu.sroa.0.0.vec.insert649.us.i, float %45, i64 1
+  %wu.sroa.0.8.vec.insert653.us.i = insertelement <4 x float> %wu.sroa.0.4.vec.insert651.us.i, float %fneg228.us.i, i64 2
+  %wu.sroa.0.12.vec.insert655.us.i = insertelement <4 x float> %wu.sroa.0.8.vec.insert653.us.i, float %45, i64 3
   br label %for.body241.us.i
 
 for.body241.us.i:                                 ; preds = %for.body241.us.i, %for.body209.us.i
@@ -245,33 +245,33 @@ for.body241.us.i:                                 ; preds = %for.body241.us.i, %
   %arrayidx245.val.us.i = load <4 x float>, ptr %arrayidx245.us.i, align 16, !tbaa !16
   %arrayidx250.us.i = getelementptr inbounds [2 x float], ptr %b.0.i, i64 %47
   %arrayidx250.val.us.i = load <4 x float>, ptr %arrayidx250.us.i, align 16, !tbaa !16
-  %add.i635.us.i = fadd <4 x float> %arrayidx245.val.us.i, %arrayidx250.val.us.i
+  %add.i632.us.i = fadd <4 x float> %arrayidx245.val.us.i, %arrayidx250.val.us.i
   %48 = add nuw nsw i64 %indvars.iv697.i, %43
   %arrayidx256.us.i = getelementptr inbounds [2 x float], ptr %c.1.i, i64 %48
-  store <4 x float> %add.i635.us.i, ptr %arrayidx256.us.i, align 16, !tbaa !16
-  %sub.i636.us.i = fsub <4 x float> %arrayidx245.val.us.i, %arrayidx250.val.us.i
-  %shufp259.us.i = shufflevector <4 x float> %sub.i636.us.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i637.us.i = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us.i, %sub.i636.us.i
-  %mul.i638.us.i = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us.i, %shufp259.us.i
-  %add.i639.us.i = fadd <4 x float> %mul.i637.us.i, %mul.i638.us.i
+  store <4 x float> %add.i632.us.i, ptr %arrayidx256.us.i, align 16, !tbaa !16
+  %sub.i633.us.i = fsub <4 x float> %arrayidx245.val.us.i, %arrayidx250.val.us.i
+  %shufp259.us.i = shufflevector <4 x float> %sub.i633.us.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i634.us.i = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us.i, %sub.i633.us.i
+  %mul.i635.us.i = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us.i, %shufp259.us.i
+  %add.i636.us.i = fadd <4 x float> %mul.i634.us.i, %mul.i635.us.i
   %arrayidx265.us.i = getelementptr inbounds [2 x float], ptr %d.1.i, i64 %48
-  store <4 x float> %add.i639.us.i, ptr %arrayidx265.us.i, align 16, !tbaa !16
+  store <4 x float> %add.i636.us.i, ptr %arrayidx265.us.i, align 16, !tbaa !16
   %49 = add nuw nsw i64 %46, %42
   %arrayidx269.us.i = getelementptr inbounds [2 x float], ptr %a.0.i, i64 %49
   %arrayidx269.val.us.i = load <4 x float>, ptr %arrayidx269.us.i, align 16, !tbaa !16
   %arrayidx274.us.i = getelementptr inbounds [2 x float], ptr %b.0.i, i64 %49
   %arrayidx274.val.us.i = load <4 x float>, ptr %arrayidx274.us.i, align 16, !tbaa !16
-  %add.i640.us.i = fadd <4 x float> %arrayidx269.val.us.i, %arrayidx274.val.us.i
+  %add.i637.us.i = fadd <4 x float> %arrayidx269.val.us.i, %arrayidx274.val.us.i
   %50 = add nuw nsw i64 %46, %43
   %arrayidx280.us.i = getelementptr inbounds [2 x float], ptr %c.1.i, i64 %50
-  store <4 x float> %add.i640.us.i, ptr %arrayidx280.us.i, align 16, !tbaa !16
-  %sub.i641.us.i = fsub <4 x float> %arrayidx269.val.us.i, %arrayidx274.val.us.i
-  %shufp283.us.i = shufflevector <4 x float> %sub.i641.us.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i642.us.i = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us.i, %sub.i641.us.i
-  %mul.i643.us.i = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us.i, %shufp283.us.i
-  %add.i644.us.i = fadd <4 x float> %mul.i642.us.i, %mul.i643.us.i
+  store <4 x float> %add.i637.us.i, ptr %arrayidx280.us.i, align 16, !tbaa !16
+  %sub.i638.us.i = fsub <4 x float> %arrayidx269.val.us.i, %arrayidx274.val.us.i
+  %shufp283.us.i = shufflevector <4 x float> %sub.i638.us.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i639.us.i = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us.i, %sub.i638.us.i
+  %mul.i640.us.i = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us.i, %shufp283.us.i
+  %add.i641.us.i = fadd <4 x float> %mul.i639.us.i, %mul.i640.us.i
   %arrayidx289.us.i = getelementptr inbounds [2 x float], ptr %d.1.i, i64 %50
-  store <4 x float> %add.i644.us.i, ptr %arrayidx289.us.i, align 16, !tbaa !16
+  store <4 x float> %add.i641.us.i, ptr %arrayidx289.us.i, align 16, !tbaa !16
   %indvars.iv.next698.i = add nuw nsw i64 %indvars.iv697.i, 4
   %cmp239.us.i = icmp ult i64 %indvars.iv.next698.i, %40
   br i1 %cmp239.us.i, label %for.body241.us.i, label %for.cond238.for.inc294_crit_edge.us.i, !llvm.loop !18
@@ -301,22 +301,22 @@ for.body329.i:                                    ; preds = %for.body329.i, %for
   %arrayidx332.val.i = load <4 x float>, ptr %arrayidx332.i, align 16, !tbaa !16
   %arrayidx336.i = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101.i, i64 %indvars.iv713.i
   %arrayidx336.val.i = load <4 x float>, ptr %arrayidx336.i, align 16, !tbaa !16
-  %add.i645.i = fadd <4 x float> %arrayidx332.val.i, %arrayidx336.val.i
+  %add.i642.i = fadd <4 x float> %arrayidx332.val.i, %arrayidx336.val.i
   %arrayidx341.i = getelementptr inbounds [2 x float], ptr @y, i64 %indvars.iv713.i
-  store <4 x float> %add.i645.i, ptr %arrayidx341.i, align 16, !tbaa !16
-  %sub.i646.i = fsub <4 x float> %arrayidx332.val.i, %arrayidx336.val.i
+  store <4 x float> %add.i642.i, ptr %arrayidx341.i, align 16, !tbaa !16
+  %sub.i643.i = fsub <4 x float> %arrayidx332.val.i, %arrayidx336.val.i
   %arrayidx345.i = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @y, i64 0, i64 1024), i64 %indvars.iv713.i
-  store <4 x float> %sub.i646.i, ptr %arrayidx345.i, align 16, !tbaa !16
+  store <4 x float> %sub.i643.i, ptr %arrayidx345.i, align 16, !tbaa !16
   %arrayidx348.i = getelementptr inbounds [2 x float], ptr %x.y.i, i64 %51
   %arrayidx348.val.i = load <4 x float>, ptr %arrayidx348.i, align 16, !tbaa !16
   %arrayidx352.i = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101.i, i64 %51
   %arrayidx352.val.i = load <4 x float>, ptr %arrayidx352.i, align 16, !tbaa !16
-  %add.i647.i = fadd <4 x float> %arrayidx348.val.i, %arrayidx352.val.i
+  %add.i644.i = fadd <4 x float> %arrayidx348.val.i, %arrayidx352.val.i
   %arrayidx357.i = getelementptr inbounds [2 x float], ptr @y, i64 %51
-  store <4 x float> %add.i647.i, ptr %arrayidx357.i, align 16, !tbaa !16
-  %sub.i648.i = fsub <4 x float> %arrayidx348.val.i, %arrayidx352.val.i
+  store <4 x float> %add.i644.i, ptr %arrayidx357.i, align 16, !tbaa !16
+  %sub.i645.i = fsub <4 x float> %arrayidx348.val.i, %arrayidx352.val.i
   %arrayidx361.i = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @y, i64 0, i64 1024), i64 %51
-  store <4 x float> %sub.i648.i, ptr %arrayidx361.i, align 16, !tbaa !16
+  store <4 x float> %sub.i645.i, ptr %arrayidx361.i, align 16, !tbaa !16
   %indvars.iv.next714.i = add nuw nsw i64 %indvars.iv713.i, 4
   %cmp327.i = icmp ult i64 %indvars.iv713.i, 508
   br i1 %cmp327.i, label %for.body329.i, label %vector.body, !llvm.loop !21
@@ -380,10 +380,10 @@ for.body120.i227:                                 ; preds = %vector.body, %for.b
   %sub.i.i219 = fsub <4 x float> %arrayidx149.val.i214, %arrayidx153.val.i216
   %shufp.i220 = shufflevector <4 x float> %sub.i.i219, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
   %mul.i.i221 = fmul <4 x float> %wr.sroa.0.12.vec.insert.i208, %sub.i.i219
-  %mul.i633.i222 = fmul <4 x float> %shufp.i220, %wu.sroa.0.12.vec.insert.i212
-  %add.i634.i223 = fadd <4 x float> %mul.i.i221, %mul.i633.i222
+  %mul.i630.i222 = fmul <4 x float> %shufp.i220, %wu.sroa.0.12.vec.insert.i212
+  %add.i631.i223 = fadd <4 x float> %mul.i.i221, %mul.i630.i222
   %arrayidx165.i224 = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @y, i64 0, i64 4), i64 %71
-  store <4 x float> %add.i634.i223, ptr %arrayidx165.i224, align 16, !tbaa !16
+  store <4 x float> %add.i631.i223, ptr %arrayidx165.i224, align 16, !tbaa !16
   %indvars.iv.next690.i225 = add nuw nsw i64 %indvars.iv689.i203, 1
   %exitcond696.not.i226 = icmp eq i64 %indvars.iv.next690.i225, 256
   br i1 %exitcond696.not.i226, label %for.body181.i237, label %for.body120.i227, !llvm.loop !17
@@ -427,12 +427,12 @@ for.body209.us.i265:                              ; preds = %for.cond238.for.inc
   %arrayidx217.us.i257 = getelementptr inbounds [2 x float], ptr @w, i64 %76, i64 1
   %79 = load float, ptr %arrayidx217.us.i257, align 4, !tbaa !5
   %fneg222.us.i258 = fneg float %79
-  %wr.sroa.0.0.vec.insert662.us.i259 = insertelement <4 x float> poison, float %78, i64 0
-  %wr.sroa.0.12.vec.insert668.us.i260 = shufflevector <4 x float> %wr.sroa.0.0.vec.insert662.us.i259, <4 x float> poison, <4 x i32> zeroinitializer
-  %wu.sroa.0.0.vec.insert652.us.i261 = insertelement <4 x float> poison, float %79, i64 0
-  %wu.sroa.0.4.vec.insert654.us.i262 = insertelement <4 x float> %wu.sroa.0.0.vec.insert652.us.i261, float %fneg222.us.i258, i64 1
-  %wu.sroa.0.8.vec.insert656.us.i263 = insertelement <4 x float> %wu.sroa.0.4.vec.insert654.us.i262, float %79, i64 2
-  %wu.sroa.0.12.vec.insert658.us.i264 = insertelement <4 x float> %wu.sroa.0.8.vec.insert656.us.i263, float %fneg222.us.i258, i64 3
+  %wr.sroa.0.0.vec.insert659.us.i259 = insertelement <4 x float> poison, float %78, i64 0
+  %wr.sroa.0.12.vec.insert665.us.i260 = shufflevector <4 x float> %wr.sroa.0.0.vec.insert659.us.i259, <4 x float> poison, <4 x i32> zeroinitializer
+  %wu.sroa.0.0.vec.insert649.us.i261 = insertelement <4 x float> poison, float %79, i64 0
+  %wu.sroa.0.4.vec.insert651.us.i262 = insertelement <4 x float> %wu.sroa.0.0.vec.insert649.us.i261, float %fneg222.us.i258, i64 1
+  %wu.sroa.0.8.vec.insert653.us.i263 = insertelement <4 x float> %wu.sroa.0.4.vec.insert651.us.i262, float %79, i64 2
+  %wu.sroa.0.12.vec.insert655.us.i264 = insertelement <4 x float> %wu.sroa.0.8.vec.insert653.us.i263, float %fneg222.us.i258, i64 3
   br label %for.body241.us.i293
 
 for.body241.us.i293:                              ; preds = %for.body241.us.i293, %for.body209.us.i265
@@ -443,33 +443,33 @@ for.body241.us.i293:                              ; preds = %for.body241.us.i293
   %arrayidx245.val.us.i268 = load <4 x float>, ptr %arrayidx245.us.i267, align 16, !tbaa !16
   %arrayidx250.us.i269 = getelementptr inbounds [2 x float], ptr %b.0.i246, i64 %81
   %arrayidx250.val.us.i270 = load <4 x float>, ptr %arrayidx250.us.i269, align 16, !tbaa !16
-  %add.i635.us.i271 = fadd <4 x float> %arrayidx245.val.us.i268, %arrayidx250.val.us.i270
+  %add.i632.us.i271 = fadd <4 x float> %arrayidx245.val.us.i268, %arrayidx250.val.us.i270
   %82 = add nuw nsw i64 %indvars.iv697.i266, %77
   %arrayidx256.us.i272 = getelementptr inbounds [2 x float], ptr %c.1.i245, i64 %82
-  store <4 x float> %add.i635.us.i271, ptr %arrayidx256.us.i272, align 16, !tbaa !16
-  %sub.i636.us.i273 = fsub <4 x float> %arrayidx245.val.us.i268, %arrayidx250.val.us.i270
-  %shufp259.us.i274 = shufflevector <4 x float> %sub.i636.us.i273, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i637.us.i275 = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us.i260, %sub.i636.us.i273
-  %mul.i638.us.i276 = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us.i264, %shufp259.us.i274
-  %add.i639.us.i277 = fadd <4 x float> %mul.i637.us.i275, %mul.i638.us.i276
+  store <4 x float> %add.i632.us.i271, ptr %arrayidx256.us.i272, align 16, !tbaa !16
+  %sub.i633.us.i273 = fsub <4 x float> %arrayidx245.val.us.i268, %arrayidx250.val.us.i270
+  %shufp259.us.i274 = shufflevector <4 x float> %sub.i633.us.i273, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i634.us.i275 = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us.i260, %sub.i633.us.i273
+  %mul.i635.us.i276 = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us.i264, %shufp259.us.i274
+  %add.i636.us.i277 = fadd <4 x float> %mul.i634.us.i275, %mul.i635.us.i276
   %arrayidx265.us.i278 = getelementptr inbounds [2 x float], ptr %d.1.i244, i64 %82
-  store <4 x float> %add.i639.us.i277, ptr %arrayidx265.us.i278, align 16, !tbaa !16
+  store <4 x float> %add.i636.us.i277, ptr %arrayidx265.us.i278, align 16, !tbaa !16
   %83 = add nuw nsw i64 %80, %76
   %arrayidx269.us.i279 = getelementptr inbounds [2 x float], ptr %a.0.i247, i64 %83
   %arrayidx269.val.us.i280 = load <4 x float>, ptr %arrayidx269.us.i279, align 16, !tbaa !16
   %arrayidx274.us.i281 = getelementptr inbounds [2 x float], ptr %b.0.i246, i64 %83
   %arrayidx274.val.us.i282 = load <4 x float>, ptr %arrayidx274.us.i281, align 16, !tbaa !16
-  %add.i640.us.i283 = fadd <4 x float> %arrayidx269.val.us.i280, %arrayidx274.val.us.i282
+  %add.i637.us.i283 = fadd <4 x float> %arrayidx269.val.us.i280, %arrayidx274.val.us.i282
   %84 = add nuw nsw i64 %80, %77
   %arrayidx280.us.i284 = getelementptr inbounds [2 x float], ptr %c.1.i245, i64 %84
-  store <4 x float> %add.i640.us.i283, ptr %arrayidx280.us.i284, align 16, !tbaa !16
-  %sub.i641.us.i285 = fsub <4 x float> %arrayidx269.val.us.i280, %arrayidx274.val.us.i282
-  %shufp283.us.i286 = shufflevector <4 x float> %sub.i641.us.i285, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i642.us.i287 = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us.i260, %sub.i641.us.i285
-  %mul.i643.us.i288 = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us.i264, %shufp283.us.i286
-  %add.i644.us.i289 = fadd <4 x float> %mul.i642.us.i287, %mul.i643.us.i288
+  store <4 x float> %add.i637.us.i283, ptr %arrayidx280.us.i284, align 16, !tbaa !16
+  %sub.i638.us.i285 = fsub <4 x float> %arrayidx269.val.us.i280, %arrayidx274.val.us.i282
+  %shufp283.us.i286 = shufflevector <4 x float> %sub.i638.us.i285, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i639.us.i287 = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us.i260, %sub.i638.us.i285
+  %mul.i640.us.i288 = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us.i264, %shufp283.us.i286
+  %add.i641.us.i289 = fadd <4 x float> %mul.i639.us.i287, %mul.i640.us.i288
   %arrayidx289.us.i290 = getelementptr inbounds [2 x float], ptr %d.1.i244, i64 %84
-  store <4 x float> %add.i644.us.i289, ptr %arrayidx289.us.i290, align 16, !tbaa !16
+  store <4 x float> %add.i641.us.i289, ptr %arrayidx289.us.i290, align 16, !tbaa !16
   %indvars.iv.next698.i291 = add nuw nsw i64 %indvars.iv697.i266, 4
   %cmp239.us.i292 = icmp ult i64 %indvars.iv.next698.i291, %74
   br i1 %cmp239.us.i292, label %for.body241.us.i293, label %for.cond238.for.inc294_crit_edge.us.i296, !llvm.loop !18
@@ -499,22 +499,22 @@ for.body329.i327:                                 ; preds = %for.body329.i327, %
   %arrayidx332.val.i310 = load <4 x float>, ptr %arrayidx332.i309, align 16, !tbaa !16
   %arrayidx336.i311 = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101.i305, i64 %indvars.iv713.i308
   %arrayidx336.val.i312 = load <4 x float>, ptr %arrayidx336.i311, align 16, !tbaa !16
-  %add.i645.i313 = fadd <4 x float> %arrayidx332.val.i310, %arrayidx336.val.i312
+  %add.i642.i313 = fadd <4 x float> %arrayidx332.val.i310, %arrayidx336.val.i312
   %arrayidx341.i314 = getelementptr inbounds [2 x float], ptr @x, i64 %indvars.iv713.i308
-  store <4 x float> %add.i645.i313, ptr %arrayidx341.i314, align 16, !tbaa !16
-  %sub.i646.i315 = fsub <4 x float> %arrayidx332.val.i310, %arrayidx336.val.i312
+  store <4 x float> %add.i642.i313, ptr %arrayidx341.i314, align 16, !tbaa !16
+  %sub.i643.i315 = fsub <4 x float> %arrayidx332.val.i310, %arrayidx336.val.i312
   %arrayidx345.i316 = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @x, i64 0, i64 1024), i64 %indvars.iv713.i308
-  store <4 x float> %sub.i646.i315, ptr %arrayidx345.i316, align 16, !tbaa !16
+  store <4 x float> %sub.i643.i315, ptr %arrayidx345.i316, align 16, !tbaa !16
   %arrayidx348.i317 = getelementptr inbounds [2 x float], ptr %x.y.i306, i64 %85
   %arrayidx348.val.i318 = load <4 x float>, ptr %arrayidx348.i317, align 16, !tbaa !16
   %arrayidx352.i319 = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101.i305, i64 %85
   %arrayidx352.val.i320 = load <4 x float>, ptr %arrayidx352.i319, align 16, !tbaa !16
-  %add.i647.i321 = fadd <4 x float> %arrayidx348.val.i318, %arrayidx352.val.i320
+  %add.i644.i321 = fadd <4 x float> %arrayidx348.val.i318, %arrayidx352.val.i320
   %arrayidx357.i322 = getelementptr inbounds [2 x float], ptr @x, i64 %85
-  store <4 x float> %add.i647.i321, ptr %arrayidx357.i322, align 16, !tbaa !16
-  %sub.i648.i323 = fsub <4 x float> %arrayidx348.val.i318, %arrayidx352.val.i320
+  store <4 x float> %add.i644.i321, ptr %arrayidx357.i322, align 16, !tbaa !16
+  %sub.i645.i323 = fsub <4 x float> %arrayidx348.val.i318, %arrayidx352.val.i320
   %arrayidx361.i324 = getelementptr inbounds [2 x float], ptr getelementptr inbounds ([2048 x float], ptr @x, i64 0, i64 1024), i64 %85
-  store <4 x float> %sub.i648.i323, ptr %arrayidx361.i324, align 16, !tbaa !16
+  store <4 x float> %sub.i645.i323, ptr %arrayidx361.i324, align 16, !tbaa !16
   %indvars.iv.next714.i325 = add nuw nsw i64 %indvars.iv713.i308, 4
   %cmp327.i326 = icmp ult i64 %indvars.iv713.i308, 508
   br i1 %cmp327.i326, label %for.body329.i327, label %cfft2.exit328, !llvm.loop !21
@@ -584,12 +584,12 @@ for.body.lr.ph:                                   ; preds = %entry
   %call = tail call double @log(double noundef %conv8) #8
   %div = fdiv double %call, 0x3FE60532EF13C385
   %conv10 = fptosi double %div to i32
-  %div11628 = lshr i32 %n, 1
-  %idxprom = zext i32 %div11628 to i64
+  %div11666 = lshr i32 %n, 1
+  %idxprom = zext i32 %div11666 to i64
   %arrayidx15 = getelementptr inbounds [2 x float], ptr %x, i64 %idxprom
   %arrayidx19 = getelementptr inbounds [2 x float], ptr %y, i64 1
   %cmp30 = fcmp olt float %sign, 0.000000e+00
-  %wide.trip.count = zext i32 %div11628 to i64
+  %wide.trip.count = zext i32 %div11666 to i64
   %min.iters.check = icmp ult i32 %n, 8
   br i1 %min.iters.check, label %for.body.preheader, label %vector.memcheck
 
@@ -730,9 +730,9 @@ if.end95:                                         ; preds = %for.end
   br i1 %cmp118671.not, label %if.end173, label %for.body120.lr.ph
 
 for.body120.lr.ph:                                ; preds = %if.end95
-  %div96629 = lshr i32 %n, 2
+  %div96667 = lshr i32 %n, 2
   %cmp130 = fcmp olt float %sign, 0.000000e+00
-  %wide.trip.count695 = zext i32 %div96629 to i64
+  %wide.trip.count695 = zext i32 %div96667 to i64
   br label %for.body120
 
 for.body120:                                      ; preds = %for.body120.lr.ph, %for.body120
@@ -762,10 +762,10 @@ for.body120:                                      ; preds = %for.body120.lr.ph, 
   %sub.i = fsub <4 x float> %arrayidx149.val, %arrayidx153.val
   %shufp = shufflevector <4 x float> %sub.i, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
   %mul.i = fmul <4 x float> %wr.sroa.0.12.vec.insert, %sub.i
-  %mul.i633 = fmul <4 x float> %shufp, %wu.sroa.0.12.vec.insert
-  %add.i634 = fadd <4 x float> %mul.i, %mul.i633
+  %mul.i630 = fmul <4 x float> %shufp, %wu.sroa.0.12.vec.insert
+  %add.i631 = fadd <4 x float> %mul.i, %mul.i630
   %arrayidx165 = getelementptr inbounds [2 x float], ptr %d.0, i64 %49
-  store <4 x float> %add.i634, ptr %arrayidx165, align 16, !tbaa !16
+  store <4 x float> %add.i631, ptr %arrayidx165, align 16, !tbaa !16
   %indvars.iv.next690 = add nuw nsw i64 %indvars.iv689, 1
   %exitcond696.not = icmp eq i64 %indvars.iv.next690, %wide.trip.count695
   br i1 %exitcond696.not, label %for.end169, label %for.body120, !llvm.loop !17
@@ -778,13 +778,13 @@ if.end173:                                        ; preds = %if.end95, %for.end1
   br i1 %cmp179677, label %for.body181.lr.ph, label %for.end302
 
 for.body181.lr.ph:                                ; preds = %if.end173
-  %div176630 = lshr i32 %n, 3
+  %div176668 = lshr i32 %n, 3
   %cmp219 = fcmp olt float %sign, 0.000000e+00
   %52 = add i32 %conv10, -2
   br label %for.body181
 
 for.body181:                                      ; preds = %for.body181.lr.ph, %for.end296
-  %lj.0683 = phi i32 [ %div176630, %for.body181.lr.ph ], [ %div299, %for.end296 ]
+  %lj.0683 = phi i32 [ %div176668, %for.body181.lr.ph ], [ %div299, %for.end296 ]
   %mj.0681 = phi i32 [ 4, %for.body181.lr.ph ], [ %mul297, %for.end296 ]
   %mj2.0680 = phi i32 [ 8, %for.body181.lr.ph ], [ %mul298, %for.end296 ]
   %pass.0679 = phi i32 [ 2, %for.body181.lr.ph ], [ %inc301, %for.end296 ]
@@ -829,13 +829,13 @@ for.body209.us:                                   ; preds = %for.body209.us.preh
   %58 = load float, ptr %arrayidx217.us, align 4, !tbaa !5
   %fneg222.us = fneg float %58
   %up.2.us = select i1 %cmp219, float %fneg222.us, float %58
-  %wr.sroa.0.0.vec.insert662.us = insertelement <4 x float> poison, float %57, i64 0
-  %wr.sroa.0.12.vec.insert668.us = shufflevector <4 x float> %wr.sroa.0.0.vec.insert662.us, <4 x float> poison, <4 x i32> zeroinitializer
+  %wr.sroa.0.0.vec.insert659.us = insertelement <4 x float> poison, float %57, i64 0
+  %wr.sroa.0.12.vec.insert665.us = shufflevector <4 x float> %wr.sroa.0.0.vec.insert659.us, <4 x float> poison, <4 x i32> zeroinitializer
   %fneg228.us = fneg float %up.2.us
-  %wu.sroa.0.0.vec.insert652.us = insertelement <4 x float> poison, float %fneg228.us, i64 0
-  %wu.sroa.0.4.vec.insert654.us = insertelement <4 x float> %wu.sroa.0.0.vec.insert652.us, float %up.2.us, i64 1
-  %wu.sroa.0.8.vec.insert656.us = insertelement <4 x float> %wu.sroa.0.4.vec.insert654.us, float %fneg228.us, i64 2
-  %wu.sroa.0.12.vec.insert658.us = insertelement <4 x float> %wu.sroa.0.8.vec.insert656.us, float %up.2.us, i64 3
+  %wu.sroa.0.0.vec.insert649.us = insertelement <4 x float> poison, float %fneg228.us, i64 0
+  %wu.sroa.0.4.vec.insert651.us = insertelement <4 x float> %wu.sroa.0.0.vec.insert649.us, float %up.2.us, i64 1
+  %wu.sroa.0.8.vec.insert653.us = insertelement <4 x float> %wu.sroa.0.4.vec.insert651.us, float %fneg228.us, i64 2
+  %wu.sroa.0.12.vec.insert655.us = insertelement <4 x float> %wu.sroa.0.8.vec.insert653.us, float %up.2.us, i64 3
   br label %for.body241.us
 
 for.body241.us:                                   ; preds = %for.body209.us, %for.body241.us
@@ -846,33 +846,33 @@ for.body241.us:                                   ; preds = %for.body209.us, %fo
   %arrayidx245.val.us = load <4 x float>, ptr %arrayidx245.us, align 16, !tbaa !16
   %arrayidx250.us = getelementptr inbounds [2 x float], ptr %b.0, i64 %60
   %arrayidx250.val.us = load <4 x float>, ptr %arrayidx250.us, align 16, !tbaa !16
-  %add.i635.us = fadd <4 x float> %arrayidx245.val.us, %arrayidx250.val.us
+  %add.i632.us = fadd <4 x float> %arrayidx245.val.us, %arrayidx250.val.us
   %61 = add nsw i64 %indvars.iv697, %56
   %arrayidx256.us = getelementptr inbounds [2 x float], ptr %c.1, i64 %61
-  store <4 x float> %add.i635.us, ptr %arrayidx256.us, align 16, !tbaa !16
-  %sub.i636.us = fsub <4 x float> %arrayidx245.val.us, %arrayidx250.val.us
-  %shufp259.us = shufflevector <4 x float> %sub.i636.us, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i637.us = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us, %sub.i636.us
-  %mul.i638.us = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us, %shufp259.us
-  %add.i639.us = fadd <4 x float> %mul.i637.us, %mul.i638.us
+  store <4 x float> %add.i632.us, ptr %arrayidx256.us, align 16, !tbaa !16
+  %sub.i633.us = fsub <4 x float> %arrayidx245.val.us, %arrayidx250.val.us
+  %shufp259.us = shufflevector <4 x float> %sub.i633.us, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i634.us = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us, %sub.i633.us
+  %mul.i635.us = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us, %shufp259.us
+  %add.i636.us = fadd <4 x float> %mul.i634.us, %mul.i635.us
   %arrayidx265.us = getelementptr inbounds [2 x float], ptr %d.1, i64 %61
-  store <4 x float> %add.i639.us, ptr %arrayidx265.us, align 16, !tbaa !16
+  store <4 x float> %add.i636.us, ptr %arrayidx265.us, align 16, !tbaa !16
   %62 = add nuw nsw i64 %59, %55
   %arrayidx269.us = getelementptr inbounds [2 x float], ptr %a.0, i64 %62
   %arrayidx269.val.us = load <4 x float>, ptr %arrayidx269.us, align 16, !tbaa !16
   %arrayidx274.us = getelementptr inbounds [2 x float], ptr %b.0, i64 %62
   %arrayidx274.val.us = load <4 x float>, ptr %arrayidx274.us, align 16, !tbaa !16
-  %add.i640.us = fadd <4 x float> %arrayidx269.val.us, %arrayidx274.val.us
+  %add.i637.us = fadd <4 x float> %arrayidx269.val.us, %arrayidx274.val.us
   %63 = add nsw i64 %59, %56
   %arrayidx280.us = getelementptr inbounds [2 x float], ptr %c.1, i64 %63
-  store <4 x float> %add.i640.us, ptr %arrayidx280.us, align 16, !tbaa !16
-  %sub.i641.us = fsub <4 x float> %arrayidx269.val.us, %arrayidx274.val.us
-  %shufp283.us = shufflevector <4 x float> %sub.i641.us, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
-  %mul.i642.us = fmul <4 x float> %wr.sroa.0.12.vec.insert668.us, %sub.i641.us
-  %mul.i643.us = fmul <4 x float> %wu.sroa.0.12.vec.insert658.us, %shufp283.us
-  %add.i644.us = fadd <4 x float> %mul.i642.us, %mul.i643.us
+  store <4 x float> %add.i637.us, ptr %arrayidx280.us, align 16, !tbaa !16
+  %sub.i638.us = fsub <4 x float> %arrayidx269.val.us, %arrayidx274.val.us
+  %shufp283.us = shufflevector <4 x float> %sub.i638.us, <4 x float> poison, <4 x i32> <i32 1, i32 0, i32 3, i32 2>
+  %mul.i639.us = fmul <4 x float> %wr.sroa.0.12.vec.insert665.us, %sub.i638.us
+  %mul.i640.us = fmul <4 x float> %wu.sroa.0.12.vec.insert655.us, %shufp283.us
+  %add.i641.us = fadd <4 x float> %mul.i639.us, %mul.i640.us
   %arrayidx289.us = getelementptr inbounds [2 x float], ptr %d.1, i64 %63
-  store <4 x float> %add.i644.us, ptr %arrayidx289.us, align 16, !tbaa !16
+  store <4 x float> %add.i641.us, ptr %arrayidx289.us, align 16, !tbaa !16
   %indvars.iv.next698 = add nuw nsw i64 %indvars.iv697, 4
   %cmp239.us = icmp ult i64 %indvars.iv.next698, %53
   br i1 %cmp239.us, label %for.body241.us, label %for.cond238.for.inc294_crit_edge.us, !llvm.loop !18
@@ -905,22 +905,22 @@ for.body329:                                      ; preds = %for.end302, %for.bo
   %arrayidx332.val = load <4 x float>, ptr %arrayidx332, align 16, !tbaa !16
   %arrayidx336 = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101, i64 %indvars.iv713
   %arrayidx336.val = load <4 x float>, ptr %arrayidx336, align 16, !tbaa !16
-  %add.i645 = fadd <4 x float> %arrayidx332.val, %arrayidx336.val
+  %add.i642 = fadd <4 x float> %arrayidx332.val, %arrayidx336.val
   %arrayidx341 = getelementptr inbounds [2 x float], ptr %y, i64 %indvars.iv713
-  store <4 x float> %add.i645, ptr %arrayidx341, align 16, !tbaa !16
-  %sub.i646 = fsub <4 x float> %arrayidx332.val, %arrayidx336.val
+  store <4 x float> %add.i642, ptr %arrayidx341, align 16, !tbaa !16
+  %sub.i643 = fsub <4 x float> %arrayidx332.val, %arrayidx336.val
   %arrayidx345 = getelementptr inbounds [2 x float], ptr %arrayidx101, i64 %indvars.iv713
-  store <4 x float> %sub.i646, ptr %arrayidx345, align 16, !tbaa !16
+  store <4 x float> %sub.i643, ptr %arrayidx345, align 16, !tbaa !16
   %arrayidx348 = getelementptr inbounds [2 x float], ptr %x.y, i64 %64
   %arrayidx348.val = load <4 x float>, ptr %arrayidx348, align 16, !tbaa !16
   %arrayidx352 = getelementptr inbounds [2 x float], ptr %arrayidx15.arrayidx101, i64 %64
   %arrayidx352.val = load <4 x float>, ptr %arrayidx352, align 16, !tbaa !16
-  %add.i647 = fadd <4 x float> %arrayidx348.val, %arrayidx352.val
+  %add.i644 = fadd <4 x float> %arrayidx348.val, %arrayidx352.val
   %arrayidx357 = getelementptr inbounds [2 x float], ptr %y, i64 %64
-  store <4 x float> %add.i647, ptr %arrayidx357, align 16, !tbaa !16
-  %sub.i648 = fsub <4 x float> %arrayidx348.val, %arrayidx352.val
+  store <4 x float> %add.i644, ptr %arrayidx357, align 16, !tbaa !16
+  %sub.i645 = fsub <4 x float> %arrayidx348.val, %arrayidx352.val
   %arrayidx361 = getelementptr inbounds [2 x float], ptr %arrayidx101, i64 %64
-  store <4 x float> %sub.i648, ptr %arrayidx361, align 16, !tbaa !16
+  store <4 x float> %sub.i645, ptr %arrayidx361, align 16, !tbaa !16
   %indvars.iv.next714 = add nuw nsw i64 %indvars.iv713, 4
   %cmp327 = icmp ult i64 %indvars.iv.next714, %idxprom
   br i1 %cmp327, label %for.body329, label %cleanup, !llvm.loop !21

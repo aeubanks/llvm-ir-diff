@@ -283,8 +283,8 @@ land.lhs.true20:                                  ; preds = %land.lhs.true15
   br i1 %tobool23.not, label %for.inc, label %while.body.i
 
 while.body.i:                                     ; preds = %land.lhs.true20, %while.body.i
-  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call3, %land.lhs.true20 ]
-  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %call3, %land.lhs.true20 ]
+  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
   %16 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %16, i64 0, i32 4
   %17 = load i32, ptr %total_size.i.i.i, align 8
@@ -296,7 +296,7 @@ while.body.i:                                     ; preds = %land.lhs.true20, %w
   store ptr %19, ptr %Current.06.i, align 8
   %20 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %20, align 8
-  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
   br i1 %cmp.i.not.i, label %cleanup, label %while.body.i, !llvm.loop !11
 
 for.inc:                                          ; preds = %for.body6, %land.lhs.true, %land.lhs.true15, %land.lhs.true20
@@ -305,8 +305,8 @@ for.inc:                                          ; preds = %for.body6, %land.lh
   br i1 %cmp.i.not, label %while.body.i68, label %for.body6, !llvm.loop !12
 
 while.body.i68:                                   ; preds = %for.inc, %while.body.i68
-  %Current.06.i62 = phi ptr [ %Current.0.val.i63, %while.body.i68 ], [ %call3, %for.inc ]
-  %Current.0.val.i63 = load ptr, ptr %Current.06.i62, align 8
+  %Current.06.i62 = phi ptr [ %L.addr.0.val.i63, %while.body.i68 ], [ %call3, %for.inc ]
+  %L.addr.0.val.i63 = load ptr, ptr %Current.06.i62, align 8
   %21 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i64 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %21, i64 0, i32 4
   %22 = load i32, ptr %total_size.i.i.i64, align 8
@@ -318,7 +318,7 @@ while.body.i68:                                   ; preds = %for.inc, %while.bod
   store ptr %24, ptr %Current.06.i62, align 8
   %25 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i62, ptr %25, align 8
-  %cmp.i.not.i67 = icmp eq ptr %Current.0.val.i63, null
+  %cmp.i.not.i67 = icmp eq ptr %L.addr.0.val.i63, null
   br i1 %cmp.i.not.i67, label %list_Delete.exit69, label %while.body.i68, !llvm.loop !11
 
 list_Delete.exit69:                               ; preds = %while.body.i68, %for.body

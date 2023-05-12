@@ -296,8 +296,8 @@ entry:
   br label %for.cond1.preheader
 
 for.cond1.preheader:                              ; preds = %entry, %for.cond.cleanup3
-  %indvars.iv81 = phi i64 [ 0, %entry ], [ %indvars.iv.next82, %for.cond.cleanup3 ]
-  %0 = trunc i64 %indvars.iv81 to i32
+  %indvars.iv80 = phi i64 [ 0, %entry ], [ %indvars.iv.next81, %for.cond.cleanup3 ]
+  %0 = trunc i64 %indvars.iv80 to i32
   br label %if.then
 
 for.cond35.preheader:                             ; preds = %for.cond.cleanup3
@@ -306,18 +306,18 @@ for.cond35.preheader:                             ; preds = %for.cond.cleanup3
   br i1 %2, label %for.cond.cleanup37, label %for.body38
 
 for.cond.cleanup3:                                ; preds = %for.inc
-  %indvars.iv.next82 = add nuw nsw i64 %indvars.iv81, 1
-  %exitcond84.not = icmp eq i64 %indvars.iv.next82, 25
-  br i1 %exitcond84.not, label %for.cond35.preheader, label %for.cond1.preheader, !llvm.loop !18
+  %indvars.iv.next81 = add nuw nsw i64 %indvars.iv80, 1
+  %exitcond83.not = icmp eq i64 %indvars.iv.next81, 25
+  br i1 %exitcond83.not, label %for.cond35.preheader, label %for.cond1.preheader, !llvm.loop !18
 
 if.then:                                          ; preds = %for.cond1.preheader, %for.inc
   %indvars.iv = phi i64 [ 0, %for.cond1.preheader ], [ %indvars.iv.next, %for.inc ]
-  %arrayidx6 = getelementptr inbounds [25 x [80 x ptr]], ptr @s_grid, i64 0, i64 %indvars.iv81, i64 %indvars.iv
+  %arrayidx6 = getelementptr inbounds [25 x [80 x ptr]], ptr @s_grid, i64 0, i64 %indvars.iv80, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx6, align 8, !tbaa !11
   %tobool7.not = icmp eq ptr %3, null
-  br i1 %tobool7.not, label %invoke.cont, label %for.inc
+  br i1 %tobool7.not, label %if.then8, label %for.inc
 
-invoke.cont:                                      ; preds = %if.then
+if.then8:                                         ; preds = %if.then
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #11
   %x.i.i = getelementptr inbounds %class.simulation_unit, ptr %call, i64 0, i32 1
   store i32 %0, ptr %x.i.i, align 8, !tbaa !13
@@ -328,7 +328,7 @@ invoke.cont:                                      ; preds = %if.then
   store ptr %call, ptr %arrayidx6, align 8, !tbaa !11
   br label %for.inc
 
-for.inc:                                          ; preds = %if.then, %invoke.cont
+for.inc:                                          ; preds = %if.then, %if.then8
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 80
   br i1 %exitcond.not, label %for.cond.cleanup3, label %if.then, !llvm.loop !20
@@ -338,7 +338,7 @@ for.cond.cleanup37:                               ; preds = %if.end49, %for.cond
 
 for.body38:                                       ; preds = %for.cond35.preheader, %if.end49
   %5 = phi ptr [ %7, %if.end49 ], [ %1, %for.cond35.preheader ]
-  %i.078 = phi i32 [ %inc51, %if.end49 ], [ 0, %for.cond35.preheader ]
+  %i.077 = phi i32 [ %inc51, %if.end49 ], [ 0, %for.cond35.preheader ]
   %tobool43.not = icmp eq ptr %5, null
   br i1 %tobool43.not, label %if.end49, label %if.then44
 
@@ -352,7 +352,7 @@ if.then44:                                        ; preds = %for.body38
 
 if.end49:                                         ; preds = %if.then44, %for.body38
   %7 = phi ptr [ %.pre, %if.then44 ], [ null, %for.body38 ]
-  %inc51 = add nuw nsw i32 %i.078, 1
+  %inc51 = add nuw nsw i32 %i.077, 1
   %cmp36.not = icmp eq i32 %inc51, 1000000
   br i1 %cmp36.not, label %for.cond.cleanup37, label %for.body38, !llvm.loop !21
 }

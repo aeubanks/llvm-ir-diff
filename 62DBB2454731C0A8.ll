@@ -182,15 +182,15 @@ if.end:                                           ; preds = %entry
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   br label %while.cond
 
-while.cond:                                       ; preds = %while.body, %if.end
+while.cond:                                       ; preds = %while.body.critedge, %if.end
   %3 = load i64, ptr %state, align 8, !tbaa !17
   %cmp.not.i.i = icmp eq i64 %3, 0
-  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body, !prof !31
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body.critedge, !prof !31
 
 if.end.i.i:                                       ; preds = %while.cond
   %4 = load i8, ptr %started_.i.i, align 8, !tbaa !32, !range !33, !noundef !34
   %tobool3.not.i.i = icmp eq i8 %4, 0
-  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %while.end
+  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %if.end12.i.i
 
 if.then4.i.i:                                     ; preds = %if.end.i.i
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -199,28 +199,28 @@ if.then4.i.i:                                     ; preds = %if.end.i.i
   %6 = load i64, ptr %state, align 8
   %cmp7.not.i.i = icmp eq i64 %6, 0
   %or.cond = select i1 %tobool5.not.i.i, i1 true, i1 %cmp7.not.i.i
-  br i1 %or.cond, label %while.end, label %while.body
+  br i1 %or.cond, label %if.end12.i.i, label %while.body.critedge
 
-while.body:                                       ; preds = %if.then4.i.i, %while.cond
+if.end12.i.i:                                     ; preds = %if.then4.i.i, %if.end.i.i
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %7 = load ptr, ptr %range_.i, align 8, !tbaa !13
+  %8 = load i64, ptr %7, align 8, !tbaa !15
+  %cmp15 = icmp eq i64 %8, 20
+  br i1 %cmp15, label %if.then16, label %if.end17
+
+while.body.critedge:                              ; preds = %if.then4.i.i, %while.cond
   %storemerge.in = phi i64 [ %3, %while.cond ], [ %6, %if.then4.i.i ]
   %storemerge = add i64 %storemerge.in, -1
   store i64 %storemerge, ptr %state, align 8, !tbaa !17
-  %7 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @dilateKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %7, ptr noundef nonnull %call6, ptr noundef %call11)
+  %9 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @dilateKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %9, ptr noundef nonnull %call6, ptr noundef %call11)
   br label %while.cond, !llvm.loop !36
 
-while.end:                                        ; preds = %if.then4.i.i, %if.end.i.i
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %8 = load ptr, ptr %range_.i, align 8, !tbaa !13
-  %9 = load i64, ptr %8, align 8, !tbaa !15
-  %cmp15 = icmp eq i64 %9, 20
-  br i1 %cmp15, label %if.then16, label %if.end17
-
-if.then16:                                        ; preds = %while.end
+if.then16:                                        ; preds = %if.end12.i.i
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call6, ptr noundef nonnull @.str.3, i32 noundef %conv, i32 noundef %conv)
   br label %if.end17
 
-if.end17:                                         ; preds = %if.then16, %while.end
+if.end17:                                         ; preds = %if.then16, %if.end12.i.i
   tail call void @free(ptr noundef %call11) #15
   tail call void @free(ptr noundef %call6) #15
   ret void

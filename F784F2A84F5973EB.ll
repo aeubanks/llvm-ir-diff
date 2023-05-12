@@ -389,8 +389,8 @@ for.inc96.i:                                      ; preds = %if.end86.1.i, %for.
   %cmp33.not.i = icmp ult ptr %tail.0.i, %call.i
   br i1 %cmp33.not.i, label %while.cond.loopexit.i, label %for.body.i, !llvm.loop !26
 
-__zip_find_disk_trailer.exit.thread:              ; preds = %if.then1.i, %if.then7.i, %if.then23.i, %if.then29.i, %if.then78.i, %if.then84.i, %if.end2.i
-  %retval.0.i.ph = phi i32 [ -114, %if.end2.i ], [ -123, %if.then84.i ], [ -123, %if.then78.i ], [ -123, %if.then29.i ], [ -123, %if.then23.i ], [ -124, %if.then7.i ], [ -124, %if.then1.i ]
+__zip_find_disk_trailer.exit.thread:              ; preds = %if.then1.i, %if.end2.i, %if.then23.i, %if.then29.i, %if.then7.i, %if.then78.i, %if.then84.i
+  %retval.0.i.ph = phi i32 [ -123, %if.then84.i ], [ -123, %if.then78.i ], [ -124, %if.then7.i ], [ -123, %if.then29.i ], [ -123, %if.then23.i ], [ -114, %if.end2.i ], [ -124, %if.then1.i ]
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %dirent.i) #11
   br label %cleanup
 
@@ -596,7 +596,7 @@ for.end.i:                                        ; preds = %for.end.sink.split.
   br i1 %tobool126.not.i, label %if.else131.i, label %if.then127.i
 
 if.then127.i:                                     ; preds = %if.end113.i, %for.end.i
-  %tobool134.not286.i = phi i32 [ %tobool134.not.i, %for.end.i ], [ 0, %if.end113.i ]
+  %tobool134.not287.i = phi i32 [ %tobool134.not.i, %for.end.i ], [ 0, %if.end113.i ]
   %p_reclen.0247285.i = phi ptr [ %p_reclen.0266.i, %for.end.i ], [ %d_reclen.i, %if.end113.i ]
   store i16 0, ptr %p_reclen.0247285.i, align 2, !tbaa !43
   store ptr %call11.i, ptr %hdr0, align 8, !tbaa !48
@@ -607,7 +607,7 @@ if.else131.i:                                     ; preds = %for.end.i
   br label %__zip_parse_root_directory.exit
 
 __zip_parse_root_directory.exit:                  ; preds = %if.then.i, %if.then3.i, %if.then8.i, %if.end9.i, %if.then23.i25, %if.else.i, %if.then127.i, %if.else131.i
-  %retval.0.i35 = phi i32 [ -123, %if.then.i ], [ -124, %if.then8.i ], [ -123, %if.then23.i25 ], [ -123, %if.else.i ], [ -124, %if.then3.i ], [ -114, %if.end9.i ], [ %tobool134.not286.i, %if.then127.i ], [ %tobool134.not.i, %if.else131.i ]
+  %retval.0.i35 = phi i32 [ -123, %if.then.i ], [ -124, %if.then8.i ], [ -123, %if.then23.i25 ], [ -123, %if.else.i ], [ -124, %if.then3.i ], [ -114, %if.end9.i ], [ %tobool134.not287.i, %if.then127.i ], [ %tobool134.not.i, %if.else131.i ]
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %sb.i) #11
   call void @llvm.lifetime.end.p0(i64 46, ptr nonnull %dirent.i18) #11
   br label %cleanup
@@ -729,8 +729,10 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @zip_file_open(ptr noundef %dir, ptr nocapture noundef readonly %name, i32 noundef %d_off) local_unnamed_addr #2 {
 lor.lhs.false:
-  %0 = load i32, ptr %dir, align 8, !tbaa !16
-  %cmp = icmp slt i32 %0, 0
+  %hdr0 = getelementptr inbounds %struct.__zip_dir, ptr %dir, i64 0, i32 3
+  %0 = load ptr, ptr %hdr0, align 8, !tbaa !5
+  %1 = load i32, ptr %dir, align 8, !tbaa !16
+  %cmp = icmp slt i32 %1, 0
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %lor.lhs.false
@@ -738,9 +740,7 @@ if.then:                                          ; preds = %lor.lhs.false
   br label %cleanup
 
 if.end:                                           ; preds = %lor.lhs.false
-  %hdr0 = getelementptr inbounds %struct.__zip_dir, ptr %dir, i64 0, i32 3
-  %1 = load ptr, ptr %hdr0, align 8, !tbaa !5
-  %tobool1.not = icmp eq ptr %1, null
+  %tobool1.not = icmp eq ptr %0, null
   br i1 %tobool1.not, label %if.then2, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %if.end
@@ -748,13 +748,13 @@ while.cond.preheader:                             ; preds = %if.end
   br i1 %cmp5, label %while.cond.preheader.split.us, label %while.cond
 
 while.cond.preheader.split.us:                    ; preds = %while.cond.preheader
-  %d_name.us172 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %1, i64 0, i32 9
+  %d_name.us172 = getelementptr inbounds %struct.__zip_dir_hdr, ptr %0, i64 0, i32 9
   %call.us173 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %d_name.us172, ptr noundef nonnull dereferenceable(1) %name) #12
   %tobool4.not.us174 = icmp eq i32 %call.us173, 0
   br i1 %tobool4.not.us174, label %if.then9, label %if.else91.us
 
 if.else91.us:                                     ; preds = %while.cond.preheader.split.us, %if.end94.us
-  %hdr.0.us175 = phi ptr [ %add.ptr.us, %if.end94.us ], [ %1, %while.cond.preheader.split.us ]
+  %hdr.0.us175 = phi ptr [ %add.ptr.us, %if.end94.us ], [ %0, %while.cond.preheader.split.us ]
   %d_reclen.us = getelementptr inbounds %struct.__zip_dir_hdr, ptr %hdr.0.us175, i64 0, i32 4
   %2 = load i16, ptr %d_reclen.us, align 4, !tbaa !46
   %tobool92.not.us = icmp eq i16 %2, 0
@@ -775,7 +775,7 @@ if.then2:                                         ; preds = %if.end
   br label %cleanup
 
 while.cond:                                       ; preds = %while.cond.preheader, %if.end94
-  %hdr.0 = phi ptr [ %add.ptr, %if.end94 ], [ %1, %while.cond.preheader ]
+  %hdr.0 = phi ptr [ %add.ptr, %if.end94 ], [ %0, %while.cond.preheader ]
   %d_name = getelementptr inbounds %struct.__zip_dir_hdr, ptr %hdr.0, i64 0, i32 9
   %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %d_name, ptr noundef nonnull dereferenceable(1) %name) #12
   %tobool4.not = icmp eq i32 %call, 0
@@ -788,7 +788,7 @@ land.lhs.true:                                    ; preds = %while.cond
   br i1 %cmp8, label %if.then9, label %if.else91
 
 if.then9:                                         ; preds = %land.lhs.true, %if.end94.us, %while.cond.preheader.split.us
-  %.us-phi = phi ptr [ %1, %while.cond.preheader.split.us ], [ %add.ptr.us, %if.end94.us ], [ %hdr.0, %land.lhs.true ]
+  %.us-phi = phi ptr [ %0, %while.cond.preheader.split.us ], [ %add.ptr.us, %if.end94.us ], [ %hdr.0, %land.lhs.true ]
   %d_compr = getelementptr inbounds %struct.__zip_dir_hdr, ptr %.us-phi, i64 0, i32 6
   %4 = load i16, ptr %d_compr, align 4, !tbaa !42
   switch i16 %4, label %sw.default [

@@ -304,7 +304,7 @@ if.end117:                                        ; preds = %for.body110, %if.th
   %43 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 5, i64 1, ptr %fp)
   br label %cleanup
 
-cleanup:                                          ; preds = %for.body17.i, %for.end.i, %if.then15, %if.end117, %for.end, %if.then17, %if.then7, %if.then
+cleanup:                                          ; preds = %for.body17.i, %if.then15, %if.end117, %for.end, %if.then17, %for.end.i, %if.then7, %if.then
   ret void
 }
 

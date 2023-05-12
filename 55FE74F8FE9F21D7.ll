@@ -302,28 +302,29 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
 for.body6.lr.ph:                                  ; preds = %for.body
   %6 = load ptr, ptr %4, align 8, !tbaa !38
   %arrayidx11 = getelementptr inbounds ptr, ptr %processes, i64 %indvars.iv421
+  %7 = load ptr, ptr %arrayidx11, align 8, !tbaa !14
   br label %for.body6
 
 for.body6:                                        ; preds = %for.body6.lr.ph, %for.inc
-  %7 = phi i32 [ %5, %for.body6.lr.ph ], [ %22, %for.inc ]
+  %8 = phi i32 [ %5, %for.body6.lr.ph ], [ %22, %for.inc ]
   %indvars.iv = phi i64 [ 0, %for.body6.lr.ph ], [ %indvars.iv.next, %for.inc ]
   %num_comms.1405 = phi i32 [ %num_comms.0408, %for.body6.lr.ph ], [ %num_comms.2, %for.inc ]
   %arrayidx9 = getelementptr inbounds %struct.hypre_Box_struct, ptr %6, i64 %indvars.iv
   %imax = getelementptr inbounds %struct.hypre_Box_struct, ptr %6, i64 %indvars.iv, i32 1
-  %8 = load <2 x i32>, ptr %imax, align 4, !tbaa !12
-  %9 = load <2 x i32>, ptr %arrayidx9, align 4, !tbaa !12
-  %10 = sub nsw <2 x i32> %8, %9
-  %11 = add nsw <2 x i32> %10, <i32 1, i32 1>
-  %12 = icmp slt <2 x i32> %10, zeroinitializer
-  %13 = select <2 x i1> %12, <2 x i32> zeroinitializer, <2 x i32> %11
-  %14 = extractelement <2 x i32> %13, i64 0
-  %15 = extractelement <2 x i32> %13, i64 1
-  %mul = mul nsw i32 %15, %14
+  %9 = load <2 x i32>, ptr %imax, align 4, !tbaa !12
+  %10 = load <2 x i32>, ptr %arrayidx9, align 4, !tbaa !12
+  %11 = sub nsw <2 x i32> %9, %10
+  %12 = add nsw <2 x i32> %11, <i32 1, i32 1>
+  %13 = icmp slt <2 x i32> %11, zeroinitializer
+  %14 = select <2 x i1> %13, <2 x i32> zeroinitializer, <2 x i32> %12
+  %15 = extractelement <2 x i32> %14, i64 0
+  %16 = extractelement <2 x i32> %14, i64 1
+  %mul = mul nsw i32 %16, %15
   %arrayidx41 = getelementptr inbounds %struct.hypre_Box_struct, ptr %6, i64 %indvars.iv, i32 1, i64 2
-  %16 = load i32, ptr %arrayidx41, align 4, !tbaa !12
+  %17 = load i32, ptr %arrayidx41, align 4, !tbaa !12
   %arrayidx43 = getelementptr inbounds [3 x i32], ptr %arrayidx9, i64 0, i64 2
-  %17 = load i32, ptr %arrayidx43, align 4, !tbaa !12
-  %sub44 = sub nsw i32 %16, %17
+  %18 = load i32, ptr %arrayidx43, align 4, !tbaa !12
+  %sub44 = sub nsw i32 %17, %18
   %add45 = add nsw i32 %sub44, 1
   %cmp46.inv = icmp slt i32 %sub44, 0
   %cond56 = select i1 %cmp46.inv, i32 0, i32 %add45
@@ -332,8 +333,7 @@ for.body6:                                        ; preds = %for.body6.lr.ph, %f
   br i1 %cmp58.not, label %for.inc, label %if.then
 
 if.then:                                          ; preds = %for.body6
-  %18 = load ptr, ptr %arrayidx11, align 8, !tbaa !14
-  %arrayidx13 = getelementptr inbounds i32, ptr %18, i64 %indvars.iv
+  %arrayidx13 = getelementptr inbounds i32, ptr %7, i64 %indvars.iv
   %19 = load i32, ptr %arrayidx13, align 4, !tbaa !12
   %idxprom59 = sext i32 %19 to i64
   %arrayidx60 = getelementptr inbounds i32, ptr %call2, i64 %idxprom59
@@ -345,13 +345,13 @@ if.then:                                          ; preds = %for.body6
   %cmp64.not = icmp ne i32 %19, %21
   %or.cond.not = select i1 %cmp63, i1 %cmp64.not, i1 false
   %inc66 = zext i1 %or.cond.not to i32
-  %spec.select398 = add nsw i32 %num_comms.1405, %inc66
+  %spec.select402 = add nsw i32 %num_comms.1405, %inc66
   %.pre = load i32, ptr %size4, align 8, !tbaa !36
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then, %for.body6
-  %22 = phi i32 [ %7, %for.body6 ], [ %.pre, %if.then ]
-  %num_comms.2 = phi i32 [ %num_comms.1405, %for.body6 ], [ %spec.select398, %if.then ]
+  %22 = phi i32 [ %8, %for.body6 ], [ %.pre, %if.then ]
+  %num_comms.2 = phi i32 [ %num_comms.1405, %for.body6 ], [ %spec.select402, %if.then ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %23 = sext i32 %22 to i64
   %cmp5 = icmp slt i64 %indvars.iv.next, %23
@@ -488,7 +488,7 @@ for.end191:                                       ; preds = %for.end191.loopexit
   %sub196 = sub nsw i32 %55, %56
   %add197 = add nsw i32 %sub196, 1
   %cmp198.inv = icmp slt i32 %sub196, 0
-  %spec.select397 = select i1 %cmp198.inv, i32 0, i32 %add197
+  %spec.select401 = select i1 %cmp198.inv, i32 0, i32 %add197
   %arrayidx211 = getelementptr inbounds %struct.hypre_Box_struct, ptr %31, i64 %indvars.iv427, i32 1, i64 1
   %57 = load i32, ptr %arrayidx211, align 4, !tbaa !12
   %arrayidx213 = getelementptr inbounds [3 x i32], ptr %arrayidx86, i64 0, i64 1
@@ -505,7 +505,7 @@ for.end191:                                       ; preds = %for.end191.loopexit
   %add234 = add nsw i32 %sub233, 1
   %cmp235.inv = icmp slt i32 %sub233, 0
   %cond246 = select i1 %cmp235.inv, i32 0, i32 %add234
-  %mul228 = mul i32 %spec.select397, %num_values
+  %mul228 = mul i32 %spec.select401, %num_values
   %mul247 = mul i32 %mul228, %cond227
   %mul248 = mul i32 %mul247, %cond246
   %add249 = add nsw i32 %mul248, %data_box_offset.0415
@@ -555,22 +555,22 @@ for.end275:                                       ; preds = %for.body260, %for.e
 if.then280:                                       ; preds = %for.end275
   %arrayidx284 = getelementptr inbounds i32, ptr %call2, i64 %idxprom276
   %67 = load i32, ptr %arrayidx284, align 4, !tbaa !12
-  %call.i399 = call ptr @hypre_MAlloc(i32 noundef 16) #5
-  store ptr %66, ptr %call.i399, align 8, !tbaa !29
-  %num_entries2.i400 = getelementptr inbounds %struct.hypre_CommType_struct, ptr %call.i399, i64 0, i32 1
-  store i32 %67, ptr %num_entries2.i400, align 8, !tbaa !31
-  %call286 = call i32 @hypre_CommTypeSort(ptr noundef nonnull %call.i399, ptr noundef %periodic)
+  %call.i396 = call ptr @hypre_MAlloc(i32 noundef 16) #5
+  store ptr %66, ptr %call.i396, align 8, !tbaa !29
+  %num_entries2.i397 = getelementptr inbounds %struct.hypre_CommType_struct, ptr %call.i396, i64 0, i32 1
+  store i32 %67, ptr %num_entries2.i397, align 8, !tbaa !31
+  %call286 = call i32 @hypre_CommTypeSort(ptr noundef nonnull %call.i396, ptr noundef %periodic)
   br label %if.end288
 
 if.else:                                          ; preds = %for.end275
-  %call.i401 = call ptr @hypre_MAlloc(i32 noundef 16) #5
-  store ptr null, ptr %call.i401, align 8, !tbaa !29
-  %num_entries2.i402 = getelementptr inbounds %struct.hypre_CommType_struct, ptr %call.i401, i64 0, i32 1
-  store i32 0, ptr %num_entries2.i402, align 8, !tbaa !31
+  %call.i398 = call ptr @hypre_MAlloc(i32 noundef 16) #5
+  store ptr null, ptr %call.i398, align 8, !tbaa !29
+  %num_entries2.i399 = getelementptr inbounds %struct.hypre_CommType_struct, ptr %call.i398, i64 0, i32 1
+  store i32 0, ptr %num_entries2.i399, align 8, !tbaa !31
   br label %if.end288
 
 if.end288:                                        ; preds = %if.else, %if.then280
-  %copy_type.0 = phi ptr [ %call.i399, %if.then280 ], [ %call.i401, %if.else ]
+  %copy_type.0 = phi ptr [ %call.i396, %if.then280 ], [ %call.i398, %if.else ]
   call void @hypre_Free(ptr noundef nonnull %call72) #5
   call void @hypre_Free(ptr noundef %call2) #5
   store i32 %num_comms.0.lcssa, ptr %num_comms_ptr, align 4, !tbaa !12

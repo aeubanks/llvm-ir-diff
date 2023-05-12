@@ -243,7 +243,7 @@ if.end98:                                         ; preds = %if.then96, %if.end9
   br i1 %cmp1002598, label %for.cond103.preheader.lr.ph, label %for.cond142.preheader
 
 for.cond103.preheader.lr.ph:                      ; preds = %if.end98
-  %cmp104.not2595 = icmp slt i32 %spec.select, 0
+  %cmp1042595 = icmp sgt i32 %spec.select, -1
   %27 = zext i32 %inc78 to i64
   %smin = tail call i32 @llvm.smin.i32(i32 %inc78, i32 1)
   %28 = add i32 %smin, -1
@@ -252,7 +252,7 @@ for.cond103.preheader.lr.ph:                      ; preds = %if.end98
 
 for.cond103.preheader:                            ; preds = %for.cond103.preheader.lr.ph, %for.end135
   %indvars.iv2763 = phi i64 [ 0, %for.cond103.preheader.lr.ph ], [ %indvars.iv.next2764, %for.end135 ]
-  br i1 %cmp104.not2595, label %for.end117, label %for.body106
+  br i1 %cmp1042595, label %for.body106, label %for.end117
 
 for.cond142.preheader:                            ; preds = %for.end135, %if.end98
   %cmp1432605 = icmp sgt i32 %26, 0
@@ -1137,9 +1137,9 @@ if.then708:                                       ; preds = %if.end688
   %mul725 = fmul float %227, %227
   %228 = tail call float @llvm.fmuladd.f32(float %225, float %225, float %mul725)
   %conv726 = fpext float %228 to double
-  %sqrt2584 = tail call double @llvm.sqrt.f64(double %conv726)
+  %sqrt2583 = tail call double @llvm.sqrt.f64(double %conv726)
   %conv728 = fpext float %conv705 to double
-  %div729 = fdiv double %sqrt2584, %conv728
+  %div729 = fdiv double %sqrt2583, %conv728
   %conv730 = fptrunc double %div729 to float
   br label %if.end731
 
@@ -1508,8 +1508,8 @@ if.else1054:                                      ; preds = %for.end1021
   %mul1055 = fmul float %cond1033, 1.000000e+01
   %cmp1056 = fcmp ogt float %cond1045, %mul1055
   %cmp1061 = fcmp ogt double %305, 1.000000e+03
-  %or.cond2583 = and i1 %cmp1061, %cmp1056
-  br i1 %or.cond2583, label %if.then1063, label %if.end1070
+  %or.cond2584 = and i1 %cmp1061, %cmp1056
+  br i1 %or.cond2584, label %if.then1063, label %if.end1070
 
 if.then1063:                                      ; preds = %if.else1054
   store i32 0, ptr %arrayidx1047, align 4, !tbaa !13
@@ -3395,6 +3395,9 @@ declare void @abort() local_unnamed_addr #3
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.sqrt.f64(double) #10
+
 declare float @sqrtf(float) local_unnamed_addr
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -3405,9 +3408,6 @@ declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.sqrt.f64(double) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #10

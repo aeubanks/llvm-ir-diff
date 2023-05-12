@@ -55,7 +55,7 @@ check2.exit:                                      ; preds = %entry
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #4 {
-lor.lhs.false:
+entry:
   %buf = alloca [10 x i8], align 4
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %buf) #9
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(3) %buf, ptr noundef nonnull align 1 dereferenceable(3) getelementptr inbounds ([10 x i8], ptr @.str, i64 0, i64 7), i64 3, i1 false)
@@ -63,11 +63,11 @@ lor.lhs.false:
   %tobool.not = icmp eq i32 %bcmp, 0
   br i1 %tobool.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %lor.lhs.false
+if.then:                                          ; preds = %entry
   tail call void @abort() #8
   unreachable
 
-if.end:                                           ; preds = %lor.lhs.false
+if.end:                                           ; preds = %entry
   %.b.i.i = load i1, ptr @check2.r, align 8
   br i1 %.b.i.i, label %if.then.i.i, label %test2.exit
 

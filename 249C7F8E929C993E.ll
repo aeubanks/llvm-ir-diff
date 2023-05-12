@@ -126,8 +126,8 @@ if.else:                                          ; preds = %entry
   %idx.ext19 = zext i32 %and18 to i64
   %add.ptr20 = getelementptr inbounds ptr, ptr %4, i64 %idx.ext19
   %5 = load ptr, ptr %add.ptr20, align 8, !tbaa !5
-  %cmp21.not129 = icmp eq ptr %5, null
-  br i1 %cmp21.not129, label %while.end, label %while.body.lr.ph
+  %cmp21.not128 = icmp eq ptr %5, null
+  br i1 %cmp21.not128, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %if.else
   %conv28 = zext i32 %conv1 to i64
@@ -166,10 +166,10 @@ if.end37:                                         ; preds = %while.end
 
 if.then40:                                        ; preds = %if.end37
   %call.i = tail call ptr @alloc(i32 noundef 1, i32 noundef 4096, ptr noundef nonnull @.str.5) #9
-  %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %cleanup79, label %name_alloc_sub.exit.thread
+  %cmp.i.not = icmp eq ptr %call.i, null
+  br i1 %cmp.i.not, label %cleanup79, label %name_alloc_sub.exit
 
-name_alloc_sub.exit.thread:                       ; preds = %if.then40
+name_alloc_sub.exit:                              ; preds = %if.then40
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(4096) %call.i, i8 0, i64 4096, i1 false)
   %11 = load i32, ptr %count, align 8, !tbaa !9
   %shr.i = lshr i32 %11, 7
@@ -178,14 +178,14 @@ name_alloc_sub.exit.thread:                       ; preds = %if.then40
   store ptr %call.i, ptr %arrayidx.i, align 8, !tbaa !5
   %.pre = load ptr, ptr @the_nt, align 8, !tbaa !5
   %count48.phi.trans.insert = getelementptr inbounds %struct.name_table, ptr %.pre, i64 0, i32 2
-  %.pre131 = load i32, ptr %count48.phi.trans.insert, align 8, !tbaa !9
-  %.pre132 = and i32 %.pre131, 127
+  %.pre130 = load i32, ptr %count48.phi.trans.insert, align 8, !tbaa !9
+  %.pre131 = and i32 %.pre130, 127
   br label %cleanup59
 
-cleanup59:                                        ; preds = %if.end37, %name_alloc_sub.exit.thread
-  %and53.pre-phi = phi i32 [ %and38, %if.end37 ], [ %.pre132, %name_alloc_sub.exit.thread ]
-  %12 = phi i32 [ %10, %if.end37 ], [ %.pre131, %name_alloc_sub.exit.thread ]
-  %13 = phi ptr [ %4, %if.end37 ], [ %.pre, %name_alloc_sub.exit.thread ]
+cleanup59:                                        ; preds = %if.end37, %name_alloc_sub.exit
+  %and53.pre-phi = phi i32 [ %and38, %if.end37 ], [ %.pre131, %name_alloc_sub.exit ]
+  %12 = phi i32 [ %10, %if.end37 ], [ %.pre130, %name_alloc_sub.exit ]
+  %13 = phi ptr [ %4, %if.end37 ], [ %.pre, %name_alloc_sub.exit ]
   %count48 = getelementptr inbounds %struct.name_table, ptr %13, i64 0, i32 2
   %shr49 = lshr i32 %12, 7
   %idxprom50 = zext i32 %shr49 to i64
@@ -235,7 +235,7 @@ cleanup79.sink.split:                             ; preds = %land.lhs.true, %if.
   br label %cleanup79
 
 cleanup79:                                        ; preds = %cleanup79.sink.split, %if.then40, %while.end, %if.then64, %if.end
-  %retval.3 = phi i32 [ -21, %if.end ], [ -25, %if.then64 ], [ -25, %if.then40 ], [ -21, %while.end ], [ 0, %cleanup79.sink.split ]
+  %retval.3 = phi i32 [ -21, %if.end ], [ -25, %if.then64 ], [ -21, %while.end ], [ -25, %if.then40 ], [ 0, %cleanup79.sink.split ]
   ret i32 %retval.3
 }
 

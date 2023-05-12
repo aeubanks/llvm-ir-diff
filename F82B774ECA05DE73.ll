@@ -427,7 +427,7 @@ if.then180:                                       ; preds = %sw.bb170
 if.end181:                                        ; preds = %if.then180, %sw.bb170
   %26 = phi i32 [ 1, %if.then180 ], [ %9, %sw.bb170 ]
   %tobool182.not = icmp ne i32 %OR.0662, 0
-  %or.cond610 = and i1 %cmp178, %cmp184
+  %or.cond610 = and i1 %cmp184, %cmp178
   %or.cond707 = select i1 %tobool182.not, i1 true, i1 %or.cond610
   br i1 %or.cond707, label %if.then188, label %if.end190
 

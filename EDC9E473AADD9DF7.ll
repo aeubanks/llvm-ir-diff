@@ -155,15 +155,15 @@ if.end37:                                         ; preds = %if.end31
   br i1 %cmp42, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %if.end37, %if.end6.i
-  %.sink68 = phi i64 [ -5, %if.end6.i ], [ %npop.0.neg, %if.end37 ]
+  %npop.0.neg.sink = phi i64 [ -5, %if.end6.i ], [ %npop.0.neg, %if.end37 ]
   %retval.0.ph = phi i32 [ %call.i, %if.end6.i ], [ %call41, %if.end37 ]
   %13 = load ptr, ptr @osp, align 8, !tbaa !5
-  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %13, i64 %.sink68
-  store ptr %add.ptr.i, ptr @osp, align 8, !tbaa !5
+  %add.ptr47 = getelementptr inbounds %struct.ref_s, ptr %13, i64 %npop.0.neg.sink
+  store ptr %add.ptr47, ptr @osp, align 8, !tbaa !5
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.end6.i, %if.end.i, %sw.bb, %if.end37, %if.end31, %if.end23, %if.end12, %if.end8, %if.end, %entry
-  %retval.0 = phi i32 [ -20, %entry ], [ -20, %if.end ], [ -15, %if.end8 ], [ -15, %if.end12 ], [ -20, %if.end23 ], [ -15, %if.end31 ], [ %call41, %if.end37 ], [ -20, %sw.bb ], [ -15, %if.end.i ], [ %call.i, %if.end6.i ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end37, %if.end31, %if.end23, %if.end12, %if.end6.i, %if.end.i, %sw.bb, %if.end8, %if.end, %entry
+  %retval.0 = phi i32 [ -20, %entry ], [ -20, %if.end ], [ -15, %if.end8 ], [ -20, %sw.bb ], [ -15, %if.end.i ], [ %call.i, %if.end6.i ], [ -15, %if.end12 ], [ -20, %if.end23 ], [ -15, %if.end31 ], [ %call41, %if.end37 ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 

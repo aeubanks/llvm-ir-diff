@@ -170,8 +170,8 @@ sw.bb:                                            ; preds = %if.end82
   %add109 = or i32 %shl108, %conv105
   %bits_per_pixel = getelementptr inbounds %struct._bmp_source_struct, ptr %sinfo, i64 0, i32 6
   store i32 %add109, ptr %bits_per_pixel, align 8, !tbaa !27
-  %trunc523 = trunc i32 %add109 to i16
-  switch i16 %trunc523, label %sw.default [
+  %trunc525 = trunc i32 %add109 to i16
+  switch i16 %trunc525, label %sw.default [
     i16 8, label %sw.bb111
     i16 24, label %sw.bb122
   ]
@@ -388,14 +388,14 @@ if.end317:                                        ; preds = %if.then312, %if.end
 if.then322:                                       ; preds = %if.end317
   %div.lhs.trunc = trunc i64 %add232 to i32
   %div535 = udiv i32 %div.lhs.trunc, 100
-  %conv323 = trunc i32 %div535 to i16
+  %div.zext = trunc i32 %div535 to i16
   %X_density = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 33
-  store i16 %conv323, ptr %X_density, align 2, !tbaa !29
+  store i16 %div.zext, ptr %X_density, align 2, !tbaa !29
   %div324.lhs.trunc = trunc i64 %add250 to i32
   %div324536 = udiv i32 %div324.lhs.trunc, 100
-  %conv325 = trunc i32 %div324536 to i16
+  %div324.zext = trunc i32 %div324536 to i16
   %Y_density = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 34
-  store i16 %conv325, ptr %Y_density, align 8, !tbaa !30
+  store i16 %div324.zext, ptr %Y_density, align 8, !tbaa !30
   %density_unit = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 32
   store i8 2, ptr %density_unit, align 4, !tbaa !31
   br label %sw.epilog332
@@ -650,32 +650,32 @@ if.end363.thread:                                 ; preds = %if.end355
   br label %while.end
 
 if.end363:                                        ; preds = %if.end355
-  %cmp364538.not = icmp eq i64 %bPad.0, 0
-  br i1 %cmp364538.not, label %while.end, label %while.body.lr.ph
+  %cmp364539.not = icmp eq i64 %bPad.0, 0
+  br i1 %cmp364539.not, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %if.end363
-  %cinfo.i524 = getelementptr inbounds %struct._bmp_source_struct, ptr %sinfo, i64 0, i32 1
+  %cinfo.i523 = getelementptr inbounds %struct._bmp_source_struct, ptr %sinfo, i64 0, i32 1
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %read_byte.exit
-  %bPad.1539 = phi i64 [ %bPad.0, %while.body.lr.ph ], [ %dec, %read_byte.exit ]
-  %dec = add nsw i64 %bPad.1539, -1
+  %dec540.in = phi i64 [ %bPad.0, %while.body.lr.ph ], [ %dec540, %read_byte.exit ]
+  %dec540 = add nsw i64 %dec540.in, -1
   %131 = load ptr, ptr %input_file, align 8, !tbaa !21
   %call.i = tail call i32 @getc(ptr noundef %131)
   %cmp.i = icmp eq i32 %call.i, -1
   br i1 %cmp.i, label %if.then.i, label %read_byte.exit
 
 if.then.i:                                        ; preds = %while.body
-  %132 = load ptr, ptr %cinfo.i524, align 8, !tbaa !16
+  %132 = load ptr, ptr %cinfo.i523, align 8, !tbaa !16
   %133 = load ptr, ptr %132, align 8, !tbaa !22
-  %msg_code.i525 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %133, i64 0, i32 5
-  store i32 42, ptr %msg_code.i525, align 8, !tbaa !23
+  %msg_code.i524 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %133, i64 0, i32 5
+  store i32 42, ptr %msg_code.i524, align 8, !tbaa !23
   %134 = load ptr, ptr %133, align 8, !tbaa !25
   tail call void %134(ptr noundef nonnull %132) #4
   br label %read_byte.exit
 
 read_byte.exit:                                   ; preds = %while.body, %if.then.i
-  %cmp364 = icmp ugt i64 %bPad.1539, 1
+  %cmp364 = icmp ugt i64 %dec540.in, 1
   br i1 %cmp364, label %while.body, label %while.end, !llvm.loop !38
 
 while.end:                                        ; preds = %read_byte.exit, %if.end363.thread, %if.end363

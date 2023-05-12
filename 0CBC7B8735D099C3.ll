@@ -136,9 +136,9 @@ if.then:                                          ; preds = %entry
   %call7 = call i64 @strtol(ptr nocapture noundef nonnull %tz_offset, ptr noundef null, i32 noundef 10) #16
   %cmp8 = icmp slt i64 %call7, 0
   %spec.select = select i1 %cmp8, i32 45, i32 43
-  %spec.select33 = call i64 @llvm.abs.i64(i64 %call7, i1 true)
-  %div = udiv i64 %spec.select33, 100
-  %rem = urem i64 %spec.select33, 100
+  %spec.select39 = call i64 @llvm.abs.i64(i64 %call7, i1 true)
+  %div = udiv i64 %spec.select39, 100
+  %rem = urem i64 %spec.select39, 100
   %call11 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %tz_offset, i64 noundef 41, ptr noundef nonnull @.str.4, i32 noundef %spec.select, i64 noundef %div, i64 noundef %rem) #16
   %1 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %guard.uninitialized.i = icmp eq i8 %1, 0
@@ -162,20 +162,20 @@ if.else:                                          ; preds = %entry
 if.end17:                                         ; preds = %init.i, %init.check.i, %if.then, %if.else
   %call19 = call i64 @strftime(ptr noundef nonnull %storage, i64 noundef 128, ptr noundef nonnull @.str.6, ptr noundef nonnull %timeinfo) #16
   %3 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
-  %guard.uninitialized.i34 = icmp eq i8 %3, 0
-  br i1 %guard.uninitialized.i34, label %init.check.i36, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38, !prof !12
+  %guard.uninitialized.i33 = icmp eq i8 %3, 0
+  br i1 %guard.uninitialized.i33, label %init.check.i35, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37, !prof !12
 
-init.check.i36:                                   ; preds = %if.end17
+init.check.i35:                                   ; preds = %if.end17
   %4 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  %tobool.not.i35 = icmp eq i32 %4, 0
-  br i1 %tobool.not.i35, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38, label %init.i37
+  %tobool.not.i34 = icmp eq i32 %4, 0
+  br i1 %tobool.not.i34, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37, label %init.i36
 
-init.i37:                                         ; preds = %init.check.i36
+init.i36:                                         ; preds = %init.check.i35
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !13
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  br label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
+  br label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37
 
-_ZN9benchmark8internal18GetNullLogInstanceEv.exit38: ; preds = %if.end17, %init.check.i36, %init.i37
+_ZN9benchmark8internal18GetNullLogInstanceEv.exit37: ; preds = %if.end17, %init.check.i35, %init.i36
   %sub23 = sub i64 127, %call19
   %call24 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %storage, ptr noundef nonnull %tz_offset, i64 noundef %sub23) #16
   %5 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %agg.result, i64 0, i32 2
@@ -186,30 +186,30 @@ _ZN9benchmark8internal18GetNullLogInstanceEv.exit38: ; preds = %if.end17, %init.
   %cmp.i.i = icmp ugt i64 %call.i.i, 15
   br i1 %cmp.i.i, label %if.then.i.i, label %if.end.i.i
 
-if.then.i.i:                                      ; preds = %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
-  %call2.i10.i39 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(8) %__dnew.i.i, i64 noundef 0)
-  store ptr %call2.i10.i39, ptr %agg.result, align 8, !tbaa !18
+if.then.i.i:                                      ; preds = %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37
+  %call2.i9.i38 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(8) %__dnew.i.i, i64 noundef 0)
+  store ptr %call2.i9.i38, ptr %agg.result, align 8, !tbaa !18
   %6 = load i64, ptr %__dnew.i.i, align 8, !tbaa !11
   store i64 %6, ptr %5, align 8, !tbaa !20
   br label %if.end.i.i
 
-if.end.i.i:                                       ; preds = %if.then.i.i, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
-  %7 = phi ptr [ %call2.i10.i39, %if.then.i.i ], [ %5, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38 ]
+if.end.i.i:                                       ; preds = %if.then.i.i, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37
+  %7 = phi ptr [ %call2.i9.i38, %if.then.i.i ], [ %5, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit37 ]
   switch i64 %call.i.i, label %if.end.i.i.i.i.i [
     i64 1, label %if.then.i.i.i.i
-    i64 0, label %invoke.cont
+    i64 0, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_.exit
   ]
 
 if.then.i.i.i.i:                                  ; preds = %if.end.i.i
   %8 = load i8, ptr %storage, align 16, !tbaa !20
   store i8 %8, ptr %7, align 1, !tbaa !20
-  br label %invoke.cont
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_.exit
 
 if.end.i.i.i.i.i:                                 ; preds = %if.end.i.i
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %7, ptr nonnull align 16 %storage, i64 %call.i.i, i1 false)
-  br label %invoke.cont
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_.exit
 
-invoke.cont:                                      ; preds = %if.end.i.i.i.i.i, %if.then.i.i.i.i, %if.end.i.i
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC2EPKcRKS3_.exit: ; preds = %if.end.i.i, %if.then.i.i.i.i, %if.end.i.i.i.i.i
   %9 = load i64, ptr %__dnew.i.i, align 8, !tbaa !11
   %_M_string_length.i.i.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %agg.result, i64 0, i32 1
   store i64 %9, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !21

@@ -12,13 +12,13 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @bugger() local_unnamed_addr #1 {
-sw.epilog:
+entry:
   ret i32 0
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end:
+entry:
   tail call void @exit(i32 noundef 0) #4
   unreachable
 }

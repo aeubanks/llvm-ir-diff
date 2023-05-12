@@ -204,14 +204,14 @@ lor.lhs.false31:                                  ; preds = %lor.lhs.false
   %cmp42 = icmp slt i32 %a.sroa.18.0.copyload, %b.sroa.20.0.copyload
   %cmp46 = icmp slt i32 %b.sroa.20.0.copyload, %c.sroa.14.0.copyload
   %3 = and i1 %cmp42, %cmp46
-  %or.cond241 = and i1 %or.cond239, %3
+  %or.cond241 = and i1 %3, %or.cond239
   br i1 %or.cond241, label %if.then, label %lor.lhs.false47
 
 lor.lhs.false47:                                  ; preds = %lor.lhs.false31
   %cmp58 = icmp sgt i32 %a.sroa.18.0.copyload, %b.sroa.20.0.copyload
   %cmp62 = icmp sgt i32 %b.sroa.20.0.copyload, %c.sroa.14.0.copyload
   %4 = and i1 %cmp58, %cmp62
-  %or.cond244 = and i1 %or.cond239, %4
+  %or.cond244 = and i1 %4, %or.cond239
   br i1 %or.cond244, label %if.then, label %if.end
 
 if.then:                                          ; preds = %lor.lhs.false47, %lor.lhs.false31, %lor.lhs.false, %land.lhs.true
@@ -282,14 +282,14 @@ lor.lhs.false108:                                 ; preds = %lor.lhs.false100
   %cmp119 = icmp slt i32 %a.sroa.18.0.copyload208, %b.sroa.20.0.copyload166
   %cmp123 = icmp slt i32 %b.sroa.20.0.copyload166, %c.sroa.14.0.copyload188
   %10 = and i1 %cmp119, %cmp123
-  %or.cond249 = and i1 %or.cond247, %10
+  %or.cond249 = and i1 %10, %or.cond247
   br i1 %or.cond249, label %if.then140, label %lor.lhs.false124
 
 lor.lhs.false124:                                 ; preds = %lor.lhs.false108
   %cmp135 = icmp sgt i32 %a.sroa.18.0.copyload208, %b.sroa.20.0.copyload166
   %cmp139 = icmp sgt i32 %b.sroa.20.0.copyload166, %c.sroa.14.0.copyload188
   %11 = and i1 %cmp135, %cmp139
-  %or.cond252 = and i1 %or.cond247, %11
+  %or.cond252 = and i1 %11, %or.cond247
   br i1 %or.cond252, label %if.then140, label %if.end149
 
 if.then140:                                       ; preds = %lor.lhs.false124, %lor.lhs.false108, %lor.lhs.false100, %land.lhs.true92

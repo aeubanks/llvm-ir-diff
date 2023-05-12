@@ -676,7 +676,7 @@ if.then:                                          ; preds = %entry
   %mul1.i.22 = shl nsw i32 %div.i.22, 1
   %sub.i.22 = sub nsw i32 %div.i.21, %mul1.i.22
   %div.i.23.neg = sdiv i32 %0, -16777216
-  %div9 = and i32 %CODE, 1073741822
+  %div14 = and i32 %CODE, 1073741822
   %sub = and i32 %CODE, 1
   %1 = shl nsw i32 %div.i.23.neg, 2
   %2 = shl nsw i32 %div.i.22, 1
@@ -695,7 +695,7 @@ if.then:                                          ; preds = %entry
   %mul.i.5 = add i32 %7, %10
   %add.i.5 = add nsw i32 %sub.i.18, %mul.i.5
   %11 = shl i32 %add.i.5, 2
-  %mul.i.7 = add nuw i32 %11, %div9
+  %mul.i.7 = add nuw i32 %11, %div14
   %add.i.7 = or i32 %sub, %mul.i.7
   %12 = shl i32 %add.i.7, 2
   %.neg = shl nsw i32 %div.i.15.neg, 2
@@ -1053,7 +1053,7 @@ if.then:                                          ; preds = %entry
   br i1 %cond, label %cleanup198, label %if.end44.thread
 
 if.end44.thread:                                  ; preds = %if.then
-  %puts249 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %puts295 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
   br label %if.then46
 
 if.else:                                          ; preds = %entry
@@ -1074,12 +1074,12 @@ if.else9:                                         ; preds = %if.else
   %4 = load i8, ptr %arrayidx11, align 1, !tbaa !15
   %conv = sext i8 %4 to i32
   %call12 = tail call i32 (i32, ...) @INT(i32 noundef %conv) #12
-  %div.i250 = sdiv i32 %call12, 2
-  %mul1.i = shl nsw i32 %div.i250, 1
+  %div.i240 = sdiv i32 %call12, 2
+  %mul1.i = shl nsw i32 %div.i240, 1
   %sub.i = sub nsw i32 %call12, %mul1.i
-  %div.i250.1.neg = sdiv i32 %call12, -4
-  %mul1.i.1.neg = shl nsw i32 %div.i250.1.neg, 1
-  %sub.i.1 = add i32 %mul1.i.1.neg, %div.i250
+  %div.i240.1.neg = sdiv i32 %call12, -4
+  %mul1.i.1.neg = shl nsw i32 %div.i240.1.neg, 1
+  %sub.i.1 = add i32 %mul1.i.1.neg, %div.i240
   %5 = load ptr, ptr @MEMORY, align 8, !tbaa !14
   %add = add nuw nsw i32 %LOCATION, 1
   %idxprom13 = zext i32 %add to i64
@@ -1087,30 +1087,30 @@ if.else9:                                         ; preds = %if.else
   %6 = load i8, ptr %arrayidx14, align 1, !tbaa !15
   %conv15 = sext i8 %6 to i32
   %call16 = tail call i32 (i32, ...) @INT(i32 noundef %conv15) #12
-  %div.i254 = sdiv i32 %call16, 2
-  %mul1.i255 = shl nsw i32 %div.i254, 1
-  %sub.i256 = sub nsw i32 %call16, %mul1.i255
-  %div.i254.1 = sdiv i32 %call16, 4
-  %mul1.i255.1 = shl nsw i32 %div.i254.1, 1
-  %sub.i256.1 = sub nsw i32 %div.i254, %mul1.i255.1
-  %div.i254.2 = sdiv i32 %call16, 8
-  %mul1.i255.2 = shl nsw i32 %div.i254.2, 1
-  %sub.i256.2 = sub nsw i32 %div.i254.1, %mul1.i255.2
-  %div.i254.3 = sdiv i32 %call16, 16
-  %mul1.i255.3 = shl nsw i32 %div.i254.3, 1
-  %sub.i256.3 = sub nsw i32 %div.i254.2, %mul1.i255.3
-  %div.i254.4 = sdiv i32 %call16, 32
-  %mul1.i255.4 = shl nsw i32 %div.i254.4, 1
-  %sub.i256.4 = sub nsw i32 %div.i254.3, %mul1.i255.4
-  %div.i254.5 = sdiv i32 %call16, 64
-  %mul1.i255.5 = shl nsw i32 %div.i254.5, 1
-  %sub.i256.5 = sub nsw i32 %div.i254.4, %mul1.i255.5
-  %div.i254.6 = sdiv i32 %call16, 128
-  %mul1.i255.6 = shl nsw i32 %div.i254.6, 1
-  %sub.i256.6 = sub nsw i32 %div.i254.5, %mul1.i255.6
-  %div.i254.7.neg = sdiv i32 %call16, -256
-  %mul1.i255.7.neg = shl nsw i32 %div.i254.7.neg, 1
-  %sub.i256.7 = add i32 %mul1.i255.7.neg, %div.i254.6
+  %div.i244 = sdiv i32 %call16, 2
+  %mul1.i245 = shl nsw i32 %div.i244, 1
+  %sub.i246 = sub nsw i32 %call16, %mul1.i245
+  %div.i244.1 = sdiv i32 %call16, 4
+  %mul1.i245.1 = shl nsw i32 %div.i244.1, 1
+  %sub.i246.1 = sub nsw i32 %div.i244, %mul1.i245.1
+  %div.i244.2 = sdiv i32 %call16, 8
+  %mul1.i245.2 = shl nsw i32 %div.i244.2, 1
+  %sub.i246.2 = sub nsw i32 %div.i244.1, %mul1.i245.2
+  %div.i244.3 = sdiv i32 %call16, 16
+  %mul1.i245.3 = shl nsw i32 %div.i244.3, 1
+  %sub.i246.3 = sub nsw i32 %div.i244.2, %mul1.i245.3
+  %div.i244.4 = sdiv i32 %call16, 32
+  %mul1.i245.4 = shl nsw i32 %div.i244.4, 1
+  %sub.i246.4 = sub nsw i32 %div.i244.3, %mul1.i245.4
+  %div.i244.5 = sdiv i32 %call16, 64
+  %mul1.i245.5 = shl nsw i32 %div.i244.5, 1
+  %sub.i246.5 = sub nsw i32 %div.i244.4, %mul1.i245.5
+  %div.i244.6 = sdiv i32 %call16, 128
+  %mul1.i245.6 = shl nsw i32 %div.i244.6, 1
+  %sub.i246.6 = sub nsw i32 %div.i244.5, %mul1.i245.6
+  %div.i244.7.neg = sdiv i32 %call16, -256
+  %mul1.i245.7.neg = shl nsw i32 %div.i244.7.neg, 1
+  %sub.i246.7 = add i32 %mul1.i245.7.neg, %div.i244.6
   %7 = load ptr, ptr @MEMORY, align 8, !tbaa !14
   %add18 = add nuw nsw i32 %LOCATION, 2
   %idxprom19 = zext i32 %add18 to i64
@@ -1118,31 +1118,31 @@ if.else9:                                         ; preds = %if.else
   %8 = load i8, ptr %arrayidx20, align 1, !tbaa !15
   %conv21 = sext i8 %8 to i32
   %call22 = tail call i32 (i32, ...) @INT(i32 noundef %conv21) #12
-  %div.i264 = sdiv i32 %call22, 2
-  %mul1.i265 = shl nsw i32 %div.i264, 1
-  %sub.i266 = sub nsw i32 %call22, %mul1.i265
-  %div.i264.1 = sdiv i32 %call22, 4
-  %mul1.i265.1 = shl nsw i32 %div.i264.1, 1
-  %sub.i266.1 = sub nsw i32 %div.i264, %mul1.i265.1
-  %div.i264.2 = sdiv i32 %call22, 8
-  %mul1.i265.2 = shl nsw i32 %div.i264.2, 1
-  %sub.i266.2 = sub nsw i32 %div.i264.1, %mul1.i265.2
-  %div.i264.3 = sdiv i32 %call22, 16
-  %mul1.i265.3 = shl nsw i32 %div.i264.3, 1
-  %sub.i266.3 = sub nsw i32 %div.i264.2, %mul1.i265.3
-  %div.i264.4 = sdiv i32 %call22, 32
-  %mul1.i265.4 = shl nsw i32 %div.i264.4, 1
-  %sub.i266.4 = sub nsw i32 %div.i264.3, %mul1.i265.4
-  %div.i264.5 = sdiv i32 %call22, 64
-  %mul1.i265.5 = shl nsw i32 %div.i264.5, 1
-  %sub.i266.5 = sub nsw i32 %div.i264.4, %mul1.i265.5
-  %div.i264.6 = sdiv i32 %call22, 128
-  %mul1.i265.6 = shl nsw i32 %div.i264.6, 1
-  %sub.i266.6 = sub nsw i32 %div.i264.5, %mul1.i265.6
-  %div.i264.7.neg = sdiv i32 %call22, -256
-  %mul1.i265.7.neg = shl nsw i32 %div.i264.7.neg, 1
-  %sub.i266.7 = add i32 %mul1.i265.7.neg, %div.i264.6
-  %cmp25 = icmp eq i32 %sub.i256.4, 1
+  %div.i254 = sdiv i32 %call22, 2
+  %mul1.i255 = shl nsw i32 %div.i254, 1
+  %sub.i256 = sub nsw i32 %call22, %mul1.i255
+  %div.i254.1 = sdiv i32 %call22, 4
+  %mul1.i255.1 = shl nsw i32 %div.i254.1, 1
+  %sub.i256.1 = sub nsw i32 %div.i254, %mul1.i255.1
+  %div.i254.2 = sdiv i32 %call22, 8
+  %mul1.i255.2 = shl nsw i32 %div.i254.2, 1
+  %sub.i256.2 = sub nsw i32 %div.i254.1, %mul1.i255.2
+  %div.i254.3 = sdiv i32 %call22, 16
+  %mul1.i255.3 = shl nsw i32 %div.i254.3, 1
+  %sub.i256.3 = sub nsw i32 %div.i254.2, %mul1.i255.3
+  %div.i254.4 = sdiv i32 %call22, 32
+  %mul1.i255.4 = shl nsw i32 %div.i254.4, 1
+  %sub.i256.4 = sub nsw i32 %div.i254.3, %mul1.i255.4
+  %div.i254.5 = sdiv i32 %call22, 64
+  %mul1.i255.5 = shl nsw i32 %div.i254.5, 1
+  %sub.i256.5 = sub nsw i32 %div.i254.4, %mul1.i255.5
+  %div.i254.6 = sdiv i32 %call22, 128
+  %mul1.i255.6 = shl nsw i32 %div.i254.6, 1
+  %sub.i256.6 = sub nsw i32 %div.i254.5, %mul1.i255.6
+  %div.i254.7.neg = sdiv i32 %call22, -256
+  %mul1.i255.7.neg = shl nsw i32 %div.i254.7.neg, 1
+  %sub.i256.7 = add i32 %mul1.i255.7.neg, %div.i254.6
+  %cmp25 = icmp eq i32 %sub.i246.4, 1
   br i1 %cmp25, label %land.lhs.true, label %if.else41
 
 land.lhs.true:                                    ; preds = %if.else9
@@ -1160,30 +1160,30 @@ if.then34:                                        ; preds = %land.lhs.true
   %10 = load i8, ptr %arrayidx37, align 1, !tbaa !15
   %conv38 = sext i8 %10 to i32
   %call39 = tail call i32 (i32, ...) @INT(i32 noundef %conv38) #12
-  %div.i274 = sdiv i32 %call39, 2
-  %mul1.i275 = shl nsw i32 %div.i274, 1
-  %sub.i276 = sub nsw i32 %call39, %mul1.i275
-  %div.i274.1 = sdiv i32 %call39, 4
-  %mul1.i275.1 = shl nsw i32 %div.i274.1, 1
-  %sub.i276.1 = sub nsw i32 %div.i274, %mul1.i275.1
-  %div.i274.2 = sdiv i32 %call39, 8
-  %mul1.i275.2 = shl nsw i32 %div.i274.2, 1
-  %sub.i276.2 = sub nsw i32 %div.i274.1, %mul1.i275.2
-  %div.i274.3 = sdiv i32 %call39, 16
-  %mul1.i275.3 = shl nsw i32 %div.i274.3, 1
-  %sub.i276.3 = sub nsw i32 %div.i274.2, %mul1.i275.3
-  %div.i274.4 = sdiv i32 %call39, 32
-  %mul1.i275.4 = shl nsw i32 %div.i274.4, 1
-  %sub.i276.4 = sub nsw i32 %div.i274.3, %mul1.i275.4
-  %div.i274.5 = sdiv i32 %call39, 64
-  %mul1.i275.5 = shl nsw i32 %div.i274.5, 1
-  %sub.i276.5 = sub nsw i32 %div.i274.4, %mul1.i275.5
-  %div.i274.6 = sdiv i32 %call39, 128
-  %mul1.i275.6 = shl nsw i32 %div.i274.6, 1
-  %sub.i276.6 = sub nsw i32 %div.i274.5, %mul1.i275.6
-  %div.i274.7.neg = sdiv i32 %call39, -256
-  %mul1.i275.7.neg = shl nsw i32 %div.i274.7.neg, 1
-  %sub.i276.7 = add i32 %mul1.i275.7.neg, %div.i274.6
+  %div.i264 = sdiv i32 %call39, 2
+  %mul1.i265 = shl nsw i32 %div.i264, 1
+  %sub.i266 = sub nsw i32 %call39, %mul1.i265
+  %div.i264.1 = sdiv i32 %call39, 4
+  %mul1.i265.1 = shl nsw i32 %div.i264.1, 1
+  %sub.i266.1 = sub nsw i32 %div.i264, %mul1.i265.1
+  %div.i264.2 = sdiv i32 %call39, 8
+  %mul1.i265.2 = shl nsw i32 %div.i264.2, 1
+  %sub.i266.2 = sub nsw i32 %div.i264.1, %mul1.i265.2
+  %div.i264.3 = sdiv i32 %call39, 16
+  %mul1.i265.3 = shl nsw i32 %div.i264.3, 1
+  %sub.i266.3 = sub nsw i32 %div.i264.2, %mul1.i265.3
+  %div.i264.4 = sdiv i32 %call39, 32
+  %mul1.i265.4 = shl nsw i32 %div.i264.4, 1
+  %sub.i266.4 = sub nsw i32 %div.i264.3, %mul1.i265.4
+  %div.i264.5 = sdiv i32 %call39, 64
+  %mul1.i265.5 = shl nsw i32 %div.i264.5, 1
+  %sub.i266.5 = sub nsw i32 %div.i264.4, %mul1.i265.5
+  %div.i264.6 = sdiv i32 %call39, 128
+  %mul1.i265.6 = shl nsw i32 %div.i264.6, 1
+  %sub.i266.6 = sub nsw i32 %div.i264.5, %mul1.i265.6
+  %div.i264.7.neg = sdiv i32 %call39, -256
+  %mul1.i265.7.neg = shl nsw i32 %div.i264.7.neg, 1
+  %sub.i266.7 = add i32 %mul1.i265.7.neg, %div.i264.6
   br label %if.end44
 
 if.else41:                                        ; preds = %land.lhs.true, %if.else9
@@ -1191,31 +1191,31 @@ if.else41:                                        ; preds = %land.lhs.true, %if.
   br label %if.end44
 
 if.end44:                                         ; preds = %if.then34, %if.then5, %if.else41
-  %BIT_INSTR.sroa.58.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.7, %if.then34 ]
-  %BIT_INSTR.sroa.55.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266, %if.else41 ], [ %sub.i266, %if.then34 ]
-  %BIT_INSTR.sroa.52.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.1, %if.else41 ], [ %sub.i266.1, %if.then34 ]
-  %BIT_INSTR.sroa.49.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.2, %if.else41 ], [ %sub.i266.2, %if.then34 ]
-  %BIT_INSTR.sroa.46.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.3, %if.else41 ], [ %sub.i266.3, %if.then34 ]
-  %BIT_INSTR.sroa.43.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.4, %if.else41 ], [ %sub.i266.4, %if.then34 ]
-  %BIT_INSTR.sroa.40.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.5, %if.else41 ], [ %sub.i266.5, %if.then34 ]
-  %BIT_INSTR.sroa.37.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.6, %if.else41 ], [ %sub.i266.6, %if.then34 ]
-  %BIT_INSTR.sroa.34.0 = phi i32 [ undef, %if.then5 ], [ %sub.i266.7, %if.else41 ], [ %sub.i266.7, %if.then34 ]
-  %BIT_INSTR.sroa.31.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256, %if.else41 ], [ %sub.i256, %if.then34 ]
-  %BIT_INSTR.sroa.28.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.1, %if.else41 ], [ %sub.i256.1, %if.then34 ]
-  %BIT_INSTR.sroa.25.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.2, %if.else41 ], [ %sub.i256.2, %if.then34 ]
-  %BIT_INSTR.sroa.22.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.3, %if.else41 ], [ %sub.i256.3, %if.then34 ]
-  %BIT_INSTR.sroa.60.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.6, %if.then34 ]
-  %BIT_INSTR.sroa.18.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.5, %if.else41 ], [ %sub.i256.5, %if.then34 ]
-  %BIT_INSTR.sroa.16.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.6, %if.else41 ], [ %sub.i256.6, %if.then34 ]
-  %BIT_INSTR.sroa.14.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.7, %if.else41 ], [ %sub.i256.7, %if.then34 ]
+  %BIT_INSTR.sroa.58.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.7, %if.then34 ]
+  %BIT_INSTR.sroa.55.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256, %if.else41 ], [ %sub.i256, %if.then34 ]
+  %BIT_INSTR.sroa.52.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.1, %if.else41 ], [ %sub.i256.1, %if.then34 ]
+  %BIT_INSTR.sroa.49.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.2, %if.else41 ], [ %sub.i256.2, %if.then34 ]
+  %BIT_INSTR.sroa.46.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.3, %if.else41 ], [ %sub.i256.3, %if.then34 ]
+  %BIT_INSTR.sroa.43.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.4, %if.else41 ], [ %sub.i256.4, %if.then34 ]
+  %BIT_INSTR.sroa.40.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.5, %if.else41 ], [ %sub.i256.5, %if.then34 ]
+  %BIT_INSTR.sroa.37.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.6, %if.else41 ], [ %sub.i256.6, %if.then34 ]
+  %BIT_INSTR.sroa.34.0 = phi i32 [ undef, %if.then5 ], [ %sub.i256.7, %if.else41 ], [ %sub.i256.7, %if.then34 ]
+  %BIT_INSTR.sroa.31.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246, %if.else41 ], [ %sub.i246, %if.then34 ]
+  %BIT_INSTR.sroa.28.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.1, %if.else41 ], [ %sub.i246.1, %if.then34 ]
+  %BIT_INSTR.sroa.25.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.2, %if.else41 ], [ %sub.i246.2, %if.then34 ]
+  %BIT_INSTR.sroa.22.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.3, %if.else41 ], [ %sub.i246.3, %if.then34 ]
+  %BIT_INSTR.sroa.60.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.6, %if.then34 ]
+  %BIT_INSTR.sroa.18.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.5, %if.else41 ], [ %sub.i246.5, %if.then34 ]
+  %BIT_INSTR.sroa.16.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.6, %if.else41 ], [ %sub.i246.6, %if.then34 ]
+  %BIT_INSTR.sroa.14.0 = phi i32 [ undef, %if.then5 ], [ %sub.i246.7, %if.else41 ], [ %sub.i246.7, %if.then34 ]
   %BIT_INSTR.sroa.11.0 = phi i32 [ undef, %if.then5 ], [ %sub.i, %if.else41 ], [ %sub.i, %if.then34 ]
   %BIT_INSTR.sroa.8.0 = phi i32 [ undef, %if.then5 ], [ %sub.i.1, %if.else41 ], [ %sub.i.1, %if.then34 ]
-  %BIT_INSTR.sroa.62.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.5, %if.then34 ]
-  %BIT_INSTR.sroa.64.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.4, %if.then34 ]
-  %BIT_INSTR.sroa.66.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.3, %if.then34 ]
-  %BIT_INSTR.sroa.68.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.2, %if.then34 ]
-  %BIT_INSTR.sroa.70.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276.1, %if.then34 ]
-  %BIT_INSTR.sroa.72.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i276, %if.then34 ]
+  %BIT_INSTR.sroa.62.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.5, %if.then34 ]
+  %BIT_INSTR.sroa.64.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.4, %if.then34 ]
+  %BIT_INSTR.sroa.66.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.3, %if.then34 ]
+  %BIT_INSTR.sroa.68.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.2, %if.then34 ]
+  %BIT_INSTR.sroa.70.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266.1, %if.then34 ]
+  %BIT_INSTR.sroa.72.0 = phi i32 [ undef, %if.then5 ], [ undef, %if.else41 ], [ %sub.i266, %if.then34 ]
   %tobool45.not = icmp eq i32 %PRINT, 0
   br i1 %tobool45.not, label %cleanup198, label %if.then46
 
@@ -1274,45 +1274,42 @@ if.then63:                                        ; preds = %if.end60
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %REG2) #12
   call void @FORMAT2(ptr noundef nonnull %REG1, ptr noundef nonnull %REG2) #12
   store i32 %14, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
-  %16 = add nsw i32 %div.i, -45
-  %or.cond202 = icmp ult i32 %16, 2
-  br i1 %or.cond202, label %if.then69, label %if.end80
+  %16 = and i32 %call.i, -4
+  %17 = add i32 %16, -164
+  %18 = lshr exact i32 %17, 2
+  switch i32 %18, label %if.end108 [
+    i32 5, label %if.then69
+    i32 4, label %if.then69
+    i32 3, label %if.then83
+    i32 1, label %if.then97
+    i32 0, label %if.then97
+  ]
 
-if.then69:                                        ; preds = %if.then63
-  %17 = load i32, ptr %REG1, align 4, !tbaa !16
-  %cmp70 = icmp sgt i32 %17, 9
-  %idxprom75 = sext i32 %17 to i64
+if.then69:                                        ; preds = %if.then63, %if.then63
+  %19 = load i32, ptr %REG1, align 4, !tbaa !16
+  %cmp70 = icmp sgt i32 %19, 9
+  %idxprom75 = sext i32 %19 to i64
   %arrayidx76 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %idxprom75
   %arrayidx76.sink = select i1 %cmp70, ptr @str.89, ptr %arrayidx76
-  %puts246 = call i32 @puts(ptr nonnull dereferenceable(1) %arrayidx76.sink)
+  %puts292 = call i32 @puts(ptr nonnull dereferenceable(1) %arrayidx76.sink)
   br label %cleanup
 
-if.end80:                                         ; preds = %if.then63
-  %18 = and i32 %call.i, -4
-  %cmp81 = icmp eq i32 %18, 176
-  br i1 %cmp81, label %if.then83, label %if.end91
-
-if.then83:                                        ; preds = %if.end80
-  %19 = load i32, ptr %REG1, align 4, !tbaa !16
-  %cmp84 = icmp sgt i32 %19, 4
+if.then83:                                        ; preds = %if.then63
+  %20 = load i32, ptr %REG1, align 4, !tbaa !16
+  %cmp84 = icmp sgt i32 %20, 4
   br i1 %cmp84, label %if.then86, label %if.else88
 
 if.then86:                                        ; preds = %if.then83
-  %puts245 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  %puts291 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
   br label %cleanup
 
 if.else88:                                        ; preds = %if.then83
-  %call89 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.76, i32 noundef %19)
+  %call89 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.76, i32 noundef %20)
   br label %cleanup
 
-if.end91:                                         ; preds = %if.end80
-  %20 = add nsw i32 %div.i, -41
-  %or.cond203 = icmp ult i32 %20, 2
+if.then97:                                        ; preds = %if.then63, %if.then63
   %21 = load i32, ptr %REG1, align 4, !tbaa !16
   %cmp98 = icmp sgt i32 %21, 9
-  br i1 %or.cond203, label %if.then97, label %if.end108
-
-if.then97:                                        ; preds = %if.end91
   br i1 %cmp98, label %if.then100, label %if.else102
 
 if.then100:                                       ; preds = %if.then97
@@ -1330,23 +1327,25 @@ if.end107:                                        ; preds = %if.else102, %if.the
   call void @PRINT_CONSTANT(ptr noundef nonnull @.str.79, i32 noundef %22, ptr noundef nonnull @.str.80)
   br label %cleanup
 
-if.end108:                                        ; preds = %if.end91
-  br i1 %cmp98, label %if.then111, label %if.else113
+if.end108:                                        ; preds = %if.then63
+  %23 = load i32, ptr %REG1, align 4, !tbaa !16
+  %cmp109 = icmp sgt i32 %23, 9
+  br i1 %cmp109, label %if.then111, label %if.else113
 
 if.then111:                                       ; preds = %if.end108
   %call112 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.77)
   br label %if.end118
 
 if.else113:                                       ; preds = %if.end108
-  %idxprom114 = sext i32 %21 to i64
+  %idxprom114 = sext i32 %23 to i64
   %arrayidx115 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %idxprom114
   %call117 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.78, ptr noundef nonnull %arrayidx115)
   br label %if.end118
 
 if.end118:                                        ; preds = %if.else113, %if.then111
-  %23 = load i32, ptr %REG2, align 4, !tbaa !16
-  %cmp119 = icmp sgt i32 %23, 9
-  %idxprom124 = sext i32 %23 to i64
+  %24 = load i32, ptr %REG2, align 4, !tbaa !16
+  %cmp119 = icmp sgt i32 %24, 9
+  %idxprom124 = sext i32 %24 to i64
   %arrayidx125 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %idxprom124
   %arrayidx125.sink = select i1 %cmp119, ptr @str.89, ptr %arrayidx125
   %puts = call i32 @puts(ptr nonnull dereferenceable(1) %arrayidx125.sink)
@@ -1367,28 +1366,28 @@ if.end130:                                        ; preds = %if.end60
   %or.cond205 = select i1 %cmp143, i1 %cmp147, i1 false
   %.312 = select i1 %or.cond205, i32 35, i32 32
   %.sink311 = select i1 %or.cond204, i32 64, i32 %.312
-  %putchar242 = tail call i32 @putchar(i32 %.sink311)
-  %24 = load i32, ptr %BYTES, align 4, !tbaa !16
-  %cmp155 = icmp eq i32 %24, 3
-  %25 = shl i32 %BIT_INSTR.sroa.22.1, 2
-  %26 = shl i32 %BIT_INSTR.sroa.25.1, 1
-  %mul.i.2 = add i32 %25, %26
+  %putchar288 = tail call i32 @putchar(i32 %.sink311)
+  %25 = load i32, ptr %BYTES, align 4, !tbaa !16
+  %cmp155 = icmp eq i32 %25, 3
+  %26 = shl i32 %BIT_INSTR.sroa.22.1, 2
+  %27 = shl i32 %BIT_INSTR.sroa.25.1, 1
+  %mul.i.2 = add i32 %26, %27
   %add.i.2 = add nsw i32 %BIT_INSTR.sroa.28.1, %mul.i.2
-  %27 = shl i32 %add.i.2, 2
-  %28 = shl i32 %BIT_INSTR.sroa.31.1, 1
-  %mul.i.4 = add i32 %27, %28
+  %28 = shl i32 %add.i.2, 2
+  %29 = shl i32 %BIT_INSTR.sroa.31.1, 1
+  %mul.i.4 = add i32 %28, %29
   %add.i.4 = add nsw i32 %BIT_INSTR.sroa.34.1, %mul.i.4
-  %29 = shl i32 %add.i.4, 2
-  %30 = shl i32 %BIT_INSTR.sroa.37.1, 1
-  %mul.i.6 = add i32 %29, %30
+  %30 = shl i32 %add.i.4, 2
+  %31 = shl i32 %BIT_INSTR.sroa.37.1, 1
+  %mul.i.6 = add i32 %30, %31
   %add.i.6 = add nsw i32 %BIT_INSTR.sroa.40.1, %mul.i.6
-  %31 = shl i32 %add.i.6, 2
-  %32 = shl i32 %BIT_INSTR.sroa.43.1, 1
-  %mul.i.8 = add i32 %31, %32
+  %32 = shl i32 %add.i.6, 2
+  %33 = shl i32 %BIT_INSTR.sroa.43.1, 1
+  %mul.i.8 = add i32 %32, %33
   %add.i.8 = add nsw i32 %BIT_INSTR.sroa.46.1, %mul.i.8
-  %33 = shl i32 %add.i.8, 2
-  %34 = shl i32 %BIT_INSTR.sroa.49.1, 1
-  %mul.i.10 = add i32 %33, %34
+  %34 = shl i32 %add.i.8, 2
+  %35 = shl i32 %BIT_INSTR.sroa.49.1, 1
+  %mul.i.10 = add i32 %34, %35
   %add.i.10 = add nsw i32 %BIT_INSTR.sroa.52.1, %mul.i.10
   br i1 %cmp155, label %if.then157, label %if.else180
 
@@ -1396,50 +1395,50 @@ if.then157:                                       ; preds = %if.end130
   %mul.i.11 = shl nsw i32 %add.i.10, 1
   %add.i.11 = add nsw i32 %BIT_INSTR.sroa.55.1, %mul.i.11
   %cmp161 = icmp eq i32 %BIT_INSTR.sroa.16.1, 1
-  %35 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
-  %add164 = select i1 %cmp161, i32 %35, i32 0
-  %LOCATION131.0 = add nsw i32 %add164, %add.i.11
+  %36 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
+  %add164 = select i1 %cmp161, i32 %36, i32 0
+  %LOCATION131.0 = add nsw i32 %add.i.11, %add164
   %cmp167 = icmp eq i32 %BIT_INSTR.sroa.18.1, 1
   br i1 %cmp167, label %if.then169, label %if.end183
 
 if.then169:                                       ; preds = %if.then157
   %cmp170 = icmp sgt i32 %LOCATION131.0, 2047
-  %36 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
+  %37 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
   br i1 %cmp170, label %if.then172, label %if.else175
 
 if.then172:                                       ; preds = %if.then169
   %add173 = add nsw i32 %LOCATION131.0, -4093
-  %add174 = add i32 %add173, %36
+  %add174 = add i32 %add173, %37
   br label %if.end183
 
 if.else175:                                       ; preds = %if.then169
   %add176 = add nsw i32 %LOCATION131.0, 3
-  %add177 = add i32 %add176, %36
+  %add177 = add i32 %add176, %37
   br label %if.end183
 
 if.else180:                                       ; preds = %if.end130
-  %37 = shl i32 %add.i.10, 2
-  %38 = shl i32 %BIT_INSTR.sroa.55.1, 1
-  %mul.i289.12 = add i32 %37, %38
-  %add.i291.12 = add nsw i32 %BIT_INSTR.sroa.58.1, %mul.i289.12
-  %39 = shl i32 %add.i291.12, 2
-  %40 = shl i32 %BIT_INSTR.sroa.60.1, 1
-  %mul.i289.14 = add i32 %39, %40
-  %add.i291.14 = add nsw i32 %BIT_INSTR.sroa.62.1, %mul.i289.14
-  %41 = shl i32 %add.i291.14, 2
-  %42 = shl i32 %BIT_INSTR.sroa.64.1, 1
-  %mul.i289.16 = add i32 %41, %42
-  %add.i291.16 = add nsw i32 %BIT_INSTR.sroa.66.1, %mul.i289.16
-  %43 = shl i32 %add.i291.16, 2
-  %44 = shl i32 %BIT_INSTR.sroa.68.1, 1
-  %mul.i289.18 = add i32 %43, %44
-  %add.i291.18 = add nsw i32 %BIT_INSTR.sroa.70.1, %mul.i289.18
-  %mul.i289.19 = shl nsw i32 %add.i291.18, 1
-  %add.i291.19 = add nsw i32 %BIT_INSTR.sroa.72.1, %mul.i289.19
+  %38 = shl i32 %add.i.10, 2
+  %39 = shl i32 %BIT_INSTR.sroa.55.1, 1
+  %mul.i279.12 = add i32 %38, %39
+  %add.i281.12 = add nsw i32 %BIT_INSTR.sroa.58.1, %mul.i279.12
+  %40 = shl i32 %add.i281.12, 2
+  %41 = shl i32 %BIT_INSTR.sroa.60.1, 1
+  %mul.i279.14 = add i32 %40, %41
+  %add.i281.14 = add nsw i32 %BIT_INSTR.sroa.62.1, %mul.i279.14
+  %42 = shl i32 %add.i281.14, 2
+  %43 = shl i32 %BIT_INSTR.sroa.64.1, 1
+  %mul.i279.16 = add i32 %42, %43
+  %add.i281.16 = add nsw i32 %BIT_INSTR.sroa.66.1, %mul.i279.16
+  %44 = shl i32 %add.i281.16, 2
+  %45 = shl i32 %BIT_INSTR.sroa.68.1, 1
+  %mul.i279.18 = add i32 %44, %45
+  %add.i281.18 = add nsw i32 %BIT_INSTR.sroa.70.1, %mul.i279.18
+  %mul.i279.19 = shl nsw i32 %add.i281.18, 1
+  %add.i281.19 = add nsw i32 %BIT_INSTR.sroa.72.1, %mul.i279.19
   br label %if.end183
 
 if.end183:                                        ; preds = %if.else180, %if.then157, %if.else175, %if.then172
-  %LOCATION131.1 = phi i32 [ %add174, %if.then172 ], [ %add177, %if.else175 ], [ %LOCATION131.0, %if.then157 ], [ %add.i291.19, %if.else180 ]
+  %LOCATION131.1 = phi i32 [ %add174, %if.then172 ], [ %add177, %if.else175 ], [ %LOCATION131.0, %if.then157 ], [ %add.i281.19, %if.else180 ]
   %cmp184 = icmp slt i32 %LOCATION131.1, 1048576
   br i1 %cmp184, label %if.then186, label %if.else187
 
@@ -1461,7 +1460,7 @@ if.then193:                                       ; preds = %if.end189
 
 if.end195:                                        ; preds = %if.then193, %if.end189
   store i32 %14, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
-  %putchar241 = tail call i32 @putchar(i32 10)
+  %putchar287 = tail call i32 @putchar(i32 10)
   store i32 0, ptr @PRINT_INSTR, align 4, !tbaa !16
   br label %cleanup198
 
@@ -1592,14 +1591,14 @@ declare i32 @FORMAT3_4(i32 noundef, i32 noundef) local_unnamed_addr #1
 
 declare void @SIGNAL_INTERUPT(...) local_unnamed_addr #1
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1611,8 +1610,8 @@ attributes #6 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable 
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

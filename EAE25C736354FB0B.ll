@@ -72,27 +72,27 @@ if.then:                                          ; preds = %entry
   %4 = load i64, ptr %size.i, align 8
   %cmp2.i = icmp eq i64 %4, 0
   %or.cond.i = select i1 %cmp.i, i1 true, i1 %cmp2.i
-  br i1 %or.cond.i, label %luaZ_fill.exit.thread, label %luaZ_fill.exit
+  br i1 %or.cond.i, label %if.then2.critedge, label %if.end.i
 
-luaZ_fill.exit.thread:                            ; preds = %if.then
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #7
-  br label %return
-
-luaZ_fill.exit:                                   ; preds = %if.then
+if.end.i:                                         ; preds = %if.then
   %p.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 1
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #7
   store i64 %4, ptr %z, align 8, !tbaa !13
   store ptr %call.i, ptr %p.i, align 8, !tbaa !14
   br label %if.end4
 
-if.end4:                                          ; preds = %entry.if.end4_crit_edge, %luaZ_fill.exit
-  %5 = phi ptr [ %.pre, %entry.if.end4_crit_edge ], [ %call.i, %luaZ_fill.exit ]
+if.then2.critedge:                                ; preds = %if.then
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #7
+  br label %return
+
+if.end4:                                          ; preds = %entry.if.end4_crit_edge, %if.end.i
+  %5 = phi ptr [ %.pre, %entry.if.end4_crit_edge ], [ %call.i, %if.end.i ]
   %6 = load i8, ptr %5, align 1, !tbaa !15
   %conv = zext i8 %6 to i32
   br label %return
 
-return:                                           ; preds = %luaZ_fill.exit.thread, %if.end4
-  %retval.0 = phi i32 [ %conv, %if.end4 ], [ -1, %luaZ_fill.exit.thread ]
+return:                                           ; preds = %if.then2.critedge, %if.end4
+  %retval.0 = phi i32 [ %conv, %if.end4 ], [ -1, %if.then2.critedge ]
   ret i32 %retval.0
 }
 
@@ -124,16 +124,16 @@ while.body.lr.ph:                                 ; preds = %entry
   %.pre = load i64, ptr %z, align 8, !tbaa !13
   br label %while.body
 
-while.body:                                       ; preds = %while.body.lr.ph, %luaZ_lookahead.exit
-  %0 = phi i64 [ %.pre, %while.body.lr.ph ], [ %sub, %luaZ_lookahead.exit ]
-  %n.addr.034 = phi i64 [ %n, %while.body.lr.ph ], [ %sub7, %luaZ_lookahead.exit ]
-  %b.addr.033 = phi ptr [ %b, %while.body.lr.ph ], [ %add.ptr6, %luaZ_lookahead.exit ]
+while.body:                                       ; preds = %while.body.lr.ph, %cleanup
+  %0 = phi i64 [ %.pre, %while.body.lr.ph ], [ %sub, %cleanup ]
+  %n.addr.034 = phi i64 [ %n, %while.body.lr.ph ], [ %sub7, %cleanup ]
+  %b.addr.033 = phi ptr [ %b, %while.body.lr.ph ], [ %add.ptr6, %cleanup ]
   %cmp.i = icmp eq i64 %0, 0
-  br i1 %cmp.i, label %if.then.i, label %while.body.luaZ_lookahead.exit_crit_edge
+  br i1 %cmp.i, label %if.then.i, label %while.body.cleanup_crit_edge
 
-while.body.luaZ_lookahead.exit_crit_edge:         ; preds = %while.body
+while.body.cleanup_crit_edge:                     ; preds = %while.body
   %.pre36 = load ptr, ptr %p.i.i, align 8, !tbaa !14
-  br label %luaZ_lookahead.exit
+  br label %cleanup
 
 if.then.i:                                        ; preds = %while.body
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i.i) #7
@@ -146,16 +146,16 @@ if.then.i:                                        ; preds = %while.body
   %cmp2.i.i = icmp eq i64 %4, 0
   %or.cond.i.i = select i1 %cmp.i.i, i1 true, i1 %cmp2.i.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i.i) #7
-  br i1 %or.cond.i.i, label %return, label %luaZ_fill.exit.i
+  br i1 %or.cond.i.i, label %return, label %if.end.i.i
 
-luaZ_fill.exit.i:                                 ; preds = %if.then.i
+if.end.i.i:                                       ; preds = %if.then.i
   store i64 %4, ptr %z, align 8, !tbaa !13
   store ptr %call.i.i, ptr %p.i.i, align 8, !tbaa !14
-  br label %luaZ_lookahead.exit
+  br label %cleanup
 
-luaZ_lookahead.exit:                              ; preds = %while.body.luaZ_lookahead.exit_crit_edge, %luaZ_fill.exit.i
-  %5 = phi ptr [ %.pre36, %while.body.luaZ_lookahead.exit_crit_edge ], [ %call.i.i, %luaZ_fill.exit.i ]
-  %6 = phi i64 [ %0, %while.body.luaZ_lookahead.exit_crit_edge ], [ %4, %luaZ_fill.exit.i ]
+cleanup:                                          ; preds = %while.body.cleanup_crit_edge, %if.end.i.i
+  %5 = phi ptr [ %call.i.i, %if.end.i.i ], [ %.pre36, %while.body.cleanup_crit_edge ]
+  %6 = phi i64 [ %4, %if.end.i.i ], [ %0, %while.body.cleanup_crit_edge ]
   %.n.addr.0 = call i64 @llvm.umin.i64(i64 %n.addr.034, i64 %6)
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %b.addr.033, ptr align 1 %5, i64 %.n.addr.0, i1 false)
   %7 = load i64, ptr %z, align 8, !tbaa !13
@@ -169,8 +169,8 @@ luaZ_lookahead.exit:                              ; preds = %while.body.luaZ_loo
   %tobool.not = icmp eq i64 %sub7, 0
   br i1 %tobool.not, label %return, label %while.body
 
-return:                                           ; preds = %luaZ_lookahead.exit, %if.then.i, %entry
-  %n.addr.031 = phi i64 [ 0, %entry ], [ 0, %luaZ_lookahead.exit ], [ %n.addr.034, %if.then.i ]
+return:                                           ; preds = %cleanup, %if.then.i, %entry
+  %n.addr.031 = phi i64 [ 0, %entry ], [ 0, %cleanup ], [ %n.addr.034, %if.then.i ]
   ret i64 %n.addr.031
 }
 
@@ -219,22 +219,22 @@ declare hidden ptr @luaM_realloc_(ptr noundef, ptr noundef, i64 noundef, i64 nou
 
 declare hidden ptr @luaM_toobig(ptr noundef) local_unnamed_addr #4
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #5
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #5
+declare i64 @llvm.umin.i64(i64, i64) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #7 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

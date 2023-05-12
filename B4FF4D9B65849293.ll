@@ -365,34 +365,46 @@ entry:
   %rem = urem i64 %add, 4294967291
   %2 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem131 = urem i32 %rem1.lhs.trunc, %2
   %conv4 = trunc i64 %hashkey to i32
-  br label %for.cond
+  %mul332 = shl i32 %rem131, 1
+  %idxprom33 = zext i32 %mul332 to i64
+  %arrayidx34 = getelementptr inbounds i32, ptr %hash, i64 %idxprom33
+  %3 = load i32, ptr %arrayidx34, align 4, !tbaa !5
+  %cmp.not35 = icmp eq i32 %3, %conv4
+  %cmp9.not36 = icmp eq i32 %3, -1
+  %or.cond37 = or i1 %cmp.not35, %cmp9.not36
+  br i1 %or.cond37, label %for.end, label %for.body
 
-for.cond:                                         ; preds = %for.cond, %entry
-  %rem1.lhs.trunc.pn = phi i32 [ %rem1.lhs.trunc, %entry ], [ %inc11, %for.cond ]
-  %hashloc.0 = urem i32 %rem1.lhs.trunc.pn, %2
-  %mul3 = shl i32 %hashloc.0, 1
+for.body:                                         ; preds = %entry, %for.body
+  %hashloc.038 = phi i32 [ %rem12, %for.body ], [ %rem131, %entry ]
+  %hashloc.038.fr = freeze i32 %hashloc.038
+  %inc11 = add i32 %hashloc.038.fr, 1
+  %4 = icmp eq i32 %inc11, %2
+  %rem12 = select i1 %4, i32 0, i32 %inc11
+  %mul3 = shl i32 %rem12, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
-  %3 = load i32, ptr %arrayidx, align 4, !tbaa !5
-  %cmp.not = icmp eq i32 %3, %conv4
-  %cmp9.not = icmp eq i32 %3, -1
+  %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %5, %conv4
+  %cmp9.not = icmp eq i32 %5, -1
   %or.cond = or i1 %cmp.not, %cmp9.not
-  %inc11 = add nuw i32 %hashloc.0, 1
-  br i1 %or.cond, label %for.end, label %for.cond, !llvm.loop !19
+  br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !19
 
-for.end:                                          ; preds = %for.cond
-  br i1 %cmp9.not, label %if.end, label %if.then
+for.end:                                          ; preds = %for.body, %entry
+  %mul3.lcssa = phi i32 [ %mul332, %entry ], [ %mul3, %for.body ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not36, %entry ], [ %cmp9.not, %for.body ]
+  br i1 %cmp9.not.lcssa, label %if.end, label %if.then
 
 if.then:                                          ; preds = %for.end
-  %add19 = or i32 %mul3, 1
+  %add19 = or i32 %mul3.lcssa, 1
   %idxprom20 = zext i32 %add19 to i64
   %arrayidx21 = getelementptr inbounds i32, ptr %hash, i64 %idxprom20
-  %4 = load i32, ptr %arrayidx21, align 4, !tbaa !5
+  %6 = load i32, ptr %arrayidx21, align 4, !tbaa !5
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %for.end
-  %hashval.0 = phi i32 [ %4, %if.then ], [ -1, %for.end ]
+  %hashval.0 = phi i32 [ %6, %if.then ], [ -1, %for.end ]
   ret i32 %hashval.0
 }
 
@@ -406,26 +418,38 @@ entry:
   %rem = urem i64 %add, 4294967291
   %2 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem130 = urem i32 %rem1.lhs.trunc, %2
   %conv8 = trunc i64 %hashkey to i32
-  br label %for.cond
+  %mul331 = shl i32 %rem130, 1
+  %idxprom32 = zext i32 %mul331 to i64
+  %arrayidx33 = getelementptr inbounds i32, ptr %hash, i64 %idxprom32
+  %3 = load i32, ptr %arrayidx33, align 4, !tbaa !5
+  %cmp.not34 = icmp eq i32 %3, -1
+  %cmp9.not35 = icmp eq i32 %3, %conv8
+  %or.cond36 = or i1 %cmp.not34, %cmp9.not35
+  br i1 %or.cond36, label %for.end, label %for.inc
 
-for.cond:                                         ; preds = %for.cond, %entry
-  %rem1.lhs.trunc.pn = phi i32 [ %rem1.lhs.trunc, %entry ], [ %inc, %for.cond ]
-  %hashloc.0 = urem i32 %rem1.lhs.trunc.pn, %2
-  %mul3 = shl i32 %hashloc.0, 1
+for.inc:                                          ; preds = %entry, %for.inc
+  %hashloc.037 = phi i32 [ %rem11, %for.inc ], [ %rem130, %entry ]
+  %hashloc.037.fr = freeze i32 %hashloc.037
+  %inc = add i32 %hashloc.037.fr, 1
+  %4 = icmp eq i32 %inc, %2
+  %rem11 = select i1 %4, i32 0, i32 %inc
+  %mul3 = shl i32 %rem11, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
-  %3 = load i32, ptr %arrayidx, align 4, !tbaa !5
-  %cmp.not = icmp eq i32 %3, -1
-  %cmp9.not = icmp eq i32 %3, %conv8
+  %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %5, -1
+  %cmp9.not = icmp eq i32 %5, %conv8
   %or.cond = or i1 %cmp.not, %cmp9.not
-  %inc = add nuw i32 %hashloc.0, 1
-  br i1 %or.cond, label %for.end, label %for.cond, !llvm.loop !20
+  br i1 %or.cond, label %for.end, label %for.inc, !llvm.loop !20
 
-for.end:                                          ; preds = %for.cond
-  %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom
+for.end:                                          ; preds = %for.inc, %entry
+  %idxprom.lcssa = phi i64 [ %idxprom32, %entry ], [ %idxprom, %for.inc ]
+  %mul3.lcssa = phi i32 [ %mul331, %entry ], [ %mul3, %for.inc ]
+  %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   store i32 %conv8, ptr %arrayidx.le, align 4, !tbaa !5
-  %add17 = or i32 %mul3, 1
+  %add17 = or i32 %mul3.lcssa, 1
   %idxprom18 = zext i32 %add17 to i64
   %arrayidx19 = getelementptr inbounds i32, ptr %hash, i64 %idxprom18
   store i32 %ic, ptr %arrayidx19, align 4, !tbaa !5
@@ -445,26 +469,26 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem134 = urem i32 %rem1.lhs.trunc, %3
   %conv4 = trunc i64 %hashkey to i32
-  %hashloc.035 = urem i32 %rem1.lhs.trunc, %3
-  %mul336 = shl i32 %hashloc.035, 1
-  %idxprom37 = zext i32 %mul336 to i64
-  %arrayidx38 = getelementptr inbounds i32, ptr %hash, i64 %idxprom37
-  %4 = load i32, ptr %arrayidx38, align 4, !tbaa !5
-  %cmp.not39 = icmp eq i32 %4, %conv4
-  %cmp9.not40 = icmp eq i32 %4, -1
-  %or.cond41 = or i1 %cmp.not39, %cmp9.not40
-  br i1 %or.cond41, label %for.end, label %for.body
+  %mul335 = shl i32 %rem134, 1
+  %idxprom36 = zext i32 %mul335 to i64
+  %arrayidx37 = getelementptr inbounds i32, ptr %hash, i64 %idxprom36
+  %4 = load i32, ptr %arrayidx37, align 4, !tbaa !5
+  %cmp.not38 = icmp eq i32 %4, %conv4
+  %cmp9.not39 = icmp eq i32 %4, -1
+  %or.cond40 = or i1 %cmp.not38, %cmp9.not39
+  br i1 %or.cond40, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.043 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.035, %entry ]
   %icount.042 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
+  %hashloc.041 = phi i32 [ %rem13, %for.body ], [ %rem134, %entry ]
   %inc11 = add nuw nsw i32 %icount.042, 1
-  %hashloc.043.fr = freeze i32 %hashloc.043
-  %inc12 = add i32 %hashloc.043.fr, 1
+  %hashloc.041.fr = freeze i32 %hashloc.041
+  %inc12 = add i32 %hashloc.041.fr, 1
   %5 = icmp eq i32 %inc12, %3
-  %hashloc.0 = select i1 %5, i32 0, i32 %inc12
-  %mul3 = shl i32 %hashloc.0, 1
+  %rem13 = select i1 %5, i32 0, i32 %inc12
+  %mul3 = shl i32 %rem13, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -475,8 +499,8 @@ for.body:                                         ; preds = %entry, %for.body
 
 for.end:                                          ; preds = %for.body, %entry
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11, %for.body ]
-  %mul3.lcssa = phi i32 [ %mul336, %entry ], [ %mul3, %for.body ]
-  %cmp9.not.lcssa = phi i1 [ %cmp9.not40, %entry ], [ %cmp9.not, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul335, %entry ], [ %mul3, %for.body ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not39, %entry ], [ %cmp9.not, %for.body ]
   %7 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add14 = add i32 %7, %icount.0.lcssa
   store i32 %add14, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -507,30 +531,30 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem132 = urem i32 %rem1.lhs.trunc, %3
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.034 = urem i32 %rem1.lhs.trunc, %3
-  %mul335 = shl i32 %hashloc.034, 1
-  %idxprom36 = zext i32 %mul335 to i64
-  %arrayidx37 = getelementptr inbounds i32, ptr %hash, i64 %idxprom36
-  %4 = load i32, ptr %arrayidx37, align 4, !tbaa !5
-  %cmp.not38 = icmp eq i32 %4, -1
-  %cmp9.not39 = icmp eq i32 %4, %conv8
-  %or.cond40 = or i1 %cmp.not38, %cmp9.not39
-  br i1 %or.cond40, label %for.end, label %for.body.preheader
+  %mul334 = shl i32 %rem132, 1
+  %idxprom35 = zext i32 %mul334 to i64
+  %arrayidx36 = getelementptr inbounds i32, ptr %hash, i64 %idxprom35
+  %4 = load i32, ptr %arrayidx36, align 4, !tbaa !5
+  %cmp.not37 = icmp eq i32 %4, -1
+  %cmp9.not38 = icmp eq i32 %4, %conv8
+  %or.cond39 = or i1 %cmp.not37, %cmp9.not38
+  br i1 %or.cond39, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %write_hash_collisions.promoted = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.body
-  %hashloc.042 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.034, %for.body.preheader ]
-  %inc113341 = phi i32 [ %inc11, %for.body ], [ %write_hash_collisions.promoted, %for.body.preheader ]
-  %inc11 = add i32 %inc113341, 1
-  %hashloc.042.fr = freeze i32 %hashloc.042
-  %inc12 = add i32 %hashloc.042.fr, 1
+  %hashloc.041 = phi i32 [ %rem13, %for.body ], [ %rem132, %for.body.preheader ]
+  %inc113340 = phi i32 [ %inc11, %for.body ], [ %write_hash_collisions.promoted, %for.body.preheader ]
+  %inc11 = add i32 %inc113340, 1
+  %hashloc.041.fr = freeze i32 %hashloc.041
+  %inc12 = add i32 %hashloc.041.fr, 1
   %5 = icmp eq i32 %inc12, %3
-  %hashloc.0 = select i1 %5, i32 0, i32 %inc12
-  %mul3 = shl i32 %hashloc.0, 1
+  %rem13 = select i1 %5, i32 0, i32 %inc12
+  %mul3 = shl i32 %rem13, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -544,8 +568,8 @@ for.cond.for.end_crit_edge:                       ; preds = %for.body
   br label %for.end
 
 for.end:                                          ; preds = %for.cond.for.end_crit_edge, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom, %for.cond.for.end_crit_edge ], [ %idxprom36, %entry ]
-  %mul3.lcssa = phi i32 [ %mul3, %for.cond.for.end_crit_edge ], [ %mul335, %entry ]
+  %idxprom.lcssa = phi i64 [ %idxprom, %for.cond.for.end_crit_edge ], [ %idxprom35, %entry ]
+  %mul3.lcssa = phi i32 [ %mul3, %for.cond.for.end_crit_edge ], [ %mul334, %entry ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   store i32 %conv8, ptr %arrayidx.le, align 4, !tbaa !5
   %add19 = or i32 %mul3.lcssa, 1
@@ -568,22 +592,22 @@ entry:
   %add.fr = freeze i64 %add
   %rem = urem i64 %add.fr, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
-  %.fr62 = freeze i32 %3
+  %.fr61 = freeze i32 %3
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem139 = urem i32 %rem1.lhs.trunc, %.fr61
   %conv4 = trunc i64 %hashkey to i32
-  %hashloc.043 = urem i32 %rem1.lhs.trunc, %.fr62
-  %mul344 = shl i32 %hashloc.043, 1
-  %idxprom45 = zext i32 %mul344 to i64
-  %arrayidx46 = getelementptr inbounds i32, ptr %hash, i64 %idxprom45
-  %4 = load i32, ptr %arrayidx46, align 4, !tbaa !5
-  %cmp.not47 = icmp eq i32 %4, %conv4
-  %cmp9.not48 = icmp eq i32 %4, -1
-  %or.cond49 = or i1 %cmp.not47, %cmp9.not48
-  br i1 %or.cond49, label %for.end, label %for.body
+  %mul343 = shl i32 %rem139, 1
+  %idxprom44 = zext i32 %mul343 to i64
+  %arrayidx45 = getelementptr inbounds i32, ptr %hash, i64 %idxprom44
+  %4 = load i32, ptr %arrayidx45, align 4, !tbaa !5
+  %cmp.not46 = icmp eq i32 %4, %conv4
+  %cmp9.not47 = icmp eq i32 %4, -1
+  %or.cond48 = or i1 %cmp.not46, %cmp9.not47
+  br i1 %or.cond48, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc.1
-  %hashloc.051 = phi i32 [ %hashloc.0.1, %for.inc.1 ], [ %hashloc.043, %entry ]
   %icount.050 = phi i32 [ %inc11.1, %for.inc.1 ], [ 0, %entry ]
+  %hashloc.049 = phi i32 [ %rem15.1, %for.inc.1 ], [ %rem139, %entry ]
   %exitcond = icmp eq i32 %icount.050, 1000
   br i1 %exitcond, label %if.then, label %for.inc
 
@@ -593,24 +617,24 @@ if.then:                                          ; preds = %for.body
   unreachable
 
 for.inc:                                          ; preds = %for.body
-  %inc14 = add i32 %hashloc.051, 1
-  %5 = icmp eq i32 %inc14, %.fr62
-  %hashloc.0 = select i1 %5, i32 0, i32 %inc14
-  %mul3 = shl i32 %hashloc.0, 1
+  %inc14 = add i32 %hashloc.049, 1
+  %5 = icmp eq i32 %inc14, %.fr61
+  %rem15 = select i1 %5, i32 0, i32 %inc14
+  %mul3 = shl i32 %rem15, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
   %cmp.not = icmp eq i32 %6, %conv4
   %cmp9.not = icmp eq i32 %6, -1
   %or.cond = or i1 %cmp.not, %cmp9.not
-  br i1 %or.cond, label %for.end.loopexit.split.loop.exit63, label %for.inc.1, !llvm.loop !23
+  br i1 %or.cond, label %for.end.loopexit.split.loop.exit62, label %for.inc.1, !llvm.loop !23
 
 for.inc.1:                                        ; preds = %for.inc
   %inc11.1 = add nuw nsw i32 %icount.050, 2
-  %inc14.1 = add i32 %hashloc.0, 1
-  %7 = icmp eq i32 %inc14.1, %.fr62
-  %hashloc.0.1 = select i1 %7, i32 0, i32 %inc14.1
-  %mul3.1 = shl i32 %hashloc.0.1, 1
+  %inc14.1 = add i32 %rem15, 1
+  %7 = icmp eq i32 %inc14.1, %.fr61
+  %rem15.1 = select i1 %7, i32 0, i32 %inc14.1
+  %mul3.1 = shl i32 %rem15.1, 1
   %idxprom.1 = zext i32 %mul3.1 to i64
   %arrayidx.1 = getelementptr inbounds i32, ptr %hash, i64 %idxprom.1
   %8 = load i32, ptr %arrayidx.1, align 4, !tbaa !5
@@ -619,14 +643,14 @@ for.inc.1:                                        ; preds = %for.inc
   %or.cond.1 = or i1 %cmp.not.1, %cmp9.not.1
   br i1 %or.cond.1, label %for.end, label %for.body, !llvm.loop !23
 
-for.end.loopexit.split.loop.exit63:               ; preds = %for.inc
+for.end.loopexit.split.loop.exit62:               ; preds = %for.inc
   %inc11.le = or i32 %icount.050, 1
   br label %for.end
 
-for.end:                                          ; preds = %for.end.loopexit.split.loop.exit63, %for.inc.1, %entry
-  %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11.le, %for.end.loopexit.split.loop.exit63 ], [ %inc11.1, %for.inc.1 ]
-  %mul3.lcssa = phi i32 [ %mul344, %entry ], [ %mul3, %for.end.loopexit.split.loop.exit63 ], [ %mul3.1, %for.inc.1 ]
-  %cmp9.not.lcssa = phi i1 [ %cmp9.not48, %entry ], [ %cmp9.not, %for.end.loopexit.split.loop.exit63 ], [ %cmp9.not.1, %for.inc.1 ]
+for.end:                                          ; preds = %for.end.loopexit.split.loop.exit62, %for.inc.1, %entry
+  %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11.le, %for.end.loopexit.split.loop.exit62 ], [ %inc11.1, %for.inc.1 ]
+  %mul3.lcssa = phi i32 [ %mul343, %entry ], [ %mul3, %for.end.loopexit.split.loop.exit62 ], [ %mul3.1, %for.inc.1 ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not47, %entry ], [ %cmp9.not, %for.end.loopexit.split.loop.exit62 ], [ %cmp9.not.1, %for.inc.1 ]
   %9 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add16 = add i32 %9, %icount.0.lcssa
   store i32 %add16, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -657,30 +681,30 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem132 = urem i32 %rem1.lhs.trunc, %3
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.034 = urem i32 %rem1.lhs.trunc, %3
-  %mul335 = shl i32 %hashloc.034, 1
-  %idxprom36 = zext i32 %mul335 to i64
-  %arrayidx37 = getelementptr inbounds i32, ptr %hash, i64 %idxprom36
-  %4 = load i32, ptr %arrayidx37, align 4, !tbaa !5
-  %cmp.not38 = icmp eq i32 %4, -1
-  %cmp9.not39 = icmp eq i32 %4, %conv8
-  %or.cond40 = or i1 %cmp.not38, %cmp9.not39
-  br i1 %or.cond40, label %for.end, label %for.body.preheader
+  %mul334 = shl i32 %rem132, 1
+  %idxprom35 = zext i32 %mul334 to i64
+  %arrayidx36 = getelementptr inbounds i32, ptr %hash, i64 %idxprom35
+  %4 = load i32, ptr %arrayidx36, align 4, !tbaa !5
+  %cmp.not37 = icmp eq i32 %4, -1
+  %cmp9.not38 = icmp eq i32 %4, %conv8
+  %or.cond39 = or i1 %cmp.not37, %cmp9.not38
+  br i1 %or.cond39, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %write_hash_collisions.promoted = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.body
-  %hashloc.042 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.034, %for.body.preheader ]
-  %inc113341 = phi i32 [ %inc11, %for.body ], [ %write_hash_collisions.promoted, %for.body.preheader ]
-  %inc11 = add i32 %inc113341, 1
-  %hashloc.042.fr = freeze i32 %hashloc.042
-  %inc12 = add i32 %hashloc.042.fr, 1
+  %hashloc.041 = phi i32 [ %rem13, %for.body ], [ %rem132, %for.body.preheader ]
+  %inc113340 = phi i32 [ %inc11, %for.body ], [ %write_hash_collisions.promoted, %for.body.preheader ]
+  %inc11 = add i32 %inc113340, 1
+  %hashloc.041.fr = freeze i32 %hashloc.041
+  %inc12 = add i32 %hashloc.041.fr, 1
   %5 = icmp eq i32 %inc12, %3
-  %hashloc.0 = select i1 %5, i32 0, i32 %inc12
-  %mul3 = shl i32 %hashloc.0, 1
+  %rem13 = select i1 %5, i32 0, i32 %inc12
+  %mul3 = shl i32 %rem13, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -694,8 +718,8 @@ for.cond.for.end_crit_edge:                       ; preds = %for.body
   br label %for.end
 
 for.end:                                          ; preds = %for.cond.for.end_crit_edge, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom, %for.cond.for.end_crit_edge ], [ %idxprom36, %entry ]
-  %mul3.lcssa = phi i32 [ %mul3, %for.cond.for.end_crit_edge ], [ %mul335, %entry ]
+  %idxprom.lcssa = phi i64 [ %idxprom, %for.cond.for.end_crit_edge ], [ %idxprom35, %entry ]
+  %mul3.lcssa = phi i32 [ %mul3, %for.cond.for.end_crit_edge ], [ %mul334, %entry ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   store i32 %conv8, ptr %arrayidx.le, align 4, !tbaa !5
   %add19 = or i32 %mul3.lcssa, 1
@@ -899,25 +923,25 @@ entry:
   %rem = urem i64 %add, 4294967291
   %2 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem134 = urem i32 %rem1.lhs.trunc, %2
   %conv4 = trunc i64 %hashkey to i32
-  %hashloc.035 = urem i32 %rem1.lhs.trunc, %2
-  %mul336 = shl i32 %hashloc.035, 1
-  %idxprom37 = zext i32 %mul336 to i64
-  %arrayidx38 = getelementptr inbounds i32, ptr %hash, i64 %idxprom37
-  %3 = load i32, ptr %arrayidx38, align 4, !tbaa !5
-  %cmp.not39 = icmp eq i32 %3, %conv4
-  %cmp9.not40 = icmp eq i32 %3, -1
-  %or.cond41 = or i1 %cmp.not39, %cmp9.not40
-  br i1 %or.cond41, label %for.end, label %for.body
+  %mul335 = shl i32 %rem134, 1
+  %idxprom36 = zext i32 %mul335 to i64
+  %arrayidx37 = getelementptr inbounds i32, ptr %hash, i64 %idxprom36
+  %3 = load i32, ptr %arrayidx37, align 4, !tbaa !5
+  %cmp.not38 = icmp eq i32 %3, %conv4
+  %cmp9.not39 = icmp eq i32 %3, -1
+  %or.cond40 = or i1 %cmp.not38, %cmp9.not39
+  br i1 %or.cond40, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.043 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.035, %entry ]
   %icount.042 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %hashloc.041 = phi i32 [ %rem13, %for.body ], [ %rem134, %entry ]
   %inc = add nuw nsw i32 %icount.042, 1
   %mul11 = mul nsw i32 %inc, %inc
-  %add12 = add i32 %mul11, %hashloc.043
-  %hashloc.0 = urem i32 %add12, %2
-  %mul3 = shl i32 %hashloc.0, 1
+  %add12 = add i32 %mul11, %hashloc.041
+  %rem13 = urem i32 %add12, %2
+  %mul3 = shl i32 %rem13, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %4 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -927,8 +951,8 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !27
 
 for.end:                                          ; preds = %for.body, %entry
-  %mul3.lcssa = phi i32 [ %mul336, %entry ], [ %mul3, %for.body ]
-  %cmp9.not.lcssa = phi i1 [ %cmp9.not40, %entry ], [ %cmp9.not, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul335, %entry ], [ %mul3, %for.body ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not39, %entry ], [ %cmp9.not, %for.body ]
   br i1 %cmp9.not.lcssa, label %if.end, label %if.then
 
 if.then:                                          ; preds = %for.end
@@ -953,25 +977,25 @@ entry:
   %rem = urem i64 %add, 4294967291
   %2 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem134 = urem i32 %rem1.lhs.trunc, %2
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.035 = urem i32 %rem1.lhs.trunc, %2
-  %mul336 = shl i32 %hashloc.035, 1
-  %idxprom37 = zext i32 %mul336 to i64
-  %arrayidx38 = getelementptr inbounds i32, ptr %hash, i64 %idxprom37
-  %3 = load i32, ptr %arrayidx38, align 4, !tbaa !5
-  %cmp.not39 = icmp eq i32 %3, -1
-  %cmp9.not40 = icmp eq i32 %3, %conv8
-  %or.cond41 = or i1 %cmp.not39, %cmp9.not40
-  br i1 %or.cond41, label %for.end, label %for.body
+  %mul335 = shl i32 %rem134, 1
+  %idxprom36 = zext i32 %mul335 to i64
+  %arrayidx37 = getelementptr inbounds i32, ptr %hash, i64 %idxprom36
+  %3 = load i32, ptr %arrayidx37, align 4, !tbaa !5
+  %cmp.not38 = icmp eq i32 %3, -1
+  %cmp9.not39 = icmp eq i32 %3, %conv8
+  %or.cond40 = or i1 %cmp.not38, %cmp9.not39
+  br i1 %or.cond40, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.043 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.035, %entry ]
-  %icount.042 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
-  %inc = add nuw nsw i32 %icount.042, 1
+  %hashloc.042 = phi i32 [ %rem13, %for.body ], [ %rem134, %entry ]
+  %icount.041 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %inc = add nuw nsw i32 %icount.041, 1
   %mul11 = mul nsw i32 %inc, %inc
-  %add12 = add i32 %hashloc.043, %mul11
-  %hashloc.0 = urem i32 %add12, %2
-  %mul3 = shl i32 %hashloc.0, 1
+  %add12 = add i32 %mul11, %hashloc.042
+  %rem13 = urem i32 %add12, %2
+  %mul3 = shl i32 %rem13, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %4 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -981,8 +1005,8 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !28
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom37, %entry ], [ %idxprom, %for.body ]
-  %mul3.lcssa = phi i32 [ %mul336, %entry ], [ %mul3, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom36, %entry ], [ %idxprom, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul335, %entry ], [ %mul3, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   store i32 %conv8, ptr %arrayidx.le, align 4, !tbaa !5
   %add19 = or i32 %mul3.lcssa, 1
@@ -1005,25 +1029,25 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem137 = urem i32 %rem1.lhs.trunc, %3
   %conv4 = trunc i64 %hashkey to i32
-  %hashloc.038 = urem i32 %rem1.lhs.trunc, %3
-  %mul339 = shl i32 %hashloc.038, 1
-  %idxprom40 = zext i32 %mul339 to i64
-  %arrayidx41 = getelementptr inbounds i32, ptr %hash, i64 %idxprom40
-  %4 = load i32, ptr %arrayidx41, align 4, !tbaa !5
-  %cmp.not42 = icmp eq i32 %4, %conv4
-  %cmp9.not43 = icmp eq i32 %4, -1
-  %or.cond44 = or i1 %cmp.not42, %cmp9.not43
-  br i1 %or.cond44, label %for.end, label %for.body
+  %mul338 = shl i32 %rem137, 1
+  %idxprom39 = zext i32 %mul338 to i64
+  %arrayidx40 = getelementptr inbounds i32, ptr %hash, i64 %idxprom39
+  %4 = load i32, ptr %arrayidx40, align 4, !tbaa !5
+  %cmp.not41 = icmp eq i32 %4, %conv4
+  %cmp9.not42 = icmp eq i32 %4, -1
+  %or.cond43 = or i1 %cmp.not41, %cmp9.not42
+  br i1 %or.cond43, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.046 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.038, %entry ]
   %icount.045 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
+  %hashloc.044 = phi i32 [ %rem14, %for.body ], [ %rem137, %entry ]
   %inc11 = add nuw nsw i32 %icount.045, 1
   %mul12 = mul nsw i32 %inc11, %inc11
-  %add13 = add i32 %mul12, %hashloc.046
-  %hashloc.0 = urem i32 %add13, %3
-  %mul3 = shl i32 %hashloc.0, 1
+  %add13 = add i32 %mul12, %hashloc.044
+  %rem14 = urem i32 %add13, %3
+  %mul3 = shl i32 %rem14, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1034,8 +1058,8 @@ for.body:                                         ; preds = %entry, %for.body
 
 for.end:                                          ; preds = %for.body, %entry
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11, %for.body ]
-  %mul3.lcssa = phi i32 [ %mul339, %entry ], [ %mul3, %for.body ]
-  %cmp9.not.lcssa = phi i1 [ %cmp9.not43, %entry ], [ %cmp9.not, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul338, %entry ], [ %mul3, %for.body ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not42, %entry ], [ %cmp9.not, %for.body ]
   %6 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add15 = add i32 %6, %icount.0.lcssa
   store i32 %add15, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -1066,25 +1090,25 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem137 = urem i32 %rem1.lhs.trunc, %3
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.038 = urem i32 %rem1.lhs.trunc, %3
-  %mul339 = shl i32 %hashloc.038, 1
-  %idxprom40 = zext i32 %mul339 to i64
-  %arrayidx41 = getelementptr inbounds i32, ptr %hash, i64 %idxprom40
-  %4 = load i32, ptr %arrayidx41, align 4, !tbaa !5
-  %cmp.not42 = icmp eq i32 %4, -1
-  %cmp9.not43 = icmp eq i32 %4, %conv8
-  %or.cond44 = or i1 %cmp.not42, %cmp9.not43
-  br i1 %or.cond44, label %for.end, label %for.body
+  %mul338 = shl i32 %rem137, 1
+  %idxprom39 = zext i32 %mul338 to i64
+  %arrayidx40 = getelementptr inbounds i32, ptr %hash, i64 %idxprom39
+  %4 = load i32, ptr %arrayidx40, align 4, !tbaa !5
+  %cmp.not41 = icmp eq i32 %4, -1
+  %cmp9.not42 = icmp eq i32 %4, %conv8
+  %or.cond43 = or i1 %cmp.not41, %cmp9.not42
+  br i1 %or.cond43, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.046 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.038, %entry ]
-  %icount.045 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
-  %inc11 = add nuw nsw i32 %icount.045, 1
+  %hashloc.045 = phi i32 [ %rem14, %for.body ], [ %rem137, %entry ]
+  %icount.044 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
+  %inc11 = add nuw nsw i32 %icount.044, 1
   %mul12 = mul nsw i32 %inc11, %inc11
-  %add13 = add i32 %hashloc.046, %mul12
-  %hashloc.0 = urem i32 %add13, %3
-  %mul3 = shl i32 %hashloc.0, 1
+  %add13 = add i32 %mul12, %hashloc.045
+  %rem14 = urem i32 %add13, %3
+  %mul3 = shl i32 %rem14, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1094,9 +1118,9 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !30
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom40, %entry ], [ %idxprom, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom39, %entry ], [ %idxprom, %for.body ]
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11, %for.body ]
-  %mul3.lcssa = phi i32 [ %mul339, %entry ], [ %mul3, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul338, %entry ], [ %mul3, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   %6 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %add15 = add i32 %6, %icount.0.lcssa
@@ -1122,20 +1146,20 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem142 = urem i32 %rem1.lhs.trunc, %3
   %conv4 = trunc i64 %hashkey to i32
-  %hashloc.046 = urem i32 %rem1.lhs.trunc, %3
-  %mul347 = shl i32 %hashloc.046, 1
-  %idxprom48 = zext i32 %mul347 to i64
-  %arrayidx49 = getelementptr inbounds i32, ptr %hash, i64 %idxprom48
-  %4 = load i32, ptr %arrayidx49, align 4, !tbaa !5
-  %cmp.not50 = icmp eq i32 %4, %conv4
-  %cmp9.not51 = icmp eq i32 %4, -1
-  %or.cond52 = or i1 %cmp.not50, %cmp9.not51
-  br i1 %or.cond52, label %for.end, label %for.body
+  %mul346 = shl i32 %rem142, 1
+  %idxprom47 = zext i32 %mul346 to i64
+  %arrayidx48 = getelementptr inbounds i32, ptr %hash, i64 %idxprom47
+  %4 = load i32, ptr %arrayidx48, align 4, !tbaa !5
+  %cmp.not49 = icmp eq i32 %4, %conv4
+  %cmp9.not50 = icmp eq i32 %4, -1
+  %or.cond51 = or i1 %cmp.not49, %cmp9.not50
+  br i1 %or.cond51, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc.1
-  %hashloc.054 = phi i32 [ %hashloc.0.1, %for.inc.1 ], [ %hashloc.046, %entry ]
   %icount.053 = phi i32 [ %inc11.1, %for.inc.1 ], [ 0, %entry ]
+  %hashloc.052 = phi i32 [ %rem16.1, %for.inc.1 ], [ %rem142, %entry ]
   %exitcond = icmp eq i32 %icount.053, 1000
   br i1 %exitcond, label %if.then, label %for.inc
 
@@ -1147,9 +1171,9 @@ if.then:                                          ; preds = %for.body
 for.inc:                                          ; preds = %for.body
   %inc11 = or i32 %icount.053, 1
   %mul14 = mul nuw nsw i32 %inc11, %inc11
-  %add15 = add i32 %mul14, %hashloc.054
-  %hashloc.0 = urem i32 %add15, %3
-  %mul3 = shl i32 %hashloc.0, 1
+  %add15 = add i32 %mul14, %hashloc.052
+  %rem16 = urem i32 %add15, %3
+  %mul3 = shl i32 %rem16, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1161,9 +1185,9 @@ for.inc:                                          ; preds = %for.body
 for.inc.1:                                        ; preds = %for.inc
   %inc11.1 = add nuw nsw i32 %icount.053, 2
   %mul14.1 = mul nuw nsw i32 %inc11.1, %inc11.1
-  %add15.1 = add i32 %mul14.1, %hashloc.0
-  %hashloc.0.1 = urem i32 %add15.1, %3
-  %mul3.1 = shl i32 %hashloc.0.1, 1
+  %add15.1 = add i32 %mul14.1, %rem16
+  %rem16.1 = urem i32 %add15.1, %3
+  %mul3.1 = shl i32 %rem16.1, 1
   %idxprom.1 = zext i32 %mul3.1 to i64
   %arrayidx.1 = getelementptr inbounds i32, ptr %hash, i64 %idxprom.1
   %6 = load i32, ptr %arrayidx.1, align 4, !tbaa !5
@@ -1174,8 +1198,8 @@ for.inc.1:                                        ; preds = %for.inc
 
 for.end:                                          ; preds = %for.inc, %for.inc.1, %entry
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11, %for.inc ], [ %inc11.1, %for.inc.1 ]
-  %mul3.lcssa = phi i32 [ %mul347, %entry ], [ %mul3, %for.inc ], [ %mul3.1, %for.inc.1 ]
-  %cmp9.not.lcssa = phi i1 [ %cmp9.not51, %entry ], [ %cmp9.not, %for.inc ], [ %cmp9.not.1, %for.inc.1 ]
+  %mul3.lcssa = phi i32 [ %mul346, %entry ], [ %mul3, %for.inc ], [ %mul3.1, %for.inc.1 ]
+  %cmp9.not.lcssa = phi i1 [ %cmp9.not50, %entry ], [ %cmp9.not, %for.inc ], [ %cmp9.not.1, %for.inc.1 ]
   %7 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add17 = add i32 %7, %icount.0.lcssa
   store i32 %add17, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -1206,25 +1230,25 @@ entry:
   %rem = urem i64 %add, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem1.lhs.trunc = trunc i64 %rem to i32
+  %rem137 = urem i32 %rem1.lhs.trunc, %3
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.038 = urem i32 %rem1.lhs.trunc, %3
-  %mul339 = shl i32 %hashloc.038, 1
-  %idxprom40 = zext i32 %mul339 to i64
-  %arrayidx41 = getelementptr inbounds i32, ptr %hash, i64 %idxprom40
-  %4 = load i32, ptr %arrayidx41, align 4, !tbaa !5
-  %cmp.not42 = icmp eq i32 %4, -1
-  %cmp9.not43 = icmp eq i32 %4, %conv8
-  %or.cond44 = or i1 %cmp.not42, %cmp9.not43
-  br i1 %or.cond44, label %for.end, label %for.body
+  %mul338 = shl i32 %rem137, 1
+  %idxprom39 = zext i32 %mul338 to i64
+  %arrayidx40 = getelementptr inbounds i32, ptr %hash, i64 %idxprom39
+  %4 = load i32, ptr %arrayidx40, align 4, !tbaa !5
+  %cmp.not41 = icmp eq i32 %4, -1
+  %cmp9.not42 = icmp eq i32 %4, %conv8
+  %or.cond43 = or i1 %cmp.not41, %cmp9.not42
+  br i1 %or.cond43, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.046 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.038, %entry ]
-  %icount.045 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
-  %inc11 = add nuw nsw i32 %icount.045, 1
+  %hashloc.045 = phi i32 [ %rem14, %for.body ], [ %rem137, %entry ]
+  %icount.044 = phi i32 [ %inc11, %for.body ], [ 0, %entry ]
+  %inc11 = add nuw nsw i32 %icount.044, 1
   %mul12 = mul nsw i32 %inc11, %inc11
-  %add13 = add i32 %hashloc.046, %mul12
-  %hashloc.0 = urem i32 %add13, %3
-  %mul3 = shl i32 %hashloc.0, 1
+  %add13 = add i32 %mul12, %hashloc.045
+  %rem14 = urem i32 %add13, %3
+  %mul3 = shl i32 %rem14, 1
   %idxprom = zext i32 %mul3 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1234,9 +1258,9 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !32
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom40, %entry ], [ %idxprom, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom39, %entry ], [ %idxprom, %for.body ]
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc11, %for.body ]
-  %mul3.lcssa = phi i32 [ %mul339, %entry ], [ %mul3, %for.body ]
+  %mul3.lcssa = phi i32 [ %mul338, %entry ], [ %mul3, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   %6 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %add15 = add i32 %6, %icount.0.lcssa
@@ -1449,25 +1473,25 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem538 = urem i32 %rem5.lhs.trunc, %3
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.039 = urem i32 %rem5.lhs.trunc, %3
-  %mul740 = shl i32 %hashloc.039, 1
-  %idxprom41 = zext i32 %mul740 to i64
-  %arrayidx42 = getelementptr inbounds i32, ptr %hash, i64 %idxprom41
-  %4 = load i32, ptr %arrayidx42, align 4, !tbaa !5
-  %cmp.not43 = icmp eq i32 %4, %conv8
-  %cmp13.not44 = icmp eq i32 %4, -1
-  %or.cond45 = or i1 %cmp.not43, %cmp13.not44
-  br i1 %or.cond45, label %for.end, label %for.body
+  %mul739 = shl i32 %rem538, 1
+  %idxprom40 = zext i32 %mul739 to i64
+  %arrayidx41 = getelementptr inbounds i32, ptr %hash, i64 %idxprom40
+  %4 = load i32, ptr %arrayidx41, align 4, !tbaa !5
+  %cmp.not42 = icmp eq i32 %4, %conv8
+  %cmp13.not43 = icmp eq i32 %4, -1
+  %or.cond44 = or i1 %cmp.not42, %cmp13.not43
+  br i1 %or.cond44, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.047 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.039, %entry ]
   %icount.046 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %hashloc.045 = phi i32 [ %rem17, %for.body ], [ %rem538, %entry ]
   %inc = add nuw nsw i32 %icount.046, 1
   %mul15 = mul i32 %inc, %conv1
-  %add16 = add i32 %mul15, %hashloc.047
-  %hashloc.0 = urem i32 %add16, %3
-  %mul7 = shl i32 %hashloc.0, 1
+  %add16 = add i32 %mul15, %hashloc.045
+  %rem17 = urem i32 %add16, %3
+  %mul7 = shl i32 %rem17, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1477,8 +1501,8 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !35
 
 for.end:                                          ; preds = %for.body, %entry
-  %mul7.lcssa = phi i32 [ %mul740, %entry ], [ %mul7, %for.body ]
-  %cmp13.not.lcssa = phi i1 [ %cmp13.not44, %entry ], [ %cmp13.not, %for.body ]
+  %mul7.lcssa = phi i32 [ %mul739, %entry ], [ %mul7, %for.body ]
+  %cmp13.not.lcssa = phi i1 [ %cmp13.not43, %entry ], [ %cmp13.not, %for.body ]
   br i1 %cmp13.not.lcssa, label %if.end, label %if.then
 
 if.then:                                          ; preds = %for.end
@@ -1506,25 +1530,25 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %3 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem538 = urem i32 %rem5.lhs.trunc, %3
   %conv12 = trunc i64 %hashkey to i32
-  %hashloc.039 = urem i32 %rem5.lhs.trunc, %3
-  %mul740 = shl i32 %hashloc.039, 1
-  %idxprom41 = zext i32 %mul740 to i64
-  %arrayidx42 = getelementptr inbounds i32, ptr %hash, i64 %idxprom41
-  %4 = load i32, ptr %arrayidx42, align 4, !tbaa !5
-  %cmp.not43 = icmp eq i32 %4, -1
-  %cmp13.not44 = icmp eq i32 %4, %conv12
-  %or.cond45 = or i1 %cmp.not43, %cmp13.not44
-  br i1 %or.cond45, label %for.end, label %for.body
+  %mul739 = shl i32 %rem538, 1
+  %idxprom40 = zext i32 %mul739 to i64
+  %arrayidx41 = getelementptr inbounds i32, ptr %hash, i64 %idxprom40
+  %4 = load i32, ptr %arrayidx41, align 4, !tbaa !5
+  %cmp.not42 = icmp eq i32 %4, -1
+  %cmp13.not43 = icmp eq i32 %4, %conv12
+  %or.cond44 = or i1 %cmp.not42, %cmp13.not43
+  br i1 %or.cond44, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.047 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.039, %entry ]
   %icount.046 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %hashloc.045 = phi i32 [ %rem17, %for.body ], [ %rem538, %entry ]
   %inc = add nuw nsw i32 %icount.046, 1
   %mul15 = mul i32 %inc, %conv1
-  %add16 = add i32 %mul15, %hashloc.047
-  %hashloc.0 = urem i32 %add16, %3
-  %mul7 = shl i32 %hashloc.0, 1
+  %add16 = add i32 %mul15, %hashloc.045
+  %rem17 = urem i32 %add16, %3
+  %mul7 = shl i32 %rem17, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1534,8 +1558,8 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !36
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom41, %entry ], [ %idxprom, %for.body ]
-  %mul7.lcssa = phi i32 [ %mul740, %entry ], [ %mul7, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom40, %entry ], [ %idxprom, %for.body ]
+  %mul7.lcssa = phi i32 [ %mul739, %entry ], [ %mul7, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   store i32 %conv12, ptr %arrayidx.le, align 4, !tbaa !5
   %add23 = or i32 %mul7.lcssa, 1
@@ -1561,25 +1585,25 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %4 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem541 = urem i32 %rem5.lhs.trunc, %4
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.042 = urem i32 %rem5.lhs.trunc, %4
-  %mul743 = shl i32 %hashloc.042, 1
-  %idxprom44 = zext i32 %mul743 to i64
-  %arrayidx45 = getelementptr inbounds i32, ptr %hash, i64 %idxprom44
-  %5 = load i32, ptr %arrayidx45, align 4, !tbaa !5
-  %cmp.not46 = icmp eq i32 %5, %conv8
-  %cmp13.not47 = icmp eq i32 %5, -1
-  %or.cond48 = or i1 %cmp.not46, %cmp13.not47
-  br i1 %or.cond48, label %for.end, label %for.body
+  %mul742 = shl i32 %rem541, 1
+  %idxprom43 = zext i32 %mul742 to i64
+  %arrayidx44 = getelementptr inbounds i32, ptr %hash, i64 %idxprom43
+  %5 = load i32, ptr %arrayidx44, align 4, !tbaa !5
+  %cmp.not45 = icmp eq i32 %5, %conv8
+  %cmp13.not46 = icmp eq i32 %5, -1
+  %or.cond47 = or i1 %cmp.not45, %cmp13.not46
+  br i1 %or.cond47, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.050 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.042, %entry ]
   %icount.049 = phi i32 [ %inc15, %for.body ], [ 0, %entry ]
+  %hashloc.048 = phi i32 [ %rem18, %for.body ], [ %rem541, %entry ]
   %inc15 = add nuw nsw i32 %icount.049, 1
   %mul16 = mul i32 %inc15, %conv1
-  %add17 = add i32 %mul16, %hashloc.050
-  %hashloc.0 = urem i32 %add17, %4
-  %mul7 = shl i32 %hashloc.0, 1
+  %add17 = add i32 %mul16, %hashloc.048
+  %rem18 = urem i32 %add17, %4
+  %mul7 = shl i32 %rem18, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1590,8 +1614,8 @@ for.body:                                         ; preds = %entry, %for.body
 
 for.end:                                          ; preds = %for.body, %entry
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc15, %for.body ]
-  %mul7.lcssa = phi i32 [ %mul743, %entry ], [ %mul7, %for.body ]
-  %cmp13.not.lcssa = phi i1 [ %cmp13.not47, %entry ], [ %cmp13.not, %for.body ]
+  %mul7.lcssa = phi i32 [ %mul742, %entry ], [ %mul7, %for.body ]
+  %cmp13.not.lcssa = phi i1 [ %cmp13.not46, %entry ], [ %cmp13.not, %for.body ]
   %7 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add19 = add i32 %7, %icount.0.lcssa
   store i32 %add19, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -1625,25 +1649,25 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %4 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem541 = urem i32 %rem5.lhs.trunc, %4
   %conv12 = trunc i64 %hashkey to i32
-  %hashloc.042 = urem i32 %rem5.lhs.trunc, %4
-  %mul743 = shl i32 %hashloc.042, 1
-  %idxprom44 = zext i32 %mul743 to i64
-  %arrayidx45 = getelementptr inbounds i32, ptr %hash, i64 %idxprom44
-  %5 = load i32, ptr %arrayidx45, align 4, !tbaa !5
-  %cmp.not46 = icmp eq i32 %5, -1
-  %cmp13.not47 = icmp eq i32 %5, %conv12
-  %or.cond48 = or i1 %cmp.not46, %cmp13.not47
-  br i1 %or.cond48, label %for.end, label %for.body
+  %mul742 = shl i32 %rem541, 1
+  %idxprom43 = zext i32 %mul742 to i64
+  %arrayidx44 = getelementptr inbounds i32, ptr %hash, i64 %idxprom43
+  %5 = load i32, ptr %arrayidx44, align 4, !tbaa !5
+  %cmp.not45 = icmp eq i32 %5, -1
+  %cmp13.not46 = icmp eq i32 %5, %conv12
+  %or.cond47 = or i1 %cmp.not45, %cmp13.not46
+  br i1 %or.cond47, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.050 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.042, %entry ]
   %icount.049 = phi i32 [ %inc15, %for.body ], [ 0, %entry ]
+  %hashloc.048 = phi i32 [ %rem18, %for.body ], [ %rem541, %entry ]
   %inc15 = add nuw nsw i32 %icount.049, 1
   %mul16 = mul i32 %inc15, %conv1
-  %add17 = add i32 %mul16, %hashloc.050
-  %hashloc.0 = urem i32 %add17, %4
-  %mul7 = shl i32 %hashloc.0, 1
+  %add17 = add i32 %mul16, %hashloc.048
+  %rem18 = urem i32 %add17, %4
+  %mul7 = shl i32 %rem18, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1653,9 +1677,9 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !38
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom44, %entry ], [ %idxprom, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom43, %entry ], [ %idxprom, %for.body ]
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc15, %for.body ]
-  %mul7.lcssa = phi i32 [ %mul743, %entry ], [ %mul7, %for.body ]
+  %mul7.lcssa = phi i32 [ %mul742, %entry ], [ %mul7, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   %7 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %add19 = add i32 %7, %icount.0.lcssa
@@ -1684,20 +1708,20 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %4 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem546 = urem i32 %rem5.lhs.trunc, %4
   %conv8 = trunc i64 %hashkey to i32
-  %hashloc.050 = urem i32 %rem5.lhs.trunc, %4
-  %mul751 = shl i32 %hashloc.050, 1
-  %idxprom52 = zext i32 %mul751 to i64
-  %arrayidx53 = getelementptr inbounds i32, ptr %hash, i64 %idxprom52
-  %5 = load i32, ptr %arrayidx53, align 4, !tbaa !5
-  %cmp.not54 = icmp eq i32 %5, %conv8
-  %cmp13.not55 = icmp eq i32 %5, -1
-  %or.cond56 = or i1 %cmp.not54, %cmp13.not55
-  br i1 %or.cond56, label %for.end, label %for.body
+  %mul750 = shl i32 %rem546, 1
+  %idxprom51 = zext i32 %mul750 to i64
+  %arrayidx52 = getelementptr inbounds i32, ptr %hash, i64 %idxprom51
+  %5 = load i32, ptr %arrayidx52, align 4, !tbaa !5
+  %cmp.not53 = icmp eq i32 %5, %conv8
+  %cmp13.not54 = icmp eq i32 %5, -1
+  %or.cond55 = or i1 %cmp.not53, %cmp13.not54
+  br i1 %or.cond55, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc.1
-  %hashloc.058 = phi i32 [ %hashloc.0.1, %for.inc.1 ], [ %hashloc.050, %entry ]
   %icount.057 = phi i32 [ %inc15.1, %for.inc.1 ], [ 0, %entry ]
+  %hashloc.056 = phi i32 [ %rem20.1, %for.inc.1 ], [ %rem546, %entry ]
   %exitcond = icmp eq i32 %icount.057, 1000
   br i1 %exitcond, label %if.then, label %for.inc
 
@@ -1709,9 +1733,9 @@ if.then:                                          ; preds = %for.body
 for.inc:                                          ; preds = %for.body
   %inc15 = or i32 %icount.057, 1
   %mul18 = mul i32 %inc15, %conv1
-  %add19 = add i32 %mul18, %hashloc.058
-  %hashloc.0 = urem i32 %add19, %4
-  %mul7 = shl i32 %hashloc.0, 1
+  %add19 = add i32 %mul18, %hashloc.056
+  %rem20 = urem i32 %add19, %4
+  %mul7 = shl i32 %rem20, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1723,9 +1747,9 @@ for.inc:                                          ; preds = %for.body
 for.inc.1:                                        ; preds = %for.inc
   %inc15.1 = add nuw nsw i32 %icount.057, 2
   %mul18.1 = mul i32 %inc15.1, %conv1
-  %add19.1 = add i32 %mul18.1, %hashloc.0
-  %hashloc.0.1 = urem i32 %add19.1, %4
-  %mul7.1 = shl i32 %hashloc.0.1, 1
+  %add19.1 = add i32 %mul18.1, %rem20
+  %rem20.1 = urem i32 %add19.1, %4
+  %mul7.1 = shl i32 %rem20.1, 1
   %idxprom.1 = zext i32 %mul7.1 to i64
   %arrayidx.1 = getelementptr inbounds i32, ptr %hash, i64 %idxprom.1
   %7 = load i32, ptr %arrayidx.1, align 4, !tbaa !5
@@ -1736,8 +1760,8 @@ for.inc.1:                                        ; preds = %for.inc
 
 for.end:                                          ; preds = %for.inc, %for.inc.1, %entry
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc15, %for.inc ], [ %inc15.1, %for.inc.1 ]
-  %mul7.lcssa = phi i32 [ %mul751, %entry ], [ %mul7, %for.inc ], [ %mul7.1, %for.inc.1 ]
-  %cmp13.not.lcssa = phi i1 [ %cmp13.not55, %entry ], [ %cmp13.not, %for.inc ], [ %cmp13.not.1, %for.inc.1 ]
+  %mul7.lcssa = phi i32 [ %mul750, %entry ], [ %mul7, %for.inc ], [ %mul7.1, %for.inc.1 ]
+  %cmp13.not.lcssa = phi i1 [ %cmp13.not54, %entry ], [ %cmp13.not, %for.inc ], [ %cmp13.not.1, %for.inc.1 ]
   %8 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add21 = add i32 %8, %icount.0.lcssa
   store i32 %add21, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -1771,25 +1795,25 @@ entry:
   %rem3 = urem i64 %add2, 4294967291
   %4 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %rem5.lhs.trunc = trunc i64 %rem3 to i32
+  %rem541 = urem i32 %rem5.lhs.trunc, %4
   %conv12 = trunc i64 %hashkey to i32
-  %hashloc.042 = urem i32 %rem5.lhs.trunc, %4
-  %mul743 = shl i32 %hashloc.042, 1
-  %idxprom44 = zext i32 %mul743 to i64
-  %arrayidx45 = getelementptr inbounds i32, ptr %hash, i64 %idxprom44
-  %5 = load i32, ptr %arrayidx45, align 4, !tbaa !5
-  %cmp.not46 = icmp eq i32 %5, -1
-  %cmp13.not47 = icmp eq i32 %5, %conv12
-  %or.cond48 = or i1 %cmp.not46, %cmp13.not47
-  br i1 %or.cond48, label %for.end, label %for.body
+  %mul742 = shl i32 %rem541, 1
+  %idxprom43 = zext i32 %mul742 to i64
+  %arrayidx44 = getelementptr inbounds i32, ptr %hash, i64 %idxprom43
+  %5 = load i32, ptr %arrayidx44, align 4, !tbaa !5
+  %cmp.not45 = icmp eq i32 %5, -1
+  %cmp13.not46 = icmp eq i32 %5, %conv12
+  %or.cond47 = or i1 %cmp.not45, %cmp13.not46
+  br i1 %or.cond47, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
-  %hashloc.050 = phi i32 [ %hashloc.0, %for.body ], [ %hashloc.042, %entry ]
   %icount.049 = phi i32 [ %inc15, %for.body ], [ 0, %entry ]
+  %hashloc.048 = phi i32 [ %rem18, %for.body ], [ %rem541, %entry ]
   %inc15 = add nuw nsw i32 %icount.049, 1
   %mul16 = mul i32 %inc15, %conv1
-  %add17 = add i32 %mul16, %hashloc.050
-  %hashloc.0 = urem i32 %add17, %4
-  %mul7 = shl i32 %hashloc.0, 1
+  %add17 = add i32 %mul16, %hashloc.048
+  %rem18 = urem i32 %add17, %4
+  %mul7 = shl i32 %rem18, 1
   %idxprom = zext i32 %mul7 to i64
   %arrayidx = getelementptr inbounds i32, ptr %hash, i64 %idxprom
   %6 = load i32, ptr %arrayidx, align 4, !tbaa !5
@@ -1799,9 +1823,9 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %or.cond, label %for.end, label %for.body, !llvm.loop !40
 
 for.end:                                          ; preds = %for.body, %entry
-  %idxprom.lcssa = phi i64 [ %idxprom44, %entry ], [ %idxprom, %for.body ]
+  %idxprom.lcssa = phi i64 [ %idxprom43, %entry ], [ %idxprom, %for.body ]
   %icount.0.lcssa = phi i32 [ 0, %entry ], [ %inc15, %for.body ]
-  %mul7.lcssa = phi i32 [ %mul743, %entry ], [ %mul7, %for.body ]
+  %mul7.lcssa = phi i32 [ %mul742, %entry ], [ %mul7, %for.body ]
   %arrayidx.le = getelementptr inbounds i32, ptr %hash, i64 %idxprom.lcssa
   %7 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %add19 = add i32 %7, %icount.0.lcssa
@@ -2231,9 +2255,9 @@ for.body43:                                       ; preds = %if.then22, %for.bod
   br i1 %or.cond812, label %for.end50, label %for.body43, !llvm.loop !46
 
 for.end50:                                        ; preds = %for.body43, %if.then22
-  %icount.1.lcssa = phi i32 [ 0, %if.then22 ], [ %inc44, %for.body43 ]
   %hashloc.1.in.lcssa = phi i64 [ %hashloc.1.in943, %if.then22 ], [ %hashloc.1.in, %for.body43 ]
-  %hashloc.1 = trunc i64 %hashloc.1.in.lcssa to i32
+  %icount.1.lcssa = phi i32 [ 0, %if.then22 ], [ %inc44, %for.body43 ]
+  %hashloc.1.le = trunc i64 %hashloc.1.in.lcssa to i32
   %6 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add51 = add i32 %6, %icount.1.lcssa
   store i32 %add51, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -2283,9 +2307,9 @@ for.inc82:                                        ; preds = %for.body76
   br i1 %or.cond813, label %for.end87, label %for.body76, !llvm.loop !47
 
 for.end87:                                        ; preds = %for.inc82, %if.then55
-  %icount.2.lcssa = phi i32 [ 0, %if.then55 ], [ %inc77, %for.inc82 ]
   %hashloc.2.in.lcssa = phi i64 [ %hashloc.2.in932, %if.then55 ], [ %hashloc.2.in, %for.inc82 ]
-  %hashloc.2 = trunc i64 %hashloc.2.in.lcssa to i32
+  %icount.2.lcssa = phi i32 [ 0, %if.then55 ], [ %inc77, %for.inc82 ]
+  %hashloc.2.le = trunc i64 %hashloc.2.in.lcssa to i32
   %10 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
   %add88 = add i32 %10, %icount.2.lcssa
   store i32 %add88, ptr @read_hash_collisions, align 4, !tbaa !5
@@ -2814,7 +2838,7 @@ if.end523.loopexit:                               ; preds = %for.body, %if.then4
   br label %if.end523
 
 if.end523:                                        ; preds = %for.body366, %for.body183, %if.then346, %if.then163, %if.end523.loopexit, %for.end446, %for.end511, %for.end407, %for.end224, %for.end328, %for.end263, %for.end87, %for.end149, %for.end50
-  %hashloc.13 = phi i32 [ %hashloc.1, %for.end50 ], [ %hashloc.2, %for.end87 ], [ %hashloc.3, %for.end149 ], [ %hashloc.5.lcssa, %for.end224 ], [ %hashloc.6.lcssa, %for.end263 ], [ %hashloc.7.lcssa, %for.end328 ], [ %hashloc.9.lcssa, %for.end407 ], [ %hashloc.10.lcssa, %for.end446 ], [ %hashloc.11.lcssa, %for.end511 ], [ %hashloc.0.le, %if.end523.loopexit ], [ %hashloc.4922, %if.then163 ], [ %hashloc.8874, %if.then346 ], [ %hashloc.4, %for.body183 ], [ %hashloc.8, %for.body366 ]
+  %hashloc.13 = phi i32 [ %hashloc.1.le, %for.end50 ], [ %hashloc.2.le, %for.end87 ], [ %hashloc.3, %for.end149 ], [ %hashloc.5.lcssa, %for.end224 ], [ %hashloc.6.lcssa, %for.end263 ], [ %hashloc.7.lcssa, %for.end328 ], [ %hashloc.9.lcssa, %for.end407 ], [ %hashloc.10.lcssa, %for.end446 ], [ %hashloc.11.lcssa, %for.end511 ], [ %hashloc.0.le, %if.end523.loopexit ], [ %hashloc.4922, %if.then163 ], [ %hashloc.8874, %if.then346 ], [ %hashloc.4, %for.body183 ], [ %hashloc.8, %for.body366 ]
   %mul524 = shl i32 %hashloc.13, 1
   %idxprom525 = zext i32 %mul524 to i64
   %arrayidx526 = getelementptr inbounds i32, ptr %hash, i64 %idxprom525

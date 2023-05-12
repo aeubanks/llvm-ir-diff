@@ -88,9 +88,9 @@ call.i.noexc:                                     ; preds = %if.end
   %pc.i = getelementptr inbounds %struct.Exp, ptr %call6, i64 0, i32 2
   store i32 %sub, ptr %pc.i, align 4, !tbaa !22
   %call2.i13 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #7
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN3ExpC2EjPc4Type3Loci.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %call.i.noexc
+_ZN3ExpC2EjPc4Type3Loci.exit:                     ; preds = %call.i.noexc
   store <4 x i32> <i32 0, i32 1, i32 4, i32 39>, ptr %call2.i13, align 8, !tbaa !11
   %id.i.i = getelementptr inbounds %struct.Exp_, ptr %call2.i13, i64 0, i32 4
   store ptr %call.i12, ptr %id.i.i, align 8, !tbaa !23
@@ -252,9 +252,9 @@ call.i.noexc:                                     ; preds = %sw.epilog
   %pc.i = getelementptr inbounds %struct.Exp, ptr %call38, i64 0, i32 2
   store i32 %sub, ptr %pc.i, align 4, !tbaa !22
   %call2.i63 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #7
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN3ExpC2EjPc4Type3Loci.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %call.i.noexc
+_ZN3ExpC2EjPc4Type3Loci.exit:                     ; preds = %call.i.noexc
   store i32 0, ptr %call2.i63, align 8, !tbaa !33
   %et.i.i = getelementptr inbounds %struct.Exp_, ptr %call2.i63, i64 0, i32 1
   store i32 1, ptr %et.i.i, align 4, !tbaa !34
@@ -278,8 +278,8 @@ lpad:                                             ; preds = %call.i.noexc, %sw.e
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %tmpstr) #8
   resume { ptr, i32 } %24
 
-cleanup:                                          ; preds = %invoke.cont, %sw.default
-  %retval.0 = phi i32 [ -1, %sw.default ], [ 0, %invoke.cont ]
+cleanup:                                          ; preds = %_ZN3ExpC2EjPc4Type3Loci.exit, %sw.default
+  %retval.0 = phi i32 [ -1, %sw.default ], [ 0, %_ZN3ExpC2EjPc4Type3Loci.exit ]
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %tmpstr) #8
   ret i32 %retval.0
 }

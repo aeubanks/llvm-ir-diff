@@ -881,13 +881,13 @@ entry:
   %conv = add i32 %2, -3
   %add.ptr = getelementptr inbounds ptr, ptr %T, i64 2
   %3 = load ptr, ptr %add.ptr, align 8, !tbaa !11
-  %cmp.not198 = icmp eq ptr %3, null
-  br i1 %cmp.not198, label %do.body.preheader, label %for.body
+  %cmp.not196 = icmp eq ptr %3, null
+  br i1 %cmp.not196, label %do.body.preheader, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
   %4 = phi ptr [ %6, %for.body ], [ %3, %entry ]
-  %T1.0199 = phi ptr [ %incdec.ptr, %for.body ], [ %add.ptr, %entry ]
-  %incdec.ptr = getelementptr inbounds ptr, ptr %T1.0199, i64 1
+  %T1.0197 = phi ptr [ %incdec.ptr, %for.body ], [ %add.ptr, %entry ]
+  %incdec.ptr = getelementptr inbounds ptr, ptr %T1.0197, i64 1
   %5 = load i32, ptr %4, align 4, !tbaa !20
   %and = and i32 %5, -2049
   store i32 %and, ptr %4, align 4, !tbaa !20
@@ -913,20 +913,20 @@ do.body.preheader:                                ; preds = %for.body, %entry
   %12 = load i32, ptr %11, align 4, !tbaa !20
   %or = or i32 %12, 2048
   store i32 %or, ptr %11, align 4, !tbaa !20
-  %incdec.ptr23200 = getelementptr inbounds ptr, ptr %T, i64 3
+  %incdec.ptr23198 = getelementptr inbounds ptr, ptr %T, i64 3
   %scevgep221 = getelementptr i8, ptr %call17, i64 4
   br label %for.body26
 
 do.bodythread-pre-split:                          ; preds = %do.cond49
   %.pr = load ptr, ptr %add.ptr, align 8, !tbaa !11
-  %cmp24.not201 = icmp eq ptr %.pr, null
-  br i1 %cmp24.not201, label %do.end51, label %for.body26.backedge
+  %cmp24.not199 = icmp eq ptr %.pr, null
+  br i1 %cmp24.not199, label %do.end51, label %for.body26.backedge
 
 for.body26:                                       ; preds = %for.body26.backedge, %do.body.preheader
   %13 = phi ptr [ %11, %do.body.preheader ], [ %.be, %for.body26.backedge ]
-  %incdec.ptr23204 = phi ptr [ %incdec.ptr23200, %do.body.preheader ], [ %incdec.ptr23204.be, %for.body26.backedge ]
-  %count.1203 = phi i32 [ 1, %do.body.preheader ], [ %count.2, %for.body26.backedge ]
-  %change.0202 = phi i32 [ 0, %do.body.preheader ], [ %change.0202.be, %for.body26.backedge ]
+  %incdec.ptr23202 = phi ptr [ %incdec.ptr23198, %do.body.preheader ], [ %incdec.ptr23202.be, %for.body26.backedge ]
+  %count.1201 = phi i32 [ 1, %do.body.preheader ], [ %count.2, %for.body26.backedge ]
+  %change.0200 = phi i32 [ 0, %do.body.preheader ], [ %change.0200.be, %for.body26.backedge ]
   %14 = load i32, ptr %13, align 4, !tbaa !20
   %and28 = and i32 %14, 2048
   %tobool.not = icmp eq i32 %and28, 0
@@ -1012,21 +1012,21 @@ do.end:                                           ; preds = %do.body37, %middle.
   %34 = load i32, ptr %13, align 4, !tbaa !20
   %or47 = or i32 %34, 2048
   store i32 %or47, ptr %13, align 4, !tbaa !20
-  %inc = add nsw i32 %count.1203, 1
+  %inc = add nsw i32 %count.1201, 1
   br label %if.end
 
 if.end:                                           ; preds = %do.end, %land.lhs.true, %for.body26
-  %change.1 = phi i32 [ %change.0202, %for.body26 ], [ 1, %do.end ], [ %change.0202, %land.lhs.true ]
-  %count.2 = phi i32 [ %count.1203, %for.body26 ], [ %inc, %do.end ], [ %count.1203, %land.lhs.true ]
-  %incdec.ptr23 = getelementptr inbounds ptr, ptr %incdec.ptr23204, i64 1
-  %35 = load ptr, ptr %incdec.ptr23204, align 8, !tbaa !11
+  %change.1 = phi i32 [ %change.0200, %for.body26 ], [ 1, %do.end ], [ %change.0200, %land.lhs.true ]
+  %count.2 = phi i32 [ %count.1201, %for.body26 ], [ %inc, %do.end ], [ %count.1201, %land.lhs.true ]
+  %incdec.ptr23 = getelementptr inbounds ptr, ptr %incdec.ptr23202, i64 1
+  %35 = load ptr, ptr %incdec.ptr23202, align 8, !tbaa !11
   %cmp24.not = icmp eq ptr %35, null
   br i1 %cmp24.not, label %do.cond49, label %for.body26.backedge
 
 for.body26.backedge:                              ; preds = %if.end, %do.bodythread-pre-split
   %.be = phi ptr [ %35, %if.end ], [ %.pr, %do.bodythread-pre-split ]
-  %incdec.ptr23204.be = phi ptr [ %incdec.ptr23, %if.end ], [ %incdec.ptr23200, %do.bodythread-pre-split ]
-  %change.0202.be = phi i32 [ %change.1, %if.end ], [ 0, %do.bodythread-pre-split ]
+  %incdec.ptr23202.be = phi ptr [ %incdec.ptr23, %if.end ], [ %incdec.ptr23198, %do.bodythread-pre-split ]
+  %change.0200.be = phi i32 [ %change.1, %if.end ], [ 0, %do.bodythread-pre-split ]
   br label %for.body26
 
 do.cond49:                                        ; preds = %if.end
@@ -1071,8 +1071,8 @@ if.then62:                                        ; preds = %if.end59
   %39 = lshr i32 %sub83, 3
   %add86 = and i32 %39, 536870908
   %40 = add nuw nsw i32 %add86, 8
-  %narrow196 = select i1 %cmp75, i32 8, i32 %40
-  %cond88 = zext i32 %narrow196 to i64
+  %narrow211 = select i1 %cmp75, i32 8, i32 %40
+  %cond88 = zext i32 %narrow211 to i64
   %call91 = tail call noalias ptr @malloc(i64 noundef %cond88) #10
   %call93 = tail call ptr (ptr, ptr, ...) @set_copy(ptr noundef %call91, ptr noundef nonnull %37) #9
   %41 = load ptr, ptr %A, align 8, !tbaa !11
@@ -1086,8 +1086,8 @@ if.then62:                                        ; preds = %if.end59
   %44 = lshr i32 %sub107, 3
   %add110 = and i32 %44, 536870908
   %45 = add nuw nsw i32 %add110, 8
-  %narrow197 = select i1 %cmp99, i32 8, i32 %45
-  %cond112 = zext i32 %narrow197 to i64
+  %narrow212 = select i1 %cmp99, i32 8, i32 %45
+  %cond112 = zext i32 %narrow212 to i64
   %call115 = tail call noalias ptr @malloc(i64 noundef %cond112) #10
   %call117 = tail call ptr (ptr, ptr, ...) @set_copy(ptr noundef %call115, ptr noundef nonnull %42) #9
   %46 = load ptr, ptr %B, align 8, !tbaa !11
@@ -1097,26 +1097,26 @@ if.then62:                                        ; preds = %if.end59
   %48 = load ptr, ptr %B, align 8, !tbaa !11
   %add.ptr120 = getelementptr inbounds ptr, ptr %48, i64 2
   %49 = load ptr, ptr %add.ptr, align 8, !tbaa !11
-  %cmp124.not207 = icmp eq ptr %49, null
-  br i1 %cmp124.not207, label %for.end134, label %for.body126
+  %cmp124.not205 = icmp eq ptr %49, null
+  br i1 %cmp124.not205, label %for.end134, label %for.body126
 
 for.body126:                                      ; preds = %if.then62, %for.body126
   %50 = phi ptr [ %52, %for.body126 ], [ %49, %if.then62 ]
-  %incdec.ptr123210 = phi ptr [ %incdec.ptr123, %for.body126 ], [ %incdec.ptr23200, %if.then62 ]
-  %B1.0209 = phi ptr [ %B1.1, %for.body126 ], [ %add.ptr120, %if.then62 ]
-  %A1.0208 = phi ptr [ %A1.1, %for.body126 ], [ %add.ptr119, %if.then62 ]
+  %incdec.ptr123208 = phi ptr [ %incdec.ptr123, %for.body126 ], [ %incdec.ptr23198, %if.then62 ]
+  %B1.0207 = phi ptr [ %B1.1, %for.body126 ], [ %add.ptr120, %if.then62 ]
+  %A1.0206 = phi ptr [ %A1.1, %for.body126 ], [ %add.ptr119, %if.then62 ]
   %51 = load i32, ptr %50, align 4, !tbaa !20
   %and128 = and i32 %51, 2048
   %tobool129.not.not = icmp eq i32 %and128, 0
-  %B1.0209.sink = select i1 %tobool129.not.not, ptr %B1.0209, ptr %A1.0208
+  %B1.0207.sink = select i1 %tobool129.not.not, ptr %B1.0207, ptr %A1.0206
   %and128.lobit = lshr exact i32 %and128, 11
   %A1.1.idx = zext i32 %and128.lobit to i64
-  %A1.1 = getelementptr ptr, ptr %A1.0208, i64 %A1.1.idx
+  %A1.1 = getelementptr ptr, ptr %A1.0206, i64 %A1.1.idx
   %B1.1.idx = zext i1 %tobool129.not.not to i64
-  %B1.1 = getelementptr ptr, ptr %B1.0209, i64 %B1.1.idx
-  store ptr %50, ptr %B1.0209.sink, align 8, !tbaa !11
-  %incdec.ptr123 = getelementptr inbounds ptr, ptr %incdec.ptr123210, i64 1
-  %52 = load ptr, ptr %incdec.ptr123210, align 8, !tbaa !11
+  %B1.1 = getelementptr ptr, ptr %B1.0207, i64 %B1.1.idx
+  store ptr %50, ptr %B1.0207.sink, align 8, !tbaa !11
+  %incdec.ptr123 = getelementptr inbounds ptr, ptr %incdec.ptr123208, i64 1
+  %52 = load ptr, ptr %incdec.ptr123208, align 8, !tbaa !11
   %cmp124.not = icmp eq ptr %52, null
   br i1 %cmp124.not, label %for.end134, label %for.body126
 

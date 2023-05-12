@@ -5,7 +5,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.end4:
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

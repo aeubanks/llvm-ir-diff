@@ -247,8 +247,8 @@ for.body36:                                       ; preds = %for.body36, %for.bo
   %23 = and i32 %22, 16
   %sh_prom = xor i32 %23, 24
   %shl40 = shl nuw i32 %conv38, %sh_prom
-  %div86 = lshr i64 %i32.091, 2
-  %arrayidx41 = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div86
+  %div88 = lshr i64 %i32.091, 2
+  %arrayidx41 = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div88
   %24 = load i32, ptr %arrayidx41, align 4, !tbaa !13
   %or42 = or i32 %shl40, %24
   store i32 %or42, ptr %arrayidx41, align 4, !tbaa !13
@@ -261,8 +261,8 @@ for.body36:                                       ; preds = %for.body36, %for.bo
   %27 = and i32 %26, 16
   %sh_prom.1 = xor i32 %27, 16
   %shl40.1 = shl nuw i32 %conv38.1, %sh_prom.1
-  %div86.1 = lshr i64 %i32.091, 2
-  %arrayidx41.1 = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div86.1
+  %div88.1 = lshr i64 %i32.091, 2
+  %arrayidx41.1 = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div88.1
   %28 = load i32, ptr %arrayidx41.1, align 4, !tbaa !13
   %or42.1 = or i32 %shl40.1, %28
   store i32 %or42.1, ptr %arrayidx41.1, align 4, !tbaa !13
@@ -285,8 +285,8 @@ for.body36.epil:                                  ; preds = %if.end.loopexit.unr
   %31 = and i32 %30, 24
   %sh_prom.epil = xor i32 %31, 24
   %shl40.epil = shl nuw i32 %conv38.epil, %sh_prom.epil
-  %div86.epil = lshr i64 %i32.091.unr, 2
-  %arrayidx41.epil = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div86.epil
+  %div88.epil = lshr i64 %i32.091.unr, 2
+  %arrayidx41.epil = getelementptr inbounds [16 x i32], ptr %keyTemp, i64 0, i64 %div88.epil
   %32 = load i32, ptr %arrayidx41.epil, align 4, !tbaa !13
   %or42.epil = or i32 %shl40.epil, %32
   store i32 %or42.epil, ptr %arrayidx41.epil, align 4, !tbaa !13
@@ -343,8 +343,8 @@ if.end:                                           ; preds = %if.end.loopexit, %f
   %xor.15 = xor i32 %44, 909522486
   store i32 %xor.15, ptr %arrayidx49.15, align 4, !tbaa !13
   call void @_ZN7NCrypto5NSha112CContextBase4InitEv(ptr noundef nonnull align 8 dereferenceable(32) %this)
-  %_count2.i87 = getelementptr inbounds %"class.NCrypto::NSha1::CContextBase2", ptr %this, i64 0, i32 1
-  store i32 0, ptr %_count2.i87, align 8, !tbaa !8
+  %_count2.i86 = getelementptr inbounds %"class.NCrypto::NSha1::CContextBase2", ptr %this, i64 0, i32 1
+  store i32 0, ptr %_count2.i86, align 8, !tbaa !8
   call void @_ZN7NCrypto5NSha110CContext326UpdateEPKjm(ptr noundef nonnull align 8 dereferenceable(100) %this, ptr noundef nonnull %keyTemp, i64 noundef 16)
   %45 = load <4 x i32>, ptr %keyTemp, align 16, !tbaa !13
   %46 = xor <4 x i32> %45, <i32 1785358954, i32 1785358954, i32 1785358954, i32 1785358954>
@@ -360,8 +360,8 @@ if.end:                                           ; preds = %if.end.loopexit, %f
   store <4 x i32> %52, ptr %arrayidx49.12, align 16, !tbaa !13
   %_sha2 = getelementptr inbounds %"class.NCrypto::NSha1::CHmac32", ptr %this, i64 0, i32 1
   call void @_ZN7NCrypto5NSha112CContextBase4InitEv(ptr noundef nonnull align 8 dereferenceable(32) %_sha2)
-  %_count2.i88 = getelementptr inbounds %"class.NCrypto::NSha1::CHmac32", ptr %this, i64 0, i32 1, i32 0, i32 1
-  store i32 0, ptr %_count2.i88, align 8, !tbaa !8
+  %_count2.i87 = getelementptr inbounds %"class.NCrypto::NSha1::CHmac32", ptr %this, i64 0, i32 1, i32 0, i32 1
+  store i32 0, ptr %_count2.i87, align 8, !tbaa !8
   call void @_ZN7NCrypto5NSha110CContext326UpdateEPKjm(ptr noundef nonnull align 8 dereferenceable(100) %_sha2, ptr noundef nonnull %keyTemp, i64 noundef 16)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %keyTemp) #5
   ret void

@@ -45,7 +45,7 @@ entry:
   store i32 1, ptr @d, align 4, !tbaa !5
   %0 = load i32, ptr @a, align 4, !tbaa !5
   %tobool.not.i = icmp eq i32 %0, 0
-  br i1 %tobool.not.i, label %if.end, label %for.body.preheader.i, !llvm.loop !9
+  br i1 %tobool.not.i, label %fn1.exit, label %for.body.preheader.i, !llvm.loop !9
 
 for.body.preheader.i:                             ; preds = %entry
   store i64 21474803712, ptr getelementptr inbounds (%struct.S0, ptr @c, i64 0, i32 5), align 4
@@ -55,7 +55,7 @@ for.body.i:                                       ; preds = %for.body.i, %for.bo
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(28) @c, ptr noundef nonnull align 4 dereferenceable(28) @__const.fn1.e, i64 20, i1 false), !tbaa.struct !11
   br label %for.body.i
 
-if.end:                                           ; preds = %entry
+fn1.exit:                                         ; preds = %entry
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(28) @c, ptr noundef nonnull align 4 dereferenceable(28) @__const.fn1.e, i64 20, i1 false), !tbaa.struct !11
   store i64 21474803712, ptr getelementptr inbounds (%struct.S0, ptr @c, i64 0, i32 5), align 4
   store i32 0, ptr @b, align 4, !tbaa !5

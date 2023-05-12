@@ -22,9 +22,9 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @div3(i8 noundef signext %x, i8 noundef signext %y) local_unnamed_addr #0 {
 entry:
-  %div.lhs.trunc = sext i8 %x to i16
-  %div.rhs.trunc = sext i8 %y to i16
-  %div2 = sdiv i16 %div.lhs.trunc, %div.rhs.trunc
+  %conv = sext i8 %x to i16
+  %conv1 = sext i8 %y to i16
+  %div2 = sdiv i16 %conv, %conv1
   %div.sext = sext i16 %div2 to i32
   ret i32 %div.sext
 }
@@ -53,9 +53,9 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @mod3(i8 noundef signext %x, i8 noundef signext %y) local_unnamed_addr #0 {
 entry:
-  %rem.lhs.trunc = sext i8 %x to i16
-  %rem.rhs.trunc = sext i8 %y to i16
-  %rem2 = srem i16 %rem.lhs.trunc, %rem.rhs.trunc
+  %conv = sext i8 %x to i16
+  %conv1 = sext i8 %y to i16
+  %rem2 = srem i16 %conv, %conv1
   %rem.sext = sext i16 %rem2 to i32
   ret i32 %rem.sext
 }
@@ -85,7 +85,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end36:
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

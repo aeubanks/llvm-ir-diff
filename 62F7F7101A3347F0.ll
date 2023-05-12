@@ -466,7 +466,7 @@ if.end18.i:                                       ; preds = %if.end15.i, %if.end
   %cmp24.i = icmp ne i8 %7, -1
   %cmp26.i = icmp ne i8 %11, -40
   %or.cond.i = select i1 %cmp24.i, i1 true, i1 %cmp26.i
-  br i1 %or.cond.i, label %if.then28.i, label %first_marker.exit
+  br i1 %or.cond.i, label %if.then28.i, label %if.end34.i
 
 if.then28.i:                                      ; preds = %if.end18.i
   %12 = load ptr, ptr %cinfo, align 8, !tbaa !13
@@ -480,9 +480,9 @@ if.then28.i:                                      ; preds = %if.end18.i
   %14 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %15 = load ptr, ptr %14, align 8, !tbaa !42
   tail call void %15(ptr noundef nonnull %cinfo) #6
-  br label %first_marker.exit
+  br label %if.end34.i
 
-first_marker.exit:                                ; preds = %if.end18.i, %if.then28.i
+if.end34.i:                                       ; preds = %if.then28.i, %if.end18.i
   store i32 %conv21.i, ptr %unread_marker, align 4, !tbaa !5
   store ptr %incdec.ptr20.i, ptr %3, align 8, !tbaa !21
   store i64 %dec19.i, ptr %bytes_in_buffer2.i, align 8, !tbaa !23
@@ -497,8 +497,8 @@ if.end9thread-pre-split:                          ; preds = %if.else
   %.pr = load i32, ptr %unread_marker, align 4, !tbaa !5
   br label %if.end9
 
-if.end9:                                          ; preds = %if.end9thread-pre-split, %first_marker.exit, %for.cond
-  %16 = phi i32 [ %.pr, %if.end9thread-pre-split ], [ %conv21.i, %first_marker.exit ], [ %0, %for.cond ]
+if.end9:                                          ; preds = %if.end9thread-pre-split, %if.end34.i, %for.cond
+  %16 = phi i32 [ %.pr, %if.end9thread-pre-split ], [ %conv21.i, %if.end34.i ], [ %0, %for.cond ]
   switch i32 %16, label %sw.default [
     i32 216, label %sw.bb
     i32 192, label %sw.bb15
@@ -616,7 +616,7 @@ sw.bb35:                                          ; preds = %if.end9, %if.end9, 
   store i32 %16, ptr %msg_parm, align 4, !tbaa !17
   %25 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %26 = load ptr, ptr %25, align 8, !tbaa !42
-  tail call void %26(ptr noundef nonnull %cinfo) #6
+  tail call void %26(ptr noundef %cinfo) #6
   br label %sw.epilog
 
 sw.bb39:                                          ; preds = %if.end9
@@ -902,7 +902,7 @@ if.end161.i:                                      ; preds = %if.end158.i, %if.en
   %Se.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 69
   store i32 %conv164.i, ptr %Se.i, align 8, !tbaa !59
   %cmp168.i = icmp eq i64 %dec162.i, 0
-  br i1 %cmp168.i, label %if.then170.i, label %if.end43
+  br i1 %cmp168.i, label %if.then170.i, label %if.end178.i
 
 if.then170.i:                                     ; preds = %if.end161.i
   %fill_input_buffer171.i = getelementptr inbounds %struct.jpeg_source_mgr, ptr %27, i64 0, i32 3
@@ -914,9 +914,9 @@ if.then170.i:                                     ; preds = %if.end161.i
 if.end175.i:                                      ; preds = %if.then170.i
   %80 = load ptr, ptr %27, align 8, !tbaa !21
   %81 = load i64, ptr %bytes_in_buffer2.i153, align 8, !tbaa !23
-  br label %if.end43
+  br label %if.end178.i
 
-if.end43:                                         ; preds = %if.end175.i, %if.end161.i
+if.end178.i:                                      ; preds = %if.end175.i, %if.end161.i
   %next_input_byte.8.i = phi ptr [ %80, %if.end175.i ], [ %incdec.ptr163.i, %if.end161.i ]
   %bytes_in_buffer.8.i = phi i64 [ %81, %if.end175.i ], [ %dec162.i, %if.end161.i ]
   %dec179.i = add i64 %bytes_in_buffer.8.i, -1
@@ -965,7 +965,7 @@ sw.bb45:                                          ; preds = %if.end9
   store i32 84, ptr %msg_code47, align 8, !tbaa !14
   %emit_message = getelementptr inbounds %struct.jpeg_error_mgr, ptr %91, i64 0, i32 1
   %92 = load ptr, ptr %emit_message, align 8, !tbaa !18
-  tail call void %92(ptr noundef nonnull %cinfo, i32 noundef 1) #6
+  tail call void %92(ptr noundef %cinfo, i32 noundef 1) #6
   store i32 0, ptr %unread_marker, align 4, !tbaa !5
   br label %return
 
@@ -1019,7 +1019,7 @@ if.end18.i197:                                    ; preds = %if.end15.i192, %if.
   %next_input_byte.2184.i = getelementptr inbounds i8, ptr %next_input_byte.1.i193, i64 1
   %bytes_in_buffer.2185.i = add i64 %bytes_in_buffer.1.i194, -1
   %cmp22186.i = icmp ugt i64 %add.i196, 2
-  br i1 %cmp22186.i, label %do.body24.lr.ph.i, label %get_dac.exit
+  br i1 %cmp22186.i, label %do.body24.lr.ph.i, label %while.end.i
 
 do.body24.lr.ph.i:                                ; preds = %if.end18.i197
   %fill_input_buffer28.i = getelementptr inbounds %struct.jpeg_source_mgr, ptr %93, i64 0, i32 3
@@ -1133,9 +1133,9 @@ if.end107.i:                                      ; preds = %if.then98.i, %if.el
   %next_input_byte.2.i207 = getelementptr inbounds i8, ptr %next_input_byte.4.i200, i64 1
   %bytes_in_buffer.2.i208 = add i64 %bytes_in_buffer.4.i201, -1
   %cmp22.i = icmp ugt i64 %length.0187.in.i, 4
-  br i1 %cmp22.i, label %do.body24.i, label %get_dac.exit, !llvm.loop !63
+  br i1 %cmp22.i, label %do.body24.i, label %while.end.i, !llvm.loop !63
 
-get_dac.exit:                                     ; preds = %if.end107.i, %if.end18.i197
+while.end.i:                                      ; preds = %if.end107.i, %if.end18.i197
   %next_input_byte.2.lcssa.i = phi ptr [ %next_input_byte.2184.i, %if.end18.i197 ], [ %next_input_byte.2.i207, %if.end107.i ]
   %bytes_in_buffer.2.lcssa.i = phi i64 [ %bytes_in_buffer.2185.i, %if.end18.i197 ], [ %bytes_in_buffer.2.i208, %if.end107.i ]
   store ptr %next_input_byte.2.lcssa.i, ptr %93, align 8, !tbaa !21
@@ -1155,7 +1155,7 @@ if.then.i216:                                     ; preds = %sw.bb55
   %122 = load ptr, ptr %fill_input_buffer.i213, align 8, !tbaa !24
   %call.i214 = tail call i32 %122(ptr noundef nonnull %cinfo) #6
   %tobool.not.i215 = icmp eq i32 %call.i214, 0
-  br i1 %tobool.not.i215, label %get_dht.exit.thread, label %if.end.i217
+  br i1 %tobool.not.i215, label %if.then58.critedge, label %if.end.i217
 
 if.end.i217:                                      ; preds = %if.then.i216
   %123 = load i64, ptr %bytes_in_buffer2.i211, align 8, !tbaa !23
@@ -1177,7 +1177,7 @@ if.then10.i229:                                   ; preds = %if.end6.i225
   %125 = load ptr, ptr %fill_input_buffer11.i226, align 8, !tbaa !24
   %call12.i227 = tail call i32 %125(ptr noundef nonnull %cinfo) #6
   %tobool13.not.i228 = icmp eq i32 %call12.i227, 0
-  br i1 %tobool13.not.i228, label %get_dht.exit.thread, label %if.end15.i230
+  br i1 %tobool13.not.i228, label %if.then58.critedge, label %if.end15.i230
 
 if.end15.i230:                                    ; preds = %if.then10.i229
   %126 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1193,7 +1193,7 @@ if.end18.i237:                                    ; preds = %if.end15.i230, %if.
   %conv21.i235 = zext i8 %128 to i64
   %add.i236 = or i64 %shl.i223, %conv21.i235
   %cmp22341.i = icmp ugt i64 %add.i236, 2
-  br i1 %cmp22341.i, label %do.body24.lr.ph.i239, label %get_dht.exit
+  br i1 %cmp22341.i, label %do.body24.lr.ph.i239, label %while.end.i279
 
 do.body24.lr.ph.i239:                             ; preds = %if.end18.i237
   %sub.i = add nsw i64 %add.i236, -2
@@ -1211,7 +1211,7 @@ if.then27.i244:                                   ; preds = %do.body24.i241
   %129 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call29.i242 = tail call i32 %129(ptr noundef %cinfo) #6
   %tobool30.not.i243 = icmp eq i32 %call29.i242, 0
-  br i1 %tobool30.not.i243, label %get_dht.exit.thread, label %if.end32.i245
+  br i1 %tobool30.not.i243, label %if.then58.critedge, label %if.end32.i245
 
 if.end32.i245:                                    ; preds = %if.then27.i244
   %130 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1241,7 +1241,7 @@ if.then49.i:                                      ; preds = %if.end35.i252
   %136 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.i = tail call i32 %136(ptr noundef nonnull %cinfo) #6
   %tobool52.not.i = icmp eq i32 %call51.i, 0
-  br i1 %tobool52.not.i, label %get_dht.exit.thread, label %if.end54.i
+  br i1 %tobool52.not.i, label %if.then58.critedge, label %if.end54.i
 
 if.end54.i:                                       ; preds = %if.then49.i
   %137 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1262,7 +1262,7 @@ if.then49.1.i:                                    ; preds = %if.end57.i257
   %140 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.1.i = tail call i32 %140(ptr noundef nonnull %cinfo) #6
   %tobool52.not.1.i = icmp eq i32 %call51.1.i, 0
-  br i1 %tobool52.not.1.i, label %get_dht.exit.thread, label %if.end54.1.i
+  br i1 %tobool52.not.1.i, label %if.then58.critedge, label %if.end54.1.i
 
 if.end54.1.i:                                     ; preds = %if.then49.1.i
   %141 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1284,7 +1284,7 @@ if.then49.2.i:                                    ; preds = %if.end57.1.i
   %144 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.2.i = tail call i32 %144(ptr noundef nonnull %cinfo) #6
   %tobool52.not.2.i = icmp eq i32 %call51.2.i, 0
-  br i1 %tobool52.not.2.i, label %get_dht.exit.thread, label %if.end54.2.i
+  br i1 %tobool52.not.2.i, label %if.then58.critedge, label %if.end54.2.i
 
 if.end54.2.i:                                     ; preds = %if.then49.2.i
   %145 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1306,7 +1306,7 @@ if.then49.3.i:                                    ; preds = %if.end57.2.i
   %148 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.3.i = tail call i32 %148(ptr noundef nonnull %cinfo) #6
   %tobool52.not.3.i = icmp eq i32 %call51.3.i, 0
-  br i1 %tobool52.not.3.i, label %get_dht.exit.thread, label %if.end54.3.i
+  br i1 %tobool52.not.3.i, label %if.then58.critedge, label %if.end54.3.i
 
 if.end54.3.i:                                     ; preds = %if.then49.3.i
   %149 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1328,7 +1328,7 @@ if.then49.4.i:                                    ; preds = %if.end57.3.i
   %152 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.4.i = tail call i32 %152(ptr noundef nonnull %cinfo) #6
   %tobool52.not.4.i = icmp eq i32 %call51.4.i, 0
-  br i1 %tobool52.not.4.i, label %get_dht.exit.thread, label %if.end54.4.i
+  br i1 %tobool52.not.4.i, label %if.then58.critedge, label %if.end54.4.i
 
 if.end54.4.i:                                     ; preds = %if.then49.4.i
   %153 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1350,7 +1350,7 @@ if.then49.5.i:                                    ; preds = %if.end57.4.i
   %156 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.5.i = tail call i32 %156(ptr noundef nonnull %cinfo) #6
   %tobool52.not.5.i = icmp eq i32 %call51.5.i, 0
-  br i1 %tobool52.not.5.i, label %get_dht.exit.thread, label %if.end54.5.i
+  br i1 %tobool52.not.5.i, label %if.then58.critedge, label %if.end54.5.i
 
 if.end54.5.i:                                     ; preds = %if.then49.5.i
   %157 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1372,7 +1372,7 @@ if.then49.6.i:                                    ; preds = %if.end57.5.i
   %160 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.6.i = tail call i32 %160(ptr noundef nonnull %cinfo) #6
   %tobool52.not.6.i = icmp eq i32 %call51.6.i, 0
-  br i1 %tobool52.not.6.i, label %get_dht.exit.thread, label %if.end54.6.i
+  br i1 %tobool52.not.6.i, label %if.then58.critedge, label %if.end54.6.i
 
 if.end54.6.i:                                     ; preds = %if.then49.6.i
   %161 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1394,7 +1394,7 @@ if.then49.7.i:                                    ; preds = %if.end57.6.i
   %164 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.7.i = tail call i32 %164(ptr noundef nonnull %cinfo) #6
   %tobool52.not.7.i = icmp eq i32 %call51.7.i, 0
-  br i1 %tobool52.not.7.i, label %get_dht.exit.thread, label %if.end54.7.i
+  br i1 %tobool52.not.7.i, label %if.then58.critedge, label %if.end54.7.i
 
 if.end54.7.i:                                     ; preds = %if.then49.7.i
   %165 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1416,7 +1416,7 @@ if.then49.8.i:                                    ; preds = %if.end57.7.i
   %168 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.8.i = tail call i32 %168(ptr noundef nonnull %cinfo) #6
   %tobool52.not.8.i = icmp eq i32 %call51.8.i, 0
-  br i1 %tobool52.not.8.i, label %get_dht.exit.thread, label %if.end54.8.i
+  br i1 %tobool52.not.8.i, label %if.then58.critedge, label %if.end54.8.i
 
 if.end54.8.i:                                     ; preds = %if.then49.8.i
   %169 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1438,7 +1438,7 @@ if.then49.9.i:                                    ; preds = %if.end57.8.i
   %172 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.9.i = tail call i32 %172(ptr noundef nonnull %cinfo) #6
   %tobool52.not.9.i = icmp eq i32 %call51.9.i, 0
-  br i1 %tobool52.not.9.i, label %get_dht.exit.thread, label %if.end54.9.i
+  br i1 %tobool52.not.9.i, label %if.then58.critedge, label %if.end54.9.i
 
 if.end54.9.i:                                     ; preds = %if.then49.9.i
   %173 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1460,7 +1460,7 @@ if.then49.10.i:                                   ; preds = %if.end57.9.i
   %176 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.10.i = tail call i32 %176(ptr noundef nonnull %cinfo) #6
   %tobool52.not.10.i = icmp eq i32 %call51.10.i, 0
-  br i1 %tobool52.not.10.i, label %get_dht.exit.thread, label %if.end54.10.i
+  br i1 %tobool52.not.10.i, label %if.then58.critedge, label %if.end54.10.i
 
 if.end54.10.i:                                    ; preds = %if.then49.10.i
   %177 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1482,7 +1482,7 @@ if.then49.11.i:                                   ; preds = %if.end57.10.i
   %180 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.11.i = tail call i32 %180(ptr noundef nonnull %cinfo) #6
   %tobool52.not.11.i = icmp eq i32 %call51.11.i, 0
-  br i1 %tobool52.not.11.i, label %get_dht.exit.thread, label %if.end54.11.i
+  br i1 %tobool52.not.11.i, label %if.then58.critedge, label %if.end54.11.i
 
 if.end54.11.i:                                    ; preds = %if.then49.11.i
   %181 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1504,7 +1504,7 @@ if.then49.12.i:                                   ; preds = %if.end57.11.i
   %184 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.12.i = tail call i32 %184(ptr noundef nonnull %cinfo) #6
   %tobool52.not.12.i = icmp eq i32 %call51.12.i, 0
-  br i1 %tobool52.not.12.i, label %get_dht.exit.thread, label %if.end54.12.i
+  br i1 %tobool52.not.12.i, label %if.then58.critedge, label %if.end54.12.i
 
 if.end54.12.i:                                    ; preds = %if.then49.12.i
   %185 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1526,7 +1526,7 @@ if.then49.13.i:                                   ; preds = %if.end57.12.i
   %188 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.13.i = tail call i32 %188(ptr noundef nonnull %cinfo) #6
   %tobool52.not.13.i = icmp eq i32 %call51.13.i, 0
-  br i1 %tobool52.not.13.i, label %get_dht.exit.thread, label %if.end54.13.i
+  br i1 %tobool52.not.13.i, label %if.then58.critedge, label %if.end54.13.i
 
 if.end54.13.i:                                    ; preds = %if.then49.13.i
   %189 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1548,7 +1548,7 @@ if.then49.14.i:                                   ; preds = %if.end57.13.i
   %192 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.14.i = tail call i32 %192(ptr noundef nonnull %cinfo) #6
   %tobool52.not.14.i = icmp eq i32 %call51.14.i, 0
-  br i1 %tobool52.not.14.i, label %get_dht.exit.thread, label %if.end54.14.i
+  br i1 %tobool52.not.14.i, label %if.then58.critedge, label %if.end54.14.i
 
 if.end54.14.i:                                    ; preds = %if.then49.14.i
   %193 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1570,7 +1570,7 @@ if.then49.15.i:                                   ; preds = %if.end57.14.i
   %196 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call51.15.i = tail call i32 %196(ptr noundef nonnull %cinfo) #6
   %tobool52.not.15.i = icmp eq i32 %call51.15.i, 0
-  br i1 %tobool52.not.15.i, label %get_dht.exit.thread, label %if.end54.15.i
+  br i1 %tobool52.not.15.i, label %if.then58.critedge, label %if.end54.15.i
 
 if.end54.15.i:                                    ; preds = %if.then49.15.i
   %197 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1659,7 +1659,7 @@ if.then153.i264:                                  ; preds = %do.body150.i
   %206 = load ptr, ptr %fill_input_buffer28.i238, align 8, !tbaa !24
   %call155.i262 = tail call i32 %206(ptr noundef nonnull %cinfo) #6
   %tobool156.not.i263 = icmp eq i32 %call155.i262, 0
-  br i1 %tobool156.not.i263, label %get_dht.exit.thread, label %if.end158.i265
+  br i1 %tobool156.not.i263, label %if.then58.critedge, label %if.end158.i265
 
 if.end158.i265:                                   ; preds = %if.then153.i264
   %207 = load ptr, ptr %120, align 8, !tbaa !21
@@ -1754,19 +1754,19 @@ if.end199.i:                                      ; preds = %if.then197.i, %if.e
   %huffval203.i = getelementptr inbounds %struct.JHUFF_TBL, ptr %215, i64 0, i32 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(256) %huffval203.i, ptr noundef nonnull align 16 dereferenceable(256) %huffval.i, i64 256, i1 false)
   %cmp22.i276 = icmp sgt i64 %sub172.i, 0
-  br i1 %cmp22.i276, label %do.body24.i241, label %get_dht.exit, !llvm.loop !65
+  br i1 %cmp22.i276, label %do.body24.i241, label %while.end.i279, !llvm.loop !65
 
-get_dht.exit.thread:                              ; preds = %if.then.i216, %if.then10.i229, %if.then49.15.i, %if.then49.14.i, %if.then49.13.i, %if.then49.12.i, %if.then49.11.i, %if.then49.10.i, %if.then49.9.i, %if.then49.8.i, %if.then49.7.i, %if.then49.6.i, %if.then49.5.i, %if.then49.4.i, %if.then49.3.i, %if.then49.2.i, %if.then49.1.i, %if.then49.i, %if.then27.i244, %if.then153.i264
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %huffval.i) #6
-  br label %return
-
-get_dht.exit:                                     ; preds = %if.end199.i, %if.end18.i237
+while.end.i279:                                   ; preds = %if.end199.i, %if.end18.i237
   %next_input_byte.2.lcssa.i277 = phi ptr [ %incdec.ptr20.i234, %if.end18.i237 ], [ %next_input_byte.6.lcssa.i, %if.end199.i ]
   %bytes_in_buffer.2.lcssa.i278 = phi i64 [ %dec19.i233, %if.end18.i237 ], [ %bytes_in_buffer.6.lcssa.i, %if.end199.i ]
   store ptr %next_input_byte.2.lcssa.i277, ptr %120, align 8, !tbaa !21
   store i64 %bytes_in_buffer.2.lcssa.i278, ptr %bytes_in_buffer2.i211, align 8, !tbaa !23
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %huffval.i) #6
   br label %sw.epilog
+
+if.then58.critedge:                               ; preds = %if.then10.i229, %if.then.i216, %if.then49.15.i, %if.then49.14.i, %if.then49.13.i, %if.then49.12.i, %if.then49.11.i, %if.then49.10.i, %if.then49.9.i, %if.then49.8.i, %if.then49.7.i, %if.then49.6.i, %if.then49.5.i, %if.then49.4.i, %if.then49.3.i, %if.then49.2.i, %if.then49.1.i, %if.then49.i, %if.then27.i244, %if.then153.i264
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %huffval.i) #6
+  br label %return
 
 sw.bb60:                                          ; preds = %if.end9
   %216 = load ptr, ptr %src.i, align 8, !tbaa !20
@@ -1818,7 +1818,7 @@ if.end18.i308:                                    ; preds = %if.end15.i301, %if.
   %conv21.i306 = zext i8 %224 to i64
   %add.i307 = or i64 %shl.i294, %conv21.i306
   %cmp22329.i = icmp ugt i64 %add.i307, 2
-  br i1 %cmp22329.i, label %do.body24.lr.ph.i311, label %get_dqt.exit
+  br i1 %cmp22329.i, label %do.body24.lr.ph.i311, label %while.end.i345
 
 do.body24.lr.ph.i311:                             ; preds = %if.end18.i308
   %sub.i309 = add nsw i64 %add.i307, -2
@@ -2128,9 +2128,9 @@ if.end195.i:                                      ; preds = %do.body136.preheade
   %spec.select.v.i = select i1 %tobool70.not.i328, i64 -65, i64 -129
   %spec.select.i = add nsw i64 %spec.select.v.i, %length.0330.i
   %cmp22.i342 = icmp sgt i64 %spec.select.i, 0
-  br i1 %cmp22.i342, label %do.body24.i313, label %get_dqt.exit, !llvm.loop !69
+  br i1 %cmp22.i342, label %do.body24.i313, label %while.end.i345, !llvm.loop !69
 
-get_dqt.exit:                                     ; preds = %if.end195.i, %if.end18.i308
+while.end.i345:                                   ; preds = %if.end195.i, %if.end18.i308
   %next_input_byte.2.lcssa.i343 = phi ptr [ %incdec.ptr20.i305, %if.end18.i308 ], [ %.us-phi.i, %if.end195.i ]
   %bytes_in_buffer.2.lcssa.i344 = phi i64 [ %dec19.i304, %if.end18.i308 ], [ %.us-phi327.i, %if.end195.i ]
   store ptr %next_input_byte.2.lcssa.i343, ptr %216, align 8, !tbaa !21
@@ -2222,7 +2222,7 @@ if.end38.i:                                       ; preds = %if.end35.i376, %do.
   %conv41.i = zext i8 %315 to i32
   %shl42.i = shl nuw nsw i32 %conv41.i, 8
   %cmp43.i = icmp eq i64 %dec39.i, 0
-  br i1 %cmp43.i, label %if.then45.i, label %get_dri.exit
+  br i1 %cmp43.i, label %if.then45.i, label %if.end53.i
 
 if.then45.i:                                      ; preds = %if.end38.i
   %fill_input_buffer46.i = getelementptr inbounds %struct.jpeg_source_mgr, ptr %301, i64 0, i32 3
@@ -2234,9 +2234,9 @@ if.then45.i:                                      ; preds = %if.end38.i
 if.end50.i:                                       ; preds = %if.then45.i
   %317 = load ptr, ptr %301, align 8, !tbaa !21
   %318 = load i64, ptr %bytes_in_buffer2.i348, align 8, !tbaa !23
-  br label %get_dri.exit
+  br label %if.end53.i
 
-get_dri.exit:                                     ; preds = %if.end38.i, %if.end50.i
+if.end53.i:                                       ; preds = %if.end50.i, %if.end38.i
   %next_input_byte.3.i379 = phi ptr [ %317, %if.end50.i ], [ %incdec.ptr40.i, %if.end38.i ]
   %bytes_in_buffer.3.i380 = phi i64 [ %318, %if.end50.i ], [ %dec39.i, %if.end38.i ]
   %dec54.i = add i64 %bytes_in_buffer.3.i380, -1
@@ -2285,7 +2285,7 @@ sw.bb84:                                          ; preds = %if.end9, %if.end9, 
   %328 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %emit_message92 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %328, i64 0, i32 1
   %329 = load ptr, ptr %emit_message92, align 8, !tbaa !18
-  tail call void %329(ptr noundef nonnull %cinfo, i32 noundef 1) #6
+  tail call void %329(ptr noundef %cinfo, i32 noundef 1) #6
   br label %sw.epilog
 
 sw.bb93:                                          ; preds = %if.end9
@@ -2315,7 +2315,7 @@ if.end6.i400:                                     ; preds = %if.end.i392, %sw.bb
   %conv.i397 = zext i8 %334 to i64
   %shl.i398 = shl nuw nsw i64 %conv.i397, 8
   %cmp8.i399 = icmp eq i64 %dec.i395, 0
-  br i1 %cmp8.i399, label %if.then10.i404, label %skip_variable.exit
+  br i1 %cmp8.i399, label %if.then10.i404, label %if.end18.i417
 
 if.then10.i404:                                   ; preds = %if.end6.i400
   %fill_input_buffer11.i401 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %330, i64 0, i32 3
@@ -2327,9 +2327,9 @@ if.then10.i404:                                   ; preds = %if.end6.i400
 if.end15.i405:                                    ; preds = %if.then10.i404
   %336 = load ptr, ptr %330, align 8, !tbaa !21
   %337 = load i64, ptr %bytes_in_buffer2.i386, align 8, !tbaa !23
-  br label %skip_variable.exit
+  br label %if.end18.i417
 
-skip_variable.exit:                               ; preds = %if.end6.i400, %if.end15.i405
+if.end18.i417:                                    ; preds = %if.end15.i405, %if.end6.i400
   %next_input_byte.1.i406 = phi ptr [ %336, %if.end15.i405 ], [ %incdec.ptr.i396, %if.end6.i400 ]
   %bytes_in_buffer.1.i407 = phi i64 [ %337, %if.end15.i405 ], [ %dec.i395, %if.end6.i400 ]
   %dec19.i408 = add i64 %bytes_in_buffer.1.i407, -1
@@ -2368,15 +2368,15 @@ sw.default:                                       ; preds = %if.end9
   store i32 %16, ptr %msg_parm102, align 4, !tbaa !17
   %347 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %348 = load ptr, ptr %347, align 8, !tbaa !42
-  tail call void %348(ptr noundef nonnull %cinfo) #6
+  tail call void %348(ptr noundef %cinfo) #6
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %skip_variable.exit, %get_dri.exit, %get_dqt.exit, %get_dht.exit, %get_dac.exit, %get_soi.exit, %sw.bb78, %sw.bb70, %sw.bb30, %sw.bb25, %sw.bb20, %sw.bb15, %sw.default, %sw.bb84, %sw.bb35
+sw.epilog:                                        ; preds = %if.end18.i417, %if.end53.i, %while.end.i345, %while.end.i279, %while.end.i, %get_soi.exit, %sw.bb78, %sw.bb70, %sw.bb30, %sw.bb25, %sw.bb20, %sw.bb15, %sw.default, %sw.bb84, %sw.bb35
   store i32 0, ptr %unread_marker, align 4, !tbaa !5
   br label %for.cond
 
-return:                                           ; preds = %if.then10.i404, %if.then.i391, %if.then45.i, %if.then30.i, %if.then10.i366, %if.then.i353, %if.then10.i300, %if.then.i287, %if.then10.i191, %if.then.i178, %if.then10.i, %if.then.i, %sw.bb78, %sw.bb70, %sw.bb30, %sw.bb25, %sw.bb20, %sw.bb15, %if.else, %if.then27.i316, %if.then44.i, %if.then27.i, %if.then75.i, %if.then90.i, %if.then108.us.i, %if.then84.i, %if.then67.i, %if.then170.i, %if.then153.i, %if.then136.i, %if.then29.i, %if.then14.i, %if.then4.i, %get_dht.exit.thread, %sw.bb45, %if.end43
-  %retval.0 = phi i32 [ 2, %sw.bb45 ], [ 1, %if.end43 ], [ 0, %get_dht.exit.thread ], [ 0, %if.then4.i ], [ 0, %if.then14.i ], [ 0, %if.then29.i ], [ 0, %if.then136.i ], [ 0, %if.then153.i ], [ 0, %if.then170.i ], [ 0, %if.then67.i ], [ 0, %if.then84.i ], [ 0, %if.then108.us.i ], [ 0, %if.then90.i ], [ 0, %if.then75.i ], [ 0, %if.then27.i ], [ 0, %if.then44.i ], [ 0, %if.then27.i316 ], [ 0, %if.else ], [ 0, %sw.bb15 ], [ 0, %sw.bb20 ], [ 0, %sw.bb25 ], [ 0, %sw.bb30 ], [ 0, %sw.bb70 ], [ 0, %sw.bb78 ], [ 0, %if.then.i ], [ 0, %if.then10.i ], [ 0, %if.then.i178 ], [ 0, %if.then10.i191 ], [ 0, %if.then.i287 ], [ 0, %if.then10.i300 ], [ 0, %if.then.i353 ], [ 0, %if.then10.i366 ], [ 0, %if.then30.i ], [ 0, %if.then45.i ], [ 0, %if.then.i391 ], [ 0, %if.then10.i404 ]
+return:                                           ; preds = %if.then.i391, %if.then10.i404, %if.then.i353, %if.then10.i366, %if.then30.i, %if.then45.i, %if.then.i287, %if.then10.i300, %if.then.i178, %if.then10.i191, %if.then.i, %if.then10.i, %sw.bb78, %sw.bb70, %sw.bb30, %sw.bb25, %sw.bb20, %sw.bb15, %if.else, %if.then27.i316, %if.then27.i, %if.then44.i, %if.then75.i, %if.then90.i, %if.then108.us.i, %if.then67.i, %if.then84.i, %if.then4.i, %if.then14.i, %if.then29.i, %if.then136.i, %if.then153.i, %if.then170.i, %if.then58.critedge, %sw.bb45, %if.end178.i
+  %retval.0 = phi i32 [ 0, %if.then58.critedge ], [ 2, %sw.bb45 ], [ 1, %if.end178.i ], [ 0, %if.then170.i ], [ 0, %if.then153.i ], [ 0, %if.then136.i ], [ 0, %if.then29.i ], [ 0, %if.then14.i ], [ 0, %if.then4.i ], [ 0, %if.then84.i ], [ 0, %if.then67.i ], [ 0, %if.then108.us.i ], [ 0, %if.then90.i ], [ 0, %if.then75.i ], [ 0, %if.then44.i ], [ 0, %if.then27.i ], [ 0, %if.then27.i316 ], [ 0, %if.else ], [ 0, %sw.bb15 ], [ 0, %sw.bb20 ], [ 0, %sw.bb25 ], [ 0, %sw.bb30 ], [ 0, %sw.bb70 ], [ 0, %sw.bb78 ], [ 0, %if.then10.i ], [ 0, %if.then.i ], [ 0, %if.then10.i191 ], [ 0, %if.then.i178 ], [ 0, %if.then10.i300 ], [ 0, %if.then.i287 ], [ 0, %if.then45.i ], [ 0, %if.then30.i ], [ 0, %if.then10.i366 ], [ 0, %if.then.i353 ], [ 0, %if.then10.i404 ], [ 0, %if.then.i391 ]
   ret i32 %retval.0
 }
 

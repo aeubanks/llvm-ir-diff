@@ -258,8 +258,8 @@ if.end.3:                                         ; preds = %if.end.2
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
   store i8 0, ptr %byte11, align 1, !tbaa !12
   %call12 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp13.not = icmp eq i64 %call12, 1
-  br i1 %cmp13.not, label %if.end15, label %cleanup26.critedge
+  %cmp13.not.not = icmp eq i64 %call12, 1
+  br i1 %cmp13.not.not, label %if.end15, label %cleanup26.critedge
 
 cleanup4.thread:                                  ; preds = %if.end.2, %if.end.1, %if.end, %entry
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
@@ -275,8 +275,8 @@ if.end15:                                         ; preds = %if.end.3
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
   store i8 0, ptr %byte11, align 1, !tbaa !12
   %call12.1 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp13.not.1 = icmp eq i64 %call12.1, 1
-  br i1 %cmp13.not.1, label %if.end15.1, label %cleanup26.critedge
+  %cmp13.not.1.not = icmp eq i64 %call12.1, 1
+  br i1 %cmp13.not.1.not, label %if.end15.1, label %cleanup26.critedge
 
 if.end15.1:                                       ; preds = %if.end15
   %10 = load i8, ptr %byte11, align 1, !tbaa !12
@@ -289,8 +289,8 @@ if.end15.1:                                       ; preds = %if.end15
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
   store i8 0, ptr %byte11, align 1, !tbaa !12
   %call12.2 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp13.not.2 = icmp eq i64 %call12.2, 1
-  br i1 %cmp13.not.2, label %if.end15.2, label %cleanup26.critedge
+  %cmp13.not.2.not = icmp eq i64 %call12.2, 1
+  br i1 %cmp13.not.2.not, label %if.end15.2, label %cleanup26.critedge
 
 if.end15.2:                                       ; preds = %if.end15.1
   %12 = load i8, ptr %byte11, align 1, !tbaa !12
@@ -303,8 +303,8 @@ if.end15.2:                                       ; preds = %if.end15.1
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
   store i8 0, ptr %byte11, align 1, !tbaa !12
   %call12.3 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp13.not.3 = icmp eq i64 %call12.3, 1
-  br i1 %cmp13.not.3, label %if.end15.3, label %cleanup26.critedge
+  %cmp13.not.3.not = icmp eq i64 %call12.3, 1
+  br i1 %cmp13.not.3.not, label %if.end15.3, label %cleanup26.critedge
 
 if.end15.3:                                       ; preds = %if.end15.2
   %14 = load i8, ptr %byte11, align 1, !tbaa !12
@@ -321,7 +321,7 @@ cleanup26.critedge:                               ; preds = %if.end15.2, %if.end
   br label %return
 
 return:                                           ; preds = %cleanup26.critedge, %if.end15.3, %cleanup4.thread
-  %retval.6 = phi i32 [ -1, %cleanup4.thread ], [ -1, %cleanup26.critedge ], [ 0, %if.end15.3 ]
+  %retval.6 = phi i32 [ -1, %cleanup4.thread ], [ 0, %if.end15.3 ], [ -1, %cleanup26.critedge ]
   ret i32 %retval.6
 }
 
@@ -388,9 +388,9 @@ for.cond.3:                                       ; preds = %for.cond.2
   %conv14 = trunc i32 %4 to i8
   store i8 %conv14, ptr %byte10, align 1, !tbaa !12
   %call15 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp16.not = icmp eq i64 %call15, 1
+  %cmp16.not.not = icmp eq i64 %call15, 1
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
-  br i1 %cmp16.not, label %for.cond6, label %return
+  br i1 %cmp16.not.not, label %for.cond6, label %return
 
 for.cond6:                                        ; preds = %for.cond.3
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
@@ -399,9 +399,9 @@ for.cond6:                                        ; preds = %for.cond.3
   %conv14.1 = trunc i32 %shr12.1 to i8
   store i8 %conv14.1, ptr %byte10, align 1, !tbaa !12
   %call15.1 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp16.not.1 = icmp eq i64 %call15.1, 1
+  %cmp16.not.1.not = icmp eq i64 %call15.1, 1
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
-  br i1 %cmp16.not.1, label %for.cond6.1, label %return
+  br i1 %cmp16.not.1.not, label %for.cond6.1, label %return
 
 for.cond6.1:                                      ; preds = %for.cond6
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
@@ -410,9 +410,9 @@ for.cond6.1:                                      ; preds = %for.cond6
   %conv14.2 = trunc i32 %shr12.2 to i8
   store i8 %conv14.2, ptr %byte10, align 1, !tbaa !12
   %call15.2 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp16.not.2 = icmp eq i64 %call15.2, 1
+  %cmp16.not.2.not = icmp eq i64 %call15.2, 1
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
-  br i1 %cmp16.not.2, label %for.cond6.2, label %return
+  br i1 %cmp16.not.2.not, label %for.cond6.2, label %return
 
 for.cond6.2:                                      ; preds = %for.cond6.1
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
@@ -421,9 +421,9 @@ for.cond6.2:                                      ; preds = %for.cond6.1
   %conv14.3 = trunc i32 %shr12.3 to i8
   store i8 %conv14.3, ptr %byte10, align 1, !tbaa !12
   %call15.3 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
-  %cmp16.not.3 = icmp ne i64 %call15.3, 1
+  %cmp16.not.3.not = icmp ne i64 %call15.3, 1
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
-  %spec.select = sext i1 %cmp16.not.3 to i32
+  %spec.select = sext i1 %cmp16.not.3.not to i32
   br label %return
 
 return:                                           ; preds = %for.cond6.2, %entry, %for.cond, %for.cond.1, %for.cond.2, %for.cond.3, %for.cond6, %for.cond6.1
@@ -472,10 +472,10 @@ if.end18:                                         ; preds = %if.end11
   %no.2 = select i1 %cmp28, i32 %sub30, i32 %no.1
   %cmp32 = icmp ugt i32 %y, 4
   %sub34 = sext i1 %cmp32 to i32
+  %no.3 = add nsw i32 %no.2, %sub34
   %not.cmp12 = xor i1 %cmp12, true
   %sub38 = sext i1 %not.cmp12 to i32
-  %no.3 = add nsw i32 %sub38, %sub34
-  %no.4 = add nsw i32 %no.3, %no.2
+  %no.4 = add nsw i32 %no.3, %sub38
   %cmp40 = icmp ugt i32 %y, 6
   %sub42 = add nsw i32 %no.4, -2
   %no.5 = select i1 %cmp40, i32 %sub42, i32 %no.4
@@ -529,9 +529,9 @@ if.end:                                           ; preds = %for.body5, %for.bod
   %cmp40.i = icmp ugt i32 %y.058, 6
   %cmp44.i = icmp ugt i32 %y.058, 7
   %cmp48.i = icmp ugt i32 %y.058, 8
-  br label %for.body8
+  br label %if.then.i
 
-for.body8:                                        ; preds = %if.end, %for.inc20
+if.then.i:                                        ; preds = %if.end, %for.inc20
   %x.056 = phi i32 [ 1, %if.end ], [ %inc21, %for.inc20 ]
   %cmp9.i = icmp uge i32 %sub8.i, %x.056
   %or.cond81.i.not59 = or i1 %cmp2, %cmp9.i
@@ -540,13 +540,13 @@ for.body8:                                        ; preds = %if.end, %for.inc20
   %or.cond = select i1 %or.cond81.i.not59, i1 %or.cond82.i, i1 false
   br i1 %or.cond, label %_Z6getBFPii.exit, label %if.then11
 
-_Z6getBFPii.exit:                                 ; preds = %for.body8
+_Z6getBFPii.exit:                                 ; preds = %if.then.i
   %spec.select.i = add i32 %add.i, %x.056
   %sub26.i = add nsw i32 %spec.select.i, -3
   %no.1.i = select i1 %cmp24.i, i32 %sub26.i, i32 %spec.select.i
   %sub30.i = add nsw i32 %no.1.i, -2
   %no.2.i = select i1 %cmp28.i, i32 %sub30.i, i32 %no.1.i
-  %no.4.i = add nsw i32 %no.3.i, %no.2.i
+  %no.4.i = add i32 %no.3.i, %no.2.i
   %sub42.i = add nsw i32 %no.4.i, -2
   %no.5.i = select i1 %cmp40.i, i32 %sub42.i, i32 %no.4.i
   %sub46.i = add nsw i32 %no.5.i, -3
@@ -556,7 +556,7 @@ _Z6getBFPii.exit:                                 ; preds = %for.body8
   %cmp10 = icmp eq i32 %no.7.i, -1
   br i1 %cmp10, label %if.then11, label %if.else
 
-if.then11:                                        ; preds = %for.body8, %_Z6getBFPii.exit
+if.then11:                                        ; preds = %if.then.i, %_Z6getBFPii.exit
   %call1.i35 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
   br label %for.inc20
 
@@ -587,7 +587,7 @@ if.else16:                                        ; preds = %if.end.i
 for.inc20:                                        ; preds = %if.then11, %if.else16, %if.then14
   %inc21 = add nuw nsw i32 %x.056, 1
   %exitcond60.not = icmp eq i32 %inc21, 10
-  br i1 %exitcond60.not, label %for.end22, label %for.body8, !llvm.loop !15
+  br i1 %exitcond60.not, label %for.end22, label %if.then.i, !llvm.loop !15
 
 for.end22:                                        ; preds = %for.inc20
   %call1.i47 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 1)

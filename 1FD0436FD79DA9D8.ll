@@ -508,8 +508,8 @@ entry:
   %conv3 = sext i32 %mul2 to i64
   %mul4 = shl nsw i64 %conv3, 5
   %call5 = tail call noalias ptr @malloc(i64 noundef %mul4) #6
-  %cmp123 = icmp sgt i32 %0, 0
-  br i1 %cmp123, label %for.body.preheader, label %for.cond.cleanup17
+  %cmp122 = icmp sgt i32 %0, 0
+  br i1 %cmp122, label %for.body.preheader, label %for.cond.cleanup17
 
 for.body.preheader:                               ; preds = %entry
   %wide.trip.count = zext i32 %0 to i64
@@ -527,34 +527,34 @@ for.cond13.preheader.unr-lcssa.loopexit:          ; preds = %for.body
 
 for.cond13.preheader.unr-lcssa:                   ; preds = %for.cond13.preheader.unr-lcssa.loopexit, %for.body.preheader
   %indvars.iv.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next.1, %for.cond13.preheader.unr-lcssa.loopexit ]
-  %k.0125.unr = phi i64 [ 0, %for.body.preheader ], [ %3, %for.cond13.preheader.unr-lcssa.loopexit ]
+  %k.0124.unr = phi i64 [ 0, %for.body.preheader ], [ %3, %for.cond13.preheader.unr-lcssa.loopexit ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.cond13.preheader, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.cond13.preheader.unr-lcssa
-  %arrayidx.epil = getelementptr inbounds %struct.Window, ptr %call5, i64 %k.0125.unr
+  %arrayidx.epil = getelementptr inbounds %struct.Window, ptr %call5, i64 %k.0124.unr
   %arrayidx9.epil = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv.unr
   store ptr %arrayidx.epil, ptr %arrayidx9.epil, align 8, !tbaa !19
   br label %for.cond13.preheader
 
 for.cond13.preheader:                             ; preds = %for.cond13.preheader.unr-lcssa, %for.body.epil
-  br i1 %cmp123, label %for.body18.preheader, label %for.cond.cleanup17
+  br i1 %cmp122, label %for.body18.preheader, label %for.cond.cleanup17
 
 for.body18.preheader:                             ; preds = %for.cond13.preheader
-  %wide.trip.count138 = zext i32 %0 to i64
+  %wide.trip.count137 = zext i32 %0 to i64
   br label %for.body18
 
 for.body:                                         ; preds = %for.body, %for.body.preheader.new
   %indvars.iv = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next.1, %for.body ]
-  %k.0125 = phi i32 [ 0, %for.body.preheader.new ], [ %add.1, %for.body ]
+  %k.0124 = phi i32 [ 0, %for.body.preheader.new ], [ %add.1, %for.body ]
   %niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]
-  %idxprom = sext i32 %k.0125 to i64
+  %idxprom = sext i32 %k.0124 to i64
   %arrayidx = getelementptr inbounds %struct.Window, ptr %call5, i64 %idxprom
   %arrayidx9 = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv
   store ptr %arrayidx, ptr %arrayidx9, align 8, !tbaa !19
   %arrayidx11 = getelementptr inbounds i32, ptr %n_windows, i64 %indvars.iv
   %4 = load i32, ptr %arrayidx11, align 4, !tbaa !11
-  %add = add nsw i32 %4, %k.0125
+  %add = add nsw i32 %4, %k.0124
   %indvars.iv.next = or i64 %indvars.iv, 1
   %idxprom.1 = sext i32 %add to i64
   %arrayidx.1 = getelementptr inbounds %struct.Window, ptr %call5, i64 %idxprom.1
@@ -572,61 +572,61 @@ for.cond.cleanup17:                               ; preds = %for.cond.cleanup33,
   ret ptr %call
 
 for.body18:                                       ; preds = %for.body18.preheader, %for.cond.cleanup33
-  %indvars.iv135 = phi i64 [ 0, %for.body18.preheader ], [ %indvars.iv.next136, %for.cond.cleanup33 ]
-  %arrayidx20 = getelementptr inbounds i32, ptr %n_poles, i64 %indvars.iv135
+  %indvars.iv134 = phi i64 [ 0, %for.body18.preheader ], [ %indvars.iv.next135, %for.cond.cleanup33 ]
+  %arrayidx20 = getelementptr inbounds i32, ptr %n_poles, i64 %indvars.iv134
   %6 = load i32, ptr %arrayidx20, align 4, !tbaa !11
-  %arrayidx22 = getelementptr inbounds i32, ptr %n_windows, i64 %indvars.iv135
+  %arrayidx22 = getelementptr inbounds i32, ptr %n_windows, i64 %indvars.iv134
   %7 = load i32, ptr %arrayidx22, align 4, !tbaa !11
   %div = sdiv i32 %6, %7
   %sub.recomposed = srem i32 %6, %7
-  %cmp31126 = icmp sgt i32 %7, 0
-  br i1 %cmp31126, label %for.body34.lr.ph, label %for.cond.cleanup33
+  %cmp31125 = icmp sgt i32 %7, 0
+  br i1 %cmp31125, label %for.body34.lr.ph, label %for.cond.cleanup33
 
 for.body34.lr.ph:                                 ; preds = %for.body18
   %mul27 = mul nsw i32 %div, %7
-  %arrayidx39 = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv135
+  %arrayidx39 = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv134
   %8 = sext i32 %sub.recomposed to i64
   br label %for.body34
 
 for.cond.cleanup33:                               ; preds = %for.body34, %for.body18
-  %indvars.iv.next136 = add nuw nsw i64 %indvars.iv135, 1
-  %exitcond139.not = icmp eq i64 %indvars.iv.next136, %wide.trip.count138
-  br i1 %exitcond139.not, label %for.cond.cleanup17, label %for.body18
+  %indvars.iv.next135 = add nuw nsw i64 %indvars.iv134, 1
+  %exitcond138.not = icmp eq i64 %indvars.iv.next135, %wide.trip.count137
+  br i1 %exitcond138.not, label %for.cond.cleanup17, label %for.body18
 
 for.body34:                                       ; preds = %for.body34.lr.ph, %for.body34
-  %indvars.iv132 = phi i64 [ 0, %for.body34.lr.ph ], [ %indvars.iv.next133, %for.body34 ]
-  %ctr.0127 = phi i32 [ 0, %for.body34.lr.ph ], [ %spec.select122, %for.body34 ]
+  %indvars.iv131 = phi i64 [ 0, %for.body34.lr.ph ], [ %indvars.iv.next132, %for.body34 ]
+  %ctr.0126 = phi i32 [ 0, %for.body34.lr.ph ], [ %spec.select139, %for.body34 ]
   %call35 = tail call i32 @glibc_compat_rand() #5
   %conv36 = sitofp i32 %call35 to double
   %div37 = fdiv double %conv36, 0x41DFFFFFFFC00000
   %9 = load ptr, ptr %arrayidx39, align 8, !tbaa !19
-  %arrayidx41 = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv132
+  %arrayidx41 = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv131
   store double %div37, ptr %arrayidx41, align 8, !tbaa !24
   %call42 = tail call i32 @glibc_compat_rand() #5
   %conv43 = sitofp i32 %call42 to double
   %div44 = fdiv double %conv43, 0x41DFFFFFFFC00000
-  %A = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv132, i32 1
+  %A = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv131, i32 1
   store double %div44, ptr %A, align 8, !tbaa !27
   %call49 = tail call i32 @glibc_compat_rand() #5
   %conv50 = sitofp i32 %call49 to double
   %div51 = fdiv double %conv50, 0x41DFFFFFFFC00000
-  %F = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv132, i32 2
+  %F = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv131, i32 2
   store double %div51, ptr %F, align 8, !tbaa !28
-  %start = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv132, i32 3
-  store i32 %ctr.0127, ptr %start, align 8, !tbaa !29
-  %add60 = add nsw i32 %ctr.0127, %div
-  %end = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv132, i32 4
-  %cmp67 = icmp sge i64 %indvars.iv132, %8
+  %start = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv131, i32 3
+  store i32 %ctr.0126, ptr %start, align 8, !tbaa !29
+  %add60 = add nsw i32 %ctr.0126, %div
+  %end = getelementptr inbounds %struct.Window, ptr %9, i64 %indvars.iv131, i32 4
+  %cmp67 = icmp sge i64 %indvars.iv131, %8
   %sub61 = sext i1 %cmp67 to i32
   %spec.select = add nsw i32 %add60, %sub61
   %not.cmp67 = xor i1 %cmp67, true
   %inc69 = zext i1 %not.cmp67 to i32
-  %spec.select122 = add nsw i32 %add60, %inc69
+  %spec.select139 = add nsw i32 %add60, %inc69
   store i32 %spec.select, ptr %end, align 4, !tbaa !30
-  %indvars.iv.next133 = add nuw nsw i64 %indvars.iv132, 1
+  %indvars.iv.next132 = add nuw nsw i64 %indvars.iv131, 1
   %10 = load i32, ptr %arrayidx22, align 4, !tbaa !11
   %11 = sext i32 %10 to i64
-  %cmp31 = icmp slt i64 %indvars.iv.next133, %11
+  %cmp31 = icmp slt i64 %indvars.iv.next132, %11
   br i1 %cmp31, label %for.body34, label %for.cond.cleanup33
 }
 

@@ -123,7 +123,7 @@ if.then47:                                        ; preds = %if.end43
 if.else52:                                        ; preds = %lor.lhs.false
   %12 = load i32, ptr @getcost, align 4, !tbaa !11
   %tobool.not = icmp ne i32 %12, 0
-  %brmerge.not = and i1 %cmp30, %tobool.not
+  %brmerge.not = and i1 %tobool.not, %cmp30
   br i1 %brmerge.not, label %if.then59, label %for.end
 
 if.then59:                                        ; preds = %if.else52

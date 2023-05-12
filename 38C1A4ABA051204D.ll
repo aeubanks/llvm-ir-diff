@@ -44,6 +44,8 @@ entry:
   %inc.i = add nsw i32 %0, 1
   store i32 %inc.i, ptr @fetch.fetch_count, align 4, !tbaa !5
   %cmp.i = icmp slt i32 %0, 1
+  %cond.i = select i1 %cmp.i, i64 0, i64 100
+  store i64 %cond.i, ptr @sqlca, align 8, !tbaa !9
   br i1 %cmp.i, label %while.body.preheader, label %while.end
 
 while.body.preheader:                             ; preds = %entry
@@ -92,10 +94,10 @@ while.body:                                       ; preds = %while.body.prol.loo
 
 while.cond.while.end_crit_edge:                   ; preds = %while.body, %while.body.prol.loopexit
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
+  store i64 100, ptr @sqlca, align 8, !tbaa !9
   br label %while.end
 
 while.end:                                        ; preds = %while.cond.while.end_crit_edge, %entry
-  store i64 100, ptr @sqlca, align 8, !tbaa !9
   ret void
 }
 
@@ -116,7 +118,9 @@ entry:
   %inc.i.i = add nsw i32 %0, 1
   store i32 %inc.i.i, ptr @fetch.fetch_count, align 4, !tbaa !5
   %cmp.i.i = icmp slt i32 %0, 1
-  br i1 %cmp.i.i, label %while.body.i.preheader, label %load_data.exit.thread
+  %cond.i.i = select i1 %cmp.i.i, i64 0, i64 100
+  store i64 %cond.i.i, ptr @sqlca, align 8, !tbaa !9
+  br i1 %cmp.i.i, label %while.body.i.preheader, label %if.then
 
 while.body.i.preheader:                           ; preds = %entry
   %1 = sub i32 1, %0
@@ -143,10 +147,6 @@ while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, 
   %3 = icmp ult i32 %2, 3
   br i1 %3, label %load_data.exit, label %while.body.i
 
-load_data.exit.thread:                            ; preds = %entry
-  store i64 100, ptr @sqlca, align 8, !tbaa !9
-  br label %if.then
-
 while.body.i:                                     ; preds = %while.body.i.prol.loopexit, %while.body.i
   %p.012.i = phi ptr [ %incdec.ptr.i.3, %while.body.i ], [ %p.012.i.unr, %while.body.i.prol.loopexit ]
   %inc.i6911.i = phi i32 [ %inc.i6.i.3, %while.body.i ], [ %inc.i6911.i.unr, %while.body.i.prol.loopexit ]
@@ -168,12 +168,12 @@ while.body.i:                                     ; preds = %while.body.i.prol.l
 
 load_data.exit:                                   ; preds = %while.body.i, %while.body.i.prol.loopexit
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
+  store i64 100, ptr @sqlca, align 8, !tbaa !9
   %.pre = load i32, ptr %call1.i, align 4, !tbaa !21
   %4 = icmp eq i32 %.pre, 1431655765
-  store i64 100, ptr @sqlca, align 8, !tbaa !9
   br i1 %4, label %if.end, label %if.then
 
-if.then:                                          ; preds = %load_data.exit.thread, %load_data.exit
+if.then:                                          ; preds = %entry, %load_data.exit
   tail call void @abort() #9
   unreachable
 

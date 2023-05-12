@@ -126,7 +126,7 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #5 {
-cond.end25:
+entry:
   %call20 = tail call ptr @test_min_3_phi(i32 noundef 0)
   ret i32 0
 }

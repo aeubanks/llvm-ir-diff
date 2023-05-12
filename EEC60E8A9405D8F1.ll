@@ -44,28 +44,28 @@ entry:
   %c.036 = trunc i32 %call to i8
   store i8 %c.036, ptr %x, align 1, !tbaa !9
   %call237 = tail call i32 @bar(ptr noundef %w), !range !10
-  %cmp38 = icmp eq i32 %call237, 39
-  %or.cond39 = select i1 %y, i1 %cmp38, i1 false
-  %cmp1140 = icmp eq i32 %call237, 34
-  %or.cond2641 = select i1 %z, i1 %cmp1140, i1 false
-  %or.cond3542 = select i1 %or.cond39, i1 true, i1 %or.cond2641
-  br i1 %or.cond3542, label %while.end, label %if.end14.lr.ph
+  %cmp39 = icmp eq i32 %call237, 39
+  %or.cond40 = select i1 %y, i1 %cmp39, i1 false
+  %cmp1141 = icmp eq i32 %call237, 34
+  %or.cond2642 = select i1 %z, i1 %cmp1141, i1 false
+  %or.cond3543 = select i1 %or.cond40, i1 true, i1 %or.cond2642
+  br i1 %or.cond3543, label %while.end, label %if.end14.lr.ph
 
 if.end14.lr.ph:                                   ; preds = %entry
   %brmerge = or i1 %y, %z
   br i1 %brmerge, label %if.end14.us, label %if.end14.preheader
 
 if.end14.preheader:                               ; preds = %if.end14.lr.ph
-  %call2054 = tail call i32 @baz(i32 noundef %call237), !range !11
-  %tobool21.not55 = icmp eq i32 %call2054, 0
-  br i1 %tobool21.not55, label %while.end, label %if.end23
+  %call2055 = tail call i32 @baz(i32 noundef %call237), !range !11
+  %tobool21.not56 = icmp eq i32 %call2055, 0
+  br i1 %tobool21.not56, label %while.end, label %if.end23
 
 if.end14.us:                                      ; preds = %if.end14.lr.ph, %if.end14.us
-  %indvars.iv48 = phi i64 [ %indvars.iv.next49, %if.end14.us ], [ 1, %if.end14.lr.ph ]
-  %call244.us = phi i32 [ %call2.us, %if.end14.us ], [ %call237, %if.end14.lr.ph ]
-  %c.0.us = trunc i32 %call244.us to i8
-  %indvars.iv.next49 = add nuw i64 %indvars.iv48, 1
-  %arrayidx.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv48
+  %indvars.iv49 = phi i64 [ %indvars.iv.next50, %if.end14.us ], [ 1, %if.end14.lr.ph ]
+  %call245.us = phi i32 [ %call2.us, %if.end14.us ], [ %call237, %if.end14.lr.ph ]
+  %c.0.us = trunc i32 %call245.us to i8
+  %indvars.iv.next50 = add nuw i64 %indvars.iv49, 1
+  %arrayidx.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv49
   store i8 %c.0.us, ptr %arrayidx.us, align 1, !tbaa !9
   %call2.us = tail call i32 @bar(ptr noundef %w), !range !10
   %cmp.us = icmp eq i32 %call2.us, 39
@@ -76,11 +76,11 @@ if.end14.us:                                      ; preds = %if.end14.lr.ph, %if
   br i1 %or.cond35.us, label %while.end, label %if.end14.us
 
 if.end23:                                         ; preds = %if.end14.preheader, %if.end23
-  %call24457 = phi i32 [ %call2, %if.end23 ], [ %call237, %if.end14.preheader ]
-  %indvars.iv56 = phi i64 [ %indvars.iv.next, %if.end23 ], [ 1, %if.end14.preheader ]
-  %c.0 = trunc i32 %call24457 to i8
-  %indvars.iv.next = add nuw i64 %indvars.iv56, 1
-  %arrayidx = getelementptr inbounds i8, ptr %x, i64 %indvars.iv56
+  %call24558 = phi i32 [ %call2, %if.end23 ], [ %call237, %if.end14.preheader ]
+  %indvars.iv57 = phi i64 [ %indvars.iv.next, %if.end23 ], [ 1, %if.end14.preheader ]
+  %c.0 = trunc i32 %call24558 to i8
+  %indvars.iv.next = add nuw i64 %indvars.iv57, 1
+  %arrayidx = getelementptr inbounds i8, ptr %x, i64 %indvars.iv57
   store i8 %c.0, ptr %arrayidx, align 1, !tbaa !9
   %call2 = tail call i32 @bar(ptr noundef %w), !range !10
   %call20 = tail call i32 @baz(i32 noundef %call2), !range !11
@@ -88,7 +88,7 @@ if.end23:                                         ; preds = %if.end14.preheader,
   br i1 %tobool21.not, label %while.end, label %if.end23
 
 while.end:                                        ; preds = %if.end23, %if.end14.us, %if.end14.preheader, %entry
-  %inc.lcssa = phi i64 [ 1, %entry ], [ 1, %if.end14.preheader ], [ %indvars.iv.next49, %if.end14.us ], [ %indvars.iv.next, %if.end23 ]
+  %inc.lcssa = phi i64 [ 1, %entry ], [ 1, %if.end14.preheader ], [ %indvars.iv.next50, %if.end14.us ], [ %indvars.iv.next, %if.end23 ]
   %idxprom24 = and i64 %inc.lcssa, 4294967295
   %arrayidx25 = getelementptr inbounds i8, ptr %x, i64 %idxprom24
   store i8 0, ptr %arrayidx25, align 1, !tbaa !9

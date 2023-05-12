@@ -7,13 +7,13 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @f(i32 noundef %k, i32 noundef %i1, i32 noundef %j1) local_unnamed_addr #0 {
 entry:
   %tobool.not = icmp eq i32 %k, 0
-  %.sroa.speculated = select i1 %tobool.not, i32 %j1, i32 0
-  ret i32 %.sroa.speculated
+  %0 = select i1 %tobool.not, i32 %j1, i32 0
+  ret i32 %0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.end:
+entry:
   ret i32 0
 }
 

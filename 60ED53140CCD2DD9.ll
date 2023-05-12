@@ -98,10 +98,10 @@ if.end:                                           ; preds = %if.then, %entry
   %cmp33 = icmp eq i8 %15, 0
   %cmp36 = icmp ugt i8 %5, 1
   %cmp39 = icmp ult i8 %spec.store.select, 8
-  %or.cond295 = select i1 %cmp36, i1 true, i1 %cmp39
+  %or.cond298 = select i1 %cmp36, i1 true, i1 %cmp39
   %cmp43 = icmp ugt i8 %spec.store.select, 39
-  %or.cond296 = select i1 %or.cond295, i1 true, i1 %cmp43
-  br i1 %or.cond296, label %if.then54, label %lor.lhs.false45
+  %or.cond299 = select i1 %or.cond298, i1 true, i1 %cmp43
+  br i1 %or.cond299, label %if.then54, label %lor.lhs.false45
 
 lor.lhs.false45:                                  ; preds = %if.end
   %16 = and i8 %spec.store.select, 7
@@ -317,16 +317,16 @@ if.end158:                                        ; preds = %if.else147, %if.end
   %.sink = phi ptr [ %49, %if.else147 ], [ @preload_image, %if.end143 ]
   %get_pixel_rows157 = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 1
   store ptr %.sink, ptr %get_pixel_rows157, align 8, !tbaa !42
-  %tobool159.not302 = icmp eq i8 %4, 0
-  br i1 %tobool159.not302, label %while.end, label %while.body.lr.ph
+  %tobool159.not303 = icmp eq i8 %4, 0
+  br i1 %tobool159.not303, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %if.end158
   %cinfo.i = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %read_byte.exit
-  %idlen.0303 = phi i32 [ %conv8, %while.body.lr.ph ], [ %dec, %read_byte.exit ]
-  %dec = add nsw i32 %idlen.0303, -1
+  %dec304.in = phi i32 [ %conv8, %while.body.lr.ph ], [ %dec304, %read_byte.exit ]
+  %dec304 = add nsw i32 %dec304.in, -1
   %50 = load ptr, ptr %input_file, align 8, !tbaa !21
   %call.i = tail call i32 @getc(ptr noundef %50)
   %cmp.i = icmp eq i32 %call.i, -1
@@ -342,7 +342,7 @@ if.then.i:                                        ; preds = %while.body
   br label %read_byte.exit
 
 read_byte.exit:                                   ; preds = %while.body, %if.then.i
-  %tobool159.not = icmp eq i32 %dec, 0
+  %tobool159.not = icmp eq i32 %dec304, 0
   br i1 %tobool159.not, label %while.end, label %while.body, !llvm.loop !43
 
 while.end:                                        ; preds = %read_byte.exit, %if.end158
@@ -376,19 +376,19 @@ if.end180:                                        ; preds = %if.then163, %if.the
   %arrayidx184 = getelementptr inbounds [18 x i8], ptr %targaheader, i64 0, i64 7
   %59 = load i8, ptr %arrayidx184, align 1, !tbaa !26
   %cmp.not.i = icmp eq i8 %59, 24
-  br i1 %cmp.not.i, label %for.body.lr.ph.i, label %if.then.i299
+  br i1 %cmp.not.i, label %for.body.lr.ph.i, label %if.then.i297
 
-if.then.i299:                                     ; preds = %if.end180
-  %cinfo.i297 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
-  %60 = load ptr, ptr %cinfo.i297, align 8, !tbaa !16
+if.then.i297:                                     ; preds = %if.end180
+  %cinfo.i295 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
+  %60 = load ptr, ptr %cinfo.i295, align 8, !tbaa !16
   %61 = load ptr, ptr %60, align 8, !tbaa !22
-  %msg_code.i298 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %61, i64 0, i32 5
-  store i32 1032, ptr %msg_code.i298, align 8, !tbaa !23
+  %msg_code.i296 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %61, i64 0, i32 5
+  store i32 1032, ptr %msg_code.i296, align 8, !tbaa !23
   %62 = load ptr, ptr %61, align 8, !tbaa !25
   tail call void %62(ptr noundef nonnull %60) #5
   br label %for.body.lr.ph.i
 
-for.body.lr.ph.i:                                 ; preds = %if.end180, %if.then.i299
+for.body.lr.ph.i:                                 ; preds = %if.end180, %if.then.i297
   %cinfo.i.i = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
   %wide.trip.count.i = zext i32 %add to i64
   br label %for.body.i

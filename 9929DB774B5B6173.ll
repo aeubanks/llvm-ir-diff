@@ -17,8 +17,8 @@ entry:
 define dso_local i32 @main() local_unnamed_addr #1 {
 entry:
   %bf.load = load i64, ptr @main.i.0, align 8
-  %bf.clear = and i64 %bf.load, -1099511627776
-  %bf.set.i = or i64 %bf.clear, 884479243276
+  %bf.set = and i64 %bf.load, -1099511627776
+  %bf.set.i = or i64 %bf.set, 884479243276
   store i64 %bf.set.i, ptr @main.i.0, align 8, !tbaa.struct !5
   tail call void @exit(i32 noundef 0) #3
   unreachable

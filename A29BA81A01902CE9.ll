@@ -88,14 +88,14 @@ if.end5:                                          ; preds = %if.then2, %if.end
 
 if.then7:                                         ; preds = %if.end5
   %1 = load ptr, ptr %trash, align 8, !tbaa !18
-  %tobool.not.i = icmp eq ptr %1, null
-  br i1 %tobool.not.i, label %if.end8, label %if.end.i
+  %tobool.i.not = icmp eq ptr %1, null
+  br i1 %tobool.i.not, label %if.end8, label %if.end.i
 
 if.end.i:                                         ; preds = %if.then7
   %interiorNodes.i = getelementptr inbounds %struct.NodeStruct, ptr %1, i64 0, i32 6
   %2 = load ptr, ptr %interiorNodes.i, align 8, !tbaa !14
-  %tobool1.not.i = icmp eq ptr %2, null
-  br i1 %tobool1.not.i, label %if.end4.i, label %if.then2.i
+  %tobool1.i.not = icmp eq ptr %2, null
+  br i1 %tobool1.i.not, label %if.end4.i, label %if.then2.i
 
 if.then2.i:                                       ; preds = %if.end.i
   tail call void @NodeList_clear(ptr noundef nonnull %2, i1 noundef zeroext true)
@@ -104,8 +104,8 @@ if.then2.i:                                       ; preds = %if.end.i
 if.end4.i:                                        ; preds = %if.then2.i, %if.end.i
   %edges.i = getelementptr inbounds %struct.NodeStruct, ptr %1, i64 0, i32 7
   %3 = load ptr, ptr %edges.i, align 8, !tbaa !15
-  %tobool5.not.i = icmp eq ptr %3, null
-  br i1 %tobool5.not.i, label %if.end8.i, label %if.then6.i
+  %tobool5.i.not = icmp eq ptr %3, null
+  br i1 %tobool5.i.not, label %if.end8.i, label %if.then6.i
 
 if.then6.i:                                       ; preds = %if.end4.i
   tail call void @EdgeList_clear(ptr noundef nonnull %3)
@@ -216,13 +216,13 @@ if.end:                                           ; preds = %entry
 
 if.then2:                                         ; preds = %if.end
   %calloc.i = tail call dereferenceable_or_null(16) ptr @calloc(i64 1, i64 16)
-  %tobool.not.i = icmp eq ptr %calloc.i, null
   store ptr %calloc.i, ptr %interiorNodes, align 8, !tbaa !14
-  br i1 %tobool.not.i, label %return, label %if.end7
+  %cmp5 = icmp eq ptr %calloc.i, null
+  br i1 %cmp5, label %return, label %if.end7
 
 if.end7:                                          ; preds = %if.then2
   store ptr %interior, ptr %calloc.i, align 8, !tbaa !18
-  br label %Node_setParent.exit
+  br label %if.end.i25
 
 if.end.i21:                                       ; preds = %if.end
   %1 = load ptr, ptr %0, align 8, !tbaa !18
@@ -231,7 +231,7 @@ if.end.i21:                                       ; preds = %if.end
 
 if.then2.i:                                       ; preds = %if.end.i21
   store ptr %interior, ptr %0, align 8, !tbaa !18
-  br label %Node_setParent.exit
+  br label %if.end.i25
 
 for.cond.i:                                       ; preds = %if.end.i21, %for.cond.i
   %end.0.i = phi ptr [ %2, %for.cond.i ], [ %0, %if.end.i21 ]
@@ -242,23 +242,23 @@ for.cond.i:                                       ; preds = %if.end.i21, %for.co
 
 for.end.i:                                        ; preds = %for.cond.i
   %calloc.i.i = tail call dereferenceable_or_null(16) ptr @calloc(i64 1, i64 16)
-  %tobool.not.i.i = icmp eq ptr %calloc.i.i, null
-  br i1 %tobool.not.i.i, label %Node_setParent.exit, label %if.end9.i
+  %tobool7.not.i = icmp eq ptr %calloc.i.i, null
+  br i1 %tobool7.not.i, label %if.end.i25, label %if.end9.i
 
 if.end9.i:                                        ; preds = %for.end.i
   %nextNode.i.le = getelementptr inbounds %struct.NodeListStruct, ptr %end.0.i, i64 0, i32 1
   store ptr %interior, ptr %calloc.i.i, align 8, !tbaa !18
   store ptr %calloc.i.i, ptr %nextNode.i.le, align 8, !tbaa !16
-  br label %Node_setParent.exit
+  br label %if.end.i25
 
-Node_setParent.exit:                              ; preds = %if.end9.i, %for.end.i, %if.then2.i, %if.end7
+if.end.i25:                                       ; preds = %if.end7, %if.then2.i, %for.end.i, %if.end9.i
   %container.i = getelementptr inbounds %struct.NodeStruct, ptr %interior, i64 0, i32 5
   store ptr %this, ptr %container.i, align 8, !tbaa !22
   %type.i = getelementptr inbounds %struct.NodeStruct, ptr %interior, i64 0, i32 4
   store i32 1, ptr %type.i, align 4, !tbaa !23
   br label %return
 
-return:                                           ; preds = %if.then2, %entry, %Node_setParent.exit
+return:                                           ; preds = %if.then2, %entry, %if.end.i25
   ret void
 }
 
@@ -288,8 +288,8 @@ for.cond:                                         ; preds = %if.end, %for.cond
 
 for.end:                                          ; preds = %for.cond
   %calloc.i = tail call dereferenceable_or_null(16) ptr @calloc(i64 1, i64 16)
-  %tobool.not.i = icmp eq ptr %calloc.i, null
-  br i1 %tobool.not.i, label %cleanup, label %if.end9
+  %tobool7.not = icmp eq ptr %calloc.i, null
+  br i1 %tobool7.not, label %cleanup, label %if.end9
 
 if.end9:                                          ; preds = %for.end
   %nextNode.le = getelementptr inbounds %struct.NodeListStruct, ptr %end.0, i64 0, i32 1
@@ -331,10 +331,10 @@ for.body:                                         ; preds = %if.end, %for.cond
 
 for.end:                                          ; preds = %for.cond, %if.end
   %call.i = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #12
-  %tobool.not.i = icmp eq ptr %call.i, null
-  br i1 %tobool.not.i, label %cleanup, label %if.end7
+  %cond = icmp eq ptr %call.i, null
+  br i1 %cond, label %cleanup, label %if.then.i
 
-if.end7:                                          ; preds = %for.end
+if.then.i:                                        ; preds = %for.end
   %targetNode.i = getelementptr inbounds %struct.EdgeListStruct, ptr %call.i, i64 0, i32 1
   store ptr %node, ptr %targetNode.i, align 8, !tbaa !28
   %1 = load i32, ptr %node, align 8, !tbaa !5
@@ -348,8 +348,8 @@ if.end7:                                          ; preds = %for.end
   store i32 %inc, ptr %edgeCount, align 8, !tbaa !30
   br label %cleanup
 
-cleanup:                                          ; preds = %for.body, %for.end, %entry, %if.end7
-  %retval.0 = phi i1 [ true, %if.end7 ], [ false, %entry ], [ false, %for.end ], [ true, %for.body ]
+cleanup:                                          ; preds = %for.body, %for.end, %entry, %if.then.i
+  %retval.0 = phi i1 [ true, %if.then.i ], [ false, %entry ], [ false, %for.end ], [ true, %for.body ]
   ret i1 %retval.0
 }
 
@@ -424,10 +424,10 @@ for.cond:                                         ; preds = %if.end, %for.cond
 
 for.end:                                          ; preds = %for.cond
   %call.i = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #12
-  %tobool.not.i = icmp eq ptr %call.i, null
-  br i1 %tobool.not.i, label %cleanup, label %if.end9
+  %cond = icmp eq ptr %call.i, null
+  br i1 %cond, label %cleanup, label %if.then.i
 
-if.end9:                                          ; preds = %for.end
+if.then.i:                                        ; preds = %for.end
   %nextEdge.le = getelementptr inbounds %struct.EdgeListStruct, ptr %end.0, i64 0, i32 2
   %targetNode.i = getelementptr inbounds %struct.EdgeListStruct, ptr %call.i, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %targetNode.i, i8 0, i64 16, i1 false)
@@ -435,8 +435,8 @@ if.end9:                                          ; preds = %for.end
   store ptr %call.i, ptr %nextEdge.le, align 8, !tbaa !19
   br label %cleanup
 
-cleanup:                                          ; preds = %for.end, %entry, %if.end9, %if.then2
-  %retval.0 = phi i1 [ true, %if.then2 ], [ true, %if.end9 ], [ false, %entry ], [ false, %for.end ]
+cleanup:                                          ; preds = %for.end, %entry, %if.then.i, %if.then2
+  %retval.0 = phi i1 [ true, %if.then2 ], [ true, %if.then.i ], [ false, %entry ], [ false, %for.end ]
   ret i1 %retval.0
 }
 

@@ -215,24 +215,24 @@ while.body:                                       ; preds = %land.rhs
   %5 = load i8, ptr %marked, align 1, !tbaa !5
   %6 = load i8, ptr %currentwhite, align 8, !tbaa !21
   %7 = xor i8 %6, -1
-  %and26 = and i8 %5, 3
-  %8 = and i8 %and26, %7
+  %and27 = and i8 %5, 3
+  %8 = and i8 %and27, %7
   %tobool.not = icmp eq i8 %8, 0
-  %u.i27 = getelementptr inbounds %struct.UpVal, ptr %2, i64 0, i32 4
+  %u.i26 = getelementptr inbounds %struct.UpVal, ptr %2, i64 0, i32 4
   br i1 %tobool.not, label %if.else, label %if.then
 
 if.then:                                          ; preds = %while.body
-  %cmp.not.i = icmp eq ptr %3, %u.i27
+  %cmp.not.i = icmp eq ptr %3, %u.i26
   br i1 %cmp.not.i, label %luaF_freeupval.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %if.then
-  %9 = load ptr, ptr %u.i27, align 8, !tbaa !5
+  %9 = load ptr, ptr %u.i26, align 8, !tbaa !5
   %next.i.i = getelementptr inbounds %struct.UpVal, ptr %2, i64 0, i32 4, i32 0, i32 1
   %10 = load ptr, ptr %next.i.i, align 8, !tbaa !5
   %u2.i.i = getelementptr inbounds %struct.UpVal, ptr %10, i64 0, i32 4
   store ptr %9, ptr %u2.i.i, align 8, !tbaa !5
   %11 = load ptr, ptr %next.i.i, align 8, !tbaa !5
-  %12 = load ptr, ptr %u.i27, align 8, !tbaa !5
+  %12 = load ptr, ptr %u.i26, align 8, !tbaa !5
   %next9.i.i = getelementptr inbounds %struct.UpVal, ptr %12, i64 0, i32 4, i32 0, i32 1
   store ptr %11, ptr %next9.i.i, align 8, !tbaa !5
   br label %luaF_freeupval.exit
@@ -242,22 +242,22 @@ luaF_freeupval.exit:                              ; preds = %if.then, %if.then.i
   br label %if.end
 
 if.else:                                          ; preds = %while.body
-  %13 = load ptr, ptr %u.i27, align 8, !tbaa !5
+  %13 = load ptr, ptr %u.i26, align 8, !tbaa !5
   %next.i = getelementptr inbounds %struct.UpVal, ptr %2, i64 0, i32 4, i32 0, i32 1
   %14 = load ptr, ptr %next.i, align 8, !tbaa !5
   %u2.i = getelementptr inbounds %struct.UpVal, ptr %14, i64 0, i32 4
   store ptr %13, ptr %u2.i, align 8, !tbaa !5
   %15 = load ptr, ptr %next.i, align 8, !tbaa !5
-  %16 = load ptr, ptr %u.i27, align 8, !tbaa !5
+  %16 = load ptr, ptr %u.i26, align 8, !tbaa !5
   %next9.i = getelementptr inbounds %struct.UpVal, ptr %16, i64 0, i32 4, i32 0, i32 1
   store ptr %15, ptr %next9.i, align 8, !tbaa !5
   %17 = load ptr, ptr %v, align 8, !tbaa !8
   %18 = load i64, ptr %17, align 8
-  store i64 %18, ptr %u.i27, align 8
+  store i64 %18, ptr %u.i26, align 8
   %tt = getelementptr inbounds %struct.lua_TValue, ptr %17, i64 0, i32 1
   %19 = load i32, ptr %tt, align 8, !tbaa !11
   store i32 %19, ptr %next.i, align 8, !tbaa !11
-  store ptr %u.i27, ptr %v, align 8, !tbaa !8
+  store ptr %u.i26, ptr %v, align 8, !tbaa !8
   tail call void @luaC_linkupval(ptr noundef nonnull %L, ptr noundef nonnull %2) #4
   br label %if.end
 

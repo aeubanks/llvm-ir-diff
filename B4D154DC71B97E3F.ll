@@ -702,7 +702,7 @@ cleanup24.i:                                      ; preds = %cleanup.thread.i, %
 sgets.exit:                                       ; preds = %cleanup24.i, %cleanup24.thread.i
   %retval.4.i = phi i32 [ %sub19.i, %cleanup24.thread.i ], [ %2, %cleanup24.i ]
   %cmp = icmp eq i32 %retval.4.i, 0
-  br i1 %cmp, label %if.then.loopexit, label %if.end.i
+  br i1 %cmp, label %if.then.loopexit, label %if.else
 
 if.then.loopexit:                                 ; preds = %cleanup, %sgets.exit
   %.pre = load ptr, ptr %s, align 8, !tbaa !14
@@ -716,7 +716,7 @@ if.then:                                          ; preds = %if.then.loopexit, %
   store i8 1, ptr %eof, align 1, !tbaa !17
   br label %cleanup10
 
-if.end.i:                                         ; preds = %sgets.exit
+if.else:                                          ; preds = %sgets.exit
   call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %sst) #12
   store ptr %0, ptr %cbuf.i.i, align 8, !tbaa !5
   store ptr %add.ptr, ptr %sst, align 8, !tbaa !14
@@ -735,8 +735,8 @@ if.end.i:                                         ; preds = %sgets.exit
   %cmp3.i = icmp eq i32 %conv2.i, 0
   br i1 %cmp3.i, label %d2.i, label %d1.i
 
-d1.i:                                             ; preds = %while.end46.i, %if.end.i
-  %ptr.0.i = phi ptr [ %incdec.ptr50.i, %while.end46.i ], [ %0, %if.end.i ]
+d1.i:                                             ; preds = %while.end46.i, %if.else
+  %ptr.0.i = phi ptr [ %incdec.ptr50.i, %while.end46.i ], [ %0, %if.else ]
   br label %while.cond.i
 
 while.cond.i:                                     ; preds = %while.body.i38, %d1.i
@@ -769,9 +769,9 @@ while.body.i38:                                   ; preds = %cond.end.i37
   %cmp15.i = icmp eq i8 %16, 103
   br i1 %cmp15.i, label %ended.i, label %while.cond.i, !llvm.loop !33
 
-d2.i:                                             ; preds = %cond.end.i37, %if.end.i
-  %val1.0.i = phi i8 [ %conv.i29, %if.end.i ], [ %16, %cond.end.i37 ]
-  %ptr.1.i = phi ptr [ %0, %if.end.i ], [ %ptr.0.i, %cond.end.i37 ]
+d2.i:                                             ; preds = %cond.end.i37, %if.else
+  %val1.0.i = phi i8 [ %conv.i29, %if.else ], [ %16, %cond.end.i37 ]
+  %ptr.1.i = phi ptr [ %0, %if.else ], [ %ptr.0.i, %cond.end.i37 ]
   br label %while.cond19.i
 
 while.cond19.i:                                   ; preds = %while.body39.i, %d2.i

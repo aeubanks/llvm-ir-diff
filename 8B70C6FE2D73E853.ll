@@ -16,29 +16,29 @@ entry:
   store i32 1, ptr %r.addr.i, align 4, !tbaa !5
   %call.i = call i32 (ptr, ...) @test_stdarg_va(ptr noundef nonnull %r.addr.i, i32 noundef 1, i64 noundef 1981891429, i32 noundef 2, ptr noundef nonnull %r.addr.i), !range !9
   %cmp.not.not.i = icmp eq i32 %call.i, 0
-  br i1 %cmp.not.not.i, label %test_stdarg.exit.thread, label %if.end.i
+  br i1 %cmp.not.not.i, label %if.then.critedge, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
   %call5.i = call i32 (ptr, ...) @test_stdarg_builtin_va(ptr noundef nonnull %r.addr.i, i32 noundef 1, i64 noundef 1981891433, i32 noundef 2, ptr noundef nonnull %r.addr.i), !range !9
   %cmp6.not.not.i = icmp eq i32 %call5.i, 0
-  br i1 %cmp6.not.not.i, label %test_stdarg.exit.thread, label %test_stdarg.exit
+  br i1 %cmp6.not.not.i, label %if.then.critedge, label %if.end9.i
 
-test_stdarg.exit.thread:                          ; preds = %entry, %if.end.i
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %r.addr.i)
-  br label %return
-
-test_stdarg.exit:                                 ; preds = %if.end.i
+if.end9.i:                                        ; preds = %if.end.i
   %0 = load i32, ptr %r.addr.i, align 4, !tbaa !5
   %and.i = and i32 %0, 1
+  %1 = icmp eq i32 %and.i, 0
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %r.addr.i)
-  %cmp.not.not = icmp eq i32 %and.i, 0
-  %spec.select = select i1 %cmp.not.not, ptr @str.2, ptr @str
-  %spec.select6 = xor i32 %and.i, 1
+  %spec.select = select i1 %1, ptr @str.2, ptr @str
+  %spec.select4 = xor i32 %and.i, 1
   br label %return
 
-return:                                           ; preds = %test_stdarg.exit, %test_stdarg.exit.thread
-  %str.sink = phi ptr [ @str.2, %test_stdarg.exit.thread ], [ %spec.select, %test_stdarg.exit ]
-  %retval.0 = phi i32 [ 1, %test_stdarg.exit.thread ], [ %spec.select6, %test_stdarg.exit ]
+if.then.critedge:                                 ; preds = %if.end.i, %entry
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %r.addr.i)
+  br label %return
+
+return:                                           ; preds = %if.end9.i, %if.then.critedge
+  %str.sink = phi ptr [ @str.2, %if.then.critedge ], [ %spec.select, %if.end9.i ]
+  %retval.0 = phi i32 [ 1, %if.then.critedge ], [ %spec.select4, %if.end9.i ]
   %puts = call i32 @puts(ptr nonnull dereferenceable(1) %str.sink)
   ret i32 %retval.0
 }

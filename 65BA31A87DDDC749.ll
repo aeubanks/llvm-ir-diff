@@ -1128,9 +1128,9 @@ if.then:                                          ; preds = %entry
   %conv.i = sext i32 %mul to i64
   %mul.i = shl nsw i64 %conv.i, 4
   %add.i = or i64 %mul.i, 8
-  %call.i182 = tail call noalias ptr @malloc(i64 noundef %add.i) #17
-  %cmp.i = icmp eq ptr %call.i182, null
-  br i1 %cmp.i, label %if.then.i183, label %if.end.i
+  %call.i181 = tail call noalias ptr @malloc(i64 noundef %add.i) #17
+  %cmp.i182 = icmp eq ptr %call.i181, null
+  br i1 %cmp.i182, label %if.then.i183, label %if.end.i
 
 if.then.i183:                                     ; preds = %if.then
   %3 = load ptr, ptr @no_fpos, align 8, !tbaa !10
@@ -1138,29 +1138,29 @@ if.then.i183:                                     ; preds = %if.then
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i183, %if.then
-  store i32 %mul, ptr %call.i182, align 8, !tbaa !12
-  %filetab_count.i184 = getelementptr inbounds %struct.anon.14, ptr %call.i182, i64 0, i32 1
+  store i32 %mul, ptr %call.i181, align 8, !tbaa !12
+  %filetab_count.i184 = getelementptr inbounds %struct.anon.14, ptr %call.i181, i64 0, i32 1
   store i32 0, ptr %filetab_count.i184, align 4, !tbaa !14
   %cmp318.i = icmp sgt i32 %2, 0
   br i1 %cmp318.i, label %for.body.preheader.i, label %ftab_new.exit
 
 for.body.preheader.i:                             ; preds = %if.end.i
-  %scevgep.i = getelementptr i8, ptr %call.i182, i64 8
+  %scevgep.i = getelementptr i8, ptr %call.i181, i64 8
   %4 = zext i32 %mul to i64
   %5 = shl nuw nsw i64 %4, 4
   tail call void @llvm.memset.p0.i64(ptr align 8 %scevgep.i, i8 0, i64 %5, i1 false), !tbaa !10
   br label %ftab_new.exit
 
 ftab_new.exit:                                    ; preds = %if.end.i, %for.body.preheader.i
-  store ptr %call.i182, ptr %NewS.i, align 8, !tbaa !10
+  store ptr %call.i181, ptr %NewS.i, align 8, !tbaa !10
   %6 = load i32, ptr %filetab_count, align 4, !tbaa !14
-  %cmp.not.i185 = icmp slt i32 %6, 1
-  br i1 %cmp.not.i185, label %for.cond1.i.preheader, label %for.body.i
+  %cmp.i.not187 = icmp slt i32 %6, 1
+  br i1 %cmp.i.not187, label %for.cond1.i.preheader, label %for.body.i
 
 for.cond1.i.preheader:                            ; preds = %for.body.i, %ftab_new.exit
   %7 = load i32, ptr %0, align 8, !tbaa !12
-  %cmp2.i187 = icmp sgt i32 %7, 0
-  br i1 %cmp2.i187, label %for.body3.i, label %ftab_rehash.exit
+  %cmp2.i189 = icmp sgt i32 %7, 0
+  br i1 %cmp2.i189, label %for.body3.i, label %ftab_rehash.exit
 
 for.body.i:                                       ; preds = %ftab_new.exit, %for.body.i
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body.i ], [ 1, %ftab_new.exit ]
@@ -1170,16 +1170,16 @@ for.body.i:                                       ; preds = %ftab_new.exit, %for
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %9 = load i32, ptr %filetab_count, align 4, !tbaa !14
   %10 = sext i32 %9 to i64
-  %cmp.not.i.not = icmp slt i64 %indvars.iv, %10
-  br i1 %cmp.not.i.not, label %for.body.i, label %for.cond1.i.preheader, !llvm.loop !17
+  %cmp.i.not.not = icmp slt i64 %indvars.iv, %10
+  br i1 %cmp.i.not.not, label %for.body.i, label %for.cond1.i.preheader, !llvm.loop !17
 
 for.body3.i:                                      ; preds = %for.cond1.i.preheader, %for.inc13.i
   %11 = phi i32 [ %13, %for.inc13.i ], [ %7, %for.cond1.i.preheader ]
-  %indvars.iv193 = phi i64 [ %indvars.iv.next194, %for.inc13.i ], [ 0, %for.cond1.i.preheader ]
-  %by_name_hash.i = getelementptr inbounds %struct.anon.14, ptr %0, i64 0, i32 2, i64 %indvars.iv193, i32 1
+  %indvars.iv195 = phi i64 [ %indvars.iv.next196, %for.inc13.i ], [ 0, %for.cond1.i.preheader ]
+  %by_name_hash.i = getelementptr inbounds %struct.anon.14, ptr %0, i64 0, i32 2, i64 %indvars.iv195, i32 1
   %12 = load ptr, ptr %by_name_hash.i, align 8, !tbaa !19
-  %cmp7.not.i = icmp eq ptr %12, null
-  br i1 %cmp7.not.i, label %for.inc13.i, label %if.then.i
+  %cmp7.i.not = icmp eq ptr %12, null
+  br i1 %cmp7.i.not, label %for.inc13.i, label %if.then.i
 
 if.then.i:                                        ; preds = %for.body3.i
   %call12.i = tail call i32 @DisposeObject(ptr noundef nonnull %12) #16
@@ -1188,9 +1188,9 @@ if.then.i:                                        ; preds = %for.body3.i
 
 for.inc13.i:                                      ; preds = %if.then.i, %for.body3.i
   %13 = phi i32 [ %.pre, %if.then.i ], [ %11, %for.body3.i ]
-  %indvars.iv.next194 = add nuw nsw i64 %indvars.iv193, 1
+  %indvars.iv.next196 = add nuw nsw i64 %indvars.iv195, 1
   %14 = sext i32 %13 to i64
-  %cmp2.i = icmp slt i64 %indvars.iv.next194, %14
+  %cmp2.i = icmp slt i64 %indvars.iv.next196, %14
   br i1 %cmp2.i, label %for.body3.i, label %ftab_rehash.exit, !llvm.loop !20
 
 ftab_rehash.exit:                                 ; preds = %for.inc13.i, %for.cond1.i.preheader
@@ -1199,11 +1199,11 @@ ftab_rehash.exit:                                 ; preds = %for.inc13.i, %for.c
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NewS.i) #16
   store ptr %15, ptr %S, align 8, !tbaa !10
   %filetab_count2.phi.trans.insert = getelementptr inbounds %struct.anon.14, ptr %15, i64 0, i32 1
-  %.pre196 = load i32, ptr %filetab_count2.phi.trans.insert, align 4, !tbaa !14
+  %.pre198 = load i32, ptr %filetab_count2.phi.trans.insert, align 4, !tbaa !14
   br label %if.end
 
 if.end:                                           ; preds = %ftab_rehash.exit, %entry
-  %16 = phi i32 [ %.pre196, %ftab_rehash.exit ], [ %1, %entry ]
+  %16 = phi i32 [ %.pre198, %ftab_rehash.exit ], [ %1, %entry ]
   %17 = phi ptr [ %15, %ftab_rehash.exit ], [ %0, %entry ]
   %filetab_count2 = getelementptr inbounds %struct.anon.14, ptr %17, i64 0, i32 1
   %inc = add nsw i32 %16, 1
@@ -1222,16 +1222,16 @@ if.end6:                                          ; preds = %if.then4, %if.end
   %18 = load i8, ptr %ostring, align 1, !tbaa !5
   %conv = zext i8 %18 to i32
   %19 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
-  %tobool.not189 = icmp eq i8 %19, 0
-  br i1 %tobool.not189, label %while.end, label %while.body
+  %tobool.not191 = icmp eq i8 %19, 0
+  br i1 %tobool.not191, label %while.end, label %while.body
 
 while.body:                                       ; preds = %if.end6, %while.body
   %20 = phi i8 [ %21, %while.body ], [ %19, %if.end6 ]
-  %p.0191 = phi ptr [ %incdec.ptr7, %while.body ], [ %incdec.ptr, %if.end6 ]
-  %pos.0190 = phi i32 [ %add, %while.body ], [ %conv, %if.end6 ]
-  %incdec.ptr7 = getelementptr inbounds i8, ptr %p.0191, i64 1
+  %p.0193 = phi ptr [ %incdec.ptr7, %while.body ], [ %incdec.ptr, %if.end6 ]
+  %pos.0192 = phi i32 [ %add, %while.body ], [ %conv, %if.end6 ]
+  %incdec.ptr7 = getelementptr inbounds i8, ptr %p.0193, i64 1
   %conv8 = zext i8 %20 to i32
-  %add = add nuw nsw i32 %pos.0190, %conv8
+  %add = add nuw nsw i32 %pos.0192, %conv8
   %21 = load i8, ptr %incdec.ptr7, align 1, !tbaa !5
   %tobool.not = icmp eq i8 %21, 0
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !21
@@ -1343,17 +1343,17 @@ cond.false96:                                     ; preds = %if.end72
   %45 = load ptr, ptr @zz_tmp, align 8, !tbaa !10
   %osucc117 = getelementptr inbounds %struct.LIST, ptr %45, i64 0, i32 1
   store ptr %44, ptr %osucc117, align 8, !tbaa !5
-  %.pre197 = load ptr, ptr @xx_link, align 8, !tbaa !10
+  %.pre199 = load ptr, ptr @xx_link, align 8, !tbaa !10
   br label %cond.end118
 
 cond.end118:                                      ; preds = %if.end72, %cond.false96
-  %46 = phi ptr [ %35, %if.end72 ], [ %.pre197, %cond.false96 ]
+  %46 = phi ptr [ %35, %if.end72 ], [ %.pre199, %cond.false96 ]
   store ptr %46, ptr @zz_res, align 8, !tbaa !10
   store ptr %x, ptr @zz_hold, align 8, !tbaa !10
   %cmp120 = icmp eq ptr %x, null
   %cmp124 = icmp eq ptr %46, null
-  %or.cond181 = select i1 %cmp120, i1 true, i1 %cmp124
-  br i1 %or.cond181, label %cond.end151, label %cond.false127
+  %or.cond186 = select i1 %cmp120, i1 true, i1 %cmp124
+  br i1 %or.cond186, label %cond.end151, label %cond.false127
 
 cond.false127:                                    ; preds = %cond.end118
   %arrayidx129 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1
@@ -2835,14 +2835,14 @@ declare noundef i32 @stat(ptr nocapture noundef readonly, ptr nocapture noundef)
 ; Function Attrs: nofree nounwind
 declare noundef i32 @remove(ptr nocapture noundef readonly) local_unnamed_addr #7
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #13
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #14
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2857,9 +2857,9 @@ attributes #9 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #10 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #14 = { nofree nounwind }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #15 = { nofree nounwind }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }
 attributes #18 = { nounwind willreturn memory(read) }

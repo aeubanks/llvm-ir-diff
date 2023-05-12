@@ -326,24 +326,24 @@ for.end23:                                        ; preds = %for.body16.prol.loo
   %imax45 = getelementptr inbounds %struct.hypre_Box_struct, ptr %call29, i64 0, i32 1
   %53 = load i32, ptr %imax45, align 4, !tbaa !5
   %54 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1168 = sub nsw i32 %53, %54
+  %sub.i1164 = sub nsw i32 %53, %54
   %55 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1169 = sdiv i32 %sub.i1168, %55
-  store i32 %div.i1169, ptr %imax45, align 4, !tbaa !5
-  %arrayidx4.i1170 = getelementptr inbounds %struct.hypre_Box_struct, ptr %call29, i64 0, i32 1, i64 1
-  %56 = load i32, ptr %arrayidx4.i1170, align 4, !tbaa !5
+  %div.i1165 = sdiv i32 %sub.i1164, %55
+  store i32 %div.i1165, ptr %imax45, align 4, !tbaa !5
+  %arrayidx4.i1166 = getelementptr inbounds %struct.hypre_Box_struct, ptr %call29, i64 0, i32 1, i64 1
+  %56 = load i32, ptr %arrayidx4.i1166, align 4, !tbaa !5
   %57 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1172 = sub nsw i32 %56, %57
+  %sub6.i1168 = sub nsw i32 %56, %57
   %58 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1174 = sdiv i32 %sub6.i1172, %58
-  store i32 %div8.i1174, ptr %arrayidx4.i1170, align 4, !tbaa !5
-  %arrayidx10.i1176 = getelementptr inbounds %struct.hypre_Box_struct, ptr %call29, i64 0, i32 1, i64 2
-  %59 = load i32, ptr %arrayidx10.i1176, align 4, !tbaa !5
+  %div8.i1170 = sdiv i32 %sub6.i1168, %58
+  store i32 %div8.i1170, ptr %arrayidx4.i1166, align 4, !tbaa !5
+  %arrayidx10.i1172 = getelementptr inbounds %struct.hypre_Box_struct, ptr %call29, i64 0, i32 1, i64 2
+  %59 = load i32, ptr %arrayidx10.i1172, align 4, !tbaa !5
   %60 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1178 = sub nsw i32 %59, %60
+  %sub12.i1174 = sub nsw i32 %59, %60
   %61 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1180 = sdiv i32 %sub12.i1178, %61
-  store i32 %div14.i1180, ptr %arrayidx10.i1176, align 4, !tbaa !5
+  %div14.i1176 = sdiv i32 %sub12.i1174, %61
+  store i32 %div14.i1176, ptr %arrayidx10.i1172, align 4, !tbaa !5
   %call50 = call ptr @hypre_BoxCreate() #4
   %call51 = call ptr @hypre_BoxCreate() #4
   br i1 %cmp1266, label %for.body55.lr.ph, label %for.end207
@@ -410,40 +410,40 @@ for.body63:                                       ; preds = %for.cond60.preheade
   %call94 = call i32 @hypre_ProjectBox(ptr noundef nonnull %call50, ptr noundef nonnull %index, ptr noundef nonnull %stride) #4
   %73 = load i32, ptr %call50, align 4, !tbaa !5
   %74 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1182 = sub nsw i32 %73, %74
+  %sub.i1178 = sub nsw i32 %73, %74
   %75 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1183 = sdiv i32 %sub.i1182, %75
-  store i32 %div.i1183, ptr %call50, align 4, !tbaa !5
+  %div.i1179 = sdiv i32 %sub.i1178, %75
+  store i32 %div.i1179, ptr %call50, align 4, !tbaa !5
   %76 = load i32, ptr %arrayidx77, align 4, !tbaa !5
   %77 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1186 = sub nsw i32 %76, %77
+  %sub6.i1182 = sub nsw i32 %76, %77
   %78 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1188 = sdiv i32 %sub6.i1186, %78
-  store i32 %div8.i1188, ptr %arrayidx77, align 4, !tbaa !5
+  %div8.i1184 = sdiv i32 %sub6.i1182, %78
+  store i32 %div8.i1184, ptr %arrayidx77, align 4, !tbaa !5
   %79 = load i32, ptr %arrayidx81, align 4, !tbaa !5
   %80 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1192 = sub nsw i32 %79, %80
+  %sub12.i1188 = sub nsw i32 %79, %80
   %81 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1194 = sdiv i32 %sub12.i1192, %81
-  store i32 %div14.i1194, ptr %arrayidx81, align 4, !tbaa !5
+  %div14.i1190 = sdiv i32 %sub12.i1188, %81
+  store i32 %div14.i1190, ptr %arrayidx81, align 4, !tbaa !5
   %82 = load i32, ptr %imax84, align 4, !tbaa !5
   %83 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1196 = sub nsw i32 %82, %83
+  %sub.i1192 = sub nsw i32 %82, %83
   %84 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1197 = sdiv i32 %sub.i1196, %84
-  store i32 %div.i1197, ptr %imax84, align 4, !tbaa !5
+  %div.i1193 = sdiv i32 %sub.i1192, %84
+  store i32 %div.i1193, ptr %imax84, align 4, !tbaa !5
   %85 = load i32, ptr %arrayidx89, align 4, !tbaa !5
   %86 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1200 = sub nsw i32 %85, %86
+  %sub6.i1196 = sub nsw i32 %85, %86
   %87 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1202 = sdiv i32 %sub6.i1200, %87
-  store i32 %div8.i1202, ptr %arrayidx89, align 4, !tbaa !5
+  %div8.i1198 = sdiv i32 %sub6.i1196, %87
+  store i32 %div8.i1198, ptr %arrayidx89, align 4, !tbaa !5
   %88 = load i32, ptr %arrayidx93, align 4, !tbaa !5
   %89 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1206 = sub nsw i32 %88, %89
+  %sub12.i1202 = sub nsw i32 %88, %89
   %90 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1208 = sdiv i32 %sub12.i1206, %90
-  store i32 %div14.i1208, ptr %arrayidx93, align 4, !tbaa !5
+  %div14.i1204 = sdiv i32 %sub12.i1202, %90
+  store i32 %div14.i1204, ptr %arrayidx93, align 4, !tbaa !5
   %91 = load i32, ptr %arrayidx69, align 4, !tbaa !5
   store i32 %91, ptr %call51, align 4, !tbaa !5
   %arrayidx110 = getelementptr inbounds [3 x i32], ptr %arrayidx69, i64 0, i64 1
@@ -464,40 +464,40 @@ for.body63:                                       ; preds = %for.cond60.preheade
   %call129 = call i32 @hypre_ProjectBox(ptr noundef nonnull %call51, ptr noundef nonnull %index, ptr noundef nonnull %stride) #4
   %97 = load i32, ptr %call51, align 4, !tbaa !5
   %98 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1210 = sub nsw i32 %97, %98
+  %sub.i1206 = sub nsw i32 %97, %98
   %99 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1211 = sdiv i32 %sub.i1210, %99
-  store i32 %div.i1211, ptr %call51, align 4, !tbaa !5
+  %div.i1207 = sdiv i32 %sub.i1206, %99
+  store i32 %div.i1207, ptr %call51, align 4, !tbaa !5
   %100 = load i32, ptr %arrayidx112, align 4, !tbaa !5
   %101 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1214 = sub nsw i32 %100, %101
+  %sub6.i1210 = sub nsw i32 %100, %101
   %102 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1216 = sdiv i32 %sub6.i1214, %102
-  store i32 %div8.i1216, ptr %arrayidx112, align 4, !tbaa !5
+  %div8.i1212 = sdiv i32 %sub6.i1210, %102
+  store i32 %div8.i1212, ptr %arrayidx112, align 4, !tbaa !5
   %103 = load i32, ptr %arrayidx116, align 4, !tbaa !5
   %104 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1220 = sub nsw i32 %103, %104
+  %sub12.i1216 = sub nsw i32 %103, %104
   %105 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1222 = sdiv i32 %sub12.i1220, %105
-  store i32 %div14.i1222, ptr %arrayidx116, align 4, !tbaa !5
+  %div14.i1218 = sdiv i32 %sub12.i1216, %105
+  store i32 %div14.i1218, ptr %arrayidx116, align 4, !tbaa !5
   %106 = load i32, ptr %imax119, align 4, !tbaa !5
   %107 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1224 = sub nsw i32 %106, %107
+  %sub.i1220 = sub nsw i32 %106, %107
   %108 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1225 = sdiv i32 %sub.i1224, %108
-  store i32 %div.i1225, ptr %imax119, align 4, !tbaa !5
+  %div.i1221 = sdiv i32 %sub.i1220, %108
+  store i32 %div.i1221, ptr %imax119, align 4, !tbaa !5
   %109 = load i32, ptr %arrayidx124, align 4, !tbaa !5
   %110 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1228 = sub nsw i32 %109, %110
+  %sub6.i1224 = sub nsw i32 %109, %110
   %111 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1230 = sdiv i32 %sub6.i1228, %111
-  store i32 %div8.i1230, ptr %arrayidx124, align 4, !tbaa !5
+  %div8.i1226 = sdiv i32 %sub6.i1224, %111
+  store i32 %div8.i1226, ptr %arrayidx124, align 4, !tbaa !5
   %112 = load i32, ptr %arrayidx128, align 4, !tbaa !5
   %113 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1234 = sub nsw i32 %112, %113
+  %sub12.i1230 = sub nsw i32 %112, %113
   %114 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1236 = sdiv i32 %sub12.i1234, %114
-  store i32 %div14.i1236, ptr %arrayidx128, align 4, !tbaa !5
+  %div14.i1232 = sdiv i32 %sub12.i1230, %114
+  store i32 %div14.i1232, ptr %arrayidx128, align 4, !tbaa !5
   %cmp143 = icmp eq i32 %num_recvs.11274, 0
   br i1 %cmp143, label %if.then145, label %if.else
 
@@ -587,45 +587,45 @@ for.body213:                                      ; preds = %for.body213.prehead
   %call217 = call i32 @hypre_ProjectBox(ptr noundef %arrayidx216, ptr noundef nonnull %index, ptr noundef nonnull %stride) #4
   %122 = load i32, ptr %arrayidx216, align 4, !tbaa !5
   %123 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1238 = sub nsw i32 %122, %123
+  %sub.i1234 = sub nsw i32 %122, %123
   %124 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1239 = sdiv i32 %sub.i1238, %124
-  store i32 %div.i1239, ptr %arrayidx216, align 4, !tbaa !5
-  %arrayidx4.i1240 = getelementptr inbounds i32, ptr %arrayidx216, i64 1
-  %125 = load i32, ptr %arrayidx4.i1240, align 4, !tbaa !5
+  %div.i1235 = sdiv i32 %sub.i1234, %124
+  store i32 %div.i1235, ptr %arrayidx216, align 4, !tbaa !5
+  %arrayidx4.i1236 = getelementptr inbounds i32, ptr %arrayidx216, i64 1
+  %125 = load i32, ptr %arrayidx4.i1236, align 4, !tbaa !5
   %126 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1242 = sub nsw i32 %125, %126
+  %sub6.i1238 = sub nsw i32 %125, %126
   %127 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1244 = sdiv i32 %sub6.i1242, %127
-  store i32 %div8.i1244, ptr %arrayidx4.i1240, align 4, !tbaa !5
-  %arrayidx10.i1246 = getelementptr inbounds i32, ptr %arrayidx216, i64 2
-  %128 = load i32, ptr %arrayidx10.i1246, align 4, !tbaa !5
+  %div8.i1240 = sdiv i32 %sub6.i1238, %127
+  store i32 %div8.i1240, ptr %arrayidx4.i1236, align 4, !tbaa !5
+  %arrayidx10.i1242 = getelementptr inbounds i32, ptr %arrayidx216, i64 2
+  %128 = load i32, ptr %arrayidx10.i1242, align 4, !tbaa !5
   %129 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1248 = sub nsw i32 %128, %129
+  %sub12.i1244 = sub nsw i32 %128, %129
   %130 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1250 = sdiv i32 %sub12.i1248, %130
-  store i32 %div14.i1250, ptr %arrayidx10.i1246, align 4, !tbaa !5
+  %div14.i1246 = sdiv i32 %sub12.i1244, %130
+  store i32 %div14.i1246, ptr %arrayidx10.i1242, align 4, !tbaa !5
   %imax223 = getelementptr inbounds %struct.hypre_Box_struct, ptr %121, i64 %indvars.iv1348, i32 1
   %131 = load i32, ptr %imax223, align 4, !tbaa !5
   %132 = load i32, ptr %index, align 4, !tbaa !5
-  %sub.i1252 = sub nsw i32 %131, %132
+  %sub.i1248 = sub nsw i32 %131, %132
   %133 = load i32, ptr %stride, align 4, !tbaa !5
-  %div.i1253 = sdiv i32 %sub.i1252, %133
-  store i32 %div.i1253, ptr %imax223, align 4, !tbaa !5
-  %arrayidx4.i1254 = getelementptr inbounds i32, ptr %imax223, i64 1
-  %134 = load i32, ptr %arrayidx4.i1254, align 4, !tbaa !5
+  %div.i1249 = sdiv i32 %sub.i1248, %133
+  store i32 %div.i1249, ptr %imax223, align 4, !tbaa !5
+  %arrayidx4.i1250 = getelementptr inbounds i32, ptr %imax223, i64 1
+  %134 = load i32, ptr %arrayidx4.i1250, align 4, !tbaa !5
   %135 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
-  %sub6.i1256 = sub nsw i32 %134, %135
+  %sub6.i1252 = sub nsw i32 %134, %135
   %136 = load i32, ptr %arrayidx7.i, align 4, !tbaa !5
-  %div8.i1258 = sdiv i32 %sub6.i1256, %136
-  store i32 %div8.i1258, ptr %arrayidx4.i1254, align 4, !tbaa !5
-  %arrayidx10.i1260 = getelementptr inbounds i32, ptr %imax223, i64 2
-  %137 = load i32, ptr %arrayidx10.i1260, align 4, !tbaa !5
+  %div8.i1254 = sdiv i32 %sub6.i1252, %136
+  store i32 %div8.i1254, ptr %arrayidx4.i1250, align 4, !tbaa !5
+  %arrayidx10.i1256 = getelementptr inbounds i32, ptr %imax223, i64 2
+  %137 = load i32, ptr %arrayidx10.i1256, align 4, !tbaa !5
   %138 = load i32, ptr %arrayidx11.i, align 4, !tbaa !5
-  %sub12.i1262 = sub nsw i32 %137, %138
+  %sub12.i1258 = sub nsw i32 %137, %138
   %139 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
-  %div14.i1264 = sdiv i32 %sub12.i1262, %139
-  store i32 %div14.i1264, ptr %arrayidx10.i1260, align 4, !tbaa !5
+  %div14.i1260 = sdiv i32 %sub12.i1258, %139
+  store i32 %div14.i1260, ptr %arrayidx10.i1256, align 4, !tbaa !5
   %indvars.iv.next1349 = add nuw nsw i64 %indvars.iv1348, 1
   %exitcond1352.not = icmp eq i64 %indvars.iv.next1349, %wide.trip.count1351
   br i1 %exitcond1352.not, label %for.end230, label %for.body213, !llvm.loop !38
@@ -1090,7 +1090,7 @@ for.body581:                                      ; preds = %for.body581.lr.ph, 
   %sub589 = sub nsw i32 %187, %188
   %add590 = add nsw i32 %sub589, 1
   %cmp591.inv = icmp slt i32 %sub589, 0
-  %spec.select1164 = select i1 %cmp591.inv, i32 0, i32 %add590
+  %spec.select1262 = select i1 %cmp591.inv, i32 0, i32 %add590
   %arrayidx600 = getelementptr inbounds %struct.hypre_Box_struct, ptr %183, i64 %indvars.iv1407, i32 1, i64 1
   %189 = load i32, ptr %arrayidx600, align 4, !tbaa !5
   %arrayidx602 = getelementptr inbounds [3 x i32], ptr %arrayidx584, i64 0, i64 1
@@ -1099,7 +1099,7 @@ for.body581:                                      ; preds = %for.body581.lr.ph, 
   %add604 = add nsw i32 %sub603, 1
   %cmp605.inv = icmp slt i32 %sub603, 0
   %cond616 = select i1 %cmp605.inv, i32 0, i32 %add604
-  %mul617 = mul nsw i32 %cond616, %spec.select1164
+  %mul617 = mul nsw i32 %cond616, %spec.select1262
   %arrayidx619 = getelementptr inbounds %struct.hypre_Box_struct, ptr %183, i64 %indvars.iv1407, i32 1, i64 2
   %191 = load i32, ptr %arrayidx619, align 4, !tbaa !5
   %arrayidx621 = getelementptr inbounds [3 x i32], ptr %arrayidx584, i64 0, i64 2
@@ -1141,22 +1141,22 @@ if.then638:                                       ; preds = %for.body581
 
 if.then694:                                       ; preds = %if.then638
   %cmp695 = icmp eq i32 %new_first_local.31319, -1
-  %spec.select1165 = select i1 %cmp695, i32 %j.61324, i32 %new_first_local.31319
+  %spec.select1263 = select i1 %cmp695, i32 %j.61324, i32 %new_first_local.31319
   %inc699 = add nsw i32 %new_num_local.01320, 1
   br label %if.end712
 
 if.else700:                                       ; preds = %if.then638
   %cmp702.not = icmp sge i64 %indvars.iv1407, %185
   %cmp707 = icmp slt i64 %indvars.iv1407, %184
-  %or.cond1166 = select i1 %cmp702.not, i1 %cmp707, i1 false
-  %inc710 = zext i1 %or.cond1166 to i32
-  %spec.select1167 = add nsw i32 %new_num_periodic.01321, %inc710
+  %or.cond1264 = select i1 %cmp702.not, i1 %cmp707, i1 false
+  %inc710 = zext i1 %or.cond1264 to i32
+  %spec.select1265 = add nsw i32 %new_num_periodic.01321, %inc710
   br label %if.end712
 
 if.end712:                                        ; preds = %if.else700, %if.then694
-  %new_first_local.5 = phi i32 [ %spec.select1165, %if.then694 ], [ %new_first_local.31319, %if.else700 ]
+  %new_first_local.5 = phi i32 [ %spec.select1263, %if.then694 ], [ %new_first_local.31319, %if.else700 ]
   %new_num_local.1 = phi i32 [ %inc699, %if.then694 ], [ %new_num_local.01320, %if.else700 ]
-  %new_num_periodic.1 = phi i32 [ %new_num_periodic.01321, %if.then694 ], [ %spec.select1167, %if.else700 ]
+  %new_num_periodic.1 = phi i32 [ %new_num_periodic.01321, %if.then694 ], [ %spec.select1265, %if.else700 ]
   %inc713 = add nsw i32 %j.61324, 1
   br label %for.inc715
 

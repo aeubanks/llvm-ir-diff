@@ -122,28 +122,28 @@ while.end25.i:                                    ; preds = %if.end.i, %while.en
   %octets.0.lcssa.i = phi i32 [ %octets.065.i, %while.end.i ], [ %spec.select.i, %if.end.i ]
   %cp.3.i = phi ptr [ %cp.1.i, %while.end.i ], [ %cp.2.i, %if.end.i ]
   %cmp26.i = icmp eq i32 %octets.0.lcssa.i, 4
-  br i1 %cmp26.i, label %land.lhs.true.i, label %if.then
+  br i1 %cmp26.i, label %land.lhs.true.i, label %if.then.critedge
 
 land.lhs.true.i:                                  ; preds = %while.end25.i
   %2 = load i8, ptr %cp.3.i, align 1, !tbaa !5
-  switch i8 %2, label %if.then [
+  switch i8 %2, label %if.then.critedge [
     i8 58, label %if.then39.i
-    i8 0, label %if.end
+    i8 0, label %if.end41.i
   ]
 
 if.then39.i:                                      ; preds = %land.lhs.true.i
   %incdec.ptr40.i = getelementptr inbounds i8, ptr %cp.3.i, i64 1
   store i8 0, ptr %cp.3.i, align 1, !tbaa !5
-  br label %if.end
+  br label %if.end41.i
 
-if.then:                                          ; preds = %land.lhs.true.i, %while.end25.i
-  tail call void @abort() #6
-  unreachable
-
-if.end:                                           ; preds = %if.then39.i, %land.lhs.true.i
+if.end41.i:                                       ; preds = %if.then39.i, %land.lhs.true.i
   %cp.4.i = phi ptr [ %incdec.ptr40.i, %if.then39.i ], [ %cp.3.i, %land.lhs.true.i ]
   %call42.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %cp.4.i) #5
   ret i32 0
+
+if.then.critedge:                                 ; preds = %land.lhs.true.i, %while.end25.i
+  tail call void @abort() #6
+  unreachable
 }
 
 ; Function Attrs: noreturn

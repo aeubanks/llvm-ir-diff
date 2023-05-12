@@ -71,8 +71,8 @@ if.then18:                                        ; preds = %if.then15.thread245
   %5 = load i32, ptr @last_nonopt, align 4, !tbaa !5
   %cmp19.not = icmp eq i32 %4, %5
   %cmp21.not = icmp eq i32 %3, %5
-  %or.cond214 = or i1 %cmp19.not, %cmp21.not
-  br i1 %or.cond214, label %if.else24, label %if.then23
+  %or.cond230 = or i1 %cmp19.not, %cmp21.not
+  br i1 %or.cond230, label %if.else24, label %if.then23
 
 if.then23:                                        ; preds = %if.then18
   %sub.i = sub nsw i32 %5, %4
@@ -169,38 +169,38 @@ if.then50:                                        ; preds = %land.lhs.true46
   %20 = load i32, ptr @last_nonopt, align 4, !tbaa !5
   %cmp52.not = icmp eq i32 %19, %20
   %cmp55.not = icmp eq i32 %inc51, %20
-  %or.cond215 = select i1 %cmp52.not, i1 true, i1 %cmp55.not
-  br i1 %or.cond215, label %if.else58, label %if.then57
+  %or.cond231 = select i1 %cmp52.not, i1 true, i1 %cmp55.not
+  br i1 %or.cond231, label %if.else58, label %if.then57
 
 if.then57:                                        ; preds = %if.then50
-  %sub.i216 = sub nsw i32 %20, %19
-  %mul.i217 = shl i32 %sub.i216, 3
-  %conv2.i218 = sext i32 %mul.i217 to i64
-  %call.i219 = tail call noalias ptr @malloc(i64 noundef %conv2.i218) #7
-  %idxprom.i220 = sext i32 %19 to i64
-  %arrayidx.i221 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom.i220
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %call.i219, ptr align 8 %arrayidx.i221, i64 %conv2.i218, i1 false)
-  %idxprom6.i222 = sext i32 %20 to i64
-  %arrayidx7.i223 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom6.i222
-  %sub8.i224 = sub nsw i32 %inc51, %20
-  %conv9.i225 = sext i32 %sub8.i224 to i64
-  %mul10.i226 = shl nsw i64 %conv9.i225, 3
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %arrayidx.i221, ptr align 8 %arrayidx7.i223, i64 %mul10.i226, i1 false)
+  %sub.i214 = sub nsw i32 %20, %19
+  %mul.i215 = shl i32 %sub.i214, 3
+  %conv2.i216 = sext i32 %mul.i215 to i64
+  %call.i217 = tail call noalias ptr @malloc(i64 noundef %conv2.i216) #7
+  %idxprom.i218 = sext i32 %19 to i64
+  %arrayidx.i219 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom.i218
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %call.i217, ptr align 8 %arrayidx.i219, i64 %conv2.i216, i1 false)
+  %idxprom6.i220 = sext i32 %20 to i64
+  %arrayidx7.i221 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom6.i220
+  %sub8.i222 = sub nsw i32 %inc51, %20
+  %conv9.i223 = sext i32 %sub8.i222 to i64
+  %mul10.i224 = shl nsw i64 %conv9.i223, 3
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %arrayidx.i219, ptr align 8 %arrayidx7.i221, i64 %mul10.i224, i1 false)
   %21 = load i32, ptr @optind, align 4, !tbaa !5
-  %add.i227 = sub i32 %19, %20
-  %sub11.i228 = add i32 %21, %add.i227
-  %idxprom12.i229 = sext i32 %sub11.i228 to i64
-  %arrayidx13.i230 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom12.i229
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %arrayidx13.i230, ptr align 8 %call.i219, i64 %conv2.i218, i1 false)
+  %add.i225 = sub i32 %19, %20
+  %sub11.i226 = add i32 %21, %add.i225
+  %idxprom12.i227 = sext i32 %sub11.i226 to i64
+  %arrayidx13.i228 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom12.i227
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 8 %arrayidx13.i228, ptr align 8 %call.i217, i64 %conv2.i216, i1 false)
   %22 = load i32, ptr @optind, align 4, !tbaa !5
-  %add16.i231 = add i32 %22, %add.i227
+  %add16.i229 = add i32 %22, %add.i225
   br label %if.end63.sink.split
 
 if.else58:                                        ; preds = %if.then50
   br i1 %cmp52.not, label %if.end63.sink.split, label %if.end63
 
 if.end63.sink.split:                              ; preds = %if.else58, %if.then57
-  %inc51.sink = phi i32 [ %add16.i231, %if.then57 ], [ %inc51, %if.else58 ]
+  %inc51.sink = phi i32 [ %add16.i229, %if.then57 ], [ %inc51, %if.else58 ]
   store i32 %inc51.sink, ptr @first_nonopt, align 4, !tbaa !5
   br label %if.end63
 

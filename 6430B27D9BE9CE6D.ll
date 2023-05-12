@@ -612,7 +612,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local { <2 x float>, <2 x float> } @_ZNK19btTriangleMeshShape24localGetSupportingVertexERK9btVector3(ptr noundef nonnull align 8 dereferenceable(72) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %vec) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont6:
+entry:
   %supportCallback = alloca %class.SupportVertexCallback, align 8
   %aabbMax = alloca %class.btVector3, align 16
   %ref.tmp4 = alloca %class.btVector3, align 8
@@ -638,26 +638,26 @@ invoke.cont6:
   store i32 0, ptr %ident.sroa.11.32.arrayidx12.i.i.i.sroa_idx, align 4, !tbaa !21
   %m_maxDot.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 3
   store float 0xC3ABC16D60000000, ptr %m_maxDot.i, align 8, !tbaa !27
-  %m_supportVecLocal.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 4
-  %0 = load float, ptr %vec, align 4, !tbaa !18
-  %arrayidx.i.i.i.i = getelementptr inbounds [4 x float], ptr %vec, i64 0, i64 1
-  %1 = load float, ptr %arrayidx.i.i.i.i, align 4, !tbaa !18
-  %mul7.i.i.i = fmul float %1, 0.000000e+00
-  %2 = fadd float %0, %mul7.i.i.i
   %arrayidx.i14.i.i.i = getelementptr inbounds [4 x float], ptr %vec, i64 0, i64 2
-  %3 = load float, ptr %arrayidx.i14.i.i.i, align 4, !tbaa !18
+  %0 = load float, ptr %arrayidx.i14.i.i.i, align 4, !tbaa !18
+  %1 = load float, ptr %vec, align 4, !tbaa !18
+  %arrayidx.i.i.i.i = getelementptr inbounds [4 x float], ptr %vec, i64 0, i64 1
+  %2 = load float, ptr %arrayidx.i.i.i.i, align 4, !tbaa !18
+  %mul7.i.i.i = fmul float %2, 0.000000e+00
+  %3 = fadd float %1, %mul7.i.i.i
   %4 = load float, ptr %ident.sroa.5.0.m_worldTrans.i.sroa_idx, align 4, !tbaa !18
-  %5 = tail call float @llvm.fmuladd.f32(float %4, float %0, float %1)
-  %6 = insertelement <2 x float> poison, float %3, i64 0
+  %5 = tail call float @llvm.fmuladd.f32(float %4, float %1, float %2)
+  %6 = insertelement <2 x float> poison, float %0, i64 0
   %7 = shufflevector <2 x float> %6, <2 x float> poison, <2 x i32> zeroinitializer
-  %8 = insertelement <2 x float> poison, float %2, i64 0
+  %8 = insertelement <2 x float> poison, float %3, i64 0
   %9 = insertelement <2 x float> %8, float %5, i64 1
   %10 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %7, <2 x float> zeroinitializer, <2 x float> %9)
   %arrayidx.i.i12.i.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 2, i32 0, i32 0, i64 0, i32 0, i64 2
   %11 = load float, ptr %arrayidx.i.i12.i.i, align 8, !tbaa !18
-  %12 = tail call float @llvm.fmuladd.f32(float %11, float %0, float %mul7.i.i.i)
-  %13 = fadd float %3, %12
+  %12 = tail call float @llvm.fmuladd.f32(float %11, float %1, float %mul7.i.i.i)
+  %13 = fadd float %0, %12
   %retval.sroa.3.12.vec.insert.i.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %13, i64 0
+  %m_supportVecLocal.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 4
   store <2 x float> %10, ptr %m_supportVecLocal.i, align 4, !tbaa.struct !20
   %ref.tmp7.sroa.5.0.m_supportVecLocal13.sroa_idx.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 4, i32 0, i64 2
   store <2 x float> %retval.sroa.3.12.vec.insert.i.i, ptr %ref.tmp7.sroa.5.0.m_supportVecLocal13.sroa_idx.i, align 4, !tbaa.struct !22
@@ -673,19 +673,19 @@ invoke.cont6:
   invoke void %15(ptr noundef nonnull align 8 dereferenceable(72) %this, ptr noundef nonnull %supportCallback, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp4, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax)
           to label %invoke.cont7 unwind label %lpad5
 
-invoke.cont7:                                     ; preds = %invoke.cont6
+invoke.cont7:                                     ; preds = %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp4) #14
   %retval.sroa.0.0.copyload.i = load <2 x float>, ptr %m_supportVertexLocal.i, align 8, !tbaa.struct !20
   %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i = getelementptr inbounds %class.SupportVertexCallback, ptr %supportCallback, i64 0, i32 1, i32 0, i64 2
   %retval.sroa.2.0.copyload.i = load <2 x float>, ptr %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i, align 8, !tbaa.struct !22
-  %.fca.0.insert.i22 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %retval.sroa.0.0.copyload.i, 0
-  %.fca.1.insert.i23 = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert.i22, <2 x float> %retval.sroa.2.0.copyload.i, 1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %aabbMax) #14
   call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(108) %supportCallback)
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %supportCallback) #14
-  ret { <2 x float>, <2 x float> } %.fca.1.insert.i23
+  %.fca.0.insert = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %retval.sroa.0.0.copyload.i, 0
+  %.fca.1.insert = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert, <2 x float> %retval.sroa.2.0.copyload.i, 1
+  ret { <2 x float>, <2 x float> } %.fca.1.insert
 
-lpad5:                                            ; preds = %invoke.cont6
+lpad5:                                            ; preds = %entry
   %16 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp4) #14
@@ -789,10 +789,8 @@ if.end.i:                                         ; preds = %entry
   %m_aabbMin = getelementptr inbounds %struct.FilteredCallback, ptr %this, i64 0, i32 2
   %cmp.i102.i = fcmp ogt float %0, %1
   %6 = select i1 %cmp.i102.i, float %0, float %1
-  %cond-lvalue.i103.i = select i1 %cmp.i102.i, ptr %triangle, ptr %arrayidx1.i
   %cmp.i104.i = fcmp ogt float %6, %3
-  %cond-lvalue.i105.i = select i1 %cmp.i104.i, ptr %cond-lvalue.i103.i, ptr %arrayidx2.i
-  %7 = load float, ptr %cond-lvalue.i105.i, align 4, !tbaa !18
+  %7 = select i1 %cmp.i104.i, float %6, float %3
   %8 = load float, ptr %m_aabbMin, align 8, !tbaa !18
   %cmp22.i = fcmp olt float %7, %8
   br i1 %cmp22.i, label %if.end, label %if.end24.i
@@ -816,10 +814,8 @@ if.end24.i:                                       ; preds = %if.end.i
 if.end37.i:                                       ; preds = %if.end24.i
   %cmp.i110.i = fcmp ogt float %9, %10
   %15 = select i1 %cmp.i110.i, float %9, float %10
-  %cond-lvalue.i111.i = select i1 %cmp.i110.i, ptr %arrayidx26.i, ptr %arrayidx28.i
   %cmp.i112.i = fcmp ogt float %15, %12
-  %cond-lvalue.i113.i = select i1 %cmp.i112.i, ptr %cond-lvalue.i111.i, ptr %arrayidx31.i
-  %16 = load float, ptr %cond-lvalue.i113.i, align 4, !tbaa !18
+  %16 = select i1 %cmp.i112.i, float %15, float %12
   %arrayidx47.i = getelementptr inbounds %struct.FilteredCallback, ptr %this, i64 0, i32 2, i32 0, i64 2
   %17 = load float, ptr %arrayidx47.i, align 8, !tbaa !18
   %cmp48.i = fcmp olt float %16, %17
@@ -839,21 +835,19 @@ if.end50.i:                                       ; preds = %if.end37.i
   %arrayidx60.i = getelementptr inbounds %struct.FilteredCallback, ptr %this, i64 0, i32 3, i32 0, i64 1
   %23 = load float, ptr %arrayidx60.i, align 4, !tbaa !18
   %cmp61.i = fcmp ogt float %22, %23
-  br i1 %cmp61.i, label %if.end, label %_Z24TestTriangleAgainstAabb2PK9btVector3RS0_S2_.exit
+  br i1 %cmp61.i, label %if.end, label %if.end63.i
 
-_Z24TestTriangleAgainstAabb2PK9btVector3RS0_S2_.exit: ; preds = %if.end50.i
+if.end63.i:                                       ; preds = %if.end50.i
   %cmp.i118.i = fcmp ogt float %18, %19
   %24 = select i1 %cmp.i118.i, float %18, float %19
-  %cond-lvalue.i119.i = select i1 %cmp.i118.i, ptr %arrayidx52.i, ptr %arrayidx54.i
   %cmp.i120.i = fcmp ogt float %24, %21
-  %cond-lvalue.i121.i = select i1 %cmp.i120.i, ptr %cond-lvalue.i119.i, ptr %arrayidx57.i
-  %25 = load float, ptr %cond-lvalue.i121.i, align 4, !tbaa !18
+  %25 = select i1 %cmp.i120.i, float %24, float %21
   %arrayidx73.i = getelementptr inbounds %struct.FilteredCallback, ptr %this, i64 0, i32 2, i32 0, i64 1
   %26 = load float, ptr %arrayidx73.i, align 4, !tbaa !18
   %cmp74.i = fcmp uge float %25, %26
   br i1 %cmp74.i, label %if.then, label %if.end
 
-if.then:                                          ; preds = %_Z24TestTriangleAgainstAabb2PK9btVector3RS0_S2_.exit
+if.then:                                          ; preds = %if.end63.i
   %m_callback = getelementptr inbounds %struct.FilteredCallback, ptr %this, i64 0, i32 1
   %27 = load ptr, ptr %m_callback, align 8, !tbaa !23
   %vtable = load ptr, ptr %27, align 8, !tbaa !5
@@ -862,7 +856,7 @@ if.then:                                          ; preds = %_Z24TestTriangleAga
   tail call void %28(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull %triangle, i32 noundef %partId, i32 noundef %triangleIndex)
   br label %if.end
 
-if.end:                                           ; preds = %if.end50.i, %if.end37.i, %if.end24.i, %if.end.i, %entry, %if.then, %_Z24TestTriangleAgainstAabb2PK9btVector3RS0_S2_.exit
+if.end:                                           ; preds = %entry, %if.end.i, %if.end24.i, %if.end37.i, %if.end50.i, %if.then, %if.end63.i
   ret void
 }
 

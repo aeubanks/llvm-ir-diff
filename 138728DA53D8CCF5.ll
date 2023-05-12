@@ -68,51 +68,58 @@ if.end:                                           ; preds = %if.then, %entry
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
-  %c.promoted105 = load i32, ptr @c, align 4, !tbaa !5
-  %cmp15.not.peel = icmp eq i32 %c.promoted105, 0
-  br i1 %cmp15.not.peel, label %if.then.i85.peel, label %if.then17
+f3.exit.peel:
+  %c.promoted = load i32, ptr @c, align 4, !tbaa !5
+  %cmp15.not.peel = icmp eq i32 %c.promoted, 0
+  br i1 %cmp15.not.peel, label %for.body.peel.next, label %if.then17
 
-if.then.i85.peel:                                 ; preds = %entry
-  store i32 1, ptr @c, align 4, !tbaa !5
+for.body.peel.next:                               ; preds = %f3.exit.peel
   store i32 0, ptr @c, align 4, !tbaa !5
   br label %for.body
 
-for.body:                                         ; preds = %if.then.i85.peel, %if.end43.14
-  %i.0110 = phi i32 [ -29, %if.then.i85.peel ], [ %inc58, %if.end43.14 ]
-  %cmp.i = icmp sgt i32 %i.0110, -1
-  %cmp1 = icmp sgt i32 %i.0110, -1
+for.body:                                         ; preds = %for.body.peel.next, %if.end56
+  %i.0105 = phi i32 [ -29, %for.body.peel.next ], [ %inc58, %if.end56 ]
+  %mul = shl nsw i32 %i.0105, 4
+  %add = and i32 %mul, -2147483648
+  %0 = or i32 %add, 13
+  %cmp.i = icmp ne i32 %0, 13
+  %cmp1 = icmp sgt i32 %i.0105, -1
   %conv = zext i1 %cmp1 to i32
-  %mul = shl nsw i32 %i.0110, 4
+  %cmp2.not = xor i1 %cmp1, %cmp.i
+  br i1 %cmp2.not, label %lor.lhs.false, label %if.then
+
+lor.lhs.false:                                    ; preds = %for.body
   %add5 = add nsw i32 %mul, -13
   %rem.i = srem i32 %add5, 16
-  %cmp.i79 = icmp eq i32 %rem.i, -13
-  %cmp7 = icmp sgt i32 %i.0110, 0
+  %cmp.i79 = icmp ne i32 %rem.i, -13
+  %cmp7 = icmp slt i32 %i.0105, 1
   %cmp9.not = xor i1 %cmp7, %cmp.i79
   br i1 %cmp9.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %for.body
+if.then:                                          ; preds = %lor.lhs.false, %for.body
   tail call void @abort() #4
   unreachable
 
-if.end:                                           ; preds = %for.body
-  br i1 %cmp.i, label %if.then.i, label %f3.exit
+if.end:                                           ; preds = %lor.lhs.false
+  %cmp.i81 = icmp eq i32 %0, 13
+  br i1 %cmp.i81, label %if.then.i, label %f3.exit
 
 if.then.i:                                        ; preds = %if.end
   store i32 1, ptr @c, align 4, !tbaa !5
   br label %f3.exit
 
 f3.exit:                                          ; preds = %if.end, %if.then.i
-  %c.promoted107 = phi i32 [ 0, %if.end ], [ 1, %if.then.i ]
-  %cmp15.not = icmp eq i32 %c.promoted107, %conv
+  %inc.i.i84103 = phi i32 [ 0, %if.end ], [ 1, %if.then.i ]
+  %cmp15.not = icmp eq i32 %inc.i.i84103, %conv
   br i1 %cmp15.not, label %if.end18, label %if.then17
 
-if.then17:                                        ; preds = %f3.exit, %entry
+if.then17:                                        ; preds = %f3.exit, %f3.exit.peel
   tail call void @abort() #4
   unreachable
 
 if.end18:                                         ; preds = %f3.exit
-  br i1 %cmp.i79, label %if.then.i85, label %f4.exit
+  %cmp.i83 = icmp eq i32 %rem.i, -13
+  br i1 %cmp.i83, label %if.then.i85, label %f4.exit
 
 if.then.i85:                                      ; preds = %if.end18
   %inc.i.i84 = select i1 %cmp1, i32 2, i32 1
@@ -120,23 +127,23 @@ if.then.i85:                                      ; preds = %if.end18
   br label %f4.exit
 
 f4.exit:                                          ; preds = %if.end18, %if.then.i85
-  %c.promoted106 = phi i32 [ %conv, %if.end18 ], [ %inc.i.i84, %if.then.i85 ]
-  %cmp21 = icmp eq i32 %i.0110, 0
+  %inc.i.i84102 = phi i32 [ %conv, %if.end18 ], [ %inc.i.i84, %if.then.i85 ]
+  %cmp21 = icmp eq i32 %i.0105, 0
   %add23 = select i1 %cmp21, i32 2, i32 1
-  %cmp24.not = icmp eq i32 %c.promoted106, %add23
-  br i1 %cmp24.not, label %if.end43.14, label %if.then26
+  %cmp24.not = icmp eq i32 %inc.i.i84102, %add23
+  br i1 %cmp24.not, label %if.end56, label %if.then26
 
 if.then26:                                        ; preds = %f4.exit
   tail call void @abort() #4
   unreachable
 
-if.end43.14:                                      ; preds = %f4.exit
+if.end56:                                         ; preds = %f4.exit
   store i32 0, ptr @c, align 4, !tbaa !5
-  %inc58 = add nsw i32 %i.0110, 1
-  %exitcond111.not = icmp eq i32 %inc58, 30
-  br i1 %exitcond111.not, label %for.end59, label %for.body, !llvm.loop !9
+  %inc58 = add nsw i32 %i.0105, 1
+  %exitcond.not = icmp eq i32 %inc58, 30
+  br i1 %exitcond.not, label %for.end59, label %for.body, !llvm.loop !9
 
-for.end59:                                        ; preds = %if.end43.14
+for.end59:                                        ; preds = %if.end56
   ret i32 0
 }
 

@@ -31,14 +31,13 @@ entry:
   %sext = shl i32 %0, 24
   %1 = add i32 %sext, -1610612737
   %or.cond.i = icmp ult i32 %1, 452984831
-  %add.i = add i32 %0, 224
-  %retval.0.in.i = select i1 %or.cond.i, i32 %add.i, i32 %0
-  %retval.0.i = trunc i32 %retval.0.in.i to i8
-  %2 = add i8 %retval.0.i, -65
-  %or.cond = icmp ult i8 %2, 26
-  %3 = add i8 %retval.0.i, -48
-  %4 = icmp ult i8 %3, 10
-  %narrow = or i1 %or.cond, %4
+  %2 = add i32 %sext, -536870912
+  %sext16 = select i1 %or.cond.i, i32 %2, i32 %sext
+  %3 = add i32 %sext16, -1073741825
+  %or.cond = icmp ult i32 %3, 452984831
+  %4 = add i32 %sext16, -788529153
+  %5 = icmp ult i32 %4, 184549375
+  %narrow = or i1 %or.cond, %5
   %lor.ext = zext i1 %narrow to i32
   ret i32 %lor.ext
 }
@@ -79,27 +78,26 @@ entry:
   br i1 %or.cond, label %while.cond, label %if.end39
 
 while.cond:                                       ; preds = %entry, %while.cond
-  %.pn68 = phi ptr [ %storemerge, %while.cond ], [ %0, %entry ]
+  %.pn70 = phi ptr [ %storemerge, %while.cond ], [ %0, %entry ]
   %LABEL_LEN.0 = phi i32 [ %inc, %while.cond ], [ 1, %entry ]
-  %storemerge = getelementptr inbounds i8, ptr %.pn68, i64 1
+  %storemerge = getelementptr inbounds i8, ptr %.pn70, i64 1
   store ptr %storemerge, ptr %NEXT_CHAR, align 8, !tbaa !5
   %4 = load i8, ptr %storemerge, align 1, !tbaa !9
-  %conv8 = sext i8 %4 to i32
-  %sext.i65 = shl nsw i32 %conv8, 24
+  %conv867 = zext i8 %4 to i32
+  %sext.i65 = shl nuw i32 %conv867, 24
   %5 = add i32 %sext.i65, -1610612737
   %or.cond.i.i = icmp ult i32 %5, 452984831
-  %add.i.i = add i8 %4, -32
-  %retval.0.in.i.i = select i1 %or.cond.i.i, i8 %add.i.i, i8 %4
-  %6 = add i8 %retval.0.in.i.i, -91
-  %or.cond.i66 = icmp ult i8 %6, -26
-  %7 = add i8 %retval.0.in.i.i, -58
-  %8 = icmp ult i8 %7, -10
-  %narrow.i.not = and i1 %or.cond.i66, %8
-  %sext.mask.i = and i32 %conv8, 255
-  %cmp.i.not = icmp eq i32 %sext.mask.i, 0
-  %or.cond67 = or i1 %cmp.i.not, %narrow.i.not
+  %6 = add i32 %sext.i65, -536870912
+  %sext16.i = select i1 %or.cond.i.i, i32 %6, i32 %sext.i65
+  %7 = add i32 %sext16.i, -1526726656
+  %or.cond.i66 = icmp ult i32 %7, -452984831
+  %8 = add i32 %sext16.i, -973078528
+  %9 = icmp ult i32 %8, -184549375
+  %narrow.i.not71 = and i1 %or.cond.i66, %9
+  %cmp.i.not = icmp eq i8 %4, 0
+  %or.cond69 = or i1 %cmp.i.not, %narrow.i.not71
   %inc = add nuw nsw i32 %LABEL_LEN.0, 1
-  br i1 %or.cond67, label %while.end, label %while.cond, !llvm.loop !10
+  br i1 %or.cond69, label %while.end, label %while.cond, !llvm.loop !10
 
 while.end:                                        ; preds = %while.cond
   %cmp14 = icmp ugt i32 %LABEL_LEN.0, 8
@@ -112,7 +110,7 @@ if.then16:                                        ; preds = %while.end
 if.then19:                                        ; preds = %if.then16
   %idxprom = zext i32 %LABEL_LEN.0 to i64
   %arrayidx = getelementptr inbounds i8, ptr %INPUT, i64 %idxprom
-  %9 = load i8, ptr %arrayidx, align 1, !tbaa !9
+  %10 = load i8, ptr %arrayidx, align 1, !tbaa !9
   store i8 0, ptr %arrayidx, align 1, !tbaa !9
   %call25 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %INPUT) #12
   %conv27 = add i64 %call25, 80
@@ -121,7 +119,7 @@ if.then19:                                        ; preds = %if.then16
   %call30 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call29, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %INPUT, i32 noundef 8) #14
   tail call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %call29) #14
   tail call void @free(ptr noundef %call29) #14
-  store i8 %9, ptr %arrayidx, align 1, !tbaa !9
+  store i8 %10, ptr %arrayidx, align 1, !tbaa !9
   br label %if.end33
 
 if.end33:                                         ; preds = %if.then16, %if.then19, %while.end
@@ -176,9 +174,9 @@ entry:
   br i1 %or.cond, label %while.cond, label %if.end39
 
 while.cond:                                       ; preds = %entry, %while.cond
-  %.pn76 = phi ptr [ %storemerge, %while.cond ], [ %0, %entry ]
+  %.pn77 = phi ptr [ %storemerge, %while.cond ], [ %0, %entry ]
   %OP_LEN.0 = phi i32 [ %inc, %while.cond ], [ 1, %entry ]
-  %storemerge = getelementptr inbounds i8, ptr %.pn76, i64 1
+  %storemerge = getelementptr inbounds i8, ptr %.pn77, i64 1
   store ptr %storemerge, ptr %NEXT_CHAR, align 8, !tbaa !5
   %4 = load i8, ptr %storemerge, align 1, !tbaa !9
   %conv8 = sext i8 %4 to i32
@@ -188,12 +186,11 @@ while.cond:                                       ; preds = %entry, %while.cond
   %add.i66 = add i8 %4, -32
   %retval.0.in.i67 = select i1 %or.cond.i65, i8 %add.i66, i8 %4
   %6 = add i8 %retval.0.in.i67, -91
-  %or.cond74 = icmp ult i8 %6, -26
-  %sext.mask.i = and i32 %conv8, 255
-  %cmp.i.not = icmp eq i32 %sext.mask.i, 0
-  %or.cond75 = or i1 %cmp.i.not, %or.cond74
+  %or.cond75 = icmp ult i8 %6, -26
+  %cmp.i.not = icmp eq i8 %4, 0
+  %or.cond76 = or i1 %cmp.i.not, %or.cond75
   %inc = add nuw nsw i32 %OP_LEN.0, 1
-  br i1 %or.cond75, label %while.end, label %while.cond, !llvm.loop !12
+  br i1 %or.cond76, label %while.end, label %while.cond, !llvm.loop !12
 
 while.end:                                        ; preds = %while.cond
   %cmp22 = icmp ugt i32 %OP_LEN.0, 8
@@ -256,55 +253,51 @@ if.then3:                                         ; preds = %if.end
   tail call void (ptr, ptr, i32, ...) @OUTPUT_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %STREAM, i32 noundef 1) #14
   %3 = load ptr, ptr %CH, align 8, !tbaa !5
   %4 = load i8, ptr %3, align 1, !tbaa !9
-  %conv4 = sext i8 %4 to i32
-  switch i8 %4, label %land.lhs.true [
+  switch i8 %4, label %if.then9 [
     i8 32, label %while.cond.preheader
     i8 9, label %while.cond.preheader
+    i8 0, label %while.cond.preheader
   ]
 
-land.lhs.true:                                    ; preds = %if.then3
-  %sext.mask.i = and i32 %conv4, 255
-  %cmp.i94.not = icmp eq i32 %sext.mask.i, 0
-  br i1 %cmp.i94.not, label %while.cond.preheader, label %if.then9
-
-if.then9:                                         ; preds = %land.lhs.true
+if.then9:                                         ; preds = %if.then3
   br i1 %cmp, label %if.then12, label %if.end15
 
 if.then12:                                        ; preds = %if.then9
-  %call14 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.3, i32 noundef %conv4)
+  %conv13 = sext i8 %4 to i32
+  %call14 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.3, i32 noundef %conv13)
   br label %if.end15
 
 if.end15:                                         ; preds = %if.then12, %if.then9
   %incdec.ptr = getelementptr inbounds i8, ptr %3, i64 1
   br label %while.cond.preheader
 
-while.cond.preheader:                             ; preds = %if.then3, %if.then3, %if.end15, %land.lhs.true
-  %incdec.ptr23123.ph = phi ptr [ %3, %land.lhs.true ], [ %incdec.ptr, %if.end15 ], [ %3, %if.then3 ], [ %3, %if.then3 ]
+while.cond.preheader:                             ; preds = %if.then3, %if.then3, %if.then3, %if.end15
+  %incdec.ptr23126.ph = phi ptr [ %incdec.ptr, %if.end15 ], [ %3, %if.then3 ], [ %3, %if.then3 ], [ %3, %if.then3 ]
   br label %while.cond
 
 while.cond:                                       ; preds = %while.cond.preheader, %while.body
-  %incdec.ptr23123 = phi ptr [ %incdec.ptr23, %while.body ], [ %incdec.ptr23123.ph, %while.cond.preheader ]
-  %5 = load i8, ptr %incdec.ptr23123, align 1, !tbaa !9
+  %incdec.ptr23126 = phi ptr [ %incdec.ptr23, %while.body ], [ %incdec.ptr23126.ph, %while.cond.preheader ]
+  %5 = load i8, ptr %incdec.ptr23126, align 1, !tbaa !9
   switch i8 %5, label %if.end29 [
-    i8 9, label %while.body
     i8 32, label %while.body
+    i8 9, label %while.body
     i8 43, label %if.then27
   ]
 
 while.body:                                       ; preds = %while.cond, %while.cond
-  %incdec.ptr23 = getelementptr inbounds i8, ptr %incdec.ptr23123, i64 1
+  %incdec.ptr23 = getelementptr inbounds i8, ptr %incdec.ptr23126, i64 1
   br label %while.cond, !llvm.loop !13
 
 if.then27:                                        ; preds = %while.cond
-  %incdec.ptr28 = getelementptr inbounds i8, ptr %incdec.ptr23123, i64 1
+  %incdec.ptr28 = getelementptr inbounds i8, ptr %incdec.ptr23126, i64 1
   br label %if.end29
 
 if.end29:                                         ; preds = %while.cond, %if.then27
-  %storemerge127 = phi ptr [ %incdec.ptr28, %if.then27 ], [ %incdec.ptr23123, %while.cond ]
+  %storemerge130 = phi ptr [ %incdec.ptr28, %if.then27 ], [ %incdec.ptr23126, %while.cond ]
   %storemerge = phi i32 [ 1, %if.then27 ], [ 0, %while.cond ]
-  store ptr %storemerge127, ptr %CH, align 8, !tbaa !5
+  store ptr %storemerge130, ptr %CH, align 8, !tbaa !5
   store i32 %storemerge, ptr %EXTENDED, align 4, !tbaa !14
-  %6 = load i8, ptr %storemerge127, align 1, !tbaa !9
+  %6 = load i8, ptr %storemerge130, align 1, !tbaa !9
   %conv.i = sext i8 %6 to i32
   %sext.i.i = shl nsw i32 %conv.i, 24
   %7 = add i32 %sext.i.i, -1610612737
@@ -316,9 +309,9 @@ if.end29:                                         ; preds = %while.cond, %if.the
   br i1 %or.cond.i, label %while.cond.i, label %GET_OPCODE_STR.exit
 
 while.cond.i:                                     ; preds = %if.end29, %while.cond.i
-  %.pn76.i = phi ptr [ %storemerge.i, %while.cond.i ], [ %storemerge127, %if.end29 ]
+  %.pn77.i = phi ptr [ %storemerge.i, %while.cond.i ], [ %storemerge130, %if.end29 ]
   %OP_LEN.0.i = phi i32 [ %inc.i, %while.cond.i ], [ 1, %if.end29 ]
-  %storemerge.i = getelementptr inbounds i8, ptr %.pn76.i, i64 1
+  %storemerge.i = getelementptr inbounds i8, ptr %.pn77.i, i64 1
   %9 = load i8, ptr %storemerge.i, align 1, !tbaa !9
   %conv8.i = sext i8 %9 to i32
   %sext.i64.i = shl nsw i32 %conv8.i, 24
@@ -327,33 +320,32 @@ while.cond.i:                                     ; preds = %if.end29, %while.co
   %add.i66.i = add i8 %9, -32
   %retval.0.in.i67.i = select i1 %or.cond.i65.i, i8 %add.i66.i, i8 %9
   %11 = add i8 %retval.0.in.i67.i, -91
-  %or.cond74.i = icmp ult i8 %11, -26
-  %sext.mask.i.i = and i32 %conv8.i, 255
-  %cmp.i.not.i = icmp eq i32 %sext.mask.i.i, 0
-  %or.cond75.i = or i1 %cmp.i.not.i, %or.cond74.i
+  %or.cond75.i = icmp ult i8 %11, -26
+  %cmp.i.not.i = icmp eq i8 %9, 0
+  %or.cond76.i = or i1 %cmp.i.not.i, %or.cond75.i
   %inc.i = add nuw nsw i32 %OP_LEN.0.i, 1
-  br i1 %or.cond75.i, label %while.end.i, label %while.cond.i, !llvm.loop !12
+  br i1 %or.cond76.i, label %while.end.i, label %while.cond.i, !llvm.loop !12
 
 while.end.i:                                      ; preds = %while.cond.i
   store ptr %storemerge.i, ptr %CH, align 8, !tbaa !5
   %cmp22.i = icmp ugt i32 %OP_LEN.0.i, 8
-  %brmerge.not = and i1 %cmp, %cmp22.i
+  %brmerge.not = and i1 %cmp22.i, %cmp
   %OP_LEN.0.i.mux = tail call i32 @llvm.umin.i32(i32 %OP_LEN.0.i, i32 8)
   br i1 %brmerge.not, label %if.then27.i, label %if.end33.i
 
 if.then27.i:                                      ; preds = %while.end.i
   %idxprom.i = zext i32 %OP_LEN.0.i to i64
-  %arrayidx.i = getelementptr inbounds i8, ptr %storemerge127, i64 %idxprom.i
+  %arrayidx.i = getelementptr inbounds i8, ptr %storemerge130, i64 %idxprom.i
   %12 = load i8, ptr %arrayidx.i, align 1, !tbaa !9
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !9
-  %call30.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.1, ptr noundef nonnull %storemerge127, i32 noundef 8)
+  %call30.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.1, ptr noundef nonnull %storemerge130, i32 noundef 8)
   store i8 %12, ptr %arrayidx.i, align 1, !tbaa !9
   br label %if.end33.i
 
 if.end33.i:                                       ; preds = %while.end.i, %if.then27.i
   %OP_LEN.1.i = phi i32 [ %OP_LEN.0.i.mux, %while.end.i ], [ 8, %if.then27.i ]
   %conv34.i = zext i32 %OP_LEN.1.i to i64
-  %call35.i = tail call ptr @strncpy(ptr noundef nonnull dereferenceable(1) %OPERATOR, ptr noundef nonnull dereferenceable(1) %storemerge127, i64 noundef %conv34.i) #14
+  %call35.i = tail call ptr @strncpy(ptr noundef nonnull dereferenceable(1) %OPERATOR, ptr noundef nonnull dereferenceable(1) %storemerge130, i64 noundef %conv34.i) #14
   %arrayidx37.i = getelementptr inbounds i8, ptr %OPERATOR, i64 %conv34.i
   br label %GET_OPCODE_STR.exit
 
@@ -377,46 +369,42 @@ if.then38:                                        ; preds = %land.lhs.true32
 if.end40:                                         ; preds = %if.then38, %land.lhs.true32, %GET_OPCODE_STR.exit
   %15 = load ptr, ptr %CH, align 8, !tbaa !5
   %16 = load i8, ptr %15, align 1, !tbaa !9
-  %conv41 = sext i8 %16 to i32
-  switch i8 %16, label %land.lhs.true44 [
+  switch i8 %16, label %if.then48 [
     i8 32, label %while.cond57.preheader
     i8 9, label %while.cond57.preheader
+    i8 0, label %while.cond57.preheader
   ]
 
-land.lhs.true44:                                  ; preds = %if.end40
-  %sext.mask.i106 = and i32 %conv41, 255
-  %cmp.i107.not = icmp eq i32 %sext.mask.i106, 0
-  br i1 %cmp.i107.not, label %while.cond57.preheader, label %if.then48
-
-if.then48:                                        ; preds = %land.lhs.true44
+if.then48:                                        ; preds = %if.end40
   br i1 %cmp, label %if.then51, label %if.end54
 
 if.then51:                                        ; preds = %if.then48
-  %call53 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.6, i32 noundef %conv41)
+  %conv52 = sext i8 %16 to i32
+  %call53 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %STREAM, ptr noundef nonnull @.str.6, i32 noundef %conv52)
   br label %if.end54
 
 if.end54:                                         ; preds = %if.then51, %if.then48
   %incdec.ptr55 = getelementptr inbounds i8, ptr %15, i64 1
   br label %while.cond57.preheader
 
-while.cond57.preheader:                           ; preds = %if.end40, %if.end40, %if.end54, %land.lhs.true44
-  %incdec.ptr68126.ph = phi ptr [ %15, %land.lhs.true44 ], [ %incdec.ptr55, %if.end54 ], [ %15, %if.end40 ], [ %15, %if.end40 ]
+while.cond57.preheader:                           ; preds = %if.end40, %if.end40, %if.end40, %if.end54
+  %incdec.ptr68129.ph = phi ptr [ %incdec.ptr55, %if.end54 ], [ %15, %if.end40 ], [ %15, %if.end40 ], [ %15, %if.end40 ]
   br label %while.cond57
 
 while.cond57:                                     ; preds = %while.cond57.preheader, %while.body67
-  %incdec.ptr68126 = phi ptr [ %incdec.ptr68, %while.body67 ], [ %incdec.ptr68126.ph, %while.cond57.preheader ]
-  %17 = load i8, ptr %incdec.ptr68126, align 1, !tbaa !9
+  %incdec.ptr68129 = phi ptr [ %incdec.ptr68, %while.body67 ], [ %incdec.ptr68129.ph, %while.cond57.preheader ]
+  %17 = load i8, ptr %incdec.ptr68129, align 1, !tbaa !9
   switch i8 %17, label %while.end69 [
-    i8 9, label %while.body67
     i8 32, label %while.body67
+    i8 9, label %while.body67
   ]
 
 while.body67:                                     ; preds = %while.cond57, %while.cond57
-  %incdec.ptr68 = getelementptr inbounds i8, ptr %incdec.ptr68126, i64 1
+  %incdec.ptr68 = getelementptr inbounds i8, ptr %incdec.ptr68129, i64 1
   br label %while.cond57, !llvm.loop !16
 
 while.end69:                                      ; preds = %while.cond57
-  store ptr %incdec.ptr68126, ptr %REST, align 8, !tbaa !5
+  store ptr %incdec.ptr68129, ptr %REST, align 8, !tbaa !5
   br label %if.end72
 
 if.else70:                                        ; preds = %if.end

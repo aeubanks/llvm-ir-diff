@@ -50,38 +50,38 @@ vector.body:                                      ; preds = %vector.body, %entry
   %index.next = add nuw i64 %index, 8
   %vec.ind.next = add <4 x i8> %vec.ind, <i8 8, i8 8, i8 8, i8 8>
   %13 = icmp eq i64 %index.next, 256
-  br i1 %13, label %vector.body75, label %vector.body, !llvm.loop !10
+  br i1 %13, label %vector.body76, label %vector.body, !llvm.loop !10
 
-vector.body75:                                    ; preds = %vector.body, %vector.body75
-  %index76 = phi i64 [ %index.next81.1, %vector.body75 ], [ 0, %vector.body ]
-  %vec.ind77 = phi <4 x i32> [ %vec.ind.next80.1, %vector.body75 ], [ <i32 0, i32 1, i32 2, i32 3>, %vector.body ]
-  %14 = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %index76
+vector.body76:                                    ; preds = %vector.body, %vector.body76
+  %index77 = phi i64 [ %index.next82.1, %vector.body76 ], [ 0, %vector.body ]
+  %vec.ind78 = phi <4 x i32> [ %vec.ind.next81.1, %vector.body76 ], [ <i32 0, i32 1, i32 2, i32 3>, %vector.body ]
+  %14 = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %index77
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %14, align 16, !tbaa !5
   %15 = getelementptr inbounds i32, ptr %14, i64 4
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %15, align 16, !tbaa !5
-  %16 = getelementptr inbounds [258 x i32], ptr @cum_freq, i64 0, i64 %index76
-  %17 = sub <4 x i32> <i32 257, i32 257, i32 257, i32 257>, %vec.ind77
-  %18 = sub <4 x i32> <i32 253, i32 253, i32 253, i32 253>, %vec.ind77
+  %16 = getelementptr inbounds [258 x i32], ptr @cum_freq, i64 0, i64 %index77
+  %17 = sub <4 x i32> <i32 257, i32 257, i32 257, i32 257>, %vec.ind78
+  %18 = sub <4 x i32> <i32 253, i32 253, i32 253, i32 253>, %vec.ind78
   store <4 x i32> %17, ptr %16, align 16, !tbaa !5
   %19 = getelementptr inbounds i32, ptr %16, i64 4
   store <4 x i32> %18, ptr %19, align 16, !tbaa !5
-  %index.next81 = or i64 %index76, 8
-  %20 = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %index.next81
+  %index.next82 = or i64 %index77, 8
+  %20 = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %index.next82
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %20, align 16, !tbaa !5
   %21 = getelementptr inbounds i32, ptr %20, i64 4
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %21, align 16, !tbaa !5
-  %22 = getelementptr inbounds [258 x i32], ptr @cum_freq, i64 0, i64 %index.next81
-  %23 = sub <4 x i32> <i32 249, i32 249, i32 249, i32 249>, %vec.ind77
-  %24 = sub <4 x i32> <i32 245, i32 245, i32 245, i32 245>, %vec.ind77
+  %22 = getelementptr inbounds [258 x i32], ptr @cum_freq, i64 0, i64 %index.next82
+  %23 = sub <4 x i32> <i32 249, i32 249, i32 249, i32 249>, %vec.ind78
+  %24 = sub <4 x i32> <i32 245, i32 245, i32 245, i32 245>, %vec.ind78
   store <4 x i32> %23, ptr %22, align 16, !tbaa !5
   %25 = getelementptr inbounds i32, ptr %22, i64 4
   store <4 x i32> %24, ptr %25, align 16, !tbaa !5
-  %index.next81.1 = add nuw nsw i64 %index76, 16
-  %vec.ind.next80.1 = add <4 x i32> %vec.ind77, <i32 16, i32 16, i32 16, i32 16>
-  %26 = icmp eq i64 %index.next81.1, 256
-  br i1 %26, label %for.body7.i, label %vector.body75, !llvm.loop !14
+  %index.next82.1 = add nuw nsw i64 %index77, 16
+  %vec.ind.next81.1 = add <4 x i32> %vec.ind78, <i32 16, i32 16, i32 16, i32 16>
+  %26 = icmp eq i64 %index.next82.1, 256
+  br i1 %26, label %for.body7.i, label %vector.body76, !llvm.loop !14
 
-for.body7.i:                                      ; preds = %vector.body75
+for.body7.i:                                      ; preds = %vector.body76
   store i32 1, ptr getelementptr inbounds ([258 x i32], ptr @freq, i64 0, i64 256), align 16, !tbaa !5
   store i32 1, ptr getelementptr inbounds ([258 x i32], ptr @cum_freq, i64 0, i64 256), align 16, !tbaa !5
   store i32 1, ptr getelementptr inbounds ([258 x i32], ptr @freq, i64 0, i64 257), align 4, !tbaa !5
@@ -146,12 +146,12 @@ input_bit.exit.i:                                 ; preds = %if.else.i.i, %if.th
   br i1 %exitcond.not.i9, label %for.cond, label %for.body.i7, !llvm.loop !17
 
 for.cond:                                         ; preds = %input_bit.exit.i, %for.cond.backedge
-  %add51.i50 = phi i64 [ %add51.i49, %for.cond.backedge ], [ %add.i, %input_bit.exit.i ]
-  %mul46.i48 = phi i64 [ %mul463.i, %for.cond.backedge ], [ 0, %input_bit.exit.i ]
-  %add48.i47 = phi i64 [ %add481.i, %for.cond.backedge ], [ 65535, %input_bit.exit.i ]
-  %sub.i = sub nsw i64 %add48.i47, %mul46.i48
+  %add51.i51 = phi i64 [ %add51.i50, %for.cond.backedge ], [ %add.i, %input_bit.exit.i ]
+  %mul46.i49 = phi i64 [ %mul463.i, %for.cond.backedge ], [ 0, %input_bit.exit.i ]
+  %add48.i48 = phi i64 [ %add481.i, %for.cond.backedge ], [ 65535, %input_bit.exit.i ]
+  %sub.i = sub nsw i64 %add48.i48, %mul46.i49
   %add.i10 = add nsw i64 %sub.i, 1
-  %reass.sub = sub i64 %add51.i50, %mul46.i48
+  %reass.sub = sub i64 %add51.i51, %mul46.i49
   %add2.i = add i64 %reass.sub, 1
   %32 = load i32, ptr @cum_freq, align 16, !tbaa !5
   %conv.i11 = sext i32 %32 to i64
@@ -180,12 +180,12 @@ for.end.i:                                        ; preds = %for.cond.i
   %conv10.i = sext i32 %34 to i64
   %mul11.i = mul nsw i64 %add.i10, %conv10.i
   %div14.i = sdiv i64 %mul11.i, %conv.i11
-  %add15.i = add i64 %mul46.i48, -1
+  %add15.i = add i64 %mul46.i49, -1
   %sub16.i = add i64 %add15.i, %div14.i
   %conv19.i = sext i32 %33 to i64
   %mul20.i = mul nsw i64 %add.i10, %conv19.i
   %div23.i = sdiv i64 %mul20.i, %conv.i11
-  %add24.i = add nsw i64 %div23.i, %mul46.i48
+  %add24.i = add nsw i64 %div23.i, %mul46.i49
   %bits_to_go.promoted.i16 = load i32, ptr @bits_to_go, align 4, !tbaa !5
   %in_pos.promoted.i17 = load i32, ptr @in_pos, align 4, !tbaa !5
   %garbage_bits.promoted.i18 = load i32, ptr @garbage_bits, align 4, !tbaa !5
@@ -195,7 +195,7 @@ for.end.i:                                        ; preds = %for.cond.i
   br label %for.cond25.i
 
 for.cond25.i:                                     ; preds = %input_bit.exit.i35, %for.end.i
-  %add51.i49 = phi i64 [ %add51.i, %input_bit.exit.i35 ], [ %add51.i50, %for.end.i ]
+  %add51.i50 = phi i64 [ %add51.i, %input_bit.exit.i35 ], [ %add51.i51, %for.end.i ]
   %conv.i12.i = phi i32 [ %shr.i.i33, %input_bit.exit.i35 ], [ %buffer.promoted.i19, %for.end.i ]
   %add.i11.i = phi i32 [ %add.i10.i, %input_bit.exit.i35 ], [ %garbage_bits.promoted.i18, %for.end.i ]
   %inc.i9.i = phi i32 [ %inc.i8.i, %input_bit.exit.i35 ], [ %in_pos.promoted.i17, %for.end.i ]
@@ -217,13 +217,13 @@ if.else34.i:                                      ; preds = %if.else.i
 
 if.end45.sink.split.i:                            ; preds = %if.else34.i, %if.else.i
   %.sink = phi i64 [ -32768, %if.else.i ], [ -16384, %if.else34.i ]
-  %sub40.i = add nsw i64 %add51.i49, %.sink
+  %sub40.i = add nsw i64 %add51.i50, %.sink
   %sub32.i = add nsw i64 %.sink, %mul463.i
   %sub33.i = add nsw i64 %.sink, %add481.i
   br label %if.end45.i
 
 if.end45.i:                                       ; preds = %if.end45.sink.split.i, %for.cond25.i
-  %add515.i = phi i64 [ %add51.i49, %for.cond25.i ], [ %sub40.i, %if.end45.sink.split.i ]
+  %add515.i = phi i64 [ %add51.i50, %for.cond25.i ], [ %sub40.i, %if.end45.sink.split.i ]
   %mul464.i = phi i64 [ %mul463.i, %for.cond25.i ], [ %sub32.i, %if.end45.sink.split.i ]
   %add482.i = phi i64 [ %add481.i, %for.cond25.i ], [ %sub33.i, %if.end45.sink.split.i ]
   %mul46.i = shl nsw i64 %mul464.i, 1
@@ -313,19 +313,19 @@ if.end.i:                                         ; preds = %for.body.i43, %if.e
   br label %for.cond9.i
 
 for.cond9.i:                                      ; preds = %for.cond9.i, %if.end.i
-  %indvar82 = phi i32 [ %indvar.next83, %for.cond9.i ], [ 0, %if.end.i ]
+  %indvar83 = phi i32 [ %indvar.next84, %for.cond9.i ], [ 0, %if.end.i ]
   %indvars.iv74.i = phi i64 [ %indvars.iv.next75.i, %for.cond9.i ], [ %idxprom, %if.end.i ]
   %indvars.iv.next75.i = add i64 %indvars.iv74.i, -1
   %arrayidx13.i = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %indvars.iv.next75.i
   %47 = load i32, ptr %arrayidx13.i, align 4, !tbaa !5
   %cmp14.i = icmp eq i32 %.pre.i, %47
-  %indvar.next83 = add i32 %indvar82, 1
+  %indvar.next84 = add i32 %indvar83, 1
   br i1 %cmp14.i, label %for.cond9.i, label %for.end18.i, !llvm.loop !20
 
 for.end18.i:                                      ; preds = %for.cond9.i
-  %indvars60.le = trunc i64 %indvars.iv74.i to i32
+  %indvars61.le = trunc i64 %indvars.iv74.i to i32
   %arrayidx11.le.i = getelementptr inbounds [258 x i32], ptr @freq, i64 0, i64 %indvars.iv74.i
-  %cmp19.i = icmp slt i32 %indvars60.le, %41
+  %cmp19.i = icmp slt i32 %indvars61.le, %41
   br i1 %cmp19.i, label %if.then20.i, label %if.end36.i
 
 if.then20.i:                                      ; preds = %for.end18.i
@@ -339,55 +339,55 @@ if.then20.i:                                      ; preds = %for.end18.i
   store i32 %41, ptr %arrayidx33.i, align 4, !tbaa !5
   %idxprom34.i = zext i8 %49 to i64
   %arrayidx35.i = getelementptr inbounds [256 x i32], ptr @char_to_index, i64 0, i64 %idxprom34.i
-  store i32 %indvars60.le, ptr %arrayidx35.i, align 4, !tbaa !5
+  store i32 %indvars61.le, ptr %arrayidx35.i, align 4, !tbaa !5
   br label %if.end36.i
 
 if.end36.i:                                       ; preds = %if.then20.i, %for.end18.i
   %add39.i = add nsw i32 %.pre.i, 1
   store i32 %add39.i, ptr %arrayidx11.le.i, align 4, !tbaa !5
-  %cmp4071.i = icmp sgt i32 %indvars60.le, 0
+  %cmp4071.i = icmp sgt i32 %indvars61.le, 0
   br i1 %cmp4071.i, label %while.body.preheader.i, label %for.cond.backedge
 
 while.body.preheader.i:                           ; preds = %if.end36.i
   %50 = and i64 %indvars.iv74.i, 4294967295
-  %51 = sub i32 %indvar, %indvar82
+  %51 = sub i32 %indvar, %indvar83
   %52 = zext i32 %51 to i64
   %53 = add nuw nsw i64 %52, 1
   %min.iters.check = icmp ult i32 %51, 15
-  br i1 %min.iters.check, label %while.body.i.preheader, label %vector.ph88
+  br i1 %min.iters.check, label %while.body.i.preheader, label %vector.ph89
 
-vector.ph88:                                      ; preds = %while.body.preheader.i
+vector.ph89:                                      ; preds = %while.body.preheader.i
   %n.vec = and i64 %53, -8
   %ind.end = sub nsw i64 %50, %n.vec
-  br label %vector.body91
+  br label %vector.body92
 
-vector.body91:                                    ; preds = %vector.body91, %vector.ph88
-  %index92 = phi i64 [ 0, %vector.ph88 ], [ %index.next97, %vector.body91 ]
-  %54 = xor i64 %index92, -1
+vector.body92:                                    ; preds = %vector.body92, %vector.ph89
+  %index93 = phi i64 [ 0, %vector.ph89 ], [ %index.next98, %vector.body92 ]
+  %54 = xor i64 %index93, -1
   %55 = add i64 %indvars.iv74.i, %54
   %56 = and i64 %55, 4294967295
   %57 = getelementptr inbounds [258 x i32], ptr @cum_freq, i64 0, i64 %56
   %58 = getelementptr inbounds i32, ptr %57, i64 -3
   %wide.load = load <4 x i32>, ptr %58, align 4, !tbaa !5
   %59 = getelementptr inbounds i32, ptr %57, i64 -7
-  %wide.load93 = load <4 x i32>, ptr %59, align 4, !tbaa !5
+  %wide.load94 = load <4 x i32>, ptr %59, align 4, !tbaa !5
   %60 = add nsw <4 x i32> %wide.load, <i32 1, i32 1, i32 1, i32 1>
-  %61 = add nsw <4 x i32> %wide.load93, <i32 1, i32 1, i32 1, i32 1>
+  %61 = add nsw <4 x i32> %wide.load94, <i32 1, i32 1, i32 1, i32 1>
   store <4 x i32> %60, ptr %58, align 4, !tbaa !5
   store <4 x i32> %61, ptr %59, align 4, !tbaa !5
-  %index.next97 = add nuw i64 %index92, 8
-  %62 = icmp eq i64 %index.next97, %n.vec
-  br i1 %62, label %middle.block86, label %vector.body91, !llvm.loop !21
+  %index.next98 = add nuw i64 %index93, 8
+  %62 = icmp eq i64 %index.next98, %n.vec
+  br i1 %62, label %middle.block87, label %vector.body92, !llvm.loop !21
 
-middle.block86:                                   ; preds = %vector.body91
-  %cmp.n90 = icmp eq i64 %53, %n.vec
-  br i1 %cmp.n90, label %for.cond.backedge, label %while.body.i.preheader
+middle.block87:                                   ; preds = %vector.body92
+  %cmp.n91 = icmp eq i64 %53, %n.vec
+  br i1 %cmp.n91, label %for.cond.backedge, label %while.body.i.preheader
 
-for.cond.backedge:                                ; preds = %while.body.i, %middle.block86, %if.end36.i
+for.cond.backedge:                                ; preds = %while.body.i, %middle.block87, %if.end36.i
   br label %for.cond
 
-while.body.i.preheader:                           ; preds = %while.body.preheader.i, %middle.block86
-  %indvars.iv79.i.ph = phi i64 [ %50, %while.body.preheader.i ], [ %ind.end, %middle.block86 ]
+while.body.i.preheader:                           ; preds = %while.body.preheader.i, %middle.block87
+  %indvars.iv79.i.ph = phi i64 [ %50, %while.body.preheader.i ], [ %ind.end, %middle.block87 ]
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.preheader, %while.body.i

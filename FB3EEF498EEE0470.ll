@@ -469,8 +469,8 @@ entry:
   %6 = load i8, ptr %arrayidx1.6.i, align 1, !tbaa !9
   %conv.6.i = sext i8 %6 to i32
   %add.6.i = add nsw i32 %add.5.i, %conv.6.i
-  %cmp2.i.not = icmp eq i32 %add.6.i, 42
-  br i1 %cmp2.i.not, label %cleanup, label %for.cond1.preheader.preheader
+  %cmp2.i = icmp eq i32 %add.6.i, 42
+  br i1 %cmp2.i, label %cleanup, label %for.cond1.preheader.preheader
 
 for.cond1.preheader.preheader:                    ; preds = %entry
   %7 = load i8, ptr %b, align 1, !tbaa !9
@@ -485,202 +485,202 @@ for.cond1.preheader.preheader:                    ; preds = %entry
   %9 = load i8, ptr %arrayidx5.2, align 1, !tbaa !9
   %cmp7.2 = icmp eq i8 %9, 111
   %or.2 = select i1 %cmp7.2, i64 4, i64 0
-  %temp_board.2.2 = or i64 %or.2, %temp_board.2.1
+  %temp_board.2.2 = or i64 %temp_board.2.1, %or.2
   %arrayidx5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 0
   %10 = load i8, ptr %arrayidx5.3, align 1, !tbaa !9
   %cmp7.3 = icmp eq i8 %10, 111
   %or.3 = select i1 %cmp7.3, i64 8, i64 0
-  %temp_board.2.3 = or i64 %or.3, %temp_board.2.2
+  %temp_board.2.3 = or i64 %temp_board.2.2, %or.3
   %arrayidx5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 0
   %11 = load i8, ptr %arrayidx5.4, align 1, !tbaa !9
   %cmp7.4 = icmp eq i8 %11, 111
   %or.4 = select i1 %cmp7.4, i64 16, i64 0
-  %temp_board.2.4 = or i64 %or.4, %temp_board.2.3
+  %temp_board.2.4 = or i64 %temp_board.2.3, %or.4
   %arrayidx5.5 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 0
   %12 = load i8, ptr %arrayidx5.5, align 1, !tbaa !9
   %cmp7.5 = icmp eq i8 %12, 111
   %or.5 = select i1 %cmp7.5, i64 32, i64 0
-  %temp_board.2.5 = or i64 %or.5, %temp_board.2.4
+  %temp_board.2.5 = or i64 %temp_board.2.4, %or.5
   %arrayidx5.6 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 0
   %13 = load i8, ptr %arrayidx5.6, align 1, !tbaa !9
   %cmp7.6 = icmp eq i8 %13, 111
   %or.6 = select i1 %cmp7.6, i64 64, i64 0
-  %temp_board.2.6 = or i64 %or.6, %temp_board.2.5
+  %temp_board.2.6 = or i64 %temp_board.2.5, %or.6
   %arrayidx5.1176 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 1
   %14 = load i8, ptr %arrayidx5.1176, align 1, !tbaa !9
   %cmp7.1177 = icmp eq i8 %14, 111
   %or.1179 = select i1 %cmp7.1177, i64 128, i64 0
-  %temp_board.2.1180 = or i64 %or.1179, %temp_board.2.6
+  %temp_board.2.1180 = or i64 %temp_board.2.6, %or.1179
   %arrayidx5.1.1 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 1
   %15 = load i8, ptr %arrayidx5.1.1, align 1, !tbaa !9
   %cmp7.1.1 = icmp eq i8 %15, 111
   %or.1.1 = select i1 %cmp7.1.1, i64 256, i64 0
-  %temp_board.2.1.1 = or i64 %or.1.1, %temp_board.2.1180
+  %temp_board.2.1.1 = or i64 %temp_board.2.1180, %or.1.1
   %arrayidx5.2.1 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 1
   %16 = load i8, ptr %arrayidx5.2.1, align 1, !tbaa !9
   %cmp7.2.1 = icmp eq i8 %16, 111
   %or.2.1 = select i1 %cmp7.2.1, i64 512, i64 0
-  %temp_board.2.2.1 = or i64 %or.2.1, %temp_board.2.1.1
+  %temp_board.2.2.1 = or i64 %temp_board.2.1.1, %or.2.1
   %arrayidx5.3.1 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 1
   %17 = load i8, ptr %arrayidx5.3.1, align 1, !tbaa !9
   %cmp7.3.1 = icmp eq i8 %17, 111
   %or.3.1 = select i1 %cmp7.3.1, i64 1024, i64 0
-  %temp_board.2.3.1 = or i64 %or.3.1, %temp_board.2.2.1
+  %temp_board.2.3.1 = or i64 %temp_board.2.2.1, %or.3.1
   %arrayidx5.4.1 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 1
   %18 = load i8, ptr %arrayidx5.4.1, align 1, !tbaa !9
   %cmp7.4.1 = icmp eq i8 %18, 111
   %or.4.1 = select i1 %cmp7.4.1, i64 2048, i64 0
-  %temp_board.2.4.1 = or i64 %or.4.1, %temp_board.2.3.1
+  %temp_board.2.4.1 = or i64 %temp_board.2.3.1, %or.4.1
   %arrayidx5.5.1 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 1
   %19 = load i8, ptr %arrayidx5.5.1, align 1, !tbaa !9
   %cmp7.5.1 = icmp eq i8 %19, 111
   %or.5.1 = select i1 %cmp7.5.1, i64 4096, i64 0
-  %temp_board.2.5.1 = or i64 %or.5.1, %temp_board.2.4.1
+  %temp_board.2.5.1 = or i64 %temp_board.2.4.1, %or.5.1
   %arrayidx5.6.1 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 1
   %20 = load i8, ptr %arrayidx5.6.1, align 1, !tbaa !9
   %cmp7.6.1 = icmp eq i8 %20, 111
   %or.6.1 = select i1 %cmp7.6.1, i64 8192, i64 0
-  %temp_board.2.6.1 = or i64 %or.6.1, %temp_board.2.5.1
+  %temp_board.2.6.1 = or i64 %temp_board.2.5.1, %or.6.1
   %arrayidx5.2181 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 2
   %21 = load i8, ptr %arrayidx5.2181, align 1, !tbaa !9
   %cmp7.2182 = icmp eq i8 %21, 111
   %or.2184 = select i1 %cmp7.2182, i64 16384, i64 0
-  %temp_board.2.2185 = or i64 %or.2184, %temp_board.2.6.1
+  %temp_board.2.2185 = or i64 %temp_board.2.6.1, %or.2184
   %arrayidx5.1.2 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 2
   %22 = load i8, ptr %arrayidx5.1.2, align 1, !tbaa !9
   %cmp7.1.2 = icmp eq i8 %22, 111
   %or.1.2 = select i1 %cmp7.1.2, i64 32768, i64 0
-  %temp_board.2.1.2 = or i64 %or.1.2, %temp_board.2.2185
+  %temp_board.2.1.2 = or i64 %temp_board.2.2185, %or.1.2
   %arrayidx5.2.2 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 2
   %23 = load i8, ptr %arrayidx5.2.2, align 1, !tbaa !9
   %cmp7.2.2 = icmp eq i8 %23, 111
   %or.2.2 = select i1 %cmp7.2.2, i64 65536, i64 0
-  %temp_board.2.2.2 = or i64 %or.2.2, %temp_board.2.1.2
+  %temp_board.2.2.2 = or i64 %temp_board.2.1.2, %or.2.2
   %arrayidx5.3.2 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 2
   %24 = load i8, ptr %arrayidx5.3.2, align 1, !tbaa !9
   %cmp7.3.2 = icmp eq i8 %24, 111
   %or.3.2 = select i1 %cmp7.3.2, i64 131072, i64 0
-  %temp_board.2.3.2 = or i64 %or.3.2, %temp_board.2.2.2
+  %temp_board.2.3.2 = or i64 %temp_board.2.2.2, %or.3.2
   %arrayidx5.4.2 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 2
   %25 = load i8, ptr %arrayidx5.4.2, align 1, !tbaa !9
   %cmp7.4.2 = icmp eq i8 %25, 111
   %or.4.2 = select i1 %cmp7.4.2, i64 262144, i64 0
-  %temp_board.2.4.2 = or i64 %or.4.2, %temp_board.2.3.2
+  %temp_board.2.4.2 = or i64 %temp_board.2.3.2, %or.4.2
   %arrayidx5.5.2 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 2
   %26 = load i8, ptr %arrayidx5.5.2, align 1, !tbaa !9
   %cmp7.5.2 = icmp eq i8 %26, 111
   %or.5.2 = select i1 %cmp7.5.2, i64 524288, i64 0
-  %temp_board.2.5.2 = or i64 %or.5.2, %temp_board.2.4.2
+  %temp_board.2.5.2 = or i64 %temp_board.2.4.2, %or.5.2
   %arrayidx5.6.2 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 2
   %27 = load i8, ptr %arrayidx5.6.2, align 1, !tbaa !9
   %cmp7.6.2 = icmp eq i8 %27, 111
   %or.6.2 = select i1 %cmp7.6.2, i64 1048576, i64 0
-  %temp_board.2.6.2 = or i64 %or.6.2, %temp_board.2.5.2
+  %temp_board.2.6.2 = or i64 %temp_board.2.5.2, %or.6.2
   %arrayidx5.3186 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 3
   %28 = load i8, ptr %arrayidx5.3186, align 1, !tbaa !9
   %cmp7.3187 = icmp eq i8 %28, 111
   %or.3189 = select i1 %cmp7.3187, i64 2097152, i64 0
-  %temp_board.2.3190 = or i64 %or.3189, %temp_board.2.6.2
+  %temp_board.2.3190 = or i64 %temp_board.2.6.2, %or.3189
   %arrayidx5.1.3 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 3
   %29 = load i8, ptr %arrayidx5.1.3, align 1, !tbaa !9
   %cmp7.1.3 = icmp eq i8 %29, 111
   %or.1.3 = select i1 %cmp7.1.3, i64 4194304, i64 0
-  %temp_board.2.1.3 = or i64 %or.1.3, %temp_board.2.3190
+  %temp_board.2.1.3 = or i64 %temp_board.2.3190, %or.1.3
   %arrayidx5.2.3 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 3
   %30 = load i8, ptr %arrayidx5.2.3, align 1, !tbaa !9
   %cmp7.2.3 = icmp eq i8 %30, 111
   %or.2.3 = select i1 %cmp7.2.3, i64 8388608, i64 0
-  %temp_board.2.2.3 = or i64 %or.2.3, %temp_board.2.1.3
+  %temp_board.2.2.3 = or i64 %temp_board.2.1.3, %or.2.3
   %arrayidx5.3.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 3
   %31 = load i8, ptr %arrayidx5.3.3, align 1, !tbaa !9
   %cmp7.3.3 = icmp eq i8 %31, 111
   %or.3.3 = select i1 %cmp7.3.3, i64 16777216, i64 0
-  %temp_board.2.3.3 = or i64 %or.3.3, %temp_board.2.2.3
+  %temp_board.2.3.3 = or i64 %temp_board.2.2.3, %or.3.3
   %arrayidx5.4.3 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 3
   %32 = load i8, ptr %arrayidx5.4.3, align 1, !tbaa !9
   %cmp7.4.3 = icmp eq i8 %32, 111
   %or.4.3 = select i1 %cmp7.4.3, i64 33554432, i64 0
-  %temp_board.2.4.3 = or i64 %or.4.3, %temp_board.2.3.3
+  %temp_board.2.4.3 = or i64 %temp_board.2.3.3, %or.4.3
   %arrayidx5.5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 3
   %33 = load i8, ptr %arrayidx5.5.3, align 1, !tbaa !9
   %cmp7.5.3 = icmp eq i8 %33, 111
   %or.5.3 = select i1 %cmp7.5.3, i64 67108864, i64 0
-  %temp_board.2.5.3 = or i64 %or.5.3, %temp_board.2.4.3
+  %temp_board.2.5.3 = or i64 %temp_board.2.4.3, %or.5.3
   %arrayidx5.6.3 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 3
   %34 = load i8, ptr %arrayidx5.6.3, align 1, !tbaa !9
   %cmp7.6.3 = icmp eq i8 %34, 111
   %or.6.3 = select i1 %cmp7.6.3, i64 134217728, i64 0
-  %temp_board.2.6.3 = or i64 %or.6.3, %temp_board.2.5.3
+  %temp_board.2.6.3 = or i64 %temp_board.2.5.3, %or.6.3
   %arrayidx5.4191 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 4
   %35 = load i8, ptr %arrayidx5.4191, align 1, !tbaa !9
   %cmp7.4192 = icmp eq i8 %35, 111
   %or.4194 = select i1 %cmp7.4192, i64 268435456, i64 0
-  %temp_board.2.4195 = or i64 %or.4194, %temp_board.2.6.3
+  %temp_board.2.4195 = or i64 %temp_board.2.6.3, %or.4194
   %arrayidx5.1.4 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 4
   %36 = load i8, ptr %arrayidx5.1.4, align 1, !tbaa !9
   %cmp7.1.4 = icmp eq i8 %36, 111
   %or.1.4 = select i1 %cmp7.1.4, i64 536870912, i64 0
-  %temp_board.2.1.4 = or i64 %or.1.4, %temp_board.2.4195
+  %temp_board.2.1.4 = or i64 %temp_board.2.4195, %or.1.4
   %arrayidx5.2.4 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 4
   %37 = load i8, ptr %arrayidx5.2.4, align 1, !tbaa !9
   %cmp7.2.4 = icmp eq i8 %37, 111
   %or.2.4 = select i1 %cmp7.2.4, i64 1073741824, i64 0
-  %temp_board.2.2.4 = or i64 %or.2.4, %temp_board.2.1.4
+  %temp_board.2.2.4 = or i64 %temp_board.2.1.4, %or.2.4
   %arrayidx5.3.4 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 4
   %38 = load i8, ptr %arrayidx5.3.4, align 1, !tbaa !9
   %cmp7.3.4 = icmp eq i8 %38, 111
   %or.3.4 = select i1 %cmp7.3.4, i64 2147483648, i64 0
-  %temp_board.2.3.4 = or i64 %or.3.4, %temp_board.2.2.4
+  %temp_board.2.3.4 = or i64 %temp_board.2.2.4, %or.3.4
   %arrayidx5.4.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 4
   %39 = load i8, ptr %arrayidx5.4.4, align 1, !tbaa !9
   %cmp7.4.4 = icmp eq i8 %39, 111
   %or.4.4 = select i1 %cmp7.4.4, i64 4294967296, i64 0
-  %temp_board.2.4.4 = or i64 %or.4.4, %temp_board.2.3.4
+  %temp_board.2.4.4 = or i64 %temp_board.2.3.4, %or.4.4
   %arrayidx5.5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 4
   %40 = load i8, ptr %arrayidx5.5.4, align 1, !tbaa !9
   %cmp7.5.4 = icmp eq i8 %40, 111
   %or.5.4 = select i1 %cmp7.5.4, i64 8589934592, i64 0
-  %temp_board.2.5.4 = or i64 %or.5.4, %temp_board.2.4.4
+  %temp_board.2.5.4 = or i64 %temp_board.2.4.4, %or.5.4
   %arrayidx5.6.4 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 4
   %41 = load i8, ptr %arrayidx5.6.4, align 1, !tbaa !9
   %cmp7.6.4 = icmp eq i8 %41, 111
   %or.6.4 = select i1 %cmp7.6.4, i64 17179869184, i64 0
-  %temp_board.2.6.4 = or i64 %or.6.4, %temp_board.2.5.4
+  %temp_board.2.6.4 = or i64 %temp_board.2.5.4, %or.6.4
   %arrayidx5.5196 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 5
   %42 = load i8, ptr %arrayidx5.5196, align 1, !tbaa !9
   %cmp7.5197 = icmp eq i8 %42, 111
   %or.5199 = select i1 %cmp7.5197, i64 34359738368, i64 0
-  %temp_board.2.5200 = or i64 %or.5199, %temp_board.2.6.4
+  %temp_board.2.5200 = or i64 %temp_board.2.6.4, %or.5199
   %arrayidx5.1.5 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 5
   %43 = load i8, ptr %arrayidx5.1.5, align 1, !tbaa !9
   %cmp7.1.5 = icmp eq i8 %43, 111
   %or.1.5 = select i1 %cmp7.1.5, i64 68719476736, i64 0
-  %temp_board.2.1.5 = or i64 %or.1.5, %temp_board.2.5200
+  %temp_board.2.1.5 = or i64 %temp_board.2.5200, %or.1.5
   %arrayidx5.2.5 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 5
   %44 = load i8, ptr %arrayidx5.2.5, align 1, !tbaa !9
   %cmp7.2.5 = icmp eq i8 %44, 111
   %or.2.5 = select i1 %cmp7.2.5, i64 137438953472, i64 0
-  %temp_board.2.2.5 = or i64 %or.2.5, %temp_board.2.1.5
+  %temp_board.2.2.5 = or i64 %temp_board.2.1.5, %or.2.5
   %arrayidx5.3.5 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 5
   %45 = load i8, ptr %arrayidx5.3.5, align 1, !tbaa !9
   %cmp7.3.5 = icmp eq i8 %45, 111
   %or.3.5 = select i1 %cmp7.3.5, i64 274877906944, i64 0
-  %temp_board.2.3.5 = or i64 %or.3.5, %temp_board.2.2.5
+  %temp_board.2.3.5 = or i64 %temp_board.2.2.5, %or.3.5
   %arrayidx5.4.5 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 5
   %46 = load i8, ptr %arrayidx5.4.5, align 1, !tbaa !9
   %cmp7.4.5 = icmp eq i8 %46, 111
   %or.4.5 = select i1 %cmp7.4.5, i64 549755813888, i64 0
-  %temp_board.2.4.5 = or i64 %or.4.5, %temp_board.2.3.5
+  %temp_board.2.4.5 = or i64 %temp_board.2.3.5, %or.4.5
   %arrayidx5.5.5 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 5
   %47 = load i8, ptr %arrayidx5.5.5, align 1, !tbaa !9
   %cmp7.5.5 = icmp eq i8 %47, 111
   %or.5.5 = select i1 %cmp7.5.5, i64 1099511627776, i64 0
-  %temp_board.2.5.5 = or i64 %or.5.5, %temp_board.2.4.5
+  %temp_board.2.5.5 = or i64 %temp_board.2.4.5, %or.5.5
   %arrayidx5.6.5 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 5
   %48 = load i8, ptr %arrayidx5.6.5, align 1, !tbaa !9
   %cmp7.6.5 = icmp eq i8 %48, 111
   %or.6.5 = select i1 %cmp7.6.5, i64 2199023255552, i64 0
-  %temp_board.2.6.5 = or i64 %or.6.5, %temp_board.2.5.5
+  %temp_board.2.6.5 = or i64 %temp_board.2.5.5, %or.6.5
   %49 = load i64, ptr @C4VERT, align 8, !tbaa !5
   %and = and i64 %49, %temp_board.2.6.5
   %cmp22 = icmp eq i64 %and, %49
@@ -1132,8 +1132,8 @@ entry:
   %6 = load i8, ptr %arrayidx1.6.i, align 1, !tbaa !9
   %conv.6.i = sext i8 %6 to i32
   %add.6.i = add nsw i32 %add.5.i, %conv.6.i
-  %cmp2.i.not = icmp eq i32 %add.6.i, 42
-  br i1 %cmp2.i.not, label %cleanup, label %for.cond1.preheader.preheader
+  %cmp2.i = icmp eq i32 %add.6.i, 42
+  br i1 %cmp2.i, label %cleanup, label %for.cond1.preheader.preheader
 
 for.cond1.preheader.preheader:                    ; preds = %entry
   %7 = load i8, ptr %b, align 1, !tbaa !9
@@ -1148,202 +1148,202 @@ for.cond1.preheader.preheader:                    ; preds = %entry
   %9 = load i8, ptr %arrayidx5.2, align 1, !tbaa !9
   %cmp7.2 = icmp eq i8 %9, 120
   %or.2 = select i1 %cmp7.2, i64 4, i64 0
-  %temp_board.2.2 = or i64 %or.2, %temp_board.2.1
+  %temp_board.2.2 = or i64 %temp_board.2.1, %or.2
   %arrayidx5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 0
   %10 = load i8, ptr %arrayidx5.3, align 1, !tbaa !9
   %cmp7.3 = icmp eq i8 %10, 120
   %or.3 = select i1 %cmp7.3, i64 8, i64 0
-  %temp_board.2.3 = or i64 %or.3, %temp_board.2.2
+  %temp_board.2.3 = or i64 %temp_board.2.2, %or.3
   %arrayidx5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 0
   %11 = load i8, ptr %arrayidx5.4, align 1, !tbaa !9
   %cmp7.4 = icmp eq i8 %11, 120
   %or.4 = select i1 %cmp7.4, i64 16, i64 0
-  %temp_board.2.4 = or i64 %or.4, %temp_board.2.3
+  %temp_board.2.4 = or i64 %temp_board.2.3, %or.4
   %arrayidx5.5 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 0
   %12 = load i8, ptr %arrayidx5.5, align 1, !tbaa !9
   %cmp7.5 = icmp eq i8 %12, 120
   %or.5 = select i1 %cmp7.5, i64 32, i64 0
-  %temp_board.2.5 = or i64 %or.5, %temp_board.2.4
+  %temp_board.2.5 = or i64 %temp_board.2.4, %or.5
   %arrayidx5.6 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 0
   %13 = load i8, ptr %arrayidx5.6, align 1, !tbaa !9
   %cmp7.6 = icmp eq i8 %13, 120
   %or.6 = select i1 %cmp7.6, i64 64, i64 0
-  %temp_board.2.6 = or i64 %or.6, %temp_board.2.5
+  %temp_board.2.6 = or i64 %temp_board.2.5, %or.6
   %arrayidx5.1176 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 1
   %14 = load i8, ptr %arrayidx5.1176, align 1, !tbaa !9
   %cmp7.1177 = icmp eq i8 %14, 120
   %or.1179 = select i1 %cmp7.1177, i64 128, i64 0
-  %temp_board.2.1180 = or i64 %or.1179, %temp_board.2.6
+  %temp_board.2.1180 = or i64 %temp_board.2.6, %or.1179
   %arrayidx5.1.1 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 1
   %15 = load i8, ptr %arrayidx5.1.1, align 1, !tbaa !9
   %cmp7.1.1 = icmp eq i8 %15, 120
   %or.1.1 = select i1 %cmp7.1.1, i64 256, i64 0
-  %temp_board.2.1.1 = or i64 %or.1.1, %temp_board.2.1180
+  %temp_board.2.1.1 = or i64 %temp_board.2.1180, %or.1.1
   %arrayidx5.2.1 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 1
   %16 = load i8, ptr %arrayidx5.2.1, align 1, !tbaa !9
   %cmp7.2.1 = icmp eq i8 %16, 120
   %or.2.1 = select i1 %cmp7.2.1, i64 512, i64 0
-  %temp_board.2.2.1 = or i64 %or.2.1, %temp_board.2.1.1
+  %temp_board.2.2.1 = or i64 %temp_board.2.1.1, %or.2.1
   %arrayidx5.3.1 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 1
   %17 = load i8, ptr %arrayidx5.3.1, align 1, !tbaa !9
   %cmp7.3.1 = icmp eq i8 %17, 120
   %or.3.1 = select i1 %cmp7.3.1, i64 1024, i64 0
-  %temp_board.2.3.1 = or i64 %or.3.1, %temp_board.2.2.1
+  %temp_board.2.3.1 = or i64 %temp_board.2.2.1, %or.3.1
   %arrayidx5.4.1 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 1
   %18 = load i8, ptr %arrayidx5.4.1, align 1, !tbaa !9
   %cmp7.4.1 = icmp eq i8 %18, 120
   %or.4.1 = select i1 %cmp7.4.1, i64 2048, i64 0
-  %temp_board.2.4.1 = or i64 %or.4.1, %temp_board.2.3.1
+  %temp_board.2.4.1 = or i64 %temp_board.2.3.1, %or.4.1
   %arrayidx5.5.1 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 1
   %19 = load i8, ptr %arrayidx5.5.1, align 1, !tbaa !9
   %cmp7.5.1 = icmp eq i8 %19, 120
   %or.5.1 = select i1 %cmp7.5.1, i64 4096, i64 0
-  %temp_board.2.5.1 = or i64 %or.5.1, %temp_board.2.4.1
+  %temp_board.2.5.1 = or i64 %temp_board.2.4.1, %or.5.1
   %arrayidx5.6.1 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 1
   %20 = load i8, ptr %arrayidx5.6.1, align 1, !tbaa !9
   %cmp7.6.1 = icmp eq i8 %20, 120
   %or.6.1 = select i1 %cmp7.6.1, i64 8192, i64 0
-  %temp_board.2.6.1 = or i64 %or.6.1, %temp_board.2.5.1
+  %temp_board.2.6.1 = or i64 %temp_board.2.5.1, %or.6.1
   %arrayidx5.2181 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 2
   %21 = load i8, ptr %arrayidx5.2181, align 1, !tbaa !9
   %cmp7.2182 = icmp eq i8 %21, 120
   %or.2184 = select i1 %cmp7.2182, i64 16384, i64 0
-  %temp_board.2.2185 = or i64 %or.2184, %temp_board.2.6.1
+  %temp_board.2.2185 = or i64 %temp_board.2.6.1, %or.2184
   %arrayidx5.1.2 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 2
   %22 = load i8, ptr %arrayidx5.1.2, align 1, !tbaa !9
   %cmp7.1.2 = icmp eq i8 %22, 120
   %or.1.2 = select i1 %cmp7.1.2, i64 32768, i64 0
-  %temp_board.2.1.2 = or i64 %or.1.2, %temp_board.2.2185
+  %temp_board.2.1.2 = or i64 %temp_board.2.2185, %or.1.2
   %arrayidx5.2.2 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 2
   %23 = load i8, ptr %arrayidx5.2.2, align 1, !tbaa !9
   %cmp7.2.2 = icmp eq i8 %23, 120
   %or.2.2 = select i1 %cmp7.2.2, i64 65536, i64 0
-  %temp_board.2.2.2 = or i64 %or.2.2, %temp_board.2.1.2
+  %temp_board.2.2.2 = or i64 %temp_board.2.1.2, %or.2.2
   %arrayidx5.3.2 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 2
   %24 = load i8, ptr %arrayidx5.3.2, align 1, !tbaa !9
   %cmp7.3.2 = icmp eq i8 %24, 120
   %or.3.2 = select i1 %cmp7.3.2, i64 131072, i64 0
-  %temp_board.2.3.2 = or i64 %or.3.2, %temp_board.2.2.2
+  %temp_board.2.3.2 = or i64 %temp_board.2.2.2, %or.3.2
   %arrayidx5.4.2 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 2
   %25 = load i8, ptr %arrayidx5.4.2, align 1, !tbaa !9
   %cmp7.4.2 = icmp eq i8 %25, 120
   %or.4.2 = select i1 %cmp7.4.2, i64 262144, i64 0
-  %temp_board.2.4.2 = or i64 %or.4.2, %temp_board.2.3.2
+  %temp_board.2.4.2 = or i64 %temp_board.2.3.2, %or.4.2
   %arrayidx5.5.2 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 2
   %26 = load i8, ptr %arrayidx5.5.2, align 1, !tbaa !9
   %cmp7.5.2 = icmp eq i8 %26, 120
   %or.5.2 = select i1 %cmp7.5.2, i64 524288, i64 0
-  %temp_board.2.5.2 = or i64 %or.5.2, %temp_board.2.4.2
+  %temp_board.2.5.2 = or i64 %temp_board.2.4.2, %or.5.2
   %arrayidx5.6.2 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 2
   %27 = load i8, ptr %arrayidx5.6.2, align 1, !tbaa !9
   %cmp7.6.2 = icmp eq i8 %27, 120
   %or.6.2 = select i1 %cmp7.6.2, i64 1048576, i64 0
-  %temp_board.2.6.2 = or i64 %or.6.2, %temp_board.2.5.2
+  %temp_board.2.6.2 = or i64 %temp_board.2.5.2, %or.6.2
   %arrayidx5.3186 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 3
   %28 = load i8, ptr %arrayidx5.3186, align 1, !tbaa !9
   %cmp7.3187 = icmp eq i8 %28, 120
   %or.3189 = select i1 %cmp7.3187, i64 2097152, i64 0
-  %temp_board.2.3190 = or i64 %or.3189, %temp_board.2.6.2
+  %temp_board.2.3190 = or i64 %temp_board.2.6.2, %or.3189
   %arrayidx5.1.3 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 3
   %29 = load i8, ptr %arrayidx5.1.3, align 1, !tbaa !9
   %cmp7.1.3 = icmp eq i8 %29, 120
   %or.1.3 = select i1 %cmp7.1.3, i64 4194304, i64 0
-  %temp_board.2.1.3 = or i64 %or.1.3, %temp_board.2.3190
+  %temp_board.2.1.3 = or i64 %temp_board.2.3190, %or.1.3
   %arrayidx5.2.3 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 3
   %30 = load i8, ptr %arrayidx5.2.3, align 1, !tbaa !9
   %cmp7.2.3 = icmp eq i8 %30, 120
   %or.2.3 = select i1 %cmp7.2.3, i64 8388608, i64 0
-  %temp_board.2.2.3 = or i64 %or.2.3, %temp_board.2.1.3
+  %temp_board.2.2.3 = or i64 %temp_board.2.1.3, %or.2.3
   %arrayidx5.3.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 3
   %31 = load i8, ptr %arrayidx5.3.3, align 1, !tbaa !9
   %cmp7.3.3 = icmp eq i8 %31, 120
   %or.3.3 = select i1 %cmp7.3.3, i64 16777216, i64 0
-  %temp_board.2.3.3 = or i64 %or.3.3, %temp_board.2.2.3
+  %temp_board.2.3.3 = or i64 %temp_board.2.2.3, %or.3.3
   %arrayidx5.4.3 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 3
   %32 = load i8, ptr %arrayidx5.4.3, align 1, !tbaa !9
   %cmp7.4.3 = icmp eq i8 %32, 120
   %or.4.3 = select i1 %cmp7.4.3, i64 33554432, i64 0
-  %temp_board.2.4.3 = or i64 %or.4.3, %temp_board.2.3.3
+  %temp_board.2.4.3 = or i64 %temp_board.2.3.3, %or.4.3
   %arrayidx5.5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 3
   %33 = load i8, ptr %arrayidx5.5.3, align 1, !tbaa !9
   %cmp7.5.3 = icmp eq i8 %33, 120
   %or.5.3 = select i1 %cmp7.5.3, i64 67108864, i64 0
-  %temp_board.2.5.3 = or i64 %or.5.3, %temp_board.2.4.3
+  %temp_board.2.5.3 = or i64 %temp_board.2.4.3, %or.5.3
   %arrayidx5.6.3 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 3
   %34 = load i8, ptr %arrayidx5.6.3, align 1, !tbaa !9
   %cmp7.6.3 = icmp eq i8 %34, 120
   %or.6.3 = select i1 %cmp7.6.3, i64 134217728, i64 0
-  %temp_board.2.6.3 = or i64 %or.6.3, %temp_board.2.5.3
+  %temp_board.2.6.3 = or i64 %temp_board.2.5.3, %or.6.3
   %arrayidx5.4191 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 4
   %35 = load i8, ptr %arrayidx5.4191, align 1, !tbaa !9
   %cmp7.4192 = icmp eq i8 %35, 120
   %or.4194 = select i1 %cmp7.4192, i64 268435456, i64 0
-  %temp_board.2.4195 = or i64 %or.4194, %temp_board.2.6.3
+  %temp_board.2.4195 = or i64 %temp_board.2.6.3, %or.4194
   %arrayidx5.1.4 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 4
   %36 = load i8, ptr %arrayidx5.1.4, align 1, !tbaa !9
   %cmp7.1.4 = icmp eq i8 %36, 120
   %or.1.4 = select i1 %cmp7.1.4, i64 536870912, i64 0
-  %temp_board.2.1.4 = or i64 %or.1.4, %temp_board.2.4195
+  %temp_board.2.1.4 = or i64 %temp_board.2.4195, %or.1.4
   %arrayidx5.2.4 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 4
   %37 = load i8, ptr %arrayidx5.2.4, align 1, !tbaa !9
   %cmp7.2.4 = icmp eq i8 %37, 120
   %or.2.4 = select i1 %cmp7.2.4, i64 1073741824, i64 0
-  %temp_board.2.2.4 = or i64 %or.2.4, %temp_board.2.1.4
+  %temp_board.2.2.4 = or i64 %temp_board.2.1.4, %or.2.4
   %arrayidx5.3.4 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 4
   %38 = load i8, ptr %arrayidx5.3.4, align 1, !tbaa !9
   %cmp7.3.4 = icmp eq i8 %38, 120
   %or.3.4 = select i1 %cmp7.3.4, i64 2147483648, i64 0
-  %temp_board.2.3.4 = or i64 %or.3.4, %temp_board.2.2.4
+  %temp_board.2.3.4 = or i64 %temp_board.2.2.4, %or.3.4
   %arrayidx5.4.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 4
   %39 = load i8, ptr %arrayidx5.4.4, align 1, !tbaa !9
   %cmp7.4.4 = icmp eq i8 %39, 120
   %or.4.4 = select i1 %cmp7.4.4, i64 4294967296, i64 0
-  %temp_board.2.4.4 = or i64 %or.4.4, %temp_board.2.3.4
+  %temp_board.2.4.4 = or i64 %temp_board.2.3.4, %or.4.4
   %arrayidx5.5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 4
   %40 = load i8, ptr %arrayidx5.5.4, align 1, !tbaa !9
   %cmp7.5.4 = icmp eq i8 %40, 120
   %or.5.4 = select i1 %cmp7.5.4, i64 8589934592, i64 0
-  %temp_board.2.5.4 = or i64 %or.5.4, %temp_board.2.4.4
+  %temp_board.2.5.4 = or i64 %temp_board.2.4.4, %or.5.4
   %arrayidx5.6.4 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 4
   %41 = load i8, ptr %arrayidx5.6.4, align 1, !tbaa !9
   %cmp7.6.4 = icmp eq i8 %41, 120
   %or.6.4 = select i1 %cmp7.6.4, i64 17179869184, i64 0
-  %temp_board.2.6.4 = or i64 %or.6.4, %temp_board.2.5.4
+  %temp_board.2.6.4 = or i64 %temp_board.2.5.4, %or.6.4
   %arrayidx5.5196 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 5
   %42 = load i8, ptr %arrayidx5.5196, align 1, !tbaa !9
   %cmp7.5197 = icmp eq i8 %42, 120
   %or.5199 = select i1 %cmp7.5197, i64 34359738368, i64 0
-  %temp_board.2.5200 = or i64 %or.5199, %temp_board.2.6.4
+  %temp_board.2.5200 = or i64 %temp_board.2.6.4, %or.5199
   %arrayidx5.1.5 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 5
   %43 = load i8, ptr %arrayidx5.1.5, align 1, !tbaa !9
   %cmp7.1.5 = icmp eq i8 %43, 120
   %or.1.5 = select i1 %cmp7.1.5, i64 68719476736, i64 0
-  %temp_board.2.1.5 = or i64 %or.1.5, %temp_board.2.5200
+  %temp_board.2.1.5 = or i64 %temp_board.2.5200, %or.1.5
   %arrayidx5.2.5 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 5
   %44 = load i8, ptr %arrayidx5.2.5, align 1, !tbaa !9
   %cmp7.2.5 = icmp eq i8 %44, 120
   %or.2.5 = select i1 %cmp7.2.5, i64 137438953472, i64 0
-  %temp_board.2.2.5 = or i64 %or.2.5, %temp_board.2.1.5
+  %temp_board.2.2.5 = or i64 %temp_board.2.1.5, %or.2.5
   %arrayidx5.3.5 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 5
   %45 = load i8, ptr %arrayidx5.3.5, align 1, !tbaa !9
   %cmp7.3.5 = icmp eq i8 %45, 120
   %or.3.5 = select i1 %cmp7.3.5, i64 274877906944, i64 0
-  %temp_board.2.3.5 = or i64 %or.3.5, %temp_board.2.2.5
+  %temp_board.2.3.5 = or i64 %temp_board.2.2.5, %or.3.5
   %arrayidx5.4.5 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 5
   %46 = load i8, ptr %arrayidx5.4.5, align 1, !tbaa !9
   %cmp7.4.5 = icmp eq i8 %46, 120
   %or.4.5 = select i1 %cmp7.4.5, i64 549755813888, i64 0
-  %temp_board.2.4.5 = or i64 %or.4.5, %temp_board.2.3.5
+  %temp_board.2.4.5 = or i64 %temp_board.2.3.5, %or.4.5
   %arrayidx5.5.5 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 5
   %47 = load i8, ptr %arrayidx5.5.5, align 1, !tbaa !9
   %cmp7.5.5 = icmp eq i8 %47, 120
   %or.5.5 = select i1 %cmp7.5.5, i64 1099511627776, i64 0
-  %temp_board.2.5.5 = or i64 %or.5.5, %temp_board.2.4.5
+  %temp_board.2.5.5 = or i64 %temp_board.2.4.5, %or.5.5
   %arrayidx5.6.5 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 5
   %48 = load i8, ptr %arrayidx5.6.5, align 1, !tbaa !9
   %cmp7.6.5 = icmp eq i8 %48, 120
   %or.6.5 = select i1 %cmp7.6.5, i64 2199023255552, i64 0
-  %temp_board.2.6.5 = or i64 %or.6.5, %temp_board.2.5.5
+  %temp_board.2.6.5 = or i64 %temp_board.2.5.5, %or.6.5
   %49 = load i64, ptr @C4VERT, align 8, !tbaa !5
   %and = and i64 %49, %temp_board.2.6.5
   %cmp22 = icmp eq i64 %and, %49
@@ -3507,167 +3507,167 @@ entry:
   %2 = load i8, ptr %arrayidx5.2, align 1, !tbaa !9
   %cmp7.2 = icmp eq i8 %2, 111
   %or.2 = select i1 %cmp7.2, i64 4, i64 0
-  %b1.2.2 = or i64 %or.2, %b1.2.1
+  %b1.2.2 = or i64 %b1.2.1, %or.2
   %arrayidx5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 0
   %3 = load i8, ptr %arrayidx5.3, align 1, !tbaa !9
   %cmp7.3 = icmp eq i8 %3, 111
   %or.3 = select i1 %cmp7.3, i64 8, i64 0
-  %b1.2.3 = or i64 %or.3, %b1.2.2
+  %b1.2.3 = or i64 %b1.2.2, %or.3
   %arrayidx5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 0
   %4 = load i8, ptr %arrayidx5.4, align 1, !tbaa !9
   %cmp7.4 = icmp eq i8 %4, 111
   %or.4 = select i1 %cmp7.4, i64 16, i64 0
-  %b1.2.4 = or i64 %or.4, %b1.2.3
+  %b1.2.4 = or i64 %b1.2.3, %or.4
   %arrayidx5.5 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 0
   %5 = load i8, ptr %arrayidx5.5, align 1, !tbaa !9
   %cmp7.5 = icmp eq i8 %5, 111
   %or.5 = select i1 %cmp7.5, i64 32, i64 0
-  %b1.2.5 = or i64 %or.5, %b1.2.4
+  %b1.2.5 = or i64 %b1.2.4, %or.5
   %arrayidx5.6 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 0
   %6 = load i8, ptr %arrayidx5.6, align 1, !tbaa !9
   %cmp7.6 = icmp eq i8 %6, 111
   %or.6 = select i1 %cmp7.6, i64 64, i64 0
-  %b1.2.6 = or i64 %or.6, %b1.2.5
+  %b1.2.6 = or i64 %b1.2.5, %or.6
   %arrayidx5.1168 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 1
   %7 = load i8, ptr %arrayidx5.1168, align 1, !tbaa !9
   %cmp7.1169 = icmp eq i8 %7, 111
   %or.1171 = select i1 %cmp7.1169, i64 128, i64 0
-  %b1.2.1172 = or i64 %or.1171, %b1.2.6
+  %b1.2.1172 = or i64 %b1.2.6, %or.1171
   %arrayidx5.1.1 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 1
   %8 = load i8, ptr %arrayidx5.1.1, align 1, !tbaa !9
   %cmp7.1.1 = icmp eq i8 %8, 111
   %or.1.1 = select i1 %cmp7.1.1, i64 256, i64 0
-  %b1.2.1.1 = or i64 %or.1.1, %b1.2.1172
+  %b1.2.1.1 = or i64 %b1.2.1172, %or.1.1
   %arrayidx5.2.1 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 1
   %9 = load i8, ptr %arrayidx5.2.1, align 1, !tbaa !9
   %cmp7.2.1 = icmp eq i8 %9, 111
   %or.2.1 = select i1 %cmp7.2.1, i64 512, i64 0
-  %b1.2.2.1 = or i64 %or.2.1, %b1.2.1.1
+  %b1.2.2.1 = or i64 %b1.2.1.1, %or.2.1
   %arrayidx5.3.1 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 1
   %10 = load i8, ptr %arrayidx5.3.1, align 1, !tbaa !9
   %cmp7.3.1 = icmp eq i8 %10, 111
   %or.3.1 = select i1 %cmp7.3.1, i64 1024, i64 0
-  %b1.2.3.1 = or i64 %or.3.1, %b1.2.2.1
+  %b1.2.3.1 = or i64 %b1.2.2.1, %or.3.1
   %arrayidx5.4.1 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 1
   %11 = load i8, ptr %arrayidx5.4.1, align 1, !tbaa !9
   %cmp7.4.1 = icmp eq i8 %11, 111
   %or.4.1 = select i1 %cmp7.4.1, i64 2048, i64 0
-  %b1.2.4.1 = or i64 %or.4.1, %b1.2.3.1
+  %b1.2.4.1 = or i64 %b1.2.3.1, %or.4.1
   %arrayidx5.5.1 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 1
   %12 = load i8, ptr %arrayidx5.5.1, align 1, !tbaa !9
   %cmp7.5.1 = icmp eq i8 %12, 111
   %or.5.1 = select i1 %cmp7.5.1, i64 4096, i64 0
-  %b1.2.5.1 = or i64 %or.5.1, %b1.2.4.1
+  %b1.2.5.1 = or i64 %b1.2.4.1, %or.5.1
   %arrayidx5.6.1 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 1
   %13 = load i8, ptr %arrayidx5.6.1, align 1, !tbaa !9
   %cmp7.6.1 = icmp eq i8 %13, 111
   %or.6.1 = select i1 %cmp7.6.1, i64 8192, i64 0
-  %b1.2.6.1 = or i64 %or.6.1, %b1.2.5.1
+  %b1.2.6.1 = or i64 %b1.2.5.1, %or.6.1
   %arrayidx5.2173 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 2
   %14 = load i8, ptr %arrayidx5.2173, align 1, !tbaa !9
   %cmp7.2174 = icmp eq i8 %14, 111
   %or.2176 = select i1 %cmp7.2174, i64 16384, i64 0
-  %b1.2.2177 = or i64 %or.2176, %b1.2.6.1
+  %b1.2.2177 = or i64 %b1.2.6.1, %or.2176
   %arrayidx5.1.2 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 2
   %15 = load i8, ptr %arrayidx5.1.2, align 1, !tbaa !9
   %cmp7.1.2 = icmp eq i8 %15, 111
   %or.1.2 = select i1 %cmp7.1.2, i64 32768, i64 0
-  %b1.2.1.2 = or i64 %or.1.2, %b1.2.2177
+  %b1.2.1.2 = or i64 %b1.2.2177, %or.1.2
   %arrayidx5.2.2 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 2
   %16 = load i8, ptr %arrayidx5.2.2, align 1, !tbaa !9
   %cmp7.2.2 = icmp eq i8 %16, 111
   %or.2.2 = select i1 %cmp7.2.2, i64 65536, i64 0
-  %b1.2.2.2 = or i64 %or.2.2, %b1.2.1.2
+  %b1.2.2.2 = or i64 %b1.2.1.2, %or.2.2
   %arrayidx5.3.2 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 2
   %17 = load i8, ptr %arrayidx5.3.2, align 1, !tbaa !9
   %cmp7.3.2 = icmp eq i8 %17, 111
   %or.3.2 = select i1 %cmp7.3.2, i64 131072, i64 0
-  %b1.2.3.2 = or i64 %or.3.2, %b1.2.2.2
+  %b1.2.3.2 = or i64 %b1.2.2.2, %or.3.2
   %arrayidx5.4.2 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 2
   %18 = load i8, ptr %arrayidx5.4.2, align 1, !tbaa !9
   %cmp7.4.2 = icmp eq i8 %18, 111
   %or.4.2 = select i1 %cmp7.4.2, i64 262144, i64 0
-  %b1.2.4.2 = or i64 %or.4.2, %b1.2.3.2
+  %b1.2.4.2 = or i64 %b1.2.3.2, %or.4.2
   %arrayidx5.5.2 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 2
   %19 = load i8, ptr %arrayidx5.5.2, align 1, !tbaa !9
   %cmp7.5.2 = icmp eq i8 %19, 111
   %or.5.2 = select i1 %cmp7.5.2, i64 524288, i64 0
-  %b1.2.5.2 = or i64 %or.5.2, %b1.2.4.2
+  %b1.2.5.2 = or i64 %b1.2.4.2, %or.5.2
   %arrayidx5.6.2 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 2
   %20 = load i8, ptr %arrayidx5.6.2, align 1, !tbaa !9
   %cmp7.6.2 = icmp eq i8 %20, 111
   %or.6.2 = select i1 %cmp7.6.2, i64 1048576, i64 0
-  %b1.2.6.2 = or i64 %or.6.2, %b1.2.5.2
+  %b1.2.6.2 = or i64 %b1.2.5.2, %or.6.2
   %arrayidx5.3178 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 3
   %21 = load i8, ptr %arrayidx5.3178, align 1, !tbaa !9
   %cmp7.3179 = icmp eq i8 %21, 111
   %or.3181 = select i1 %cmp7.3179, i64 2097152, i64 0
-  %b1.2.3182 = or i64 %or.3181, %b1.2.6.2
+  %b1.2.3182 = or i64 %b1.2.6.2, %or.3181
   %arrayidx5.1.3 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 3
   %22 = load i8, ptr %arrayidx5.1.3, align 1, !tbaa !9
   %cmp7.1.3 = icmp eq i8 %22, 111
   %or.1.3 = select i1 %cmp7.1.3, i64 4194304, i64 0
-  %b1.2.1.3 = or i64 %or.1.3, %b1.2.3182
+  %b1.2.1.3 = or i64 %b1.2.3182, %or.1.3
   %arrayidx5.2.3 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 3
   %23 = load i8, ptr %arrayidx5.2.3, align 1, !tbaa !9
   %cmp7.2.3 = icmp eq i8 %23, 111
   %or.2.3 = select i1 %cmp7.2.3, i64 8388608, i64 0
-  %b1.2.2.3 = or i64 %or.2.3, %b1.2.1.3
+  %b1.2.2.3 = or i64 %b1.2.1.3, %or.2.3
   %arrayidx5.3.3 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 3
   %24 = load i8, ptr %arrayidx5.3.3, align 1, !tbaa !9
   %cmp7.3.3 = icmp eq i8 %24, 111
   %or.3.3 = select i1 %cmp7.3.3, i64 16777216, i64 0
-  %b1.2.3.3 = or i64 %or.3.3, %b1.2.2.3
+  %b1.2.3.3 = or i64 %b1.2.2.3, %or.3.3
   %arrayidx5.4.3 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 3
   %25 = load i8, ptr %arrayidx5.4.3, align 1, !tbaa !9
   %cmp7.4.3 = icmp eq i8 %25, 111
   %or.4.3 = select i1 %cmp7.4.3, i64 33554432, i64 0
-  %b1.2.4.3 = or i64 %or.4.3, %b1.2.3.3
+  %b1.2.4.3 = or i64 %b1.2.3.3, %or.4.3
   %arrayidx5.5.3 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 3
   %26 = load i8, ptr %arrayidx5.5.3, align 1, !tbaa !9
   %cmp7.5.3 = icmp eq i8 %26, 111
   %or.5.3 = select i1 %cmp7.5.3, i64 67108864, i64 0
-  %b1.2.5.3 = or i64 %or.5.3, %b1.2.4.3
+  %b1.2.5.3 = or i64 %b1.2.4.3, %or.5.3
   %arrayidx5.6.3 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 3
   %27 = load i8, ptr %arrayidx5.6.3, align 1, !tbaa !9
   %cmp7.6.3 = icmp eq i8 %27, 111
   %or.6.3 = select i1 %cmp7.6.3, i64 134217728, i64 0
-  %b1.2.6.3 = or i64 %or.6.3, %b1.2.5.3
+  %b1.2.6.3 = or i64 %b1.2.5.3, %or.6.3
   %arrayidx5.4183 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 4
   %28 = load i8, ptr %arrayidx5.4183, align 1, !tbaa !9
   %cmp7.4184 = icmp eq i8 %28, 111
   %or.4186 = select i1 %cmp7.4184, i64 268435456, i64 0
-  %b1.2.4187 = or i64 %or.4186, %b1.2.6.3
+  %b1.2.4187 = or i64 %b1.2.6.3, %or.4186
   %arrayidx5.1.4 = getelementptr inbounds [7 x i8], ptr %b, i64 1, i64 4
   %29 = load i8, ptr %arrayidx5.1.4, align 1, !tbaa !9
   %cmp7.1.4 = icmp eq i8 %29, 111
   %or.1.4 = select i1 %cmp7.1.4, i64 536870912, i64 0
-  %b1.2.1.4 = or i64 %or.1.4, %b1.2.4187
+  %b1.2.1.4 = or i64 %b1.2.4187, %or.1.4
   %arrayidx5.2.4 = getelementptr inbounds [7 x i8], ptr %b, i64 2, i64 4
   %30 = load i8, ptr %arrayidx5.2.4, align 1, !tbaa !9
   %cmp7.2.4 = icmp eq i8 %30, 111
   %or.2.4 = select i1 %cmp7.2.4, i64 1073741824, i64 0
-  %b1.2.2.4 = or i64 %or.2.4, %b1.2.1.4
+  %b1.2.2.4 = or i64 %b1.2.1.4, %or.2.4
   %arrayidx5.3.4 = getelementptr inbounds [7 x i8], ptr %b, i64 3, i64 4
   %31 = load i8, ptr %arrayidx5.3.4, align 1, !tbaa !9
   %cmp7.3.4 = icmp eq i8 %31, 111
   %or.3.4 = select i1 %cmp7.3.4, i64 2147483648, i64 0
-  %b1.2.3.4 = or i64 %or.3.4, %b1.2.2.4
+  %b1.2.3.4 = or i64 %b1.2.2.4, %or.3.4
   %arrayidx5.4.4 = getelementptr inbounds [7 x i8], ptr %b, i64 4, i64 4
   %32 = load i8, ptr %arrayidx5.4.4, align 1, !tbaa !9
   %cmp7.4.4 = icmp eq i8 %32, 111
   %or.4.4 = select i1 %cmp7.4.4, i64 4294967296, i64 0
-  %b1.2.4.4 = or i64 %or.4.4, %b1.2.3.4
+  %b1.2.4.4 = or i64 %b1.2.3.4, %or.4.4
   %arrayidx5.5.4 = getelementptr inbounds [7 x i8], ptr %b, i64 5, i64 4
   %33 = load i8, ptr %arrayidx5.5.4, align 1, !tbaa !9
   %cmp7.5.4 = icmp eq i8 %33, 111
   %or.5.4 = select i1 %cmp7.5.4, i64 8589934592, i64 0
-  %b1.2.5.4 = or i64 %or.5.4, %b1.2.4.4
+  %b1.2.5.4 = or i64 %b1.2.4.4, %or.5.4
   %arrayidx5.6.4 = getelementptr inbounds [7 x i8], ptr %b, i64 6, i64 4
   %34 = load i8, ptr %arrayidx5.6.4, align 1, !tbaa !9
   %cmp7.6.4 = icmp eq i8 %34, 111
   %or.6.4 = select i1 %cmp7.6.4, i64 17179869184, i64 0
-  %b1.2.6.4 = or i64 %or.6.4, %b1.2.5.4
+  %b1.2.6.4 = or i64 %b1.2.5.4, %or.6.4
   %arrayidx5.5188 = getelementptr inbounds [7 x i8], ptr %b, i64 0, i64 5
   %35 = load i8, ptr %arrayidx5.5188, align 1, !tbaa !9
   %cmp7.5189 = icmp eq i8 %35, 111
@@ -3706,170 +3706,170 @@ entry:
   %44 = load i8, ptr %arrayidx5.2, align 1, !tbaa !9
   %cmp26.2 = icmp eq i8 %44, 120
   %or33.2 = select i1 %cmp26.2, i64 4, i64 0
-  %b2.2.2 = or i64 %or33.2, %b2.2.1
+  %b2.2.2 = or i64 %b2.2.1, %or33.2
   %45 = load i8, ptr %arrayidx5.3, align 1, !tbaa !9
   %cmp26.3 = icmp eq i8 %45, 120
   %or33.3 = select i1 %cmp26.3, i64 8, i64 0
-  %b2.2.3 = or i64 %or33.3, %b2.2.2
+  %b2.2.3 = or i64 %b2.2.2, %or33.3
   %46 = load i8, ptr %arrayidx5.4, align 1, !tbaa !9
   %cmp26.4 = icmp eq i8 %46, 120
   %or33.4 = select i1 %cmp26.4, i64 16, i64 0
-  %b2.2.4 = or i64 %or33.4, %b2.2.3
+  %b2.2.4 = or i64 %b2.2.3, %or33.4
   %47 = load i8, ptr %arrayidx5.5, align 1, !tbaa !9
   %cmp26.5 = icmp eq i8 %47, 120
   %or33.5 = select i1 %cmp26.5, i64 32, i64 0
-  %b2.2.5 = or i64 %or33.5, %b2.2.4
+  %b2.2.5 = or i64 %b2.2.4, %or33.5
   %48 = load i8, ptr %arrayidx5.6, align 1, !tbaa !9
   %cmp26.6 = icmp eq i8 %48, 120
   %or33.6 = select i1 %cmp26.6, i64 64, i64 0
-  %b2.2.6 = or i64 %or33.6, %b2.2.5
+  %b2.2.6 = or i64 %b2.2.5, %or33.6
   %49 = load i8, ptr %arrayidx5.1168, align 1, !tbaa !9
   %cmp26.1198 = icmp eq i8 %49, 120
   %or33.1200 = select i1 %cmp26.1198, i64 128, i64 0
-  %b2.2.1201 = or i64 %or33.1200, %b2.2.6
+  %b2.2.1201 = or i64 %b2.2.6, %or33.1200
   %50 = load i8, ptr %arrayidx5.1.1, align 1, !tbaa !9
   %cmp26.1.1 = icmp eq i8 %50, 120
   %or33.1.1 = select i1 %cmp26.1.1, i64 256, i64 0
-  %b2.2.1.1 = or i64 %or33.1.1, %b2.2.1201
+  %b2.2.1.1 = or i64 %b2.2.1201, %or33.1.1
   %51 = load i8, ptr %arrayidx5.2.1, align 1, !tbaa !9
   %cmp26.2.1 = icmp eq i8 %51, 120
   %or33.2.1 = select i1 %cmp26.2.1, i64 512, i64 0
-  %b2.2.2.1 = or i64 %or33.2.1, %b2.2.1.1
+  %b2.2.2.1 = or i64 %b2.2.1.1, %or33.2.1
   %52 = load i8, ptr %arrayidx5.3.1, align 1, !tbaa !9
   %cmp26.3.1 = icmp eq i8 %52, 120
   %or33.3.1 = select i1 %cmp26.3.1, i64 1024, i64 0
-  %b2.2.3.1 = or i64 %or33.3.1, %b2.2.2.1
+  %b2.2.3.1 = or i64 %b2.2.2.1, %or33.3.1
   %53 = load i8, ptr %arrayidx5.4.1, align 1, !tbaa !9
   %cmp26.4.1 = icmp eq i8 %53, 120
   %or33.4.1 = select i1 %cmp26.4.1, i64 2048, i64 0
-  %b2.2.4.1 = or i64 %or33.4.1, %b2.2.3.1
+  %b2.2.4.1 = or i64 %b2.2.3.1, %or33.4.1
   %54 = load i8, ptr %arrayidx5.5.1, align 1, !tbaa !9
   %cmp26.5.1 = icmp eq i8 %54, 120
   %or33.5.1 = select i1 %cmp26.5.1, i64 4096, i64 0
-  %b2.2.5.1 = or i64 %or33.5.1, %b2.2.4.1
+  %b2.2.5.1 = or i64 %b2.2.4.1, %or33.5.1
   %55 = load i8, ptr %arrayidx5.6.1, align 1, !tbaa !9
   %cmp26.6.1 = icmp eq i8 %55, 120
   %or33.6.1 = select i1 %cmp26.6.1, i64 8192, i64 0
-  %b2.2.6.1 = or i64 %or33.6.1, %b2.2.5.1
+  %b2.2.6.1 = or i64 %b2.2.5.1, %or33.6.1
   %56 = load i8, ptr %arrayidx5.2173, align 1, !tbaa !9
   %cmp26.2203 = icmp eq i8 %56, 120
   %or33.2205 = select i1 %cmp26.2203, i64 16384, i64 0
-  %b2.2.2206 = or i64 %or33.2205, %b2.2.6.1
+  %b2.2.2206 = or i64 %b2.2.6.1, %or33.2205
   %57 = load i8, ptr %arrayidx5.1.2, align 1, !tbaa !9
   %cmp26.1.2 = icmp eq i8 %57, 120
   %or33.1.2 = select i1 %cmp26.1.2, i64 32768, i64 0
-  %b2.2.1.2 = or i64 %or33.1.2, %b2.2.2206
+  %b2.2.1.2 = or i64 %b2.2.2206, %or33.1.2
   %58 = load i8, ptr %arrayidx5.2.2, align 1, !tbaa !9
   %cmp26.2.2 = icmp eq i8 %58, 120
   %or33.2.2 = select i1 %cmp26.2.2, i64 65536, i64 0
-  %b2.2.2.2 = or i64 %or33.2.2, %b2.2.1.2
+  %b2.2.2.2 = or i64 %b2.2.1.2, %or33.2.2
   %59 = load i8, ptr %arrayidx5.3.2, align 1, !tbaa !9
   %cmp26.3.2 = icmp eq i8 %59, 120
   %or33.3.2 = select i1 %cmp26.3.2, i64 131072, i64 0
-  %b2.2.3.2 = or i64 %or33.3.2, %b2.2.2.2
+  %b2.2.3.2 = or i64 %b2.2.2.2, %or33.3.2
   %60 = load i8, ptr %arrayidx5.4.2, align 1, !tbaa !9
   %cmp26.4.2 = icmp eq i8 %60, 120
   %or33.4.2 = select i1 %cmp26.4.2, i64 262144, i64 0
-  %b2.2.4.2 = or i64 %or33.4.2, %b2.2.3.2
+  %b2.2.4.2 = or i64 %b2.2.3.2, %or33.4.2
   %61 = load i8, ptr %arrayidx5.5.2, align 1, !tbaa !9
   %cmp26.5.2 = icmp eq i8 %61, 120
   %or33.5.2 = select i1 %cmp26.5.2, i64 524288, i64 0
-  %b2.2.5.2 = or i64 %or33.5.2, %b2.2.4.2
+  %b2.2.5.2 = or i64 %b2.2.4.2, %or33.5.2
   %62 = load i8, ptr %arrayidx5.6.2, align 1, !tbaa !9
   %cmp26.6.2 = icmp eq i8 %62, 120
   %or33.6.2 = select i1 %cmp26.6.2, i64 1048576, i64 0
-  %b2.2.6.2 = or i64 %or33.6.2, %b2.2.5.2
+  %b2.2.6.2 = or i64 %b2.2.5.2, %or33.6.2
   %63 = load i8, ptr %arrayidx5.3178, align 1, !tbaa !9
   %cmp26.3208 = icmp eq i8 %63, 120
   %or33.3210 = select i1 %cmp26.3208, i64 2097152, i64 0
-  %b2.2.3211 = or i64 %or33.3210, %b2.2.6.2
+  %b2.2.3211 = or i64 %b2.2.6.2, %or33.3210
   %64 = load i8, ptr %arrayidx5.1.3, align 1, !tbaa !9
   %cmp26.1.3 = icmp eq i8 %64, 120
   %or33.1.3 = select i1 %cmp26.1.3, i64 4194304, i64 0
-  %b2.2.1.3 = or i64 %or33.1.3, %b2.2.3211
+  %b2.2.1.3 = or i64 %b2.2.3211, %or33.1.3
   %65 = load i8, ptr %arrayidx5.2.3, align 1, !tbaa !9
   %cmp26.2.3 = icmp eq i8 %65, 120
   %or33.2.3 = select i1 %cmp26.2.3, i64 8388608, i64 0
-  %b2.2.2.3 = or i64 %or33.2.3, %b2.2.1.3
+  %b2.2.2.3 = or i64 %b2.2.1.3, %or33.2.3
   %66 = load i8, ptr %arrayidx5.3.3, align 1, !tbaa !9
   %cmp26.3.3 = icmp eq i8 %66, 120
   %or33.3.3 = select i1 %cmp26.3.3, i64 16777216, i64 0
-  %b2.2.3.3 = or i64 %or33.3.3, %b2.2.2.3
+  %b2.2.3.3 = or i64 %b2.2.2.3, %or33.3.3
   %67 = load i8, ptr %arrayidx5.4.3, align 1, !tbaa !9
   %cmp26.4.3 = icmp eq i8 %67, 120
   %or33.4.3 = select i1 %cmp26.4.3, i64 33554432, i64 0
-  %b2.2.4.3 = or i64 %or33.4.3, %b2.2.3.3
+  %b2.2.4.3 = or i64 %b2.2.3.3, %or33.4.3
   %68 = load i8, ptr %arrayidx5.5.3, align 1, !tbaa !9
   %cmp26.5.3 = icmp eq i8 %68, 120
   %or33.5.3 = select i1 %cmp26.5.3, i64 67108864, i64 0
-  %b2.2.5.3 = or i64 %or33.5.3, %b2.2.4.3
+  %b2.2.5.3 = or i64 %b2.2.4.3, %or33.5.3
   %69 = load i8, ptr %arrayidx5.6.3, align 1, !tbaa !9
   %cmp26.6.3 = icmp eq i8 %69, 120
   %or33.6.3 = select i1 %cmp26.6.3, i64 134217728, i64 0
-  %b2.2.6.3 = or i64 %or33.6.3, %b2.2.5.3
+  %b2.2.6.3 = or i64 %b2.2.5.3, %or33.6.3
   %70 = load i8, ptr %arrayidx5.4183, align 1, !tbaa !9
   %cmp26.4213 = icmp eq i8 %70, 120
   %or33.4215 = select i1 %cmp26.4213, i64 268435456, i64 0
-  %b2.2.4216 = or i64 %or33.4215, %b2.2.6.3
+  %b2.2.4216 = or i64 %b2.2.6.3, %or33.4215
   %71 = load i8, ptr %arrayidx5.1.4, align 1, !tbaa !9
   %cmp26.1.4 = icmp eq i8 %71, 120
   %or33.1.4 = select i1 %cmp26.1.4, i64 536870912, i64 0
-  %b2.2.1.4 = or i64 %or33.1.4, %b2.2.4216
+  %b2.2.1.4 = or i64 %b2.2.4216, %or33.1.4
   %72 = load i8, ptr %arrayidx5.2.4, align 1, !tbaa !9
   %cmp26.2.4 = icmp eq i8 %72, 120
   %or33.2.4 = select i1 %cmp26.2.4, i64 1073741824, i64 0
-  %b2.2.2.4 = or i64 %or33.2.4, %b2.2.1.4
+  %b2.2.2.4 = or i64 %b2.2.1.4, %or33.2.4
   %73 = load i8, ptr %arrayidx5.3.4, align 1, !tbaa !9
   %cmp26.3.4 = icmp eq i8 %73, 120
   %or33.3.4 = select i1 %cmp26.3.4, i64 2147483648, i64 0
-  %b2.2.3.4 = or i64 %or33.3.4, %b2.2.2.4
+  %b2.2.3.4 = or i64 %b2.2.2.4, %or33.3.4
   %74 = load i8, ptr %arrayidx5.4.4, align 1, !tbaa !9
   %cmp26.4.4 = icmp eq i8 %74, 120
   %or33.4.4 = select i1 %cmp26.4.4, i64 4294967296, i64 0
-  %b2.2.4.4 = or i64 %or33.4.4, %b2.2.3.4
+  %b2.2.4.4 = or i64 %b2.2.3.4, %or33.4.4
   %75 = load i8, ptr %arrayidx5.5.4, align 1, !tbaa !9
   %cmp26.5.4 = icmp eq i8 %75, 120
   %or33.5.4 = select i1 %cmp26.5.4, i64 8589934592, i64 0
-  %b2.2.5.4 = or i64 %or33.5.4, %b2.2.4.4
+  %b2.2.5.4 = or i64 %b2.2.4.4, %or33.5.4
   %76 = load i8, ptr %arrayidx5.6.4, align 1, !tbaa !9
   %cmp26.6.4 = icmp eq i8 %76, 120
   %or33.6.4 = select i1 %cmp26.6.4, i64 17179869184, i64 0
-  %b2.2.6.4 = or i64 %or33.6.4, %b2.2.5.4
+  %b2.2.6.4 = or i64 %b2.2.5.4, %or33.6.4
   %77 = load i8, ptr %arrayidx5.5188, align 1, !tbaa !9
   %cmp26.5218 = icmp eq i8 %77, 120
   %or33.5220 = select i1 %cmp26.5218, i64 34359738368, i64 0
-  %b2.2.5221 = or i64 %or33.5220, %b2.2.6.4
+  %b2.2.5221 = or i64 %b2.2.6.4, %or33.5220
   %78 = load i8, ptr %arrayidx5.1.5, align 1, !tbaa !9
   %cmp26.1.5 = icmp eq i8 %78, 120
   %or33.1.5 = select i1 %cmp26.1.5, i64 68719476736, i64 0
-  %b2.2.1.5 = or i64 %or33.1.5, %b2.2.5221
+  %b2.2.1.5 = or i64 %b2.2.5221, %or33.1.5
   %79 = load i8, ptr %arrayidx5.2.5, align 1, !tbaa !9
   %cmp26.2.5 = icmp eq i8 %79, 120
   %or33.2.5 = select i1 %cmp26.2.5, i64 137438953472, i64 0
-  %b2.2.2.5 = or i64 %or33.2.5, %b2.2.1.5
+  %b2.2.2.5 = or i64 %b2.2.1.5, %or33.2.5
   %80 = load i8, ptr %arrayidx5.3.5, align 1, !tbaa !9
   %cmp26.3.5 = icmp eq i8 %80, 120
   %or33.3.5 = select i1 %cmp26.3.5, i64 274877906944, i64 0
-  %b2.2.3.5 = or i64 %or33.3.5, %b2.2.2.5
+  %b2.2.3.5 = or i64 %b2.2.2.5, %or33.3.5
   %81 = load i8, ptr %arrayidx5.4.5, align 1, !tbaa !9
   %cmp26.4.5 = icmp eq i8 %81, 120
   %or33.4.5 = select i1 %cmp26.4.5, i64 549755813888, i64 0
-  %b2.2.4.5 = or i64 %or33.4.5, %b2.2.3.5
+  %b2.2.4.5 = or i64 %b2.2.3.5, %or33.4.5
   %82 = load i8, ptr %arrayidx5.5.5, align 1, !tbaa !9
   %cmp26.5.5 = icmp eq i8 %82, 120
   %or33.5.5 = select i1 %cmp26.5.5, i64 1099511627776, i64 0
-  %b2.2.5.5 = or i64 %or33.5.5, %b2.2.4.5
+  %b2.2.5.5 = or i64 %b2.2.4.5, %or33.5.5
   %83 = load i8, ptr %arrayidx5.6.5, align 1, !tbaa !9
   %cmp26.6.5 = icmp eq i8 %83, 120
   %or33.6.5 = select i1 %cmp26.6.5, i64 2199023255552, i64 0
-  %b2.2.6.5 = or i64 %or33.6.5, %b2.2.5.5
-  %b1.2.5192 = or i64 %or.5191, %b1.2.6.4
-  %b1.2.1.5 = or i64 %or.1.5, %b1.2.5192
-  %b1.2.2.5 = or i64 %or.2.5, %b1.2.1.5
-  %b1.2.3.5 = or i64 %or.3.5, %b1.2.2.5
-  %b1.2.4.5 = or i64 %or.4.5, %b1.2.3.5
-  %b1.2.5.5 = or i64 %or.5.5, %b1.2.4.5
-  %b1.2.6.5 = or i64 %or.6.5, %b1.2.5.5
+  %b2.2.6.5 = or i64 %b2.2.5.5, %or33.6.5
+  %b1.2.5192 = or i64 %b1.2.6.4, %or.5191
+  %b1.2.1.5 = or i64 %b1.2.5192, %or.1.5
+  %b1.2.2.5 = or i64 %b1.2.1.5, %or.2.5
+  %b1.2.3.5 = or i64 %b1.2.2.5, %or.3.5
+  %b1.2.4.5 = or i64 %b1.2.3.5, %or.4.5
+  %b1.2.5.5 = or i64 %b1.2.4.5, %or.5.5
+  %b1.2.6.5 = or i64 %b1.2.5.5, %or.6.5
   switch i32 %ab, label %if.else66 [
     i32 1, label %if.then43
     i32 2, label %if.then55
@@ -3900,8 +3900,8 @@ if.then.i:                                        ; preds = %if.then50
 
 for.body.i:                                       ; preds = %for.inc.i, %for.cond.preheader.i
   %indvars.iv.i = phi i64 [ 0, %for.cond.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]
-  %min_col.036.i = phi i32 [ 0, %for.cond.preheader.i ], [ %min_col.1.i, %for.inc.i ]
-  %min.035.i = phi i32 [ 100000, %for.cond.preheader.i ], [ %min.1.i, %for.inc.i ]
+  %min_col.035.i = phi i32 [ 0, %for.cond.preheader.i ], [ %min_col.1.i, %for.inc.i ]
+  %min.034.i = phi i32 [ 100000, %for.cond.preheader.i ], [ %min.1.i, %for.inc.i ]
   %shl.i.i = shl nuw nsw i64 1, %indvars.iv.i
   %and.i.i = and i64 %shl.i.i, %or.i.i
   %tobool.not.i.i = icmp eq i64 %and.i.i, 0
@@ -3940,16 +3940,16 @@ for.cond.4.i.i:                                   ; preds = %for.cond.3.i.i
 if.end5.i:                                        ; preds = %for.cond.4.i.i, %for.cond.3.i.i, %for.cond.2.i.i, %for.cond.1.i.i, %for.cond.i.i, %for.body.i
   %shl.lcssa.i.i = phi i64 [ %shl.i.i, %for.body.i ], [ %shl.1.i.i, %for.cond.i.i ], [ %shl.2.i.i, %for.cond.1.i.i ], [ %shl.3.i.i, %for.cond.2.i.i ], [ %shl.4.i.i, %for.cond.3.i.i ], [ %shl.5.i.i, %for.cond.4.i.i ]
   %or7.i.i = or i64 %shl.lcssa.i.i, %b1.2.6.5
-  %call6.i = call i32 @minimax_comp_ab(i32 noundef 2, i64 noundef %or7.i.i, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef -100000, i32 noundef %min.035.i)
-  %cmp7.not.i = icmp sgt i32 %call6.i, %min.035.i
-  %spec.select.i = tail call i32 @llvm.smin.i32(i32 %call6.i, i32 %min.035.i)
+  %call6.i = call i32 @minimax_comp_ab(i32 noundef 2, i64 noundef %or7.i.i, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef -100000, i32 noundef %min.034.i)
+  %cmp7.not.i = icmp sgt i32 %call6.i, %min.034.i
+  %spec.select.i = tail call i32 @llvm.smin.i32(i32 %call6.i, i32 %min.034.i)
   %85 = trunc i64 %indvars.iv.i to i32
-  %spec.select25.i = select i1 %cmp7.not.i, i32 %min_col.036.i, i32 %85
+  %spec.select28.i = select i1 %cmp7.not.i, i32 %min_col.035.i, i32 %85
   br label %for.inc.i
 
 for.inc.i:                                        ; preds = %if.end5.i, %for.cond.4.i.i
-  %min.1.i = phi i32 [ %spec.select.i, %if.end5.i ], [ %min.035.i, %for.cond.4.i.i ]
-  %min_col.1.i = phi i32 [ %spec.select25.i, %if.end5.i ], [ %min_col.036.i, %for.cond.4.i.i ]
+  %min.1.i = phi i32 [ %spec.select.i, %if.end5.i ], [ %min.034.i, %for.cond.4.i.i ]
+  %min_col.1.i = phi i32 [ %spec.select28.i, %if.end5.i ], [ %min_col.035.i, %for.cond.4.i.i ]
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %cmp1.i = icmp ult i64 %indvars.iv.i, 6
   %cmp2.i = icmp sgt i32 %min.1.i, -100000
@@ -4055,13 +4055,13 @@ if.end4.i.1:                                      ; preds = %for.cond.4.i.i132.1
   %call5.i.1 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.1, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i)
   %cmp6.not.i.1 = icmp sle i32 %call5.i.1, %min.2.i
   %spec.select.i135.1 = tail call i32 @llvm.smin.i32(i32 %call5.i.1, i32 %min.2.i)
-  %spec.select27.i.1 = zext i1 %cmp6.not.i.1 to i32
+  %spec.select30.i.1 = zext i1 %cmp6.not.i.1 to i32
   %cmp9.i.1 = icmp slt i32 %spec.select.i135.1, -100000
   br i1 %cmp9.i.1, label %if.end78, label %for.inc.i137.1
 
 for.inc.i137.1:                                   ; preds = %if.end4.i.1, %for.cond.4.i.i132.1
   %min.2.i.1 = phi i32 [ %spec.select.i135.1, %if.end4.i.1 ], [ %min.2.i, %for.cond.4.i.i132.1 ]
-  %min_col.2.i.1 = phi i32 [ %spec.select27.i.1, %if.end4.i.1 ], [ 0, %for.cond.4.i.i132.1 ]
+  %min_col.2.i.1 = phi i32 [ %spec.select30.i.1, %if.end4.i.1 ], [ 0, %for.cond.4.i.i132.1 ]
   %and.i.i110.2 = and i64 %or.i.i104, 4
   %tobool.not.i.i111.2 = icmp eq i64 %and.i.i110.2, 0
   br i1 %tobool.not.i.i111.2, label %if.end4.i.2, label %for.cond.i.i116.2
@@ -4097,13 +4097,13 @@ if.end4.i.2:                                      ; preds = %for.cond.4.i.i132.2
   %call5.i.2 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.2, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i.1)
   %cmp6.not.i.2 = icmp sgt i32 %call5.i.2, %min.2.i.1
   %spec.select.i135.2 = tail call i32 @llvm.smin.i32(i32 %call5.i.2, i32 %min.2.i.1)
-  %spec.select27.i.2 = select i1 %cmp6.not.i.2, i32 %min_col.2.i.1, i32 2
+  %spec.select30.i.2 = select i1 %cmp6.not.i.2, i32 %min_col.2.i.1, i32 2
   %cmp9.i.2 = icmp slt i32 %spec.select.i135.2, -100000
   br i1 %cmp9.i.2, label %if.end78, label %for.inc.i137.2
 
 for.inc.i137.2:                                   ; preds = %if.end4.i.2, %for.cond.4.i.i132.2
   %min.2.i.2 = phi i32 [ %spec.select.i135.2, %if.end4.i.2 ], [ %min.2.i.1, %for.cond.4.i.i132.2 ]
-  %min_col.2.i.2 = phi i32 [ %spec.select27.i.2, %if.end4.i.2 ], [ %min_col.2.i.1, %for.cond.4.i.i132.2 ]
+  %min_col.2.i.2 = phi i32 [ %spec.select30.i.2, %if.end4.i.2 ], [ %min_col.2.i.1, %for.cond.4.i.i132.2 ]
   %and.i.i110.3 = and i64 %or.i.i104, 8
   %tobool.not.i.i111.3 = icmp eq i64 %and.i.i110.3, 0
   br i1 %tobool.not.i.i111.3, label %if.end4.i.3, label %for.cond.i.i116.3
@@ -4139,13 +4139,13 @@ if.end4.i.3:                                      ; preds = %for.cond.4.i.i132.3
   %call5.i.3 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.3, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i.2)
   %cmp6.not.i.3 = icmp sgt i32 %call5.i.3, %min.2.i.2
   %spec.select.i135.3 = tail call i32 @llvm.smin.i32(i32 %call5.i.3, i32 %min.2.i.2)
-  %spec.select27.i.3 = select i1 %cmp6.not.i.3, i32 %min_col.2.i.2, i32 3
+  %spec.select30.i.3 = select i1 %cmp6.not.i.3, i32 %min_col.2.i.2, i32 3
   %cmp9.i.3 = icmp slt i32 %spec.select.i135.3, -100000
   br i1 %cmp9.i.3, label %if.end78, label %for.inc.i137.3
 
 for.inc.i137.3:                                   ; preds = %if.end4.i.3, %for.cond.4.i.i132.3
   %min.2.i.3 = phi i32 [ %spec.select.i135.3, %if.end4.i.3 ], [ %min.2.i.2, %for.cond.4.i.i132.3 ]
-  %min_col.2.i.3 = phi i32 [ %spec.select27.i.3, %if.end4.i.3 ], [ %min_col.2.i.2, %for.cond.4.i.i132.3 ]
+  %min_col.2.i.3 = phi i32 [ %spec.select30.i.3, %if.end4.i.3 ], [ %min_col.2.i.2, %for.cond.4.i.i132.3 ]
   %and.i.i110.4 = and i64 %or.i.i104, 16
   %tobool.not.i.i111.4 = icmp eq i64 %and.i.i110.4, 0
   br i1 %tobool.not.i.i111.4, label %if.end4.i.4, label %for.cond.i.i116.4
@@ -4181,13 +4181,13 @@ if.end4.i.4:                                      ; preds = %for.cond.4.i.i132.4
   %call5.i.4 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.4, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i.3)
   %cmp6.not.i.4 = icmp sgt i32 %call5.i.4, %min.2.i.3
   %spec.select.i135.4 = tail call i32 @llvm.smin.i32(i32 %call5.i.4, i32 %min.2.i.3)
-  %spec.select27.i.4 = select i1 %cmp6.not.i.4, i32 %min_col.2.i.3, i32 4
+  %spec.select30.i.4 = select i1 %cmp6.not.i.4, i32 %min_col.2.i.3, i32 4
   %cmp9.i.4 = icmp slt i32 %spec.select.i135.4, -100000
   br i1 %cmp9.i.4, label %if.end78, label %for.inc.i137.4
 
 for.inc.i137.4:                                   ; preds = %if.end4.i.4, %for.cond.4.i.i132.4
   %min.2.i.4 = phi i32 [ %spec.select.i135.4, %if.end4.i.4 ], [ %min.2.i.3, %for.cond.4.i.i132.4 ]
-  %min_col.2.i.4 = phi i32 [ %spec.select27.i.4, %if.end4.i.4 ], [ %min_col.2.i.3, %for.cond.4.i.i132.4 ]
+  %min_col.2.i.4 = phi i32 [ %spec.select30.i.4, %if.end4.i.4 ], [ %min_col.2.i.3, %for.cond.4.i.i132.4 ]
   %and.i.i110.5 = and i64 %or.i.i104, 32
   %tobool.not.i.i111.5 = icmp eq i64 %and.i.i110.5, 0
   br i1 %tobool.not.i.i111.5, label %if.end4.i.5, label %for.cond.i.i116.5
@@ -4223,13 +4223,13 @@ if.end4.i.5:                                      ; preds = %for.cond.4.i.i132.5
   %call5.i.5 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.5, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i.4)
   %cmp6.not.i.5 = icmp sgt i32 %call5.i.5, %min.2.i.4
   %spec.select.i135.5 = tail call i32 @llvm.smin.i32(i32 %call5.i.5, i32 %min.2.i.4)
-  %spec.select27.i.5 = select i1 %cmp6.not.i.5, i32 %min_col.2.i.4, i32 5
+  %spec.select30.i.5 = select i1 %cmp6.not.i.5, i32 %min_col.2.i.4, i32 5
   %cmp9.i.5 = icmp slt i32 %spec.select.i135.5, -100000
   br i1 %cmp9.i.5, label %if.end78, label %for.inc.i137.5
 
 for.inc.i137.5:                                   ; preds = %if.end4.i.5, %for.cond.4.i.i132.5
   %min.2.i.5 = phi i32 [ %spec.select.i135.5, %if.end4.i.5 ], [ %min.2.i.4, %for.cond.4.i.i132.5 ]
-  %min_col.2.i.5 = phi i32 [ %spec.select27.i.5, %if.end4.i.5 ], [ %min_col.2.i.4, %for.cond.4.i.i132.5 ]
+  %min_col.2.i.5 = phi i32 [ %spec.select30.i.5, %if.end4.i.5 ], [ %min_col.2.i.4, %for.cond.4.i.i132.5 ]
   %and.i.i110.6 = and i64 %or.i.i104, 64
   %tobool.not.i.i111.6 = icmp eq i64 %and.i.i110.6, 0
   br i1 %tobool.not.i.i111.6, label %if.end4.i.6, label %for.cond.i.i116.6
@@ -4265,12 +4265,12 @@ if.end4.i.6:                                      ; preds = %for.cond.4.i.i132.6
   %call5.i.6 = call i32 @minimax_comp_ab2(i32 noundef 2, i64 noundef %or7.i.i134.6, i64 noundef %b2.2.6.5, ptr noundef nonnull %col, i32 noundef %min.2.i.5)
   %cmp6.not.i.6 = icmp sgt i32 %call5.i.6, %min.2.i.5
   %spec.select.i135.6 = tail call i32 @llvm.smin.i32(i32 %call5.i.6, i32 %min.2.i.5)
-  %spec.select27.i.6 = select i1 %cmp6.not.i.6, i32 %min_col.2.i.5, i32 6
+  %spec.select30.i.6 = select i1 %cmp6.not.i.6, i32 %min_col.2.i.5, i32 6
   %cmp9.i.6 = icmp slt i32 %spec.select.i135.6, -100000
   br i1 %cmp9.i.6, label %if.end78, label %for.inc.i137.6
 
 for.inc.i137.6:                                   ; preds = %if.end4.i.6, %for.cond.4.i.i132.6
-  %min_col.2.i.6 = phi i32 [ %spec.select27.i.6, %if.end4.i.6 ], [ %min_col.2.i.5, %for.cond.4.i.i132.6 ]
+  %min_col.2.i.6 = phi i32 [ %spec.select30.i.6, %if.end4.i.6 ], [ %min_col.2.i.5, %for.cond.4.i.i132.6 ]
   store i32 %min_col.2.i.6, ptr %col, align 4, !tbaa !14
   br label %if.end78
 
@@ -4288,7 +4288,7 @@ if.then74:                                        ; preds = %if.else66
   %call75 = call i32 @minimax_player(i32 noundef 1, i64 noundef %b1.2.6.5, i64 noundef %b2.2.6.5, ptr noundef nonnull %col)
   br label %if.end78
 
-if.end78:                                         ; preds = %if.end4.i, %if.end4.i.1, %if.end4.i.2, %if.end4.i.3, %if.end4.i.4, %if.end4.i.5, %if.end4.i.6, %for.inc.i137.6, %if.then.i107, %for.end.i, %if.then.i, %if.then69, %if.then58, %if.then46, %if.else66, %if.then55, %if.then43, %if.then74
+if.end78:                                         ; preds = %if.end4.i, %if.end4.i.1, %if.end4.i.2, %if.end4.i.3, %if.end4.i.4, %if.end4.i.5, %if.end4.i.6, %if.then69, %if.then58, %if.then46, %if.else66, %for.inc.i137.6, %if.then.i107, %if.then55, %for.end.i, %if.then.i, %if.then43, %if.then74
   %88 = load i32, ptr %col, align 4, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %col) #18
   ret i32 %88
@@ -4302,8 +4302,8 @@ entry:
   br i1 %cmp.not, label %for.cond.preheader, label %if.then
 
 for.cond.preheader:                               ; preds = %entry
-  %cmp284 = icmp slt i32 %alpha, %beta
-  br i1 %cmp284, label %for.body.lr.ph, label %for.end
+  %cmp283 = icmp slt i32 %alpha, %beta
+  br i1 %cmp283, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %or.i = or i64 %b2, %b1
@@ -4316,40 +4316,40 @@ if.then:                                          ; preds = %entry
   br label %cleanup
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %indvars.iv91 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next92, %for.inc ]
-  %max_col.087 = phi i32 [ 0, %for.body.lr.ph ], [ %max_col.1, %for.inc ]
-  %max.086 = phi i32 [ %alpha, %for.body.lr.ph ], [ %max.1, %for.inc ]
-  %shl.i = shl nuw nsw i64 1, %indvars.iv91
+  %indvars.iv90 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next91, %for.inc ]
+  %max_col.086 = phi i32 [ 0, %for.body.lr.ph ], [ %max_col.1, %for.inc ]
+  %max.085 = phi i32 [ %alpha, %for.body.lr.ph ], [ %max.1, %for.inc ]
+  %shl.i = shl nuw nsw i64 1, %indvars.iv90
   %and.i = and i64 %shl.i, %or.i
   %tobool.not.i = icmp eq i64 %and.i, 0
   br i1 %tobool.not.i, label %if.end5, label %for.cond.i
 
 for.cond.i:                                       ; preds = %for.body
-  %shl.1.i = shl nuw nsw i64 128, %indvars.iv91
+  %shl.1.i = shl nuw nsw i64 128, %indvars.iv90
   %and.1.i = and i64 %shl.1.i, %or.i
   %tobool.not.1.i = icmp eq i64 %and.1.i, 0
   br i1 %tobool.not.1.i, label %if.end5, label %for.cond.1.i
 
 for.cond.1.i:                                     ; preds = %for.cond.i
-  %shl.2.i = shl nuw nsw i64 16384, %indvars.iv91
+  %shl.2.i = shl nuw nsw i64 16384, %indvars.iv90
   %and.2.i = and i64 %shl.2.i, %or.i
   %tobool.not.2.i = icmp eq i64 %and.2.i, 0
   br i1 %tobool.not.2.i, label %if.end5, label %for.cond.2.i
 
 for.cond.2.i:                                     ; preds = %for.cond.1.i
-  %shl.3.i = shl nuw nsw i64 2097152, %indvars.iv91
+  %shl.3.i = shl nuw nsw i64 2097152, %indvars.iv90
   %and.3.i = and i64 %shl.3.i, %or.i
   %tobool.not.3.i = icmp eq i64 %and.3.i, 0
   br i1 %tobool.not.3.i, label %if.end5, label %for.cond.3.i
 
 for.cond.3.i:                                     ; preds = %for.cond.2.i
-  %shl.4.i = shl nuw nsw i64 268435456, %indvars.iv91
+  %shl.4.i = shl nuw nsw i64 268435456, %indvars.iv90
   %and.4.i = and i64 %shl.4.i, %or.i
   %tobool.not.4.i = icmp eq i64 %and.4.i, 0
   br i1 %tobool.not.4.i, label %if.end5, label %for.cond.4.i
 
 for.cond.4.i:                                     ; preds = %for.cond.3.i
-  %shl.5.i = shl nuw nsw i64 34359738368, %indvars.iv91
+  %shl.5.i = shl nuw nsw i64 34359738368, %indvars.iv90
   %and.5.i = and i64 %shl.5.i, %or.i
   %tobool.not.5.i = icmp eq i64 %and.5.i, 0
   br i1 %tobool.not.5.i, label %if.end5, label %for.inc
@@ -4358,98 +4358,98 @@ if.end5:                                          ; preds = %for.body, %for.cond
   %shl.lcssa.i = phi i64 [ %shl.i, %for.body ], [ %shl.1.i, %for.cond.i ], [ %shl.2.i, %for.cond.1.i ], [ %shl.3.i, %for.cond.2.i ], [ %shl.4.i, %for.cond.3.i ], [ %shl.5.i, %for.cond.4.i ]
   %or7.i = or i64 %shl.lcssa.i, %b2
   %1 = load i32, ptr @DEPTH, align 4, !tbaa !14
-  %cmp.not.i = icmp sgt i32 %1, %add
-  br i1 %cmp.not.i, label %for.cond.i27.preheader, label %if.then.i26
+  %cmp.i.not = icmp slt i32 %add, %1
+  br i1 %cmp.i.not, label %for.cond.i26.preheader, label %if.then.i25
 
-for.cond.i27.preheader:                           ; preds = %if.end5
-  %cmp2.i79 = icmp slt i32 %max.086, %beta
-  br i1 %cmp2.i79, label %for.body.i.lr.ph, label %for.end.i
+for.cond.i26.preheader:                           ; preds = %if.end5
+  %cmp2.i78 = icmp slt i32 %max.085, %beta
+  br i1 %cmp2.i78, label %for.body.i.lr.ph, label %for.end.i
 
-for.body.i.lr.ph:                                 ; preds = %for.cond.i27.preheader
-  %or.i30 = or i64 %or7.i, %b1
+for.body.i.lr.ph:                                 ; preds = %for.cond.i26.preheader
+  %or.i28 = or i64 %or7.i, %b1
   br label %for.body.i
 
-if.then.i26:                                      ; preds = %if.end5
+if.then.i25:                                      ; preds = %if.end5
   %call.i = tail call i32 @value(i64 noundef %b1, i64 noundef %or7.i)
   br label %minimax_player_ab.exit
 
 for.body.i:                                       ; preds = %for.body.i.lr.ph, %for.inc.i
   %indvars.iv = phi i64 [ 0, %for.body.i.lr.ph ], [ %indvars.iv.next, %for.inc.i ]
-  %min_col.0.i82 = phi i32 [ 0, %for.body.i.lr.ph ], [ %min_col.1.i, %for.inc.i ]
-  %min.0.i81 = phi i32 [ %beta, %for.body.i.lr.ph ], [ %min.1.i, %for.inc.i ]
-  %shl.i32 = shl nuw nsw i64 1, %indvars.iv
-  %and.i33 = and i64 %shl.i32, %or.i30
-  %tobool.not.i34 = icmp eq i64 %and.i33, 0
-  br i1 %tobool.not.i34, label %if.end5.i, label %for.cond.i39
+  %min_col.0.i81 = phi i32 [ 0, %for.body.i.lr.ph ], [ %min_col.1.i, %for.inc.i ]
+  %min.0.i80 = phi i32 [ %beta, %for.body.i.lr.ph ], [ %min.1.i, %for.inc.i ]
+  %shl.i30 = shl nuw nsw i64 1, %indvars.iv
+  %and.i31 = and i64 %shl.i30, %or.i28
+  %tobool.not.i32 = icmp eq i64 %and.i31, 0
+  br i1 %tobool.not.i32, label %if.end5.i, label %for.cond.i37
 
-for.cond.i39:                                     ; preds = %for.body.i
-  %shl.1.i36 = shl nuw nsw i64 128, %indvars.iv
-  %and.1.i37 = and i64 %shl.1.i36, %or.i30
-  %tobool.not.1.i38 = icmp eq i64 %and.1.i37, 0
-  br i1 %tobool.not.1.i38, label %if.end5.i, label %for.cond.1.i44
+for.cond.i37:                                     ; preds = %for.body.i
+  %shl.1.i34 = shl nuw nsw i64 128, %indvars.iv
+  %and.1.i35 = and i64 %shl.1.i34, %or.i28
+  %tobool.not.1.i36 = icmp eq i64 %and.1.i35, 0
+  br i1 %tobool.not.1.i36, label %if.end5.i, label %for.cond.1.i42
 
-for.cond.1.i44:                                   ; preds = %for.cond.i39
-  %shl.2.i41 = shl nuw nsw i64 16384, %indvars.iv
-  %and.2.i42 = and i64 %shl.2.i41, %or.i30
-  %tobool.not.2.i43 = icmp eq i64 %and.2.i42, 0
-  br i1 %tobool.not.2.i43, label %if.end5.i, label %for.cond.2.i49
+for.cond.1.i42:                                   ; preds = %for.cond.i37
+  %shl.2.i39 = shl nuw nsw i64 16384, %indvars.iv
+  %and.2.i40 = and i64 %shl.2.i39, %or.i28
+  %tobool.not.2.i41 = icmp eq i64 %and.2.i40, 0
+  br i1 %tobool.not.2.i41, label %if.end5.i, label %for.cond.2.i47
 
-for.cond.2.i49:                                   ; preds = %for.cond.1.i44
-  %shl.3.i46 = shl nuw nsw i64 2097152, %indvars.iv
-  %and.3.i47 = and i64 %shl.3.i46, %or.i30
-  %tobool.not.3.i48 = icmp eq i64 %and.3.i47, 0
-  br i1 %tobool.not.3.i48, label %if.end5.i, label %for.cond.3.i54
+for.cond.2.i47:                                   ; preds = %for.cond.1.i42
+  %shl.3.i44 = shl nuw nsw i64 2097152, %indvars.iv
+  %and.3.i45 = and i64 %shl.3.i44, %or.i28
+  %tobool.not.3.i46 = icmp eq i64 %and.3.i45, 0
+  br i1 %tobool.not.3.i46, label %if.end5.i, label %for.cond.3.i52
 
-for.cond.3.i54:                                   ; preds = %for.cond.2.i49
-  %shl.4.i51 = shl nuw nsw i64 268435456, %indvars.iv
-  %and.4.i52 = and i64 %shl.4.i51, %or.i30
-  %tobool.not.4.i53 = icmp eq i64 %and.4.i52, 0
-  br i1 %tobool.not.4.i53, label %if.end5.i, label %for.cond.4.i59
+for.cond.3.i52:                                   ; preds = %for.cond.2.i47
+  %shl.4.i49 = shl nuw nsw i64 268435456, %indvars.iv
+  %and.4.i50 = and i64 %shl.4.i49, %or.i28
+  %tobool.not.4.i51 = icmp eq i64 %and.4.i50, 0
+  br i1 %tobool.not.4.i51, label %if.end5.i, label %for.cond.4.i57
 
-for.cond.4.i59:                                   ; preds = %for.cond.3.i54
-  %shl.5.i56 = shl nuw nsw i64 34359738368, %indvars.iv
-  %and.5.i57 = and i64 %shl.5.i56, %or.i30
-  %tobool.not.5.i58 = icmp eq i64 %and.5.i57, 0
-  br i1 %tobool.not.5.i58, label %if.end5.i, label %for.inc.i
+for.cond.4.i57:                                   ; preds = %for.cond.3.i52
+  %shl.5.i54 = shl nuw nsw i64 34359738368, %indvars.iv
+  %and.5.i55 = and i64 %shl.5.i54, %or.i28
+  %tobool.not.5.i56 = icmp eq i64 %and.5.i55, 0
+  br i1 %tobool.not.5.i56, label %if.end5.i, label %for.inc.i
 
-if.end5.i:                                        ; preds = %for.body.i, %for.cond.i39, %for.cond.1.i44, %for.cond.2.i49, %for.cond.3.i54, %for.cond.4.i59
-  %shl.lcssa.i60 = phi i64 [ %shl.i32, %for.body.i ], [ %shl.1.i36, %for.cond.i39 ], [ %shl.2.i41, %for.cond.1.i44 ], [ %shl.3.i46, %for.cond.2.i49 ], [ %shl.4.i51, %for.cond.3.i54 ], [ %shl.5.i56, %for.cond.4.i59 ]
-  %or7.i61 = or i64 %shl.lcssa.i60, %b1
-  %call6.i = tail call i32 @minimax_comp_ab(i32 noundef %add.i, i64 noundef %or7.i61, i64 noundef %or7.i, ptr noundef %col, i32 noundef %max.086, i32 noundef %min.0.i81)
-  %cmp7.not.i = icmp sgt i32 %call6.i, %min.0.i81
-  %spec.select.i = tail call i32 @llvm.smin.i32(i32 %call6.i, i32 %min.0.i81)
+if.end5.i:                                        ; preds = %for.body.i, %for.cond.i37, %for.cond.1.i42, %for.cond.2.i47, %for.cond.3.i52, %for.cond.4.i57
+  %shl.lcssa.i58 = phi i64 [ %shl.i30, %for.body.i ], [ %shl.1.i34, %for.cond.i37 ], [ %shl.2.i39, %for.cond.1.i42 ], [ %shl.3.i44, %for.cond.2.i47 ], [ %shl.4.i49, %for.cond.3.i52 ], [ %shl.5.i54, %for.cond.4.i57 ]
+  %or7.i59 = or i64 %shl.lcssa.i58, %b1
+  %call6.i = tail call i32 @minimax_comp_ab(i32 noundef %add.i, i64 noundef %or7.i59, i64 noundef %or7.i, ptr noundef %col, i32 noundef %max.085, i32 noundef %min.0.i80)
+  %cmp7.i.not = icmp sgt i32 %call6.i, %min.0.i80
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %call6.i, i32 %min.0.i80)
   %2 = trunc i64 %indvars.iv to i32
-  %spec.select25.i = select i1 %cmp7.not.i, i32 %min_col.0.i82, i32 %2
+  %spec.select69 = select i1 %cmp7.i.not, i32 %min_col.0.i81, i32 %2
   br label %for.inc.i
 
-for.inc.i:                                        ; preds = %for.cond.4.i59, %if.end5.i
-  %min.1.i = phi i32 [ %spec.select.i, %if.end5.i ], [ %min.0.i81, %for.cond.4.i59 ]
-  %min_col.1.i = phi i32 [ %spec.select25.i, %if.end5.i ], [ %min_col.0.i82, %for.cond.4.i59 ]
+for.inc.i:                                        ; preds = %for.cond.4.i57, %if.end5.i
+  %min.1.i = phi i32 [ %spec.select, %if.end5.i ], [ %min.0.i80, %for.cond.4.i57 ]
+  %min_col.1.i = phi i32 [ %spec.select69, %if.end5.i ], [ %min_col.0.i81, %for.cond.4.i57 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %cmp1.i = icmp ult i64 %indvars.iv, 6
-  %cmp2.i = icmp sgt i32 %min.1.i, %max.086
+  %cmp2.i = icmp sgt i32 %min.1.i, %max.085
   %3 = select i1 %cmp1.i, i1 %cmp2.i, i1 false
   br i1 %3, label %for.body.i, label %for.end.i, !llvm.loop !16
 
-for.end.i:                                        ; preds = %for.inc.i, %for.cond.i27.preheader
-  %min.0.i.lcssa = phi i32 [ %beta, %for.cond.i27.preheader ], [ %min.1.i, %for.inc.i ]
-  %min_col.0.i.lcssa = phi i32 [ 0, %for.cond.i27.preheader ], [ %min_col.1.i, %for.inc.i ]
+for.end.i:                                        ; preds = %for.inc.i, %for.cond.i26.preheader
+  %min.0.i.lcssa = phi i32 [ %beta, %for.cond.i26.preheader ], [ %min.1.i, %for.inc.i ]
+  %min_col.0.i.lcssa = phi i32 [ 0, %for.cond.i26.preheader ], [ %min_col.1.i, %for.inc.i ]
   store i32 %min_col.0.i.lcssa, ptr %col, align 4, !tbaa !14
   br label %minimax_player_ab.exit
 
-minimax_player_ab.exit:                           ; preds = %if.then.i26, %for.end.i
-  %retval.0.i29 = phi i32 [ %call.i, %if.then.i26 ], [ %min.0.i.lcssa, %for.end.i ]
-  %cmp7 = icmp sgt i32 %retval.0.i29, %max.086
-  %spec.select = tail call i32 @llvm.smax.i32(i32 %retval.0.i29, i32 %max.086)
-  %4 = trunc i64 %indvars.iv91 to i32
-  %spec.select25 = select i1 %cmp7, i32 %4, i32 %max_col.087
+minimax_player_ab.exit:                           ; preds = %if.then.i25, %for.end.i
+  %retval.0.i27 = phi i32 [ %call.i, %if.then.i25 ], [ %min.0.i.lcssa, %for.end.i ]
+  %cmp7 = icmp sgt i32 %retval.0.i27, %max.085
+  %spec.select70 = tail call i32 @llvm.smax.i32(i32 %retval.0.i27, i32 %max.085)
+  %4 = trunc i64 %indvars.iv90 to i32
+  %spec.select71 = select i1 %cmp7, i32 %4, i32 %max_col.086
   br label %for.inc
 
 for.inc:                                          ; preds = %for.cond.4.i, %minimax_player_ab.exit
-  %max.1 = phi i32 [ %spec.select, %minimax_player_ab.exit ], [ %max.086, %for.cond.4.i ]
-  %max_col.1 = phi i32 [ %spec.select25, %minimax_player_ab.exit ], [ %max_col.087, %for.cond.4.i ]
-  %indvars.iv.next92 = add nuw nsw i64 %indvars.iv91, 1
-  %cmp1 = icmp ult i64 %indvars.iv91, 6
+  %max.1 = phi i32 [ %spec.select70, %minimax_player_ab.exit ], [ %max.085, %for.cond.4.i ]
+  %max_col.1 = phi i32 [ %spec.select71, %minimax_player_ab.exit ], [ %max_col.086, %for.cond.4.i ]
+  %indvars.iv.next91 = add nuw nsw i64 %indvars.iv90, 1
+  %cmp1 = icmp ult i64 %indvars.iv90, 6
   %cmp2 = icmp slt i32 %max.1, %beta
   %5 = select i1 %cmp1, i1 %cmp2, i1 false
   br i1 %5, label %for.body, label %for.end, !llvm.loop !17
@@ -4473,8 +4473,8 @@ entry:
   br i1 %cmp.not, label %for.cond.preheader, label %if.then
 
 for.cond.preheader:                               ; preds = %entry
-  %cmp233 = icmp sgt i32 %beta, %alpha
-  br i1 %cmp233, label %for.body.lr.ph, label %for.end
+  %cmp232 = icmp sgt i32 %beta, %alpha
+  br i1 %cmp232, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %or.i = or i64 %b2, %b1
@@ -4487,8 +4487,8 @@ if.then:                                          ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
-  %min_col.036 = phi i32 [ 0, %for.body.lr.ph ], [ %min_col.1, %for.inc ]
-  %min.035 = phi i32 [ %beta, %for.body.lr.ph ], [ %min.1, %for.inc ]
+  %min_col.035 = phi i32 [ 0, %for.body.lr.ph ], [ %min_col.1, %for.inc ]
+  %min.034 = phi i32 [ %beta, %for.body.lr.ph ], [ %min.1, %for.inc ]
   %shl.i = shl nuw nsw i64 1, %indvars.iv
   %and.i = and i64 %shl.i, %or.i
   %tobool.not.i = icmp eq i64 %and.i, 0
@@ -4527,16 +4527,16 @@ for.cond.4.i:                                     ; preds = %for.cond.3.i
 if.end5:                                          ; preds = %for.body, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i
   %shl.lcssa.i = phi i64 [ %shl.i, %for.body ], [ %shl.1.i, %for.cond.i ], [ %shl.2.i, %for.cond.1.i ], [ %shl.3.i, %for.cond.2.i ], [ %shl.4.i, %for.cond.3.i ], [ %shl.5.i, %for.cond.4.i ]
   %or7.i = or i64 %shl.lcssa.i, %b1
-  %call6 = tail call i32 @minimax_comp_ab(i32 noundef %add, i64 noundef %or7.i, i64 noundef %b2, ptr noundef %col, i32 noundef %alpha, i32 noundef %min.035)
-  %cmp7.not = icmp sgt i32 %call6, %min.035
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %call6, i32 %min.035)
+  %call6 = tail call i32 @minimax_comp_ab(i32 noundef %add, i64 noundef %or7.i, i64 noundef %b2, ptr noundef %col, i32 noundef %alpha, i32 noundef %min.034)
+  %cmp7.not = icmp sgt i32 %call6, %min.034
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %call6, i32 %min.034)
   %1 = trunc i64 %indvars.iv to i32
-  %spec.select25 = select i1 %cmp7.not, i32 %min_col.036, i32 %1
+  %spec.select28 = select i1 %cmp7.not, i32 %min_col.035, i32 %1
   br label %for.inc
 
 for.inc:                                          ; preds = %for.cond.4.i, %if.end5
-  %min.1 = phi i32 [ %spec.select, %if.end5 ], [ %min.035, %for.cond.4.i ]
-  %min_col.1 = phi i32 [ %spec.select25, %if.end5 ], [ %min_col.036, %for.cond.4.i ]
+  %min.1 = phi i32 [ %spec.select, %if.end5 ], [ %min.034, %for.cond.4.i ]
+  %min_col.1 = phi i32 [ %spec.select28, %if.end5 ], [ %min_col.035, %for.cond.4.i ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %cmp1 = icmp ult i64 %indvars.iv, 6
   %cmp2 = icmp sgt i32 %min.1, %alpha
@@ -4572,40 +4572,40 @@ if.then:                                          ; preds = %entry
   br label %cleanup
 
 for.body:                                         ; preds = %for.cond.preheader, %for.inc
-  %indvars.iv92 = phi i64 [ 0, %for.cond.preheader ], [ %indvars.iv.next93, %for.inc ]
-  %max_col.090 = phi i32 [ 0, %for.cond.preheader ], [ %max_col.2, %for.inc ]
-  %max.089 = phi i32 [ -100000, %for.cond.preheader ], [ %max.2, %for.inc ]
-  %shl.i = shl nuw nsw i64 1, %indvars.iv92
+  %indvars.iv91 = phi i64 [ 0, %for.cond.preheader ], [ %indvars.iv.next92, %for.inc ]
+  %max_col.089 = phi i32 [ 0, %for.cond.preheader ], [ %max_col.2, %for.inc ]
+  %max.088 = phi i32 [ -100000, %for.cond.preheader ], [ %max.2, %for.inc ]
+  %shl.i = shl nuw nsw i64 1, %indvars.iv91
   %and.i = and i64 %shl.i, %or.i
   %tobool.not.i = icmp eq i64 %and.i, 0
   br i1 %tobool.not.i, label %if.end4, label %for.cond.i
 
 for.cond.i:                                       ; preds = %for.body
-  %shl.1.i = shl i64 128, %indvars.iv92
+  %shl.1.i = shl i64 128, %indvars.iv91
   %and.1.i = and i64 %shl.1.i, %or.i
   %tobool.not.1.i = icmp eq i64 %and.1.i, 0
   br i1 %tobool.not.1.i, label %if.end4, label %for.cond.1.i
 
 for.cond.1.i:                                     ; preds = %for.cond.i
-  %shl.2.i = shl i64 16384, %indvars.iv92
+  %shl.2.i = shl i64 16384, %indvars.iv91
   %and.2.i = and i64 %shl.2.i, %or.i
   %tobool.not.2.i = icmp eq i64 %and.2.i, 0
   br i1 %tobool.not.2.i, label %if.end4, label %for.cond.2.i
 
 for.cond.2.i:                                     ; preds = %for.cond.1.i
-  %shl.3.i = shl i64 2097152, %indvars.iv92
+  %shl.3.i = shl i64 2097152, %indvars.iv91
   %and.3.i = and i64 %shl.3.i, %or.i
   %tobool.not.3.i = icmp eq i64 %and.3.i, 0
   br i1 %tobool.not.3.i, label %if.end4, label %for.cond.3.i
 
 for.cond.3.i:                                     ; preds = %for.cond.2.i
-  %shl.4.i = shl i64 268435456, %indvars.iv92
+  %shl.4.i = shl i64 268435456, %indvars.iv91
   %and.4.i = and i64 %shl.4.i, %or.i
   %tobool.not.4.i = icmp eq i64 %and.4.i, 0
   br i1 %tobool.not.4.i, label %if.end4, label %for.cond.4.i
 
 for.cond.4.i:                                     ; preds = %for.cond.3.i
-  %shl.5.i = shl i64 34359738368, %indvars.iv92
+  %shl.5.i = shl i64 34359738368, %indvars.iv91
   %and.5.i = and i64 %shl.5.i, %or.i
   %tobool.not.5.i = icmp eq i64 %and.5.i, 0
   br i1 %tobool.not.5.i, label %if.end4, label %for.inc
@@ -4614,331 +4614,331 @@ if.end4:                                          ; preds = %for.body, %for.cond
   %shl.lcssa.i = phi i64 [ %shl.i, %for.body ], [ %shl.1.i, %for.cond.i ], [ %shl.2.i, %for.cond.1.i ], [ %shl.3.i, %for.cond.2.i ], [ %shl.4.i, %for.cond.3.i ], [ %shl.5.i, %for.cond.4.i ]
   %or7.i = or i64 %shl.lcssa.i, %b2
   %1 = load i32, ptr @DEPTH, align 4, !tbaa !14
-  %cmp.not.i = icmp sgt i32 %1, %add
-  br i1 %cmp.not.i, label %for.cond.i29.preheader, label %if.then.i28
+  %cmp.i.not = icmp slt i32 %add, %1
+  br i1 %cmp.i.not, label %for.cond.i28.preheader, label %if.then.i27
 
-for.cond.i29.preheader:                           ; preds = %if.end4
-  %or.i32 = or i64 %or7.i, %b1
-  %and.i35 = and i64 %or.i32, 1
-  %tobool.not.i36 = icmp eq i64 %and.i35, 0
-  br i1 %tobool.not.i36, label %if.end4.i, label %for.cond.i41
+for.cond.i28.preheader:                           ; preds = %if.end4
+  %or.i30 = or i64 %or7.i, %b1
+  %and.i33 = and i64 %or.i30, 1
+  %tobool.not.i34 = icmp eq i64 %and.i33, 0
+  br i1 %tobool.not.i34, label %if.end4.i, label %for.cond.i39
 
-if.then.i28:                                      ; preds = %if.end4
+if.then.i27:                                      ; preds = %if.end4
   %call.i = tail call i32 @value(i64 noundef %b1, i64 noundef %or7.i)
   br label %minimax_player_ab2.exit
 
-for.cond.i41:                                     ; preds = %for.cond.i29.preheader
-  %and.1.i39 = and i64 %or.i32, 128
-  %tobool.not.1.i40 = icmp eq i64 %and.1.i39, 0
-  br i1 %tobool.not.1.i40, label %if.end4.i, label %for.cond.1.i46
+for.cond.i39:                                     ; preds = %for.cond.i28.preheader
+  %and.1.i37 = and i64 %or.i30, 128
+  %tobool.not.1.i38 = icmp eq i64 %and.1.i37, 0
+  br i1 %tobool.not.1.i38, label %if.end4.i, label %for.cond.1.i44
 
-for.cond.1.i46:                                   ; preds = %for.cond.i41
-  %and.2.i44 = and i64 %or.i32, 16384
-  %tobool.not.2.i45 = icmp eq i64 %and.2.i44, 0
-  br i1 %tobool.not.2.i45, label %if.end4.i, label %for.cond.2.i51
+for.cond.1.i44:                                   ; preds = %for.cond.i39
+  %and.2.i42 = and i64 %or.i30, 16384
+  %tobool.not.2.i43 = icmp eq i64 %and.2.i42, 0
+  br i1 %tobool.not.2.i43, label %if.end4.i, label %for.cond.2.i49
 
-for.cond.2.i51:                                   ; preds = %for.cond.1.i46
-  %and.3.i49 = and i64 %or.i32, 2097152
-  %tobool.not.3.i50 = icmp eq i64 %and.3.i49, 0
-  br i1 %tobool.not.3.i50, label %if.end4.i, label %for.cond.3.i56
+for.cond.2.i49:                                   ; preds = %for.cond.1.i44
+  %and.3.i47 = and i64 %or.i30, 2097152
+  %tobool.not.3.i48 = icmp eq i64 %and.3.i47, 0
+  br i1 %tobool.not.3.i48, label %if.end4.i, label %for.cond.3.i54
 
-for.cond.3.i56:                                   ; preds = %for.cond.2.i51
-  %and.4.i54 = and i64 %or.i32, 268435456
-  %tobool.not.4.i55 = icmp eq i64 %and.4.i54, 0
-  br i1 %tobool.not.4.i55, label %if.end4.i, label %for.cond.4.i61
+for.cond.3.i54:                                   ; preds = %for.cond.2.i49
+  %and.4.i52 = and i64 %or.i30, 268435456
+  %tobool.not.4.i53 = icmp eq i64 %and.4.i52, 0
+  br i1 %tobool.not.4.i53, label %if.end4.i, label %for.cond.4.i59
 
-for.cond.4.i61:                                   ; preds = %for.cond.3.i56
-  %and.5.i59 = and i64 %or.i32, 34359738368
-  %tobool.not.5.i60 = icmp eq i64 %and.5.i59, 0
-  br i1 %tobool.not.5.i60, label %if.end4.i, label %for.inc.i
+for.cond.4.i59:                                   ; preds = %for.cond.3.i54
+  %and.5.i57 = and i64 %or.i30, 34359738368
+  %tobool.not.5.i58 = icmp eq i64 %and.5.i57, 0
+  br i1 %tobool.not.5.i58, label %if.end4.i, label %for.inc.i
 
-if.end4.i:                                        ; preds = %for.cond.i29.preheader, %for.cond.i41, %for.cond.1.i46, %for.cond.2.i51, %for.cond.3.i56, %for.cond.4.i61
-  %shl.lcssa.i62 = phi i64 [ 1, %for.cond.i29.preheader ], [ 128, %for.cond.i41 ], [ 16384, %for.cond.1.i46 ], [ 2097152, %for.cond.2.i51 ], [ 268435456, %for.cond.3.i56 ], [ 34359738368, %for.cond.4.i61 ]
-  %or7.i63 = or i64 %shl.lcssa.i62, %b1
-  %call5.i = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63, i64 noundef %or7.i, ptr noundef %col, i32 noundef 100000)
-  %spec.select.i = tail call i32 @llvm.smin.i32(i32 %call5.i, i32 100000)
-  %cmp9.i = icmp slt i32 %spec.select.i, %max.089
+if.end4.i:                                        ; preds = %for.cond.i28.preheader, %for.cond.i39, %for.cond.1.i44, %for.cond.2.i49, %for.cond.3.i54, %for.cond.4.i59
+  %shl.lcssa.i60 = phi i64 [ 1, %for.cond.i28.preheader ], [ 128, %for.cond.i39 ], [ 16384, %for.cond.1.i44 ], [ 2097152, %for.cond.2.i49 ], [ 268435456, %for.cond.3.i54 ], [ 34359738368, %for.cond.4.i59 ]
+  %or7.i61 = or i64 %shl.lcssa.i60, %b1
+  %call5.i = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61, i64 noundef %or7.i, ptr noundef %col, i32 noundef 100000)
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %call5.i, i32 100000)
+  %cmp9.i = icmp slt i32 %spec.select, %max.088
   br i1 %cmp9.i, label %minimax_player_ab2.exit, label %for.inc.i
 
-for.inc.i:                                        ; preds = %for.cond.4.i61, %if.end4.i
-  %min.2.i = phi i32 [ %spec.select.i, %if.end4.i ], [ 100000, %for.cond.4.i61 ]
-  %and.i35.1 = and i64 %or.i32, 2
-  %tobool.not.i36.1 = icmp eq i64 %and.i35.1, 0
-  br i1 %tobool.not.i36.1, label %if.end4.i.1, label %for.cond.i41.1
+for.inc.i:                                        ; preds = %for.cond.4.i59, %if.end4.i
+  %min.2.i = phi i32 [ %spec.select, %if.end4.i ], [ 100000, %for.cond.4.i59 ]
+  %and.i33.1 = and i64 %or.i30, 2
+  %tobool.not.i34.1 = icmp eq i64 %and.i33.1, 0
+  br i1 %tobool.not.i34.1, label %if.end4.i.1, label %for.cond.i39.1
 
-for.cond.i41.1:                                   ; preds = %for.inc.i
-  %and.1.i39.1 = and i64 %or.i32, 256
-  %tobool.not.1.i40.1 = icmp eq i64 %and.1.i39.1, 0
-  br i1 %tobool.not.1.i40.1, label %if.end4.i.1, label %for.cond.1.i46.1
+for.cond.i39.1:                                   ; preds = %for.inc.i
+  %and.1.i37.1 = and i64 %or.i30, 256
+  %tobool.not.1.i38.1 = icmp eq i64 %and.1.i37.1, 0
+  br i1 %tobool.not.1.i38.1, label %if.end4.i.1, label %for.cond.1.i44.1
 
-for.cond.1.i46.1:                                 ; preds = %for.cond.i41.1
-  %and.2.i44.1 = and i64 %or.i32, 32768
-  %tobool.not.2.i45.1 = icmp eq i64 %and.2.i44.1, 0
-  br i1 %tobool.not.2.i45.1, label %if.end4.i.1, label %for.cond.2.i51.1
+for.cond.1.i44.1:                                 ; preds = %for.cond.i39.1
+  %and.2.i42.1 = and i64 %or.i30, 32768
+  %tobool.not.2.i43.1 = icmp eq i64 %and.2.i42.1, 0
+  br i1 %tobool.not.2.i43.1, label %if.end4.i.1, label %for.cond.2.i49.1
 
-for.cond.2.i51.1:                                 ; preds = %for.cond.1.i46.1
-  %and.3.i49.1 = and i64 %or.i32, 4194304
-  %tobool.not.3.i50.1 = icmp eq i64 %and.3.i49.1, 0
-  br i1 %tobool.not.3.i50.1, label %if.end4.i.1, label %for.cond.3.i56.1
+for.cond.2.i49.1:                                 ; preds = %for.cond.1.i44.1
+  %and.3.i47.1 = and i64 %or.i30, 4194304
+  %tobool.not.3.i48.1 = icmp eq i64 %and.3.i47.1, 0
+  br i1 %tobool.not.3.i48.1, label %if.end4.i.1, label %for.cond.3.i54.1
 
-for.cond.3.i56.1:                                 ; preds = %for.cond.2.i51.1
-  %and.4.i54.1 = and i64 %or.i32, 536870912
-  %tobool.not.4.i55.1 = icmp eq i64 %and.4.i54.1, 0
-  br i1 %tobool.not.4.i55.1, label %if.end4.i.1, label %for.cond.4.i61.1
+for.cond.3.i54.1:                                 ; preds = %for.cond.2.i49.1
+  %and.4.i52.1 = and i64 %or.i30, 536870912
+  %tobool.not.4.i53.1 = icmp eq i64 %and.4.i52.1, 0
+  br i1 %tobool.not.4.i53.1, label %if.end4.i.1, label %for.cond.4.i59.1
 
-for.cond.4.i61.1:                                 ; preds = %for.cond.3.i56.1
-  %and.5.i59.1 = and i64 %or.i32, 68719476736
-  %tobool.not.5.i60.1 = icmp eq i64 %and.5.i59.1, 0
-  br i1 %tobool.not.5.i60.1, label %if.end4.i.1, label %for.inc.i.1
+for.cond.4.i59.1:                                 ; preds = %for.cond.3.i54.1
+  %and.5.i57.1 = and i64 %or.i30, 68719476736
+  %tobool.not.5.i58.1 = icmp eq i64 %and.5.i57.1, 0
+  br i1 %tobool.not.5.i58.1, label %if.end4.i.1, label %for.inc.i.1
 
-if.end4.i.1:                                      ; preds = %for.cond.4.i61.1, %for.cond.3.i56.1, %for.cond.2.i51.1, %for.cond.1.i46.1, %for.cond.i41.1, %for.inc.i
-  %shl.lcssa.i62.1 = phi i64 [ 2, %for.inc.i ], [ 256, %for.cond.i41.1 ], [ 32768, %for.cond.1.i46.1 ], [ 4194304, %for.cond.2.i51.1 ], [ 536870912, %for.cond.3.i56.1 ], [ 68719476736, %for.cond.4.i61.1 ]
-  %or7.i63.1 = or i64 %shl.lcssa.i62.1, %b1
-  %call5.i.1 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.1, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i)
-  %cmp6.not.i.1 = icmp sle i32 %call5.i.1, %min.2.i
-  %spec.select.i.1 = tail call i32 @llvm.smin.i32(i32 %call5.i.1, i32 %min.2.i)
-  %spec.select27.i.1 = zext i1 %cmp6.not.i.1 to i32
-  %cmp9.i.1 = icmp slt i32 %spec.select.i.1, %max.089
+if.end4.i.1:                                      ; preds = %for.cond.4.i59.1, %for.cond.3.i54.1, %for.cond.2.i49.1, %for.cond.1.i44.1, %for.cond.i39.1, %for.inc.i
+  %shl.lcssa.i60.1 = phi i64 [ 2, %for.inc.i ], [ 256, %for.cond.i39.1 ], [ 32768, %for.cond.1.i44.1 ], [ 4194304, %for.cond.2.i49.1 ], [ 536870912, %for.cond.3.i54.1 ], [ 68719476736, %for.cond.4.i59.1 ]
+  %or7.i61.1 = or i64 %shl.lcssa.i60.1, %b1
+  %call5.i.1 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.1, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i)
+  %cmp6.i.not.1 = icmp sle i32 %call5.i.1, %min.2.i
+  %spec.select.1 = tail call i32 @llvm.smin.i32(i32 %call5.i.1, i32 %min.2.i)
+  %spec.select71.1 = zext i1 %cmp6.i.not.1 to i32
+  %cmp9.i.1 = icmp slt i32 %spec.select.1, %max.088
   br i1 %cmp9.i.1, label %minimax_player_ab2.exit, label %for.inc.i.1
 
-for.inc.i.1:                                      ; preds = %if.end4.i.1, %for.cond.4.i61.1
-  %min.2.i.1 = phi i32 [ %spec.select.i.1, %if.end4.i.1 ], [ %min.2.i, %for.cond.4.i61.1 ]
-  %min_col.2.i.1 = phi i32 [ %spec.select27.i.1, %if.end4.i.1 ], [ 0, %for.cond.4.i61.1 ]
-  %and.i35.2 = and i64 %or.i32, 4
-  %tobool.not.i36.2 = icmp eq i64 %and.i35.2, 0
-  br i1 %tobool.not.i36.2, label %if.end4.i.2, label %for.cond.i41.2
+for.inc.i.1:                                      ; preds = %if.end4.i.1, %for.cond.4.i59.1
+  %min.2.i.1 = phi i32 [ %spec.select.1, %if.end4.i.1 ], [ %min.2.i, %for.cond.4.i59.1 ]
+  %min_col.2.i.1 = phi i32 [ %spec.select71.1, %if.end4.i.1 ], [ 0, %for.cond.4.i59.1 ]
+  %and.i33.2 = and i64 %or.i30, 4
+  %tobool.not.i34.2 = icmp eq i64 %and.i33.2, 0
+  br i1 %tobool.not.i34.2, label %if.end4.i.2, label %for.cond.i39.2
 
-for.cond.i41.2:                                   ; preds = %for.inc.i.1
-  %and.1.i39.2 = and i64 %or.i32, 512
-  %tobool.not.1.i40.2 = icmp eq i64 %and.1.i39.2, 0
-  br i1 %tobool.not.1.i40.2, label %if.end4.i.2, label %for.cond.1.i46.2
+for.cond.i39.2:                                   ; preds = %for.inc.i.1
+  %and.1.i37.2 = and i64 %or.i30, 512
+  %tobool.not.1.i38.2 = icmp eq i64 %and.1.i37.2, 0
+  br i1 %tobool.not.1.i38.2, label %if.end4.i.2, label %for.cond.1.i44.2
 
-for.cond.1.i46.2:                                 ; preds = %for.cond.i41.2
-  %and.2.i44.2 = and i64 %or.i32, 65536
-  %tobool.not.2.i45.2 = icmp eq i64 %and.2.i44.2, 0
-  br i1 %tobool.not.2.i45.2, label %if.end4.i.2, label %for.cond.2.i51.2
+for.cond.1.i44.2:                                 ; preds = %for.cond.i39.2
+  %and.2.i42.2 = and i64 %or.i30, 65536
+  %tobool.not.2.i43.2 = icmp eq i64 %and.2.i42.2, 0
+  br i1 %tobool.not.2.i43.2, label %if.end4.i.2, label %for.cond.2.i49.2
 
-for.cond.2.i51.2:                                 ; preds = %for.cond.1.i46.2
-  %and.3.i49.2 = and i64 %or.i32, 8388608
-  %tobool.not.3.i50.2 = icmp eq i64 %and.3.i49.2, 0
-  br i1 %tobool.not.3.i50.2, label %if.end4.i.2, label %for.cond.3.i56.2
+for.cond.2.i49.2:                                 ; preds = %for.cond.1.i44.2
+  %and.3.i47.2 = and i64 %or.i30, 8388608
+  %tobool.not.3.i48.2 = icmp eq i64 %and.3.i47.2, 0
+  br i1 %tobool.not.3.i48.2, label %if.end4.i.2, label %for.cond.3.i54.2
 
-for.cond.3.i56.2:                                 ; preds = %for.cond.2.i51.2
-  %and.4.i54.2 = and i64 %or.i32, 1073741824
-  %tobool.not.4.i55.2 = icmp eq i64 %and.4.i54.2, 0
-  br i1 %tobool.not.4.i55.2, label %if.end4.i.2, label %for.cond.4.i61.2
+for.cond.3.i54.2:                                 ; preds = %for.cond.2.i49.2
+  %and.4.i52.2 = and i64 %or.i30, 1073741824
+  %tobool.not.4.i53.2 = icmp eq i64 %and.4.i52.2, 0
+  br i1 %tobool.not.4.i53.2, label %if.end4.i.2, label %for.cond.4.i59.2
 
-for.cond.4.i61.2:                                 ; preds = %for.cond.3.i56.2
-  %and.5.i59.2 = and i64 %or.i32, 137438953472
-  %tobool.not.5.i60.2 = icmp eq i64 %and.5.i59.2, 0
-  br i1 %tobool.not.5.i60.2, label %if.end4.i.2, label %for.inc.i.2
+for.cond.4.i59.2:                                 ; preds = %for.cond.3.i54.2
+  %and.5.i57.2 = and i64 %or.i30, 137438953472
+  %tobool.not.5.i58.2 = icmp eq i64 %and.5.i57.2, 0
+  br i1 %tobool.not.5.i58.2, label %if.end4.i.2, label %for.inc.i.2
 
-if.end4.i.2:                                      ; preds = %for.cond.4.i61.2, %for.cond.3.i56.2, %for.cond.2.i51.2, %for.cond.1.i46.2, %for.cond.i41.2, %for.inc.i.1
-  %shl.lcssa.i62.2 = phi i64 [ 4, %for.inc.i.1 ], [ 512, %for.cond.i41.2 ], [ 65536, %for.cond.1.i46.2 ], [ 8388608, %for.cond.2.i51.2 ], [ 1073741824, %for.cond.3.i56.2 ], [ 137438953472, %for.cond.4.i61.2 ]
-  %or7.i63.2 = or i64 %shl.lcssa.i62.2, %b1
-  %call5.i.2 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.2, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.1)
-  %cmp6.not.i.2 = icmp sgt i32 %call5.i.2, %min.2.i.1
-  %spec.select.i.2 = tail call i32 @llvm.smin.i32(i32 %call5.i.2, i32 %min.2.i.1)
-  %spec.select27.i.2 = select i1 %cmp6.not.i.2, i32 %min_col.2.i.1, i32 2
-  %cmp9.i.2 = icmp slt i32 %spec.select.i.2, %max.089
+if.end4.i.2:                                      ; preds = %for.cond.4.i59.2, %for.cond.3.i54.2, %for.cond.2.i49.2, %for.cond.1.i44.2, %for.cond.i39.2, %for.inc.i.1
+  %shl.lcssa.i60.2 = phi i64 [ 4, %for.inc.i.1 ], [ 512, %for.cond.i39.2 ], [ 65536, %for.cond.1.i44.2 ], [ 8388608, %for.cond.2.i49.2 ], [ 1073741824, %for.cond.3.i54.2 ], [ 137438953472, %for.cond.4.i59.2 ]
+  %or7.i61.2 = or i64 %shl.lcssa.i60.2, %b1
+  %call5.i.2 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.2, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.1)
+  %cmp6.i.not.2 = icmp sgt i32 %call5.i.2, %min.2.i.1
+  %spec.select.2 = tail call i32 @llvm.smin.i32(i32 %call5.i.2, i32 %min.2.i.1)
+  %spec.select71.2 = select i1 %cmp6.i.not.2, i32 %min_col.2.i.1, i32 2
+  %cmp9.i.2 = icmp slt i32 %spec.select.2, %max.088
   br i1 %cmp9.i.2, label %minimax_player_ab2.exit, label %for.inc.i.2
 
-for.inc.i.2:                                      ; preds = %if.end4.i.2, %for.cond.4.i61.2
-  %min.2.i.2 = phi i32 [ %spec.select.i.2, %if.end4.i.2 ], [ %min.2.i.1, %for.cond.4.i61.2 ]
-  %min_col.2.i.2 = phi i32 [ %spec.select27.i.2, %if.end4.i.2 ], [ %min_col.2.i.1, %for.cond.4.i61.2 ]
-  %and.i35.3 = and i64 %or.i32, 8
-  %tobool.not.i36.3 = icmp eq i64 %and.i35.3, 0
-  br i1 %tobool.not.i36.3, label %if.end4.i.3, label %for.cond.i41.3
+for.inc.i.2:                                      ; preds = %if.end4.i.2, %for.cond.4.i59.2
+  %min.2.i.2 = phi i32 [ %spec.select.2, %if.end4.i.2 ], [ %min.2.i.1, %for.cond.4.i59.2 ]
+  %min_col.2.i.2 = phi i32 [ %spec.select71.2, %if.end4.i.2 ], [ %min_col.2.i.1, %for.cond.4.i59.2 ]
+  %and.i33.3 = and i64 %or.i30, 8
+  %tobool.not.i34.3 = icmp eq i64 %and.i33.3, 0
+  br i1 %tobool.not.i34.3, label %if.end4.i.3, label %for.cond.i39.3
 
-for.cond.i41.3:                                   ; preds = %for.inc.i.2
-  %and.1.i39.3 = and i64 %or.i32, 1024
-  %tobool.not.1.i40.3 = icmp eq i64 %and.1.i39.3, 0
-  br i1 %tobool.not.1.i40.3, label %if.end4.i.3, label %for.cond.1.i46.3
+for.cond.i39.3:                                   ; preds = %for.inc.i.2
+  %and.1.i37.3 = and i64 %or.i30, 1024
+  %tobool.not.1.i38.3 = icmp eq i64 %and.1.i37.3, 0
+  br i1 %tobool.not.1.i38.3, label %if.end4.i.3, label %for.cond.1.i44.3
 
-for.cond.1.i46.3:                                 ; preds = %for.cond.i41.3
-  %and.2.i44.3 = and i64 %or.i32, 131072
-  %tobool.not.2.i45.3 = icmp eq i64 %and.2.i44.3, 0
-  br i1 %tobool.not.2.i45.3, label %if.end4.i.3, label %for.cond.2.i51.3
+for.cond.1.i44.3:                                 ; preds = %for.cond.i39.3
+  %and.2.i42.3 = and i64 %or.i30, 131072
+  %tobool.not.2.i43.3 = icmp eq i64 %and.2.i42.3, 0
+  br i1 %tobool.not.2.i43.3, label %if.end4.i.3, label %for.cond.2.i49.3
 
-for.cond.2.i51.3:                                 ; preds = %for.cond.1.i46.3
-  %and.3.i49.3 = and i64 %or.i32, 16777216
-  %tobool.not.3.i50.3 = icmp eq i64 %and.3.i49.3, 0
-  br i1 %tobool.not.3.i50.3, label %if.end4.i.3, label %for.cond.3.i56.3
+for.cond.2.i49.3:                                 ; preds = %for.cond.1.i44.3
+  %and.3.i47.3 = and i64 %or.i30, 16777216
+  %tobool.not.3.i48.3 = icmp eq i64 %and.3.i47.3, 0
+  br i1 %tobool.not.3.i48.3, label %if.end4.i.3, label %for.cond.3.i54.3
 
-for.cond.3.i56.3:                                 ; preds = %for.cond.2.i51.3
-  %and.4.i54.3 = and i64 %or.i32, 2147483648
-  %tobool.not.4.i55.3 = icmp eq i64 %and.4.i54.3, 0
-  br i1 %tobool.not.4.i55.3, label %if.end4.i.3, label %for.cond.4.i61.3
+for.cond.3.i54.3:                                 ; preds = %for.cond.2.i49.3
+  %and.4.i52.3 = and i64 %or.i30, 2147483648
+  %tobool.not.4.i53.3 = icmp eq i64 %and.4.i52.3, 0
+  br i1 %tobool.not.4.i53.3, label %if.end4.i.3, label %for.cond.4.i59.3
 
-for.cond.4.i61.3:                                 ; preds = %for.cond.3.i56.3
-  %and.5.i59.3 = and i64 %or.i32, 274877906944
-  %tobool.not.5.i60.3 = icmp eq i64 %and.5.i59.3, 0
-  br i1 %tobool.not.5.i60.3, label %if.end4.i.3, label %for.inc.i.3
+for.cond.4.i59.3:                                 ; preds = %for.cond.3.i54.3
+  %and.5.i57.3 = and i64 %or.i30, 274877906944
+  %tobool.not.5.i58.3 = icmp eq i64 %and.5.i57.3, 0
+  br i1 %tobool.not.5.i58.3, label %if.end4.i.3, label %for.inc.i.3
 
-if.end4.i.3:                                      ; preds = %for.cond.4.i61.3, %for.cond.3.i56.3, %for.cond.2.i51.3, %for.cond.1.i46.3, %for.cond.i41.3, %for.inc.i.2
-  %shl.lcssa.i62.3 = phi i64 [ 8, %for.inc.i.2 ], [ 1024, %for.cond.i41.3 ], [ 131072, %for.cond.1.i46.3 ], [ 16777216, %for.cond.2.i51.3 ], [ 2147483648, %for.cond.3.i56.3 ], [ 274877906944, %for.cond.4.i61.3 ]
-  %or7.i63.3 = or i64 %shl.lcssa.i62.3, %b1
-  %call5.i.3 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.3, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.2)
-  %cmp6.not.i.3 = icmp sgt i32 %call5.i.3, %min.2.i.2
-  %spec.select.i.3 = tail call i32 @llvm.smin.i32(i32 %call5.i.3, i32 %min.2.i.2)
-  %spec.select27.i.3 = select i1 %cmp6.not.i.3, i32 %min_col.2.i.2, i32 3
-  %cmp9.i.3 = icmp slt i32 %spec.select.i.3, %max.089
+if.end4.i.3:                                      ; preds = %for.cond.4.i59.3, %for.cond.3.i54.3, %for.cond.2.i49.3, %for.cond.1.i44.3, %for.cond.i39.3, %for.inc.i.2
+  %shl.lcssa.i60.3 = phi i64 [ 8, %for.inc.i.2 ], [ 1024, %for.cond.i39.3 ], [ 131072, %for.cond.1.i44.3 ], [ 16777216, %for.cond.2.i49.3 ], [ 2147483648, %for.cond.3.i54.3 ], [ 274877906944, %for.cond.4.i59.3 ]
+  %or7.i61.3 = or i64 %shl.lcssa.i60.3, %b1
+  %call5.i.3 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.3, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.2)
+  %cmp6.i.not.3 = icmp sgt i32 %call5.i.3, %min.2.i.2
+  %spec.select.3 = tail call i32 @llvm.smin.i32(i32 %call5.i.3, i32 %min.2.i.2)
+  %spec.select71.3 = select i1 %cmp6.i.not.3, i32 %min_col.2.i.2, i32 3
+  %cmp9.i.3 = icmp slt i32 %spec.select.3, %max.088
   br i1 %cmp9.i.3, label %minimax_player_ab2.exit, label %for.inc.i.3
 
-for.inc.i.3:                                      ; preds = %if.end4.i.3, %for.cond.4.i61.3
-  %min.2.i.3 = phi i32 [ %spec.select.i.3, %if.end4.i.3 ], [ %min.2.i.2, %for.cond.4.i61.3 ]
-  %min_col.2.i.3 = phi i32 [ %spec.select27.i.3, %if.end4.i.3 ], [ %min_col.2.i.2, %for.cond.4.i61.3 ]
-  %and.i35.4 = and i64 %or.i32, 16
-  %tobool.not.i36.4 = icmp eq i64 %and.i35.4, 0
-  br i1 %tobool.not.i36.4, label %if.end4.i.4, label %for.cond.i41.4
+for.inc.i.3:                                      ; preds = %if.end4.i.3, %for.cond.4.i59.3
+  %min.2.i.3 = phi i32 [ %spec.select.3, %if.end4.i.3 ], [ %min.2.i.2, %for.cond.4.i59.3 ]
+  %min_col.2.i.3 = phi i32 [ %spec.select71.3, %if.end4.i.3 ], [ %min_col.2.i.2, %for.cond.4.i59.3 ]
+  %and.i33.4 = and i64 %or.i30, 16
+  %tobool.not.i34.4 = icmp eq i64 %and.i33.4, 0
+  br i1 %tobool.not.i34.4, label %if.end4.i.4, label %for.cond.i39.4
 
-for.cond.i41.4:                                   ; preds = %for.inc.i.3
-  %and.1.i39.4 = and i64 %or.i32, 2048
-  %tobool.not.1.i40.4 = icmp eq i64 %and.1.i39.4, 0
-  br i1 %tobool.not.1.i40.4, label %if.end4.i.4, label %for.cond.1.i46.4
+for.cond.i39.4:                                   ; preds = %for.inc.i.3
+  %and.1.i37.4 = and i64 %or.i30, 2048
+  %tobool.not.1.i38.4 = icmp eq i64 %and.1.i37.4, 0
+  br i1 %tobool.not.1.i38.4, label %if.end4.i.4, label %for.cond.1.i44.4
 
-for.cond.1.i46.4:                                 ; preds = %for.cond.i41.4
-  %and.2.i44.4 = and i64 %or.i32, 262144
-  %tobool.not.2.i45.4 = icmp eq i64 %and.2.i44.4, 0
-  br i1 %tobool.not.2.i45.4, label %if.end4.i.4, label %for.cond.2.i51.4
+for.cond.1.i44.4:                                 ; preds = %for.cond.i39.4
+  %and.2.i42.4 = and i64 %or.i30, 262144
+  %tobool.not.2.i43.4 = icmp eq i64 %and.2.i42.4, 0
+  br i1 %tobool.not.2.i43.4, label %if.end4.i.4, label %for.cond.2.i49.4
 
-for.cond.2.i51.4:                                 ; preds = %for.cond.1.i46.4
-  %and.3.i49.4 = and i64 %or.i32, 33554432
-  %tobool.not.3.i50.4 = icmp eq i64 %and.3.i49.4, 0
-  br i1 %tobool.not.3.i50.4, label %if.end4.i.4, label %for.cond.3.i56.4
+for.cond.2.i49.4:                                 ; preds = %for.cond.1.i44.4
+  %and.3.i47.4 = and i64 %or.i30, 33554432
+  %tobool.not.3.i48.4 = icmp eq i64 %and.3.i47.4, 0
+  br i1 %tobool.not.3.i48.4, label %if.end4.i.4, label %for.cond.3.i54.4
 
-for.cond.3.i56.4:                                 ; preds = %for.cond.2.i51.4
-  %and.4.i54.4 = and i64 %or.i32, 4294967296
-  %tobool.not.4.i55.4 = icmp eq i64 %and.4.i54.4, 0
-  br i1 %tobool.not.4.i55.4, label %if.end4.i.4, label %for.cond.4.i61.4
+for.cond.3.i54.4:                                 ; preds = %for.cond.2.i49.4
+  %and.4.i52.4 = and i64 %or.i30, 4294967296
+  %tobool.not.4.i53.4 = icmp eq i64 %and.4.i52.4, 0
+  br i1 %tobool.not.4.i53.4, label %if.end4.i.4, label %for.cond.4.i59.4
 
-for.cond.4.i61.4:                                 ; preds = %for.cond.3.i56.4
-  %and.5.i59.4 = and i64 %or.i32, 549755813888
-  %tobool.not.5.i60.4 = icmp eq i64 %and.5.i59.4, 0
-  br i1 %tobool.not.5.i60.4, label %if.end4.i.4, label %for.inc.i.4
+for.cond.4.i59.4:                                 ; preds = %for.cond.3.i54.4
+  %and.5.i57.4 = and i64 %or.i30, 549755813888
+  %tobool.not.5.i58.4 = icmp eq i64 %and.5.i57.4, 0
+  br i1 %tobool.not.5.i58.4, label %if.end4.i.4, label %for.inc.i.4
 
-if.end4.i.4:                                      ; preds = %for.cond.4.i61.4, %for.cond.3.i56.4, %for.cond.2.i51.4, %for.cond.1.i46.4, %for.cond.i41.4, %for.inc.i.3
-  %shl.lcssa.i62.4 = phi i64 [ 16, %for.inc.i.3 ], [ 2048, %for.cond.i41.4 ], [ 262144, %for.cond.1.i46.4 ], [ 33554432, %for.cond.2.i51.4 ], [ 4294967296, %for.cond.3.i56.4 ], [ 549755813888, %for.cond.4.i61.4 ]
-  %or7.i63.4 = or i64 %shl.lcssa.i62.4, %b1
-  %call5.i.4 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.4, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.3)
-  %cmp6.not.i.4 = icmp sgt i32 %call5.i.4, %min.2.i.3
-  %spec.select.i.4 = tail call i32 @llvm.smin.i32(i32 %call5.i.4, i32 %min.2.i.3)
-  %spec.select27.i.4 = select i1 %cmp6.not.i.4, i32 %min_col.2.i.3, i32 4
-  %cmp9.i.4 = icmp slt i32 %spec.select.i.4, %max.089
+if.end4.i.4:                                      ; preds = %for.cond.4.i59.4, %for.cond.3.i54.4, %for.cond.2.i49.4, %for.cond.1.i44.4, %for.cond.i39.4, %for.inc.i.3
+  %shl.lcssa.i60.4 = phi i64 [ 16, %for.inc.i.3 ], [ 2048, %for.cond.i39.4 ], [ 262144, %for.cond.1.i44.4 ], [ 33554432, %for.cond.2.i49.4 ], [ 4294967296, %for.cond.3.i54.4 ], [ 549755813888, %for.cond.4.i59.4 ]
+  %or7.i61.4 = or i64 %shl.lcssa.i60.4, %b1
+  %call5.i.4 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.4, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.3)
+  %cmp6.i.not.4 = icmp sgt i32 %call5.i.4, %min.2.i.3
+  %spec.select.4 = tail call i32 @llvm.smin.i32(i32 %call5.i.4, i32 %min.2.i.3)
+  %spec.select71.4 = select i1 %cmp6.i.not.4, i32 %min_col.2.i.3, i32 4
+  %cmp9.i.4 = icmp slt i32 %spec.select.4, %max.088
   br i1 %cmp9.i.4, label %minimax_player_ab2.exit, label %for.inc.i.4
 
-for.inc.i.4:                                      ; preds = %if.end4.i.4, %for.cond.4.i61.4
-  %min.2.i.4 = phi i32 [ %spec.select.i.4, %if.end4.i.4 ], [ %min.2.i.3, %for.cond.4.i61.4 ]
-  %min_col.2.i.4 = phi i32 [ %spec.select27.i.4, %if.end4.i.4 ], [ %min_col.2.i.3, %for.cond.4.i61.4 ]
-  %and.i35.5 = and i64 %or.i32, 32
-  %tobool.not.i36.5 = icmp eq i64 %and.i35.5, 0
-  br i1 %tobool.not.i36.5, label %if.end4.i.5, label %for.cond.i41.5
+for.inc.i.4:                                      ; preds = %if.end4.i.4, %for.cond.4.i59.4
+  %min.2.i.4 = phi i32 [ %spec.select.4, %if.end4.i.4 ], [ %min.2.i.3, %for.cond.4.i59.4 ]
+  %min_col.2.i.4 = phi i32 [ %spec.select71.4, %if.end4.i.4 ], [ %min_col.2.i.3, %for.cond.4.i59.4 ]
+  %and.i33.5 = and i64 %or.i30, 32
+  %tobool.not.i34.5 = icmp eq i64 %and.i33.5, 0
+  br i1 %tobool.not.i34.5, label %if.end4.i.5, label %for.cond.i39.5
 
-for.cond.i41.5:                                   ; preds = %for.inc.i.4
-  %and.1.i39.5 = and i64 %or.i32, 4096
-  %tobool.not.1.i40.5 = icmp eq i64 %and.1.i39.5, 0
-  br i1 %tobool.not.1.i40.5, label %if.end4.i.5, label %for.cond.1.i46.5
+for.cond.i39.5:                                   ; preds = %for.inc.i.4
+  %and.1.i37.5 = and i64 %or.i30, 4096
+  %tobool.not.1.i38.5 = icmp eq i64 %and.1.i37.5, 0
+  br i1 %tobool.not.1.i38.5, label %if.end4.i.5, label %for.cond.1.i44.5
 
-for.cond.1.i46.5:                                 ; preds = %for.cond.i41.5
-  %and.2.i44.5 = and i64 %or.i32, 524288
-  %tobool.not.2.i45.5 = icmp eq i64 %and.2.i44.5, 0
-  br i1 %tobool.not.2.i45.5, label %if.end4.i.5, label %for.cond.2.i51.5
+for.cond.1.i44.5:                                 ; preds = %for.cond.i39.5
+  %and.2.i42.5 = and i64 %or.i30, 524288
+  %tobool.not.2.i43.5 = icmp eq i64 %and.2.i42.5, 0
+  br i1 %tobool.not.2.i43.5, label %if.end4.i.5, label %for.cond.2.i49.5
 
-for.cond.2.i51.5:                                 ; preds = %for.cond.1.i46.5
-  %and.3.i49.5 = and i64 %or.i32, 67108864
-  %tobool.not.3.i50.5 = icmp eq i64 %and.3.i49.5, 0
-  br i1 %tobool.not.3.i50.5, label %if.end4.i.5, label %for.cond.3.i56.5
+for.cond.2.i49.5:                                 ; preds = %for.cond.1.i44.5
+  %and.3.i47.5 = and i64 %or.i30, 67108864
+  %tobool.not.3.i48.5 = icmp eq i64 %and.3.i47.5, 0
+  br i1 %tobool.not.3.i48.5, label %if.end4.i.5, label %for.cond.3.i54.5
 
-for.cond.3.i56.5:                                 ; preds = %for.cond.2.i51.5
-  %and.4.i54.5 = and i64 %or.i32, 8589934592
-  %tobool.not.4.i55.5 = icmp eq i64 %and.4.i54.5, 0
-  br i1 %tobool.not.4.i55.5, label %if.end4.i.5, label %for.cond.4.i61.5
+for.cond.3.i54.5:                                 ; preds = %for.cond.2.i49.5
+  %and.4.i52.5 = and i64 %or.i30, 8589934592
+  %tobool.not.4.i53.5 = icmp eq i64 %and.4.i52.5, 0
+  br i1 %tobool.not.4.i53.5, label %if.end4.i.5, label %for.cond.4.i59.5
 
-for.cond.4.i61.5:                                 ; preds = %for.cond.3.i56.5
-  %and.5.i59.5 = and i64 %or.i32, 1099511627776
-  %tobool.not.5.i60.5 = icmp eq i64 %and.5.i59.5, 0
-  br i1 %tobool.not.5.i60.5, label %if.end4.i.5, label %for.inc.i.5
+for.cond.4.i59.5:                                 ; preds = %for.cond.3.i54.5
+  %and.5.i57.5 = and i64 %or.i30, 1099511627776
+  %tobool.not.5.i58.5 = icmp eq i64 %and.5.i57.5, 0
+  br i1 %tobool.not.5.i58.5, label %if.end4.i.5, label %for.inc.i.5
 
-if.end4.i.5:                                      ; preds = %for.cond.4.i61.5, %for.cond.3.i56.5, %for.cond.2.i51.5, %for.cond.1.i46.5, %for.cond.i41.5, %for.inc.i.4
-  %shl.lcssa.i62.5 = phi i64 [ 32, %for.inc.i.4 ], [ 4096, %for.cond.i41.5 ], [ 524288, %for.cond.1.i46.5 ], [ 67108864, %for.cond.2.i51.5 ], [ 8589934592, %for.cond.3.i56.5 ], [ 1099511627776, %for.cond.4.i61.5 ]
-  %or7.i63.5 = or i64 %shl.lcssa.i62.5, %b1
-  %call5.i.5 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.5, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.4)
-  %cmp6.not.i.5 = icmp sgt i32 %call5.i.5, %min.2.i.4
-  %spec.select.i.5 = tail call i32 @llvm.smin.i32(i32 %call5.i.5, i32 %min.2.i.4)
-  %spec.select27.i.5 = select i1 %cmp6.not.i.5, i32 %min_col.2.i.4, i32 5
-  %cmp9.i.5 = icmp slt i32 %spec.select.i.5, %max.089
+if.end4.i.5:                                      ; preds = %for.cond.4.i59.5, %for.cond.3.i54.5, %for.cond.2.i49.5, %for.cond.1.i44.5, %for.cond.i39.5, %for.inc.i.4
+  %shl.lcssa.i60.5 = phi i64 [ 32, %for.inc.i.4 ], [ 4096, %for.cond.i39.5 ], [ 524288, %for.cond.1.i44.5 ], [ 67108864, %for.cond.2.i49.5 ], [ 8589934592, %for.cond.3.i54.5 ], [ 1099511627776, %for.cond.4.i59.5 ]
+  %or7.i61.5 = or i64 %shl.lcssa.i60.5, %b1
+  %call5.i.5 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.5, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.4)
+  %cmp6.i.not.5 = icmp sgt i32 %call5.i.5, %min.2.i.4
+  %spec.select.5 = tail call i32 @llvm.smin.i32(i32 %call5.i.5, i32 %min.2.i.4)
+  %spec.select71.5 = select i1 %cmp6.i.not.5, i32 %min_col.2.i.4, i32 5
+  %cmp9.i.5 = icmp slt i32 %spec.select.5, %max.088
   br i1 %cmp9.i.5, label %minimax_player_ab2.exit, label %for.inc.i.5
 
-for.inc.i.5:                                      ; preds = %if.end4.i.5, %for.cond.4.i61.5
-  %min.2.i.5 = phi i32 [ %spec.select.i.5, %if.end4.i.5 ], [ %min.2.i.4, %for.cond.4.i61.5 ]
-  %min_col.2.i.5 = phi i32 [ %spec.select27.i.5, %if.end4.i.5 ], [ %min_col.2.i.4, %for.cond.4.i61.5 ]
-  %and.i35.6 = and i64 %or.i32, 64
-  %tobool.not.i36.6 = icmp eq i64 %and.i35.6, 0
-  br i1 %tobool.not.i36.6, label %if.end4.i.6, label %for.cond.i41.6
+for.inc.i.5:                                      ; preds = %if.end4.i.5, %for.cond.4.i59.5
+  %min.2.i.5 = phi i32 [ %spec.select.5, %if.end4.i.5 ], [ %min.2.i.4, %for.cond.4.i59.5 ]
+  %min_col.2.i.5 = phi i32 [ %spec.select71.5, %if.end4.i.5 ], [ %min_col.2.i.4, %for.cond.4.i59.5 ]
+  %and.i33.6 = and i64 %or.i30, 64
+  %tobool.not.i34.6 = icmp eq i64 %and.i33.6, 0
+  br i1 %tobool.not.i34.6, label %if.end4.i.6, label %for.cond.i39.6
 
-for.cond.i41.6:                                   ; preds = %for.inc.i.5
-  %and.1.i39.6 = and i64 %or.i32, 8192
-  %tobool.not.1.i40.6 = icmp eq i64 %and.1.i39.6, 0
-  br i1 %tobool.not.1.i40.6, label %if.end4.i.6, label %for.cond.1.i46.6
+for.cond.i39.6:                                   ; preds = %for.inc.i.5
+  %and.1.i37.6 = and i64 %or.i30, 8192
+  %tobool.not.1.i38.6 = icmp eq i64 %and.1.i37.6, 0
+  br i1 %tobool.not.1.i38.6, label %if.end4.i.6, label %for.cond.1.i44.6
 
-for.cond.1.i46.6:                                 ; preds = %for.cond.i41.6
-  %and.2.i44.6 = and i64 %or.i32, 1048576
-  %tobool.not.2.i45.6 = icmp eq i64 %and.2.i44.6, 0
-  br i1 %tobool.not.2.i45.6, label %if.end4.i.6, label %for.cond.2.i51.6
+for.cond.1.i44.6:                                 ; preds = %for.cond.i39.6
+  %and.2.i42.6 = and i64 %or.i30, 1048576
+  %tobool.not.2.i43.6 = icmp eq i64 %and.2.i42.6, 0
+  br i1 %tobool.not.2.i43.6, label %if.end4.i.6, label %for.cond.2.i49.6
 
-for.cond.2.i51.6:                                 ; preds = %for.cond.1.i46.6
-  %and.3.i49.6 = and i64 %or.i32, 134217728
-  %tobool.not.3.i50.6 = icmp eq i64 %and.3.i49.6, 0
-  br i1 %tobool.not.3.i50.6, label %if.end4.i.6, label %for.cond.3.i56.6
+for.cond.2.i49.6:                                 ; preds = %for.cond.1.i44.6
+  %and.3.i47.6 = and i64 %or.i30, 134217728
+  %tobool.not.3.i48.6 = icmp eq i64 %and.3.i47.6, 0
+  br i1 %tobool.not.3.i48.6, label %if.end4.i.6, label %for.cond.3.i54.6
 
-for.cond.3.i56.6:                                 ; preds = %for.cond.2.i51.6
-  %and.4.i54.6 = and i64 %or.i32, 17179869184
-  %tobool.not.4.i55.6 = icmp eq i64 %and.4.i54.6, 0
-  br i1 %tobool.not.4.i55.6, label %if.end4.i.6, label %for.cond.4.i61.6
+for.cond.3.i54.6:                                 ; preds = %for.cond.2.i49.6
+  %and.4.i52.6 = and i64 %or.i30, 17179869184
+  %tobool.not.4.i53.6 = icmp eq i64 %and.4.i52.6, 0
+  br i1 %tobool.not.4.i53.6, label %if.end4.i.6, label %for.cond.4.i59.6
 
-for.cond.4.i61.6:                                 ; preds = %for.cond.3.i56.6
-  %and.5.i59.6 = and i64 %or.i32, 2199023255552
-  %tobool.not.5.i60.6 = icmp eq i64 %and.5.i59.6, 0
-  br i1 %tobool.not.5.i60.6, label %if.end4.i.6, label %for.inc.i.6
+for.cond.4.i59.6:                                 ; preds = %for.cond.3.i54.6
+  %and.5.i57.6 = and i64 %or.i30, 2199023255552
+  %tobool.not.5.i58.6 = icmp eq i64 %and.5.i57.6, 0
+  br i1 %tobool.not.5.i58.6, label %if.end4.i.6, label %for.inc.i.6
 
-if.end4.i.6:                                      ; preds = %for.cond.4.i61.6, %for.cond.3.i56.6, %for.cond.2.i51.6, %for.cond.1.i46.6, %for.cond.i41.6, %for.inc.i.5
-  %shl.lcssa.i62.6 = phi i64 [ 64, %for.inc.i.5 ], [ 8192, %for.cond.i41.6 ], [ 1048576, %for.cond.1.i46.6 ], [ 134217728, %for.cond.2.i51.6 ], [ 17179869184, %for.cond.3.i56.6 ], [ 2199023255552, %for.cond.4.i61.6 ]
-  %or7.i63.6 = or i64 %shl.lcssa.i62.6, %b1
-  %call5.i.6 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i63.6, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.5)
-  %cmp6.not.i.6 = icmp sgt i32 %call5.i.6, %min.2.i.5
-  %spec.select.i.6 = tail call i32 @llvm.smin.i32(i32 %call5.i.6, i32 %min.2.i.5)
-  %spec.select27.i.6 = select i1 %cmp6.not.i.6, i32 %min_col.2.i.5, i32 6
-  %cmp9.i.6 = icmp slt i32 %spec.select.i.6, %max.089
+if.end4.i.6:                                      ; preds = %for.cond.4.i59.6, %for.cond.3.i54.6, %for.cond.2.i49.6, %for.cond.1.i44.6, %for.cond.i39.6, %for.inc.i.5
+  %shl.lcssa.i60.6 = phi i64 [ 64, %for.inc.i.5 ], [ 8192, %for.cond.i39.6 ], [ 1048576, %for.cond.1.i44.6 ], [ 134217728, %for.cond.2.i49.6 ], [ 17179869184, %for.cond.3.i54.6 ], [ 2199023255552, %for.cond.4.i59.6 ]
+  %or7.i61.6 = or i64 %shl.lcssa.i60.6, %b1
+  %call5.i.6 = tail call i32 @minimax_comp_ab2(i32 noundef %add.i, i64 noundef %or7.i61.6, i64 noundef %or7.i, ptr noundef %col, i32 noundef %min.2.i.5)
+  %cmp6.i.not.6 = icmp sgt i32 %call5.i.6, %min.2.i.5
+  %spec.select.6 = tail call i32 @llvm.smin.i32(i32 %call5.i.6, i32 %min.2.i.5)
+  %spec.select71.6 = select i1 %cmp6.i.not.6, i32 %min_col.2.i.5, i32 6
+  %cmp9.i.6 = icmp slt i32 %spec.select.6, %max.088
   br i1 %cmp9.i.6, label %minimax_player_ab2.exit, label %for.inc.i.6
 
-for.inc.i.6:                                      ; preds = %if.end4.i.6, %for.cond.4.i61.6
-  %min.2.i.6 = phi i32 [ %spec.select.i.6, %if.end4.i.6 ], [ %min.2.i.5, %for.cond.4.i61.6 ]
-  %min_col.2.i.6 = phi i32 [ %spec.select27.i.6, %if.end4.i.6 ], [ %min_col.2.i.5, %for.cond.4.i61.6 ]
+for.inc.i.6:                                      ; preds = %if.end4.i.6, %for.cond.4.i59.6
+  %min.2.i.6 = phi i32 [ %spec.select.6, %if.end4.i.6 ], [ %min.2.i.5, %for.cond.4.i59.6 ]
+  %min_col.2.i.6 = phi i32 [ %spec.select71.6, %if.end4.i.6 ], [ %min_col.2.i.5, %for.cond.4.i59.6 ]
   store i32 %min_col.2.i.6, ptr %col, align 4, !tbaa !14
   br label %minimax_player_ab2.exit
 
-minimax_player_ab2.exit:                          ; preds = %if.end4.i, %if.end4.i.1, %if.end4.i.2, %if.end4.i.3, %if.end4.i.4, %if.end4.i.5, %if.end4.i.6, %if.then.i28, %for.inc.i.6
-  %retval.0.i31 = phi i32 [ %call.i, %if.then.i28 ], [ %min.2.i.6, %for.inc.i.6 ], [ %spec.select.i, %if.end4.i ], [ %spec.select.i.1, %if.end4.i.1 ], [ %spec.select.i.2, %if.end4.i.2 ], [ %spec.select.i.3, %if.end4.i.3 ], [ %spec.select.i.4, %if.end4.i.4 ], [ %spec.select.i.5, %if.end4.i.5 ], [ %spec.select.i.6, %if.end4.i.6 ]
-  %cmp6 = icmp sgt i32 %retval.0.i31, %max.089
-  %spec.select = tail call i32 @llvm.smax.i32(i32 %retval.0.i31, i32 %max.089)
-  %2 = trunc i64 %indvars.iv92 to i32
-  %spec.select27 = select i1 %cmp6, i32 %2, i32 %max_col.090
-  %cmp9 = icmp sgt i32 %spec.select, %beta
+minimax_player_ab2.exit:                          ; preds = %if.end4.i, %if.end4.i.1, %if.end4.i.2, %if.end4.i.3, %if.end4.i.4, %if.end4.i.5, %if.end4.i.6, %if.then.i27, %for.inc.i.6
+  %retval.0.i29 = phi i32 [ %call.i, %if.then.i27 ], [ %min.2.i.6, %for.inc.i.6 ], [ %spec.select, %if.end4.i ], [ %spec.select.1, %if.end4.i.1 ], [ %spec.select.2, %if.end4.i.2 ], [ %spec.select.3, %if.end4.i.3 ], [ %spec.select.4, %if.end4.i.4 ], [ %spec.select.5, %if.end4.i.5 ], [ %spec.select.6, %if.end4.i.6 ]
+  %cmp6 = icmp sgt i32 %retval.0.i29, %max.088
+  %spec.select72 = tail call i32 @llvm.smax.i32(i32 %retval.0.i29, i32 %max.088)
+  %2 = trunc i64 %indvars.iv91 to i32
+  %spec.select73 = select i1 %cmp6, i32 %2, i32 %max_col.089
+  %cmp9 = icmp sgt i32 %spec.select72, %beta
   br i1 %cmp9, label %cleanup, label %for.inc
 
 for.inc:                                          ; preds = %for.cond.4.i, %minimax_player_ab2.exit
-  %max.2 = phi i32 [ %spec.select, %minimax_player_ab2.exit ], [ %max.089, %for.cond.4.i ]
-  %max_col.2 = phi i32 [ %spec.select27, %minimax_player_ab2.exit ], [ %max_col.090, %for.cond.4.i ]
-  %indvars.iv.next93 = add nuw nsw i64 %indvars.iv92, 1
-  %exitcond95.not = icmp eq i64 %indvars.iv.next93, 7
-  br i1 %exitcond95.not, label %for.end, label %for.body, !llvm.loop !18
+  %max.2 = phi i32 [ %spec.select72, %minimax_player_ab2.exit ], [ %max.088, %for.cond.4.i ]
+  %max_col.2 = phi i32 [ %spec.select73, %minimax_player_ab2.exit ], [ %max_col.089, %for.cond.4.i ]
+  %indvars.iv.next92 = add nuw nsw i64 %indvars.iv91, 1
+  %exitcond94.not = icmp eq i64 %indvars.iv.next92, 7
+  br i1 %exitcond94.not, label %for.end, label %for.body, !llvm.loop !18
 
 for.end:                                          ; preds = %for.inc
   store i32 %max_col.2, ptr %col, align 4, !tbaa !14
   br label %cleanup
 
 cleanup:                                          ; preds = %minimax_player_ab2.exit, %for.end, %if.then
-  %retval.0 = phi i32 [ %call, %if.then ], [ %max.2, %for.end ], [ %spec.select, %minimax_player_ab2.exit ]
+  %retval.0 = phi i32 [ %call, %if.then ], [ %max.2, %for.end ], [ %spec.select72, %minimax_player_ab2.exit ]
   ret i32 %retval.0
 }
 
@@ -5030,13 +5030,13 @@ if.end4.1:                                        ; preds = %for.cond.4.i.1, %fo
   %call5.1 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.1, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2)
   %cmp6.not.1 = icmp sle i32 %call5.1, %min.2
   %spec.select.1 = tail call i32 @llvm.smin.i32(i32 %call5.1, i32 %min.2)
-  %spec.select27.1 = zext i1 %cmp6.not.1 to i32
+  %spec.select30.1 = zext i1 %cmp6.not.1 to i32
   %cmp9.1 = icmp slt i32 %spec.select.1, %alpha
   br i1 %cmp9.1, label %cleanup, label %for.inc.1
 
 for.inc.1:                                        ; preds = %if.end4.1, %for.cond.4.i.1
   %min.2.1 = phi i32 [ %spec.select.1, %if.end4.1 ], [ %min.2, %for.cond.4.i.1 ]
-  %min_col.2.1 = phi i32 [ %spec.select27.1, %if.end4.1 ], [ 0, %for.cond.4.i.1 ]
+  %min_col.2.1 = phi i32 [ %spec.select30.1, %if.end4.1 ], [ 0, %for.cond.4.i.1 ]
   %and.i.2 = and i64 %or.i, 4
   %tobool.not.i.2 = icmp eq i64 %and.i.2, 0
   br i1 %tobool.not.i.2, label %if.end4.2, label %for.cond.i.2
@@ -5072,13 +5072,13 @@ if.end4.2:                                        ; preds = %for.cond.4.i.2, %fo
   %call5.2 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.2, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2.1)
   %cmp6.not.2 = icmp sgt i32 %call5.2, %min.2.1
   %spec.select.2 = tail call i32 @llvm.smin.i32(i32 %call5.2, i32 %min.2.1)
-  %spec.select27.2 = select i1 %cmp6.not.2, i32 %min_col.2.1, i32 2
+  %spec.select30.2 = select i1 %cmp6.not.2, i32 %min_col.2.1, i32 2
   %cmp9.2 = icmp slt i32 %spec.select.2, %alpha
   br i1 %cmp9.2, label %cleanup, label %for.inc.2
 
 for.inc.2:                                        ; preds = %if.end4.2, %for.cond.4.i.2
   %min.2.2 = phi i32 [ %spec.select.2, %if.end4.2 ], [ %min.2.1, %for.cond.4.i.2 ]
-  %min_col.2.2 = phi i32 [ %spec.select27.2, %if.end4.2 ], [ %min_col.2.1, %for.cond.4.i.2 ]
+  %min_col.2.2 = phi i32 [ %spec.select30.2, %if.end4.2 ], [ %min_col.2.1, %for.cond.4.i.2 ]
   %and.i.3 = and i64 %or.i, 8
   %tobool.not.i.3 = icmp eq i64 %and.i.3, 0
   br i1 %tobool.not.i.3, label %if.end4.3, label %for.cond.i.3
@@ -5114,13 +5114,13 @@ if.end4.3:                                        ; preds = %for.cond.4.i.3, %fo
   %call5.3 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.3, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2.2)
   %cmp6.not.3 = icmp sgt i32 %call5.3, %min.2.2
   %spec.select.3 = tail call i32 @llvm.smin.i32(i32 %call5.3, i32 %min.2.2)
-  %spec.select27.3 = select i1 %cmp6.not.3, i32 %min_col.2.2, i32 3
+  %spec.select30.3 = select i1 %cmp6.not.3, i32 %min_col.2.2, i32 3
   %cmp9.3 = icmp slt i32 %spec.select.3, %alpha
   br i1 %cmp9.3, label %cleanup, label %for.inc.3
 
 for.inc.3:                                        ; preds = %if.end4.3, %for.cond.4.i.3
   %min.2.3 = phi i32 [ %spec.select.3, %if.end4.3 ], [ %min.2.2, %for.cond.4.i.3 ]
-  %min_col.2.3 = phi i32 [ %spec.select27.3, %if.end4.3 ], [ %min_col.2.2, %for.cond.4.i.3 ]
+  %min_col.2.3 = phi i32 [ %spec.select30.3, %if.end4.3 ], [ %min_col.2.2, %for.cond.4.i.3 ]
   %and.i.4 = and i64 %or.i, 16
   %tobool.not.i.4 = icmp eq i64 %and.i.4, 0
   br i1 %tobool.not.i.4, label %if.end4.4, label %for.cond.i.4
@@ -5156,13 +5156,13 @@ if.end4.4:                                        ; preds = %for.cond.4.i.4, %fo
   %call5.4 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.4, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2.3)
   %cmp6.not.4 = icmp sgt i32 %call5.4, %min.2.3
   %spec.select.4 = tail call i32 @llvm.smin.i32(i32 %call5.4, i32 %min.2.3)
-  %spec.select27.4 = select i1 %cmp6.not.4, i32 %min_col.2.3, i32 4
+  %spec.select30.4 = select i1 %cmp6.not.4, i32 %min_col.2.3, i32 4
   %cmp9.4 = icmp slt i32 %spec.select.4, %alpha
   br i1 %cmp9.4, label %cleanup, label %for.inc.4
 
 for.inc.4:                                        ; preds = %if.end4.4, %for.cond.4.i.4
   %min.2.4 = phi i32 [ %spec.select.4, %if.end4.4 ], [ %min.2.3, %for.cond.4.i.4 ]
-  %min_col.2.4 = phi i32 [ %spec.select27.4, %if.end4.4 ], [ %min_col.2.3, %for.cond.4.i.4 ]
+  %min_col.2.4 = phi i32 [ %spec.select30.4, %if.end4.4 ], [ %min_col.2.3, %for.cond.4.i.4 ]
   %and.i.5 = and i64 %or.i, 32
   %tobool.not.i.5 = icmp eq i64 %and.i.5, 0
   br i1 %tobool.not.i.5, label %if.end4.5, label %for.cond.i.5
@@ -5198,13 +5198,13 @@ if.end4.5:                                        ; preds = %for.cond.4.i.5, %fo
   %call5.5 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.5, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2.4)
   %cmp6.not.5 = icmp sgt i32 %call5.5, %min.2.4
   %spec.select.5 = tail call i32 @llvm.smin.i32(i32 %call5.5, i32 %min.2.4)
-  %spec.select27.5 = select i1 %cmp6.not.5, i32 %min_col.2.4, i32 5
+  %spec.select30.5 = select i1 %cmp6.not.5, i32 %min_col.2.4, i32 5
   %cmp9.5 = icmp slt i32 %spec.select.5, %alpha
   br i1 %cmp9.5, label %cleanup, label %for.inc.5
 
 for.inc.5:                                        ; preds = %if.end4.5, %for.cond.4.i.5
   %min.2.5 = phi i32 [ %spec.select.5, %if.end4.5 ], [ %min.2.4, %for.cond.4.i.5 ]
-  %min_col.2.5 = phi i32 [ %spec.select27.5, %if.end4.5 ], [ %min_col.2.4, %for.cond.4.i.5 ]
+  %min_col.2.5 = phi i32 [ %spec.select30.5, %if.end4.5 ], [ %min_col.2.4, %for.cond.4.i.5 ]
   %and.i.6 = and i64 %or.i, 64
   %tobool.not.i.6 = icmp eq i64 %and.i.6, 0
   br i1 %tobool.not.i.6, label %if.end4.6, label %for.cond.i.6
@@ -5240,13 +5240,13 @@ if.end4.6:                                        ; preds = %for.cond.4.i.6, %fo
   %call5.6 = tail call i32 @minimax_comp_ab2(i32 noundef %add, i64 noundef %or7.i.6, i64 noundef %b2, ptr noundef %col, i32 noundef %min.2.5)
   %cmp6.not.6 = icmp sgt i32 %call5.6, %min.2.5
   %spec.select.6 = tail call i32 @llvm.smin.i32(i32 %call5.6, i32 %min.2.5)
-  %spec.select27.6 = select i1 %cmp6.not.6, i32 %min_col.2.5, i32 6
+  %spec.select30.6 = select i1 %cmp6.not.6, i32 %min_col.2.5, i32 6
   %cmp9.6 = icmp slt i32 %spec.select.6, %alpha
   br i1 %cmp9.6, label %cleanup, label %for.inc.6
 
 for.inc.6:                                        ; preds = %if.end4.6, %for.cond.4.i.6
   %min.2.6 = phi i32 [ %spec.select.6, %if.end4.6 ], [ %min.2.5, %for.cond.4.i.6 ]
-  %min_col.2.6 = phi i32 [ %spec.select27.6, %if.end4.6 ], [ %min_col.2.5, %for.cond.4.i.6 ]
+  %min_col.2.6 = phi i32 [ %spec.select30.6, %if.end4.6 ], [ %min_col.2.5, %for.cond.4.i.6 ]
   store i32 %min_col.2.6, ptr %col, align 4, !tbaa !14
   br label %cleanup
 
@@ -5274,8 +5274,8 @@ if.then:                                          ; preds = %entry
 
 for.body:                                         ; preds = %for.cond.preheader, %for.inc
   %indvars.iv = phi i64 [ 0, %for.cond.preheader ], [ %indvars.iv.next, %for.inc ]
-  %max_col.080 = phi i32 [ 0, %for.cond.preheader ], [ %max_col.1, %for.inc ]
-  %max.079 = phi i32 [ -100000, %for.cond.preheader ], [ %max.1, %for.inc ]
+  %max_col.079 = phi i32 [ 0, %for.cond.preheader ], [ %max_col.1, %for.inc ]
+  %max.078 = phi i32 [ -100000, %for.cond.preheader ], [ %max.1, %for.inc ]
   %shl.i = shl nuw nsw i64 1, %indvars.iv
   %and.i = and i64 %shl.i, %or.i
   %tobool.not.i = icmp eq i64 %and.i, 0
@@ -5315,313 +5315,313 @@ if.end4:                                          ; preds = %for.body, %for.cond
   %shl.lcssa.i = phi i64 [ %shl.i, %for.body ], [ %shl.1.i, %for.cond.i ], [ %shl.2.i, %for.cond.1.i ], [ %shl.3.i, %for.cond.2.i ], [ %shl.4.i, %for.cond.3.i ], [ %shl.5.i, %for.cond.4.i ]
   %or7.i = or i64 %shl.lcssa.i, %b2
   %1 = load i32, ptr @DEPTH, align 4, !tbaa !14
-  %cmp.not.i = icmp sgt i32 %1, %add
-  br i1 %cmp.not.i, label %for.cond.i23.preheader, label %if.then.i22
+  %cmp.i.not = icmp slt i32 %add, %1
+  br i1 %cmp.i.not, label %for.cond.i22.preheader, label %if.then.i21
 
-for.cond.i23.preheader:                           ; preds = %if.end4
-  %or.i26 = or i64 %or7.i, %b1
-  %and.i29 = and i64 %or.i26, 1
-  %tobool.not.i30 = icmp eq i64 %and.i29, 0
-  br i1 %tobool.not.i30, label %if.end4.i, label %for.cond.i35
+for.cond.i22.preheader:                           ; preds = %if.end4
+  %or.i24 = or i64 %or7.i, %b1
+  %and.i27 = and i64 %or.i24, 1
+  %tobool.not.i28 = icmp eq i64 %and.i27, 0
+  br i1 %tobool.not.i28, label %if.end4.i, label %for.cond.i33
 
-if.then.i22:                                      ; preds = %if.end4
+if.then.i21:                                      ; preds = %if.end4
   %call.i = tail call i32 @value(i64 noundef %b1, i64 noundef %or7.i)
   br label %minimax_player.exit
 
-for.cond.i35:                                     ; preds = %for.cond.i23.preheader
-  %and.1.i33 = and i64 %or.i26, 128
-  %tobool.not.1.i34 = icmp eq i64 %and.1.i33, 0
-  br i1 %tobool.not.1.i34, label %if.end4.i, label %for.cond.1.i40
+for.cond.i33:                                     ; preds = %for.cond.i22.preheader
+  %and.1.i31 = and i64 %or.i24, 128
+  %tobool.not.1.i32 = icmp eq i64 %and.1.i31, 0
+  br i1 %tobool.not.1.i32, label %if.end4.i, label %for.cond.1.i38
 
-for.cond.1.i40:                                   ; preds = %for.cond.i35
-  %and.2.i38 = and i64 %or.i26, 16384
-  %tobool.not.2.i39 = icmp eq i64 %and.2.i38, 0
-  br i1 %tobool.not.2.i39, label %if.end4.i, label %for.cond.2.i45
+for.cond.1.i38:                                   ; preds = %for.cond.i33
+  %and.2.i36 = and i64 %or.i24, 16384
+  %tobool.not.2.i37 = icmp eq i64 %and.2.i36, 0
+  br i1 %tobool.not.2.i37, label %if.end4.i, label %for.cond.2.i43
 
-for.cond.2.i45:                                   ; preds = %for.cond.1.i40
-  %and.3.i43 = and i64 %or.i26, 2097152
-  %tobool.not.3.i44 = icmp eq i64 %and.3.i43, 0
-  br i1 %tobool.not.3.i44, label %if.end4.i, label %for.cond.3.i50
+for.cond.2.i43:                                   ; preds = %for.cond.1.i38
+  %and.3.i41 = and i64 %or.i24, 2097152
+  %tobool.not.3.i42 = icmp eq i64 %and.3.i41, 0
+  br i1 %tobool.not.3.i42, label %if.end4.i, label %for.cond.3.i48
 
-for.cond.3.i50:                                   ; preds = %for.cond.2.i45
-  %and.4.i48 = and i64 %or.i26, 268435456
-  %tobool.not.4.i49 = icmp eq i64 %and.4.i48, 0
-  br i1 %tobool.not.4.i49, label %if.end4.i, label %for.cond.4.i55
+for.cond.3.i48:                                   ; preds = %for.cond.2.i43
+  %and.4.i46 = and i64 %or.i24, 268435456
+  %tobool.not.4.i47 = icmp eq i64 %and.4.i46, 0
+  br i1 %tobool.not.4.i47, label %if.end4.i, label %for.cond.4.i53
 
-for.cond.4.i55:                                   ; preds = %for.cond.3.i50
-  %and.5.i53 = and i64 %or.i26, 34359738368
-  %tobool.not.5.i54 = icmp eq i64 %and.5.i53, 0
-  br i1 %tobool.not.5.i54, label %if.end4.i, label %for.inc.i
+for.cond.4.i53:                                   ; preds = %for.cond.3.i48
+  %and.5.i51 = and i64 %or.i24, 34359738368
+  %tobool.not.5.i52 = icmp eq i64 %and.5.i51, 0
+  br i1 %tobool.not.5.i52, label %if.end4.i, label %for.inc.i
 
-if.end4.i:                                        ; preds = %for.cond.i23.preheader, %for.cond.i35, %for.cond.1.i40, %for.cond.2.i45, %for.cond.3.i50, %for.cond.4.i55
-  %shl.lcssa.i56 = phi i64 [ 1, %for.cond.i23.preheader ], [ 128, %for.cond.i35 ], [ 16384, %for.cond.1.i40 ], [ 2097152, %for.cond.2.i45 ], [ 268435456, %for.cond.3.i50 ], [ 34359738368, %for.cond.4.i55 ]
-  %or7.i57 = or i64 %shl.lcssa.i56, %b1
-  %call5.i = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57, i64 noundef %or7.i, ptr noundef %col)
-  %spec.select.i = tail call i32 @llvm.smin.i32(i32 %call5.i, i32 100000)
+if.end4.i:                                        ; preds = %for.cond.i22.preheader, %for.cond.i33, %for.cond.1.i38, %for.cond.2.i43, %for.cond.3.i48, %for.cond.4.i53
+  %shl.lcssa.i54 = phi i64 [ 1, %for.cond.i22.preheader ], [ 128, %for.cond.i33 ], [ 16384, %for.cond.1.i38 ], [ 2097152, %for.cond.2.i43 ], [ 268435456, %for.cond.3.i48 ], [ 34359738368, %for.cond.4.i53 ]
+  %or7.i55 = or i64 %shl.lcssa.i54, %b1
+  %call5.i = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55, i64 noundef %or7.i, ptr noundef %col)
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %call5.i, i32 100000)
   br label %for.inc.i
 
-for.inc.i:                                        ; preds = %for.cond.4.i55, %if.end4.i
-  %min.1.i = phi i32 [ %spec.select.i, %if.end4.i ], [ 100000, %for.cond.4.i55 ]
-  %and.i29.1 = and i64 %or.i26, 2
-  %tobool.not.i30.1 = icmp eq i64 %and.i29.1, 0
-  br i1 %tobool.not.i30.1, label %if.end4.i.1, label %for.cond.i35.1
+for.inc.i:                                        ; preds = %for.cond.4.i53, %if.end4.i
+  %min.1.i = phi i32 [ %spec.select, %if.end4.i ], [ 100000, %for.cond.4.i53 ]
+  %and.i27.1 = and i64 %or.i24, 2
+  %tobool.not.i28.1 = icmp eq i64 %and.i27.1, 0
+  br i1 %tobool.not.i28.1, label %if.end4.i.1, label %for.cond.i33.1
 
-for.cond.i35.1:                                   ; preds = %for.inc.i
-  %and.1.i33.1 = and i64 %or.i26, 256
-  %tobool.not.1.i34.1 = icmp eq i64 %and.1.i33.1, 0
-  br i1 %tobool.not.1.i34.1, label %if.end4.i.1, label %for.cond.1.i40.1
+for.cond.i33.1:                                   ; preds = %for.inc.i
+  %and.1.i31.1 = and i64 %or.i24, 256
+  %tobool.not.1.i32.1 = icmp eq i64 %and.1.i31.1, 0
+  br i1 %tobool.not.1.i32.1, label %if.end4.i.1, label %for.cond.1.i38.1
 
-for.cond.1.i40.1:                                 ; preds = %for.cond.i35.1
-  %and.2.i38.1 = and i64 %or.i26, 32768
-  %tobool.not.2.i39.1 = icmp eq i64 %and.2.i38.1, 0
-  br i1 %tobool.not.2.i39.1, label %if.end4.i.1, label %for.cond.2.i45.1
+for.cond.1.i38.1:                                 ; preds = %for.cond.i33.1
+  %and.2.i36.1 = and i64 %or.i24, 32768
+  %tobool.not.2.i37.1 = icmp eq i64 %and.2.i36.1, 0
+  br i1 %tobool.not.2.i37.1, label %if.end4.i.1, label %for.cond.2.i43.1
 
-for.cond.2.i45.1:                                 ; preds = %for.cond.1.i40.1
-  %and.3.i43.1 = and i64 %or.i26, 4194304
-  %tobool.not.3.i44.1 = icmp eq i64 %and.3.i43.1, 0
-  br i1 %tobool.not.3.i44.1, label %if.end4.i.1, label %for.cond.3.i50.1
+for.cond.2.i43.1:                                 ; preds = %for.cond.1.i38.1
+  %and.3.i41.1 = and i64 %or.i24, 4194304
+  %tobool.not.3.i42.1 = icmp eq i64 %and.3.i41.1, 0
+  br i1 %tobool.not.3.i42.1, label %if.end4.i.1, label %for.cond.3.i48.1
 
-for.cond.3.i50.1:                                 ; preds = %for.cond.2.i45.1
-  %and.4.i48.1 = and i64 %or.i26, 536870912
-  %tobool.not.4.i49.1 = icmp eq i64 %and.4.i48.1, 0
-  br i1 %tobool.not.4.i49.1, label %if.end4.i.1, label %for.cond.4.i55.1
+for.cond.3.i48.1:                                 ; preds = %for.cond.2.i43.1
+  %and.4.i46.1 = and i64 %or.i24, 536870912
+  %tobool.not.4.i47.1 = icmp eq i64 %and.4.i46.1, 0
+  br i1 %tobool.not.4.i47.1, label %if.end4.i.1, label %for.cond.4.i53.1
 
-for.cond.4.i55.1:                                 ; preds = %for.cond.3.i50.1
-  %and.5.i53.1 = and i64 %or.i26, 68719476736
-  %tobool.not.5.i54.1 = icmp eq i64 %and.5.i53.1, 0
-  br i1 %tobool.not.5.i54.1, label %if.end4.i.1, label %for.inc.i.1
+for.cond.4.i53.1:                                 ; preds = %for.cond.3.i48.1
+  %and.5.i51.1 = and i64 %or.i24, 68719476736
+  %tobool.not.5.i52.1 = icmp eq i64 %and.5.i51.1, 0
+  br i1 %tobool.not.5.i52.1, label %if.end4.i.1, label %for.inc.i.1
 
-if.end4.i.1:                                      ; preds = %for.cond.4.i55.1, %for.cond.3.i50.1, %for.cond.2.i45.1, %for.cond.1.i40.1, %for.cond.i35.1, %for.inc.i
-  %shl.lcssa.i56.1 = phi i64 [ 2, %for.inc.i ], [ 256, %for.cond.i35.1 ], [ 32768, %for.cond.1.i40.1 ], [ 4194304, %for.cond.2.i45.1 ], [ 536870912, %for.cond.3.i50.1 ], [ 68719476736, %for.cond.4.i55.1 ]
-  %or7.i57.1 = or i64 %shl.lcssa.i56.1, %b1
-  %call5.i.1 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.1, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.1 = icmp sle i32 %call5.i.1, %min.1.i
-  %spec.select.i.1 = tail call i32 @llvm.smin.i32(i32 %call5.i.1, i32 %min.1.i)
-  %spec.select21.i.1 = zext i1 %cmp6.not.i.1 to i32
+if.end4.i.1:                                      ; preds = %for.cond.4.i53.1, %for.cond.3.i48.1, %for.cond.2.i43.1, %for.cond.1.i38.1, %for.cond.i33.1, %for.inc.i
+  %shl.lcssa.i54.1 = phi i64 [ 2, %for.inc.i ], [ 256, %for.cond.i33.1 ], [ 32768, %for.cond.1.i38.1 ], [ 4194304, %for.cond.2.i43.1 ], [ 536870912, %for.cond.3.i48.1 ], [ 68719476736, %for.cond.4.i53.1 ]
+  %or7.i55.1 = or i64 %shl.lcssa.i54.1, %b1
+  %call5.i.1 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.1, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.1 = icmp sle i32 %call5.i.1, %min.1.i
+  %spec.select.1 = tail call i32 @llvm.smin.i32(i32 %call5.i.1, i32 %min.1.i)
+  %spec.select65.1 = zext i1 %cmp6.i.not.1 to i32
   br label %for.inc.i.1
 
-for.inc.i.1:                                      ; preds = %if.end4.i.1, %for.cond.4.i55.1
-  %min.1.i.1 = phi i32 [ %spec.select.i.1, %if.end4.i.1 ], [ %min.1.i, %for.cond.4.i55.1 ]
-  %min_col.1.i.1 = phi i32 [ %spec.select21.i.1, %if.end4.i.1 ], [ 0, %for.cond.4.i55.1 ]
-  %and.i29.2 = and i64 %or.i26, 4
-  %tobool.not.i30.2 = icmp eq i64 %and.i29.2, 0
-  br i1 %tobool.not.i30.2, label %if.end4.i.2, label %for.cond.i35.2
+for.inc.i.1:                                      ; preds = %if.end4.i.1, %for.cond.4.i53.1
+  %min.1.i.1 = phi i32 [ %spec.select.1, %if.end4.i.1 ], [ %min.1.i, %for.cond.4.i53.1 ]
+  %min_col.1.i.1 = phi i32 [ %spec.select65.1, %if.end4.i.1 ], [ 0, %for.cond.4.i53.1 ]
+  %and.i27.2 = and i64 %or.i24, 4
+  %tobool.not.i28.2 = icmp eq i64 %and.i27.2, 0
+  br i1 %tobool.not.i28.2, label %if.end4.i.2, label %for.cond.i33.2
 
-for.cond.i35.2:                                   ; preds = %for.inc.i.1
-  %and.1.i33.2 = and i64 %or.i26, 512
-  %tobool.not.1.i34.2 = icmp eq i64 %and.1.i33.2, 0
-  br i1 %tobool.not.1.i34.2, label %if.end4.i.2, label %for.cond.1.i40.2
+for.cond.i33.2:                                   ; preds = %for.inc.i.1
+  %and.1.i31.2 = and i64 %or.i24, 512
+  %tobool.not.1.i32.2 = icmp eq i64 %and.1.i31.2, 0
+  br i1 %tobool.not.1.i32.2, label %if.end4.i.2, label %for.cond.1.i38.2
 
-for.cond.1.i40.2:                                 ; preds = %for.cond.i35.2
-  %and.2.i38.2 = and i64 %or.i26, 65536
-  %tobool.not.2.i39.2 = icmp eq i64 %and.2.i38.2, 0
-  br i1 %tobool.not.2.i39.2, label %if.end4.i.2, label %for.cond.2.i45.2
+for.cond.1.i38.2:                                 ; preds = %for.cond.i33.2
+  %and.2.i36.2 = and i64 %or.i24, 65536
+  %tobool.not.2.i37.2 = icmp eq i64 %and.2.i36.2, 0
+  br i1 %tobool.not.2.i37.2, label %if.end4.i.2, label %for.cond.2.i43.2
 
-for.cond.2.i45.2:                                 ; preds = %for.cond.1.i40.2
-  %and.3.i43.2 = and i64 %or.i26, 8388608
-  %tobool.not.3.i44.2 = icmp eq i64 %and.3.i43.2, 0
-  br i1 %tobool.not.3.i44.2, label %if.end4.i.2, label %for.cond.3.i50.2
+for.cond.2.i43.2:                                 ; preds = %for.cond.1.i38.2
+  %and.3.i41.2 = and i64 %or.i24, 8388608
+  %tobool.not.3.i42.2 = icmp eq i64 %and.3.i41.2, 0
+  br i1 %tobool.not.3.i42.2, label %if.end4.i.2, label %for.cond.3.i48.2
 
-for.cond.3.i50.2:                                 ; preds = %for.cond.2.i45.2
-  %and.4.i48.2 = and i64 %or.i26, 1073741824
-  %tobool.not.4.i49.2 = icmp eq i64 %and.4.i48.2, 0
-  br i1 %tobool.not.4.i49.2, label %if.end4.i.2, label %for.cond.4.i55.2
+for.cond.3.i48.2:                                 ; preds = %for.cond.2.i43.2
+  %and.4.i46.2 = and i64 %or.i24, 1073741824
+  %tobool.not.4.i47.2 = icmp eq i64 %and.4.i46.2, 0
+  br i1 %tobool.not.4.i47.2, label %if.end4.i.2, label %for.cond.4.i53.2
 
-for.cond.4.i55.2:                                 ; preds = %for.cond.3.i50.2
-  %and.5.i53.2 = and i64 %or.i26, 137438953472
-  %tobool.not.5.i54.2 = icmp eq i64 %and.5.i53.2, 0
-  br i1 %tobool.not.5.i54.2, label %if.end4.i.2, label %for.inc.i.2
+for.cond.4.i53.2:                                 ; preds = %for.cond.3.i48.2
+  %and.5.i51.2 = and i64 %or.i24, 137438953472
+  %tobool.not.5.i52.2 = icmp eq i64 %and.5.i51.2, 0
+  br i1 %tobool.not.5.i52.2, label %if.end4.i.2, label %for.inc.i.2
 
-if.end4.i.2:                                      ; preds = %for.cond.4.i55.2, %for.cond.3.i50.2, %for.cond.2.i45.2, %for.cond.1.i40.2, %for.cond.i35.2, %for.inc.i.1
-  %shl.lcssa.i56.2 = phi i64 [ 4, %for.inc.i.1 ], [ 512, %for.cond.i35.2 ], [ 65536, %for.cond.1.i40.2 ], [ 8388608, %for.cond.2.i45.2 ], [ 1073741824, %for.cond.3.i50.2 ], [ 137438953472, %for.cond.4.i55.2 ]
-  %or7.i57.2 = or i64 %shl.lcssa.i56.2, %b1
-  %call5.i.2 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.2, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.2 = icmp sgt i32 %call5.i.2, %min.1.i.1
-  %spec.select.i.2 = tail call i32 @llvm.smin.i32(i32 %call5.i.2, i32 %min.1.i.1)
-  %spec.select21.i.2 = select i1 %cmp6.not.i.2, i32 %min_col.1.i.1, i32 2
+if.end4.i.2:                                      ; preds = %for.cond.4.i53.2, %for.cond.3.i48.2, %for.cond.2.i43.2, %for.cond.1.i38.2, %for.cond.i33.2, %for.inc.i.1
+  %shl.lcssa.i54.2 = phi i64 [ 4, %for.inc.i.1 ], [ 512, %for.cond.i33.2 ], [ 65536, %for.cond.1.i38.2 ], [ 8388608, %for.cond.2.i43.2 ], [ 1073741824, %for.cond.3.i48.2 ], [ 137438953472, %for.cond.4.i53.2 ]
+  %or7.i55.2 = or i64 %shl.lcssa.i54.2, %b1
+  %call5.i.2 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.2, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.2 = icmp sgt i32 %call5.i.2, %min.1.i.1
+  %spec.select.2 = tail call i32 @llvm.smin.i32(i32 %call5.i.2, i32 %min.1.i.1)
+  %spec.select65.2 = select i1 %cmp6.i.not.2, i32 %min_col.1.i.1, i32 2
   br label %for.inc.i.2
 
-for.inc.i.2:                                      ; preds = %if.end4.i.2, %for.cond.4.i55.2
-  %min.1.i.2 = phi i32 [ %spec.select.i.2, %if.end4.i.2 ], [ %min.1.i.1, %for.cond.4.i55.2 ]
-  %min_col.1.i.2 = phi i32 [ %spec.select21.i.2, %if.end4.i.2 ], [ %min_col.1.i.1, %for.cond.4.i55.2 ]
-  %and.i29.3 = and i64 %or.i26, 8
-  %tobool.not.i30.3 = icmp eq i64 %and.i29.3, 0
-  br i1 %tobool.not.i30.3, label %if.end4.i.3, label %for.cond.i35.3
+for.inc.i.2:                                      ; preds = %if.end4.i.2, %for.cond.4.i53.2
+  %min.1.i.2 = phi i32 [ %spec.select.2, %if.end4.i.2 ], [ %min.1.i.1, %for.cond.4.i53.2 ]
+  %min_col.1.i.2 = phi i32 [ %spec.select65.2, %if.end4.i.2 ], [ %min_col.1.i.1, %for.cond.4.i53.2 ]
+  %and.i27.3 = and i64 %or.i24, 8
+  %tobool.not.i28.3 = icmp eq i64 %and.i27.3, 0
+  br i1 %tobool.not.i28.3, label %if.end4.i.3, label %for.cond.i33.3
 
-for.cond.i35.3:                                   ; preds = %for.inc.i.2
-  %and.1.i33.3 = and i64 %or.i26, 1024
-  %tobool.not.1.i34.3 = icmp eq i64 %and.1.i33.3, 0
-  br i1 %tobool.not.1.i34.3, label %if.end4.i.3, label %for.cond.1.i40.3
+for.cond.i33.3:                                   ; preds = %for.inc.i.2
+  %and.1.i31.3 = and i64 %or.i24, 1024
+  %tobool.not.1.i32.3 = icmp eq i64 %and.1.i31.3, 0
+  br i1 %tobool.not.1.i32.3, label %if.end4.i.3, label %for.cond.1.i38.3
 
-for.cond.1.i40.3:                                 ; preds = %for.cond.i35.3
-  %and.2.i38.3 = and i64 %or.i26, 131072
-  %tobool.not.2.i39.3 = icmp eq i64 %and.2.i38.3, 0
-  br i1 %tobool.not.2.i39.3, label %if.end4.i.3, label %for.cond.2.i45.3
+for.cond.1.i38.3:                                 ; preds = %for.cond.i33.3
+  %and.2.i36.3 = and i64 %or.i24, 131072
+  %tobool.not.2.i37.3 = icmp eq i64 %and.2.i36.3, 0
+  br i1 %tobool.not.2.i37.3, label %if.end4.i.3, label %for.cond.2.i43.3
 
-for.cond.2.i45.3:                                 ; preds = %for.cond.1.i40.3
-  %and.3.i43.3 = and i64 %or.i26, 16777216
-  %tobool.not.3.i44.3 = icmp eq i64 %and.3.i43.3, 0
-  br i1 %tobool.not.3.i44.3, label %if.end4.i.3, label %for.cond.3.i50.3
+for.cond.2.i43.3:                                 ; preds = %for.cond.1.i38.3
+  %and.3.i41.3 = and i64 %or.i24, 16777216
+  %tobool.not.3.i42.3 = icmp eq i64 %and.3.i41.3, 0
+  br i1 %tobool.not.3.i42.3, label %if.end4.i.3, label %for.cond.3.i48.3
 
-for.cond.3.i50.3:                                 ; preds = %for.cond.2.i45.3
-  %and.4.i48.3 = and i64 %or.i26, 2147483648
-  %tobool.not.4.i49.3 = icmp eq i64 %and.4.i48.3, 0
-  br i1 %tobool.not.4.i49.3, label %if.end4.i.3, label %for.cond.4.i55.3
+for.cond.3.i48.3:                                 ; preds = %for.cond.2.i43.3
+  %and.4.i46.3 = and i64 %or.i24, 2147483648
+  %tobool.not.4.i47.3 = icmp eq i64 %and.4.i46.3, 0
+  br i1 %tobool.not.4.i47.3, label %if.end4.i.3, label %for.cond.4.i53.3
 
-for.cond.4.i55.3:                                 ; preds = %for.cond.3.i50.3
-  %and.5.i53.3 = and i64 %or.i26, 274877906944
-  %tobool.not.5.i54.3 = icmp eq i64 %and.5.i53.3, 0
-  br i1 %tobool.not.5.i54.3, label %if.end4.i.3, label %for.inc.i.3
+for.cond.4.i53.3:                                 ; preds = %for.cond.3.i48.3
+  %and.5.i51.3 = and i64 %or.i24, 274877906944
+  %tobool.not.5.i52.3 = icmp eq i64 %and.5.i51.3, 0
+  br i1 %tobool.not.5.i52.3, label %if.end4.i.3, label %for.inc.i.3
 
-if.end4.i.3:                                      ; preds = %for.cond.4.i55.3, %for.cond.3.i50.3, %for.cond.2.i45.3, %for.cond.1.i40.3, %for.cond.i35.3, %for.inc.i.2
-  %shl.lcssa.i56.3 = phi i64 [ 8, %for.inc.i.2 ], [ 1024, %for.cond.i35.3 ], [ 131072, %for.cond.1.i40.3 ], [ 16777216, %for.cond.2.i45.3 ], [ 2147483648, %for.cond.3.i50.3 ], [ 274877906944, %for.cond.4.i55.3 ]
-  %or7.i57.3 = or i64 %shl.lcssa.i56.3, %b1
-  %call5.i.3 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.3, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.3 = icmp sgt i32 %call5.i.3, %min.1.i.2
-  %spec.select.i.3 = tail call i32 @llvm.smin.i32(i32 %call5.i.3, i32 %min.1.i.2)
-  %spec.select21.i.3 = select i1 %cmp6.not.i.3, i32 %min_col.1.i.2, i32 3
+if.end4.i.3:                                      ; preds = %for.cond.4.i53.3, %for.cond.3.i48.3, %for.cond.2.i43.3, %for.cond.1.i38.3, %for.cond.i33.3, %for.inc.i.2
+  %shl.lcssa.i54.3 = phi i64 [ 8, %for.inc.i.2 ], [ 1024, %for.cond.i33.3 ], [ 131072, %for.cond.1.i38.3 ], [ 16777216, %for.cond.2.i43.3 ], [ 2147483648, %for.cond.3.i48.3 ], [ 274877906944, %for.cond.4.i53.3 ]
+  %or7.i55.3 = or i64 %shl.lcssa.i54.3, %b1
+  %call5.i.3 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.3, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.3 = icmp sgt i32 %call5.i.3, %min.1.i.2
+  %spec.select.3 = tail call i32 @llvm.smin.i32(i32 %call5.i.3, i32 %min.1.i.2)
+  %spec.select65.3 = select i1 %cmp6.i.not.3, i32 %min_col.1.i.2, i32 3
   br label %for.inc.i.3
 
-for.inc.i.3:                                      ; preds = %if.end4.i.3, %for.cond.4.i55.3
-  %min.1.i.3 = phi i32 [ %spec.select.i.3, %if.end4.i.3 ], [ %min.1.i.2, %for.cond.4.i55.3 ]
-  %min_col.1.i.3 = phi i32 [ %spec.select21.i.3, %if.end4.i.3 ], [ %min_col.1.i.2, %for.cond.4.i55.3 ]
-  %and.i29.4 = and i64 %or.i26, 16
-  %tobool.not.i30.4 = icmp eq i64 %and.i29.4, 0
-  br i1 %tobool.not.i30.4, label %if.end4.i.4, label %for.cond.i35.4
+for.inc.i.3:                                      ; preds = %if.end4.i.3, %for.cond.4.i53.3
+  %min.1.i.3 = phi i32 [ %spec.select.3, %if.end4.i.3 ], [ %min.1.i.2, %for.cond.4.i53.3 ]
+  %min_col.1.i.3 = phi i32 [ %spec.select65.3, %if.end4.i.3 ], [ %min_col.1.i.2, %for.cond.4.i53.3 ]
+  %and.i27.4 = and i64 %or.i24, 16
+  %tobool.not.i28.4 = icmp eq i64 %and.i27.4, 0
+  br i1 %tobool.not.i28.4, label %if.end4.i.4, label %for.cond.i33.4
 
-for.cond.i35.4:                                   ; preds = %for.inc.i.3
-  %and.1.i33.4 = and i64 %or.i26, 2048
-  %tobool.not.1.i34.4 = icmp eq i64 %and.1.i33.4, 0
-  br i1 %tobool.not.1.i34.4, label %if.end4.i.4, label %for.cond.1.i40.4
+for.cond.i33.4:                                   ; preds = %for.inc.i.3
+  %and.1.i31.4 = and i64 %or.i24, 2048
+  %tobool.not.1.i32.4 = icmp eq i64 %and.1.i31.4, 0
+  br i1 %tobool.not.1.i32.4, label %if.end4.i.4, label %for.cond.1.i38.4
 
-for.cond.1.i40.4:                                 ; preds = %for.cond.i35.4
-  %and.2.i38.4 = and i64 %or.i26, 262144
-  %tobool.not.2.i39.4 = icmp eq i64 %and.2.i38.4, 0
-  br i1 %tobool.not.2.i39.4, label %if.end4.i.4, label %for.cond.2.i45.4
+for.cond.1.i38.4:                                 ; preds = %for.cond.i33.4
+  %and.2.i36.4 = and i64 %or.i24, 262144
+  %tobool.not.2.i37.4 = icmp eq i64 %and.2.i36.4, 0
+  br i1 %tobool.not.2.i37.4, label %if.end4.i.4, label %for.cond.2.i43.4
 
-for.cond.2.i45.4:                                 ; preds = %for.cond.1.i40.4
-  %and.3.i43.4 = and i64 %or.i26, 33554432
-  %tobool.not.3.i44.4 = icmp eq i64 %and.3.i43.4, 0
-  br i1 %tobool.not.3.i44.4, label %if.end4.i.4, label %for.cond.3.i50.4
+for.cond.2.i43.4:                                 ; preds = %for.cond.1.i38.4
+  %and.3.i41.4 = and i64 %or.i24, 33554432
+  %tobool.not.3.i42.4 = icmp eq i64 %and.3.i41.4, 0
+  br i1 %tobool.not.3.i42.4, label %if.end4.i.4, label %for.cond.3.i48.4
 
-for.cond.3.i50.4:                                 ; preds = %for.cond.2.i45.4
-  %and.4.i48.4 = and i64 %or.i26, 4294967296
-  %tobool.not.4.i49.4 = icmp eq i64 %and.4.i48.4, 0
-  br i1 %tobool.not.4.i49.4, label %if.end4.i.4, label %for.cond.4.i55.4
+for.cond.3.i48.4:                                 ; preds = %for.cond.2.i43.4
+  %and.4.i46.4 = and i64 %or.i24, 4294967296
+  %tobool.not.4.i47.4 = icmp eq i64 %and.4.i46.4, 0
+  br i1 %tobool.not.4.i47.4, label %if.end4.i.4, label %for.cond.4.i53.4
 
-for.cond.4.i55.4:                                 ; preds = %for.cond.3.i50.4
-  %and.5.i53.4 = and i64 %or.i26, 549755813888
-  %tobool.not.5.i54.4 = icmp eq i64 %and.5.i53.4, 0
-  br i1 %tobool.not.5.i54.4, label %if.end4.i.4, label %for.inc.i.4
+for.cond.4.i53.4:                                 ; preds = %for.cond.3.i48.4
+  %and.5.i51.4 = and i64 %or.i24, 549755813888
+  %tobool.not.5.i52.4 = icmp eq i64 %and.5.i51.4, 0
+  br i1 %tobool.not.5.i52.4, label %if.end4.i.4, label %for.inc.i.4
 
-if.end4.i.4:                                      ; preds = %for.cond.4.i55.4, %for.cond.3.i50.4, %for.cond.2.i45.4, %for.cond.1.i40.4, %for.cond.i35.4, %for.inc.i.3
-  %shl.lcssa.i56.4 = phi i64 [ 16, %for.inc.i.3 ], [ 2048, %for.cond.i35.4 ], [ 262144, %for.cond.1.i40.4 ], [ 33554432, %for.cond.2.i45.4 ], [ 4294967296, %for.cond.3.i50.4 ], [ 549755813888, %for.cond.4.i55.4 ]
-  %or7.i57.4 = or i64 %shl.lcssa.i56.4, %b1
-  %call5.i.4 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.4, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.4 = icmp sgt i32 %call5.i.4, %min.1.i.3
-  %spec.select.i.4 = tail call i32 @llvm.smin.i32(i32 %call5.i.4, i32 %min.1.i.3)
-  %spec.select21.i.4 = select i1 %cmp6.not.i.4, i32 %min_col.1.i.3, i32 4
+if.end4.i.4:                                      ; preds = %for.cond.4.i53.4, %for.cond.3.i48.4, %for.cond.2.i43.4, %for.cond.1.i38.4, %for.cond.i33.4, %for.inc.i.3
+  %shl.lcssa.i54.4 = phi i64 [ 16, %for.inc.i.3 ], [ 2048, %for.cond.i33.4 ], [ 262144, %for.cond.1.i38.4 ], [ 33554432, %for.cond.2.i43.4 ], [ 4294967296, %for.cond.3.i48.4 ], [ 549755813888, %for.cond.4.i53.4 ]
+  %or7.i55.4 = or i64 %shl.lcssa.i54.4, %b1
+  %call5.i.4 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.4, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.4 = icmp sgt i32 %call5.i.4, %min.1.i.3
+  %spec.select.4 = tail call i32 @llvm.smin.i32(i32 %call5.i.4, i32 %min.1.i.3)
+  %spec.select65.4 = select i1 %cmp6.i.not.4, i32 %min_col.1.i.3, i32 4
   br label %for.inc.i.4
 
-for.inc.i.4:                                      ; preds = %if.end4.i.4, %for.cond.4.i55.4
-  %min.1.i.4 = phi i32 [ %spec.select.i.4, %if.end4.i.4 ], [ %min.1.i.3, %for.cond.4.i55.4 ]
-  %min_col.1.i.4 = phi i32 [ %spec.select21.i.4, %if.end4.i.4 ], [ %min_col.1.i.3, %for.cond.4.i55.4 ]
-  %and.i29.5 = and i64 %or.i26, 32
-  %tobool.not.i30.5 = icmp eq i64 %and.i29.5, 0
-  br i1 %tobool.not.i30.5, label %if.end4.i.5, label %for.cond.i35.5
+for.inc.i.4:                                      ; preds = %if.end4.i.4, %for.cond.4.i53.4
+  %min.1.i.4 = phi i32 [ %spec.select.4, %if.end4.i.4 ], [ %min.1.i.3, %for.cond.4.i53.4 ]
+  %min_col.1.i.4 = phi i32 [ %spec.select65.4, %if.end4.i.4 ], [ %min_col.1.i.3, %for.cond.4.i53.4 ]
+  %and.i27.5 = and i64 %or.i24, 32
+  %tobool.not.i28.5 = icmp eq i64 %and.i27.5, 0
+  br i1 %tobool.not.i28.5, label %if.end4.i.5, label %for.cond.i33.5
 
-for.cond.i35.5:                                   ; preds = %for.inc.i.4
-  %and.1.i33.5 = and i64 %or.i26, 4096
-  %tobool.not.1.i34.5 = icmp eq i64 %and.1.i33.5, 0
-  br i1 %tobool.not.1.i34.5, label %if.end4.i.5, label %for.cond.1.i40.5
+for.cond.i33.5:                                   ; preds = %for.inc.i.4
+  %and.1.i31.5 = and i64 %or.i24, 4096
+  %tobool.not.1.i32.5 = icmp eq i64 %and.1.i31.5, 0
+  br i1 %tobool.not.1.i32.5, label %if.end4.i.5, label %for.cond.1.i38.5
 
-for.cond.1.i40.5:                                 ; preds = %for.cond.i35.5
-  %and.2.i38.5 = and i64 %or.i26, 524288
-  %tobool.not.2.i39.5 = icmp eq i64 %and.2.i38.5, 0
-  br i1 %tobool.not.2.i39.5, label %if.end4.i.5, label %for.cond.2.i45.5
+for.cond.1.i38.5:                                 ; preds = %for.cond.i33.5
+  %and.2.i36.5 = and i64 %or.i24, 524288
+  %tobool.not.2.i37.5 = icmp eq i64 %and.2.i36.5, 0
+  br i1 %tobool.not.2.i37.5, label %if.end4.i.5, label %for.cond.2.i43.5
 
-for.cond.2.i45.5:                                 ; preds = %for.cond.1.i40.5
-  %and.3.i43.5 = and i64 %or.i26, 67108864
-  %tobool.not.3.i44.5 = icmp eq i64 %and.3.i43.5, 0
-  br i1 %tobool.not.3.i44.5, label %if.end4.i.5, label %for.cond.3.i50.5
+for.cond.2.i43.5:                                 ; preds = %for.cond.1.i38.5
+  %and.3.i41.5 = and i64 %or.i24, 67108864
+  %tobool.not.3.i42.5 = icmp eq i64 %and.3.i41.5, 0
+  br i1 %tobool.not.3.i42.5, label %if.end4.i.5, label %for.cond.3.i48.5
 
-for.cond.3.i50.5:                                 ; preds = %for.cond.2.i45.5
-  %and.4.i48.5 = and i64 %or.i26, 8589934592
-  %tobool.not.4.i49.5 = icmp eq i64 %and.4.i48.5, 0
-  br i1 %tobool.not.4.i49.5, label %if.end4.i.5, label %for.cond.4.i55.5
+for.cond.3.i48.5:                                 ; preds = %for.cond.2.i43.5
+  %and.4.i46.5 = and i64 %or.i24, 8589934592
+  %tobool.not.4.i47.5 = icmp eq i64 %and.4.i46.5, 0
+  br i1 %tobool.not.4.i47.5, label %if.end4.i.5, label %for.cond.4.i53.5
 
-for.cond.4.i55.5:                                 ; preds = %for.cond.3.i50.5
-  %and.5.i53.5 = and i64 %or.i26, 1099511627776
-  %tobool.not.5.i54.5 = icmp eq i64 %and.5.i53.5, 0
-  br i1 %tobool.not.5.i54.5, label %if.end4.i.5, label %for.inc.i.5
+for.cond.4.i53.5:                                 ; preds = %for.cond.3.i48.5
+  %and.5.i51.5 = and i64 %or.i24, 1099511627776
+  %tobool.not.5.i52.5 = icmp eq i64 %and.5.i51.5, 0
+  br i1 %tobool.not.5.i52.5, label %if.end4.i.5, label %for.inc.i.5
 
-if.end4.i.5:                                      ; preds = %for.cond.4.i55.5, %for.cond.3.i50.5, %for.cond.2.i45.5, %for.cond.1.i40.5, %for.cond.i35.5, %for.inc.i.4
-  %shl.lcssa.i56.5 = phi i64 [ 32, %for.inc.i.4 ], [ 4096, %for.cond.i35.5 ], [ 524288, %for.cond.1.i40.5 ], [ 67108864, %for.cond.2.i45.5 ], [ 8589934592, %for.cond.3.i50.5 ], [ 1099511627776, %for.cond.4.i55.5 ]
-  %or7.i57.5 = or i64 %shl.lcssa.i56.5, %b1
-  %call5.i.5 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.5, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.5 = icmp sgt i32 %call5.i.5, %min.1.i.4
-  %spec.select.i.5 = tail call i32 @llvm.smin.i32(i32 %call5.i.5, i32 %min.1.i.4)
-  %spec.select21.i.5 = select i1 %cmp6.not.i.5, i32 %min_col.1.i.4, i32 5
+if.end4.i.5:                                      ; preds = %for.cond.4.i53.5, %for.cond.3.i48.5, %for.cond.2.i43.5, %for.cond.1.i38.5, %for.cond.i33.5, %for.inc.i.4
+  %shl.lcssa.i54.5 = phi i64 [ 32, %for.inc.i.4 ], [ 4096, %for.cond.i33.5 ], [ 524288, %for.cond.1.i38.5 ], [ 67108864, %for.cond.2.i43.5 ], [ 8589934592, %for.cond.3.i48.5 ], [ 1099511627776, %for.cond.4.i53.5 ]
+  %or7.i55.5 = or i64 %shl.lcssa.i54.5, %b1
+  %call5.i.5 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.5, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.5 = icmp sgt i32 %call5.i.5, %min.1.i.4
+  %spec.select.5 = tail call i32 @llvm.smin.i32(i32 %call5.i.5, i32 %min.1.i.4)
+  %spec.select65.5 = select i1 %cmp6.i.not.5, i32 %min_col.1.i.4, i32 5
   br label %for.inc.i.5
 
-for.inc.i.5:                                      ; preds = %if.end4.i.5, %for.cond.4.i55.5
-  %min.1.i.5 = phi i32 [ %spec.select.i.5, %if.end4.i.5 ], [ %min.1.i.4, %for.cond.4.i55.5 ]
-  %min_col.1.i.5 = phi i32 [ %spec.select21.i.5, %if.end4.i.5 ], [ %min_col.1.i.4, %for.cond.4.i55.5 ]
-  %and.i29.6 = and i64 %or.i26, 64
-  %tobool.not.i30.6 = icmp eq i64 %and.i29.6, 0
-  br i1 %tobool.not.i30.6, label %if.end4.i.6, label %for.cond.i35.6
+for.inc.i.5:                                      ; preds = %if.end4.i.5, %for.cond.4.i53.5
+  %min.1.i.5 = phi i32 [ %spec.select.5, %if.end4.i.5 ], [ %min.1.i.4, %for.cond.4.i53.5 ]
+  %min_col.1.i.5 = phi i32 [ %spec.select65.5, %if.end4.i.5 ], [ %min_col.1.i.4, %for.cond.4.i53.5 ]
+  %and.i27.6 = and i64 %or.i24, 64
+  %tobool.not.i28.6 = icmp eq i64 %and.i27.6, 0
+  br i1 %tobool.not.i28.6, label %if.end4.i.6, label %for.cond.i33.6
 
-for.cond.i35.6:                                   ; preds = %for.inc.i.5
-  %and.1.i33.6 = and i64 %or.i26, 8192
-  %tobool.not.1.i34.6 = icmp eq i64 %and.1.i33.6, 0
-  br i1 %tobool.not.1.i34.6, label %if.end4.i.6, label %for.cond.1.i40.6
+for.cond.i33.6:                                   ; preds = %for.inc.i.5
+  %and.1.i31.6 = and i64 %or.i24, 8192
+  %tobool.not.1.i32.6 = icmp eq i64 %and.1.i31.6, 0
+  br i1 %tobool.not.1.i32.6, label %if.end4.i.6, label %for.cond.1.i38.6
 
-for.cond.1.i40.6:                                 ; preds = %for.cond.i35.6
-  %and.2.i38.6 = and i64 %or.i26, 1048576
-  %tobool.not.2.i39.6 = icmp eq i64 %and.2.i38.6, 0
-  br i1 %tobool.not.2.i39.6, label %if.end4.i.6, label %for.cond.2.i45.6
+for.cond.1.i38.6:                                 ; preds = %for.cond.i33.6
+  %and.2.i36.6 = and i64 %or.i24, 1048576
+  %tobool.not.2.i37.6 = icmp eq i64 %and.2.i36.6, 0
+  br i1 %tobool.not.2.i37.6, label %if.end4.i.6, label %for.cond.2.i43.6
 
-for.cond.2.i45.6:                                 ; preds = %for.cond.1.i40.6
-  %and.3.i43.6 = and i64 %or.i26, 134217728
-  %tobool.not.3.i44.6 = icmp eq i64 %and.3.i43.6, 0
-  br i1 %tobool.not.3.i44.6, label %if.end4.i.6, label %for.cond.3.i50.6
+for.cond.2.i43.6:                                 ; preds = %for.cond.1.i38.6
+  %and.3.i41.6 = and i64 %or.i24, 134217728
+  %tobool.not.3.i42.6 = icmp eq i64 %and.3.i41.6, 0
+  br i1 %tobool.not.3.i42.6, label %if.end4.i.6, label %for.cond.3.i48.6
 
-for.cond.3.i50.6:                                 ; preds = %for.cond.2.i45.6
-  %and.4.i48.6 = and i64 %or.i26, 17179869184
-  %tobool.not.4.i49.6 = icmp eq i64 %and.4.i48.6, 0
-  br i1 %tobool.not.4.i49.6, label %if.end4.i.6, label %for.cond.4.i55.6
+for.cond.3.i48.6:                                 ; preds = %for.cond.2.i43.6
+  %and.4.i46.6 = and i64 %or.i24, 17179869184
+  %tobool.not.4.i47.6 = icmp eq i64 %and.4.i46.6, 0
+  br i1 %tobool.not.4.i47.6, label %if.end4.i.6, label %for.cond.4.i53.6
 
-for.cond.4.i55.6:                                 ; preds = %for.cond.3.i50.6
-  %and.5.i53.6 = and i64 %or.i26, 2199023255552
-  %tobool.not.5.i54.6 = icmp eq i64 %and.5.i53.6, 0
-  br i1 %tobool.not.5.i54.6, label %if.end4.i.6, label %for.inc.i.6
+for.cond.4.i53.6:                                 ; preds = %for.cond.3.i48.6
+  %and.5.i51.6 = and i64 %or.i24, 2199023255552
+  %tobool.not.5.i52.6 = icmp eq i64 %and.5.i51.6, 0
+  br i1 %tobool.not.5.i52.6, label %if.end4.i.6, label %for.inc.i.6
 
-if.end4.i.6:                                      ; preds = %for.cond.4.i55.6, %for.cond.3.i50.6, %for.cond.2.i45.6, %for.cond.1.i40.6, %for.cond.i35.6, %for.inc.i.5
-  %shl.lcssa.i56.6 = phi i64 [ 64, %for.inc.i.5 ], [ 8192, %for.cond.i35.6 ], [ 1048576, %for.cond.1.i40.6 ], [ 134217728, %for.cond.2.i45.6 ], [ 17179869184, %for.cond.3.i50.6 ], [ 2199023255552, %for.cond.4.i55.6 ]
-  %or7.i57.6 = or i64 %shl.lcssa.i56.6, %b1
-  %call5.i.6 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i57.6, i64 noundef %or7.i, ptr noundef %col)
-  %cmp6.not.i.6 = icmp sgt i32 %call5.i.6, %min.1.i.5
-  %spec.select.i.6 = tail call i32 @llvm.smin.i32(i32 %call5.i.6, i32 %min.1.i.5)
-  %spec.select21.i.6 = select i1 %cmp6.not.i.6, i32 %min_col.1.i.5, i32 6
+if.end4.i.6:                                      ; preds = %for.cond.4.i53.6, %for.cond.3.i48.6, %for.cond.2.i43.6, %for.cond.1.i38.6, %for.cond.i33.6, %for.inc.i.5
+  %shl.lcssa.i54.6 = phi i64 [ 64, %for.inc.i.5 ], [ 8192, %for.cond.i33.6 ], [ 1048576, %for.cond.1.i38.6 ], [ 134217728, %for.cond.2.i43.6 ], [ 17179869184, %for.cond.3.i48.6 ], [ 2199023255552, %for.cond.4.i53.6 ]
+  %or7.i55.6 = or i64 %shl.lcssa.i54.6, %b1
+  %call5.i.6 = tail call i32 @minimax_comp(i32 noundef %add.i, i64 noundef %or7.i55.6, i64 noundef %or7.i, ptr noundef %col)
+  %cmp6.i.not.6 = icmp sgt i32 %call5.i.6, %min.1.i.5
+  %spec.select.6 = tail call i32 @llvm.smin.i32(i32 %call5.i.6, i32 %min.1.i.5)
+  %spec.select65.6 = select i1 %cmp6.i.not.6, i32 %min_col.1.i.5, i32 6
   br label %for.inc.i.6
 
-for.inc.i.6:                                      ; preds = %if.end4.i.6, %for.cond.4.i55.6
-  %min.1.i.6 = phi i32 [ %spec.select.i.6, %if.end4.i.6 ], [ %min.1.i.5, %for.cond.4.i55.6 ]
-  %min_col.1.i.6 = phi i32 [ %spec.select21.i.6, %if.end4.i.6 ], [ %min_col.1.i.5, %for.cond.4.i55.6 ]
+for.inc.i.6:                                      ; preds = %if.end4.i.6, %for.cond.4.i53.6
+  %min.1.i.6 = phi i32 [ %spec.select.6, %if.end4.i.6 ], [ %min.1.i.5, %for.cond.4.i53.6 ]
+  %min_col.1.i.6 = phi i32 [ %spec.select65.6, %if.end4.i.6 ], [ %min_col.1.i.5, %for.cond.4.i53.6 ]
   store i32 %min_col.1.i.6, ptr %col, align 4, !tbaa !14
   br label %minimax_player.exit
 
-minimax_player.exit:                              ; preds = %if.then.i22, %for.inc.i.6
-  %retval.0.i25 = phi i32 [ %call.i, %if.then.i22 ], [ %min.1.i.6, %for.inc.i.6 ]
-  %cmp6 = icmp sgt i32 %retval.0.i25, %max.079
-  %spec.select = tail call i32 @llvm.smax.i32(i32 %retval.0.i25, i32 %max.079)
+minimax_player.exit:                              ; preds = %if.then.i21, %for.inc.i.6
+  %retval.0.i23 = phi i32 [ %call.i, %if.then.i21 ], [ %min.1.i.6, %for.inc.i.6 ]
+  %cmp6 = icmp sgt i32 %retval.0.i23, %max.078
+  %spec.select66 = tail call i32 @llvm.smax.i32(i32 %retval.0.i23, i32 %max.078)
   %2 = trunc i64 %indvars.iv to i32
-  %spec.select21 = select i1 %cmp6, i32 %2, i32 %max_col.080
+  %spec.select67 = select i1 %cmp6, i32 %2, i32 %max_col.079
   br label %for.inc
 
 for.inc:                                          ; preds = %for.cond.4.i, %minimax_player.exit
-  %max.1 = phi i32 [ %spec.select, %minimax_player.exit ], [ %max.079, %for.cond.4.i ]
-  %max_col.1 = phi i32 [ %spec.select21, %minimax_player.exit ], [ %max_col.080, %for.cond.4.i ]
+  %max.1 = phi i32 [ %spec.select66, %minimax_player.exit ], [ %max.078, %for.cond.4.i ]
+  %max_col.1 = phi i32 [ %spec.select67, %minimax_player.exit ], [ %max_col.079, %for.cond.4.i ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 7
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !19
@@ -5722,12 +5722,12 @@ if.end4.1:                                        ; preds = %for.cond.4.i.1, %fo
   %call5.1 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.1, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.1 = icmp sle i32 %call5.1, %min.1
   %spec.select.1 = tail call i32 @llvm.smin.i32(i32 %call5.1, i32 %min.1)
-  %spec.select21.1 = zext i1 %cmp6.not.1 to i32
+  %spec.select24.1 = zext i1 %cmp6.not.1 to i32
   br label %for.inc.1
 
 for.inc.1:                                        ; preds = %if.end4.1, %for.cond.4.i.1
   %min.1.1 = phi i32 [ %spec.select.1, %if.end4.1 ], [ %min.1, %for.cond.4.i.1 ]
-  %min_col.1.1 = phi i32 [ %spec.select21.1, %if.end4.1 ], [ 0, %for.cond.4.i.1 ]
+  %min_col.1.1 = phi i32 [ %spec.select24.1, %if.end4.1 ], [ 0, %for.cond.4.i.1 ]
   %and.i.2 = and i64 %or.i, 4
   %tobool.not.i.2 = icmp eq i64 %and.i.2, 0
   br i1 %tobool.not.i.2, label %if.end4.2, label %for.cond.i.2
@@ -5763,12 +5763,12 @@ if.end4.2:                                        ; preds = %for.cond.4.i.2, %fo
   %call5.2 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.2, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.2 = icmp sgt i32 %call5.2, %min.1.1
   %spec.select.2 = tail call i32 @llvm.smin.i32(i32 %call5.2, i32 %min.1.1)
-  %spec.select21.2 = select i1 %cmp6.not.2, i32 %min_col.1.1, i32 2
+  %spec.select24.2 = select i1 %cmp6.not.2, i32 %min_col.1.1, i32 2
   br label %for.inc.2
 
 for.inc.2:                                        ; preds = %if.end4.2, %for.cond.4.i.2
   %min.1.2 = phi i32 [ %spec.select.2, %if.end4.2 ], [ %min.1.1, %for.cond.4.i.2 ]
-  %min_col.1.2 = phi i32 [ %spec.select21.2, %if.end4.2 ], [ %min_col.1.1, %for.cond.4.i.2 ]
+  %min_col.1.2 = phi i32 [ %spec.select24.2, %if.end4.2 ], [ %min_col.1.1, %for.cond.4.i.2 ]
   %and.i.3 = and i64 %or.i, 8
   %tobool.not.i.3 = icmp eq i64 %and.i.3, 0
   br i1 %tobool.not.i.3, label %if.end4.3, label %for.cond.i.3
@@ -5804,12 +5804,12 @@ if.end4.3:                                        ; preds = %for.cond.4.i.3, %fo
   %call5.3 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.3, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.3 = icmp sgt i32 %call5.3, %min.1.2
   %spec.select.3 = tail call i32 @llvm.smin.i32(i32 %call5.3, i32 %min.1.2)
-  %spec.select21.3 = select i1 %cmp6.not.3, i32 %min_col.1.2, i32 3
+  %spec.select24.3 = select i1 %cmp6.not.3, i32 %min_col.1.2, i32 3
   br label %for.inc.3
 
 for.inc.3:                                        ; preds = %if.end4.3, %for.cond.4.i.3
   %min.1.3 = phi i32 [ %spec.select.3, %if.end4.3 ], [ %min.1.2, %for.cond.4.i.3 ]
-  %min_col.1.3 = phi i32 [ %spec.select21.3, %if.end4.3 ], [ %min_col.1.2, %for.cond.4.i.3 ]
+  %min_col.1.3 = phi i32 [ %spec.select24.3, %if.end4.3 ], [ %min_col.1.2, %for.cond.4.i.3 ]
   %and.i.4 = and i64 %or.i, 16
   %tobool.not.i.4 = icmp eq i64 %and.i.4, 0
   br i1 %tobool.not.i.4, label %if.end4.4, label %for.cond.i.4
@@ -5845,12 +5845,12 @@ if.end4.4:                                        ; preds = %for.cond.4.i.4, %fo
   %call5.4 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.4, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.4 = icmp sgt i32 %call5.4, %min.1.3
   %spec.select.4 = tail call i32 @llvm.smin.i32(i32 %call5.4, i32 %min.1.3)
-  %spec.select21.4 = select i1 %cmp6.not.4, i32 %min_col.1.3, i32 4
+  %spec.select24.4 = select i1 %cmp6.not.4, i32 %min_col.1.3, i32 4
   br label %for.inc.4
 
 for.inc.4:                                        ; preds = %if.end4.4, %for.cond.4.i.4
   %min.1.4 = phi i32 [ %spec.select.4, %if.end4.4 ], [ %min.1.3, %for.cond.4.i.4 ]
-  %min_col.1.4 = phi i32 [ %spec.select21.4, %if.end4.4 ], [ %min_col.1.3, %for.cond.4.i.4 ]
+  %min_col.1.4 = phi i32 [ %spec.select24.4, %if.end4.4 ], [ %min_col.1.3, %for.cond.4.i.4 ]
   %and.i.5 = and i64 %or.i, 32
   %tobool.not.i.5 = icmp eq i64 %and.i.5, 0
   br i1 %tobool.not.i.5, label %if.end4.5, label %for.cond.i.5
@@ -5886,12 +5886,12 @@ if.end4.5:                                        ; preds = %for.cond.4.i.5, %fo
   %call5.5 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.5, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.5 = icmp sgt i32 %call5.5, %min.1.4
   %spec.select.5 = tail call i32 @llvm.smin.i32(i32 %call5.5, i32 %min.1.4)
-  %spec.select21.5 = select i1 %cmp6.not.5, i32 %min_col.1.4, i32 5
+  %spec.select24.5 = select i1 %cmp6.not.5, i32 %min_col.1.4, i32 5
   br label %for.inc.5
 
 for.inc.5:                                        ; preds = %if.end4.5, %for.cond.4.i.5
   %min.1.5 = phi i32 [ %spec.select.5, %if.end4.5 ], [ %min.1.4, %for.cond.4.i.5 ]
-  %min_col.1.5 = phi i32 [ %spec.select21.5, %if.end4.5 ], [ %min_col.1.4, %for.cond.4.i.5 ]
+  %min_col.1.5 = phi i32 [ %spec.select24.5, %if.end4.5 ], [ %min_col.1.4, %for.cond.4.i.5 ]
   %and.i.6 = and i64 %or.i, 64
   %tobool.not.i.6 = icmp eq i64 %and.i.6, 0
   br i1 %tobool.not.i.6, label %if.end4.6, label %for.cond.i.6
@@ -5927,12 +5927,12 @@ if.end4.6:                                        ; preds = %for.cond.4.i.6, %fo
   %call5.6 = tail call i32 @minimax_comp(i32 noundef %add, i64 noundef %or7.i.6, i64 noundef %b2, ptr noundef %col)
   %cmp6.not.6 = icmp sgt i32 %call5.6, %min.1.5
   %spec.select.6 = tail call i32 @llvm.smin.i32(i32 %call5.6, i32 %min.1.5)
-  %spec.select21.6 = select i1 %cmp6.not.6, i32 %min_col.1.5, i32 6
+  %spec.select24.6 = select i1 %cmp6.not.6, i32 %min_col.1.5, i32 6
   br label %for.inc.6
 
 for.inc.6:                                        ; preds = %if.end4.6, %for.cond.4.i.6
   %min.1.6 = phi i32 [ %spec.select.6, %if.end4.6 ], [ %min.1.5, %for.cond.4.i.6 ]
-  %min_col.1.6 = phi i32 [ %spec.select21.6, %if.end4.6 ], [ %min_col.1.5, %for.cond.4.i.6 ]
+  %min_col.1.6 = phi i32 [ %spec.select24.6, %if.end4.6 ], [ %min_col.1.5, %for.cond.4.i.6 ]
   store i32 %min_col.1.6, ptr %col, align 4, !tbaa !14
   br label %cleanup
 
@@ -6051,7 +6051,7 @@ if.end7:                                          ; preds = %if.then, %entry
   br i1 %cmp, label %if.then14, label %if.end16
 
 if.then14:                                        ; preds = %if.end7
-  %puts86 = call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
+  %puts99 = call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
   %.pr = load i32, ptr %ab, align 4, !tbaa !14
   br label %if.end16
 
@@ -6061,7 +6061,7 @@ if.end16:                                         ; preds = %if.then14, %if.end7
   br i1 %cmp17, label %if.then18, label %if.end20
 
 if.then18:                                        ; preds = %if.end16
-  %puts85 = call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
+  %puts98 = call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
   br label %if.end20
 
 if.end20:                                         ; preds = %if.then18, %if.end16
@@ -6149,14 +6149,14 @@ if.then29:                                        ; preds = %lor.rhs
 if.then.i:                                        ; preds = %if.then29
   %call.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %call31)
   %.pre = load i32, ptr %ab, align 4, !tbaa !14
-  br label %place_piece.exit
+  br label %if.end40
 
 if.end.i:                                         ; preds = %if.then29
   %idxprom.i = zext i32 %call31 to i64
   %arrayidx2.i = getelementptr inbounds [7 x i8], ptr %b, i64 %idxprom.i, i64 6
   %8 = load i8, ptr %arrayidx2.i, align 1, !tbaa !9
   %cmp3.i = icmp sgt i8 %8, 5
-  br i1 %cmp3.i, label %place_piece.exit, label %if.end6.i
+  br i1 %cmp3.i, label %if.end40, label %if.end6.i
 
 if.end6.i:                                        ; preds = %if.end.i
   %idxprom27.i = sext i8 %8 to i64
@@ -6165,35 +6165,35 @@ if.end6.i:                                        ; preds = %if.end.i
   %9 = load i8, ptr %arrayidx2.i, align 1, !tbaa !9
   %inc.i = add i8 %9, 1
   store i8 %inc.i, ptr %arrayidx2.i, align 1, !tbaa !9
-  br label %place_piece.exit
+  br label %if.end40
 
-place_piece.exit:                                 ; preds = %if.then.i, %if.end.i, %if.end6.i
-  %10 = phi i32 [ %.pre, %if.then.i ], [ %7, %if.end.i ], [ %7, %if.end6.i ]
+if.end40:                                         ; preds = %if.end6.i, %if.end.i, %if.then.i
+  %10 = phi i32 [ %7, %if.end6.i ], [ %7, %if.end.i ], [ %.pre, %if.then.i ]
   %call42 = call i32 @think(ptr noundef nonnull %b, i32 noundef 2, i32 noundef %10)
-  %or.cond.i87 = icmp ugt i32 %call42, 6
-  br i1 %or.cond.i87, label %if.then.i89, label %if.end.i93
+  %or.cond.i82 = icmp ugt i32 %call42, 6
+  br i1 %or.cond.i82, label %if.then.i84, label %if.end.i88
 
-if.then.i89:                                      ; preds = %place_piece.exit
-  %call.i88 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %call42)
+if.then.i84:                                      ; preds = %if.end40
+  %call.i83 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %call42)
   br label %while.cond.backedge
 
-while.cond.backedge:                              ; preds = %if.then.i89, %if.end.i93, %if.end6.i94
+while.cond.backedge:                              ; preds = %if.then.i84, %if.end.i88, %if.end6.i89
   br label %while.cond, !llvm.loop !21
 
-if.end.i93:                                       ; preds = %place_piece.exit
-  %idxprom.i90 = zext i32 %call42 to i64
-  %arrayidx2.i91 = getelementptr inbounds [7 x i8], ptr %b, i64 %idxprom.i90, i64 6
-  %11 = load i8, ptr %arrayidx2.i91, align 1, !tbaa !9
-  %cmp3.i92 = icmp sgt i8 %11, 5
-  br i1 %cmp3.i92, label %while.cond.backedge, label %if.end6.i94
+if.end.i88:                                       ; preds = %if.end40
+  %idxprom.i85 = zext i32 %call42 to i64
+  %arrayidx2.i86 = getelementptr inbounds [7 x i8], ptr %b, i64 %idxprom.i85, i64 6
+  %11 = load i8, ptr %arrayidx2.i86, align 1, !tbaa !9
+  %cmp3.i87 = icmp sgt i8 %11, 5
+  br i1 %cmp3.i87, label %while.cond.backedge, label %if.end6.i89
 
-if.end6.i94:                                      ; preds = %if.end.i93
-  %idxprom27.i95 = sext i8 %11 to i64
-  %arrayidx28.i96 = getelementptr inbounds [7 x i8], ptr %b, i64 %idxprom.i90, i64 %idxprom27.i95
-  store i8 120, ptr %arrayidx28.i96, align 1, !tbaa !9
-  %12 = load i8, ptr %arrayidx2.i91, align 1, !tbaa !9
-  %inc.i97 = add i8 %12, 1
-  store i8 %inc.i97, ptr %arrayidx2.i91, align 1, !tbaa !9
+if.end6.i89:                                      ; preds = %if.end.i88
+  %idxprom27.i90 = sext i8 %11 to i64
+  %arrayidx28.i91 = getelementptr inbounds [7 x i8], ptr %b, i64 %idxprom.i85, i64 %idxprom27.i90
+  store i8 120, ptr %arrayidx28.i91, align 1, !tbaa !9
+  %12 = load i8, ptr %arrayidx2.i86, align 1, !tbaa !9
+  %inc.i92 = add i8 %12, 1
+  store i8 %inc.i92, ptr %arrayidx2.i86, align 1, !tbaa !9
   br label %while.cond.backedge
 
 land.lhs.true:                                    ; preds = %while.cond
@@ -6202,7 +6202,7 @@ land.lhs.true:                                    ; preds = %while.cond
   br i1 %tobool51.not, label %if.then52, label %if.end54
 
 if.then52:                                        ; preds = %land.lhs.true
-  %puts84 = call i32 @puts(ptr nonnull dereferenceable(1) @str.27)
+  %puts97 = call i32 @puts(ptr nonnull dereferenceable(1) @str.27)
   br label %if.end54
 
 if.end54:                                         ; preds = %while.cond, %lor.rhs, %if.then52, %land.lhs.true
@@ -6216,7 +6216,7 @@ land.lhs.true58:                                  ; preds = %if.end54
   br i1 %tobool61.not, label %if.then62, label %if.end64
 
 if.then62:                                        ; preds = %land.lhs.true58
-  %puts83 = call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
+  %puts96 = call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
   br label %if.end64
 
 if.end64:                                         ; preds = %if.then62, %land.lhs.true58, %if.end54
@@ -6232,7 +6232,7 @@ lor.lhs.false:                                    ; preds = %if.end64
   br i1 %or.cond, label %if.end77, label %if.then75
 
 if.then75:                                        ; preds = %lor.lhs.false, %if.end64
-  %puts82 = call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %puts95 = call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
   br label %if.end77
 
 if.end77:                                         ; preds = %if.then75, %lor.lhs.false
@@ -6258,11 +6258,11 @@ declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #4
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #17
@@ -6285,8 +6285,8 @@ attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memo
 attributes #12 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nofree nounwind }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nofree nounwind }
 attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #18 = { nounwind }
 attributes #19 = { cold }

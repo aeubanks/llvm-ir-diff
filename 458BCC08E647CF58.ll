@@ -84,11 +84,11 @@ for.body:                                         ; preds = %for.body.preheader,
   %10 = lshr i8 %9, 4
   %11 = and i8 %10, 3
   %12 = or i8 %11, %6
-  %or176 = xor i8 %12, -128
+  %or177 = xor i8 %12, -128
   %inc15 = add nsw i32 %ooffset.1181, 1
   %idxprom16 = sext i32 %ooffset.1181 to i64
   %arrayidx17 = getelementptr inbounds i8, ptr %output, i64 %idxprom16
-  store i8 %or176, ptr %arrayidx17, align 1, !tbaa !5
+  store i8 %or177, ptr %arrayidx17, align 1, !tbaa !5
   br i1 %cmp6, label %if.end83, label %if.then49
 
 if.then49:                                        ; preds = %for.body
@@ -202,8 +202,8 @@ land.lhs.true:                                    ; preds = %skip_to_newline.exi
   br i1 %cmp96, label %land.lhs.true98, label %if.end106
 
 land.lhs.true98:                                  ; preds = %land.lhs.true
-  %sext177 = add i64 %inc2.i173, 12884901888
-  %idxprom100 = ashr exact i64 %sext177, 32
+  %sext175 = add i64 %inc2.i173, 12884901888
+  %idxprom100 = ashr exact i64 %sext175, 32
   %arrayidx101 = getelementptr inbounds i8, ptr %input, i64 %idxprom100
   %38 = load i8, ptr %arrayidx101, align 1, !tbaa !5
   %cmp103 = icmp eq i8 %38, 100
@@ -444,8 +444,8 @@ land.lhs.true.i:                                  ; preds = %skip_to_newline.exi
   br i1 %cmp96.i, label %land.lhs.true98.i, label %if.end106.i
 
 land.lhs.true98.i:                                ; preds = %land.lhs.true.i
-  %sext177.i = add i64 %inc2.i173.i, 12884901888
-  %idxprom100.i = ashr exact i64 %sext177.i, 32
+  %sext175.i = add i64 %inc2.i173.i, 12884901888
+  %idxprom100.i = ashr exact i64 %sext175.i, 32
   %arrayidx101.i = getelementptr inbounds i8, ptr %call, i64 %idxprom100.i
   %23 = load i8, ptr %arrayidx101.i, align 1, !tbaa !5
   %cmp103.i = icmp eq i8 %23, 100

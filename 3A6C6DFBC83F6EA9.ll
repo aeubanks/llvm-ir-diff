@@ -208,7 +208,7 @@ if.then.i:                                        ; preds = %for.body.i
 
 if.then6.i:                                       ; preds = %if.then.i
   %m_activationState1.i.i.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 14
-  %6 = load i32, ptr %m_activationState1.i.i.i, align 4, !tbaa !43
+  %6 = load i32, ptr %m_activationState1.i.i.i, align 4
   switch i32 %6, label %if.then8.i [
     i32 5, label %if.end11.i
     i32 2, label %if.end11.i
@@ -232,21 +232,21 @@ if.end11.i:                                       ; preds = %if.then8.i, %if.the
 
 _ZN21btSimpleDynamicsWorld25predictUnconstraintMotionEf.exit: ; preds = %if.end11.i, %entry
   %m_dispatchInfo.i = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 3
-  store float %timeStep, ptr %m_dispatchInfo.i, align 8, !tbaa !44
+  store float %timeStep, ptr %m_dispatchInfo.i, align 8, !tbaa !43
   %m_stepCount = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 3, i32 1
-  store i32 0, ptr %m_stepCount, align 4, !tbaa !45
+  store i32 0, ptr %m_stepCount, align 4, !tbaa !44
   %vtable = load ptr, ptr %this, align 8, !tbaa !19
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
   %9 = load ptr, ptr %vfn, align 8
   %call2 = tail call noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(129) %this)
   %m_debugDraw = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 3, i32 5
-  store ptr %call2, ptr %m_debugDraw, align 8, !tbaa !46
+  store ptr %call2, ptr %m_debugDraw, align 8, !tbaa !45
   %vtable3 = load ptr, ptr %this, align 8, !tbaa !19
   %vfn4 = getelementptr inbounds ptr, ptr %vtable3, i64 7
   %10 = load ptr, ptr %vfn4, align 8
   tail call void %10(ptr noundef nonnull align 8 dereferenceable(129) %this)
   %m_dispatcher1 = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 2
-  %11 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !47
+  %11 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !46
   %vtable5 = load ptr, ptr %11, align 8, !tbaa !19
   %vfn6 = getelementptr inbounds ptr, ptr %vtable5, i64 9
   %12 = load ptr, ptr %vfn6, align 8
@@ -255,7 +255,7 @@ _ZN21btSimpleDynamicsWorld25predictUnconstraintMotionEf.exit: ; preds = %if.end1
   br i1 %tobool.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %_ZN21btSimpleDynamicsWorld25predictUnconstraintMotionEf.exit
-  %13 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !47
+  %13 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !46
   %vtable9 = load ptr, ptr %13, align 8, !tbaa !19
   %vfn10 = getelementptr inbounds ptr, ptr %vtable9, i64 11
   %14 = load ptr, ptr %vfn10, align 8
@@ -283,7 +283,7 @@ if.then:                                          ; preds = %_ZN21btSimpleDynami
   %m_restingContactRestitutionThreshold.i = getelementptr inbounds %struct.btContactSolverInfoData, ptr %infoGlobal, i64 0, i32 16
   store i32 2, ptr %m_restingContactRestitutionThreshold.i, align 8, !tbaa !18
   %m_timeStep12 = getelementptr inbounds %struct.btContactSolverInfoData, ptr %infoGlobal, i64 0, i32 3
-  store float %timeStep, ptr %m_timeStep12, align 4, !tbaa !48
+  store float %timeStep, ptr %m_timeStep12, align 4, !tbaa !47
   %m_constraintSolver = getelementptr inbounds %class.btSimpleDynamicsWorld, ptr %this, i64 0, i32 2
   %15 = load ptr, ptr %m_constraintSolver, align 8, !tbaa !21
   %vtable13 = load ptr, ptr %15, align 8, !tbaa !19
@@ -292,17 +292,17 @@ if.then:                                          ; preds = %_ZN21btSimpleDynami
   tail call void %16(ptr noundef nonnull align 8 dereferenceable(8) %15, i32 noundef 0, i32 noundef %call7)
   %17 = load ptr, ptr %m_constraintSolver, align 8, !tbaa !21
   %m_debugDrawer = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 6
-  %18 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !49
+  %18 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !48
   %m_stackAlloc = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 4
-  %19 = load ptr, ptr %m_stackAlloc, align 8, !tbaa !50
-  %20 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !47
+  %19 = load ptr, ptr %m_stackAlloc, align 8, !tbaa !49
+  %20 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !46
   %vtable17 = load ptr, ptr %17, align 8, !tbaa !19
   %vfn18 = getelementptr inbounds ptr, ptr %vtable17, i64 3
   %21 = load ptr, ptr %vfn18, align 8
   %call19 = call noundef float %21(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef null, i32 noundef 0, ptr noundef %call11, i32 noundef %call7, ptr noundef null, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(68) %infoGlobal, ptr noundef %18, ptr noundef %19, ptr noundef %20)
   %22 = load ptr, ptr %m_constraintSolver, align 8, !tbaa !21
-  %23 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !49
-  %24 = load ptr, ptr %m_stackAlloc, align 8, !tbaa !50
+  %23 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !48
+  %24 = load ptr, ptr %m_stackAlloc, align 8, !tbaa !49
   %vtable23 = load ptr, ptr %22, align 8, !tbaa !19
   %vfn24 = getelementptr inbounds ptr, ptr %vtable23, i64 4
   %25 = load ptr, ptr %vfn24, align 8
@@ -335,7 +335,7 @@ for.body.i46:                                     ; preds = %if.end8.i, %for.bod
 
 if.then.i48:                                      ; preds = %for.body.i46
   %m_activationState1.i.i.i47 = getelementptr inbounds %class.btCollisionObject, ptr %29, i64 0, i32 14
-  %31 = load i32, ptr %m_activationState1.i.i.i47, align 4, !tbaa !43
+  %31 = load i32, ptr %m_activationState1.i.i.i47, align 4
   switch i32 %31, label %land.lhs.true.i [
     i32 5, label %if.end8.i
     i32 2, label %if.end8.i
@@ -415,7 +415,7 @@ if.then:                                          ; preds = %for.body
 
 if.then6:                                         ; preds = %if.then
   %m_activationState1.i.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 14
-  %6 = load i32, ptr %m_activationState1.i.i, align 4, !tbaa !43
+  %6 = load i32, ptr %m_activationState1.i.i, align 4
   switch i32 %6, label %if.then8 [
     i32 5, label %if.end11
     i32 2, label %if.end11
@@ -471,7 +471,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %if
 
 if.then:                                          ; preds = %for.body
   %m_activationState1.i.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 14
-  %5 = load i32, ptr %m_activationState1.i.i, align 4, !tbaa !43
+  %5 = load i32, ptr %m_activationState1.i.i, align 4
   switch i32 %5, label %land.lhs.true [
     i32 5, label %if.end8
     i32 2, label %if.end8
@@ -544,7 +544,7 @@ if.end:                                           ; preds = %if.then, %for.body
 define dso_local void @_ZN21btSimpleDynamicsWorld10setGravityERK9btVector3(ptr nocapture noundef nonnull align 8 dereferenceable(260) %this, ptr noundef nonnull align 4 dereferenceable(16) %gravity) unnamed_addr #1 align 2 {
 entry:
   %m_gravity = getelementptr inbounds %class.btSimpleDynamicsWorld, ptr %this, i64 0, i32 5
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_gravity, ptr noundef nonnull align 4 dereferenceable(16) %gravity, i64 16, i1 false), !tbaa.struct !51
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_gravity, ptr noundef nonnull align 4 dereferenceable(16) %gravity, i64 16, i1 false), !tbaa.struct !50
   %m_size.i = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 1, i32 2
   %0 = load i32, ptr %m_size.i, align 4, !tbaa !35
   %cmp10 = icmp sgt i32 %0, 0
@@ -592,9 +592,9 @@ declare void @_ZN11btRigidBody10setGravityERK9btVector3(ptr noundef nonnull alig
 define dso_local { <2 x float>, <2 x float> } @_ZNK21btSimpleDynamicsWorld10getGravityEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(260) %this) unnamed_addr #9 align 2 {
 entry:
   %m_gravity = getelementptr inbounds %class.btSimpleDynamicsWorld, ptr %this, i64 0, i32 5
-  %retval.sroa.0.0.copyload = load <2 x float>, ptr %m_gravity, align 4, !tbaa.struct !51
+  %retval.sroa.0.0.copyload = load <2 x float>, ptr %m_gravity, align 4, !tbaa.struct !50
   %retval.sroa.2.0.m_gravity.sroa_idx = getelementptr inbounds %class.btSimpleDynamicsWorld, ptr %this, i64 0, i32 5, i32 0, i64 2
-  %retval.sroa.2.0.copyload = load <2 x float>, ptr %retval.sroa.2.0.m_gravity.sroa_idx, align 4, !tbaa.struct !53
+  %retval.sroa.2.0.copyload = load <2 x float>, ptr %retval.sroa.2.0.m_gravity.sroa_idx, align 4, !tbaa.struct !52
   %.fca.0.insert = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %retval.sroa.0.0.copyload, 0
   %.fca.1.insert = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert, <2 x float> %retval.sroa.2.0.copyload, 1
   ret { <2 x float>, <2 x float> } %.fca.1.insert
@@ -640,7 +640,7 @@ entry:
   %m_gravity = getelementptr inbounds %class.btSimpleDynamicsWorld, ptr %this, i64 0, i32 5
   tail call void @_ZN11btRigidBody10setGravityERK9btVector3(ptr noundef nonnull align 8 dereferenceable(564) %body, ptr noundef nonnull align 4 dereferenceable(16) %m_gravity)
   %m_collisionShape.i = getelementptr inbounds %class.btCollisionObject, ptr %body, i64 0, i32 9
-  %0 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !54
+  %0 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !53
   %tobool.not = icmp eq ptr %0, null
   br i1 %tobool.not, label %if.end, label %if.then
 
@@ -689,7 +689,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %if
 
 if.then:                                          ; preds = %for.body
   %m_activationState1.i.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 14
-  %5 = load i32, ptr %m_activationState1.i.i, align 4, !tbaa !43
+  %5 = load i32, ptr %m_activationState1.i.i, align 4
   switch i32 %5, label %land.lhs.true [
     i32 5, label %if.end14
     i32 2, label %if.end14
@@ -706,16 +706,16 @@ if.then7:                                         ; preds = %land.lhs.true
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %minAabb) #12
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %maxAabb) #12
   %m_collisionShape.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 9
-  %7 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !54
+  %7 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !53
   %m_worldTransform.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 1
   %vtable = load ptr, ptr %7, align 8, !tbaa !19
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
   %8 = load ptr, ptr %vfn, align 8
   call void %8(ptr noundef nonnull align 8 dereferenceable(24) %7, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i, ptr noundef nonnull align 4 dereferenceable(16) %minAabb, ptr noundef nonnull align 4 dereferenceable(16) %maxAabb)
-  %9 = load ptr, ptr %m_broadphasePairCache.i, align 8, !tbaa !55
+  %9 = load ptr, ptr %m_broadphasePairCache.i, align 8, !tbaa !54
   %m_broadphaseHandle.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 8
-  %10 = load ptr, ptr %m_broadphaseHandle.i, align 8, !tbaa !56
-  %11 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !47
+  %10 = load ptr, ptr %m_broadphaseHandle.i, align 8, !tbaa !55
+  %11 = load ptr, ptr %m_dispatcher1, align 8, !tbaa !46
   %vtable12 = load ptr, ptr %9, align 8, !tbaa !19
   %vfn13 = getelementptr inbounds ptr, ptr %vtable12, i64 4
   %12 = load ptr, ptr %vfn13, align 8
@@ -773,13 +773,13 @@ for.body:                                         ; preds = %for.body.lr.ph, %if
 
 land.lhs.true:                                    ; preds = %for.body
   %m_optionalMotionState.i = getelementptr inbounds %class.btRigidBody, ptr %3, i64 0, i32 22
-  %5 = load ptr, ptr %m_optionalMotionState.i, align 8, !tbaa !57
+  %5 = load ptr, ptr %m_optionalMotionState.i, align 8, !tbaa !56
   %tobool6.not = icmp eq ptr %5, null
   br i1 %tobool6.not, label %if.end12, label %if.then
 
 if.then:                                          ; preds = %land.lhs.true
   %m_activationState1.i = getelementptr inbounds %class.btCollisionObject, ptr %3, i64 0, i32 14
-  %6 = load i32, ptr %m_activationState1.i, align 4, !tbaa !43
+  %6 = load i32, ptr %m_activationState1.i, align 4, !tbaa !60
   %cmp8.not = icmp eq i32 %6, 2
   br i1 %cmp8.not, label %if.end12, label %if.then9
 
@@ -833,7 +833,7 @@ entry:
 define linkonce_odr dso_local void @_ZN16btCollisionWorld14setDebugDrawerEP12btIDebugDraw(ptr noundef nonnull align 8 dereferenceable(129) %this, ptr noundef %debugDrawer) unnamed_addr #10 comdat align 2 {
 entry:
   %m_debugDrawer = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 6
-  store ptr %debugDrawer, ptr %m_debugDrawer, align 8, !tbaa !49
+  store ptr %debugDrawer, ptr %m_debugDrawer, align 8, !tbaa !48
   ret void
 }
 
@@ -841,7 +841,7 @@ entry:
 define linkonce_odr dso_local noundef ptr @_ZN16btCollisionWorld14getDebugDrawerEv(ptr noundef nonnull align 8 dereferenceable(129) %this) unnamed_addr #10 comdat align 2 {
 entry:
   %m_debugDrawer = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 6
-  %0 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !49
+  %0 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !48
   ret ptr %0
 }
 
@@ -979,21 +979,21 @@ attributes #13 = { noreturn nounwind }
 !40 = !{!"_ZTS11btTransform", !41, i64 0, !31, i64 48}
 !41 = !{!"_ZTS11btMatrix3x3", !7, i64 0}
 !42 = !{!39, !11, i64 216}
-!43 = !{!39, !11, i64 228}
-!44 = !{!29, !6, i64 0}
-!45 = !{!29, !11, i64 4}
-!46 = !{!29, !27, i64 24}
-!47 = !{!24, !27, i64 40}
-!48 = !{!10, !6, i64 12}
-!49 = !{!24, !27, i64 120}
-!50 = !{!24, !27, i64 104}
-!51 = !{i64 0, i64 16, !52}
-!52 = !{!7, !7, i64 0}
-!53 = !{i64 0, i64 8, !52}
-!54 = !{!39, !27, i64 200}
-!55 = !{!24, !27, i64 112}
-!56 = !{!39, !27, i64 192}
-!57 = !{!58, !27, i64 512}
-!58 = !{!"_ZTS11btRigidBody", !39, i64 0, !41, i64 280, !31, i64 328, !31, i64 344, !6, i64 360, !31, i64 364, !31, i64 380, !31, i64 396, !31, i64 412, !31, i64 428, !31, i64 444, !31, i64 460, !6, i64 476, !6, i64 480, !28, i64 484, !6, i64 488, !6, i64 492, !6, i64 496, !6, i64 500, !6, i64 504, !6, i64 508, !27, i64 512, !59, i64 520, !11, i64 552, !11, i64 556, !11, i64 560}
-!59 = !{!"_ZTS20btAlignedObjectArrayIP17btTypedConstraintE", !60, i64 0, !11, i64 4, !11, i64 8, !27, i64 16, !28, i64 24}
-!60 = !{!"_ZTS18btAlignedAllocatorIP17btTypedConstraintLj16EE"}
+!43 = !{!29, !6, i64 0}
+!44 = !{!29, !11, i64 4}
+!45 = !{!29, !27, i64 24}
+!46 = !{!24, !27, i64 40}
+!47 = !{!10, !6, i64 12}
+!48 = !{!24, !27, i64 120}
+!49 = !{!24, !27, i64 104}
+!50 = !{i64 0, i64 16, !51}
+!51 = !{!7, !7, i64 0}
+!52 = !{i64 0, i64 8, !51}
+!53 = !{!39, !27, i64 200}
+!54 = !{!24, !27, i64 112}
+!55 = !{!39, !27, i64 192}
+!56 = !{!57, !27, i64 512}
+!57 = !{!"_ZTS11btRigidBody", !39, i64 0, !41, i64 280, !31, i64 328, !31, i64 344, !6, i64 360, !31, i64 364, !31, i64 380, !31, i64 396, !31, i64 412, !31, i64 428, !31, i64 444, !31, i64 460, !6, i64 476, !6, i64 480, !28, i64 484, !6, i64 488, !6, i64 492, !6, i64 496, !6, i64 500, !6, i64 504, !6, i64 508, !27, i64 512, !58, i64 520, !11, i64 552, !11, i64 556, !11, i64 560}
+!58 = !{!"_ZTS20btAlignedObjectArrayIP17btTypedConstraintE", !59, i64 0, !11, i64 4, !11, i64 8, !27, i64 16, !28, i64 24}
+!59 = !{!"_ZTS18btAlignedAllocatorIP17btTypedConstraintLj16EE"}
+!60 = !{!39, !11, i64 228}

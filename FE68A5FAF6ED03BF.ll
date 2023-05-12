@@ -7,7 +7,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-entry:
+if.end4:
   %0 = load i32, ptr @a, align 4, !tbaa !5
   %tobool = icmp ne i32 %0, 0
   %land.ext = zext i1 %tobool to i32

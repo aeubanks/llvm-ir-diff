@@ -97,7 +97,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %6 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %7 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp4.not = icmp eq i8 %7, %1
+  %cmp4.not = icmp eq i8 %1, %7
   br i1 %cmp4.not, label %while.cond, label %if.then6, !llvm.loop !8
 
 if.then6:                                         ; preds = %to_hex.exit
@@ -145,7 +145,7 @@ to_hex.exit42:                                    ; preds = %vaarg.end23
   %idxprom.i39 = zext i32 %12 to i64
   %arrayidx.i40 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i39
   %13 = load i8, ptr %arrayidx.i40, align 1, !tbaa !5
-  %cmp26.not = icmp eq i8 %13, %8
+  %cmp26.not = icmp eq i8 %8, %13
   br i1 %cmp26.not, label %while.cond8, label %if.then28, !llvm.loop !10
 
 if.then28:                                        ; preds = %to_hex.exit42

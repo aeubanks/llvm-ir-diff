@@ -160,15 +160,15 @@ entry.if.end7_crit_edge:                          ; preds = %entry
   %incdec.ptr8.phi.trans.insert = getelementptr inbounds i8, ptr %key, i64 2
   %.pre = load i8, ptr %incdec.ptr8.phi.trans.insert, align 1, !tbaa !5
   %incdec.ptr10.phi.trans.insert = getelementptr inbounds i8, ptr %key, i64 3
-  %.pre256 = load i8, ptr %incdec.ptr10.phi.trans.insert, align 1, !tbaa !5
+  %.pre254 = load i8, ptr %incdec.ptr10.phi.trans.insert, align 1, !tbaa !5
   %incdec.ptr20.phi.trans.insert = getelementptr inbounds i8, ptr %key, i64 6
-  %.pre257 = load i8, ptr %incdec.ptr20.phi.trans.insert, align 1, !tbaa !5
+  %.pre255 = load i8, ptr %incdec.ptr20.phi.trans.insert, align 1, !tbaa !5
   %incdec.ptr24.phi.trans.insert = getelementptr inbounds i8, ptr %key, i64 7
-  %.pre258 = load i8, ptr %incdec.ptr24.phi.trans.insert, align 1, !tbaa !5
-  %.pre259 = zext i8 %.pre to i64
+  %.pre256 = load i8, ptr %incdec.ptr24.phi.trans.insert, align 1, !tbaa !5
+  %.pre257 = zext i8 %.pre to i64
+  %.pre258 = zext i8 %.pre254 to i64
+  %.pre259 = zext i8 %.pre255 to i64
   %.pre260 = zext i8 %.pre256 to i64
-  %.pre261 = zext i8 %.pre257 to i64
-  %.pre262 = zext i8 %.pre258 to i64
   br label %if.end7
 
 if.then:                                          ; preds = %entry
@@ -231,9 +231,9 @@ for.cond.5.i:                                     ; preds = %for.cond.4.i
   %arrayidx6.6.i = getelementptr inbounds [256 x i8], ptr @odd_parity, i64 0, i64 %idxprom5.6.i
   %14 = load i8, ptr %arrayidx6.6.i, align 1, !tbaa !5
   %cmp8.not.6.i = icmp eq i8 %13, %14
-  br i1 %cmp8.not.6.i, label %check_parity.exit, label %cleanup
+  br i1 %cmp8.not.6.i, label %for.cond.6.i, label %cleanup
 
-check_parity.exit:                                ; preds = %for.cond.5.i
+for.cond.6.i:                                     ; preds = %for.cond.5.i
   %arrayidx.7.i = getelementptr inbounds [8 x i8], ptr %key, i64 0, i64 7
   %15 = load i8, ptr %arrayidx.7.i, align 1, !tbaa !5
   %idxprom5.7.i = zext i8 %15 to i64
@@ -242,16 +242,16 @@ check_parity.exit:                                ; preds = %for.cond.5.i
   %cmp8.not.7.i.not = icmp eq i8 %15, %16
   br i1 %cmp8.not.7.i.not, label %if.end, label %cleanup
 
-if.end:                                           ; preds = %check_parity.exit
+if.end:                                           ; preds = %for.cond.6.i
   %call3 = tail call i32 @des_is_weak_key(ptr noundef nonnull %key), !range !10
   %tobool4.not = icmp eq i32 %call3, 0
   br i1 %tobool4.not, label %if.end7, label %cleanup
 
 if.end7:                                          ; preds = %entry.if.end7_crit_edge, %if.end
-  %conv29.pre-phi = phi i64 [ %.pre262, %entry.if.end7_crit_edge ], [ %idxprom5.7.i, %if.end ]
-  %conv25.pre-phi = phi i64 [ %.pre261, %entry.if.end7_crit_edge ], [ %idxprom5.6.i, %if.end ]
-  %conv15.pre-phi = phi i64 [ %.pre260, %entry.if.end7_crit_edge ], [ %idxprom5.3.i, %if.end ]
-  %conv11.pre-phi = phi i64 [ %.pre259, %entry.if.end7_crit_edge ], [ %idxprom5.2.i, %if.end ]
+  %conv29.pre-phi = phi i64 [ %.pre260, %entry.if.end7_crit_edge ], [ %idxprom5.7.i, %if.end ]
+  %conv25.pre-phi = phi i64 [ %.pre259, %entry.if.end7_crit_edge ], [ %idxprom5.6.i, %if.end ]
+  %conv15.pre-phi = phi i64 [ %.pre258, %entry.if.end7_crit_edge ], [ %idxprom5.3.i, %if.end ]
+  %conv11.pre-phi = phi i64 [ %.pre257, %entry.if.end7_crit_edge ], [ %idxprom5.2.i, %if.end ]
   %17 = load i16, ptr %key, align 1
   %18 = zext i16 %17 to i64
   %shl12 = shl nuw nsw i64 %conv11.pre-phi, 16
@@ -315,20 +315,20 @@ if.end7:                                          ; preds = %entry.if.end7_crit_
 
 for.body:                                         ; preds = %if.end7, %for.body
   %indvars.iv = phi i64 [ 0, %if.end7 ], [ %indvars.iv.next, %for.body ]
-  %c.0254.in = phi i64 [ %xor62, %if.end7 ], [ %or87, %for.body ]
-  %k.0252 = phi ptr [ %schedule, %if.end7 ], [ %incdec.ptr156, %for.body ]
-  %d.0251 = phi i64 [ %or74, %if.end7 ], [ %and93, %for.body ]
-  %c.0254 = and i64 %c.0254.in, 268435455
+  %c.0252.in = phi i64 [ %xor62, %if.end7 ], [ %or87, %for.body ]
+  %k.0250 = phi ptr [ %schedule, %if.end7 ], [ %incdec.ptr156, %for.body ]
+  %d.0249 = phi i64 [ %or74, %if.end7 ], [ %and93, %for.body ]
+  %c.0252 = and i64 %c.0252.in, 268435455
   %23 = lshr i64 33027, %indvars.iv
   %24 = and i64 %23, 1
   %tobool77.not.not = icmp eq i64 %24, 0
   %. = select i1 %tobool77.not.not, i64 2, i64 1
-  %.266 = or i64 %24, 26
-  %shr85 = lshr i64 %c.0254, %.
-  %shl86 = shl nuw nsw i64 %c.0254, %.266
+  %.264 = or i64 %24, 26
+  %shr85 = lshr i64 %c.0252, %.
+  %shl86 = shl nuw nsw i64 %c.0252, %.264
   %or87 = or i64 %shr85, %shl86
-  %shr88 = lshr i64 %d.0251, %.
-  %shl89 = shl nuw nsw i64 %d.0251, %.266
+  %shr88 = lshr i64 %d.0249, %.
+  %shl89 = shl nuw nsw i64 %d.0249, %.264
   %or90 = or i64 %shr88, %shl89
   %and93 = and i64 %or90, 268435455
   %and94 = and i64 %shr85, 63
@@ -393,8 +393,8 @@ for.body:                                         ; preds = %if.end7, %for.body
   %shr145 = lshr i64 %shl140.masked, 30
   %shl144.masked = and i64 %shl144, 4294967292
   %and147 = or i64 %shl144.masked, %shr145
-  %incdec.ptr148 = getelementptr inbounds i64, ptr %k.0252, i64 1
-  store i64 %and147, ptr %k.0252, align 8, !tbaa !11
+  %incdec.ptr148 = getelementptr inbounds i64, ptr %k.0250, i64 1
+  store i64 %and147, ptr %k.0250, align 8, !tbaa !11
   %shr149 = lshr i64 %or119, 16
   %and150 = and i64 %or139, 4294901760
   %or151 = or i64 %and150, %shr149
@@ -402,14 +402,14 @@ for.body:                                         ; preds = %if.end7, %for.body
   %shr153 = lshr i64 %or151, 26
   %shl152.masked = and i64 %shl152, 4294967232
   %and155 = or i64 %shl152.masked, %shr153
-  %incdec.ptr156 = getelementptr inbounds i64, ptr %k.0252, i64 2
+  %incdec.ptr156 = getelementptr inbounds i64, ptr %k.0250, i64 2
   store i64 %and155, ptr %incdec.ptr148, align 8, !tbaa !11
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 16
   br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !13
 
-cleanup:                                          ; preds = %for.body, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %if.then, %if.end, %check_parity.exit
-  %retval.0 = phi i32 [ -1, %check_parity.exit ], [ -2, %if.end ], [ -1, %if.then ], [ -1, %for.cond.i ], [ -1, %for.cond.1.i ], [ -1, %for.cond.2.i ], [ -1, %for.cond.3.i ], [ -1, %for.cond.4.i ], [ -1, %for.cond.5.i ], [ 0, %for.body ]
+cleanup:                                          ; preds = %for.body, %if.then, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %if.end, %for.cond.6.i
+  %retval.0 = phi i32 [ -1, %for.cond.6.i ], [ -2, %if.end ], [ -1, %for.cond.5.i ], [ -1, %for.cond.4.i ], [ -1, %for.cond.3.i ], [ -1, %for.cond.2.i ], [ -1, %for.cond.1.i ], [ -1, %for.cond.i ], [ -1, %if.then ], [ 0, %for.body ]
   ret i32 %retval.0
 }
 

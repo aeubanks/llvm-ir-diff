@@ -114,63 +114,70 @@ entry:
   %conv1 = fptosi double %ldexp to i32
   %CURRENT_CHAR.promoted = load ptr, ptr %CURRENT_CHAR, align 8, !tbaa !10
   %0 = load i8, ptr %CURRENT_CHAR.promoted, align 1, !tbaa !5
-  %conv.i26 = sext i8 %0 to i32
+  %conv.i31 = sext i8 %0 to i32
   %1 = add i8 %0, -48
-  %or.cond.i27 = icmp ult i8 %1, 10
-  %sub.i28 = add nsw i32 %conv.i26, -48
-  %spec.select.i29 = select i1 %or.cond.i27, i32 %sub.i28, i32 -1
+  %or.cond.i32 = icmp ult i8 %1, 10
+  %sub.i33 = add nsw i32 %conv.i31, -48
+  %spec.select.i34 = select i1 %or.cond.i32, i32 %sub.i33, i32 -1
   %2 = add i8 %0, -65
-  %or.cond21.i30 = icmp ult i8 %2, 26
-  %add.i31 = add nsw i32 %conv.i26, -55
-  %DIGIT.1.i32 = select i1 %or.cond21.i30, i32 %add.i31, i32 %spec.select.i29
-  %cmp17.not.i33 = icmp sge i32 %DIGIT.1.i32, %NUM_BASE
-  %cmp.not2434 = icmp eq i32 %DIGIT.1.i32, -1
-  %cmp.not35 = or i1 %cmp17.not.i33, %cmp.not2434
-  %cmp.i.not36 = icmp eq i8 %0, 0
-  %or.cond37 = or i1 %cmp.i.not36, %cmp.not35
-  br i1 %or.cond37, label %while.end, label %while.body
+  %or.cond21.i35 = icmp ult i8 %2, 26
+  %add.i36 = add nsw i32 %conv.i31, -55
+  %DIGIT.1.i37 = select i1 %or.cond21.i35, i32 %add.i36, i32 %spec.select.i34
+  %cmp17.not.i38 = icmp sge i32 %DIGIT.1.i37, %NUM_BASE
+  %cmp.not2439 = icmp eq i32 %DIGIT.1.i37, -1
+  %cmp.not40 = or i1 %cmp17.not.i38, %cmp.not2439
+  br i1 %cmp.not40, label %while.end, label %land.rhs
 
-while.body:                                       ; preds = %entry, %while.body
-  %DIGIT.1.i39 = phi i32 [ %DIGIT.1.i, %while.body ], [ %DIGIT.1.i32, %entry ]
-  %CONVERT.038 = phi i32 [ %CONVERT.1, %while.body ], [ 0, %entry ]
-  %3 = phi ptr [ %incdec.ptr, %while.body ], [ %CURRENT_CHAR.promoted, %entry ]
-  %cmp5.not = icmp sgt i32 %CONVERT.038, %conv1
-  %mul7 = mul nsw i32 %CONVERT.038, %NUM_BASE
-  %add = add nsw i32 %DIGIT.1.i39, %mul7
-  %CONVERT.1 = select i1 %cmp5.not, i32 %CONVERT.038, i32 %add
-  %incdec.ptr = getelementptr inbounds i8, ptr %3, i64 1
+land.rhs:                                         ; preds = %entry, %while.body
+  %DIGIT.1.i42 = phi i32 [ %DIGIT.1.i, %while.body ], [ %DIGIT.1.i37, %entry ]
+  %3 = phi i8 [ %5, %while.body ], [ %0, %entry ]
+  %CONVERT.041 = phi i32 [ %CONVERT.1, %while.body ], [ 0, %entry ]
+  %4 = phi ptr [ %incdec.ptr, %while.body ], [ %CURRENT_CHAR.promoted, %entry ]
+  %cmp.i.not = icmp eq i8 %3, 0
+  br i1 %cmp.i.not, label %while.end.thread, label %while.body
+
+while.body:                                       ; preds = %land.rhs
+  %cmp5.not = icmp sgt i32 %CONVERT.041, %conv1
+  %mul7 = mul nsw i32 %CONVERT.041, %NUM_BASE
+  %add = add nsw i32 %DIGIT.1.i42, %mul7
+  %CONVERT.1 = select i1 %cmp5.not, i32 %CONVERT.041, i32 %add
+  %incdec.ptr = getelementptr inbounds i8, ptr %4, i64 1
   store ptr %incdec.ptr, ptr %CURRENT_CHAR, align 8, !tbaa !10
-  %4 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
-  %conv.i = sext i8 %4 to i32
-  %5 = add i8 %4, -48
-  %or.cond.i = icmp ult i8 %5, 10
+  %5 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
+  %conv.i = sext i8 %5 to i32
+  %6 = add i8 %5, -48
+  %or.cond.i = icmp ult i8 %6, 10
   %sub.i = add nsw i32 %conv.i, -48
   %spec.select.i = select i1 %or.cond.i, i32 %sub.i, i32 -1
-  %6 = add i8 %4, -65
-  %or.cond21.i = icmp ult i8 %6, 26
+  %7 = add i8 %5, -65
+  %or.cond21.i = icmp ult i8 %7, 26
   %add.i = add nsw i32 %conv.i, -55
   %DIGIT.1.i = select i1 %or.cond21.i, i32 %add.i, i32 %spec.select.i
   %cmp17.not.i = icmp sge i32 %DIGIT.1.i, %NUM_BASE
   %cmp.not24 = icmp eq i32 %DIGIT.1.i, -1
   %cmp.not = or i1 %cmp17.not.i, %cmp.not24
-  %cmp.i.not = icmp eq i8 %4, 0
-  %or.cond = or i1 %cmp.i.not, %cmp.not
-  br i1 %or.cond, label %while.end, label %while.body, !llvm.loop !12
+  br i1 %cmp.not, label %while.end, label %land.rhs, !llvm.loop !12
 
 while.end:                                        ; preds = %while.body, %entry
   %CONVERT.0.lcssa = phi i32 [ 0, %entry ], [ %CONVERT.1, %while.body ]
-  %.lcssa = phi i8 [ %0, %entry ], [ %4, %while.body ]
+  %.lcssa = phi i8 [ %0, %entry ], [ %5, %while.body ]
   %cmp8.not = icmp slt i32 %CONVERT.0.lcssa, %conv1
-  %cmp.i22.not = icmp eq i8 %.lcssa, 0
-  %or.cond25 = and i1 %cmp8.not, %cmp.i22.not
-  br i1 %or.cond25, label %if.end13, label %if.then12
+  %cmp.i22 = icmp eq i8 %.lcssa, 0
+  %or.cond = and i1 %cmp8.not, %cmp.i22
+  br i1 %or.cond, label %if.end13, label %if.then12
 
-if.then12:                                        ; preds = %while.end
+while.end.thread:                                 ; preds = %land.rhs
+  %cmp8.not25 = icmp slt i32 %CONVERT.041, %conv1
+  br i1 %cmp8.not25, label %if.end13, label %if.then12
+
+if.then12:                                        ; preds = %while.end.thread, %while.end
+  %CONVERT.029 = phi i32 [ %CONVERT.041, %while.end.thread ], [ %CONVERT.0.lcssa, %while.end ]
   store i32 1, ptr %ERROR, align 4, !tbaa !13
   br label %if.end13
 
-if.end13:                                         ; preds = %while.end, %if.then12
-  ret i32 %CONVERT.0.lcssa
+if.end13:                                         ; preds = %while.end, %while.end.thread, %if.then12
+  %CONVERT.030 = phi i32 [ %CONVERT.0.lcssa, %while.end ], [ %CONVERT.041, %while.end.thread ], [ %CONVERT.029, %if.then12 ]
+  ret i32 %CONVERT.030
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable

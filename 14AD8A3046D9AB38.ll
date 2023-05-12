@@ -1047,7 +1047,7 @@ do.body:                                          ; preds = %SwapSubsetAndReset.
   %lastGMax.0 = phi float [ 0.000000e+00, %if.end ], [ %gMax.0.lcssa.i, %SwapSubsetAndReset.exit ]
   tail call void @ComputeDs(ptr noundef nonnull @groupA, i32 noundef 0, i32 noundef 2) #16
   tail call void @ComputeDs(ptr noundef nonnull @groupB, i32 noundef 1, i32 noundef 3) #16
-  %3 = load i64, ptr @numModules, align 8, !tbaa !30
+  %3 = load i64, ptr @numModules, align 8
   %cmp153.not = icmp ult i64 %3, 2
   br i1 %cmp153.not, label %FindGMax.exit, label %for.body
 
@@ -1057,9 +1057,9 @@ for.body:                                         ; preds = %do.body, %for.body
   %arrayidx3 = getelementptr inbounds [1024 x float], ptr @GP, i64 0, i64 %p.054
   store float %call2, ptr %arrayidx3, align 4, !tbaa !16
   %inc = add nuw nsw i64 %p.054, 1
-  %4 = load i64, ptr @numModules, align 8, !tbaa !30
-  %div47 = lshr i64 %4, 1
-  %cmp1 = icmp ult i64 %inc, %div47
+  %4 = load i64, ptr @numModules, align 8
+  %div51 = lshr i64 %4, 1
+  %cmp1 = icmp ult i64 %inc, %div51
   br i1 %cmp1, label %for.body, label %for.end, !llvm.loop !53
 
 for.end:                                          ; preds = %for.body
@@ -1103,7 +1103,7 @@ if.end8:                                          ; preds = %FindGMax.exit.if.en
   %9 = load ptr, ptr @stdout, align 8, !tbaa !11
   %call10 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.12, double noundef %conv9.pre-phi, i64 noundef %iMax.2)
   %cmp12 = fcmp ogt float %gMax.0.lcssa.i, 0.000000e+00
-  br i1 %cmp12, label %if.then14, label %do.end.critedge
+  br i1 %cmp12, label %if.then14, label %do.end
 
 if.then14:                                        ; preds = %if.end8
   %10 = add i64 %iMax.2, 1
@@ -1169,10 +1169,10 @@ for.end.i:                                        ; preds = %for.cond.i.epil, %f
   %mrPrevB.0.i.lcssa = phi ptr [ %mrPrevB.0.i.lcssa.ph, %for.end.i.unr-lcssa ], [ %mrPrevB.0.i.epil, %for.cond.i.epil ]
   %mrB.0.i.lcssa = phi ptr [ %mrB.0.i.lcssa.ph, %for.end.i.unr-lcssa ], [ %mrB.0.i.epil, %for.cond.i.epil ]
   %mrA.0.i.lcssa = phi ptr [ %mrA.0.i.lcssa.ph, %for.end.i.unr-lcssa ], [ %mrA.0.i.epil, %for.cond.i.epil ]
-  %cmp2.i48 = icmp eq ptr %mrA.0.i.lcssa, null
-  br i1 %cmp2.i48, label %if.then.i49, label %if.else.i
+  %cmp2.i47 = icmp eq ptr %mrA.0.i.lcssa, null
+  br i1 %cmp2.i47, label %if.then.i48, label %if.else.i
 
-if.then.i49:                                      ; preds = %for.end.i
+if.then.i48:                                      ; preds = %for.end.i
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) @groupA, ptr noundef nonnull align 8 dereferenceable(16) @swapToA, i64 16, i1 false), !tbaa.struct !35
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) @groupB, ptr noundef nonnull align 8 dereferenceable(16) @swapToB, i64 16, i1 false), !tbaa.struct !35
   br label %if.end.i
@@ -1190,7 +1190,7 @@ if.else.i:                                        ; preds = %for.end.i
   store ptr %16, ptr getelementptr inbounds (%struct._ModuleList, ptr @groupB, i64 0, i32 1), align 8, !tbaa !23
   br label %if.end.i
 
-if.end.i:                                         ; preds = %if.else.i, %if.then.i49
+if.end.i:                                         ; preds = %if.else.i, %if.then.i48
   %mrA.131.i = load ptr, ptr @groupA, align 8, !tbaa !11
   %cmp6.not32.i = icmp eq ptr %mrA.131.i, null
   br i1 %cmp6.not32.i, label %for.cond11.preheader.i, label %for.body7.i
@@ -1204,8 +1204,8 @@ for.body7.i:                                      ; preds = %if.end.i, %for.body
   %mrA.133.i = phi ptr [ %mrA.1.i, %for.body7.i ], [ %mrA.131.i, %if.end.i ]
   %module.i = getelementptr inbounds %struct._ModuleRec, ptr %mrA.133.i, i64 0, i32 1
   %17 = load i64, ptr %module.i, align 8, !tbaa !5
-  %arrayidx.i50 = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %17
-  store i32 0, ptr %arrayidx.i50, align 4, !tbaa !26
+  %arrayidx.i49 = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %17
+  store i32 0, ptr %arrayidx.i49, align 4, !tbaa !26
   %mrA.1.i = load ptr, ptr %mrA.133.i, align 8, !tbaa !11
   %cmp6.not.i = icmp eq ptr %mrA.1.i, null
   br i1 %cmp6.not.i, label %for.cond11.preheader.i, label %for.body7.i, !llvm.loop !36
@@ -1226,15 +1226,15 @@ SwapSubsetAndReset.exit:                          ; preds = %for.body13.i, %for.
   tail call void @PrintResults(i32 noundef 0)
   br label %do.body, !llvm.loop !55
 
-do.end.critedge:                                  ; preds = %if.end8
+do.end:                                           ; preds = %if.end8
   tail call void @PrintResults(i32 noundef 0)
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) @groupA, ptr noundef nonnull align 8 dereferenceable(16) @swapToB, i64 16, i1 false), !tbaa.struct !35
   %mr.055 = load ptr, ptr @groupA, align 8, !tbaa !11
   %cmp20.not56 = icmp eq ptr %mr.055, null
   br i1 %cmp20.not56, label %for.end25, label %for.body22
 
-for.body22:                                       ; preds = %do.end.critedge, %for.body22
-  %mr.057 = phi ptr [ %mr.0, %for.body22 ], [ %mr.055, %do.end.critedge ]
+for.body22:                                       ; preds = %do.end, %for.body22
+  %mr.057 = phi ptr [ %mr.0, %for.body22 ], [ %mr.055, %do.end ]
   %module = getelementptr inbounds %struct._ModuleRec, ptr %mr.057, i64 0, i32 1
   %19 = load i64, ptr %module, align 8, !tbaa !5
   %arrayidx23 = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %19
@@ -1243,7 +1243,7 @@ for.body22:                                       ; preds = %do.end.critedge, %f
   %cmp20.not = icmp eq ptr %mr.0, null
   br i1 %cmp20.not, label %for.end25, label %for.body22, !llvm.loop !56
 
-for.end25:                                        ; preds = %for.body22, %do.end.critedge
+for.end25:                                        ; preds = %for.body22, %do.end
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) @groupB, ptr noundef nonnull align 8 dereferenceable(16) @swapToA, i64 16, i1 false), !tbaa.struct !35
   %mr.158 = load ptr, ptr @groupB, align 8, !tbaa !11
   %cmp27.not59 = icmp eq ptr %mr.158, null
@@ -1278,14 +1278,14 @@ declare void @InitLists() local_unnamed_addr #11
 
 declare void @ComputeDs(ptr noundef, i32 noundef, i32 noundef) local_unnamed_addr #11
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 attributes #0 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1299,8 +1299,8 @@ attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #9 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nofree nounwind }
 attributes #14 = { cold }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { nounwind }

@@ -16,8 +16,8 @@ $__clang_call_terminate = comdat any
 @.str.5 = private unnamed_addr constant [17 x i8] c"Destroyed A #%d\0A\00", align 1
 @str = private unnamed_addr constant [41 x i8] c"'throws' threw an exception: rethrowing!\00", align 1
 @str.7 = private unnamed_addr constant [18 x i8] c"In B constructor!\00", align 1
-@str.8 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
-@str.9 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
+@str.8 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
+@str.9 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
 
 @_ZN1BC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN1BC2Ev
 
@@ -91,7 +91,7 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN1BC2Ev(ptr nocapture noundef nonnull align 4 dereferenceable(24) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont5:
+entry:
   %0 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
   %inc.i = add i32 %0, 1
   store i32 %inc.i, ptr @_ZL5NumAs, align 4, !tbaa !5
@@ -99,57 +99,57 @@ invoke.cont5:
   %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %0)
   %a1 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 1
   %1 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %inc.i32 = add i32 %1, 1
-  store i32 %inc.i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i28 = add i32 %1, 1
+  store i32 %inc.i28, ptr @_ZL5NumAs, align 4, !tbaa !5
   store i32 %1, ptr %a1, align 4, !tbaa !9
-  %call.i33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %1)
+  %call.i29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %1)
   %a2 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 2
   %2 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %inc.i34 = add i32 %2, 1
-  store i32 %inc.i34, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i30 = add i32 %2, 1
+  store i32 %inc.i30, ptr @_ZL5NumAs, align 4, !tbaa !5
   store i32 %2, ptr %a2, align 4, !tbaa !9
-  %call.i35 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %2)
+  %call.i31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %2)
   %call = invoke noundef i32 @_Z6throwsv()
-          to label %invoke.cont10 unwind label %lpad6
+          to label %invoke.cont7 unwind label %lpad6
 
-invoke.cont10:                                    ; preds = %invoke.cont5
+invoke.cont7:                                     ; preds = %entry
   %i = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 3
   store i32 123, ptr %i, align 4, !tbaa !11
   %a3 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 4
   %3 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %inc.i36 = add i32 %3, 1
-  store i32 %inc.i36, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i32 = add i32 %3, 1
+  store i32 %inc.i32, ptr @_ZL5NumAs, align 4, !tbaa !5
   store i32 %3, ptr %a3, align 4, !tbaa !9
-  %call.i37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %3)
+  %call.i33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %3)
   %a4 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 5
   %4 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %inc.i38 = add i32 %4, 1
-  store i32 %inc.i38, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i34 = add i32 %4, 1
+  store i32 %inc.i34, ptr @_ZL5NumAs, align 4, !tbaa !5
   store i32 %4, ptr %a4, align 4, !tbaa !9
-  %call.i39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %4)
+  %call.i35 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %4)
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   ret void
 
-lpad6:                                            ; preds = %invoke.cont5
+lpad6:                                            ; preds = %entry
   %5 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIi
-  %6 = load i32, ptr %a2, align 4, !tbaa !9
-  %call.i41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %6)
-  %7 = load i32, ptr %a1, align 4, !tbaa !9
-  %call.i42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %7)
-  %8 = load i32, ptr %this, align 4, !tbaa !9
-  %call.i43 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %8)
-  %ehselector.slot.3 = extractvalue { ptr, i32 } %5, 1
-  %9 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #8
-  %matches = icmp eq i32 %ehselector.slot.3, %9
+  %6 = extractvalue { ptr, i32 } %5, 1
+  %7 = load i32, ptr %a2, align 4, !tbaa !9
+  %call.i37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %7)
+  %8 = load i32, ptr %a1, align 4, !tbaa !9
+  %call.i38 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %8)
+  %9 = load i32, ptr %this, align 4, !tbaa !9
+  %call.i39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %9)
+  %10 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #8
+  %matches = icmp eq i32 %6, %10
   br i1 %matches, label %catch, label %eh.resume
 
 catch:                                            ; preds = %lpad6
-  %exn.slot.3 = extractvalue { ptr, i32 } %5, 0
-  %10 = tail call ptr @__cxa_begin_catch(ptr %exn.slot.3) #8
-  %11 = load i32, ptr %10, align 4, !tbaa !5
-  %call20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
+  %11 = extractvalue { ptr, i32 } %5, 0
+  %12 = tail call ptr @__cxa_begin_catch(ptr %11) #8
+  %13 = load i32, ptr %12, align 4, !tbaa !5
+  %call20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %13)
   invoke void @__cxa_rethrow()
           to label %invoke.cont21 unwind label %lpad18
 
@@ -157,13 +157,13 @@ invoke.cont21:                                    ; preds = %catch
   unreachable
 
 lpad18:                                           ; preds = %catch
-  %12 = landingpad { ptr, i32 }
+  %14 = landingpad { ptr, i32 }
           cleanup
   tail call void @__cxa_end_catch() #8
   br label %eh.resume
 
 eh.resume:                                        ; preds = %lpad18, %lpad6
-  %lpad.val26.merged = phi { ptr, i32 } [ %12, %lpad18 ], [ %5, %lpad6 ]
+  %lpad.val26.merged = phi { ptr, i32 } [ %14, %lpad18 ], [ %5, %lpad6 ]
   resume { ptr, i32 } %lpad.val26.merged
 }
 
@@ -183,7 +183,7 @@ entry:
   %b1 = alloca %struct.B, align 4
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %b) #8
   call void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %b)
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %a4.i = getelementptr inbounds %struct.B, ptr %b, i64 0, i32 5
   %0 = load i32, ptr %a4.i, align 4, !tbaa !9
   %call.i.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %0)
@@ -205,7 +205,7 @@ entry:
           to label %invoke.cont unwind label %lpad
 
 invoke.cont:                                      ; preds = %entry
-  %puts.i7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts.i7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %a4.i8 = getelementptr inbounds %struct.B, ptr %b1, i64 0, i32 5
   %5 = load i32, ptr %a4.i8, align 4, !tbaa !9
   %call.i.i9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %5)
@@ -229,7 +229,7 @@ lpad:                                             ; preds = %entry
   %11 = extractvalue { ptr, i32 } %10, 0
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %b1) #8
   %12 = tail call ptr @__cxa_begin_catch(ptr %11) #8
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   tail call void @__cxa_end_catch()
   br label %try.cont
 

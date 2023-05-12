@@ -155,8 +155,9 @@ if.end:                                           ; preds = %entry, %entry, %ent
   %arrayidx = getelementptr inbounds %class.ALACEncoder, ptr %this, i64 0, i32 12, i64 %idxprom
   %arrayidx14 = getelementptr inbounds %class.ALACEncoder, ptr %this, i64 0, i32 13, i64 %idxprom
   %cmp18 = icmp eq i16 %0, 32
-  %cmp22 = icmp sgt i16 %0, 23
-  %.582 = zext i1 %cmp22 to i32
+  %cmp22 = icmp slt i16 %0, 24
+  %not.cmp22 = xor i1 %cmp22, true
+  %.582 = zext i1 %not.cmp22 to i32
   %bytesShifted.0 = select i1 %cmp18, i32 2, i32 %.582
   %conv28 = sext i16 %0 to i32
   %mul = shl nuw nsw i32 %bytesShifted.0, 3
@@ -303,15 +304,15 @@ sw.epilog114:                                     ; preds = %for.end, %sw.bb109,
 
 for.cond.cleanup:                                 ; preds = %for.body117
   %cond180 = select i1 %cmp30.not, i32 0, i32 32
+  %add176 = or i32 %cond180, 64
+  %add177 = add nuw i32 %add176, %minBits2.1
+  %add181 = add i32 %add177, %spec.select585
   %mul187 = shl i32 %numSamples, 1
   %mul188 = mul i32 %mul187, %mul
-  %41 = add i32 %mul188, 64
-  %add176 = select i1 %cmp22, i32 %41, i32 64
-  %add177 = add i32 %add176, %cond180
-  %add181 = add i32 %add177, %minBits2.1
-  %minBits.0 = add i32 %add181, %spec.select585
-  %42 = load i16, ptr %mBitDepth, align 8, !tbaa !8
-  %conv192 = sext i16 %42 to i32
+  %add189 = select i1 %cmp22, i32 0, i32 %mul188
+  %minBits.0 = add i32 %add181, %add189
+  %41 = load i16, ptr %mBitDepth, align 8, !tbaa !8
+  %conv192 = sext i16 %41 to i32
   %mul194 = mul i32 %mul187, %conv192
   %add198 = or i32 %cond180, 16
   %add199 = add i32 %add198, %mul194
@@ -325,80 +326,80 @@ for.body117:                                      ; preds = %sw.epilog114, %for.
   %minBits2.0595 = phi i32 [ -2147483648, %sw.epilog114 ], [ %minBits2.1, %for.body117 ]
   %numU.0594 = phi i32 [ 4, %sw.epilog114 ], [ %spec.select584, %for.body117 ]
   %numV.0593 = phi i32 [ 4, %sw.epilog114 ], [ %numV.1, %for.body117 ]
-  %43 = load ptr, ptr %mWorkBuffer, align 8, !tbaa !22
-  %44 = load i32, ptr %mMaxOutputBytes, align 8, !tbaa !27
-  call void @BitBufferInit(ptr noundef nonnull %workBits, ptr noundef %43, i32 noundef %44)
-  %45 = add nsw i64 %indvars.iv, -1
-  %arrayidx129 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %45
-  %arrayidx136 = getelementptr inbounds [16 x i16], ptr %arrayidx14, i64 %45
-  %46 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %47 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  %48 = trunc i64 %indvars.iv to i32
-  call void @pc_block(ptr noundef %46, ptr noundef %47, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %49 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %50 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %49, ptr noundef %50, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %51 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %52 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %51, ptr noundef %52, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %53 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %54 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %53, ptr noundef %54, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %55 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %56 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %55, ptr noundef %56, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %57 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %58 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %57, ptr noundef %58, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %59 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %60 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %59, ptr noundef %60, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %61 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %62 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %61, ptr noundef %62, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %63 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %64 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %63, ptr noundef %64, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %65 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %66 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %65, ptr noundef %66, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %67 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %68 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %67, ptr noundef %68, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %69 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %70 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %69, ptr noundef %70, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %71 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %72 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %71, ptr noundef %72, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %73 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %74 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %73, ptr noundef %74, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %75 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %76 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  call void @pc_block(ptr noundef %75, ptr noundef %76, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %48, i32 noundef %add, i32 noundef 9)
-  %77 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %78 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  call void @pc_block(ptr noundef %77, ptr noundef %78, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %48, i32 noundef %add, i32 noundef 9)
+  %42 = load ptr, ptr %mWorkBuffer, align 8, !tbaa !22
+  %43 = load i32, ptr %mMaxOutputBytes, align 8, !tbaa !27
+  call void @BitBufferInit(ptr noundef nonnull %workBits, ptr noundef %42, i32 noundef %43)
+  %44 = add nsw i64 %indvars.iv, -1
+  %arrayidx129 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %44
+  %arrayidx136 = getelementptr inbounds [16 x i16], ptr %arrayidx14, i64 %44
+  %45 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %46 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %47 = trunc i64 %indvars.iv to i32
+  call void @pc_block(ptr noundef %45, ptr noundef %46, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %48 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %49 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %48, ptr noundef %49, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %50 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %51 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %50, ptr noundef %51, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %52 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %53 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %52, ptr noundef %53, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %54 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %55 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %54, ptr noundef %55, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %56 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %57 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %56, ptr noundef %57, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %58 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %59 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %58, ptr noundef %59, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %60 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %61 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %60, ptr noundef %61, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %62 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %63 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %62, ptr noundef %63, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %64 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %65 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %64, ptr noundef %65, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %66 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %67 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %66, ptr noundef %67, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %68 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %69 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %68, ptr noundef %69, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %70 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %71 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %70, ptr noundef %71, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %72 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %73 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %72, ptr noundef %73, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %74 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %75 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  call void @pc_block(ptr noundef %74, ptr noundef %75, i32 noundef %div126576, ptr noundef nonnull %arrayidx129, i32 noundef %47, i32 noundef %add, i32 noundef 9)
+  %76 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %77 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  call void @pc_block(ptr noundef %76, ptr noundef %77, i32 noundef %div126576, ptr noundef nonnull %arrayidx136, i32 noundef %47, i32 noundef %add, i32 noundef 9)
   call void @set_ag_params(ptr noundef nonnull %agParams, i32 noundef 10, i32 noundef 40, i32 noundef 14, i32 noundef %div50577, i32 noundef %div50577, i32 noundef 255)
-  %79 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  %call147 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %79, ptr noundef nonnull %workBits, i32 noundef %div50577, i32 noundef %add, ptr noundef nonnull %bits1)
-  %80 = load i32, ptr %bits1, align 4, !tbaa !16
-  %mul148 = shl i32 %80, 3
+  %78 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %call147 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %78, ptr noundef nonnull %workBits, i32 noundef %div50577, i32 noundef %add, ptr noundef nonnull %bits1)
+  %79 = load i32, ptr %bits1, align 4, !tbaa !16
+  %mul148 = shl i32 %79, 3
   %indvars.iv.tr = trunc i64 %indvars.iv to i32
-  %81 = shl nuw nsw i32 %indvars.iv.tr, 4
-  %add150 = add i32 %mul148, %81
+  %80 = shl nuw nsw i32 %indvars.iv.tr, 4
+  %add150 = add i32 %mul148, %80
   %cmp151 = icmp ult i32 %add150, %minBits1.2596
-  %spec.select584 = select i1 %cmp151, i32 %48, i32 %numU.0594
+  %spec.select584 = select i1 %cmp151, i32 %47, i32 %numU.0594
   %spec.select585 = call i32 @llvm.umin.i32(i32 %add150, i32 %minBits1.2596)
   call void @set_ag_params(ptr noundef nonnull %agParams, i32 noundef 10, i32 noundef 40, i32 noundef 14, i32 noundef %div50577, i32 noundef %div50577, i32 noundef 255)
-  %82 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  %call163 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %82, ptr noundef nonnull %workBits, i32 noundef %div50577, i32 noundef %add, ptr noundef nonnull %bits2)
-  %83 = load i32, ptr %bits2, align 4, !tbaa !16
-  %mul164 = shl i32 %83, 3
-  %add166 = add i32 %mul164, %81
+  %81 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  %call163 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %81, ptr noundef nonnull %workBits, i32 noundef %div50577, i32 noundef %add, ptr noundef nonnull %bits2)
+  %82 = load i32, ptr %bits2, align 4, !tbaa !16
+  %mul164 = shl i32 %82, 3
+  %add166 = add i32 %mul164, %80
   %cmp167 = icmp ult i32 %add166, %minBits2.0595
-  %numV.1 = select i1 %cmp167, i32 %48, i32 %numV.0593
+  %numV.1 = select i1 %cmp167, i32 %47, i32 %numV.0593
   %minBits2.1 = call i32 @llvm.umin.i32(i32 %add166, i32 %minBits2.0595)
   br i1 %cmp116, label %for.body117, label %for.cond.cleanup, !llvm.loop !30
 
@@ -432,8 +433,8 @@ for.body218.lr.ph:                                ; preds = %if.end211
 for.body218:                                      ; preds = %for.body218.lr.ph, %for.body218
   %indvars.iv608 = phi i64 [ 0, %for.body218.lr.ph ], [ %indvars.iv.next609, %for.body218 ]
   %arrayidx223 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %idxprom220, i64 %indvars.iv608
-  %84 = load i16, ptr %arrayidx223, align 2, !tbaa !26
-  %conv224 = sext i16 %84 to i32
+  %83 = load i16, ptr %arrayidx223, align 2, !tbaa !26
+  %conv224 = sext i16 %83 to i32
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %conv224, i32 noundef 16)
   %indvars.iv.next609 = add nuw nsw i64 %indvars.iv608, 1
   %exitcond611.not = icmp eq i64 %indvars.iv.next609, %wide.trip.count
@@ -455,63 +456,63 @@ for.body234.lr.ph:                                ; preds = %for.end227
 for.body234:                                      ; preds = %for.body234.lr.ph, %for.body234
   %indvars.iv612 = phi i64 [ 0, %for.body234.lr.ph ], [ %indvars.iv.next613, %for.body234 ]
   %arrayidx239 = getelementptr inbounds [16 x i16], ptr %arrayidx14, i64 %idxprom236, i64 %indvars.iv612
-  %85 = load i16, ptr %arrayidx239, align 2, !tbaa !26
-  %conv240 = sext i16 %85 to i32
+  %84 = load i16, ptr %arrayidx239, align 2, !tbaa !26
+  %conv240 = sext i16 %84 to i32
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %conv240, i32 noundef 16)
   %indvars.iv.next613 = add nuw nsw i64 %indvars.iv612, 1
   %exitcond616.not = icmp eq i64 %indvars.iv.next613, %wide.trip.count615
   br i1 %exitcond616.not, label %for.end243, label %for.body234, !llvm.loop !32
 
 for.end243:                                       ; preds = %for.body234, %for.end227
-  %cmp251602.not = icmp ne i32 %mul187, 0
-  %or.cond.not = and i1 %cmp251602.not, %cmp22
-  br i1 %or.cond.not, label %for.body252.lr.ph, label %if.then271
+  %cmp251602.not = icmp eq i32 %mul187, 0
+  %or.cond = or i1 %cmp22, %cmp251602.not
+  br i1 %or.cond, label %if.then271, label %for.body252.lr.ph
 
 for.body252.lr.ph:                                ; preds = %for.end243
   %mul265 = shl nuw nsw i32 %bytesShifted.0, 4
-  %86 = zext i32 %mul187 to i64
+  %85 = zext i32 %mul187 to i64
   br label %for.body252
 
 for.body252:                                      ; preds = %for.body252.lr.ph, %for.body252
   %indvars.iv617 = phi i64 [ 0, %for.body252.lr.ph ], [ %indvars.iv.next618, %for.body252 ]
-  %87 = load ptr, ptr %mShiftBufferUV51, align 8, !tbaa !21
-  %arrayidx256 = getelementptr inbounds i16, ptr %87, i64 %indvars.iv617
-  %88 = load i16, ptr %arrayidx256, align 2, !tbaa !26
-  %conv257 = zext i16 %88 to i32
+  %86 = load ptr, ptr %mShiftBufferUV51, align 8, !tbaa !21
+  %arrayidx256 = getelementptr inbounds i16, ptr %86, i64 %indvars.iv617
+  %87 = load i16, ptr %arrayidx256, align 2, !tbaa !26
+  %conv257 = zext i16 %87 to i32
   %shl258 = shl nuw i32 %conv257, %mul
-  %89 = or i64 %indvars.iv617, 1
-  %arrayidx262 = getelementptr inbounds i16, ptr %87, i64 %89
-  %90 = load i16, ptr %arrayidx262, align 2, !tbaa !26
-  %conv263 = zext i16 %90 to i32
+  %88 = or i64 %indvars.iv617, 1
+  %arrayidx262 = getelementptr inbounds i16, ptr %86, i64 %88
+  %89 = load i16, ptr %arrayidx262, align 2, !tbaa !26
+  %conv263 = zext i16 %89 to i32
   %or264 = or i32 %shl258, %conv263
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %or264, i32 noundef %mul265)
   %indvars.iv.next618 = add nuw nsw i64 %indvars.iv617, 2
-  %cmp251 = icmp ult i64 %indvars.iv.next618, %86
+  %cmp251 = icmp ult i64 %indvars.iv.next618, %85
   br i1 %cmp251, label %for.body252, label %if.then271, !llvm.loop !33
 
 if.then271:                                       ; preds = %for.body252, %for.end243
-  %91 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
-  %92 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %90 = load ptr, ptr %mMixBufferU48, align 8, !tbaa !17
+  %91 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
   %sub274 = add nsw i32 %spec.select584, -1
   %idxprom275 = zext i32 %sub274 to i64
   %arrayidx276 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %idxprom275
-  call void @pc_block(ptr noundef %91, ptr noundef %92, i32 noundef %numSamples, ptr noundef nonnull %arrayidx276, i32 noundef %spec.select584, i32 noundef %add, i32 noundef 9)
+  call void @pc_block(ptr noundef %90, ptr noundef %91, i32 noundef %numSamples, ptr noundef nonnull %arrayidx276, i32 noundef %spec.select584, i32 noundef %add, i32 noundef 9)
   call void @set_ag_params(ptr noundef nonnull %agParams, i32 noundef 10, i32 noundef 40, i32 noundef 14, i32 noundef %numSamples, i32 noundef %numSamples, i32 noundef 255)
-  %93 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  %call291 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %93, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %add, ptr noundef nonnull %bits1)
+  %92 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %call291 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %92, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %add, ptr noundef nonnull %bits1)
   %tobool292.not = icmp eq i32 %call291, 0
   br i1 %tobool292.not, label %if.then296, label %cleanup
 
 if.then296:                                       ; preds = %if.then271
-  %94 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
-  %95 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  %93 = load ptr, ptr %mMixBufferV49, align 8, !tbaa !18
+  %94 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
   %sub299 = add nsw i32 %numV.1, -1
   %idxprom300 = zext i32 %sub299 to i64
   %arrayidx301 = getelementptr inbounds [16 x i16], ptr %arrayidx14, i64 %idxprom300
-  call void @pc_block(ptr noundef %94, ptr noundef %95, i32 noundef %numSamples, ptr noundef nonnull %arrayidx301, i32 noundef %numV.1, i32 noundef %add, i32 noundef 9)
+  call void @pc_block(ptr noundef %93, ptr noundef %94, i32 noundef %numSamples, ptr noundef nonnull %arrayidx301, i32 noundef %numV.1, i32 noundef %add, i32 noundef 9)
   call void @set_ag_params(ptr noundef nonnull %agParams, i32 noundef 10, i32 noundef 40, i32 noundef 14, i32 noundef %numSamples, i32 noundef %numSamples, i32 noundef 255)
-  %96 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
-  %call316 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %96, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %add, ptr noundef nonnull %bits2)
+  %95 = load ptr, ptr %mPredictorV, align 8, !tbaa !20
+  %call316 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %95, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %add, ptr noundef nonnull %bits2)
   %tobool317.not = icmp eq i32 %call316, 0
   br i1 %tobool317.not, label %if.end319, label %cleanup
 
@@ -927,15 +928,15 @@ if.end125:                                        ; preds = %if.end113
   %43 = load i32, ptr %bits1, align 4, !tbaa !16
   %44 = load i32, ptr %bits2, align 4, !tbaa !16
   %cond142 = select i1 %cmp30.not, i32 0, i32 32
+  %add136 = or i32 %cond142, 320
+  %add139 = add i32 %add136, %43
+  %add143 = add i32 %add139, %44
   %mul149 = shl i32 %numSamples, 1
   %mul150 = mul i32 %mul149, %mul
-  %45 = add i32 %mul150, 320
-  %add136 = select i1 %cmp22, i32 %45, i32 320
-  %add139 = add i32 %add136, %cond142
-  %add143 = add i32 %add139, %43
-  %minBits.0 = add i32 %add143, %44
-  %46 = load i16, ptr %mBitDepth, align 8, !tbaa !8
-  %conv154 = sext i16 %46 to i32
+  %add151 = select i1 %cmp22, i32 %mul150, i32 0
+  %minBits.0 = add i32 %add143, %add151
+  %45 = load i16, ptr %mBitDepth, align 8, !tbaa !8
+  %conv154 = sext i16 %45 to i32
   %mul156 = mul i32 %mul149, %conv154
   %add160 = or i32 %cond142, 16
   %add161 = add i32 %add160, %mul156
@@ -994,8 +995,9 @@ if.end:                                           ; preds = %entry, %entry, %ent
   %idxprom = zext i32 %channelIndex to i64
   %arrayidx = getelementptr inbounds %class.ALACEncoder, ptr %this, i64 0, i32 12, i64 %idxprom
   %cmp15 = icmp eq i16 %0, 32
-  %cmp19 = icmp sgt i16 %0, 23
-  %.425 = zext i1 %cmp19 to i32
+  %cmp19 = icmp slt i16 %0, 24
+  %not.cmp19 = xor i1 %cmp19, true
+  %.425 = zext i1 %not.cmp19 to i32
   %bytesShifted.0 = select i1 %cmp15, i32 2, i32 %.425
   %mul = shl nuw nsw i32 %bytesShifted.0, 3
   %notmask = shl nsw i32 -1, %mul
@@ -1027,10 +1029,10 @@ for.body63.lr.ph:                                 ; preds = %for.cond61.preheade
   %wide.trip.count = zext i32 %numSamples to i64
   %min.iters.check = icmp ult i32 %numSamples, 8
   %ident.check.not = icmp ne i32 %stride, 1
-  %or.cond572.not575 = or i1 %min.iters.check, %ident.check.not
+  %or.cond.not575 = or i1 %min.iters.check, %ident.check.not
   %9 = sub i64 %8, %inputBuffer521
   %diff.check = icmp ult i64 %9, 32
-  %or.cond573 = select i1 %or.cond572.not575, i1 true, i1 %diff.check
+  %or.cond573 = select i1 %or.cond.not575, i1 true, i1 %diff.check
   br i1 %or.cond573, label %for.body63.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body63.lr.ph
@@ -1423,13 +1425,13 @@ for.inc116.1:                                     ; preds = %for.inc116
   %spec.select426.1 = call i32 @llvm.umin.i32(i32 %add111.1, i32 %spec.select426)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %workBits) #15
   %cond121 = select i1 %cmp31.not, i32 0, i32 32
+  %add122 = add nuw nsw i32 %cond121, 32
+  %add123 = add nuw i32 %add122, %spec.select426.1
   %mul129 = mul i32 %mul, %numSamples
-  %103 = add i32 %mul129, 32
-  %add122 = select i1 %cmp19, i32 %103, i32 32
-  %add123 = add i32 %add122, %cond121
-  %minBits.3 = add i32 %add123, %spec.select426.1
-  %104 = load i16, ptr %mBitDepth, align 8, !tbaa !8
-  %conv133 = sext i16 %104 to i32
+  %add130 = select i1 %cmp19, i32 0, i32 %mul129
+  %minBits.3 = add i32 %add123, %add130
+  %103 = load i16, ptr %mBitDepth, align 8, !tbaa !8
+  %conv133 = sext i16 %103 to i32
   %mul134 = mul i32 %conv133, %numSamples
   %add138 = or i32 %cond121, 16
   %add139 = add i32 %add138, %mul134
@@ -1461,17 +1463,17 @@ for.body158.lr.ph:                                ; preds = %if.then145, %if.the
 for.body158:                                      ; preds = %for.body158.lr.ph, %for.body158
   %indvars.iv491 = phi i64 [ 0, %for.body158.lr.ph ], [ %indvars.iv.next492, %for.body158 ]
   %arrayidx163 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %idxprom160, i64 %indvars.iv491
-  %105 = load i16, ptr %arrayidx163, align 2, !tbaa !26
-  %conv164 = sext i16 %105 to i32
+  %104 = load i16, ptr %arrayidx163, align 2, !tbaa !26
+  %conv164 = sext i16 %104 to i32
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %conv164, i32 noundef 16)
   %indvars.iv.next492 = add nuw nsw i64 %indvars.iv491, 1
   %exitcond495.not = icmp eq i64 %indvars.iv.next492, %wide.trip.count494
   br i1 %exitcond495.not, label %for.end167, label %for.body158, !llvm.loop !49
 
 for.end167:                                       ; preds = %for.body158
-  %cmp172457 = icmp ne i32 %numSamples, 0
-  %or.cond = and i1 %cmp19, %cmp172457
-  br i1 %or.cond, label %for.body173.lr.ph, label %if.end181
+  %cmp172457 = icmp eq i32 %numSamples, 0
+  %or.cond.not = or i1 %cmp172457, %cmp19
+  br i1 %or.cond.not, label %if.end181, label %for.body173.lr.ph
 
 for.body173.lr.ph:                                ; preds = %for.end167
   %mShiftBufferUV174 = getelementptr inbounds %class.ALACEncoder, ptr %this, i64 0, i32 10
@@ -1480,25 +1482,25 @@ for.body173.lr.ph:                                ; preds = %for.end167
 
 for.body173:                                      ; preds = %for.body173.lr.ph, %for.body173
   %indvars.iv496 = phi i64 [ 0, %for.body173.lr.ph ], [ %indvars.iv.next497, %for.body173 ]
-  %106 = load ptr, ptr %mShiftBufferUV174, align 8, !tbaa !21
-  %arrayidx176 = getelementptr inbounds i16, ptr %106, i64 %indvars.iv496
-  %107 = load i16, ptr %arrayidx176, align 2, !tbaa !26
-  %conv177 = zext i16 %107 to i32
+  %105 = load ptr, ptr %mShiftBufferUV174, align 8, !tbaa !21
+  %arrayidx176 = getelementptr inbounds i16, ptr %105, i64 %indvars.iv496
+  %106 = load i16, ptr %arrayidx176, align 2, !tbaa !26
+  %conv177 = zext i16 %106 to i32
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %conv177, i32 noundef %mul)
   %indvars.iv.next497 = add nuw nsw i64 %indvars.iv496, 1
   %exitcond500.not = icmp eq i64 %indvars.iv.next497, %wide.trip.count499
   br i1 %exitcond500.not, label %if.end181, label %for.body173, !llvm.loop !50
 
 if.end181:                                        ; preds = %for.body173, %for.end167
-  %108 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
-  %109 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %107 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
+  %108 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
   %sub184 = add nsw i32 %spec.select.1, -1
   %idxprom185 = zext i32 %sub184 to i64
   %arrayidx186 = getelementptr inbounds [16 x i16], ptr %arrayidx, i64 %idxprom185
-  call void @pc_block(ptr noundef %108, ptr noundef %109, i32 noundef %numSamples, ptr noundef nonnull %arrayidx186, i32 noundef %spec.select.1, i32 noundef %sub30, i32 noundef 9)
+  call void @pc_block(ptr noundef %107, ptr noundef %108, i32 noundef %numSamples, ptr noundef nonnull %arrayidx186, i32 noundef %spec.select.1, i32 noundef %sub30, i32 noundef 9)
   call void @set_standard_ag_params(ptr noundef nonnull %agParams, i32 noundef %numSamples, i32 noundef %numSamples)
-  %110 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
-  %call189 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %110, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %sub30, ptr noundef nonnull %bits1)
+  %109 = load ptr, ptr %mPredictorU, align 8, !tbaa !19
+  %call189 = call i32 @dyn_comp(ptr noundef nonnull %agParams, ptr noundef %109, ptr noundef %bitstream, i32 noundef %numSamples, i32 noundef %sub30, ptr noundef nonnull %bits1)
   %call190 = call i32 @BitBufferGetPosition(ptr noundef %bitstream)
   %call191 = call i32 @BitBufferGetPosition(ptr noundef nonnull %startBits)
   %sub192 = sub i32 %call190, %call191
@@ -1522,11 +1524,11 @@ if.then206:                                       ; preds = %if.then201
   br label %if.end207
 
 if.end207:                                        ; preds = %if.then206, %if.then201
-  %111 = load i16, ptr %mBitDepth, align 8, !tbaa !8
-  %conv209 = sext i16 %111 to i32
-  %112 = add nsw i32 %conv209, -16
-  %113 = call i32 @llvm.fshl.i32(i32 %conv209, i32 %112, i32 30)
-  switch i32 %113, label %cleanup255 [
+  %110 = load i16, ptr %mBitDepth, align 8, !tbaa !8
+  %conv209 = sext i16 %110 to i32
+  %111 = add nsw i32 %conv209, -16
+  %112 = call i32 @llvm.fshl.i32(i32 %conv209, i32 %111, i32 30)
+  switch i32 %112, label %cleanup255 [
     i32 0, label %for.cond211.preheader
     i32 1, label %sw.bb221
     i32 2, label %sw.bb232
@@ -1547,16 +1549,16 @@ for.body214:                                      ; preds = %for.cond211.prehead
   %index.5466 = phi i32 [ %add219, %for.body214 ], [ 0, %for.cond211.preheader ]
   %idxprom215 = zext i32 %index.5466 to i64
   %arrayidx216 = getelementptr inbounds i16, ptr %inputBuffer, i64 %idxprom215
-  %114 = load i16, ptr %arrayidx216, align 2, !tbaa !26
-  %conv217 = sext i16 %114 to i32
+  %113 = load i16, ptr %arrayidx216, align 2, !tbaa !26
+  %conv217 = sext i16 %113 to i32
   call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %conv217, i32 noundef 16)
   %add219 = add i32 %index.5466, %stride
   %cmp213 = icmp ult i32 %add219, %mul212
   br i1 %cmp213, label %for.body214, label %cleanup255, !llvm.loop !51
 
 sw.bb221:                                         ; preds = %if.end207
-  %115 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
-  call void @copy20ToPredictor(ptr noundef %inputBuffer, i32 noundef %stride, ptr noundef %115, i32 noundef %numSamples)
+  %114 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
+  call void @copy20ToPredictor(ptr noundef %inputBuffer, i32 noundef %stride, ptr noundef %114, i32 noundef %numSamples)
   %cmp224463.not = icmp eq i32 %numSamples, 0
   br i1 %cmp224463.not, label %cleanup255, label %for.body225.preheader
 
@@ -1566,17 +1568,17 @@ for.body225.preheader:                            ; preds = %sw.bb221
 
 for.body225:                                      ; preds = %for.body225.preheader, %for.body225
   %indvars.iv506 = phi i64 [ 0, %for.body225.preheader ], [ %indvars.iv.next507, %for.body225 ]
-  %116 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
-  %arrayidx228 = getelementptr inbounds i32, ptr %116, i64 %indvars.iv506
-  %117 = load i32, ptr %arrayidx228, align 4, !tbaa !16
-  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %117, i32 noundef 20)
+  %115 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
+  %arrayidx228 = getelementptr inbounds i32, ptr %115, i64 %indvars.iv506
+  %116 = load i32, ptr %arrayidx228, align 4, !tbaa !16
+  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %116, i32 noundef 20)
   %indvars.iv.next507 = add nuw nsw i64 %indvars.iv506, 1
   %exitcond510.not = icmp eq i64 %indvars.iv.next507, %wide.trip.count509
   br i1 %exitcond510.not, label %cleanup255, label %for.body225, !llvm.loop !52
 
 sw.bb232:                                         ; preds = %if.end207
-  %118 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
-  call void @copy24ToPredictor(ptr noundef %inputBuffer, i32 noundef %stride, ptr noundef %118, i32 noundef %numSamples)
+  %117 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
+  call void @copy24ToPredictor(ptr noundef %inputBuffer, i32 noundef %stride, ptr noundef %117, i32 noundef %numSamples)
   %cmp235461.not = icmp eq i32 %numSamples, 0
   br i1 %cmp235461.not, label %cleanup255, label %for.body236.preheader
 
@@ -1586,10 +1588,10 @@ for.body236.preheader:                            ; preds = %sw.bb232
 
 for.body236:                                      ; preds = %for.body236.preheader, %for.body236
   %indvars.iv501 = phi i64 [ 0, %for.body236.preheader ], [ %indvars.iv.next502, %for.body236 ]
-  %119 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
-  %arrayidx239 = getelementptr inbounds i32, ptr %119, i64 %indvars.iv501
-  %120 = load i32, ptr %arrayidx239, align 4, !tbaa !16
-  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %120, i32 noundef 24)
+  %118 = load ptr, ptr %mMixBufferU85, align 8, !tbaa !17
+  %arrayidx239 = getelementptr inbounds i32, ptr %118, i64 %indvars.iv501
+  %119 = load i32, ptr %arrayidx239, align 4, !tbaa !16
+  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %119, i32 noundef 24)
   %indvars.iv.next502 = add nuw nsw i64 %indvars.iv501, 1
   %exitcond505.not = icmp eq i64 %indvars.iv.next502, %wide.trip.count504
   br i1 %exitcond505.not, label %cleanup255, label %for.body236, !llvm.loop !53
@@ -1598,8 +1600,8 @@ for.body247:                                      ; preds = %for.cond244.prehead
   %index.8460 = phi i32 [ %add251, %for.body247 ], [ 0, %for.cond244.preheader ]
   %idxprom248 = zext i32 %index.8460 to i64
   %arrayidx249 = getelementptr inbounds i32, ptr %inputBuffer, i64 %idxprom248
-  %121 = load i32, ptr %arrayidx249, align 4, !tbaa !16
-  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %121, i32 noundef 32)
+  %120 = load i32, ptr %arrayidx249, align 4, !tbaa !16
+  call void @BitBufferWrite(ptr noundef %bitstream, i32 noundef %120, i32 noundef 32)
   %add251 = add i32 %index.8460, %stride
   %cmp246 = icmp ult i32 %add251, %mul245
   br i1 %cmp246, label %for.body247, label %cleanup255, !llvm.loop !54
@@ -1852,22 +1854,22 @@ entry:
   %mOutputSampleRate.i = getelementptr inbounds %class.ALACEncoder, ptr %this, i64 0, i32 20
   %5 = load i32, ptr %mOutputSampleRate.i, align 8, !tbaa !77
   %call6.i = tail call i32 @Swap32NtoB(i32 noundef %5)
-  %cmp = icmp ugt i8 %conv2.i, 2
+  %conv = and i32 %2, 255
+  %cmp = icmp ugt i32 %conv, 2
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  %conv2.i.mask = and i32 %2, 255
-  %6 = add nsw i32 %conv2.i.mask, -1
-  %idxprom = zext i32 %6 to i64
+  %sub = add nsw i32 %conv, -1
+  %idxprom = zext i32 %sub to i64
   %arrayidx = getelementptr inbounds [8 x i32], ptr @_ZL21ALACChannelLayoutTags, i64 0, i64 %idxprom
-  %7 = load i32, ptr %arrayidx, align 4, !tbaa !16
+  %6 = load i32, ptr %arrayidx, align 4, !tbaa !16
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %entry
-  %theChannelLayout.sroa.0.0 = phi i32 [ %7, %if.then ], [ 0, %entry ]
+  %theChannelLayout.sroa.0.0 = phi i32 [ %6, %if.then ], [ 0, %entry ]
   %theCookieSize.0 = phi i32 [ 48, %if.then ], [ 24, %entry ]
-  %8 = load i32, ptr %ioSize, align 4, !tbaa !16
-  %cmp6.not = icmp ult i32 %8, %theCookieSize.0
+  %7 = load i32, ptr %ioSize, align 4, !tbaa !16
+  %cmp6.not = icmp ult i32 %7, %theCookieSize.0
   br i1 %cmp6.not, label %if.end15, label %if.then7
 
 if.then7:                                         ; preds = %if.end

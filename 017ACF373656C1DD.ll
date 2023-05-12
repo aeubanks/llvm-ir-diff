@@ -264,8 +264,8 @@ if.end64:                                         ; preds = %if.else
   %div70 = fdiv double %div, %call61
   %conv71 = fptosi double %div70 to i32
   %29 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp72.not423 = icmp slt i32 %29, 1
-  br i1 %cmp72.not423, label %for.end, label %for.body.lr.ph
+  %cmp72.not422 = icmp slt i32 %29, 1
+  br i1 %cmp72.not422, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %if.end64
   %30 = load ptr, ptr @cellarray, align 8, !tbaa !11
@@ -283,7 +283,7 @@ for.body.lr.ph.new:                               ; preds = %for.body.lr.ph
 
 for.body:                                         ; preds = %for.body, %for.body.lr.ph.new
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph.new ], [ %indvars.iv.next.3, %for.body ]
-  %i.0424 = phi i32 [ 0, %for.body.lr.ph.new ], [ %spec.select.3, %for.body ]
+  %i.0423 = phi i32 [ 0, %for.body.lr.ph.new ], [ %spec.select.3, %for.body ]
   %niter = phi i64 [ 0, %for.body.lr.ph.new ], [ %niter.next.3, %for.body ]
   %arrayidx74 = getelementptr inbounds ptr, ptr %30, i64 %indvars.iv
   %35 = load ptr, ptr %arrayidx74, align 8, !tbaa !11
@@ -291,7 +291,7 @@ for.body:                                         ; preds = %for.body, %for.body
   %36 = load i32, ptr %softflag, align 4, !tbaa !13
   %cmp75 = icmp eq i32 %36, 1
   %inc = zext i1 %cmp75 to i32
-  %spec.select = add nuw nsw i32 %i.0424, %inc
+  %spec.select = add nuw nsw i32 %i.0423, %inc
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx74.1 = getelementptr inbounds ptr, ptr %30, i64 %indvars.iv.next
   %37 = load ptr, ptr %arrayidx74.1, align 8, !tbaa !11
@@ -324,13 +324,13 @@ for.body:                                         ; preds = %for.body, %for.body
 for.end.loopexit.unr-lcssa:                       ; preds = %for.body, %for.body.lr.ph
   %spec.select.lcssa.ph = phi i32 [ undef, %for.body.lr.ph ], [ %spec.select.3, %for.body ]
   %indvars.iv.unr = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next.3, %for.body ]
-  %i.0424.unr = phi i32 [ 0, %for.body.lr.ph ], [ %spec.select.3, %for.body ]
+  %i.0423.unr = phi i32 [ 0, %for.body.lr.ph ], [ %spec.select.3, %for.body ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.end.loopexit, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.end.loopexit.unr-lcssa, %for.body.epil
   %indvars.iv.epil = phi i64 [ %indvars.iv.next.epil, %for.body.epil ], [ %indvars.iv.unr, %for.end.loopexit.unr-lcssa ]
-  %i.0424.epil = phi i32 [ %spec.select.epil, %for.body.epil ], [ %i.0424.unr, %for.end.loopexit.unr-lcssa ]
+  %i.0423.epil = phi i32 [ %spec.select.epil, %for.body.epil ], [ %i.0423.unr, %for.end.loopexit.unr-lcssa ]
   %epil.iter = phi i64 [ %epil.iter.next, %for.body.epil ], [ 0, %for.end.loopexit.unr-lcssa ]
   %arrayidx74.epil = getelementptr inbounds ptr, ptr %30, i64 %indvars.iv.epil
   %43 = load ptr, ptr %arrayidx74.epil, align 8, !tbaa !11
@@ -338,7 +338,7 @@ for.body.epil:                                    ; preds = %for.end.loopexit.un
   %44 = load i32, ptr %softflag.epil, align 4, !tbaa !13
   %cmp75.epil = icmp eq i32 %44, 1
   %inc.epil = zext i1 %cmp75.epil to i32
-  %spec.select.epil = add nuw nsw i32 %i.0424.epil, %inc.epil
+  %spec.select.epil = add nuw nsw i32 %i.0423.epil, %inc.epil
   %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
@@ -474,19 +474,19 @@ if.end148:                                        ; preds = %if.end148.sink.spli
   %conv151 = fptosi double %div150 to i32
   store i32 %conv151, ptr @offset, align 4, !tbaa !5
   %87 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp153.not427 = icmp slt i32 %87, 1
-  br i1 %cmp153.not427, label %for.end200.thread, label %for.body155
+  %cmp153.not426 = icmp slt i32 %87, 1
+  br i1 %cmp153.not426, label %for.end200.thread, label %for.body155
 
 for.end200.thread:                                ; preds = %if.end148
-  %conv201456 = sitofp i32 %87 to double
-  %div202457 = fdiv double 0.000000e+00, %conv201456
+  %conv201457 = sitofp i32 %87 to double
+  %div202458 = fdiv double 0.000000e+00, %conv201457
   br label %for.end262
 
 for.body155:                                      ; preds = %if.end148, %for.body155
-  %indvars.iv446 = phi i64 [ %indvars.iv.next447, %for.body155 ], [ 1, %if.end148 ]
-  %aveCside.0429 = phi double [ %add197, %for.body155 ], [ 0.000000e+00, %if.end148 ]
+  %indvars.iv447 = phi i64 [ %indvars.iv.next448, %for.body155 ], [ 1, %if.end148 ]
+  %aveCside.0428 = phi double [ %add197, %for.body155 ], [ 0.000000e+00, %if.end148 ]
   %88 = load ptr, ptr @cellarray, align 8, !tbaa !11
-  %arrayidx157 = getelementptr inbounds ptr, ptr %88, i64 %indvars.iv446
+  %arrayidx157 = getelementptr inbounds ptr, ptr %88, i64 %indvars.iv447
   %89 = load ptr, ptr %arrayidx157, align 8, !tbaa !11
   %orient = getelementptr inbounds %struct.cellbox, ptr %89, i64 0, i32 5
   %90 = load i32, ptr %orient, align 8, !tbaa !19
@@ -512,24 +512,24 @@ for.body155:                                      ; preds = %if.end148, %for.bod
   %mul194 = mul nsw i32 %add190, %add193
   %conv195 = sitofp i32 %mul194 to double
   %call196 = tail call double @sqrt(double noundef %conv195) #14
-  %add197 = fadd double %aveCside.0429, %call196
-  %indvars.iv.next447 = add nuw nsw i64 %indvars.iv446, 1
+  %add197 = fadd double %aveCside.0428, %call196
+  %indvars.iv.next448 = add nuw nsw i64 %indvars.iv447, 1
   %98 = load i32, ptr @numcells, align 4, !tbaa !5
   %99 = sext i32 %98 to i64
-  %cmp153.not.not = icmp slt i64 %indvars.iv446, %99
+  %cmp153.not.not = icmp slt i64 %indvars.iv447, %99
   br i1 %cmp153.not.not, label %for.body155, label %for.end200, !llvm.loop !25
 
 for.end200:                                       ; preds = %for.body155
   %conv201 = sitofp i32 %98 to double
   %div202 = fdiv double %add197, %conv201
-  %cmp204.not432 = icmp slt i32 %98, 1
-  br i1 %cmp204.not432, label %for.end262, label %for.body206
+  %cmp204.not431 = icmp slt i32 %98, 1
+  br i1 %cmp204.not431, label %for.end262, label %for.body206
 
 for.body206:                                      ; preds = %for.end200, %for.body206
-  %indvars.iv449 = phi i64 [ %indvars.iv.next450, %for.body206 ], [ 1, %for.end200 ]
-  %variance.0434 = phi double [ %110, %for.body206 ], [ 0.000000e+00, %for.end200 ]
+  %indvars.iv450 = phi i64 [ %indvars.iv.next451, %for.body206 ], [ 1, %for.end200 ]
+  %variance.0433 = phi double [ %110, %for.body206 ], [ 0.000000e+00, %for.end200 ]
   %100 = load ptr, ptr @cellarray, align 8, !tbaa !11
-  %arrayidx208 = getelementptr inbounds ptr, ptr %100, i64 %indvars.iv449
+  %arrayidx208 = getelementptr inbounds ptr, ptr %100, i64 %indvars.iv450
   %101 = load ptr, ptr %arrayidx208, align 8, !tbaa !11
   %orient212 = getelementptr inbounds %struct.cellbox, ptr %101, i64 0, i32 5
   %102 = load i32, ptr %orient212, align 8, !tbaa !19
@@ -558,11 +558,11 @@ for.body206:                                      ; preds = %for.end200, %for.bo
   %sub254 = fsub double %call253, %div202
   %call257 = tail call double @sqrt(double noundef %conv252) #14
   %sub258 = fsub double %call257, %div202
-  %110 = tail call double @llvm.fmuladd.f64(double %sub254, double %sub258, double %variance.0434)
-  %indvars.iv.next450 = add nuw nsw i64 %indvars.iv449, 1
+  %110 = tail call double @llvm.fmuladd.f64(double %sub254, double %sub258, double %variance.0433)
+  %indvars.iv.next451 = add nuw nsw i64 %indvars.iv450, 1
   %111 = load i32, ptr @numcells, align 4, !tbaa !5
   %112 = sext i32 %111 to i64
-  %cmp204.not.not = icmp slt i64 %indvars.iv449, %112
+  %cmp204.not.not = icmp slt i64 %indvars.iv450, %112
   br i1 %cmp204.not.not, label %for.body206, label %for.end262.loopexit, !llvm.loop !26
 
 for.end262.loopexit:                              ; preds = %for.body206
@@ -570,16 +570,16 @@ for.end262.loopexit:                              ; preds = %for.body206
   br label %for.end262
 
 for.end262:                                       ; preds = %for.end200.thread, %for.end262.loopexit, %for.end200
-  %div202459 = phi double [ %div202, %for.end262.loopexit ], [ %div202, %for.end200 ], [ %div202457, %for.end200.thread ]
-  %conv263.pre-phi = phi double [ %.pre, %for.end262.loopexit ], [ %conv201, %for.end200 ], [ %conv201456, %for.end200.thread ]
+  %div202460 = phi double [ %div202, %for.end262.loopexit ], [ %div202, %for.end200 ], [ %div202458, %for.end200.thread ]
+  %conv263.pre-phi = phi double [ %.pre, %for.end262.loopexit ], [ %conv201, %for.end200 ], [ %conv201457, %for.end200.thread ]
   %variance.0.lcssa = phi double [ %110, %for.end262.loopexit ], [ 0.000000e+00, %for.end200 ], [ 0.000000e+00, %for.end200.thread ]
   %div264 = fdiv double %variance.0.lcssa, %conv263.pre-phi
   %call265 = tail call double @sqrt(double noundef %div264) #14
   %113 = load ptr, ptr @fpo, align 8, !tbaa !11
   %114 = tail call i64 @fwrite(ptr nonnull @.str.19, i64 50, i64 1, ptr %113)
   %115 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %call267 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %115, ptr noundef nonnull @.str.20, double noundef %div202459, double noundef %call265)
-  %116 = tail call double @llvm.fmuladd.f64(double %call265, double 2.000000e+00, double %div202459)
+  %call267 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %115, ptr noundef nonnull @.str.20, double noundef %div202460, double noundef %call265)
+  %116 = tail call double @llvm.fmuladd.f64(double %call265, double 2.000000e+00, double %div202460)
   %conv269 = fptosi double %116 to i32
   store i32 %conv269, ptr @rangeLimit, align 4, !tbaa !5
   %117 = load double, ptr @T, align 8, !tbaa !9
@@ -662,9 +662,9 @@ if.then306:                                       ; preds = %if.end303
 
 for.end323.thread:                                ; preds = %if.then306
   %140 = load i32, ptr @attpercell, align 4, !tbaa !5
-  %mul325462 = mul nsw i32 %140, %138
-  store i32 %mul325462, ptr @attmax, align 4, !tbaa !5
-  br label %147
+  %mul325463 = mul nsw i32 %140, %138
+  store i32 %mul325463, ptr @attmax, align 4, !tbaa !5
+  br label %if.else332
 
 for.body313.lr.ph:                                ; preds = %if.then306
   %141 = load ptr, ptr @cellarray, align 8, !tbaa !11
@@ -673,18 +673,17 @@ for.body313.lr.ph:                                ; preds = %if.then306
   br label %for.body313
 
 for.body313:                                      ; preds = %for.body313.lr.ph, %for.body313
-  %indvars.iv452 = phi i64 [ %142, %for.body313.lr.ph ], [ %indvars.iv.next453, %for.body313 ]
-  %padflippers.0439 = phi i32 [ 0, %for.body313.lr.ph ], [ %spec.select416, %for.body313 ]
-  %indvars.iv.next453 = add nsw i64 %indvars.iv452, 1
-  %arrayidx315 = getelementptr inbounds ptr, ptr %141, i64 %indvars.iv.next453
+  %indvars.iv453 = phi i64 [ %142, %for.body313.lr.ph ], [ %indvars.iv.next454, %for.body313 ]
+  %padflippers.0438 = phi i32 [ 0, %for.body313.lr.ph ], [ %spec.select416, %for.body313 ]
+  %indvars.iv.next454 = add nsw i64 %indvars.iv453, 1
+  %arrayidx315 = getelementptr inbounds ptr, ptr %141, i64 %indvars.iv.next454
   %144 = load ptr, ptr %arrayidx315, align 8, !tbaa !11
   %class = getelementptr inbounds %struct.cellbox, ptr %144, i64 0, i32 1
   %145 = load i32, ptr %class, align 8, !tbaa !27
-  %.fr = freeze i32 %145
-  %cmp316 = icmp sgt i32 %.fr, 0
+  %cmp316 = icmp sgt i32 %145, 0
   %inc319 = zext i1 %cmp316 to i32
-  %spec.select416 = add i32 %padflippers.0439, %inc319
-  %cmp311.not.not = icmp slt i64 %indvars.iv.next453, %143
+  %spec.select416 = add nuw nsw i32 %padflippers.0438, %inc319
+  %cmp311.not.not = icmp slt i64 %indvars.iv.next454, %143
   br i1 %cmp311.not.not, label %for.body313, label %for.end323, !llvm.loop !28
 
 for.end323:                                       ; preds = %for.body313
@@ -693,35 +692,37 @@ for.end323:                                       ; preds = %for.body313
   %mul325 = mul nsw i32 %146, %add324
   store i32 %mul325, ptr @attmax, align 4, !tbaa !5
   %cmp326 = icmp ugt i32 %spec.select416, 1
-  %spec.select467 = select i1 %cmp326, i32 %add310, i32 %138
-  br label %147
+  br i1 %cmp326, label %if.end334, label %if.else332
 
-147:                                              ; preds = %for.end323, %for.end323.thread
-  %148 = phi i32 [ %138, %for.end323.thread ], [ %spec.select467, %for.end323 ]
-  %storemerge417 = mul nsw i32 %148, 11
-  store i32 %storemerge417, ptr @bigcell, align 4, !tbaa !5
-  store i32 %148, ptr @choose, align 4, !tbaa !5
-  %add335 = add nsw i32 %storemerge417, 1
+if.else332:                                       ; preds = %for.end323.thread, %for.end323
+  br label %if.end334
+
+if.end334:                                        ; preds = %for.end323, %if.else332
+  %storemerge = phi i32 [ %138, %if.else332 ], [ %add310, %for.end323 ]
+  %storemerge442 = mul nsw i32 %storemerge, 11
+  store i32 %storemerge442, ptr @bigcell, align 4, !tbaa !5
+  store i32 %storemerge, ptr @choose, align 4, !tbaa !5
+  %add335 = add nsw i32 %storemerge442, 1
   store i32 %add335, ptr @toobig, align 4, !tbaa !5
   call void @prepSpots()
   call void @utemp() #14
   br label %if.end336
 
-if.end336:                                        ; preds = %147, %if.end303
+if.end336:                                        ; preds = %if.end334, %if.end303
   call void @finalout() #14
   call void @finalcheck() #14
   call void @twstats() #14
   br label %if.end348
 
 if.else337:                                       ; preds = %if.end12
-  %149 = load i32, ptr @doChannelGraph, align 4, !tbaa !5
-  %tobool338.not = icmp eq i32 %149, 0
+  %147 = load i32, ptr @doChannelGraph, align 4, !tbaa !5
+  %tobool338.not = icmp eq i32 %147, 0
   br i1 %tobool338.not, label %if.else343, label %if.then339
 
 if.then339:                                       ; preds = %if.else337
   tail call void @gmain() #14
-  %150 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
-  %tobool340.not = icmp eq i32 %150, 0
+  %148 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
+  %tobool340.not = icmp eq i32 %148, 0
   br i1 %tobool340.not, label %if.end348, label %if.then341
 
 if.then341:                                       ; preds = %if.then339
@@ -729,8 +730,8 @@ if.then341:                                       ; preds = %if.then339
   br label %if.end348
 
 if.else343:                                       ; preds = %if.else337
-  %151 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
-  %tobool344.not = icmp eq i32 %151, 0
+  %149 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
+  %tobool344.not = icmp eq i32 %149, 0
   br i1 %tobool344.not, label %if.end348, label %if.then345
 
 if.then345:                                       ; preds = %if.else343
@@ -738,14 +739,14 @@ if.then345:                                       ; preds = %if.else343
   br label %if.end348
 
 if.end348:                                        ; preds = %if.then341, %if.then339, %if.then345, %if.else343, %if.end336
+  %150 = load ptr, ptr @fpo, align 8, !tbaa !11
+  %151 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %150)
   %152 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %153 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %152)
+  %153 = call i64 @fwrite(ptr nonnull @.str.30, i64 39, i64 1, ptr %152)
   %154 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %155 = call i64 @fwrite(ptr nonnull @.str.30, i64 39, i64 1, ptr %154)
+  %155 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %154)
   %156 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %157 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %156)
-  %158 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %call352 = call i32 @fclose(ptr noundef %158)
+  %call352 = call i32 @fclose(ptr noundef %156)
   call void @exit(i32 noundef 0) #15
   unreachable
 }
@@ -1400,23 +1401,23 @@ declare i32 @wireestx(i32 noundef, i32 noundef, i32 noundef, double noundef) loc
 
 declare i32 @wireesty(i32 noundef, i32 noundef, i32 noundef, double noundef) local_unnamed_addr #6
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #11
+
 ; Function Attrs: nofree nounwind willreturn memory(argmem: readwrite)
-declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #11
+declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #13
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #11
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1429,9 +1430,9 @@ attributes #7 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #8 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #10 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nofree nounwind }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { nounwind willreturn memory(read) }

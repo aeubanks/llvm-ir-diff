@@ -15,7 +15,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @f() local_unnamed_addr #2 {
-if.end:
+entry:
   ret i32 undef
 }
 

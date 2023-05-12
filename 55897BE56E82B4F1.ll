@@ -246,8 +246,8 @@ entry:
   %call = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(256) %this)
   %conv = sitofp i32 %call to float
   %div = fdiv float %mass, %conv
-  %tobool.not69 = icmp eq i32 %call, 0
-  br i1 %tobool.not69, label %while.end, label %while.body.lr.ph
+  %tobool.not70 = icmp eq i32 %call, 0
+  br i1 %tobool.not70, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %m_data.i = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 3, i32 5
@@ -350,14 +350,14 @@ init.check.i:                                     ; preds = %if.else
 init.i:                                           ; preds = %init.check.i
   %50 = load atomic i8, ptr @_ZGVZN11btMatrix3x311getIdentityEvE14identityMatrix acquire, align 8
   %guard.uninitialized.i65 = icmp eq i8 %50, 0
-  br i1 %guard.uninitialized.i65, label %init.check.i67, label %invoke.cont6.i, !prof !25
+  br i1 %guard.uninitialized.i65, label %init.check.i67, label %invoke.cont.i, !prof !25
 
 init.check.i67:                                   ; preds = %init.i
   %51 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN11btMatrix3x311getIdentityEvE14identityMatrix) #17
   %tobool.not.i66 = icmp eq i32 %51, 0
-  br i1 %tobool.not.i66, label %invoke.cont6.i, label %invoke.cont.i
+  br i1 %tobool.not.i66, label %invoke.cont.i, label %init.i68
 
-invoke.cont.i:                                    ; preds = %init.check.i67
+init.i68:                                         ; preds = %init.check.i67
   store float 1.000000e+00, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, align 4, !tbaa !19
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btMatrix3x3, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 0, i32 0, i64 0, i32 0, i64 1), i8 0, i64 16, i1 false)
   store float 1.000000e+00, ptr getelementptr inbounds (%class.btMatrix3x3, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 0, i32 0, i64 1, i32 0, i64 1), align 4, !tbaa !19
@@ -365,9 +365,9 @@ invoke.cont.i:                                    ; preds = %init.check.i67
   store <2 x float> <float 1.000000e+00, float 0.000000e+00>, ptr getelementptr inbounds (%class.btMatrix3x3, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 0, i32 0, i64 2, i32 0, i64 2), align 4, !tbaa !19
   %52 = call ptr @llvm.invariant.start.p0(i64 48, ptr nonnull @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN11btMatrix3x311getIdentityEvE14identityMatrix) #17
-  br label %invoke.cont6.i
+  br label %invoke.cont.i
 
-invoke.cont6.i:                                   ; preds = %invoke.cont.i, %init.check.i67, %init.i
+invoke.cont.i:                                    ; preds = %init.i68, %init.check.i67, %init.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZN11btTransform11getIdentityEvE17identityTransform, ptr noundef nonnull align 4 dereferenceable(16) @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 16, i1 false), !tbaa.struct !26
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btMatrix3x3, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 0, i32 0, i64 1), i64 16, i1 false), !tbaa.struct !26
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btMatrix3x3, ptr @_ZZN11btMatrix3x311getIdentityEvE14identityMatrix, i64 0, i32 0, i64 2), i64 16, i1 false), !tbaa.struct !26
@@ -376,7 +376,7 @@ invoke.cont6.i:                                   ; preds = %invoke.cont.i, %ini
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN11btTransform11getIdentityEvE17identityTransform) #17
   br label %_ZN11btTransform11getIdentityEv.exit
 
-_ZN11btTransform11getIdentityEv.exit:             ; preds = %if.else, %init.check.i, %invoke.cont6.i
+_ZN11btTransform11getIdentityEv.exit:             ; preds = %if.else, %init.check.i, %invoke.cont.i
   %54 = load float, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, align 4, !tbaa !19, !noalias !21
   %55 = load float, ptr %temp_inertia, align 4, !tbaa !19, !noalias !28
   %mul.i.i32 = fmul float %54, %55
@@ -417,8 +417,8 @@ _ZN11btTransform11getIdentityEv.exit:             ; preds = %if.else, %init.chec
   %86 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %82, <2 x float> %83, <2 x float> %85)
   %87 = load <2 x float>, ptr getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 1, i32 0, i64 1), align 4, !tbaa !19
   %88 = fmul <2 x float> %87, %87
-  %shift73 = shufflevector <2 x float> %88, <2 x float> poison, <2 x i32> <i32 1, i32 poison>
-  %89 = fadd <2 x float> %88, %shift73
+  %shift74 = shufflevector <2 x float> %88, <2 x float> poison, <2 x i32> <i32 1, i32 poison>
+  %89 = fadd <2 x float> %88, %shift74
   %add.i49 = extractelement <2 x float> %89, i64 0
   %mul16.i50 = fmul float %70, %add.i49
   %90 = insertelement <2 x float> poison, float %mul.i46, i64 0
@@ -474,10 +474,11 @@ entry:
   %1 = load i32, ptr %numverts.i.i, align 8, !tbaa !31
   %conv = sitofp i32 %1 to float
   %div = fdiv float %mass, %conv
-  %tobool.not29 = icmp eq i32 %1, 0
-  br i1 %tobool.not29, label %while.end, label %while.body.lr.ph
+  %tobool.not30 = icmp eq i32 %1, 0
+  br i1 %tobool.not30, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
+  %dec29 = add i32 %1, -1
   %type.i.i = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %this, i64 0, i32 1, i32 9
   %2 = load i32, ptr %type.i.i, align 4, !tbaa !36
   %cmp.i.i = icmp eq i32 %2, 1
@@ -488,7 +489,7 @@ while.body.lr.ph:                                 ; preds = %entry
   %m_scale.i.i = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %this, i64 0, i32 1, i32 4
   %arrayidx40.i.i = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %this, i64 0, i32 1, i32 4, i32 0, i64 1
   %arrayidx47.i.i = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %this, i64 0, i32 1, i32 4, i32 0, i64 2
-  %5 = sext i32 %1 to i64
+  %5 = sext i32 %dec29 to i64
   %6 = sext i32 %4 to i64
   br i1 %cmp.i.i, label %while.body.us.preheader, label %while.body.preheader
 
@@ -503,11 +504,10 @@ while.body.us.preheader:                          ; preds = %while.body.lr.ph
   br label %while.body.us
 
 while.body.us:                                    ; preds = %while.body.us.preheader, %while.body.us
-  %indvars.iv35 = phi i64 [ %indvars.iv.next36, %while.body.us ], [ %5, %while.body.us.preheader ]
+  %indvars.iv36 = phi i64 [ %indvars.iv.next37, %while.body.us ], [ %5, %while.body.us.preheader ]
   %11 = phi float [ %add13.i.us, %while.body.us ], [ 0.000000e+00, %while.body.us.preheader ]
   %12 = phi <2 x float> [ %33, %while.body.us ], [ zeroinitializer, %while.body.us.preheader ]
-  %indvars.iv.next36 = add nsw i64 %indvars.iv35, -1
-  %13 = mul nsw i64 %indvars.iv.next36, %6
+  %13 = mul nsw i64 %indvars.iv36, %6
   %add.ptr.i.i.us = getelementptr inbounds i8, ptr %3, i64 %13
   %arrayidx7.i.i.us = getelementptr inbounds double, ptr %add.ptr.i.i.us, i64 1
   %14 = load double, ptr %arrayidx7.i.i.us, align 8, !tbaa !39
@@ -540,16 +540,15 @@ while.body.us:                                    ; preds = %while.body.us.prehe
   store <2 x float> %33, ptr %inertia, align 4, !tbaa !19
   %add13.i.us = fadd float %mul19.i.us, %11
   store float %add13.i.us, ptr %arrayidx5.i, align 4, !tbaa !19
-  %34 = and i64 %indvars.iv.next36, 4294967295
-  %tobool.not.us = icmp eq i64 %34, 0
-  br i1 %tobool.not.us, label %while.end, label %while.body.us
+  %indvars.iv.next37 = add nsw i64 %indvars.iv36, -1
+  %34 = icmp eq i64 %indvars.iv36, 0
+  br i1 %34, label %while.end, label %while.body.us
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
   %indvars.iv = phi i64 [ %indvars.iv.next, %while.body ], [ %5, %while.body.preheader ]
   %35 = phi float [ %add13.i, %while.body ], [ 0.000000e+00, %while.body.preheader ]
   %36 = phi <2 x float> [ %55, %while.body ], [ zeroinitializer, %while.body.preheader ]
-  %indvars.iv.next = add nsw i64 %indvars.iv, -1
-  %37 = mul nsw i64 %indvars.iv.next, %6
+  %37 = mul nsw i64 %indvars.iv, %6
   %add.ptr.i.i = getelementptr inbounds i8, ptr %3, i64 %37
   %arrayidx37.i.i = getelementptr inbounds float, ptr %add.ptr.i.i, i64 1
   %38 = load float, ptr %arrayidx37.i.i, align 4, !tbaa !19
@@ -578,9 +577,9 @@ while.body:                                       ; preds = %while.body.preheade
   store <2 x float> %55, ptr %inertia, align 4, !tbaa !19
   %add13.i = fadd float %mul19.i, %35
   store float %add13.i, ptr %arrayidx5.i, align 4, !tbaa !19
-  %56 = and i64 %indvars.iv.next, 4294967295
-  %tobool.not = icmp eq i64 %56, 0
-  br i1 %tobool.not, label %while.end, label %while.body
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
+  %56 = icmp eq i64 %indvars.iv, 0
+  br i1 %56, label %while.end, label %while.body
 
 while.end:                                        ; preds = %while.body, %while.body.us, %entry
   %vtable7 = load ptr, ptr %this, align 8, !tbaa !5
@@ -673,7 +672,7 @@ entry:
 invoke.cont:                                      ; preds = %entry
   %1 = load i32, ptr %m_size.i.i, align 4, !tbaa !49
   %cmp = icmp eq i32 %1, 0
-  br i1 %cmp, label %if.then, label %invoke.cont11
+  br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %invoke.cont
   %vtable4 = load ptr, ptr %this, align 8, !tbaa !5
@@ -687,7 +686,7 @@ lpad:                                             ; preds = %if.then, %entry
           cleanup
   br label %ehcleanup27
 
-invoke.cont11:                                    ; preds = %invoke.cont
+if.end:                                           ; preds = %invoke.cont
   %m_part.i = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %this, i64 0, i32 1, i32 5
   %4 = load i32, ptr %m_part.i, align 8, !tbaa !51
   call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %triangle) #17
@@ -696,8 +695,8 @@ invoke.cont11:                                    ; preds = %invoke.cont
   %5 = sext i32 %1 to i64
   br label %while.cond
 
-while.cond:                                       ; preds = %invoke.cont17, %invoke.cont11
-  %indvars.iv = phi i64 [ %indvars.iv.next, %invoke.cont17 ], [ %5, %invoke.cont11 ]
+while.cond:                                       ; preds = %invoke.cont17, %if.end
+  %indvars.iv = phi i64 [ %indvars.iv.next, %invoke.cont17 ], [ %5, %if.end ]
   %indvars.iv.next = add nsw i64 %indvars.iv, -1
   %6 = icmp eq i64 %indvars.iv, 0
   br i1 %6, label %while.end, label %while.body
@@ -709,20 +708,20 @@ while.body:                                       ; preds = %while.cond
   %vtable.i = load ptr, ptr %this, align 8, !tbaa !5
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 17
   %9 = load ptr, ptr %vfn.i, align 8
-  %call.i40 = invoke noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(176) %this)
+  %call.i37 = invoke noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(176) %this)
           to label %call.i.noexc unwind label %lpad12.loopexit
 
 call.i.noexc:                                     ; preds = %while.body
-  %vtable2.i = load ptr, ptr %call.i40, align 8, !tbaa !5
+  %vtable2.i = load ptr, ptr %call.i37, align 8, !tbaa !5
   %vfn3.i = getelementptr inbounds ptr, ptr %vtable2.i, i64 5
   %10 = load ptr, ptr %vfn3.i, align 8
-  invoke void %10(ptr noundef nonnull align 8 dereferenceable(8) %call.i40, i32 noundef %8, ptr noundef nonnull align 4 dereferenceable(72) %triangle)
+  invoke void %10(ptr noundef nonnull align 8 dereferenceable(8) %call.i37, i32 noundef %8, ptr noundef nonnull align 4 dereferenceable(72) %triangle)
           to label %invoke.cont17 unwind label %lpad12.loopexit
 
 invoke.cont17:                                    ; preds = %call.i.noexc
   %11 = load ptr, ptr %m_data.i.i, align 8, !tbaa !48
-  %arrayidx.i43 = getelementptr inbounds i32, ptr %11, i64 %indvars.iv.next
-  %12 = load i32, ptr %arrayidx.i43, align 4, !tbaa !65
+  %arrayidx.i40 = getelementptr inbounds i32, ptr %11, i64 %indvars.iv.next
+  %12 = load i32, ptr %arrayidx.i40, align 4, !tbaa !65
   %vtable20 = load ptr, ptr %callback, align 8, !tbaa !5
   %vfn21 = getelementptr inbounds ptr, ptr %vtable20, i64 2
   %13 = load ptr, ptr %vfn21, align 8
@@ -773,24 +772,24 @@ _ZN20btAlignedObjectArrayIiED2Ev.exit:            ; preds = %cleanup, %if.then3.
   ret void
 
 ehcleanup27:                                      ; preds = %lpad12, %lpad
-  %.pn36 = phi { ptr, i32 } [ %3, %lpad ], [ %lpad.phi, %lpad12 ]
+  %.pn = phi { ptr, i32 } [ %3, %lpad ], [ %lpad.phi, %lpad12 ]
   %17 = load ptr, ptr %m_data.i.i, align 8, !tbaa !48
-  %tobool.not.i.i.i45 = icmp eq ptr %17, null
+  %tobool.not.i.i.i42 = icmp eq ptr %17, null
   %18 = load i8, ptr %m_ownsMemory.i.i, align 8, !range !66
-  %tobool2.not.i.i.i47 = icmp eq i8 %18, 0
-  %or.cond.i.i48 = select i1 %tobool.not.i.i.i45, i1 true, i1 %tobool2.not.i.i.i47
-  br i1 %or.cond.i.i48, label %invoke.cont28, label %if.then3.i.i.i49
+  %tobool2.not.i.i.i44 = icmp eq i8 %18, 0
+  %or.cond.i.i45 = select i1 %tobool.not.i.i.i42, i1 true, i1 %tobool2.not.i.i.i44
+  br i1 %or.cond.i.i45, label %_ZN20btAlignedObjectArrayIiED2Ev.exit49, label %if.then3.i.i.i46
 
-if.then3.i.i.i49:                                 ; preds = %ehcleanup27
+if.then3.i.i.i46:                                 ; preds = %ehcleanup27
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %17)
-          to label %invoke.cont28 unwind label %terminate.lpad
+          to label %_ZN20btAlignedObjectArrayIiED2Ev.exit49 unwind label %terminate.lpad
 
-invoke.cont28:                                    ; preds = %ehcleanup27, %if.then3.i.i.i49
+_ZN20btAlignedObjectArrayIiED2Ev.exit49:          ; preds = %if.then3.i.i.i46, %ehcleanup27
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %collided) #17
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %box) #17
-  resume { ptr, i32 } %.pn36
+  resume { ptr, i32 } %.pn
 
-terminate.lpad:                                   ; preds = %if.then3.i.i.i49
+terminate.lpad:                                   ; preds = %if.then3.i.i.i46
   %19 = landingpad { ptr, i32 }
           catch ptr null
   %20 = extractvalue { ptr, i32 } %19, 0
@@ -855,39 +854,39 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !66
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %invoke.cont, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i
-  %m_size.i.i.i = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 3, i32 2
+_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit: ; preds = %if.then3.i.i.i, %entry
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !67
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !8
-  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !68
+  %m_size.i4.i.i = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 3, i32 2
+  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !68
   %m_capacity.i.i.i = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 3, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !69
-  %m_data.i.i.i14 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 5
-  %2 = load ptr, ptr %m_data.i.i.i14, align 8, !tbaa !16
-  %tobool.not.i.i.i15 = icmp eq ptr %2, null
-  %m_ownsMemory.i.i.i16 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 6
-  %3 = load i8, ptr %m_ownsMemory.i.i.i16, align 8, !range !66
-  %tobool2.not.i.i.i17 = icmp eq i8 %3, 0
-  %or.cond.i.i18 = select i1 %tobool.not.i.i.i15, i1 true, i1 %tobool2.not.i.i.i17
-  br i1 %or.cond.i.i18, label %invoke.cont3, label %if.then3.i.i.i19
+  %m_data.i.i.i13 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 5
+  %2 = load ptr, ptr %m_data.i.i.i13, align 8, !tbaa !16
+  %tobool.not.i.i.i14 = icmp eq ptr %2, null
+  %m_ownsMemory.i.i.i15 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 6
+  %3 = load i8, ptr %m_ownsMemory.i.i.i15, align 8, !range !66
+  %tobool2.not.i.i.i16 = icmp eq i8 %3, 0
+  %or.cond.i.i17 = select i1 %tobool.not.i.i.i14, i1 true, i1 %tobool2.not.i.i.i16
+  br i1 %or.cond.i.i17, label %_ZN20btAlignedObjectArrayI11btTransformED2Ev.exit, label %if.then3.i.i.i18
 
-if.then3.i.i.i19:                                 ; preds = %invoke.cont
+if.then3.i.i.i18:                                 ; preds = %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %2)
-          to label %invoke.cont3 unwind label %lpad2
+          to label %_ZN20btAlignedObjectArrayI11btTransformED2Ev.exit unwind label %lpad2
 
-invoke.cont3:                                     ; preds = %invoke.cont, %if.then3.i.i.i19
-  %m_size.i.i.i20 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 2
-  store i8 1, ptr %m_ownsMemory.i.i.i16, align 8, !tbaa !70
-  store ptr null, ptr %m_data.i.i.i14, align 8, !tbaa !16
-  store i32 0, ptr %m_size.i.i.i20, align 4, !tbaa !71
-  %m_capacity.i.i.i21 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i.i21, align 8, !tbaa !72
+_ZN20btAlignedObjectArrayI11btTransformED2Ev.exit: ; preds = %if.then3.i.i.i18, %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit
+  store i8 1, ptr %m_ownsMemory.i.i.i15, align 8, !tbaa !70
+  store ptr null, ptr %m_data.i.i.i13, align 8, !tbaa !16
+  %m_size.i4.i.i19 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i4.i.i19, align 4, !tbaa !71
+  %m_capacity.i.i.i20 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %this, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i.i20, align 8, !tbaa !72
   store ptr getelementptr inbounds ({ [34 x ptr] }, ptr @_ZTV23btGImpactShapeInterface, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_data.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 5
   %4 = load ptr, ptr %m_data.i.i.i.i.i.i, align 8, !tbaa !73
@@ -898,7 +897,7 @@ invoke.cont3:                                     ; preds = %invoke.cont, %if.th
   %or.cond.i.i.i.i.i = select i1 %tobool.not.i.i.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i.i.i
   br i1 %or.cond.i.i.i.i.i, label %_ZN23btGImpactShapeInterfaceD2Ev.exit, label %if.then3.i.i.i.i.i.i
 
-if.then3.i.i.i.i.i.i:                             ; preds = %invoke.cont3
+if.then3.i.i.i.i.i.i:                             ; preds = %_ZN20btAlignedObjectArrayI11btTransformED2Ev.exit
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %4)
           to label %_ZN23btGImpactShapeInterfaceD2Ev.exit unwind label %lpad.i
 
@@ -919,11 +918,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %8) #18
   unreachable
 
-_ZN23btGImpactShapeInterfaceD2Ev.exit:            ; preds = %invoke.cont3, %if.then3.i.i.i.i.i.i
-  %m_size.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+_ZN23btGImpactShapeInterfaceD2Ev.exit:            ; preds = %_ZN20btAlignedObjectArrayI11btTransformED2Ev.exit, %if.then3.i.i.i.i.i.i
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i.i, align 8, !tbaa !74
   store ptr null, ptr %m_data.i.i.i.i.i.i, align 8, !tbaa !73
-  store i32 0, ptr %m_size.i.i.i.i.i.i, align 4, !tbaa !75
+  %m_size.i4.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+  store i32 0, ptr %m_size.i4.i.i.i.i.i, align 4, !tbaa !75
   %m_capacity.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i.i, align 8, !tbaa !76
   tail call void @_ZN14btConcaveShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
@@ -936,7 +935,7 @@ lpad:                                             ; preds = %if.then3.i.i.i
   invoke void @_ZN20btAlignedObjectArrayI11btTransformED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %m_childTransforms4)
           to label %ehcleanup unwind label %terminate.lpad
 
-lpad2:                                            ; preds = %if.then3.i.i.i19
+lpad2:                                            ; preds = %if.then3.i.i.i18
   %10 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
@@ -1554,10 +1553,10 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   unreachable
 
 _ZN23btGImpactShapeInterfaceD2Ev.exit:            ; preds = %entry, %if.then3.i.i.i.i.i.i
-  %m_size.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i.i, align 8, !tbaa !74
   store ptr null, ptr %m_data.i.i.i.i.i.i, align 8, !tbaa !73
-  store i32 0, ptr %m_size.i.i.i.i.i.i, align 4, !tbaa !75
+  %m_size.i4.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+  store i32 0, ptr %m_size.i4.i.i.i.i.i, align 4, !tbaa !75
   %m_capacity.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i.i, align 8, !tbaa !76
   tail call void @_ZN14btConcaveShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
@@ -1595,10 +1594,10 @@ terminate.lpad.i.i:                               ; preds = %lpad.i.i
   unreachable
 
 _ZN23btGImpactShapeInterfaceD2Ev.exit.i:          ; preds = %if.then3.i.i.i.i.i.i.i, %entry
-  %m_size.i.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i.i.i, align 8, !tbaa !74
   store ptr null, ptr %m_data.i.i.i.i.i.i.i, align 8, !tbaa !73
-  store i32 0, ptr %m_size.i.i.i.i.i.i.i, align 4, !tbaa !75
+  %m_size.i4.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+  store i32 0, ptr %m_size.i4.i.i.i.i.i.i, align 4, !tbaa !75
   %m_capacity.i.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i.i.i, align 8, !tbaa !76
   invoke void @_ZN14btConcaveShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
@@ -1982,13 +1981,13 @@ while.end:                                        ; preds = %delete.end, %entry
   %9 = load i8, ptr %m_ownsMemory.i.i, align 8, !range !66
   %tobool2.not.i.i = icmp eq i8 %9, 0
   %or.cond.i = select i1 %tobool.not.i.i, i1 true, i1 %tobool2.not.i.i
-  br i1 %or.cond.i, label %invoke.cont11, label %if.then3.i.i
+  br i1 %or.cond.i, label %_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartED2Ev.exit, label %if.then3.i.i
 
 if.then3.i.i:                                     ; preds = %while.end
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %8)
-          to label %invoke.cont11 unwind label %lpad
+          to label %_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartED2Ev.exit unwind label %lpad
 
-invoke.cont11:                                    ; preds = %while.end, %if.then3.i.i
+_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartED2Ev.exit: ; preds = %while.end, %if.then3.i.i
   %m_capacity.i.i = getelementptr inbounds %class.btGImpactMeshShape, ptr %this, i64 0, i32 2, i32 3
   store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !101
   store ptr null, ptr %m_data.i.i, align 8, !tbaa !44
@@ -2004,7 +2003,7 @@ invoke.cont11:                                    ; preds = %while.end, %if.then
   %or.cond.i.i.i.i.i = select i1 %tobool.not.i.i.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i.i.i
   br i1 %or.cond.i.i.i.i.i, label %_ZN23btGImpactShapeInterfaceD2Ev.exit, label %if.then3.i.i.i.i.i.i
 
-if.then3.i.i.i.i.i.i:                             ; preds = %invoke.cont11
+if.then3.i.i.i.i.i.i:                             ; preds = %_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartED2Ev.exit
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %10)
           to label %_ZN23btGImpactShapeInterfaceD2Ev.exit unwind label %lpad.i
 
@@ -2025,11 +2024,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %14) #18
   unreachable
 
-_ZN23btGImpactShapeInterfaceD2Ev.exit:            ; preds = %invoke.cont11, %if.then3.i.i.i.i.i.i
-  %m_size.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+_ZN23btGImpactShapeInterfaceD2Ev.exit:            ; preds = %_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartED2Ev.exit, %if.then3.i.i.i.i.i.i
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i.i, align 8, !tbaa !74
   store ptr null, ptr %m_data.i.i.i.i.i.i, align 8, !tbaa !73
-  store i32 0, ptr %m_size.i.i.i.i.i.i, align 4, !tbaa !75
+  %m_size.i4.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+  store i32 0, ptr %m_size.i4.i.i.i.i.i, align 4, !tbaa !75
   %m_capacity.i.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i.i, align 8, !tbaa !76
   tail call void @_ZN14btConcaveShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
@@ -2160,8 +2159,8 @@ entry:
   store float 0xC7EFFFFFE0000000, ptr %arrayidx15.i, align 4, !tbaa !19
   %m_size.i = getelementptr inbounds %class.btGImpactMeshShape, ptr %this, i64 0, i32 2, i32 2
   %0 = load i32, ptr %m_size.i, align 4, !tbaa !41
-  %tobool.not14 = icmp eq i32 %0, 0
-  br i1 %tobool.not14, label %while.end, label %while.body.lr.ph
+  %tobool.not15 = icmp eq i32 %0, 0
+  br i1 %tobool.not15, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %m_data.i = getelementptr inbounds %class.btGImpactMeshShape, ptr %this, i64 0, i32 2, i32 5
@@ -2192,26 +2191,26 @@ if.end.i:                                         ; preds = %while.body
   %11 = load ptr, ptr %vfn.i, align 8
   tail call void %11(ptr noundef nonnull align 8 dereferenceable(176) %9)
   store i8 0, ptr %m_needs_update.i, align 4, !tbaa !79
-  %.pre17 = load ptr, ptr %m_data.i, align 8, !tbaa !44
-  %.pre18 = load float, ptr %m_localAABB, align 4
-  %.pre19 = load float, ptr %arrayidx4.i, align 8, !tbaa !19
-  %.pre20 = load float, ptr %arrayidx7.i, align 4, !tbaa !19
-  %.pre21 = load float, ptr %m_max.i, align 4
-  %.pre22 = load float, ptr %arrayidx12.i, align 8, !tbaa !19
-  %.pre23 = load float, ptr %arrayidx15.i, align 4, !tbaa !19
-  %arrayidx.i12.phi.trans.insert = getelementptr inbounds ptr, ptr %.pre17, i64 %indvars.iv.next
-  %.pre24 = load ptr, ptr %arrayidx.i12.phi.trans.insert, align 8, !tbaa !15
+  %.pre18 = load ptr, ptr %m_data.i, align 8, !tbaa !44
+  %.pre19 = load float, ptr %m_localAABB, align 4
+  %.pre20 = load float, ptr %arrayidx4.i, align 8, !tbaa !19
+  %.pre21 = load float, ptr %arrayidx7.i, align 4, !tbaa !19
+  %.pre22 = load float, ptr %m_max.i, align 4
+  %.pre23 = load float, ptr %arrayidx12.i, align 8, !tbaa !19
+  %.pre24 = load float, ptr %arrayidx15.i, align 4, !tbaa !19
+  %arrayidx.i12.phi.trans.insert = getelementptr inbounds ptr, ptr %.pre18, i64 %indvars.iv.next
+  %.pre25 = load ptr, ptr %arrayidx.i12.phi.trans.insert, align 8, !tbaa !15
   br label %_ZN23btGImpactShapeInterface11updateBoundEv.exit
 
 _ZN23btGImpactShapeInterface11updateBoundEv.exit: ; preds = %while.body, %if.end.i
-  %12 = phi ptr [ %9, %while.body ], [ %.pre24, %if.end.i ]
-  %13 = phi float [ %2, %while.body ], [ %.pre23, %if.end.i ]
-  %14 = phi float [ %3, %while.body ], [ %.pre22, %if.end.i ]
-  %15 = phi float [ %4, %while.body ], [ %.pre21, %if.end.i ]
-  %16 = phi float [ %5, %while.body ], [ %.pre20, %if.end.i ]
-  %17 = phi float [ %6, %while.body ], [ %.pre19, %if.end.i ]
-  %18 = phi float [ %7, %while.body ], [ %.pre18, %if.end.i ]
-  %19 = phi ptr [ %8, %while.body ], [ %.pre17, %if.end.i ]
+  %12 = phi ptr [ %9, %while.body ], [ %.pre25, %if.end.i ]
+  %13 = phi float [ %2, %while.body ], [ %.pre24, %if.end.i ]
+  %14 = phi float [ %3, %while.body ], [ %.pre23, %if.end.i ]
+  %15 = phi float [ %4, %while.body ], [ %.pre22, %if.end.i ]
+  %16 = phi float [ %5, %while.body ], [ %.pre21, %if.end.i ]
+  %17 = phi float [ %6, %while.body ], [ %.pre20, %if.end.i ]
+  %18 = phi float [ %7, %while.body ], [ %.pre19, %if.end.i ]
+  %19 = phi ptr [ %8, %while.body ], [ %.pre18, %if.end.i ]
   %m_localAABB.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1
   %20 = load float, ptr %m_localAABB.i, align 4
   %cmp.i = fcmp ogt float %18, %20
@@ -2220,15 +2219,15 @@ _ZN23btGImpactShapeInterface11updateBoundEv.exit: ; preds = %while.body, %if.end
   %arrayidx19.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1, i32 0, i32 0, i64 1
   %21 = load float, ptr %arrayidx19.i, align 4, !tbaa !19
   %cmp20.i = fcmp ogt float %17, %21
-  %call23.pn.i = select i1 %cmp20.i, ptr %m_localAABB.i, ptr %m_localAABB
-  %cond30.in.i = getelementptr inbounds float, ptr %call23.pn.i, i64 1
+  %box.pn.i = select i1 %cmp20.i, ptr %m_localAABB.i, ptr %m_localAABB
+  %cond30.in.i = getelementptr inbounds float, ptr %box.pn.i, i64 1
   %cond30.i = load float, ptr %cond30.in.i, align 4, !tbaa !19
   store float %cond30.i, ptr %arrayidx4.i, align 8, !tbaa !19
   %arrayidx39.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1, i32 0, i32 0, i64 2
   %22 = load float, ptr %arrayidx39.i, align 4, !tbaa !19
   %cmp40.i = fcmp ogt float %16, %22
-  %call43.pn.i = select i1 %cmp40.i, ptr %m_localAABB.i, ptr %m_localAABB
-  %cond50.in.i = getelementptr inbounds float, ptr %call43.pn.i, i64 2
+  %box.pn124.i = select i1 %cmp40.i, ptr %m_localAABB.i, ptr %m_localAABB
+  %cond50.in.i = getelementptr inbounds float, ptr %box.pn124.i, i64 2
   %cond50.i = load float, ptr %cond50.in.i, align 4, !tbaa !19
   store float %cond50.i, ptr %arrayidx7.i, align 4, !tbaa !19
   %m_max56.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1, i32 1
@@ -2239,15 +2238,15 @@ _ZN23btGImpactShapeInterface11updateBoundEv.exit: ; preds = %while.body, %if.end
   %arrayidx78.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1, i32 1, i32 0, i64 1
   %24 = load float, ptr %arrayidx78.i, align 4, !tbaa !19
   %cmp79.i = fcmp olt float %14, %24
-  %call82.pn.i = select i1 %cmp79.i, ptr %m_max56.i, ptr %m_max.i
-  %cond89.in.i = getelementptr inbounds float, ptr %call82.pn.i, i64 1
+  %box.pn126.i = select i1 %cmp79.i, ptr %m_localAABB.i, ptr %m_localAABB
+  %cond89.in.i = getelementptr inbounds %class.btAABB, ptr %box.pn126.i, i64 0, i32 1, i32 0, i64 1
   %cond89.i = load float, ptr %cond89.in.i, align 4, !tbaa !19
   store float %cond89.i, ptr %arrayidx12.i, align 8, !tbaa !19
   %arrayidx98.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %12, i64 0, i32 1, i32 1, i32 0, i64 2
   %25 = load float, ptr %arrayidx98.i, align 4, !tbaa !19
   %cmp99.i = fcmp olt float %13, %25
-  %call102.pn.i = select i1 %cmp99.i, ptr %m_max56.i, ptr %m_max.i
-  %cond109.in.i = getelementptr inbounds float, ptr %call102.pn.i, i64 2
+  %box.pn125.i = select i1 %cmp99.i, ptr %m_localAABB.i, ptr %m_localAABB
+  %cond109.in.i = getelementptr inbounds %class.btAABB, ptr %box.pn125.i, i64 0, i32 1, i32 0, i64 2
   %cond109.i = load float, ptr %cond109.in.i, align 4, !tbaa !19
   store float %cond109.i, ptr %arrayidx15.i, align 4, !tbaa !19
   %26 = and i64 %indvars.iv.next, 4294967295
@@ -2410,10 +2409,10 @@ if.then3.i.i:                                     ; preds = %entry
   br label %_ZN20btAlignedObjectArrayI11btTransformE5clearEv.exit
 
 _ZN20btAlignedObjectArrayI11btTransformE5clearEv.exit: ; preds = %entry, %if.then3.i.i
-  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !70
   store ptr null, ptr %m_data.i.i, align 8, !tbaa !16
-  store i32 0, ptr %m_size.i.i, align 4, !tbaa !71
+  %m_size.i4.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 2
+  store i32 0, ptr %m_size.i4.i, align 4, !tbaa !71
   %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 3
   store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !72
   ret void
@@ -2434,17 +2433,17 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i.i.i, align 8, !range !66
   %tobool2.not.i.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i.i = select i1 %tobool.not.i.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i.i
-  br i1 %or.cond.i.i.i.i, label %invoke.cont, label %if.then3.i.i.i.i.i
+  br i1 %or.cond.i.i.i.i, label %_ZN21btGImpactQuantizedBvhD2Ev.exit, label %if.then3.i.i.i.i.i
 
 if.then3.i.i.i.i.i:                               ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN21btGImpactQuantizedBvhD2Ev.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i.i.i
-  %m_size.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+_ZN21btGImpactQuantizedBvhD2Ev.exit:              ; preds = %if.then3.i.i.i.i.i, %entry
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i, align 8, !tbaa !74
   store ptr null, ptr %m_data.i.i.i.i.i, align 8, !tbaa !73
-  store i32 0, ptr %m_size.i.i.i.i.i, align 4, !tbaa !75
+  %m_size.i4.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+  store i32 0, ptr %m_size.i4.i.i.i.i, align 4, !tbaa !75
   %m_capacity.i.i.i.i.i = getelementptr inbounds %class.btGImpactShapeInterface, ptr %this, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i, align 8, !tbaa !76
   tail call void @_ZN14btConcaveShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
@@ -2728,10 +2727,10 @@ if.then3.i.i:                                     ; preds = %entry
   br label %_ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartE5clearEv.exit
 
 _ZN20btAlignedObjectArrayIP22btGImpactMeshShapePartE5clearEv.exit: ; preds = %entry, %if.then3.i.i
-  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %this, i64 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !101
   store ptr null, ptr %m_data.i.i, align 8, !tbaa !44
-  store i32 0, ptr %m_size.i.i, align 4, !tbaa !41
+  %m_size.i4.i = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %this, i64 0, i32 2
+  store i32 0, ptr %m_size.i4.i, align 4, !tbaa !41
   %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %this, i64 0, i32 3
   store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !102
   ret void

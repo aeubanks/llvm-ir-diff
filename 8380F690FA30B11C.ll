@@ -21,7 +21,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   store ptr getelementptr inbounds (%struct.anon, ptr @x, i64 0, i32 1), ptr @y, align 8, !tbaa !5
   tail call void @exit(i32 noundef 0) #3
   unreachable

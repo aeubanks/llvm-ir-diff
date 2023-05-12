@@ -558,7 +558,7 @@ if.then28:                                        ; preds = %if.end24
   %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
   store i32 36, ptr %msg_code, align 8, !tbaa !25
   %48 = load ptr, ptr %47, align 8, !tbaa !27
-  tail call void %48(ptr noundef nonnull %cinfo) #7
+  tail call void %48(ptr noundef %cinfo) #7
   br label %if.end30
 
 if.end30:                                         ; preds = %if.then28, %if.end24

@@ -237,8 +237,8 @@ lor.lhs.false:                                    ; preds = %entry
   br i1 %cmp4.not, label %for.cond.preheader, label %return
 
 for.cond.preheader:                               ; preds = %lor.lhs.false
-  %cmp625.not = icmp eq i32 %0, 0
-  br i1 %cmp625.not, label %for.end, label %for.body.preheader
+  %cmp624.not = icmp eq i32 %0, 0
+  br i1 %cmp624.not, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %for.cond.preheader
   %wide.trip.count = zext i32 %0 to i64
@@ -267,39 +267,30 @@ for.end:                                          ; preds = %for.cond, %for.cond
   br i1 %cmp.not.i, label %for.cond.preheader.i, label %return
 
 for.cond.preheader.i:                             ; preds = %for.end
-  %cmp320.i = icmp eq i64 %6, 0
-  br i1 %cmp320.i, label %return, label %for.body.lr.ph.i
+  %cmp320.not.i = icmp eq i64 %6, 0
+  br i1 %cmp320.not.i, label %return, label %for.body.lr.ph.i
 
 for.body.lr.ph.i:                                 ; preds = %for.cond.preheader.i
   %_items.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %this, i64 0, i32 3, i32 2
   %8 = load ptr, ptr %_items.i.i, align 8, !tbaa !18
   %_items.i19.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %a, i64 0, i32 3, i32 2
   %9 = load ptr, ptr %_items.i19.i, align 8, !tbaa !18
-  %10 = load i8, ptr %8, align 1, !tbaa !16
-  %11 = load i8, ptr %9, align 1, !tbaa !16
-  %cmp8.not.i27 = icmp eq i8 %10, %11
-  br i1 %cmp8.not.i27, label %for.cond.i, label %return
+  br label %for.body.i
 
-for.cond.i:                                       ; preds = %for.body.lr.ph.i, %for.body.i
-  %i.021.i28 = phi i64 [ %inc.i, %for.body.i ], [ 0, %for.body.lr.ph.i ]
-  %inc.i = add nuw i64 %i.021.i28, 1
-  %exitcond.i = icmp eq i64 %inc.i, %6
-  br i1 %exitcond.i, label %return.loopexit, label %for.body.i, !llvm.loop !19
+for.body.i:                                       ; preds = %for.body.i, %for.body.lr.ph.i
+  %i.021.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %inc.i, %for.body.i ]
+  %arrayidx.i = getelementptr inbounds i8, ptr %8, i64 %i.021.i
+  %10 = load i8, ptr %arrayidx.i, align 1, !tbaa !16
+  %arrayidx6.i = getelementptr inbounds i8, ptr %9, i64 %i.021.i
+  %11 = load i8, ptr %arrayidx6.i, align 1, !tbaa !16
+  %cmp8.not.i = icmp eq i8 %10, %11
+  %inc.i = add nuw i64 %i.021.i, 1
+  %exitcond.not.i = icmp ne i64 %inc.i, %6
+  %or.cond.not = select i1 %cmp8.not.i, i1 %exitcond.not.i, i1 false
+  br i1 %or.cond.not, label %for.body.i, label %return, !llvm.loop !19
 
-for.body.i:                                       ; preds = %for.cond.i
-  %arrayidx.i = getelementptr inbounds i8, ptr %8, i64 %inc.i
-  %12 = load i8, ptr %arrayidx.i, align 1, !tbaa !16
-  %arrayidx6.i = getelementptr inbounds i8, ptr %9, i64 %inc.i
-  %13 = load i8, ptr %arrayidx6.i, align 1, !tbaa !16
-  %cmp8.not.i = icmp eq i8 %12, %13
-  br i1 %cmp8.not.i, label %for.cond.i, label %return.loopexit, !llvm.loop !19
-
-return.loopexit:                                  ; preds = %for.body.i, %for.cond.i
-  %cmp3.i.le = icmp uge i64 %inc.i, %6
-  br label %return
-
-return:                                           ; preds = %for.body, %return.loopexit, %for.body.lr.ph.i, %for.cond.preheader.i, %for.end, %entry, %lor.lhs.false
-  %retval.1 = phi i1 [ false, %lor.lhs.false ], [ false, %entry ], [ false, %for.end ], [ true, %for.cond.preheader.i ], [ false, %for.body.lr.ph.i ], [ %cmp3.i.le, %return.loopexit ], [ false, %for.body ]
+return:                                           ; preds = %for.body, %for.body.i, %for.cond.preheader.i, %for.end, %entry, %lor.lhs.false
+  %retval.1 = phi i1 [ false, %lor.lhs.false ], [ false, %entry ], [ false, %for.end ], [ true, %for.cond.preheader.i ], [ %cmp8.not.i, %for.body.i ], [ false, %for.body ]
   ret i1 %retval.1
 }
 
@@ -562,394 +553,423 @@ define dso_local noundef zeroext i1 @_ZN7NCrypto7NSevenZ13CKeyInfoCache4FindERNS
 entry:
   %_size.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1, i32 0, i32 0, i32 2
   %0 = load i32, ptr %_size.i, align 4, !tbaa !28
-  %cmp.not50 = icmp sgt i32 %0, 0
-  br i1 %cmp.not50, label %for.body.lr.ph, label %cleanup19
+  %cmp61 = icmp sgt i32 %0, 0
+  br i1 %cmp61, label %for.body.lr.ph, label %cleanup19
 
 for.body.lr.ph:                                   ; preds = %entry
   %_items.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1, i32 0, i32 0, i32 3
   %1 = load ptr, ptr %_items.i.i, align 8, !tbaa !30
   %SaltSize.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 1
   %2 = load i32, ptr %SaltSize.i, align 4, !tbaa !5
-  %.fr65 = freeze i32 %2
+  %.fr = freeze i32 %2
   %3 = load i32, ptr %key, align 8
-  %cmp625.not.i = icmp eq i32 %.fr65, 0
-  %wide.trip.count.i = zext i32 %.fr65 to i64
+  %cmp624.not.i = icmp eq i32 %.fr, 0
+  %wide.trip.count.i = zext i32 %.fr to i64
   %_capacity.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 3, i32 1
   %4 = load i64, ptr %_capacity.i.i.i, align 8
-  %.fr = freeze i64 %4
-  %cmp320.i.i = icmp eq i64 %.fr, 0
+  %.fr93 = freeze i64 %4
+  %cmp320.not.i.i = icmp eq i64 %.fr93, 0
   %_items.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 3, i32 2
   %5 = load ptr, ptr %_items.i.i.i, align 8
-  %6 = zext i32 %0 to i64
-  %wide.trip.count87 = zext i32 %0 to i64
-  br i1 %cmp320.i.i, label %for.body.lr.ph.split.us, label %for.body
+  %wide.trip.count125 = zext i32 %0 to i64
+  br i1 %cmp624.not.i, label %for.body.lr.ph.split.us, label %for.body.lr.ph.split
 
 for.body.lr.ph.split.us:                          ; preds = %for.body.lr.ph
-  br i1 %cmp625.not.i, label %for.body.us.us, label %for.body.us
+  br i1 %cmp320.not.i.i, label %for.body.us.us, label %for.body.us
 
 for.body.us.us:                                   ; preds = %for.body.lr.ph.split.us, %for.inc17.us.us
-  %indvars.iv85 = phi i64 [ %indvars.iv.next86, %for.inc17.us.us ], [ 0, %for.body.lr.ph.split.us ]
-  %cmp.not52.us.us = phi i1 [ %cmp.not.us.us, %for.inc17.us.us ], [ true, %for.body.lr.ph.split.us ]
-  %arrayidx.i.i.us.us = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv85
-  %7 = load ptr, ptr %arrayidx.i.i.us.us, align 8, !tbaa !31
-  %SaltSize2.i.us.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %7, i64 0, i32 1
-  %8 = load i32, ptr %SaltSize2.i.us.us, align 4, !tbaa !5
-  %cmp.not.i.us.us = icmp eq i32 %8, 0
+  %indvars.iv122 = phi i64 [ %indvars.iv.next123, %for.inc17.us.us ], [ 0, %for.body.lr.ph.split.us ]
+  %arrayidx.i.i.us.us = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv122
+  %6 = load ptr, ptr %arrayidx.i.i.us.us, align 8, !tbaa !31
+  %SaltSize2.i.us.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %6, i64 0, i32 1
+  %7 = load i32, ptr %SaltSize2.i.us.us, align 4, !tbaa !5
+  %cmp.not.i.us.us = icmp eq i32 %7, 0
   br i1 %cmp.not.i.us.us, label %lor.lhs.false.i.us.us, label %for.inc17.us.us
 
 lor.lhs.false.i.us.us:                            ; preds = %for.body.us.us
-  %9 = load i32, ptr %7, align 8, !tbaa !13
-  %cmp4.not.i.us.us = icmp eq i32 %3, %9
+  %8 = load i32, ptr %6, align 8, !tbaa !13
+  %cmp4.not.i.us.us = icmp eq i32 %3, %8
   br i1 %cmp4.not.i.us.us, label %for.cond.preheader.i.us.us, label %for.inc17.us.us
 
 for.cond.preheader.i.us.us:                       ; preds = %lor.lhs.false.i.us.us
-  %_capacity.i17.i.i.us.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %7, i64 0, i32 3, i32 1
-  %10 = load i64, ptr %_capacity.i17.i.i.us.us, align 8, !tbaa !17
-  %cmp.not.i.i.us.us = icmp eq i64 %10, 0
-  br i1 %cmp.not.i.i.us.us, label %for.cond5.preheader, label %for.inc17.us.us
+  %_capacity.i17.i.i.us.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %6, i64 0, i32 3, i32 1
+  %9 = load i64, ptr %_capacity.i17.i.i.us.us, align 8, !tbaa !17
+  %cmp.not.i.i.us.us = icmp eq i64 %9, 0
+  br i1 %cmp.not.i.i.us.us, label %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit, label %for.inc17.us.us
 
 for.inc17.us.us:                                  ; preds = %for.cond.preheader.i.us.us, %lor.lhs.false.i.us.us, %for.body.us.us
-  %indvars.iv.next86 = add nuw nsw i64 %indvars.iv85, 1
-  %cmp.not.us.us = icmp ult i64 %indvars.iv.next86, %6
-  %exitcond88.not = icmp eq i64 %indvars.iv.next86, %wide.trip.count87
-  br i1 %exitcond88.not, label %cleanup19, label %for.body.us.us, !llvm.loop !32
+  %indvars.iv.next123 = add nuw nsw i64 %indvars.iv122, 1
+  %exitcond126.not = icmp eq i64 %indvars.iv.next123, %wide.trip.count125
+  br i1 %exitcond126.not, label %cleanup19, label %for.body.us.us, !llvm.loop !32
 
 for.body.us:                                      ; preds = %for.body.lr.ph.split.us, %for.inc17.us
-  %indvars.iv81 = phi i64 [ %indvars.iv.next82, %for.inc17.us ], [ 0, %for.body.lr.ph.split.us ]
-  %cmp.not52.us = phi i1 [ %cmp.not.us, %for.inc17.us ], [ true, %for.body.lr.ph.split.us ]
-  %arrayidx.i.i.us = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv81
-  %11 = load ptr, ptr %arrayidx.i.i.us, align 8, !tbaa !31
-  %SaltSize2.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %11, i64 0, i32 1
-  %12 = load i32, ptr %SaltSize2.i.us, align 4, !tbaa !5
-  %cmp.not.i.us = icmp eq i32 %.fr65, %12
+  %indvars.iv117 = phi i64 [ %indvars.iv.next118, %for.inc17.us ], [ 0, %for.body.lr.ph.split.us ]
+  %arrayidx.i.i.us = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv117
+  %10 = load ptr, ptr %arrayidx.i.i.us, align 8, !tbaa !31
+  %SaltSize2.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %10, i64 0, i32 1
+  %11 = load i32, ptr %SaltSize2.i.us, align 4, !tbaa !5
+  %cmp.not.i.us = icmp eq i32 %11, 0
   br i1 %cmp.not.i.us, label %lor.lhs.false.i.us, label %for.inc17.us
 
 lor.lhs.false.i.us:                               ; preds = %for.body.us
-  %13 = load i32, ptr %11, align 8, !tbaa !13
-  %cmp4.not.i.us = icmp eq i32 %3, %13
-  br i1 %cmp4.not.i.us, label %for.body.i.us, label %for.inc17.us
+  %12 = load i32, ptr %10, align 8, !tbaa !13
+  %cmp4.not.i.us = icmp eq i32 %3, %12
+  br i1 %cmp4.not.i.us, label %for.cond.preheader.i.us, label %for.inc17.us
 
-for.body.i.us:                                    ; preds = %lor.lhs.false.i.us, %for.cond.i.us
-  %indvars.iv.i.us = phi i64 [ %indvars.iv.next.i.us, %for.cond.i.us ], [ 0, %lor.lhs.false.i.us ]
+for.cond.preheader.i.us:                          ; preds = %lor.lhs.false.i.us
+  %_capacity.i17.i.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %10, i64 0, i32 3, i32 1
+  %13 = load i64, ptr %_capacity.i17.i.i.us, align 8, !tbaa !17
+  %cmp.not.i.i.us = icmp eq i64 %.fr93, %13
+  br i1 %cmp.not.i.i.us, label %for.cond.preheader.i.i.us, label %for.inc17.us
+
+for.cond.preheader.i.i.us:                        ; preds = %for.cond.preheader.i.us
+  %_items.i19.i.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %10, i64 0, i32 3, i32 2
+  %14 = load ptr, ptr %_items.i19.i.i.us, align 8, !tbaa !18
+  br label %for.body.i.i.us
+
+for.body.i.i.us:                                  ; preds = %for.cond.i.i.us, %for.cond.preheader.i.i.us
+  %i.021.i.i.us = phi i64 [ 0, %for.cond.preheader.i.i.us ], [ %inc.i.i.us, %for.cond.i.i.us ]
+  %arrayidx.i.i33.us = getelementptr inbounds i8, ptr %5, i64 %i.021.i.i.us
+  %15 = load i8, ptr %arrayidx.i.i33.us, align 1, !tbaa !16
+  %arrayidx6.i.i.us = getelementptr inbounds i8, ptr %14, i64 %i.021.i.i.us
+  %16 = load i8, ptr %arrayidx6.i.i.us, align 1, !tbaa !16
+  %cmp8.not.i.i.us = icmp eq i8 %15, %16
+  br i1 %cmp8.not.i.i.us, label %for.cond.i.i.us, label %for.inc17.us
+
+for.inc17.us:                                     ; preds = %for.body.i.i.us, %for.cond.preheader.i.us, %lor.lhs.false.i.us, %for.body.us
+  %indvars.iv.next118 = add nuw nsw i64 %indvars.iv117, 1
+  %exitcond121.not = icmp eq i64 %indvars.iv.next118, %wide.trip.count125
+  br i1 %exitcond121.not, label %cleanup19, label %for.body.us, !llvm.loop !32
+
+for.cond.i.i.us:                                  ; preds = %for.body.i.i.us
+  %inc.i.i.us = add nuw i64 %i.021.i.i.us, 1
+  %exitcond.not.i.i.us = icmp eq i64 %inc.i.i.us, %.fr93
+  br i1 %exitcond.not.i.i.us, label %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit, label %for.body.i.i.us, !llvm.loop !19
+
+for.body.lr.ph.split:                             ; preds = %for.body.lr.ph
+  br i1 %cmp320.not.i.i, label %for.body.us66, label %for.body
+
+for.body.us66:                                    ; preds = %for.body.lr.ph.split, %for.inc17.us76
+  %indvars.iv112 = phi i64 [ %indvars.iv.next113, %for.inc17.us76 ], [ 0, %for.body.lr.ph.split ]
+  %arrayidx.i.i.us69 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv112
+  %17 = load ptr, ptr %arrayidx.i.i.us69, align 8, !tbaa !31
+  %SaltSize2.i.us70 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 1
+  %18 = load i32, ptr %SaltSize2.i.us70, align 4, !tbaa !5
+  %cmp.not.i.us71 = icmp eq i32 %.fr, %18
+  br i1 %cmp.not.i.us71, label %lor.lhs.false.i.us72, label %for.inc17.us76
+
+lor.lhs.false.i.us72:                             ; preds = %for.body.us66
+  %19 = load i32, ptr %17, align 8, !tbaa !13
+  %cmp4.not.i.us73 = icmp eq i32 %3, %19
+  br i1 %cmp4.not.i.us73, label %for.body.i.us, label %for.inc17.us76
+
+for.body.i.us:                                    ; preds = %lor.lhs.false.i.us72, %for.cond.i.us
+  %indvars.iv.i.us = phi i64 [ %indvars.iv.next.i.us, %for.cond.i.us ], [ 0, %lor.lhs.false.i.us72 ]
   %arrayidx.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 2, i64 %indvars.iv.i.us
-  %14 = load i8, ptr %arrayidx.i.us, align 1, !tbaa !16
-  %arrayidx9.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %11, i64 0, i32 2, i64 %indvars.iv.i.us
-  %15 = load i8, ptr %arrayidx9.i.us, align 1, !tbaa !16
-  %cmp11.not.i.us = icmp eq i8 %14, %15
-  br i1 %cmp11.not.i.us, label %for.cond.i.us, label %for.inc17.us
+  %20 = load i8, ptr %arrayidx.i.us, align 1, !tbaa !16
+  %arrayidx9.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 2, i64 %indvars.iv.i.us
+  %21 = load i8, ptr %arrayidx9.i.us, align 1, !tbaa !16
+  %cmp11.not.i.us = icmp eq i8 %20, %21
+  br i1 %cmp11.not.i.us, label %for.cond.i.us, label %for.inc17.us76
 
 for.cond.i.us:                                    ; preds = %for.body.i.us
   %indvars.iv.next.i.us = add nuw nsw i64 %indvars.iv.i.us, 1
   %exitcond.not.i.us = icmp eq i64 %indvars.iv.next.i.us, %wide.trip.count.i
   br i1 %exitcond.not.i.us, label %for.end.i.loopexit.us, label %for.body.i.us, !llvm.loop !14
 
-for.inc17.us:                                     ; preds = %for.body.i.us, %for.end.i.loopexit.us, %lor.lhs.false.i.us, %for.body.us
-  %indvars.iv.next82 = add nuw nsw i64 %indvars.iv81, 1
-  %cmp.not.us = icmp ult i64 %indvars.iv.next82, %6
-  %exitcond84.not = icmp eq i64 %indvars.iv.next82, %wide.trip.count87
-  br i1 %exitcond84.not, label %cleanup19, label %for.body.us, !llvm.loop !32
+for.inc17.us76:                                   ; preds = %for.body.i.us, %for.end.i.loopexit.us, %lor.lhs.false.i.us72, %for.body.us66
+  %indvars.iv.next113 = add nuw nsw i64 %indvars.iv112, 1
+  %exitcond116.not = icmp eq i64 %indvars.iv.next113, %wide.trip.count125
+  br i1 %exitcond116.not, label %cleanup19, label %for.body.us66, !llvm.loop !32
 
 for.end.i.loopexit.us:                            ; preds = %for.cond.i.us
-  %_capacity.i17.i.i.us = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %11, i64 0, i32 3, i32 1
-  %16 = load i64, ptr %_capacity.i17.i.i.us, align 8, !tbaa !17
-  %cmp.not.i.i.us = icmp eq i64 %16, 0
-  br i1 %cmp.not.i.i.us, label %for.cond5.preheader, label %for.inc17.us
+  %_capacity.i17.i.i.us79 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 3, i32 1
+  %22 = load i64, ptr %_capacity.i17.i.i.us79, align 8, !tbaa !17
+  %cmp.not.i.i.us80 = icmp eq i64 %22, 0
+  br i1 %cmp.not.i.i.us80, label %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit, label %for.inc17.us76
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.inc17
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc17 ], [ 0, %for.body.lr.ph ]
-  %cmp.not52 = phi i1 [ %cmp.not, %for.inc17 ], [ true, %for.body.lr.ph ]
+for.body:                                         ; preds = %for.body.lr.ph.split, %for.inc17
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc17 ], [ 0, %for.body.lr.ph.split ]
   %arrayidx.i.i = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv
-  %17 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !31
-  %SaltSize2.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 1
-  %18 = load i32, ptr %SaltSize2.i, align 4, !tbaa !5
-  %cmp.not.i = icmp eq i32 %.fr65, %18
+  %23 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !31
+  %SaltSize2.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %23, i64 0, i32 1
+  %24 = load i32, ptr %SaltSize2.i, align 4, !tbaa !5
+  %cmp.not.i = icmp eq i32 %.fr, %24
   br i1 %cmp.not.i, label %lor.lhs.false.i, label %for.inc17
 
 lor.lhs.false.i:                                  ; preds = %for.body
-  %19 = load i32, ptr %17, align 8, !tbaa !13
-  %cmp4.not.i = icmp eq i32 %3, %19
-  br i1 %cmp4.not.i, label %for.cond.preheader.i, label %for.inc17
-
-for.cond.preheader.i:                             ; preds = %lor.lhs.false.i
-  br i1 %cmp625.not.i, label %for.end.i, label %for.body.i
+  %25 = load i32, ptr %23, align 8, !tbaa !13
+  %cmp4.not.i = icmp eq i32 %3, %25
+  br i1 %cmp4.not.i, label %for.body.i, label %for.inc17
 
 for.cond.i:                                       ; preds = %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
-  br i1 %exitcond.not.i, label %for.end.i, label %for.body.i, !llvm.loop !14
+  br i1 %exitcond.not.i, label %for.end.i.loopexit, label %for.body.i, !llvm.loop !14
 
-for.body.i:                                       ; preds = %for.cond.preheader.i, %for.cond.i
-  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %for.cond.preheader.i ]
+for.body.i:                                       ; preds = %lor.lhs.false.i, %for.cond.i
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %lor.lhs.false.i ]
   %arrayidx.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 2, i64 %indvars.iv.i
-  %20 = load i8, ptr %arrayidx.i, align 1, !tbaa !16
-  %arrayidx9.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 2, i64 %indvars.iv.i
-  %21 = load i8, ptr %arrayidx9.i, align 1, !tbaa !16
-  %cmp11.not.i = icmp eq i8 %20, %21
+  %26 = load i8, ptr %arrayidx.i, align 1, !tbaa !16
+  %arrayidx9.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %23, i64 0, i32 2, i64 %indvars.iv.i
+  %27 = load i8, ptr %arrayidx9.i, align 1, !tbaa !16
+  %cmp11.not.i = icmp eq i8 %26, %27
   br i1 %cmp11.not.i, label %for.cond.i, label %for.inc17
 
-for.end.i:                                        ; preds = %for.cond.i, %for.cond.preheader.i
-  %_capacity.i17.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 3, i32 1
-  %22 = load i64, ptr %_capacity.i17.i.i, align 8, !tbaa !17
-  %cmp.not.i.i = icmp eq i64 %.fr, %22
+for.end.i.loopexit:                               ; preds = %for.cond.i
+  %_capacity.i17.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %23, i64 0, i32 3, i32 1
+  %28 = load i64, ptr %_capacity.i17.i.i, align 8, !tbaa !17
+  %cmp.not.i.i = icmp eq i64 %.fr93, %28
   br i1 %cmp.not.i.i, label %for.cond.preheader.i.i, label %for.inc17
 
-for.cond.preheader.i.i:                           ; preds = %for.end.i
-  %_items.i19.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %17, i64 0, i32 3, i32 2
-  %23 = load ptr, ptr %_items.i19.i.i, align 8, !tbaa !18
-  %24 = load i8, ptr %5, align 1, !tbaa !16
-  %25 = load i8, ptr %23, align 1, !tbaa !16
-  %cmp8.not.i27.i = icmp eq i8 %24, %25
-  br i1 %cmp8.not.i27.i, label %for.cond.i.i, label %for.inc17
+for.cond.preheader.i.i:                           ; preds = %for.end.i.loopexit
+  %_items.i19.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %23, i64 0, i32 3, i32 2
+  %29 = load ptr, ptr %_items.i19.i.i, align 8, !tbaa !18
+  br label %for.body.i.i
 
-for.cond.i.i:                                     ; preds = %for.cond.preheader.i.i, %for.body.i.i
-  %i.021.i28.i = phi i64 [ %inc.i.i, %for.body.i.i ], [ 0, %for.cond.preheader.i.i ]
-  %inc.i.i = add nuw i64 %i.021.i28.i, 1
-  %exitcond.i.i = icmp eq i64 %inc.i.i, %.fr
-  br i1 %exitcond.i.i, label %for.cond5.preheader, label %for.body.i.i, !llvm.loop !19
+for.cond.i.i:                                     ; preds = %for.body.i.i
+  %inc.i.i = add nuw i64 %i.021.i.i, 1
+  %exitcond.not.i.i = icmp eq i64 %inc.i.i, %.fr93
+  br i1 %exitcond.not.i.i, label %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit, label %for.body.i.i, !llvm.loop !19
 
-for.body.i.i:                                     ; preds = %for.cond.i.i
-  %arrayidx.i.i33 = getelementptr inbounds i8, ptr %5, i64 %inc.i.i
-  %26 = load i8, ptr %arrayidx.i.i33, align 1, !tbaa !16
-  %arrayidx6.i.i = getelementptr inbounds i8, ptr %23, i64 %inc.i.i
-  %27 = load i8, ptr %arrayidx6.i.i, align 1, !tbaa !16
-  %cmp8.not.i.i = icmp eq i8 %26, %27
-  br i1 %cmp8.not.i.i, label %for.cond.i.i, label %return.loopexit.i, !llvm.loop !19
+for.body.i.i:                                     ; preds = %for.cond.i.i, %for.cond.preheader.i.i
+  %i.021.i.i = phi i64 [ 0, %for.cond.preheader.i.i ], [ %inc.i.i, %for.cond.i.i ]
+  %arrayidx.i.i33 = getelementptr inbounds i8, ptr %5, i64 %i.021.i.i
+  %30 = load i8, ptr %arrayidx.i.i33, align 1, !tbaa !16
+  %arrayidx6.i.i = getelementptr inbounds i8, ptr %29, i64 %i.021.i.i
+  %31 = load i8, ptr %arrayidx6.i.i, align 1, !tbaa !16
+  %cmp8.not.i.i = icmp eq i8 %30, %31
+  br i1 %cmp8.not.i.i, label %for.cond.i.i, label %for.inc17
 
-return.loopexit.i:                                ; preds = %for.body.i.i
-  %cmp3.i.le.i.not = icmp ult i64 %inc.i.i, %.fr
-  br i1 %cmp3.i.le.i.not, label %for.inc17, label %for.cond5.preheader
-
-for.cond5.preheader:                              ; preds = %return.loopexit.i, %for.cond.i.i, %for.end.i.loopexit.us, %for.cond.preheader.i.us.us
-  %.us-phi = phi ptr [ %7, %for.cond.preheader.i.us.us ], [ %11, %for.end.i.loopexit.us ], [ %17, %for.cond.i.i ], [ %17, %return.loopexit.i ]
-  %.us-phi53.in = phi i64 [ %indvars.iv85, %for.cond.preheader.i.us.us ], [ %indvars.iv81, %for.end.i.loopexit.us ], [ %indvars.iv, %for.cond.i.i ], [ %indvars.iv, %return.loopexit.i ]
-  %.us-phi54 = phi i1 [ %cmp.not52.us.us, %for.cond.preheader.i.us.us ], [ %cmp.not52.us, %for.end.i.loopexit.us ], [ %cmp.not52, %for.cond.i.i ], [ %cmp.not52, %return.loopexit.i ]
-  %.us-phi53 = trunc i64 %.us-phi53.in to i32
-  %arrayidx = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 0
-  %28 = load i8, ptr %arrayidx, align 1, !tbaa !16
+_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit: ; preds = %for.cond.i.i, %for.end.i.loopexit.us, %for.cond.i.i.us, %for.cond.preheader.i.us.us
+  %32 = phi ptr [ %6, %for.cond.preheader.i.us.us ], [ %10, %for.cond.i.i.us ], [ %17, %for.end.i.loopexit.us ], [ %23, %for.cond.i.i ]
+  %i.054.in = phi i64 [ %indvars.iv122, %for.cond.preheader.i.us.us ], [ %indvars.iv117, %for.cond.i.i.us ], [ %indvars.iv112, %for.end.i.loopexit.us ], [ %indvars.iv, %for.cond.i.i ]
+  %i.054 = trunc i64 %i.054.in to i32
+  %Keys51 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1
+  %arrayidx = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 0
+  %33 = load i8, ptr %arrayidx, align 1, !tbaa !16
   %arrayidx11 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 0
-  store i8 %28, ptr %arrayidx11, align 8, !tbaa !16
-  %arrayidx.1 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 1
-  %29 = load i8, ptr %arrayidx.1, align 1, !tbaa !16
+  store i8 %33, ptr %arrayidx11, align 8, !tbaa !16
+  %arrayidx.1 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 1
+  %34 = load i8, ptr %arrayidx.1, align 1, !tbaa !16
   %arrayidx11.1 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 1
-  store i8 %29, ptr %arrayidx11.1, align 1, !tbaa !16
-  %arrayidx.2 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 2
-  %30 = load i8, ptr %arrayidx.2, align 1, !tbaa !16
+  store i8 %34, ptr %arrayidx11.1, align 1, !tbaa !16
+  %arrayidx.2 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 2
+  %35 = load i8, ptr %arrayidx.2, align 1, !tbaa !16
   %arrayidx11.2 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 2
-  store i8 %30, ptr %arrayidx11.2, align 2, !tbaa !16
-  %arrayidx.3 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 3
-  %31 = load i8, ptr %arrayidx.3, align 1, !tbaa !16
+  store i8 %35, ptr %arrayidx11.2, align 2, !tbaa !16
+  %arrayidx.3 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 3
+  %36 = load i8, ptr %arrayidx.3, align 1, !tbaa !16
   %arrayidx11.3 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 3
-  store i8 %31, ptr %arrayidx11.3, align 1, !tbaa !16
-  %arrayidx.4 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 4
-  %32 = load i8, ptr %arrayidx.4, align 1, !tbaa !16
+  store i8 %36, ptr %arrayidx11.3, align 1, !tbaa !16
+  %arrayidx.4 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 4
+  %37 = load i8, ptr %arrayidx.4, align 1, !tbaa !16
   %arrayidx11.4 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 4
-  store i8 %32, ptr %arrayidx11.4, align 4, !tbaa !16
-  %arrayidx.5 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 5
-  %33 = load i8, ptr %arrayidx.5, align 1, !tbaa !16
+  store i8 %37, ptr %arrayidx11.4, align 4, !tbaa !16
+  %arrayidx.5 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 5
+  %38 = load i8, ptr %arrayidx.5, align 1, !tbaa !16
   %arrayidx11.5 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 5
-  store i8 %33, ptr %arrayidx11.5, align 1, !tbaa !16
-  %arrayidx.6 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 6
-  %34 = load i8, ptr %arrayidx.6, align 1, !tbaa !16
+  store i8 %38, ptr %arrayidx11.5, align 1, !tbaa !16
+  %arrayidx.6 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 6
+  %39 = load i8, ptr %arrayidx.6, align 1, !tbaa !16
   %arrayidx11.6 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 6
-  store i8 %34, ptr %arrayidx11.6, align 2, !tbaa !16
-  %arrayidx.7 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 7
-  %35 = load i8, ptr %arrayidx.7, align 1, !tbaa !16
+  store i8 %39, ptr %arrayidx11.6, align 2, !tbaa !16
+  %arrayidx.7 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 7
+  %40 = load i8, ptr %arrayidx.7, align 1, !tbaa !16
   %arrayidx11.7 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 7
-  store i8 %35, ptr %arrayidx11.7, align 1, !tbaa !16
-  %arrayidx.8 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 8
-  %36 = load i8, ptr %arrayidx.8, align 1, !tbaa !16
+  store i8 %40, ptr %arrayidx11.7, align 1, !tbaa !16
+  %arrayidx.8 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 8
+  %41 = load i8, ptr %arrayidx.8, align 1, !tbaa !16
   %arrayidx11.8 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 8
-  store i8 %36, ptr %arrayidx11.8, align 8, !tbaa !16
-  %arrayidx.9 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 9
-  %37 = load i8, ptr %arrayidx.9, align 1, !tbaa !16
+  store i8 %41, ptr %arrayidx11.8, align 8, !tbaa !16
+  %arrayidx.9 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 9
+  %42 = load i8, ptr %arrayidx.9, align 1, !tbaa !16
   %arrayidx11.9 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 9
-  store i8 %37, ptr %arrayidx11.9, align 1, !tbaa !16
-  %arrayidx.10 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 10
-  %38 = load i8, ptr %arrayidx.10, align 1, !tbaa !16
+  store i8 %42, ptr %arrayidx11.9, align 1, !tbaa !16
+  %arrayidx.10 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 10
+  %43 = load i8, ptr %arrayidx.10, align 1, !tbaa !16
   %arrayidx11.10 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 10
-  store i8 %38, ptr %arrayidx11.10, align 2, !tbaa !16
-  %arrayidx.11 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 11
-  %39 = load i8, ptr %arrayidx.11, align 1, !tbaa !16
+  store i8 %43, ptr %arrayidx11.10, align 2, !tbaa !16
+  %arrayidx.11 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 11
+  %44 = load i8, ptr %arrayidx.11, align 1, !tbaa !16
   %arrayidx11.11 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 11
-  store i8 %39, ptr %arrayidx11.11, align 1, !tbaa !16
-  %arrayidx.12 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 12
-  %40 = load i8, ptr %arrayidx.12, align 1, !tbaa !16
+  store i8 %44, ptr %arrayidx11.11, align 1, !tbaa !16
+  %arrayidx.12 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 12
+  %45 = load i8, ptr %arrayidx.12, align 1, !tbaa !16
   %arrayidx11.12 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 12
-  store i8 %40, ptr %arrayidx11.12, align 4, !tbaa !16
-  %arrayidx.13 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 13
-  %41 = load i8, ptr %arrayidx.13, align 1, !tbaa !16
+  store i8 %45, ptr %arrayidx11.12, align 4, !tbaa !16
+  %arrayidx.13 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 13
+  %46 = load i8, ptr %arrayidx.13, align 1, !tbaa !16
   %arrayidx11.13 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 13
-  store i8 %41, ptr %arrayidx11.13, align 1, !tbaa !16
-  %arrayidx.14 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 14
-  %42 = load i8, ptr %arrayidx.14, align 1, !tbaa !16
+  store i8 %46, ptr %arrayidx11.13, align 1, !tbaa !16
+  %arrayidx.14 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 14
+  %47 = load i8, ptr %arrayidx.14, align 1, !tbaa !16
   %arrayidx11.14 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 14
-  store i8 %42, ptr %arrayidx11.14, align 2, !tbaa !16
-  %arrayidx.15 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 15
-  %43 = load i8, ptr %arrayidx.15, align 1, !tbaa !16
+  store i8 %47, ptr %arrayidx11.14, align 2, !tbaa !16
+  %arrayidx.15 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 15
+  %48 = load i8, ptr %arrayidx.15, align 1, !tbaa !16
   %arrayidx11.15 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 15
-  store i8 %43, ptr %arrayidx11.15, align 1, !tbaa !16
-  %arrayidx.16 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 16
-  %44 = load i8, ptr %arrayidx.16, align 1, !tbaa !16
+  store i8 %48, ptr %arrayidx11.15, align 1, !tbaa !16
+  %arrayidx.16 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 16
+  %49 = load i8, ptr %arrayidx.16, align 1, !tbaa !16
   %arrayidx11.16 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 16
-  store i8 %44, ptr %arrayidx11.16, align 8, !tbaa !16
-  %arrayidx.17 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 17
-  %45 = load i8, ptr %arrayidx.17, align 1, !tbaa !16
+  store i8 %49, ptr %arrayidx11.16, align 8, !tbaa !16
+  %arrayidx.17 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 17
+  %50 = load i8, ptr %arrayidx.17, align 1, !tbaa !16
   %arrayidx11.17 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 17
-  store i8 %45, ptr %arrayidx11.17, align 1, !tbaa !16
-  %arrayidx.18 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 18
-  %46 = load i8, ptr %arrayidx.18, align 1, !tbaa !16
+  store i8 %50, ptr %arrayidx11.17, align 1, !tbaa !16
+  %arrayidx.18 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 18
+  %51 = load i8, ptr %arrayidx.18, align 1, !tbaa !16
   %arrayidx11.18 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 18
-  store i8 %46, ptr %arrayidx11.18, align 2, !tbaa !16
-  %arrayidx.19 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 19
-  %47 = load i8, ptr %arrayidx.19, align 1, !tbaa !16
+  store i8 %51, ptr %arrayidx11.18, align 2, !tbaa !16
+  %arrayidx.19 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 19
+  %52 = load i8, ptr %arrayidx.19, align 1, !tbaa !16
   %arrayidx11.19 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 19
-  store i8 %47, ptr %arrayidx11.19, align 1, !tbaa !16
-  %arrayidx.20 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 20
-  %48 = load i8, ptr %arrayidx.20, align 1, !tbaa !16
+  store i8 %52, ptr %arrayidx11.19, align 1, !tbaa !16
+  %arrayidx.20 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 20
+  %53 = load i8, ptr %arrayidx.20, align 1, !tbaa !16
   %arrayidx11.20 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 20
-  store i8 %48, ptr %arrayidx11.20, align 4, !tbaa !16
-  %arrayidx.21 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 21
-  %49 = load i8, ptr %arrayidx.21, align 1, !tbaa !16
+  store i8 %53, ptr %arrayidx11.20, align 4, !tbaa !16
+  %arrayidx.21 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 21
+  %54 = load i8, ptr %arrayidx.21, align 1, !tbaa !16
   %arrayidx11.21 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 21
-  store i8 %49, ptr %arrayidx11.21, align 1, !tbaa !16
-  %arrayidx.22 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 22
-  %50 = load i8, ptr %arrayidx.22, align 1, !tbaa !16
+  store i8 %54, ptr %arrayidx11.21, align 1, !tbaa !16
+  %arrayidx.22 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 22
+  %55 = load i8, ptr %arrayidx.22, align 1, !tbaa !16
   %arrayidx11.22 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 22
-  store i8 %50, ptr %arrayidx11.22, align 2, !tbaa !16
-  %arrayidx.23 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 23
-  %51 = load i8, ptr %arrayidx.23, align 1, !tbaa !16
+  store i8 %55, ptr %arrayidx11.22, align 2, !tbaa !16
+  %arrayidx.23 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 23
+  %56 = load i8, ptr %arrayidx.23, align 1, !tbaa !16
   %arrayidx11.23 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 23
-  store i8 %51, ptr %arrayidx11.23, align 1, !tbaa !16
-  %arrayidx.24 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 24
-  %52 = load i8, ptr %arrayidx.24, align 1, !tbaa !16
+  store i8 %56, ptr %arrayidx11.23, align 1, !tbaa !16
+  %arrayidx.24 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 24
+  %57 = load i8, ptr %arrayidx.24, align 1, !tbaa !16
   %arrayidx11.24 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 24
-  store i8 %52, ptr %arrayidx11.24, align 8, !tbaa !16
-  %arrayidx.25 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 25
-  %53 = load i8, ptr %arrayidx.25, align 1, !tbaa !16
+  store i8 %57, ptr %arrayidx11.24, align 8, !tbaa !16
+  %arrayidx.25 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 25
+  %58 = load i8, ptr %arrayidx.25, align 1, !tbaa !16
   %arrayidx11.25 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 25
-  store i8 %53, ptr %arrayidx11.25, align 1, !tbaa !16
-  %arrayidx.26 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 26
-  %54 = load i8, ptr %arrayidx.26, align 1, !tbaa !16
+  store i8 %58, ptr %arrayidx11.25, align 1, !tbaa !16
+  %arrayidx.26 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 26
+  %59 = load i8, ptr %arrayidx.26, align 1, !tbaa !16
   %arrayidx11.26 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 26
-  store i8 %54, ptr %arrayidx11.26, align 2, !tbaa !16
-  %arrayidx.27 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 27
-  %55 = load i8, ptr %arrayidx.27, align 1, !tbaa !16
+  store i8 %59, ptr %arrayidx11.26, align 2, !tbaa !16
+  %arrayidx.27 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 27
+  %60 = load i8, ptr %arrayidx.27, align 1, !tbaa !16
   %arrayidx11.27 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 27
-  store i8 %55, ptr %arrayidx11.27, align 1, !tbaa !16
-  %arrayidx.28 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 28
-  %56 = load i8, ptr %arrayidx.28, align 1, !tbaa !16
+  store i8 %60, ptr %arrayidx11.27, align 1, !tbaa !16
+  %arrayidx.28 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 28
+  %61 = load i8, ptr %arrayidx.28, align 1, !tbaa !16
   %arrayidx11.28 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 28
-  store i8 %56, ptr %arrayidx11.28, align 4, !tbaa !16
-  %arrayidx.29 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 29
-  %57 = load i8, ptr %arrayidx.29, align 1, !tbaa !16
+  store i8 %61, ptr %arrayidx11.28, align 4, !tbaa !16
+  %arrayidx.29 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 29
+  %62 = load i8, ptr %arrayidx.29, align 1, !tbaa !16
   %arrayidx11.29 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 29
-  store i8 %57, ptr %arrayidx11.29, align 1, !tbaa !16
-  %arrayidx.30 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 30
-  %58 = load i8, ptr %arrayidx.30, align 1, !tbaa !16
+  store i8 %62, ptr %arrayidx11.29, align 1, !tbaa !16
+  %arrayidx.30 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 30
+  %63 = load i8, ptr %arrayidx.30, align 1, !tbaa !16
   %arrayidx11.30 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 30
-  store i8 %58, ptr %arrayidx11.30, align 2, !tbaa !16
-  %arrayidx.31 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 4, i64 31
-  %59 = load i8, ptr %arrayidx.31, align 1, !tbaa !16
+  store i8 %63, ptr %arrayidx11.30, align 2, !tbaa !16
+  %arrayidx.31 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 4, i64 31
+  %64 = load i8, ptr %arrayidx.31, align 1, !tbaa !16
   %arrayidx11.31 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %key, i64 0, i32 4, i64 31
-  store i8 %59, ptr %arrayidx11.31, align 1, !tbaa !16
-  %Keys.le = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1
-  %cmp12.not = icmp eq i32 %.us-phi53, 0
+  store i8 %64, ptr %arrayidx11.31, align 1, !tbaa !16
+  %cmp12.not = icmp eq i32 %i.054, 0
   br i1 %cmp12.not, label %cleanup19, label %if.then13
 
-if.then13:                                        ; preds = %for.cond5.preheader
+if.then13:                                        ; preds = %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit
   %call.i = tail call noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #21
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %call.i, ptr noundef nonnull align 8 dereferenceable(24) %.us-phi, i64 24, i1 false)
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %call.i, ptr noundef nonnull align 8 dereferenceable(24) %32, i64 24, i1 false)
   %Password.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %call.i, i64 0, i32 3
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %Password.i.i, align 8, !tbaa !33
   %_capacity.i.i.i34 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %call.i, i64 0, i32 3, i32 1
-  %_capacity.i.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 3, i32 1
+  %_capacity.i.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 3, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i.i34, i8 0, i64 16, i1 false)
-  %60 = load i64, ptr %_capacity.i.i.i.i, align 8, !tbaa !17
-  %cmp.not.i.i.i.i = icmp eq i64 %60, 0
+  %65 = load i64, ptr %_capacity.i.i.i.i, align 8, !tbaa !17
+  %cmp.not.i.i.i.i = icmp eq i64 %65, 0
   br i1 %cmp.not.i.i.i.i, label %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6InsertEiRKS2_.exit, label %_ZN7CBufferIhE11SetCapacityEm.exit.i.i.i.i
 
 _ZN7CBufferIhE11SetCapacityEm.exit.i.i.i.i:       ; preds = %if.then13
-  %call.i.i.i.i3.i = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %60) #21
+  %call.i.i.i.i3.i = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %65) #21
           to label %call.i.i.i.i.noexc.i unwind label %lpad.i
 
 call.i.i.i.i.noexc.i:                             ; preds = %_ZN7CBufferIhE11SetCapacityEm.exit.i.i.i.i
   %_items.i.i.i35 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %call.i, i64 0, i32 3, i32 2
   store ptr %call.i.i.i.i3.i, ptr %_items.i.i.i35, align 8, !tbaa !18
-  store i64 %60, ptr %_capacity.i.i.i34, align 8, !tbaa !17
-  %_items3.i.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %.us-phi, i64 0, i32 3, i32 2
-  %61 = load ptr, ptr %_items3.i.i.i.i, align 8, !tbaa !18
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %call.i.i.i.i3.i, ptr align 1 %61, i64 %60, i1 false)
+  store i64 %65, ptr %_capacity.i.i.i34, align 8, !tbaa !17
+  %_items3.i.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %32, i64 0, i32 3, i32 2
+  %66 = load ptr, ptr %_items3.i.i.i.i, align 8, !tbaa !18
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %call.i.i.i.i3.i, ptr align 1 %66, i64 %65, i1 false)
   br label %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6InsertEiRKS2_.exit
 
 lpad.i:                                           ; preds = %_ZN7CBufferIhE11SetCapacityEm.exit.i.i.i.i
-  %62 = landingpad { ptr, i32 }
+  %67 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call.i) #22
-  resume { ptr, i32 } %62
+  resume { ptr, i32 } %67
 
 _ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6InsertEiRKS2_.exit: ; preds = %if.then13, %call.i.i.i.i.noexc.i
   %Key.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %call.i, i64 0, i32 4
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %Key.i.i, ptr noundef nonnull align 8 dereferenceable(32) %arrayidx, i64 32, i1 false), !tbaa.struct !35
-  tail call void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %Keys.le, i32 noundef 0)
-  %63 = load ptr, ptr %_items.i.i, align 8, !tbaa !30
-  store ptr %call.i, ptr %63, align 8, !tbaa !31
-  %add = add nuw nsw i32 %.us-phi53, 1
-  %add.i.i = add nuw nsw i32 %.us-phi53, 2
-  %64 = load i32, ptr %_size.i, align 4, !tbaa !28
-  %cmp.i.i = icmp sgt i32 %add.i.i, %64
-  %sub.i.i = sub nsw i32 %64, %add
+  tail call void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %Keys51, i32 noundef 0)
+  %68 = load ptr, ptr %_items.i.i, align 8, !tbaa !30
+  store ptr %call.i, ptr %68, align 8, !tbaa !31
+  %add = add nuw nsw i32 %i.054, 1
+  %add.i.i = add nuw nsw i32 %i.054, 2
+  %69 = load i32, ptr %_size.i, align 4, !tbaa !28
+  %cmp.i.i = icmp sgt i32 %add.i.i, %69
+  %sub.i.i = sub nsw i32 %69, %add
   %spec.select.i = select i1 %cmp.i.i, i32 %sub.i.i, i32 1
   %cmp8.i = icmp sgt i32 %spec.select.i, 0
   br i1 %cmp8.i, label %for.body.lr.ph.i, label %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit
 
 for.body.lr.ph.i:                                 ; preds = %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6InsertEiRKS2_.exit
-  %65 = zext i32 %add to i64
-  %66 = zext i32 %spec.select.i to i64
+  %70 = zext i32 %add to i64
+  %71 = zext i32 %spec.select.i to i64
   br label %for.body.i39
 
 for.body.i39:                                     ; preds = %for.inc.i, %for.body.lr.ph.i
   %indvars.iv.i37 = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i42, %for.inc.i ]
-  %67 = load ptr, ptr %_items.i.i, align 8, !tbaa !30
-  %68 = add nuw nsw i64 %indvars.iv.i37, %65
-  %arrayidx.i38 = getelementptr inbounds ptr, ptr %67, i64 %68
-  %69 = load ptr, ptr %arrayidx.i38, align 8, !tbaa !31
-  %isnull.i = icmp eq ptr %69, null
+  %72 = load ptr, ptr %_items.i.i, align 8, !tbaa !30
+  %73 = add nuw nsw i64 %indvars.iv.i37, %70
+  %arrayidx.i38 = getelementptr inbounds ptr, ptr %72, i64 %73
+  %74 = load ptr, ptr %arrayidx.i38, align 8, !tbaa !31
+  %isnull.i = icmp eq ptr %74, null
   br i1 %isnull.i, label %for.inc.i, label %delete.notnull.i
 
 delete.notnull.i:                                 ; preds = %for.body.i39
-  %Password.i.i40 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %69, i64 0, i32 3
+  %Password.i.i40 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %74, i64 0, i32 3
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %Password.i.i40, align 8, !tbaa !33
-  %_items.i.i.i41 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %69, i64 0, i32 3, i32 2
-  %70 = load ptr, ptr %_items.i.i.i41, align 8, !tbaa !18
-  %isnull.i.i.i = icmp eq ptr %70, null
+  %_items.i.i.i41 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %74, i64 0, i32 3, i32 2
+  %75 = load ptr, ptr %_items.i.i.i41, align 8, !tbaa !18
+  %isnull.i.i.i = icmp eq ptr %75, null
   br i1 %isnull.i.i.i, label %_ZN7NCrypto7NSevenZ8CKeyInfoD2Ev.exit.i, label %delete.notnull.i.i.i
 
 delete.notnull.i.i.i:                             ; preds = %delete.notnull.i
-  tail call void @_ZdaPv(ptr noundef nonnull %70) #22
+  tail call void @_ZdaPv(ptr noundef nonnull %75) #22
   br label %_ZN7NCrypto7NSevenZ8CKeyInfoD2Ev.exit.i
 
 _ZN7NCrypto7NSevenZ8CKeyInfoD2Ev.exit.i:          ; preds = %delete.notnull.i.i.i, %delete.notnull.i
-  tail call void @_ZdlPv(ptr noundef nonnull %69) #22
+  tail call void @_ZdlPv(ptr noundef nonnull %74) #22
   br label %for.inc.i
 
 for.inc.i:                                        ; preds = %_ZN7NCrypto7NSevenZ8CKeyInfoD2Ev.exit.i, %for.body.i39
   %indvars.iv.next.i42 = add nuw nsw i64 %indvars.iv.i37, 1
-  %exitcond94.not = icmp eq i64 %indvars.iv.next.i42, %66
-  br i1 %exitcond94.not, label %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit, label %for.body.i39, !llvm.loop !36
+  %exitcond132.not = icmp eq i64 %indvars.iv.next.i42, %71
+  br i1 %exitcond132.not, label %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit, label %for.body.i39, !llvm.loop !36
 
 _ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit: ; preds = %for.inc.i, %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6InsertEiRKS2_.exit
-  tail call void @_ZN17CBaseRecordVector6DeleteEii(ptr noundef nonnull align 8 dereferenceable(32) %Keys.le, i32 noundef %add, i32 noundef %spec.select.i)
+  tail call void @_ZN17CBaseRecordVector6DeleteEii(ptr noundef nonnull align 8 dereferenceable(32) %Keys51, i32 noundef %add, i32 noundef %spec.select.i)
   br label %cleanup19
 
-for.inc17:                                        ; preds = %for.body.i, %for.cond.preheader.i.i, %for.end.i, %for.body, %lor.lhs.false.i, %return.loopexit.i
+for.inc17:                                        ; preds = %for.body.i, %for.body.i.i, %lor.lhs.false.i, %for.body, %for.end.i.loopexit
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %cmp.not = icmp ult i64 %indvars.iv.next, %6
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count87
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count125
   br i1 %exitcond.not, label %cleanup19, label %for.body, !llvm.loop !32
 
-cleanup19:                                        ; preds = %for.inc17, %for.inc17.us, %for.inc17.us.us, %entry, %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit, %for.cond5.preheader
-  %cmp.not46 = phi i1 [ %.us-phi54, %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit ], [ %.us-phi54, %for.cond5.preheader ], [ false, %entry ], [ %cmp.not.us.us, %for.inc17.us.us ], [ %cmp.not.us, %for.inc17.us ], [ %cmp.not, %for.inc17 ]
-  ret i1 %cmp.not46
+cleanup19:                                        ; preds = %for.inc17, %for.inc17.us76, %for.inc17.us, %for.inc17.us.us, %entry, %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit, %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit
+  %switch = phi i1 [ false, %entry ], [ true, %_ZN13CObjectVectorIN7NCrypto7NSevenZ8CKeyInfoEE6DeleteEii.exit ], [ true, %_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS1_.exit ], [ false, %for.inc17.us.us ], [ false, %for.inc17.us ], [ false, %for.inc17.us76 ], [ false, %for.inc17 ]
+  ret i1 %switch
 }
 
 ; Function Attrs: uwtable
@@ -1102,7 +1122,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
 define dso_local void @_ZN7NCrypto7NSevenZ5CBaseC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(140) %this) unnamed_addr #9 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   store i32 16, ptr %this, align 8, !tbaa !37
   %Keys.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1
   %_capacity.i.i.i.i = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %this, i64 0, i32 1, i32 0, i32 0, i32 1
@@ -1845,11 +1865,11 @@ if.end5:                                          ; preds = %if.then.if.end5_cri
   store ptr null, ptr %cp, align 8, !tbaa !56
   %vtable.i = load ptr, ptr %2, align 8, !tbaa !33
   %3 = load ptr, ptr %vtable.i, align 8
-  %call.i62 = invoke noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICryptoProperties, ptr noundef nonnull %cp)
+  %call.i61 = invoke noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICryptoProperties, ptr noundef nonnull %cp)
           to label %invoke.cont9 unwind label %lpad
 
 invoke.cont9:                                     ; preds = %if.end5
-  %cmp11.not = icmp eq i32 %call.i62, 0
+  %cmp11.not = icmp eq i32 %call.i61, 0
   br i1 %cmp11.not, label %cleanup.cont16, label %cleanup48
 
 lpad:                                             ; preds = %if.end5
@@ -1890,14 +1910,14 @@ lpad33:                                           ; preds = %cleanup.cont31
   br label %ehcleanup
 
 cleanup48:                                        ; preds = %cleanup.cont31, %invoke.cont24, %invoke.cont9
-  %retval.5 = phi i32 [ %call25, %invoke.cont24 ], [ %call.i62, %invoke.cont9 ], [ %call41, %cleanup.cont31 ]
+  %retval.5 = phi i32 [ %call25, %invoke.cont24 ], [ %call.i61, %invoke.cont9 ], [ %call41, %cleanup.cont31 ]
   %11 = load ptr, ptr %cp, align 8, !tbaa !56
   %tobool.not.i = icmp eq ptr %11, null
   br i1 %tobool.not.i, label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %cleanup48
-  %vtable.i63 = load ptr, ptr %11, align 8, !tbaa !33
-  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i63, i64 2
+  %vtable.i62 = load ptr, ptr %11, align 8, !tbaa !33
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i62, i64 2
   %12 = load ptr, ptr %vfn.i, align 8
   %call.i = invoke noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %11)
           to label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit unwind label %terminate.lpad.i
@@ -1916,24 +1936,24 @@ _ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit:      ; preds = %cleanup48, %if.then
 ehcleanup:                                        ; preds = %lpad33, %lpad18, %lpad
   %.pn = phi { ptr, i32 } [ %10, %lpad33 ], [ %7, %lpad18 ], [ %4, %lpad ]
   %15 = load ptr, ptr %cp, align 8, !tbaa !56
-  %tobool.not.i64 = icmp eq ptr %15, null
-  br i1 %tobool.not.i64, label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit70, label %if.then.i68
+  %tobool.not.i63 = icmp eq ptr %15, null
+  br i1 %tobool.not.i63, label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit69, label %if.then.i67
 
-if.then.i68:                                      ; preds = %ehcleanup
-  %vtable.i65 = load ptr, ptr %15, align 8, !tbaa !33
-  %vfn.i66 = getelementptr inbounds ptr, ptr %vtable.i65, i64 2
-  %16 = load ptr, ptr %vfn.i66, align 8
-  %call.i67 = invoke noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(8) %15)
-          to label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit70 unwind label %terminate.lpad.i69
+if.then.i67:                                      ; preds = %ehcleanup
+  %vtable.i64 = load ptr, ptr %15, align 8, !tbaa !33
+  %vfn.i65 = getelementptr inbounds ptr, ptr %vtable.i64, i64 2
+  %16 = load ptr, ptr %vfn.i65, align 8
+  %call.i66 = invoke noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(8) %15)
+          to label %_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit69 unwind label %terminate.lpad.i68
 
-terminate.lpad.i69:                               ; preds = %if.then.i68
+terminate.lpad.i68:                               ; preds = %if.then.i67
   %17 = landingpad { ptr, i32 }
           catch ptr null
   %18 = extractvalue { ptr, i32 } %17, 0
   call void @__clang_call_terminate(ptr %18) #23
   unreachable
 
-_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit70:    ; preds = %ehcleanup, %if.then.i68
+_ZN9CMyComPtrI17ICryptoPropertiesED2Ev.exit69:    ; preds = %ehcleanup, %if.then.i67
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %cp) #20
   resume { ptr, i32 } %.pn
 
@@ -2315,16 +2335,16 @@ for.cond.13.i124:                                 ; preds = %for.cond.12.i121
   %90 = load i8, ptr %arrayidx.14.i122, align 2, !tbaa !16
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressWriteCoderProperties, i64 0, i32 3, i64 6), align 2, !tbaa !16
   %cmp4.not.14.i123 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i123, label %_ZeqRK4GUIDS1_.exit130, label %if.end18
+  br i1 %cmp4.not.14.i123, label %for.cond.14.i128, label %if.end18
 
-_ZeqRK4GUIDS1_.exit130:                           ; preds = %for.cond.13.i124
+for.cond.14.i128:                                 ; preds = %for.cond.13.i124
   %arrayidx.15.i125 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i125, align 1, !tbaa !16
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressWriteCoderProperties, i64 0, i32 3, i64 7), align 1, !tbaa !16
   %cmp4.not.15.i126.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i126.not, label %return.sink.split, label %if.end18
 
-if.end18:                                         ; preds = %for.cond.13.i124, %for.cond.12.i121, %for.cond.11.i118, %for.cond.10.i115, %for.cond.9.i112, %for.cond.8.i109, %for.cond.7.i106, %for.cond.6.i103, %for.cond.5.i100, %for.cond.4.i97, %for.cond.3.i94, %for.cond.2.i91, %for.cond.1.i88, %for.cond.i85, %if.end10, %_ZeqRK4GUIDS1_.exit130
+if.end18:                                         ; preds = %if.end10, %for.cond.i85, %for.cond.1.i88, %for.cond.2.i91, %for.cond.3.i94, %for.cond.4.i97, %for.cond.5.i100, %for.cond.6.i103, %for.cond.7.i106, %for.cond.8.i109, %for.cond.9.i112, %for.cond.10.i115, %for.cond.11.i118, %for.cond.12.i121, %for.cond.13.i124, %for.cond.14.i128
   %94 = load i8, ptr @IID_ICryptoResetInitVector, align 4, !tbaa !16
   %cmp4.not.i131 = icmp eq i8 %0, %94
   br i1 %cmp4.not.i131, label %for.cond.i134, label %return
@@ -2425,17 +2445,17 @@ for.cond.13.i173:                                 ; preds = %for.cond.12.i170
   %121 = load i8, ptr %arrayidx.14.i171, align 2, !tbaa !16
   %122 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoResetInitVector, i64 0, i32 3, i64 6), align 2, !tbaa !16
   %cmp4.not.14.i172 = icmp eq i8 %121, %122
-  br i1 %cmp4.not.14.i172, label %_ZeqRK4GUIDS1_.exit179, label %return
+  br i1 %cmp4.not.14.i172, label %for.cond.14.i177, label %return
 
-_ZeqRK4GUIDS1_.exit179:                           ; preds = %for.cond.13.i173
+for.cond.14.i177:                                 ; preds = %for.cond.13.i173
   %arrayidx.15.i174 = getelementptr inbounds i8, ptr %iid, i64 15
   %123 = load i8, ptr %arrayidx.15.i174, align 1, !tbaa !16
   %124 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoResetInitVector, i64 0, i32 3, i64 7), align 1, !tbaa !16
   %cmp4.not.15.i175.not = icmp eq i8 %123, %124
   br i1 %cmp4.not.15.i175.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit179, %_ZeqRK4GUIDS1_.exit130, %_ZeqRK4GUIDS1_.exit81, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit81 ], [ 176, %_ZeqRK4GUIDS1_.exit130 ], [ 184, %_ZeqRK4GUIDS1_.exit179 ]
+return.sink.split:                                ; preds = %for.cond.14.i177, %for.cond.14.i128, %_ZeqRK4GUIDS1_.exit81, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit81 ], [ 176, %for.cond.14.i128 ], [ 184, %for.cond.14.i177 ]
   %add.ptr22 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr22, ptr %outObject, align 8, !tbaa !31
   %vtable23 = load ptr, ptr %this, align 8, !tbaa !33
@@ -2444,8 +2464,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call25 = tail call noundef i32 %125(ptr noundef nonnull align 8 dereferenceable(192) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i173, %for.cond.12.i170, %for.cond.11.i167, %for.cond.10.i164, %for.cond.9.i161, %for.cond.8.i158, %for.cond.7.i155, %for.cond.6.i152, %for.cond.5.i149, %for.cond.4.i146, %for.cond.3.i143, %for.cond.2.i140, %for.cond.1.i137, %for.cond.i134, %if.end18, %_ZeqRK4GUIDS1_.exit179
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit179 ], [ -2147467262, %if.end18 ], [ -2147467262, %for.cond.i134 ], [ -2147467262, %for.cond.1.i137 ], [ -2147467262, %for.cond.2.i140 ], [ -2147467262, %for.cond.3.i143 ], [ -2147467262, %for.cond.4.i146 ], [ -2147467262, %for.cond.5.i149 ], [ -2147467262, %for.cond.6.i152 ], [ -2147467262, %for.cond.7.i155 ], [ -2147467262, %for.cond.8.i158 ], [ -2147467262, %for.cond.9.i161 ], [ -2147467262, %for.cond.10.i164 ], [ -2147467262, %for.cond.11.i167 ], [ -2147467262, %for.cond.12.i170 ], [ -2147467262, %for.cond.13.i173 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i177, %for.cond.13.i173, %for.cond.12.i170, %for.cond.11.i167, %for.cond.10.i164, %for.cond.9.i161, %for.cond.8.i158, %for.cond.7.i155, %for.cond.6.i152, %for.cond.5.i149, %for.cond.4.i146, %for.cond.3.i143, %for.cond.2.i140, %for.cond.1.i137, %for.cond.i134, %if.end18
+  %retval.0 = phi i32 [ -2147467262, %if.end18 ], [ -2147467262, %for.cond.i134 ], [ -2147467262, %for.cond.1.i137 ], [ -2147467262, %for.cond.2.i140 ], [ -2147467262, %for.cond.3.i143 ], [ -2147467262, %for.cond.4.i146 ], [ -2147467262, %for.cond.5.i149 ], [ -2147467262, %for.cond.6.i152 ], [ -2147467262, %for.cond.7.i155 ], [ -2147467262, %for.cond.8.i158 ], [ -2147467262, %for.cond.9.i161 ], [ -2147467262, %for.cond.10.i164 ], [ -2147467262, %for.cond.11.i167 ], [ -2147467262, %for.cond.12.i170 ], [ -2147467262, %for.cond.13.i173 ], [ -2147467262, %for.cond.14.i177 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 
@@ -3388,16 +3408,16 @@ for.cond.13.i65:                                  ; preds = %for.cond.12.i62
   %59 = load i8, ptr %arrayidx.14.i63, align 2, !tbaa !16
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 6), align 2, !tbaa !16
   %cmp4.not.14.i64 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i64, label %_ZeqRK4GUIDS1_.exit71, label %if.end10
+  br i1 %cmp4.not.14.i64, label %for.cond.14.i69, label %if.end10
 
-_ZeqRK4GUIDS1_.exit71:                            ; preds = %for.cond.13.i65
+for.cond.14.i69:                                  ; preds = %for.cond.13.i65
   %arrayidx.15.i66 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i66, align 1, !tbaa !16
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoSetPassword, i64 0, i32 3, i64 7), align 1, !tbaa !16
   %cmp4.not.15.i67.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i67.not, label %return.sink.split, label %if.end10
 
-if.end10:                                         ; preds = %for.cond.13.i65, %for.cond.12.i62, %for.cond.11.i59, %for.cond.10.i56, %for.cond.9.i53, %for.cond.8.i50, %for.cond.7.i47, %for.cond.6.i44, %for.cond.5.i41, %for.cond.4.i38, %for.cond.3.i35, %for.cond.2.i32, %for.cond.1.i29, %for.cond.i26, %if.end, %_ZeqRK4GUIDS1_.exit71
+if.end10:                                         ; preds = %if.end, %for.cond.i26, %for.cond.1.i29, %for.cond.2.i32, %for.cond.3.i35, %for.cond.4.i38, %for.cond.5.i41, %for.cond.6.i44, %for.cond.7.i47, %for.cond.8.i50, %for.cond.9.i53, %for.cond.10.i56, %for.cond.11.i59, %for.cond.12.i62, %for.cond.13.i65, %for.cond.14.i69
   %63 = load i8, ptr @IID_ICompressSetDecoderProperties2, align 4, !tbaa !16
   %cmp4.not.i72 = icmp eq i8 %0, %63
   br i1 %cmp4.not.i72, label %for.cond.i75, label %return
@@ -3498,17 +3518,17 @@ for.cond.13.i114:                                 ; preds = %for.cond.12.i111
   %90 = load i8, ptr %arrayidx.14.i112, align 2, !tbaa !16
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 6), align 2, !tbaa !16
   %cmp4.not.14.i113 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i113, label %_ZeqRK4GUIDS1_.exit120, label %return
+  br i1 %cmp4.not.14.i113, label %for.cond.14.i118, label %return
 
-_ZeqRK4GUIDS1_.exit120:                           ; preds = %for.cond.13.i114
+for.cond.14.i118:                                 ; preds = %for.cond.13.i114
   %arrayidx.15.i115 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i115, align 1, !tbaa !16
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 7), align 1, !tbaa !16
   %cmp4.not.15.i116.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i116.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit120, %_ZeqRK4GUIDS1_.exit71, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit71 ], [ 176, %_ZeqRK4GUIDS1_.exit120 ]
+return.sink.split:                                ; preds = %for.cond.14.i118, %for.cond.14.i69, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %for.cond.14.i69 ], [ 176, %for.cond.14.i118 ]
   %add.ptr14 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr14, ptr %outObject, align 8, !tbaa !31
   %vtable15 = load ptr, ptr %this, align 8, !tbaa !33
@@ -3517,8 +3537,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call17 = tail call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(184) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10, %_ZeqRK4GUIDS1_.exit120
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit120 ], [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i118, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10
+  %retval.0 = phi i32 [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ -2147467262, %for.cond.14.i118 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 
@@ -4099,10 +4119,10 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #19
+declare i64 @llvm.umin.i64(i64, i64) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #19
+declare i32 @llvm.usub.sat.i32(i32, i32) #19
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

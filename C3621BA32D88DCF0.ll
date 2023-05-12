@@ -164,13 +164,13 @@ if.then.i.i.i:                                    ; preds = %invoke.cont.i
 _ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev.exit: ; preds = %invoke.cont.i, %if.then.i.i.i
   %5 = load ptr, ptr %this, align 8, !tbaa !24
   %tobool.not.i.i.i2 = icmp eq ptr %5, null
-  br i1 %tobool.not.i.i.i2, label %_ZNSt6vectorIiSaIiEED2Ev.exit, label %if.then.i.i.i4
+  br i1 %tobool.not.i.i.i2, label %_ZNSt6vectorIiSaIiEED2Ev.exit, label %if.then.i.i.i3
 
-if.then.i.i.i4:                                   ; preds = %_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev.exit
+if.then.i.i.i3:                                   ; preds = %_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev.exit
   tail call void @_ZdlPv(ptr noundef nonnull %5) #11
   br label %_ZNSt6vectorIiSaIiEED2Ev.exit
 
-_ZNSt6vectorIiSaIiEED2Ev.exit:                    ; preds = %_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev.exit, %if.then.i.i.i4
+_ZNSt6vectorIiSaIiEED2Ev.exit:                    ; preds = %_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev.exit, %if.then.i.i.i3
   ret void
 }
 
@@ -204,36 +204,36 @@ init.i.i:                                         ; preds = %init.check.i.i
 _ZN9benchmark8internal17PerfCounterValuesC2Em.exit: ; preds = %entry, %init.check.i.i, %init.i.i
   %4 = load ptr, ptr %_M_finish.i, align 8, !tbaa !17
   %5 = load ptr, ptr %counter_names, align 8, !tbaa !15
-  %sub.ptr.lhs.cast.i13 = ptrtoint ptr %4 to i64
-  %sub.ptr.rhs.cast.i14 = ptrtoint ptr %5 to i64
-  %sub.ptr.sub.i15 = sub i64 %sub.ptr.lhs.cast.i13, %sub.ptr.rhs.cast.i14
-  %sub.ptr.div.i16 = ashr exact i64 %sub.ptr.sub.i15, 5
-  %nr_counters_.i17 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %this, i64 0, i32 2, i32 1
-  store i64 %sub.ptr.div.i16, ptr %nr_counters_.i17, align 8, !tbaa !31
+  %sub.ptr.lhs.cast.i12 = ptrtoint ptr %4 to i64
+  %sub.ptr.rhs.cast.i13 = ptrtoint ptr %5 to i64
+  %sub.ptr.sub.i14 = sub i64 %sub.ptr.lhs.cast.i12, %sub.ptr.rhs.cast.i13
+  %sub.ptr.div.i15 = ashr exact i64 %sub.ptr.sub.i14, 5
+  %nr_counters_.i16 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %this, i64 0, i32 2, i32 1
+  store i64 %sub.ptr.div.i15, ptr %nr_counters_.i16, align 8, !tbaa !31
   %6 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
-  %guard.uninitialized.i.i18 = icmp eq i8 %6, 0
-  br i1 %guard.uninitialized.i.i18, label %init.check.i.i20, label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22, !prof !9
+  %guard.uninitialized.i.i17 = icmp eq i8 %6, 0
+  br i1 %guard.uninitialized.i.i17, label %init.check.i.i19, label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21, !prof !9
 
-init.check.i.i20:                                 ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit
+init.check.i.i19:                                 ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit
   %7 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #10
-  %tobool.not.i.i19 = icmp eq i32 %7, 0
-  br i1 %tobool.not.i.i19, label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22, label %init.i.i21
+  %tobool.not.i.i18 = icmp eq i32 %7, 0
+  br i1 %tobool.not.i.i18, label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21, label %init.i.i20
 
-init.i.i21:                                       ; preds = %init.check.i.i20
+init.i.i20:                                       ; preds = %init.check.i.i19
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !10
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #10
-  br label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22
+  br label %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21
 
-_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22: ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit, %init.check.i.i20, %init.i.i21
+_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21: ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit, %init.check.i.i19, %init.i.i20
   %call1.i.i.i.i.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   %tobool.not.i.i.i.i = icmp eq i32 %call1.i.i.i.i.i, 0
   br i1 %tobool.not.i.i.i.i, label %_ZN9benchmark9MutexLockC2ERNS_5MutexE.exit, label %if.then.i.i.i.i
 
-if.then.i.i.i.i:                                  ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22
+if.then.i.i.i.i:                                  ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21
   tail call void @_ZSt20__throw_system_errori(i32 noundef %call1.i.i.i.i.i) #12
   unreachable
 
-_ZN9benchmark9MutexLockC2ERNS_5MutexE.exit:       ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit22
+_ZN9benchmark9MutexLockC2ERNS_5MutexE.exit:       ; preds = %_ZN9benchmark8internal17PerfCounterValuesC2Em.exit21
   %8 = load i32, ptr @_ZN9benchmark8internal23PerfCountersMeasurement10ref_count_E, align 4, !tbaa !32
   %cmp = icmp eq i32 %8, 0
   br i1 %cmp, label %if.then, label %if.end
@@ -246,26 +246,26 @@ if.then:                                          ; preds = %_ZN9benchmark9Mutex
 
 if.then.i:                                        ; preds = %if.then
   %11 = load atomic i8, ptr @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log acquire, align 8, !noalias !34
-  %guard.uninitialized.i.i23 = icmp eq i8 %11, 0
-  br i1 %guard.uninitialized.i.i23, label %init.check.i.i25, label %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i, !prof !9
+  %guard.uninitialized.i.i22 = icmp eq i8 %11, 0
+  br i1 %guard.uninitialized.i.i22, label %init.check.i.i24, label %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i, !prof !9
 
-init.check.i.i25:                                 ; preds = %if.then.i
+init.check.i.i24:                                 ; preds = %if.then.i
   %12 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #10, !noalias !34
-  %tobool.not.i.i24 = icmp eq i32 %12, 0
-  br i1 %tobool.not.i.i24, label %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i, label %init.i.i26
+  %tobool.not.i.i23 = icmp eq i32 %12, 0
+  br i1 %tobool.not.i.i23, label %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i, label %init.i.i25
 
-init.i.i26:                                       ; preds = %init.check.i.i25
+init.i.i25:                                       ; preds = %init.check.i.i24
   store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !10, !noalias !34
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #10, !noalias !34
   br label %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i
 
-_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i: ; preds = %init.i.i26, %init.check.i.i25, %if.then.i
+_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i: ; preds = %init.i.i25, %init.check.i.i24, %if.then.i
   %13 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !10, !noalias !34
   %tobool.not.i3.i = icmp eq ptr %13, null
   br i1 %tobool.not.i3.i, label %invoke.cont, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i
-  %call1.i.i.i27 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull @.str, i64 noundef 35)
+  %call1.i.i.i26 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull @.str, i64 noundef 35)
           to label %invoke.cont unwind label %lpad
 
 invoke.cont:                                      ; preds = %_ZN9benchmark8internal19GetErrorLogInstanceEv.exit.i, %if.then, %if.then.i.i
@@ -312,7 +312,7 @@ if.then.i.i.i.i.i12.i:                            ; preds = %invoke.cont.i.i.i.i
 lpad:                                             ; preds = %if.then.i.i
   %19 = landingpad { ptr, i32 }
           cleanup
-  %call1.i.i.i.i.i39 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
+  %call1.i.i.i.i.i38 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   resume { ptr, i32 } %19
 
 if.end:                                           ; preds = %invoke.cont.i.i.i.i, %if.then.i.i.i.i.i12.i, %_ZN9benchmark9MutexLockC2ERNS_5MutexE.exit
@@ -321,20 +321,20 @@ if.end:                                           ; preds = %invoke.cont.i.i.i.i
   store i32 %inc, ptr @_ZN9benchmark8internal23PerfCountersMeasurement10ref_count_E, align 4, !tbaa !32
   %21 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %guard.uninitialized.i = icmp eq i8 %21, 0
-  br i1 %guard.uninitialized.i, label %init.check.i, label %_ZN9benchmark9MutexLockD2Ev.exit, !prof !9
+  br i1 %guard.uninitialized.i, label %init.check.i, label %if.then3.i.i.i, !prof !9
 
 init.check.i:                                     ; preds = %if.end
   %22 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #10
   %tobool.not.i = icmp eq i32 %22, 0
-  br i1 %tobool.not.i, label %_ZN9benchmark9MutexLockD2Ev.exit, label %init.i
+  br i1 %tobool.not.i, label %if.then3.i.i.i, label %init.i
 
 init.i:                                           ; preds = %init.check.i
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !10
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #10
-  br label %_ZN9benchmark9MutexLockD2Ev.exit
+  br label %if.then3.i.i.i
 
-_ZN9benchmark9MutexLockD2Ev.exit:                 ; preds = %if.end, %init.check.i, %init.i
-  %call1.i.i.i.i.i34 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
+if.then3.i.i.i:                                   ; preds = %init.i, %init.check.i, %if.end
+  %call1.i.i.i.i.i33 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   ret void
 }
 
@@ -425,7 +425,7 @@ invoke.cont:                                      ; preds = %entry
   %dec = add nsw i32 %0, -1
   store i32 %dec, ptr @_ZN9benchmark8internal23PerfCountersMeasurement10ref_count_E, align 4, !tbaa !32
   %cmp = icmp eq i32 %dec, 0
-  br i1 %cmp, label %if.then, label %_ZN9benchmark9MutexLockD2Ev.exit
+  br i1 %cmp, label %if.then, label %if.then3.i.i.i
 
 if.then:                                          ; preds = %invoke.cont
   %1 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !24
@@ -462,13 +462,13 @@ _ZSt8_DestroyINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEvPT_.exit.i.i
 
 invoke.cont.i.i.i.i:                              ; preds = %_ZSt8_DestroyINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEvPT_.exit.i.i.i.i.i.i.i, %_ZNSt6vectorIiSaIiEEaSEOS1_.exit.i
   %tobool.not.i.i.i.i.i11.i = icmp eq ptr %2, null
-  br i1 %tobool.not.i.i.i.i.i11.i, label %_ZN9benchmark9MutexLockD2Ev.exit, label %if.then.i.i.i.i.i12.i
+  br i1 %tobool.not.i.i.i.i.i11.i, label %if.then3.i.i.i, label %if.then.i.i.i.i.i12.i
 
 if.then.i.i.i.i.i12.i:                            ; preds = %invoke.cont.i.i.i.i
   tail call void @_ZdlPv(ptr noundef nonnull %2) #11
-  br label %_ZN9benchmark9MutexLockD2Ev.exit
+  br label %if.then3.i.i.i
 
-_ZN9benchmark9MutexLockD2Ev.exit:                 ; preds = %invoke.cont, %if.then.i.i.i.i.i12.i, %invoke.cont.i.i.i.i
+if.then3.i.i.i:                                   ; preds = %invoke.cont.i.i.i.i, %if.then.i.i.i.i.i12.i, %invoke.cont
   %call1.i.i.i.i.i7 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #10
   ret void
 

@@ -63,64 +63,48 @@ if.then.lr.ph:                                    ; preds = %entry
 
 if.then.lr.ph.split.us:                           ; preds = %if.then.lr.ph
   %1 = add i64 %b, 1
-  br i1 %tobool27.not, label %if.then.us.us.preheader, label %while.end
-
-if.then.us.us.preheader:                          ; preds = %if.then.lr.ph.split.us
-  %2 = and i32 %c, 13848
-  %brmerge = icmp ne i32 %2, 16
-  %brmerge225 = or i1 %brmerge, %or.cond77
-  br label %if.then.us.us
-
-if.then.us.us:                                    ; preds = %if.then.us.us.preheader, %while.cond.backedge.us.us
-  %inc.i86.us.us = phi i64 [ %inc.i.us.us, %while.cond.backedge.us.us ], [ %inc.i83, %if.then.us.us.preheader ]
-  br i1 %brmerge225, label %while.cond.backedge.us.us, label %for.body
-
-while.cond.backedge.us.us:                        ; preds = %if.then.us.us
-  %inc.i.us.us = add i64 %inc.i86.us.us, 1
-  %exitcond.not = icmp eq i64 %inc.i86.us.us, %b
-  br i1 %exitcond.not, label %while.end, label %if.then.us.us, !llvm.loop !9
+  br label %while.end
 
 if.then.lr.ph.split:                              ; preds = %if.then.lr.ph
-  %3 = and i32 %c, 13832
-  %or.cond80.not = icmp eq i32 %3, 0
-  br i1 %or.cond80.not, label %if.then.lr.ph.split.split.us.split.us, label %if.then.lr.ph.split.split.split.us
+  %2 = and i32 %c, 13832
+  %or.cond80 = icmp eq i32 %2, 0
+  br i1 %or.cond80, label %if.then.lr.ph.split.split.us, label %if.then.lr.ph.split.split
 
-if.then.lr.ph.split.split.us.split.us:            ; preds = %if.then.lr.ph.split
-  br i1 %tobool27.not, label %if.then.lr.ph.split.split.us.split.us.split.us, label %if.then.lr.ph.split.split.us.split.us.split
+if.then.lr.ph.split.split.us:                     ; preds = %if.then.lr.ph.split
+  br i1 %tobool27.not, label %if.then.lr.ph.split.split.us.split.us, label %if.then.lr.ph.split.split.us.split
 
-if.then.lr.ph.split.split.us.split.us.split.us:   ; preds = %if.then.lr.ph.split.split.us.split.us
-  br i1 %or.cond77, label %if.then.us88.us.us.us.preheader, label %for.body
+if.then.lr.ph.split.split.us.split.us:            ; preds = %if.then.lr.ph.split.split.us
+  br i1 %or.cond77, label %if.then.us88.us.us.preheader, label %for.body
 
-if.then.us88.us.us.us.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split.us
+if.then.us88.us.us.preheader:                     ; preds = %if.then.lr.ph.split.split.us.split.us
+  %3 = add i64 %b, 1
+  br label %while.end
+
+if.then.lr.ph.split.split.us.split:               ; preds = %if.then.lr.ph.split.split.us
+  br i1 %tobool22.not, label %if.then.us88.us125.preheader, label %if.then.lr.ph.split.split.us.split.split
+
+if.then.us88.us125.preheader:                     ; preds = %if.then.lr.ph.split.split.us.split
   %4 = add i64 %b, 1
   br label %while.end
 
-if.then.lr.ph.split.split.us.split.us.split:      ; preds = %if.then.lr.ph.split.split.us.split.us
-  br i1 %tobool22.not, label %if.then.us88.us.us194.preheader, label %if.then.lr.ph.split.split.us.split.us.split.split
+if.then.lr.ph.split.split.us.split.split:         ; preds = %if.then.lr.ph.split.split.us.split
+  br i1 %or.cond77, label %if.then.us88.us132.preheader, label %for.body
 
-if.then.us88.us.us194.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split
+if.then.us88.us132.preheader:                     ; preds = %if.then.lr.ph.split.split.us.split.split
   %5 = add i64 %b, 1
   br label %while.end
 
-if.then.lr.ph.split.split.us.split.us.split.split: ; preds = %if.then.lr.ph.split.split.us.split.us.split
-  br i1 %or.cond77, label %if.then.us88.us.us201.preheader, label %for.body
-
-if.then.us88.us.us201.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split.split
+if.then.lr.ph.split.split:                        ; preds = %if.then.lr.ph.split
   %6 = add i64 %b, 1
   br label %while.end
 
-if.then.lr.ph.split.split.split.us:               ; preds = %if.then.lr.ph.split
-  %7 = add i64 %b, 1
-  br label %while.end
-
-for.body:                                         ; preds = %if.then.us.us, %if.then.lr.ph.split.split.us.split.us.split.split, %if.then.lr.ph.split.split.us.split.us.split.us
-  %.us-phi = phi i64 [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.us ], [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.split ], [ %inc.i86.us.us, %if.then.us.us ]
-  store i64 %.us-phi, ptr @baz1.l, align 8, !tbaa !5
+for.body:                                         ; preds = %if.then.lr.ph.split.split.us.split.split, %if.then.lr.ph.split.split.us.split.us
+  store i64 %inc.i83, ptr @baz1.l, align 8, !tbaa !5
   tail call void @abort() #6
   unreachable
 
-while.end:                                        ; preds = %while.cond.backedge.us.us, %if.then.lr.ph.split.split.split.us, %if.then.lr.ph.split.us, %if.then.us88.us.us201.preheader, %if.then.us88.us.us194.preheader, %if.then.us88.us.us.us.preheader, %entry
-  %inc.i.lcssa = phi i64 [ %inc.i83, %entry ], [ %4, %if.then.us88.us.us.us.preheader ], [ %5, %if.then.us88.us.us194.preheader ], [ %6, %if.then.us88.us.us201.preheader ], [ %1, %if.then.lr.ph.split.us ], [ %7, %if.then.lr.ph.split.split.split.us ], [ %1, %while.cond.backedge.us.us ]
+while.end:                                        ; preds = %if.then.lr.ph.split.us, %if.then.lr.ph.split.split, %if.then.us88.us132.preheader, %if.then.us88.us125.preheader, %if.then.us88.us.us.preheader, %entry
+  %inc.i.lcssa = phi i64 [ %inc.i83, %entry ], [ %3, %if.then.us88.us.us.preheader ], [ %4, %if.then.us88.us125.preheader ], [ %5, %if.then.us88.us132.preheader ], [ %6, %if.then.lr.ph.split.split ], [ %1, %if.then.lr.ph.split.us ]
   store i64 %inc.i.lcssa, ptr @baz1.l, align 8, !tbaa !5
   ret i32 0
 }
@@ -133,8 +117,8 @@ define dso_local i32 @main() local_unnamed_addr #5 {
 entry:
   %n = alloca ptr, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %n) #7
-  store ptr null, ptr %n, align 8, !tbaa !11
-  store ptr %n, ptr @bar, align 8, !tbaa !11
+  store ptr null, ptr %n, align 8, !tbaa !9
+  store ptr %n, ptr @bar, align 8, !tbaa !9
   %baz1.l.promoted.i = load i64, ptr @baz1.l, align 8, !tbaa !5
   %inc.i83.i = add i64 %baz1.l.promoted.i, 1
   %cmp84.i = icmp slt i64 %baz1.l.promoted.i, 1
@@ -168,7 +152,5 @@ attributes #7 = { nounwind }
 !6 = !{!"long", !7, i64 0}
 !7 = !{!"omnipotent char", !8, i64 0}
 !8 = !{!"Simple C/C++ TBAA"}
-!9 = distinct !{!9, !10}
-!10 = !{!"llvm.loop.mustprogress"}
-!11 = !{!12, !12, i64 0}
-!12 = !{!"any pointer", !7, i64 0}
+!9 = !{!10, !10, i64 0}
+!10 = !{!"any pointer", !7, i64 0}

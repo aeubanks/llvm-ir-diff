@@ -38,7 +38,7 @@ $_ZNK21btConvexInternalShape32getPreferredPenetrationDirectionEiR9btVector3 = co
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN19btMinkowskiSumShapeC2EPK13btConvexShapeS2_(ptr noundef nonnull align 8 dereferenceable(208) %this, ptr noundef %shapeA, ptr noundef %shapeB) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont6:
+entry:
   tail call void @_ZN21btConvexInternalShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(64) %this)
   store ptr getelementptr inbounds ({ [20 x ptr] }, ptr @_ZTV19btMinkowskiSumShape, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_transA = getelementptr inbounds %class.btMinkowskiSumShape, ptr %this, i64 0, i32 1

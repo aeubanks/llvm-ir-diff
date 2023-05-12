@@ -214,8 +214,8 @@ if.then49:                                        ; preds = %while.body
 
 for.cond52.preheader:                             ; preds = %if.then49
   %16 = load i32, ptr @D_length, align 4, !tbaa !5
-  %cmp53324 = icmp slt i32 %16, 1
-  br i1 %cmp53324, label %for.end69, label %for.body55.preheader
+  %cmp53324 = icmp sgt i32 %16, 0
+  br i1 %cmp53324, label %for.body55.preheader, label %for.end69
 
 for.body55.preheader:                             ; preds = %for.cond52.preheader
   %17 = zext i32 %16 to i64
@@ -228,8 +228,8 @@ for.body55.preheader:                             ; preds = %for.cond52.preheade
 for.cond52:                                       ; preds = %for.body55.preheader, %for.body55
   %indvars.iv340355 = phi i64 [ %indvars.iv.next341, %for.body55 ], [ 0, %for.body55.preheader ]
   %indvars.iv.next341 = add nuw nsw i64 %indvars.iv340355, 1
-  %exitcond343 = icmp eq i64 %indvars.iv.next341, %wide.trip.count
-  br i1 %exitcond343, label %for.end69.loopexit, label %for.body55, !llvm.loop !18
+  %exitcond343.not = icmp eq i64 %indvars.iv.next341, %wide.trip.count
+  br i1 %exitcond343.not, label %for.end69.loopexit, label %for.body55, !llvm.loop !18
 
 for.body55:                                       ; preds = %for.cond52
   %arrayidx57 = getelementptr inbounds i8, ptr %old_D_pat, i64 %indvars.iv.next341
@@ -241,12 +241,13 @@ for.body55:                                       ; preds = %for.cond52
   br i1 %cmp63.not, label %for.cond52, label %for.end69.loopexit, !llvm.loop !18
 
 for.end69.loopexit:                               ; preds = %for.cond52, %for.body55
-  %cmp53.le = icmp uge i64 %indvars.iv.next341, %17
+  %cmp53.le = icmp ult i64 %indvars.iv.next341, %17
   br label %for.end69
 
 for.end69:                                        ; preds = %for.end69.loopexit, %for.body55.preheader, %for.cond52.preheader
-  %cmp53.lcssa = phi i1 [ true, %for.cond52.preheader ], [ false, %for.body55.preheader ], [ %cmp53.le, %for.end69.loopexit ]
-  %dec = sext i1 %cmp53.lcssa to i32
+  %cmp53.lcssa = phi i1 [ false, %for.cond52.preheader ], [ true, %for.body55.preheader ], [ %cmp53.le, %for.end69.loopexit ]
+  %not.cmp53.lcssa = xor i1 %cmp53.lcssa, true
+  %dec = sext i1 %not.cmp53.lcssa to i32
   %spec.select = add nsw i32 %j.0, %dec
   br label %if.end75
 

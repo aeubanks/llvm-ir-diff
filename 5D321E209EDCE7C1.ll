@@ -30,17 +30,17 @@ while.body:                                       ; preds = %while.body, %entry
   %i.05 = phi i64 [ 0, %entry ], [ %inc.1, %while.body ]
   %rem.lhs.trunc = trunc i64 %i.05 to i32
   %rem4 = urem i32 %rem.lhs.trunc, 255
-  %conv = trunc i32 %rem4 to i8
+  %rem.zext = trunc i32 %rem4 to i8
   %0 = load ptr, ptr @testarray, align 8, !tbaa !9
   %arrayidx = getelementptr inbounds i8, ptr %0, i64 %i.05
-  store i8 %conv, ptr %arrayidx, align 1, !tbaa !11
+  store i8 %rem.zext, ptr %arrayidx, align 1, !tbaa !11
   %inc = or i64 %i.05, 1
   %rem.lhs.trunc.1 = trunc i64 %inc to i32
   %rem4.1 = urem i32 %rem.lhs.trunc.1, 255
-  %conv.1 = trunc i32 %rem4.1 to i8
+  %rem.zext.1 = trunc i32 %rem4.1 to i8
   %1 = load ptr, ptr @testarray, align 8, !tbaa !9
   %arrayidx.1 = getelementptr inbounds i8, ptr %1, i64 %inc
-  store i8 %conv.1, ptr %arrayidx.1, align 1, !tbaa !11
+  store i8 %rem.zext.1, ptr %arrayidx.1, align 1, !tbaa !11
   %inc.1 = add nuw nsw i64 %i.05, 2
   %exitcond.not.1 = icmp eq i64 %inc.1, 2684050
   br i1 %exitcond.not.1, label %while.end, label %while.body, !llvm.loop !12

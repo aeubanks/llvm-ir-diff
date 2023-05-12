@@ -522,8 +522,8 @@ if.else:                                          ; preds = %while.body
   %conv = ashr exact i64 %sext, 32
   %add = add nsw i64 %conv, 1
   %add14 = add i64 %add, %call13
-  %sext32 = shl i64 %add14, 32
-  %conv16 = ashr exact i64 %sext32, 32
+  %sext36 = shl i64 %add14, 32
+  %conv16 = ashr exact i64 %sext36, 32
   %call17 = call i32 @fseek(ptr noundef nonnull %call3, i64 noundef %conv16, i32 noundef 0)
   %5 = load i8, ptr %word, align 16, !tbaa !11
   %cmp.i = icmp eq i8 %5, 0
@@ -534,7 +534,7 @@ if.else.i:                                        ; preds = %if.else
   br i1 %cmp2.i, label %if.then4.i, label %if.else.i.preheader.i
 
 if.then4.i:                                       ; preds = %if.else.i
-  %call.i33 = call ptr @insertRestOfWord(ptr noundef nonnull %word)
+  %call.i32 = call ptr @insertRestOfWord(ptr noundef nonnull %word)
   br label %insertWord.exit
 
 if.else.i.preheader.i:                            ; preds = %if.else.i, %if.else14.i.i
@@ -585,7 +585,7 @@ if.then25.i.i:                                    ; preds = %if.else22.i.i
   br label %insertWord.exit
 
 insertWord.exit:                                  ; preds = %if.else, %if.then4.i, %if.then13.i.i, %if.then17.i.i, %if.then25.i.i
-  %11 = phi ptr [ %4, %if.else ], [ %call.i33, %if.then4.i ], [ %4, %if.then13.i.i ], [ %4, %if.then17.i.i ], [ %4, %if.then25.i.i ]
+  %11 = phi ptr [ %4, %if.else ], [ %call.i32, %if.then4.i ], [ %4, %if.then13.i.i ], [ %4, %if.then17.i.i ], [ %4, %if.then25.i.i ]
   %call7 = call i32 @feof(ptr noundef nonnull %call3) #13
   %tobool8.not = icmp eq i32 %call7, 0
   br i1 %tobool8.not, label %while.body, label %while.end, !llvm.loop !22
@@ -593,8 +593,8 @@ insertWord.exit:                                  ; preds = %if.else, %if.then4.
 while.end:                                        ; preds = %insertWord.exit, %while.body, %while.cond.preheader
   %12 = phi ptr [ null, %while.cond.preheader ], [ %11, %insertWord.exit ], [ %4, %while.body ]
   %call20 = call i32 @fclose(ptr noundef nonnull %call3)
-  %call.i.i34 = call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %cmp.i.i = icmp eq ptr %call.i.i34, null
+  %call.i.i33 = call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %cmp.i.i = icmp eq ptr %call.i.i33, null
   br i1 %cmp.i.i, label %if.then.i.i, label %printT.exit
 
 if.then.i.i:                                      ; preds = %while.end
@@ -602,7 +602,7 @@ if.then.i.i:                                      ; preds = %while.end
   unreachable
 
 printT.exit:                                      ; preds = %while.end
-  call void @printTheRest(ptr noundef %12, ptr noundef nonnull %call.i.i34)
+  call void @printTheRest(ptr noundef %12, ptr noundef nonnull %call.i.i33)
   br label %cleanup
 
 cleanup:                                          ; preds = %printT.exit, %if.then4, %if.then

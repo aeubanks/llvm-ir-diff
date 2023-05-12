@@ -300,13 +300,13 @@ if.end8:                                          ; preds = %if.then7, %if.end
   %cmp9 = icmp ne ptr %3, null
   %4 = load i32, ptr @g_board_size, align 4
   %cmp11.not = icmp eq i32 %4, %num_rows
-  %or.cond189 = select i1 %cmp9, i1 %cmp11.not, i1 false
+  %or.cond290 = select i1 %cmp9, i1 %cmp11.not, i1 false
   %5 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4
   %cmp13.not = icmp eq i32 %5, %num_cols
-  %or.cond190 = select i1 %or.cond189, i1 %cmp13.not, i1 false
+  %or.cond291 = select i1 %or.cond290, i1 %cmp13.not, i1 false
   store i32 %num_rows, ptr @g_board_size, align 4, !tbaa !10
   store i32 %num_cols, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !10
-  br i1 %or.cond190, label %if.end17, label %if.then14
+  br i1 %or.cond291, label %if.end17, label %if.then14
 
 if.then14:                                        ; preds = %if.end8
   tail call void @initialize_solver()
@@ -384,68 +384,68 @@ init__real_count.exit:                            ; preds = %for.body.i, %for.en
   %16 = phi i32 [ %12, %for.end49 ], [ %14, %for.body.i ]
   store i32 0, ptr getelementptr inbounds ([2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 0, i32 1), align 4, !tbaa !13
   %17 = load i32, ptr @g_board_size, align 4, !tbaa !10
-  %cmp15.i191 = icmp sgt i32 %17, 0
-  br i1 %cmp15.i191, label %for.body.i196, label %init__real_count.exit197
+  %cmp15.i185 = icmp sgt i32 %17, 0
+  br i1 %cmp15.i185, label %for.body.i190, label %init__real_count.exit191
 
-for.body.i196:                                    ; preds = %init__real_count.exit, %for.body.i196
-  %indvars.iv.i192 = phi i64 [ %indvars.iv.next.i193, %for.body.i196 ], [ 0, %init__real_count.exit ]
-  %indvars.iv.next.i193 = add nuw nsw i64 %indvars.iv.i192, 1
-  %real7.i194 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 0, i64 %indvars.iv.next.i193, i32 1
-  store i32 0, ptr %real7.i194, align 4, !tbaa !13
-  %18 = trunc i64 %indvars.iv.next.i193 to i32
+for.body.i190:                                    ; preds = %init__real_count.exit, %for.body.i190
+  %indvars.iv.i186 = phi i64 [ %indvars.iv.next.i187, %for.body.i190 ], [ 0, %init__real_count.exit ]
+  %indvars.iv.next.i187 = add nuw nsw i64 %indvars.iv.i186, 1
+  %real7.i188 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 0, i64 %indvars.iv.next.i187, i32 1
+  store i32 0, ptr %real7.i188, align 4, !tbaa !13
+  %18 = trunc i64 %indvars.iv.next.i187 to i32
   tail call void @update_real(i32 noundef 0, i32 noundef %18) #6
   %19 = load i32, ptr @g_board_size, align 4, !tbaa !10
   %20 = sext i32 %19 to i64
-  %cmp.i195 = icmp slt i64 %indvars.iv.next.i193, %20
-  br i1 %cmp.i195, label %for.body.i196, label %init__real_count.exit197.loopexit, !llvm.loop !14
+  %cmp.i189 = icmp slt i64 %indvars.iv.next.i187, %20
+  br i1 %cmp.i189, label %for.body.i190, label %init__real_count.exit191.loopexit, !llvm.loop !14
 
-init__real_count.exit197.loopexit:                ; preds = %for.body.i196
+init__real_count.exit191.loopexit:                ; preds = %for.body.i190
   %.pre = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !10
-  br label %init__real_count.exit197
+  br label %init__real_count.exit191
 
-init__real_count.exit197:                         ; preds = %init__real_count.exit197.loopexit, %init__real_count.exit
-  %21 = phi i32 [ %19, %init__real_count.exit197.loopexit ], [ %17, %init__real_count.exit ]
-  %22 = phi i32 [ %.pre, %init__real_count.exit197.loopexit ], [ %16, %init__real_count.exit ]
+init__real_count.exit191:                         ; preds = %init__real_count.exit191.loopexit, %init__real_count.exit
+  %21 = phi i32 [ %19, %init__real_count.exit191.loopexit ], [ %17, %init__real_count.exit ]
+  %22 = phi i32 [ %.pre, %init__real_count.exit191.loopexit ], [ %16, %init__real_count.exit ]
   store i32 0, ptr getelementptr inbounds ([2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 1), align 4, !tbaa !5
-  %cmp15.i198 = icmp sgt i32 %22, 0
-  br i1 %cmp15.i198, label %for.body.i202, label %init__safe_count.exit
+  %cmp15.i192 = icmp sgt i32 %22, 0
+  br i1 %cmp15.i192, label %for.body.i196, label %init__safe_count.exit
 
-for.body.i202:                                    ; preds = %init__real_count.exit197, %for.body.i202
-  %indvars.iv.i199 = phi i64 [ %indvars.iv.next.i200, %for.body.i202 ], [ 0, %init__real_count.exit197 ]
-  %indvars.iv.next.i200 = add nuw nsw i64 %indvars.iv.i199, 1
-  %arrayidx6.i = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 1, i64 %indvars.iv.next.i200
+for.body.i196:                                    ; preds = %init__real_count.exit191, %for.body.i196
+  %indvars.iv.i193 = phi i64 [ %indvars.iv.next.i194, %for.body.i196 ], [ 0, %init__real_count.exit191 ]
+  %indvars.iv.next.i194 = add nuw nsw i64 %indvars.iv.i193, 1
+  %arrayidx6.i = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 1, i64 %indvars.iv.next.i194
   store i32 0, ptr %arrayidx6.i, align 4, !tbaa !5
-  %23 = trunc i64 %indvars.iv.next.i200 to i32
+  %23 = trunc i64 %indvars.iv.next.i194 to i32
   tail call void @update_safe(i32 noundef 1, i32 noundef %23) #6
   %24 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !10
   %25 = sext i32 %24 to i64
-  %cmp.i201 = icmp slt i64 %indvars.iv.next.i200, %25
-  br i1 %cmp.i201, label %for.body.i202, label %init__safe_count.exit.loopexit, !llvm.loop !11
+  %cmp.i195 = icmp slt i64 %indvars.iv.next.i194, %25
+  br i1 %cmp.i195, label %for.body.i196, label %init__safe_count.exit.loopexit, !llvm.loop !11
 
-init__safe_count.exit.loopexit:                   ; preds = %for.body.i202
+init__safe_count.exit.loopexit:                   ; preds = %for.body.i196
   %.pre331 = load i32, ptr @g_board_size, align 4, !tbaa !10
   br label %init__safe_count.exit
 
-init__safe_count.exit:                            ; preds = %init__safe_count.exit.loopexit, %init__real_count.exit197
-  %26 = phi i32 [ %.pre331, %init__safe_count.exit.loopexit ], [ %21, %init__real_count.exit197 ]
+init__safe_count.exit:                            ; preds = %init__safe_count.exit.loopexit, %init__real_count.exit191
+  %26 = phi i32 [ %.pre331, %init__safe_count.exit.loopexit ], [ %21, %init__real_count.exit191 ]
   store i32 0, ptr @g_info_totals, align 16, !tbaa !5
-  %cmp15.i203 = icmp sgt i32 %26, 0
-  br i1 %cmp15.i203, label %for.body.i208, label %init__safe_count.exit209
+  %cmp15.i197 = icmp sgt i32 %26, 0
+  br i1 %cmp15.i197, label %for.body.i202, label %init__safe_count.exit203
 
-for.body.i208:                                    ; preds = %init__safe_count.exit, %for.body.i208
-  %indvars.iv.i204 = phi i64 [ %indvars.iv.next.i205, %for.body.i208 ], [ 0, %init__safe_count.exit ]
-  %indvars.iv.next.i205 = add nuw nsw i64 %indvars.iv.i204, 1
-  %arrayidx6.i206 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 0, i64 %indvars.iv.next.i205
-  store i32 0, ptr %arrayidx6.i206, align 4, !tbaa !5
-  %27 = trunc i64 %indvars.iv.next.i205 to i32
+for.body.i202:                                    ; preds = %init__safe_count.exit, %for.body.i202
+  %indvars.iv.i198 = phi i64 [ %indvars.iv.next.i199, %for.body.i202 ], [ 0, %init__safe_count.exit ]
+  %indvars.iv.next.i199 = add nuw nsw i64 %indvars.iv.i198, 1
+  %arrayidx6.i200 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 0, i64 %indvars.iv.next.i199
+  store i32 0, ptr %arrayidx6.i200, align 4, !tbaa !5
+  %27 = trunc i64 %indvars.iv.next.i199 to i32
   tail call void @update_safe(i32 noundef 0, i32 noundef %27) #6
   %28 = load i32, ptr @g_board_size, align 4, !tbaa !10
   %29 = sext i32 %28 to i64
-  %cmp.i207 = icmp slt i64 %indvars.iv.next.i205, %29
-  br i1 %cmp.i207, label %for.body.i208, label %init__safe_count.exit209, !llvm.loop !11
+  %cmp.i201 = icmp slt i64 %indvars.iv.next.i199, %29
+  br i1 %cmp.i201, label %for.body.i202, label %init__safe_count.exit203, !llvm.loop !11
 
-init__safe_count.exit209:                         ; preds = %for.body.i208, %init__safe_count.exit
-  %30 = phi i32 [ %26, %init__safe_count.exit ], [ %28, %for.body.i208 ]
+init__safe_count.exit203:                         ; preds = %for.body.i202, %init__safe_count.exit
+  %30 = phi i32 [ %26, %init__safe_count.exit ], [ %28, %for.body.i202 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @g_norm_hashkey, i8 0, i64 16, i1 false), !tbaa !10
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @g_flipV_hashkey, i8 0, i64 16, i1 false), !tbaa !10
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @g_flipH_hashkey, i8 0, i64 16, i1 false), !tbaa !10
@@ -454,7 +454,7 @@ init__safe_count.exit209:                         ; preds = %for.body.i208, %ini
   %or.cond340 = and i1 %cmp22298, %cmp68301
   br i1 %or.cond340, label %for.cond67.preheader.us.preheader, label %for.end118
 
-for.cond67.preheader.us.preheader:                ; preds = %init__safe_count.exit209
+for.cond67.preheader.us.preheader:                ; preds = %init__safe_count.exit203
   %wide.trip.count329 = zext i32 %num_rows to i64
   %wide.trip.count324 = zext i32 %num_cols to i64
   br label %for.cond67.preheader.us
@@ -478,8 +478,8 @@ for.body69.us:                                    ; preds = %for.cond67.preheade
 if.then75.us:                                     ; preds = %for.body69.us
   %indvars323 = trunc i64 %indvars.iv321 to i32
   %add77.us = add nsw i32 %mul76.us, %indvars323
-  %rem185.us = and i32 %add77.us, 31
-  %shl78.us = shl nuw i32 1, %rem185.us
+  %rem286.us = and i32 %add77.us, 31
+  %shl78.us = shl nuw i32 1, %rem286.us
   %div.us = sdiv i32 %add77.us, 32
   %idxprom79.us = sext i32 %div.us to i64
   %arrayidx80.us = getelementptr inbounds [4 x i32], ptr @g_norm_hashkey, i64 0, i64 %idxprom79.us
@@ -489,8 +489,8 @@ if.then75.us:                                     ; preds = %for.body69.us
   %34 = xor i32 %indvars323, -1
   %sub82.us = add i32 %34, %num_cols
   %add83.us = add nsw i32 %sub82.us, %mul76.us
-  %rem84186.us = and i32 %add83.us, 31
-  %shl85.us = shl nuw i32 1, %rem84186.us
+  %rem84287.us = and i32 %add83.us, 31
+  %shl85.us = shl nuw i32 1, %rem84287.us
   %div86.us = sdiv i32 %add83.us, 32
   %idxprom87.us = sext i32 %div86.us to i64
   %arrayidx88.us = getelementptr inbounds [4 x i32], ptr @g_flipV_hashkey, i64 0, i64 %idxprom87.us
@@ -498,8 +498,8 @@ if.then75.us:                                     ; preds = %for.body69.us
   %or89.us = or i32 %35, %shl85.us
   store i32 %or89.us, ptr %arrayidx88.us, align 4, !tbaa !10
   %add93.us = add nsw i32 %mul92.us, %indvars323
-  %rem94187.us = and i32 %add93.us, 31
-  %shl95.us = shl nuw i32 1, %rem94187.us
+  %rem94288.us = and i32 %add93.us, 31
+  %shl95.us = shl nuw i32 1, %rem94288.us
   %div96.us = sdiv i32 %add93.us, 32
   %idxprom97.us = sext i32 %div96.us to i64
   %arrayidx98.us = getelementptr inbounds [4 x i32], ptr @g_flipH_hashkey, i64 0, i64 %idxprom97.us
@@ -507,8 +507,8 @@ if.then75.us:                                     ; preds = %for.body69.us
   %or99.us = or i32 %36, %shl95.us
   store i32 %or99.us, ptr %arrayidx98.us, align 4, !tbaa !10
   %add105.us = add nsw i32 %sub82.us, %mul92.us
-  %rem106188.us = and i32 %add105.us, 31
-  %shl107.us = shl nuw i32 1, %rem106188.us
+  %rem106289.us = and i32 %add105.us, 31
+  %shl107.us = shl nuw i32 1, %rem106289.us
   %div108.us = sdiv i32 %add105.us, 32
   %idxprom109.us = sext i32 %div108.us to i64
   %arrayidx110.us = getelementptr inbounds [4 x i32], ptr @g_flipVH_hashkey, i64 0, i64 %idxprom109.us
@@ -527,13 +527,13 @@ for.cond67.for.inc116_crit_edge.us:               ; preds = %for.inc113.us
   %exitcond330.not = icmp eq i64 %indvars.iv.next327, %wide.trip.count329
   br i1 %exitcond330.not, label %for.end118, label %for.cond67.preheader.us, !llvm.loop !21
 
-for.end118:                                       ; preds = %for.cond67.for.inc116_crit_edge.us, %init__safe_count.exit209
+for.end118:                                       ; preds = %for.cond67.for.inc116_crit_edge.us, %init__safe_count.exit203
   %38 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !10
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 1), align 4, !tbaa !22
   %cmp28.i = icmp sgt i32 %30, 0
   %cmp226.i = icmp sgt i32 %38, 0
   %or.cond.i = select i1 %cmp28.i, i1 %cmp226.i, i1 false
-  br i1 %or.cond.i, label %for.cond1.preheader.us.preheader.i, label %init_hashkey_code.exit264.thread
+  br i1 %or.cond.i, label %for.cond1.preheader.us.preheader.i, label %init_hashkey_code.exit258.thread
 
 for.cond1.preheader.us.preheader.i:               ; preds = %for.end118
   %39 = zext i32 %38 to i64
@@ -549,8 +549,8 @@ for.cond1.preheader.us.i:                         ; preds = %for.cond1.for.inc12
 
 for.body3.us.i:                                   ; preds = %for.inc.us.i, %for.cond1.preheader.us.i
   %42 = phi i32 [ %40, %for.cond1.preheader.us.i ], [ %47, %for.inc.us.i ]
-  %indvars.iv.i210 = phi i64 [ 0, %for.cond1.preheader.us.i ], [ %.pre.i, %for.inc.us.i ]
-  %43 = add nuw nsw i64 %indvars.iv.i210, %41
+  %indvars.iv.i204 = phi i64 [ 0, %for.cond1.preheader.us.i ], [ %.pre.i, %for.inc.us.i ]
+  %43 = add nuw nsw i64 %indvars.iv.i204, %41
   %44 = trunc i64 %43 to i32
   %div.us.i = sdiv i32 %44, 32
   %idxprom.us.i = sext i32 %div.us.i to i64
@@ -560,7 +560,7 @@ for.body3.us.i:                                   ; preds = %for.inc.us.i, %for.
   %shl.us.i = shl nuw i32 1, %rem25.us.i
   %and.us.i = and i32 %shl.us.i, %45
   %tobool.not.us.i = icmp eq i32 %and.us.i, 0
-  %.pre.i = add nuw nsw i64 %indvars.iv.i210, 1
+  %.pre.i = add nuw nsw i64 %indvars.iv.i204, 1
   br i1 %tobool.not.us.i, label %for.inc.us.i, label %if.then.us.i
 
 if.then.us.i:                                     ; preds = %for.body3.us.i
@@ -577,144 +577,144 @@ for.inc.us.i:                                     ; preds = %if.then.us.i, %for.
 
 for.cond1.for.inc12_crit_edge.us.i:               ; preds = %for.inc.us.i
   %exitcond39.not.i = icmp eq i64 %indvars.iv.next35.i, %wide.trip.count38.i
-  br i1 %exitcond39.not.i, label %for.cond1.preheader.us.preheader.i216, label %for.cond1.preheader.us.i, !llvm.loop !25
+  br i1 %exitcond39.not.i, label %for.cond1.preheader.us.preheader.i210, label %for.cond1.preheader.us.i, !llvm.loop !25
 
-for.cond1.preheader.us.preheader.i216:            ; preds = %for.cond1.for.inc12_crit_edge.us.i
+for.cond1.preheader.us.preheader.i210:            ; preds = %for.cond1.for.inc12_crit_edge.us.i
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.cond1.preheader.us.i219
+  br label %for.cond1.preheader.us.i213
 
-for.cond1.preheader.us.i219:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i236, %for.cond1.preheader.us.preheader.i216
-  %48 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i216 ], [ %55, %for.cond1.for.inc12_crit_edge.us.i236 ]
-  %indvars.iv34.i217 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i216 ], [ %indvars.iv.next35.i218, %for.cond1.for.inc12_crit_edge.us.i236 ]
-  %49 = mul nuw nsw i64 %indvars.iv34.i217, %39
-  %indvars.iv.next35.i218 = add nuw nsw i64 %indvars.iv34.i217, 1
-  br label %for.body3.us.i229
+for.cond1.preheader.us.i213:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i230, %for.cond1.preheader.us.preheader.i210
+  %48 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i210 ], [ %55, %for.cond1.for.inc12_crit_edge.us.i230 ]
+  %indvars.iv34.i211 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i210 ], [ %indvars.iv.next35.i212, %for.cond1.for.inc12_crit_edge.us.i230 ]
+  %49 = mul nuw nsw i64 %indvars.iv34.i211, %39
+  %indvars.iv.next35.i212 = add nuw nsw i64 %indvars.iv34.i211, 1
+  br label %for.body3.us.i223
 
-for.body3.us.i229:                                ; preds = %for.inc.us.i234, %for.cond1.preheader.us.i219
-  %50 = phi i32 [ %48, %for.cond1.preheader.us.i219 ], [ %55, %for.inc.us.i234 ]
-  %indvars.iv.i220 = phi i64 [ 0, %for.cond1.preheader.us.i219 ], [ %.pre.i228, %for.inc.us.i234 ]
-  %51 = add nuw nsw i64 %indvars.iv.i220, %49
+for.body3.us.i223:                                ; preds = %for.inc.us.i228, %for.cond1.preheader.us.i213
+  %50 = phi i32 [ %48, %for.cond1.preheader.us.i213 ], [ %55, %for.inc.us.i228 ]
+  %indvars.iv.i214 = phi i64 [ 0, %for.cond1.preheader.us.i213 ], [ %.pre.i222, %for.inc.us.i228 ]
+  %51 = add nuw nsw i64 %indvars.iv.i214, %49
   %52 = trunc i64 %51 to i32
-  %div.us.i221 = sdiv i32 %52, 32
-  %idxprom.us.i222 = sext i32 %div.us.i221 to i64
-  %arrayidx.us.i223 = getelementptr inbounds [4 x i32], ptr @g_flipV_hashkey, i64 0, i64 %idxprom.us.i222
-  %53 = load i32, ptr %arrayidx.us.i223, align 4, !tbaa !10
-  %rem25.us.i224 = and i32 %52, 31
-  %shl.us.i225 = shl nuw i32 1, %rem25.us.i224
-  %and.us.i226 = and i32 %shl.us.i225, %53
-  %tobool.not.us.i227 = icmp eq i32 %and.us.i226, 0
-  %.pre.i228 = add nuw nsw i64 %indvars.iv.i220, 1
-  br i1 %tobool.not.us.i227, label %for.inc.us.i234, label %if.then.us.i232
+  %div.us.i215 = sdiv i32 %52, 32
+  %idxprom.us.i216 = sext i32 %div.us.i215 to i64
+  %arrayidx.us.i217 = getelementptr inbounds [4 x i32], ptr @g_flipV_hashkey, i64 0, i64 %idxprom.us.i216
+  %53 = load i32, ptr %arrayidx.us.i217, align 4, !tbaa !10
+  %rem25.us.i218 = and i32 %52, 31
+  %shl.us.i219 = shl nuw i32 1, %rem25.us.i218
+  %and.us.i220 = and i32 %shl.us.i219, %53
+  %tobool.not.us.i221 = icmp eq i32 %and.us.i220, 0
+  %.pre.i222 = add nuw nsw i64 %indvars.iv.i214, 1
+  br i1 %tobool.not.us.i221, label %for.inc.us.i228, label %if.then.us.i226
 
-if.then.us.i232:                                  ; preds = %for.body3.us.i229
-  %arrayidx10.us.i230 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i218, i64 %.pre.i228
-  %54 = load i32, ptr %arrayidx10.us.i230, align 4, !tbaa !10
-  %xor.us.i231 = xor i32 %54, %50
-  store i32 %xor.us.i231, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.inc.us.i234
+if.then.us.i226:                                  ; preds = %for.body3.us.i223
+  %arrayidx10.us.i224 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i212, i64 %.pre.i222
+  %54 = load i32, ptr %arrayidx10.us.i224, align 4, !tbaa !10
+  %xor.us.i225 = xor i32 %54, %50
+  store i32 %xor.us.i225, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 1), align 4, !tbaa !22
+  br label %for.inc.us.i228
 
-for.inc.us.i234:                                  ; preds = %if.then.us.i232, %for.body3.us.i229
-  %55 = phi i32 [ %xor.us.i231, %if.then.us.i232 ], [ %50, %for.body3.us.i229 ]
-  %exitcond.not.i233 = icmp eq i64 %.pre.i228, %39
-  br i1 %exitcond.not.i233, label %for.cond1.for.inc12_crit_edge.us.i236, label %for.body3.us.i229, !llvm.loop !24
+for.inc.us.i228:                                  ; preds = %if.then.us.i226, %for.body3.us.i223
+  %55 = phi i32 [ %xor.us.i225, %if.then.us.i226 ], [ %50, %for.body3.us.i223 ]
+  %exitcond.not.i227 = icmp eq i64 %.pre.i222, %39
+  br i1 %exitcond.not.i227, label %for.cond1.for.inc12_crit_edge.us.i230, label %for.body3.us.i223, !llvm.loop !24
 
-for.cond1.for.inc12_crit_edge.us.i236:            ; preds = %for.inc.us.i234
-  %exitcond39.not.i235 = icmp eq i64 %indvars.iv.next35.i218, %wide.trip.count38.i
-  br i1 %exitcond39.not.i235, label %for.cond1.preheader.us.preheader.i243, label %for.cond1.preheader.us.i219, !llvm.loop !25
+for.cond1.for.inc12_crit_edge.us.i230:            ; preds = %for.inc.us.i228
+  %exitcond39.not.i229 = icmp eq i64 %indvars.iv.next35.i212, %wide.trip.count38.i
+  br i1 %exitcond39.not.i229, label %for.cond1.preheader.us.preheader.i237, label %for.cond1.preheader.us.i213, !llvm.loop !25
 
-for.cond1.preheader.us.preheader.i243:            ; preds = %for.cond1.for.inc12_crit_edge.us.i236
+for.cond1.preheader.us.preheader.i237:            ; preds = %for.cond1.for.inc12_crit_edge.us.i230
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.cond1.preheader.us.i246
+  br label %for.cond1.preheader.us.i240
 
-for.cond1.preheader.us.i246:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i263, %for.cond1.preheader.us.preheader.i243
-  %56 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i243 ], [ %63, %for.cond1.for.inc12_crit_edge.us.i263 ]
-  %indvars.iv34.i244 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i243 ], [ %indvars.iv.next35.i245, %for.cond1.for.inc12_crit_edge.us.i263 ]
-  %57 = mul nuw nsw i64 %indvars.iv34.i244, %39
-  %indvars.iv.next35.i245 = add nuw nsw i64 %indvars.iv34.i244, 1
-  br label %for.body3.us.i256
+for.cond1.preheader.us.i240:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i257, %for.cond1.preheader.us.preheader.i237
+  %56 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i237 ], [ %63, %for.cond1.for.inc12_crit_edge.us.i257 ]
+  %indvars.iv34.i238 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i237 ], [ %indvars.iv.next35.i239, %for.cond1.for.inc12_crit_edge.us.i257 ]
+  %57 = mul nuw nsw i64 %indvars.iv34.i238, %39
+  %indvars.iv.next35.i239 = add nuw nsw i64 %indvars.iv34.i238, 1
+  br label %for.body3.us.i250
 
-for.body3.us.i256:                                ; preds = %for.inc.us.i261, %for.cond1.preheader.us.i246
-  %58 = phi i32 [ %56, %for.cond1.preheader.us.i246 ], [ %63, %for.inc.us.i261 ]
-  %indvars.iv.i247 = phi i64 [ 0, %for.cond1.preheader.us.i246 ], [ %.pre.i255, %for.inc.us.i261 ]
-  %59 = add nuw nsw i64 %indvars.iv.i247, %57
+for.body3.us.i250:                                ; preds = %for.inc.us.i255, %for.cond1.preheader.us.i240
+  %58 = phi i32 [ %56, %for.cond1.preheader.us.i240 ], [ %63, %for.inc.us.i255 ]
+  %indvars.iv.i241 = phi i64 [ 0, %for.cond1.preheader.us.i240 ], [ %.pre.i249, %for.inc.us.i255 ]
+  %59 = add nuw nsw i64 %indvars.iv.i241, %57
   %60 = trunc i64 %59 to i32
-  %div.us.i248 = sdiv i32 %60, 32
-  %idxprom.us.i249 = sext i32 %div.us.i248 to i64
-  %arrayidx.us.i250 = getelementptr inbounds [4 x i32], ptr @g_flipH_hashkey, i64 0, i64 %idxprom.us.i249
-  %61 = load i32, ptr %arrayidx.us.i250, align 4, !tbaa !10
-  %rem25.us.i251 = and i32 %60, 31
-  %shl.us.i252 = shl nuw i32 1, %rem25.us.i251
-  %and.us.i253 = and i32 %shl.us.i252, %61
-  %tobool.not.us.i254 = icmp eq i32 %and.us.i253, 0
-  %.pre.i255 = add nuw nsw i64 %indvars.iv.i247, 1
-  br i1 %tobool.not.us.i254, label %for.inc.us.i261, label %if.then.us.i259
+  %div.us.i242 = sdiv i32 %60, 32
+  %idxprom.us.i243 = sext i32 %div.us.i242 to i64
+  %arrayidx.us.i244 = getelementptr inbounds [4 x i32], ptr @g_flipH_hashkey, i64 0, i64 %idxprom.us.i243
+  %61 = load i32, ptr %arrayidx.us.i244, align 4, !tbaa !10
+  %rem25.us.i245 = and i32 %60, 31
+  %shl.us.i246 = shl nuw i32 1, %rem25.us.i245
+  %and.us.i247 = and i32 %shl.us.i246, %61
+  %tobool.not.us.i248 = icmp eq i32 %and.us.i247, 0
+  %.pre.i249 = add nuw nsw i64 %indvars.iv.i241, 1
+  br i1 %tobool.not.us.i248, label %for.inc.us.i255, label %if.then.us.i253
 
-if.then.us.i259:                                  ; preds = %for.body3.us.i256
-  %arrayidx10.us.i257 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i245, i64 %.pre.i255
-  %62 = load i32, ptr %arrayidx10.us.i257, align 4, !tbaa !10
-  %xor.us.i258 = xor i32 %62, %58
-  store i32 %xor.us.i258, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.inc.us.i261
+if.then.us.i253:                                  ; preds = %for.body3.us.i250
+  %arrayidx10.us.i251 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i239, i64 %.pre.i249
+  %62 = load i32, ptr %arrayidx10.us.i251, align 4, !tbaa !10
+  %xor.us.i252 = xor i32 %62, %58
+  store i32 %xor.us.i252, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 1), align 4, !tbaa !22
+  br label %for.inc.us.i255
 
-for.inc.us.i261:                                  ; preds = %if.then.us.i259, %for.body3.us.i256
-  %63 = phi i32 [ %xor.us.i258, %if.then.us.i259 ], [ %58, %for.body3.us.i256 ]
-  %exitcond.not.i260 = icmp eq i64 %.pre.i255, %39
-  br i1 %exitcond.not.i260, label %for.cond1.for.inc12_crit_edge.us.i263, label %for.body3.us.i256, !llvm.loop !24
+for.inc.us.i255:                                  ; preds = %if.then.us.i253, %for.body3.us.i250
+  %63 = phi i32 [ %xor.us.i252, %if.then.us.i253 ], [ %58, %for.body3.us.i250 ]
+  %exitcond.not.i254 = icmp eq i64 %.pre.i249, %39
+  br i1 %exitcond.not.i254, label %for.cond1.for.inc12_crit_edge.us.i257, label %for.body3.us.i250, !llvm.loop !24
 
-for.cond1.for.inc12_crit_edge.us.i263:            ; preds = %for.inc.us.i261
-  %exitcond39.not.i262 = icmp eq i64 %indvars.iv.next35.i245, %wide.trip.count38.i
-  br i1 %exitcond39.not.i262, label %for.cond1.preheader.us.preheader.i270, label %for.cond1.preheader.us.i246, !llvm.loop !25
+for.cond1.for.inc12_crit_edge.us.i257:            ; preds = %for.inc.us.i255
+  %exitcond39.not.i256 = icmp eq i64 %indvars.iv.next35.i239, %wide.trip.count38.i
+  br i1 %exitcond39.not.i256, label %for.cond1.preheader.us.preheader.i264, label %for.cond1.preheader.us.i240, !llvm.loop !25
 
-init_hashkey_code.exit264.thread:                 ; preds = %for.end118
+init_hashkey_code.exit258.thread:                 ; preds = %for.end118
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 1), align 4, !tbaa !22
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 1), align 4, !tbaa !22
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %init_hashkey_code.exit291
+  br label %init_hashkey_code.exit285
 
-for.cond1.preheader.us.preheader.i270:            ; preds = %for.cond1.for.inc12_crit_edge.us.i263
+for.cond1.preheader.us.preheader.i264:            ; preds = %for.cond1.for.inc12_crit_edge.us.i257
   store i32 0, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.cond1.preheader.us.i273
+  br label %for.cond1.preheader.us.i267
 
-for.cond1.preheader.us.i273:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i290, %for.cond1.preheader.us.preheader.i270
-  %64 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i270 ], [ %71, %for.cond1.for.inc12_crit_edge.us.i290 ]
-  %indvars.iv34.i271 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i270 ], [ %indvars.iv.next35.i272, %for.cond1.for.inc12_crit_edge.us.i290 ]
-  %65 = mul nuw nsw i64 %indvars.iv34.i271, %39
-  %indvars.iv.next35.i272 = add nuw nsw i64 %indvars.iv34.i271, 1
-  br label %for.body3.us.i283
+for.cond1.preheader.us.i267:                      ; preds = %for.cond1.for.inc12_crit_edge.us.i284, %for.cond1.preheader.us.preheader.i264
+  %64 = phi i32 [ 0, %for.cond1.preheader.us.preheader.i264 ], [ %71, %for.cond1.for.inc12_crit_edge.us.i284 ]
+  %indvars.iv34.i265 = phi i64 [ 0, %for.cond1.preheader.us.preheader.i264 ], [ %indvars.iv.next35.i266, %for.cond1.for.inc12_crit_edge.us.i284 ]
+  %65 = mul nuw nsw i64 %indvars.iv34.i265, %39
+  %indvars.iv.next35.i266 = add nuw nsw i64 %indvars.iv34.i265, 1
+  br label %for.body3.us.i277
 
-for.body3.us.i283:                                ; preds = %for.inc.us.i288, %for.cond1.preheader.us.i273
-  %66 = phi i32 [ %64, %for.cond1.preheader.us.i273 ], [ %71, %for.inc.us.i288 ]
-  %indvars.iv.i274 = phi i64 [ 0, %for.cond1.preheader.us.i273 ], [ %.pre.i282, %for.inc.us.i288 ]
-  %67 = add nuw nsw i64 %indvars.iv.i274, %65
+for.body3.us.i277:                                ; preds = %for.inc.us.i282, %for.cond1.preheader.us.i267
+  %66 = phi i32 [ %64, %for.cond1.preheader.us.i267 ], [ %71, %for.inc.us.i282 ]
+  %indvars.iv.i268 = phi i64 [ 0, %for.cond1.preheader.us.i267 ], [ %.pre.i276, %for.inc.us.i282 ]
+  %67 = add nuw nsw i64 %indvars.iv.i268, %65
   %68 = trunc i64 %67 to i32
-  %div.us.i275 = sdiv i32 %68, 32
-  %idxprom.us.i276 = sext i32 %div.us.i275 to i64
-  %arrayidx.us.i277 = getelementptr inbounds [4 x i32], ptr @g_flipVH_hashkey, i64 0, i64 %idxprom.us.i276
-  %69 = load i32, ptr %arrayidx.us.i277, align 4, !tbaa !10
-  %rem25.us.i278 = and i32 %68, 31
-  %shl.us.i279 = shl nuw i32 1, %rem25.us.i278
-  %and.us.i280 = and i32 %shl.us.i279, %69
-  %tobool.not.us.i281 = icmp eq i32 %and.us.i280, 0
-  %.pre.i282 = add nuw nsw i64 %indvars.iv.i274, 1
-  br i1 %tobool.not.us.i281, label %for.inc.us.i288, label %if.then.us.i286
+  %div.us.i269 = sdiv i32 %68, 32
+  %idxprom.us.i270 = sext i32 %div.us.i269 to i64
+  %arrayidx.us.i271 = getelementptr inbounds [4 x i32], ptr @g_flipVH_hashkey, i64 0, i64 %idxprom.us.i270
+  %69 = load i32, ptr %arrayidx.us.i271, align 4, !tbaa !10
+  %rem25.us.i272 = and i32 %68, 31
+  %shl.us.i273 = shl nuw i32 1, %rem25.us.i272
+  %and.us.i274 = and i32 %shl.us.i273, %69
+  %tobool.not.us.i275 = icmp eq i32 %and.us.i274, 0
+  %.pre.i276 = add nuw nsw i64 %indvars.iv.i268, 1
+  br i1 %tobool.not.us.i275, label %for.inc.us.i282, label %if.then.us.i280
 
-if.then.us.i286:                                  ; preds = %for.body3.us.i283
-  %arrayidx10.us.i284 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i272, i64 %.pre.i282
-  %70 = load i32, ptr %arrayidx10.us.i284, align 4, !tbaa !10
-  %xor.us.i285 = xor i32 %70, %66
-  store i32 %xor.us.i285, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 1), align 4, !tbaa !22
-  br label %for.inc.us.i288
+if.then.us.i280:                                  ; preds = %for.body3.us.i277
+  %arrayidx10.us.i278 = getelementptr inbounds [32 x [32 x i32]], ptr @g_zobrist, i64 0, i64 %indvars.iv.next35.i266, i64 %.pre.i276
+  %70 = load i32, ptr %arrayidx10.us.i278, align 4, !tbaa !10
+  %xor.us.i279 = xor i32 %70, %66
+  store i32 %xor.us.i279, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 1), align 4, !tbaa !22
+  br label %for.inc.us.i282
 
-for.inc.us.i288:                                  ; preds = %if.then.us.i286, %for.body3.us.i283
-  %71 = phi i32 [ %xor.us.i285, %if.then.us.i286 ], [ %66, %for.body3.us.i283 ]
-  %exitcond.not.i287 = icmp eq i64 %.pre.i282, %39
-  br i1 %exitcond.not.i287, label %for.cond1.for.inc12_crit_edge.us.i290, label %for.body3.us.i283, !llvm.loop !24
+for.inc.us.i282:                                  ; preds = %if.then.us.i280, %for.body3.us.i277
+  %71 = phi i32 [ %xor.us.i279, %if.then.us.i280 ], [ %66, %for.body3.us.i277 ]
+  %exitcond.not.i281 = icmp eq i64 %.pre.i276, %39
+  br i1 %exitcond.not.i281, label %for.cond1.for.inc12_crit_edge.us.i284, label %for.body3.us.i277, !llvm.loop !24
 
-for.cond1.for.inc12_crit_edge.us.i290:            ; preds = %for.inc.us.i288
-  %exitcond39.not.i289 = icmp eq i64 %indvars.iv.next35.i272, %wide.trip.count38.i
-  br i1 %exitcond39.not.i289, label %init_hashkey_code.exit291, label %for.cond1.preheader.us.i273, !llvm.loop !25
+for.cond1.for.inc12_crit_edge.us.i284:            ; preds = %for.inc.us.i282
+  %exitcond39.not.i283 = icmp eq i64 %indvars.iv.next35.i266, %wide.trip.count38.i
+  br i1 %exitcond39.not.i283, label %init_hashkey_code.exit285, label %for.cond1.preheader.us.i267, !llvm.loop !25
 
-init_hashkey_code.exit291:                        ; preds = %for.cond1.for.inc12_crit_edge.us.i290, %init_hashkey_code.exit264.thread
+init_hashkey_code.exit285:                        ; preds = %for.cond1.for.inc12_crit_edge.us.i284, %init_hashkey_code.exit258.thread
   tail call void @print_board(i32 noundef 0) #6
   %putchar = tail call i32 @putchar(i32 10)
   tail call void (i32, ...) @print_board_info(i32 noundef 0) #6

@@ -12,7 +12,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.then:
+if.then4:
   store i32 -1, ptr @s1, align 8, !tbaa !5
   store ptr @s1, ptr @p1, align 8, !tbaa !10
   store i32 3, ptr @i, align 4, !tbaa !12

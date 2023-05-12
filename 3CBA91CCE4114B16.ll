@@ -941,8 +941,8 @@ if.end432:                                        ; preds = %for.body391.if.end4
   %146 = load i32, ptr %SkipIntraInInterSlices, align 8, !tbaa !50
   %tobool433 = icmp ne i32 %146, 0
   %cmp437 = icmp sgt i32 %141, 9
-  %147 = and i1 %cmp437, %tobool433
-  %or.cond764 = and i1 %tobool72, %147
+  %147 = and i1 %tobool433, %cmp437
+  %or.cond764 = and i1 %147, %tobool72
   %148 = load i16, ptr @best_mode, align 2
   %cmp441 = icmp slt i16 %148, 4
   %or.cond765 = select i1 %or.cond764, i1 %cmp441, i1 false
@@ -962,7 +962,7 @@ land.lhs.true450:                                 ; preds = %if.end447
   %151 = load i32, ptr %weighted_bipred_idc, align 4, !tbaa !52
   %cmp451 = icmp eq i32 %151, 1
   %cmp454 = icmp slt i32 %141, 8
-  %or.cond766 = and i1 %cmp454, %cmp451
+  %or.cond766 = and i1 %cmp451, %cmp454
   br i1 %or.cond766, label %for.cond457.preheader, label %if.end562
 
 for.cond457.preheader:                            ; preds = %land.lhs.true450

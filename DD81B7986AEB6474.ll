@@ -31,11 +31,11 @@ entry:
 for.body:                                         ; preds = %entry, %for.inc
   %i.039 = phi i32 [ -1, %entry ], [ %inc, %for.inc ]
   %0 = icmp ult i32 %i.039, 12
-  %switch.cast = trunc i32 %i.039 to i12
-  %switch.downshift = lshr i12 -1456, %switch.cast
-  %1 = and i12 %switch.downshift, 1
-  %switch.masked = icmp ne i12 %1, 0
-  %cmp18.not = select i1 %0, i1 %switch.masked, i1 false
+  %switch.cast40 = trunc i32 %i.039 to i12
+  %switch.downshift42 = lshr i12 -1456, %switch.cast40
+  %1 = and i12 %switch.downshift42, 1
+  %switch.masked43 = icmp ne i12 %1, 0
+  %cmp18.not = select i1 %0, i1 %switch.masked43, i1 false
   switch i32 %i.039, label %if.else21 [
     i32 4, label %if.then
     i32 6, label %if.then5
@@ -72,11 +72,11 @@ if.then19:                                        ; preds = %if.then17
   unreachable
 
 if.else21:                                        ; preds = %for.body
-  %switch.cast40 = trunc i32 %i.039 to i12
-  %switch.downshift42 = lshr i12 1455, %switch.cast40
-  %2 = and i12 %switch.downshift42, 1
-  %switch.masked43 = icmp eq i12 %2, 0
-  %cmp22.not.not = select i1 %0, i1 %switch.masked43, i1 false
+  %switch.cast = trunc i32 %i.039 to i12
+  %switch.downshift = lshr i12 1455, %switch.cast
+  %2 = and i12 %switch.downshift, 1
+  %switch.masked = icmp eq i12 %2, 0
+  %cmp22.not.not = select i1 %0, i1 %switch.masked, i1 false
   br i1 %cmp22.not.not, label %if.then23, label %for.inc
 
 if.then23:                                        ; preds = %if.else21

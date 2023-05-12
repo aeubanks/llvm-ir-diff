@@ -573,8 +573,8 @@ if.end187:                                        ; preds = %if.then184, %if.end
   br i1 %cmp188, label %land.lhs.true, label %if.end197
 
 land.lhs.true:                                    ; preds = %if.end187
-  %bcmp439 = call i32 @bcmp(ptr noundef nonnull dereferenceable(7) %cn, ptr noundef nonnull dereferenceable(7) @.str.10, i64 7)
-  %cmp192 = icmp eq i32 %bcmp439, 0
+  %bcmp486 = call i32 @bcmp(ptr noundef nonnull dereferenceable(7) %cn, ptr noundef nonnull dereferenceable(7) @.str.10, i64 7)
+  %cmp192 = icmp eq i32 %bcmp486, 0
   br i1 %cmp192, label %if.end197, label %if.then194
 
 if.then194:                                       ; preds = %land.lhs.true
@@ -618,8 +618,8 @@ if.end215:                                        ; preds = %if.then212, %if.end
   br i1 %cmp216, label %land.lhs.true218, label %if.end238
 
 land.lhs.true218:                                 ; preds = %if.end215
-  %bcmp438 = call i32 @bcmp(ptr noundef nonnull dereferenceable(7) %cn, ptr noundef nonnull dereferenceable(7) @.str.10, i64 7)
-  %cmp221 = icmp eq i32 %bcmp438, 0
+  %bcmp485 = call i32 @bcmp(ptr noundef nonnull dereferenceable(7) %cn, ptr noundef nonnull dereferenceable(7) @.str.10, i64 7)
+  %cmp221 = icmp eq i32 %bcmp485, 0
   br i1 %cmp221, label %if.end238, label %if.then223
 
 if.then223:                                       ; preds = %land.lhs.true218
@@ -645,10 +645,10 @@ for.end.i:                                        ; preds = %for.cond.i
   %arrayidx22.i = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom21.i
   %177 = load i8, ptr %arrayidx22.i, align 1, !tbaa !14
   %cmp.not23.i = icmp eq i8 %177, 0
-  br i1 %cmp.not23.i, label %for.cond.i450.preheader, label %while.body.i
+  br i1 %cmp.not23.i, label %for.cond.i440.preheader, label %while.body.i
 
-for.cond.i450.preheader:                          ; preds = %if.end.i, %for.end.i
-  br label %for.cond.i450
+for.cond.i440.preheader:                          ; preds = %if.end.i, %for.end.i
+  br label %for.cond.i440
 
 while.body.i:                                     ; preds = %for.end.i, %if.end.i
   %178 = phi i8 [ %181, %if.end.i ], [ %177, %for.end.i ]
@@ -669,7 +669,7 @@ if.end.i:                                         ; preds = %while.body.i
   %arrayidx.i = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.i
   %181 = load i8, ptr %arrayidx.i, align 1, !tbaa !14
   %cmp.not.i = icmp eq i8 %181, 0
-  br i1 %cmp.not.i, label %for.cond.i450.preheader, label %while.body.i, !llvm.loop !24
+  br i1 %cmp.not.i, label %for.cond.i440.preheader, label %while.body.i, !llvm.loop !24
 
 if.then229:                                       ; preds = %while.body.i
   %idxprom234 = sext i32 %174 to i64
@@ -677,44 +677,44 @@ if.then229:                                       ; preds = %while.body.i
   store ptr %179, ptr %arrayidx235, align 8, !tbaa !9
   br label %if.end238
 
-for.cond.i450:                                    ; preds = %for.cond.i450.preheader, %for.cond.i450
-  %pos.0.i443 = phi i32 [ %add.i449, %for.cond.i450 ], [ %mul.i, %for.cond.i450.preheader ]
-  %cname.pn.i444 = phi ptr [ %p.0.i446, %for.cond.i450 ], [ %cn, %for.cond.i450.preheader ]
-  %pos.0.fr.i445 = freeze i32 %pos.0.i443
-  %p.0.i446 = getelementptr inbounds i8, ptr %cname.pn.i444, i64 1
-  %182 = load i8, ptr %p.0.i446, align 1, !tbaa !14
-  %tobool.not.i447 = icmp eq i8 %182, 0
-  %conv2.i448 = zext i8 %182 to i32
-  %add.i449 = add nuw nsw i32 %pos.0.fr.i445, %conv2.i448
-  br i1 %tobool.not.i447, label %for.end.i452, label %for.cond.i450, !llvm.loop !25
+for.cond.i440:                                    ; preds = %for.cond.i440.preheader, %for.cond.i440
+  %pos.0.i433 = phi i32 [ %add.i439, %for.cond.i440 ], [ %mul.i, %for.cond.i440.preheader ]
+  %cname.pn.i434 = phi ptr [ %p.0.i436, %for.cond.i440 ], [ %cn, %for.cond.i440.preheader ]
+  %pos.0.fr.i435 = freeze i32 %pos.0.i433
+  %p.0.i436 = getelementptr inbounds i8, ptr %cname.pn.i434, i64 1
+  %182 = load i8, ptr %p.0.i436, align 1, !tbaa !14
+  %tobool.not.i437 = icmp eq i8 %182, 0
+  %conv2.i438 = zext i8 %182 to i32
+  %add.i439 = add nuw nsw i32 %pos.0.fr.i435, %conv2.i438
+  br i1 %tobool.not.i437, label %for.end.i442, label %for.cond.i440, !llvm.loop !25
 
-for.end.i452:                                     ; preds = %for.cond.i450
-  %rem.i451 = urem i32 %pos.0.fr.i445, 353
-  %idxprom23.i = zext i32 %rem.i451 to i64
+for.end.i442:                                     ; preds = %for.cond.i440
+  %rem.i441 = urem i32 %pos.0.fr.i435, 353
+  %idxprom23.i = zext i32 %rem.i441 to i64
   %arrayidx24.i = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom23.i
   %183 = load i8, ptr %arrayidx24.i, align 1, !tbaa !14
   %cmp.not25.i = icmp eq i8 %183, 0
-  br i1 %cmp.not25.i, label %NameInsert.exit, label %while.body.i456
+  br i1 %cmp.not25.i, label %NameInsert.exit, label %while.body.i446
 
-while.body.i456:                                  ; preds = %for.end.i452, %while.body.i456
-  %pos.126.i = phi i32 [ %rem6.i, %while.body.i456 ], [ %rem.i451, %for.end.i452 ]
+while.body.i446:                                  ; preds = %for.end.i442, %while.body.i446
+  %pos.126.i = phi i32 [ %rem6.i, %while.body.i446 ], [ %rem.i441, %for.end.i442 ]
   %add5.i = add i32 %pos.126.i, 1
   %184 = icmp eq i32 %add5.i, 353
   %rem6.i = select i1 %184, i32 0, i32 %add5.i
-  %idxprom.i453 = sext i32 %rem6.i to i64
-  %arrayidx.i454 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.i453
-  %185 = load i8, ptr %arrayidx.i454, align 1, !tbaa !14
-  %cmp.not.i455 = icmp eq i8 %185, 0
-  br i1 %cmp.not.i455, label %NameInsert.exit, label %while.body.i456, !llvm.loop !26
+  %idxprom.i443 = sext i32 %rem6.i to i64
+  %arrayidx.i444 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.i443
+  %185 = load i8, ptr %arrayidx.i444, align 1, !tbaa !14
+  %cmp.not.i445 = icmp eq i8 %185, 0
+  br i1 %cmp.not.i445, label %NameInsert.exit, label %while.body.i446, !llvm.loop !26
 
-NameInsert.exit:                                  ; preds = %while.body.i456, %for.end.i452
-  %idxprom.lcssa.i = phi i64 [ %idxprom23.i, %for.end.i452 ], [ %idxprom.i453, %while.body.i456 ]
+NameInsert.exit:                                  ; preds = %while.body.i446, %for.end.i442
+  %idxprom.lcssa.i = phi i64 [ %idxprom23.i, %for.end.i442 ], [ %idxprom.i443, %while.body.i446 ]
   %arrayidx.le.i = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.lcssa.i
   %186 = load ptr, ptr @no_fpos, align 8, !tbaa !9
-  %call.i457 = call ptr @MakeWord(i32 noundef 11, ptr noundef nonnull %cn, ptr noundef %186) #12
+  %call.i447 = call ptr @MakeWord(i32 noundef 11, ptr noundef nonnull %cn, ptr noundef %186) #12
   %idxprom7.i = sext i32 %174 to i64
   %arrayidx8.i = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 5, i64 %idxprom7.i
-  store ptr %call.i457, ptr %arrayidx8.i, align 8, !tbaa !9
+  store ptr %call.i447, ptr %arrayidx8.i, align 8, !tbaa !9
   %conv9.i = trunc i32 %174 to i8
   store i8 %conv9.i, ptr %arrayidx.le.i, align 1, !tbaa !14
   br label %if.end238
@@ -796,18 +796,18 @@ while.body295:                                    ; preds = %if.end283, %if.end3
   br i1 %cmp298, label %if.end328, label %if.else301
 
 if.else301:                                       ; preds = %while.body295
-  %bcmp434 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.18, i64 3)
-  %cmp304 = icmp eq i32 %bcmp434, 0
+  %bcmp481 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.18, i64 3)
+  %cmp304 = icmp eq i32 %bcmp481, 0
   br i1 %cmp304, label %if.end328, label %if.else307
 
 if.else307:                                       ; preds = %if.else301
-  %bcmp435 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.19, i64 3)
-  %cmp310 = icmp eq i32 %bcmp435, 0
+  %bcmp482 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.19, i64 3)
+  %cmp310 = icmp eq i32 %bcmp482, 0
   br i1 %cmp310, label %if.end328, label %if.else313
 
 if.else313:                                       ; preds = %if.else307
-  %bcmp436 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.20, i64 3)
-  %cmp316 = icmp eq i32 %bcmp436, 0
+  %bcmp483 = call i32 @bcmp(ptr noundef nonnull dereferenceable(3) %mapname, ptr noundef nonnull dereferenceable(3) @.str.20, i64 3)
+  %cmp316 = icmp eq i32 %bcmp483, 0
   br i1 %cmp316, label %if.end328, label %if.else319
 
 if.else319:                                       ; preds = %if.else313
@@ -819,63 +819,63 @@ if.else319:                                       ; preds = %if.else313
 if.end328:                                        ; preds = %if.else313, %if.else307, %if.else301, %while.body295, %if.else319
   %m.3 = phi i32 [ %m.2526, %if.else319 ], [ 0, %while.body295 ], [ 1, %if.else301 ], [ 2, %if.else307 ], [ 3, %if.else313 ]
   %194 = load i8, ptr %mapval, align 16, !tbaa !14
-  %conv.i458 = zext i8 %194 to i32
-  %mul.i459 = shl nuw nsw i32 %conv.i458, 1
-  br label %for.cond.i467
+  %conv.i448 = zext i8 %194 to i32
+  %mul.i449 = shl nuw nsw i32 %conv.i448, 1
+  br label %for.cond.i457
 
-for.cond.i467:                                    ; preds = %for.cond.i467, %if.end328
-  %pos.0.i460 = phi i32 [ %mul.i459, %if.end328 ], [ %add.i466, %for.cond.i467 ]
-  %cname.pn.i461 = phi ptr [ %mapval, %if.end328 ], [ %p.0.i463, %for.cond.i467 ]
-  %pos.0.fr.i462 = freeze i32 %pos.0.i460
-  %p.0.i463 = getelementptr inbounds i8, ptr %cname.pn.i461, i64 1
-  %195 = load i8, ptr %p.0.i463, align 1, !tbaa !14
-  %tobool.not.i464 = icmp eq i8 %195, 0
-  %conv2.i465 = zext i8 %195 to i32
-  %add.i466 = add nuw nsw i32 %pos.0.fr.i462, %conv2.i465
-  br i1 %tobool.not.i464, label %for.end.i472, label %for.cond.i467, !llvm.loop !23
+for.cond.i457:                                    ; preds = %for.cond.i457, %if.end328
+  %pos.0.i450 = phi i32 [ %mul.i449, %if.end328 ], [ %add.i456, %for.cond.i457 ]
+  %cname.pn.i451 = phi ptr [ %mapval, %if.end328 ], [ %p.0.i453, %for.cond.i457 ]
+  %pos.0.fr.i452 = freeze i32 %pos.0.i450
+  %p.0.i453 = getelementptr inbounds i8, ptr %cname.pn.i451, i64 1
+  %195 = load i8, ptr %p.0.i453, align 1, !tbaa !14
+  %tobool.not.i454 = icmp eq i8 %195, 0
+  %conv2.i455 = zext i8 %195 to i32
+  %add.i456 = add nuw nsw i32 %pos.0.fr.i452, %conv2.i455
+  br i1 %tobool.not.i454, label %for.end.i462, label %for.cond.i457, !llvm.loop !23
 
-for.end.i472:                                     ; preds = %for.cond.i467
-  %rem.i468 = urem i32 %pos.0.fr.i462, 353
-  %idxprom21.i469 = zext i32 %rem.i468 to i64
-  %arrayidx22.i470 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom21.i469
-  %196 = load i8, ptr %arrayidx22.i470, align 1, !tbaa !14
-  %cmp.not23.i471 = icmp eq i8 %196, 0
-  br i1 %cmp.not23.i471, label %if.then334, label %while.body.i479
+for.end.i462:                                     ; preds = %for.cond.i457
+  %rem.i458 = urem i32 %pos.0.fr.i452, 353
+  %idxprom21.i459 = zext i32 %rem.i458 to i64
+  %arrayidx22.i460 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom21.i459
+  %196 = load i8, ptr %arrayidx22.i460, align 1, !tbaa !14
+  %cmp.not23.i461 = icmp eq i8 %196, 0
+  br i1 %cmp.not23.i461, label %if.then334, label %while.body.i469
 
-while.body.i479:                                  ; preds = %for.end.i472, %if.end.i485
-  %197 = phi i8 [ %200, %if.end.i485 ], [ %196, %for.end.i472 ]
-  %pos.124.i473 = phi i32 [ %rem10.i481, %if.end.i485 ], [ %rem.i468, %for.end.i472 ]
-  %idxprom5.i474 = zext i8 %197 to i64
-  %arrayidx6.i475 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 5, i64 %idxprom5.i474
-  %198 = load ptr, ptr %arrayidx6.i475, align 8, !tbaa !9
-  %ostring.i476 = getelementptr inbounds %struct.word_type, ptr %198, i64 0, i32 4
-  %call.i477 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %ostring.i476, ptr noundef nonnull dereferenceable(1) %mapval) #13
-  %cmp7.i478 = icmp eq i32 %call.i477, 0
-  br i1 %cmp7.i478, label %if.end340, label %if.end.i485
+while.body.i469:                                  ; preds = %for.end.i462, %if.end.i475
+  %197 = phi i8 [ %200, %if.end.i475 ], [ %196, %for.end.i462 ]
+  %pos.124.i463 = phi i32 [ %rem10.i471, %if.end.i475 ], [ %rem.i458, %for.end.i462 ]
+  %idxprom5.i464 = zext i8 %197 to i64
+  %arrayidx6.i465 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 5, i64 %idxprom5.i464
+  %198 = load ptr, ptr %arrayidx6.i465, align 8, !tbaa !9
+  %ostring.i466 = getelementptr inbounds %struct.word_type, ptr %198, i64 0, i32 4
+  %call.i467 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %ostring.i466, ptr noundef nonnull dereferenceable(1) %mapval) #13
+  %cmp7.i468 = icmp eq i32 %call.i467, 0
+  br i1 %cmp7.i468, label %if.end340, label %if.end.i475
 
-if.end.i485:                                      ; preds = %while.body.i479
-  %add9.i480 = add i32 %pos.124.i473, 1
-  %199 = icmp eq i32 %add9.i480, 353
-  %rem10.i481 = select i1 %199, i32 0, i32 %add9.i480
-  %idxprom.i482 = sext i32 %rem10.i481 to i64
-  %arrayidx.i483 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.i482
-  %200 = load i8, ptr %arrayidx.i483, align 1, !tbaa !14
-  %cmp.not.i484 = icmp eq i8 %200, 0
-  br i1 %cmp.not.i484, label %if.then334, label %while.body.i479, !llvm.loop !24
+if.end.i475:                                      ; preds = %while.body.i469
+  %add9.i470 = add i32 %pos.124.i463, 1
+  %199 = icmp eq i32 %add9.i470, 353
+  %rem10.i471 = select i1 %199, i32 0, i32 %add9.i470
+  %idxprom.i472 = sext i32 %rem10.i471 to i64
+  %arrayidx.i473 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 6, i64 %idxprom.i472
+  %200 = load i8, ptr %arrayidx.i473, align 1, !tbaa !14
+  %cmp.not.i474 = icmp eq i8 %200, 0
+  br i1 %cmp.not.i474, label %if.then334, label %while.body.i469, !llvm.loop !24
 
-if.then334:                                       ; preds = %if.end.i485, %for.end.i472
+if.then334:                                       ; preds = %if.end.i475, %for.end.i462
   %201 = load i16, ptr %fnum, align 8, !tbaa !18
   %call338 = call ptr @FileName(i16 noundef zeroext %201) #12
   %call339 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 38, i32 noundef 11, ptr noundef nonnull @.str.22, i32 noundef 1, ptr noundef nonnull %ou160, ptr noundef nonnull %mapval, ptr noundef %call338, i32 noundef %inc246) #12
   br label %if.end340
 
-if.end340:                                        ; preds = %while.body.i479, %if.then334
-  %.lcssa.i486494 = phi i8 [ 0, %if.then334 ], [ %197, %while.body.i479 ]
+if.end340:                                        ; preds = %while.body.i469, %if.then334
+  %.lcssa.i476494 = phi i8 [ 0, %if.then334 ], [ %197, %while.body.i469 ]
   %idxprom342 = zext i32 %m.3 to i64
   %202 = load i32, ptr %dc, align 4, !tbaa !5
   %idxprom344 = sext i32 %202 to i64
   %arrayidx345 = getelementptr inbounds %struct.mapvec, ptr %call47, i64 0, i32 7, i64 %idxprom342, i64 %idxprom344
-  store i8 %.lcssa.i486494, ptr %arrayidx345, align 1, !tbaa !14
+  store i8 %.lcssa.i476494, ptr %arrayidx345, align 1, !tbaa !14
   %203 = load i32, ptr %line_pos, align 4, !tbaa !5
   %idxprom288 = sext i32 %203 to i64
   %arrayidx289 = getelementptr inbounds [512 x i8], ptr %buff, i64 0, i64 %idxprom288
@@ -1656,36 +1656,36 @@ if.then973:                                       ; preds = %sw.bb967
 if.else977:                                       ; preds = %sw.bb967
   store i8 0, ptr %q.02483, align 1, !tbaa !14
   %87 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2315 = zext i8 %87 to i32
-  %call.i2316 = call ptr @MakeWord(i32 noundef %conv.i2315, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2317 = getelementptr inbounds %struct.word_type, ptr %call.i2316, i64 0, i32 2
-  %bf.load.i2318 = load i32, ptr %ou2.i2317, align 8
+  %conv.i2291 = zext i8 %87 to i32
+  %call.i2292 = call ptr @MakeWord(i32 noundef %conv.i2291, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2293 = getelementptr inbounds %struct.word_type, ptr %call.i2292, i64 0, i32 2
+  %bf.load.i2294 = load i32, ptr %ou2.i2293, align 8
   %bf.value.i = and i32 %small_font.02484, 4095
-  %bf.clear.i2319 = and i32 %bf.load.i2318, -4096
-  %bf.set.i2320 = or i32 %bf.clear.i2319, %bf.value.i
-  store i32 %bf.set.i2320, ptr %ou2.i2317, align 8
-  %bf.load3.i2322 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2323 = and i32 %bf.load3.i2322, 4190208
-  %bf.clear8.i2324 = and i32 %bf.set.i2320, -4190209
-  %bf.set9.i2325 = or i32 %bf.clear8.i2324, %bf.clear4.i2323
-  store i32 %bf.set9.i2325, ptr %ou2.i2317, align 8
-  %bf.load11.i2326 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2327 = and i32 %bf.load11.i2326, 4194304
-  %bf.clear18.i2328 = and i32 %bf.set9.i2325, -4194305
-  %bf.set19.i2329 = or i32 %bf.clear18.i2328, %bf.clear13.i2327
-  store i32 %bf.set19.i2329, ptr %ou2.i2317, align 8
-  %bf.load21.i2330 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2331 = and i32 %bf.load21.i2330, 528482304
-  %bf.clear28.i2332 = and i32 %bf.set19.i2329, -528482305
-  %bf.set29.i2333 = or i32 %bf.clear28.i2332, %bf.clear23.i2331
-  store i32 %bf.set29.i2333, ptr %ou2.i2317, align 8
-  %bf.load31.i2334 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2335 = and i32 %bf.load31.i2334, -2147483648
-  %bf.clear37.i2336 = and i32 %bf.set29.i2333, 536870911
-  %bf.set38.i2337 = or i32 %bf.clear37.i2336, %bf.lshr32.i2335
-  %bf.set42.i2338 = or i32 %bf.set38.i2337, 536870912
-  store i32 %bf.set42.i2338, ptr %ou2.i2317, align 8
-  %call980 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.02485, ptr noundef %call.i2316)
+  %bf.clear.i2295 = and i32 %bf.load.i2294, -4096
+  %bf.set.i2296 = or i32 %bf.clear.i2295, %bf.value.i
+  store i32 %bf.set.i2296, ptr %ou2.i2293, align 8
+  %bf.load3.i2298 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2299 = and i32 %bf.load3.i2298, 4190208
+  %bf.clear8.i2300 = and i32 %bf.set.i2296, -4190209
+  %bf.set9.i2301 = or i32 %bf.clear8.i2300, %bf.clear4.i2299
+  store i32 %bf.set9.i2301, ptr %ou2.i2293, align 8
+  %bf.load11.i2302 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2303 = and i32 %bf.load11.i2302, 4194304
+  %bf.clear18.i2304 = and i32 %bf.set9.i2301, -4194305
+  %bf.set19.i2305 = or i32 %bf.clear18.i2304, %bf.clear13.i2303
+  store i32 %bf.set19.i2305, ptr %ou2.i2293, align 8
+  %bf.load21.i2306 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2307 = and i32 %bf.load21.i2306, 528482304
+  %bf.clear28.i2308 = and i32 %bf.set19.i2305, -528482305
+  %bf.set29.i2309 = or i32 %bf.clear28.i2308, %bf.clear23.i2307
+  store i32 %bf.set29.i2309, ptr %ou2.i2293, align 8
+  %bf.load31.i2310 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2311 = and i32 %bf.load31.i2310, -2147483648
+  %bf.clear37.i2312 = and i32 %bf.set29.i2309, 536870911
+  %bf.set38.i2313 = or i32 %bf.clear37.i2312, %bf.lshr32.i2311
+  %bf.set42.i2314 = or i32 %bf.set38.i2313, 536870912
+  store i32 %bf.set42.i2314, ptr %ou2.i2293, align 8
+  %call980 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.02485, ptr noundef %call.i2292)
   %88 = load i8, ptr getelementptr inbounds ([0 x i8], ptr @zz_lengths, i64 0, i64 24), align 1, !tbaa !14
   %conv981 = zext i8 %88 to i32
   store i32 %conv981, ptr @zz_size, align 4, !tbaa !5
@@ -1902,8 +1902,8 @@ cond.end1276:                                     ; preds = %if.then1219, %if.el
   store ptr %call980, ptr @zz_hold, align 8, !tbaa !9
   %cmp1278 = icmp eq ptr %call980, null
   %cmp1282 = icmp eq ptr %130, null
-  %or.cond2296 = select i1 %cmp1278, i1 true, i1 %cmp1282
-  br i1 %or.cond2296, label %cond.end1309, label %cond.false1285
+  %or.cond2449 = select i1 %cmp1278, i1 true, i1 %cmp1282
+  br i1 %or.cond2449, label %cond.end1309, label %cond.false1285
 
 cond.false1285:                                   ; preds = %cond.end1276
   %arrayidx1287 = getelementptr inbounds [2 x %struct.LIST], ptr %call980, i64 0, i64 1
@@ -1938,34 +1938,34 @@ if.then1320:                                      ; preds = %sw.bb1314
   %bf.clear1324 = and i32 %bf.load1323, 4095
   store i8 0, ptr %q.02483, align 1, !tbaa !14
   %136 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2340 = zext i8 %136 to i32
-  %call.i2341 = call ptr @MakeWord(i32 noundef %conv.i2340, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2342 = getelementptr inbounds %struct.word_type, ptr %call.i2341, i64 0, i32 2
-  %bf.load.i2343 = load i32, ptr %ou2.i2342, align 8
-  %bf.clear.i2344 = and i32 %bf.load.i2343, -4096
-  %bf.set.i2345 = or i32 %bf.clear.i2344, %bf.clear1324
-  store i32 %bf.set.i2345, ptr %ou2.i2342, align 8
-  %bf.load3.i2347 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2348 = and i32 %bf.load3.i2347, 4190208
-  %bf.clear8.i2349 = and i32 %bf.set.i2345, -4190209
-  %bf.set9.i2350 = or i32 %bf.clear8.i2349, %bf.clear4.i2348
-  store i32 %bf.set9.i2350, ptr %ou2.i2342, align 8
-  %bf.load11.i2351 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2352 = and i32 %bf.load11.i2351, 4194304
-  %bf.clear18.i2353 = and i32 %bf.set9.i2350, -4194305
-  %bf.set19.i2354 = or i32 %bf.clear18.i2353, %bf.clear13.i2352
-  store i32 %bf.set19.i2354, ptr %ou2.i2342, align 8
-  %bf.load21.i2355 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2356 = and i32 %bf.load21.i2355, 528482304
-  %bf.clear28.i2357 = and i32 %bf.set19.i2354, -528482305
-  %bf.set29.i2358 = or i32 %bf.clear28.i2357, %bf.clear23.i2356
-  store i32 %bf.set29.i2358, ptr %ou2.i2342, align 8
-  %bf.load31.i2359 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2360 = and i32 %bf.load31.i2359, -2147483648
-  %bf.clear37.i2361 = and i32 %bf.set29.i2358, 536870911
-  %bf.set38.i2362 = or i32 %bf.clear37.i2361, %bf.lshr32.i2360
-  %bf.set42.i2363 = or i32 %bf.set38.i2362, 536870912
-  store i32 %bf.set42.i2363, ptr %ou2.i2342, align 8
+  %conv.i2316 = zext i8 %136 to i32
+  %call.i2317 = call ptr @MakeWord(i32 noundef %conv.i2316, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2318 = getelementptr inbounds %struct.word_type, ptr %call.i2317, i64 0, i32 2
+  %bf.load.i2319 = load i32, ptr %ou2.i2318, align 8
+  %bf.clear.i2320 = and i32 %bf.load.i2319, -4096
+  %bf.set.i2321 = or i32 %bf.clear.i2320, %bf.clear1324
+  store i32 %bf.set.i2321, ptr %ou2.i2318, align 8
+  %bf.load3.i2323 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2324 = and i32 %bf.load3.i2323, 4190208
+  %bf.clear8.i2325 = and i32 %bf.set.i2321, -4190209
+  %bf.set9.i2326 = or i32 %bf.clear8.i2325, %bf.clear4.i2324
+  store i32 %bf.set9.i2326, ptr %ou2.i2318, align 8
+  %bf.load11.i2327 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2328 = and i32 %bf.load11.i2327, 4194304
+  %bf.clear18.i2329 = and i32 %bf.set9.i2326, -4194305
+  %bf.set19.i2330 = or i32 %bf.clear18.i2329, %bf.clear13.i2328
+  store i32 %bf.set19.i2330, ptr %ou2.i2318, align 8
+  %bf.load21.i2331 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2332 = and i32 %bf.load21.i2331, 528482304
+  %bf.clear28.i2333 = and i32 %bf.set19.i2330, -528482305
+  %bf.set29.i2334 = or i32 %bf.clear28.i2333, %bf.clear23.i2332
+  store i32 %bf.set29.i2334, ptr %ou2.i2318, align 8
+  %bf.load31.i2335 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2336 = and i32 %bf.load31.i2335, -2147483648
+  %bf.clear37.i2337 = and i32 %bf.set29.i2334, 536870911
+  %bf.set38.i2338 = or i32 %bf.clear37.i2337, %bf.lshr32.i2336
+  %bf.set42.i2339 = or i32 %bf.set38.i2338, 536870912
+  store i32 %bf.set42.i2339, ptr %ou2.i2318, align 8
   %137 = load i8, ptr @zz_lengths, align 1, !tbaa !14
   %conv1326 = zext i8 %137 to i32
   store i32 %conv1326, ptr @zz_size, align 4, !tbaa !5
@@ -2004,7 +2004,7 @@ if.end1348:                                       ; preds = %if.then1337, %if.el
   br i1 %cmp1363, label %cond.end1394.thread, label %cond.end1394
 
 cond.end1394.thread:                              ; preds = %if.end1348
-  store ptr %call.i2341, ptr @zz_hold, align 8, !tbaa !9
+  store ptr %call.i2317, ptr @zz_hold, align 8, !tbaa !9
   br label %cond.false1403
 
 cond.end1394:                                     ; preds = %if.end1348
@@ -2025,13 +2025,13 @@ cond.end1394:                                     ; preds = %if.end1348
   store ptr %148, ptr %osucc1391, align 8, !tbaa !14
   %.pre2496 = load ptr, ptr @xx_link, align 8, !tbaa !9
   store ptr %.pre2496, ptr @zz_res, align 8, !tbaa !9
-  store ptr %call.i2341, ptr @zz_hold, align 8, !tbaa !9
+  store ptr %call.i2317, ptr @zz_hold, align 8, !tbaa !9
   %cmp1400 = icmp eq ptr %.pre2496, null
   br i1 %cmp1400, label %cond.end1427, label %cond.false1403
 
 cond.false1403:                                   ; preds = %cond.end1394.thread, %cond.end1394
   %150 = phi ptr [ %141, %cond.end1394.thread ], [ %.pre2496, %cond.end1394 ]
-  %arrayidx1405 = getelementptr inbounds [2 x %struct.LIST], ptr %call.i2341, i64 0, i64 1
+  %arrayidx1405 = getelementptr inbounds [2 x %struct.LIST], ptr %call.i2317, i64 0, i64 1
   %151 = load ptr, ptr %arrayidx1405, align 8, !tbaa !14
   store ptr %151, ptr @zz_tmp, align 8, !tbaa !9
   %arrayidx1408 = getelementptr inbounds [2 x %struct.LIST], ptr %150, i64 0, i64 1
@@ -2039,7 +2039,7 @@ cond.false1403:                                   ; preds = %cond.end1394.thread
   store ptr %152, ptr %arrayidx1405, align 8, !tbaa !14
   %153 = load ptr, ptr %arrayidx1408, align 8, !tbaa !14
   %osucc1418 = getelementptr inbounds [2 x %struct.LIST], ptr %153, i64 0, i64 1, i32 1
-  store ptr %call.i2341, ptr %osucc1418, align 8, !tbaa !14
+  store ptr %call.i2317, ptr %osucc1418, align 8, !tbaa !14
   store ptr %151, ptr %arrayidx1408, align 8, !tbaa !14
   %osucc1424 = getelementptr inbounds [2 x %struct.LIST], ptr %151, i64 0, i64 1, i32 1
   store ptr %150, ptr %osucc1424, align 8, !tbaa !14
@@ -2074,36 +2074,36 @@ if.then1442:                                      ; preds = %sw.bb1436
 if.else1446:                                      ; preds = %sw.bb1436
   store i8 0, ptr %q.02483, align 1, !tbaa !14
   %157 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2365 = zext i8 %157 to i32
-  %call.i2366 = call ptr @MakeWord(i32 noundef %conv.i2365, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2367 = getelementptr inbounds %struct.word_type, ptr %call.i2366, i64 0, i32 2
-  %bf.load.i2368 = load i32, ptr %ou2.i2367, align 8
-  %bf.value.i2369 = and i32 %small_font.02484, 4095
-  %bf.clear.i2370 = and i32 %bf.load.i2368, -4096
-  %bf.set.i2371 = or i32 %bf.clear.i2370, %bf.value.i2369
-  store i32 %bf.set.i2371, ptr %ou2.i2367, align 8
-  %bf.load3.i2373 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2374 = and i32 %bf.load3.i2373, 4190208
-  %bf.clear8.i2375 = and i32 %bf.set.i2371, -4190209
-  %bf.set9.i2376 = or i32 %bf.clear8.i2375, %bf.clear4.i2374
-  store i32 %bf.set9.i2376, ptr %ou2.i2367, align 8
-  %bf.load11.i2377 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2378 = and i32 %bf.load11.i2377, 4194304
-  %bf.clear18.i2379 = and i32 %bf.set9.i2376, -4194305
-  %bf.set19.i2380 = or i32 %bf.clear18.i2379, %bf.clear13.i2378
-  store i32 %bf.set19.i2380, ptr %ou2.i2367, align 8
-  %bf.load21.i2381 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2382 = and i32 %bf.load21.i2381, 528482304
-  %bf.clear28.i2383 = and i32 %bf.set19.i2380, -528482305
-  %bf.set29.i2384 = or i32 %bf.clear28.i2383, %bf.clear23.i2382
-  store i32 %bf.set29.i2384, ptr %ou2.i2367, align 8
-  %bf.load31.i2385 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2386 = and i32 %bf.load31.i2385, -2147483648
-  %bf.clear37.i2387 = and i32 %bf.set29.i2384, 536870911
-  %bf.set38.i2388 = or i32 %bf.clear37.i2387, %bf.lshr32.i2386
-  %bf.set42.i2389 = or i32 %bf.set38.i2388, 536870912
-  store i32 %bf.set42.i2389, ptr %ou2.i2367, align 8
-  %call1449 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.02485, ptr noundef %call.i2366)
+  %conv.i2341 = zext i8 %157 to i32
+  %call.i2342 = call ptr @MakeWord(i32 noundef %conv.i2341, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2343 = getelementptr inbounds %struct.word_type, ptr %call.i2342, i64 0, i32 2
+  %bf.load.i2344 = load i32, ptr %ou2.i2343, align 8
+  %bf.value.i2345 = and i32 %small_font.02484, 4095
+  %bf.clear.i2346 = and i32 %bf.load.i2344, -4096
+  %bf.set.i2347 = or i32 %bf.clear.i2346, %bf.value.i2345
+  store i32 %bf.set.i2347, ptr %ou2.i2343, align 8
+  %bf.load3.i2349 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2350 = and i32 %bf.load3.i2349, 4190208
+  %bf.clear8.i2351 = and i32 %bf.set.i2347, -4190209
+  %bf.set9.i2352 = or i32 %bf.clear8.i2351, %bf.clear4.i2350
+  store i32 %bf.set9.i2352, ptr %ou2.i2343, align 8
+  %bf.load11.i2353 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2354 = and i32 %bf.load11.i2353, 4194304
+  %bf.clear18.i2355 = and i32 %bf.set9.i2352, -4194305
+  %bf.set19.i2356 = or i32 %bf.clear18.i2355, %bf.clear13.i2354
+  store i32 %bf.set19.i2356, ptr %ou2.i2343, align 8
+  %bf.load21.i2357 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2358 = and i32 %bf.load21.i2357, 528482304
+  %bf.clear28.i2359 = and i32 %bf.set19.i2356, -528482305
+  %bf.set29.i2360 = or i32 %bf.clear28.i2359, %bf.clear23.i2358
+  store i32 %bf.set29.i2360, ptr %ou2.i2343, align 8
+  %bf.load31.i2361 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2362 = and i32 %bf.load31.i2361, -2147483648
+  %bf.clear37.i2363 = and i32 %bf.set29.i2360, 536870911
+  %bf.set38.i2364 = or i32 %bf.clear37.i2363, %bf.lshr32.i2362
+  %bf.set42.i2365 = or i32 %bf.set38.i2364, 536870912
+  store i32 %bf.set42.i2365, ptr %ou2.i2343, align 8
+  %call1449 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.02485, ptr noundef %call.i2342)
   %158 = load i8, ptr @zz_lengths, align 1, !tbaa !14
   %conv1450 = zext i8 %158 to i32
   store i32 %conv1450, ptr @zz_size, align 4, !tbaa !5
@@ -2166,8 +2166,8 @@ cond.end1518:                                     ; preds = %if.end1472, %cond.f
   store ptr %call1449, ptr @zz_hold, align 8, !tbaa !9
   %cmp1520 = icmp eq ptr %call1449, null
   %cmp1524 = icmp eq ptr %171, null
-  %or.cond2300 = select i1 %cmp1520, i1 true, i1 %cmp1524
-  br i1 %or.cond2300, label %cond.end1551, label %cond.false1527
+  %or.cond2453 = select i1 %cmp1520, i1 true, i1 %cmp1524
+  br i1 %or.cond2453, label %cond.end1551, label %cond.false1527
 
 cond.false1527:                                   ; preds = %cond.end1518
   %arrayidx1529 = getelementptr inbounds [2 x %struct.LIST], ptr %call1449, i64 0, i64 1
@@ -2212,36 +2212,36 @@ for.end1558:                                      ; preds = %for.inc1556
 sw.bb1560:                                        ; preds = %for.end1558
   store i8 0, ptr %q.1, align 1, !tbaa !14
   %177 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2391 = zext i8 %177 to i32
-  %call.i2392 = call ptr @MakeWord(i32 noundef %conv.i2391, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2393 = getelementptr inbounds %struct.word_type, ptr %call.i2392, i64 0, i32 2
-  %bf.load.i2394 = load i32, ptr %ou2.i2393, align 8
-  %bf.value.i2395 = and i32 %small_font.1, 4095
-  %bf.clear.i2396 = and i32 %bf.load.i2394, -4096
-  %bf.set.i2397 = or i32 %bf.clear.i2396, %bf.value.i2395
-  store i32 %bf.set.i2397, ptr %ou2.i2393, align 8
-  %bf.load3.i2399 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2400 = and i32 %bf.load3.i2399, 4190208
-  %bf.clear8.i2401 = and i32 %bf.set.i2397, -4190209
-  %bf.set9.i2402 = or i32 %bf.clear8.i2401, %bf.clear4.i2400
-  store i32 %bf.set9.i2402, ptr %ou2.i2393, align 8
-  %bf.load11.i2403 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2404 = and i32 %bf.load11.i2403, 4194304
-  %bf.clear18.i2405 = and i32 %bf.set9.i2402, -4194305
-  %bf.set19.i2406 = or i32 %bf.clear18.i2405, %bf.clear13.i2404
-  store i32 %bf.set19.i2406, ptr %ou2.i2393, align 8
-  %bf.load21.i2407 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2408 = and i32 %bf.load21.i2407, 528482304
-  %bf.clear28.i2409 = and i32 %bf.set19.i2406, -528482305
-  %bf.set29.i2410 = or i32 %bf.clear28.i2409, %bf.clear23.i2408
-  store i32 %bf.set29.i2410, ptr %ou2.i2393, align 8
-  %bf.load31.i2411 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2412 = and i32 %bf.load31.i2411, -2147483648
-  %bf.clear37.i2413 = and i32 %bf.set29.i2410, 536870911
-  %bf.set38.i2414 = or i32 %bf.clear37.i2413, %bf.lshr32.i2412
-  %bf.set42.i2415 = or i32 %bf.set38.i2414, 536870912
-  store i32 %bf.set42.i2415, ptr %ou2.i2393, align 8
-  %call1563 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.1, ptr noundef %call.i2392)
+  %conv.i2367 = zext i8 %177 to i32
+  %call.i2368 = call ptr @MakeWord(i32 noundef %conv.i2367, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2369 = getelementptr inbounds %struct.word_type, ptr %call.i2368, i64 0, i32 2
+  %bf.load.i2370 = load i32, ptr %ou2.i2369, align 8
+  %bf.value.i2371 = and i32 %small_font.1, 4095
+  %bf.clear.i2372 = and i32 %bf.load.i2370, -4096
+  %bf.set.i2373 = or i32 %bf.clear.i2372, %bf.value.i2371
+  store i32 %bf.set.i2373, ptr %ou2.i2369, align 8
+  %bf.load3.i2375 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2376 = and i32 %bf.load3.i2375, 4190208
+  %bf.clear8.i2377 = and i32 %bf.set.i2373, -4190209
+  %bf.set9.i2378 = or i32 %bf.clear8.i2377, %bf.clear4.i2376
+  store i32 %bf.set9.i2378, ptr %ou2.i2369, align 8
+  %bf.load11.i2379 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2380 = and i32 %bf.load11.i2379, 4194304
+  %bf.clear18.i2381 = and i32 %bf.set9.i2378, -4194305
+  %bf.set19.i2382 = or i32 %bf.clear18.i2381, %bf.clear13.i2380
+  store i32 %bf.set19.i2382, ptr %ou2.i2369, align 8
+  %bf.load21.i2383 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2384 = and i32 %bf.load21.i2383, 528482304
+  %bf.clear28.i2385 = and i32 %bf.set19.i2382, -528482305
+  %bf.set29.i2386 = or i32 %bf.clear28.i2385, %bf.clear23.i2384
+  store i32 %bf.set29.i2386, ptr %ou2.i2369, align 8
+  %bf.load31.i2387 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2388 = and i32 %bf.load31.i2387, -2147483648
+  %bf.clear37.i2389 = and i32 %bf.set29.i2386, 536870911
+  %bf.set38.i2390 = or i32 %bf.clear37.i2389, %bf.lshr32.i2388
+  %bf.set42.i2391 = or i32 %bf.set38.i2390, 536870912
+  store i32 %bf.set42.i2391, ptr %ou2.i2369, align 8
+  %call1563 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.1, ptr noundef %call.i2368)
   %osucc1566 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1, i32 1
   %178 = load ptr, ptr %osucc1566, align 8, !tbaa !14
   %cmp1567 = icmp eq ptr %178, %x
@@ -2265,8 +2265,8 @@ cond.end1592:                                     ; preds = %sw.bb1560
   store ptr %call1563, ptr @zz_res, align 8, !tbaa !9
   %cmp1594 = icmp eq ptr %178, null
   %cmp1598 = icmp eq ptr %call1563, null
-  %or.cond2301 = select i1 %cmp1594, i1 true, i1 %cmp1598
-  br i1 %or.cond2301, label %cleanup.sink.split, label %cond.false1601
+  %or.cond2454 = select i1 %cmp1594, i1 true, i1 %cmp1598
+  br i1 %or.cond2454, label %cleanup.sink.split, label %cond.false1601
 
 cond.false1601:                                   ; preds = %cond.end1592
   %181 = load ptr, ptr %arrayidx1578, align 8, !tbaa !14
@@ -2291,34 +2291,34 @@ sw.bb1656:                                        ; preds = %for.end1558
   %bf.clear1660 = and i32 %bf.load1659, 4095
   store i8 0, ptr %q.1, align 1, !tbaa !14
   %184 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2417 = zext i8 %184 to i32
-  %call.i2418 = call ptr @MakeWord(i32 noundef %conv.i2417, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2419 = getelementptr inbounds %struct.word_type, ptr %call.i2418, i64 0, i32 2
-  %bf.load.i2420 = load i32, ptr %ou2.i2419, align 8
-  %bf.clear.i2421 = and i32 %bf.load.i2420, -4096
-  %bf.set.i2422 = or i32 %bf.clear.i2421, %bf.clear1660
-  store i32 %bf.set.i2422, ptr %ou2.i2419, align 8
-  %bf.load3.i2424 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2425 = and i32 %bf.load3.i2424, 4190208
-  %bf.clear8.i2426 = and i32 %bf.set.i2422, -4190209
-  %bf.set9.i2427 = or i32 %bf.clear8.i2426, %bf.clear4.i2425
-  store i32 %bf.set9.i2427, ptr %ou2.i2419, align 8
-  %bf.load11.i2428 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2429 = and i32 %bf.load11.i2428, 4194304
-  %bf.clear18.i2430 = and i32 %bf.set9.i2427, -4194305
-  %bf.set19.i2431 = or i32 %bf.clear18.i2430, %bf.clear13.i2429
-  store i32 %bf.set19.i2431, ptr %ou2.i2419, align 8
-  %bf.load21.i2432 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2433 = and i32 %bf.load21.i2432, 528482304
-  %bf.clear28.i2434 = and i32 %bf.set19.i2431, -528482305
-  %bf.set29.i2435 = or i32 %bf.clear28.i2434, %bf.clear23.i2433
-  store i32 %bf.set29.i2435, ptr %ou2.i2419, align 8
-  %bf.load31.i2436 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2437 = and i32 %bf.load31.i2436, -2147483648
-  %bf.clear37.i2438 = and i32 %bf.set29.i2435, 536870911
-  %bf.set38.i2439 = or i32 %bf.clear37.i2438, %bf.lshr32.i2437
-  %bf.set42.i2440 = or i32 %bf.set38.i2439, 536870912
-  store i32 %bf.set42.i2440, ptr %ou2.i2419, align 8
+  %conv.i2393 = zext i8 %184 to i32
+  %call.i2394 = call ptr @MakeWord(i32 noundef %conv.i2393, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2395 = getelementptr inbounds %struct.word_type, ptr %call.i2394, i64 0, i32 2
+  %bf.load.i2396 = load i32, ptr %ou2.i2395, align 8
+  %bf.clear.i2397 = and i32 %bf.load.i2396, -4096
+  %bf.set.i2398 = or i32 %bf.clear.i2397, %bf.clear1660
+  store i32 %bf.set.i2398, ptr %ou2.i2395, align 8
+  %bf.load3.i2400 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2401 = and i32 %bf.load3.i2400, 4190208
+  %bf.clear8.i2402 = and i32 %bf.set.i2398, -4190209
+  %bf.set9.i2403 = or i32 %bf.clear8.i2402, %bf.clear4.i2401
+  store i32 %bf.set9.i2403, ptr %ou2.i2395, align 8
+  %bf.load11.i2404 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2405 = and i32 %bf.load11.i2404, 4194304
+  %bf.clear18.i2406 = and i32 %bf.set9.i2403, -4194305
+  %bf.set19.i2407 = or i32 %bf.clear18.i2406, %bf.clear13.i2405
+  store i32 %bf.set19.i2407, ptr %ou2.i2395, align 8
+  %bf.load21.i2408 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2409 = and i32 %bf.load21.i2408, 528482304
+  %bf.clear28.i2410 = and i32 %bf.set19.i2407, -528482305
+  %bf.set29.i2411 = or i32 %bf.clear28.i2410, %bf.clear23.i2409
+  store i32 %bf.set29.i2411, ptr %ou2.i2395, align 8
+  %bf.load31.i2412 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2413 = and i32 %bf.load31.i2412, -2147483648
+  %bf.clear37.i2414 = and i32 %bf.set29.i2411, 536870911
+  %bf.set38.i2415 = or i32 %bf.clear37.i2414, %bf.lshr32.i2413
+  %bf.set42.i2416 = or i32 %bf.set38.i2415, 536870912
+  store i32 %bf.set42.i2416, ptr %ou2.i2395, align 8
   %185 = load i8, ptr @zz_lengths, align 1, !tbaa !14
   %conv1662 = zext i8 %185 to i32
   store i32 %conv1662, ptr @zz_size, align 4, !tbaa !5
@@ -2357,7 +2357,7 @@ if.end1684:                                       ; preds = %if.then1673, %if.el
   br i1 %cmp1699, label %cond.end1730.thread, label %cond.end1730
 
 cond.end1730.thread:                              ; preds = %if.end1684
-  store ptr %call.i2418, ptr @zz_hold, align 8, !tbaa !9
+  store ptr %call.i2394, ptr @zz_hold, align 8, !tbaa !9
   br label %cond.false1739
 
 cond.end1730:                                     ; preds = %if.end1684
@@ -2377,13 +2377,13 @@ cond.end1730:                                     ; preds = %if.end1684
   %osucc1727 = getelementptr inbounds %struct.LIST, ptr %197, i64 0, i32 1
   store ptr %196, ptr %osucc1727, align 8, !tbaa !14
   %.pre2497 = load ptr, ptr @xx_link, align 8, !tbaa !9
-  store ptr %call.i2418, ptr @zz_hold, align 8, !tbaa !9
+  store ptr %call.i2394, ptr @zz_hold, align 8, !tbaa !9
   %cmp1736 = icmp eq ptr %.pre2497, null
   br i1 %cmp1736, label %cond.end1763, label %cond.false1739
 
 cond.false1739:                                   ; preds = %cond.end1730.thread, %cond.end1730
   %198 = phi ptr [ %189, %cond.end1730.thread ], [ %.pre2497, %cond.end1730 ]
-  %arrayidx1741 = getelementptr inbounds [2 x %struct.LIST], ptr %call.i2418, i64 0, i64 1
+  %arrayidx1741 = getelementptr inbounds [2 x %struct.LIST], ptr %call.i2394, i64 0, i64 1
   %199 = load ptr, ptr %arrayidx1741, align 8, !tbaa !14
   store ptr %199, ptr @zz_tmp, align 8, !tbaa !9
   %arrayidx1744 = getelementptr inbounds [2 x %struct.LIST], ptr %198, i64 0, i64 1
@@ -2391,7 +2391,7 @@ cond.false1739:                                   ; preds = %cond.end1730.thread
   store ptr %200, ptr %arrayidx1741, align 8, !tbaa !14
   %201 = load ptr, ptr %arrayidx1744, align 8, !tbaa !14
   %osucc1754 = getelementptr inbounds [2 x %struct.LIST], ptr %201, i64 0, i64 1, i32 1
-  store ptr %call.i2418, ptr %osucc1754, align 8, !tbaa !14
+  store ptr %call.i2394, ptr %osucc1754, align 8, !tbaa !14
   store ptr %199, ptr %arrayidx1744, align 8, !tbaa !14
   %osucc1760 = getelementptr inbounds [2 x %struct.LIST], ptr %199, i64 0, i64 1, i32 1
   store ptr %198, ptr %osucc1760, align 8, !tbaa !14
@@ -2421,8 +2421,8 @@ cond.end1793:                                     ; preds = %cond.end1763
   store ptr %new_x.1, ptr @zz_res, align 8, !tbaa !9
   %cmp1795 = icmp eq ptr %202, null
   %cmp1799 = icmp eq ptr %new_x.1, null
-  %or.cond2306 = select i1 %cmp1795, i1 true, i1 %cmp1799
-  br i1 %or.cond2306, label %cleanup.sink.split, label %cond.false1802
+  %or.cond2459 = select i1 %cmp1795, i1 true, i1 %cmp1799
+  br i1 %or.cond2459, label %cleanup.sink.split, label %cond.false1802
 
 cond.false1802:                                   ; preds = %cond.end1793
   %205 = load ptr, ptr %arrayidx1779, align 8, !tbaa !14
@@ -2445,36 +2445,36 @@ cond.end1826.sink.split:                          ; preds = %cond.false1802, %co
 sw.bb1858:                                        ; preds = %for.end1558
   store i8 0, ptr %q.1, align 1, !tbaa !14
   %208 = load i8, ptr %ou1, align 8, !tbaa !14
-  %conv.i2442 = zext i8 %208 to i32
-  %call.i2443 = call ptr @MakeWord(i32 noundef %conv.i2442, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
-  %ou2.i2444 = getelementptr inbounds %struct.word_type, ptr %call.i2443, i64 0, i32 2
-  %bf.load.i2445 = load i32, ptr %ou2.i2444, align 8
-  %bf.value.i2446 = and i32 %small_font.1, 4095
-  %bf.clear.i2447 = and i32 %bf.load.i2445, -4096
-  %bf.set.i2448 = or i32 %bf.clear.i2447, %bf.value.i2446
-  store i32 %bf.set.i2448, ptr %ou2.i2444, align 8
-  %bf.load3.i2450 = load i32, ptr %ou2, align 8
-  %bf.clear4.i2451 = and i32 %bf.load3.i2450, 4190208
-  %bf.clear8.i2452 = and i32 %bf.set.i2448, -4190209
-  %bf.set9.i2453 = or i32 %bf.clear8.i2452, %bf.clear4.i2451
-  store i32 %bf.set9.i2453, ptr %ou2.i2444, align 8
-  %bf.load11.i2454 = load i32, ptr %ou2, align 8
-  %bf.clear13.i2455 = and i32 %bf.load11.i2454, 4194304
-  %bf.clear18.i2456 = and i32 %bf.set9.i2453, -4194305
-  %bf.set19.i2457 = or i32 %bf.clear18.i2456, %bf.clear13.i2455
-  store i32 %bf.set19.i2457, ptr %ou2.i2444, align 8
-  %bf.load21.i2458 = load i32, ptr %ou2, align 8
-  %bf.clear23.i2459 = and i32 %bf.load21.i2458, 528482304
-  %bf.clear28.i2460 = and i32 %bf.set19.i2457, -528482305
-  %bf.set29.i2461 = or i32 %bf.clear28.i2460, %bf.clear23.i2459
-  store i32 %bf.set29.i2461, ptr %ou2.i2444, align 8
-  %bf.load31.i2462 = load i32, ptr %ou2, align 8
-  %bf.lshr32.i2463 = and i32 %bf.load31.i2462, -2147483648
-  %bf.clear37.i2464 = and i32 %bf.set29.i2461, 536870911
-  %bf.set38.i2465 = or i32 %bf.clear37.i2464, %bf.lshr32.i2463
-  %bf.set42.i2466 = or i32 %bf.set38.i2465, 536870912
-  store i32 %bf.set42.i2466, ptr %ou2.i2444, align 8
-  %call1861 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.1, ptr noundef %call.i2443)
+  %conv.i2418 = zext i8 %208 to i32
+  %call.i2419 = call ptr @MakeWord(i32 noundef %conv.i2418, ptr noundef nonnull %buff, ptr noundef nonnull %ou1) #12
+  %ou2.i2420 = getelementptr inbounds %struct.word_type, ptr %call.i2419, i64 0, i32 2
+  %bf.load.i2421 = load i32, ptr %ou2.i2420, align 8
+  %bf.value.i2422 = and i32 %small_font.1, 4095
+  %bf.clear.i2423 = and i32 %bf.load.i2421, -4096
+  %bf.set.i2424 = or i32 %bf.clear.i2423, %bf.value.i2422
+  store i32 %bf.set.i2424, ptr %ou2.i2420, align 8
+  %bf.load3.i2426 = load i32, ptr %ou2, align 8
+  %bf.clear4.i2427 = and i32 %bf.load3.i2426, 4190208
+  %bf.clear8.i2428 = and i32 %bf.set.i2424, -4190209
+  %bf.set9.i2429 = or i32 %bf.clear8.i2428, %bf.clear4.i2427
+  store i32 %bf.set9.i2429, ptr %ou2.i2420, align 8
+  %bf.load11.i2430 = load i32, ptr %ou2, align 8
+  %bf.clear13.i2431 = and i32 %bf.load11.i2430, 4194304
+  %bf.clear18.i2432 = and i32 %bf.set9.i2429, -4194305
+  %bf.set19.i2433 = or i32 %bf.clear18.i2432, %bf.clear13.i2431
+  store i32 %bf.set19.i2433, ptr %ou2.i2420, align 8
+  %bf.load21.i2434 = load i32, ptr %ou2, align 8
+  %bf.clear23.i2435 = and i32 %bf.load21.i2434, 528482304
+  %bf.clear28.i2436 = and i32 %bf.set19.i2433, -528482305
+  %bf.set29.i2437 = or i32 %bf.clear28.i2436, %bf.clear23.i2435
+  store i32 %bf.set29.i2437, ptr %ou2.i2420, align 8
+  %bf.load31.i2438 = load i32, ptr %ou2, align 8
+  %bf.lshr32.i2439 = and i32 %bf.load31.i2438, -2147483648
+  %bf.clear37.i2440 = and i32 %bf.set29.i2437, 536870911
+  %bf.set38.i2441 = or i32 %bf.clear37.i2440, %bf.lshr32.i2439
+  %bf.set42.i2442 = or i32 %bf.set38.i2441, 536870912
+  store i32 %bf.set42.i2442, ptr %ou2.i2420, align 8
+  %call1861 = call fastcc ptr @DoVShift(ptr noundef %x, i32 noundef %vshift.1, ptr noundef %call.i2419)
   %209 = load i8, ptr @zz_lengths, align 1, !tbaa !14
   %conv1862 = zext i8 %209 to i32
   store i32 %conv1862, ptr @zz_size, align 4, !tbaa !5
@@ -2536,8 +2536,8 @@ cond.end1930:                                     ; preds = %if.end1884, %cond.f
   store ptr %call1861, ptr @zz_hold, align 8, !tbaa !9
   %cmp1932 = icmp eq ptr %call1861, null
   %cmp1936 = icmp eq ptr %222, null
-  %or.cond2310 = select i1 %cmp1932, i1 true, i1 %cmp1936
-  br i1 %or.cond2310, label %cond.end1963, label %cond.false1939
+  %or.cond2463 = select i1 %cmp1932, i1 true, i1 %cmp1936
+  br i1 %or.cond2463, label %cond.end1963, label %cond.false1939
 
 cond.false1939:                                   ; preds = %cond.end1930
   %arrayidx1941 = getelementptr inbounds [2 x %struct.LIST], ptr %call1861, i64 0, i64 1
@@ -2578,8 +2578,8 @@ cond.end1993:                                     ; preds = %cond.end1963
   store ptr %new_x.1, ptr @zz_res, align 8, !tbaa !9
   %cmp1995 = icmp eq ptr %226, null
   %cmp1999 = icmp eq ptr %new_x.1, null
-  %or.cond2311 = select i1 %cmp1995, i1 true, i1 %cmp1999
-  br i1 %or.cond2311, label %cleanup.sink.split, label %cond.false2002
+  %or.cond2464 = select i1 %cmp1995, i1 true, i1 %cmp1999
+  br i1 %or.cond2464, label %cleanup.sink.split, label %cond.false2002
 
 cond.false2002:                                   ; preds = %cond.end1993
   %229 = load ptr, ptr %arrayidx1979, align 8, !tbaa !14
@@ -2603,12 +2603,12 @@ cleanup.sink.split:                               ; preds = %cond.end1993, %cond
   %retval.0.ph = phi ptr [ %call1563, %cond.end1625.sink.split ], [ %call1563, %cond.end1592 ], [ %new_x.1, %cond.end1826.sink.split ], [ %new_x.1, %cond.end1793 ], [ %new_x.1, %cond.end2026.sink.split ], [ %new_x.1, %cond.end1993 ]
   store ptr %x, ptr @zz_hold, align 8, !tbaa !9
   %232 = load i8, ptr %ou1, align 8, !tbaa !14
-  %.off2312 = add i8 %232, -11
-  %switch2313 = icmp ult i8 %.off2312, 2
+  %.off2465 = add i8 %232, -11
+  %switch2466 = icmp ult i8 %.off2465, 2
   %orec_size2041 = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 1, i32 0, i32 1
   %idxprom2046 = zext i8 %232 to i64
   %arrayidx2047 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom2046
-  %cond2050.in.in = select i1 %switch2313, ptr %orec_size2041, ptr %arrayidx2047
+  %cond2050.in.in = select i1 %switch2466, ptr %orec_size2041, ptr %arrayidx2047
   %cond2050.in = load i8, ptr %cond2050.in.in, align 1, !tbaa !14
   %cond1648 = zext i8 %cond2050.in to i32
   store i32 %cond1648, ptr @zz_size, align 4, !tbaa !5

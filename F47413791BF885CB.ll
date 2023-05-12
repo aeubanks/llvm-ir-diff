@@ -41,8 +41,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @stack_size = dso_local local_unnamed_addr global i32 0, align 4
 @see = dso_local local_unnamed_addr global ptr null, align 8
 @NDim = dso_local local_unnamed_addr global i32 0, align 4
-@str = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
-@str.12 = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str.12 = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
 @str.13 = private unnamed_addr constant [5 x i8] c"NULL\00", align 1
 @str.14 = private unnamed_addr constant [20 x i8] c"Done getting points\00", align 1
 @str.15 = private unnamed_addr constant [43 x i8] c"cannot push onto stack: stack is too large\00", align 1
@@ -73,7 +73,7 @@ if.then.i.i:                                      ; preds = %entry
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -205,7 +205,7 @@ if.then.i.i:                                      ; preds = %entry
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -480,7 +480,7 @@ while.body17:                                     ; preds = %while.cond14.prehea
   br i1 %cmp16.not, label %if.end56, label %while.body17, !llvm.loop !22
 
 if.then24:                                        ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -502,7 +502,7 @@ if.then.i.i:                                      ; preds = %if.then29
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -553,7 +553,7 @@ if.then.i.i94:                                    ; preds = %if.else34
   br i1 %cmp.i.i.i93, label %if.then.i.i.i96, label %makeedge.exit111
 
 if.then.i.i.i96:                                  ; preds = %if.then.i.i94
-  %puts.i.i.i95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -601,7 +601,7 @@ if.then.i.i115:                                   ; preds = %makeedge.exit111
   br i1 %cmp.i.i.i114, label %if.then.i.i.i117, label %makeedge.exit132
 
 if.then.i.i.i117:                                 ; preds = %if.then.i.i115
-  %puts.i.i.i116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -682,8 +682,8 @@ makeedge.exit132:                                 ; preds = %if.then.i.i115, %if
   %55 = fneg double %sub11.i
   %neg.i = fmul double %sub12.i, %55
   %56 = tail call double @llvm.fmuladd.f64(double %sub.i, double %sub10.i, double %neg.i)
-  %cmp.i = fcmp ule double %56, 0.000000e+00
-  br i1 %cmp.i, label %if.else46, label %if.then42
+  %cmp.i = fcmp ogt double %56, 0.000000e+00
+  br i1 %cmp.i, label %if.then42, label %if.else46
 
 if.then42:                                        ; preds = %makeedge.exit132
   %57 = ptrtoint ptr %call39 to i64
@@ -701,8 +701,8 @@ if.else46:                                        ; preds = %makeedge.exit132
   %60 = fneg double %sub11.i141
   %neg.i143 = fmul double %sub12.i142, %60
   %61 = tail call double @llvm.fmuladd.f64(double %sub.i139, double %sub10.i140, double %neg.i143)
-  %cmp.i144 = fcmp ule double %61, 0.000000e+00
-  br i1 %cmp.i144, label %if.then52, label %if.end56
+  %cmp.i144 = fcmp ogt double %61, 0.000000e+00
+  br i1 %cmp.i144, label %if.end56, label %if.then52
 
 if.then52:                                        ; preds = %if.else46
   %62 = ptrtoint ptr %call39 to i64
@@ -851,8 +851,8 @@ while.cond3:                                      ; preds = %while.body4, %while
   %8 = fneg double %sub11.i
   %neg.i = fmul double %sub12.i, %8
   %9 = tail call double @llvm.fmuladd.f64(double %sub.i, double %sub10.i, double %neg.i)
-  %cmp.i = fcmp ule double %9, 0.000000e+00
-  br i1 %cmp.i, label %while.end, label %while.body4
+  %cmp.i = fcmp ogt double %9, 0.000000e+00
+  br i1 %cmp.i, label %while.body4, label %while.end
 
 while.body4:                                      ; preds = %while.cond3
   %10 = ptrtoint ptr %ldi.addr.1 to i64
@@ -886,8 +886,8 @@ while.end:                                        ; preds = %while.cond3
   %20 = fneg double %sub11.i275
   %neg.i277 = fmul double %sub12.i276, %20
   %21 = tail call double @llvm.fmuladd.f64(double %sub.i273, double %sub10.i274, double %neg.i277)
-  %cmp.i278 = fcmp ule double %21, 0.000000e+00
-  br i1 %cmp.i278, label %while.end24, label %cleanup
+  %cmp.i278 = fcmp ogt double %21, 0.000000e+00
+  br i1 %cmp.i278, label %cleanup, label %while.end24
 
 cleanup:                                          ; preds = %while.end
   %next23 = getelementptr inbounds %struct.edge_rec, ptr %16, i64 0, i32 1
@@ -950,8 +950,8 @@ while.cond54:                                     ; preds = %cleanup173, %while.
   %neg.i.i = fmul double %50, %49
   %51 = extractelement <2 x double> %48, i64 0
   %52 = tail call double @llvm.fmuladd.f64(double %51, double %sub10.i.i, double %neg.i.i)
-  %cmp.i.i = fcmp ule double %52, 0.000000e+00
-  br i1 %cmp.i.i, label %if.end79, label %while.cond68.preheader
+  %cmp.i.i = fcmp ogt double %52, 0.000000e+00
+  br i1 %cmp.i.i, label %while.cond68.preheader, label %if.end79
 
 while.cond68.preheader:                           ; preds = %while.cond54
   %norm.i = getelementptr inbounds %struct.VEC2, ptr %34, i64 0, i32 2
@@ -1010,8 +1010,8 @@ while.cond68:                                     ; preds = %while.cond68.prehea
   %neg36.i = fmul double %sub12.i282, %72
   %73 = tail call double @llvm.fmuladd.f64(double %sub.i281, double %sub15.i, double %neg36.i)
   %74 = tail call double @llvm.fmuladd.f64(double %sub33.i, double %73, double %71)
-  %cmp.i284 = fcmp ule double %74, 0.000000e+00
-  br i1 %cmp.i284, label %if.end79.loopexit, label %while.body71
+  %cmp.i284 = fcmp ogt double %74, 0.000000e+00
+  br i1 %cmp.i284, label %while.body71, label %if.end79.loopexit
 
 while.body71:                                     ; preds = %while.cond68
   %add.i = add i64 %v156.0.in.in.in, 32
@@ -1139,8 +1139,8 @@ if.end79:                                         ; preds = %if.end79.loopexit, 
   %neg.i.i296 = fmul double %121, %120
   %122 = extractelement <2 x double> %111, i64 0
   %123 = tail call double @llvm.fmuladd.f64(double %122, double %sub10.i.i293, double %neg.i.i296)
-  %cmp.i.i297 = fcmp ule double %123, 0.000000e+00
-  br i1 %cmp.i.i297, label %if.end128, label %while.cond104.preheader
+  %cmp.i.i297 = fcmp ogt double %123, 0.000000e+00
+  br i1 %cmp.i.i297, label %while.cond104.preheader, label %if.end128
 
 while.cond104.preheader:                          ; preds = %if.end79
   %norm.i300 = getelementptr inbounds %struct.VEC2, ptr %110, i64 0, i32 2
@@ -1151,13 +1151,13 @@ while.cond104.preheader:                          ; preds = %if.end79
 while.cond104:                                    ; preds = %while.cond104.preheader, %while.body107
   %125 = phi ptr [ %173, %while.body107 ], [ %avail_edge.promoted426, %while.cond104.preheader ]
   %rcand.1 = phi ptr [ %t.1, %while.body107 ], [ %rcand.0, %while.cond104.preheader ]
-  %v156.1.in.in.in = phi i64 [ %or121, %while.body107 ], [ %or93, %while.cond104.preheader ]
-  %v257.1.in.in.in = phi i64 [ %v156.1.in.in.in, %while.body107 ], [ %112, %while.cond104.preheader ]
+  %t.1.in = phi i64 [ %or121, %while.body107 ], [ %or93, %while.cond104.preheader ]
+  %v257.1.in.in.in = phi i64 [ %t.1.in, %while.body107 ], [ %112, %while.cond104.preheader ]
   %v3.1 = load ptr, ptr %rcand.1, align 8, !tbaa !5
   %v257.1.in.in = xor i64 %v257.1.in.in.in, 64
   %v257.1.in = inttoptr i64 %v257.1.in.in to ptr
   %v257.1 = load ptr, ptr %v257.1.in, align 8, !tbaa !5
-  %v156.1.in.in = xor i64 %v156.1.in.in.in, 64
+  %v156.1.in.in = xor i64 %t.1.in, 64
   %v156.1.in = inttoptr i64 %v156.1.in.in to ptr
   %v156.1 = load ptr, ptr %v156.1.in, align 8, !tbaa !5
   %126 = load double, ptr %v156.1, align 8, !tbaa !23
@@ -1196,11 +1196,11 @@ while.cond104:                                    ; preds = %while.cond104.prehe
   %neg36.i319 = fmul double %sub12.i305, %140
   %141 = tail call double @llvm.fmuladd.f64(double %sub.i301, double %sub15.i307, double %neg36.i319)
   %142 = tail call double @llvm.fmuladd.f64(double %sub33.i318, double %141, double %139)
-  %cmp.i320 = fcmp ule double %142, 0.000000e+00
-  br i1 %cmp.i320, label %if.end128.loopexit, label %while.body107
+  %cmp.i320 = fcmp ogt double %142, 0.000000e+00
+  br i1 %cmp.i320, label %while.body107, label %if.end128.loopexit
 
 while.body107:                                    ; preds = %while.cond104
-  %t.1 = inttoptr i64 %v156.1.in.in.in to ptr
+  %t.1 = inttoptr i64 %t.1.in to ptr
   %143 = ptrtoint ptr %rcand.1 to i64
   %add.i322 = add i64 %143, 32
   %and.i323 = and i64 %add.i322, 127
@@ -1285,9 +1285,9 @@ while.body107:                                    ; preds = %while.cond104
   %next.i52.i364 = getelementptr inbounds %struct.edge_rec, ptr %173, i64 0, i32 1
   store ptr %125, ptr %next.i52.i364, align 8, !tbaa !11
   store ptr %173, ptr @avail_edge, align 8, !tbaa !12
-  %add108 = add i64 %v156.1.in.in.in, 32
+  %add108 = add i64 %t.1.in, 32
   %and109 = and i64 %add108, 127
-  %and110 = and i64 %v156.1.in.in.in, -128
+  %and110 = and i64 %t.1.in, -128
   %or111 = or i64 %and109, %and110
   %174 = inttoptr i64 %or111 to ptr
   %next112 = getelementptr inbounds %struct.edge_rec, ptr %174, i64 0, i32 1
@@ -1394,8 +1394,8 @@ land.lhs.true143:                                 ; preds = %lor.lhs.false
   %neg36.i409 = fmul double %sub12.i395, %227
   %228 = tail call double @llvm.fmuladd.f64(double %sub.i391, double %sub15.i397, double %neg36.i409)
   %229 = tail call double @llvm.fmuladd.f64(double %sub33.i408, double %228, double %226)
-  %cmp.i410 = fcmp ule double %229, 0.000000e+00
-  br i1 %cmp.i410, label %if.else167, label %if.then146
+  %cmp.i410 = fcmp ogt double %229, 0.000000e+00
+  br i1 %cmp.i410, label %if.then146, label %if.else167
 
 if.then146:                                       ; preds = %land.lhs.true143, %if.end134
   %call148 = tail call ptr @connect_left(ptr noundef nonnull %rcand.2, ptr noundef nonnull %37)
@@ -1491,7 +1491,7 @@ entry:
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1519,7 +1519,7 @@ if.then:                                          ; preds = %entry
   br i1 %cmp.i, label %if.then.i, label %if.end3
 
 if.then.i:                                        ; preds = %if.then
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1608,7 +1608,7 @@ if.then.i:                                        ; preds = %entry
   br i1 %cmp.i.i, label %if.then.i.i, label %alloc_edge.exit
 
 if.then.i.i:                                      ; preds = %if.then.i
-  %puts.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -2093,11 +2093,11 @@ if.then:                                          ; preds = %entry
   br label %cleanup
 
 if.end:                                           ; preds = %entry
-  %div68 = lshr i32 %n, 1
+  %div78 = lshr i32 %n, 1
   %div3 = sdiv i32 %numnodes, 2
   %add = add nsw i32 %div3, %processor
-  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div68, double noundef %curmax, i32 noundef %i, i32 noundef %seed, i32 noundef %add, i32 noundef %div3)
-  %sub = sub nsw i32 %i, %div68
+  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div78, double noundef %curmax, i32 noundef %i, i32 noundef %seed, i32 noundef %add, i32 noundef %div3)
+  %sub = sub nsw i32 %i, %div78
   %call = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #29
   %curmax9 = getelementptr inbounds %struct.get_point, ptr %agg.result, i64 0, i32 1
   %0 = load double, ptr %curmax9, align 8, !tbaa !39
@@ -2121,18 +2121,18 @@ if.end:                                           ; preds = %entry
   %call17 = tail call double @exp(double noundef %div16) #28
   %mul = fmul double %0, %call17
   store double %mul, ptr %call, align 8, !tbaa !23
-  %div.i.i69 = sdiv i32 %add.i, 10000
-  %rem.i.i70 = srem i32 %add.i, 10000
-  %mul.i.i71 = mul nsw i32 %rem.i.i70, 3141
-  %mul3.i.i72 = mul nsw i32 %div.i.i69, 5821
-  %add.i.i73 = add nsw i32 %mul.i.i71, %mul3.i.i72
-  %rem4.i.i74 = srem i32 %add.i.i73, 10000
-  %mul5.i.i75 = mul nsw i32 %rem4.i.i74, 10000
-  %mul6.i.i76 = mul nsw i32 %rem.i.i70, 5821
-  %add7.i.i77 = add nsw i32 %mul6.i.i76, 1
-  %add.i78 = add nsw i32 %add7.i.i77, %mul5.i.i75
-  store i32 %add.i78, ptr %seed10, align 8, !tbaa !41
-  %conv22 = sitofp i32 %add.i78 to double
+  %div.i.i68 = sdiv i32 %add.i, 10000
+  %rem.i.i69 = srem i32 %add.i, 10000
+  %mul.i.i70 = mul nsw i32 %rem.i.i69, 3141
+  %mul3.i.i71 = mul nsw i32 %div.i.i68, 5821
+  %add.i.i72 = add nsw i32 %mul.i.i70, %mul3.i.i71
+  %rem4.i.i73 = srem i32 %add.i.i72, 10000
+  %mul5.i.i74 = mul nsw i32 %rem4.i.i73, 10000
+  %mul6.i.i75 = mul nsw i32 %rem.i.i69, 5821
+  %add7.i.i76 = add nsw i32 %mul6.i.i75, 1
+  %add.i77 = add nsw i32 %add7.i.i76, %mul5.i.i74
+  store i32 %add.i77, ptr %seed10, align 8, !tbaa !41
+  %conv22 = sitofp i32 %add.i77 to double
   %div23 = fdiv double %conv22, 0x41DFFFFFFFC00000
   %y = getelementptr inbounds %struct.VEC2, ptr %call, i64 0, i32 1
   store double %div23, ptr %y, align 8, !tbaa !24
@@ -2144,7 +2144,7 @@ if.end:                                           ; preds = %entry
   %right = getelementptr inbounds %struct.VERTEX, ptr %call, i64 0, i32 2
   store ptr %3, ptr %right, align 8, !tbaa !14
   %sub41 = add nsw i32 %sub, -1
-  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div68, double noundef %mul, i32 noundef %sub41, i32 noundef %add.i78, i32 noundef %processor, i32 noundef %div3)
+  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div78, double noundef %mul, i32 noundef %sub41, i32 noundef %add.i77, i32 noundef %processor, i32 noundef %div3)
   %4 = load ptr, ptr %agg.result, align 8, !tbaa !42
   %left = getelementptr inbounds %struct.VERTEX, ptr %call, i64 0, i32 1
   store ptr %4, ptr %left, align 8, !tbaa !18

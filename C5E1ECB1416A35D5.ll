@@ -111,13 +111,11 @@ if.end11:                                         ; preds = %if.end, %if.then9, 
   %call13 = tail call ptr @tsp(ptr noundef %call2, i32 noundef 150, i32 noundef %3) #5
   %4 = load i32, ptr @flag, align 4, !tbaa !18
   %tobool14.not = icmp eq i32 %4, 0
-  br i1 %tobool14.not, label %if.end20, label %if.then15
-
-if.then15:                                        ; preds = %if.end11
   %tobool.not.i = icmp eq ptr %call2, null
-  br i1 %tobool.not.i, label %if.then18, label %if.end.i
+  %or.cond = select i1 %tobool14.not, i1 true, i1 %tobool.not.i
+  br i1 %or.cond, label %if.end16, label %if.end.i
 
-if.end.i:                                         ; preds = %if.then15
+if.end.i:                                         ; preds = %if.end11
   %x1.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 1
   %5 = load double, ptr %x1.i, align 8, !tbaa !5
   %y2.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 2
@@ -126,7 +124,7 @@ if.end.i:                                         ; preds = %if.then15
   %tmp.0.in18.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 5
   %tmp.019.i = load ptr, ptr %tmp.0.in18.i, align 8, !tbaa !15
   %cmp.not20.i = icmp eq ptr %tmp.019.i, %call2
-  br i1 %cmp.not20.i, label %if.end16, label %for.body.i
+  br i1 %cmp.not20.i, label %if.end16thread-pre-split, label %for.body.i
 
 for.body.i:                                       ; preds = %if.end.i, %for.body.i
   %tmp.021.i = phi ptr [ %tmp.0.i, %for.body.i ], [ %tmp.019.i, %if.end.i ]
@@ -138,18 +136,22 @@ for.body.i:                                       ; preds = %if.end.i, %for.body
   %tmp.0.in.i = getelementptr inbounds %struct.tree, ptr %tmp.021.i, i64 0, i32 5
   %tmp.0.i = load ptr, ptr %tmp.0.in.i, align 8, !tbaa !15
   %cmp.not.i = icmp eq ptr %tmp.0.i, %call2
-  br i1 %cmp.not.i, label %if.end16, label %for.body.i, !llvm.loop !16
+  br i1 %cmp.not.i, label %if.end16thread-pre-split, label %for.body.i, !llvm.loop !16
 
-if.end16:                                         ; preds = %for.body.i, %if.end.i
+if.end16thread-pre-split:                         ; preds = %for.body.i, %if.end.i
   %.pr29 = load i32, ptr @flag, align 4, !tbaa !18
-  %tobool17.not = icmp eq i32 %.pr29, 0
+  br label %if.end16
+
+if.end16:                                         ; preds = %if.end16thread-pre-split, %if.end11
+  %9 = phi i32 [ %.pr29, %if.end16thread-pre-split ], [ %4, %if.end11 ]
+  %tobool17.not = icmp eq i32 %9, 0
   br i1 %tobool17.not, label %if.end20, label %if.then18
 
-if.then18:                                        ; preds = %if.then15, %if.end16
+if.then18:                                        ; preds = %if.end16
   %puts23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   br label %if.end20
 
-if.end20:                                         ; preds = %if.end11, %if.then18, %if.end16
+if.end20:                                         ; preds = %if.then18, %if.end16
   ret i32 0
 }
 

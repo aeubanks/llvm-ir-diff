@@ -15,7 +15,7 @@ declare void @_Z13RegisterCodecPK10CCodecInfo(ptr noundef) local_unnamed_addr #0
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL11CreateCodecv() #1 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #4
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) %call, i8 0, i64 24, i1 false)
   store ptr getelementptr inbounds ({ [11 x ptr] }, ptr @_ZTV16CBCJ_x86_Decoder, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !5
@@ -24,7 +24,7 @@ invoke.cont:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL14CreateCodecOutv() #1 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #4
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) %call, i8 0, i64 24, i1 false)
   store ptr getelementptr inbounds ({ [11 x ptr] }, ptr @_ZTV16CBCJ_x86_Encoder, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !5

@@ -334,15 +334,15 @@ entry:
   br i1 %tobool.not, label %return, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %entry
-  %vtable42 = load ptr, ptr %0, align 8, !tbaa !5
-  %1 = load ptr, ptr %vtable42, align 8
-  %call43 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %cmp.not44 = icmp eq i32 %call43, 147
-  br i1 %cmp.not44, label %while.body, label %return
+  %vtable43 = load ptr, ptr %0, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable43, align 8
+  %call44 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(24) %0)
+  %cmp45 = icmp eq i32 %call44, 147
+  br i1 %cmp45, label %while.body, label %return
 
 while.body:                                       ; preds = %while.cond.preheader, %cleanup19
-  %kc_fe_selvar_1.045 = phi ptr [ %5, %cleanup19 ], [ %0, %while.cond.preheader ]
-  %unparseitem_1 = getelementptr inbounds %"class.kc::impl_unparseitems", ptr %kc_fe_selvar_1.045, i64 0, i32 1
+  %kc_fe_selvar_1.046 = phi ptr [ %5, %cleanup19 ], [ %0, %while.cond.preheader ]
+  %unparseitem_1 = getelementptr inbounds %"class.kc::impl_unparseitems", ptr %kc_fe_selvar_1.046, i64 0, i32 1
   %2 = load ptr, ptr %unparseitem_1, align 8, !tbaa !29
   %vtable2 = load ptr, ptr %2, align 8, !tbaa !5
   %3 = load ptr, ptr %vtable2, align 8
@@ -363,15 +363,15 @@ cleanup19.thread:                                 ; preds = %if.then6
   br label %return
 
 cleanup19:                                        ; preds = %while.body, %if.then6
-  %unparseitems_1 = getelementptr inbounds %"class.kc::impl_unparseitems", ptr %kc_fe_selvar_1.045, i64 0, i32 2
+  %unparseitems_1 = getelementptr inbounds %"class.kc::impl_unparseitems", ptr %kc_fe_selvar_1.046, i64 0, i32 2
   %5 = load ptr, ptr %unparseitems_1, align 8, !tbaa !35
   %vtable = load ptr, ptr %5, align 8, !tbaa !5
   %6 = load ptr, ptr %vtable, align 8
   %call = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(24) %5)
-  %cmp.not = icmp eq i32 %call, 147
-  br i1 %cmp.not, label %while.body, label %return, !llvm.loop !36
+  %cmp = icmp eq i32 %call, 147
+  br i1 %cmp, label %while.body, label %return, !llvm.loop !36
 
-return:                                           ; preds = %cleanup19, %while.cond.preheader, %cleanup19.thread, %entry
+return:                                           ; preds = %cleanup19, %cleanup19.thread, %while.cond.preheader, %entry
   %retval.5 = phi i1 [ false, %entry ], [ true, %cleanup19.thread ], [ false, %while.cond.preheader ], [ false, %cleanup19 ]
   ret i1 %retval.5
 }
@@ -476,7 +476,7 @@ if.else30:                                        ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.4, i32 noundef 243, ptr noundef nonnull @.str.1)
   br label %cleanup31
 
-cleanup31:                                        ; preds = %if.then.i40, %if.else26, %if.then.i, %if.else, %if.then20, %if.else30
+cleanup31:                                        ; preds = %if.then.i, %if.else, %if.then20, %if.else26, %if.then.i40, %if.else30
   %retval.2 = phi ptr [ null, %if.else30 ], [ %9, %if.then20 ], [ %call2.i, %if.then.i ], [ %10, %if.else ], [ %call2.i39, %if.then.i40 ], [ %11, %if.else26 ]
   ret ptr %retval.2
 }
@@ -598,7 +598,7 @@ if.else50:                                        ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 280, ptr noundef nonnull @.str.1)
   br label %cleanup51
 
-cleanup51:                                        ; preds = %if.then.i62, %if.else46, %if.then.i, %if.else, %if.then37, %if.else50
+cleanup51:                                        ; preds = %if.then.i, %if.else, %if.then37, %if.else46, %if.then.i62, %if.else50
   %retval.2 = phi ptr [ null, %if.else50 ], [ %18, %if.then37 ], [ %call2.i, %if.then.i ], [ %19, %if.else ], [ %call2.i61, %if.then.i62 ], [ %20, %if.else46 ]
   ret ptr %retval.2
 }
@@ -892,7 +892,7 @@ if.else21:                                        ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.13, i32 noundef 467, ptr noundef nonnull @.str.1)
   br label %cleanup22
 
-cleanup22:                                        ; preds = %if.then.i, %if.else18, %if.then8, %if.then14, %if.else21
+cleanup22:                                        ; preds = %if.then8, %if.then14, %if.else18, %if.then.i, %if.else21
   %retval.1 = phi ptr [ null, %if.else21 ], [ %4, %if.then8 ], [ %6, %if.then14 ], [ %call2.i, %if.then.i ], [ %7, %if.else18 ]
   ret ptr %retval.1
 }
@@ -971,7 +971,7 @@ if.else12:                                        ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.14, i32 noundef 506, ptr noundef nonnull @.str.1)
   br label %cleanup13
 
-cleanup13:                                        ; preds = %if.then.i, %if.else, %if.then8, %if.else12
+cleanup13:                                        ; preds = %if.then8, %if.else, %if.then.i, %if.else12
   %retval.1 = phi ptr [ null, %if.else12 ], [ %4, %if.then8 ], [ %call2.i, %if.then.i ], [ %5, %if.else ]
   ret ptr %retval.1
 }
@@ -1239,7 +1239,7 @@ if.else16:                                        ; preds = %if.else10
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.23, i32 noundef 607, ptr noundef nonnull @.str.1)
   br label %if.end18
 
-if.end18:                                         ; preds = %if.else23.i, %if.else17.i, %if.then5, %if.else16, %if.else10
+if.end18:                                         ; preds = %if.then5, %if.else17.i, %if.else23.i, %if.else16, %if.else10
   ret void
 }
 
@@ -1399,7 +1399,7 @@ if.else19.i:                                      ; preds = %if.else13.i
   br label %_ZN2kcL34f_do_check_unpattributes_in_phylumEPNS_18impl_unpattributesEPNS_7impl_IDE.exit
 
 _ZN2kcL34f_do_check_unpattributes_in_phylumEPNS_18impl_unpattributesEPNS_7impl_IDE.exit: ; preds = %if.then5.i, %if.then.i34.i, %if.else13.i, %if.else19.i
-  %retval.1.i = phi ptr [ null, %if.else19.i ], [ %p.tr.i, %if.else13.i ], [ %call2.i33.i, %if.then.i34.i ], [ %8, %if.then5.i ]
+  %retval.1.i = phi ptr [ null, %if.else19.i ], [ %call2.i33.i, %if.then.i34.i ], [ %8, %if.then5.i ], [ %p.tr.i, %if.else13.i ]
   tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %call)
   ret ptr %retval.1.i
 }
@@ -1474,137 +1474,137 @@ land.lhs.true:                                    ; preds = %if.end
 if.then13:                                        ; preds = %land.lhs.true
   %6 = load ptr, ptr %Ccode_option_1, align 8, !tbaa !82
   %attributes_1 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %6, i64 0, i32 1
-  %kc_fe_selvar_1.0172 = load ptr, ptr %attributes_1, align 8, !tbaa !20
-  %vtable17173 = load ptr, ptr %kc_fe_selvar_1.0172, align 8, !tbaa !5
-  %7 = load ptr, ptr %vtable17173, align 8
-  %call19174 = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0172)
-  %cmp20.not175 = icmp eq i32 %call19174, 33
-  br i1 %cmp20.not175, label %while.body, label %cleanup.cont39
+  %7 = load ptr, ptr %attributes_1, align 8, !tbaa !83
+  %vtable17172 = load ptr, ptr %7, align 8, !tbaa !5
+  %8 = load ptr, ptr %vtable17172, align 8
+  %call19173 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(24) %7)
+  %cmp20.not174 = icmp eq i32 %call19173, 33
+  br i1 %cmp20.not174, label %while.body, label %cleanup.cont39
 
 while.body:                                       ; preds = %if.then13, %cleanup34
-  %kc_fe_selvar_1.0176 = phi ptr [ %kc_fe_selvar_1.0, %cleanup34 ], [ %kc_fe_selvar_1.0172, %if.then13 ]
-  %attribute_1 = getelementptr inbounds %"class.kc::impl_attributes", ptr %kc_fe_selvar_1.0176, i64 0, i32 1
-  %8 = load ptr, ptr %attribute_1, align 8, !tbaa !83
-  %vtable21 = load ptr, ptr %8, align 8, !tbaa !5
-  %9 = load ptr, ptr %vtable21, align 8
-  %call23 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %kc_fe_selvar_1.0175 = phi ptr [ %13, %cleanup34 ], [ %7, %if.then13 ]
+  %attribute_1 = getelementptr inbounds %"class.kc::impl_attributes", ptr %kc_fe_selvar_1.0175, i64 0, i32 1
+  %9 = load ptr, ptr %attribute_1, align 8, !tbaa !86
+  %vtable21 = load ptr, ptr %9, align 8, !tbaa !5
+  %10 = load ptr, ptr %vtable21, align 8
+  %call23 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %9)
   %cmp24 = icmp eq i32 %call23, 34
   br i1 %cmp24, label %if.then25, label %cleanup34
 
 if.then25:                                        ; preds = %while.body
-  %ID_1 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %ID_1, align 8, !tbaa !85
-  %ID_2 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %8, i64 0, i32 2
-  %11 = load ptr, ptr %ID_2, align 8, !tbaa !88
-  %call28 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %a, ptr noundef %11)
+  %ID_1 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %9, i64 0, i32 1
+  %11 = load ptr, ptr %ID_1, align 8, !tbaa !88
+  %ID_2 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %9, i64 0, i32 2
+  %12 = load ptr, ptr %ID_2, align 8, !tbaa !91
+  %call28 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %a, ptr noundef %12)
   br i1 %call28, label %cleanup124, label %cleanup34
 
 cleanup34:                                        ; preds = %if.then25, %while.body
-  %attributes_133 = getelementptr inbounds %"class.kc::impl_attributes", ptr %kc_fe_selvar_1.0176, i64 0, i32 2
-  %kc_fe_selvar_1.0 = load ptr, ptr %attributes_133, align 8, !tbaa !20
-  %vtable17 = load ptr, ptr %kc_fe_selvar_1.0, align 8, !tbaa !5
-  %12 = load ptr, ptr %vtable17, align 8
-  %call19 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0)
+  %attributes_133 = getelementptr inbounds %"class.kc::impl_attributes", ptr %kc_fe_selvar_1.0175, i64 0, i32 2
+  %13 = load ptr, ptr %attributes_133, align 8, !tbaa !92
+  %vtable17 = load ptr, ptr %13, align 8, !tbaa !5
+  %14 = load ptr, ptr %vtable17, align 8
+  %call19 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(24) %13)
   %cmp20.not = icmp eq i32 %call19, 33
-  br i1 %cmp20.not, label %while.body, label %cleanup.cont39, !llvm.loop !89
+  br i1 %cmp20.not, label %while.body, label %cleanup.cont39, !llvm.loop !93
 
 cleanup.cont39:                                   ; preds = %cleanup34, %if.then13
   %additional_members = getelementptr inbounds %"class.kc::impl_phylumdeclaration", ptr %call, i64 0, i32 2
-  %kc_fe_selvar_140.0177 = load ptr, ptr %additional_members, align 8, !tbaa !20
-  %vtable42178 = load ptr, ptr %kc_fe_selvar_140.0177, align 8, !tbaa !5
-  %13 = load ptr, ptr %vtable42178, align 8
-  %call44179 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_140.0177)
-  %cmp45.not180 = icmp eq i32 %call44179, 108
-  br i1 %cmp45.not180, label %while.body46, label %cleanup.cont119
+  %15 = load ptr, ptr %additional_members, align 8, !tbaa !94
+  %vtable42176 = load ptr, ptr %15, align 8, !tbaa !5
+  %16 = load ptr, ptr %vtable42176, align 8
+  %call44177 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(24) %15)
+  %cmp45.not178 = icmp eq i32 %call44177, 108
+  br i1 %cmp45.not178, label %while.body46, label %cleanup.cont119
 
 while.body46:                                     ; preds = %cleanup.cont39, %cleanup113
-  %kc_fe_selvar_140.0181 = phi ptr [ %kc_fe_selvar_140.0, %cleanup113 ], [ %kc_fe_selvar_140.0177, %cleanup.cont39 ]
-  %fndeclaration_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_140.0181, i64 0, i32 1
-  %14 = load ptr, ptr %fndeclaration_1, align 8, !tbaa !90
-  %vtable48 = load ptr, ptr %14, align 8, !tbaa !5
-  %15 = load ptr, ptr %vtable48, align 8
-  %call50 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %14)
+  %kc_fe_selvar_140.0179 = phi ptr [ %40, %cleanup113 ], [ %15, %cleanup.cont39 ]
+  %fndeclaration_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_140.0179, i64 0, i32 1
+  %17 = load ptr, ptr %fndeclaration_1, align 8, !tbaa !95
+  %vtable48 = load ptr, ptr %17, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable48, align 8
+  %call50 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %17)
   %cmp51 = icmp eq i32 %call50, 110
   br i1 %cmp51, label %land.lhs.true52, label %cleanup113
 
 land.lhs.true52:                                  ; preds = %while.body46
-  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !92
-  %vtable54 = load ptr, ptr %16, align 8, !tbaa !5
-  %17 = load ptr, ptr %vtable54, align 8
-  %call56 = tail call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(24) %16)
+  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %17, i64 0, i32 1
+  %19 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %vtable54 = load ptr, ptr %19, align 8, !tbaa !5
+  %20 = load ptr, ptr %vtable54, align 8
+  %call56 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(24) %19)
   %cmp57 = icmp eq i32 %call56, 236
   br i1 %cmp57, label %land.lhs.true58, label %cleanup113
 
 land.lhs.true58:                                  ; preds = %land.lhs.true52
-  %18 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !92
-  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %18, i64 0, i32 1
-  %19 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !95
-  %vtable61 = load ptr, ptr %19, align 8, !tbaa !5
-  %20 = load ptr, ptr %vtable61, align 8
-  %call63 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %19)
+  %21 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %21, i64 0, i32 1
+  %22 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !100
+  %vtable61 = load ptr, ptr %22, align 8, !tbaa !5
+  %23 = load ptr, ptr %vtable61, align 8
+  %call63 = tail call noundef i32 %23(ptr noundef nonnull align 8 dereferenceable(8) %22)
   %cmp64 = icmp eq i32 %call63, 238
   br i1 %cmp64, label %land.lhs.true65, label %cleanup113
 
 land.lhs.true65:                                  ; preds = %land.lhs.true58
-  %21 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !92
-  %ac_declaration_specifier_168 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %21, i64 0, i32 1
-  %22 = load ptr, ptr %ac_declaration_specifier_168, align 8, !tbaa !95
-  %ac_type_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %22, i64 0, i32 1
-  %23 = load ptr, ptr %ac_type_specifier_1, align 8, !tbaa !97
-  %vtable70 = load ptr, ptr %23, align 8, !tbaa !5
-  %24 = load ptr, ptr %vtable70, align 8
-  %call72 = tail call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(8) %23)
+  %24 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %ac_declaration_specifier_168 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %24, i64 0, i32 1
+  %25 = load ptr, ptr %ac_declaration_specifier_168, align 8, !tbaa !100
+  %ac_type_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %25, i64 0, i32 1
+  %26 = load ptr, ptr %ac_type_specifier_1, align 8, !tbaa !102
+  %vtable70 = load ptr, ptr %26, align 8, !tbaa !5
+  %27 = load ptr, ptr %vtable70, align 8
+  %call72 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %26)
   %cmp73 = icmp eq i32 %call72, 246
   br i1 %cmp73, label %land.lhs.true74, label %cleanup113
 
 land.lhs.true74:                                  ; preds = %land.lhs.true65
-  %ac_declarator_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %14, i64 0, i32 2
-  %25 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !100
-  %vtable76 = load ptr, ptr %25, align 8, !tbaa !5
-  %26 = load ptr, ptr %vtable76, align 8
-  %call78 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %25)
+  %ac_declarator_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %17, i64 0, i32 2
+  %28 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !105
+  %vtable76 = load ptr, ptr %28, align 8, !tbaa !5
+  %29 = load ptr, ptr %vtable76, align 8
+  %call78 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %28)
   %cmp79 = icmp eq i32 %call78, 254
   br i1 %cmp79, label %land.lhs.true80, label %cleanup113
 
 land.lhs.true80:                                  ; preds = %land.lhs.true74
-  %27 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !100
-  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %27, i64 0, i32 3
-  %28 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !101
-  %vtable84 = load ptr, ptr %28, align 8, !tbaa !5
-  %29 = load ptr, ptr %vtable84, align 8
-  %call86 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %28)
+  %30 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !105
+  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %30, i64 0, i32 3
+  %31 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !106
+  %vtable84 = load ptr, ptr %31, align 8, !tbaa !5
+  %32 = load ptr, ptr %vtable84, align 8
+  %call86 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %31)
   %cmp87 = icmp eq i32 %call86, 260
   br i1 %cmp87, label %if.then88, label %cleanup113
 
 if.then88:                                        ; preds = %land.lhs.true80
-  %30 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !92
-  %ac_declaration_specifier_192 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %30, i64 0, i32 1
-  %31 = load ptr, ptr %ac_declaration_specifier_192, align 8, !tbaa !95
-  %ac_type_specifier_194 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %31, i64 0, i32 1
-  %32 = load ptr, ptr %ac_type_specifier_194, align 8, !tbaa !97
-  %ID_196 = getelementptr inbounds %"class.kc::impl_ac_type_specifier_AcTypeSpec", ptr %32, i64 0, i32 1
-  %33 = load ptr, ptr %ID_196, align 8, !tbaa !104
-  %34 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !100
-  %ac_direct_declarator_1101 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %34, i64 0, i32 3
-  %35 = load ptr, ptr %ac_direct_declarator_1101, align 8, !tbaa !101
-  %ID_2103 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcMemberDecl", ptr %35, i64 0, i32 2
-  %36 = load ptr, ptr %ID_2103, align 8, !tbaa !107
-  %call104 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %a, ptr noundef %36)
+  %33 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %ac_declaration_specifier_192 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %33, i64 0, i32 1
+  %34 = load ptr, ptr %ac_declaration_specifier_192, align 8, !tbaa !100
+  %ac_type_specifier_194 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %34, i64 0, i32 1
+  %35 = load ptr, ptr %ac_type_specifier_194, align 8, !tbaa !102
+  %ID_196 = getelementptr inbounds %"class.kc::impl_ac_type_specifier_AcTypeSpec", ptr %35, i64 0, i32 1
+  %36 = load ptr, ptr %ID_196, align 8, !tbaa !109
+  %37 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !105
+  %ac_direct_declarator_1101 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %37, i64 0, i32 3
+  %38 = load ptr, ptr %ac_direct_declarator_1101, align 8, !tbaa !106
+  %ID_2103 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcMemberDecl", ptr %38, i64 0, i32 2
+  %39 = load ptr, ptr %ID_2103, align 8, !tbaa !112
+  %call104 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %a, ptr noundef %39)
   br i1 %call104, label %cleanup124, label %cleanup113
 
 cleanup113:                                       ; preds = %if.then88, %land.lhs.true80, %land.lhs.true74, %land.lhs.true65, %land.lhs.true58, %land.lhs.true52, %while.body46
-  %fndeclarations_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_140.0181, i64 0, i32 2
-  %kc_fe_selvar_140.0 = load ptr, ptr %fndeclarations_1, align 8, !tbaa !20
-  %vtable42 = load ptr, ptr %kc_fe_selvar_140.0, align 8, !tbaa !5
-  %37 = load ptr, ptr %vtable42, align 8
-  %call44 = tail call noundef i32 %37(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_140.0)
+  %fndeclarations_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_140.0179, i64 0, i32 2
+  %40 = load ptr, ptr %fndeclarations_1, align 8, !tbaa !115
+  %vtable42 = load ptr, ptr %40, align 8, !tbaa !5
+  %41 = load ptr, ptr %vtable42, align 8
+  %call44 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(24) %40)
   %cmp45.not = icmp eq i32 %call44, 108
-  br i1 %cmp45.not, label %while.body46, label %cleanup.cont119, !llvm.loop !110
+  br i1 %cmp45.not, label %while.body46, label %cleanup.cont119, !llvm.loop !116
 
 cleanup.cont119:                                  ; preds = %cleanup113, %cleanup.cont39
-  %38 = load ptr, ptr @_ZZN2kc9f_emptyIdEvE7emptyID, align 8, !tbaa !20
-  %tobool.not.i156 = icmp eq ptr %38, null
+  %42 = load ptr, ptr @_ZZN2kc9f_emptyIdEvE7emptyID, align 8, !tbaa !20
+  %tobool.not.i156 = icmp eq ptr %42, null
   br i1 %tobool.not.i156, label %if.then.i160, label %cleanup124
 
 if.then.i160:                                     ; preds = %cleanup.cont119
@@ -1618,8 +1618,8 @@ if.else122:                                       ; preds = %land.lhs.true, %if.
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.25, i32 noundef 748, ptr noundef nonnull @.str.1)
   br label %cleanup124
 
-cleanup124:                                       ; preds = %if.then25, %if.then88, %if.then.i160, %cleanup.cont119, %if.then.i, %if.then, %if.else122
-  %retval.12 = phi ptr [ null, %if.else122 ], [ %call2.i, %if.then.i ], [ %2, %if.then ], [ %call2.i159, %if.then.i160 ], [ %38, %cleanup.cont119 ], [ %33, %if.then88 ], [ %10, %if.then25 ]
+cleanup124:                                       ; preds = %if.then25, %if.then88, %if.else122, %if.then.i160, %cleanup.cont119, %if.then.i, %if.then
+  %retval.12 = phi ptr [ %call2.i, %if.then.i ], [ %2, %if.then ], [ null, %if.else122 ], [ %call2.i159, %if.then.i160 ], [ %42, %cleanup.cont119 ], [ %36, %if.then88 ], [ %11, %if.then25 ]
   ret ptr %retval.12
 }
 
@@ -1830,7 +1830,7 @@ if.then7.i:                                       ; preds = %if.then.i
 
 if.then10.i:                                      ; preds = %if.then7.i
   %seqnr.i = getelementptr inbounds %"class.kc::impl_arguments", ptr %a.tr42.i, i64 0, i32 1
-  %7 = load i32, ptr %seqnr.i, align 8, !tbaa !111
+  %7 = load i32, ptr %seqnr.i, align 8, !tbaa !117
   %call11.i = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %7)
   %call12.i = tail call noundef ptr @_ZN2kc8ArgumentEPNS_7impl_IDEPNS_17impl_integer__IntE(ptr noundef %2, ptr noundef %call11.i)
   br label %_ZN2kcL13f_do_argumentEPNS_14impl_argumentsEPNS_8impl_INTEi.exit
@@ -1924,7 +1924,7 @@ if.else9:                                         ; preds = %if.else
 
 if.then14:                                        ; preds = %if.else9
   %outmostpattern_1 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPNonLeafVariable", ptr %p.tr54, i64 0, i32 2
-  %5 = load ptr, ptr %outmostpattern_1, align 8, !tbaa !112
+  %5 = load ptr, ptr %outmostpattern_1, align 8, !tbaa !118
   %vtable = load ptr, ptr %5, align 8, !tbaa !5
   %6 = load ptr, ptr %vtable, align 8
   %call1 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %5)
@@ -1940,7 +1940,7 @@ if.else17:                                        ; preds = %if.else9
 
 if.then22:                                        ; preds = %if.else17
   %ID_1 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPOperator", ptr %p.tr54, i64 0, i32 1
-  %8 = load ptr, ptr %ID_1, align 8, !tbaa !115
+  %8 = load ptr, ptr %ID_1, align 8, !tbaa !121
   %call24 = tail call noundef ptr @_ZN2kc18f_phylumofoperatorEPNS_7impl_IDE(ptr noundef %8)
   br label %cleanup
 
@@ -1953,7 +1953,7 @@ if.else25:                                        ; preds = %if.else17
 
 if.then30:                                        ; preds = %if.else25
   %ID_133 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPOperatorWildcard", ptr %p.tr54, i64 0, i32 1
-  %10 = load ptr, ptr %ID_133, align 8, !tbaa !117
+  %10 = load ptr, ptr %ID_133, align 8, !tbaa !123
   %call34 = tail call noundef ptr @_ZN2kc18f_phylumofoperatorEPNS_7impl_IDE(ptr noundef %10)
   br label %cleanup
 
@@ -2011,7 +2011,7 @@ if.then8:                                         ; preds = %if.end
 
 if.then15:                                        ; preds = %if.then8
   %alternatives_1 = getelementptr inbounds %"class.kc::impl_productionblock_PredefinedAlternatives", ptr %4, i64 0, i32 1
-  %6 = load ptr, ptr %alternatives_1, align 8, !tbaa !119
+  %6 = load ptr, ptr %alternatives_1, align 8, !tbaa !125
   %call.i147 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %6)
   %vtable20.i.i = load ptr, ptr %6, align 8, !tbaa !5
   %7 = load ptr, ptr %vtable20.i.i, align 8
@@ -2027,7 +2027,7 @@ if.then.i.i:                                      ; preds = %if.then15, %if.else
 
 if.else.i.i:                                      ; preds = %if.then.i.i
   %alternatives_1.i.i = getelementptr inbounds %"class.kc::impl_alternatives", ptr %a.tr23.i.i, i64 0, i32 2
-  %8 = load ptr, ptr %alternatives_1.i.i, align 8, !tbaa !121
+  %8 = load ptr, ptr %alternatives_1.i.i, align 8, !tbaa !127
   %sub.i.i = add nsw i32 %a_i.tr24.i.i, -1
   %vtable.i.i = load ptr, ptr %8, align 8, !tbaa !5
   %9 = load ptr, ptr %vtable.i.i, align 8
@@ -2098,7 +2098,7 @@ if.else36:                                        ; preds = %if.then8
 
 if.then41:                                        ; preds = %if.else36
   %alternatives_144 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %4, i64 0, i32 1
-  %18 = load ptr, ptr %alternatives_144, align 8, !tbaa !122
+  %18 = load ptr, ptr %alternatives_144, align 8, !tbaa !128
   %call.i154 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %18)
   %vtable20.i.i155 = load ptr, ptr %18, align 8, !tbaa !5
   %19 = load ptr, ptr %vtable20.i.i155, align 8
@@ -2114,7 +2114,7 @@ if.then.i.i161:                                   ; preds = %if.then41, %if.else
 
 if.else.i.i169:                                   ; preds = %if.then.i.i161
   %alternatives_1.i.i164 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %a.tr23.i.i159, i64 0, i32 2
-  %20 = load ptr, ptr %alternatives_1.i.i164, align 8, !tbaa !121
+  %20 = load ptr, ptr %alternatives_1.i.i164, align 8, !tbaa !127
   %sub.i.i165 = add nsw i32 %a_i.tr24.i.i158, -1
   %vtable.i.i166 = load ptr, ptr %20, align 8, !tbaa !5
   %21 = load ptr, ptr %vtable.i.i166, align 8
@@ -2201,7 +2201,7 @@ if.then.i.i191:                                   ; preds = %if.then76, %if.else
 
 if.else.i.i199:                                   ; preds = %if.then.i.i191
   %alternatives_1.i.i194 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %a.tr23.i.i189, i64 0, i32 2
-  %32 = load ptr, ptr %alternatives_1.i.i194, align 8, !tbaa !121
+  %32 = load ptr, ptr %alternatives_1.i.i194, align 8, !tbaa !127
   %sub.i.i195 = add nsw i32 %a_i.tr24.i.i188, -1
   %vtable.i.i196 = load ptr, ptr %32, align 8, !tbaa !5
   %33 = load ptr, ptr %vtable.i.i196, align 8
@@ -2274,8 +2274,8 @@ if.else116:                                       ; preds = %if.end
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.30, i32 noundef 983, ptr noundef nonnull @.str.1)
   br label %cleanup118
 
-cleanup118:                                       ; preds = %if.then.i182, %if.then48, %if.then.i152, %if.then19, %if.then.i, %if.then, %if.else116, %if.then83, %if.else102, %if.then97, %if.else67, %if.then62, %if.else, %if.then32, %if.else113, %if.then111
-  %retval.8 = phi ptr [ null, %if.else116 ], [ %call112, %if.then111 ], [ null, %if.else113 ], [ %16, %if.then32 ], [ null, %if.else ], [ %28, %if.then62 ], [ null, %if.else67 ], [ %call89, %if.then83 ], [ %39, %if.then97 ], [ null, %if.else102 ], [ %call2.i, %if.then.i ], [ %2, %if.then ], [ %call2.i151, %if.then.i152 ], [ %14, %if.then19 ], [ %call2.i181, %if.then.i182 ], [ %26, %if.then48 ]
+cleanup118:                                       ; preds = %if.else116, %if.then83, %if.else102, %if.then97, %if.then48, %if.then.i182, %if.else67, %if.then62, %if.then19, %if.then.i152, %if.else, %if.then32, %if.else113, %if.then111, %if.then.i, %if.then
+  %retval.8 = phi ptr [ %call2.i, %if.then.i ], [ %2, %if.then ], [ null, %if.else116 ], [ %call112, %if.then111 ], [ null, %if.else113 ], [ %call2.i151, %if.then.i152 ], [ %14, %if.then19 ], [ %16, %if.then32 ], [ null, %if.else ], [ %call2.i181, %if.then.i182 ], [ %26, %if.then48 ], [ %28, %if.then62 ], [ null, %if.else67 ], [ %call89, %if.then83 ], [ %39, %if.then97 ], [ null, %if.else102 ]
   ret ptr %retval.8
 }
 
@@ -2302,7 +2302,7 @@ if.then3.i:                                       ; preds = %if.then.i
 
 if.else.i:                                        ; preds = %if.then.i
   %alternatives_1.i = getelementptr inbounds %"class.kc::impl_alternatives", ptr %a.tr23.i, i64 0, i32 2
-  %2 = load ptr, ptr %alternatives_1.i, align 8, !tbaa !121
+  %2 = load ptr, ptr %alternatives_1.i, align 8, !tbaa !127
   %sub.i = add nsw i32 %a_i.tr24.i, -1
   %vtable.i = load ptr, ptr %2, align 8, !tbaa !5
   %3 = load ptr, ptr %vtable.i, align 8
@@ -2340,16 +2340,16 @@ entry:
 while.body:                                       ; preds = %entry, %while.body
   %kc_fe_selvar_1.07 = phi ptr [ %kc_fe_selvar_1.0, %while.body ], [ %kc_fe_selvar_1.03, %entry ]
   %phylumdeclaration_1 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %kc_fe_selvar_1.07, i64 0, i32 1
-  %1 = load ptr, ptr %phylumdeclaration_1, align 8, !tbaa !124
+  %1 = load ptr, ptr %phylumdeclaration_1, align 8, !tbaa !130
   %marked = getelementptr inbounds %"class.kc::impl_phylumdeclaration", ptr %1, i64 0, i32 1
-  store i32 0, ptr %marked, align 8, !tbaa !126
+  store i32 0, ptr %marked, align 8, !tbaa !132
   %phylumdeclarations_1 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %kc_fe_selvar_1.07, i64 0, i32 2
   %kc_fe_selvar_1.0 = load ptr, ptr %phylumdeclarations_1, align 8, !tbaa !20
   %vtable = load ptr, ptr %kc_fe_selvar_1.0, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable, align 8
   %call = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0)
   %cmp = icmp eq i32 %call, 12
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !127
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !133
 
 while.end:                                        ; preds = %while.body, %entry
   ret void
@@ -2367,7 +2367,7 @@ entry:
 while.body:                                       ; preds = %entry, %if.end137
   %kc_fe_selvar_1.0172 = phi ptr [ %31, %if.end137 ], [ %v, %entry ]
   %ID_1 = getelementptr inbounds %"class.kc::impl_variables", ptr %kc_fe_selvar_1.0172, i64 0, i32 1
-  %1 = load ptr, ptr %ID_1, align 8, !tbaa !128
+  %1 = load ptr, ptr %ID_1, align 8, !tbaa !134
   %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable2, align 8
   %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -2387,9 +2387,9 @@ if.then:                                          ; preds = %while.body
 
 if.then12:                                        ; preds = %if.then
   %integer_1 = getelementptr inbounds %"class.kc::impl_IDtype_ITPatternVariable", ptr %4, i64 0, i32 2
-  %6 = load ptr, ptr %integer_1, align 8, !tbaa !130
+  %6 = load ptr, ptr %integer_1, align 8, !tbaa !136
   %scopeinfo = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 4
-  %7 = load ptr, ptr %scopeinfo, align 8, !tbaa !131
+  %7 = load ptr, ptr %scopeinfo, align 8, !tbaa !137
   %vtable15 = load ptr, ptr %7, align 8, !tbaa !5
   %8 = load ptr, ptr %vtable15, align 8
   %call17 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(24) %7)
@@ -2398,7 +2398,7 @@ if.then12:                                        ; preds = %if.then
 
 land.lhs.true:                                    ; preds = %if.then12
   %scopetypefileline_1 = getelementptr inbounds %"class.kc::impl_scopetypefilelinestack", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %scopetypefileline_1, align 8, !tbaa !132
+  %9 = load ptr, ptr %scopetypefileline_1, align 8, !tbaa !138
   %vtable19 = load ptr, ptr %9, align 8, !tbaa !5
   %10 = load ptr, ptr %vtable19, align 8
   %call21 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %9)
@@ -2406,29 +2406,29 @@ land.lhs.true:                                    ; preds = %if.then12
   br i1 %cmp22, label %if.then23, label %if.else
 
 if.then23:                                        ; preds = %land.lhs.true
-  %11 = load ptr, ptr %scopetypefileline_1, align 8, !tbaa !132
+  %11 = load ptr, ptr %scopetypefileline_1, align 8, !tbaa !138
   %integer_126 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 1
-  %12 = load ptr, ptr %integer_126, align 8, !tbaa !134
+  %12 = load ptr, ptr %integer_126, align 8, !tbaa !140
   %cmp33 = icmp eq ptr %12, %6
   br i1 %cmp33, label %if.then34, label %if.end137
 
 if.then34:                                        ; preds = %if.then23
-  %casestring_1 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 3
-  %13 = load ptr, ptr %casestring_1, align 8, !tbaa !137
-  %IDtype_1 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 2
-  %14 = load ptr, ptr %IDtype_1, align 8, !tbaa !138
   %scopetypefilelinestack_1 = getelementptr inbounds %"class.kc::impl_scopetypefilelinestack", ptr %7, i64 0, i32 2
-  %15 = load ptr, ptr %scopetypefilelinestack_1, align 8, !tbaa !139
+  %13 = load ptr, ptr %scopetypefilelinestack_1, align 8, !tbaa !143
   %integer_2 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 4
-  %16 = load ptr, ptr %integer_2, align 8, !tbaa !140
-  store ptr %14, ptr %type, align 8, !tbaa !37
+  %14 = load ptr, ptr %integer_2, align 8, !tbaa !144
+  %casestring_1 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 3
+  %15 = load ptr, ptr %casestring_1, align 8, !tbaa !145
+  %IDtype_1 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %11, i64 0, i32 2
+  %16 = load ptr, ptr %IDtype_1, align 8, !tbaa !146
+  store ptr %16, ptr %type, align 8, !tbaa !37
   %file = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 3
-  store ptr %13, ptr %file, align 8, !tbaa !141
-  %value = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %16, i64 0, i32 1
+  store ptr %15, ptr %file, align 8, !tbaa !147
+  %value = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %14, i64 0, i32 1
   %17 = load i32, ptr %value, align 8, !tbaa !75
   %line = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 2
-  store i32 %17, ptr %line, align 8, !tbaa !142
-  store ptr %15, ptr %scopeinfo, align 8, !tbaa !131
+  store i32 %17, ptr %line, align 8, !tbaa !148
+  store ptr %13, ptr %scopeinfo, align 8, !tbaa !137
   br label %if.end137
 
 if.else:                                          ; preds = %land.lhs.true, %if.then12
@@ -2443,9 +2443,9 @@ if.then41:                                        ; preds = %if.else
   store ptr %call42, ptr %type, align 8, !tbaa !37
   %call44 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.6, i32 noundef -1)
   %file45 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 3
-  store ptr %call44, ptr %file45, align 8, !tbaa !141
+  store ptr %call44, ptr %file45, align 8, !tbaa !147
   %line46 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 2
-  store i32 0, ptr %line46, align 8, !tbaa !142
+  store i32 0, ptr %line46, align 8, !tbaa !148
   br label %if.end137
 
 if.else47:                                        ; preds = %if.else
@@ -2546,12 +2546,12 @@ if.else136:                                       ; preds = %while.body
 
 if.end137:                                        ; preds = %if.else56, %if.else68, %if.else80, %if.else92, %if.else104, %if.else122, %if.else116, %if.else110, %if.else98, %if.else86, %if.else74, %if.else62, %if.else50, %if.then23, %if.then34, %if.then41, %if.else47, %if.else136
   %variables_1 = getelementptr inbounds %"class.kc::impl_variables", ptr %kc_fe_selvar_1.0172, i64 0, i32 2
-  %31 = load ptr, ptr %variables_1, align 8, !tbaa !143
+  %31 = load ptr, ptr %variables_1, align 8, !tbaa !149
   %vtable = load ptr, ptr %31, align 8, !tbaa !5
   %32 = load ptr, ptr %vtable, align 8
   %call = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(24) %31)
   %cmp = icmp eq i32 %call, 192
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !144
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !150
 
 while.end:                                        ; preds = %if.end137, %entry
   ret void
@@ -2562,32 +2562,32 @@ declare noundef ptr @_ZN2kc9ITUnknownEv() local_unnamed_addr #1
 ; Function Attrs: mustprogress uwtable
 define dso_local void @_ZN2kc19v_add_to_uviewnamesEPNS_7impl_IDE(ptr noundef %v) local_unnamed_addr #0 {
 entry:
-  %kc_fe_selvar_1.017 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
-  %vtable18 = load ptr, ptr %kc_fe_selvar_1.017, align 8, !tbaa !5
-  %0 = load ptr, ptr %vtable18, align 8
-  %call19 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(32) %kc_fe_selvar_1.017)
-  %cmp20 = icmp eq i32 %call19, 145
-  br i1 %cmp20, label %while.body, label %cleanup.cont7
+  %0 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
+  %vtable17 = load ptr, ptr %0, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable17, align 8
+  %call18 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(32) %0)
+  %cmp19 = icmp eq i32 %call18, 145
+  br i1 %cmp19, label %while.body, label %cleanup.cont7
 
-while.cond:                                       ; preds = %while.body
-  %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.021, i64 0, i32 3
-  %kc_fe_selvar_1.0 = load ptr, ptr %viewnames_1, align 8, !tbaa !20
-  %vtable = load ptr, ptr %kc_fe_selvar_1.0, align 8, !tbaa !5
-  %1 = load ptr, ptr %vtable, align 8
-  %call = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(32) %kc_fe_selvar_1.0)
+while.body:                                       ; preds = %entry, %cleanup2
+  %kc_fe_selvar_1.020 = phi ptr [ %3, %cleanup2 ], [ %0, %entry ]
+  %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.020, i64 0, i32 2
+  %2 = load ptr, ptr %ID_1, align 8, !tbaa !151
+  %call1 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %v)
+  br i1 %call1, label %return, label %cleanup2
+
+cleanup2:                                         ; preds = %while.body
+  %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.020, i64 0, i32 3
+  %3 = load ptr, ptr %viewnames_1, align 8, !tbaa !153
+  %vtable = load ptr, ptr %3, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(32) %3)
   %cmp = icmp eq i32 %call, 145
   br i1 %cmp, label %while.body, label %cleanup.cont7
 
-while.body:                                       ; preds = %entry, %while.cond
-  %kc_fe_selvar_1.021 = phi ptr [ %kc_fe_selvar_1.0, %while.cond ], [ %kc_fe_selvar_1.017, %entry ]
-  %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.021, i64 0, i32 2
-  %2 = load ptr, ptr %ID_1, align 8, !tbaa !145
-  %call1 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %v)
-  br i1 %call1, label %return, label %while.cond
-
-cleanup.cont7:                                    ; preds = %while.cond, %entry
-  %3 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
-  %call8 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %v, ptr noundef %3)
+cleanup.cont7:                                    ; preds = %cleanup2, %entry
+  %5 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
+  %call8 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %v, ptr noundef %5)
   store ptr %call8, ptr @Theuviewnames, align 8, !tbaa !20
   br label %return
 
@@ -2621,15 +2621,15 @@ if.else:                                          ; preds = %while.body
 
 if.then6:                                         ; preds = %if.else
   %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %uviewnames.040, i64 0, i32 2
-  %3 = load ptr, ptr %ID_1, align 8, !tbaa !145
+  %3 = load ptr, ptr %ID_1, align 8, !tbaa !151
   %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %uviewnames.040, i64 0, i32 3
-  %4 = load ptr, ptr %viewnames_1, align 8, !tbaa !147
+  %4 = load ptr, ptr %viewnames_1, align 8, !tbaa !153
   %call7 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %v)
   br i1 %call7, label %if.then8, label %cleanup18
 
 if.then8:                                         ; preds = %if.then6
   %is_extern = getelementptr inbounds %"class.kc::impl_viewnames", ptr %uviewnames.040, i64 0, i32 1
-  %5 = load i8, ptr %is_extern, align 8, !tbaa !148, !range !18, !noundef !19
+  %5 = load i8, ptr %is_extern, align 8, !tbaa !154, !range !18, !noundef !19
   %tobool9.not = icmp eq i8 %5, 0
   br i1 %tobool9.not, label %cleanup23.sink.split, label %cleanup23
 
@@ -2640,7 +2640,7 @@ if.else15:                                        ; preds = %if.else
 cleanup18:                                        ; preds = %if.else15, %if.then6
   %uviewnames.3 = phi ptr [ %uviewnames.040, %if.else15 ], [ %4, %if.then6 ]
   %tobool.not = icmp eq ptr %uviewnames.3, null
-  br i1 %tobool.not, label %while.end.loopexit, label %while.body, !llvm.loop !149
+  br i1 %tobool.not, label %while.end.loopexit, label %while.body, !llvm.loop !155
 
 while.end.loopexit:                               ; preds = %while.body, %cleanup18
   %.pre = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
@@ -2655,7 +2655,7 @@ while.end:                                        ; preds = %while.end.loopexit,
 
 cleanup23.sink.split:                             ; preds = %if.then8, %while.end
   %is_extern.sink = phi ptr [ %is_extern22, %while.end ], [ %is_extern, %if.then8 ]
-  store i8 1, ptr %is_extern.sink, align 8, !tbaa !148
+  store i8 1, ptr %is_extern.sink, align 8, !tbaa !154
   br label %cleanup23
 
 cleanup23:                                        ; preds = %cleanup23.sink.split, %if.then8
@@ -2665,32 +2665,32 @@ cleanup23:                                        ; preds = %cleanup23.sink.spli
 ; Function Attrs: mustprogress uwtable
 define dso_local void @_ZN2kc19v_add_to_rviewnamesEPNS_7impl_IDE(ptr noundef %v) local_unnamed_addr #0 {
 entry:
-  %kc_fe_selvar_1.017 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
-  %vtable18 = load ptr, ptr %kc_fe_selvar_1.017, align 8, !tbaa !5
-  %0 = load ptr, ptr %vtable18, align 8
-  %call19 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(32) %kc_fe_selvar_1.017)
-  %cmp20 = icmp eq i32 %call19, 145
-  br i1 %cmp20, label %while.body, label %cleanup.cont7
+  %0 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
+  %vtable17 = load ptr, ptr %0, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable17, align 8
+  %call18 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(32) %0)
+  %cmp19 = icmp eq i32 %call18, 145
+  br i1 %cmp19, label %while.body, label %cleanup.cont7
 
-while.cond:                                       ; preds = %while.body
-  %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.021, i64 0, i32 3
-  %kc_fe_selvar_1.0 = load ptr, ptr %viewnames_1, align 8, !tbaa !20
-  %vtable = load ptr, ptr %kc_fe_selvar_1.0, align 8, !tbaa !5
-  %1 = load ptr, ptr %vtable, align 8
-  %call = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(32) %kc_fe_selvar_1.0)
+while.body:                                       ; preds = %entry, %cleanup2
+  %kc_fe_selvar_1.020 = phi ptr [ %3, %cleanup2 ], [ %0, %entry ]
+  %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.020, i64 0, i32 2
+  %2 = load ptr, ptr %ID_1, align 8, !tbaa !151
+  %call1 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %v)
+  br i1 %call1, label %return, label %cleanup2
+
+cleanup2:                                         ; preds = %while.body
+  %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.020, i64 0, i32 3
+  %3 = load ptr, ptr %viewnames_1, align 8, !tbaa !153
+  %vtable = load ptr, ptr %3, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(32) %3)
   %cmp = icmp eq i32 %call, 145
   br i1 %cmp, label %while.body, label %cleanup.cont7
 
-while.body:                                       ; preds = %entry, %while.cond
-  %kc_fe_selvar_1.021 = phi ptr [ %kc_fe_selvar_1.0, %while.cond ], [ %kc_fe_selvar_1.017, %entry ]
-  %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %kc_fe_selvar_1.021, i64 0, i32 2
-  %2 = load ptr, ptr %ID_1, align 8, !tbaa !145
-  %call1 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %v)
-  br i1 %call1, label %return, label %while.cond
-
-cleanup.cont7:                                    ; preds = %while.cond, %entry
-  %3 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
-  %call8 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %v, ptr noundef %3)
+cleanup.cont7:                                    ; preds = %cleanup2, %entry
+  %5 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
+  %call8 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %v, ptr noundef %5)
   store ptr %call8, ptr @Therviewnames, align 8, !tbaa !20
   br label %return
 
@@ -2722,15 +2722,15 @@ if.else:                                          ; preds = %while.body
 
 if.then6:                                         ; preds = %if.else
   %ID_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %rviewnames.040, i64 0, i32 2
-  %3 = load ptr, ptr %ID_1, align 8, !tbaa !145
+  %3 = load ptr, ptr %ID_1, align 8, !tbaa !151
   %viewnames_1 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %rviewnames.040, i64 0, i32 3
-  %4 = load ptr, ptr %viewnames_1, align 8, !tbaa !147
+  %4 = load ptr, ptr %viewnames_1, align 8, !tbaa !153
   %call7 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %v)
   br i1 %call7, label %if.then8, label %cleanup18
 
 if.then8:                                         ; preds = %if.then6
   %is_extern = getelementptr inbounds %"class.kc::impl_viewnames", ptr %rviewnames.040, i64 0, i32 1
-  %5 = load i8, ptr %is_extern, align 8, !tbaa !148, !range !18, !noundef !19
+  %5 = load i8, ptr %is_extern, align 8, !tbaa !154, !range !18, !noundef !19
   %tobool9.not = icmp eq i8 %5, 0
   br i1 %tobool9.not, label %cleanup23.sink.split, label %cleanup23
 
@@ -2741,7 +2741,7 @@ if.else15:                                        ; preds = %if.else
 cleanup18:                                        ; preds = %if.else15, %if.then6
   %rviewnames.3 = phi ptr [ %rviewnames.040, %if.else15 ], [ %4, %if.then6 ]
   %tobool.not = icmp eq ptr %rviewnames.3, null
-  br i1 %tobool.not, label %while.end.loopexit, label %while.body, !llvm.loop !150
+  br i1 %tobool.not, label %while.end.loopexit, label %while.body, !llvm.loop !156
 
 while.end.loopexit:                               ; preds = %while.body, %cleanup18
   %.pre = load ptr, ptr @Therviewnames, align 8, !tbaa !20
@@ -2756,7 +2756,7 @@ while.end:                                        ; preds = %while.end.loopexit,
 
 cleanup23.sink.split:                             ; preds = %if.then8, %while.end
   %is_extern.sink = phi ptr [ %is_extern22, %while.end ], [ %is_extern, %if.then8 ]
-  store i8 1, ptr %is_extern.sink, align 8, !tbaa !148
+  store i8 1, ptr %is_extern.sink, align 8, !tbaa !154
   br label %cleanup23
 
 cleanup23:                                        ; preds = %cleanup23.sink.split, %if.then8
@@ -2779,9 +2779,9 @@ tailrecurse.i:                                    ; preds = %if.then.i, %entry
 
 if.then.i:                                        ; preds = %tailrecurse.i
   %ID_1.i = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %s.tr.i, i64 0, i32 2
-  %2 = load ptr, ptr %ID_1.i, align 8, !tbaa !151
+  %2 = load ptr, ptr %ID_1.i, align 8, !tbaa !157
   %storageclasses_1.i = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %s.tr.i, i64 0, i32 3
-  %3 = load ptr, ptr %storageclasses_1.i, align 8, !tbaa !153
+  %3 = load ptr, ptr %storageclasses_1.i, align 8, !tbaa !159
   %call2.i = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %v)
   br i1 %call2.i, label %if.then3.i, label %tailrecurse.i
 
@@ -2804,9 +2804,9 @@ _ZN2kc9f_emptyIdEv.exit.i:                        ; preds = %if.then.i.i, %if.th
 
 if.then6.i:                                       ; preds = %_ZN2kc9f_emptyIdEv.exit.i
   %phyla.i = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %s.tr.i, i64 0, i32 1
-  %6 = load ptr, ptr %phyla.i, align 8, !tbaa !154
+  %6 = load ptr, ptr %phyla.i, align 8, !tbaa !160
   %call7.i = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef nonnull %p, ptr noundef %6)
-  store ptr %call7.i, ptr %phyla.i, align 8, !tbaa !154
+  store ptr %call7.i, ptr %phyla.i, align 8, !tbaa !160
   br label %_ZN2kcL24do_add_to_storageclassesEPNS_7impl_IDES1_PNS_19impl_storageclassesES3_.exit
 
 if.else11.i:                                      ; preds = %tailrecurse.i
@@ -2820,7 +2820,7 @@ if.then16.i:                                      ; preds = %if.else11.i
   %call17.i = tail call noundef ptr @_ZN2kc18ConsstorageclassesEPNS_7impl_IDEPNS_19impl_storageclassesE(ptr noundef %v, ptr noundef %0)
   %call18.i = tail call noundef ptr @_ZN2kc14NilphylumnamesEv()
   %phyla19.i = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %call17.i, i64 0, i32 1
-  store ptr %call18.i, ptr %phyla19.i, align 8, !tbaa !154
+  store ptr %call18.i, ptr %phyla19.i, align 8, !tbaa !160
   %8 = load ptr, ptr @_ZZN2kc9f_emptyIdEvE7emptyID, align 8, !tbaa !20
   %tobool.not.i46.i = icmp eq ptr %8, null
   br i1 %tobool.not.i46.i, label %if.then.i50.i, label %_ZN2kc9f_emptyIdEv.exit51.i
@@ -2838,9 +2838,9 @@ _ZN2kc9f_emptyIdEv.exit51.i:                      ; preds = %if.then.i50.i, %if.
   br i1 %call21.i, label %_ZN2kcL24do_add_to_storageclassesEPNS_7impl_IDES1_PNS_19impl_storageclassesES3_.exit, label %if.then22.i
 
 if.then22.i:                                      ; preds = %_ZN2kc9f_emptyIdEv.exit51.i
-  %10 = load ptr, ptr %phyla19.i, align 8, !tbaa !154
+  %10 = load ptr, ptr %phyla19.i, align 8, !tbaa !160
   %call24.i = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef nonnull %p, ptr noundef %10)
-  store ptr %call24.i, ptr %phyla19.i, align 8, !tbaa !154
+  store ptr %call24.i, ptr %phyla19.i, align 8, !tbaa !160
   br label %_ZN2kcL24do_add_to_storageclassesEPNS_7impl_IDES1_PNS_19impl_storageclassesES3_.exit
 
 if.else28.i:                                      ; preds = %if.else11.i
@@ -2913,7 +2913,7 @@ for.body7.us:                                     ; preds = %for.body.us, %for.b
   %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
-  br i1 %niter.ncmp.3, label %for.cond5.for.end_crit_edge.us.unr-lcssa, label %for.body7.us, !llvm.loop !155
+  br i1 %niter.ncmp.3, label %for.cond5.for.end_crit_edge.us.unr-lcssa, label %for.body7.us, !llvm.loop !161
 
 for.cond5.for.end_crit_edge.us.unr-lcssa:         ; preds = %for.body7.us, %for.body.us
   %indvars.iv.unr = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next.3, %for.body7.us ]
@@ -2928,12 +2928,12 @@ for.body7.us.epil:                                ; preds = %for.cond5.for.end_c
   %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %for.cond5.for.end_crit_edge.us, label %for.body7.us.epil, !llvm.loop !156
+  br i1 %epil.iter.cmp.not, label %for.cond5.for.end_crit_edge.us, label %for.body7.us.epil, !llvm.loop !162
 
 for.cond5.for.end_crit_edge.us:                   ; preds = %for.body7.us.epil, %for.cond5.for.end_crit_edge.us.unr-lcssa
   %inc11.us = add nuw i64 %i.023.us, 1
   %exitcond27.not = icmp eq i64 %i.023.us, %call
-  br i1 %exitcond27.not, label %for.end12, label %for.body.us, !llvm.loop !158
+  br i1 %exitcond27.not, label %for.end12, label %for.body.us, !llvm.loop !164
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body
   %i.023 = phi i64 [ %inc11, %for.body ], [ 0, %for.body.lr.ph ]
@@ -2942,7 +2942,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   store ptr %call4, ptr %arrayidx, align 8, !tbaa !20
   %inc11 = add nuw i64 %i.023, 1
   %exitcond.not = icmp eq i64 %i.023, %call
-  br i1 %exitcond.not, label %for.end12, label %for.body, !llvm.loop !158
+  br i1 %exitcond.not, label %for.end12, label %for.body, !llvm.loop !164
 
 for.end12:                                        ; preds = %for.body, %for.cond5.for.end_crit_edge.us, %entry
   %13 = load ptr, ptr @Theunparsedeclarations, align 8, !tbaa !20
@@ -2971,7 +2971,7 @@ entry:
 
 land.lhs.true:                                    ; preds = %entry
   %languageoption_1 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %s, i64 0, i32 1
-  %1 = load ptr, ptr %languageoption_1, align 8, !tbaa !159
+  %1 = load ptr, ptr %languageoption_1, align 8, !tbaa !165
   %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable3, align 8
   %call5 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -2979,10 +2979,10 @@ land.lhs.true:                                    ; preds = %entry
   br i1 %cmp6, label %if.then, label %if.else80
 
 if.then:                                          ; preds = %land.lhs.true
-  %3 = load ptr, ptr %languageoption_1, align 8, !tbaa !159
+  %3 = load ptr, ptr %languageoption_1, align 8, !tbaa !165
   %languagenames_1 = getelementptr inbounds %"class.kc::impl_languageoption_LanguageList", ptr %3, i64 0, i32 1
   %text_nr = getelementptr inbounds %"class.kc::impl_unparseitem", ptr %s, i64 0, i32 1
-  %4 = load i32, ptr %text_nr, align 8, !tbaa !161
+  %4 = load i32, ptr %text_nr, align 8, !tbaa !167
   %conv = sext i32 %4 to i64
   %kc_fe_selvar_1.0141 = load ptr, ptr %languagenames_1, align 8, !tbaa !20
   %vtable10142 = load ptr, ptr %kc_fe_selvar_1.0141, align 8, !tbaa !5
@@ -2994,7 +2994,7 @@ if.then:                                          ; preds = %land.lhs.true
 while.body:                                       ; preds = %if.then, %if.end78
   %kc_fe_selvar_1.0145 = phi ptr [ %kc_fe_selvar_1.0, %if.end78 ], [ %kc_fe_selvar_1.0141, %if.then ]
   %ID_1 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.0145, i64 0, i32 1
-  %6 = load ptr, ptr %ID_1, align 8, !tbaa !162
+  %6 = load ptr, ptr %ID_1, align 8, !tbaa !168
   %vtable14 = load ptr, ptr %6, align 8, !tbaa !5
   %7 = load ptr, ptr %vtable14, align 8
   %call16 = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %6)
@@ -3014,7 +3014,7 @@ if.then18:                                        ; preds = %while.body
 
 if.then25:                                        ; preds = %if.then18
   %integer_1 = getelementptr inbounds %"class.kc::impl_IDtype_ITLanguageName", ptr %9, i64 0, i32 1
-  %11 = load ptr, ptr %integer_1, align 8, !tbaa !164
+  %11 = load ptr, ptr %integer_1, align 8, !tbaa !170
   %12 = load ptr, ptr @_ZL17string_collection, align 8, !tbaa !20
   %arrayidx = getelementptr inbounds ptr, ptr %12, i64 %conv
   %13 = load ptr, ptr %arrayidx, align 8, !tbaa !20
@@ -3041,7 +3041,7 @@ land.lhs.true34:                                  ; preds = %if.then25
 land.lhs.true39:                                  ; preds = %land.lhs.true34
   %19 = load ptr, ptr %unparseitem_1, align 8, !tbaa !29
   %languageoption_142 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %19, i64 0, i32 1
-  %20 = load ptr, ptr %languageoption_142, align 8, !tbaa !159
+  %20 = load ptr, ptr %languageoption_142, align 8, !tbaa !165
   %vtable43 = load ptr, ptr %20, align 8, !tbaa !5
   %21 = load ptr, ptr %vtable43, align 8
   %call45 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %20)
@@ -3096,7 +3096,7 @@ if.end78:                                         ; preds = %if.end78.sink.split
   %30 = load ptr, ptr %vtable10, align 8
   %call12 = tail call noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0)
   %cmp13 = icmp eq i32 %call12, 165
-  br i1 %cmp13, label %while.body, label %if.end108, !llvm.loop !166
+  br i1 %cmp13, label %while.body, label %if.end108, !llvm.loop !172
 
 if.else80:                                        ; preds = %land.lhs.true, %entry
   %vtable81 = load ptr, ptr %s, align 8, !tbaa !5
@@ -3107,7 +3107,7 @@ if.else80:                                        ; preds = %land.lhs.true, %ent
 
 land.lhs.true85:                                  ; preds = %if.else80
   %languageoption_187 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %s, i64 0, i32 1
-  %32 = load ptr, ptr %languageoption_187, align 8, !tbaa !159
+  %32 = load ptr, ptr %languageoption_187, align 8, !tbaa !165
   %vtable88 = load ptr, ptr %32, align 8, !tbaa !5
   %33 = load ptr, ptr %vtable88, align 8
   %call90 = tail call noundef i32 %33(ptr noundef nonnull align 8 dereferenceable(8) %32)
@@ -3118,7 +3118,7 @@ if.then92:                                        ; preds = %land.lhs.true85
   %34 = load ptr, ptr @Thelanguages, align 8, !tbaa !20
   %call93 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %34)
   %text_nr95 = getelementptr inbounds %"class.kc::impl_unparseitem", ptr %s, i64 0, i32 1
-  %35 = load i32, ptr %text_nr95, align 8, !tbaa !161
+  %35 = load i32, ptr %text_nr95, align 8, !tbaa !167
   %conv96 = sext i32 %35 to i64
   %cmp97139 = icmp sgt i32 %call93, 0
   br i1 %cmp97139, label %for.body.preheader, label %if.end108
@@ -3143,7 +3143,7 @@ for.body:                                         ; preds = %for.body.preheader,
   store ptr %call102, ptr %arrayidx105, align 8, !tbaa !20
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %if.end108, label %for.body, !llvm.loop !167
+  br i1 %exitcond.not, label %if.end108, label %for.body, !llvm.loop !173
 
 if.else106:                                       ; preds = %land.lhs.true85, %if.else80
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.34, i32 noundef 1393, ptr noundef nonnull @.str.1)
@@ -3179,7 +3179,7 @@ while.body.preheader:                             ; preds = %while.body.lr.ph
 while.body.us:                                    ; preds = %while.body.lr.ph, %while.body.us
   %kc_fe_selvar_1.033.us = phi ptr [ %kc_fe_selvar_1.0.us, %while.body.us ], [ %kc_fe_selvar_1.028, %while.body.lr.ph ]
   %ID_1.us = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.033.us, i64 0, i32 1
-  %3 = load ptr, ptr %ID_1.us, align 8, !tbaa !162
+  %3 = load ptr, ptr %ID_1.us, align 8, !tbaa !168
   %vtable.i.us = load ptr, ptr %3, align 8, !tbaa !5
   %vfn.i.us = getelementptr inbounds ptr, ptr %vtable.i.us, i64 9
   %4 = load ptr, ptr %vfn.i.us, align 8
@@ -3191,13 +3191,13 @@ while.body.us:                                    ; preds = %while.body.lr.ph, %
   %5 = load ptr, ptr %vtable.us, align 8
   %call2.us = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0.us)
   %cmp.us = icmp eq i32 %call2.us, 165
-  br i1 %cmp.us, label %while.body.us, label %while.end, !llvm.loop !168
+  br i1 %cmp.us, label %while.body.us, label %while.end, !llvm.loop !174
 
 while.body:                                       ; preds = %while.body.preheader, %for.cond.for.end_crit_edge
   %indvars.iv = phi i64 [ %2, %while.body.preheader ], [ %indvars.iv.next, %for.cond.for.end_crit_edge ]
   %kc_fe_selvar_1.033 = phi ptr [ %kc_fe_selvar_1.028, %while.body.preheader ], [ %kc_fe_selvar_1.0, %for.cond.for.end_crit_edge ]
   %ID_1 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.033, i64 0, i32 1
-  %6 = load ptr, ptr %ID_1, align 8, !tbaa !162
+  %6 = load ptr, ptr %ID_1, align 8, !tbaa !168
   %indvars.iv.next = add i64 %indvars.iv, -1
   %vtable.i = load ptr, ptr %6, align 8, !tbaa !5
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 9
@@ -3221,7 +3221,7 @@ for.body:                                         ; preds = %while.body, %for.bo
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.36, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
   %inc = add nuw i64 %nr.027, 1
   %exitcond.not = icmp eq i64 %nr.027, %call1
-  br i1 %exitcond.not, label %for.cond.for.end_crit_edge, label %for.body, !llvm.loop !169
+  br i1 %exitcond.not, label %for.cond.for.end_crit_edge, label %for.body, !llvm.loop !175
 
 for.cond.for.end_crit_edge:                       ; preds = %for.body
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.37, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
@@ -3231,7 +3231,7 @@ for.cond.for.end_crit_edge:                       ; preds = %for.body
   %12 = load ptr, ptr %vtable, align 8
   %call2 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0)
   %cmp = icmp eq i32 %call2, 165
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !168
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !174
 
 while.end:                                        ; preds = %for.cond.for.end_crit_edge, %while.body.us, %entry
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.38, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
@@ -3244,7 +3244,7 @@ while.end:                                        ; preds = %for.cond.for.end_cr
 
 if.then:                                          ; preds = %while.end
   %ID_114 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %13, i64 0, i32 1
-  %15 = load ptr, ptr %ID_114, align 8, !tbaa !162
+  %15 = load ptr, ptr %ID_114, align 8, !tbaa !168
   %vtable.i24 = load ptr, ptr %15, align 8, !tbaa !5
   %vfn.i25 = getelementptr inbounds ptr, ptr %vtable.i24, i64 9
   %16 = load ptr, ptr %vfn.i25, align 8
@@ -3283,7 +3283,7 @@ entry:
 
 land.lhs.true:                                    ; preds = %entry
   %idCexpression_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 1
-  %1 = load ptr, ptr %idCexpression_1, align 8, !tbaa !170
+  %1 = load ptr, ptr %idCexpression_1, align 8, !tbaa !176
   %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable2, align 8
   %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -3295,11 +3295,11 @@ common.ret22:                                     ; preds = %if.else17, %if.then
   ret ptr %common.ret22.op
 
 if.then:                                          ; preds = %land.lhs.true
-  %3 = load ptr, ptr %idCexpression_1, align 8, !tbaa !170
+  %3 = load ptr, ptr %idCexpression_1, align 8, !tbaa !176
   %ID_1 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %3, i64 0, i32 1
-  %4 = load ptr, ptr %ID_1, align 8, !tbaa !172
+  %4 = load ptr, ptr %ID_1, align 8, !tbaa !178
   %idCexpressions_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 2
-  %5 = load ptr, ptr %idCexpressions_1, align 8, !tbaa !175
+  %5 = load ptr, ptr %idCexpressions_1, align 8, !tbaa !181
   %call8 = tail call noundef ptr @_ZN2kc19f_listelementphylumEPNS_7impl_IDE(ptr noundef %4)
   %call9 = tail call noundef ptr @_ZN2kc32t_f_phylumnames_foreachwith_varsEPNS_19impl_idCexpressionsE(ptr noundef %5)
   %call10 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef %call8, ptr noundef %call9)
@@ -3343,7 +3343,7 @@ entry:
 
 land.lhs.true:                                    ; preds = %entry
   %idCexpression_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 1
-  %1 = load ptr, ptr %idCexpression_1, align 8, !tbaa !170
+  %1 = load ptr, ptr %idCexpression_1, align 8, !tbaa !176
   %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable2, align 8
   %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -3355,11 +3355,11 @@ common.ret21:                                     ; preds = %if.else16, %if.then
   ret ptr %common.ret21.op
 
 if.then:                                          ; preds = %land.lhs.true
-  %3 = load ptr, ptr %idCexpression_1, align 8, !tbaa !170
+  %3 = load ptr, ptr %idCexpression_1, align 8, !tbaa !176
   %ID_1 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %3, i64 0, i32 1
-  %4 = load ptr, ptr %ID_1, align 8, !tbaa !172
+  %4 = load ptr, ptr %ID_1, align 8, !tbaa !178
   %idCexpressions_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 2
-  %5 = load ptr, ptr %idCexpressions_1, align 8, !tbaa !175
+  %5 = load ptr, ptr %idCexpressions_1, align 8, !tbaa !181
   %call8 = tail call noundef ptr @_ZN2kc36t_f_phylumnames_foreachwith_listvarsEPNS_19impl_idCexpressionsE(ptr noundef %5)
   %call9 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef %4, ptr noundef %call8)
   br label %common.ret21
@@ -3392,7 +3392,7 @@ entry:
 while.body:                                       ; preds = %entry, %if.end313
   %kc_fe_selvar_1.0529 = phi ptr [ %141, %if.end313 ], [ %fns, %entry ]
   %fndeclaration_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_1.0529, i64 0, i32 1
-  %1 = load ptr, ptr %fndeclaration_1, align 8, !tbaa !90
+  %1 = load ptr, ptr %fndeclaration_1, align 8, !tbaa !95
   %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable2, align 8
   %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -3401,7 +3401,7 @@ while.body:                                       ; preds = %entry, %if.end313
 
 land.lhs.true:                                    ; preds = %while.body
   %ac_declarator_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 2
-  %3 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !176
+  %3 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !182
   %vtable7 = load ptr, ptr %3, align 8, !tbaa !5
   %4 = load ptr, ptr %vtable7, align 8
   %call9 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -3409,9 +3409,9 @@ land.lhs.true:                                    ; preds = %while.body
   br i1 %cmp10, label %land.lhs.true11, label %if.else64
 
 land.lhs.true11:                                  ; preds = %land.lhs.true
-  %5 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !176
+  %5 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !182
   %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %5, i64 0, i32 3
-  %6 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !101
+  %6 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !106
   %vtable15 = load ptr, ptr %6, align 8, !tbaa !5
   %7 = load ptr, ptr %vtable15, align 8
   %call17 = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %6)
@@ -3419,11 +3419,11 @@ land.lhs.true11:                                  ; preds = %land.lhs.true
   br i1 %cmp18, label %land.lhs.true19, label %if.else64
 
 land.lhs.true19:                                  ; preds = %land.lhs.true11
-  %8 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !176
+  %8 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !182
   %ac_direct_declarator_123 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %8, i64 0, i32 3
-  %9 = load ptr, ptr %ac_direct_declarator_123, align 8, !tbaa !101
+  %9 = load ptr, ptr %ac_direct_declarator_123, align 8, !tbaa !106
   %ac_class_qualifier_list_1 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %9, i64 0, i32 1
-  %10 = load ptr, ptr %ac_class_qualifier_list_1, align 8, !tbaa !178
+  %10 = load ptr, ptr %ac_class_qualifier_list_1, align 8, !tbaa !184
   %vtable25 = load ptr, ptr %10, align 8, !tbaa !5
   %11 = load ptr, ptr %vtable25, align 8
   %call27 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(24) %10)
@@ -3431,13 +3431,13 @@ land.lhs.true19:                                  ; preds = %land.lhs.true11
   br i1 %cmp28, label %land.lhs.true29, label %if.else64
 
 land.lhs.true29:                                  ; preds = %land.lhs.true19
-  %12 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !176
+  %12 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !182
   %ac_direct_declarator_133 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %12, i64 0, i32 3
-  %13 = load ptr, ptr %ac_direct_declarator_133, align 8, !tbaa !101
+  %13 = load ptr, ptr %ac_direct_declarator_133, align 8, !tbaa !106
   %ac_class_qualifier_list_135 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %13, i64 0, i32 1
-  %14 = load ptr, ptr %ac_class_qualifier_list_135, align 8, !tbaa !178
+  %14 = load ptr, ptr %ac_class_qualifier_list_135, align 8, !tbaa !184
   %ac_class_qualifier_list_136 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_list", ptr %14, i64 0, i32 2
-  %15 = load ptr, ptr %ac_class_qualifier_list_136, align 8, !tbaa !180
+  %15 = load ptr, ptr %ac_class_qualifier_list_136, align 8, !tbaa !186
   %vtable37 = load ptr, ptr %15, align 8, !tbaa !5
   %16 = load ptr, ptr %vtable37, align 8
   %call39 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(24) %15)
@@ -3446,7 +3446,7 @@ land.lhs.true29:                                  ; preds = %land.lhs.true19
 
 land.lhs.true41:                                  ; preds = %land.lhs.true29
   %fnclass_1 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 7
-  %17 = load ptr, ptr %fnclass_1, align 8, !tbaa !182
+  %17 = load ptr, ptr %fnclass_1, align 8, !tbaa !188
   %vtable43 = load ptr, ptr %17, align 8, !tbaa !5
   %18 = load ptr, ptr %vtable43, align 8
   %call45 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %17)
@@ -3454,13 +3454,13 @@ land.lhs.true41:                                  ; preds = %land.lhs.true29
   br i1 %cmp46, label %if.then, label %if.else64
 
 if.then:                                          ; preds = %land.lhs.true41
-  %19 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !176
+  %19 = load ptr, ptr %ac_declarator_1, align 8, !tbaa !182
   %ac_direct_declarator_150 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %19, i64 0, i32 3
-  %20 = load ptr, ptr %ac_direct_declarator_150, align 8, !tbaa !101
+  %20 = load ptr, ptr %ac_direct_declarator_150, align 8, !tbaa !106
   %ac_class_qualifier_list_152 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %20, i64 0, i32 1
-  %21 = load ptr, ptr %ac_class_qualifier_list_152, align 8, !tbaa !178
+  %21 = load ptr, ptr %ac_class_qualifier_list_152, align 8, !tbaa !184
   %ID_1 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_list", ptr %21, i64 0, i32 1
-  %22 = load ptr, ptr %ID_1, align 8, !tbaa !183
+  %22 = load ptr, ptr %ID_1, align 8, !tbaa !189
   %vtable.i = load ptr, ptr %22, align 8, !tbaa !5
   %23 = load ptr, ptr %vtable.i, align 8
   %call1.i = tail call noundef i32 %23(ptr noundef nonnull align 8 dereferenceable(8) %22)
@@ -3553,7 +3553,7 @@ if.else64:                                        ; preds = %land.lhs.true41, %l
 
 land.lhs.true69:                                  ; preds = %if.else64
   %ac_declarator_171 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 2
-  %36 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !176
+  %36 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !182
   %vtable72 = load ptr, ptr %36, align 8, !tbaa !5
   %37 = load ptr, ptr %vtable72, align 8
   %call74 = tail call noundef i32 %37(ptr noundef nonnull align 8 dereferenceable(8) %36)
@@ -3561,9 +3561,9 @@ land.lhs.true69:                                  ; preds = %if.else64
   br i1 %cmp75, label %land.lhs.true76, label %if.else130
 
 land.lhs.true76:                                  ; preds = %land.lhs.true69
-  %38 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !176
+  %38 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !182
   %ac_direct_declarator_180 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %38, i64 0, i32 3
-  %39 = load ptr, ptr %ac_direct_declarator_180, align 8, !tbaa !101
+  %39 = load ptr, ptr %ac_direct_declarator_180, align 8, !tbaa !106
   %vtable81 = load ptr, ptr %39, align 8, !tbaa !5
   %40 = load ptr, ptr %vtable81, align 8
   %call83 = tail call noundef i32 %40(ptr noundef nonnull align 8 dereferenceable(8) %39)
@@ -3571,11 +3571,11 @@ land.lhs.true76:                                  ; preds = %land.lhs.true69
   br i1 %cmp84, label %land.lhs.true85, label %if.else130
 
 land.lhs.true85:                                  ; preds = %land.lhs.true76
-  %41 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !176
+  %41 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !182
   %ac_direct_declarator_189 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %41, i64 0, i32 3
-  %42 = load ptr, ptr %ac_direct_declarator_189, align 8, !tbaa !101
+  %42 = load ptr, ptr %ac_direct_declarator_189, align 8, !tbaa !106
   %ac_direct_declarator_191 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %42, i64 0, i32 2
-  %43 = load ptr, ptr %ac_direct_declarator_191, align 8, !tbaa !184
+  %43 = load ptr, ptr %ac_direct_declarator_191, align 8, !tbaa !190
   %vtable92 = load ptr, ptr %43, align 8, !tbaa !5
   %44 = load ptr, ptr %vtable92, align 8
   %call94 = tail call noundef i32 %44(ptr noundef nonnull align 8 dereferenceable(8) %43)
@@ -3584,7 +3584,7 @@ land.lhs.true85:                                  ; preds = %land.lhs.true76
 
 land.lhs.true96:                                  ; preds = %land.lhs.true85
   %fnclass_198 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 7
-  %45 = load ptr, ptr %fnclass_198, align 8, !tbaa !182
+  %45 = load ptr, ptr %fnclass_198, align 8, !tbaa !188
   %vtable99 = load ptr, ptr %45, align 8, !tbaa !5
   %46 = load ptr, ptr %vtable99, align 8
   %call101 = tail call noundef i32 %46(ptr noundef nonnull align 8 dereferenceable(8) %45)
@@ -3592,13 +3592,13 @@ land.lhs.true96:                                  ; preds = %land.lhs.true85
   br i1 %cmp102, label %if.then103, label %if.else130
 
 if.then103:                                       ; preds = %land.lhs.true96
-  %47 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !176
+  %47 = load ptr, ptr %ac_declarator_171, align 8, !tbaa !182
   %ac_direct_declarator_1108 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %47, i64 0, i32 3
-  %48 = load ptr, ptr %ac_direct_declarator_1108, align 8, !tbaa !101
+  %48 = load ptr, ptr %ac_direct_declarator_1108, align 8, !tbaa !106
   %ac_direct_declarator_1110 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %48, i64 0, i32 2
-  %49 = load ptr, ptr %ac_direct_declarator_1110, align 8, !tbaa !184
+  %49 = load ptr, ptr %ac_direct_declarator_1110, align 8, !tbaa !190
   %ID_1112 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %49, i64 0, i32 1
-  %50 = load ptr, ptr %ID_1112, align 8, !tbaa !185
+  %50 = load ptr, ptr %ID_1112, align 8, !tbaa !191
   %vtable.i390 = load ptr, ptr %50, align 8, !tbaa !5
   %51 = load ptr, ptr %vtable.i390, align 8
   %call1.i391 = tail call noundef i32 %51(ptr noundef nonnull align 8 dereferenceable(8) %50)
@@ -3691,7 +3691,7 @@ if.else130:                                       ; preds = %land.lhs.true96, %l
 
 land.lhs.true135:                                 ; preds = %if.else130
   %ac_declarator_1137 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 2
-  %64 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !176
+  %64 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !182
   %vtable138 = load ptr, ptr %64, align 8, !tbaa !5
   %65 = load ptr, ptr %vtable138, align 8
   %call140 = tail call noundef i32 %65(ptr noundef nonnull align 8 dereferenceable(8) %64)
@@ -3699,9 +3699,9 @@ land.lhs.true135:                                 ; preds = %if.else130
   br i1 %cmp141, label %land.lhs.true142, label %if.else196
 
 land.lhs.true142:                                 ; preds = %land.lhs.true135
-  %66 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !176
+  %66 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !182
   %ac_direct_declarator_1146 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %66, i64 0, i32 3
-  %67 = load ptr, ptr %ac_direct_declarator_1146, align 8, !tbaa !101
+  %67 = load ptr, ptr %ac_direct_declarator_1146, align 8, !tbaa !106
   %vtable147 = load ptr, ptr %67, align 8, !tbaa !5
   %68 = load ptr, ptr %vtable147, align 8
   %call149 = tail call noundef i32 %68(ptr noundef nonnull align 8 dereferenceable(8) %67)
@@ -3709,11 +3709,11 @@ land.lhs.true142:                                 ; preds = %land.lhs.true135
   br i1 %cmp150, label %land.lhs.true151, label %if.else196
 
 land.lhs.true151:                                 ; preds = %land.lhs.true142
-  %69 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !176
+  %69 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !182
   %ac_direct_declarator_1155 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %69, i64 0, i32 3
-  %70 = load ptr, ptr %ac_direct_declarator_1155, align 8, !tbaa !101
+  %70 = load ptr, ptr %ac_direct_declarator_1155, align 8, !tbaa !106
   %ac_direct_declarator_1157 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %70, i64 0, i32 2
-  %71 = load ptr, ptr %ac_direct_declarator_1157, align 8, !tbaa !184
+  %71 = load ptr, ptr %ac_direct_declarator_1157, align 8, !tbaa !190
   %vtable158 = load ptr, ptr %71, align 8, !tbaa !5
   %72 = load ptr, ptr %vtable158, align 8
   %call160 = tail call noundef i32 %72(ptr noundef nonnull align 8 dereferenceable(8) %71)
@@ -3722,7 +3722,7 @@ land.lhs.true151:                                 ; preds = %land.lhs.true142
 
 land.lhs.true162:                                 ; preds = %land.lhs.true151
   %fnclass_1164 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 7
-  %73 = load ptr, ptr %fnclass_1164, align 8, !tbaa !182
+  %73 = load ptr, ptr %fnclass_1164, align 8, !tbaa !188
   %vtable165 = load ptr, ptr %73, align 8, !tbaa !5
   %74 = load ptr, ptr %vtable165, align 8
   %call167 = tail call noundef i32 %74(ptr noundef nonnull align 8 dereferenceable(8) %73)
@@ -3730,13 +3730,13 @@ land.lhs.true162:                                 ; preds = %land.lhs.true151
   br i1 %cmp168, label %if.then169, label %if.else196
 
 if.then169:                                       ; preds = %land.lhs.true162
-  %75 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !176
+  %75 = load ptr, ptr %ac_declarator_1137, align 8, !tbaa !182
   %ac_direct_declarator_1174 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %75, i64 0, i32 3
-  %76 = load ptr, ptr %ac_direct_declarator_1174, align 8, !tbaa !101
+  %76 = load ptr, ptr %ac_direct_declarator_1174, align 8, !tbaa !106
   %ac_direct_declarator_1176 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %76, i64 0, i32 2
-  %77 = load ptr, ptr %ac_direct_declarator_1176, align 8, !tbaa !184
+  %77 = load ptr, ptr %ac_direct_declarator_1176, align 8, !tbaa !190
   %ID_1178 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %77, i64 0, i32 1
-  %78 = load ptr, ptr %ID_1178, align 8, !tbaa !185
+  %78 = load ptr, ptr %ID_1178, align 8, !tbaa !191
   %vtable.i424 = load ptr, ptr %78, align 8, !tbaa !5
   %79 = load ptr, ptr %vtable.i424, align 8
   %call1.i425 = tail call noundef i32 %79(ptr noundef nonnull align 8 dereferenceable(8) %78)
@@ -3829,7 +3829,7 @@ if.else196:                                       ; preds = %land.lhs.true162, %
 
 land.lhs.true201:                                 ; preds = %if.else196
   %ac_declarator_1203 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 2
-  %92 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !176
+  %92 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !182
   %vtable204 = load ptr, ptr %92, align 8, !tbaa !5
   %93 = load ptr, ptr %vtable204, align 8
   %call206 = tail call noundef i32 %93(ptr noundef nonnull align 8 dereferenceable(8) %92)
@@ -3837,9 +3837,9 @@ land.lhs.true201:                                 ; preds = %if.else196
   br i1 %cmp207, label %land.lhs.true208, label %if.else262
 
 land.lhs.true208:                                 ; preds = %land.lhs.true201
-  %94 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !176
+  %94 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !182
   %ac_direct_declarator_1212 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %94, i64 0, i32 3
-  %95 = load ptr, ptr %ac_direct_declarator_1212, align 8, !tbaa !101
+  %95 = load ptr, ptr %ac_direct_declarator_1212, align 8, !tbaa !106
   %vtable213 = load ptr, ptr %95, align 8, !tbaa !5
   %96 = load ptr, ptr %vtable213, align 8
   %call215 = tail call noundef i32 %96(ptr noundef nonnull align 8 dereferenceable(8) %95)
@@ -3847,11 +3847,11 @@ land.lhs.true208:                                 ; preds = %land.lhs.true201
   br i1 %cmp216, label %land.lhs.true217, label %if.else262
 
 land.lhs.true217:                                 ; preds = %land.lhs.true208
-  %97 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !176
+  %97 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !182
   %ac_direct_declarator_1221 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %97, i64 0, i32 3
-  %98 = load ptr, ptr %ac_direct_declarator_1221, align 8, !tbaa !101
+  %98 = load ptr, ptr %ac_direct_declarator_1221, align 8, !tbaa !106
   %ac_direct_declarator_1223 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %98, i64 0, i32 2
-  %99 = load ptr, ptr %ac_direct_declarator_1223, align 8, !tbaa !184
+  %99 = load ptr, ptr %ac_direct_declarator_1223, align 8, !tbaa !190
   %vtable224 = load ptr, ptr %99, align 8, !tbaa !5
   %100 = load ptr, ptr %vtable224, align 8
   %call226 = tail call noundef i32 %100(ptr noundef nonnull align 8 dereferenceable(8) %99)
@@ -3860,7 +3860,7 @@ land.lhs.true217:                                 ; preds = %land.lhs.true208
 
 land.lhs.true228:                                 ; preds = %land.lhs.true217
   %fnclass_1230 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %1, i64 0, i32 7
-  %101 = load ptr, ptr %fnclass_1230, align 8, !tbaa !182
+  %101 = load ptr, ptr %fnclass_1230, align 8, !tbaa !188
   %vtable231 = load ptr, ptr %101, align 8, !tbaa !5
   %102 = load ptr, ptr %vtable231, align 8
   %call233 = tail call noundef i32 %102(ptr noundef nonnull align 8 dereferenceable(8) %101)
@@ -3868,13 +3868,13 @@ land.lhs.true228:                                 ; preds = %land.lhs.true217
   br i1 %cmp234, label %if.then235, label %if.else262
 
 if.then235:                                       ; preds = %land.lhs.true228
-  %103 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !176
+  %103 = load ptr, ptr %ac_declarator_1203, align 8, !tbaa !182
   %ac_direct_declarator_1240 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %103, i64 0, i32 3
-  %104 = load ptr, ptr %ac_direct_declarator_1240, align 8, !tbaa !101
+  %104 = load ptr, ptr %ac_direct_declarator_1240, align 8, !tbaa !106
   %ac_direct_declarator_1242 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %104, i64 0, i32 2
-  %105 = load ptr, ptr %ac_direct_declarator_1242, align 8, !tbaa !184
+  %105 = load ptr, ptr %ac_direct_declarator_1242, align 8, !tbaa !190
   %ID_1244 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcConvOperatorDecl", ptr %105, i64 0, i32 1
-  %106 = load ptr, ptr %ID_1244, align 8, !tbaa !187
+  %106 = load ptr, ptr %ID_1244, align 8, !tbaa !193
   %vtable.i458 = load ptr, ptr %106, align 8, !tbaa !5
   %107 = load ptr, ptr %vtable.i458, align 8
   %call1.i459 = tail call noundef i32 %107(ptr noundef nonnull align 8 dereferenceable(8) %106)
@@ -3967,7 +3967,7 @@ if.else262:                                       ; preds = %land.lhs.true228, %
 
 land.lhs.true267:                                 ; preds = %if.else262
   %ac_declarator_1269 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %1, i64 0, i32 2
-  %120 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !100
+  %120 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !105
   %vtable270 = load ptr, ptr %120, align 8, !tbaa !5
   %121 = load ptr, ptr %vtable270, align 8
   %call272 = tail call noundef i32 %121(ptr noundef nonnull align 8 dereferenceable(8) %120)
@@ -3975,9 +3975,9 @@ land.lhs.true267:                                 ; preds = %if.else262
   br i1 %cmp273, label %land.lhs.true274, label %if.end313
 
 land.lhs.true274:                                 ; preds = %land.lhs.true267
-  %122 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !100
+  %122 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !105
   %ac_direct_declarator_1278 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %122, i64 0, i32 3
-  %123 = load ptr, ptr %ac_direct_declarator_1278, align 8, !tbaa !101
+  %123 = load ptr, ptr %ac_direct_declarator_1278, align 8, !tbaa !106
   %vtable279 = load ptr, ptr %123, align 8, !tbaa !5
   %124 = load ptr, ptr %vtable279, align 8
   %call281 = tail call noundef i32 %124(ptr noundef nonnull align 8 dereferenceable(8) %123)
@@ -3985,11 +3985,11 @@ land.lhs.true274:                                 ; preds = %land.lhs.true267
   br i1 %cmp282, label %if.then283, label %if.end313
 
 if.then283:                                       ; preds = %land.lhs.true274
-  %125 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !100
+  %125 = load ptr, ptr %ac_declarator_1269, align 8, !tbaa !105
   %ac_direct_declarator_1288 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %125, i64 0, i32 3
-  %126 = load ptr, ptr %ac_direct_declarator_1288, align 8, !tbaa !101
+  %126 = load ptr, ptr %ac_direct_declarator_1288, align 8, !tbaa !106
   %ID_1290 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcMemberDecl", ptr %126, i64 0, i32 1
-  %127 = load ptr, ptr %ID_1290, align 8, !tbaa !189
+  %127 = load ptr, ptr %ID_1290, align 8, !tbaa !195
   %vtable.i492 = load ptr, ptr %127, align 8, !tbaa !5
   %128 = load ptr, ptr %vtable.i492, align 8
   %call1.i493 = tail call noundef i32 %128(ptr noundef nonnull align 8 dereferenceable(8) %127)
@@ -4082,12 +4082,12 @@ if.end313.sink.split:                             ; preds = %if.then59, %if.then
 
 if.end313:                                        ; preds = %if.end313.sink.split, %if.else300, %if.else254, %if.else188, %if.else122, %if.else, %if.else262, %land.lhs.true267, %land.lhs.true274
   %fndeclarations_1 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %kc_fe_selvar_1.0529, i64 0, i32 2
-  %141 = load ptr, ptr %fndeclarations_1, align 8, !tbaa !190
+  %141 = load ptr, ptr %fndeclarations_1, align 8, !tbaa !115
   %vtable = load ptr, ptr %141, align 8, !tbaa !5
   %142 = load ptr, ptr %vtable, align 8
   %call = tail call noundef i32 %142(ptr noundef nonnull align 8 dereferenceable(24) %141)
   %cmp = icmp eq i32 %call, 108
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !191
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !196
 
 while.end:                                        ; preds = %if.end313, %entry
   ret void
@@ -4106,7 +4106,7 @@ entry:
 
 land.lhs.true:                                    ; preds = %entry
   %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %decl, i64 0, i32 3
-  %1 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !101
+  %1 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !106
   %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable3, align 8
   %call5 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -4114,9 +4114,9 @@ land.lhs.true:                                    ; preds = %entry
   br i1 %cmp6, label %land.lhs.true7, label %cleanup
 
 land.lhs.true7:                                   ; preds = %land.lhs.true
-  %3 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !101
+  %3 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !106
   %ac_direct_declarator_111 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %3, i64 0, i32 2
-  %4 = load ptr, ptr %ac_direct_declarator_111, align 8, !tbaa !184
+  %4 = load ptr, ptr %ac_direct_declarator_111, align 8, !tbaa !190
   %vtable12 = load ptr, ptr %4, align 8, !tbaa !5
   %5 = load ptr, ptr %vtable12, align 8
   %call14 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
@@ -4124,11 +4124,11 @@ land.lhs.true7:                                   ; preds = %land.lhs.true
   br i1 %cmp15, label %if.then, label %cleanup
 
 if.then:                                          ; preds = %land.lhs.true7
-  %6 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !101
+  %6 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !106
   %ac_direct_declarator_119 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %6, i64 0, i32 2
-  %7 = load ptr, ptr %ac_direct_declarator_119, align 8, !tbaa !184
+  %7 = load ptr, ptr %ac_direct_declarator_119, align 8, !tbaa !190
   %ID_1 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %7, i64 0, i32 1
-  %8 = load ptr, ptr %ID_1, align 8, !tbaa !185
+  %8 = load ptr, ptr %ID_1, align 8, !tbaa !191
   br label %cleanup
 
 cleanup:                                          ; preds = %entry, %land.lhs.true, %land.lhs.true7, %if.then
@@ -4148,7 +4148,7 @@ entry:
 while.body:                                       ; preds = %entry, %if.end19
   %kc_fe_selvar_1.044 = phi ptr [ %18, %if.end19 ], [ %decls, %entry ]
   %baseclass_decl_1 = getelementptr inbounds %"class.kc::impl_baseclass_declarations", ptr %kc_fe_selvar_1.044, i64 0, i32 1
-  %1 = load ptr, ptr %baseclass_decl_1, align 8, !tbaa !192
+  %1 = load ptr, ptr %baseclass_decl_1, align 8, !tbaa !197
   %vtable1 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable1, align 8
   %call3 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
@@ -4157,9 +4157,9 @@ while.body:                                       ; preds = %entry, %if.end19
 
 if.then:                                          ; preds = %while.body
   %ID_1 = getelementptr inbounds %"class.kc::impl_baseclass_decl_BaseClassDecl", ptr %1, i64 0, i32 1
-  %3 = load ptr, ptr %ID_1, align 8, !tbaa !194
+  %3 = load ptr, ptr %ID_1, align 8, !tbaa !199
   %baseclass_list_1 = getelementptr inbounds %"class.kc::impl_baseclass_decl_BaseClassDecl", ptr %1, i64 0, i32 2
-  %4 = load ptr, ptr %baseclass_list_1, align 8, !tbaa !197
+  %4 = load ptr, ptr %baseclass_list_1, align 8, !tbaa !202
   %vtable.i = load ptr, ptr %3, align 8, !tbaa !5
   %5 = load ptr, ptr %vtable.i, align 8
   %call1.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -4252,12 +4252,12 @@ if.end19.sink.split:                              ; preds = %if.then13, %if.then
 
 if.end19:                                         ; preds = %if.end19.sink.split, %if.else, %while.body
   %baseclass_declarations_1 = getelementptr inbounds %"class.kc::impl_baseclass_declarations", ptr %kc_fe_selvar_1.044, i64 0, i32 2
-  %18 = load ptr, ptr %baseclass_declarations_1, align 8, !tbaa !198
+  %18 = load ptr, ptr %baseclass_declarations_1, align 8, !tbaa !203
   %vtable = load ptr, ptr %18, align 8, !tbaa !5
   %19 = load ptr, ptr %vtable, align 8
   %call = tail call noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(24) %18)
   %cmp = icmp eq i32 %call, 302
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !199
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !204
 
 while.end:                                        ; preds = %if.end19, %entry
   ret void
@@ -4367,119 +4367,124 @@ attributes #7 = { nounwind }
 !81 = !{!10, !14, i64 24}
 !82 = !{!43, !12, i64 56}
 !83 = !{!84, !12, i64 8}
-!84 = !{!"_ZTSN2kc15impl_attributesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!85 = !{!86, !12, i64 8}
-!86 = !{!"_ZTSN2kc24impl_attribute_AttributeE", !87, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!87 = !{!"_ZTSN2kc14impl_attributeE", !11, i64 0}
-!88 = !{!86, !12, i64 16}
-!89 = distinct !{!89, !28}
-!90 = !{!91, !12, i64 8}
-!91 = !{!"_ZTSN2kc19impl_fndeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!92 = !{!93, !12, i64 40}
-!93 = !{!"_ZTSN2kc38impl_fndeclaration_AcMemberDeclarationE", !94, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64}
-!94 = !{!"_ZTSN2kc18impl_fndeclarationE", !11, i64 0, !12, i64 8, !14, i64 16, !12, i64 24, !17, i64 32}
+!84 = !{!"_ZTSN2kc29impl_Ccode_option_CcodeOptionE", !85, i64 0, !12, i64 8, !12, i64 16}
+!85 = !{!"_ZTSN2kc17impl_Ccode_optionE", !11, i64 0}
+!86 = !{!87, !12, i64 8}
+!87 = !{!"_ZTSN2kc15impl_attributesE", !25, i64 0, !12, i64 8, !12, i64 16}
+!88 = !{!89, !12, i64 8}
+!89 = !{!"_ZTSN2kc24impl_attribute_AttributeE", !90, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!90 = !{!"_ZTSN2kc14impl_attributeE", !11, i64 0}
+!91 = !{!89, !12, i64 16}
+!92 = !{!87, !12, i64 16}
+!93 = distinct !{!93, !28}
+!94 = !{!44, !12, i64 16}
 !95 = !{!96, !12, i64 8}
-!96 = !{!"_ZTSN2kc30impl_ac_declaration_specifiersE", !25, i64 0, !12, i64 8, !12, i64 16}
-!97 = !{!98, !12, i64 8}
-!98 = !{!"_ZTSN2kc48impl_ac_declaration_specifier_AcDeclSpecTypeSpecE", !99, i64 0, !12, i64 8}
-!99 = !{!"_ZTSN2kc29impl_ac_declaration_specifierE", !11, i64 0}
-!100 = !{!93, !12, i64 48}
-!101 = !{!102, !12, i64 24}
-!102 = !{!"_ZTSN2kc31impl_ac_declarator_AcDeclaratorE", !103, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!103 = !{!"_ZTSN2kc18impl_ac_declaratorE", !11, i64 0}
-!104 = !{!105, !12, i64 8}
-!105 = !{!"_ZTSN2kc33impl_ac_type_specifier_AcTypeSpecE", !106, i64 0, !12, i64 8}
-!106 = !{!"_ZTSN2kc22impl_ac_type_specifierE", !11, i64 0}
-!107 = !{!108, !12, i64 16}
-!108 = !{!"_ZTSN2kc38impl_ac_direct_declarator_AcMemberDeclE", !109, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!109 = !{!"_ZTSN2kc25impl_ac_direct_declaratorE", !11, i64 0}
-!110 = distinct !{!110, !28}
-!111 = !{!65, !14, i64 8}
-!112 = !{!113, !12, i64 40}
-!113 = !{!"_ZTSN2kc37impl_outmostpattern_OPNonLeafVariableE", !114, i64 0, !12, i64 32, !12, i64 40}
-!114 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !14, i64 8, !12, i64 16, !12, i64 24}
-!115 = !{!116, !12, i64 32}
-!116 = !{!"_ZTSN2kc30impl_outmostpattern_OPOperatorE", !114, i64 0, !12, i64 32, !12, i64 40, !12, i64 48}
-!117 = !{!118, !12, i64 32}
-!118 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !114, i64 0, !12, i64 32, !12, i64 40}
-!119 = !{!120, !12, i64 8}
-!120 = !{!"_ZTSN2kc43impl_productionblock_PredefinedAlternativesE", !47, i64 0, !12, i64 8}
-!121 = !{!50, !12, i64 16}
-!122 = !{!123, !12, i64 8}
-!123 = !{!"_ZTSN2kc40impl_productionblock_NonlistAlternativesE", !47, i64 0, !12, i64 8}
-!124 = !{!125, !12, i64 8}
-!125 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!126 = !{!44, !14, i64 8}
-!127 = distinct !{!127, !28}
+!96 = !{!"_ZTSN2kc19impl_fndeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!97 = !{!98, !12, i64 40}
+!98 = !{!"_ZTSN2kc38impl_fndeclaration_AcMemberDeclarationE", !99, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64}
+!99 = !{!"_ZTSN2kc18impl_fndeclarationE", !11, i64 0, !12, i64 8, !14, i64 16, !12, i64 24, !17, i64 32}
+!100 = !{!101, !12, i64 8}
+!101 = !{!"_ZTSN2kc30impl_ac_declaration_specifiersE", !25, i64 0, !12, i64 8, !12, i64 16}
+!102 = !{!103, !12, i64 8}
+!103 = !{!"_ZTSN2kc48impl_ac_declaration_specifier_AcDeclSpecTypeSpecE", !104, i64 0, !12, i64 8}
+!104 = !{!"_ZTSN2kc29impl_ac_declaration_specifierE", !11, i64 0}
+!105 = !{!98, !12, i64 48}
+!106 = !{!107, !12, i64 24}
+!107 = !{!"_ZTSN2kc31impl_ac_declarator_AcDeclaratorE", !108, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!108 = !{!"_ZTSN2kc18impl_ac_declaratorE", !11, i64 0}
+!109 = !{!110, !12, i64 8}
+!110 = !{!"_ZTSN2kc33impl_ac_type_specifier_AcTypeSpecE", !111, i64 0, !12, i64 8}
+!111 = !{!"_ZTSN2kc22impl_ac_type_specifierE", !11, i64 0}
+!112 = !{!113, !12, i64 16}
+!113 = !{!"_ZTSN2kc38impl_ac_direct_declarator_AcMemberDeclE", !114, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!114 = !{!"_ZTSN2kc25impl_ac_direct_declaratorE", !11, i64 0}
+!115 = !{!96, !12, i64 16}
+!116 = distinct !{!116, !28}
+!117 = !{!65, !14, i64 8}
+!118 = !{!119, !12, i64 40}
+!119 = !{!"_ZTSN2kc37impl_outmostpattern_OPNonLeafVariableE", !120, i64 0, !12, i64 32, !12, i64 40}
+!120 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !14, i64 8, !12, i64 16, !12, i64 24}
+!121 = !{!122, !12, i64 32}
+!122 = !{!"_ZTSN2kc30impl_outmostpattern_OPOperatorE", !120, i64 0, !12, i64 32, !12, i64 40, !12, i64 48}
+!123 = !{!124, !12, i64 32}
+!124 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !120, i64 0, !12, i64 32, !12, i64 40}
+!125 = !{!126, !12, i64 8}
+!126 = !{!"_ZTSN2kc43impl_productionblock_PredefinedAlternativesE", !47, i64 0, !12, i64 8}
+!127 = !{!50, !12, i64 16}
 !128 = !{!129, !12, i64 8}
-!129 = !{!"_ZTSN2kc14impl_variablesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!130 = !{!63, !12, i64 16}
-!131 = !{!38, !12, i64 32}
-!132 = !{!133, !12, i64 8}
-!133 = !{!"_ZTSN2kc27impl_scopetypefilelinestackE", !25, i64 0, !12, i64 8, !12, i64 16}
+!129 = !{!"_ZTSN2kc40impl_productionblock_NonlistAlternativesE", !47, i64 0, !12, i64 8}
+!130 = !{!131, !12, i64 8}
+!131 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!132 = !{!44, !14, i64 8}
+!133 = distinct !{!133, !28}
 !134 = !{!135, !12, i64 8}
-!135 = !{!"_ZTSN2kc40impl_scopetypefileline_ScopeTypeFileLineE", !136, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
-!136 = !{!"_ZTSN2kc22impl_scopetypefilelineE", !11, i64 0}
-!137 = !{!135, !12, i64 24}
-!138 = !{!135, !12, i64 16}
-!139 = !{!133, !12, i64 16}
-!140 = !{!135, !12, i64 32}
-!141 = !{!38, !12, i64 24}
-!142 = !{!38, !14, i64 16}
-!143 = !{!129, !12, i64 16}
-!144 = distinct !{!144, !28}
-!145 = !{!146, !12, i64 16}
-!146 = !{!"_ZTSN2kc14impl_viewnamesE", !25, i64 0, !17, i64 8, !12, i64 16, !12, i64 24}
-!147 = !{!146, !12, i64 24}
-!148 = !{!146, !17, i64 8}
-!149 = distinct !{!149, !28}
+!135 = !{!"_ZTSN2kc14impl_variablesE", !25, i64 0, !12, i64 8, !12, i64 16}
+!136 = !{!63, !12, i64 16}
+!137 = !{!38, !12, i64 32}
+!138 = !{!139, !12, i64 8}
+!139 = !{!"_ZTSN2kc27impl_scopetypefilelinestackE", !25, i64 0, !12, i64 8, !12, i64 16}
+!140 = !{!141, !12, i64 8}
+!141 = !{!"_ZTSN2kc40impl_scopetypefileline_ScopeTypeFileLineE", !142, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
+!142 = !{!"_ZTSN2kc22impl_scopetypefilelineE", !11, i64 0}
+!143 = !{!139, !12, i64 16}
+!144 = !{!141, !12, i64 32}
+!145 = !{!141, !12, i64 24}
+!146 = !{!141, !12, i64 16}
+!147 = !{!38, !12, i64 24}
+!148 = !{!38, !14, i64 16}
+!149 = !{!135, !12, i64 16}
 !150 = distinct !{!150, !28}
 !151 = !{!152, !12, i64 16}
-!152 = !{!"_ZTSN2kc19impl_storageclassesE", !25, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!152 = !{!"_ZTSN2kc14impl_viewnamesE", !25, i64 0, !17, i64 8, !12, i64 16, !12, i64 24}
 !153 = !{!152, !12, i64 24}
-!154 = !{!152, !12, i64 8}
+!154 = !{!152, !17, i64 8}
 !155 = distinct !{!155, !28}
-!156 = distinct !{!156, !157}
-!157 = !{!"llvm.loop.unroll.disable"}
-!158 = distinct !{!158, !28}
-!159 = !{!160, !12, i64 16}
-!160 = !{!"_ZTSN2kc23impl_unparseitem_UnpStrE", !33, i64 0, !12, i64 16, !12, i64 24, !12, i64 32}
-!161 = !{!33, !14, i64 8}
-!162 = !{!163, !12, i64 8}
-!163 = !{!"_ZTSN2kc18impl_languagenamesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!164 = !{!165, !12, i64 8}
-!165 = !{!"_ZTSN2kc26impl_IDtype_ITLanguageNameE", !41, i64 0, !12, i64 8}
-!166 = distinct !{!166, !28}
-!167 = distinct !{!167, !28}
-!168 = distinct !{!168, !28}
-!169 = distinct !{!169, !28}
+!156 = distinct !{!156, !28}
+!157 = !{!158, !12, i64 16}
+!158 = !{!"_ZTSN2kc19impl_storageclassesE", !25, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!159 = !{!158, !12, i64 24}
+!160 = !{!158, !12, i64 8}
+!161 = distinct !{!161, !28}
+!162 = distinct !{!162, !163}
+!163 = !{!"llvm.loop.unroll.disable"}
+!164 = distinct !{!164, !28}
+!165 = !{!166, !12, i64 16}
+!166 = !{!"_ZTSN2kc23impl_unparseitem_UnpStrE", !33, i64 0, !12, i64 16, !12, i64 24, !12, i64 32}
+!167 = !{!33, !14, i64 8}
+!168 = !{!169, !12, i64 8}
+!169 = !{!"_ZTSN2kc18impl_languagenamesE", !25, i64 0, !12, i64 8, !12, i64 16}
 !170 = !{!171, !12, i64 8}
-!171 = !{!"_ZTSN2kc19impl_idCexpressionsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!172 = !{!173, !12, i64 16}
-!173 = !{!"_ZTSN2kc32impl_idCexpression_IdCexpressionE", !174, i64 0, !12, i64 16, !12, i64 24}
-!174 = !{!"_ZTSN2kc18impl_idCexpressionE", !11, i64 0, !12, i64 8}
-!175 = !{!171, !12, i64 16}
-!176 = !{!177, !12, i64 48}
-!177 = !{!"_ZTSN2kc34impl_fndeclaration_FnAcDeclarationE", !94, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64, !12, i64 72, !12, i64 80, !12, i64 88}
-!178 = !{!179, !12, i64 8}
-!179 = !{!"_ZTSN2kc46impl_ac_direct_declarator_AcQualifiedDeclProtoE", !109, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
-!180 = !{!181, !12, i64 16}
-!181 = !{!"_ZTSN2kc28impl_ac_class_qualifier_listE", !25, i64 0, !12, i64 8, !12, i64 16}
-!182 = !{!177, !12, i64 88}
-!183 = !{!181, !12, i64 8}
-!184 = !{!179, !12, i64 16}
-!185 = !{!186, !12, i64 8}
-!186 = !{!"_ZTSN2kc40impl_ac_direct_declarator_AcDirectDeclIdE", !109, i64 0, !12, i64 8}
-!187 = !{!188, !12, i64 8}
-!188 = !{!"_ZTSN2kc44impl_ac_direct_declarator_AcConvOperatorDeclE", !109, i64 0, !12, i64 8, !12, i64 16}
-!189 = !{!108, !12, i64 8}
-!190 = !{!91, !12, i64 16}
-!191 = distinct !{!191, !28}
-!192 = !{!193, !12, i64 8}
-!193 = !{!"_ZTSN2kc27impl_baseclass_declarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!194 = !{!195, !12, i64 8}
-!195 = !{!"_ZTSN2kc33impl_baseclass_decl_BaseClassDeclE", !196, i64 0, !12, i64 8, !12, i64 16}
-!196 = !{!"_ZTSN2kc19impl_baseclass_declE", !11, i64 0}
-!197 = !{!195, !12, i64 16}
-!198 = !{!193, !12, i64 16}
-!199 = distinct !{!199, !28}
+!171 = !{!"_ZTSN2kc26impl_IDtype_ITLanguageNameE", !41, i64 0, !12, i64 8}
+!172 = distinct !{!172, !28}
+!173 = distinct !{!173, !28}
+!174 = distinct !{!174, !28}
+!175 = distinct !{!175, !28}
+!176 = !{!177, !12, i64 8}
+!177 = !{!"_ZTSN2kc19impl_idCexpressionsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!178 = !{!179, !12, i64 16}
+!179 = !{!"_ZTSN2kc32impl_idCexpression_IdCexpressionE", !180, i64 0, !12, i64 16, !12, i64 24}
+!180 = !{!"_ZTSN2kc18impl_idCexpressionE", !11, i64 0, !12, i64 8}
+!181 = !{!177, !12, i64 16}
+!182 = !{!183, !12, i64 48}
+!183 = !{!"_ZTSN2kc34impl_fndeclaration_FnAcDeclarationE", !99, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64, !12, i64 72, !12, i64 80, !12, i64 88}
+!184 = !{!185, !12, i64 8}
+!185 = !{!"_ZTSN2kc46impl_ac_direct_declarator_AcQualifiedDeclProtoE", !114, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
+!186 = !{!187, !12, i64 16}
+!187 = !{!"_ZTSN2kc28impl_ac_class_qualifier_listE", !25, i64 0, !12, i64 8, !12, i64 16}
+!188 = !{!183, !12, i64 88}
+!189 = !{!187, !12, i64 8}
+!190 = !{!185, !12, i64 16}
+!191 = !{!192, !12, i64 8}
+!192 = !{!"_ZTSN2kc40impl_ac_direct_declarator_AcDirectDeclIdE", !114, i64 0, !12, i64 8}
+!193 = !{!194, !12, i64 8}
+!194 = !{!"_ZTSN2kc44impl_ac_direct_declarator_AcConvOperatorDeclE", !114, i64 0, !12, i64 8, !12, i64 16}
+!195 = !{!113, !12, i64 8}
+!196 = distinct !{!196, !28}
+!197 = !{!198, !12, i64 8}
+!198 = !{!"_ZTSN2kc27impl_baseclass_declarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!199 = !{!200, !12, i64 8}
+!200 = !{!"_ZTSN2kc33impl_baseclass_decl_BaseClassDeclE", !201, i64 0, !12, i64 8, !12, i64 16}
+!201 = !{!"_ZTSN2kc19impl_baseclass_declE", !11, i64 0}
+!202 = !{!200, !12, i64 16}
+!203 = !{!198, !12, i64 16}
+!204 = distinct !{!204, !28}

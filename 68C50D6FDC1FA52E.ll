@@ -146,57 +146,57 @@ target triple = "x86_64-unknown-linux-gnu"
 @counter_malloc_init = common dso_local local_unnamed_addr global i32 0, align 4
 @size_malloc_init = common dso_local local_unnamed_addr global double 0.000000e+00, align 8
 @total_red = common dso_local local_unnamed_addr global i32 0, align 4
-@str = private unnamed_addr constant [39 x i8] c"object number greater than num_objects\00", align 1
-@str.83 = private unnamed_addr constant [48 x i8] c"(Optional) command line input is of the form: \0A\00", align 1
-@str.84 = private unnamed_addr constant [34 x i8] c"--nx - block size x (even && > 0)\00", align 1
-@str.85 = private unnamed_addr constant [34 x i8] c"--ny - block size y (even && > 0)\00", align 1
-@str.86 = private unnamed_addr constant [34 x i8] c"--nz - block size z (even && > 0)\00", align 1
-@str.87 = private unnamed_addr constant [37 x i8] c"--init_x - initial blocks in x (> 0)\00", align 1
-@str.88 = private unnamed_addr constant [37 x i8] c"--init_y - initial blocks in y (> 0)\00", align 1
-@str.89 = private unnamed_addr constant [37 x i8] c"--init_z - initial blocks in z (> 0)\00", align 1
-@str.90 = private unnamed_addr constant [53 x i8] c"--reorder - ordering of blocks if initial number > 1\00", align 1
-@str.91 = private unnamed_addr constant [49 x i8] c"--max_blocks - maximun number of blocks per core\00", align 1
-@str.92 = private unnamed_addr constant [53 x i8] c"--num_refine - (>= 0) number of levels of refinement\00", align 1
-@str.93 = private unnamed_addr constant [74 x i8] c"--block_change - (>= 0) number of levels a block can change in a timestep\00", align 1
-@str.94 = private unnamed_addr constant [56 x i8] c"--uniform_refine - if 1, then grid is uniformly refined\00", align 1
-@str.95 = private unnamed_addr constant [68 x i8] c"--refine_freq - frequency (in timesteps) of checking for refinement\00", align 1
-@str.96 = private unnamed_addr constant [69 x i8] c"--target_active - (>= 0) target number of blocks per core, none if 0\00", align 1
-@str.97 = private unnamed_addr constant [63 x i8] c"--target_max - (>= 0) max number of blocks per core, none if 0\00", align 1
-@str.98 = private unnamed_addr constant [63 x i8] c"--target_min - (>= 0) min number of blocks per core, none if 0\00", align 1
-@str.99 = private unnamed_addr constant [39 x i8] c"--num_vars - number of variables (> 0)\00", align 1
-@str.100 = private unnamed_addr constant [53 x i8] c"--comm_vars - number of vars to communicate together\00", align 1
-@str.101 = private unnamed_addr constant [41 x i8] c"--num_tsteps - number of timesteps (> 0)\00", align 1
-@str.102 = private unnamed_addr constant [58 x i8] c"--stages_per_ts - number of comm/calc stages per timestep\00", align 1
-@str.103 = private unnamed_addr constant [53 x i8] c"--checksum_freq - number of stages between checksums\00", align 1
-@str.104 = private unnamed_addr constant [78 x i8] c"--stencil - 7 or 27 point (27 will not work with refinement (except uniform))\00", align 1
-@str.105 = private unnamed_addr constant [39 x i8] c"--error_tol - (e^{-error_tol} ; >= 0) \00", align 1
-@str.106 = private unnamed_addr constant [38 x i8] c"--report_diffusion - (>= 0) none if 0\00", align 1
-@str.107 = private unnamed_addr constant [24 x i8] c"--report_perf - 0, 1, 2\00", align 1
-@str.108 = private unnamed_addr constant [63 x i8] c"--refine_freq - frequency (timesteps) of plotting (0 for none)\00", align 1
-@str.109 = private unnamed_addr constant [56 x i8] c"--code - closely minic communication of different codes\00", align 1
-@str.110 = private unnamed_addr constant [75 x i8] c"         0 minimal sends, 1 send ghosts, 2 send ghosts and process on send\00", align 1
-@str.111 = private unnamed_addr constant [50 x i8] c"--permute - altenates directions in communication\00", align 1
-@str.112 = private unnamed_addr constant [94 x i8] c"--refine_ghost - use full extent of block (including ghosts) to determine if block is refined\00", align 1
-@str.113 = private unnamed_addr constant [61 x i8] c"--num_objects - (>= 0) number of objects to cause refinement\00", align 1
-@str.114 = private unnamed_addr constant [63 x i8] c"--object - type, position, movement, size, size rate of change\00", align 1
-@str.115 = private unnamed_addr constant [56 x i8] c"All associated settings are integers except for objects\00", align 1
-@str.116 = private unnamed_addr constant [75 x i8] c"WARNING: 27 point stencil with non-uniform refinement: answers may diverge\00", align 1
-@str.117 = private unnamed_addr constant [24 x i8] c"code must be 0, 1, or 2\00", align 1
-@str.118 = private unnamed_addr constant [26 x i8] c"illegal value for stencil\00", align 1
-@str.119 = private unnamed_addr constant [58 x i8] c"number of processors used does not match number allocated\00", align 1
-@str.120 = private unnamed_addr constant [37 x i8] c"number of variables must be positive\00", align 1
-@str.122 = private unnamed_addr constant [49 x i8] c"number of refinement levels must be non-negative\00", align 1
-@str.123 = private unnamed_addr constant [29 x i8] c"illegal value for target_min\00", align 1
-@str.124 = private unnamed_addr constant [29 x i8] c"illegal value for target_max\00", align 1
-@str.125 = private unnamed_addr constant [32 x i8] c"illegal value for target_active\00", align 1
-@str.126 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_min can be used\00", align 1
-@str.127 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_max can be used\00", align 1
-@str.128 = private unnamed_addr constant [39 x i8] c"block size in z direction must be even\00", align 1
-@str.129 = private unnamed_addr constant [39 x i8] c"block size in y direction must be even\00", align 1
-@str.130 = private unnamed_addr constant [39 x i8] c"block size in x direction must be even\00", align 1
-@str.131 = private unnamed_addr constant [28 x i8] c"block size must be positive\00", align 1
-@str.132 = private unnamed_addr constant [32 x i8] c"max_num_blocks not large enough\00", align 1
-@str.133 = private unnamed_addr constant [45 x i8] c"initial blocks on processor must be positive\00", align 1
+@str = private unnamed_addr constant [48 x i8] c"(Optional) command line input is of the form: \0A\00", align 1
+@str.83 = private unnamed_addr constant [34 x i8] c"--nx - block size x (even && > 0)\00", align 1
+@str.84 = private unnamed_addr constant [34 x i8] c"--ny - block size y (even && > 0)\00", align 1
+@str.85 = private unnamed_addr constant [34 x i8] c"--nz - block size z (even && > 0)\00", align 1
+@str.86 = private unnamed_addr constant [37 x i8] c"--init_x - initial blocks in x (> 0)\00", align 1
+@str.87 = private unnamed_addr constant [37 x i8] c"--init_y - initial blocks in y (> 0)\00", align 1
+@str.88 = private unnamed_addr constant [37 x i8] c"--init_z - initial blocks in z (> 0)\00", align 1
+@str.89 = private unnamed_addr constant [53 x i8] c"--reorder - ordering of blocks if initial number > 1\00", align 1
+@str.90 = private unnamed_addr constant [49 x i8] c"--max_blocks - maximun number of blocks per core\00", align 1
+@str.91 = private unnamed_addr constant [53 x i8] c"--num_refine - (>= 0) number of levels of refinement\00", align 1
+@str.92 = private unnamed_addr constant [74 x i8] c"--block_change - (>= 0) number of levels a block can change in a timestep\00", align 1
+@str.93 = private unnamed_addr constant [56 x i8] c"--uniform_refine - if 1, then grid is uniformly refined\00", align 1
+@str.94 = private unnamed_addr constant [68 x i8] c"--refine_freq - frequency (in timesteps) of checking for refinement\00", align 1
+@str.95 = private unnamed_addr constant [69 x i8] c"--target_active - (>= 0) target number of blocks per core, none if 0\00", align 1
+@str.96 = private unnamed_addr constant [63 x i8] c"--target_max - (>= 0) max number of blocks per core, none if 0\00", align 1
+@str.97 = private unnamed_addr constant [63 x i8] c"--target_min - (>= 0) min number of blocks per core, none if 0\00", align 1
+@str.98 = private unnamed_addr constant [39 x i8] c"--num_vars - number of variables (> 0)\00", align 1
+@str.99 = private unnamed_addr constant [53 x i8] c"--comm_vars - number of vars to communicate together\00", align 1
+@str.100 = private unnamed_addr constant [41 x i8] c"--num_tsteps - number of timesteps (> 0)\00", align 1
+@str.101 = private unnamed_addr constant [58 x i8] c"--stages_per_ts - number of comm/calc stages per timestep\00", align 1
+@str.102 = private unnamed_addr constant [53 x i8] c"--checksum_freq - number of stages between checksums\00", align 1
+@str.103 = private unnamed_addr constant [78 x i8] c"--stencil - 7 or 27 point (27 will not work with refinement (except uniform))\00", align 1
+@str.104 = private unnamed_addr constant [39 x i8] c"--error_tol - (e^{-error_tol} ; >= 0) \00", align 1
+@str.105 = private unnamed_addr constant [38 x i8] c"--report_diffusion - (>= 0) none if 0\00", align 1
+@str.106 = private unnamed_addr constant [24 x i8] c"--report_perf - 0, 1, 2\00", align 1
+@str.107 = private unnamed_addr constant [63 x i8] c"--refine_freq - frequency (timesteps) of plotting (0 for none)\00", align 1
+@str.108 = private unnamed_addr constant [56 x i8] c"--code - closely minic communication of different codes\00", align 1
+@str.109 = private unnamed_addr constant [75 x i8] c"         0 minimal sends, 1 send ghosts, 2 send ghosts and process on send\00", align 1
+@str.110 = private unnamed_addr constant [50 x i8] c"--permute - altenates directions in communication\00", align 1
+@str.111 = private unnamed_addr constant [94 x i8] c"--refine_ghost - use full extent of block (including ghosts) to determine if block is refined\00", align 1
+@str.112 = private unnamed_addr constant [61 x i8] c"--num_objects - (>= 0) number of objects to cause refinement\00", align 1
+@str.113 = private unnamed_addr constant [63 x i8] c"--object - type, position, movement, size, size rate of change\00", align 1
+@str.114 = private unnamed_addr constant [56 x i8] c"All associated settings are integers except for objects\00", align 1
+@str.115 = private unnamed_addr constant [75 x i8] c"WARNING: 27 point stencil with non-uniform refinement: answers may diverge\00", align 1
+@str.116 = private unnamed_addr constant [24 x i8] c"code must be 0, 1, or 2\00", align 1
+@str.117 = private unnamed_addr constant [26 x i8] c"illegal value for stencil\00", align 1
+@str.118 = private unnamed_addr constant [58 x i8] c"number of processors used does not match number allocated\00", align 1
+@str.119 = private unnamed_addr constant [37 x i8] c"number of variables must be positive\00", align 1
+@str.121 = private unnamed_addr constant [49 x i8] c"number of refinement levels must be non-negative\00", align 1
+@str.122 = private unnamed_addr constant [29 x i8] c"illegal value for target_min\00", align 1
+@str.123 = private unnamed_addr constant [29 x i8] c"illegal value for target_max\00", align 1
+@str.124 = private unnamed_addr constant [32 x i8] c"illegal value for target_active\00", align 1
+@str.125 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_min can be used\00", align 1
+@str.126 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_max can be used\00", align 1
+@str.127 = private unnamed_addr constant [39 x i8] c"block size in z direction must be even\00", align 1
+@str.128 = private unnamed_addr constant [39 x i8] c"block size in y direction must be even\00", align 1
+@str.129 = private unnamed_addr constant [39 x i8] c"block size in x direction must be even\00", align 1
+@str.130 = private unnamed_addr constant [28 x i8] c"block size must be positive\00", align 1
+@str.131 = private unnamed_addr constant [32 x i8] c"max_num_blocks not large enough\00", align 1
+@str.132 = private unnamed_addr constant [45 x i8] c"initial blocks on processor must be positive\00", align 1
+@str.133 = private unnamed_addr constant [39 x i8] c"object number greater than num_objects\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #0 {
@@ -672,7 +672,7 @@ if.then271:                                       ; preds = %if.else266
   br i1 %cmp272.not, label %if.end, label %if.then274
 
 if.then274:                                       ; preds = %if.then271
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.133)
   tail call void @exit(i32 noundef -1) #12
   unreachable
 
@@ -900,39 +900,39 @@ declare void @exit(i32 noundef) local_unnamed_addr #4
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_help_message() local_unnamed_addr #5 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
-  %puts33 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
-  %puts34 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
-  %puts35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
-  %puts36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
-  %puts37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
-  %puts38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
-  %puts39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
-  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
-  %puts41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
-  %puts42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
-  %puts43 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
-  %puts44 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
-  %puts45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
-  %puts46 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
-  %puts47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
-  %puts48 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
-  %puts49 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
-  %puts50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
-  %puts51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
-  %puts52 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
-  %puts53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
-  %puts54 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
-  %puts55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
-  %puts56 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
-  %puts57 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
-  %puts58 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
-  %puts59 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
-  %puts60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
-  %puts61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
-  %puts62 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
-  %puts63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
-  %puts64 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts33 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
+  %puts34 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
+  %puts35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
+  %puts36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
+  %puts37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
+  %puts38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  %puts39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
+  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %puts41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
+  %puts42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
+  %puts43 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
+  %puts44 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
+  %puts45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
+  %puts46 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
+  %puts47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
+  %puts48 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
+  %puts49 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %puts50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %puts51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
+  %puts52 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %puts53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
+  %puts54 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
+  %puts55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %puts56 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
+  %puts57 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
+  %puts58 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %puts59 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %puts60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %puts61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %puts62 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %puts63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %puts64 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
   ret void
 }
 
@@ -950,7 +950,7 @@ entry:
   br i1 %or.cond111, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  %puts140 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.133)
+  %puts140 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.132)
   %.pre = load i32, ptr @init_block_x, align 4, !tbaa !5
   %.pre148 = load i32, ptr @init_block_y, align 4, !tbaa !5
   %.pre149 = load i32, ptr @init_block_z, align 4, !tbaa !5
@@ -968,7 +968,7 @@ if.end:                                           ; preds = %entry, %if.then
   br i1 %cmp5, label %if.then6, label %if.end8
 
 if.then6:                                         ; preds = %if.end
-  %puts139 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.132)
+  %puts139 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.131)
   br label %if.end8
 
 if.end8:                                          ; preds = %if.then6, %if.end
@@ -984,7 +984,7 @@ if.end8:                                          ; preds = %if.then6, %if.end
   br i1 %or.cond113, label %if.then14, label %if.end16
 
 if.then14:                                        ; preds = %if.end8
-  %puts138 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.131)
+  %puts138 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.130)
   %.pre150 = load i32, ptr @x_block_size, align 4, !tbaa !5
   br label %if.end16
 
@@ -997,7 +997,7 @@ if.end16:                                         ; preds = %if.end8, %if.then14
   br i1 %cmp18.not, label %if.end21, label %if.then19
 
 if.then19:                                        ; preds = %if.end16
-  %puts137 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.130)
+  %puts137 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.129)
   br label %if.end21
 
 if.end21:                                         ; preds = %if.then19, %if.end16
@@ -1009,7 +1009,7 @@ if.end21:                                         ; preds = %if.then19, %if.end1
   br i1 %cmp24.not, label %if.end27, label %if.then25
 
 if.then25:                                        ; preds = %if.end21
-  %puts136 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.129)
+  %puts136 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.128)
   br label %if.end27
 
 if.end27:                                         ; preds = %if.then25, %if.end21
@@ -1021,7 +1021,7 @@ if.end27:                                         ; preds = %if.then25, %if.end2
   br i1 %cmp30.not, label %if.end33, label %if.then31
 
 if.then31:                                        ; preds = %if.end27
-  %puts135 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.128)
+  %puts135 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.127)
   br label %if.end33
 
 if.end33:                                         ; preds = %if.then31, %if.end27
@@ -1034,7 +1034,7 @@ if.end33:                                         ; preds = %if.then31, %if.end2
   br i1 %or.cond114, label %if.then35, label %if.end37
 
 if.then35:                                        ; preds = %if.end33
-  %puts134 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.127)
+  %puts134 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.126)
   %.pre151 = load i32, ptr @target_active, align 4
   br label %if.end37
 
@@ -1048,7 +1048,7 @@ if.end37:                                         ; preds = %if.then35, %if.end3
   br i1 %or.cond115, label %if.then41, label %if.end43
 
 if.then41:                                        ; preds = %if.end37
-  %puts133 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.126)
+  %puts133 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.125)
   %.pre152 = load i32, ptr @target_active, align 4
   br label %if.end43
 
@@ -1062,7 +1062,7 @@ if.end43:                                         ; preds = %if.then41, %if.end3
   br i1 %or.cond141, label %if.then47, label %if.end49
 
 if.then47:                                        ; preds = %if.end43
-  %puts132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.125)
+  %puts132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.124)
   %.pre153 = load i32, ptr @max_num_blocks, align 4
   %.pre154 = load i32, ptr @target_active, align 4
   br label %if.end49
@@ -1080,7 +1080,7 @@ if.end49:                                         ; preds = %if.end43, %if.then4
   br i1 %or.cond143, label %if.then55, label %if.end57
 
 if.then55:                                        ; preds = %if.end49
-  %puts131 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.124)
+  %puts131 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.123)
   %.pre155 = load i32, ptr @max_num_blocks, align 4
   %.pre156 = load i32, ptr @target_active, align 4
   %.pre157 = load i32, ptr @target_max, align 4
@@ -1102,7 +1102,7 @@ if.end57:                                         ; preds = %if.end49, %if.then5
   br i1 %or.cond146, label %if.then65, label %if.end67
 
 if.then65:                                        ; preds = %if.end57
-  %puts130 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.123)
+  %puts130 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
   br label %if.end67
 
 if.end67:                                         ; preds = %if.end57, %if.then65
@@ -1112,7 +1112,7 @@ if.end67:                                         ; preds = %if.end57, %if.then6
   br i1 %cmp68, label %if.then69, label %if.end71
 
 if.then69:                                        ; preds = %if.end67
-  %puts129 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
+  %puts129 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   br label %if.end71
 
 if.end71:                                         ; preds = %if.then69, %if.end67
@@ -1122,7 +1122,7 @@ if.end71:                                         ; preds = %if.then69, %if.end6
   br i1 %cmp72, label %if.then73, label %if.end75
 
 if.then73:                                        ; preds = %if.end71
-  %puts128 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
+  %puts128 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   br label %if.end75
 
 if.end75:                                         ; preds = %if.then73, %if.end71
@@ -1132,7 +1132,7 @@ if.end75:                                         ; preds = %if.then73, %if.end7
   br i1 %cmp76, label %if.then77, label %if.end79
 
 if.then77:                                        ; preds = %if.end75
-  %puts127 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
+  %puts127 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
   br label %if.end79
 
 if.end79:                                         ; preds = %if.then77, %if.end75
@@ -1147,7 +1147,7 @@ if.end79:                                         ; preds = %if.then77, %if.end7
   br i1 %cmp82.not, label %if.end85, label %if.then83
 
 if.then83:                                        ; preds = %if.end79
-  %puts126 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
+  %puts126 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
   br label %if.end85
 
 if.end85:                                         ; preds = %if.then83, %if.end79
@@ -1159,7 +1159,7 @@ if.end85:                                         ; preds = %if.then83, %if.end7
   ]
 
 if.then89:                                        ; preds = %if.end85
-  %puts125 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
+  %puts125 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
   %.pre158 = load i32, ptr @stencil, align 4, !tbaa !5
   br label %if.end91
 
@@ -1176,7 +1176,7 @@ if.end91:                                         ; preds = %if.end85, %if.end85
   br i1 %or.cond118, label %if.end99, label %if.then97
 
 if.then97:                                        ; preds = %if.end91
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
   br label %if.end99
 
 if.end99:                                         ; preds = %if.then97, %if.end91
@@ -1197,7 +1197,7 @@ if.end104:                                        ; preds = %if.end99, %if.then1
   br i1 %or.cond119, label %if.then108, label %if.end110
 
 if.then108:                                       ; preds = %if.end104
-  %puts124 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
+  %puts124 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
   br label %if.end110
 
 if.end110:                                        ; preds = %if.end104, %if.then108

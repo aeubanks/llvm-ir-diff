@@ -28,13 +28,13 @@ if.end:                                           ; preds = %entry
 if.then2:                                         ; preds = %if.end.thread, %if.end
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 1
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !5
-  %call.i10 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #2
-  %conv.i11 = trunc i64 %call.i10 to i32
+  %call.i9 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #2
+  %conv.i10 = trunc i64 %call.i9 to i32
   br label %if.end6
 
 if.end6:                                          ; preds = %if.end, %if.then2
-  %storemerge9 = phi i32 [ %conv.i11, %if.then2 ], [ 32, %if.end ]
-  store i32 %storemerge9, ptr @nbody, align 4, !tbaa !9
+  %storemerge11 = phi i32 [ %conv.i10, %if.then2 ], [ 32, %if.end ]
+  store i32 %storemerge11, ptr @nbody, align 4, !tbaa !9
   ret i32 undef
 }
 

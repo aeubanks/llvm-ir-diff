@@ -360,7 +360,7 @@ for.body6.us71.preheader:                         ; preds = %if.end32.us, %for.b
   br label %for.body6.us71
 
 if.end32.us:                                      ; preds = %for.cond4.for.end_crit_edge.us
-  %puts52.us = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.us = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %exitcond113.not = icmp eq i64 %indvars.iv.next, 6
   br i1 %exitcond113.not, label %for.end36, label %for.body6.us71.preheader, !llvm.loop !18
 
@@ -456,39 +456,39 @@ for.body4.i.us78:                                 ; preds = %for.body6.us71, %fo
   %spec.store.select.i.us92 = select i1 %cmp19.not.i.us91, i32 %inc18.i.us90, i32 0
   %indvars.iv.next47.i.us93 = add nuw nsw i64 %indvars.iv46.i.us79, 1
   %exitcond49.not.i.us94 = icmp eq i64 %indvars.iv.next47.i.us93, 256
-  br i1 %exitcond49.not.i.us94, label %for.body.i59.us, label %for.body4.i.us78, !llvm.loop !13
+  br i1 %exitcond49.not.i.us94, label %for.body.i57.us, label %for.body4.i.us78, !llvm.loop !13
 
-for.body.i59.us:                                  ; preds = %for.body4.i.us78, %for.body.i59.us
-  %indvars.iv.i54.us = phi i64 [ %indvars.iv.next.i57.us, %for.body.i59.us ], [ 0, %for.body4.i.us78 ]
-  %x.044.i.us = phi i32 [ %conv4.i.us, %for.body.i59.us ], [ 0, %for.body4.i.us78 ]
-  %y.043.i.us = phi i32 [ %conv7.i.us, %for.body.i59.us ], [ 0, %for.body4.i.us78 ]
-  %conv.i55.us = add nuw nsw i32 %x.044.i.us, 1
-  %conv4.i.us = and i32 %conv.i55.us, 255
+for.body.i57.us:                                  ; preds = %for.body4.i.us78, %for.body.i57.us
+  %indvars.iv.i52.us = phi i64 [ %indvars.iv.next.i55.us, %for.body.i57.us ], [ 0, %for.body4.i.us78 ]
+  %x.044.i.us = phi i32 [ %conv4.i.us, %for.body.i57.us ], [ 0, %for.body4.i.us78 ]
+  %y.043.i.us = phi i32 [ %conv7.i.us, %for.body.i57.us ], [ 0, %for.body4.i.us78 ]
+  %conv.i53.us = add nuw nsw i32 %x.044.i.us, 1
+  %conv4.i.us = and i32 %conv.i53.us, 255
   %idxprom.i.us = zext i32 %conv4.i.us to i64
-  %arrayidx.i56.us = getelementptr inbounds i32, ptr %69, i64 %idxprom.i.us
-  %77 = load i32, ptr %arrayidx.i56.us, align 4, !tbaa !11
+  %arrayidx.i54.us = getelementptr inbounds i32, ptr %69, i64 %idxprom.i.us
+  %77 = load i32, ptr %arrayidx.i54.us, align 4, !tbaa !11
   %add5.i.us = add nsw i32 %77, %y.043.i.us
   %conv7.i.us = and i32 %add5.i.us, 255
   %idxprom8.i.us = zext i32 %conv7.i.us to i64
   %arrayidx9.i.us = getelementptr inbounds i32, ptr %68, i64 %idxprom8.i.us
   %78 = load i32, ptr %arrayidx9.i.us, align 4, !tbaa !11
-  store i32 %78, ptr %arrayidx.i56.us, align 4, !tbaa !11
+  store i32 %78, ptr %arrayidx.i54.us, align 4, !tbaa !11
   store i32 %77, ptr %arrayidx9.i.us, align 4, !tbaa !11
   %add14.i.us = add nsw i32 %78, %77
   %79 = and i32 %add14.i.us, 255
   %idxprom16.i.us = zext i32 %79 to i64
   %arrayidx17.i.us = getelementptr inbounds i32, ptr %67, i64 %idxprom16.i.us
   %80 = load i32, ptr %arrayidx17.i.us, align 4, !tbaa !11
-  %arrayidx19.i.us = getelementptr inbounds i8, ptr %buffer, i64 %indvars.iv.i54.us
+  %arrayidx19.i.us = getelementptr inbounds i8, ptr %buffer, i64 %indvars.iv.i52.us
   %81 = load i8, ptr %arrayidx19.i.us, align 1, !tbaa !12
   %82 = trunc i32 %80 to i8
   %conv21.i.us = xor i8 %81, %82
   store i8 %conv21.i.us, ptr %arrayidx19.i.us, align 1, !tbaa !12
-  %indvars.iv.next.i57.us = add nuw nsw i64 %indvars.iv.i54.us, 1
-  %exitcond.not.i58.us = icmp eq i64 %indvars.iv.next.i57.us, %conv.us
-  br i1 %exitcond.not.i58.us, label %rc4_crypt.exit.loopexit.us, label %for.body.i59.us, !llvm.loop !15
+  %indvars.iv.next.i55.us = add nuw nsw i64 %indvars.iv.i52.us, 1
+  %exitcond.not.i56.us = icmp eq i64 %indvars.iv.next.i55.us, %conv.us
+  br i1 %exitcond.not.i56.us, label %rc4_crypt.exit.loopexit.us, label %for.body.i57.us, !llvm.loop !15
 
-rc4_crypt.exit.loopexit.us:                       ; preds = %for.body.i59.us
+rc4_crypt.exit.loopexit.us:                       ; preds = %for.body.i57.us
   %inc.us96 = add nuw nsw i32 %j.062.us72, 1
   %exitcond.not = icmp eq i32 %inc.us96, %count.0119
   br i1 %exitcond.not, label %for.cond4.for.end_crit_edge.us, label %for.body6.us71, !llvm.loop !19
@@ -503,46 +503,46 @@ if.then30:                                        ; preds = %for.cond4.for.end_c
   %y.i120 = phi ptr [ %y.i, %if.end32.4 ], [ %y.i, %if.end32.3 ], [ %y.i, %if.end32.2 ], [ %y.i, %if.end32.1 ], [ %y.i, %if.end32 ], [ %y.i, %for.body.preheader ], [ %y.i121, %for.cond4.for.end_crit_edge.us ]
   %.us-phi101 = phi i32 [ undef, %if.end32.4 ], [ undef, %if.end32.3 ], [ undef, %if.end32.2 ], [ undef, %if.end32.1 ], [ undef, %if.end32 ], [ undef, %for.body.preheader ], [ %conv7.i.us, %for.cond4.for.end_crit_edge.us ]
   store i32 %.us-phi101, ptr %y.i120, align 4, !tbaa !10
-  %puts53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts59 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   br label %cleanup
 
 if.end32:                                         ; preds = %for.body.preheader
-  %puts52 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %call3.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 2)
   %bcmp.1 = call i32 @bcmp(ptr noundef nonnull dereferenceable(8) %buffer, ptr noundef nonnull dereferenceable(8) getelementptr inbounds (<{ <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [20 x i8], [10 x i8] }>, [30 x i8], <{ [10 x i8], [20 x i8] }>, [30 x i8] }>, ptr @output, i64 0, i32 1, i32 0, i64 0), i64 8)
   %tobool.not.1 = icmp eq i32 %bcmp.1, 0
   br i1 %tobool.not.1, label %if.end32.1, label %if.then30
 
 if.end32.1:                                       ; preds = %if.end32
-  %puts52.1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %call3.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 3)
   %bcmp.2 = call i32 @bcmp(ptr noundef nonnull dereferenceable(8) %buffer, ptr noundef nonnull dereferenceable(8) getelementptr inbounds (<{ <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [20 x i8], [10 x i8] }>, [30 x i8], <{ [10 x i8], [20 x i8] }>, [30 x i8] }>, ptr @output, i64 0, i32 2, i32 0, i64 0), i64 8)
   %tobool.not.2 = icmp eq i32 %bcmp.2, 0
   br i1 %tobool.not.2, label %if.end32.2, label %if.then30
 
 if.end32.2:                                       ; preds = %if.end32.1
-  %puts52.2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %call3.3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 4)
   %bcmp.3 = call i32 @bcmp(ptr noundef nonnull dereferenceable(20) %buffer, ptr noundef nonnull dereferenceable(20) getelementptr inbounds (<{ <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [20 x i8], [10 x i8] }>, [30 x i8], <{ [10 x i8], [20 x i8] }>, [30 x i8] }>, ptr @output, i64 0, i32 3, i32 0, i64 0), i64 20)
   %tobool.not.3 = icmp eq i32 %bcmp.3, 0
   br i1 %tobool.not.3, label %if.end32.3, label %if.then30
 
 if.end32.3:                                       ; preds = %if.end32.2
-  %puts52.3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %call3.4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 5)
   %bcmp.4 = call i32 @bcmp(ptr noundef nonnull dereferenceable(28) %buffer, ptr noundef nonnull dereferenceable(28) getelementptr inbounds (<{ <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [20 x i8], [10 x i8] }>, [30 x i8], <{ [10 x i8], [20 x i8] }>, [30 x i8] }>, ptr @output, i64 0, i32 4), i64 28)
   %tobool.not.4 = icmp eq i32 %bcmp.4, 0
   br i1 %tobool.not.4, label %if.end32.4, label %if.then30
 
 if.end32.4:                                       ; preds = %if.end32.3
-  %puts52.4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %call3.5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 6)
   %bcmp.5 = call i32 @bcmp(ptr noundef nonnull dereferenceable(10) %buffer, ptr noundef nonnull dereferenceable(10) getelementptr inbounds (<{ <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [8 x i8], [22 x i8] }>, <{ [20 x i8], [10 x i8] }>, [30 x i8], <{ [10 x i8], [20 x i8] }>, [30 x i8] }>, ptr @output, i64 0, i32 5, i32 0, i64 0), i64 10)
   %tobool.not.5 = icmp eq i32 %bcmp.5, 0
   br i1 %tobool.not.5, label %if.end32.5, label %if.then30
 
 if.end32.5:                                       ; preds = %if.end32.4
-  %puts52.5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %puts58.5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   br label %for.end36
 
 for.end36:                                        ; preds = %if.end32.us, %if.end32.5

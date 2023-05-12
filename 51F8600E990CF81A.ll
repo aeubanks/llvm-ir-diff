@@ -943,7 +943,7 @@ for.cond.i:                                       ; preds = %entry, %for.cond.i.
   %v.0.i = phi ptr [ %v.0.i.be, %for.cond.i.backedge ], [ %0, %entry ]
   %nsons.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 1
   %1 = load i32, ptr %nsons.i, align 4, !tbaa !9
-  switch i32 %1, label %if.else [
+  switch i32 %1, label %tmax.exit [
     i32 3, label %if.then2.i
     i32 2, label %if.then6.i
   ]
@@ -965,12 +965,12 @@ for.cond.i.backedge:                              ; preds = %if.end8.i, %if.else
   %v.0.i.be = phi ptr [ %v.1.i, %if.end8.i ], [ %5, %if.else3 ]
   br label %for.cond.i
 
-if.else:                                          ; preds = %for.cond.i
+tmax.exit:                                        ; preds = %for.cond.i
   %2 = load i32, ptr %v.0.i, align 8, !tbaa !12
   %cmp1 = icmp slt i32 %2, %threshold
   br i1 %cmp1, label %for.end, label %if.else3
 
-if.else3:                                         ; preds = %if.else
+if.else3:                                         ; preds = %tmax.exit
   %plist.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 9
   %3 = load ptr, ptr %plist.i, align 8, !tbaa !26
   %4 = load i32, ptr %3, align 8, !tbaa !13
@@ -979,18 +979,18 @@ if.else3:                                         ; preds = %if.else
   %cmp.i = icmp eq ptr %5, null
   br i1 %cmp.i, label %for.end, label %for.cond.i.backedge
 
-for.end:                                          ; preds = %if.else, %if.else3, %entry
+for.end:                                          ; preds = %tmax.exit, %if.else3, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @tdiscard(ptr nocapture noundef %root, i32 noundef %count) local_unnamed_addr #0 {
 entry:
-  %cmp.not8 = icmp slt i32 %count, 1
-  br i1 %cmp.not8, label %for.end, label %for.body
+  %cmp.not6 = icmp slt i32 %count, 1
+  br i1 %cmp.not6, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %if.else
-  %i.09 = phi i32 [ %inc, %if.else ], [ 1, %entry ]
+  %i.07 = phi i32 [ %inc, %if.else ], [ 1, %entry ]
   %0 = load ptr, ptr %root, align 8, !tbaa !5
   %cmp.i = icmp eq ptr %0, null
   br i1 %cmp.i, label %for.end, label %for.cond.i
@@ -1018,13 +1018,13 @@ if.end8.i:                                        ; preds = %if.then6.i, %if.the
   br label %for.cond.i
 
 if.else:                                          ; preds = %for.cond.i
-  %2 = load i32, ptr %v.0.i, align 8, !tbaa !12
   %plist.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 9
-  %3 = load ptr, ptr %plist.i, align 8, !tbaa !26
-  %4 = load i32, ptr %3, align 8, !tbaa !13
-  tail call void @tdelete(ptr noundef nonnull %root, i32 noundef %2, i32 noundef %4)
-  %inc = add nuw i32 %i.09, 1
-  %exitcond.not = icmp eq i32 %i.09, %count
+  %2 = load ptr, ptr %plist.i, align 8, !tbaa !26
+  %3 = load i32, ptr %2, align 8, !tbaa !13
+  %4 = load i32, ptr %v.0.i, align 8, !tbaa !12
+  tail call void @tdelete(ptr noundef nonnull %root, i32 noundef %4, i32 noundef %3)
+  %inc = add nuw i32 %i.07, 1
+  %exitcond.not = icmp eq i32 %i.07, %count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !30
 
 for.end:                                          ; preds = %if.else, %for.body, %entry
@@ -1471,12 +1471,12 @@ if.else11:                                        ; preds = %if.else6
   br label %if.end
 
 if.end:                                           ; preds = %if.else6, %if.else11
-  %.sink231 = phi i32 [ %value, %if.else11 ], [ %4, %if.else6 ]
+  %.sink232 = phi i32 [ %value, %if.else11 ], [ %4, %if.else6 ]
   %value.sink = phi i32 [ %4, %if.else11 ], [ %value, %if.else6 ]
   %call.i193.sink = phi ptr [ %0, %if.else11 ], [ %call.i193, %if.else6 ]
   %.sink = phi ptr [ %call.i193, %if.else11 ], [ %0, %if.else6 ]
   %5 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 8
-  store i32 %.sink231, ptr %5, align 4
+  store i32 %.sink232, ptr %5, align 4
   %6 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 7
   store i32 %value.sink, ptr %6, align 8
   %7 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 2
@@ -2602,10 +2602,10 @@ cleanup:                                          ; preds = %cleanup.sink.split,
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13

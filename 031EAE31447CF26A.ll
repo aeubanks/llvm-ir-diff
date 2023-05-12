@@ -125,7 +125,7 @@ sw.bb24:                                          ; preds = %entry
   %call25 = tail call i32 (ptr, ...) @zcopy_dict(ptr noundef nonnull %op) #6
   br label %cleanup35
 
-if.end27:                                         ; preds = %sw.bb32.i, %if.end24.i, %sw.bb.i
+if.end27:                                         ; preds = %if.end24.i, %sw.bb.i, %sw.bb32.i
   %14 = load i16, ptr %size.i, align 2, !tbaa !13
   store i16 %14, ptr %size19.i, align 2, !tbaa !13
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr23, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !14
@@ -664,7 +664,7 @@ if.end.i:                                         ; preds = %if.end16
   %tobool.not.not.i = icmp eq i32 %not.i, 0
   %not13.i = and i32 %conv2.i, 256
   %tobool15.not.not.i = icmp eq i32 %not13.i, 0
-  %or.cond.i = or i1 %tobool.not.not.i, %tobool15.not.not.i
+  %or.cond.i = or i1 %tobool15.not.not.i, %tobool.not.not.i
   br i1 %or.cond.i, label %cleanup, label %if.end17.i
 
 if.end17.i:                                       ; preds = %if.end.i
@@ -700,14 +700,14 @@ sw.bb32.i:                                        ; preds = %if.end24.i
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr35.i, ptr align 1 %13, i64 %conv38.i, i1 false)
   br label %if.then21
 
-if.then21:                                        ; preds = %sw.bb32.i, %if.end24.i, %sw.bb.i
+if.then21:                                        ; preds = %sw.bb32.i, %sw.bb.i, %if.end24.i
   %14 = load ptr, ptr @osp, align 8, !tbaa !11
   %add.ptr22 = getelementptr inbounds %struct.ref_s, ptr %14, i64 -3
   store ptr %add.ptr22, ptr @osp, align 8, !tbaa !11
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end17.i, %if.end.i, %if.end16, %if.then21, %if.end11, %sw.epilog, %if.end, %entry, %sw.bb
-  %retval.0 = phi i32 [ -7, %sw.bb ], [ -20, %entry ], [ -20, %if.end ], [ -7, %sw.epilog ], [ -15, %if.end11 ], [ 0, %if.then21 ], [ 0, %if.end16 ], [ 0, %if.end.i ], [ 0, %if.end17.i ]
+cleanup:                                          ; preds = %if.then21, %if.end17.i, %if.end.i, %if.end16, %if.end11, %sw.epilog, %if.end, %entry, %sw.bb
+  %retval.0 = phi i32 [ -7, %sw.bb ], [ -20, %entry ], [ -20, %if.end ], [ -7, %sw.epilog ], [ -15, %if.end11 ], [ 0, %if.end16 ], [ 0, %if.end.i ], [ 0, %if.end17.i ], [ 0, %if.then21 ]
   ret i32 %retval.0
 }
 

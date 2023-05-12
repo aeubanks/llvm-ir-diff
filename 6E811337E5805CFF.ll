@@ -66,7 +66,7 @@ if.end:                                           ; preds = %entry
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end.i.i:
+entry:
   store i32 0, ptr @el, align 4, !tbaa !12
   %0 = load ptr, ptr @parsefile, align 8, !tbaa !5
   store i64 3735928559, ptr %0, align 8, !tbaa !9

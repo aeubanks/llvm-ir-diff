@@ -57,9 +57,9 @@ if.then.i:                                        ; preds = %if.then5
 
 essen_cube.exit:                                  ; preds = %if.then5, %if.then.i
   tail call void @free(ptr noundef nonnull %call2.i) #5
-  %tobool.not.i.not = icmp eq i32 %call3.i, 0
+  %tobool.not.i = icmp eq i32 %call3.i, 0
   tail call void (ptr, ...) @sf_free(ptr noundef %call1.i) #5
-  br i1 %tobool.not.i.not, label %if.then8, label %for.inc
+  br i1 %tobool.not.i, label %if.then8, label %for.inc
 
 if.then8:                                         ; preds = %essen_cube.exit
   %9 = load i32, ptr @debug, align 4, !tbaa !16

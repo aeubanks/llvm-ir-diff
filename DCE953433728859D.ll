@@ -8,21 +8,21 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %call.i = tail call fastcc i32 @get_kind()
   switch i32 %call.i, label %example.exit [
-    i32 10, label %if.then.i
-    i32 9, label %if.then.i
-    i32 5, label %if.then.i
+    i32 10, label %if.then6.i
+    i32 9, label %if.then6.i
+    i32 5, label %if.then6.i
   ]
 
-if.then.i:                                        ; preds = %entry, %entry, %entry
+if.then6.i:                                       ; preds = %entry, %entry, %entry
   %0 = add nsw i32 %call.i, -9
   %or.cond.i = icmp ult i32 %0, 2
   br i1 %or.cond.i, label %example.exit, label %if.else.i
 
-if.else.i:                                        ; preds = %if.then.i
+if.else.i:                                        ; preds = %if.then6.i
   tail call void @abort() #4
   unreachable
 
-example.exit:                                     ; preds = %entry, %if.then.i
+example.exit:                                     ; preds = %entry, %if.then6.i
   ret i32 0
 }
 

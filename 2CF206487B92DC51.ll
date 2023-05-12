@@ -103,7 +103,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.39 = private unnamed_addr constant [33 x i8] c"equal_elem_patternrepresentation\00", align 1
 @.str.40 = private unnamed_addr constant [12 x i8] c"equal_paths\00", align 1
 @.str.41 = private unnamed_addr constant [11 x i8] c"equal_path\00", align 1
-@str.43 = private unnamed_addr constant [37 x i8] c"Don't know how to compare these yet:\00", align 1
+@str.44 = private unnamed_addr constant [37 x i8] c"Don't know how to compare these yet:\00", align 1
 
 ; Function Attrs: mustprogress uwtable
 define dso_local noundef ptr @_ZN2kc17syn_patternchainsEPNS_18impl_patternchainsE(ptr noundef %a_patternchains) local_unnamed_addr #0 {
@@ -813,13 +813,9 @@ if.then.i:                                        ; preds = %if.then
   %5 = load ptr, ptr %vtable.i.i, align 8
   %call1.i.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
   %cmp.i.i = icmp eq i32 %call1.i.i, 7
-  br i1 %cmp.i.i, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.i, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread.i
+  br i1 %cmp.i.i, label %if.then.i.i, label %if.else.i.i
 
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread.i: ; preds = %if.then.i
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
-  br label %if.then4.i
-
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.i:   ; preds = %if.then.i
+if.then.i.i:                                      ; preds = %if.then.i
   %uniqID_1.i.i = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %4, i64 0, i32 1
   %6 = load ptr, ptr %uniqID_1.i.i, align 8, !tbaa !50
   %call3.i.i = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %6)
@@ -828,7 +824,11 @@ _ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.i:   ; preds = %if.then.i
   %tobool.i.not.i = icmp eq i8 %7, 0
   br i1 %tobool.i.not.i, label %if.then4.i, label %if.else.i
 
-if.then4.i:                                       ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.i, %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread.i
+if.else.i.i:                                      ; preds = %if.then.i
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
+  br label %if.then4.i
+
+if.then4.i:                                       ; preds = %if.else.i.i, %if.then.i.i
   %vtable.i33.i = load ptr, ptr %4, align 8, !tbaa !5
   %8 = load ptr, ptr %vtable.i33.i, align 8
   %call1.i34.i = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %4)
@@ -851,7 +851,7 @@ _ZN2kc15v_markbindingidEPNS_7impl_IDE.exit.i:     ; preds = %if.else.i40.i, %if.
   %call5.i = tail call fastcc noundef ptr @_ZN2kcL15make_predicatesEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %1, ptr noundef %2)
   br label %_ZN2kcL13add_predicateEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE.exit
 
-if.else.i:                                        ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.i
+if.else.i:                                        ; preds = %if.then.i.i
   %call6.i = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
   br label %_ZN2kcL13add_predicateEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE.exit
 
@@ -869,13 +869,9 @@ if.then12.i:                                      ; preds = %if.else7.i
   %12 = load ptr, ptr %vtable.i41.i, align 8
   %call1.i42.i = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %11)
   %cmp.i43.i = icmp eq i32 %call1.i42.i, 7
-  br i1 %cmp.i43.i, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.i, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.thread.i
+  br i1 %cmp.i43.i, label %if.then.i48.i, label %if.else.i49.i
 
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.thread.i: ; preds = %if.then12.i
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
-  br label %if.then17.i
-
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.i: ; preds = %if.then12.i
+if.then.i48.i:                                    ; preds = %if.then12.i
   %uniqID_1.i44.i = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %11, i64 0, i32 1
   %13 = load ptr, ptr %uniqID_1.i44.i, align 8, !tbaa !50
   %call3.i45.i = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %13)
@@ -884,7 +880,11 @@ _ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.i: ; preds = %if.then12.i
   %tobool.i47.not.i = icmp eq i8 %14, 0
   br i1 %tobool.i47.not.i, label %if.then17.i, label %if.else19.i
 
-if.then17.i:                                      ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.i, %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.thread.i
+if.else.i49.i:                                    ; preds = %if.then12.i
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
+  br label %if.then17.i
+
+if.then17.i:                                      ; preds = %if.else.i49.i, %if.then.i48.i
   %vtable.i52.i = load ptr, ptr %11, align 8, !tbaa !5
   %15 = load ptr, ptr %vtable.i52.i, align 8
   %call1.i53.i = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %11)
@@ -907,7 +907,7 @@ _ZN2kc15v_markbindingidEPNS_7impl_IDE.exit60.i:   ; preds = %if.else.i59.i, %if.
   %call18.i = tail call fastcc noundef ptr @_ZN2kcL15make_predicatesEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %1, ptr noundef %2)
   br label %_ZN2kcL13add_predicateEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE.exit
 
-if.else19.i:                                      ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit51.i
+if.else19.i:                                      ; preds = %if.then.i48.i
   %call20.i = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
   br label %_ZN2kcL13add_predicateEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE.exit
 
@@ -1086,20 +1086,16 @@ if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %vtable.i, align 8
   %call2.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %1)
   %cmp.i = icmp eq i32 %call2.i, 219
-  br i1 %cmp.i, label %land.lhs.true.i, label %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit.thread
+  br i1 %cmp.i, label %land.lhs.true.i, label %if.else.i
 
 land.lhs.true.i:                                  ; preds = %if.then
   %vtable3.i = load ptr, ptr %new_rule, align 8, !tbaa !5
   %4 = load ptr, ptr %vtable3.i, align 8
   %call5.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %new_rule)
   %cmp6.i = icmp eq i32 %call5.i, 219
-  br i1 %cmp6.i, label %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit, label %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit.thread
+  br i1 %cmp6.i, label %if.then.i, label %if.else.i
 
-_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit.thread: ; preds = %if.then, %land.lhs.true.i
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.35, i32 noundef 948, ptr noundef nonnull @.str.1)
-  br label %if.else
-
-_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit: ; preds = %land.lhs.true.i
+if.then.i:                                        ; preds = %land.lhs.true.i
   %patternrepresentation_1.i = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %patternrepresentation_1.i, align 8, !tbaa !88
   %patternrepresentation_19.i = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %new_rule, i64 0, i32 1
@@ -1107,18 +1103,22 @@ _ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit: ; preds = %land
   %call10.i = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %5, ptr noundef %6)
   br i1 %call10.i, label %if.then3, label %if.else
 
-common.ret27:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
-  %common.ret27.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
-  ret ptr %common.ret27.op
+if.else.i:                                        ; preds = %land.lhs.true.i, %if.then
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.35, i32 noundef 948, ptr noundef nonnull @.str.1)
+  br label %if.else
 
-if.then3:                                         ; preds = %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit
+common.ret26:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
+  %common.ret26.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
+  ret ptr %common.ret26.op
+
+if.then3:                                         ; preds = %if.then.i
   %call4 = tail call fastcc noundef ptr @_ZN2kcL25insertin_rewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef nonnull %new_rule, ptr noundef %2)
   %call5 = tail call noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef nonnull %1, ptr noundef %call4)
-  br label %common.ret27
+  br label %common.ret26
 
-if.else:                                          ; preds = %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit.thread, %_ZN2kcL18lt_rewriteruleinfoEPNS_20impl_rewriteruleinfoES1_.exit
+if.else:                                          ; preds = %if.else.i, %if.then.i
   %call6 = tail call noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef %new_rule, ptr noundef nonnull %old_rules)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else8:                                         ; preds = %entry
   %vtable9 = load ptr, ptr %old_rules, align 8, !tbaa !5
@@ -1129,11 +1129,11 @@ if.else8:                                         ; preds = %entry
 
 if.then13:                                        ; preds = %if.else8
   %call14 = tail call noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef %new_rule, ptr noundef nonnull %old_rules)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else15:                                        ; preds = %if.else8
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.34, i32 noundef 931, ptr noundef nonnull @.str.1)
-  br label %common.ret27
+  br label %common.ret26
 }
 
 declare noundef ptr @_ZN2kc15RewriteruleinfoEPNS_26impl_patternrepresentationES1_PNS_18impl_rewriteclauseE(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
@@ -1203,16 +1203,16 @@ if.else27:                                        ; preds = %if.else20
 define dso_local noundef ptr @_ZN2kc15f_withcasesinfoEPNS_27impl_patternrepresentationsEPNS_10impl_CtextE(ptr noundef %a_patternreps, ptr noundef %ct) local_unnamed_addr #0 {
 entry:
   %call = tail call noundef ptr @_ZN2kc16NilwithcasesinfoEv()
-  %vtable50 = load ptr, ptr %a_patternreps, align 8, !tbaa !5
-  %0 = load ptr, ptr %vtable50, align 8
-  %call151 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a_patternreps)
-  %cmp.not52 = icmp eq i32 %call151, 199
-  br i1 %cmp.not52, label %while.body, label %cleanup24
+  %vtable53 = load ptr, ptr %a_patternreps, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable53, align 8
+  %call154 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a_patternreps)
+  %cmp.not55 = icmp eq i32 %call154, 199
+  br i1 %cmp.not55, label %while.body, label %cleanup24
 
 while.body:                                       ; preds = %entry, %cleanup21
-  %tmp.054 = phi ptr [ %tmp.2.ph, %cleanup21 ], [ %call, %entry ]
-  %kc_fe_selvar_1.053 = phi ptr [ %14, %cleanup21 ], [ %a_patternreps, %entry ]
-  %patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentations", ptr %kc_fe_selvar_1.053, i64 0, i32 1
+  %tmp.057 = phi ptr [ %tmp.2.ph, %cleanup21 ], [ %call, %entry ]
+  %kc_fe_selvar_1.056 = phi ptr [ %14, %cleanup21 ], [ %a_patternreps, %entry ]
+  %patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentations", ptr %kc_fe_selvar_1.056, i64 0, i32 1
   %1 = load ptr, ptr %patternrepresentation_1, align 8, !tbaa !68
   %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
   %2 = load ptr, ptr %vtable3, align 8
@@ -1276,7 +1276,7 @@ while.body.i13.i:                                 ; preds = %while.cond.preheade
 
 _ZN2kcL14f_get_bindingsEPNS_26impl_patternrepresentationE.exit: ; preds = %while.body.i13.i, %_ZN2kc21v_resetbindingidmarksEv.exit.i, %while.cond.preheader.i5.i
   %call9 = tail call noundef ptr @_ZN2kc12WithcaseinfoEPNS_26impl_patternrepresentationES1_PNS_10impl_CtextE(ptr noundef %call7, ptr noundef %call.i, ptr noundef %ct)
-  %call10 = tail call noundef ptr @_ZN2kc22insertin_withcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef %call9, ptr noundef %tmp.054)
+  %call10 = tail call noundef ptr @_ZN2kc22insertin_withcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef %call9, ptr noundef %tmp.057)
   br label %cleanup21
 
 if.else:                                          ; preds = %while.body
@@ -1291,8 +1291,8 @@ cleanup21.thread:                                 ; preds = %if.else
   br label %cleanup24
 
 cleanup21:                                        ; preds = %_ZN2kcL14f_get_bindingsEPNS_26impl_patternrepresentationE.exit, %if.else
-  %tmp.2.ph = phi ptr [ %tmp.054, %if.else ], [ %call10, %_ZN2kcL14f_get_bindingsEPNS_26impl_patternrepresentationE.exit ]
-  %patternrepresentations_1 = getelementptr inbounds %"class.kc::impl_patternrepresentations", ptr %kc_fe_selvar_1.053, i64 0, i32 2
+  %tmp.2.ph = phi ptr [ %tmp.057, %if.else ], [ %call10, %_ZN2kcL14f_get_bindingsEPNS_26impl_patternrepresentationE.exit ]
+  %patternrepresentations_1 = getelementptr inbounds %"class.kc::impl_patternrepresentations", ptr %kc_fe_selvar_1.056, i64 0, i32 2
   %14 = load ptr, ptr %patternrepresentations_1, align 8, !tbaa !70
   %vtable = load ptr, ptr %14, align 8, !tbaa !5
   %15 = load ptr, ptr %vtable, align 8
@@ -1301,8 +1301,8 @@ cleanup21:                                        ; preds = %_ZN2kcL14f_get_bind
   br i1 %cmp.not, label %while.body, label %cleanup24, !llvm.loop !91
 
 cleanup24:                                        ; preds = %cleanup21, %entry, %cleanup21.thread
-  %spec.select = phi ptr [ null, %cleanup21.thread ], [ %call, %entry ], [ %tmp.2.ph, %cleanup21 ]
-  ret ptr %spec.select
+  %cmp.not50 = phi ptr [ null, %cleanup21.thread ], [ %call, %entry ], [ %tmp.2.ph, %cleanup21 ]
+  ret ptr %cmp.not50
 }
 
 declare noundef ptr @_ZN2kc16NilwithcasesinfoEv() local_unnamed_addr #1
@@ -1325,20 +1325,16 @@ if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %vtable.i, align 8
   %call2.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %1)
   %cmp.i = icmp eq i32 %call2.i, 222
-  br i1 %cmp.i, label %land.lhs.true.i, label %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit.thread
+  br i1 %cmp.i, label %land.lhs.true.i, label %if.else.i
 
 land.lhs.true.i:                                  ; preds = %if.then
   %vtable3.i = load ptr, ptr %new_case, align 8, !tbaa !5
   %4 = load ptr, ptr %vtable3.i, align 8
   %call5.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %new_case)
   %cmp6.i = icmp eq i32 %call5.i, 222
-  br i1 %cmp6.i, label %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit, label %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit.thread
+  br i1 %cmp6.i, label %if.then.i, label %if.else.i
 
-_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit.thread: ; preds = %if.then, %land.lhs.true.i
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.11, i32 noundef 989, ptr noundef nonnull @.str.1)
-  br label %if.else
-
-_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit: ; preds = %land.lhs.true.i
+if.then.i:                                        ; preds = %land.lhs.true.i
   %patternrepresentation_1.i = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %patternrepresentation_1.i, align 8, !tbaa !95
   %patternrepresentation_19.i = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %new_case, i64 0, i32 1
@@ -1346,18 +1342,22 @@ _ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit: ; preds = %land.lhs.tr
   %call10.i = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %5, ptr noundef %6)
   br i1 %call10.i, label %if.then3, label %if.else
 
-common.ret27:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
-  %common.ret27.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
-  ret ptr %common.ret27.op
+if.else.i:                                        ; preds = %land.lhs.true.i, %if.then
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.11, i32 noundef 989, ptr noundef nonnull @.str.1)
+  br label %if.else
 
-if.then3:                                         ; preds = %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit
+common.ret26:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
+  %common.ret26.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
+  ret ptr %common.ret26.op
+
+if.then3:                                         ; preds = %if.then.i
   %call4 = tail call noundef ptr @_ZN2kc22insertin_withcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %new_case, ptr noundef %2)
   %call5 = tail call noundef ptr @_ZN2kc17ConswithcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %1, ptr noundef %call4)
-  br label %common.ret27
+  br label %common.ret26
 
-if.else:                                          ; preds = %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit.thread, %_ZN2kc15lt_withcaseinfoEPNS_17impl_withcaseinfoES1_.exit
+if.else:                                          ; preds = %if.else.i, %if.then.i
   %call6 = tail call noundef ptr @_ZN2kc17ConswithcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef %new_case, ptr noundef nonnull %old_cases)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else8:                                         ; preds = %entry
   %vtable9 = load ptr, ptr %old_cases, align 8, !tbaa !5
@@ -1368,11 +1368,11 @@ if.else8:                                         ; preds = %entry
 
 if.then13:                                        ; preds = %if.else8
   %call14 = tail call noundef ptr @_ZN2kc17ConswithcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef %new_case, ptr noundef nonnull %old_cases)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else15:                                        ; preds = %if.else8
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.10, i32 noundef 972, ptr noundef nonnull @.str.1)
-  br label %common.ret27
+  br label %common.ret26
 }
 
 declare noundef ptr @_ZN2kc12WithcaseinfoEPNS_26impl_patternrepresentationES1_PNS_10impl_CtextE(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
@@ -1512,20 +1512,16 @@ if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %vtable.i, align 8
   %call2.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %1)
   %cmp.i = icmp eq i32 %call2.i, 231
-  br i1 %cmp.i, label %land.lhs.true.i, label %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit.thread
+  br i1 %cmp.i, label %land.lhs.true.i, label %if.else.i
 
 land.lhs.true.i:                                  ; preds = %if.then
   %vtable3.i = load ptr, ptr %new_decl, align 8, !tbaa !5
   %4 = load ptr, ptr %vtable3.i, align 8
   %call5.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %new_decl)
   %cmp6.i = icmp eq i32 %call5.i, 231
-  br i1 %cmp6.i, label %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit, label %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit.thread
+  br i1 %cmp6.i, label %if.then.i, label %if.else.i
 
-_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit.thread: ; preds = %if.then, %land.lhs.true.i
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.37, i32 noundef 1030, ptr noundef nonnull @.str.1)
-  br label %if.else
-
-_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit: ; preds = %land.lhs.true.i
+if.then.i:                                        ; preds = %land.lhs.true.i
   %patternrepresentation_1.i = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %patternrepresentation_1.i, align 8, !tbaa !107
   %patternrepresentation_19.i = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %new_decl, i64 0, i32 1
@@ -1533,18 +1529,22 @@ _ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit: ; preds = %land
   %call10.i = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %5, ptr noundef %6)
   br i1 %call10.i, label %if.then3, label %if.else
 
-common.ret27:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
-  %common.ret27.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
-  ret ptr %common.ret27.op
+if.else.i:                                        ; preds = %land.lhs.true.i, %if.then
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.37, i32 noundef 1030, ptr noundef nonnull @.str.1)
+  br label %if.else
 
-if.then3:                                         ; preds = %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit
+common.ret26:                                     ; preds = %if.else, %if.else15, %if.then13, %if.then3
+  %common.ret26.op = phi ptr [ %call5, %if.then3 ], [ %call14, %if.then13 ], [ null, %if.else15 ], [ %call6, %if.else ]
+  ret ptr %common.ret26.op
+
+if.then3:                                         ; preds = %if.then.i
   %call4 = tail call fastcc noundef ptr @_ZN2kcL25insertin_unparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef nonnull %new_decl, ptr noundef %2)
   %call5 = tail call noundef ptr @_ZN2kc20ConsunparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef nonnull %1, ptr noundef %call4)
-  br label %common.ret27
+  br label %common.ret26
 
-if.else:                                          ; preds = %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit.thread, %_ZN2kcL18lt_unparsedeclinfoEPNS_20impl_unparsedeclinfoES1_.exit
+if.else:                                          ; preds = %if.else.i, %if.then.i
   %call6 = tail call noundef ptr @_ZN2kc20ConsunparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef %new_decl, ptr noundef nonnull %old_decls)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else8:                                         ; preds = %entry
   %vtable9 = load ptr, ptr %old_decls, align 8, !tbaa !5
@@ -1555,11 +1555,11 @@ if.else8:                                         ; preds = %entry
 
 if.then13:                                        ; preds = %if.else8
   %call14 = tail call noundef ptr @_ZN2kc20ConsunparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef %new_decl, ptr noundef nonnull %old_decls)
-  br label %common.ret27
+  br label %common.ret26
 
 if.else15:                                        ; preds = %if.else8
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.36, i32 noundef 1013, ptr noundef nonnull @.str.1)
-  br label %common.ret27
+  br label %common.ret26
 }
 
 declare noundef ptr @_ZN2kc15UnparsedeclinfoEPNS_26impl_patternrepresentationES1_PNS_18impl_unparseclauseE(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
@@ -2858,8 +2858,8 @@ define dso_local void @_ZN2kc16compare_patternsEPNS_26impl_patternrepresentation
 entry:
   %elem_patternrepresentation_1.i = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %pr1, i64 0, i32 1
   %0 = load ptr, ptr %elem_patternrepresentation_1.i, align 8, !tbaa !71
-  %elem_patternrepresentation_1.i875 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %pr2, i64 0, i32 1
-  %1 = load ptr, ptr %elem_patternrepresentation_1.i875, align 8, !tbaa !71
+  %elem_patternrepresentation_1.i870 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %pr2, i64 0, i32 1
+  %1 = load ptr, ptr %elem_patternrepresentation_1.i870, align 8, !tbaa !71
   %call2 = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
   %vtable1003 = load ptr, ptr %pr1, align 8, !tbaa !5
   %vfn1004 = getelementptr inbounds ptr, ptr %vtable1003, i64 11
@@ -2879,24 +2879,24 @@ lor.rhs:                                          ; preds = %entry, %if.end593
   br i1 %call6, label %while.end, label %while.body
 
 while.body:                                       ; preds = %lor.rhs
-  %elem_patternrepresentation_1.i876 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 1
-  %4 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
-  %elem_patternrepresentation_1.i877 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 1
-  %5 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %elem_patternrepresentation_1.i871 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 1
+  %4 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
+  %elem_patternrepresentation_1.i872 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 1
+  %5 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call9 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %5)
-  %6 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %6 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   br i1 %call9, label %if.then, label %if.else
 
 if.then:                                          ; preds = %while.body
   %call11 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %6)
   %patternrepresentation_1.i = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
   %7 = load ptr, ptr %patternrepresentation_1.i, align 8, !tbaa !73
-  %patternrepresentation_1.i879 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %8 = load ptr, ptr %patternrepresentation_1.i879, align 8, !tbaa !73
+  %patternrepresentation_1.i874 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %8 = load ptr, ptr %patternrepresentation_1.i874, align 8, !tbaa !73
   br label %if.end593
 
 if.else:                                          ; preds = %while.body
-  %9 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %9 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %vtable18 = load ptr, ptr %6, align 8, !tbaa !5
   %10 = load ptr, ptr %vtable18, align 8
   %call20 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %6)
@@ -2916,7 +2916,7 @@ if.then25:                                        ; preds = %land.lhs.true
   br i1 %tobool.not, label %cleanup657, label %if.then26
 
 if.then26:                                        ; preds = %if.then25
-  %puts871 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts920 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %file = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 2
   %13 = load ptr, ptr %file, align 8, !tbaa !122
   %name = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %13, i64 0, i32 1
@@ -2924,7 +2924,7 @@ if.then26:                                        ; preds = %if.then25
   %line = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 1
   %15 = load i32, ptr %line, align 8, !tbaa !34
   %call28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %14, i32 noundef %15)
-  %16 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %16 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %16)
   %file30 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 2
   %17 = load ptr, ptr %file30, align 8, !tbaa !122
@@ -2933,7 +2933,7 @@ if.then26:                                        ; preds = %if.then25
   %line32 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 1
   %19 = load i32, ptr %line32, align 8, !tbaa !34
   %call33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %18, i32 noundef %19)
-  %20 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %20 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %20)
   br label %cleanup657
 
@@ -2957,7 +2957,7 @@ if.then45:                                        ; preds = %land.lhs.true40
   br i1 %tobool46.not, label %cleanup657, label %if.then47
 
 if.then47:                                        ; preds = %if.then45
-  %puts870 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts919 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %file49 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 2
   %24 = load ptr, ptr %file49, align 8, !tbaa !122
   %name50 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %24, i64 0, i32 1
@@ -2965,7 +2965,7 @@ if.then47:                                        ; preds = %if.then45
   %line51 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 1
   %26 = load i32, ptr %line51, align 8, !tbaa !34
   %call52 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %25, i32 noundef %26)
-  %27 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %27 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %27)
   %file54 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 2
   %28 = load ptr, ptr %file54, align 8, !tbaa !122
@@ -2974,7 +2974,7 @@ if.then47:                                        ; preds = %if.then45
   %line56 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 1
   %30 = load i32, ptr %line56, align 8, !tbaa !34
   %call57 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %29, i32 noundef %30)
-  %31 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %31 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %31)
   br label %cleanup657
 
@@ -3005,10 +3005,10 @@ if.then70:                                        ; preds = %land.lhs.true65
   br i1 %cmp79, label %if.then80, label %if.else84
 
 if.then80:                                        ; preds = %if.then70
-  %37 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %37 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call82 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %37)
-  %patternrepresentation_1.i887 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %38 = load ptr, ptr %patternrepresentation_1.i887, align 8, !tbaa !73
+  %patternrepresentation_1.i882 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %38 = load ptr, ptr %patternrepresentation_1.i882, align 8, !tbaa !73
   br label %if.end593
 
 if.else84:                                        ; preds = %if.then70
@@ -3019,10 +3019,10 @@ if.else84:                                        ; preds = %if.then70
   br i1 %cmp88, label %if.then89, label %if.else93
 
 if.then89:                                        ; preds = %if.else84
-  %40 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %40 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call91 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %40)
-  %patternrepresentation_1.i889 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %41 = load ptr, ptr %patternrepresentation_1.i889, align 8, !tbaa !73
+  %patternrepresentation_1.i884 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %41 = load ptr, ptr %patternrepresentation_1.i884, align 8, !tbaa !73
   br label %if.end593
 
 if.else93:                                        ; preds = %if.else84
@@ -3063,10 +3063,10 @@ if.then117:                                       ; preds = %land.lhs.true112
   br i1 %cmp130, label %if.then131, label %if.else135
 
 if.then131:                                       ; preds = %if.then117
-  %48 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %48 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call133 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %48)
-  %patternrepresentation_1.i891 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %49 = load ptr, ptr %patternrepresentation_1.i891, align 8, !tbaa !73
+  %patternrepresentation_1.i886 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %49 = load ptr, ptr %patternrepresentation_1.i886, align 8, !tbaa !73
   br label %if.end593
 
 if.else135:                                       ; preds = %if.then117
@@ -3077,10 +3077,10 @@ if.else135:                                       ; preds = %if.then117
   br i1 %cmp139, label %if.then140, label %if.else144
 
 if.then140:                                       ; preds = %if.else135
-  %51 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %51 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call142 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %51)
-  %patternrepresentation_1.i893 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %52 = load ptr, ptr %patternrepresentation_1.i893, align 8, !tbaa !73
+  %patternrepresentation_1.i888 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %52 = load ptr, ptr %patternrepresentation_1.i888, align 8, !tbaa !73
   br label %if.end593
 
 if.else144:                                       ; preds = %if.else135
@@ -3121,10 +3121,10 @@ if.then171:                                       ; preds = %land.lhs.true166
   br i1 %cmp184, label %if.then185, label %if.else189
 
 if.then185:                                       ; preds = %if.then171
-  %59 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %59 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call187 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %59)
-  %patternrepresentation_1.i895 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %60 = load ptr, ptr %patternrepresentation_1.i895, align 8, !tbaa !73
+  %patternrepresentation_1.i890 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %60 = load ptr, ptr %patternrepresentation_1.i890, align 8, !tbaa !73
   br label %if.end593
 
 if.else189:                                       ; preds = %if.then171
@@ -3135,10 +3135,10 @@ if.else189:                                       ; preds = %if.then171
   br i1 %cmp193, label %if.then194, label %if.else198
 
 if.then194:                                       ; preds = %if.else189
-  %62 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %62 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call196 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %62)
-  %patternrepresentation_1.i897 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %63 = load ptr, ptr %patternrepresentation_1.i897, align 8, !tbaa !73
+  %patternrepresentation_1.i892 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %63 = load ptr, ptr %patternrepresentation_1.i892, align 8, !tbaa !73
   br label %if.end593
 
 if.else198:                                       ; preds = %if.else189
@@ -3179,10 +3179,10 @@ if.then225:                                       ; preds = %land.lhs.true220
   br i1 %cmp238, label %if.then239, label %if.else243
 
 if.then239:                                       ; preds = %if.then225
-  %70 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %70 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call241 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %70)
-  %patternrepresentation_1.i899 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %71 = load ptr, ptr %patternrepresentation_1.i899, align 8, !tbaa !73
+  %patternrepresentation_1.i894 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %71 = load ptr, ptr %patternrepresentation_1.i894, align 8, !tbaa !73
   br label %if.end593
 
 if.else243:                                       ; preds = %if.then225
@@ -3193,10 +3193,10 @@ if.else243:                                       ; preds = %if.then225
   br i1 %cmp247, label %if.then248, label %if.else252
 
 if.then248:                                       ; preds = %if.else243
-  %73 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %73 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call250 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %73)
-  %patternrepresentation_1.i901 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %74 = load ptr, ptr %patternrepresentation_1.i901, align 8, !tbaa !73
+  %patternrepresentation_1.i896 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %74 = load ptr, ptr %patternrepresentation_1.i896, align 8, !tbaa !73
   br label %if.end593
 
 if.else252:                                       ; preds = %if.else243
@@ -3237,10 +3237,10 @@ if.then279:                                       ; preds = %land.lhs.true274
   br i1 %cmp292, label %if.then293, label %if.else297
 
 if.then293:                                       ; preds = %if.then279
-  %81 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %81 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call295 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %81)
-  %patternrepresentation_1.i903 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %82 = load ptr, ptr %patternrepresentation_1.i903, align 8, !tbaa !73
+  %patternrepresentation_1.i898 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %82 = load ptr, ptr %patternrepresentation_1.i898, align 8, !tbaa !73
   br label %if.end593
 
 if.else297:                                       ; preds = %if.then279
@@ -3251,10 +3251,10 @@ if.else297:                                       ; preds = %if.then279
   br i1 %cmp301, label %if.then302, label %if.else306
 
 if.then302:                                       ; preds = %if.else297
-  %84 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %84 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call304 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %84)
-  %patternrepresentation_1.i905 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %85 = load ptr, ptr %patternrepresentation_1.i905, align 8, !tbaa !73
+  %patternrepresentation_1.i900 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %85 = load ptr, ptr %patternrepresentation_1.i900, align 8, !tbaa !73
   br label %if.end593
 
 if.else306:                                       ; preds = %if.else297
@@ -3295,10 +3295,10 @@ if.then333:                                       ; preds = %land.lhs.true328
   br i1 %cmp346, label %if.then347, label %if.else351
 
 if.then347:                                       ; preds = %if.then333
-  %92 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %92 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call349 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %92)
-  %patternrepresentation_1.i907 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %93 = load ptr, ptr %patternrepresentation_1.i907, align 8, !tbaa !73
+  %patternrepresentation_1.i902 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %93 = load ptr, ptr %patternrepresentation_1.i902, align 8, !tbaa !73
   br label %if.end593
 
 if.else351:                                       ; preds = %if.then333
@@ -3309,10 +3309,10 @@ if.else351:                                       ; preds = %if.then333
   br i1 %cmp355, label %if.then356, label %if.else360
 
 if.then356:                                       ; preds = %if.else351
-  %95 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %95 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call358 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %95)
-  %patternrepresentation_1.i909 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %96 = load ptr, ptr %patternrepresentation_1.i909, align 8, !tbaa !73
+  %patternrepresentation_1.i904 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %96 = load ptr, ptr %patternrepresentation_1.i904, align 8, !tbaa !73
   br label %if.end593
 
 if.else360:                                       ; preds = %if.else351
@@ -3353,10 +3353,10 @@ if.then387:                                       ; preds = %land.lhs.true382
   br i1 %cmp400, label %if.then401, label %if.else405
 
 if.then401:                                       ; preds = %if.then387
-  %103 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %103 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call403 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %103)
-  %patternrepresentation_1.i911 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %104 = load ptr, ptr %patternrepresentation_1.i911, align 8, !tbaa !73
+  %patternrepresentation_1.i906 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %104 = load ptr, ptr %patternrepresentation_1.i906, align 8, !tbaa !73
   br label %if.end593
 
 if.else405:                                       ; preds = %if.then387
@@ -3367,10 +3367,10 @@ if.else405:                                       ; preds = %if.then387
   br i1 %cmp409, label %if.then410, label %if.else414
 
 if.then410:                                       ; preds = %if.else405
-  %106 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %106 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call412 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %106)
-  %patternrepresentation_1.i913 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %107 = load ptr, ptr %patternrepresentation_1.i913, align 8, !tbaa !73
+  %patternrepresentation_1.i908 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %107 = load ptr, ptr %patternrepresentation_1.i908, align 8, !tbaa !73
   br label %if.end593
 
 if.else414:                                       ; preds = %if.else405
@@ -3411,10 +3411,10 @@ if.then441:                                       ; preds = %land.lhs.true436
   br i1 %cmp454, label %if.then455, label %if.else459
 
 if.then455:                                       ; preds = %if.then441
-  %114 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %114 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call457 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %114)
-  %patternrepresentation_1.i915 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %115 = load ptr, ptr %patternrepresentation_1.i915, align 8, !tbaa !73
+  %patternrepresentation_1.i910 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %115 = load ptr, ptr %patternrepresentation_1.i910, align 8, !tbaa !73
   br label %if.end593
 
 if.else459:                                       ; preds = %if.then441
@@ -3425,10 +3425,10 @@ if.else459:                                       ; preds = %if.then441
   br i1 %cmp463, label %if.then464, label %if.else468
 
 if.then464:                                       ; preds = %if.else459
-  %117 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %117 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call466 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %117)
-  %patternrepresentation_1.i917 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %118 = load ptr, ptr %patternrepresentation_1.i917, align 8, !tbaa !73
+  %patternrepresentation_1.i912 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %118 = load ptr, ptr %patternrepresentation_1.i912, align 8, !tbaa !73
   br label %if.end593
 
 if.else468:                                       ; preds = %if.else459
@@ -3469,10 +3469,10 @@ if.then495:                                       ; preds = %land.lhs.true490
   br i1 %cmp508, label %if.then509, label %if.else513
 
 if.then509:                                       ; preds = %if.then495
-  %125 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %125 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   %call511 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %125)
-  %patternrepresentation_1.i919 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
-  %126 = load ptr, ptr %patternrepresentation_1.i919, align 8, !tbaa !73
+  %patternrepresentation_1.i914 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i2.01006, i64 0, i32 2
+  %126 = load ptr, ptr %patternrepresentation_1.i914, align 8, !tbaa !73
   br label %if.end593
 
 if.else513:                                       ; preds = %if.then495
@@ -3483,10 +3483,10 @@ if.else513:                                       ; preds = %if.then495
   br i1 %cmp517, label %if.then518, label %if.else522
 
 if.then518:                                       ; preds = %if.else513
-  %128 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %128 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   %call520 = tail call noundef ptr @_ZN2kc26impl_patternrepresentation6appendEPNS_31impl_elem_patternrepresentationE(ptr noundef nonnull align 8 dereferenceable(24) %call2, ptr noundef %128)
-  %patternrepresentation_1.i921 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
-  %129 = load ptr, ptr %patternrepresentation_1.i921, align 8, !tbaa !73
+  %patternrepresentation_1.i916 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %i1.01007, i64 0, i32 2
+  %129 = load ptr, ptr %patternrepresentation_1.i916, align 8, !tbaa !73
   br label %if.end593
 
 if.else522:                                       ; preds = %if.else513
@@ -3528,11 +3528,11 @@ if.else557:                                       ; preds = %if.else551
   %cmp561 = icmp eq i32 %call560, 208
   %135 = load i8, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 3), align 1, !range !61
   %tobool564.not = icmp eq i8 %135, 0
-  %or.cond874 = select i1 %cmp561, i1 true, i1 %tobool564.not
-  br i1 %or.cond874, label %cleanup657, label %if.then565
+  %or.cond923 = select i1 %cmp561, i1 true, i1 %tobool564.not
+  br i1 %or.cond923, label %cleanup657, label %if.then565
 
 if.then565:                                       ; preds = %if.else557
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %file567 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 2
   %136 = load ptr, ptr %file567, align 8, !tbaa !122
   %name568 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %136, i64 0, i32 1
@@ -3540,7 +3540,7 @@ if.then565:                                       ; preds = %if.else557
   %line569 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 1
   %138 = load i32, ptr %line569, align 8, !tbaa !34
   %call570 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %137, i32 noundef %138)
-  %139 = load ptr, ptr %elem_patternrepresentation_1.i876, align 8, !tbaa !71
+  %139 = load ptr, ptr %elem_patternrepresentation_1.i871, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %139)
   %file572 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 2
   %140 = load ptr, ptr %file572, align 8, !tbaa !122
@@ -3549,7 +3549,7 @@ if.then565:                                       ; preds = %if.else557
   %line574 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %1, i64 0, i32 1
   %142 = load i32, ptr %line574, align 8, !tbaa !34
   %call575 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef %141, i32 noundef %142)
-  %143 = load ptr, ptr %elem_patternrepresentation_1.i877, align 8, !tbaa !71
+  %143 = load ptr, ptr %elem_patternrepresentation_1.i872, align 8, !tbaa !71
   tail call void @_ZN2kc20impl_abstract_phylum5printEv(ptr noundef nonnull align 8 dereferenceable(8) %143)
   br label %cleanup657
 
@@ -3638,8 +3638,8 @@ if.then616:                                       ; preds = %if.then614
   br label %cleanup657
 
 if.else626:                                       ; preds = %if.end610
-  %or.cond872 = select i1 %tobool611.not, i1 true, i1 %tobool613.not
-  br i1 %or.cond872, label %cleanup657, label %while.cond631.preheader
+  %or.cond921 = select i1 %tobool611.not, i1 true, i1 %tobool613.not
+  br i1 %or.cond921, label %cleanup657, label %while.cond631.preheader
 
 while.cond631.preheader:                          ; preds = %if.else626
   %vtable6321017 = load ptr, ptr %other_patterns, align 8, !tbaa !5
@@ -3672,8 +3672,8 @@ while.end641:                                     ; preds = %while.end641.loopex
   %I_had_better.0.lcssa = phi i1 [ false, %while.cond631.preheader ], [ %161, %while.end641.loopexit ]
   %162 = load i8, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 29), align 2, !range !61
   %tobool644.not = icmp eq i8 %162, 0
-  %or.cond873 = select i1 %I_had_better.0.lcssa, i1 true, i1 %tobool644.not
-  br i1 %or.cond873, label %cleanup657, label %if.then645
+  %or.cond922 = select i1 %I_had_better.0.lcssa, i1 true, i1 %tobool644.not
+  br i1 %or.cond922, label %cleanup657, label %if.then645
 
 if.then645:                                       ; preds = %while.end641
   %file646 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %0, i64 0, i32 2
@@ -4134,11 +4134,11 @@ entry:
   %cmp122133147 = icmp eq i32 %call1121132146, 201
   br i1 %cmp122133147, label %if.then.lr.ph.lr.ph, label %if.else51
 
-if.then.lr.ph.lr.ph:                              ; preds = %entry, %if.then13
-  %left_linear.tr.ph.ph151 = phi i1 [ false, %if.then13 ], [ %left_linear, %entry ]
-  %a_patternrep.tr.ph.ph150 = phi ptr [ %2, %if.then13 ], [ %a_patternrep, %entry ]
-  %a_subpattern.tr.ph.ph149 = phi ptr [ %call17, %if.then13 ], [ %a_subpattern, %entry ]
-  %a_paths.tr.ph.ph148 = phi ptr [ %call16, %if.then13 ], [ %a_paths, %entry ]
+if.then.lr.ph.lr.ph:                              ; preds = %entry, %if.then15
+  %left_linear.tr.ph.ph151 = phi i1 [ false, %if.then15 ], [ %left_linear, %entry ]
+  %a_patternrep.tr.ph.ph150 = phi ptr [ %2, %if.then15 ], [ %a_patternrep, %entry ]
+  %a_subpattern.tr.ph.ph149 = phi ptr [ %call17, %if.then15 ], [ %a_subpattern, %entry ]
+  %a_paths.tr.ph.ph148 = phi ptr [ %call16, %if.then15 ], [ %a_paths, %entry ]
   br label %if.then.lr.ph
 
 if.then.lr.ph:                                    ; preds = %if.then.lr.ph.lr.ph, %if.then37
@@ -4167,7 +4167,7 @@ if.then7:                                         ; preds = %if.then
   %patternrepresentation_111 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation_PRNonLeafBinding", ptr %1, i64 0, i32 3
   %6 = load ptr, ptr %patternrepresentation_111, align 8, !tbaa !159
   %call12 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %a_id, ptr noundef %5)
-  br i1 %call12, label %if.then13, label %tailrecurse.backedge
+  br i1 %call12, label %if.then15, label %tailrecurse.backedge
 
 tailrecurse.backedge:                             ; preds = %if.then7, %if.then29, %if.else24
   %vtable = load ptr, ptr %2, align 8, !tbaa !5
@@ -4176,7 +4176,7 @@ tailrecurse.backedge:                             ; preds = %if.then7, %if.then2
   %cmp = icmp eq i32 %call1, 201
   br i1 %cmp, label %if.then, label %if.else51
 
-if.then13:                                        ; preds = %if.then7
+if.then15:                                        ; preds = %if.then7
   %call16 = tail call noundef ptr @_ZN2kc9ConspathsEPNS_9impl_pathEPNS_10impl_pathsE(ptr noundef %4, ptr noundef %a_paths.tr.ph134)
   %call17 = tail call noundef ptr @_ZN2kc6concatEPKNS_26impl_patternrepresentationES2_(ptr noundef %6, ptr noundef %a_subpattern.tr.ph.ph149)
   %vtable120131 = load ptr, ptr %2, align 8, !tbaa !5
@@ -4208,11 +4208,11 @@ if.then37:                                        ; preds = %if.then29
   %cmp122 = icmp eq i32 %call1121, 201
   br i1 %cmp122, label %if.then.lr.ph, label %if.else51
 
-if.else51:                                        ; preds = %if.then13, %if.then37, %tailrecurse.backedge, %entry
-  %a_subpattern.tr.ph.ph.lcssa = phi ptr [ %a_subpattern, %entry ], [ %a_subpattern.tr.ph.ph149, %tailrecurse.backedge ], [ %a_subpattern.tr.ph.ph149, %if.then37 ], [ %call17, %if.then13 ]
-  %a_paths.tr.ph.lcssa119 = phi ptr [ %a_paths, %entry ], [ %a_paths.tr.ph134, %tailrecurse.backedge ], [ %call38, %if.then37 ], [ %call16, %if.then13 ]
-  %left_linear.tr.ph.lcssa118 = phi i1 [ %left_linear, %entry ], [ %left_linear.tr.ph136, %tailrecurse.backedge ], [ false, %if.then37 ], [ false, %if.then13 ]
-  %a_patternrep.tr.lcssa = phi ptr [ %a_patternrep, %entry ], [ %2, %tailrecurse.backedge ], [ %2, %if.then37 ], [ %2, %if.then13 ]
+if.else51:                                        ; preds = %if.then15, %if.then37, %tailrecurse.backedge, %entry
+  %a_subpattern.tr.ph.ph.lcssa = phi ptr [ %a_subpattern, %entry ], [ %a_subpattern.tr.ph.ph149, %tailrecurse.backedge ], [ %a_subpattern.tr.ph.ph149, %if.then37 ], [ %call17, %if.then15 ]
+  %a_paths.tr.ph.lcssa119 = phi ptr [ %a_paths, %entry ], [ %a_paths.tr.ph134, %tailrecurse.backedge ], [ %call38, %if.then37 ], [ %call16, %if.then15 ]
+  %left_linear.tr.ph.lcssa118 = phi i1 [ %left_linear, %entry ], [ %left_linear.tr.ph136, %tailrecurse.backedge ], [ false, %if.then37 ], [ false, %if.then15 ]
+  %a_patternrep.tr.lcssa = phi ptr [ %a_patternrep, %entry ], [ %2, %tailrecurse.backedge ], [ %2, %if.then37 ], [ %2, %if.then15 ]
   %vtable52 = load ptr, ptr %a_patternrep.tr.lcssa, align 8, !tbaa !5
   %13 = load ptr, ptr %vtable52, align 8
   %call54 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(24) %a_patternrep.tr.lcssa)
@@ -4258,17 +4258,17 @@ declare noundef ptr @_ZN2kc14PRVarPredicateEPNS_10impl_pathsEPNS_7impl_IDEPNS_26
 ; Function Attrs: mustprogress uwtable
 define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patternrepresentationE(ptr noundef %a_patternrep) unnamed_addr #0 {
 entry:
-  %vtable103 = load ptr, ptr %a_patternrep, align 8, !tbaa !5
-  %0 = load ptr, ptr %vtable103, align 8
-  %call1104 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a_patternrep)
-  %cmp105 = icmp eq i32 %call1104, 201
-  br i1 %cmp105, label %if.then, label %if.else35
+  %vtable101 = load ptr, ptr %a_patternrep, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable101, align 8
+  %call1102 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a_patternrep)
+  %cmp103 = icmp eq i32 %call1102, 201
+  br i1 %cmp103, label %if.then, label %if.else35
 
 if.then:                                          ; preds = %entry, %tailrecurse.backedge
-  %a_patternrep.tr106 = phi ptr [ %2, %tailrecurse.backedge ], [ %a_patternrep, %entry ]
-  %elem_patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %a_patternrep.tr106, i64 0, i32 1
+  %a_patternrep.tr104 = phi ptr [ %2, %tailrecurse.backedge ], [ %a_patternrep, %entry ]
+  %elem_patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %a_patternrep.tr104, i64 0, i32 1
   %1 = load ptr, ptr %elem_patternrepresentation_1, align 8, !tbaa !71
-  %patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %a_patternrep.tr106, i64 0, i32 2
+  %patternrepresentation_1 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %a_patternrep.tr104, i64 0, i32 2
   %2 = load ptr, ptr %patternrepresentation_1, align 8, !tbaa !73
   %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
   %3 = load ptr, ptr %vtable3, align 8
@@ -4283,13 +4283,9 @@ if.then7:                                         ; preds = %if.then
   %5 = load ptr, ptr %vtable.i, align 8
   %call1.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
   %cmp.i = icmp eq i32 %call1.i, 7
-  br i1 %cmp.i, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread: ; preds = %if.then7
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
-  br label %if.then10
-
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit:     ; preds = %if.then7
+if.then.i:                                        ; preds = %if.then7
   %uniqID_1.i = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %4, i64 0, i32 1
   %6 = load ptr, ptr %uniqID_1.i, align 8, !tbaa !50
   %call3.i = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %6)
@@ -4298,14 +4294,18 @@ _ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit:     ; preds = %if.then7
   %tobool.i.not = icmp eq i8 %7, 0
   br i1 %tobool.i.not, label %if.then10, label %tailrecurse.backedge
 
-tailrecurse.backedge:                             ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit, %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76, %if.else14
+tailrecurse.backedge:                             ; preds = %if.then.i, %if.then.i73, %if.else14
   %vtable = load ptr, ptr %2, align 8, !tbaa !5
   %8 = load ptr, ptr %vtable, align 8
   %call1 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(24) %2)
   %cmp = icmp eq i32 %call1, 201
   br i1 %cmp, label %if.then, label %if.else35
 
-if.then10:                                        ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit, %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit.thread
+if.else.i:                                        ; preds = %if.then7
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
+  br label %if.then10
+
+if.then10:                                        ; preds = %if.then.i, %if.else.i
   %vtable.i58 = load ptr, ptr %4, align 8, !tbaa !5
   %9 = load ptr, ptr %vtable.i58, align 8
   %call1.i59 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %4)
@@ -4324,14 +4324,14 @@ if.else.i65:                                      ; preds = %if.then10
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.7, i32 noundef 451, ptr noundef nonnull @.str.1)
   br label %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit
 
-common.ret172:                                    ; preds = %if.else42, %if.then40, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit85, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit
-  %common.ret172.op = phi ptr [ %call12, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit ], [ %call26, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit85 ], [ %call41, %if.then40 ], [ null, %if.else42 ]
-  ret ptr %common.ret172.op
+common.ret170:                                    ; preds = %if.else42, %if.then40, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit85, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit
+  %common.ret170.op = phi ptr [ %call12, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit ], [ %call26, %_ZN2kc15v_markbindingidEPNS_7impl_IDE.exit85 ], [ %call41, %if.then40 ], [ null, %if.else42 ]
+  ret ptr %common.ret170.op
 
 _ZN2kc15v_markbindingidEPNS_7impl_IDE.exit:       ; preds = %if.then.i64, %if.else.i65
   %call11 = tail call fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patternrepresentationE(ptr noundef %2)
   %call12 = tail call noundef ptr @_ZN2kc25ConspatternrepresentationEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %1, ptr noundef %call11)
-  br label %common.ret172
+  br label %common.ret170
 
 if.else14:                                        ; preds = %if.then
   %vtable15 = load ptr, ptr %1, align 8, !tbaa !5
@@ -4347,13 +4347,9 @@ if.then19:                                        ; preds = %if.else14
   %13 = load ptr, ptr %vtable.i66, align 8
   %call1.i67 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %12)
   %cmp.i68 = icmp eq i32 %call1.i67, 7
-  br i1 %cmp.i68, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76, label %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76.thread
+  br i1 %cmp.i68, label %if.then.i73, label %if.else.i74
 
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76.thread: ; preds = %if.then19
-  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
-  br label %if.then24
-
-_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76:   ; preds = %if.then19
+if.then.i73:                                      ; preds = %if.then19
   %uniqID_1.i69 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %12, i64 0, i32 1
   %14 = load ptr, ptr %uniqID_1.i69, align 8, !tbaa !50
   %call3.i70 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %14)
@@ -4362,7 +4358,11 @@ _ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76:   ; preds = %if.then19
   %tobool.i72.not = icmp eq i8 %15, 0
   br i1 %tobool.i72.not, label %if.then24, label %tailrecurse.backedge
 
-if.then24:                                        ; preds = %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76, %_ZN2kc17f_bindingidmarkedEPNS_7impl_IDE.exit76.thread
+if.else.i74:                                      ; preds = %if.then19
+  tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
+  br label %if.then24
+
+if.then24:                                        ; preds = %if.then.i73, %if.else.i74
   %vtable.i77 = load ptr, ptr %12, align 8, !tbaa !5
   %16 = load ptr, ptr %vtable.i77, align 8
   %call1.i78 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(8) %12)
@@ -4384,7 +4384,7 @@ if.else.i84:                                      ; preds = %if.then24
 _ZN2kc15v_markbindingidEPNS_7impl_IDE.exit85:     ; preds = %if.then.i83, %if.else.i84
   %call25 = tail call fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patternrepresentationE(ptr noundef %2)
   %call26 = tail call noundef ptr @_ZN2kc25ConspatternrepresentationEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %1, ptr noundef %call25)
-  br label %common.ret172
+  br label %common.ret170
 
 if.else35:                                        ; preds = %tailrecurse.backedge, %entry
   %a_patternrep.tr.lcssa = phi ptr [ %a_patternrep, %entry ], [ %2, %tailrecurse.backedge ]
@@ -4396,11 +4396,11 @@ if.else35:                                        ; preds = %tailrecurse.backedg
 
 if.then40:                                        ; preds = %if.else35
   %call41 = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
-  br label %common.ret172
+  br label %common.ret170
 
 if.else42:                                        ; preds = %if.else35
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.33, i32 noundef 907, ptr noundef nonnull @.str.1)
-  br label %common.ret172
+  br label %common.ret170
 }
 
 declare noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef, ptr noundef) local_unnamed_addr #1

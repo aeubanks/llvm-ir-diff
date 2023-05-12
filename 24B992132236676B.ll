@@ -1046,7 +1046,7 @@ entry:
   br label %tailrecurse
 
 tailrecurse:                                      ; preds = %if.end27, %entry
-  %st.tr = phi ptr [ %st, %entry ], [ %15, %if.end27 ]
+  %st.tr = phi ptr [ %st, %entry ], [ %14, %if.end27 ]
   %0 = ptrtoint ptr %st.tr to i64
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i64 noundef %0)
   %bf.load = load i8, ptr %st.tr, align 8
@@ -1062,52 +1062,52 @@ tailrecurse:                                      ; preds = %if.end27, %entry
   br i1 %tobool.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %tailrecurse
-  %puts51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts58 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %tailrecurse
   %hash = getelementptr inbounds %struct.D_Scope, ptr %st.tr, i64 0, i32 2
   %2 = load ptr, ptr %hash, align 8, !tbaa !20
   %tobool6.not = icmp eq ptr %2, null
-  br i1 %tobool6.not, label %while.cond.preheader, label %if.then7
+  br i1 %tobool6.not, label %while.cond.preheader, label %if.end9
 
-while.cond.preheader:                             ; preds = %if.then7, %if.end
+if.end9:                                          ; preds = %if.end
+  %puts57 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
+  %.pr = load ptr, ptr %hash, align 8, !tbaa !20
+  %tobool11.not = icmp eq ptr %.pr, null
+  br i1 %tobool11.not, label %while.cond.preheader, label %for.cond.preheader
+
+for.cond.preheader:                               ; preds = %if.end9
+  %syms60 = getelementptr inbounds %struct.D_SymHash, ptr %.pr, i64 0, i32 2
+  %3 = load i32, ptr %syms60, align 8, !tbaa !18
+  %cmp61.not = icmp eq i32 %3, 0
+  br i1 %cmp61.not, label %if.end27, label %for.body
+
+while.cond.preheader:                             ; preds = %if.end, %if.end9
   %ll24.063 = load ptr, ptr %ll, align 8, !tbaa !24
   %tobool26.not64 = icmp eq ptr %ll24.063, null
   br i1 %tobool26.not64, label %if.end27, label %while.body
 
-if.then7:                                         ; preds = %if.end
-  %puts50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
-  %.pr = load ptr, ptr %hash, align 8, !tbaa !20
-  %3 = icmp eq ptr %.pr, null
-  br i1 %3, label %while.cond.preheader, label %for.cond.preheader
-
-for.cond.preheader:                               ; preds = %if.then7
-  %syms60 = getelementptr inbounds %struct.D_SymHash, ptr %.pr, i64 0, i32 2
-  %4 = load i32, ptr %syms60, align 8, !tbaa !18
-  %cmp61.not = icmp eq i32 %4, 0
-  br i1 %cmp61.not, label %if.end27, label %for.body
-
 for.body:                                         ; preds = %for.cond.preheader, %for.inc
-  %5 = phi ptr [ %10, %for.inc ], [ %.pr, %for.cond.preheader ]
+  %4 = phi ptr [ %9, %for.inc ], [ %.pr, %for.cond.preheader ]
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc ], [ 0, %for.cond.preheader ]
-  %v = getelementptr inbounds %struct.D_SymHash, ptr %5, i64 0, i32 2, i32 2
-  %6 = load ptr, ptr %v, align 8, !tbaa !19
-  %arrayidx = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv
-  %7 = load ptr, ptr %arrayidx, align 8, !tbaa !24
-  %tobool16.not = icmp eq ptr %7, null
+  %v = getelementptr inbounds %struct.D_SymHash, ptr %4, i64 0, i32 2, i32 2
+  %5 = load ptr, ptr %v, align 8, !tbaa !19
+  %arrayidx = getelementptr inbounds ptr, ptr %5, i64 %indvars.iv
+  %6 = load ptr, ptr %arrayidx, align 8, !tbaa !24
+  %tobool16.not = icmp eq ptr %6, null
   br i1 %tobool16.not, label %for.inc, label %if.then17
 
 if.then17:                                        ; preds = %for.body
-  %len.i = getelementptr inbounds %struct.D_Sym, ptr %7, i64 0, i32 1
-  %8 = load i32, ptr %len.i, align 8, !tbaa !40
-  %add.i = add nsw i32 %8, 1
+  %len.i = getelementptr inbounds %struct.D_Sym, ptr %6, i64 0, i32 1
+  %7 = load i32, ptr %len.i, align 8, !tbaa !40
+  %add.i = add nsw i32 %7, 1
   %conv.i = sext i32 %add.i to i64
   %call.i = tail call noalias ptr @malloc(i64 noundef %conv.i) #17
-  %9 = load ptr, ptr %7, align 8, !tbaa !39
-  %conv2.i = sext i32 %8 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call.i, ptr align 1 %9, i64 %conv2.i, i1 false)
-  %arrayidx.i = getelementptr inbounds i8, ptr %9, i64 %conv2.i
+  %8 = load ptr, ptr %6, align 8, !tbaa !39
+  %conv2.i = sext i32 %7 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call.i, ptr align 1 %8, i64 %conv2.i, i1 false)
+  %arrayidx.i = getelementptr inbounds i8, ptr %8, i64 %conv2.i
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !51
   %call5.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %call.i)
   tail call void @free(ptr noundef %call.i) #15
@@ -1115,28 +1115,28 @@ if.then17:                                        ; preds = %for.body
   br label %for.inc
 
 for.inc:                                          ; preds = %for.body, %if.then17
-  %10 = phi ptr [ %5, %for.body ], [ %.pre, %if.then17 ]
+  %9 = phi ptr [ %4, %for.body ], [ %.pre, %if.then17 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %syms = getelementptr inbounds %struct.D_SymHash, ptr %10, i64 0, i32 2
-  %11 = load i32, ptr %syms, align 8, !tbaa !18
-  %12 = zext i32 %11 to i64
-  %cmp = icmp ult i64 %indvars.iv.next, %12
+  %syms = getelementptr inbounds %struct.D_SymHash, ptr %9, i64 0, i32 2
+  %10 = load i32, ptr %syms, align 8, !tbaa !18
+  %11 = zext i32 %10 to i64
+  %cmp = icmp ult i64 %indvars.iv.next, %11
   br i1 %cmp, label %for.body, label %if.end27, !llvm.loop !52
 
 while.body:                                       ; preds = %while.cond.preheader, %while.body
   %ll24.065 = phi ptr [ %ll24.0, %while.body ], [ %ll24.063, %while.cond.preheader ]
-  %len.i52 = getelementptr inbounds %struct.D_Sym, ptr %ll24.065, i64 0, i32 1
-  %13 = load i32, ptr %len.i52, align 8, !tbaa !40
-  %add.i53 = add nsw i32 %13, 1
-  %conv.i54 = sext i32 %add.i53 to i64
-  %call.i55 = tail call noalias ptr @malloc(i64 noundef %conv.i54) #17
-  %14 = load ptr, ptr %ll24.065, align 8, !tbaa !39
-  %conv2.i56 = sext i32 %13 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call.i55, ptr align 1 %14, i64 %conv2.i56, i1 false)
-  %arrayidx.i57 = getelementptr inbounds i8, ptr %14, i64 %conv2.i56
-  store i8 0, ptr %arrayidx.i57, align 1, !tbaa !51
-  %call5.i58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %call.i55)
-  tail call void @free(ptr noundef %call.i55) #15
+  %len.i50 = getelementptr inbounds %struct.D_Sym, ptr %ll24.065, i64 0, i32 1
+  %12 = load i32, ptr %len.i50, align 8, !tbaa !40
+  %add.i51 = add nsw i32 %12, 1
+  %conv.i52 = sext i32 %add.i51 to i64
+  %call.i53 = tail call noalias ptr @malloc(i64 noundef %conv.i52) #17
+  %13 = load ptr, ptr %ll24.065, align 8, !tbaa !39
+  %conv2.i54 = sext i32 %12 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call.i53, ptr align 1 %13, i64 %conv2.i54, i1 false)
+  %arrayidx.i55 = getelementptr inbounds i8, ptr %13, i64 %conv2.i54
+  store i8 0, ptr %arrayidx.i55, align 1, !tbaa !51
+  %call5.i56 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %call.i53)
+  tail call void @free(ptr noundef %call.i53) #15
   %next = getelementptr inbounds %struct.D_Sym, ptr %ll24.065, i64 0, i32 4
   %ll24.0 = load ptr, ptr %next, align 8, !tbaa !24
   %tobool26.not = icmp eq ptr %ll24.0, null
@@ -1145,8 +1145,8 @@ while.body:                                       ; preds = %while.cond.preheade
 if.end27:                                         ; preds = %for.inc, %while.body, %for.cond.preheader, %while.cond.preheader
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %search = getelementptr inbounds %struct.D_Scope, ptr %st.tr, i64 0, i32 4
-  %15 = load ptr, ptr %search, align 8, !tbaa !5
-  %tobool29.not = icmp eq ptr %15, null
+  %14 = load ptr, ptr %search, align 8, !tbaa !5
+  %tobool29.not = icmp eq ptr %14, null
   br i1 %tobool29.not, label %if.end32, label %tailrecurse
 
 if.end32:                                         ; preds = %if.end27
@@ -1155,11 +1155,11 @@ if.end32:                                         ; preds = %if.end27
 
 declare void @vec_add_internal(ptr noundef, ptr noundef) local_unnamed_addr #6
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #14
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1174,8 +1174,8 @@ attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #12 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #13 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind }
 attributes #16 = { nounwind willreturn memory(read) }
 attributes #17 = { nounwind allocsize(0) }

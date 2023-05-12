@@ -49,7 +49,7 @@ if.then:                                          ; preds = %if.end6.i.2.1, %lan
   tail call void @abort() #3
   unreachable
 
-if.then26:                                        ; preds = %if.end6.i63.2.3, %if.end.i61.2.3, %if.end6.i63.1.3, %if.end.i61.1.3, %if.end6.i63.3, %if.end.i61.3, %if.end6.i63.1.2, %if.end.i61.1.2, %if.end6.i63.2123, %if.end.i61.2121, %if.end6.i63.1102, %if.end.i61.1100
+if.then26:                                        ; preds = %if.end6.i63.2.3, %if.end.i61.2.3, %if.end6.i63.1.3, %if.end.i61.1.3, %if.end6.i63.3, %if.end.i61.3, %if.end6.i63.1.2, %if.end.i61.1.2, %if.end6.i63.2120, %if.end.i61.2118, %if.end6.i63.197, %if.end.i61.195
   tail call void @abort() #3
   unreachable
 
@@ -71,31 +71,31 @@ land.lhs.true.2:                                  ; preds = %if.end.i.1, %if.end
 
 if.end.i.2:                                       ; preds = %land.lhs.true.2
   %cmp4.i.2 = icmp slt i32 %4, %5
-  br i1 %cmp4.i.2, label %land.lhs.true19.198, label %if.end6.i.2
+  br i1 %cmp4.i.2, label %land.lhs.true19.193, label %if.end6.i.2
 
 if.end6.i.2:                                      ; preds = %if.end.i.2
   %6 = load i32, ptr @a, align 16, !tbaa !10
   %7 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2), align 16, !tbaa !10
   %cmp13.i.2 = icmp ult i32 %6, %7
-  br i1 %cmp13.i.2, label %land.lhs.true19.198, label %if.then
+  br i1 %cmp13.i.2, label %land.lhs.true19.193, label %if.then
 
-land.lhs.true19.198:                              ; preds = %if.end.i.2, %if.end6.i.2
+land.lhs.true19.193:                              ; preds = %if.end.i.2, %if.end6.i.2
   %8 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1, i32 1), align 4, !tbaa !5
   %9 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 0, i32 1), align 4, !tbaa !5
-  %cmp.i59.197 = icmp sgt i32 %8, %9
-  br i1 %cmp.i59.197, label %land.lhs.true.2.1, label %if.end.i61.1100
+  %cmp.i59.192 = icmp sgt i32 %8, %9
+  br i1 %cmp.i59.192, label %land.lhs.true.2.1, label %if.end.i61.195
 
-if.end.i61.1100:                                  ; preds = %land.lhs.true19.198
-  %cmp4.i60.199 = icmp slt i32 %8, %9
-  br i1 %cmp4.i60.199, label %if.then26, label %if.end6.i63.1102
+if.end.i61.195:                                   ; preds = %land.lhs.true19.193
+  %cmp4.i60.194 = icmp slt i32 %8, %9
+  br i1 %cmp4.i60.194, label %if.then26, label %if.end6.i63.197
 
-if.end6.i63.1102:                                 ; preds = %if.end.i61.1100
+if.end6.i63.197:                                  ; preds = %if.end.i61.195
   %10 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1), align 8, !tbaa !10
   %11 = load i32, ptr @a, align 16, !tbaa !10
-  %cmp8.i62.1101 = icmp ugt i32 %10, %11
-  br i1 %cmp8.i62.1101, label %land.lhs.true.2.1, label %if.then26
+  %cmp8.i62.196 = icmp ugt i32 %10, %11
+  br i1 %cmp8.i62.196, label %land.lhs.true.2.1, label %if.then26
 
-land.lhs.true.2.1:                                ; preds = %if.end6.i63.1102, %land.lhs.true19.198
+land.lhs.true.2.1:                                ; preds = %land.lhs.true19.193, %if.end6.i63.197
   %12 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1, i32 1), align 4, !tbaa !5
   %13 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2, i32 1), align 4, !tbaa !5
   %cmp.i.2.1 = icmp sgt i32 %12, %13
@@ -103,31 +103,31 @@ land.lhs.true.2.1:                                ; preds = %if.end6.i63.1102, %
 
 if.end.i.2.1:                                     ; preds = %land.lhs.true.2.1
   %cmp4.i.2.1 = icmp slt i32 %12, %13
-  br i1 %cmp4.i.2.1, label %land.lhs.true19.2119, label %if.end6.i.2.1
+  br i1 %cmp4.i.2.1, label %land.lhs.true19.2116, label %if.end6.i.2.1
 
 if.end6.i.2.1:                                    ; preds = %if.end.i.2.1
   %14 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1), align 8, !tbaa !10
   %15 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2), align 16, !tbaa !10
   %cmp13.i.2.1 = icmp ult i32 %14, %15
-  br i1 %cmp13.i.2.1, label %land.lhs.true19.2119, label %if.then
+  br i1 %cmp13.i.2.1, label %land.lhs.true19.2116, label %if.then
 
-land.lhs.true19.2119:                             ; preds = %if.end.i.2.1, %if.end6.i.2.1
+land.lhs.true19.2116:                             ; preds = %if.end.i.2.1, %if.end6.i.2.1
   %16 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2, i32 1), align 4, !tbaa !5
   %17 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 0, i32 1), align 4, !tbaa !5
-  %cmp.i59.2118 = icmp sgt i32 %16, %17
-  br i1 %cmp.i59.2118, label %land.lhs.true19.1.2, label %if.end.i61.2121
+  %cmp.i59.2115 = icmp sgt i32 %16, %17
+  br i1 %cmp.i59.2115, label %land.lhs.true19.1.2, label %if.end.i61.2118
 
-if.end.i61.2121:                                  ; preds = %land.lhs.true19.2119
-  %cmp4.i60.2120 = icmp slt i32 %16, %17
-  br i1 %cmp4.i60.2120, label %if.then26, label %if.end6.i63.2123
+if.end.i61.2118:                                  ; preds = %land.lhs.true19.2116
+  %cmp4.i60.2117 = icmp slt i32 %16, %17
+  br i1 %cmp4.i60.2117, label %if.then26, label %if.end6.i63.2120
 
-if.end6.i63.2123:                                 ; preds = %if.end.i61.2121
+if.end6.i63.2120:                                 ; preds = %if.end.i61.2118
   %18 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2), align 16, !tbaa !10
   %19 = load i32, ptr @a, align 16, !tbaa !10
-  %cmp8.i62.2122 = icmp ugt i32 %18, %19
-  br i1 %cmp8.i62.2122, label %land.lhs.true19.1.2, label %if.then26
+  %cmp8.i62.2119 = icmp ugt i32 %18, %19
+  br i1 %cmp8.i62.2119, label %land.lhs.true19.1.2, label %if.then26
 
-land.lhs.true19.1.2:                              ; preds = %land.lhs.true19.2119, %if.end6.i63.2123
+land.lhs.true19.1.2:                              ; preds = %land.lhs.true19.2116, %if.end6.i63.2120
   %20 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2, i32 1), align 4, !tbaa !5
   %21 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1, i32 1), align 4, !tbaa !5
   %cmp.i59.1.2 = icmp sgt i32 %20, %21
@@ -143,7 +143,7 @@ if.end6.i63.1.2:                                  ; preds = %if.end.i61.1.2
   %cmp8.i62.1.2 = icmp ugt i32 %22, %23
   br i1 %cmp8.i62.1.2, label %land.lhs.true19.3, label %if.then26
 
-land.lhs.true19.3:                                ; preds = %if.end6.i63.1.2, %land.lhs.true19.1.2
+land.lhs.true19.3:                                ; preds = %land.lhs.true19.1.2, %if.end6.i63.1.2
   %24 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 3, i32 1), align 4, !tbaa !5
   %25 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 0, i32 1), align 4, !tbaa !5
   %cmp.i59.3 = icmp sgt i32 %24, %25

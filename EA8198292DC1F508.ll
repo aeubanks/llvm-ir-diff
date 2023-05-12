@@ -42,10 +42,10 @@ entry:
   %retval.sroa.3.0.insert.shift.i = shl nuw i64 %retval.sroa.3.0.insert.ext.i, 32
   %retval.sroa.0.0.insert.ext.i = zext i32 %add.i to i64
   %retval.sroa.0.0.insert.insert.i = or i64 %retval.sroa.3.0.insert.shift.i, %retval.sroa.0.0.insert.ext.i
-  %.fca.0.insert.i = insertvalue { i64, i64 } poison, i64 %retval.sroa.0.0.insert.insert.i, 0
-  %.fca.1.insert.i = insertvalue { i64, i64 } %.fca.0.insert.i, i64 undef, 1
   store i64 %retval.sroa.0.0.insert.insert.i, ptr %this, align 4, !tbaa.struct !11
-  ret { i64, i64 } %.fca.1.insert.i
+  %.fca.0.insert = insertvalue { i64, i64 } poison, i64 %retval.sroa.0.0.insert.insert.i, 0
+  %.fca.1.insert = insertvalue { i64, i64 } %.fca.0.insert, i64 undef, 1
+  ret { i64, i64 } %.fca.1.insert
 }
 
 ; Function Attrs: nofree norecurse nounwind uwtable

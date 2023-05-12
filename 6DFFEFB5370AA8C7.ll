@@ -49,14 +49,14 @@ entry:
   %or.cond = select i1 %tobool, i1 %tobool1, i1 false
   %2 = load ptr, ptr @globalMap, align 8
   %cmp = icmp eq ptr %2, %m
-  %or.cond86 = select i1 %or.cond, i1 %cmp, i1 false
+  %or.cond87 = select i1 %or.cond, i1 %cmp, i1 false
   %virgin = getelementptr inbounds %struct.item_set, ptr %ts, i64 0, i32 6
   %3 = load ptr, ptr %virgin, align 8, !tbaa !16
-  br i1 %or.cond86, label %for.body, label %if.end14
+  br i1 %or.cond87, label %for.body, label %if.end14
 
 for.body:                                         ; preds = %entry, %for.inc
-  %l3.093 = phi ptr [ %8, %for.inc ], [ %0, %entry ]
-  %4 = load ptr, ptr %l3.093, align 8, !tbaa !18
+  %l3.092 = phi ptr [ %8, %for.inc ], [ %0, %entry ]
+  %4 = load ptr, ptr %l3.092, align 8, !tbaa !18
   %u = getelementptr inbounds %struct.symbol, ptr %4, i64 0, i32 2
   %5 = load ptr, ptr %u, align 8, !tbaa !20
   %num = getelementptr inbounds %struct.nonterminal, ptr %5, i64 0, i32 1
@@ -68,7 +68,7 @@ for.body:                                         ; preds = %entry, %for.inc
   br i1 %tobool5.not, label %for.inc, label %if.end14
 
 for.inc:                                          ; preds = %for.body
-  %next = getelementptr inbounds %struct.list, ptr %l3.093, i64 0, i32 1
+  %next = getelementptr inbounds %struct.list, ptr %l3.092, i64 0, i32 1
   %8 = load ptr, ptr %next, align 8, !tbaa !25
   %tobool4.not = icmp eq ptr %8, null
   br i1 %tobool4.not, label %cleanup10.thread, label %for.body
@@ -128,13 +128,13 @@ hash.exit:                                        ; preds = %if.end14, %for.end.
   %retval.0.i = phi i64 [ %20, %for.end.i ], [ 0, %if.end14 ]
   %21 = load ptr, ptr %m, align 8, !tbaa !11
   %arrayidx16 = getelementptr inbounds ptr, ptr %21, i64 %retval.0.i
-  %l.095 = load ptr, ptr %arrayidx16, align 8, !tbaa !15
-  %tobool18.not96 = icmp eq ptr %l.095, null
-  br i1 %tobool18.not96, label %for.end36, label %for.body19
+  %l.094 = load ptr, ptr %arrayidx16, align 8, !tbaa !15
+  %tobool18.not95 = icmp eq ptr %l.094, null
+  br i1 %tobool18.not95, label %for.end36, label %for.body19
 
 for.body19:                                       ; preds = %hash.exit, %for.inc34
-  %l.097 = phi ptr [ %l.0, %for.inc34 ], [ %l.095, %hash.exit ]
-  %22 = load ptr, ptr %l.097, align 8, !tbaa !18
+  %l.096 = phi ptr [ %l.0, %for.inc34 ], [ %l.094, %hash.exit ]
+  %22 = load ptr, ptr %l.096, align 8, !tbaa !18
   %23 = load ptr, ptr %op.i, align 8, !tbaa !27
   %op22 = getelementptr inbounds %struct.item_set, ptr %22, i64 0, i32 2
   %24 = load ptr, ptr %op22, align 8, !tbaa !27
@@ -152,7 +152,7 @@ cleanup31:                                        ; preds = %land.lhs.true24
   br label %cleanup52
 
 for.inc34:                                        ; preds = %land.lhs.true24, %for.body19
-  %next35 = getelementptr inbounds %struct.list, ptr %l.097, i64 0, i32 1
+  %next35 = getelementptr inbounds %struct.list, ptr %l.096, i64 0, i32 1
   %l.0 = load ptr, ptr %next35, align 8, !tbaa !15
   %tobool18.not = icmp eq ptr %l.0, null
   br i1 %tobool18.not, label %for.end36, label %for.body19
@@ -167,13 +167,13 @@ for.end36:                                        ; preds = %for.inc34, %hash.ex
 
 for.end36.if.end39_crit_edge:                     ; preds = %for.end36
   %set.phi.trans.insert = getelementptr inbounds %struct.mapping, ptr %m, i64 0, i32 4
-  %.pre100 = load ptr, ptr %set.phi.trans.insert, align 8, !tbaa !14
+  %.pre98 = load ptr, ptr %set.phi.trans.insert, align 8, !tbaa !14
   br label %if.end39
 
 if.then38:                                        ; preds = %for.end36
-  %add.i87 = add nsw i32 %27, 64
-  store i32 %add.i87, ptr %max_size, align 4, !tbaa !13
-  %mul.i = shl i32 %add.i87, 3
+  %add.i86 = add nsw i32 %27, 64
+  store i32 %add.i86, ptr %max_size, align 4, !tbaa !13
+  %mul.i = shl i32 %add.i86, 3
   %call.i = tail call ptr @zalloc(i32 noundef %mul.i) #6
   %set.i = getelementptr inbounds %struct.mapping, ptr %m, i64 0, i32 4
   %28 = load ptr, ptr %set.i, align 8, !tbaa !14
@@ -184,12 +184,12 @@ if.then38:                                        ; preds = %for.end36
   %30 = load ptr, ptr %set.i, align 8, !tbaa !14
   tail call void @zfree(ptr noundef %30) #6
   store ptr %call.i, ptr %set.i, align 8, !tbaa !14
-  %.pre101 = load i32, ptr %count, align 8, !tbaa !5
+  %.pre99 = load i32, ptr %count, align 8, !tbaa !5
   br label %if.end39
 
 if.end39:                                         ; preds = %for.end36.if.end39_crit_edge, %if.then38
-  %31 = phi i32 [ %26, %for.end36.if.end39_crit_edge ], [ %.pre101, %if.then38 ]
-  %32 = phi ptr [ %.pre100, %for.end36.if.end39_crit_edge ], [ %call.i, %if.then38 ]
+  %31 = phi i32 [ %26, %for.end36.if.end39_crit_edge ], [ %.pre99, %if.then38 ]
+  %32 = phi ptr [ %.pre98, %for.end36.if.end39_crit_edge ], [ %call.i, %if.then38 ]
   %idxprom41 = sext i32 %31 to i64
   %arrayidx42 = getelementptr inbounds ptr, ptr %32, i64 %idxprom41
   store ptr %ts, ptr %arrayidx42, align 8, !tbaa !15

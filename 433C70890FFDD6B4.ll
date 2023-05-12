@@ -11,8 +11,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %0 = load volatile i16, ptr @y, align 2, !tbaa !5
   %1 = load i8, ptr @x, align 1, !tbaa !9
-  %div.lhs.trunc = zext i8 %1 to i16
-  %div5 = sdiv i16 %div.lhs.trunc, %0
+  %conv1 = zext i8 %1 to i16
+  %div5 = sdiv i16 %conv1, %0
   %conv2 = trunc i16 %div5 to i8
   store i8 %conv2, ptr @x, align 1, !tbaa !9
   %2 = and i16 %div5, 255

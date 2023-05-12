@@ -91,7 +91,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @_ZN29btSoftRigidCollisionAlgorithmD0Ev(ptr noundef nonnull align 8 dereferenceable(33) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   tail call void @_ZdlPv(ptr noundef nonnull %this) #5
   ret void
 }

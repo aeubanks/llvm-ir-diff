@@ -19,7 +19,7 @@ declare void @_Z13RegisterCodecPK10CCodecInfo(ptr noundef) local_unnamed_addr #0
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL11CreateCodecv() #1 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #4
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   %1 = getelementptr inbounds i8, ptr %call, i64 16

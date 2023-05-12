@@ -341,9 +341,9 @@ if.end:                                           ; preds = %entry
   br i1 %or.cond, label %cleanup, label %for.cond.preheader
 
 for.cond.preheader:                               ; preds = %if.end
-  %call11129 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %buffer, i32 noundef 4) #6
-  %cmp12.not130 = icmp eq i32 %call11129, 4
-  br i1 %cmp12.not130, label %if.end15.lr.ph, label %cleanup
+  %call11134 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %buffer, i32 noundef 4) #6
+  %cmp12.not135 = icmp eq i32 %call11134, 4
+  br i1 %cmp12.not135, label %if.end15.lr.ph, label %cleanup
 
 if.end15.lr.ph:                                   ; preds = %for.cond.preheader
   %arrayidx37 = getelementptr inbounds [4 x i8], ptr %buffer, i64 0, i64 2
@@ -376,10 +376,10 @@ if.end26:                                         ; preds = %if.end15
   %or.cond99 = select i1 %or.cond97, i1 %cmp39, i1 false
   %5 = load i8, ptr %arrayidx42, align 1
   %or.cond98 = icmp ult i8 %5, 2
-  %or.cond109 = select i1 %or.cond99, i1 %or.cond98, i1 false
+  %or.cond121 = select i1 %or.cond99, i1 %or.cond98, i1 false
   %cmp18.not = xor i1 %cmp18, true
-  %brmerge = or i1 %or.cond109, %cmp18.not
-  br i1 %brmerge, label %cleanup.loopexit.split.loop.exit127, label %if.end60
+  %brmerge = or i1 %or.cond121, %cmp18.not
+  br i1 %brmerge, label %cleanup.loopexit.split.loop.exit132, label %if.end60
 
 if.end60:                                         ; preds = %if.end26
   %cmp63 = icmp eq i8 %3, -38
@@ -404,13 +404,13 @@ if.end75:                                         ; preds = %if.end66
 if.then82:                                        ; preds = %if.end75
   call void @llvm.lifetime.start.p0(i64 14, ptr nonnull %buffer.i) #6
   %call.i = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %buffer.i, i32 noundef 14) #6
-  %cmp.not.i = icmp eq i32 %call.i, 14
-  br i1 %cmp.not.i, label %if.end.i, label %jpeg_check_photoshop.exit.thread
+  %cmp.i.not = icmp eq i32 %call.i, 14
+  br i1 %cmp.i.not, label %if.end.i, label %jpeg_check_photoshop.exit.thread
 
 if.end.i:                                         ; preds = %if.then82
-  %bcmp.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(14) %buffer.i, ptr noundef nonnull dereferenceable(14) @.str.9, i64 14)
-  %cmp4.not.i = icmp eq i32 %bcmp.i, 0
-  br i1 %cmp4.not.i, label %if.end6.i, label %jpeg_check_photoshop.exit.thread
+  %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(14) %buffer.i, ptr noundef nonnull dereferenceable(14) @.str.9, i64 14)
+  %cmp4.i.not = icmp eq i32 %bcmp, 0
+  br i1 %cmp4.i.not, label %if.end6.i, label %jpeg_check_photoshop.exit.thread
 
 if.end6.i:                                        ; preds = %if.end.i
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.10) #6
@@ -422,38 +422,38 @@ do.body.i:                                        ; preds = %jpeg_check_photosho
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %id.i) #6
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %nlength.i) #6
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %size.i) #6
-  %call.i110 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %bim.i, i32 noundef 4) #6
-  %cmp.not.i111 = icmp eq i32 %call.i110, 4
-  br i1 %cmp.not.i111, label %if.end.i114, label %if.then.i
+  %call.i109 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %bim.i, i32 noundef 4) #6
+  %cmp.i110.not = icmp eq i32 %call.i109, 4
+  br i1 %cmp.i110.not, label %if.end.i114, label %if.then.i111
 
-if.then.i:                                        ; preds = %do.body.i
+if.then.i111:                                     ; preds = %do.body.i
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.11) #6
   br label %jpeg_check_photoshop_8bim.exit
 
 if.end.i114:                                      ; preds = %do.body.i
-  %bcmp.i112 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %bim.i, ptr noundef nonnull dereferenceable(4) @.str.12, i64 4)
-  %cmp4.not.i113 = icmp eq i32 %bcmp.i112, 0
-  br i1 %cmp4.not.i113, label %if.end7.i, label %if.then5.i
+  %bcmp119 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %bim.i, ptr noundef nonnull dereferenceable(4) @.str.12, i64 4)
+  %cmp4.i113.not = icmp eq i32 %bcmp119, 0
+  br i1 %cmp4.i113.not, label %if.end7.i, label %if.then5.i115
 
-if.then5.i:                                       ; preds = %if.end.i114
+if.then5.i115:                                    ; preds = %if.end.i114
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !11
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.13, ptr noundef nonnull %bim.i) #6
   br label %jpeg_check_photoshop_8bim.exit
 
 if.end7.i:                                        ; preds = %if.end.i114
-  %call8.i115 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %id.i, i32 noundef 2) #6
-  %cmp9.not.i = icmp eq i32 %call8.i115, 2
-  br i1 %cmp9.not.i, label %if.end11.i, label %jpeg_check_photoshop_8bim.exit
+  %call8.i116 = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %id.i, i32 noundef 2) #6
+  %cmp9.i.not = icmp eq i32 %call8.i116, 2
+  br i1 %cmp9.i.not, label %if.end11.i, label %jpeg_check_photoshop_8bim.exit
 
 if.end11.i:                                       ; preds = %if.end7.i
   %7 = load i16, ptr %id.i, align 2, !tbaa !12
-  %rev.i = call i16 @llvm.bswap.i16(i16 %7)
-  store i16 %rev.i, ptr %id.i, align 2, !tbaa !12
-  %conv14.i = zext i16 %rev.i to i32
+  %rev = call i16 @llvm.bswap.i16(i16 %7)
+  store i16 %rev, ptr %id.i, align 2, !tbaa !12
+  %conv14.i = zext i16 %rev to i32
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.14, i32 noundef %conv14.i) #6
   %call15.i = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %nlength.i, i32 noundef 1) #6
-  %cmp16.not.i = icmp eq i32 %call15.i, 1
-  br i1 %cmp16.not.i, label %if.end19.i, label %jpeg_check_photoshop_8bim.exit
+  %cmp16.i.not = icmp eq i32 %call15.i, 1
+  br i1 %cmp16.i.not, label %if.end19.i, label %jpeg_check_photoshop_8bim.exit
 
 if.end19.i:                                       ; preds = %if.end11.i
   %8 = load i8, ptr %nlength.i, align 1, !tbaa !11
@@ -464,8 +464,8 @@ if.end19.i:                                       ; preds = %if.end11.i
   %add24.i = add nuw nsw i64 %and23.i, %conv20.i
   %call27.i = call i64 @lseek(i32 noundef %fd, i64 noundef %add24.i, i32 noundef 1) #6
   %call28.i = call i32 @cli_readn(i32 noundef %fd, ptr noundef nonnull %size.i, i32 noundef 4) #6
-  %cmp29.not.i = icmp eq i32 %call28.i, 4
-  br i1 %cmp29.not.i, label %if.end32.i, label %jpeg_check_photoshop_8bim.exit
+  %cmp29.i.not = icmp eq i32 %call28.i, 4
+  br i1 %cmp29.i.not, label %if.end32.i, label %jpeg_check_photoshop_8bim.exit
 
 if.end32.i:                                       ; preds = %if.end19.i
   %11 = load i32, ptr %size.i, align 4, !tbaa !5
@@ -476,8 +476,8 @@ if.end32.i:                                       ; preds = %if.end19.i
 
 if.end45.i:                                       ; preds = %if.end32.i
   %and46.i = and i32 %or41.i, 1
-  %cmp47.not.i = icmp eq i32 %and46.i, 0
-  br i1 %cmp47.not.i, label %if.end50.i, label %if.then49.i
+  %cmp47.i.not = icmp eq i32 %and46.i, 0
+  br i1 %cmp47.i.not, label %if.end50.i, label %if.then49.i
 
 if.then49.i:                                      ; preds = %if.end45.i
   %inc.i = add i32 %or41.i, 1
@@ -516,20 +516,20 @@ if.end67.i:                                       ; preds = %if.then66.i, %if.en
   %call70.i = call i64 @lseek(i32 noundef %fd, i64 noundef %add69.i, i32 noundef 0) #6
   br label %jpeg_check_photoshop_8bim.exit
 
-jpeg_check_photoshop_8bim.exit:                   ; preds = %if.then.i, %if.then5.i, %if.end7.i, %if.end11.i, %if.end19.i, %if.end32.i, %if.then57.i, %if.end67.i
-  %retval.0.i116 = phi i32 [ -1, %if.then.i ], [ -1, %if.then5.i ], [ 0, %if.then57.i ], [ %call63.i, %if.end67.i ], [ -1, %if.end7.i ], [ -1, %if.end11.i ], [ -1, %if.end19.i ], [ -1, %if.end32.i ]
+jpeg_check_photoshop_8bim.exit:                   ; preds = %if.end32.i, %if.end19.i, %if.end11.i, %if.end7.i, %if.then.i111, %if.then5.i115, %if.then57.i, %if.end67.i
+  %retval.0.i118 = phi i32 [ -1, %if.then.i111 ], [ -1, %if.then5.i115 ], [ 0, %if.then57.i ], [ %call63.i, %if.end67.i ], [ -1, %if.end7.i ], [ -1, %if.end11.i ], [ -1, %if.end19.i ], [ -1, %if.end32.i ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %size.i) #6
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %nlength.i) #6
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %id.i) #6
   call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %bim.i) #6
   %call9.i = call i64 @lseek(i32 noundef %fd, i64 noundef 0, i32 noundef 1) #6
   %cmp10.i = icmp sgt i64 %call9.i, %call7.i
-  %cmp13.i = icmp eq i32 %retval.0.i116, 0
+  %cmp13.i = icmp eq i32 %retval.0.i118, 0
   %or.cond.i = and i1 %cmp13.i, %cmp10.i
   br i1 %or.cond.i, label %do.body.i, label %do.end.i, !llvm.loop !14
 
 do.end.i:                                         ; preds = %jpeg_check_photoshop_8bim.exit
-  %cmp14.i = icmp eq i32 %retval.0.i116, -1
+  %cmp14.i = icmp eq i32 %retval.0.i118, -1
   br i1 %cmp14.i, label %jpeg_check_photoshop.exit.thread, label %jpeg_check_photoshop.exit
 
 jpeg_check_photoshop.exit.thread:                 ; preds = %if.then82, %if.end.i, %do.end.i
@@ -545,12 +545,12 @@ if.end88:                                         ; preds = %jpeg_check_photosho
   %cmp90.not = icmp eq i64 %call89, %add77
   br i1 %cmp90.not, label %for.cond.backedge, label %cleanup
 
-cleanup.loopexit.split.loop.exit127:              ; preds = %if.end26
-  %.mux.le = select i1 %or.cond109, i32 1, i32 -1
+cleanup.loopexit.split.loop.exit132:              ; preds = %if.end26
+  %.mux.le = select i1 %or.cond121, i32 1, i32 -1
   br label %cleanup
 
-cleanup:                                          ; preds = %for.cond.backedge, %if.end60, %if.end66, %jpeg_check_photoshop.exit, %if.end88, %cleanup.loopexit.split.loop.exit127, %for.cond.preheader, %if.end, %entry
-  %retval.0 = phi i32 [ 0, %entry ], [ 0, %if.end ], [ %.mux.le, %cleanup.loopexit.split.loop.exit127 ], [ 0, %for.cond.preheader ], [ 0, %for.cond.backedge ], [ 0, %if.end60 ], [ 1, %if.end66 ], [ %retval.0.i116, %jpeg_check_photoshop.exit ], [ -1, %if.end88 ]
+cleanup:                                          ; preds = %for.cond.backedge, %if.end60, %if.end66, %jpeg_check_photoshop.exit, %if.end88, %cleanup.loopexit.split.loop.exit132, %for.cond.preheader, %if.end, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 0, %if.end ], [ %.mux.le, %cleanup.loopexit.split.loop.exit132 ], [ 0, %for.cond.preheader ], [ 0, %for.cond.backedge ], [ 0, %if.end60 ], [ 1, %if.end66 ], [ %retval.0.i118, %jpeg_check_photoshop.exit ], [ -1, %if.end88 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %buffer) #6
   ret i32 %retval.0
 }
@@ -584,17 +584,15 @@ if.end5:                                          ; preds = %if.end
 
 if.end9:                                          ; preds = %if.end5
   %lhsv = load i32, ptr %chunk_id, align 4
-  switch i32 %lhsv, label %cleanup [
-    i32 1179011410, label %if.end18
-    i32 1481001298, label %if.end18.fold.split
-  ]
+  %.not = icmp eq i32 %lhsv, 1179011410
+  br i1 %.not, label %if.end18, label %if.else
 
-if.end18.fold.split:                              ; preds = %if.end9
-  br label %if.end18
+if.else:                                          ; preds = %if.end9
+  %.not49 = icmp eq i32 %lhsv, 1481001298
+  br i1 %.not49, label %if.end18, label %cleanup
 
-if.end18:                                         ; preds = %if.end9, %if.end18.fold.split
-  %tobool.not.i = phi i1 [ true, %if.end9 ], [ false, %if.end18.fold.split ]
-  %big_endian.0 = phi i32 [ 0, %if.end9 ], [ 1, %if.end18.fold.split ]
+if.end18:                                         ; preds = %if.else, %if.end9
+  %big_endian.0 = phi i32 [ 0, %if.end9 ], [ 1, %if.else ]
   %lhsv50 = load i32, ptr %form_type, align 4
   %.not51 = icmp eq i32 %lhsv50, 1313817409
   br i1 %.not51, label %if.end22, label %cleanup
@@ -602,7 +600,7 @@ if.end18:                                         ; preds = %if.end9, %if.end18.
 if.end22:                                         ; preds = %if.end18
   %0 = load i32, ptr %chunk_size, align 4, !tbaa !5
   %or5.i = call i32 @llvm.bswap.i32(i32 %0)
-  %retval.0.i = select i1 %tobool.not.i, i32 %0, i32 %or5.i
+  %retval.0.i = select i1 %.not, i32 %0, i32 %or5.i
   store i32 %retval.0.i, ptr %chunk_size, align 4, !tbaa !5
   br label %do.body
 
@@ -619,8 +617,8 @@ do.end:                                           ; preds = %do.body
   %spec.select = select i1 %cmp27, i32 2, i32 %call24
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end9, %if.end18, %if.end5, %if.end, %entry, %do.end
-  %retval.0 = phi i32 [ %spec.select, %do.end ], [ 0, %entry ], [ 0, %if.end ], [ 0, %if.end5 ], [ 0, %if.end18 ], [ 0, %if.end9 ]
+cleanup:                                          ; preds = %if.end18, %if.else, %if.end5, %if.end, %entry, %do.end
+  %retval.0 = phi i32 [ %spec.select, %do.end ], [ 0, %entry ], [ 0, %if.end ], [ 0, %if.end5 ], [ 0, %if.else ], [ 0, %if.end18 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %form_type) #6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %chunk_size) #6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %chunk_id) #6
@@ -689,7 +687,7 @@ if.end34:                                         ; preds = %if.end7
   %conv36 = zext i32 %1 to i64
   %add = add nsw i64 %call35, %conv36
   %and = and i64 %add, 1
-  %spec.select = add nsw i64 %and, %add
+  %spec.select = add nsw i64 %add, %and
   %cmp42 = icmp slt i64 %spec.select, %call35
   br i1 %cmp42, label %cleanup, label %if.end45
 

@@ -98,18 +98,18 @@ arrayctor.cont.thread:                            ; preds = %if.end
 
 new.ctorloop:                                     ; preds = %if.end
   %arrayctor.end = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %conv
-  br label %invoke.cont12
+  br label %arrayctor.loop
 
-invoke.cont12:                                    ; preds = %new.ctorloop, %invoke.cont12
-  %arrayctor.cur = phi ptr [ %call7, %new.ctorloop ], [ %arrayctor.next, %invoke.cont12 ]
+arrayctor.loop:                                   ; preds = %arrayctor.loop, %new.ctorloop
+  %arrayctor.cur = phi ptr [ %call7, %new.ctorloop ], [ %arrayctor.next, %arrayctor.loop ]
   store ptr null, ptr %arrayctor.cur, align 8, !tbaa !23
   %m_multiSapParentProxy.i.i = getelementptr inbounds %struct.btBroadphaseProxy, ptr %arrayctor.cur, i64 0, i32 4
   store ptr null, ptr %m_multiSapParentProxy.i.i, align 8, !tbaa !27
   %arrayctor.next = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %arrayctor.cur, i64 1
   %arrayctor.done = icmp eq ptr %arrayctor.next, %arrayctor.end
-  br i1 %arrayctor.done, label %arrayctor.cont, label %invoke.cont12
+  br i1 %arrayctor.done, label %arrayctor.cont, label %arrayctor.loop
 
-arrayctor.cont:                                   ; preds = %invoke.cont12
+arrayctor.cont:                                   ; preds = %arrayctor.loop
   %m_pHandles = getelementptr inbounds %class.btSimpleBroadphase, ptr %this, i64 0, i32 4
   store ptr %call7, ptr %m_pHandles, align 8, !tbaa !18
   %m_maxHandles = getelementptr inbounds %class.btSimpleBroadphase, ptr %this, i64 0, i32 2
@@ -120,8 +120,8 @@ arrayctor.cont:                                   ; preds = %invoke.cont12
   store i32 0, ptr %m_firstFreeHandle, align 8, !tbaa !21
   %m_LastHandleIndex = getelementptr inbounds %class.btSimpleBroadphase, ptr %this, i64 0, i32 3
   store i32 -1, ptr %m_LastHandleIndex, align 8, !tbaa !22
-  %cmp40 = icmp sgt i32 %maxProxies, 0
-  br i1 %cmp40, label %for.body.preheader, label %for.cond.cleanup
+  %cmp39 = icmp sgt i32 %maxProxies, 0
+  br i1 %cmp39, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %arrayctor.cont
   %wide.trip.count = zext i32 %maxProxies to i64
@@ -139,10 +139,10 @@ for.cond.cleanup.loopexit.unr-lcssa:              ; preds = %for.body, %for.body
   br i1 %lcmp.mod.not, label %for.cond.cleanup, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.cond.cleanup.loopexit.unr-lcssa
-  %m_nextFree.i39.epil = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.unr, i32 1
+  %m_nextFree.i38.epil = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.unr, i32 1
   %1 = trunc i64 %indvars.iv.unr to i32
   %2 = add i32 %1, 1
-  store i32 %2, ptr %m_nextFree.i39.epil, align 4, !tbaa !28
+  store i32 %2, ptr %m_nextFree.i38.epil, align 4, !tbaa !28
   %m_uniqueId.epil = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.unr, i32 0, i32 5
   %3 = trunc i64 %indvars.iv.unr to i32
   %4 = add i32 %3, 2
@@ -160,17 +160,17 @@ for.body:                                         ; preds = %for.body, %for.body
   %indvars.iv = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next.1, %for.body ]
   %niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]
   %indvars.iv.next = or i64 %indvars.iv, 1
-  %m_nextFree.i39 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv, i32 1
+  %m_nextFree.i38 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv, i32 1
   %5 = trunc i64 %indvars.iv.next to i32
-  store i32 %5, ptr %m_nextFree.i39, align 4, !tbaa !28
+  store i32 %5, ptr %m_nextFree.i38, align 4, !tbaa !28
   %m_uniqueId = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv, i32 0, i32 5
   %6 = trunc i64 %indvars.iv to i32
   %7 = add i32 %6, 2
   store i32 %7, ptr %m_uniqueId, align 8, !tbaa !30
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
-  %m_nextFree.i39.1 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.next, i32 1
+  %m_nextFree.i38.1 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.next, i32 1
   %8 = trunc i64 %indvars.iv.next.1 to i32
-  store i32 %8, ptr %m_nextFree.i39.1, align 4, !tbaa !28
+  store i32 %8, ptr %m_nextFree.i38.1, align 4, !tbaa !28
   %m_uniqueId.1 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %call7, i64 %indvars.iv.next, i32 0, i32 5
   %9 = trunc i64 %indvars.iv.next to i32
   %10 = add i32 %9, 2
@@ -301,8 +301,8 @@ _ZN18btSimpleBroadphase11allocHandleEv.exit:      ; preds = %if.end, %if.then.i
   store ptr %multiSapProxy, ptr %m_multiSapParentProxy.i.i, align 8, !tbaa !27
   br label %return
 
-return:                                           ; preds = %_ZN18btSimpleBroadphase11allocHandleEv.exit, %entry
-  %retval.0 = phi ptr [ null, %entry ], [ %arrayidx, %_ZN18btSimpleBroadphase11allocHandleEv.exit ]
+return:                                           ; preds = %entry, %_ZN18btSimpleBroadphase11allocHandleEv.exit
+  %retval.0 = phi ptr [ %arrayidx, %_ZN18btSimpleBroadphase11allocHandleEv.exit ], [ null, %entry ]
   ret ptr %retval.0
 }
 
@@ -552,16 +552,16 @@ land.lhs.true26.i:                                ; preds = %land.lhs.true18.i
   %arrayidx32.i = getelementptr inbounds %struct.btBroadphaseProxy, ptr %arrayidx10, i64 0, i32 7, i32 0, i64 2
   %18 = load float, ptr %arrayidx32.i, align 4, !tbaa !37
   %cmp33.i = fcmp ugt float %17, %18
-  br i1 %cmp33.i, label %if.else, label %_ZN18btSimpleBroadphase11aabbOverlapEP23btSimpleBroadphaseProxyS1_.exit
+  br i1 %cmp33.i, label %if.else, label %land.rhs.i
 
-_ZN18btSimpleBroadphase11aabbOverlapEP23btSimpleBroadphaseProxyS1_.exit: ; preds = %land.lhs.true26.i
+land.rhs.i:                                       ; preds = %land.lhs.true26.i
   %arrayidx36.i = getelementptr inbounds %struct.btBroadphaseProxy, ptr %arrayidx10, i64 0, i32 6, i32 0, i64 2
   %19 = load float, ptr %arrayidx36.i, align 4, !tbaa !37
   %20 = load float, ptr %arrayidx39.i, align 4, !tbaa !37
   %cmp40.i = fcmp ugt float %19, %20
   br i1 %cmp40.i, label %if.else, label %if.then17
 
-if.then17:                                        ; preds = %_ZN18btSimpleBroadphase11aabbOverlapEP23btSimpleBroadphaseProxyS1_.exit
+if.then17:                                        ; preds = %land.rhs.i
   %21 = load ptr, ptr %m_pairCache, align 8, !tbaa !8
   %vtable = load ptr, ptr %21, align 8, !tbaa !5
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 13
@@ -578,7 +578,7 @@ if.then20:                                        ; preds = %if.then17
   %call24 = tail call noundef ptr %24(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull %arrayidx, ptr noundef nonnull %arrayidx10)
   br label %cleanup
 
-if.else:                                          ; preds = %if.end14, %land.lhs.true.i, %land.lhs.true10.i, %land.lhs.true18.i, %land.lhs.true26.i, %_ZN18btSimpleBroadphase11aabbOverlapEP23btSimpleBroadphaseProxyS1_.exit
+if.else:                                          ; preds = %land.lhs.true26.i, %land.lhs.true18.i, %land.lhs.true10.i, %land.lhs.true.i, %if.end14, %land.rhs.i
   %25 = load ptr, ptr %m_pairCache, align 8, !tbaa !8
   %vtable27 = load ptr, ptr %25, align 8, !tbaa !5
   %vfn28 = getelementptr inbounds ptr, ptr %vtable27, i64 14
@@ -1070,27 +1070,28 @@ land.lhs.true33.i:                                ; preds = %lor.lhs.false.i
   %cmp36.i = icmp eq ptr %9, %2
   br i1 %cmp36.i, label %land.rhs.i, label %while.cond5.preheader
 
-while.cond5.preheader:                            ; preds = %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit, %land.rhs.i, %land.lhs.true33.i
-  %12 = trunc i64 %indvars.iv to i32
-  %13 = sext i32 %j.0 to i64
-  br label %while.cond5
-
 land.rhs.i:                                       ; preds = %land.lhs.true33.i
   %m_algorithm.i43 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv, i32 2
-  %14 = load ptr, ptr %m_algorithm.i43, align 8, !tbaa !46
-  %cmp38.i = icmp ugt ptr %14, %3
+  %12 = load ptr, ptr %m_algorithm.i43, align 8, !tbaa !46
+  %cmp38.i = icmp ugt ptr %12, %3
   br i1 %cmp38.i, label %while.body, label %while.cond5.preheader
+
+while.cond5.preheader:                            ; preds = %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit, %land.lhs.true33.i, %land.rhs.i
+  %.lcssa85 = phi ptr [ %9, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit ], [ %9, %land.lhs.true33.i ], [ %2, %land.rhs.i ]
+  %13 = trunc i64 %indvars.iv to i32
+  %14 = sext i32 %j.0 to i64
+  br label %while.cond5
 
 _ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit: ; preds = %lor.lhs.false.i
   br i1 %or.cond.i, label %while.body, label %while.cond5.preheader
 
-while.body:                                       ; preds = %cond.end24.i, %land.rhs.i, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit
+while.body:                                       ; preds = %land.rhs.i, %cond.end24.i, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit
   %indvars.iv.next = add i64 %indvars.iv, 1
   br label %while.cond
 
 while.cond5:                                      ; preds = %while.cond5.preheader, %while.body10
-  %indvars.iv86 = phi i64 [ %13, %while.cond5.preheader ], [ %indvars.iv.next87, %while.body10 ]
-  %arrayidx8 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86
+  %indvars.iv87 = phi i64 [ %14, %while.cond5.preheader ], [ %indvars.iv.next88, %while.body10 ]
+  %arrayidx8 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv87
   br i1 %tobool4.not.i, label %cond.end.i49, label %cond.true.i46
 
 cond.true.i46:                                    ; preds = %while.cond5
@@ -1118,7 +1119,7 @@ cond.true12.i57:                                  ; preds = %cond.end9.i55
 
 cond.end16.i61:                                   ; preds = %cond.true12.i57, %cond.end9.i55
   %cond17.i58 = phi i32 [ %18, %cond.true12.i57 ], [ -1, %cond.end9.i55 ]
-  %m_pProxy118.i59 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86, i32 1
+  %m_pProxy118.i59 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv87, i32 1
   %19 = load ptr, ptr %m_pProxy118.i59, align 8, !tbaa !50
   %tobool19.not.i60 = icmp eq ptr %19, null
   br i1 %tobool19.not.i60, label %cond.end24.i66, label %cond.true20.i63
@@ -1146,7 +1147,7 @@ land.lhs.true33.i74:                              ; preds = %lor.lhs.false.i72
   br i1 %cmp36.i73, label %land.rhs.i78, label %while.end11
 
 land.rhs.i78:                                     ; preds = %land.lhs.true33.i74
-  %m_algorithm37.i76 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86, i32 2
+  %m_algorithm37.i76 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv87, i32 2
   %21 = load ptr, ptr %m_algorithm37.i76, align 8, !tbaa !46
   %cmp38.i77 = icmp ugt ptr %3, %21
   br i1 %cmp38.i77, label %while.body10, label %while.end11
@@ -1154,13 +1155,13 @@ land.rhs.i78:                                     ; preds = %land.lhs.true33.i74
 _ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79: ; preds = %lor.lhs.false.i72
   br i1 %or.cond.i69, label %while.body10, label %while.end11
 
-while.body10:                                     ; preds = %cond.end24.i66, %land.rhs.i78, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
-  %indvars.iv.next87 = add i64 %indvars.iv86, -1
+while.body10:                                     ; preds = %land.rhs.i78, %cond.end24.i66, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
+  %indvars.iv.next88 = add i64 %indvars.iv87, -1
   br label %while.cond5
 
-while.end11:                                      ; preds = %land.lhs.true33.i74, %land.rhs.i78, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
-  %22 = trunc i64 %indvars.iv86 to i32
-  %cmp.not = icmp sgt i32 %12, %22
+while.end11:                                      ; preds = %land.rhs.i78, %land.lhs.true33.i74, %_ZN29btBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
+  %22 = trunc i64 %indvars.iv87 to i32
+  %cmp.not = icmp sgt i32 %13, %22
   br i1 %cmp.not, label %do.cond, label %if.then
 
 if.then:                                          ; preds = %while.end11
@@ -1168,18 +1169,18 @@ if.then:                                          ; preds = %while.end11
   %23 = load <2 x ptr>, ptr %m_algorithm4.i.i, align 8, !tbaa !36
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %arrayidx4, ptr noundef nonnull align 8 dereferenceable(32) %arrayidx8, i64 32, i1 false), !tbaa.struct !51
   %24 = load ptr, ptr %m_data, align 8, !tbaa !42
-  %arrayidx10.i = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %indvars.iv86
+  %arrayidx10.i = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %indvars.iv87
   store ptr %6, ptr %arrayidx10.i, align 8, !tbaa.struct !51
   %temp.sroa.4.0.arrayidx10.sroa_idx.i = getelementptr inbounds i8, ptr %arrayidx10.i, i64 8
-  store ptr %9, ptr %temp.sroa.4.0.arrayidx10.sroa_idx.i, align 8, !tbaa.struct !52
+  store ptr %.lcssa85, ptr %temp.sroa.4.0.arrayidx10.sroa_idx.i, align 8, !tbaa.struct !52
   %temp.sroa.5.0.arrayidx10.sroa_idx.i = getelementptr inbounds i8, ptr %arrayidx10.i, i64 16
   store <2 x ptr> %23, ptr %temp.sroa.5.0.arrayidx10.sroa_idx.i, align 8
-  %inc12 = add nsw i32 %12, 1
+  %inc12 = add nsw i32 %13, 1
   %dec13 = add nsw i32 %22, -1
   br label %do.cond
 
 do.cond:                                          ; preds = %while.end11, %if.then
-  %i.2 = phi i32 [ %inc12, %if.then ], [ %12, %while.end11 ]
+  %i.2 = phi i32 [ %inc12, %if.then ], [ %13, %while.end11 ]
   %j.2 = phi i32 [ %dec13, %if.then ], [ %22, %while.end11 ]
   %cmp14.not = icmp sgt i32 %i.2, %j.2
   br i1 %cmp14.not, label %do.end, label %do.body

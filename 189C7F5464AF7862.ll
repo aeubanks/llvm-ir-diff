@@ -73,46 +73,46 @@ declare double @llvm.fmuladd.f64(double, double, double) #2
 ; Function Attrs: nofree nosync nounwind memory(argmem: readwrite) uwtable
 define dso_local void @eval_At_times_u(i32 noundef %N, ptr nocapture noundef readonly %u, ptr nocapture noundef writeonly %Au) local_unnamed_addr #1 {
 entry:
-  %cmp24 = icmp sgt i32 %N, 0
-  br i1 %cmp24, label %for.body.us.preheader, label %for.end10
+  %cmp23 = icmp sgt i32 %N, 0
+  br i1 %cmp23, label %for.body.us.preheader, label %for.end10
 
 for.body.us.preheader:                            ; preds = %entry
-  %wide.trip.count32 = zext i32 %N to i64
+  %wide.trip.count31 = zext i32 %N to i64
   br label %for.body.us
 
 for.body.us:                                      ; preds = %for.body.us.preheader, %for.cond1.for.inc8_crit_edge.us
-  %indvars.iv29 = phi i64 [ 0, %for.body.us.preheader ], [ %indvars.iv.next30, %for.cond1.for.inc8_crit_edge.us ]
-  %arrayidx.us = getelementptr inbounds double, ptr %Au, i64 %indvars.iv29
+  %indvars.iv28 = phi i64 [ 0, %for.body.us.preheader ], [ %indvars.iv.next29, %for.cond1.for.inc8_crit_edge.us ]
+  %arrayidx.us = getelementptr inbounds double, ptr %Au, i64 %indvars.iv28
   store double 0.000000e+00, ptr %arrayidx.us, align 8, !tbaa !5
-  %0 = trunc i64 %indvars.iv29 to i32
+  %0 = trunc i64 %indvars.iv28 to i32
   br label %for.body3.us
 
 for.body3.us:                                     ; preds = %for.body.us, %for.body3.us
   %indvars.iv = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next, %for.body3.us ]
-  %storemerge22.us = phi double [ 0.000000e+00, %for.body.us ], [ %5, %for.body3.us ]
-  %indvars28 = trunc i64 %indvars.iv to i32
-  %1 = add nuw nsw i64 %indvars.iv, %indvars.iv29
-  %add.i.us = add nuw nsw i32 %indvars28, %0
+  %1 = phi double [ 0.000000e+00, %for.body.us ], [ %6, %for.body3.us ]
+  %indvars27 = trunc i64 %indvars.iv to i32
+  %2 = add nuw nsw i64 %indvars.iv, %indvars.iv28
+  %add.i.us = add nuw nsw i32 %indvars27, %0
   %add2.i.us = add nuw nsw i32 %add.i.us, 1
-  %2 = trunc i64 %1 to i32
-  %mul.i.us = mul nsw i32 %add2.i.us, %2
+  %3 = trunc i64 %2 to i32
+  %mul.i.us = mul nsw i32 %add2.i.us, %3
   %div.i20.us = lshr i32 %mul.i.us, 1
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %3 = trunc i64 %indvars.iv.next to i32
-  %add4.i.us = add nuw i32 %div.i20.us, %3
+  %4 = trunc i64 %indvars.iv.next to i32
+  %add4.i.us = add nuw i32 %div.i20.us, %4
   %conv.i.us = sitofp i32 %add4.i.us to double
   %div5.i.us = fdiv double 1.000000e+00, %conv.i.us
   %arrayidx5.us = getelementptr inbounds double, ptr %u, i64 %indvars.iv
-  %4 = load double, ptr %arrayidx5.us, align 8, !tbaa !5
-  %5 = tail call double @llvm.fmuladd.f64(double %div5.i.us, double %4, double %storemerge22.us)
-  store double %5, ptr %arrayidx.us, align 8, !tbaa !5
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count32
+  %5 = load double, ptr %arrayidx5.us, align 8, !tbaa !5
+  %6 = tail call double @llvm.fmuladd.f64(double %div5.i.us, double %5, double %1)
+  store double %6, ptr %arrayidx.us, align 8, !tbaa !5
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count31
   br i1 %exitcond.not, label %for.cond1.for.inc8_crit_edge.us, label %for.body3.us, !llvm.loop !12
 
 for.cond1.for.inc8_crit_edge.us:                  ; preds = %for.body3.us
-  %indvars.iv.next30 = add nuw nsw i64 %indvars.iv29, 1
-  %exitcond33.not = icmp eq i64 %indvars.iv.next30, %wide.trip.count32
-  br i1 %exitcond33.not, label %for.end10, label %for.body.us, !llvm.loop !13
+  %indvars.iv.next29 = add nuw nsw i64 %indvars.iv28, 1
+  %exitcond32.not = icmp eq i64 %indvars.iv.next29, %wide.trip.count31
+  br i1 %exitcond32.not, label %for.end10, label %for.body.us, !llvm.loop !13
 
 for.end10:                                        ; preds = %for.cond1.for.inc8_crit_edge.us, %entry
   ret void
@@ -178,7 +178,7 @@ for.body3.us.i:                                   ; preds = %for.body.us.i, %for
   br i1 %niter.ncmp.1, label %for.cond1.for.inc8_crit_edge.us.i.unr-lcssa, label %for.body3.us.i, !llvm.loop !9
 
 for.cond1.for.inc8_crit_edge.us.i.unr-lcssa:      ; preds = %for.body3.us.i, %for.body.us.i
-  %.lcssa23.ph = phi double [ undef, %for.body.us.i ], [ %13, %for.body3.us.i ]
+  %.lcssa29.ph = phi double [ undef, %for.body.us.i ], [ %13, %for.body3.us.i ]
   %indvars.iv.i.unr = phi i64 [ 0, %for.body.us.i ], [ %indvars.iv.next.i.1, %for.body3.us.i ]
   %.unr = phi double [ 0.000000e+00, %for.body.us.i ], [ %13, %for.body3.us.i ]
   br i1 %lcmp.mod.not, label %for.cond1.for.inc8_crit_edge.us.i, label %for.body3.us.i.epil
@@ -199,92 +199,92 @@ for.body3.us.i.epil:                              ; preds = %for.cond1.for.inc8_
   br label %for.cond1.for.inc8_crit_edge.us.i
 
 for.cond1.for.inc8_crit_edge.us.i:                ; preds = %for.cond1.for.inc8_crit_edge.us.i.unr-lcssa, %for.body3.us.i.epil
-  %.lcssa23 = phi double [ %.lcssa23.ph, %for.cond1.for.inc8_crit_edge.us.i.unr-lcssa ], [ %17, %for.body3.us.i.epil ]
-  store double %.lcssa23, ptr %arrayidx.us.i, align 8, !tbaa !5
+  %.lcssa29 = phi double [ %.lcssa29.ph, %for.cond1.for.inc8_crit_edge.us.i.unr-lcssa ], [ %17, %for.body3.us.i.epil ]
+  store double %.lcssa29, ptr %arrayidx.us.i, align 8, !tbaa !5
   %exitcond32.not.i = icmp eq i64 %indvars.iv.next29.i, %0
-  br i1 %exitcond32.not.i, label %for.body.us.i5.preheader, label %for.body.us.i, !llvm.loop !11
+  br i1 %exitcond32.not.i, label %for.body.us.i8.preheader, label %for.body.us.i, !llvm.loop !11
 
-for.body.us.i5.preheader:                         ; preds = %for.cond1.for.inc8_crit_edge.us.i
-  %xtraiter25 = and i64 %0, 1
+for.body.us.i8.preheader:                         ; preds = %for.cond1.for.inc8_crit_edge.us.i
+  %xtraiter31 = and i64 %0, 1
   %18 = icmp eq i64 %1, 0
-  %unroll_iter28 = and i64 %0, 4294967294
-  %lcmp.mod26.not = icmp eq i64 %xtraiter25, 0
-  br label %for.body.us.i5
+  %unroll_iter35 = and i64 %0, 4294967294
+  %lcmp.mod33.not = icmp eq i64 %xtraiter31, 0
+  br label %for.body.us.i8
 
-for.body.us.i5:                                   ; preds = %for.body.us.i5.preheader, %for.cond1.for.inc8_crit_edge.us.i18
-  %indvars.iv29.i = phi i64 [ %indvars.iv.next30.i, %for.cond1.for.inc8_crit_edge.us.i18 ], [ 0, %for.body.us.i5.preheader ]
-  %arrayidx.us.i4 = getelementptr inbounds double, ptr %AtAu, i64 %indvars.iv29.i
-  %19 = trunc i64 %indvars.iv29.i to i32
-  %add.i.us.i7 = add i32 %19, 1
-  br i1 %18, label %for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa, label %for.body3.us.i17
+for.body.us.i8:                                   ; preds = %for.body.us.i8.preheader, %for.cond1.for.inc8_crit_edge.us.i24
+  %indvars.iv28.i6 = phi i64 [ %indvars.iv.next29.i22, %for.cond1.for.inc8_crit_edge.us.i24 ], [ 0, %for.body.us.i8.preheader ]
+  %arrayidx.us.i7 = getelementptr inbounds double, ptr %AtAu, i64 %indvars.iv28.i6
+  %19 = trunc i64 %indvars.iv28.i6 to i32
+  %add.i.us.i11 = add i32 %19, 1
+  br i1 %18, label %for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa, label %for.body3.us.i21
 
-for.body3.us.i17:                                 ; preds = %for.body.us.i5, %for.body3.us.i17
-  %indvars.iv.i6 = phi i64 [ %indvars.iv.next.i11.1, %for.body3.us.i17 ], [ 0, %for.body.us.i5 ]
-  %storemerge22.us.i = phi double [ %29, %for.body3.us.i17 ], [ 0.000000e+00, %for.body.us.i5 ]
-  %niter29 = phi i64 [ %niter29.next.1, %for.body3.us.i17 ], [ 0, %for.body.us.i5 ]
-  %indvars28.i = trunc i64 %indvars.iv.i6 to i32
-  %20 = add nuw nsw i64 %indvars.iv.i6, %indvars.iv29.i
-  %add2.i.us.i8 = add i32 %add.i.us.i7, %indvars28.i
-  %21 = trunc i64 %20 to i32
-  %mul.i.us.i9 = mul nsw i32 %add2.i.us.i8, %21
-  %div.i20.us.i10 = lshr i32 %mul.i.us.i9, 1
-  %indvars.iv.next.i11 = or i64 %indvars.iv.i6, 1
-  %22 = trunc i64 %indvars.iv.next.i11 to i32
-  %add4.i.us.i12 = add nuw i32 %div.i20.us.i10, %22
-  %conv.i.us.i13 = sitofp i32 %add4.i.us.i12 to double
-  %div5.i.us.i14 = fdiv double 1.000000e+00, %conv.i.us.i13
-  %arrayidx5.us.i15 = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.i6
-  %23 = load double, ptr %arrayidx5.us.i15, align 16, !tbaa !5
-  %24 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i14, double %23, double %storemerge22.us.i)
-  %indvars28.i.1 = trunc i64 %indvars.iv.next.i11 to i32
-  %25 = add nuw nsw i64 %indvars.iv.next.i11, %indvars.iv29.i
-  %add2.i.us.i8.1 = add i32 %add.i.us.i7, %indvars28.i.1
-  %26 = trunc i64 %25 to i32
-  %mul.i.us.i9.1 = mul nsw i32 %add2.i.us.i8.1, %26
-  %div.i20.us.i10.1 = lshr i32 %mul.i.us.i9.1, 1
-  %indvars.iv.next.i11.1 = add nuw nsw i64 %indvars.iv.i6, 2
-  %27 = trunc i64 %indvars.iv.next.i11.1 to i32
-  %add4.i.us.i12.1 = add nuw i32 %div.i20.us.i10.1, %27
-  %conv.i.us.i13.1 = sitofp i32 %add4.i.us.i12.1 to double
-  %div5.i.us.i14.1 = fdiv double 1.000000e+00, %conv.i.us.i13.1
-  %arrayidx5.us.i15.1 = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.next.i11
-  %28 = load double, ptr %arrayidx5.us.i15.1, align 8, !tbaa !5
-  %29 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i14.1, double %28, double %24)
-  %niter29.next.1 = add i64 %niter29, 2
-  %niter29.ncmp.1 = icmp eq i64 %niter29.next.1, %unroll_iter28
-  br i1 %niter29.ncmp.1, label %for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa, label %for.body3.us.i17, !llvm.loop !12
+for.body3.us.i21:                                 ; preds = %for.body.us.i8, %for.body3.us.i21
+  %indvars.iv.i9 = phi i64 [ %indvars.iv.next.i15.1, %for.body3.us.i21 ], [ 0, %for.body.us.i8 ]
+  %20 = phi double [ %30, %for.body3.us.i21 ], [ 0.000000e+00, %for.body.us.i8 ]
+  %niter36 = phi i64 [ %niter36.next.1, %for.body3.us.i21 ], [ 0, %for.body.us.i8 ]
+  %indvars27.i10 = trunc i64 %indvars.iv.i9 to i32
+  %21 = add nuw nsw i64 %indvars.iv.i9, %indvars.iv28.i6
+  %add2.i.us.i12 = add i32 %add.i.us.i11, %indvars27.i10
+  %22 = trunc i64 %21 to i32
+  %mul.i.us.i13 = mul nsw i32 %add2.i.us.i12, %22
+  %div.i20.us.i14 = lshr i32 %mul.i.us.i13, 1
+  %indvars.iv.next.i15 = or i64 %indvars.iv.i9, 1
+  %23 = trunc i64 %indvars.iv.next.i15 to i32
+  %add4.i.us.i16 = add nuw i32 %div.i20.us.i14, %23
+  %conv.i.us.i17 = sitofp i32 %add4.i.us.i16 to double
+  %div5.i.us.i18 = fdiv double 1.000000e+00, %conv.i.us.i17
+  %arrayidx5.us.i19 = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.i9
+  %24 = load double, ptr %arrayidx5.us.i19, align 16, !tbaa !5
+  %25 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i18, double %24, double %20)
+  %indvars27.i10.1 = trunc i64 %indvars.iv.next.i15 to i32
+  %26 = add nuw nsw i64 %indvars.iv.next.i15, %indvars.iv28.i6
+  %add2.i.us.i12.1 = add i32 %add.i.us.i11, %indvars27.i10.1
+  %27 = trunc i64 %26 to i32
+  %mul.i.us.i13.1 = mul nsw i32 %add2.i.us.i12.1, %27
+  %div.i20.us.i14.1 = lshr i32 %mul.i.us.i13.1, 1
+  %indvars.iv.next.i15.1 = add nuw nsw i64 %indvars.iv.i9, 2
+  %28 = trunc i64 %indvars.iv.next.i15.1 to i32
+  %add4.i.us.i16.1 = add nuw i32 %div.i20.us.i14.1, %28
+  %conv.i.us.i17.1 = sitofp i32 %add4.i.us.i16.1 to double
+  %div5.i.us.i18.1 = fdiv double 1.000000e+00, %conv.i.us.i17.1
+  %arrayidx5.us.i19.1 = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.next.i15
+  %29 = load double, ptr %arrayidx5.us.i19.1, align 8, !tbaa !5
+  %30 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i18.1, double %29, double %25)
+  %niter36.next.1 = add i64 %niter36, 2
+  %niter36.ncmp.1 = icmp eq i64 %niter36.next.1, %unroll_iter35
+  br i1 %niter36.ncmp.1, label %for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa, label %for.body3.us.i21, !llvm.loop !12
 
-for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa:    ; preds = %for.body3.us.i17, %for.body.us.i5
-  %.lcssa.ph = phi double [ undef, %for.body.us.i5 ], [ %29, %for.body3.us.i17 ]
-  %indvars.iv.i6.unr = phi i64 [ 0, %for.body.us.i5 ], [ %indvars.iv.next.i11.1, %for.body3.us.i17 ]
-  %storemerge22.us.i.unr = phi double [ 0.000000e+00, %for.body.us.i5 ], [ %29, %for.body3.us.i17 ]
-  br i1 %lcmp.mod26.not, label %for.cond1.for.inc8_crit_edge.us.i18, label %for.body3.us.i17.epil
+for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa:    ; preds = %for.body3.us.i21, %for.body.us.i8
+  %.lcssa.ph = phi double [ undef, %for.body.us.i8 ], [ %30, %for.body3.us.i21 ]
+  %indvars.iv.i9.unr = phi i64 [ 0, %for.body.us.i8 ], [ %indvars.iv.next.i15.1, %for.body3.us.i21 ]
+  %.unr32 = phi double [ 0.000000e+00, %for.body.us.i8 ], [ %30, %for.body3.us.i21 ]
+  br i1 %lcmp.mod33.not, label %for.cond1.for.inc8_crit_edge.us.i24, label %for.body3.us.i21.epil
 
-for.body3.us.i17.epil:                            ; preds = %for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa
-  %indvars28.i.epil = trunc i64 %indvars.iv.i6.unr to i32
-  %30 = add nuw nsw i64 %indvars.iv.i6.unr, %indvars.iv29.i
-  %add2.i.us.i8.epil = add i32 %add.i.us.i7, %indvars28.i.epil
-  %31 = trunc i64 %30 to i32
-  %mul.i.us.i9.epil = mul nsw i32 %add2.i.us.i8.epil, %31
-  %div.i20.us.i10.epil = lshr i32 %mul.i.us.i9.epil, 1
-  %32 = trunc i64 %indvars.iv.i6.unr to i32
-  %33 = add i32 %32, 1
-  %add4.i.us.i12.epil = add nuw i32 %div.i20.us.i10.epil, %33
-  %conv.i.us.i13.epil = sitofp i32 %add4.i.us.i12.epil to double
-  %div5.i.us.i14.epil = fdiv double 1.000000e+00, %conv.i.us.i13.epil
-  %arrayidx5.us.i15.epil = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.i6.unr
-  %34 = load double, ptr %arrayidx5.us.i15.epil, align 8, !tbaa !5
-  %35 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i14.epil, double %34, double %storemerge22.us.i.unr)
-  br label %for.cond1.for.inc8_crit_edge.us.i18
+for.body3.us.i21.epil:                            ; preds = %for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa
+  %indvars27.i10.epil = trunc i64 %indvars.iv.i9.unr to i32
+  %31 = add nuw nsw i64 %indvars.iv.i9.unr, %indvars.iv28.i6
+  %add2.i.us.i12.epil = add i32 %add.i.us.i11, %indvars27.i10.epil
+  %32 = trunc i64 %31 to i32
+  %mul.i.us.i13.epil = mul nsw i32 %add2.i.us.i12.epil, %32
+  %div.i20.us.i14.epil = lshr i32 %mul.i.us.i13.epil, 1
+  %33 = trunc i64 %indvars.iv.i9.unr to i32
+  %34 = add i32 %33, 1
+  %add4.i.us.i16.epil = add nuw i32 %div.i20.us.i14.epil, %34
+  %conv.i.us.i17.epil = sitofp i32 %add4.i.us.i16.epil to double
+  %div5.i.us.i18.epil = fdiv double 1.000000e+00, %conv.i.us.i17.epil
+  %arrayidx5.us.i19.epil = getelementptr inbounds double, ptr %vla, i64 %indvars.iv.i9.unr
+  %35 = load double, ptr %arrayidx5.us.i19.epil, align 8, !tbaa !5
+  %36 = tail call double @llvm.fmuladd.f64(double %div5.i.us.i18.epil, double %35, double %.unr32)
+  br label %for.cond1.for.inc8_crit_edge.us.i24
 
-for.cond1.for.inc8_crit_edge.us.i18:              ; preds = %for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa, %for.body3.us.i17.epil
-  %.lcssa = phi double [ %.lcssa.ph, %for.cond1.for.inc8_crit_edge.us.i18.unr-lcssa ], [ %35, %for.body3.us.i17.epil ]
-  store double %.lcssa, ptr %arrayidx.us.i4, align 8, !tbaa !5
-  %indvars.iv.next30.i = add nuw nsw i64 %indvars.iv29.i, 1
-  %exitcond33.not.i = icmp eq i64 %indvars.iv.next30.i, %0
-  br i1 %exitcond33.not.i, label %eval_At_times_u.exit, label %for.body.us.i5, !llvm.loop !13
+for.cond1.for.inc8_crit_edge.us.i24:              ; preds = %for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa, %for.body3.us.i21.epil
+  %.lcssa = phi double [ %.lcssa.ph, %for.cond1.for.inc8_crit_edge.us.i24.unr-lcssa ], [ %36, %for.body3.us.i21.epil ]
+  store double %.lcssa, ptr %arrayidx.us.i7, align 8, !tbaa !5
+  %indvars.iv.next29.i22 = add nuw nsw i64 %indvars.iv28.i6, 1
+  %exitcond32.not.i23 = icmp eq i64 %indvars.iv.next29.i22, %0
+  br i1 %exitcond32.not.i23, label %eval_At_times_u.exit, label %for.body.us.i8, !llvm.loop !13
 
-eval_At_times_u.exit:                             ; preds = %for.cond1.for.inc8_crit_edge.us.i18, %entry
+eval_At_times_u.exit:                             ; preds = %for.cond1.for.inc8_crit_edge.us.i24, %entry
   ret void
 }
 

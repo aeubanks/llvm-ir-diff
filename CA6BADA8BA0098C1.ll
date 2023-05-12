@@ -3649,14 +3649,14 @@ if.then3629:                                      ; preds = %for.end3620
   %ou13630 = getelementptr inbounds %struct.word_type, ptr %.pre6875, i64 0, i32 1
   %511 = load i8, ptr %ou13630, align 8, !tbaa !5
   %cmp3633 = icmp eq i8 %511, 0
-  br i1 %cmp3633, label %if.end3637, label %if.then3635
+  br i1 %cmp3633, label %cond.end3669, label %if.then3635
 
 if.then3635:                                      ; preds = %if.then3629
   %512 = load ptr, ptr @no_fpos, align 8, !tbaa !8
   %call3636 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %512, ptr noundef nonnull @.str.26) #5
-  br label %if.end3637
+  br label %cond.end3669
 
-if.end3637:                                       ; preds = %if.then3635, %if.then3629
+cond.end3669:                                     ; preds = %if.then3635, %if.then3629
   store ptr %.pre6875, ptr @zz_res, align 8, !tbaa !8
   store ptr %hd, ptr @zz_hold, align 8, !tbaa !8
   %513 = load ptr, ptr %hd, align 8, !tbaa !5
@@ -3679,7 +3679,7 @@ if.end3637:                                       ; preds = %if.then3635, %if.th
   %cmp3671 = icmp eq ptr %510, null
   br i1 %cmp3671, label %if.end3704, label %cond.false3678
 
-cond.false3678:                                   ; preds = %if.end3637
+cond.false3678:                                   ; preds = %cond.end3669
   %521 = load ptr, ptr %510, align 8, !tbaa !5
   store ptr %521, ptr @zz_tmp, align 8, !tbaa !8
   %522 = load ptr, ptr %.pre6875, align 8, !tbaa !5
@@ -3697,7 +3697,7 @@ cond.false3678:                                   ; preds = %if.end3637
   store ptr %527, ptr %osucc3699, align 8, !tbaa !5
   br label %if.end3704
 
-if.end3704:                                       ; preds = %if.end3482, %if.end3637, %cond.false3678, %for.end3620
+if.end3704:                                       ; preds = %if.end3482, %cond.end3669, %cond.false3678, %for.end3620
   %529 = load ptr, ptr %osucc, align 8, !tbaa !5
   store ptr %529, ptr @xx_link, align 8, !tbaa !8
   store ptr %529, ptr @zz_hold, align 8, !tbaa !8

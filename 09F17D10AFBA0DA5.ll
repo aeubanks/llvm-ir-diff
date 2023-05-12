@@ -80,7 +80,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @_ZN19btContactConstraintD0Ev(ptr noundef nonnull align 8 dereferenceable(840) %this) unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   tail call void @_ZdlPv(ptr noundef nonnull %this) #10
   ret void
 }
@@ -253,23 +253,23 @@ if.end:                                           ; preds = %entry
   %arrayidx.i28.i111 = getelementptr inbounds %class.btCollisionObject, ptr %body2, i64 0, i32 1, i32 0, i32 0, i64 0, i32 0, i64 2
   %arrayidx.i29.i112 = getelementptr inbounds %class.btCollisionObject, ptr %body2, i64 0, i32 1, i32 0, i32 0, i64 1, i32 0, i64 2
   %arrayidx.i30.i113 = getelementptr inbounds %class.btCollisionObject, ptr %body2, i64 0, i32 1, i32 0, i32 0, i64 2, i32 0, i64 2
-  %79 = load float, ptr %m_worldTransform.i105, align 8, !tbaa !8, !noalias !11
-  %80 = load float, ptr %arrayidx3.i106, align 8, !tbaa !8, !noalias !11
-  %81 = load float, ptr %arrayidx6.i107, align 8, !tbaa !8, !noalias !11
-  %82 = load float, ptr %arrayidx.i.i108, align 4, !tbaa !8, !noalias !11
-  %83 = load float, ptr %arrayidx.i26.i109, align 4, !tbaa !8, !noalias !11
-  %84 = load float, ptr %arrayidx.i27.i110, align 4, !tbaa !8, !noalias !11
-  %85 = load float, ptr %arrayidx.i28.i111, align 8, !tbaa !8, !noalias !11
-  %86 = load float, ptr %arrayidx.i29.i112, align 8, !tbaa !8, !noalias !11
-  %87 = load float, ptr %arrayidx.i30.i113, align 8, !tbaa !8, !noalias !11
+  %79 = load float, ptr %m_worldTransform.i105, align 8, !tbaa !8, !noalias !14
+  %80 = load float, ptr %arrayidx3.i106, align 8, !tbaa !8, !noalias !14
+  %81 = load float, ptr %arrayidx6.i107, align 8, !tbaa !8, !noalias !14
+  %82 = load float, ptr %arrayidx.i.i108, align 4, !tbaa !8, !noalias !14
+  %83 = load float, ptr %arrayidx.i26.i109, align 4, !tbaa !8, !noalias !14
+  %84 = load float, ptr %arrayidx.i27.i110, align 4, !tbaa !8, !noalias !14
+  %85 = load float, ptr %arrayidx.i28.i111, align 8, !tbaa !8, !noalias !14
+  %86 = load float, ptr %arrayidx.i29.i112, align 8, !tbaa !8, !noalias !14
+  %87 = load float, ptr %arrayidx.i30.i113, align 8, !tbaa !8, !noalias !14
   %m_invInertiaLocal.i = getelementptr inbounds %class.btRigidBody, ptr %body1, i64 0, i32 9
   %m_inverseMass.i = getelementptr inbounds %class.btRigidBody, ptr %body1, i64 0, i32 4
-  %88 = load float, ptr %m_inverseMass.i, align 8, !tbaa !12
+  %88 = load float, ptr %m_inverseMass.i, align 8, !tbaa !17
   %m_invInertiaLocal.i125 = getelementptr inbounds %class.btRigidBody, ptr %body2, i64 0, i32 9
   %m_inverseMass.i126 = getelementptr inbounds %class.btRigidBody, ptr %body2, i64 0, i32 4
-  %89 = load float, ptr %m_inverseMass.i126, align 8, !tbaa !12
-  %jac.sroa.5.0.copyload = load float, ptr %arrayidx5.i.i, align 4, !tbaa.struct !23
-  %jac.sroa.7.0.copyload = load float, ptr %arrayidx10.i.i, align 4, !tbaa.struct !25
+  %89 = load float, ptr %m_inverseMass.i126, align 8, !tbaa !17
+  %jac.sroa.5.0.copyload = load float, ptr %arrayidx5.i.i, align 4, !tbaa.struct !28
+  %jac.sroa.7.0.copyload = load float, ptr %arrayidx10.i.i, align 4, !tbaa.struct !30
   %90 = extractelement <2 x float> %32, i64 0
   %91 = fneg float %90
   %neg.i.i131 = fmul float %jac.sroa.5.0.copyload, %91
@@ -389,18 +389,23 @@ attributes #10 = { builtin nounwind }
 !8 = !{!9, !9, i64 0}
 !9 = !{!"float", !10, i64 0}
 !10 = !{!"omnipotent char", !7, i64 0}
-!11 = !{}
-!12 = !{!13, !9, i64 360}
-!13 = !{!"_ZTS11btRigidBody", !14, i64 0, !16, i64 280, !17, i64 328, !17, i64 344, !9, i64 360, !17, i64 364, !17, i64 380, !17, i64 396, !17, i64 412, !17, i64 428, !17, i64 444, !17, i64 460, !9, i64 476, !9, i64 480, !18, i64 484, !9, i64 488, !9, i64 492, !9, i64 496, !9, i64 500, !9, i64 504, !9, i64 508, !19, i64 512, !21, i64 520, !20, i64 552, !20, i64 556, !20, i64 560}
-!14 = !{!"_ZTS17btCollisionObject", !15, i64 8, !15, i64 72, !17, i64 136, !17, i64 152, !17, i64 168, !18, i64 184, !9, i64 188, !19, i64 192, !19, i64 200, !19, i64 208, !20, i64 216, !20, i64 220, !20, i64 224, !20, i64 228, !9, i64 232, !9, i64 236, !9, i64 240, !19, i64 248, !20, i64 256, !9, i64 260, !9, i64 264, !9, i64 268, !18, i64 272, !10, i64 273}
-!15 = !{!"_ZTS11btTransform", !16, i64 0, !17, i64 48}
-!16 = !{!"_ZTS11btMatrix3x3", !10, i64 0}
-!17 = !{!"_ZTS9btVector3", !10, i64 0}
-!18 = !{!"bool", !10, i64 0}
-!19 = !{!"any pointer", !10, i64 0}
-!20 = !{!"int", !10, i64 0}
-!21 = !{!"_ZTS20btAlignedObjectArrayIP17btTypedConstraintE", !22, i64 0, !20, i64 4, !20, i64 8, !19, i64 16, !18, i64 24}
-!22 = !{!"_ZTS18btAlignedAllocatorIP17btTypedConstraintLj16EE"}
-!23 = !{i64 0, i64 12, !24}
-!24 = !{!10, !10, i64 0}
-!25 = !{i64 0, i64 8, !24}
+!11 = !{!12}
+!12 = distinct !{!12, !13, !"_ZNK11btMatrix3x39transposeEv: %agg.result"}
+!13 = distinct !{!13, !"_ZNK11btMatrix3x39transposeEv"}
+!14 = !{!15}
+!15 = distinct !{!15, !16, !"_ZNK11btMatrix3x39transposeEv: %agg.result"}
+!16 = distinct !{!16, !"_ZNK11btMatrix3x39transposeEv"}
+!17 = !{!18, !9, i64 360}
+!18 = !{!"_ZTS11btRigidBody", !19, i64 0, !21, i64 280, !22, i64 328, !22, i64 344, !9, i64 360, !22, i64 364, !22, i64 380, !22, i64 396, !22, i64 412, !22, i64 428, !22, i64 444, !22, i64 460, !9, i64 476, !9, i64 480, !23, i64 484, !9, i64 488, !9, i64 492, !9, i64 496, !9, i64 500, !9, i64 504, !9, i64 508, !24, i64 512, !26, i64 520, !25, i64 552, !25, i64 556, !25, i64 560}
+!19 = !{!"_ZTS17btCollisionObject", !20, i64 8, !20, i64 72, !22, i64 136, !22, i64 152, !22, i64 168, !23, i64 184, !9, i64 188, !24, i64 192, !24, i64 200, !24, i64 208, !25, i64 216, !25, i64 220, !25, i64 224, !25, i64 228, !9, i64 232, !9, i64 236, !9, i64 240, !24, i64 248, !25, i64 256, !9, i64 260, !9, i64 264, !9, i64 268, !23, i64 272, !10, i64 273}
+!20 = !{!"_ZTS11btTransform", !21, i64 0, !22, i64 48}
+!21 = !{!"_ZTS11btMatrix3x3", !10, i64 0}
+!22 = !{!"_ZTS9btVector3", !10, i64 0}
+!23 = !{!"bool", !10, i64 0}
+!24 = !{!"any pointer", !10, i64 0}
+!25 = !{!"int", !10, i64 0}
+!26 = !{!"_ZTS20btAlignedObjectArrayIP17btTypedConstraintE", !27, i64 0, !25, i64 4, !25, i64 8, !24, i64 16, !23, i64 24}
+!27 = !{!"_ZTS18btAlignedAllocatorIP17btTypedConstraintLj16EE"}
+!28 = !{i64 0, i64 12, !29}
+!29 = !{!10, !10, i64 0}
+!30 = !{i64 0, i64 8, !29}
