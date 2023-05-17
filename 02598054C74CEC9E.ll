@@ -537,8 +537,8 @@ if.end11:                                         ; preds = %while.cond
   %13 = load i32, ptr %cyclicBufferPos17, align 8, !tbaa !55
   %14 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
   %spec.select = tail call i32 @llvm.umin.i32(i32 %11, i32 %14)
-  %sub24 = add i32 %14, 1
-  %add25 = sub i32 %sub24, %spec.select
+  %sub24 = sub i32 %14, %spec.select
+  %add25 = add i32 %sub24, 1
   %size.0 = tail call i32 @llvm.umin.i32(i32 %add25, i32 %sub14)
   %15 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
   %sub29 = sub i32 %15, %13
@@ -974,7 +974,7 @@ if.then:                                          ; preds = %if.end.i, %if.end2.
   br label %if.end
 
 if.end:                                           ; preds = %if.end26.i, %entry, %if.then
-  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %if.end26.i ], [ 0, %entry ]
+  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %entry ], [ 0, %if.end26.i ]
   ret i32 %retval.0.i6
 }
 
@@ -1965,7 +1965,7 @@ for.body.preheader:                               ; preds = %entry
 for.body.prol:                                    ; preds = %for.body.preheader
   %0 = load i16, ptr %p, align 1
   %1 = zext i16 %0 to i64
-  %arrayidx1.prol = getelementptr inbounds i8, ptr %p, i64 1
+  %incdec.ptr.prol = getelementptr inbounds i8, ptr %p, i64 1
   %arrayidx3.prol = getelementptr inbounds i32, ptr %hash, i64 %1
   %2 = load i32, ptr %arrayidx3.prol, align 4, !tbaa !40
   %sub.prol = sub i32 %pos, %2
@@ -1977,7 +1977,7 @@ for.body.prol:                                    ; preds = %for.body.preheader
   br label %for.body.prol.loopexit
 
 for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
-  %p.addr.017.unr = phi ptr [ %p, %for.body.preheader ], [ %arrayidx1.prol, %for.body.prol ]
+  %p.addr.017.unr = phi ptr [ %p, %for.body.preheader ], [ %incdec.ptr.prol, %for.body.prol ]
   %pos.addr.016.unr = phi i32 [ %pos, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
   %numHeads.addr.015.unr = phi i32 [ %numHeads, %for.body.preheader ], [ %dec.prol, %for.body.prol ]
   %heads.addr.014.unr = phi ptr [ %heads, %for.body.preheader ], [ %incdec.ptr4.prol, %for.body.prol ]
@@ -1985,13 +1985,13 @@ for.body.prol.loopexit:                           ; preds = %for.body.prol, %for
   br i1 %3, label %for.end, label %for.body
 
 for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
-  %p.addr.017 = phi ptr [ %arrayidx1.1, %for.body ], [ %p.addr.017.unr, %for.body.prol.loopexit ]
+  %p.addr.017 = phi ptr [ %incdec.ptr.1, %for.body ], [ %p.addr.017.unr, %for.body.prol.loopexit ]
   %pos.addr.016 = phi i32 [ %inc.1, %for.body ], [ %pos.addr.016.unr, %for.body.prol.loopexit ]
   %numHeads.addr.015 = phi i32 [ %dec.1, %for.body ], [ %numHeads.addr.015.unr, %for.body.prol.loopexit ]
   %heads.addr.014 = phi ptr [ %incdec.ptr4.1, %for.body ], [ %heads.addr.014.unr, %for.body.prol.loopexit ]
   %4 = load i16, ptr %p.addr.017, align 1
   %5 = zext i16 %4 to i64
-  %arrayidx1 = getelementptr inbounds i8, ptr %p.addr.017, i64 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %p.addr.017, i64 1
   %arrayidx3 = getelementptr inbounds i32, ptr %hash, i64 %5
   %6 = load i32, ptr %arrayidx3, align 4, !tbaa !40
   %sub = sub i32 %pos.addr.016, %6
@@ -1999,9 +1999,9 @@ for.body:                                         ; preds = %for.body.prol.loope
   store i32 %sub, ptr %heads.addr.014, align 4, !tbaa !40
   %inc = add i32 %pos.addr.016, 1
   store i32 %pos.addr.016, ptr %arrayidx3, align 4, !tbaa !40
-  %7 = load i16, ptr %arrayidx1, align 1
+  %7 = load i16, ptr %incdec.ptr, align 1
   %8 = zext i16 %7 to i64
-  %arrayidx1.1 = getelementptr inbounds i8, ptr %p.addr.017, i64 2
+  %incdec.ptr.1 = getelementptr inbounds i8, ptr %p.addr.017, i64 2
   %arrayidx3.1 = getelementptr inbounds i32, ptr %hash, i64 %8
   %9 = load i32, ptr %arrayidx3.1, align 4, !tbaa !40
   %sub.1 = sub i32 %inc, %9

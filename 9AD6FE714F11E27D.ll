@@ -922,19 +922,19 @@ if.end:                                           ; preds = %entry
 if.end5:                                          ; preds = %if.end
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 2
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !5
-  %call.i572 = tail call double @strtod(ptr nocapture noundef nonnull %1, ptr noundef null) #17
-  store double %call.i572, ptr @init_value, align 8, !tbaa !28
+  %call.i570 = tail call double @strtod(ptr nocapture noundef nonnull %1, ptr noundef null) #17
+  store double %call.i570, ptr @init_value, align 8, !tbaa !28
   %cmp6 = icmp ugt i32 %argc, 3
   br i1 %cmp6, label %if.then7, label %if.end10
 
 if.then7:                                         ; preds = %if.end5
   %arrayidx8 = getelementptr inbounds ptr, ptr %argv, i64 3
   %2 = load ptr, ptr %arrayidx8, align 8, !tbaa !5
-  %call.i573 = tail call double @strtod(ptr nocapture noundef nonnull %2, ptr noundef null) #17
+  %call.i571 = tail call double @strtod(ptr nocapture noundef nonnull %2, ptr noundef null) #17
   br label %if.end10
 
 if.end10:                                         ; preds = %entry, %if.end, %if.then7, %if.end5
-  %temp.0 = phi double [ %call.i573, %if.then7 ], [ 1.000000e+00, %if.end5 ], [ 1.000000e+00, %if.end ], [ 1.000000e+00, %entry ]
+  %temp.0 = phi double [ %call.i571, %if.then7 ], [ 1.000000e+00, %if.end5 ], [ 1.000000e+00, %if.end ], [ 1.000000e+00, %entry ]
   %3 = load double, ptr @init_value, align 8, !tbaa !28
   %conv = fptosi double %3 to i8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(8000) @data8, i8 %conv, i64 8000, i1 false), !tbaa !29
@@ -1865,8 +1865,8 @@ _Z26check_shifted_variable_sumIa19custom_add_variableIaEEvT_S2_.exit: ; preds = 
   br i1 %cmp, label %for.cond1.preheader, label %for.end12, !llvm.loop !50
 
 for.end12:                                        ; preds = %_Z26check_shifted_variable_sumIa19custom_add_variableIaEEvT_S2_.exit, %_Z26check_shifted_variable_sumIa19custom_add_variableIaEEvT_S2_.exit.us, %entry
-  %call.i22 = tail call i64 @clock() #17
-  store i64 %call.i22, ptr @end_time, align 8, !tbaa !26
+  %call.i20 = tail call i64 @clock() #17
+  store i64 %call.i20, ptr @end_time, align 8, !tbaa !26
   %24 = load i64, ptr @start_time, align 8, !tbaa !26
   %25 = load ptr, ptr @results, align 8, !tbaa !5
   %cmp.i = icmp eq ptr %25, null
@@ -1874,41 +1874,41 @@ for.end12:                                        ; preds = %_Z26check_shifted_v
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end12
   %.pre.i = load i32, ptr @allocated_results, align 4, !tbaa !9
-  br label %if.then.i27
+  br label %if.then.i25
 
 lor.lhs.false.i:                                  ; preds = %for.end12
   %26 = load i32, ptr @current_test, align 4, !tbaa !9
   %27 = load i32, ptr @allocated_results, align 4, !tbaa !9
   %cmp1.not.i = icmp slt i32 %26, %27
-  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i27
+  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i25
 
-if.then.i27:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
+if.then.i25:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
   %28 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %27, %lor.lhs.false.i ]
   %add.i = add nsw i32 %28, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
-  %conv.i24 = sext i32 %add.i to i64
-  %mul.i25 = shl nsw i64 %conv.i24, 4
-  %call.i26 = tail call ptr @realloc(ptr noundef %25, i64 noundef %mul.i25) #14
-  store ptr %call.i26, ptr @results, align 8, !tbaa !5
-  %cmp2.i = icmp eq ptr %call.i26, null
+  %conv.i22 = sext i32 %add.i to i64
+  %mul.i23 = shl nsw i64 %conv.i22, 4
+  %call.i24 = tail call ptr @realloc(ptr noundef %25, i64 noundef %mul.i23) #14
+  store ptr %call.i24, ptr @results, align 8, !tbaa !5
+  %cmp2.i = icmp eq ptr %call.i24, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
 
-if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i27
+if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i25
   %.pre10.i = load i32, ptr @current_test, align 4, !tbaa !9
   br label %_Z13record_resultdPKc.exit
 
-if.then3.i:                                       ; preds = %if.then.i27
+if.then3.i:                                       ; preds = %if.then.i25
   %29 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %29)
+  %call4.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %29)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
   %30 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %26, %lor.lhs.false.i ]
-  %31 = phi ptr [ %call.i26, %if.then.if.end5_crit_edge.i ], [ %25, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i22, %24
-  %conv.i23 = sitofp i64 %sub.i to double
-  %div.i = fdiv double %conv.i23, 1.000000e+06
+  %31 = phi ptr [ %call.i24, %if.then.if.end5_crit_edge.i ], [ %25, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i20, %24
+  %conv.i21 = sitofp i64 %sub.i to double
+  %div.i = fdiv double %conv.i21, 1.000000e+06
   %idxprom.i = sext i32 %30 to i64
   %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %31, i64 %idxprom.i
   store double %div.i, ptr %arrayidx.i, align 8, !tbaa !11
@@ -3206,15 +3206,15 @@ for.body3.us:                                     ; preds = %for.cond1.preheader
   %5 = load i8, ptr %arrayidx.us, align 1, !tbaa !29
   %div.lhs.trunc.i.us = sext i8 %5 to i16
   %div3.i.us = sdiv i16 %div.lhs.trunc.i.us, %div.rhs.trunc.i
-  %conv2.i.us = trunc i16 %div3.i.us to i8
-  %add.us = add i8 %result.023.us, %conv2.i.us
+  %sext.us = trunc i16 %div3.i.us to i8
+  %add.us = add i8 %result.023.us, %sext.us
   %indvars.iv.next = or i64 %indvars.iv, 1
   %arrayidx.us.1 = getelementptr inbounds i8, ptr %first, i64 %indvars.iv.next
   %6 = load i8, ptr %arrayidx.us.1, align 1, !tbaa !29
   %div.lhs.trunc.i.us.1 = sext i8 %6 to i16
   %div3.i.us.1 = sdiv i16 %div.lhs.trunc.i.us.1, %div.rhs.trunc.i
-  %conv2.i.us.1 = trunc i16 %div3.i.us.1 to i8
-  %add.us.1 = add i8 %add.us, %conv2.i.us.1
+  %sext.us.1 = trunc i16 %div3.i.us.1 to i8
+  %add.us.1 = add i8 %add.us, %sext.us.1
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
@@ -3231,8 +3231,8 @@ for.body3.us.epil:                                ; preds = %for.cond1.for.cond.
   %7 = load i8, ptr %arrayidx.us.epil, align 1, !tbaa !29
   %div.lhs.trunc.i.us.epil = sext i8 %7 to i16
   %div3.i.us.epil = sdiv i16 %div.lhs.trunc.i.us.epil, %div.rhs.trunc.i
-  %conv2.i.us.epil = trunc i16 %div3.i.us.epil to i8
-  %add.us.epil = add i8 %result.023.us.unr, %conv2.i.us.epil
+  %sext.us.epil = trunc i16 %div3.i.us.epil to i8
+  %add.us.epil = add i8 %result.023.us.unr, %sext.us.epil
   br label %for.cond1.for.cond.cleanup_crit_edge.us
 
 for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa, %for.body3.us.epil
@@ -3242,86 +3242,86 @@ for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.cond1.for.cond.
   %div.lhs.trunc.i.i.us = sext i8 %conv.i.us to i16
   %div3.i.i.us = sdiv i16 %div.lhs.trunc.i.i.us, %div.rhs.trunc.i
   %conv2.i.i.us = trunc i16 %div3.i.i.us to i8
-  %mul.i.us = shl i8 %conv2.i.i.us, 6
-  %cmp.i.i.us = icmp eq i8 %mul.i.us, %add.us.lcssa
+  %9 = shl i8 %conv2.i.i.us, 6
+  %cmp.i.i.us = icmp eq i8 %9, %add.us.lcssa
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit
-  %9 = phi i32 [ %12, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %10 = phi double [ %13, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit ], [ %.pre29, %for.cond1.preheader.preheader ]
+  %10 = phi i32 [ %13, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %11 = phi double [ %14, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit ], [ %.pre29, %for.cond1.preheader.preheader ]
   %i.026 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptosi double %10 to i8
+  %conv.i = fptosi double %11 to i8
   %div.lhs.trunc.i.i = sext i8 %conv.i to i16
   %div3.i.i = sdiv i16 %div.lhs.trunc.i.i, %div.rhs.trunc.i
-  %mul.i.mask27 = and i16 %div3.i.i, 3
-  %cmp.i.i = icmp eq i16 %mul.i.mask27, 0
+  %.mask27 = and i16 %div3.i.i, 3
+  %cmp.i.i = icmp eq i16 %.mask27, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %11 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %11)
+  %12 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %12)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
   %.pre30 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit
 
 _Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %12 = phi i32 [ %9, %for.cond1.preheader ], [ %.pre30, %if.then.i ]
-  %13 = phi double [ %10, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %13 = phi i32 [ %10, %for.cond1.preheader ], [ %.pre30, %if.then.i ]
+  %14 = phi double [ %11, %for.cond1.preheader ], [ %.pre, %if.then.i ]
   %inc7 = add nuw nsw i32 %i.026, 1
-  %cmp = icmp slt i32 %inc7, %12
+  %cmp = icmp slt i32 %inc7, %13
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !76
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit, %_Z26check_shifted_variable_sumIa22custom_divide_variableIaEEvT_S2_.exit.us, %entry
   %call.i15 = tail call i64 @clock() #17
   store i64 %call.i15, ptr @end_time, align 8, !tbaa !26
-  %14 = load i64, ptr @start_time, align 8, !tbaa !26
-  %15 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %15, null
+  %15 = load i64, ptr @start_time, align 8, !tbaa !26
+  %16 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %16, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
   %.pre.i = load i32, ptr @allocated_results, align 4, !tbaa !9
-  br label %if.then.i20
+  br label %if.then.i19
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %16 = load i32, ptr @current_test, align 4, !tbaa !9
-  %17 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %16, %17
-  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i20
+  %17 = load i32, ptr @current_test, align 4, !tbaa !9
+  %18 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %17, %18
+  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i19
 
-if.then.i20:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %18 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %17, %lor.lhs.false.i ]
-  %add.i = add nsw i32 %18, 10
+if.then.i19:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
+  %19 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %18, %lor.lhs.false.i ]
+  %add.i = add nsw i32 %19, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
   %conv.i17 = sext i32 %add.i to i64
-  %mul.i18 = shl nsw i64 %conv.i17, 4
-  %call.i19 = tail call ptr @realloc(ptr noundef %15, i64 noundef %mul.i18) #14
-  store ptr %call.i19, ptr @results, align 8, !tbaa !5
-  %cmp2.i = icmp eq ptr %call.i19, null
+  %mul.i = shl nsw i64 %conv.i17, 4
+  %call.i18 = tail call ptr @realloc(ptr noundef %16, i64 noundef %mul.i) #14
+  store ptr %call.i18, ptr @results, align 8, !tbaa !5
+  %cmp2.i = icmp eq ptr %call.i18, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
 
-if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i20
+if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i19
   %.pre10.i = load i32, ptr @current_test, align 4, !tbaa !9
   br label %_Z13record_resultdPKc.exit
 
-if.then3.i:                                       ; preds = %if.then.i20
-  %19 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %19)
+if.then3.i:                                       ; preds = %if.then.i19
+  %20 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %20)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %20 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %16, %lor.lhs.false.i ]
-  %21 = phi ptr [ %call.i19, %if.then.if.end5_crit_edge.i ], [ %15, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i15, %14
+  %21 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %17, %lor.lhs.false.i ]
+  %22 = phi ptr [ %call.i18, %if.then.if.end5_crit_edge.i ], [ %16, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i15, %15
   %conv.i16 = sitofp i64 %sub.i to double
   %div.i = fdiv double %conv.i16, 1.000000e+06
-  %idxprom.i = sext i32 %20 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i
+  %idxprom.i = sext i32 %21 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %22, i64 %idxprom.i
   store double %div.i, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i, i32 1
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %22, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %20, 1
+  %inc.i = add nsw i32 %21, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }
@@ -3378,8 +3378,8 @@ for.body3.us:                                     ; preds = %for.cond1.preheader
   %div310.i.us = sdiv i16 %div9.i.us, %div3.rhs.trunc.i
   %div511.i.us = sdiv i16 %div310.i.us, %div5.rhs.trunc.i
   %div712.i.us = sdiv i16 %div511.i.us, %div7.rhs.trunc.i
-  %conv8.i.us = trunc i16 %div712.i.us to i8
-  %add.us = add i8 %result.026.us, %conv8.i.us
+  %sext.us = trunc i16 %div712.i.us to i8
+  %add.us = add i8 %result.026.us, %sext.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us, !llvm.loop !79
@@ -3393,89 +3393,89 @@ for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.body3.us
   %div511.i.i.us = sdiv i16 %div310.i.i.us, %div5.rhs.trunc.i
   %div712.i.i.us = sdiv i16 %div511.i.i.us, %div7.rhs.trunc.i
   %conv8.i.i.us = trunc i16 %div712.i.i.us to i8
-  %mul.i.us = shl i8 %conv8.i.i.us, 6
-  %cmp.i.i.us = icmp eq i8 %mul.i.us, %add.us
+  %6 = shl i8 %conv8.i.i.us, 6
+  %cmp.i.i.us = icmp eq i8 %6, %add.us
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit
-  %6 = phi i32 [ %9, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %7 = phi double [ %10, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit ], [ %.pre32, %for.cond1.preheader.preheader ]
+  %7 = phi i32 [ %10, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %8 = phi double [ %11, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit ], [ %.pre32, %for.cond1.preheader.preheader ]
   %i.029 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptosi double %7 to i8
+  %conv.i = fptosi double %8 to i8
   %div.lhs.trunc.i.i = sext i8 %conv.i to i16
   %div9.i.i = sdiv i16 %div.lhs.trunc.i.i, %div.rhs.trunc.i
   %div310.i.i = sdiv i16 %div9.i.i, %div3.rhs.trunc.i
   %div511.i.i = sdiv i16 %div310.i.i, %div5.rhs.trunc.i
   %div712.i.i = sdiv i16 %div511.i.i, %div7.rhs.trunc.i
-  %mul.i.mask30 = and i16 %div712.i.i, 3
-  %cmp.i.i = icmp eq i16 %mul.i.mask30, 0
+  %.mask30 = and i16 %div712.i.i, 3
+  %cmp.i.i = icmp eq i16 %.mask30, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %8 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %8)
+  %9 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %9)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
   %.pre33 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit
 
 _Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %9 = phi i32 [ %6, %for.cond1.preheader ], [ %.pre33, %if.then.i ]
-  %10 = phi double [ %7, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %10 = phi i32 [ %7, %for.cond1.preheader ], [ %.pre33, %if.then.i ]
+  %11 = phi double [ %8, %for.cond1.preheader ], [ %.pre, %if.then.i ]
   %inc7 = add nuw nsw i32 %i.029, 1
-  %cmp = icmp slt i32 %inc7, %9
+  %cmp = icmp slt i32 %inc7, %10
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !78
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit, %_Z26check_shifted_variable_sumIa31custom_divide_multiple_variableIaEEvT_S2_S2_S2_S2_.exit.us, %entry
   %call.i18 = tail call i64 @clock() #17
   store i64 %call.i18, ptr @end_time, align 8, !tbaa !26
-  %11 = load i64, ptr @start_time, align 8, !tbaa !26
-  %12 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %12, null
+  %12 = load i64, ptr @start_time, align 8, !tbaa !26
+  %13 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %13, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
   %.pre.i = load i32, ptr @allocated_results, align 4, !tbaa !9
-  br label %if.then.i23
+  br label %if.then.i22
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %13 = load i32, ptr @current_test, align 4, !tbaa !9
-  %14 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %13, %14
-  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i23
+  %14 = load i32, ptr @current_test, align 4, !tbaa !9
+  %15 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %14, %15
+  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i22
 
-if.then.i23:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %15 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %14, %lor.lhs.false.i ]
-  %add.i = add nsw i32 %15, 10
+if.then.i22:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
+  %16 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %15, %lor.lhs.false.i ]
+  %add.i = add nsw i32 %16, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
   %conv.i20 = sext i32 %add.i to i64
-  %mul.i21 = shl nsw i64 %conv.i20, 4
-  %call.i22 = tail call ptr @realloc(ptr noundef %12, i64 noundef %mul.i21) #14
-  store ptr %call.i22, ptr @results, align 8, !tbaa !5
-  %cmp2.i = icmp eq ptr %call.i22, null
+  %mul.i = shl nsw i64 %conv.i20, 4
+  %call.i21 = tail call ptr @realloc(ptr noundef %13, i64 noundef %mul.i) #14
+  store ptr %call.i21, ptr @results, align 8, !tbaa !5
+  %cmp2.i = icmp eq ptr %call.i21, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
 
-if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i23
+if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i22
   %.pre10.i = load i32, ptr @current_test, align 4, !tbaa !9
   br label %_Z13record_resultdPKc.exit
 
-if.then3.i:                                       ; preds = %if.then.i23
-  %16 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %16)
+if.then3.i:                                       ; preds = %if.then.i22
+  %17 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %17)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %17 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %13, %lor.lhs.false.i ]
-  %18 = phi ptr [ %call.i22, %if.then.if.end5_crit_edge.i ], [ %12, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i18, %11
+  %18 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %14, %lor.lhs.false.i ]
+  %19 = phi ptr [ %call.i21, %if.then.if.end5_crit_edge.i ], [ %13, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i18, %12
   %conv.i19 = sitofp i64 %sub.i to double
   %div.i = fdiv double %conv.i19, 1.000000e+06
-  %idxprom.i = sext i32 %17 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %18, i64 %idxprom.i
+  %idxprom.i = sext i32 %18 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %19, i64 %idxprom.i
   store double %div.i, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %18, i64 %idxprom.i, i32 1
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %19, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %17, 1
+  %inc.i = add nsw i32 %18, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }
@@ -7468,8 +7468,8 @@ for.body3.us:                                     ; preds = %for.body3.us.prehea
   %conv.i18.us = zext i8 %28 to i16
   %add.i.us = add nuw nsw i16 %conv.i18.us, %conv1.i
   %sub.i.us = sub i16 %add.i.us, %div.i.i
-  %conv5.i.us = trunc i16 %sub.i.us to i8
-  %add.us = add i8 %result.031.us, %conv5.i.us
+  %conv.us = trunc i16 %sub.i.us to i8
+  %add.us = add i8 %result.031.us, %conv.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us, !llvm.loop !155
@@ -7479,9 +7479,9 @@ for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.body3.us, %vec.
   %29 = load double, ptr @init_value, align 8, !tbaa !28
   %conv.i.us = fptoui double %29 to i8
   %30 = add i8 %conv.i.us, %v1
-  %conv5.i.i.us = sub i8 %30, %1
-  %mul.i.us = shl i8 %conv5.i.i.us, 6
-  %cmp.i.i.us = icmp eq i8 %mul.i.us, %add.us.lcssa
+  %sub.i.tr.i.us = sub i8 %30, %1
+  %conv2.i.us = shl i8 %sub.i.tr.i.us, 6
+  %cmp.i.i.us = icmp eq i8 %conv2.i.us, %add.us.lcssa
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIh30custom_mixed_multiple_variableIhEEvT_S2_S2_S2_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIh30custom_mixed_multiple_variableIhEEvT_S2_S2_S2_S2_.exit
@@ -7490,9 +7490,9 @@ for.cond1.preheader:                              ; preds = %for.cond1.preheader
   %i.034 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIh30custom_mixed_multiple_variableIhEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
   %conv.i = fptoui double %32 to i8
   %33 = add i8 %conv.i, %v1
-  %conv5.i.i = sub i8 %33, %1
-  %mul.i.mask = and i8 %conv5.i.i, 3
-  %cmp.i.i = icmp eq i8 %mul.i.mask, 0
+  %sub.i.tr.i = sub i8 %33, %1
+  %conv2.i.mask = and i8 %sub.i.tr.i, 3
+  %cmp.i.i = icmp eq i8 %conv2.i.mask, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIh30custom_mixed_multiple_variableIhEEvT_S2_S2_S2_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
@@ -9115,8 +9115,8 @@ _Z26check_shifted_variable_sumIs19custom_add_variableIsEEvT_S2_.exit: ; preds = 
   br i1 %cmp, label %for.cond1.preheader, label %for.end12, !llvm.loop !184
 
 for.end12:                                        ; preds = %_Z26check_shifted_variable_sumIs19custom_add_variableIsEEvT_S2_.exit, %_Z26check_shifted_variable_sumIs19custom_add_variableIsEEvT_S2_.exit.us, %entry
-  %call.i22 = tail call i64 @clock() #17
-  store i64 %call.i22, ptr @end_time, align 8, !tbaa !26
+  %call.i20 = tail call i64 @clock() #17
+  store i64 %call.i20, ptr @end_time, align 8, !tbaa !26
   %19 = load i64, ptr @start_time, align 8, !tbaa !26
   %20 = load ptr, ptr @results, align 8, !tbaa !5
   %cmp.i = icmp eq ptr %20, null
@@ -9124,41 +9124,41 @@ for.end12:                                        ; preds = %_Z26check_shifted_v
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end12
   %.pre.i = load i32, ptr @allocated_results, align 4, !tbaa !9
-  br label %if.then.i27
+  br label %if.then.i25
 
 lor.lhs.false.i:                                  ; preds = %for.end12
   %21 = load i32, ptr @current_test, align 4, !tbaa !9
   %22 = load i32, ptr @allocated_results, align 4, !tbaa !9
   %cmp1.not.i = icmp slt i32 %21, %22
-  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i27
+  br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i25
 
-if.then.i27:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
+if.then.i25:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
   %23 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %22, %lor.lhs.false.i ]
   %add.i = add nsw i32 %23, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
-  %conv.i24 = sext i32 %add.i to i64
-  %mul.i25 = shl nsw i64 %conv.i24, 4
-  %call.i26 = tail call ptr @realloc(ptr noundef %20, i64 noundef %mul.i25) #14
-  store ptr %call.i26, ptr @results, align 8, !tbaa !5
-  %cmp2.i = icmp eq ptr %call.i26, null
+  %conv.i22 = sext i32 %add.i to i64
+  %mul.i23 = shl nsw i64 %conv.i22, 4
+  %call.i24 = tail call ptr @realloc(ptr noundef %20, i64 noundef %mul.i23) #14
+  store ptr %call.i24, ptr @results, align 8, !tbaa !5
+  %cmp2.i = icmp eq ptr %call.i24, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
 
-if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i27
+if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i25
   %.pre10.i = load i32, ptr @current_test, align 4, !tbaa !9
   br label %_Z13record_resultdPKc.exit
 
-if.then3.i:                                       ; preds = %if.then.i27
+if.then3.i:                                       ; preds = %if.then.i25
   %24 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %24)
+  %call4.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %24)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
   %25 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %21, %lor.lhs.false.i ]
-  %26 = phi ptr [ %call.i26, %if.then.if.end5_crit_edge.i ], [ %20, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i22, %19
-  %conv.i23 = sitofp i64 %sub.i to double
-  %div.i = fdiv double %conv.i23, 1.000000e+06
+  %26 = phi ptr [ %call.i24, %if.then.if.end5_crit_edge.i ], [ %20, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i20, %19
+  %conv.i21 = sitofp i64 %sub.i to double
+  %div.i = fdiv double %conv.i21, 1.000000e+06
   %idxprom.i = sext i32 %25 to i64
   %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %26, i64 %idxprom.i
   store double %div.i, ptr %arrayidx.i, align 8, !tbaa !11
@@ -10207,16 +10207,16 @@ entry:
   %call.i = tail call i64 @clock() #17
   store i64 %call.i, ptr @start_time, align 8, !tbaa !26
   %0 = load i32, ptr @iterations, align 4, !tbaa !9
-  %cmp27 = icmp sgt i32 %0, 0
-  br i1 %cmp27, label %for.cond1.preheader.lr.ph, label %for.end8
+  %cmp28 = icmp sgt i32 %0, 0
+  br i1 %cmp28, label %for.cond1.preheader.lr.ph, label %for.end8
 
 for.cond1.preheader.lr.ph:                        ; preds = %entry
-  %cmp224 = icmp sgt i32 %count, 0
+  %cmp225 = icmp sgt i32 %count, 0
   %conv1.i = sext i16 %v1 to i32
-  br i1 %cmp224, label %for.cond1.preheader.us.preheader, label %for.cond1.preheader.preheader
+  br i1 %cmp225, label %for.cond1.preheader.us.preheader, label %for.cond1.preheader.preheader
 
 for.cond1.preheader.preheader:                    ; preds = %for.cond1.preheader.lr.ph
-  %.pre30 = load double, ptr @init_value, align 8, !tbaa !28
+  %.pre31 = load double, ptr @init_value, align 8, !tbaa !28
   br label %for.cond1.preheader
 
 for.cond1.preheader.us.preheader:                 ; preds = %for.cond1.preheader.lr.ph
@@ -10229,101 +10229,101 @@ for.cond1.preheader.us.preheader:                 ; preds = %for.cond1.preheader
 
 for.cond1.preheader.us:                           ; preds = %for.cond1.preheader.us.preheader, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us
   %2 = phi i32 [ %4, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us ], [ %0, %for.cond1.preheader.us.preheader ]
-  %i.028.us = phi i32 [ %inc7.us, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us ], [ 0, %for.cond1.preheader.us.preheader ]
+  %i.029.us = phi i32 [ %inc7.us, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us ], [ 0, %for.cond1.preheader.us.preheader ]
   br i1 %1, label %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa, label %for.body3.us
 
 if.then.i.us:                                     ; preds = %for.cond1.for.cond.cleanup_crit_edge.us
   %3 = load i32, ptr @current_test, align 4, !tbaa !9
   %call4.i.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %3)
-  %.pre32 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre33 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us
 
 _Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us: ; preds = %if.then.i.us, %for.cond1.for.cond.cleanup_crit_edge.us
-  %4 = phi i32 [ %.pre32, %if.then.i.us ], [ %2, %for.cond1.for.cond.cleanup_crit_edge.us ]
-  %inc7.us = add nuw nsw i32 %i.028.us, 1
+  %4 = phi i32 [ %.pre33, %if.then.i.us ], [ %2, %for.cond1.for.cond.cleanup_crit_edge.us ]
+  %inc7.us = add nuw nsw i32 %i.029.us, 1
   %cmp.us = icmp slt i32 %inc7.us, %4
   br i1 %cmp.us, label %for.cond1.preheader.us, label %for.end8, !llvm.loop !204
 
 for.body3.us:                                     ; preds = %for.cond1.preheader.us, %for.body3.us
   %indvars.iv = phi i64 [ %indvars.iv.next.1, %for.body3.us ], [ 0, %for.cond1.preheader.us ]
-  %result.025.us = phi i16 [ %add.us.1, %for.body3.us ], [ 0, %for.cond1.preheader.us ]
+  %result.026.us = phi i16 [ %conv5.us.1, %for.body3.us ], [ 0, %for.cond1.preheader.us ]
   %niter = phi i64 [ %niter.next.1, %for.body3.us ], [ 0, %for.cond1.preheader.us ]
   %arrayidx.us = getelementptr inbounds i16, ptr %first, i64 %indvars.iv
   %5 = load i16, ptr %arrayidx.us, align 2, !tbaa !30
   %conv.i15.us = sext i16 %5 to i32
   %div.i.us = sdiv i32 %conv.i15.us, %conv1.i
-  %conv2.i.us = trunc i32 %div.i.us to i16
-  %add.us = add i16 %result.025.us, %conv2.i.us
+  %6 = trunc i32 %div.i.us to i16
+  %conv5.us = add i16 %result.026.us, %6
   %indvars.iv.next = or i64 %indvars.iv, 1
   %arrayidx.us.1 = getelementptr inbounds i16, ptr %first, i64 %indvars.iv.next
-  %6 = load i16, ptr %arrayidx.us.1, align 2, !tbaa !30
-  %conv.i15.us.1 = sext i16 %6 to i32
+  %7 = load i16, ptr %arrayidx.us.1, align 2, !tbaa !30
+  %conv.i15.us.1 = sext i16 %7 to i32
   %div.i.us.1 = sdiv i32 %conv.i15.us.1, %conv1.i
-  %conv2.i.us.1 = trunc i32 %div.i.us.1 to i16
-  %add.us.1 = add i16 %add.us, %conv2.i.us.1
+  %8 = trunc i32 %div.i.us.1 to i16
+  %conv5.us.1 = add i16 %conv5.us, %8
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
   br i1 %niter.ncmp.1, label %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa, label %for.body3.us, !llvm.loop !205
 
 for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa: ; preds = %for.body3.us, %for.cond1.preheader.us
-  %add.us.lcssa.ph = phi i16 [ undef, %for.cond1.preheader.us ], [ %add.us.1, %for.body3.us ]
+  %conv5.us.lcssa.ph = phi i16 [ undef, %for.cond1.preheader.us ], [ %conv5.us.1, %for.body3.us ]
   %indvars.iv.unr = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next.1, %for.body3.us ]
-  %result.025.us.unr = phi i16 [ 0, %for.cond1.preheader.us ], [ %add.us.1, %for.body3.us ]
+  %result.026.us.unr = phi i16 [ 0, %for.cond1.preheader.us ], [ %conv5.us.1, %for.body3.us ]
   br i1 %lcmp.mod.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us.epil
 
 for.body3.us.epil:                                ; preds = %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa
   %arrayidx.us.epil = getelementptr inbounds i16, ptr %first, i64 %indvars.iv.unr
-  %7 = load i16, ptr %arrayidx.us.epil, align 2, !tbaa !30
-  %conv.i15.us.epil = sext i16 %7 to i32
+  %9 = load i16, ptr %arrayidx.us.epil, align 2, !tbaa !30
+  %conv.i15.us.epil = sext i16 %9 to i32
   %div.i.us.epil = sdiv i32 %conv.i15.us.epil, %conv1.i
-  %conv2.i.us.epil = trunc i32 %div.i.us.epil to i16
-  %add.us.epil = add i16 %result.025.us.unr, %conv2.i.us.epil
+  %10 = trunc i32 %div.i.us.epil to i16
+  %conv5.us.epil = add i16 %result.026.us.unr, %10
   br label %for.cond1.for.cond.cleanup_crit_edge.us
 
 for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa, %for.body3.us.epil
-  %add.us.lcssa = phi i16 [ %add.us.lcssa.ph, %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa ], [ %add.us.epil, %for.body3.us.epil ]
-  %8 = load double, ptr @init_value, align 8, !tbaa !28
-  %conv.i.us = fptosi double %8 to i16
+  %conv5.us.lcssa = phi i16 [ %conv5.us.lcssa.ph, %for.cond1.for.cond.cleanup_crit_edge.us.unr-lcssa ], [ %conv5.us.epil, %for.body3.us.epil ]
+  %11 = load double, ptr @init_value, align 8, !tbaa !28
+  %conv.i.us = fptosi double %11 to i16
   %conv.i.i.us = sext i16 %conv.i.us to i32
   %div.i.i.us = sdiv i32 %conv.i.i.us, %conv1.i
-  %conv2.i.i.us = trunc i32 %div.i.i.us to i16
-  %mul.i.us = mul i16 %conv2.i.i.us, 8000
-  %cmp.i.i.us = icmp eq i16 %mul.i.us, %add.us.lcssa
+  %12 = trunc i32 %div.i.i.us to i16
+  %conv2.i.us = mul i16 %12, 8000
+  %cmp.i.i.us = icmp eq i16 %conv2.i.us, %conv5.us.lcssa
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit
-  %9 = phi i32 [ %12, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %10 = phi double [ %13, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ %.pre30, %for.cond1.preheader.preheader ]
-  %i.028 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptosi double %10 to i16
+  %13 = phi i32 [ %17, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %14 = phi double [ %18, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ %.pre31, %for.cond1.preheader.preheader ]
+  %i.029 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
+  %conv.i = fptosi double %14 to i16
   %conv.i.i = sext i16 %conv.i to i32
   %div.i.i = sdiv i32 %conv.i.i, %conv1.i
-  %conv2.i.i = trunc i32 %div.i.i to i16
-  %mul.i = mul i16 %conv2.i.i, 8000
-  %cmp.i.i = icmp eq i16 %mul.i, 0
+  %15 = trunc i32 %div.i.i to i16
+  %conv2.i = mul i16 %15, 8000
+  %cmp.i.i = icmp eq i16 %conv2.i, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %11 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %11)
+  %16 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %16)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
-  %.pre31 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre32 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit
 
 _Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %12 = phi i32 [ %9, %for.cond1.preheader ], [ %.pre31, %if.then.i ]
-  %13 = phi double [ %10, %for.cond1.preheader ], [ %.pre, %if.then.i ]
-  %inc7 = add nuw nsw i32 %i.028, 1
-  %cmp = icmp slt i32 %inc7, %12
+  %17 = phi i32 [ %13, %for.cond1.preheader ], [ %.pre32, %if.then.i ]
+  %18 = phi double [ %14, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %inc7 = add nuw nsw i32 %i.029, 1
+  %cmp = icmp slt i32 %inc7, %17
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !204
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit, %_Z26check_shifted_variable_sumIs22custom_divide_variableIsEEvT_S2_.exit.us, %entry
-  %call.i16 = tail call i64 @clock() #17
-  store i64 %call.i16, ptr @end_time, align 8, !tbaa !26
-  %14 = load i64, ptr @start_time, align 8, !tbaa !26
-  %15 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %15, null
+  %call.i17 = tail call i64 @clock() #17
+  store i64 %call.i17, ptr @end_time, align 8, !tbaa !26
+  %19 = load i64, ptr @start_time, align 8, !tbaa !26
+  %20 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %20, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
@@ -10331,18 +10331,18 @@ entry.if.then_crit_edge.i:                        ; preds = %for.end8
   br label %if.then.i22
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %16 = load i32, ptr @current_test, align 4, !tbaa !9
-  %17 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %16, %17
+  %21 = load i32, ptr @current_test, align 4, !tbaa !9
+  %22 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %21, %22
   br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i22
 
 if.then.i22:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %18 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %17, %lor.lhs.false.i ]
-  %add.i = add nsw i32 %18, 10
+  %23 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %22, %lor.lhs.false.i ]
+  %add.i = add nsw i32 %23, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
-  %conv.i19 = sext i32 %add.i to i64
-  %mul.i20 = shl nsw i64 %conv.i19, 4
-  %call.i21 = tail call ptr @realloc(ptr noundef %15, i64 noundef %mul.i20) #14
+  %conv.i20 = sext i32 %add.i to i64
+  %mul.i = shl nsw i64 %conv.i20, 4
+  %call.i21 = tail call ptr @realloc(ptr noundef %20, i64 noundef %mul.i) #14
   store ptr %call.i21, ptr @results, align 8, !tbaa !5
   %cmp2.i = icmp eq ptr %call.i21, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
@@ -10352,23 +10352,23 @@ if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i22
   br label %_Z13record_resultdPKc.exit
 
 if.then3.i:                                       ; preds = %if.then.i22
-  %19 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %19)
+  %24 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %24)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %20 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %16, %lor.lhs.false.i ]
-  %21 = phi ptr [ %call.i21, %if.then.if.end5_crit_edge.i ], [ %15, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i16, %14
-  %conv.i17 = sitofp i64 %sub.i to double
-  %div.i18 = fdiv double %conv.i17, 1.000000e+06
-  %idxprom.i = sext i32 %20 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i
-  store double %div.i18, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i, i32 1
+  %25 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %21, %lor.lhs.false.i ]
+  %26 = phi ptr [ %call.i21, %if.then.if.end5_crit_edge.i ], [ %20, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i17, %19
+  %conv.i18 = sitofp i64 %sub.i to double
+  %div.i19 = fdiv double %conv.i18, 1.000000e+06
+  %idxprom.i = sext i32 %25 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %26, i64 %idxprom.i
+  store double %div.i19, ptr %arrayidx.i, align 8, !tbaa !11
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %26, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %20, 1
+  %inc.i = add nsw i32 %25, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }
@@ -10379,19 +10379,19 @@ entry:
   %call.i = tail call i64 @clock() #17
   store i64 %call.i, ptr @start_time, align 8, !tbaa !26
   %0 = load i32, ptr @iterations, align 4, !tbaa !9
-  %cmp30 = icmp sgt i32 %0, 0
-  br i1 %cmp30, label %for.cond1.preheader.lr.ph, label %for.end8
+  %cmp31 = icmp sgt i32 %0, 0
+  br i1 %cmp31, label %for.cond1.preheader.lr.ph, label %for.end8
 
 for.cond1.preheader.lr.ph:                        ; preds = %entry
-  %cmp227 = icmp sgt i32 %count, 0
+  %cmp228 = icmp sgt i32 %count, 0
   %conv1.i = sext i16 %v1 to i32
-  %conv2.i = sext i16 %v2 to i32
+  %conv2.i19 = sext i16 %v2 to i32
   %conv4.i = sext i16 %v3 to i32
   %conv6.i = sext i16 %v4 to i32
-  br i1 %cmp227, label %for.cond1.preheader.us.preheader, label %for.cond1.preheader.preheader
+  br i1 %cmp228, label %for.cond1.preheader.us.preheader, label %for.cond1.preheader.preheader
 
 for.cond1.preheader.preheader:                    ; preds = %for.cond1.preheader.lr.ph
-  %.pre33 = load double, ptr @init_value, align 8, !tbaa !28
+  %.pre34 = load double, ptr @init_value, align 8, !tbaa !28
   br label %for.cond1.preheader
 
 for.cond1.preheader.us.preheader:                 ; preds = %for.cond1.preheader.lr.ph
@@ -10400,85 +10400,85 @@ for.cond1.preheader.us.preheader:                 ; preds = %for.cond1.preheader
 
 for.cond1.preheader.us:                           ; preds = %for.cond1.preheader.us.preheader, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us
   %1 = phi i32 [ %3, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ], [ %0, %for.cond1.preheader.us.preheader ]
-  %i.031.us = phi i32 [ %inc7.us, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ], [ 0, %for.cond1.preheader.us.preheader ]
+  %i.032.us = phi i32 [ %inc7.us, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ], [ 0, %for.cond1.preheader.us.preheader ]
   br label %for.body3.us
 
 if.then.i.us:                                     ; preds = %for.cond1.for.cond.cleanup_crit_edge.us
   %2 = load i32, ptr @current_test, align 4, !tbaa !9
   %call4.i.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %2)
-  %.pre35 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre36 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us
 
 _Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us: ; preds = %if.then.i.us, %for.cond1.for.cond.cleanup_crit_edge.us
-  %3 = phi i32 [ %.pre35, %if.then.i.us ], [ %1, %for.cond1.for.cond.cleanup_crit_edge.us ]
-  %inc7.us = add nuw nsw i32 %i.031.us, 1
+  %3 = phi i32 [ %.pre36, %if.then.i.us ], [ %1, %for.cond1.for.cond.cleanup_crit_edge.us ]
+  %inc7.us = add nuw nsw i32 %i.032.us, 1
   %cmp.us = icmp slt i32 %inc7.us, %3
   br i1 %cmp.us, label %for.cond1.preheader.us, label %for.end8, !llvm.loop !206
 
 for.body3.us:                                     ; preds = %for.cond1.preheader.us, %for.body3.us
   %indvars.iv = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next, %for.body3.us ]
-  %result.028.us = phi i16 [ 0, %for.cond1.preheader.us ], [ %add.us, %for.body3.us ]
+  %result.029.us = phi i16 [ 0, %for.cond1.preheader.us ], [ %conv5.us, %for.body3.us ]
   %arrayidx.us = getelementptr inbounds i16, ptr %first, i64 %indvars.iv
   %4 = load i16, ptr %arrayidx.us, align 2, !tbaa !30
   %conv.i18.us = sext i16 %4 to i32
   %div.i.us = sdiv i32 %conv.i18.us, %conv1.i
-  %div3.i.us = sdiv i32 %div.i.us, %conv2.i
+  %div3.i.us = sdiv i32 %div.i.us, %conv2.i19
   %div5.i.us = sdiv i32 %div3.i.us, %conv4.i
   %div7.i.us = sdiv i32 %div5.i.us, %conv6.i
-  %conv8.i.us = trunc i32 %div7.i.us to i16
-  %add.us = add i16 %result.028.us, %conv8.i.us
+  %5 = trunc i32 %div7.i.us to i16
+  %conv5.us = add i16 %result.029.us, %5
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us, !llvm.loop !207
 
 for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.body3.us
-  %5 = load double, ptr @init_value, align 8, !tbaa !28
-  %conv.i.us = fptosi double %5 to i16
+  %6 = load double, ptr @init_value, align 8, !tbaa !28
+  %conv.i.us = fptosi double %6 to i16
   %conv.i.i.us = sext i16 %conv.i.us to i32
   %div.i.i.us = sdiv i32 %conv.i.i.us, %conv1.i
-  %div3.i.i.us = sdiv i32 %div.i.i.us, %conv2.i
+  %div3.i.i.us = sdiv i32 %div.i.i.us, %conv2.i19
   %div5.i.i.us = sdiv i32 %div3.i.i.us, %conv4.i
   %div7.i.i.us = sdiv i32 %div5.i.i.us, %conv6.i
-  %conv8.i.i.us = trunc i32 %div7.i.i.us to i16
-  %mul.i.us = mul i16 %conv8.i.i.us, 8000
-  %cmp.i.i.us = icmp eq i16 %mul.i.us, %add.us
+  %7 = trunc i32 %div7.i.i.us to i16
+  %conv2.i.us = mul i16 %7, 8000
+  %cmp.i.i.us = icmp eq i16 %conv2.i.us, %conv5.us
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit
-  %6 = phi i32 [ %9, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %7 = phi double [ %10, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %.pre33, %for.cond1.preheader.preheader ]
-  %i.031 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptosi double %7 to i16
+  %8 = phi i32 [ %12, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %9 = phi double [ %13, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %.pre34, %for.cond1.preheader.preheader ]
+  %i.032 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
+  %conv.i = fptosi double %9 to i16
   %conv.i.i = sext i16 %conv.i to i32
   %div.i.i = sdiv i32 %conv.i.i, %conv1.i
-  %div3.i.i = sdiv i32 %div.i.i, %conv2.i
+  %div3.i.i = sdiv i32 %div.i.i, %conv2.i19
   %div5.i.i = sdiv i32 %div3.i.i, %conv4.i
   %div7.i.i = sdiv i32 %div5.i.i, %conv6.i
-  %conv8.i.i = trunc i32 %div7.i.i to i16
-  %mul.i = mul i16 %conv8.i.i, 8000
-  %cmp.i.i = icmp eq i16 %mul.i, 0
+  %10 = trunc i32 %div7.i.i to i16
+  %conv2.i = mul i16 %10, 8000
+  %cmp.i.i = icmp eq i16 %conv2.i, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %8 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %8)
+  %11 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %11)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
-  %.pre34 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre35 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit
 
 _Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %9 = phi i32 [ %6, %for.cond1.preheader ], [ %.pre34, %if.then.i ]
-  %10 = phi double [ %7, %for.cond1.preheader ], [ %.pre, %if.then.i ]
-  %inc7 = add nuw nsw i32 %i.031, 1
-  %cmp = icmp slt i32 %inc7, %9
+  %12 = phi i32 [ %8, %for.cond1.preheader ], [ %.pre35, %if.then.i ]
+  %13 = phi double [ %9, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %inc7 = add nuw nsw i32 %i.032, 1
+  %cmp = icmp slt i32 %inc7, %12
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !206
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit, %_Z26check_shifted_variable_sumIs31custom_divide_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us, %entry
-  %call.i19 = tail call i64 @clock() #17
-  store i64 %call.i19, ptr @end_time, align 8, !tbaa !26
-  %11 = load i64, ptr @start_time, align 8, !tbaa !26
-  %12 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %12, null
+  %call.i20 = tail call i64 @clock() #17
+  store i64 %call.i20, ptr @end_time, align 8, !tbaa !26
+  %14 = load i64, ptr @start_time, align 8, !tbaa !26
+  %15 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %15, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
@@ -10486,18 +10486,18 @@ entry.if.then_crit_edge.i:                        ; preds = %for.end8
   br label %if.then.i25
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %13 = load i32, ptr @current_test, align 4, !tbaa !9
-  %14 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %13, %14
+  %16 = load i32, ptr @current_test, align 4, !tbaa !9
+  %17 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %16, %17
   br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i25
 
 if.then.i25:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %15 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %14, %lor.lhs.false.i ]
-  %add.i = add nsw i32 %15, 10
+  %18 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %17, %lor.lhs.false.i ]
+  %add.i = add nsw i32 %18, 10
   store i32 %add.i, ptr @allocated_results, align 4, !tbaa !9
-  %conv.i22 = sext i32 %add.i to i64
-  %mul.i23 = shl nsw i64 %conv.i22, 4
-  %call.i24 = tail call ptr @realloc(ptr noundef %12, i64 noundef %mul.i23) #14
+  %conv.i23 = sext i32 %add.i to i64
+  %mul.i = shl nsw i64 %conv.i23, 4
+  %call.i24 = tail call ptr @realloc(ptr noundef %15, i64 noundef %mul.i) #14
   store ptr %call.i24, ptr @results, align 8, !tbaa !5
   %cmp2.i = icmp eq ptr %call.i24, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
@@ -10507,23 +10507,23 @@ if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i25
   br label %_Z13record_resultdPKc.exit
 
 if.then3.i:                                       ; preds = %if.then.i25
-  %16 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %16)
+  %19 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %19)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %17 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %13, %lor.lhs.false.i ]
-  %18 = phi ptr [ %call.i24, %if.then.if.end5_crit_edge.i ], [ %12, %lor.lhs.false.i ]
-  %sub.i = sub nsw i64 %call.i19, %11
-  %conv.i20 = sitofp i64 %sub.i to double
-  %div.i21 = fdiv double %conv.i20, 1.000000e+06
-  %idxprom.i = sext i32 %17 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %18, i64 %idxprom.i
-  store double %div.i21, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %18, i64 %idxprom.i, i32 1
+  %20 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %16, %lor.lhs.false.i ]
+  %21 = phi ptr [ %call.i24, %if.then.if.end5_crit_edge.i ], [ %15, %lor.lhs.false.i ]
+  %sub.i = sub nsw i64 %call.i20, %14
+  %conv.i21 = sitofp i64 %sub.i to double
+  %div.i22 = fdiv double %conv.i21, 1.000000e+06
+  %idxprom.i = sext i32 %20 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i
+  store double %div.i22, ptr %arrayidx.i, align 8, !tbaa !11
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %21, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %17, 1
+  %inc.i = add nsw i32 %20, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }
@@ -10712,11 +10712,11 @@ entry:
   %call.i = tail call i64 @clock() #17
   store i64 %call.i, ptr @start_time, align 8, !tbaa !26
   %0 = load i32, ptr @iterations, align 4, !tbaa !9
-  %cmp32 = icmp sgt i32 %0, 0
-  br i1 %cmp32, label %for.cond1.preheader.lr.ph, label %for.end8
+  %cmp33 = icmp sgt i32 %0, 0
+  br i1 %cmp33, label %for.cond1.preheader.lr.ph, label %for.end8
 
 for.cond1.preheader.lr.ph:                        ; preds = %entry
-  %cmp229 = icmp sgt i32 %count, 0
+  %cmp230 = icmp sgt i32 %count, 0
   %conv16.i = zext i16 %v1 to i32
   %conv2.i.i = sext i16 %v2 to i32
   %conv3.i.i = sext i16 %v3 to i32
@@ -10724,10 +10724,10 @@ for.cond1.preheader.lr.ph:                        ; preds = %entry
   %conv4.i.i = sext i16 %v4 to i32
   %div.i.i = sdiv i32 %mul.i.i, %conv4.i.i
   %1 = trunc i32 %div.i.i to i16
-  br i1 %cmp229, label %for.cond1.preheader.lr.ph.split.us, label %for.cond1.preheader.preheader
+  br i1 %cmp230, label %for.cond1.preheader.lr.ph.split.us, label %for.cond1.preheader.preheader
 
 for.cond1.preheader.preheader:                    ; preds = %for.cond1.preheader.lr.ph
-  %.pre35 = load double, ptr @init_value, align 8, !tbaa !28
+  %.pre36 = load double, ptr @init_value, align 8, !tbaa !28
   br label %for.cond1.preheader
 
 for.cond1.preheader.lr.ph.split.us:               ; preds = %for.cond1.preheader.lr.ph
@@ -10736,38 +10736,38 @@ for.cond1.preheader.lr.ph.split.us:               ; preds = %for.cond1.preheader
   %n.vec = and i64 %wide.trip.count, 4294967280
   %broadcast.splatinsert = insertelement <8 x i32> poison, i32 %conv16.i, i64 0
   %broadcast.splat = shufflevector <8 x i32> %broadcast.splatinsert, <8 x i32> poison, <8 x i32> zeroinitializer
-  %broadcast.splatinsert42 = insertelement <8 x i32> poison, i32 %conv16.i, i64 0
-  %broadcast.splat43 = shufflevector <8 x i32> %broadcast.splatinsert42, <8 x i32> poison, <8 x i32> zeroinitializer
-  %broadcast.splatinsert44 = insertelement <8 x i32> poison, i32 %div.i.i, i64 0
-  %broadcast.splat45 = shufflevector <8 x i32> %broadcast.splatinsert44, <8 x i32> poison, <8 x i32> zeroinitializer
-  %broadcast.splatinsert46 = insertelement <8 x i32> poison, i32 %div.i.i, i64 0
-  %broadcast.splat47 = shufflevector <8 x i32> %broadcast.splatinsert46, <8 x i32> poison, <8 x i32> zeroinitializer
+  %broadcast.splatinsert43 = insertelement <8 x i32> poison, i32 %conv16.i, i64 0
+  %broadcast.splat44 = shufflevector <8 x i32> %broadcast.splatinsert43, <8 x i32> poison, <8 x i32> zeroinitializer
+  %broadcast.splatinsert45 = insertelement <8 x i32> poison, i32 %div.i.i, i64 0
+  %broadcast.splat46 = shufflevector <8 x i32> %broadcast.splatinsert45, <8 x i32> poison, <8 x i32> zeroinitializer
+  %broadcast.splatinsert47 = insertelement <8 x i32> poison, i32 %div.i.i, i64 0
+  %broadcast.splat48 = shufflevector <8 x i32> %broadcast.splatinsert47, <8 x i32> poison, <8 x i32> zeroinitializer
   %cmp.n = icmp eq i64 %n.vec, %wide.trip.count
   br label %for.cond1.preheader.us
 
 for.cond1.preheader.us:                           ; preds = %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us, %for.cond1.preheader.lr.ph.split.us
   %2 = phi i32 [ %0, %for.cond1.preheader.lr.ph.split.us ], [ %18, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ]
-  %i.033.us = phi i32 [ 0, %for.cond1.preheader.lr.ph.split.us ], [ %inc7.us, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ]
+  %i.034.us = phi i32 [ 0, %for.cond1.preheader.lr.ph.split.us ], [ %inc7.us, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us ]
   br i1 %min.iters.check, label %for.body3.us.preheader, label %vector.body
 
 vector.body:                                      ; preds = %for.cond1.preheader.us, %vector.body
   %index = phi i64 [ %index.next, %vector.body ], [ 0, %for.cond1.preheader.us ]
   %vec.phi = phi <8 x i16> [ %13, %vector.body ], [ zeroinitializer, %for.cond1.preheader.us ]
-  %vec.phi40 = phi <8 x i16> [ %14, %vector.body ], [ zeroinitializer, %for.cond1.preheader.us ]
+  %vec.phi41 = phi <8 x i16> [ %14, %vector.body ], [ zeroinitializer, %for.cond1.preheader.us ]
   %3 = getelementptr inbounds i16, ptr %first, i64 %index
   %wide.load = load <8 x i16>, ptr %3, align 2, !tbaa !30
   %4 = getelementptr inbounds i16, ptr %3, i64 8
-  %wide.load41 = load <8 x i16>, ptr %4, align 2, !tbaa !30
+  %wide.load42 = load <8 x i16>, ptr %4, align 2, !tbaa !30
   %5 = zext <8 x i16> %wide.load to <8 x i32>
-  %6 = zext <8 x i16> %wide.load41 to <8 x i32>
+  %6 = zext <8 x i16> %wide.load42 to <8 x i32>
   %7 = add nuw nsw <8 x i32> %broadcast.splat, %5
-  %8 = add nuw nsw <8 x i32> %broadcast.splat43, %6
-  %9 = sub nsw <8 x i32> %7, %broadcast.splat45
-  %10 = sub nsw <8 x i32> %8, %broadcast.splat47
+  %8 = add nuw nsw <8 x i32> %broadcast.splat44, %6
+  %9 = sub nsw <8 x i32> %7, %broadcast.splat46
+  %10 = sub nsw <8 x i32> %8, %broadcast.splat48
   %11 = trunc <8 x i32> %9 to <8 x i16>
   %12 = trunc <8 x i32> %10 to <8 x i16>
   %13 = add <8 x i16> %vec.phi, %11
-  %14 = add <8 x i16> %vec.phi40, %12
+  %14 = add <8 x i16> %vec.phi41, %12
   %index.next = add nuw i64 %index, 16
   %15 = icmp eq i64 %index.next, %n.vec
   br i1 %15, label %middle.block, label %vector.body, !llvm.loop !211
@@ -10779,76 +10779,76 @@ middle.block:                                     ; preds = %vector.body
 
 for.body3.us.preheader:                           ; preds = %for.cond1.preheader.us, %middle.block
   %indvars.iv.ph = phi i64 [ 0, %for.cond1.preheader.us ], [ %n.vec, %middle.block ]
-  %result.030.us.ph = phi i16 [ 0, %for.cond1.preheader.us ], [ %16, %middle.block ]
+  %result.031.us.ph = phi i16 [ 0, %for.cond1.preheader.us ], [ %16, %middle.block ]
   br label %for.body3.us
 
 if.then.i.us:                                     ; preds = %for.cond1.for.cond.cleanup_crit_edge.us
   %17 = load i32, ptr @current_test, align 4, !tbaa !9
   %call4.i.us = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %17)
-  %.pre37 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre38 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us
 
 _Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us: ; preds = %if.then.i.us, %for.cond1.for.cond.cleanup_crit_edge.us
-  %18 = phi i32 [ %.pre37, %if.then.i.us ], [ %2, %for.cond1.for.cond.cleanup_crit_edge.us ]
-  %inc7.us = add nuw nsw i32 %i.033.us, 1
+  %18 = phi i32 [ %.pre38, %if.then.i.us ], [ %2, %for.cond1.for.cond.cleanup_crit_edge.us ]
+  %inc7.us = add nuw nsw i32 %i.034.us, 1
   %cmp.us = icmp slt i32 %inc7.us, %18
   br i1 %cmp.us, label %for.cond1.preheader.us, label %for.end8, !llvm.loop !212
 
 for.body3.us:                                     ; preds = %for.body3.us.preheader, %for.body3.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body3.us ], [ %indvars.iv.ph, %for.body3.us.preheader ]
-  %result.030.us = phi i16 [ %add.us, %for.body3.us ], [ %result.030.us.ph, %for.body3.us.preheader ]
+  %result.031.us = phi i16 [ %conv5.us, %for.body3.us ], [ %result.031.us.ph, %for.body3.us.preheader ]
   %arrayidx.us = getelementptr inbounds i16, ptr %first, i64 %indvars.iv
   %19 = load i16, ptr %arrayidx.us, align 2, !tbaa !30
   %conv7.i.us = zext i16 %19 to i32
   %add.i.us = add nuw nsw i32 %conv7.i.us, %conv16.i
   %sub.i.us = sub nsw i32 %add.i.us, %div.i.i
-  %conv5.i.us = trunc i32 %sub.i.us to i16
-  %add.us = add i16 %result.030.us, %conv5.i.us
+  %20 = trunc i32 %sub.i.us to i16
+  %conv5.us = add i16 %result.031.us, %20
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us, !llvm.loop !213
 
 for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.body3.us, %middle.block
-  %add.us.lcssa = phi i16 [ %16, %middle.block ], [ %add.us, %for.body3.us ]
-  %20 = load double, ptr @init_value, align 8, !tbaa !28
-  %conv.i.us = fptosi double %20 to i16
-  %21 = add i16 %conv.i.us, %v1
-  %conv5.i.i.us = sub i16 %21, %1
-  %mul.i.us = mul i16 %conv5.i.i.us, 8000
-  %cmp.i.i.us = icmp eq i16 %mul.i.us, %add.us.lcssa
+  %conv5.us.lcssa = phi i16 [ %16, %middle.block ], [ %conv5.us, %for.body3.us ]
+  %21 = load double, ptr @init_value, align 8, !tbaa !28
+  %conv.i.us = fptosi double %21 to i16
+  %22 = add i16 %conv.i.us, %v1
+  %23 = sub i16 %22, %1
+  %conv2.i.us = mul i16 %23, 8000
+  %cmp.i.i.us = icmp eq i16 %conv2.i.us, %conv5.us.lcssa
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit
-  %22 = phi i32 [ %26, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %23 = phi double [ %27, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %.pre35, %for.cond1.preheader.preheader ]
-  %i.033 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptosi double %23 to i16
-  %24 = add i16 %conv.i, %v1
-  %conv5.i.i = sub i16 %24, %1
-  %mul.i = mul i16 %conv5.i.i, 8000
-  %cmp.i.i = icmp eq i16 %mul.i, 0
+  %24 = phi i32 [ %29, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %25 = phi double [ %30, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ %.pre36, %for.cond1.preheader.preheader ]
+  %i.034 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
+  %conv.i = fptosi double %25 to i16
+  %26 = add i16 %conv.i, %v1
+  %27 = sub i16 %26, %1
+  %conv2.i = mul i16 %27, 8000
+  %cmp.i.i = icmp eq i16 %conv2.i, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %25 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %25)
+  %28 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %28)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
-  %.pre36 = load i32, ptr @iterations, align 4, !tbaa !9
+  %.pre37 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit
 
 _Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %26 = phi i32 [ %22, %for.cond1.preheader ], [ %.pre36, %if.then.i ]
-  %27 = phi double [ %23, %for.cond1.preheader ], [ %.pre, %if.then.i ]
-  %inc7 = add nuw nsw i32 %i.033, 1
-  %cmp = icmp slt i32 %inc7, %26
+  %29 = phi i32 [ %24, %for.cond1.preheader ], [ %.pre37, %if.then.i ]
+  %30 = phi double [ %25, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %inc7 = add nuw nsw i32 %i.034, 1
+  %cmp = icmp slt i32 %inc7, %29
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !212
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit, %_Z26check_shifted_variable_sumIs30custom_mixed_multiple_variableIsEEvT_S2_S2_S2_S2_.exit.us, %entry
   %call.i19 = tail call i64 @clock() #17
   store i64 %call.i19, ptr @end_time, align 8, !tbaa !26
-  %28 = load i64, ptr @start_time, align 8, !tbaa !26
-  %29 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %29, null
+  %31 = load i64, ptr @start_time, align 8, !tbaa !26
+  %32 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %32, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
@@ -10856,18 +10856,18 @@ entry.if.then_crit_edge.i:                        ; preds = %for.end8
   br label %if.then.i27
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %30 = load i32, ptr @current_test, align 4, !tbaa !9
-  %31 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %30, %31
+  %33 = load i32, ptr @current_test, align 4, !tbaa !9
+  %34 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %33, %34
   br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i27
 
 if.then.i27:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %32 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %31, %lor.lhs.false.i ]
-  %add.i23 = add nsw i32 %32, 10
+  %35 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %34, %lor.lhs.false.i ]
+  %add.i23 = add nsw i32 %35, 10
   store i32 %add.i23, ptr @allocated_results, align 4, !tbaa !9
   %conv.i24 = sext i32 %add.i23 to i64
   %mul.i25 = shl nsw i64 %conv.i24, 4
-  %call.i26 = tail call ptr @realloc(ptr noundef %29, i64 noundef %mul.i25) #14
+  %call.i26 = tail call ptr @realloc(ptr noundef %32, i64 noundef %mul.i25) #14
   store ptr %call.i26, ptr @results, align 8, !tbaa !5
   %cmp2.i = icmp eq ptr %call.i26, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
@@ -10877,23 +10877,23 @@ if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i27
   br label %_Z13record_resultdPKc.exit
 
 if.then3.i:                                       ; preds = %if.then.i27
-  %33 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %33)
+  %36 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %36)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %34 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %30, %lor.lhs.false.i ]
-  %35 = phi ptr [ %call.i26, %if.then.if.end5_crit_edge.i ], [ %29, %lor.lhs.false.i ]
-  %sub.i20 = sub nsw i64 %call.i19, %28
+  %37 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %33, %lor.lhs.false.i ]
+  %38 = phi ptr [ %call.i26, %if.then.if.end5_crit_edge.i ], [ %32, %lor.lhs.false.i ]
+  %sub.i20 = sub nsw i64 %call.i19, %31
   %conv.i21 = sitofp i64 %sub.i20 to double
   %div.i22 = fdiv double %conv.i21, 1.000000e+06
-  %idxprom.i = sext i32 %34 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %35, i64 %idxprom.i
+  %idxprom.i = sext i32 %37 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %38, i64 %idxprom.i
   store double %div.i22, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %35, i64 %idxprom.i, i32 1
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %38, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %34, 1
+  %inc.i = add nsw i32 %37, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }
@@ -13891,59 +13891,59 @@ _Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_
 
 for.body3.us:                                     ; preds = %for.body3.us.preheader, %for.body3.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body3.us ], [ %indvars.iv.ph, %for.body3.us.preheader ]
-  %result.031.us = phi i16 [ %add.us, %for.body3.us ], [ %result.031.us.ph, %for.body3.us.preheader ]
+  %result.031.us = phi i16 [ %conv5.us, %for.body3.us ], [ %result.031.us.ph, %for.body3.us.preheader ]
   %arrayidx.us = getelementptr inbounds i16, ptr %first, i64 %indvars.iv
   %19 = load i16, ptr %arrayidx.us, align 2, !tbaa !30
   %conv.i18.us = zext i16 %19 to i32
   %add.i.us = add nuw nsw i32 %conv.i18.us, %conv1.i
   %sub.i.us = sub nsw i32 %add.i.us, %div.i.i
-  %conv5.i.us = trunc i32 %sub.i.us to i16
-  %add.us = add i16 %result.031.us, %conv5.i.us
+  %20 = trunc i32 %sub.i.us to i16
+  %conv5.us = add i16 %result.031.us, %20
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup_crit_edge.us, label %for.body3.us, !llvm.loop !265
 
 for.cond1.for.cond.cleanup_crit_edge.us:          ; preds = %for.body3.us, %middle.block
-  %add.us.lcssa = phi i16 [ %16, %middle.block ], [ %add.us, %for.body3.us ]
-  %20 = load double, ptr @init_value, align 8, !tbaa !28
-  %conv.i.us = fptoui double %20 to i16
-  %21 = add i16 %conv.i.us, %v1
-  %conv5.i.i.us = sub i16 %21, %1
-  %mul.i.us = mul i16 %conv5.i.i.us, 8000
-  %cmp.i.i.us = icmp eq i16 %mul.i.us, %add.us.lcssa
+  %conv5.us.lcssa = phi i16 [ %16, %middle.block ], [ %conv5.us, %for.body3.us ]
+  %21 = load double, ptr @init_value, align 8, !tbaa !28
+  %conv.i.us = fptoui double %21 to i16
+  %22 = add i16 %conv.i.us, %v1
+  %23 = sub i16 %22, %1
+  %conv2.i.us = mul i16 %23, 8000
+  %cmp.i.i.us = icmp eq i16 %conv2.i.us, %conv5.us.lcssa
   br i1 %cmp.i.i.us, label %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit.us, label %if.then.i.us
 
 for.cond1.preheader:                              ; preds = %for.cond1.preheader.preheader, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit
-  %22 = phi i32 [ %26, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
-  %23 = phi double [ %27, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit ], [ %.pre36, %for.cond1.preheader.preheader ]
+  %24 = phi i32 [ %29, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit ], [ %0, %for.cond1.preheader.preheader ]
+  %25 = phi double [ %30, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit ], [ %.pre36, %for.cond1.preheader.preheader ]
   %i.034 = phi i32 [ %inc7, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit ], [ 0, %for.cond1.preheader.preheader ]
-  %conv.i = fptoui double %23 to i16
-  %24 = add i16 %conv.i, %v1
-  %conv5.i.i = sub i16 %24, %1
-  %mul.i = mul i16 %conv5.i.i, 8000
-  %cmp.i.i = icmp eq i16 %mul.i, 0
+  %conv.i = fptoui double %25 to i16
+  %26 = add i16 %conv.i, %v1
+  %27 = sub i16 %26, %1
+  %conv2.i = mul i16 %27, 8000
+  %cmp.i.i = icmp eq i16 %conv2.i, 0
   br i1 %cmp.i.i, label %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond1.preheader
-  %25 = load i32, ptr @current_test, align 4, !tbaa !9
-  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %25)
+  %28 = load i32, ptr @current_test, align 4, !tbaa !9
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.179, i32 noundef %28)
   %.pre = load double, ptr @init_value, align 8, !tbaa !28
   %.pre37 = load i32, ptr @iterations, align 4, !tbaa !9
   br label %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit
 
 _Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit: ; preds = %for.cond1.preheader, %if.then.i
-  %26 = phi i32 [ %22, %for.cond1.preheader ], [ %.pre37, %if.then.i ]
-  %27 = phi double [ %23, %for.cond1.preheader ], [ %.pre, %if.then.i ]
+  %29 = phi i32 [ %24, %for.cond1.preheader ], [ %.pre37, %if.then.i ]
+  %30 = phi double [ %25, %for.cond1.preheader ], [ %.pre, %if.then.i ]
   %inc7 = add nuw nsw i32 %i.034, 1
-  %cmp = icmp slt i32 %inc7, %26
+  %cmp = icmp slt i32 %inc7, %29
   br i1 %cmp, label %for.cond1.preheader, label %for.end8, !llvm.loop !264
 
 for.end8:                                         ; preds = %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit, %_Z26check_shifted_variable_sumIt30custom_mixed_multiple_variableItEEvT_S2_S2_S2_S2_.exit.us, %entry
   %call.i20 = tail call i64 @clock() #17
   store i64 %call.i20, ptr @end_time, align 8, !tbaa !26
-  %28 = load i64, ptr @start_time, align 8, !tbaa !26
-  %29 = load ptr, ptr @results, align 8, !tbaa !5
-  %cmp.i = icmp eq ptr %29, null
+  %31 = load i64, ptr @start_time, align 8, !tbaa !26
+  %32 = load ptr, ptr @results, align 8, !tbaa !5
+  %cmp.i = icmp eq ptr %32, null
   br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
 entry.if.then_crit_edge.i:                        ; preds = %for.end8
@@ -13951,18 +13951,18 @@ entry.if.then_crit_edge.i:                        ; preds = %for.end8
   br label %if.then.i28
 
 lor.lhs.false.i:                                  ; preds = %for.end8
-  %30 = load i32, ptr @current_test, align 4, !tbaa !9
-  %31 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %cmp1.not.i = icmp slt i32 %30, %31
+  %33 = load i32, ptr @current_test, align 4, !tbaa !9
+  %34 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %cmp1.not.i = icmp slt i32 %33, %34
   br i1 %cmp1.not.i, label %_Z13record_resultdPKc.exit, label %if.then.i28
 
 if.then.i28:                                      ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
-  %32 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %31, %lor.lhs.false.i ]
-  %add.i24 = add nsw i32 %32, 10
+  %35 = phi i32 [ %.pre.i, %entry.if.then_crit_edge.i ], [ %34, %lor.lhs.false.i ]
+  %add.i24 = add nsw i32 %35, 10
   store i32 %add.i24, ptr @allocated_results, align 4, !tbaa !9
   %conv.i25 = sext i32 %add.i24 to i64
   %mul.i26 = shl nsw i64 %conv.i25, 4
-  %call.i27 = tail call ptr @realloc(ptr noundef %29, i64 noundef %mul.i26) #14
+  %call.i27 = tail call ptr @realloc(ptr noundef %32, i64 noundef %mul.i26) #14
   store ptr %call.i27, ptr @results, align 8, !tbaa !5
   %cmp2.i = icmp eq ptr %call.i27, null
   br i1 %cmp2.i, label %if.then3.i, label %if.then.if.end5_crit_edge.i
@@ -13972,23 +13972,23 @@ if.then.if.end5_crit_edge.i:                      ; preds = %if.then.i28
   br label %_Z13record_resultdPKc.exit
 
 if.then3.i:                                       ; preds = %if.then.i28
-  %33 = load i32, ptr @allocated_results, align 4, !tbaa !9
-  %call4.i29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %33)
+  %36 = load i32, ptr @allocated_results, align 4, !tbaa !9
+  %call4.i29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %36)
   tail call void @exit(i32 noundef -1) #15
   unreachable
 
 _Z13record_resultdPKc.exit:                       ; preds = %lor.lhs.false.i, %if.then.if.end5_crit_edge.i
-  %34 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %30, %lor.lhs.false.i ]
-  %35 = phi ptr [ %call.i27, %if.then.if.end5_crit_edge.i ], [ %29, %lor.lhs.false.i ]
-  %sub.i21 = sub nsw i64 %call.i20, %28
+  %37 = phi i32 [ %.pre10.i, %if.then.if.end5_crit_edge.i ], [ %33, %lor.lhs.false.i ]
+  %38 = phi ptr [ %call.i27, %if.then.if.end5_crit_edge.i ], [ %32, %lor.lhs.false.i ]
+  %sub.i21 = sub nsw i64 %call.i20, %31
   %conv.i22 = sitofp i64 %sub.i21 to double
   %div.i23 = fdiv double %conv.i22, 1.000000e+06
-  %idxprom.i = sext i32 %34 to i64
-  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %35, i64 %idxprom.i
+  %idxprom.i = sext i32 %37 to i64
+  %arrayidx.i = getelementptr inbounds %struct.one_result, ptr %38, i64 %idxprom.i
   store double %div.i23, ptr %arrayidx.i, align 8, !tbaa !11
-  %label9.i = getelementptr inbounds %struct.one_result, ptr %35, i64 %idxprom.i, i32 1
+  %label9.i = getelementptr inbounds %struct.one_result, ptr %38, i64 %idxprom.i, i32 1
   store ptr %label, ptr %label9.i, align 8, !tbaa !14
-  %inc.i = add nsw i32 %34, 1
+  %inc.i = add nsw i32 %37, 1
   store i32 %inc.i, ptr @current_test, align 4, !tbaa !9
   ret void
 }

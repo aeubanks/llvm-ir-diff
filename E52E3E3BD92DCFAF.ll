@@ -5,37 +5,37 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test1(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test2(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test3(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test4(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test5(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @test6(float noundef %x, float noundef %y) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 

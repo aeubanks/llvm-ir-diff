@@ -6,17 +6,17 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @foobar(i32 noundef %x, i32 noundef %y, i32 noundef %z) local_unnamed_addr #0 {
 entry:
-  %bf.cast28 = and i32 %x, 1
-  %cmp.not.not = icmp eq i32 %bf.cast28, 0
+  %bf.value = and i32 %x, 1
+  %cmp.not.not = icmp eq i32 %bf.value, 0
   br i1 %cmp.not.not, label %if.then, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %entry
   %bf.clear25 = and i32 %y, 3
-  %sub = sub nsw i32 %bf.clear25, %bf.cast28
+  %sub = sub nsw i32 %bf.clear25, %bf.value
   %mul = mul nsw i32 %sub, %bf.clear25
   %add = add i32 %mul, %z
-  %bf.shl39 = and i32 %add, 7
-  %cmp49.not = icmp eq i32 %bf.shl39, 5
+  %bf.value38 = and i32 %add, 7
+  %cmp49.not = icmp eq i32 %bf.value38, 5
   br i1 %cmp49.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %lor.lhs.false, %entry

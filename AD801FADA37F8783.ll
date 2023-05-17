@@ -258,8 +258,8 @@ if.then:                                          ; preds = %if.end.i
   %call1 = tail call i32 @gs_setlinecap(ptr noundef %4, i32 noundef %conv10.i) #8
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i, %entry, %if.then
-  %code.0 = phi i32 [ %call1, %if.then ], [ -15, %if.end.i ], [ -20, %entry ]
+if.end:                                           ; preds = %entry, %if.end.i, %if.then
+  %code.0 = phi i32 [ %call1, %if.then ], [ -20, %entry ], [ -15, %if.end.i ]
   ret i32 %code.0
 }
 
@@ -344,8 +344,8 @@ if.then:                                          ; preds = %if.end.i
   %call1 = tail call i32 @gs_setlinejoin(ptr noundef %4, i32 noundef %conv10.i) #8
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i, %entry, %if.then
-  %code.0 = phi i32 [ %call1, %if.then ], [ -15, %if.end.i ], [ -20, %entry ]
+if.end:                                           ; preds = %entry, %if.end.i, %if.then
+  %code.0 = phi i32 [ %call1, %if.then ], [ -20, %entry ], [ -15, %if.end.i ]
   ret i32 %code.0
 }
 
@@ -452,50 +452,50 @@ if.end:                                           ; preds = %entry
   %arrayidx = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
   %type_attrs = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !24
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %cleanup [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
 sw.epilog:                                        ; preds = %if.end, %if.end
-  %3 = and i16 %0, 512
-  %tobool5.not.not = icmp eq i16 %3, 0
+  %not = and i32 %conv, 512
+  %tobool5.not.not = icmp eq i32 %not, 0
   br i1 %tobool5.not.not, label %cleanup, label %if.end7
 
 if.end7:                                          ; preds = %sw.epilog
-  %4 = load ptr, ptr %arrayidx, align 8, !tbaa !13
+  %1 = load ptr, ptr %arrayidx, align 8, !tbaa !13
   %size = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 2
-  %5 = load i16, ptr %size, align 2, !tbaa !27
-  %conv10 = zext i16 %5 to i32
+  %2 = load i16, ptr %size, align 2, !tbaa !27
+  %conv10 = zext i16 %2 to i32
   %call11 = call ptr @alloc(i32 noundef %conv10, i32 noundef 4, ptr noundef nonnull @.str.3) #8
-  %tobool12.not53 = icmp eq i16 %5, 0
+  %tobool12.not53 = icmp eq i16 %2, 0
   br i1 %tobool12.not53, label %while.end, label %while.body
 
 while.body:                                       ; preds = %if.end7, %sw.epilog24
   %dec56.in = phi i32 [ %dec56, %sw.epilog24 ], [ %conv10, %if.end7 ]
   %dto.055 = phi ptr [ %dto.1, %sw.epilog24 ], [ %call11, %if.end7 ]
-  %dfrom.054 = phi ptr [ %incdec.ptr25, %sw.epilog24 ], [ %4, %if.end7 ]
+  %dfrom.054 = phi ptr [ %incdec.ptr25, %sw.epilog24 ], [ %1, %if.end7 ]
   %dec56 = add nsw i32 %dec56.in, -1
   %type_attrs13 = getelementptr inbounds %struct.ref_s, ptr %dfrom.054, i64 0, i32 1
-  %6 = load i16, ptr %type_attrs13, align 8, !tbaa !24
-  %7 = lshr i16 %6, 2
-  %8 = and i16 %7, 63
-  %shr16 = zext i16 %8 to i32
+  %3 = load i16, ptr %type_attrs13, align 8, !tbaa !24
+  %4 = lshr i16 %3, 2
+  %5 = and i16 %4, 63
+  %shr16 = zext i16 %5 to i32
   switch i32 %shr16, label %sw.default23 [
     i32 5, label %sw.bb17
     i32 11, label %sw.bb20
   ]
 
 sw.bb17:                                          ; preds = %while.body
-  %9 = load i64, ptr %dfrom.054, align 8, !tbaa !13
-  %conv19 = sitofp i64 %9 to float
+  %6 = load i64, ptr %dfrom.054, align 8, !tbaa !13
+  %conv19 = sitofp i64 %6 to float
   br label %sw.epilog24
 
 sw.bb20:                                          ; preds = %while.body
-  %10 = load float, ptr %dfrom.054, align 8, !tbaa !13
+  %7 = load float, ptr %dfrom.054, align 8, !tbaa !13
   br label %sw.epilog24
 
 sw.default23:                                     ; preds = %while.body
@@ -503,7 +503,7 @@ sw.default23:                                     ; preds = %while.body
   br label %cleanup
 
 sw.epilog24:                                      ; preds = %sw.bb20, %sw.bb17
-  %storemerge = phi float [ %10, %sw.bb20 ], [ %conv19, %sw.bb17 ]
+  %storemerge = phi float [ %7, %sw.bb20 ], [ %conv19, %sw.bb17 ]
   %dto.1 = getelementptr inbounds float, ptr %dto.055, i64 1
   store float %storemerge, ptr %dto.055, align 4, !tbaa !19
   %incdec.ptr25 = getelementptr inbounds %struct.ref_s, ptr %dfrom.054, i64 1
@@ -511,16 +511,16 @@ sw.epilog24:                                      ; preds = %sw.bb20, %sw.bb17
   br i1 %tobool12.not, label %while.end, label %while.body, !llvm.loop !28
 
 while.end:                                        ; preds = %sw.epilog24, %if.end7
-  %11 = load ptr, ptr @igs, align 8, !tbaa !5
-  %12 = load float, ptr %offset, align 4, !tbaa !19
-  %conv26 = fpext float %12 to double
-  %call27 = call i32 @gs_setdash(ptr noundef %11, ptr noundef %call11, i32 noundef %conv10, double noundef %conv26) #8
+  %8 = load ptr, ptr @igs, align 8, !tbaa !5
+  %9 = load float, ptr %offset, align 4, !tbaa !19
+  %conv26 = fpext float %9 to double
+  %call27 = call i32 @gs_setdash(ptr noundef %8, ptr noundef %call11, i32 noundef %conv10, double noundef %conv26) #8
   %tobool28.not = icmp eq i32 %call27, 0
   br i1 %tobool28.not, label %if.then29, label %cleanup
 
 if.then29:                                        ; preds = %while.end
-  %13 = load ptr, ptr @osp, align 8, !tbaa !5
-  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %13, i64 -2
+  %10 = load ptr, ptr @osp, align 8, !tbaa !5
+  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %10, i64 -2
   store ptr %add.ptr, ptr @osp, align 8, !tbaa !5
   br label %cleanup
 
@@ -954,23 +954,23 @@ define dso_local i32 @zsettransfer(ptr nocapture noundef readonly %op) #6 {
 entry:
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !24
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %return [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
 sw.epilog:                                        ; preds = %entry, %entry
-  %3 = and i16 %0, 3
-  %tobool.not = icmp eq i16 %3, 3
+  %not = and i32 %conv, 3
+  %tobool.not = icmp eq i32 %not, 3
   br i1 %tobool.not, label %if.end, label %return
 
 if.end:                                           ; preds = %sw.epilog
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) getelementptr inbounds (%struct.int_state_s, ptr @istate, i64 0, i32 2), ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !32
-  %4 = load ptr, ptr @osp, align 8, !tbaa !5
-  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %4, i64 -1
+  %1 = load ptr, ptr @osp, align 8, !tbaa !5
+  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %1, i64 -1
   store ptr %add.ptr, ptr @osp, align 8, !tbaa !5
   br label %return
 

@@ -623,16 +623,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !12
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !12
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %if.end
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !12
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !12
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
+if.end:                                           ; preds = %entry, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %for.cond.6.i, %for.cond.7.i, %for.cond.8.i, %for.cond.9.i, %for.cond.10.i, %for.cond.11.i, %for.cond.12.i, %for.cond.13.i, %for.cond.14.i
   %32 = load i8, ptr @IID_ICryptoProperties, align 4, !tbaa !12
   %cmp4.not.i13 = icmp eq i8 %0, %32
   br i1 %cmp4.not.i13, label %for.cond.i16, label %return
@@ -733,16 +733,16 @@ for.cond.13.i55:                                  ; preds = %for.cond.12.i52
   %59 = load i8, ptr %arrayidx.14.i53, align 2, !tbaa !12
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoProperties, i64 0, i32 3, i64 6), align 2, !tbaa !12
   %cmp4.not.14.i54 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i54, label %_ZeqRK4GUIDS1_.exit61, label %return
+  br i1 %cmp4.not.14.i54, label %for.cond.14.i59, label %return
 
-_ZeqRK4GUIDS1_.exit61:                            ; preds = %for.cond.13.i55
+for.cond.14.i59:                                  ; preds = %for.cond.13.i55
   %arrayidx.15.i56 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i56, align 1, !tbaa !12
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoProperties, i64 0, i32 3, i64 7), align 1, !tbaa !12
   %cmp4.not.15.i57.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i57.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit61, %_ZeqRK4GUIDS1_.exit
+return.sink.split:                                ; preds = %for.cond.14.i59, %for.cond.14.i
   %add.ptr6 = getelementptr inbounds i8, ptr %this, i64 8
   store ptr %add.ptr6, ptr %outObject, align 8, !tbaa !39
   %vtable7 = load ptr, ptr %this, align 8, !tbaa !37
@@ -751,8 +751,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call9 = tail call noundef i32 %63(ptr noundef nonnull align 8 dereferenceable(328) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end, %_ZeqRK4GUIDS1_.exit61
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit61 ], [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i59, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end
+  %retval.0 = phi i32 [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ -2147467262, %for.cond.14.i59 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

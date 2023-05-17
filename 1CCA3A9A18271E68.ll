@@ -74,8 +74,8 @@ entry:
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !20
   %1 = lshr i16 %0, 2
   %2 = and i16 %1, 63
-  %cmp = icmp ugt i16 %2, 15
   %shr = zext i16 %2 to i32
+  %cmp = icmp ugt i16 %2, 15
   %spec.select = select i1 %cmp, i32 9, i32 %shr
   %type_attrs6 = getelementptr inbounds %struct.ref_s, ptr %pref2, i64 0, i32 1
   %3 = load i16, ptr %type_attrs6, align 8, !tbaa !20
@@ -96,37 +96,33 @@ if.then:                                          ; preds = %entry
   ]
 
 sw.bb:                                            ; preds = %if.then
-  %6 = and i16 %3, 252
-  %cmp30 = icmp eq i16 %6, 44
+  %cmp30 = icmp eq i16 %5, 11
   br i1 %cmp30, label %land.rhs, label %cleanup
 
 land.rhs:                                         ; preds = %sw.bb
-  %7 = load float, ptr %pref2, align 8, !tbaa !22
-  %8 = load i64, ptr %pref1, align 8, !tbaa !22
-  %conv33 = sitofp i64 %8 to float
-  %cmp34 = fcmp oeq float %7, %conv33
+  %6 = load float, ptr %pref2, align 8, !tbaa !22
+  %7 = load i64, ptr %pref1, align 8, !tbaa !22
+  %conv33 = sitofp i64 %7 to float
+  %cmp34 = fcmp oeq float %6, %conv33
   br label %cleanup
 
 sw.bb36:                                          ; preds = %if.then
-  %9 = and i16 %3, 252
-  %cmp41 = icmp eq i16 %9, 20
+  %cmp41 = icmp eq i16 %5, 5
   br i1 %cmp41, label %land.rhs43, label %cleanup
 
 land.rhs43:                                       ; preds = %sw.bb36
-  %10 = load i64, ptr %pref2, align 8, !tbaa !22
-  %conv45 = sitofp i64 %10 to float
-  %11 = load float, ptr %pref1, align 8, !tbaa !22
-  %cmp47 = fcmp oeq float %11, %conv45
+  %8 = load i64, ptr %pref2, align 8, !tbaa !22
+  %conv45 = sitofp i64 %8 to float
+  %9 = load float, ptr %pref1, align 8, !tbaa !22
+  %cmp47 = fcmp oeq float %9, %conv45
   br label %cleanup
 
 sw.bb51:                                          ; preds = %if.then
-  %12 = and i16 %3, 252
-  %cmp56.not = icmp eq i16 %12, 52
+  %cmp56.not = icmp eq i16 %5, 13
   br i1 %cmp56.not, label %if.end69.sink.split, label %cleanup
 
 sw.bb59:                                          ; preds = %if.then
-  %13 = and i16 %3, 252
-  %cmp64.not = icmp eq i16 %13, 28
+  %cmp64.not = icmp eq i16 %5, 7
   br i1 %cmp64.not, label %if.end69.sink.split, label %cleanup
 
 if.end69.sink.split:                              ; preds = %sw.bb59, %sw.bb51
@@ -140,12 +136,12 @@ if.end69:                                         ; preds = %if.end69.sink.split
   %pref2.addr.0 = phi ptr [ %pref2, %entry ], [ %pref2.addr.0.ph, %if.end69.sink.split ]
   %pref1.addr.0 = phi ptr [ %pref1, %entry ], [ %pref1.addr.0.ph, %if.end69.sink.split ]
   %type_attrs70 = getelementptr inbounds %struct.ref_s, ptr %pref1.addr.0, i64 0, i32 1
-  %14 = load i16, ptr %type_attrs70, align 8, !tbaa !20
-  %15 = lshr i16 %14, 2
-  %16 = and i16 %15, 63
-  %cmp74 = icmp ugt i16 %16, 15
-  %spec.select229 = select i1 %cmp74, i16 9, i16 %16
-  switch i16 %spec.select229, label %sw.epilog179 [
+  %10 = load i16, ptr %type_attrs70, align 8, !tbaa !20
+  %11 = lshr i16 %10, 2
+  %12 = and i16 %11, 63
+  %cmp74 = icmp ugt i16 %12, 15
+  %spec.select230 = select i1 %cmp74, i16 9, i16 %12
+  switch i16 %spec.select230, label %sw.epilog179 [
     i16 0, label %sw.bb84
     i16 10, label %sw.bb84
     i16 1, label %sw.bb97
@@ -165,133 +161,133 @@ if.end69:                                         ; preds = %if.end69.sink.split
   ]
 
 sw.bb84:                                          ; preds = %if.end69, %if.end69
-  %17 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %18 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp87 = icmp eq ptr %17, %18
+  %13 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %14 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp87 = icmp eq ptr %13, %14
   br i1 %cmp87, label %land.rhs89, label %cleanup
 
 land.rhs89:                                       ; preds = %sw.bb84
   %size = getelementptr inbounds %struct.ref_s, ptr %pref1.addr.0, i64 0, i32 2
-  %19 = load i16, ptr %size, align 2, !tbaa !23
+  %15 = load i16, ptr %size, align 2, !tbaa !23
   %size91 = getelementptr inbounds %struct.ref_s, ptr %pref2.addr.0, i64 0, i32 2
-  %20 = load i16, ptr %size91, align 2, !tbaa !23
-  %cmp93 = icmp eq i16 %19, %20
+  %16 = load i16, ptr %size91, align 2, !tbaa !23
+  %cmp93 = icmp eq i16 %15, %16
   br label %cleanup
 
 sw.bb97:                                          ; preds = %if.end69
-  %21 = load i16, ptr %pref1.addr.0, align 8, !tbaa !22
-  %22 = load i16, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp102 = icmp eq i16 %21, %22
+  %17 = load i16, ptr %pref1.addr.0, align 8, !tbaa !22
+  %18 = load i16, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp102 = icmp eq i16 %17, %18
   br label %cleanup
 
 sw.bb104:                                         ; preds = %if.end69
-  %23 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %24 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp107 = icmp eq ptr %23, %24
+  %19 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %20 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp107 = icmp eq ptr %19, %20
   br label %cleanup
 
 sw.bb109:                                         ; preds = %if.end69
-  %25 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %26 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp112 = icmp eq ptr %25, %26
+  %21 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %22 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp112 = icmp eq ptr %21, %22
   br label %cleanup
 
 sw.bb114:                                         ; preds = %if.end69
-  %27 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %28 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp117 = icmp eq ptr %27, %28
+  %23 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %24 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp117 = icmp eq ptr %23, %24
   br label %cleanup
 
 sw.bb119:                                         ; preds = %if.end69
-  %29 = load i64, ptr %pref1.addr.0, align 8, !tbaa !22
-  %30 = load i64, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp122 = icmp eq i64 %29, %30
+  %25 = load i64, ptr %pref1.addr.0, align 8, !tbaa !22
+  %26 = load i64, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp122 = icmp eq i64 %25, %26
   br label %cleanup
 
 sw.bb125:                                         ; preds = %if.end69
-  %31 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %32 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp128 = icmp eq ptr %31, %32
+  %27 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %28 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp128 = icmp eq ptr %27, %28
   br label %cleanup
 
 sw.bb130:                                         ; preds = %if.end69
-  %33 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %34 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp133 = icmp eq ptr %33, %34
+  %29 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %30 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp133 = icmp eq ptr %29, %30
   br label %cleanup
 
 sw.bb135:                                         ; preds = %if.end69
-  %35 = load float, ptr %pref1.addr.0, align 8, !tbaa !22
-  %36 = load float, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp138 = fcmp oeq float %35, %36
+  %31 = load float, ptr %pref1.addr.0, align 8, !tbaa !22
+  %32 = load float, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp138 = fcmp oeq float %31, %32
   br label %cleanup
 
 sw.bb140:                                         ; preds = %if.end69
-  %37 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %38 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp143 = icmp eq ptr %37, %38
+  %33 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %34 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp143 = icmp eq ptr %33, %34
   br label %cleanup
 
 sw.bb145:                                         ; preds = %if.end69
-  %39 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %35 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
   %size147 = getelementptr inbounds %struct.ref_s, ptr %pref1.addr.0, i64 0, i32 2
-  %40 = load i16, ptr %size147, align 2, !tbaa !23
-  %41 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %36 = load i16, ptr %size147, align 2, !tbaa !23
+  %37 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
   %size150 = getelementptr inbounds %struct.ref_s, ptr %pref2.addr.0, i64 0, i32 2
-  %42 = load i16, ptr %size150, align 2, !tbaa !23
-  %43 = call i16 @llvm.umin.i16(i16 %42, i16 %40)
-  %spec.select.i = zext i16 %43 to i32
+  %38 = load i16, ptr %size150, align 2, !tbaa !23
+  %39 = call i16 @llvm.umin.i16(i16 %38, i16 %36)
+  %spec.select.i = zext i16 %39 to i32
   br label %while.cond.i
 
 while.cond.i:                                     ; preds = %while.body.i, %sw.bb145
   %len.1.i = phi i32 [ %spec.select.i, %sw.bb145 ], [ %dec.i, %while.body.i ]
-  %p1.0.i = phi ptr [ %39, %sw.bb145 ], [ %incdec.ptr.i, %while.body.i ]
-  %p2.0.i = phi ptr [ %41, %sw.bb145 ], [ %incdec.ptr1.i, %while.body.i ]
+  %p1.0.i = phi ptr [ %35, %sw.bb145 ], [ %incdec.ptr.i, %while.body.i ]
+  %p2.0.i = phi ptr [ %37, %sw.bb145 ], [ %incdec.ptr1.i, %while.body.i ]
   %tobool.not.i = icmp eq i32 %len.1.i, 0
   br i1 %tobool.not.i, label %bytes_compare.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %while.cond.i
   %dec.i = add nsw i32 %len.1.i, -1
   %incdec.ptr.i = getelementptr inbounds i8, ptr %p1.0.i, i64 1
-  %44 = load i8, ptr %p1.0.i, align 1, !tbaa !22
+  %40 = load i8, ptr %p1.0.i, align 1, !tbaa !22
   %incdec.ptr1.i = getelementptr inbounds i8, ptr %p2.0.i, i64 1
-  %45 = load i8, ptr %p2.0.i, align 1, !tbaa !22
-  %cmp3.not.i = icmp eq i8 %44, %45
+  %41 = load i8, ptr %p2.0.i, align 1, !tbaa !22
+  %cmp3.not.i = icmp eq i8 %40, %41
   br i1 %cmp3.not.i, label %while.cond.i, label %bytes_compare.exit, !llvm.loop !24
 
 bytes_compare.exit:                               ; preds = %while.body.i, %while.cond.i
-  %cmp13.i = icmp eq i16 %40, %42
+  %cmp13.i = icmp eq i16 %36, %38
   %tobool.not = select i1 %tobool.not.i, i1 %cmp13.i, i1 false
   br label %cleanup
 
 sw.bb153:                                         ; preds = %if.end69
-  %46 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %47 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %48 = load i16, ptr %46, align 2, !tbaa !25
-  %49 = load i16, ptr %47, align 2, !tbaa !25
-  %cmp159 = icmp eq i16 %48, %49
+  %42 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %43 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %44 = load i16, ptr %42, align 2, !tbaa !25
+  %45 = load i16, ptr %43, align 2, !tbaa !25
+  %cmp159 = icmp eq i16 %44, %45
   br i1 %cmp159, label %land.lhs.true, label %cleanup
 
 land.lhs.true:                                    ; preds = %sw.bb153
-  %green = getelementptr inbounds %struct.gs_color_s, ptr %46, i64 0, i32 1
-  %50 = load i16, ptr %green, align 2, !tbaa !27
-  %green162 = getelementptr inbounds %struct.gs_color_s, ptr %47, i64 0, i32 1
-  %51 = load i16, ptr %green162, align 2, !tbaa !27
-  %cmp164 = icmp eq i16 %50, %51
+  %green = getelementptr inbounds %struct.gs_color_s, ptr %42, i64 0, i32 1
+  %46 = load i16, ptr %green, align 2, !tbaa !27
+  %green162 = getelementptr inbounds %struct.gs_color_s, ptr %43, i64 0, i32 1
+  %47 = load i16, ptr %green162, align 2, !tbaa !27
+  %cmp164 = icmp eq i16 %46, %47
   br i1 %cmp164, label %land.rhs166, label %cleanup
 
 land.rhs166:                                      ; preds = %land.lhs.true
-  %blue = getelementptr inbounds %struct.gs_color_s, ptr %46, i64 0, i32 2
-  %52 = load i16, ptr %blue, align 2, !tbaa !28
-  %blue168 = getelementptr inbounds %struct.gs_color_s, ptr %47, i64 0, i32 2
-  %53 = load i16, ptr %blue168, align 2, !tbaa !28
-  %cmp170 = icmp eq i16 %52, %53
+  %blue = getelementptr inbounds %struct.gs_color_s, ptr %42, i64 0, i32 2
+  %48 = load i16, ptr %blue, align 2, !tbaa !28
+  %blue168 = getelementptr inbounds %struct.gs_color_s, ptr %43, i64 0, i32 2
+  %49 = load i16, ptr %blue168, align 2, !tbaa !28
+  %cmp170 = icmp eq i16 %48, %49
   br label %cleanup
 
 sw.bb174:                                         ; preds = %if.end69
-  %54 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
-  %55 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
-  %cmp177 = icmp eq ptr %54, %55
+  %50 = load ptr, ptr %pref1.addr.0, align 8, !tbaa !22
+  %51 = load ptr, ptr %pref2.addr.0, align 8, !tbaa !22
+  %cmp177 = icmp eq ptr %50, %51
   br label %cleanup
 
 sw.epilog179:                                     ; preds = %if.end69
@@ -611,9 +607,9 @@ define dso_local i32 @read_matrix(ptr nocapture noundef readonly %op, ptr nocapt
 entry:
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !20
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %return [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
@@ -621,41 +617,41 @@ entry:
 
 sw.epilog:                                        ; preds = %entry, %entry
   %size = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 2
-  %3 = load i16, ptr %size, align 2, !tbaa !23
-  %cmp.not = icmp eq i16 %3, 6
+  %1 = load i16, ptr %size, align 2, !tbaa !23
+  %cmp.not = icmp eq i16 %1, 6
   br i1 %cmp.not, label %if.end, label %return
 
 if.end:                                           ; preds = %sw.epilog
-  %4 = and i16 %0, 512
-  %tobool.not = icmp eq i16 %4, 0
+  %and5 = and i32 %conv, 512
+  %tobool.not = icmp eq i32 %and5, 0
   br i1 %tobool.not, label %return, label %if.end7
 
 if.end7:                                          ; preds = %if.end
-  %5 = load ptr, ptr %op, align 8, !tbaa !22
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) %5, i64 96, i1 false), !tbaa.struct !32
+  %2 = load ptr, ptr %op, align 8, !tbaa !22
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) %2, i64 96, i1 false), !tbaa.struct !32
   %type_attrs10 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 0, i32 1
-  %6 = load i16, ptr %type_attrs10, align 8, !tbaa !20
-  %7 = lshr i16 %6, 2
-  %8 = and i16 %7, 63
-  %shr13 = zext i16 %8 to i32
+  %3 = load i16, ptr %type_attrs10, align 8, !tbaa !20
+  %4 = lshr i16 %3, 2
+  %5 = and i16 %4, 63
+  %shr13 = zext i16 %5 to i32
   switch i32 %shr13, label %return [
     i32 5, label %sw.bb15
     i32 11, label %sw.epilog21
   ]
 
 sw.bb15:                                          ; preds = %if.end7
-  %9 = load i64, ptr %pmat, align 8, !tbaa !22
-  %conv17 = sitofp i64 %9 to float
+  %6 = load i64, ptr %pmat, align 8, !tbaa !22
+  %conv17 = sitofp i64 %6 to float
   store float %conv17, ptr %pmat, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10, align 8, !tbaa !20
   br label %sw.epilog21
 
 sw.epilog21:                                      ; preds = %sw.bb15, %if.end7
   %type_attrs10.1 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 1, i32 1
-  %10 = load i16, ptr %type_attrs10.1, align 8, !tbaa !20
-  %11 = lshr i16 %10, 2
-  %12 = and i16 %11, 63
-  %shr13.1 = zext i16 %12 to i32
+  %7 = load i16, ptr %type_attrs10.1, align 8, !tbaa !20
+  %8 = lshr i16 %7, 2
+  %9 = and i16 %8, 63
+  %shr13.1 = zext i16 %9 to i32
   switch i32 %shr13.1, label %return [
     i32 5, label %sw.bb15.1
     i32 11, label %sw.epilog21.1
@@ -663,18 +659,18 @@ sw.epilog21:                                      ; preds = %sw.bb15, %if.end7
 
 sw.bb15.1:                                        ; preds = %sw.epilog21
   %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 1
-  %13 = load i64, ptr %incdec.ptr, align 8, !tbaa !22
-  %conv17.1 = sitofp i64 %13 to float
+  %10 = load i64, ptr %incdec.ptr, align 8, !tbaa !22
+  %conv17.1 = sitofp i64 %10 to float
   store float %conv17.1, ptr %incdec.ptr, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10.1, align 8, !tbaa !20
   br label %sw.epilog21.1
 
 sw.epilog21.1:                                    ; preds = %sw.bb15.1, %sw.epilog21
   %type_attrs10.2 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 2, i32 1
-  %14 = load i16, ptr %type_attrs10.2, align 8, !tbaa !20
-  %15 = lshr i16 %14, 2
-  %16 = and i16 %15, 63
-  %shr13.2 = zext i16 %16 to i32
+  %11 = load i16, ptr %type_attrs10.2, align 8, !tbaa !20
+  %12 = lshr i16 %11, 2
+  %13 = and i16 %12, 63
+  %shr13.2 = zext i16 %13 to i32
   switch i32 %shr13.2, label %return [
     i32 5, label %sw.bb15.2
     i32 11, label %sw.epilog21.2
@@ -682,18 +678,18 @@ sw.epilog21.1:                                    ; preds = %sw.bb15.1, %sw.epil
 
 sw.bb15.2:                                        ; preds = %sw.epilog21.1
   %incdec.ptr.1 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 2
-  %17 = load i64, ptr %incdec.ptr.1, align 8, !tbaa !22
-  %conv17.2 = sitofp i64 %17 to float
+  %14 = load i64, ptr %incdec.ptr.1, align 8, !tbaa !22
+  %conv17.2 = sitofp i64 %14 to float
   store float %conv17.2, ptr %incdec.ptr.1, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10.2, align 8, !tbaa !20
   br label %sw.epilog21.2
 
 sw.epilog21.2:                                    ; preds = %sw.bb15.2, %sw.epilog21.1
   %type_attrs10.3 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 3, i32 1
-  %18 = load i16, ptr %type_attrs10.3, align 8, !tbaa !20
-  %19 = lshr i16 %18, 2
-  %20 = and i16 %19, 63
-  %shr13.3 = zext i16 %20 to i32
+  %15 = load i16, ptr %type_attrs10.3, align 8, !tbaa !20
+  %16 = lshr i16 %15, 2
+  %17 = and i16 %16, 63
+  %shr13.3 = zext i16 %17 to i32
   switch i32 %shr13.3, label %return [
     i32 5, label %sw.bb15.3
     i32 11, label %sw.epilog21.3
@@ -701,18 +697,18 @@ sw.epilog21.2:                                    ; preds = %sw.bb15.2, %sw.epil
 
 sw.bb15.3:                                        ; preds = %sw.epilog21.2
   %incdec.ptr.2 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 3
-  %21 = load i64, ptr %incdec.ptr.2, align 8, !tbaa !22
-  %conv17.3 = sitofp i64 %21 to float
+  %18 = load i64, ptr %incdec.ptr.2, align 8, !tbaa !22
+  %conv17.3 = sitofp i64 %18 to float
   store float %conv17.3, ptr %incdec.ptr.2, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10.3, align 8, !tbaa !20
   br label %sw.epilog21.3
 
 sw.epilog21.3:                                    ; preds = %sw.bb15.3, %sw.epilog21.2
   %type_attrs10.4 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 4, i32 1
-  %22 = load i16, ptr %type_attrs10.4, align 8, !tbaa !20
-  %23 = lshr i16 %22, 2
-  %24 = and i16 %23, 63
-  %shr13.4 = zext i16 %24 to i32
+  %19 = load i16, ptr %type_attrs10.4, align 8, !tbaa !20
+  %20 = lshr i16 %19, 2
+  %21 = and i16 %20, 63
+  %shr13.4 = zext i16 %21 to i32
   switch i32 %shr13.4, label %return [
     i32 5, label %sw.bb15.4
     i32 11, label %sw.epilog21.4
@@ -720,18 +716,18 @@ sw.epilog21.3:                                    ; preds = %sw.bb15.3, %sw.epil
 
 sw.bb15.4:                                        ; preds = %sw.epilog21.3
   %incdec.ptr.3 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 4
-  %25 = load i64, ptr %incdec.ptr.3, align 8, !tbaa !22
-  %conv17.4 = sitofp i64 %25 to float
+  %22 = load i64, ptr %incdec.ptr.3, align 8, !tbaa !22
+  %conv17.4 = sitofp i64 %22 to float
   store float %conv17.4, ptr %incdec.ptr.3, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10.4, align 8, !tbaa !20
   br label %sw.epilog21.4
 
 sw.epilog21.4:                                    ; preds = %sw.bb15.4, %sw.epilog21.3
   %type_attrs10.5 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 5, i32 1
-  %26 = load i16, ptr %type_attrs10.5, align 8, !tbaa !20
-  %27 = lshr i16 %26, 2
-  %28 = and i16 %27, 63
-  %shr13.5 = zext i16 %28 to i32
+  %23 = load i16, ptr %type_attrs10.5, align 8, !tbaa !20
+  %24 = lshr i16 %23, 2
+  %25 = and i16 %24, 63
+  %shr13.5 = zext i16 %25 to i32
   switch i32 %shr13.5, label %return [
     i32 5, label %sw.bb15.5
     i32 11, label %sw.epilog21.5
@@ -739,8 +735,8 @@ sw.epilog21.4:                                    ; preds = %sw.bb15.4, %sw.epil
 
 sw.bb15.5:                                        ; preds = %sw.epilog21.4
   %incdec.ptr.4 = getelementptr inbounds %struct.ref_s, ptr %pmat, i64 5
-  %29 = load i64, ptr %incdec.ptr.4, align 8, !tbaa !22
-  %conv17.5 = sitofp i64 %29 to float
+  %26 = load i64, ptr %incdec.ptr.4, align 8, !tbaa !22
+  %conv17.5 = sitofp i64 %26 to float
   store float %conv17.5, ptr %incdec.ptr.4, align 8, !tbaa !22
   store i16 44, ptr %type_attrs10.5, align 8, !tbaa !20
   br label %sw.epilog21.5

@@ -131,7 +131,7 @@ while.body14:                                     ; preds = %while.cond10
   %6 = lshr i16 %5, 10
   %7 = trunc i16 %6 to i8
   %inc = and i8 %7, 1
-  %spec.select = add i8 %inc, %cLetters.0
+  %spec.select = add i8 %cLetters.0, %inc
   %conv19 = trunc i32 %call11 to i8
   %incdec.ptr = getelementptr inbounds i8, ptr %pch.0, i64 1
   store i8 %conv19, ptr %pch.0, align 1, !tbaa !16
@@ -216,8 +216,8 @@ entry:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @aqMainSign, i8 0, i64 16, i1 false)
   store i32 0, ptr @cchPhraseLength, align 4, !tbaa !20
   %0 = load i8, ptr %pchPhrase, align 1, !tbaa !16
-  %cmp.not126 = icmp eq i8 %0, 0
-  br i1 %cmp.not126, label %for.body.preheader, label %while.body.lr.ph
+  %cmp.not124 = icmp eq i8 %0, 0
+  br i1 %cmp.not124, label %for.body.preheader, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %call = tail call ptr @__ctype_b_loc() #19
@@ -226,9 +226,9 @@ while.body.lr.ph:                                 ; preds = %entry
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.end15
   %2 = phi i8 [ %0, %while.body.lr.ph ], [ %6, %if.end15 ]
-  %pchPhrase.pn = phi ptr [ %pchPhrase, %while.body.lr.ph ], [ %incdec.ptr128, %if.end15 ]
-  %inc14123127 = phi i32 [ 0, %while.body.lr.ph ], [ %inc14122, %if.end15 ]
-  %incdec.ptr128 = getelementptr inbounds i8, ptr %pchPhrase.pn, i64 1
+  %pchPhrase.pn = phi ptr [ %pchPhrase, %while.body.lr.ph ], [ %incdec.ptr126, %if.end15 ]
+  %inc14121125 = phi i32 [ 0, %while.body.lr.ph ], [ %inc14120, %if.end15 ]
+  %incdec.ptr126 = getelementptr inbounds i8, ptr %pchPhrase.pn, i64 1
   %idxprom = sext i8 %2 to i64
   %arrayidx = getelementptr inbounds i16, ptr %1, i64 %idxprom
   %3 = load i16, ptr %arrayidx, align 2, !tbaa !14
@@ -247,13 +247,13 @@ if.then:                                          ; preds = %while.body
   %5 = load i32, ptr %arrayidx13, align 16, !tbaa !21
   %inc = add i32 %5, 1
   store i32 %inc, ptr %arrayidx13, align 16, !tbaa !21
-  %inc14 = add nsw i32 %inc14123127, 1
+  %inc14 = add nsw i32 %inc14121125, 1
   store i32 %inc14, ptr @cchPhraseLength, align 4, !tbaa !20
   br label %if.end15
 
 if.end15:                                         ; preds = %if.then, %while.body
-  %inc14122 = phi i32 [ %inc14, %if.then ], [ %inc14123127, %while.body ]
-  %6 = load i8, ptr %incdec.ptr128, align 1, !tbaa !16
+  %inc14120 = phi i32 [ %inc14, %if.then ], [ %inc14121125, %while.body ]
+  %6 = load i8, ptr %incdec.ptr126, align 1, !tbaa !16
   %cmp.not = icmp eq i8 %6, 0
   br i1 %cmp.not, label %for.body.preheader, label %while.body, !llvm.loop !23
 
@@ -262,8 +262,8 @@ for.body.preheader:                               ; preds = %if.end15, %entry
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc74
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc74 ], [ 0, %for.body.preheader ]
-  %cbtUsed.0136 = phi i32 [ %cbtUsed.2, %for.inc74 ], [ 0, %for.body.preheader ]
-  %iq.0135 = phi i32 [ %iq.2, %for.inc74 ], [ 0, %for.body.preheader ]
+  %cbtUsed.0134 = phi i32 [ %cbtUsed.2, %for.inc74 ], [ 0, %for.body.preheader ]
+  %iq.0133 = phi i32 [ %iq.2, %for.inc74 ], [ 0, %for.body.preheader ]
   %arrayidx19 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %indvars.iv
   %7 = load i32, ptr %arrayidx19, align 16, !tbaa !21
   %cmp21 = icmp eq i32 %7, 0
@@ -280,61 +280,61 @@ if.else26:                                        ; preds = %for.body
   br label %for.inc
 
 for.inc:                                          ; preds = %if.else26, %for.inc
-  %qNeed.0132 = phi i64 [ 1, %if.else26 ], [ %shl, %for.inc ]
-  %cbtNeed.0131 = phi i32 [ 1, %if.else26 ], [ %inc37, %for.inc ]
-  %inc37 = add i32 %cbtNeed.0131, 1
-  %shl = shl nuw nsw i64 %qNeed.0132, 1
+  %qNeed.0130 = phi i64 [ 1, %if.else26 ], [ %shl, %for.inc ]
+  %cbtNeed.0129 = phi i32 [ 1, %if.else26 ], [ %inc37, %for.inc ]
+  %inc37 = add i32 %cbtNeed.0129, 1
+  %shl = shl nuw nsw i64 %qNeed.0130, 1
   %cmp34.not = icmp ugt i64 %shl, %conv33
   br i1 %cmp34.not, label %for.cond29.for.end_crit_edge, label %for.inc, !llvm.loop !24
 
 for.cond29.for.end_crit_edge:                     ; preds = %for.inc
-  %add = add nsw i32 %inc37, %cbtUsed.0136
+  %add = add nsw i32 %inc37, %cbtUsed.0134
   %cmp39 = icmp ugt i32 %add, 64
   br i1 %cmp39, label %if.then41, label %if.end47
 
 if.then41:                                        ; preds = %for.cond29.for.end_crit_edge
-  %inc42 = add i32 %iq.0135, 1
+  %inc42 = add i32 %iq.0133, 1
   %cmp43 = icmp ugt i32 %inc42, 1
   br i1 %cmp43, label %if.then45, label %if.end47.thread
 
-if.then45:                                        ; preds = %if.then41
-  %8 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call.i107 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.7, i32 noundef 0) #15
-  tail call void @exit(i32 noundef 1) #16
-  unreachable
-
 if.end47.thread:                                  ; preds = %if.then41
-  %9 = trunc i64 %shl to i32
-  %conv49110 = add i32 %9, -1
+  %8 = trunc i64 %shl to i32
+  %conv49110 = add i32 %8, -1
   %uBits111 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %indvars.iv, i32 2
   store i32 %conv49110, ptr %uBits111, align 8, !tbaa !25
   br label %11
+
+if.then45:                                        ; preds = %if.then41
+  %9 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call.i107 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.7, i32 noundef 0) #15
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
 
 if.end47:                                         ; preds = %for.cond29.for.end_crit_edge
   %10 = trunc i64 %shl to i32
   %conv49 = add i32 %10, -1
   %uBits = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %indvars.iv, i32 2
   store i32 %conv49, ptr %uBits, align 8, !tbaa !25
-  %tobool52.not = icmp eq i32 %cbtUsed.0136, 0
-  %sh_prom = zext i32 %cbtUsed.0136 to i64
+  %tobool52.not = icmp eq i32 %cbtUsed.0134, 0
+  %sh_prom = zext i32 %cbtUsed.0134 to i64
   %shl54 = shl i64 %shl, %sh_prom
   br i1 %tobool52.not, label %11, label %12
 
 11:                                               ; preds = %if.end47.thread, %if.end47
-  %iq.1117 = phi i32 [ %inc42, %if.end47.thread ], [ %iq.0135, %if.end47 ]
+  %iq.1117 = phi i32 [ %inc42, %if.end47.thread ], [ %iq.0133, %if.end47 ]
   br label %12
 
 12:                                               ; preds = %if.end47, %11
-  %sh_prom120 = phi i64 [ 0, %11 ], [ %sh_prom, %if.end47 ]
-  %cbtUsed.1118 = phi i32 [ 0, %11 ], [ %cbtUsed.0136, %if.end47 ]
-  %iq.1116 = phi i32 [ %iq.1117, %11 ], [ %iq.0135, %if.end47 ]
+  %cbtUsed.1118 = phi i32 [ 0, %11 ], [ %cbtUsed.0134, %if.end47 ]
+  %iq.1116 = phi i32 [ %iq.1117, %11 ], [ %iq.0133, %if.end47 ]
   %13 = phi i64 [ %shl, %11 ], [ %shl54, %if.end47 ]
   %idxprom56 = zext i32 %iq.1116 to i64
   %arrayidx57 = getelementptr inbounds [2 x i64], ptr @aqMainSign, i64 0, i64 %idxprom56
   %14 = load i64, ptr %arrayidx57, align 8, !tbaa !26
   %or = or i64 %14, %13
   store i64 %or, ptr %arrayidx57, align 8, !tbaa !26
-  %shl63 = shl i64 %conv33, %sh_prom120
+  %sh_prom62 = zext i32 %cbtUsed.1118 to i64
+  %shl63 = shl i64 %conv33, %sh_prom62
   %arrayidx65 = getelementptr inbounds [2 x i64], ptr @aqMainMask, i64 0, i64 %idxprom56
   %15 = load i64, ptr %arrayidx65, align 8, !tbaa !26
   %or66 = or i64 %15, %shl63
@@ -347,8 +347,8 @@ if.end47:                                         ; preds = %for.cond29.for.end_
   br label %for.inc74
 
 for.inc74:                                        ; preds = %if.then23, %12
-  %iq.2 = phi i32 [ %iq.0135, %if.then23 ], [ %iq.1116, %12 ]
-  %cbtUsed.2 = phi i32 [ %cbtUsed.0136, %if.then23 ], [ %add72, %12 ]
+  %iq.2 = phi i32 [ %iq.0133, %if.then23 ], [ %iq.1116, %12 ]
+  %cbtUsed.2 = phi i32 [ %cbtUsed.0134, %if.then23 ], [ %add72, %12 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 26
   br i1 %exitcond.not, label %for.end76, label %for.body, !llvm.loop !29

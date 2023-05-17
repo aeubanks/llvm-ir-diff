@@ -27,7 +27,7 @@ $_ZNK14btConcaveShape9getMarginEv = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN18btStaticPlaneShapeC2ERK9btVector3f(ptr noundef nonnull align 8 dereferenceable(96) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %planeNormal, float noundef %planeConstant) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont3:
+entry:
   tail call void @_ZN14btConcaveShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
   store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV18btStaticPlaneShape, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %arrayidx10.i.i.i.i = getelementptr inbounds [4 x float], ptr %planeNormal, i64 0, i64 2
@@ -40,11 +40,11 @@ invoke.cont3:
   %5 = tail call float @llvm.fmuladd.f32(float %0, float %0, float %4)
   %sqrt.i.i = tail call float @llvm.sqrt.f32(float %5)
   %div.i.i = fdiv float 1.000000e+00, %sqrt.i.i
+  %mul8.i.i.i = fmul float %0, %div.i.i
+  %retval.sroa.3.12.vec.insert.i.i.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %mul8.i.i.i, i64 0
   %6 = insertelement <2 x float> poison, float %div.i.i, i64 0
   %7 = shufflevector <2 x float> %6, <2 x float> poison, <2 x i32> zeroinitializer
   %8 = fmul <2 x float> %1, %7
-  %mul8.i.i.i = fmul float %0, %div.i.i
-  %retval.sroa.3.12.vec.insert.i.i.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %mul8.i.i.i, i64 0
   %m_planeNormal = getelementptr inbounds %class.btStaticPlaneShape, ptr %this, i64 0, i32 3
   store <2 x float> %8, ptr %m_planeNormal, align 4
   %9 = getelementptr inbounds %class.btStaticPlaneShape, ptr %this, i64 0, i32 3, i32 0, i64 2

@@ -146,7 +146,7 @@ for.body:                                         ; preds = %for.body.preheader,
   %xp.0125 = phi ptr [ %xp.1, %for.inc ], [ @factab, %for.body.preheader ]
   %q.0124 = phi i64 [ %rem, %for.inc ], [ 1, %for.body.preheader ]
   %y.0123 = phi i64 [ %add7, %for.inc ], [ %conv1, %for.body.preheader ]
-  %x.0122 = phi i64 [ %add117121, %for.inc ], [ %conv1, %for.body.preheader ]
+  %x.0122 = phi i64 [ %add, %for.inc ], [ %conv1, %for.body.preheader ]
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.body, %for.body.i
@@ -195,6 +195,7 @@ for.body.i66:                                     ; preds = %powmod_ll.exit, %fo
   br i1 %cmp1.not.i65, label %for.end.i68, label %for.body.i66, !llvm.loop !5
 
 for.end.i68:                                      ; preds = %for.body.i66
+  %add = add i64 %retval.0.i, %conv
   %cmp328.not.i67 = icmp eq i32 %i.027.i61, 0
   br i1 %cmp328.not.i67, label %powmod_ll.exit85, label %for.body4.i77
 
@@ -259,11 +260,10 @@ for.inc9.i109:                                    ; preds = %if.then5.i106, %for
 
 powmod_ll.exit111:                                ; preds = %for.inc9.i109, %for.end.i94
   %retval.0.i110 = phi i64 [ %add5, %for.end.i94 ], [ %pow.1.i107, %for.inc9.i109 ]
-  %add117121 = add i64 %retval.0.i, %conv
   %add7 = add i64 %retval.0.i110, %conv
-  %cmp8 = icmp ugt i64 %add117121, %add7
-  %sub = sub i64 %add117121, %add7
-  %sub10 = sub i64 %add7, %add117121
+  %cmp8 = icmp ugt i64 %add, %add7
+  %sub = sub i64 %add, %add7
+  %sub10 = sub i64 %add7, %add
   %tmp.0 = select i1 %cmp8, i64 %sub, i64 %sub10
   %mul = mul i64 %tmp.0, %q.0124
   %rem = urem i64 %mul, %t.addr.0127

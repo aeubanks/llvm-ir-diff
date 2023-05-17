@@ -394,11 +394,11 @@ entry:
   %buf_size3.phi.trans.insert = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 4
   %.pre = load i32, ptr %buf_size3.phi.trans.insert, align 8, !tbaa !32
   %buf_byte_idx5.phi.trans.insert = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 6
-  %.pre30 = load i32, ptr %buf_byte_idx5.phi.trans.insert, align 8, !tbaa !30
+  %.pre28 = load i32, ptr %buf_byte_idx5.phi.trans.insert, align 8, !tbaa !30
   br i1 %cmp.not, label %if.end, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %entry
-  %0 = xor i32 %.pre30, -1
+  %0 = xor i32 %.pre28, -1
   %sub1 = add i32 %.pre, %0
   %cmp2 = icmp sgt i32 %sub1, %size
   br i1 %cmp2, label %cleanup, label %if.end
@@ -407,7 +407,7 @@ if.end:                                           ; preds = %entry, %land.lhs.tr
   %buf_size3 = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 4
   %buf_byte_idx5 = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 6
   %i.019 = add nsw i32 %.pre, -1
-  %cmp620 = icmp sgt i32 %i.019, %.pre30
+  %cmp620 = icmp sgt i32 %i.019, %.pre28
   br i1 %cmp620, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %if.end
@@ -417,13 +417,13 @@ for.body.lr.ph:                                   ; preds = %if.end
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body
-  %indvars.iv25 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next26, %for.body ]
+  %indvars.iv23 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next24, %for.body ]
   %indvars.iv = phi i64 [ %2, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
   %3 = load ptr, ptr %buf, align 8, !tbaa !34
   %arrayidx = getelementptr inbounds i8, ptr %3, i64 %indvars.iv
   %4 = load i8, ptr %arrayidx, align 1, !tbaa !24
-  %indvars.iv.next26 = add nuw i64 %indvars.iv25, 1
-  %arrayidx8 = getelementptr inbounds i8, ptr %buffer, i64 %indvars.iv25
+  %indvars.iv.next24 = add nuw i64 %indvars.iv23, 1
+  %arrayidx8 = getelementptr inbounds i8, ptr %buffer, i64 %indvars.iv23
   store i8 %4, ptr %arrayidx8, align 1, !tbaa !24
   %indvars.iv.next = add nsw i64 %indvars.iv, -1
   %5 = load i32, ptr %buf_byte_idx5, align 8, !tbaa !30
@@ -432,15 +432,15 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp6, label %for.body, label %for.end.loopexit, !llvm.loop !35
 
 for.end.loopexit:                                 ; preds = %for.body
-  %7 = trunc i64 %indvars.iv.next26 to i32
-  %.pre31 = load i32, ptr %buf_size3, align 8, !tbaa !32
+  %7 = trunc i64 %indvars.iv.next24 to i32
+  %.pre29 = load i32, ptr %buf_size3, align 8, !tbaa !32
   br label %for.end
 
 for.end:                                          ; preds = %for.end.loopexit, %if.end
-  %8 = phi i32 [ %.pre, %if.end ], [ %.pre31, %for.end.loopexit ]
+  %8 = phi i32 [ %.pre, %if.end ], [ %.pre29, %for.end.loopexit ]
+  %9 = phi i32 [ %.pre28, %if.end ], [ %5, %for.end.loopexit ]
   %j.0.lcssa = phi i32 [ 0, %if.end ], [ %7, %for.end.loopexit ]
-  %.lcssa = phi i32 [ %.pre30, %if.end ], [ %5, %for.end.loopexit ]
-  %add.neg.i = xor i32 %.lcssa, -1
+  %add.neg.i = xor i32 %9, -1
   %sub.i = add i32 %8, %add.neg.i
   %cmp.i = icmp slt i32 %sub.i, 1
   br i1 %cmp.i, label %cleanup, label %if.end.i
@@ -451,9 +451,9 @@ if.end.i:                                         ; preds = %for.end
   %buf_bit_idx.i = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 7
   store i32 8, ptr %buf_bit_idx.i, align 4, !tbaa !33
   %buf.i = getelementptr inbounds %struct.bit_stream_struc, ptr %bs, i64 0, i32 3
-  %9 = load ptr, ptr %buf.i, align 8, !tbaa !34
+  %10 = load ptr, ptr %buf.i, align 8, !tbaa !34
   %idxprom.i = sext i32 %sub2.i to i64
-  %arrayidx.i = getelementptr inbounds i8, ptr %9, i64 %idxprom.i
+  %arrayidx.i = getelementptr inbounds i8, ptr %10, i64 %idxprom.i
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !24
   br label %cleanup
 
@@ -605,11 +605,11 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
-
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #15
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #16
@@ -628,8 +628,8 @@ attributes #10 = { mustprogress nofree norecurse nosync nounwind willreturn memo
 attributes #11 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { nofree nounwind }
-attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #15 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #14 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #15 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #17 = { cold }
 attributes #18 = { noreturn nounwind }

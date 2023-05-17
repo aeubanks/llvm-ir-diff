@@ -71,8 +71,8 @@ define dso_local void @_ZN23btPoint2PointConstraintC2ER11btRigidBodyS1_RK9btVect
 entry:
   tail call void @_ZN17btTypedConstraintC2E21btTypedConstraintTypeR11btRigidBodyS2_(ptr noundef nonnull align 8 dereferenceable(96) %this, i32 noundef 3, ptr noundef nonnull align 8 dereferenceable(564) %rbA, ptr noundef nonnull align 8 dereferenceable(564) %rbB)
   store ptr getelementptr inbounds ({ [9 x ptr] }, ptr @_ZTV23btPoint2PointConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
-  %arrayctor.end = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayctor.end, ptr noundef nonnull align 4 dereferenceable(16) %pivotInA, i64 16, i1 false), !tbaa.struct !21
+  %m_pivotInA = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_pivotInA, ptr noundef nonnull align 4 dereferenceable(16) %pivotInA, i64 16, i1 false), !tbaa.struct !21
   %m_pivotInB = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 3
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_pivotInB, ptr noundef nonnull align 4 dereferenceable(16) %pivotInB, i64 16, i1 false), !tbaa.struct !21
   %m_useSolveConstraintObsolete = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 4
@@ -94,58 +94,58 @@ define dso_local void @_ZN23btPoint2PointConstraintC2ER11btRigidBodyRK9btVector3
 entry:
   tail call void @_ZN17btTypedConstraintC2E21btTypedConstraintTypeR11btRigidBody(ptr noundef nonnull align 8 dereferenceable(96) %this, i32 noundef 3, ptr noundef nonnull align 8 dereferenceable(564) %rbA)
   store ptr getelementptr inbounds ({ [9 x ptr] }, ptr @_ZTV23btPoint2PointConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
-  %arrayctor.end = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayctor.end, ptr noundef nonnull align 4 dereferenceable(16) %pivotInA, i64 16, i1 false), !tbaa.struct !21
-  %m_worldTransform.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1
-  %0 = load float, ptr %pivotInA, align 4, !tbaa !19
-  %arrayidx5.i.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 0, i32 0, i64 1
-  %arrayidx7.i.i = getelementptr inbounds [4 x float], ptr %pivotInA, i64 0, i64 1
-  %1 = load float, ptr %arrayidx7.i.i, align 4, !tbaa !19
-  %arrayidx10.i.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 0, i32 0, i64 2
+  %m_pivotInA = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_pivotInA, ptr noundef nonnull align 4 dereferenceable(16) %pivotInA, i64 16, i1 false), !tbaa.struct !21
+  %arrayidx.i32.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 1, i32 0, i64 2
+  %0 = load float, ptr %arrayidx.i32.i, align 8, !tbaa !19
+  %arrayidx10.i30.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2, i32 0, i64 2
+  %1 = load float, ptr %arrayidx10.i30.i, align 8, !tbaa !19
   %arrayidx12.i.i = getelementptr inbounds [4 x float], ptr %pivotInA, i64 0, i64 2
   %2 = load float, ptr %arrayidx12.i.i, align 4, !tbaa !19
+  %arrayidx.i26.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2
+  %3 = load float, ptr %arrayidx.i26.i, align 8, !tbaa !19
+  %4 = load float, ptr %pivotInA, align 4, !tbaa !19
+  %arrayidx7.i.i = getelementptr inbounds [4 x float], ptr %pivotInA, i64 0, i64 1
+  %5 = load float, ptr %arrayidx7.i.i, align 4, !tbaa !19
+  %arrayidx5.i27.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2, i32 0, i64 1
+  %6 = load float, ptr %arrayidx5.i27.i, align 4, !tbaa !19
+  %mul8.i29.i = fmul float %5, %6
+  %7 = tail call float @llvm.fmuladd.f32(float %3, float %4, float %mul8.i29.i)
+  %8 = tail call float @llvm.fmuladd.f32(float %1, float %2, float %7)
+  %add17.i = fadd float %0, %8
+  %retval.sroa.3.12.vec.insert.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add17.i, i64 0
+  %arrayidx10.i.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 0, i32 0, i64 2
+  %m_worldTransform.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1
+  %arrayidx5.i.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 0, i32 0, i64 1
   %m_origin.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 1
+  %arrayidx10.i23.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 1, i32 0, i64 2
   %arrayidx.i.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 1
   %arrayidx5.i20.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 1, i32 0, i64 1
-  %arrayidx10.i23.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 1, i32 0, i64 2
-  %3 = load <4 x float>, ptr %m_worldTransform.i, align 8
-  %4 = shufflevector <4 x float> %3, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
-  %5 = load <4 x float>, ptr %arrayidx5.i.i, align 4
-  %6 = shufflevector <4 x float> %5, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
-  %7 = load <4 x float>, ptr %arrayidx10.i.i, align 8
-  %8 = shufflevector <4 x float> %7, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
-  %9 = load float, ptr %arrayidx.i.i, align 8, !tbaa !19
-  %10 = load float, ptr %arrayidx5.i20.i, align 4, !tbaa !19
-  %11 = insertelement <2 x float> poison, float %1, i64 0
-  %12 = shufflevector <2 x float> %11, <2 x float> poison, <2 x i32> zeroinitializer
-  %13 = insertelement <2 x float> %6, float %10, i64 1
-  %14 = fmul <2 x float> %12, %13
-  %15 = insertelement <2 x float> %4, float %9, i64 1
-  %16 = insertelement <2 x float> poison, float %0, i64 0
-  %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
-  %18 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %15, <2 x float> %17, <2 x float> %14)
-  %19 = load float, ptr %arrayidx10.i23.i, align 8, !tbaa !19
-  %20 = insertelement <2 x float> %8, float %19, i64 1
-  %21 = insertelement <2 x float> poison, float %2, i64 0
-  %22 = shufflevector <2 x float> %21, <2 x float> poison, <2 x i32> zeroinitializer
-  %23 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %20, <2 x float> %22, <2 x float> %18)
-  %24 = load <2 x float>, ptr %m_origin.i, align 8, !tbaa !19
-  %25 = fadd <2 x float> %23, %24
-  %arrayidx.i26.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2
-  %26 = load float, ptr %arrayidx.i26.i, align 8, !tbaa !19
-  %arrayidx5.i27.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2, i32 0, i64 1
-  %27 = load float, ptr %arrayidx5.i27.i, align 4, !tbaa !19
-  %mul8.i29.i = fmul float %1, %27
-  %28 = tail call float @llvm.fmuladd.f32(float %26, float %0, float %mul8.i29.i)
-  %arrayidx10.i30.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 0, i32 0, i64 2, i32 0, i64 2
-  %29 = load float, ptr %arrayidx10.i30.i, align 8, !tbaa !19
-  %30 = tail call float @llvm.fmuladd.f32(float %29, float %2, float %28)
-  %arrayidx.i32.i = getelementptr inbounds %class.btCollisionObject, ptr %rbA, i64 0, i32 1, i32 1, i32 0, i64 2
-  %31 = load float, ptr %arrayidx.i32.i, align 8, !tbaa !19
-  %add17.i = fadd float %31, %30
-  %retval.sroa.3.12.vec.insert.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add17.i, i64 0
+  %9 = load <4 x float>, ptr %arrayidx10.i.i, align 8
+  %10 = shufflevector <4 x float> %9, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
+  %11 = load <4 x float>, ptr %m_worldTransform.i, align 8
+  %12 = shufflevector <4 x float> %11, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
+  %13 = load <4 x float>, ptr %arrayidx5.i.i, align 4
+  %14 = shufflevector <4 x float> %13, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
+  %15 = load <2 x float>, ptr %m_origin.i, align 8, !tbaa !19
+  %16 = load float, ptr %arrayidx10.i23.i, align 8, !tbaa !19
+  %17 = load float, ptr %arrayidx.i.i, align 8, !tbaa !19
+  %18 = load float, ptr %arrayidx5.i20.i, align 4, !tbaa !19
+  %19 = insertelement <2 x float> poison, float %5, i64 0
+  %20 = shufflevector <2 x float> %19, <2 x float> poison, <2 x i32> zeroinitializer
+  %21 = insertelement <2 x float> %14, float %18, i64 1
+  %22 = fmul <2 x float> %20, %21
+  %23 = insertelement <2 x float> %12, float %17, i64 1
+  %24 = insertelement <2 x float> poison, float %4, i64 0
+  %25 = shufflevector <2 x float> %24, <2 x float> poison, <2 x i32> zeroinitializer
+  %26 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %23, <2 x float> %25, <2 x float> %22)
+  %27 = insertelement <2 x float> %10, float %16, i64 1
+  %28 = insertelement <2 x float> poison, float %2, i64 0
+  %29 = shufflevector <2 x float> %28, <2 x float> poison, <2 x i32> zeroinitializer
+  %30 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %27, <2 x float> %29, <2 x float> %26)
+  %31 = fadd <2 x float> %15, %30
   %m_pivotInB = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 3
-  store <2 x float> %25, ptr %m_pivotInB, align 4
+  store <2 x float> %31, ptr %m_pivotInB, align 4
   %32 = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 3, i32 0, i64 2
   store <2 x float> %retval.sroa.3.12.vec.insert.i, ptr %32, align 4
   %m_useSolveConstraintObsolete = getelementptr inbounds %class.btPoint2PointConstraint, ptr %this, i64 0, i32 4

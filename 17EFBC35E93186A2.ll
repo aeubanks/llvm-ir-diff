@@ -114,9 +114,9 @@ for.body25:                                       ; preds = %for.body25.lr.ph, %
   br i1 %cmp24.not, label %if.end34, label %for.body25, !llvm.loop !13
 
 if.end34:                                         ; preds = %for.body25
-  %tobool36.not = icmp eq i64 %inc22, 0
+  %tobool36 = icmp eq i64 %inc22, 0
   %cmp39.not100 = icmp eq i64 %11, 0
-  %or.cond = or i1 %tobool36.not, %cmp39.not100
+  %or.cond = or i1 %tobool36, %cmp39.not100
   br i1 %or.cond, label %do.cond, label %for.body40.lr.ph
 
 for.body40.lr.ph:                                 ; preds = %if.end34

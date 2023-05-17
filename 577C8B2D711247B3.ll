@@ -7,7 +7,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @a(i32 noundef %x, i32 noundef %y) local_unnamed_addr #0 {
-c.exit:
+entry:
   ret void
 }
 

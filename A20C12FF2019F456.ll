@@ -17,26 +17,26 @@ entry:
   %mul.i = fmul float %0, %1
   %3 = bitcast float %mul.i to i32
   %cmp.not.i = icmp eq i32 %2, %3
-  br i1 %cmp.not.i, label %tstmul.exit25, label %if.then.i24
+  br i1 %cmp.not.i, label %tstmul.exit25, label %if.then.i
 
-if.then.i24:                                      ; preds = %entry
+if.then.i:                                        ; preds = %entry
   store i32 0, ptr @ok, align 4, !tbaa !12
   br label %tstmul.exit25
 
-tstmul.exit25:                                    ; preds = %entry, %if.then.i24
+tstmul.exit25:                                    ; preds = %entry, %if.then.i
   %4 = load float, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 1), align 4, !tbaa !5
   %5 = load float, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 1, i32 1), align 16, !tbaa !10
   %6 = load i32, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 1, i32 2), align 4, !tbaa !11
   %mul.i.1 = fmul float %4, %5
   %7 = bitcast float %mul.i.1 to i32
   %cmp.not.i.1 = icmp eq i32 %6, %7
-  br i1 %cmp.not.i.1, label %tstmul.exit25.1, label %if.then.i24.1
+  br i1 %cmp.not.i.1, label %tstmul.exit25.1, label %if.then.i.1
 
-if.then.i24.1:                                    ; preds = %tstmul.exit25
+if.then.i.1:                                      ; preds = %tstmul.exit25
   store i32 0, ptr @ok, align 4, !tbaa !12
   br label %tstmul.exit25.1
 
-tstmul.exit25.1:                                  ; preds = %if.then.i24.1, %tstmul.exit25
+tstmul.exit25.1:                                  ; preds = %if.then.i.1, %tstmul.exit25
   %8 = load float, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 2), align 8, !tbaa !5
   %9 = load float, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 2, i32 1), align 4, !tbaa !10
   %10 = load i32, ptr getelementptr inbounds ([3 x %struct.anon], ptr @expected, i64 0, i64 2, i32 2), align 16, !tbaa !11

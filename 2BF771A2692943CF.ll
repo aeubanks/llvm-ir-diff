@@ -100,26 +100,26 @@ _ZN4Cell5northEv.exit:                            ; preds = %entry
   br i1 %cmp, label %_ZN4Cell5northEv.exit60, label %if.end
 
 _ZN4Cell5northEv.exit.thread:                     ; preds = %entry
-  %cond.i111 = add i32 %1, -1
-  %idxprom.i112 = zext i32 %cond.i111 to i64
+  %cond.i112 = add i32 %1, -1
+  %idxprom.i113 = zext i32 %cond.i112 to i64
   %7 = load i32, ptr %0, align 4, !tbaa !10
-  %idxprom7.i113 = zext i32 %7 to i64
-  %arrayidx8.i114 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i112, i64 %idxprom7.i113
-  %8 = load ptr, ptr %arrayidx8.i114, align 8, !tbaa !11
-  %image.i115 = getelementptr inbounds %class.Cell, ptr %8, i64 0, i32 2
-  %9 = load i8, ptr %image.i115, align 8, !tbaa !17
-  %cmp116 = icmp eq i8 %9, %anImage
-  br i1 %cmp116, label %_ZN4Cell5northEv.exit60, label %if.end
+  %idxprom7.i114 = zext i32 %7 to i64
+  %arrayidx8.i115 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i113, i64 %idxprom7.i114
+  %8 = load ptr, ptr %arrayidx8.i115, align 8, !tbaa !11
+  %image.i116 = getelementptr inbounds %class.Cell, ptr %8, i64 0, i32 2
+  %9 = load i8, ptr %image.i116, align 8, !tbaa !17
+  %cmp117 = icmp eq i8 %9, %anImage
+  br i1 %cmp117, label %_ZN4Cell5northEv.exit60, label %if.end
 
 _ZN4Cell5northEv.exit60:                          ; preds = %_ZN4Cell5northEv.exit, %_ZN4Cell5northEv.exit.thread
   %10 = phi ptr [ %8, %_ZN4Cell5northEv.exit.thread ], [ %5, %_ZN4Cell5northEv.exit ]
   %11 = phi i32 [ %7, %_ZN4Cell5northEv.exit.thread ], [ %4, %_ZN4Cell5northEv.exit ]
-  %idxprom7.i117120 = phi i64 [ %idxprom7.i113, %_ZN4Cell5northEv.exit.thread ], [ %idxprom7.i, %_ZN4Cell5northEv.exit ]
+  %idxprom7.i118121 = phi i64 [ %idxprom7.i114, %_ZN4Cell5northEv.exit.thread ], [ %idxprom7.i, %_ZN4Cell5northEv.exit ]
   store ptr %10, ptr %neighbors, align 16, !tbaa !11
   br label %if.end
 
 if.end:                                           ; preds = %_ZN4Cell5northEv.exit.thread, %_ZN4Cell5northEv.exit60, %_ZN4Cell5northEv.exit
-  %idxprom7.i118 = phi i64 [ %idxprom7.i117120, %_ZN4Cell5northEv.exit60 ], [ %idxprom7.i, %_ZN4Cell5northEv.exit ], [ %idxprom7.i113, %_ZN4Cell5northEv.exit.thread ]
+  %idxprom7.i119 = phi i64 [ %idxprom7.i118121, %_ZN4Cell5northEv.exit60 ], [ %idxprom7.i, %_ZN4Cell5northEv.exit ], [ %idxprom7.i114, %_ZN4Cell5northEv.exit.thread ]
   %12 = phi i32 [ %11, %_ZN4Cell5northEv.exit60 ], [ %4, %_ZN4Cell5northEv.exit ], [ %7, %_ZN4Cell5northEv.exit.thread ]
   %count.0 = phi i32 [ 1, %_ZN4Cell5northEv.exit60 ], [ 0, %_ZN4Cell5northEv.exit ], [ 0, %_ZN4Cell5northEv.exit.thread ]
   %add.i = add i32 %1, 1
@@ -127,7 +127,7 @@ if.end:                                           ; preds = %_ZN4Cell5northEv.ex
   %14 = load i32, ptr %13, align 8, !tbaa !15
   %rem.i = urem i32 %add.i, %14
   %idxprom.i63 = zext i32 %rem.i to i64
-  %arrayidx5.i = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i63, i64 %idxprom7.i118
+  %arrayidx5.i = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i63, i64 %idxprom7.i119
   %15 = load ptr, ptr %arrayidx5.i, align 8, !tbaa !11
   %image.i64 = getelementptr inbounds %class.Cell, ptr %15, i64 0, i32 2
   %16 = load i8, ptr %image.i64, align 8, !tbaa !17
@@ -166,10 +166,8 @@ if.then21:                                        ; preds = %if.end15
 if.end26:                                         ; preds = %if.then21, %if.end15
   %count.2 = phi i32 [ %inc23, %if.then21 ], [ %count.1, %if.end15 ]
   %cmp.not.i89 = icmp eq i32 %12, 0
-  br i1 %cmp.not.i89, label %_ZN4Cell4westEv.exit, label %_ZN4Cell4westEv.exit.thread
-
-_ZN4Cell4westEv.exit:                             ; preds = %if.end26
-  %cond.i93 = add i32 %17, -1
+  %spec.select = select i1 %cmp.not.i89, i32 %17, i32 %12
+  %cond.i93 = add i32 %spec.select, -1
   %idxprom7.i96 = zext i32 %cond.i93 to i64
   %arrayidx8.i97 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i76, i64 %idxprom7.i96
   %20 = load ptr, ptr %arrayidx8.i97, align 8, !tbaa !11
@@ -178,42 +176,31 @@ _ZN4Cell4westEv.exit:                             ; preds = %if.end26
   %cmp31 = icmp eq i8 %21, %anImage
   br i1 %cmp31, label %if.end37.thread, label %if.end37
 
-_ZN4Cell4westEv.exit.thread:                      ; preds = %if.end26
-  %cond.i93122 = add i32 %12, -1
-  %idxprom7.i96123 = zext i32 %cond.i93122 to i64
-  %arrayidx8.i97124 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i76, i64 %idxprom7.i96123
-  %22 = load ptr, ptr %arrayidx8.i97124, align 8, !tbaa !11
-  %image.i98125 = getelementptr inbounds %class.Cell, ptr %22, i64 0, i32 2
-  %23 = load i8, ptr %image.i98125, align 8, !tbaa !17
-  %cmp31126 = icmp eq i8 %23, %anImage
-  br i1 %cmp31126, label %if.end37.thread, label %if.end37
-
-if.end37.thread:                                  ; preds = %_ZN4Cell4westEv.exit.thread, %_ZN4Cell4westEv.exit
-  %24 = phi ptr [ %22, %_ZN4Cell4westEv.exit.thread ], [ %20, %_ZN4Cell4westEv.exit ]
+if.end37.thread:                                  ; preds = %if.end26
   %inc34 = add nuw nsw i32 %count.2, 1
   %idxprom35 = zext i32 %count.2 to i64
   %arrayidx36 = getelementptr inbounds [4 x ptr], ptr %neighbors, i64 0, i64 %idxprom35
-  store ptr %24, ptr %arrayidx36, align 8, !tbaa !11
+  store ptr %20, ptr %arrayidx36, align 8, !tbaa !11
   br label %if.else
 
-if.end37:                                         ; preds = %_ZN4Cell4westEv.exit.thread, %_ZN4Cell4westEv.exit
+if.end37:                                         ; preds = %if.end26
   %tobool.not = icmp eq i32 %count.2, 0
   br i1 %tobool.not, label %cleanup, label %if.else
 
 if.else:                                          ; preds = %if.end37.thread, %if.end37
-  %count.3129 = phi i32 [ %inc34, %if.end37.thread ], [ %count.2, %if.end37 ]
-  %sub = add nsw i32 %count.3129, -1
+  %count.3124 = phi i32 [ %inc34, %if.end37.thread ], [ %count.2, %if.end37 ]
+  %sub = add nsw i32 %count.3124, -1
   %call.i = tail call i64 @random() #13
   %conv.i = zext i32 %sub to i64
   %mul.i = mul nsw i64 %call.i, %conv.i
   %div.i = sdiv i64 %mul.i, 2147483647
   %idxprom40 = and i64 %div.i, 4294967295
   %arrayidx41 = getelementptr inbounds [4 x ptr], ptr %neighbors, i64 0, i64 %idxprom40
-  %25 = load ptr, ptr %arrayidx41, align 8, !tbaa !11
+  %22 = load ptr, ptr %arrayidx41, align 8, !tbaa !11
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end37, %if.else
-  %retval.0 = phi ptr [ %25, %if.else ], [ %this, %if.end37 ]
+  %retval.0 = phi ptr [ %22, %if.else ], [ %this, %if.end37 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %neighbors) #13
   ret ptr %retval.0
 }
@@ -355,9 +342,9 @@ entry:
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
   %call.i3 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN4CellC2ERK10Coordinate.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN4CellC2ERK10Coordinate.exit:                   ; preds = %entry
   %0 = load <2 x i32>, ptr %anOffset, align 4, !tbaa !19
   store <2 x i32> %0, ptr %call.i3, align 4, !tbaa !19
   %offset.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
@@ -397,33 +384,33 @@ entry:
   store i32 %dec, ptr %timeToReproduce, align 4, !tbaa !22
   %1 = load i32, ptr %to, align 4, !tbaa !10
   %2 = load i32, ptr %from, align 4, !tbaa !10
-  %cmp.not.i = icmp eq i32 %1, %2
+  %cmp.not.i = icmp ne i32 %1, %2
   %y.i = getelementptr inbounds %class.Coordinate, ptr %to, i64 0, i32 1
   %3 = load i32, ptr %y.i, align 4
   %y3.i = getelementptr inbounds %class.Coordinate, ptr %from, i64 0, i32 1
   %4 = load i32, ptr %y3.i, align 4
-  %cmp4.i = icmp eq i32 %3, %4
-  %narrow.i.not = select i1 %cmp.not.i, i1 true, i1 %cmp4.i
-  br i1 %narrow.i.not, label %if.end28, label %invoke.cont
+  %cmp4.i = icmp ne i32 %3, %4
+  %narrow.i = select i1 %cmp.not.i, i1 %cmp4.i, i1 false
+  br i1 %narrow.i, label %if.then, label %if.end28
 
-invoke.cont:                                      ; preds = %entry
+if.then:                                          ; preds = %entry
   %idxprom.i = zext i32 %3 to i64
   %idxprom3.i = zext i32 %1 to i64
   %arrayidx4.i = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i, i64 %idxprom3.i
   %5 = load ptr, ptr %arrayidx4.i, align 8, !tbaa !11
   %isnull = icmp eq ptr %5, null
-  br i1 %isnull, label %invoke.cont5, label %delete.notnull
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-delete.notnull:                                   ; preds = %invoke.cont
+delete.notnull:                                   ; preds = %if.then
   %vtable = load ptr, ptr %5, align 8, !tbaa !20
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
   %6 = load ptr, ptr %vfn, align 8
   tail call void %6(ptr noundef nonnull align 8 dereferenceable(17) %5) #13
   %.pre = load i32, ptr %timeToReproduce, align 4, !tbaa !22
-  br label %invoke.cont5
+  br label %delete.end
 
-invoke.cont5:                                     ; preds = %invoke.cont, %delete.notnull
-  %7 = phi i32 [ %dec, %invoke.cont ], [ %.pre, %delete.notnull ]
+delete.end:                                       ; preds = %delete.notnull, %if.then
+  %7 = phi i32 [ %.pre, %delete.notnull ], [ %dec, %if.then ]
   %call.i = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
   %8 = load i32, ptr %to, align 4, !tbaa !10
   store i32 %8, ptr %call.i, align 4, !tbaa !10
@@ -432,39 +419,39 @@ invoke.cont5:                                     ; preds = %invoke.cont, %delet
   store i32 %9, ptr %y3.i.i, align 4, !tbaa !5
   %offset.i = getelementptr inbounds %class.Cell, ptr %this, i64 0, i32 1
   store ptr %call.i, ptr %offset.i, align 8, !tbaa !13
-  %idxprom.i40 = zext i32 %9 to i64
-  %idxprom3.i41 = zext i32 %8 to i64
-  %arrayidx4.i42 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i40, i64 %idxprom3.i41
-  store ptr %this, ptr %arrayidx4.i42, align 8, !tbaa !11
+  %idxprom.i37 = zext i32 %9 to i64
+  %idxprom3.i38 = zext i32 %8 to i64
+  %arrayidx4.i39 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i37, i64 %idxprom3.i38
+  store ptr %this, ptr %arrayidx4.i39, align 8, !tbaa !11
   %cmp = icmp slt i32 %7, 1
   br i1 %cmp, label %if.then7, label %if.else
 
-if.then7:                                         ; preds = %invoke.cont5
+if.then7:                                         ; preds = %delete.end
   store i32 6, ptr %timeToReproduce, align 4, !tbaa !22
   %10 = load i32, ptr %from, align 4, !tbaa !10
   %11 = load i32, ptr %y3.i, align 4, !tbaa !5
   store i32 %10, ptr %agg.tmp10, align 4, !tbaa !10
-  %y3.i46 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp10, i64 0, i32 1
-  store i32 %11, ptr %y3.i46, align 4, !tbaa !5
+  %y3.i43 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp10, i64 0, i32 1
+  store i32 %11, ptr %y3.i43, align 4, !tbaa !5
   %vtable13 = load ptr, ptr %this, align 8, !tbaa !20
   %12 = load ptr, ptr %vtable13, align 8
   %call17 = call noundef ptr %12(ptr noundef nonnull align 8 dereferenceable(24) %this, ptr noundef nonnull %agg.tmp10)
   br label %if.end28.sink.split
 
-if.else:                                          ; preds = %invoke.cont5
+if.else:                                          ; preds = %delete.end
   %13 = load i32, ptr %from, align 4, !tbaa !10
   %14 = load i32, ptr %y3.i, align 4, !tbaa !5
   %call22 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call22, align 8, !tbaa !20
-  %call.i5357 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont26 unwind label %lpad23
+  %call.i5054 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
+          to label %_ZN4CellC2ERK10Coordinate.exit unwind label %lpad23
 
-invoke.cont26:                                    ; preds = %if.else
-  store i32 %13, ptr %call.i5357, align 4, !tbaa !10
-  %y3.i.i55 = getelementptr inbounds %class.Coordinate, ptr %call.i5357, i64 0, i32 1
-  store i32 %14, ptr %y3.i.i55, align 4, !tbaa !5
-  %offset.i56 = getelementptr inbounds %class.Cell, ptr %call22, i64 0, i32 1
-  store ptr %call.i5357, ptr %offset.i56, align 8, !tbaa !13
+_ZN4CellC2ERK10Coordinate.exit:                   ; preds = %if.else
+  store i32 %13, ptr %call.i5054, align 4, !tbaa !10
+  %y3.i.i52 = getelementptr inbounds %class.Coordinate, ptr %call.i5054, i64 0, i32 1
+  store i32 %14, ptr %y3.i.i52, align 4, !tbaa !5
+  %offset.i53 = getelementptr inbounds %class.Cell, ptr %call22, i64 0, i32 1
+  store ptr %call.i5054, ptr %offset.i53, align 8, !tbaa !13
   %image.i = getelementptr inbounds %class.Cell, ptr %call22, i64 0, i32 2
   store i8 45, ptr %image.i, align 8, !tbaa !17
   br label %if.end28.sink.split
@@ -475,14 +462,14 @@ lpad23:                                           ; preds = %if.else
   tail call void @_ZdlPv(ptr noundef nonnull %call22) #15
   resume { ptr, i32 } %15
 
-if.end28.sink.split:                              ; preds = %invoke.cont26, %if.then7
-  %.sink62 = phi i32 [ %11, %if.then7 ], [ %14, %invoke.cont26 ]
-  %.sink = phi i32 [ %10, %if.then7 ], [ %13, %invoke.cont26 ]
-  %call17.sink = phi ptr [ %call17, %if.then7 ], [ %call22, %invoke.cont26 ]
-  %idxprom.i48 = zext i32 %.sink62 to i64
-  %idxprom3.i49 = zext i32 %.sink to i64
-  %arrayidx4.i50 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i48, i64 %idxprom3.i49
-  store ptr %call17.sink, ptr %arrayidx4.i50, align 8, !tbaa !11
+if.end28.sink.split:                              ; preds = %_ZN4CellC2ERK10Coordinate.exit, %if.then7
+  %.sink62 = phi i32 [ %11, %if.then7 ], [ %14, %_ZN4CellC2ERK10Coordinate.exit ]
+  %.sink = phi i32 [ %10, %if.then7 ], [ %13, %_ZN4CellC2ERK10Coordinate.exit ]
+  %call17.sink = phi ptr [ %call17, %if.then7 ], [ %call22, %_ZN4CellC2ERK10Coordinate.exit ]
+  %idxprom.i45 = zext i32 %.sink62 to i64
+  %idxprom3.i46 = zext i32 %.sink to i64
+  %arrayidx4.i47 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom.i45, i64 %idxprom3.i46
+  store ptr %call17.sink, ptr %arrayidx4.i47, align 8, !tbaa !11
   br label %if.end28
 
 if.end28:                                         ; preds = %if.end28.sink.split, %entry
@@ -495,9 +482,9 @@ entry:
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
   %call.i.i4 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN4PreyC2ER10Coordinate.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN4PreyC2ER10Coordinate.exit:                    ; preds = %entry
   %0 = load <2 x i32>, ptr %anOffset, align 4, !tbaa !19
   store <2 x i32> %0, ptr %call.i.i4, align 4, !tbaa !19
   %offset.i.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
@@ -533,7 +520,7 @@ entry:
   %dec = add i32 %0, -1
   store i32 %dec, ptr %timeToFeed, align 8, !tbaa !25
   %cmp = icmp eq i32 %dec, 0
-  br i1 %cmp, label %if.then, label %invoke.cont12
+  br i1 %cmp, label %if.then, label %if.else
 
 if.then:                                          ; preds = %entry
   %offset = getelementptr inbounds %class.Cell, ptr %this, i64 0, i32 1
@@ -543,14 +530,14 @@ if.then:                                          ; preds = %entry
   %3 = load i32, ptr %y.i, align 4, !tbaa !5
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
-  %call.i44 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont7 unwind label %lpad5
+  %call.i42 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
+          to label %_ZN4CellC2ERK10Coordinate.exit unwind label %lpad5
 
-invoke.cont7:                                     ; preds = %if.then
+_ZN4CellC2ERK10Coordinate.exit:                   ; preds = %if.then
   %4 = load <2 x i32>, ptr %1, align 4, !tbaa !19
-  store <2 x i32> %4, ptr %call.i44, align 4, !tbaa !19
+  store <2 x i32> %4, ptr %call.i42, align 4, !tbaa !19
   %offset.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
-  store ptr %call.i44, ptr %offset.i, align 8, !tbaa !13
+  store ptr %call.i42, ptr %offset.i, align 8, !tbaa !13
   %image.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
   store i8 45, ptr %image.i, align 8, !tbaa !17
   %idxprom.i = zext i32 %3 to i64
@@ -574,24 +561,24 @@ lpad5:                                            ; preds = %if.then
   tail call void @_ZdlPv(ptr noundef nonnull %call) #15
   resume { ptr, i32 } %8
 
-invoke.cont12:                                    ; preds = %entry
+if.else:                                          ; preds = %entry
   %call.i = tail call noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnull align 8 dereferenceable(17) %this, i8 noundef signext 102), !noalias !28
   %offset.i.i = getelementptr inbounds %class.Cell, ptr %call.i, i64 0, i32 1
   %9 = load ptr, ptr %offset.i.i, align 8, !tbaa !13, !noalias !28
   %10 = load i32, ptr %9, align 4, !tbaa !10, !noalias !28
-  %y.i.i47 = getelementptr inbounds %class.Coordinate, ptr %9, i64 0, i32 1
-  %11 = load i32, ptr %y.i.i47, align 4, !tbaa !5, !noalias !28
+  %y.i.i45 = getelementptr inbounds %class.Coordinate, ptr %9, i64 0, i32 1
+  %11 = load i32, ptr %y.i.i45, align 4, !tbaa !5, !noalias !28
   %offset17 = getelementptr inbounds %class.Cell, ptr %this, i64 0, i32 1
   %12 = load ptr, ptr %offset17, align 8, !tbaa !13
   %13 = load i32, ptr %12, align 4, !tbaa !10
-  %cmp.not.i = icmp eq i32 %10, %13
-  %y3.i52 = getelementptr inbounds %class.Coordinate, ptr %12, i64 0, i32 1
-  %14 = load i32, ptr %y3.i52, align 4
-  %cmp4.i = icmp eq i32 %11, %14
-  %narrow.i.not = select i1 %cmp.not.i, i1 true, i1 %cmp4.i
-  br i1 %narrow.i.not, label %if.else36, label %if.then20
+  %cmp.not.i = icmp ne i32 %10, %13
+  %y3.i50 = getelementptr inbounds %class.Coordinate, ptr %12, i64 0, i32 1
+  %14 = load i32, ptr %y3.i50, align 4
+  %cmp4.i = icmp ne i32 %11, %14
+  %narrow.i = select i1 %cmp.not.i, i1 %cmp4.i, i1 false
+  br i1 %narrow.i, label %if.then20, label %if.else36
 
-if.then20:                                        ; preds = %invoke.cont12
+if.then20:                                        ; preds = %if.else
   %15 = load ptr, ptr @Ocean1, align 8, !tbaa !11
   %numPrey.i = getelementptr inbounds %class.Ocean, ptr %15, i64 0, i32 2
   %16 = load i32, ptr %numPrey.i, align 8, !tbaa !24
@@ -599,15 +586,15 @@ if.then20:                                        ; preds = %invoke.cont12
   store i32 %sub23, ptr %numPrey.i, align 8, !tbaa !24
   store i32 6, ptr %timeToFeed, align 8, !tbaa !25
   store i32 %13, ptr %agg.tmp26, align 4, !tbaa !10
-  %y3.i55 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp26, i64 0, i32 1
-  store i32 %14, ptr %y3.i55, align 4, !tbaa !5
+  %y3.i53 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp26, i64 0, i32 1
+  store i32 %14, ptr %y3.i53, align 4, !tbaa !5
   store i32 %10, ptr %agg.tmp29, align 4, !tbaa !10
-  %y3.i57 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp29, i64 0, i32 1
-  store i32 %11, ptr %y3.i57, align 4, !tbaa !5
+  %y3.i55 = getelementptr inbounds %class.Coordinate, ptr %agg.tmp29, i64 0, i32 1
+  store i32 %11, ptr %y3.i55, align 4, !tbaa !5
   call void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull align 8 dereferenceable(24) %this, ptr noundef nonnull %agg.tmp26, ptr noundef nonnull %agg.tmp29)
   br label %if.end38
 
-if.else36:                                        ; preds = %invoke.cont12
+if.else36:                                        ; preds = %if.else
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %agg.tmp.i)
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %agg.tmp4.i)
   %call.i.i = tail call noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnull align 8 dereferenceable(17) %this, i8 noundef signext 45), !noalias !31
@@ -623,13 +610,13 @@ if.else36:                                        ; preds = %invoke.cont12
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %agg.tmp4.i)
   br label %if.end38
 
-if.end38:                                         ; preds = %if.then20, %if.else36, %invoke.cont7
+if.end38:                                         ; preds = %if.then20, %if.else36, %_ZN4CellC2ERK10Coordinate.exit
   ret void
 }
 
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZN4Prey7processEv(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %agg.tmp = alloca %class.Coordinate, align 8
   %agg.tmp4 = alloca %class.Coordinate, align 8
   %call.i = tail call noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnull align 8 dereferenceable(17) %this, i8 noundef signext 45), !noalias !34
@@ -652,9 +639,9 @@ entry:
   %0 = load <2 x i32>, ptr %anOffset, align 4, !tbaa !19
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
   %call.i.i.i7 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont3 unwind label %lpad2
+          to label %_ZN8PredatorC2E10Coordinate.exit unwind label %lpad2
 
-invoke.cont3:                                     ; preds = %entry
+_ZN8PredatorC2E10Coordinate.exit:                 ; preds = %entry
   store <2 x i32> %0, ptr %call.i.i.i7, align 4, !tbaa !19
   %offset.i.i.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
   store ptr %call.i.i.i7, ptr %offset.i.i.i, align 8, !tbaa !13
@@ -728,14 +715,14 @@ for.cond2.preheader.us.i:                         ; preds = %for.cond2.for.cond.
   %2 = trunc i64 %indvars.iv32.i to i32
   br label %for.body5.us.i
 
-for.body5.us.i:                                   ; preds = %invoke.cont7.us.i, %for.cond2.preheader.us.i
-  %indvars.iv.i = phi i64 [ 0, %for.cond2.preheader.us.i ], [ %indvars.iv.next.i, %invoke.cont7.us.i ]
+for.body5.us.i:                                   ; preds = %_ZN4CellC2ERK10Coordinate.exit.us.i, %for.cond2.preheader.us.i
+  %indvars.iv.i = phi i64 [ 0, %for.cond2.preheader.us.i ], [ %indvars.iv.next.i, %_ZN4CellC2ERK10Coordinate.exit.us.i ]
   %call.us.i = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call.us.i, align 8, !tbaa !20
   %call.i23.us.i = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont7.us.i unwind label %lpad6.split.us.i
+          to label %_ZN4CellC2ERK10Coordinate.exit.us.i unwind label %lpad6.split.us.i
 
-invoke.cont7.us.i:                                ; preds = %for.body5.us.i
+_ZN4CellC2ERK10Coordinate.exit.us.i:              ; preds = %for.body5.us.i
   %3 = trunc i64 %indvars.iv.i to i32
   store i32 %3, ptr %call.i23.us.i, align 4, !tbaa !10
   %y3.i.i.us.i = getelementptr inbounds %class.Coordinate, ptr %call.i23.us.i, i64 0, i32 1
@@ -750,7 +737,7 @@ invoke.cont7.us.i:                                ; preds = %for.body5.us.i
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
   br i1 %exitcond.not.i, label %for.cond2.for.cond.cleanup4_crit_edge.us.i, label %for.body5.us.i, !llvm.loop !39
 
-for.cond2.for.cond.cleanup4_crit_edge.us.i:       ; preds = %invoke.cont7.us.i
+for.cond2.for.cond.cleanup4_crit_edge.us.i:       ; preds = %_ZN4CellC2ERK10Coordinate.exit.us.i
   %indvars.iv.next33.i = add nuw nsw i64 %indvars.iv32.i, 1
   %exitcond36.not.i = icmp eq i64 %indvars.iv.next33.i, %wide.trip.count35.i
   br i1 %exitcond36.not.i, label %_ZN5Ocean13addEmptyCellsEv.exit, label %for.cond2.preheader.us.i, !llvm.loop !41
@@ -792,14 +779,14 @@ for.cond2.preheader.us:                           ; preds = %for.cond2.preheader
   %2 = trunc i64 %indvars.iv32 to i32
   br label %for.body5.us
 
-for.body5.us:                                     ; preds = %for.cond2.preheader.us, %invoke.cont7.us
-  %indvars.iv = phi i64 [ 0, %for.cond2.preheader.us ], [ %indvars.iv.next, %invoke.cont7.us ]
+for.body5.us:                                     ; preds = %for.cond2.preheader.us, %_ZN4CellC2ERK10Coordinate.exit.us
+  %indvars.iv = phi i64 [ 0, %for.cond2.preheader.us ], [ %indvars.iv.next, %_ZN4CellC2ERK10Coordinate.exit.us ]
   %call.us = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call.us, align 8, !tbaa !20
   %call.i23.us = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont7.us unwind label %lpad6.split.us
+          to label %_ZN4CellC2ERK10Coordinate.exit.us unwind label %lpad6.split.us
 
-invoke.cont7.us:                                  ; preds = %for.body5.us
+_ZN4CellC2ERK10Coordinate.exit.us:                ; preds = %for.body5.us
   %3 = trunc i64 %indvars.iv to i32
   store i32 %3, ptr %call.i23.us, align 4, !tbaa !10
   %y3.i.i.us = getelementptr inbounds %class.Coordinate, ptr %call.i23.us, i64 0, i32 1
@@ -814,7 +801,7 @@ invoke.cont7.us:                                  ; preds = %for.body5.us
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond2.for.cond.cleanup4_crit_edge.us, label %for.body5.us, !llvm.loop !39
 
-for.cond2.for.cond.cleanup4_crit_edge.us:         ; preds = %invoke.cont7.us
+for.cond2.for.cond.cleanup4_crit_edge.us:         ; preds = %_ZN4CellC2ERK10Coordinate.exit.us
   %indvars.iv.next33 = add nuw nsw i64 %indvars.iv32, 1
   %exitcond36.not = icmp eq i64 %indvars.iv.next33, %wide.trip.count35
   br i1 %exitcond36.not, label %for.cond.cleanup, label %for.cond2.preheader.us, !llvm.loop !41
@@ -834,18 +821,18 @@ define dso_local void @_ZN5Ocean12addObstaclesEv(ptr nocapture noundef nonnull r
 entry:
   %numObstacles = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 4
   %0 = load i32, ptr %numObstacles, align 8, !tbaa !38
-  %cmp28.not = icmp eq i32 %0, 0
-  br i1 %cmp28.not, label %for.cond.cleanup, label %for.body.lr.ph
+  %cmp27.not = icmp eq i32 %0, 0
+  br i1 %cmp27.not, label %for.cond.cleanup, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %numCols.i = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 1
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %invoke.cont7, %entry
+for.cond.cleanup:                                 ; preds = %_ZN8ObstacleC2ER10Coordinate.exit, %entry
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %invoke.cont7
-  %count.029 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %invoke.cont7 ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN8ObstacleC2ER10Coordinate.exit
+  %count.028 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %_ZN8ObstacleC2ER10Coordinate.exit ]
   br label %do.body.i
 
 do.body.i:                                        ; preds = %do.body.i, %for.body
@@ -868,9 +855,9 @@ do.body.i:                                        ; preds = %do.body.i, %for.bod
   %image.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
   %4 = load i8, ptr %image.i.i, align 8, !tbaa !17, !noalias !42
   %cmp.not.i = icmp eq i8 %4, 45
-  br i1 %cmp.not.i, label %invoke.cont, label %do.body.i, !llvm.loop !45
+  br i1 %cmp.not.i, label %_ZN5Ocean17getEmptyCellCoordEv.exit, label %do.body.i, !llvm.loop !45
 
-invoke.cont:                                      ; preds = %do.body.i
+_ZN5Ocean17getEmptyCellCoordEv.exit:              ; preds = %do.body.i
   %offset.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %offset.i.i, align 8, !tbaa !13, !noalias !42
   %6 = load i32, ptr %5, align 4, !tbaa !10, !noalias !42
@@ -882,28 +869,28 @@ invoke.cont:                                      ; preds = %do.body.i
   tail call void %8(ptr noundef nonnull align 8 dereferenceable(17) %3) #13, !noalias !42
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
-  %call.i.i2124 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont7 unwind label %lpad6
+  %call.i.i2023 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
+          to label %_ZN8ObstacleC2ER10Coordinate.exit unwind label %lpad6
 
-invoke.cont7:                                     ; preds = %invoke.cont
-  store i32 %6, ptr %call.i.i2124, align 4, !tbaa !10
-  %y3.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i2124, i64 0, i32 1
+_ZN8ObstacleC2ER10Coordinate.exit:                ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
+  store i32 %6, ptr %call.i.i2023, align 4, !tbaa !10
+  %y3.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i2023, i64 0, i32 1
   store i32 %7, ptr %y3.i.i.i, align 4, !tbaa !5
-  %offset.i.i22 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
-  store ptr %call.i.i2124, ptr %offset.i.i22, align 8, !tbaa !13
-  %image.i.i23 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
+  %offset.i.i21 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
+  store ptr %call.i.i2023, ptr %offset.i.i21, align 8, !tbaa !13
+  %image.i.i22 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8Obstacle, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
-  store i8 35, ptr %image.i.i23, align 8, !tbaa !17
+  store i8 35, ptr %image.i.i22, align 8, !tbaa !17
   %idxprom = zext i32 %7 to i64
   %idxprom13 = zext i32 %6 to i64
   %arrayidx14 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom, i64 %idxprom13
   store ptr %call, ptr %arrayidx14, align 8, !tbaa !11
-  %inc = add nuw i32 %count.029, 1
+  %inc = add nuw i32 %count.028, 1
   %9 = load i32, ptr %numObstacles, align 8, !tbaa !38
   %cmp = icmp ult i32 %inc, %9
   br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !46
 
-lpad6:                                            ; preds = %invoke.cont
+lpad6:                                            ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
   %10 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call) #15
@@ -915,18 +902,18 @@ define dso_local void @_ZN5Ocean12addPredatorsEv(ptr nocapture noundef nonnull r
 entry:
   %numPredators = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 3
   %0 = load i32, ptr %numPredators, align 4, !tbaa !27
-  %cmp30.not = icmp eq i32 %0, 0
-  br i1 %cmp30.not, label %for.cond.cleanup, label %for.body.lr.ph
+  %cmp29.not = icmp eq i32 %0, 0
+  br i1 %cmp29.not, label %for.cond.cleanup, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %numCols.i = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 1
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %invoke.cont9, %entry
+for.cond.cleanup:                                 ; preds = %_ZN8PredatorC2E10Coordinate.exit, %entry
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %invoke.cont9
-  %count.031 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %invoke.cont9 ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN8PredatorC2E10Coordinate.exit
+  %count.030 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %_ZN8PredatorC2E10Coordinate.exit ]
   br label %do.body.i
 
 do.body.i:                                        ; preds = %do.body.i, %for.body
@@ -949,9 +936,9 @@ do.body.i:                                        ; preds = %do.body.i, %for.bod
   %image.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
   %4 = load i8, ptr %image.i.i, align 8, !tbaa !17, !noalias !47
   %cmp.not.i = icmp eq i8 %4, 45
-  br i1 %cmp.not.i, label %invoke.cont, label %do.body.i, !llvm.loop !45
+  br i1 %cmp.not.i, label %_ZN5Ocean17getEmptyCellCoordEv.exit, label %do.body.i, !llvm.loop !45
 
-invoke.cont:                                      ; preds = %do.body.i
+_ZN5Ocean17getEmptyCellCoordEv.exit:              ; preds = %do.body.i
   %offset.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %offset.i.i, align 8, !tbaa !13, !noalias !47
   %6 = load i32, ptr %5, align 4, !tbaa !10, !noalias !47
@@ -963,15 +950,15 @@ invoke.cont:                                      ; preds = %do.body.i
   tail call void %8(ptr noundef nonnull align 8 dereferenceable(17) %3) #13, !noalias !47
   %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
-  %call.i.i.i26 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont9 unwind label %lpad8
+  %call.i.i.i25 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
+          to label %_ZN8PredatorC2E10Coordinate.exit unwind label %lpad8
 
-invoke.cont9:                                     ; preds = %invoke.cont
-  store i32 %6, ptr %call.i.i.i26, align 4, !tbaa !10
-  %y3.i.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i.i26, i64 0, i32 1
+_ZN8PredatorC2E10Coordinate.exit:                 ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
+  store i32 %6, ptr %call.i.i.i25, align 4, !tbaa !10
+  %y3.i.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i.i25, i64 0, i32 1
   store i32 %7, ptr %y3.i.i.i.i, align 4, !tbaa !5
   %offset.i.i.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
-  store ptr %call.i.i.i26, ptr %offset.i.i.i, align 8, !tbaa !13
+  store ptr %call.i.i.i25, ptr %offset.i.i.i, align 8, !tbaa !13
   %image.i.i.i = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
   %timeToReproduce.i.i = getelementptr inbounds %class.Prey, ptr %call, i64 0, i32 1
   store i32 6, ptr %timeToReproduce.i.i, align 4, !tbaa !22
@@ -983,12 +970,12 @@ invoke.cont9:                                     ; preds = %invoke.cont
   %idxprom14 = zext i32 %6 to i64
   %arrayidx15 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom, i64 %idxprom14
   store ptr %call, ptr %arrayidx15, align 8, !tbaa !11
-  %inc = add nuw i32 %count.031, 1
+  %inc = add nuw i32 %count.030, 1
   %9 = load i32, ptr %numPredators, align 4, !tbaa !27
   %cmp = icmp ult i32 %inc, %9
   br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !50
 
-lpad8:                                            ; preds = %invoke.cont
+lpad8:                                            ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
   %10 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call) #15
@@ -1000,18 +987,18 @@ define dso_local void @_ZN5Ocean7addPreyEv(ptr nocapture noundef nonnull readonl
 entry:
   %numPredators = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 3
   %0 = load i32, ptr %numPredators, align 4, !tbaa !27
-  %cmp28.not = icmp eq i32 %0, 0
-  br i1 %cmp28.not, label %for.cond.cleanup, label %for.body.lr.ph
+  %cmp27.not = icmp eq i32 %0, 0
+  br i1 %cmp27.not, label %for.cond.cleanup, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %numCols.i = getelementptr inbounds %class.Ocean, ptr %this, i64 0, i32 1
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %invoke.cont7, %entry
+for.cond.cleanup:                                 ; preds = %_ZN4PreyC2ER10Coordinate.exit, %entry
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %invoke.cont7
-  %count.029 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %invoke.cont7 ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN4PreyC2ER10Coordinate.exit
+  %count.028 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %_ZN4PreyC2ER10Coordinate.exit ]
   br label %do.body.i
 
 do.body.i:                                        ; preds = %do.body.i, %for.body
@@ -1034,9 +1021,9 @@ do.body.i:                                        ; preds = %do.body.i, %for.bod
   %image.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
   %4 = load i8, ptr %image.i.i, align 8, !tbaa !17, !noalias !51
   %cmp.not.i = icmp eq i8 %4, 45
-  br i1 %cmp.not.i, label %invoke.cont, label %do.body.i, !llvm.loop !45
+  br i1 %cmp.not.i, label %_ZN5Ocean17getEmptyCellCoordEv.exit, label %do.body.i, !llvm.loop !45
 
-invoke.cont:                                      ; preds = %do.body.i
+_ZN5Ocean17getEmptyCellCoordEv.exit:              ; preds = %do.body.i
   %offset.i.i = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %offset.i.i, align 8, !tbaa !13, !noalias !51
   %6 = load i32, ptr %5, align 4, !tbaa !10, !noalias !51
@@ -1048,30 +1035,30 @@ invoke.cont:                                      ; preds = %do.body.i
   tail call void %8(ptr noundef nonnull align 8 dereferenceable(17) %3) #13, !noalias !51
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
-  %call.i.i2124 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
-          to label %invoke.cont7 unwind label %lpad6
+  %call.i.i2023 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
+          to label %_ZN4PreyC2ER10Coordinate.exit unwind label %lpad6
 
-invoke.cont7:                                     ; preds = %invoke.cont
-  store i32 %6, ptr %call.i.i2124, align 4, !tbaa !10
-  %y3.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i2124, i64 0, i32 1
+_ZN4PreyC2ER10Coordinate.exit:                    ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
+  store i32 %6, ptr %call.i.i2023, align 4, !tbaa !10
+  %y3.i.i.i = getelementptr inbounds %class.Coordinate, ptr %call.i.i2023, i64 0, i32 1
   store i32 %7, ptr %y3.i.i.i, align 4, !tbaa !5
-  %offset.i.i22 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
-  store ptr %call.i.i2124, ptr %offset.i.i22, align 8, !tbaa !13
-  %image.i.i23 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
+  %offset.i.i21 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 1
+  store ptr %call.i.i2023, ptr %offset.i.i21, align 8, !tbaa !13
+  %image.i.i22 = getelementptr inbounds %class.Cell, ptr %call, i64 0, i32 2
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Prey, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !20
   %timeToReproduce.i = getelementptr inbounds %class.Prey, ptr %call, i64 0, i32 1
   store i32 6, ptr %timeToReproduce.i, align 4, !tbaa !22
-  store i8 102, ptr %image.i.i23, align 8, !tbaa !17
+  store i8 102, ptr %image.i.i22, align 8, !tbaa !17
   %idxprom = zext i32 %7 to i64
   %idxprom13 = zext i32 %6 to i64
   %arrayidx14 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %idxprom, i64 %idxprom13
   store ptr %call, ptr %arrayidx14, align 8, !tbaa !11
-  %inc = add nuw i32 %count.029, 1
+  %inc = add nuw i32 %count.028, 1
   %9 = load i32, ptr %numPredators, align 4, !tbaa !27
   %cmp = icmp ult i32 %inc, %9
   br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !54
 
-lpad6:                                            ; preds = %invoke.cont
+lpad6:                                            ; preds = %_ZN5Ocean17getEmptyCellCoordEv.exit
   %10 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call) #15

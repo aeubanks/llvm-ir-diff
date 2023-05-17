@@ -147,33 +147,33 @@ if.else:                                          ; preds = %entry
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %move_to_the.i, i8 0, i64 32, i1 false), !tbaa !30
   %7 = load ptr, ptr %this, align 8, !tbaa !21
   %the_moves.i.i = getelementptr inbounds %class.roadlet, ptr %7, i64 0, i32 3
-  %8 = load i32, ptr @N, align 4, !tbaa !23
+  %dir.sroa.0.0.copyload.i = load i32, ptr @N, align 4, !tbaa.struct !22
   %agg.tmp2.sroa.0.0.copyload35.i = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %call436.i = tail call noundef i32 @_Zle9directionS_(i32 %8, i32 %agg.tmp2.sroa.0.0.copyload35.i)
+  %call436.i = tail call noundef i32 @_Zle9directionS_(i32 %dir.sroa.0.0.copyload.i, i32 %agg.tmp2.sroa.0.0.copyload35.i)
   %tobool.not37.i = icmp eq i32 %call436.i, 0
   br i1 %tobool.not37.i, label %_ZN7vehicle11select_moveEv.exit, label %for.body.preheader.i
 
 for.body.preheader.i:                             ; preds = %if.else
-  %9 = sext i32 %8 to i64
+  %8 = sext i32 %dir.sroa.0.0.copyload.i to i64
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.inc.i, %for.body.preheader.i
-  %indvars.iv.i = phi i64 [ %9, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]
+  %indvars.iv.i = phi i64 [ %8, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]
   %used.039.i = phi i32 [ 0, %for.body.preheader.i ], [ %used.1.i, %for.inc.i ]
   %arrayidx.i76 = getelementptr inbounds ptr, ptr %the_moves.i.i, i64 %indvars.iv.i
-  %10 = load ptr, ptr %arrayidx.i76, align 8, !tbaa !29
-  %11 = load ptr, ptr %this, align 8, !tbaa !21
-  %arrayidx.i.i = getelementptr inbounds %class.roadlet, ptr %11, i64 0, i32 2, i64 %indvars.iv.i
-  %12 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !29
-  %13 = trunc i64 %indvars.iv.i to i32
-  %call12.i = tail call noundef ptr %10(ptr noundef %12, ptr noundef nonnull %this, i32 %13)
+  %9 = load ptr, ptr %arrayidx.i76, align 8, !tbaa !29
+  %10 = load ptr, ptr %this, align 8, !tbaa !21
+  %arrayidx.i.i = getelementptr inbounds %class.roadlet, ptr %10, i64 0, i32 2, i64 %indvars.iv.i
+  %11 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !29
+  %12 = trunc i64 %indvars.iv.i to i32
+  %call12.i = tail call noundef ptr %9(ptr noundef %11, ptr noundef nonnull %this, i32 %12)
   %cmp.not.i = icmp eq ptr %call12.i, null
   br i1 %cmp.not.i, label %for.inc.i, label %if.then.i
 
 if.then.i:                                        ; preds = %for.body.i
   %idxprom13.i = sext i32 %used.039.i to i64
   %arrayidx14.i = getelementptr inbounds [8 x %class.direction], ptr %move_to_the.i, i64 0, i64 %idxprom13.i
-  store i32 %13, ptr %arrayidx14.i, align 4, !tbaa !23
+  store i32 %12, ptr %arrayidx14.i, align 4, !tbaa.struct !22
   %inc.i = add nsw i32 %used.039.i, 1
   br label %for.inc.i
 
@@ -181,8 +181,8 @@ for.inc.i:                                        ; preds = %if.then.i, %for.bod
   %used.1.i = phi i32 [ %inc.i, %if.then.i ], [ %used.039.i, %for.body.i ]
   %indvars.iv.next.i = add i64 %indvars.iv.i, 1
   %agg.tmp2.sroa.0.0.copyload.i = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %14 = trunc i64 %indvars.iv.next.i to i32
-  %call4.i = tail call noundef i32 @_Zle9directionS_(i32 %14, i32 %agg.tmp2.sroa.0.0.copyload.i)
+  %13 = trunc i64 %indvars.iv.next.i to i32
+  %call4.i = tail call noundef i32 @_Zle9directionS_(i32 %13, i32 %agg.tmp2.sroa.0.0.copyload.i)
   %tobool.not.i = icmp eq i32 %call4.i, 0
   br i1 %tobool.not.i, label %for.end.i, label %for.body.i, !llvm.loop !31
 
@@ -212,15 +212,15 @@ if.end21:                                         ; preds = %if.then, %if.then15
   br i1 %tobool.not, label %if.end63, label %if.then27
 
 if.then27:                                        ; preds = %if.end21
-  %15 = load ptr, ptr %this, align 8, !tbaa !21
-  %occupant.i = getelementptr inbounds %class.roadlet, ptr %15, i64 0, i32 1
+  %14 = load ptr, ptr %this, align 8, !tbaa !21
+  %occupant.i = getelementptr inbounds %class.roadlet, ptr %14, i64 0, i32 1
   store ptr null, ptr %occupant.i, align 8, !tbaa !32
   %idxprom.i78 = sext i32 %d.sroa.0.0 to i64
-  %arrayidx.i79 = getelementptr inbounds %class.roadlet, ptr %15, i64 0, i32 2, i64 %idxprom.i78
-  %16 = load ptr, ptr %arrayidx.i79, align 8, !tbaa !29
-  %occupant.i80 = getelementptr inbounds %class.roadlet, ptr %16, i64 0, i32 1
+  %arrayidx.i79 = getelementptr inbounds %class.roadlet, ptr %14, i64 0, i32 2, i64 %idxprom.i78
+  %15 = load ptr, ptr %arrayidx.i79, align 8, !tbaa !29
+  %occupant.i80 = getelementptr inbounds %class.roadlet, ptr %15, i64 0, i32 1
   store ptr %this, ptr %occupant.i80, align 8, !tbaa !32
-  store ptr %16, ptr %this, align 8, !tbaa !21
+  store ptr %15, ptr %this, align 8, !tbaa !21
   %agg.tmp36.sroa.0.0.copyload = load i32, ptr @N, align 4, !tbaa.struct !22
   %call39 = tail call noundef i32 @_Zeq9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp36.sroa.0.0.copyload)
   %tobool40.not = icmp eq i32 %call39, 0
@@ -269,33 +269,33 @@ entry:
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %move_to_the, i8 0, i64 32, i1 false), !tbaa !30
   %0 = load ptr, ptr %this, align 8, !tbaa !21
   %the_moves.i = getelementptr inbounds %class.roadlet, ptr %0, i64 0, i32 3
-  %1 = load i32, ptr @N, align 4, !tbaa !23
+  %dir.sroa.0.0.copyload = load i32, ptr @N, align 4, !tbaa.struct !22
   %agg.tmp2.sroa.0.0.copyload35 = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %call436 = tail call noundef i32 @_Zle9directionS_(i32 %1, i32 %agg.tmp2.sroa.0.0.copyload35)
+  %call436 = tail call noundef i32 @_Zle9directionS_(i32 %dir.sroa.0.0.copyload, i32 %agg.tmp2.sroa.0.0.copyload35)
   %tobool.not37 = icmp eq i32 %call436, 0
   br i1 %tobool.not37, label %cleanup, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
-  %2 = sext i32 %1 to i64
+  %1 = sext i32 %dir.sroa.0.0.copyload to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
-  %indvars.iv = phi i64 [ %2, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
+  %indvars.iv = phi i64 [ %1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
   %used.039 = phi i32 [ 0, %for.body.preheader ], [ %used.1, %for.inc ]
   %arrayidx = getelementptr inbounds ptr, ptr %the_moves.i, i64 %indvars.iv
-  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !29
-  %4 = load ptr, ptr %this, align 8, !tbaa !21
-  %arrayidx.i = getelementptr inbounds %class.roadlet, ptr %4, i64 0, i32 2, i64 %indvars.iv
-  %5 = load ptr, ptr %arrayidx.i, align 8, !tbaa !29
-  %6 = trunc i64 %indvars.iv to i32
-  %call12 = tail call noundef ptr %3(ptr noundef %5, ptr noundef nonnull %this, i32 %6)
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !29
+  %3 = load ptr, ptr %this, align 8, !tbaa !21
+  %arrayidx.i = getelementptr inbounds %class.roadlet, ptr %3, i64 0, i32 2, i64 %indvars.iv
+  %4 = load ptr, ptr %arrayidx.i, align 8, !tbaa !29
+  %5 = trunc i64 %indvars.iv to i32
+  %call12 = tail call noundef ptr %2(ptr noundef %4, ptr noundef nonnull %this, i32 %5)
   %cmp.not = icmp eq ptr %call12, null
   br i1 %cmp.not, label %for.inc, label %if.then
 
 if.then:                                          ; preds = %for.body
   %idxprom13 = sext i32 %used.039 to i64
   %arrayidx14 = getelementptr inbounds [8 x %class.direction], ptr %move_to_the, i64 0, i64 %idxprom13
-  store i32 %6, ptr %arrayidx14, align 4, !tbaa !23
+  store i32 %5, ptr %arrayidx14, align 4, !tbaa.struct !22
   %inc = add nsw i32 %used.039, 1
   br label %for.inc
 
@@ -303,8 +303,8 @@ for.inc:                                          ; preds = %for.body, %if.then
   %used.1 = phi i32 [ %inc, %if.then ], [ %used.039, %for.body ]
   %indvars.iv.next = add i64 %indvars.iv, 1
   %agg.tmp2.sroa.0.0.copyload = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %7 = trunc i64 %indvars.iv.next to i32
-  %call4 = tail call noundef i32 @_Zle9directionS_(i32 %7, i32 %agg.tmp2.sroa.0.0.copyload)
+  %6 = trunc i64 %indvars.iv.next to i32
+  %call4 = tail call noundef i32 @_Zle9directionS_(i32 %6, i32 %agg.tmp2.sroa.0.0.copyload)
   %tobool.not = icmp eq i32 %call4, 0
   br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !31
 

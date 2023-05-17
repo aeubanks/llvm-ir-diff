@@ -383,7 +383,7 @@ sw.bb32:                                          ; preds = %sw.bb19
   store i64 %sub36, ptr %add.ptr20, align 8, !tbaa !10
   %xor = xor i64 %sub36, %15
   %xor41 = xor i64 %16, %15
-  %17 = and i64 %xor, %xor41
+  %17 = and i64 %xor41, %xor
   %or.cond.not = icmp sgt i64 %17, -1
   br i1 %or.cond.not, label %sw.epilog53, label %if.then
 

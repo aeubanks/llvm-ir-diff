@@ -7406,8 +7406,8 @@ entry:
 
 _ZN6Halide7Runtime8Internal12_GLOBAL__N_17PrinterILi2ELy1024EED2Ev.exit: ; preds = %cleanup191, %entry
   %sstr.sroa.17.0.lcssa = phi i64 [ %0, %entry ], [ %sstr.sroa.17.15, %cleanup191 ]
-  %reass.sub11 = sub i64 %sstr.sroa.17.0.lcssa, %0
-  %add.i.i = add i64 %reass.sub11, 1
+  %reass.sub10 = sub i64 %sstr.sroa.17.0.lcssa, %0
+  %add.i.i = add i64 %reass.sub10, 1
   call void @halide_msan_annotate_memory_is_initialized(ptr %user_context, ptr nonnull %line_buf, i64 %add.i.i) #17
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %line_buf) #18
   ret void

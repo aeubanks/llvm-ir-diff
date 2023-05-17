@@ -487,6 +487,8 @@ if.end18:                                         ; preds = %if.end
   %conv23 = sitofp i32 %ymk to float
   %2 = load i32, ptr @PlainCharHeight, align 4, !tbaa !9
   %conv24 = sitofp i32 %2 to float
+  %div25 = fdiv float %conv23, %conv24
+  %conv26 = fptosi float %div25 to i32
   %ou3 = getelementptr inbounds %struct.word_type, ptr %z, i64 0, i32 3
   %3 = load i32, ptr %ou3, align 8, !tbaa !11
   %ofwd = getelementptr inbounds %struct.word_type, ptr %z, i64 0, i32 3, i32 1
@@ -513,8 +515,6 @@ if.end18:                                         ; preds = %if.end
   br i1 %cmp50, label %land.lhs.true52, label %if.else
 
 land.lhs.true52:                                  ; preds = %if.end18
-  %div25 = fdiv float %conv23, %conv24
-  %conv26 = fptosi float %div25 to i32
   %7 = load i32, ptr @hsize, align 4, !tbaa !9
   %cmp53 = icmp sgt i32 %7, %conv37
   %cmp56 = icmp sgt i32 %conv26, -1

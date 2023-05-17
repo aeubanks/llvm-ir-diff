@@ -491,122 +491,122 @@ for.inc.i:                                        ; preds = %if.then.i, %for.bod
   br i1 %exitcond.not.i, label %for.body.i28.preheader, label %for.body.i, !llvm.loop !11
 
 for.body.i28.preheader:                           ; preds = %for.inc.i
-  %min.iters.check77 = icmp ult i32 %4, 7
-  br i1 %min.iters.check77, label %for.body.i28.preheader104, label %vector.ph78
+  %min.iters.check75 = icmp ult i32 %4, 7
+  br i1 %min.iters.check75, label %for.body.i28.preheader102, label %vector.ph76
 
-vector.ph78:                                      ; preds = %for.body.i28.preheader
-  %n.vec80 = and i64 %wide.trip.count.i, 4294967288
-  br label %vector.body83
+vector.ph76:                                      ; preds = %for.body.i28.preheader
+  %n.vec78 = and i64 %wide.trip.count.i, 4294967288
+  br label %vector.body81
 
-vector.body83:                                    ; preds = %pred.store.continue102, %vector.ph78
-  %index84 = phi i64 [ 0, %vector.ph78 ], [ %index.next103, %pred.store.continue102 ]
-  %9 = or i64 %index84, 4
-  %10 = getelementptr inbounds [13 x [512 x i32]], ptr @p, i64 0, i64 %indvars.iv, i64 %index84
-  %wide.load85 = load <4 x i32>, ptr %10, align 16, !tbaa !9
+vector.body81:                                    ; preds = %pred.store.continue100, %vector.ph76
+  %index82 = phi i64 [ 0, %vector.ph76 ], [ %index.next101, %pred.store.continue100 ]
+  %9 = or i64 %index82, 4
+  %10 = getelementptr inbounds [13 x [512 x i32]], ptr @p, i64 0, i64 %indvars.iv, i64 %index82
+  %wide.load83 = load <4 x i32>, ptr %10, align 16, !tbaa !9
   %11 = getelementptr inbounds i32, ptr %10, i64 4
-  %wide.load86 = load <4 x i32>, ptr %11, align 16, !tbaa !9
-  %12 = icmp ne <4 x i32> %wide.load85, zeroinitializer
-  %13 = icmp ne <4 x i32> %wide.load86, zeroinitializer
+  %wide.load84 = load <4 x i32>, ptr %11, align 16, !tbaa !9
+  %12 = icmp ne <4 x i32> %wide.load83, zeroinitializer
+  %13 = icmp ne <4 x i32> %wide.load84, zeroinitializer
   %14 = extractelement <4 x i1> %12, i64 0
-  br i1 %14, label %pred.store.if87, label %pred.store.continue88
+  br i1 %14, label %pred.store.if85, label %pred.store.continue86
 
-pred.store.if87:                                  ; preds = %vector.body83
-  %15 = add nsw i64 %index84, %1
+pred.store.if85:                                  ; preds = %vector.body81
+  %15 = add nsw i64 %index82, %1
   %16 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %15
   store i32 1, ptr %16, align 4, !tbaa !9
-  br label %pred.store.continue88
+  br label %pred.store.continue86
 
-pred.store.continue88:                            ; preds = %pred.store.if87, %vector.body83
+pred.store.continue86:                            ; preds = %pred.store.if85, %vector.body81
   %17 = extractelement <4 x i1> %12, i64 1
-  br i1 %17, label %pred.store.if89, label %pred.store.continue90
+  br i1 %17, label %pred.store.if87, label %pred.store.continue88
 
-pred.store.if89:                                  ; preds = %pred.store.continue88
-  %18 = or i64 %index84, 1
+pred.store.if87:                                  ; preds = %pred.store.continue86
+  %18 = or i64 %index82, 1
   %19 = add nsw i64 %18, %1
   %20 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %19
   store i32 1, ptr %20, align 4, !tbaa !9
-  br label %pred.store.continue90
+  br label %pred.store.continue88
 
-pred.store.continue90:                            ; preds = %pred.store.if89, %pred.store.continue88
+pred.store.continue88:                            ; preds = %pred.store.if87, %pred.store.continue86
   %21 = extractelement <4 x i1> %12, i64 2
-  br i1 %21, label %pred.store.if91, label %pred.store.continue92
+  br i1 %21, label %pred.store.if89, label %pred.store.continue90
 
-pred.store.if91:                                  ; preds = %pred.store.continue90
-  %22 = or i64 %index84, 2
+pred.store.if89:                                  ; preds = %pred.store.continue88
+  %22 = or i64 %index82, 2
   %23 = add nsw i64 %22, %1
   %24 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %23
   store i32 1, ptr %24, align 4, !tbaa !9
-  br label %pred.store.continue92
+  br label %pred.store.continue90
 
-pred.store.continue92:                            ; preds = %pred.store.if91, %pred.store.continue90
+pred.store.continue90:                            ; preds = %pred.store.if89, %pred.store.continue88
   %25 = extractelement <4 x i1> %12, i64 3
-  br i1 %25, label %pred.store.if93, label %pred.store.continue94
+  br i1 %25, label %pred.store.if91, label %pred.store.continue92
 
-pred.store.if93:                                  ; preds = %pred.store.continue92
-  %26 = or i64 %index84, 3
+pred.store.if91:                                  ; preds = %pred.store.continue90
+  %26 = or i64 %index82, 3
   %27 = add nsw i64 %26, %1
   %28 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %27
   store i32 1, ptr %28, align 4, !tbaa !9
-  br label %pred.store.continue94
+  br label %pred.store.continue92
 
-pred.store.continue94:                            ; preds = %pred.store.if93, %pred.store.continue92
+pred.store.continue92:                            ; preds = %pred.store.if91, %pred.store.continue90
   %29 = extractelement <4 x i1> %13, i64 0
-  br i1 %29, label %pred.store.if95, label %pred.store.continue96
+  br i1 %29, label %pred.store.if93, label %pred.store.continue94
 
-pred.store.if95:                                  ; preds = %pred.store.continue94
+pred.store.if93:                                  ; preds = %pred.store.continue92
   %30 = add nsw i64 %9, %1
   %31 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %30
   store i32 1, ptr %31, align 4, !tbaa !9
-  br label %pred.store.continue96
+  br label %pred.store.continue94
 
-pred.store.continue96:                            ; preds = %pred.store.if95, %pred.store.continue94
+pred.store.continue94:                            ; preds = %pred.store.if93, %pred.store.continue92
   %32 = extractelement <4 x i1> %13, i64 1
-  br i1 %32, label %pred.store.if97, label %pred.store.continue98
+  br i1 %32, label %pred.store.if95, label %pred.store.continue96
 
-pred.store.if97:                                  ; preds = %pred.store.continue96
-  %33 = or i64 %index84, 5
+pred.store.if95:                                  ; preds = %pred.store.continue94
+  %33 = or i64 %index82, 5
   %34 = add nsw i64 %33, %1
   %35 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %34
   store i32 1, ptr %35, align 4, !tbaa !9
-  br label %pred.store.continue98
+  br label %pred.store.continue96
 
-pred.store.continue98:                            ; preds = %pred.store.if97, %pred.store.continue96
+pred.store.continue96:                            ; preds = %pred.store.if95, %pred.store.continue94
   %36 = extractelement <4 x i1> %13, i64 2
-  br i1 %36, label %pred.store.if99, label %pred.store.continue100
+  br i1 %36, label %pred.store.if97, label %pred.store.continue98
 
-pred.store.if99:                                  ; preds = %pred.store.continue98
-  %37 = or i64 %index84, 6
+pred.store.if97:                                  ; preds = %pred.store.continue96
+  %37 = or i64 %index82, 6
   %38 = add nsw i64 %37, %1
   %39 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %38
   store i32 1, ptr %39, align 4, !tbaa !9
-  br label %pred.store.continue100
+  br label %pred.store.continue98
 
-pred.store.continue100:                           ; preds = %pred.store.if99, %pred.store.continue98
+pred.store.continue98:                            ; preds = %pred.store.if97, %pred.store.continue96
   %40 = extractelement <4 x i1> %13, i64 3
-  br i1 %40, label %pred.store.if101, label %pred.store.continue102
+  br i1 %40, label %pred.store.if99, label %pred.store.continue100
 
-pred.store.if101:                                 ; preds = %pred.store.continue100
-  %41 = or i64 %index84, 7
+pred.store.if99:                                  ; preds = %pred.store.continue98
+  %41 = or i64 %index82, 7
   %42 = add nsw i64 %41, %1
   %43 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %42
   store i32 1, ptr %43, align 4, !tbaa !9
-  br label %pred.store.continue102
+  br label %pred.store.continue100
 
-pred.store.continue102:                           ; preds = %pred.store.if101, %pred.store.continue100
-  %index.next103 = add nuw i64 %index84, 8
-  %44 = icmp eq i64 %index.next103, %n.vec80
-  br i1 %44, label %middle.block75, label %vector.body83, !llvm.loop !20
+pred.store.continue100:                           ; preds = %pred.store.if99, %pred.store.continue98
+  %index.next101 = add nuw i64 %index82, 8
+  %44 = icmp eq i64 %index.next101, %n.vec78
+  br i1 %44, label %middle.block73, label %vector.body81, !llvm.loop !20
 
-middle.block75:                                   ; preds = %pred.store.continue102
-  %cmp.n82 = icmp eq i64 %n.vec80, %wide.trip.count.i
-  br i1 %cmp.n82, label %for.end.i, label %for.body.i28.preheader104
+middle.block73:                                   ; preds = %pred.store.continue100
+  %cmp.n80 = icmp eq i64 %n.vec78, %wide.trip.count.i
+  br i1 %cmp.n80, label %for.end.i, label %for.body.i28.preheader102
 
-for.body.i28.preheader104:                        ; preds = %for.body.i28.preheader, %middle.block75
-  %indvars.iv.i25.ph = phi i64 [ 0, %for.body.i28.preheader ], [ %n.vec80, %middle.block75 ]
+for.body.i28.preheader102:                        ; preds = %for.body.i28.preheader, %middle.block73
+  %indvars.iv.i25.ph = phi i64 [ 0, %for.body.i28.preheader ], [ %n.vec78, %middle.block73 ]
   br label %for.body.i28
 
-for.body.i28:                                     ; preds = %for.body.i28.preheader104, %for.inc.i33
-  %indvars.iv.i25 = phi i64 [ %indvars.iv.next.i31, %for.inc.i33 ], [ %indvars.iv.i25.ph, %for.body.i28.preheader104 ]
+for.body.i28:                                     ; preds = %for.body.i28.preheader102, %for.inc.i33
+  %indvars.iv.i25 = phi i64 [ %indvars.iv.next.i31, %for.inc.i33 ], [ %indvars.iv.i25.ph, %for.body.i28.preheader102 ]
   %arrayidx4.i26 = getelementptr inbounds [13 x [512 x i32]], ptr @p, i64 0, i64 %indvars.iv, i64 %indvars.iv.i25
   %45 = load i32, ptr %arrayidx4.i26, align 4, !tbaa !9
   %tobool.not.i27 = icmp eq i32 %45, 0
@@ -623,7 +623,7 @@ for.inc.i33:                                      ; preds = %if.then.i30, %for.b
   %exitcond.not.i32 = icmp eq i64 %indvars.iv.next.i31, %wide.trip.count.i
   br i1 %exitcond.not.i32, label %for.end.i, label %for.body.i28, !llvm.loop !21
 
-for.end.i:                                        ; preds = %for.inc.i33, %middle.block75, %if.then
+for.end.i:                                        ; preds = %for.inc.i33, %middle.block73, %if.then
   %sub.i = add nsw i32 %3, -1
   store i32 %sub.i, ptr %arrayidx2, align 4, !tbaa !9
   br i1 %cmp1639.i, label %for.body17.i, label %Place.exit
@@ -668,15 +668,15 @@ vector.ph:                                        ; preds = %for.body.preheader.
   %n.vec = and i64 %wide.trip.count.i37, 4294967288
   br label %vector.body
 
-vector.body:                                      ; preds = %pred.store.continue74, %vector.ph
-  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %pred.store.continue74 ]
+vector.body:                                      ; preds = %pred.store.continue72, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %pred.store.continue72 ]
   %52 = or i64 %index, 4
   %53 = getelementptr inbounds [13 x [512 x i32]], ptr @p, i64 0, i64 %indvars.iv, i64 %index
   %wide.load = load <4 x i32>, ptr %53, align 16, !tbaa !9
   %54 = getelementptr inbounds i32, ptr %53, i64 4
-  %wide.load60 = load <4 x i32>, ptr %54, align 16, !tbaa !9
+  %wide.load58 = load <4 x i32>, ptr %54, align 16, !tbaa !9
   %55 = icmp ne <4 x i32> %wide.load, zeroinitializer
-  %56 = icmp ne <4 x i32> %wide.load60, zeroinitializer
+  %56 = icmp ne <4 x i32> %wide.load58, zeroinitializer
   %57 = extractelement <4 x i1> %55, i64 0
   br i1 %57, label %pred.store.if, label %pred.store.continue
 
@@ -688,86 +688,86 @@ pred.store.if:                                    ; preds = %vector.body
 
 pred.store.continue:                              ; preds = %pred.store.if, %vector.body
   %60 = extractelement <4 x i1> %55, i64 1
-  br i1 %60, label %pred.store.if61, label %pred.store.continue62
+  br i1 %60, label %pred.store.if59, label %pred.store.continue60
 
-pred.store.if61:                                  ; preds = %pred.store.continue
+pred.store.if59:                                  ; preds = %pred.store.continue
   %61 = or i64 %index, 1
   %62 = add nsw i64 %61, %1
   %63 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %62
   store i32 0, ptr %63, align 4, !tbaa !9
-  br label %pred.store.continue62
+  br label %pred.store.continue60
 
-pred.store.continue62:                            ; preds = %pred.store.if61, %pred.store.continue
+pred.store.continue60:                            ; preds = %pred.store.if59, %pred.store.continue
   %64 = extractelement <4 x i1> %55, i64 2
-  br i1 %64, label %pred.store.if63, label %pred.store.continue64
+  br i1 %64, label %pred.store.if61, label %pred.store.continue62
 
-pred.store.if63:                                  ; preds = %pred.store.continue62
+pred.store.if61:                                  ; preds = %pred.store.continue60
   %65 = or i64 %index, 2
   %66 = add nsw i64 %65, %1
   %67 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %66
   store i32 0, ptr %67, align 4, !tbaa !9
-  br label %pred.store.continue64
+  br label %pred.store.continue62
 
-pred.store.continue64:                            ; preds = %pred.store.if63, %pred.store.continue62
+pred.store.continue62:                            ; preds = %pred.store.if61, %pred.store.continue60
   %68 = extractelement <4 x i1> %55, i64 3
-  br i1 %68, label %pred.store.if65, label %pred.store.continue66
+  br i1 %68, label %pred.store.if63, label %pred.store.continue64
 
-pred.store.if65:                                  ; preds = %pred.store.continue64
+pred.store.if63:                                  ; preds = %pred.store.continue62
   %69 = or i64 %index, 3
   %70 = add nsw i64 %69, %1
   %71 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %70
   store i32 0, ptr %71, align 4, !tbaa !9
-  br label %pred.store.continue66
+  br label %pred.store.continue64
 
-pred.store.continue66:                            ; preds = %pred.store.if65, %pred.store.continue64
+pred.store.continue64:                            ; preds = %pred.store.if63, %pred.store.continue62
   %72 = extractelement <4 x i1> %56, i64 0
-  br i1 %72, label %pred.store.if67, label %pred.store.continue68
+  br i1 %72, label %pred.store.if65, label %pred.store.continue66
 
-pred.store.if67:                                  ; preds = %pred.store.continue66
+pred.store.if65:                                  ; preds = %pred.store.continue64
   %73 = add nsw i64 %52, %1
   %74 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %73
   store i32 0, ptr %74, align 4, !tbaa !9
-  br label %pred.store.continue68
+  br label %pred.store.continue66
 
-pred.store.continue68:                            ; preds = %pred.store.if67, %pred.store.continue66
+pred.store.continue66:                            ; preds = %pred.store.if65, %pred.store.continue64
   %75 = extractelement <4 x i1> %56, i64 1
-  br i1 %75, label %pred.store.if69, label %pred.store.continue70
+  br i1 %75, label %pred.store.if67, label %pred.store.continue68
 
-pred.store.if69:                                  ; preds = %pred.store.continue68
+pred.store.if67:                                  ; preds = %pred.store.continue66
   %76 = or i64 %index, 5
   %77 = add nsw i64 %76, %1
   %78 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %77
   store i32 0, ptr %78, align 4, !tbaa !9
-  br label %pred.store.continue70
+  br label %pred.store.continue68
 
-pred.store.continue70:                            ; preds = %pred.store.if69, %pred.store.continue68
+pred.store.continue68:                            ; preds = %pred.store.if67, %pred.store.continue66
   %79 = extractelement <4 x i1> %56, i64 2
-  br i1 %79, label %pred.store.if71, label %pred.store.continue72
+  br i1 %79, label %pred.store.if69, label %pred.store.continue70
 
-pred.store.if71:                                  ; preds = %pred.store.continue70
+pred.store.if69:                                  ; preds = %pred.store.continue68
   %80 = or i64 %index, 6
   %81 = add nsw i64 %80, %1
   %82 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %81
   store i32 0, ptr %82, align 4, !tbaa !9
-  br label %pred.store.continue72
+  br label %pred.store.continue70
 
-pred.store.continue72:                            ; preds = %pred.store.if71, %pred.store.continue70
+pred.store.continue70:                            ; preds = %pred.store.if69, %pred.store.continue68
   %83 = extractelement <4 x i1> %56, i64 3
-  br i1 %83, label %pred.store.if73, label %pred.store.continue74
+  br i1 %83, label %pred.store.if71, label %pred.store.continue72
 
-pred.store.if73:                                  ; preds = %pred.store.continue72
+pred.store.if71:                                  ; preds = %pred.store.continue70
   %84 = or i64 %index, 7
   %85 = add nsw i64 %84, %1
   %86 = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %85
   store i32 0, ptr %86, align 4, !tbaa !9
-  br label %pred.store.continue74
+  br label %pred.store.continue72
 
-pred.store.continue74:                            ; preds = %pred.store.if73, %pred.store.continue72
+pred.store.continue72:                            ; preds = %pred.store.if71, %pred.store.continue70
   %index.next = add nuw i64 %index, 8
   %87 = icmp eq i64 %index.next, %n.vec
   br i1 %87, label %middle.block, label %vector.body, !llvm.loop !23
 
-middle.block:                                     ; preds = %pred.store.continue74
+middle.block:                                     ; preds = %pred.store.continue72
   %cmp.n = icmp eq i64 %n.vec, %wide.trip.count.i37
   br i1 %cmp.n, label %Remove.exit, label %for.body.i42.preheader
 
@@ -956,179 +956,179 @@ for.inc.i:                                        ; preds = %for.cond4.preheader
   %tobool.not.i.1 = icmp eq i32 %11, 0
   %12 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 74), align 8
   %tobool7.not.i.1 = icmp eq i32 %12, 0
-  %or.cond707 = select i1 %tobool.not.i.1, i1 true, i1 %tobool7.not.i.1
-  br i1 %or.cond707, label %for.inc.i.1, label %if.else
+  %or.cond705 = select i1 %tobool.not.i.1, i1 true, i1 %tobool7.not.i.1
+  br i1 %or.cond705, label %for.inc.i.1, label %if.else
 
 for.inc.i.1:                                      ; preds = %for.inc.i
   %13 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 2), align 8, !tbaa !9
   %tobool.not.i.2 = icmp eq i32 %13, 0
   %14 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 75), align 4
   %tobool7.not.i.2 = icmp eq i32 %14, 0
-  %or.cond708 = select i1 %tobool.not.i.2, i1 true, i1 %tobool7.not.i.2
-  br i1 %or.cond708, label %for.inc.i.2, label %if.else
+  %or.cond706 = select i1 %tobool.not.i.2, i1 true, i1 %tobool7.not.i.2
+  br i1 %or.cond706, label %for.inc.i.2, label %if.else
 
 for.inc.i.2:                                      ; preds = %for.inc.i.1
   %15 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 3), align 4, !tbaa !9
   %tobool.not.i.3 = icmp eq i32 %15, 0
   %16 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 76), align 16
   %tobool7.not.i.3 = icmp eq i32 %16, 0
-  %or.cond709 = select i1 %tobool.not.i.3, i1 true, i1 %tobool7.not.i.3
-  br i1 %or.cond709, label %for.inc.i.3, label %if.else
+  %or.cond707 = select i1 %tobool.not.i.3, i1 true, i1 %tobool7.not.i.3
+  br i1 %or.cond707, label %for.inc.i.3, label %if.else
 
 for.inc.i.3:                                      ; preds = %for.inc.i.2
   %17 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 4), align 16, !tbaa !9
   %tobool.not.i.4 = icmp eq i32 %17, 0
   %18 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 77), align 4
   %tobool7.not.i.4 = icmp eq i32 %18, 0
-  %or.cond710 = select i1 %tobool.not.i.4, i1 true, i1 %tobool7.not.i.4
-  br i1 %or.cond710, label %for.inc.i.4, label %if.else
+  %or.cond708 = select i1 %tobool.not.i.4, i1 true, i1 %tobool7.not.i.4
+  br i1 %or.cond708, label %for.inc.i.4, label %if.else
 
 for.inc.i.4:                                      ; preds = %for.inc.i.3
   %19 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 5), align 4, !tbaa !9
   %tobool.not.i.5 = icmp eq i32 %19, 0
   %20 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 78), align 8
   %tobool7.not.i.5 = icmp eq i32 %20, 0
-  %or.cond711 = select i1 %tobool.not.i.5, i1 true, i1 %tobool7.not.i.5
-  br i1 %or.cond711, label %for.inc.i.5, label %if.else
+  %or.cond709 = select i1 %tobool.not.i.5, i1 true, i1 %tobool7.not.i.5
+  br i1 %or.cond709, label %for.inc.i.5, label %if.else
 
 for.inc.i.5:                                      ; preds = %for.inc.i.4
   %21 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 6), align 8, !tbaa !9
   %tobool.not.i.6 = icmp eq i32 %21, 0
   %22 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 79), align 4
   %tobool7.not.i.6 = icmp eq i32 %22, 0
-  %or.cond712 = select i1 %tobool.not.i.6, i1 true, i1 %tobool7.not.i.6
-  br i1 %or.cond712, label %for.inc.i.6, label %if.else
+  %or.cond710 = select i1 %tobool.not.i.6, i1 true, i1 %tobool7.not.i.6
+  br i1 %or.cond710, label %for.inc.i.6, label %if.else
 
 for.inc.i.6:                                      ; preds = %for.inc.i.5
   %23 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 7), align 4, !tbaa !9
   %tobool.not.i.7 = icmp eq i32 %23, 0
   %24 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 80), align 16
   %tobool7.not.i.7 = icmp eq i32 %24, 0
-  %or.cond713 = select i1 %tobool.not.i.7, i1 true, i1 %tobool7.not.i.7
-  br i1 %or.cond713, label %for.inc.i.7, label %if.else
+  %or.cond711 = select i1 %tobool.not.i.7, i1 true, i1 %tobool7.not.i.7
+  br i1 %or.cond711, label %for.inc.i.7, label %if.else
 
 for.inc.i.7:                                      ; preds = %for.inc.i.6
   %25 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 8), align 16, !tbaa !9
   %tobool.not.i.8 = icmp eq i32 %25, 0
   %26 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 81), align 4
   %tobool7.not.i.8 = icmp eq i32 %26, 0
-  %or.cond714 = select i1 %tobool.not.i.8, i1 true, i1 %tobool7.not.i.8
-  br i1 %or.cond714, label %for.inc.i.8, label %if.else
+  %or.cond712 = select i1 %tobool.not.i.8, i1 true, i1 %tobool7.not.i.8
+  br i1 %or.cond712, label %for.inc.i.8, label %if.else
 
 for.inc.i.8:                                      ; preds = %for.inc.i.7
   %27 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 9), align 4, !tbaa !9
   %tobool.not.i.9 = icmp eq i32 %27, 0
   %28 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 82), align 8
   %tobool7.not.i.9 = icmp eq i32 %28, 0
-  %or.cond715 = select i1 %tobool.not.i.9, i1 true, i1 %tobool7.not.i.9
-  br i1 %or.cond715, label %for.inc.i.9, label %if.else
+  %or.cond713 = select i1 %tobool.not.i.9, i1 true, i1 %tobool7.not.i.9
+  br i1 %or.cond713, label %for.inc.i.9, label %if.else
 
 for.inc.i.9:                                      ; preds = %for.inc.i.8
   %29 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 10), align 8, !tbaa !9
   %tobool.not.i.10 = icmp eq i32 %29, 0
   %30 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 83), align 4
   %tobool7.not.i.10 = icmp eq i32 %30, 0
-  %or.cond716 = select i1 %tobool.not.i.10, i1 true, i1 %tobool7.not.i.10
-  br i1 %or.cond716, label %for.inc.i.10, label %if.else
+  %or.cond714 = select i1 %tobool.not.i.10, i1 true, i1 %tobool7.not.i.10
+  br i1 %or.cond714, label %for.inc.i.10, label %if.else
 
 for.inc.i.10:                                     ; preds = %for.inc.i.9
   %31 = load i32, ptr getelementptr inbounds ([13 x [512 x i32]], ptr @p, i64 0, i64 0, i64 11), align 4, !tbaa !9
   %tobool.not.i.11 = icmp eq i32 %31, 0
   %32 = load i32, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 84), align 16
   %tobool7.not.i.11 = icmp eq i32 %32, 0
-  %or.cond717 = select i1 %tobool.not.i.11, i1 true, i1 %tobool7.not.i.11
-  br i1 %or.cond717, label %for.inc.i.11, label %if.else
+  %or.cond715 = select i1 %tobool.not.i.11, i1 true, i1 %tobool7.not.i.11
+  br i1 %or.cond715, label %for.inc.i.11, label %if.else
 
 for.inc.i.11:                                     ; preds = %for.inc.i.10
-  br i1 %tobool.not.i, label %for.inc.i510, label %if.then.i507
+  br i1 %tobool.not.i, label %for.inc.i508, label %if.then.i505
 
-if.then.i507:                                     ; preds = %for.inc.i.11
+if.then.i505:                                     ; preds = %for.inc.i.11
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 73), align 4, !tbaa !9
-  br label %for.inc.i510
+  br label %for.inc.i508
 
-for.inc.i510:                                     ; preds = %if.then.i507, %for.inc.i.11
-  br i1 %tobool.not.i.1, label %for.inc.i510.1, label %if.then.i507.1
+for.inc.i508:                                     ; preds = %if.then.i505, %for.inc.i.11
+  br i1 %tobool.not.i.1, label %for.inc.i508.1, label %if.then.i505.1
 
-if.then.i507.1:                                   ; preds = %for.inc.i510
+if.then.i505.1:                                   ; preds = %for.inc.i508
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 74), align 8, !tbaa !9
-  br label %for.inc.i510.1
+  br label %for.inc.i508.1
 
-for.inc.i510.1:                                   ; preds = %if.then.i507.1, %for.inc.i510
-  br i1 %tobool.not.i.2, label %for.inc.i510.2, label %if.then.i507.2
+for.inc.i508.1:                                   ; preds = %if.then.i505.1, %for.inc.i508
+  br i1 %tobool.not.i.2, label %for.inc.i508.2, label %if.then.i505.2
 
-if.then.i507.2:                                   ; preds = %for.inc.i510.1
+if.then.i505.2:                                   ; preds = %for.inc.i508.1
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 75), align 4, !tbaa !9
-  br label %for.inc.i510.2
+  br label %for.inc.i508.2
 
-for.inc.i510.2:                                   ; preds = %if.then.i507.2, %for.inc.i510.1
-  br i1 %tobool.not.i.3, label %for.inc.i510.3, label %if.then.i507.3
+for.inc.i508.2:                                   ; preds = %if.then.i505.2, %for.inc.i508.1
+  br i1 %tobool.not.i.3, label %for.inc.i508.3, label %if.then.i505.3
 
-if.then.i507.3:                                   ; preds = %for.inc.i510.2
+if.then.i505.3:                                   ; preds = %for.inc.i508.2
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 76), align 16, !tbaa !9
-  br label %for.inc.i510.3
+  br label %for.inc.i508.3
 
-for.inc.i510.3:                                   ; preds = %if.then.i507.3, %for.inc.i510.2
-  br i1 %tobool.not.i.4, label %for.inc.i510.4, label %if.then.i507.4
+for.inc.i508.3:                                   ; preds = %if.then.i505.3, %for.inc.i508.2
+  br i1 %tobool.not.i.4, label %for.inc.i508.4, label %if.then.i505.4
 
-if.then.i507.4:                                   ; preds = %for.inc.i510.3
+if.then.i505.4:                                   ; preds = %for.inc.i508.3
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 77), align 4, !tbaa !9
-  br label %for.inc.i510.4
+  br label %for.inc.i508.4
 
-for.inc.i510.4:                                   ; preds = %if.then.i507.4, %for.inc.i510.3
-  br i1 %tobool.not.i.5, label %for.inc.i510.5, label %if.then.i507.5
+for.inc.i508.4:                                   ; preds = %if.then.i505.4, %for.inc.i508.3
+  br i1 %tobool.not.i.5, label %for.inc.i508.5, label %if.then.i505.5
 
-if.then.i507.5:                                   ; preds = %for.inc.i510.4
+if.then.i505.5:                                   ; preds = %for.inc.i508.4
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 78), align 8, !tbaa !9
-  br label %for.inc.i510.5
+  br label %for.inc.i508.5
 
-for.inc.i510.5:                                   ; preds = %if.then.i507.5, %for.inc.i510.4
-  br i1 %tobool.not.i.6, label %for.inc.i510.6, label %if.then.i507.6
+for.inc.i508.5:                                   ; preds = %if.then.i505.5, %for.inc.i508.4
+  br i1 %tobool.not.i.6, label %for.inc.i508.6, label %if.then.i505.6
 
-if.then.i507.6:                                   ; preds = %for.inc.i510.5
+if.then.i505.6:                                   ; preds = %for.inc.i508.5
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 79), align 4, !tbaa !9
-  br label %for.inc.i510.6
+  br label %for.inc.i508.6
 
-for.inc.i510.6:                                   ; preds = %if.then.i507.6, %for.inc.i510.5
-  br i1 %tobool.not.i.7, label %for.inc.i510.7, label %if.then.i507.7
+for.inc.i508.6:                                   ; preds = %if.then.i505.6, %for.inc.i508.5
+  br i1 %tobool.not.i.7, label %for.inc.i508.7, label %if.then.i505.7
 
-if.then.i507.7:                                   ; preds = %for.inc.i510.6
+if.then.i505.7:                                   ; preds = %for.inc.i508.6
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 80), align 16, !tbaa !9
-  br label %for.inc.i510.7
+  br label %for.inc.i508.7
 
-for.inc.i510.7:                                   ; preds = %if.then.i507.7, %for.inc.i510.6
-  br i1 %tobool.not.i.8, label %for.inc.i510.8, label %if.then.i507.8
+for.inc.i508.7:                                   ; preds = %if.then.i505.7, %for.inc.i508.6
+  br i1 %tobool.not.i.8, label %for.inc.i508.8, label %if.then.i505.8
 
-if.then.i507.8:                                   ; preds = %for.inc.i510.7
+if.then.i505.8:                                   ; preds = %for.inc.i508.7
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 81), align 4, !tbaa !9
-  br label %for.inc.i510.8
+  br label %for.inc.i508.8
 
-for.inc.i510.8:                                   ; preds = %if.then.i507.8, %for.inc.i510.7
-  br i1 %tobool.not.i.9, label %for.inc.i510.9, label %if.then.i507.9
+for.inc.i508.8:                                   ; preds = %if.then.i505.8, %for.inc.i508.7
+  br i1 %tobool.not.i.9, label %for.inc.i508.9, label %if.then.i505.9
 
-if.then.i507.9:                                   ; preds = %for.inc.i510.8
+if.then.i505.9:                                   ; preds = %for.inc.i508.8
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 82), align 8, !tbaa !9
-  br label %for.inc.i510.9
+  br label %for.inc.i508.9
 
-for.inc.i510.9:                                   ; preds = %if.then.i507.9, %for.inc.i510.8
-  br i1 %tobool.not.i.10, label %for.inc.i510.10, label %if.then.i507.10
+for.inc.i508.9:                                   ; preds = %if.then.i505.9, %for.inc.i508.8
+  br i1 %tobool.not.i.10, label %for.inc.i508.10, label %if.then.i505.10
 
-if.then.i507.10:                                  ; preds = %for.inc.i510.9
+if.then.i505.10:                                  ; preds = %for.inc.i508.9
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 83), align 4, !tbaa !9
-  br label %for.inc.i510.10
+  br label %for.inc.i508.10
 
-for.inc.i510.10:                                  ; preds = %if.then.i507.10, %for.inc.i510.9
-  br i1 %tobool.not.i.11, label %for.inc.i510.11, label %if.then.i507.11
+for.inc.i508.10:                                  ; preds = %if.then.i505.10, %for.inc.i508.9
+  br i1 %tobool.not.i.11, label %for.inc.i508.11, label %if.then.i505.11
 
-if.then.i507.11:                                  ; preds = %for.inc.i510.10
+if.then.i505.11:                                  ; preds = %for.inc.i508.10
   store i32 1, ptr getelementptr inbounds ([512 x i32], ptr @puzzl, i64 0, i64 84), align 16, !tbaa !9
-  br label %for.inc.i510.11
+  br label %for.inc.i508.11
 
-for.inc.i510.11:                                  ; preds = %if.then.i507.11, %for.inc.i510.10
+for.inc.i508.11:                                  ; preds = %if.then.i505.11, %for.inc.i508.10
   store i32 12, ptr @piececount, align 16, !tbaa !9
   br label %for.body17.i
 
-for.body17.i:                                     ; preds = %for.inc23.i, %for.inc.i510.11
-  %indvars.iv45.i = phi i64 [ 73, %for.inc.i510.11 ], [ %indvars.iv.next46.i, %for.inc23.i ]
+for.body17.i:                                     ; preds = %for.inc23.i, %for.inc.i508.11
+  %indvars.iv45.i = phi i64 [ 73, %for.inc.i508.11 ], [ %indvars.iv.next46.i, %for.inc23.i ]
   %arrayidx19.i = getelementptr inbounds [512 x i32], ptr @puzzl, i64 0, i64 %indvars.iv45.i
   %33 = load i32, ptr %arrayidx19.i, align 4, !tbaa !9
   %tobool20.not.i = icmp eq i32 %33, 0
@@ -1145,8 +1145,8 @@ cleanup.loopexit.split.loop.exit49.i:             ; preds = %for.body17.i
   br label %Place.exit
 
 Place.exit:                                       ; preds = %for.inc23.i, %cleanup.loopexit.split.loop.exit49.i
-  %retval.0.i511 = phi i32 [ %35, %cleanup.loopexit.split.loop.exit49.i ], [ 0, %for.inc23.i ]
-  store i32 %retval.0.i511, ptr @n, align 4, !tbaa !9
+  %retval.0.i509 = phi i32 [ %35, %cleanup.loopexit.split.loop.exit49.i ], [ 0, %for.inc23.i ]
+  store i32 %retval.0.i509, ptr @n, align 4, !tbaa !9
   br label %if.end
 
 if.else:                                          ; preds = %for.inc.i.10, %for.inc.i.9, %for.inc.i.8, %for.inc.i.7, %for.inc.i.6, %for.inc.i.5, %for.inc.i.4, %for.inc.i.3, %for.inc.i.2, %for.inc.i.1, %for.inc.i, %for.cond4.preheader.preheader
@@ -1155,7 +1155,7 @@ if.else:                                          ; preds = %for.inc.i.10, %for.
   br label %if.end
 
 if.end:                                           ; preds = %if.else, %Place.exit
-  %36 = phi i32 [ %.pre, %if.else ], [ %retval.0.i511, %Place.exit ]
+  %36 = phi i32 [ %.pre, %if.else ], [ %retval.0.i509, %Place.exit ]
   %call353 = tail call i32 @Trial(i32 noundef %36), !range !22
   %tobool354.not = icmp eq i32 %call353, 0
   br i1 %tobool354.not, label %if.end362.sink.split, label %if.else357
@@ -1167,7 +1167,7 @@ if.else357:                                       ; preds = %if.end
 
 if.end362.sink.split:                             ; preds = %if.else357, %if.end
   %str.5.sink = phi ptr [ @str.4, %if.end ], [ @str.5, %if.else357 ]
-  %puts499 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.5.sink)
+  %puts511 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.5.sink)
   br label %if.end362
 
 if.end362:                                        ; preds = %if.end362.sink.split, %if.else357

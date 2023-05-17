@@ -233,7 +233,7 @@ if.then16:                                        ; preds = %if.else
   %8 = load i64, ptr %incdec.ptr5, align 8, !tbaa !18
   %conv = sitofp i64 %8 to float
   store float %conv, ptr %incdec.ptr5, align 8, !tbaa !18
-  %type_attrs22 = getelementptr %struct.ref_s, ptr %0, i64 2, i32 1
+  %type_attrs22 = getelementptr inbounds %struct.ref_s, ptr %0, i64 2, i32 1
   store i16 44, ptr %type_attrs22, align 8, !tbaa !16
   br label %if.end23
 
@@ -243,39 +243,35 @@ if.end23:                                         ; preds = %if.then16, %if.else
   br i1 %tobool25.not, label %if.end34, label %if.then26
 
 if.then26:                                        ; preds = %if.end23
-  %arrayidx27 = getelementptr inbounds %struct.ref_s, ptr %0, i64 3
-  %9 = load i64, ptr %arrayidx27, align 8, !tbaa !18
+  %9 = load i64, ptr %incdec.ptr6, align 8, !tbaa !18
   %conv29 = sitofp i64 %9 to float
-  store float %conv29, ptr %arrayidx27, align 8, !tbaa !18
-  %type_attrs33 = getelementptr %struct.ref_s, ptr %0, i64 3, i32 1
+  store float %conv29, ptr %incdec.ptr6, align 8, !tbaa !18
+  %type_attrs33 = getelementptr inbounds %struct.ref_s, ptr %0, i64 3, i32 1
   store i16 44, ptr %type_attrs33, align 8, !tbaa !16
   br label %if.end34
 
 if.end34:                                         ; preds = %if.then26, %if.end23
   %and35 = and i32 %call, 4
   %tobool36.not = icmp eq i32 %and35, 0
-  %arrayidx6.i.phi.trans.insert = getelementptr inbounds %struct.ref_s, ptr %0, i64 4
   br i1 %tobool36.not, label %if.end34.if.end45_crit_edge, label %if.then37
 
 if.end34.if.end45_crit_edge:                      ; preds = %if.end34
-  %.pre = load float, ptr %arrayidx6.i.phi.trans.insert, align 8, !tbaa !18
+  %.pre = load float, ptr %incdec.ptr8, align 8, !tbaa !18
   br label %if.end45
 
 if.then37:                                        ; preds = %if.end34
-  %10 = load i64, ptr %arrayidx6.i.phi.trans.insert, align 8, !tbaa !18
+  %10 = load i64, ptr %incdec.ptr8, align 8, !tbaa !18
   %conv40 = sitofp i64 %10 to float
-  store float %conv40, ptr %arrayidx6.i.phi.trans.insert, align 8, !tbaa !18
-  %type_attrs44 = getelementptr %struct.ref_s, ptr %0, i64 4, i32 1
+  store float %conv40, ptr %incdec.ptr8, align 8, !tbaa !18
+  %type_attrs44 = getelementptr inbounds %struct.ref_s, ptr %0, i64 4, i32 1
   store i16 44, ptr %type_attrs44, align 8, !tbaa !16
   br label %if.end45
 
 if.end45:                                         ; preds = %if.end34.if.end45_crit_edge, %if.then37
   %11 = phi float [ %.pre, %if.end34.if.end45_crit_edge ], [ %conv40, %if.then37 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %proc.i59)
-  %arrayidx.i60 = getelementptr inbounds %struct.ref_s, ptr %0, i64 2
-  %12 = load float, ptr %arrayidx.i60, align 8, !tbaa !18
-  %arrayidx1.i61 = getelementptr inbounds %struct.ref_s, ptr %0, i64 3
-  %13 = load float, ptr %arrayidx1.i61, align 8, !tbaa !18
+  %12 = load float, ptr %incdec.ptr5, align 8, !tbaa !18
+  %13 = load float, ptr %incdec.ptr6, align 8, !tbaa !18
   %cmp.i62 = fcmp ult float %13, 0.000000e+00
   br i1 %cmp.i62, label %cond.false.i66, label %cond.true.i64
 
@@ -302,9 +298,9 @@ if.then11.i72:                                    ; preds = %if.end.i71
   br label %for_real_continue.exit
 
 if.end13.i78:                                     ; preds = %if.end.i71
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, ptr noundef nonnull align 8 dereferenceable(16) %arrayidx.i60, i64 16, i1 false), !tbaa.struct !9
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr5, i64 16, i1 false), !tbaa.struct !9
   %add.i73 = fadd float %12, %13
-  store float %add.i73, ptr %arrayidx.i60, align 8, !tbaa !18
+  store float %add.i73, ptr %incdec.ptr5, align 8, !tbaa !18
   %15 = load ptr, ptr @esp, align 8, !tbaa !5
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %proc.i59, ptr noundef nonnull align 8 dereferenceable(16) %15, i64 16, i1 false), !tbaa.struct !9
   %incdec.ptr.i74 = getelementptr inbounds %struct.ref_s, ptr %15, i64 1
@@ -804,8 +800,8 @@ if.end12:                                         ; preds = %if.end7
 if.end16:                                         ; preds = %if.end12
   %conv17 = trunc i32 %conv to i16
   store i16 %conv17, ptr %size, align 2, !tbaa !19
-  %6 = or i16 %3, -32768
-  store i16 %6, ptr %type_attrs, align 8, !tbaa !16
+  %or = or i16 %3, -32768
+  store i16 %or, ptr %type_attrs, align 8, !tbaa !16
   %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %0, i64 1
   store ptr %incdec.ptr, ptr @esp, align 8, !tbaa !5
   store ptr @continue_execstack, ptr %incdec.ptr, align 8, !tbaa !18

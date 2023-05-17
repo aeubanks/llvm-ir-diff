@@ -397,36 +397,36 @@ cleanup.cont:                                     ; preds = %entry
   %conv.3.i = zext i8 %4 to i32
   %shl.3.i = shl nuw i32 %conv.3.i, 24
   %or.3.i = or i32 %or.2.i, %shl.3.i
-  %inc.i.i133 = add i32 %Pos.i.promoted.i, 5
-  store i32 %inc.i.i133, ptr %Pos, align 4, !tbaa !30
-  %idxprom.i.i134 = zext i32 %inc.i.3.i to i64
-  %arrayidx.i.i135 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.i134
-  %5 = load i8, ptr %arrayidx.i.i135, align 1, !tbaa !22
+  %inc.i.i132 = add i32 %Pos.i.promoted.i, 5
+  store i32 %inc.i.i132, ptr %Pos, align 4, !tbaa !30
+  %idxprom.i.i133 = zext i32 %inc.i.3.i to i64
+  %arrayidx.i.i134 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.i133
+  %5 = load i8, ptr %arrayidx.i.i134, align 1, !tbaa !22
   %6 = zext i8 %5 to i32
-  %inc.i.1.i136 = add i32 %Pos.i.promoted.i, 6
-  store i32 %inc.i.1.i136, ptr %Pos, align 4, !tbaa !30
-  %idxprom.i.1.i137 = zext i32 %inc.i.i133 to i64
-  %arrayidx.i.1.i138 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.1.i137
-  %7 = load i8, ptr %arrayidx.i.1.i138, align 1, !tbaa !22
+  %inc.i.1.i135 = add i32 %Pos.i.promoted.i, 6
+  store i32 %inc.i.1.i135, ptr %Pos, align 4, !tbaa !30
+  %idxprom.i.1.i136 = zext i32 %inc.i.i132 to i64
+  %arrayidx.i.1.i137 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.1.i136
+  %7 = load i8, ptr %arrayidx.i.1.i137, align 1, !tbaa !22
   %conv2.1.i = zext i8 %7 to i32
-  %shl.1.i139 = shl nuw nsw i32 %conv2.1.i, 8
-  %conv4.1.i = or i32 %shl.1.i139, %6
+  %shl.1.i138 = shl nuw nsw i32 %conv2.1.i, 8
+  %conv4.1.i = or i32 %shl.1.i138, %6
   store i32 %conv4.1.i, ptr %packSize, align 4, !tbaa !32
-  %inc.i.i142 = add i32 %Pos.i.promoted.i, 7
-  store i32 %inc.i.i142, ptr %Pos, align 4, !tbaa !30
-  %idxprom.i.i143 = zext i32 %inc.i.1.i136 to i64
-  %arrayidx.i.i144 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.i143
-  %8 = load i8, ptr %arrayidx.i.i144, align 1, !tbaa !22
+  %inc.i.i141 = add i32 %Pos.i.promoted.i, 7
+  store i32 %inc.i.i141, ptr %Pos, align 4, !tbaa !30
+  %idxprom.i.i142 = zext i32 %inc.i.1.i135 to i64
+  %arrayidx.i.i143 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.i142
+  %8 = load i8, ptr %arrayidx.i.i143, align 1, !tbaa !22
   %9 = zext i8 %8 to i32
-  %inc.i.1.i145 = add i32 %Pos.i.promoted.i, 8
-  store i32 %inc.i.1.i145, ptr %Pos, align 4, !tbaa !30
-  %idxprom.i.1.i146 = zext i32 %inc.i.i142 to i64
-  %arrayidx.i.1.i147 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.1.i146
-  %10 = load i8, ptr %arrayidx.i.1.i147, align 1, !tbaa !22
-  %conv2.1.i148 = zext i8 %10 to i32
-  %shl.1.i149 = shl nuw nsw i32 %conv2.1.i148, 8
-  %conv4.1.i150 = or i32 %shl.1.i149, %9
-  store i32 %conv4.1.i150, ptr %unpackSize, align 4, !tbaa !32
+  %inc.i.1.i144 = add i32 %Pos.i.promoted.i, 8
+  store i32 %inc.i.1.i144, ptr %Pos, align 4, !tbaa !30
+  %idxprom.i.1.i145 = zext i32 %inc.i.i141 to i64
+  %arrayidx.i.1.i146 = getelementptr inbounds [8 x i8], ptr %inBuffer, i64 0, i64 %idxprom.i.1.i145
+  %10 = load i8, ptr %arrayidx.i.1.i146, align 1, !tbaa !22
+  %conv2.1.i147 = zext i8 %10 to i32
+  %shl.1.i148 = shl nuw nsw i32 %conv2.1.i147, 8
+  %conv4.1.i149 = or i32 %shl.1.i148, %9
+  store i32 %conv4.1.i149, ptr %unpackSize, align 4, !tbaa !32
   %ReservedSize = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %this, i64 0, i32 8
   %11 = load i32, ptr %ReservedSize, align 4, !tbaa !33
   %cmp7.not = icmp eq i32 %11, 0
@@ -455,8 +455,8 @@ if.end21:                                         ; preds = %if.then8, %cleanup.
   %_size = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %this, i64 0, i32 6
   %16 = load i32, ptr %_size, align 4
   %cmp22 = icmp eq i32 %16, 0
-  %or.cond130 = select i1 %tobool.not, i1 %cmp22, i1 false
-  br i1 %or.cond130, label %if.then23, label %if.end49
+  %or.cond164 = select i1 %tobool.not, i1 %cmp22, i1 false
+  br i1 %or.cond164, label %if.then23, label %if.end49
 
 if.then23:                                        ; preds = %if.end21
   %cmp24 = icmp ult i32 %14, 2
@@ -512,128 +512,291 @@ if.then56:                                        ; preds = %if.end54
   %add.ptr = getelementptr inbounds i8, ptr %22, i64 %idx.ext
   %call63 = call noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr noundef %21, ptr noundef %add.ptr, ptr noundef nonnull %processedSizeLoc)
   %cmp64.not = icmp eq i32 %call63, 0
-  br i1 %cmp64.not, label %cleanup81, label %cleanup81.thread
+  br i1 %cmp64.not, label %cleanup.cont69, label %cleanup81.thread
 
 cleanup81.thread:                                 ; preds = %if.then56
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %processedSizeLoc) #13
   br label %cleanup101
 
-cleanup81:                                        ; preds = %if.then56
-  %23 = load ptr, ptr %_buffer61, align 8, !tbaa !5
-  %24 = load i32, ptr %_size, align 4, !tbaa !38
-  %idx.ext72 = zext i32 %24 to i64
-  %add.ptr73 = getelementptr inbounds i8, ptr %23, i64 %idx.ext72
-  %25 = load i64, ptr %processedSizeLoc, align 8, !tbaa !39
-  %conv74 = trunc i64 %25 to i32
-  call void @_ZN8NArchive4NCab10CCheckSum26UpdateEPKvj(ptr noundef nonnull align 4 dereferenceable(12) %checkSumCalc, ptr noundef %add.ptr73, i32 noundef %conv74)
-  %add = add i32 %24, %conv74
-  store i32 %add, ptr %_size, align 4, !tbaa !38
-  %cmp78.not = icmp eq i64 %25, %conv57
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %processedSizeLoc) #13
-  br i1 %cmp78.not, label %if.end84, label %cleanup101
+cleanup.cont69:                                   ; preds = %if.then56
+  %23 = load i32, ptr %_size, align 4, !tbaa !38
+  %24 = load i64, ptr %processedSizeLoc, align 8, !tbaa !39
+  %conv74 = trunc i64 %24 to i32
+  %25 = load i32, ptr %checkSumCalc, align 4, !tbaa !19
+  %cmp.not68.i = icmp eq i32 %conv74, 0
+  br i1 %cmp.not68.i, label %while.end30.thread.i, label %land.rhs.preheader.i
 
-if.end84:                                         ; preds = %cleanup81, %if.end54
-  %26 = phi i32 [ %add, %cleanup81 ], [ %20, %if.end54 ]
-  %TotalPackSize = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %this, i64 0, i32 7
-  store i32 %26, ptr %TotalPackSize, align 8, !tbaa !41
-  %27 = load i32, ptr %m_Pos.i, align 4, !tbaa !21
-  %cmp7.i = icmp sgt i32 %27, 0
-  br i1 %cmp7.i, label %for.body.preheader.i, label %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit
+land.rhs.preheader.i:                             ; preds = %cleanup.cont69
+  %26 = load ptr, ptr %_buffer61, align 8, !tbaa !5
+  %idx.ext72 = zext i32 %23 to i64
+  %add.ptr73 = getelementptr inbounds i8, ptr %26, i64 %idx.ext72
+  %.pre.i = load i32, ptr %m_Pos.i, align 4, !tbaa !21
+  %arrayidx11.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 0
+  %27 = load i8, ptr %arrayidx11.i, align 4
+  %conv.i151 = zext i8 %27 to i32
+  %arrayidx11.1.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 1
+  %arrayidx11.2.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 2
+  %arrayidx11.3.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 3
+  br label %land.rhs.i
 
-for.body.preheader.i:                             ; preds = %if.end84
-  %this.promoted.i = load i32, ptr %checkSumCalc, align 4, !tbaa !19
-  %wide.trip.count.i = zext i32 %27 to i64
-  %min.iters.check = icmp ult i32 %27, 8
-  br i1 %min.iters.check, label %for.body.i.preheader, label %vector.ph
+land.rhs.i:                                       ; preds = %if.end.i, %land.rhs.preheader.i
+  %.pre88.i = phi i32 [ %and.i, %if.end.i ], [ %.pre.i, %land.rhs.preheader.i ]
+  %size.addr.071.i = phi i32 [ %dec.i, %if.end.i ], [ %conv74, %land.rhs.preheader.i ]
+  %dataPointer.070.i = phi ptr [ %incdec.ptr.i, %if.end.i ], [ %add.ptr73, %land.rhs.preheader.i ]
+  %checkSum.069.i = phi i32 [ %checkSum.2.i, %if.end.i ], [ %25, %land.rhs.preheader.i ]
+  %cmp2.not.i = icmp eq i32 %.pre88.i, 0
+  br i1 %cmp2.not.i, label %while.end.i, label %while.body.i
 
-vector.ph:                                        ; preds = %for.body.preheader.i
-  %n.vec = and i64 %wide.trip.count.i, 4294967288
-  %28 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %this.promoted.i, i64 0
-  %broadcast.splatinsert = insertelement <4 x i32> poison, i32 %27, i64 0
-  %broadcast.splat = shufflevector <4 x i32> %broadcast.splatinsert, <4 x i32> poison, <4 x i32> zeroinitializer
-  %broadcast.splatinsert162 = insertelement <4 x i32> poison, i32 %27, i64 0
-  %broadcast.splat163 = shufflevector <4 x i32> %broadcast.splatinsert162, <4 x i32> poison, <4 x i32> zeroinitializer
+while.body.i:                                     ; preds = %land.rhs.i
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %dataPointer.070.i, i64 1
+  %28 = load i8, ptr %dataPointer.070.i, align 1, !tbaa !22
+  %idxprom.i = sext i32 %.pre88.i to i64
+  %arrayidx.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %idxprom.i
+  store i8 %28, ptr %arrayidx.i, align 1, !tbaa !22
+  %29 = load i32, ptr %m_Pos.i, align 4, !tbaa !21
+  %add.i = add nsw i32 %29, 1
+  %and.i = and i32 %add.i, 3
+  store i32 %and.i, ptr %m_Pos.i, align 4, !tbaa !21
+  %dec.i = add i32 %size.addr.071.i, -1
+  %cmp7.i = icmp eq i32 %and.i, 0
+  br i1 %cmp7.i, label %for.body.preheader.i, label %if.end.i
+
+for.body.preheader.i:                             ; preds = %while.body.i
+  %30 = load i8, ptr %arrayidx11.1.i, align 1, !tbaa !22
+  %conv.1.i152 = zext i8 %30 to i32
+  %shl.1.i153 = shl nuw nsw i32 %conv.1.i152, 8
+  %31 = or i32 %shl.1.i153, %conv.i151
+  %32 = load i8, ptr %arrayidx11.2.i, align 2, !tbaa !22
+  %conv.2.i154 = zext i8 %32 to i32
+  %shl.2.i155 = shl nuw nsw i32 %conv.2.i154, 16
+  %33 = or i32 %31, %shl.2.i155
+  %34 = load i8, ptr %arrayidx11.3.i, align 1, !tbaa !22
+  %conv.3.i156 = zext i8 %34 to i32
+  %shl.3.i157 = shl nuw i32 %conv.3.i156, 24
+  %35 = or i32 %33, %shl.3.i157
+  %xor.3.i = xor i32 %35, %checkSum.069.i
+  br label %if.end.i
+
+if.end.i:                                         ; preds = %for.body.preheader.i, %while.body.i
+  %checkSum.2.i = phi i32 [ %checkSum.069.i, %while.body.i ], [ %xor.3.i, %for.body.preheader.i ]
+  %cmp.not.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp.not.i, label %while.end30.thread.i, label %land.rhs.i, !llvm.loop !23
+
+while.end30.thread.i:                             ; preds = %if.end.i, %cleanup.cont69
+  %checkSum.0.lcssa.ph.i = phi i32 [ %25, %cleanup.cont69 ], [ %checkSum.2.i, %if.end.i ]
+  store i32 %checkSum.0.lcssa.ph.i, ptr %checkSumCalc, align 4, !tbaa !19
+  br label %cleanup81
+
+while.end.i:                                      ; preds = %land.rhs.i
+  %cmp14.not77.i = icmp ult i32 %size.addr.071.i, 4
+  br i1 %cmp14.not77.i, label %while.end30.i, label %while.body15.preheader.i
+
+while.body15.preheader.i:                         ; preds = %while.end.i
+  %div65.i = lshr i32 %size.addr.071.i, 2
+  %36 = add nsw i32 %div65.i, -1
+  %37 = zext i32 %36 to i64
+  %38 = add nuw nsw i64 %37, 1
+  %min.iters.check = icmp ult i32 %36, 7
+  br i1 %min.iters.check, label %while.body15.i.preheader, label %vector.ph
+
+vector.ph:                                        ; preds = %while.body15.preheader.i
+  %n.vec = and i64 %38, -8
+  %.cast = trunc i64 %n.vec to i32
+  %ind.end = sub i32 %div65.i, %.cast
+  %39 = shl nuw nsw i64 %n.vec, 2
+  %ind.end182 = getelementptr i8, ptr %dataPointer.070.i, i64 %39
+  %40 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %checkSum.069.i, i64 0
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %vec.phi = phi <4 x i32> [ %28, %vector.ph ], [ %40, %vector.body ]
-  %vec.phi159 = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %41, %vector.body ]
-  %vec.ind = phi <4 x i32> [ <i32 0, i32 1, i32 2, i32 3>, %vector.ph ], [ %vec.ind.next, %vector.body ]
-  %29 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %index
-  %wide.load = load <4 x i8>, ptr %29, align 4, !tbaa !22
-  %30 = getelementptr inbounds i8, ptr %29, i64 4
-  %wide.load161 = load <4 x i8>, ptr %30, align 4, !tbaa !22
-  %31 = zext <4 x i8> %wide.load to <4 x i32>
-  %32 = zext <4 x i8> %wide.load161 to <4 x i32>
-  %33 = xor <4 x i32> %vec.ind, <i32 -1, i32 -1, i32 -1, i32 -1>
-  %34 = add <4 x i32> %broadcast.splat, %33
-  %reass.sub = sub <4 x i32> %broadcast.splat163, %vec.ind
-  %35 = shl nsw <4 x i32> %34, <i32 3, i32 3, i32 3, i32 3>
-  %36 = shl <4 x i32> %reass.sub, <i32 3, i32 3, i32 3, i32 3>
-  %37 = add <4 x i32> %36, <i32 -40, i32 -40, i32 -40, i32 -40>
-  %38 = shl <4 x i32> %31, %35
-  %39 = shl <4 x i32> %32, %37
-  %40 = xor <4 x i32> %38, %vec.phi
-  %41 = xor <4 x i32> %39, %vec.phi159
+  %vec.phi = phi <4 x i32> [ %40, %vector.ph ], [ %43, %vector.body ]
+  %vec.phi185 = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %44, %vector.body ]
+  %41 = shl i64 %index, 2
+  %next.gep = getelementptr i8, ptr %dataPointer.070.i, i64 %41
+  %wide.load = load <4 x i32>, ptr %next.gep, align 1
+  %42 = getelementptr i32, ptr %next.gep, i64 4
+  %wide.load186 = load <4 x i32>, ptr %42, align 1
+  %43 = xor <4 x i32> %wide.load, %vec.phi
+  %44 = xor <4 x i32> %wide.load186, %vec.phi185
   %index.next = add nuw i64 %index, 8
-  %vec.ind.next = add <4 x i32> %vec.ind, <i32 8, i32 8, i32 8, i32 8>
-  %42 = icmp eq i64 %index.next, %n.vec
-  br i1 %42, label %middle.block, label %vector.body, !llvm.loop !42
+  %45 = icmp eq i64 %index.next, %n.vec
+  br i1 %45, label %middle.block, label %vector.body, !llvm.loop !41
 
 middle.block:                                     ; preds = %vector.body
-  %bin.rdx = xor <4 x i32> %41, %40
-  %43 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %bin.rdx)
-  %cmp.n = icmp eq i64 %n.vec, %wide.trip.count.i
-  br i1 %cmp.n, label %for.cond.for.cond.cleanup_crit_edge.i, label %for.body.i.preheader
+  %bin.rdx = xor <4 x i32> %44, %43
+  %46 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %bin.rdx)
+  %cmp.n = icmp eq i64 %38, %n.vec
+  br i1 %cmp.n, label %while.end30.i, label %while.body15.i.preheader
 
-for.body.i.preheader:                             ; preds = %for.body.preheader.i, %middle.block
-  %indvars.iv.i.ph = phi i64 [ 0, %for.body.preheader.i ], [ %n.vec, %middle.block ]
-  %.ph = phi i32 [ %this.promoted.i, %for.body.preheader.i ], [ %43, %middle.block ]
+while.body15.i.preheader:                         ; preds = %while.body15.preheader.i, %middle.block
+  %numWords.080.i.ph = phi i32 [ %div65.i, %while.body15.preheader.i ], [ %ind.end, %middle.block ]
+  %dataPointer.179.i.ph = phi ptr [ %dataPointer.070.i, %while.body15.preheader.i ], [ %ind.end182, %middle.block ]
+  %checkSum.378.i.ph = phi i32 [ %checkSum.069.i, %while.body15.preheader.i ], [ %46, %middle.block ]
+  br label %while.body15.i
+
+while.body15.i:                                   ; preds = %while.body15.i.preheader, %while.body15.i
+  %numWords.080.i = phi i32 [ %dec13.i, %while.body15.i ], [ %numWords.080.i.ph, %while.body15.i.preheader ]
+  %dataPointer.179.i = phi ptr [ %incdec.ptr25.i, %while.body15.i ], [ %dataPointer.179.i.ph, %while.body15.i.preheader ]
+  %checkSum.378.i = phi i32 [ %xor29.i, %while.body15.i ], [ %checkSum.378.i.ph, %while.body15.i.preheader ]
+  %dec13.i = add nsw i32 %numWords.080.i, -1
+  %47 = load i32, ptr %dataPointer.179.i, align 1
+  %incdec.ptr25.i = getelementptr inbounds i8, ptr %dataPointer.179.i, i64 4
+  %xor29.i = xor i32 %47, %checkSum.378.i
+  %cmp14.not.i = icmp eq i32 %dec13.i, 0
+  br i1 %cmp14.not.i, label %while.end30.i, label %while.body15.i, !llvm.loop !42
+
+while.end30.i:                                    ; preds = %while.body15.i, %middle.block, %while.end.i
+  %checkSum.3.lcssa.i = phi i32 [ %checkSum.069.i, %while.end.i ], [ %46, %middle.block ], [ %xor29.i, %while.body15.i ]
+  %dataPointer.1.lcssa.i = phi ptr [ %dataPointer.070.i, %while.end.i ], [ %ind.end182, %middle.block ], [ %incdec.ptr25.i, %while.body15.i ]
+  store i32 %checkSum.3.lcssa.i, ptr %checkSumCalc, align 4, !tbaa !19
+  %and32.i = and i32 %size.addr.071.i, 3
+  %cmp34.not83.i = icmp eq i32 %and32.i, 0
+  br i1 %cmp34.not83.i, label %cleanup81, label %while.body35.i
+
+while.body35.i:                                   ; preds = %while.end30.i
+  %m_Pos.i.promoted = load i32, ptr %m_Pos.i, align 4, !tbaa !21
+  %48 = load i8, ptr %dataPointer.1.lcssa.i, align 1, !tbaa !22
+  %arrayidx40.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 0
+  store i8 %48, ptr %arrayidx40.i, align 4, !tbaa !22
+  %add42.i = add nsw i32 %m_Pos.i.promoted, 1
+  %and43.i = and i32 %add42.i, 3
+  store i32 %and43.i, ptr %m_Pos.i, align 4, !tbaa !21
+  %cmp34.not.i = icmp eq i32 %and32.i, 1
+  br i1 %cmp34.not.i, label %cleanup81, label %while.body35.i.1, !llvm.loop !29
+
+while.body35.i.1:                                 ; preds = %while.body35.i
+  %incdec.ptr36.i = getelementptr inbounds i8, ptr %dataPointer.1.lcssa.i, i64 1
+  %49 = load i8, ptr %incdec.ptr36.i, align 1, !tbaa !22
+  %idxprom39.i.1 = zext i32 %and43.i to i64
+  %arrayidx40.i.1 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %idxprom39.i.1
+  store i8 %49, ptr %arrayidx40.i.1, align 1, !tbaa !22
+  %add42.i.1 = add i32 %m_Pos.i.promoted, 2
+  %and43.i.1 = and i32 %add42.i.1, 3
+  store i32 %and43.i.1, ptr %m_Pos.i, align 4, !tbaa !21
+  %cmp34.not.i.1 = icmp eq i32 %and32.i, 2
+  br i1 %cmp34.not.i.1, label %cleanup81, label %while.body35.i.2, !llvm.loop !29
+
+while.body35.i.2:                                 ; preds = %while.body35.i.1
+  %incdec.ptr36.i.1 = getelementptr inbounds i8, ptr %dataPointer.1.lcssa.i, i64 2
+  %50 = load i8, ptr %incdec.ptr36.i.1, align 1, !tbaa !22
+  %idxprom39.i.2 = zext i32 %and43.i.1 to i64
+  %arrayidx40.i.2 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %idxprom39.i.2
+  store i8 %50, ptr %arrayidx40.i.2, align 1, !tbaa !22
+  %add42.i.2 = add i32 %m_Pos.i.promoted, 3
+  %and43.i.2 = and i32 %add42.i.2, 3
+  store i32 %and43.i.2, ptr %m_Pos.i, align 4, !tbaa !21
+  br label %cleanup81
+
+cleanup81:                                        ; preds = %while.body35.i, %while.body35.i.1, %while.body35.i.2, %while.end30.i, %while.end30.thread.i
+  %add = add i32 %23, %conv74
+  store i32 %add, ptr %_size, align 4, !tbaa !38
+  %cmp78.not.not = icmp eq i64 %24, %conv57
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %processedSizeLoc) #13
+  br i1 %cmp78.not.not, label %if.end84, label %cleanup101
+
+if.end84:                                         ; preds = %cleanup81, %if.end54
+  %51 = phi i32 [ %add, %cleanup81 ], [ %20, %if.end54 ]
+  %TotalPackSize = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %this, i64 0, i32 7
+  store i32 %51, ptr %TotalPackSize, align 8, !tbaa !43
+  %52 = load i32, ptr %m_Pos.i, align 4, !tbaa !21
+  %cmp7.i159 = icmp sgt i32 %52, 0
+  br i1 %cmp7.i159, label %for.body.preheader.i160, label %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit
+
+for.body.preheader.i160:                          ; preds = %if.end84
+  %this.promoted.i = load i32, ptr %checkSumCalc, align 4, !tbaa !19
+  %wide.trip.count.i = zext i32 %52 to i64
+  %min.iters.check189 = icmp ult i32 %52, 8
+  br i1 %min.iters.check189, label %for.body.i.preheader, label %vector.ph190
+
+vector.ph190:                                     ; preds = %for.body.preheader.i160
+  %n.vec192 = and i64 %wide.trip.count.i, 4294967288
+  %53 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %this.promoted.i, i64 0
+  %broadcast.splatinsert = insertelement <4 x i32> poison, i32 %52, i64 0
+  %broadcast.splat = shufflevector <4 x i32> %broadcast.splatinsert, <4 x i32> poison, <4 x i32> zeroinitializer
+  %broadcast.splatinsert202 = insertelement <4 x i32> poison, i32 %52, i64 0
+  %broadcast.splat203 = shufflevector <4 x i32> %broadcast.splatinsert202, <4 x i32> poison, <4 x i32> zeroinitializer
+  br label %vector.body195
+
+vector.body195:                                   ; preds = %vector.body195, %vector.ph190
+  %index196 = phi i64 [ 0, %vector.ph190 ], [ %index.next204, %vector.body195 ]
+  %vec.phi197 = phi <4 x i32> [ %53, %vector.ph190 ], [ %65, %vector.body195 ]
+  %vec.phi198 = phi <4 x i32> [ zeroinitializer, %vector.ph190 ], [ %66, %vector.body195 ]
+  %vec.ind = phi <4 x i32> [ <i32 0, i32 1, i32 2, i32 3>, %vector.ph190 ], [ %vec.ind.next, %vector.body195 ]
+  %54 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %index196
+  %wide.load200 = load <4 x i8>, ptr %54, align 4, !tbaa !22
+  %55 = getelementptr inbounds i8, ptr %54, i64 4
+  %wide.load201 = load <4 x i8>, ptr %55, align 4, !tbaa !22
+  %56 = zext <4 x i8> %wide.load200 to <4 x i32>
+  %57 = zext <4 x i8> %wide.load201 to <4 x i32>
+  %58 = xor <4 x i32> %vec.ind, <i32 -1, i32 -1, i32 -1, i32 -1>
+  %59 = add <4 x i32> %broadcast.splat, %58
+  %reass.sub = sub <4 x i32> %broadcast.splat203, %vec.ind
+  %60 = shl nsw <4 x i32> %59, <i32 3, i32 3, i32 3, i32 3>
+  %61 = shl <4 x i32> %reass.sub, <i32 3, i32 3, i32 3, i32 3>
+  %62 = add <4 x i32> %61, <i32 -40, i32 -40, i32 -40, i32 -40>
+  %63 = shl <4 x i32> %56, %60
+  %64 = shl <4 x i32> %57, %62
+  %65 = xor <4 x i32> %63, %vec.phi197
+  %66 = xor <4 x i32> %64, %vec.phi198
+  %index.next204 = add nuw i64 %index196, 8
+  %vec.ind.next = add <4 x i32> %vec.ind, <i32 8, i32 8, i32 8, i32 8>
+  %67 = icmp eq i64 %index.next204, %n.vec192
+  br i1 %67, label %middle.block187, label %vector.body195, !llvm.loop !44
+
+middle.block187:                                  ; preds = %vector.body195
+  %bin.rdx205 = xor <4 x i32> %66, %65
+  %68 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %bin.rdx205)
+  %cmp.n194 = icmp eq i64 %n.vec192, %wide.trip.count.i
+  br i1 %cmp.n194, label %for.cond.for.cond.cleanup_crit_edge.i, label %for.body.i.preheader
+
+for.body.i.preheader:                             ; preds = %for.body.preheader.i160, %middle.block187
+  %indvars.iv.i.ph = phi i64 [ 0, %for.body.preheader.i160 ], [ %n.vec192, %middle.block187 ]
+  %.ph = phi i32 [ %this.promoted.i, %for.body.preheader.i160 ], [ %68, %middle.block187 ]
   br label %for.body.i
 
-for.cond.for.cond.cleanup_crit_edge.i:            ; preds = %for.body.i, %middle.block
-  %xor.i.lcssa = phi i32 [ %43, %middle.block ], [ %xor.i, %for.body.i ]
+for.cond.for.cond.cleanup_crit_edge.i:            ; preds = %for.body.i, %middle.block187
+  %xor.i.lcssa = phi i32 [ %68, %middle.block187 ], [ %xor.i, %for.body.i ]
   store i32 %xor.i.lcssa, ptr %checkSumCalc, align 4, !tbaa !19
   br label %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit
 
 for.body.i:                                       ; preds = %for.body.i.preheader, %for.body.i
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.body.i ], [ %indvars.iv.i.ph, %for.body.i.preheader ]
-  %44 = phi i32 [ %xor.i, %for.body.i ], [ %.ph, %for.body.i.preheader ]
+  %69 = phi i32 [ %xor.i, %for.body.i ], [ %.ph, %for.body.i.preheader ]
   %indvars9.i = trunc i64 %indvars.iv.i to i32
-  %arrayidx.i = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %indvars.iv.i
-  %45 = load i8, ptr %arrayidx.i, align 1, !tbaa !22
-  %conv.i152 = zext i8 %45 to i32
-  %46 = xor i32 %indvars9.i, -1
-  %sub3.i = add i32 %27, %46
+  %arrayidx.i161 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %checkSumCalc, i64 0, i32 2, i64 %indvars.iv.i
+  %70 = load i8, ptr %arrayidx.i161, align 1, !tbaa !22
+  %conv.i162 = zext i8 %70 to i32
+  %71 = xor i32 %indvars9.i, -1
+  %sub3.i = add i32 %52, %71
   %mul.i = shl nsw i32 %sub3.i, 3
-  %shl.i = shl i32 %conv.i152, %mul.i
-  %xor.i = xor i32 %shl.i, %44
+  %shl.i = shl i32 %conv.i162, %mul.i
+  %xor.i = xor i32 %shl.i, %69
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
-  br i1 %exitcond.not.i, label %for.cond.for.cond.cleanup_crit_edge.i, label %for.body.i, !llvm.loop !43
+  br i1 %exitcond.not.i, label %for.cond.for.cond.cleanup_crit_edge.i, label %for.body.i, !llvm.loop !45
 
 _ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit: ; preds = %if.end84, %for.cond.for.cond.cleanup_crit_edge.i
   %cmp86 = icmp eq i32 %or.3.i, 0
   br i1 %cmp86, label %if.end90, label %if.else
 
 if.else:                                          ; preds = %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit
-  %47 = load i32, ptr %packSize, align 4, !tbaa !32
-  %48 = load i32, ptr %unpackSize, align 4, !tbaa !32
-  %shl = shl i32 %48, 16
-  %or = or i32 %shl, %47
-  %49 = load i32, ptr %checkSumCalc, align 4, !tbaa !19
-  %xor.i153 = xor i32 %or, %49
-  %cmp89 = icmp ne i32 %xor.i153, %or.3.i
+  %72 = load i32, ptr %packSize, align 4, !tbaa !32
+  %73 = load i32, ptr %unpackSize, align 4, !tbaa !32
+  %shl = shl i32 %73, 16
+  %or = or i32 %shl, %72
+  %74 = load i32, ptr %checkSumCalc, align 4, !tbaa !19
+  %xor.i163 = xor i32 %or, %74
+  %cmp89 = icmp ne i32 %xor.i163, %or.3.i
   br label %if.end90
 
 if.end90:                                         ; preds = %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit, %if.else
   %dataError.0 = phi i1 [ %cmp89, %if.else ], [ false, %_ZN8NArchive4NCab10CCheckSum216FinishDataUpdateEv.exit ]
   %DataError = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %this, i64 0, i32 9
-  %50 = load i8, ptr %DataError, align 8, !tbaa !44, !range !36, !noundef !37
-  %51 = zext i1 %dataError.0 to i8
-  %52 = or i8 %50, %51
-  store i8 %52, ptr %DataError, align 8, !tbaa !44
+  %75 = load i8, ptr %DataError, align 8, !tbaa !46, !range !36, !noundef !37
+  %76 = zext i1 %dataError.0 to i8
+  %77 = or i8 %75, %76
+  store i8 %77, ptr %DataError, align 8, !tbaa !46
   %cond = zext i1 %dataError.0 to i32
   br label %cleanup101
 
@@ -805,25 +968,25 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !22
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !22
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !22
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !22
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
-  store ptr %this, ptr %outObject, align 8, !tbaa !45
+if.then:                                          ; preds = %for.cond.14.i
+  store ptr %this, ptr %outObject, align 8, !tbaa !47
   %vtable = load ptr, ptr %this, align 8, !tbaa !16
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
   %32 = load ptr, ptr %vfn, align 8
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(50) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
   ret i32 %retval.0
 }
 
@@ -831,9 +994,9 @@ return:                                           ; preds = %for.cond.13.i, %for
 define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream6AddRefEv(ptr noundef nonnull align 8 dereferenceable(50) %this) unnamed_addr #10 comdat align 2 {
 entry:
   %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
-  %0 = load i32, ptr %add.ptr, align 8, !tbaa !46
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !48
   %inc = add i32 %0, 1
-  store i32 %inc, ptr %add.ptr, align 8, !tbaa !46
+  store i32 %inc, ptr %add.ptr, align 8, !tbaa !48
   ret i32 %inc
 }
 
@@ -841,9 +1004,9 @@ entry:
 define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(50) %this) unnamed_addr #10 comdat align 2 {
 entry:
   %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
-  %0 = load i32, ptr %add.ptr, align 8, !tbaa !46
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !48
   %dec = add i32 %0, -1
-  store i32 %dec, ptr %add.ptr, align 8, !tbaa !46
+  store i32 %dec, ptr %add.ptr, align 8, !tbaa !48
   %cmp.not = icmp eq i32 %dec, 0
   br i1 %cmp.not, label %delete.notnull, label %return
 
@@ -924,9 +1087,11 @@ attributes #14 = { builtin nounwind }
 !38 = !{!6, !10, i64 36}
 !39 = !{!40, !40, i64 0}
 !40 = !{!"long", !11, i64 0}
-!41 = !{!6, !10, i64 40}
-!42 = distinct !{!42, !24, !26, !27}
-!43 = distinct !{!43, !24, !27, !26}
-!44 = !{!6, !15, i64 48}
-!45 = !{!14, !14, i64 0}
-!46 = !{!9, !10, i64 0}
+!41 = distinct !{!41, !24, !26, !27}
+!42 = distinct !{!42, !24, !27, !26}
+!43 = !{!6, !10, i64 40}
+!44 = distinct !{!44, !24, !26, !27}
+!45 = distinct !{!45, !24, !27, !26}
+!46 = !{!6, !15, i64 48}
+!47 = !{!14, !14, i64 0}
+!48 = !{!9, !10, i64 0}

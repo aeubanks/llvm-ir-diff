@@ -525,10 +525,10 @@ if.end13:                                         ; preds = %if.then5, %if.else7
   %4 = phi ptr [ %call6, %if.then5 ], [ %1, %if.else7 ]
   %ou1 = getelementptr inbounds %struct.word_type, ptr %4, i64 0, i32 1
   store i8 17, ptr %ou1, align 8, !tbaa !19
+  %arrayidx15 = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1
   %osucc = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1, i32 1
   store ptr %4, ptr %osucc, align 8, !tbaa !19
-  %arrayidx17 = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1
-  store ptr %4, ptr %arrayidx17, align 8, !tbaa !19
+  store ptr %4, ptr %arrayidx15, align 8, !tbaa !19
   %osucc21 = getelementptr inbounds %struct.LIST, ptr %4, i64 0, i32 1
   store ptr %4, ptr %osucc21, align 8, !tbaa !19
   store ptr %4, ptr %4, align 8, !tbaa !19
@@ -558,10 +558,10 @@ if.end47:                                         ; preds = %if.then36, %if.else
   %9 = phi ptr [ %call37, %if.then36 ], [ %6, %if.else38 ]
   %ou148 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 1
   store i8 17, ptr %ou148, align 8, !tbaa !19
+  %arrayidx51 = getelementptr inbounds [2 x %struct.LIST], ptr %9, i64 0, i64 1
   %osucc52 = getelementptr inbounds [2 x %struct.LIST], ptr %9, i64 0, i64 1, i32 1
   store ptr %9, ptr %osucc52, align 8, !tbaa !19
-  %arrayidx54 = getelementptr inbounds [2 x %struct.LIST], ptr %9, i64 0, i64 1
-  store ptr %9, ptr %arrayidx54, align 8, !tbaa !19
+  store ptr %9, ptr %arrayidx51, align 8, !tbaa !19
   %osucc58 = getelementptr inbounds %struct.LIST, ptr %9, i64 0, i32 1
   store ptr %9, ptr %osucc58, align 8, !tbaa !19
   store ptr %9, ptr %9, align 8, !tbaa !19
@@ -841,8 +841,8 @@ while.end88:                                      ; preds = %while.cond84
   %cmp59 = icmp eq i8 %25, %14
   br i1 %cmp59, label %while.cond61.preheader, label %do.cond, !llvm.loop !30
 
-do.cond:                                          ; preds = %while.end88, %if.else48, %do.body, %if.then81
-  %p.1 = phi ptr [ %b.0.lcssa, %if.then81 ], [ %incdec.ptr, %do.body ], [ %incdec.ptr, %if.else48 ], [ %incdec.ptr, %while.end88 ]
+do.cond:                                          ; preds = %while.end88, %do.body, %if.else48, %if.then81
+  %p.1 = phi ptr [ %b.0.lcssa, %if.then81 ], [ %incdec.ptr, %if.else48 ], [ %incdec.ptr, %do.body ], [ %incdec.ptr, %while.end88 ]
   %26 = load i8, ptr %p.1, align 1, !tbaa !19
   %tobool94.not = icmp eq i8 %26, 0
   br i1 %tobool94.not, label %do.end, label %do.body, !llvm.loop !31

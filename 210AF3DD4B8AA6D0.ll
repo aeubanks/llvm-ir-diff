@@ -75,11 +75,11 @@ for.cond.preheader:                               ; preds = %invoke.cont
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %_items.i = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 1, i32 0, i32 3
   %_size.i = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 1, i32 0, i32 2
-  %_items.i17 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 2, i32 0, i32 3
-  %_size.i18 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 2, i32 0, i32 2
+  %_items.i16 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 2, i32 0, i32 3
+  %_size.i17 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 2, i32 0, i32 2
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %for.inc, %for.cond.preheader
+for.cond.cleanup:                                 ; preds = %_ZN13CRecordVectorIyE3AddEy.exit21, %for.cond.preheader
   %TotalInSize = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %this, i64 0, i32 3
   %cmp.not.i = icmp eq ptr %progress, null
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %TotalInSize, i8 0, i64 16, i1 false)
@@ -89,32 +89,37 @@ if.then.i:                                        ; preds = %for.cond.cleanup
   %vtable.i = load ptr, ptr %progress, align 8, !tbaa !5
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 1
   %0 = load ptr, ptr %vfn.i, align 8
-  %call.i15 = invoke noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %progress)
+  %call.i14 = invoke noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %progress)
           to label %if.end.i unwind label %lpad
 
 if.end.i:                                         ; preds = %if.then.i, %for.cond.cleanup
   %1 = load ptr, ptr %this, align 8, !tbaa !8
   %tobool.not.i = icmp eq ptr %1, null
-  br i1 %tobool.not.i, label %invoke.cont9, label %if.then2.i
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI21ICompressProgressInfoEaSEPS0_.exit, label %if.then2.i
 
 if.then2.i:                                       ; preds = %if.end.i
   %vtable4.i = load ptr, ptr %1, align 8, !tbaa !5
   %vfn5.i = getelementptr inbounds ptr, ptr %vtable4.i, i64 2
   %2 = load ptr, ptr %vfn5.i, align 8
-  %call6.i16 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
-          to label %invoke.cont9 unwind label %lpad
+  %call6.i15 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+          to label %_ZN9CMyComPtrI21ICompressProgressInfoEaSEPS0_.exit unwind label %lpad
+
+_ZN9CMyComPtrI21ICompressProgressInfoEaSEPS0_.exit: ; preds = %if.then2.i, %if.end.i
+  store ptr %progress, ptr %this, align 8, !tbaa !8
+  %call.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %CriticalSection) #9
+  ret void
 
 lpad:                                             ; preds = %if.then2.i, %if.then.i, %invoke.cont, %entry
   %3 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %i.026 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN13CRecordVectorIyE3AddEy.exit21
+  %i.026 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %_ZN13CRecordVectorIyE3AddEy.exit21 ]
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %InSizes)
-          to label %invoke.cont5 unwind label %lpad4
+          to label %_ZN13CRecordVectorIyE3AddEy.exit unwind label %lpad4
 
-invoke.cont5:                                     ; preds = %for.body
+_ZN13CRecordVectorIyE3AddEy.exit:                 ; preds = %for.body
   %4 = load ptr, ptr %_items.i, align 8, !tbaa !12
   %5 = load i32, ptr %_size.i, align 4, !tbaa !16
   %idxprom.i = sext i32 %5 to i64
@@ -123,33 +128,28 @@ invoke.cont5:                                     ; preds = %for.body
   %inc.i = add nsw i32 %5, 1
   store i32 %inc.i, ptr %_size.i, align 4, !tbaa !16
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %OutSizes)
-          to label %for.inc unwind label %lpad4
+          to label %_ZN13CRecordVectorIyE3AddEy.exit21 unwind label %lpad4
 
-for.inc:                                          ; preds = %invoke.cont5
-  %6 = load ptr, ptr %_items.i17, align 8, !tbaa !12
-  %7 = load i32, ptr %_size.i18, align 4, !tbaa !16
-  %idxprom.i19 = sext i32 %7 to i64
-  %arrayidx.i20 = getelementptr inbounds i64, ptr %6, i64 %idxprom.i19
-  store i64 0, ptr %arrayidx.i20, align 8, !tbaa !17
-  %inc.i21 = add nsw i32 %7, 1
-  store i32 %inc.i21, ptr %_size.i18, align 4, !tbaa !16
+_ZN13CRecordVectorIyE3AddEy.exit21:               ; preds = %_ZN13CRecordVectorIyE3AddEy.exit
+  %6 = load ptr, ptr %_items.i16, align 8, !tbaa !12
+  %7 = load i32, ptr %_size.i17, align 4, !tbaa !16
+  %idxprom.i18 = sext i32 %7 to i64
+  %arrayidx.i19 = getelementptr inbounds i64, ptr %6, i64 %idxprom.i18
+  store i64 0, ptr %arrayidx.i19, align 8, !tbaa !17
+  %inc.i20 = add nsw i32 %7, 1
+  store i32 %inc.i20, ptr %_size.i17, align 4, !tbaa !16
   %inc = add nuw nsw i32 %i.026, 1
   %exitcond.not = icmp eq i32 %inc, %numItems
   br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !llvm.loop !19
 
-lpad4:                                            ; preds = %invoke.cont5, %for.body
+lpad4:                                            ; preds = %_ZN13CRecordVectorIyE3AddEy.exit, %for.body
   %8 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
 
-invoke.cont9:                                     ; preds = %if.end.i, %if.then2.i
-  store ptr %progress, ptr %this, align 8, !tbaa !8
-  %call.i.i.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %CriticalSection) #9
-  ret void
-
 ehcleanup:                                        ; preds = %lpad4, %lpad
   %.pn = phi { ptr, i32 } [ %8, %lpad4 ], [ %3, %lpad ]
-  %call.i.i.i23 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %CriticalSection) #9
+  %call.i.i.i22 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %CriticalSection) #9
   resume { ptr, i32 } %.pn
 }
 
@@ -419,16 +419,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !33
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !33
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !33
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !33
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
+if.then:                                          ; preds = %for.cond.14.i
   store ptr %this, ptr %outObject, align 8, !tbaa !34
   %vtable = load ptr, ptr %this, align 8, !tbaa !5
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -436,8 +436,8 @@ if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(28) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
   ret i32 %retval.0
 }
 

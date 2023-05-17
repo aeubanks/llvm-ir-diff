@@ -39,8 +39,8 @@ for.body2:                                        ; preds = %for.body, %list_Del
   br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %for.body2, %while.body.i
-  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call3.val, %for.body2 ]
-  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %call3.val, %for.body2 ]
+  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
   %1 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1, i64 0, i32 4
   %2 = load i32, ptr %total_size.i.i.i, align 8
@@ -52,7 +52,7 @@ while.body.i:                                     ; preds = %for.body2, %while.b
   store ptr %4, ptr %Current.06.i, align 8
   %5 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %5, align 8
-  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !5
 
 list_Delete.exit:                                 ; preds = %while.body.i, %for.body2
@@ -77,8 +77,8 @@ for.end:                                          ; preds = %list_Delete.exit
   br i1 %cmp.i.not5.i26, label %list_Delete.exit34, label %while.body.i33
 
 while.body.i33:                                   ; preds = %for.end, %while.body.i33
-  %Current.06.i27 = phi ptr [ %Current.0.val.i28, %while.body.i33 ], [ %.pre, %for.end ]
-  %Current.0.val.i28 = load ptr, ptr %Current.06.i27, align 8
+  %Current.06.i27 = phi ptr [ %L.addr.0.val.i28, %while.body.i33 ], [ %.pre, %for.end ]
+  %L.addr.0.val.i28 = load ptr, ptr %Current.06.i27, align 8
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i29 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %11, i64 0, i32 4
   %12 = load i32, ptr %total_size.i.i.i29, align 8
@@ -90,7 +90,7 @@ while.body.i33:                                   ; preds = %for.end, %while.bod
   store ptr %14, ptr %Current.06.i27, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i27, ptr %15, align 8
-  %cmp.i.not.i32 = icmp eq ptr %Current.0.val.i28, null
+  %cmp.i.not.i32 = icmp eq ptr %L.addr.0.val.i28, null
   br i1 %cmp.i.not.i32, label %list_Delete.exit34, label %while.body.i33, !llvm.loop !5
 
 list_Delete.exit34:                               ; preds = %while.body.i33, %for.body, %for.end
@@ -124,8 +124,8 @@ for.body2.i:                                      ; preds = %for.body.i, %list_D
   br i1 %cmp.i.not5.i.i, label %list_Delete.exit.i, label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %for.body2.i, %while.body.i.i
-  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %call3.val.i, %for.body2.i ]
-  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %Current.06.i.i = phi ptr [ %L.addr.0.val.i.i, %while.body.i.i ], [ %call3.val.i, %for.body2.i ]
+  %L.addr.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
   %1 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1, i64 0, i32 4
   %2 = load i32, ptr %total_size.i.i.i.i, align 8
@@ -137,7 +137,7 @@ while.body.i.i:                                   ; preds = %for.body2.i, %while
   store ptr %4, ptr %Current.06.i.i, align 8
   %5 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i.i, ptr %5, align 8
-  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
+  %cmp.i.not.i.i = icmp eq ptr %L.addr.0.val.i.i, null
   br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !5
 
 list_Delete.exit.i:                               ; preds = %while.body.i.i, %for.body2.i
@@ -162,8 +162,8 @@ for.end.i:                                        ; preds = %list_Delete.exit.i
   br i1 %cmp.i.not5.i26.i, label %list_Delete.exit34.i, label %while.body.i33.i
 
 while.body.i33.i:                                 ; preds = %for.end.i, %while.body.i33.i
-  %Current.06.i27.i = phi ptr [ %Current.0.val.i28.i, %while.body.i33.i ], [ %.pre.i, %for.end.i ]
-  %Current.0.val.i28.i = load ptr, ptr %Current.06.i27.i, align 8
+  %Current.06.i27.i = phi ptr [ %L.addr.0.val.i28.i, %while.body.i33.i ], [ %.pre.i, %for.end.i ]
+  %L.addr.0.val.i28.i = load ptr, ptr %Current.06.i27.i, align 8
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i29.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %11, i64 0, i32 4
   %12 = load i32, ptr %total_size.i.i.i29.i, align 8
@@ -175,7 +175,7 @@ while.body.i33.i:                                 ; preds = %for.end.i, %while.b
   store ptr %14, ptr %Current.06.i27.i, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i27.i, ptr %15, align 8
-  %cmp.i.not.i32.i = icmp eq ptr %Current.0.val.i28.i, null
+  %cmp.i.not.i32.i = icmp eq ptr %L.addr.0.val.i28.i, null
   br i1 %cmp.i.not.i32.i, label %list_Delete.exit34.i, label %while.body.i33.i, !llvm.loop !5
 
 list_Delete.exit34.i:                             ; preds = %while.body.i33.i, %for.end.i, %for.body.i
@@ -219,12 +219,12 @@ for.body3:                                        ; preds = %for.body, %list_Nco
   %Scan.0.val = load ptr, ptr %0, align 8
   %call4.val = load ptr, ptr %Scan.0.val, align 8
   %call6 = tail call ptr @list_Copy(ptr noundef %call4.val) #5
-  %cmp.i.not.i = icmp eq ptr %Result.119, null
-  br i1 %cmp.i.not.i, label %list_Nconc.exit, label %if.end.i
+  %cmp.i.i = icmp eq ptr %Result.119, null
+  br i1 %cmp.i.i, label %list_Nconc.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %for.body3
-  %cmp.i18.not.i = icmp eq ptr %call6, null
-  br i1 %cmp.i18.not.i, label %list_Nconc.exit, label %for.cond.i
+  %cmp.i18.i = icmp eq ptr %call6, null
+  br i1 %cmp.i18.i, label %list_Nconc.exit, label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.end.i, %for.cond.i
   %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %Result.119, %if.end.i ]

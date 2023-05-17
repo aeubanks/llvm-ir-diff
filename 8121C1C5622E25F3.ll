@@ -41,7 +41,7 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE18triangle_collisionERK9btVector3S2_S2_fS2_S2_S2_fR25GIM_TRIANGLE_CONTACT_DATA(ptr noundef nonnull align 4 dereferenceable(1012) %this, ptr noundef nonnull align 4 dereferenceable(16) %u0, ptr noundef nonnull align 4 dereferenceable(16) %u1, ptr noundef nonnull align 4 dereferenceable(16) %u2, float noundef %margin_u, ptr noundef nonnull align 4 dereferenceable(16) %v0, ptr noundef nonnull align 4 dereferenceable(16) %v1, ptr noundef nonnull align 4 dereferenceable(16) %v2, float noundef %margin_v, ptr noundef nonnull align 4 dereferenceable(280) %contacts) local_unnamed_addr #2 comdat align 2 {
 entry:
-  %point_indices.i.i1698 = alloca [16 x i32], align 16
+  %point_indices.i.i1681 = alloca [16 x i32], align 16
   %point_indices.i.i = alloca [16 x i32], align 16
   %add = fadd float %margin_u, %margin_v
   store float %add, ptr %this, align 4, !tbaa !10
@@ -192,9 +192,9 @@ if.then263:                                       ; preds = %if.end132
 
 if.then267:                                       ; preds = %if.then263
   %cmp274 = fcmp olt float %72, %sub246
-  %. = select i1 %cmp274, float %sub246, float %72
-  %cmp279 = fcmp olt float %71, %.
-  %cond298 = select i1 %cmp279, float %., float %71
+  %sub246.sub216 = select i1 %cmp274, float %sub246, float %72
+  %cmp279 = fcmp olt float %71, %sub246.sub216
+  %cond298 = select i1 %cmp279, float %sub246.sub216, float %71
   %fneg = fneg float %cond298
   store float %fneg, ptr %distances, align 4, !tbaa !16
   %cmp311 = fcmp olt float %add, %fneg
@@ -224,9 +224,9 @@ if.end313:                                        ; preds = %if.then267
 
 if.else459:                                       ; preds = %if.then263
   %cmp466 = fcmp ogt float %72, %sub246
-  %.1682 = select i1 %cmp466, float %sub246, float %72
-  %cmp475 = fcmp ogt float %71, %.1682
-  %cond494 = select i1 %cmp475, float %.1682, float %71
+  %sub246.sub2161733 = select i1 %cmp466, float %sub246, float %72
+  %cmp475 = fcmp ogt float %71, %sub246.sub2161733
+  %cond494 = select i1 %cmp475, float %sub246.sub2161733, float %71
   store float %cond494, ptr %distances, align 4, !tbaa !16
   %cmp502 = fcmp ogt float %cond494, %add
   %84 = extractelement <2 x float> %0, i64 1
@@ -257,9 +257,9 @@ if.then522:                                       ; preds = %if.else506
   %91 = fneg <4 x float> %90
   store <4 x float> %91, ptr %tv_plane, align 4, !tbaa !16
   %cmp674 = fcmp olt float %72, %sub246
-  %.1684 = select i1 %cmp674, float %sub246, float %72
-  %cmp683 = fcmp olt float %71, %.1684
-  %cond702 = select i1 %cmp683, float %.1684, float %71
+  %sub246.sub2161735 = select i1 %cmp674, float %sub246, float %72
+  %cmp683 = fcmp olt float %71, %sub246.sub2161735
+  %cond702 = select i1 %cmp683, float %sub246.sub2161735, float %71
   %fneg709 = fneg float %cond702
   store float %fneg709, ptr %distances515, align 4, !tbaa !16
   %92 = extractelement <2 x float> %87, i64 0
@@ -270,9 +270,9 @@ if.then522:                                       ; preds = %if.else506
 
 if.else713:                                       ; preds = %if.else506
   %cmp720 = fcmp ogt float %72, %sub246
-  %.1686 = select i1 %cmp720, float %sub246, float %72
-  %cmp729 = fcmp ogt float %71, %.1686
-  %cond748 = select i1 %cmp729, float %.1686, float %71
+  %sub246.sub2161737 = select i1 %cmp720, float %sub246, float %72
+  %cmp729 = fcmp ogt float %71, %sub246.sub2161737
+  %cond748 = select i1 %cmp729, float %sub246.sub2161737, float %71
   store float %cond748, ptr %distances515, align 4, !tbaa !16
   %96 = extractelement <2 x float> %0, i64 1
   br label %if.end753
@@ -388,8 +388,8 @@ if.end895:                                        ; preds = %if.end753, %if.then
   %cmp1023 = fcmp ogt float %165, 0.000000e+00
   %166 = extractelement <2 x float> %164, i64 1
   %cmp1026 = fcmp ogt float %166, 0.000000e+00
-  %or.cond1688 = select i1 %cmp1023, i1 %cmp1026, i1 false
-  br i1 %or.cond1688, label %if.then1027, label %if.else1276
+  %or.cond1739 = select i1 %cmp1023, i1 %cmp1026, i1 false
+  br i1 %or.cond1739, label %if.then1027, label %if.else1276
 
 if.then1027:                                      ; preds = %if.end895
   %cmp1030 = fcmp olt float %sub950, 0.000000e+00
@@ -400,9 +400,9 @@ if.then1031:                                      ; preds = %if.then1027
   %167 = extractelement <2 x float> %161, i64 0
   %168 = extractelement <2 x float> %161, i64 1
   %cmp1038 = fcmp olt float %167, %168
-  %.1689 = select i1 %cmp1038, float %168, float %167
-  %cmp1047 = fcmp olt float %sub950, %.1689
-  %cond1066 = select i1 %cmp1047, float %.1689, float %sub950
+  %sub1009.sub979 = select i1 %cmp1038, float %168, float %167
+  %cmp1047 = fcmp olt float %sub950, %sub1009.sub979
+  %cond1066 = select i1 %cmp1047, float %sub1009.sub979, float %sub950
   %fneg1073 = fneg float %cond1066
   store float %fneg1073, ptr %arrayidx1069, align 4, !tbaa !16
   %cmp1081 = fcmp olt float %add, %fneg1073
@@ -430,9 +430,9 @@ if.else1229:                                      ; preds = %if.then1027
   %176 = extractelement <2 x float> %161, i64 0
   %177 = extractelement <2 x float> %161, i64 1
   %cmp1236 = fcmp ogt float %176, %177
-  %.1691 = select i1 %cmp1236, float %177, float %176
-  %cmp1245 = fcmp ogt float %sub950, %.1691
-  %cond1264 = select i1 %cmp1245, float %.1691, float %sub950
+  %sub1009.sub9791741 = select i1 %cmp1236, float %177, float %176
+  %cmp1245 = fcmp ogt float %sub950, %sub1009.sub9791741
+  %cond1264 = select i1 %cmp1245, float %sub1009.sub9791741, float %sub950
   store float %cond1264, ptr %arrayidx1069, align 4, !tbaa !16
   %cmp1272 = fcmp ogt float %cond1264, %add
   br i1 %cmp1272, label %return, label %if.end1524
@@ -464,18 +464,18 @@ if.then1293:                                      ; preds = %if.else1276
   %186 = fneg <4 x float> %185
   store <4 x float> %186, ptr %tu_plane, align 4, !tbaa !16
   %cmp1445 = fcmp olt float %178, %179
-  %.1693 = select i1 %cmp1445, float %179, float %178
-  %cmp1454 = fcmp olt float %sub950, %.1693
-  %cond1473 = select i1 %cmp1454, float %.1693, float %sub950
+  %sub1009.sub9791743 = select i1 %cmp1445, float %179, float %178
+  %cmp1454 = fcmp olt float %sub950, %sub1009.sub9791743
+  %cond1473 = select i1 %cmp1454, float %sub1009.sub9791743, float %sub950
   %fneg1480 = fneg float %cond1473
   store float %fneg1480, ptr %arrayidx1288, align 4, !tbaa !16
   br label %if.end1524
 
 if.else1484:                                      ; preds = %if.else1276
   %cmp1491 = fcmp ogt float %178, %179
-  %.1695 = select i1 %cmp1491, float %179, float %178
-  %cmp1500 = fcmp ogt float %sub950, %.1695
-  %cond1519 = select i1 %cmp1500, float %.1695, float %sub950
+  %sub1009.sub9791745 = select i1 %cmp1491, float %179, float %178
+  %cmp1500 = fcmp ogt float %sub950, %sub1009.sub9791745
+  %cond1519 = select i1 %cmp1500, float %sub1009.sub9791745, float %sub950
   store float %cond1519, ptr %arrayidx1288, align 4, !tbaa !16
   br label %if.end1524
 
@@ -488,9 +488,9 @@ if.end1524:                                       ; preds = %if.then1293, %if.el
 if.then1568:                                      ; preds = %if.end1524
   %call1574 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %this, ptr noundef nonnull align 4 dereferenceable(16) %tv_plane, ptr noundef nonnull %tv_vertices, ptr noundef nonnull %tu_vertices, ptr noundef nonnull %contact_points)
   %cmp1575 = icmp eq i32 %call1574, 0
-  br i1 %cmp1575, label %return, label %for.body.lr.ph.i.i
+  br i1 %cmp1575, label %return, label %if.end1577
 
-for.body.lr.ph.i.i:                               ; preds = %if.then1568
+if.end1577:                                       ; preds = %if.then1568
   %188 = load float, ptr %this, align 4, !tbaa !10
   %m_separating_normal.i = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 2
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_separating_normal.i, ptr noundef nonnull align 4 dereferenceable(16) %tv_plane, i64 16, i1 false)
@@ -507,18 +507,18 @@ for.cond20.preheader.i.i:                         ; preds = %if.end18.i.i
 
 for.body23.preheader.i.i:                         ; preds = %for.cond20.preheader.i.i
   %wide.trip.count56.i.i = zext i32 %inc45.i.i to i64
-  %xtraiter1753 = and i64 %wide.trip.count56.i.i, 1
+  %xtraiter1751 = and i64 %wide.trip.count56.i.i, 1
   %189 = icmp eq i32 %inc45.i.i, 1
   br i1 %189, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit.loopexit.unr-lcssa, label %for.body23.preheader.i.i.new
 
 for.body23.preheader.i.i.new:                     ; preds = %for.body23.preheader.i.i
-  %unroll_iter1755 = and i64 %wide.trip.count56.i.i, 4294967294
+  %unroll_iter1753 = and i64 %wide.trip.count56.i.i, 4294967294
   br label %for.body23.i.i
 
-for.body.i.i:                                     ; preds = %if.end18.i.i, %for.body.lr.ph.i.i
-  %190 = phi float [ -1.000000e+03, %for.body.lr.ph.i.i ], [ %202, %if.end18.i.i ]
-  %indvars.iv.i.i = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %indvars.iv.next.i.i, %if.end18.i.i ]
-  %inc4648.i.i = phi i32 [ 0, %for.body.lr.ph.i.i ], [ %inc45.i.i, %if.end18.i.i ]
+for.body.i.i:                                     ; preds = %if.end18.i.i, %if.end1577
+  %190 = phi float [ -1.000000e+03, %if.end1577 ], [ %202, %if.end18.i.i ]
+  %indvars.iv.i.i = phi i64 [ 0, %if.end1577 ], [ %indvars.iv.next.i.i, %if.end18.i.i ]
+  %inc4648.i.i = phi i32 [ 0, %if.end1577 ], [ %inc45.i.i, %if.end18.i.i ]
   %arrayidx.i.i = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %indvars.iv.i.i
   %191 = load float, ptr %tv_plane, align 4, !tbaa !16
   %192 = load float, ptr %arrayidx.i.i, align 4, !tbaa !16
@@ -575,7 +575,7 @@ if.end18.i.i:                                     ; preds = %if.end18.sink.split
 
 for.body23.i.i:                                   ; preds = %for.body23.i.i, %for.body23.preheader.i.i.new
   %indvars.iv53.i.i = phi i64 [ 0, %for.body23.preheader.i.i.new ], [ %indvars.iv.next54.i.i.1, %for.body23.i.i ]
-  %niter1756 = phi i64 [ 0, %for.body23.preheader.i.i.new ], [ %niter1756.next.1, %for.body23.i.i ]
+  %niter1754 = phi i64 [ 0, %for.body23.preheader.i.i.new ], [ %niter1754.next.1, %for.body23.i.i ]
   %arrayidx25.i.i = getelementptr inbounds [16 x i32], ptr %point_indices.i.i, i64 0, i64 %indvars.iv53.i.i
   %203 = load i32, ptr %arrayidx25.i.i, align 8, !tbaa !23
   %idxprom26.i.i = zext i32 %203 to i64
@@ -590,14 +590,14 @@ for.body23.i.i:                                   ; preds = %for.body23.i.i, %fo
   %arrayidx29.i.i.1 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv.next54.i.i
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i.1, i64 16, i1 false), !tbaa.struct !14
   %indvars.iv.next54.i.i.1 = add nuw nsw i64 %indvars.iv53.i.i, 2
-  %niter1756.next.1 = add i64 %niter1756, 2
-  %niter1756.ncmp.1 = icmp eq i64 %niter1756.next.1, %unroll_iter1755
-  br i1 %niter1756.ncmp.1, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit.loopexit.unr-lcssa, label %for.body23.i.i
+  %niter1754.next.1 = add i64 %niter1754, 2
+  %niter1754.ncmp.1 = icmp eq i64 %niter1754.next.1, %unroll_iter1753
+  br i1 %niter1754.ncmp.1, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit.loopexit.unr-lcssa, label %for.body23.i.i
 
 _ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit.loopexit.unr-lcssa: ; preds = %for.body23.i.i, %for.body23.preheader.i.i
   %indvars.iv53.i.i.unr = phi i64 [ 0, %for.body23.preheader.i.i ], [ %indvars.iv.next54.i.i.1, %for.body23.i.i ]
-  %lcmp.mod1754.not = icmp eq i64 %xtraiter1753, 0
-  br i1 %lcmp.mod1754.not, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit, label %for.body23.i.i.epil
+  %lcmp.mod1752.not = icmp eq i64 %xtraiter1751, 0
+  br i1 %lcmp.mod1752.not, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit, label %for.body23.i.i.epil
 
 for.body23.i.i.epil:                              ; preds = %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit.loopexit.unr-lcssa
   %arrayidx25.i.i.epil = getelementptr inbounds [16 x i32], ptr %point_indices.i.i, i64 0, i64 %indvars.iv53.i.i.unr
@@ -615,139 +615,139 @@ _ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit: ; 
 if.else1582:                                      ; preds = %if.end1524
   %call1590 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %this, ptr noundef nonnull align 4 dereferenceable(16) %tu_plane, ptr noundef nonnull %tu_vertices, ptr noundef nonnull %tv_vertices, ptr noundef nonnull %contact_points)
   %cmp1591 = icmp eq i32 %call1590, 0
-  br i1 %cmp1591, label %return, label %for.body.lr.ph.i.i1706
+  br i1 %cmp1591, label %return, label %if.end1593
 
-for.body.lr.ph.i.i1706:                           ; preds = %if.else1582
+if.end1593:                                       ; preds = %if.else1582
   %206 = load float, ptr %this, align 4, !tbaa !10
-  %m_separating_normal.i1699 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_separating_normal.i1699, ptr noundef nonnull align 4 dereferenceable(16) %tu_plane, i64 16, i1 false)
-  %m_point_count.i.i1700 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 1
-  store i32 0, ptr %m_point_count.i.i1700, align 4, !tbaa !19
+  %m_separating_normal.i1682 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %m_separating_normal.i1682, ptr noundef nonnull align 4 dereferenceable(16) %tu_plane, i64 16, i1 false)
+  %m_point_count.i.i1683 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 1
+  store i32 0, ptr %m_point_count.i.i1683, align 4, !tbaa !19
   store float -1.000000e+03, ptr %contacts, align 4, !tbaa !22
-  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %point_indices.i.i1698) #7
-  %wide.trip.count.i.i1705 = zext i32 %call1590 to i64
-  br label %for.body.i.i1720
+  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %point_indices.i.i1681) #7
+  %wide.trip.count.i.i1688 = zext i32 %call1590 to i64
+  br label %for.body.i.i1703
 
-for.cond20.preheader.i.i1708:                     ; preds = %if.end18.i.i1737
-  %cmp2250.not.i.i1707 = icmp eq i32 %inc45.i.i1734, 0
-  br i1 %cmp2250.not.i.i1707, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746, label %for.body23.preheader.i.i1710
+for.cond20.preheader.i.i1691:                     ; preds = %if.end18.i.i1720
+  %cmp2250.not.i.i1690 = icmp eq i32 %inc45.i.i1717, 0
+  br i1 %cmp2250.not.i.i1690, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729, label %for.body23.preheader.i.i1693
 
-for.body23.preheader.i.i1710:                     ; preds = %for.cond20.preheader.i.i1708
-  %wide.trip.count56.i.i1709 = zext i32 %inc45.i.i1734 to i64
-  %xtraiter = and i64 %wide.trip.count56.i.i1709, 1
-  %207 = icmp eq i32 %inc45.i.i1734, 1
-  br i1 %207, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746.loopexit.unr-lcssa, label %for.body23.preheader.i.i1710.new
+for.body23.preheader.i.i1693:                     ; preds = %for.cond20.preheader.i.i1691
+  %wide.trip.count56.i.i1692 = zext i32 %inc45.i.i1717 to i64
+  %xtraiter = and i64 %wide.trip.count56.i.i1692, 1
+  %207 = icmp eq i32 %inc45.i.i1717, 1
+  br i1 %207, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729.loopexit.unr-lcssa, label %for.body23.preheader.i.i1693.new
 
-for.body23.preheader.i.i1710.new:                 ; preds = %for.body23.preheader.i.i1710
-  %unroll_iter = and i64 %wide.trip.count56.i.i1709, 4294967294
-  br label %for.body23.i.i1745
+for.body23.preheader.i.i1693.new:                 ; preds = %for.body23.preheader.i.i1693
+  %unroll_iter = and i64 %wide.trip.count56.i.i1692, 4294967294
+  br label %for.body23.i.i1728
 
-for.body.i.i1720:                                 ; preds = %if.end18.i.i1737, %for.body.lr.ph.i.i1706
-  %208 = phi float [ -1.000000e+03, %for.body.lr.ph.i.i1706 ], [ %220, %if.end18.i.i1737 ]
-  %indvars.iv.i.i1711 = phi i64 [ 0, %for.body.lr.ph.i.i1706 ], [ %indvars.iv.next.i.i1735, %if.end18.i.i1737 ]
-  %inc4648.i.i1712 = phi i32 [ 0, %for.body.lr.ph.i.i1706 ], [ %inc45.i.i1734, %if.end18.i.i1737 ]
-  %arrayidx.i.i1713 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %indvars.iv.i.i1711
+for.body.i.i1703:                                 ; preds = %if.end18.i.i1720, %if.end1593
+  %208 = phi float [ -1.000000e+03, %if.end1593 ], [ %220, %if.end18.i.i1720 ]
+  %indvars.iv.i.i1694 = phi i64 [ 0, %if.end1593 ], [ %indvars.iv.next.i.i1718, %if.end18.i.i1720 ]
+  %inc4648.i.i1695 = phi i32 [ 0, %if.end1593 ], [ %inc45.i.i1717, %if.end18.i.i1720 ]
+  %arrayidx.i.i1696 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %indvars.iv.i.i1694
   %209 = load float, ptr %tu_plane, align 4, !tbaa !16
-  %210 = load float, ptr %arrayidx.i.i1713, align 4, !tbaa !16
+  %210 = load float, ptr %arrayidx.i.i1696, align 4, !tbaa !16
   %211 = load float, ptr %arrayidx834, align 4, !tbaa !16
-  %arrayidx7.i.i.i1714 = getelementptr inbounds float, ptr %arrayidx.i.i1713, i64 1
-  %212 = load float, ptr %arrayidx7.i.i.i1714, align 4, !tbaa !16
-  %mul8.i.i.i1715 = fmul float %211, %212
-  %213 = tail call float @llvm.fmuladd.f32(float %209, float %210, float %mul8.i.i.i1715)
+  %arrayidx7.i.i.i1697 = getelementptr inbounds float, ptr %arrayidx.i.i1696, i64 1
+  %212 = load float, ptr %arrayidx7.i.i.i1697, align 4, !tbaa !16
+  %mul8.i.i.i1698 = fmul float %211, %212
+  %213 = tail call float @llvm.fmuladd.f32(float %209, float %210, float %mul8.i.i.i1698)
   %214 = load float, ptr %arrayidx844, align 4, !tbaa !16
-  %arrayidx12.i.i.i1716 = getelementptr inbounds float, ptr %arrayidx.i.i1713, i64 2
-  %215 = load float, ptr %arrayidx12.i.i.i1716, align 4, !tbaa !16
+  %arrayidx12.i.i.i1699 = getelementptr inbounds float, ptr %arrayidx.i.i1696, i64 2
+  %215 = load float, ptr %arrayidx12.i.i.i1699, align 4, !tbaa !16
   %216 = tail call float @llvm.fmuladd.f32(float %214, float %215, float %213)
   %217 = load float, ptr %arrayidx922, align 4, !tbaa !16
-  %sub.i.i.i1717 = fsub float %216, %217
-  %add.i.i1718 = fsub float %206, %sub.i.i.i1717
-  %cmp2.i.i1719 = fcmp ult float %add.i.i1718, 0.000000e+00
-  br i1 %cmp2.i.i1719, label %if.end18.i.i1737, label %if.then.i.i1722
+  %sub.i.i.i1700 = fsub float %216, %217
+  %add.i.i1701 = fsub float %206, %sub.i.i.i1700
+  %cmp2.i.i1702 = fcmp ult float %add.i.i1701, 0.000000e+00
+  br i1 %cmp2.i.i1702, label %if.end18.i.i1720, label %if.then.i.i1705
 
-if.then.i.i1722:                                  ; preds = %for.body.i.i1720
-  %cmp4.i.i1721 = fcmp ogt float %add.i.i1718, %208
-  br i1 %cmp4.i.i1721, label %if.then5.i.i1723, label %if.else.i.i1726
+if.then.i.i1705:                                  ; preds = %for.body.i.i1703
+  %cmp4.i.i1704 = fcmp ogt float %add.i.i1701, %208
+  br i1 %cmp4.i.i1704, label %if.then5.i.i1706, label %if.else.i.i1709
 
-if.then5.i.i1723:                                 ; preds = %if.then.i.i1722
-  store float %add.i.i1718, ptr %contacts, align 4, !tbaa !22
-  %218 = trunc i64 %indvars.iv.i.i1711 to i32
-  store i32 %218, ptr %point_indices.i.i1698, align 16, !tbaa !23
-  br label %if.end18.sink.split.i.i1733
+if.then5.i.i1706:                                 ; preds = %if.then.i.i1705
+  store float %add.i.i1701, ptr %contacts, align 4, !tbaa !22
+  %218 = trunc i64 %indvars.iv.i.i1694 to i32
+  store i32 %218, ptr %point_indices.i.i1681, align 16, !tbaa !23
+  br label %if.end18.sink.split.i.i1716
 
-if.else.i.i1726:                                  ; preds = %if.then.i.i1722
-  %add9.i.i1724 = fadd float %add.i.i1718, 0x3E80000000000000
-  %cmp11.i.i1725 = fcmp ult float %add9.i.i1724, %208
-  br i1 %cmp11.i.i1725, label %if.end18.i.i1737, label %if.then12.i.i1730
+if.else.i.i1709:                                  ; preds = %if.then.i.i1705
+  %add9.i.i1707 = fadd float %add.i.i1701, 0x3E80000000000000
+  %cmp11.i.i1708 = fcmp ult float %add9.i.i1707, %208
+  br i1 %cmp11.i.i1708, label %if.end18.i.i1720, label %if.then12.i.i1713
 
-if.then12.i.i1730:                                ; preds = %if.else.i.i1726
-  %idxprom14.i.i1727 = zext i32 %inc4648.i.i1712 to i64
-  %arrayidx15.i.i1728 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1698, i64 0, i64 %idxprom14.i.i1727
-  %219 = trunc i64 %indvars.iv.i.i1711 to i32
-  store i32 %219, ptr %arrayidx15.i.i1728, align 4, !tbaa !23
-  %inc.i.i1729 = add i32 %inc4648.i.i1712, 1
-  br label %if.end18.sink.split.i.i1733
+if.then12.i.i1713:                                ; preds = %if.else.i.i1709
+  %idxprom14.i.i1710 = zext i32 %inc4648.i.i1695 to i64
+  %arrayidx15.i.i1711 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1681, i64 0, i64 %idxprom14.i.i1710
+  %219 = trunc i64 %indvars.iv.i.i1694 to i32
+  store i32 %219, ptr %arrayidx15.i.i1711, align 4, !tbaa !23
+  %inc.i.i1712 = add i32 %inc4648.i.i1695, 1
+  br label %if.end18.sink.split.i.i1716
 
-if.end18.sink.split.i.i1733:                      ; preds = %if.then12.i.i1730, %if.then5.i.i1723
-  %.sink.i.i1731 = phi i32 [ 1, %if.then5.i.i1723 ], [ %inc.i.i1729, %if.then12.i.i1730 ]
-  %.ph.i.i1732 = phi float [ %add.i.i1718, %if.then5.i.i1723 ], [ %208, %if.then12.i.i1730 ]
-  store i32 %.sink.i.i1731, ptr %m_point_count.i.i1700, align 4, !tbaa !19
-  br label %if.end18.i.i1737
+if.end18.sink.split.i.i1716:                      ; preds = %if.then12.i.i1713, %if.then5.i.i1706
+  %.sink.i.i1714 = phi i32 [ 1, %if.then5.i.i1706 ], [ %inc.i.i1712, %if.then12.i.i1713 ]
+  %.ph.i.i1715 = phi float [ %add.i.i1701, %if.then5.i.i1706 ], [ %208, %if.then12.i.i1713 ]
+  store i32 %.sink.i.i1714, ptr %m_point_count.i.i1683, align 4, !tbaa !19
+  br label %if.end18.i.i1720
 
-if.end18.i.i1737:                                 ; preds = %if.end18.sink.split.i.i1733, %if.else.i.i1726, %for.body.i.i1720
-  %220 = phi float [ %208, %if.else.i.i1726 ], [ %208, %for.body.i.i1720 ], [ %.ph.i.i1732, %if.end18.sink.split.i.i1733 ]
-  %inc45.i.i1734 = phi i32 [ %inc4648.i.i1712, %if.else.i.i1726 ], [ %inc4648.i.i1712, %for.body.i.i1720 ], [ %.sink.i.i1731, %if.end18.sink.split.i.i1733 ]
-  %indvars.iv.next.i.i1735 = add nuw nsw i64 %indvars.iv.i.i1711, 1
-  %exitcond.not.i.i1736 = icmp eq i64 %indvars.iv.next.i.i1735, %wide.trip.count.i.i1705
-  br i1 %exitcond.not.i.i1736, label %for.cond20.preheader.i.i1708, label %for.body.i.i1720
+if.end18.i.i1720:                                 ; preds = %if.end18.sink.split.i.i1716, %if.else.i.i1709, %for.body.i.i1703
+  %220 = phi float [ %208, %if.else.i.i1709 ], [ %208, %for.body.i.i1703 ], [ %.ph.i.i1715, %if.end18.sink.split.i.i1716 ]
+  %inc45.i.i1717 = phi i32 [ %inc4648.i.i1695, %if.else.i.i1709 ], [ %inc4648.i.i1695, %for.body.i.i1703 ], [ %.sink.i.i1714, %if.end18.sink.split.i.i1716 ]
+  %indvars.iv.next.i.i1718 = add nuw nsw i64 %indvars.iv.i.i1694, 1
+  %exitcond.not.i.i1719 = icmp eq i64 %indvars.iv.next.i.i1718, %wide.trip.count.i.i1688
+  br i1 %exitcond.not.i.i1719, label %for.cond20.preheader.i.i1691, label %for.body.i.i1703
 
-for.body23.i.i1745:                               ; preds = %for.body23.i.i1745, %for.body23.preheader.i.i1710.new
-  %indvars.iv53.i.i1738 = phi i64 [ 0, %for.body23.preheader.i.i1710.new ], [ %indvars.iv.next54.i.i1743.1, %for.body23.i.i1745 ]
-  %niter = phi i64 [ 0, %for.body23.preheader.i.i1710.new ], [ %niter.next.1, %for.body23.i.i1745 ]
-  %arrayidx25.i.i1739 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1698, i64 0, i64 %indvars.iv53.i.i1738
-  %221 = load i32, ptr %arrayidx25.i.i1739, align 8, !tbaa !23
-  %idxprom26.i.i1740 = zext i32 %221 to i64
-  %arrayidx27.i.i1741 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1740
-  %arrayidx29.i.i1742 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv53.i.i1738
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1742, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1741, i64 16, i1 false), !tbaa.struct !14
-  %indvars.iv.next54.i.i1743 = or i64 %indvars.iv53.i.i1738, 1
-  %arrayidx25.i.i1739.1 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1698, i64 0, i64 %indvars.iv.next54.i.i1743
-  %222 = load i32, ptr %arrayidx25.i.i1739.1, align 4, !tbaa !23
-  %idxprom26.i.i1740.1 = zext i32 %222 to i64
-  %arrayidx27.i.i1741.1 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1740.1
-  %arrayidx29.i.i1742.1 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv.next54.i.i1743
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1742.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1741.1, i64 16, i1 false), !tbaa.struct !14
-  %indvars.iv.next54.i.i1743.1 = add nuw nsw i64 %indvars.iv53.i.i1738, 2
+for.body23.i.i1728:                               ; preds = %for.body23.i.i1728, %for.body23.preheader.i.i1693.new
+  %indvars.iv53.i.i1721 = phi i64 [ 0, %for.body23.preheader.i.i1693.new ], [ %indvars.iv.next54.i.i1726.1, %for.body23.i.i1728 ]
+  %niter = phi i64 [ 0, %for.body23.preheader.i.i1693.new ], [ %niter.next.1, %for.body23.i.i1728 ]
+  %arrayidx25.i.i1722 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1681, i64 0, i64 %indvars.iv53.i.i1721
+  %221 = load i32, ptr %arrayidx25.i.i1722, align 8, !tbaa !23
+  %idxprom26.i.i1723 = zext i32 %221 to i64
+  %arrayidx27.i.i1724 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1723
+  %arrayidx29.i.i1725 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv53.i.i1721
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1725, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1724, i64 16, i1 false), !tbaa.struct !14
+  %indvars.iv.next54.i.i1726 = or i64 %indvars.iv53.i.i1721, 1
+  %arrayidx25.i.i1722.1 = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1681, i64 0, i64 %indvars.iv.next54.i.i1726
+  %222 = load i32, ptr %arrayidx25.i.i1722.1, align 4, !tbaa !23
+  %idxprom26.i.i1723.1 = zext i32 %222 to i64
+  %arrayidx27.i.i1724.1 = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1723.1
+  %arrayidx29.i.i1725.1 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv.next54.i.i1726
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1725.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1724.1, i64 16, i1 false), !tbaa.struct !14
+  %indvars.iv.next54.i.i1726.1 = add nuw nsw i64 %indvars.iv53.i.i1721, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
-  br i1 %niter.ncmp.1, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746.loopexit.unr-lcssa, label %for.body23.i.i1745
+  br i1 %niter.ncmp.1, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729.loopexit.unr-lcssa, label %for.body23.i.i1728
 
-_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746.loopexit.unr-lcssa: ; preds = %for.body23.i.i1745, %for.body23.preheader.i.i1710
-  %indvars.iv53.i.i1738.unr = phi i64 [ 0, %for.body23.preheader.i.i1710 ], [ %indvars.iv.next54.i.i1743.1, %for.body23.i.i1745 ]
+_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729.loopexit.unr-lcssa: ; preds = %for.body23.i.i1728, %for.body23.preheader.i.i1693
+  %indvars.iv53.i.i1721.unr = phi i64 [ 0, %for.body23.preheader.i.i1693 ], [ %indvars.iv.next54.i.i1726.1, %for.body23.i.i1728 ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746, label %for.body23.i.i1745.epil
+  br i1 %lcmp.mod.not, label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729, label %for.body23.i.i1728.epil
 
-for.body23.i.i1745.epil:                          ; preds = %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746.loopexit.unr-lcssa
-  %arrayidx25.i.i1739.epil = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1698, i64 0, i64 %indvars.iv53.i.i1738.unr
-  %223 = load i32, ptr %arrayidx25.i.i1739.epil, align 4, !tbaa !23
-  %idxprom26.i.i1740.epil = zext i32 %223 to i64
-  %arrayidx27.i.i1741.epil = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1740.epil
-  %arrayidx29.i.i1742.epil = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv53.i.i1738.unr
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1742.epil, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1741.epil, i64 16, i1 false), !tbaa.struct !14
-  br label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746
+for.body23.i.i1728.epil:                          ; preds = %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729.loopexit.unr-lcssa
+  %arrayidx25.i.i1722.epil = getelementptr inbounds [16 x i32], ptr %point_indices.i.i1681, i64 0, i64 %indvars.iv53.i.i1721.unr
+  %223 = load i32, ptr %arrayidx25.i.i1722.epil, align 4, !tbaa !23
+  %idxprom26.i.i1723.epil = zext i32 %223 to i64
+  %arrayidx27.i.i1724.epil = getelementptr inbounds %class.btVector3, ptr %contact_points, i64 %idxprom26.i.i1723.epil
+  %arrayidx29.i.i1725.epil = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 3, i64 %indvars.iv53.i.i1721.unr
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx29.i.i1725.epil, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx27.i.i1724.epil, i64 16, i1 false), !tbaa.struct !14
+  br label %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729
 
-_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746: ; preds = %for.body23.i.i1745.epil, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746.loopexit.unr-lcssa, %for.cond20.preheader.i.i1708
-  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %point_indices.i.i1698) #7
-  %224 = load <2 x float>, ptr %m_separating_normal.i1699, align 4, !tbaa !16
+_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729: ; preds = %for.body23.i.i1728.epil, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729.loopexit.unr-lcssa, %for.cond20.preheader.i.i1691
+  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %point_indices.i.i1681) #7
+  %224 = load <2 x float>, ptr %m_separating_normal.i1682, align 4, !tbaa !16
   %225 = fneg <2 x float> %224
-  store <2 x float> %225, ptr %m_separating_normal.i1699, align 4, !tbaa !16
+  store <2 x float> %225, ptr %m_separating_normal.i1682, align 4, !tbaa !16
   %arrayidx6.i = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %contacts, i64 0, i32 2, i32 0, i32 0, i64 2
   %226 = load float, ptr %arrayidx6.i, align 4, !tbaa !16
   %mul7.i = fneg float %226
   store float %mul7.i, ptr %arrayidx6.i, align 4, !tbaa !16
   br label %if.end1600
 
-if.end1600:                                       ; preds = %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit
-  %227 = phi i32 [ %inc45.i.i1734, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1746 ], [ %inc45.i.i, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit ]
+if.end1600:                                       ; preds = %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit
+  %227 = phi i32 [ %inc45.i.i1717, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit1729 ], [ %inc45.i.i, %_ZN25GIM_TRIANGLE_CONTACT_DATA12merge_pointsERK9btVector4fPK9btVector3j.exit ]
   %cmp1602 = icmp ne i32 %227, 0
   br label %return
 

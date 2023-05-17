@@ -36,15 +36,15 @@ do.body:                                          ; preds = %do.body, %entry
 
 do.end:                                           ; preds = %do.body
   %cmp9 = icmp eq ptr %incdec.ptr, %value
-  %brmerge.not = and i1 %cmp9, %cmp.not
-  br i1 %brmerge.not, label %if.then14, label %if.end15
+  %or.cond30 = and i1 %cmp9, %cmp.not
+  br i1 %or.cond30, label %if.then14, label %if.end15
 
 if.then14:                                        ; preds = %do.end
   %sign = getelementptr inbounds %struct.precisionType, ptr %u, i64 0, i32 3
   store i8 0, ptr %sign, align 2, !tbaa !13
   br label %if.end15
 
-if.end15:                                         ; preds = %do.end, %if.then14
+if.end15:                                         ; preds = %if.then14, %do.end
   %sub.ptr.lhs.cast = ptrtoint ptr %incdec.ptr to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %value to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast

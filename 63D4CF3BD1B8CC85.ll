@@ -77,7 +77,7 @@ declare void @__cxa_throw(ptr, ptr, ptr) local_unnamed_addr
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #4 personality ptr @__gxx_personality_v0 {
-invoke.cont.i:
+entry:
   %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #7
   %0 = load i32, ptr @c, align 4, !tbaa !5
@@ -88,18 +88,18 @@ invoke.cont.i:
   invoke void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
           to label %.noexc unwind label %lpad
 
-.noexc:                                           ; preds = %invoke.cont.i
+.noexc:                                           ; preds = %entry
   unreachable
 
-lpad:                                             ; preds = %invoke.cont.i
+lpad:                                             ; preds = %entry
   %1 = landingpad { ptr, i32 }
           catch ptr @_ZTI1A
   %2 = extractvalue { ptr, i32 } %1, 1
   %3 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI1A) #7
   %matches = icmp eq i32 %2, %3
-  br i1 %matches, label %invoke.cont1, label %eh.resume
+  br i1 %matches, label %catch, label %eh.resume
 
-invoke.cont1:                                     ; preds = %lpad
+catch:                                            ; preds = %lpad
   %4 = extractvalue { ptr, i32 } %1, 0
   %5 = tail call ptr @__cxa_get_exception_ptr(ptr %4) #7
   %6 = load i32, ptr @c, align 4, !tbaa !5

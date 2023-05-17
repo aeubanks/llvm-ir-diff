@@ -324,7 +324,7 @@ do.body165:                                       ; preds = %do.body165, %sw.bb1
   br i1 %cmp248, label %do.body165, label %sw.epilog, !llvm.loop !16
 
 sw.epilog:                                        ; preds = %do.body165, %do.body96, %do.body, %if.end
-  %cmp254.not = icmp eq i8 %9, 1
+  %cmp254.not = icmp eq i32 %2, 1
   br i1 %cmp254.not, label %cleanup, label %if.then256
 
 if.then256:                                       ; preds = %sw.epilog

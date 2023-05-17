@@ -112,14 +112,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not104123 = icmp eq i64 %12, 0
   %cmp.not.i.not104 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not104123
-  br i1 %cmp.not.i.not104, label %for.cond.cleanup, label %for.cond19.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not104, label %if.end.i, label %for.cond19.preheader.lr.ph, !prof !30
 
 for.cond19.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %13 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %14 = load i64, ptr %13, align 8, !tbaa !32
   %cmp30101 = icmp sgt i64 %14, 0
-  br i1 %cmp30101, label %for.cond19.preheader.us.us.preheader, label %for.cond.cleanup
+  br i1 %cmp30101, label %for.cond19.preheader.us.us.preheader, label %if.end.i
 
 for.cond19.preheader.us.us.preheader:             ; preds = %for.cond19.preheader.lr.ph
   %15 = shl i64 %14, 3
@@ -335,9 +335,9 @@ for.body32.us.us.preheader166:                    ; preds = %for.body32.us.us.pr
 for.cond27.for.cond.cleanup31_crit_edge.us.us:    ; preds = %37, %middle.block
   %dec.i.us.us = add i64 %__begin1.sroa.0.0105.us.us, -1
   %cmp.not.i.not.us.us = icmp eq i64 %dec.i.us.us, 0
-  br i1 %cmp.not.i.not.us.us, label %for.cond.cleanup, label %for.cond19.preheader.us.us, !prof !30
+  br i1 %cmp.not.i.not.us.us, label %if.end.i, label %for.cond19.preheader.us.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond27.for.cond.cleanup31_crit_edge.us.us, %for.cond19.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond27.for.cond.cleanup31_crit_edge.us.us, %for.cond19.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -408,7 +408,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not478480 = icmp eq i64 %26, 0
   %cmp.not.i.not478 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not478480
-  br i1 %cmp.not.i.not478, label %for.cond.cleanup, label %for.cond39.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not478, label %if.end.i, label %for.cond39.preheader.lr.ph, !prof !30
 
 for.cond39.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -487,7 +487,7 @@ for.body42.preheader701:                          ; preds = %for.body42.preheade
   %indvars.iv.ph = phi i64 [ 0, %for.body42.preheader ], [ %n.vec688, %middle.block683 ]
   br label %for.body42
 
-for.cond.cleanup:                                 ; preds = %for.cond.cleanup247, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup247, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -749,10 +749,10 @@ for.body136:                                      ; preds = %for.body136.prehead
   %110 = tail call double @llvm.fmuladd.f64(double %108, double 5.000000e-01, double %109)
   %111 = tail call double @llvm.fabs.f64(double %110)
   %cmp144 = fcmp olt double %111, %22
-  %storemerge451 = select i1 %cmp144, double 0.000000e+00, double %110
-  %cmp151 = fcmp olt double %storemerge451, %23
-  %storemerge453 = select i1 %cmp151, double %23, double %storemerge451
-  store double %storemerge453, ptr %arrayidx141, align 8, !tbaa !9
+  %storemerge457 = select i1 %cmp144, double 0.000000e+00, double %110
+  %cmp151 = fcmp olt double %storemerge457, %23
+  %storemerge459 = select i1 %cmp151, double %23, double %storemerge457
+  store double %storemerge459, ptr %arrayidx141, align 8, !tbaa !9
   %indvars.iv.next491 = add nuw nsw i64 %indvars.iv490, 1
   %exitcond493.not = icmp eq i64 %indvars.iv.next491, %81
   br i1 %exitcond493.not, label %for.cond160.preheader, label %for.body136, !llvm.loop !77
@@ -849,10 +849,10 @@ if.end199:                                        ; preds = %for.body165, %if.en
   %sub = fsub double %131, %div222
   %138 = tail call double @llvm.fabs.f64(double %sub)
   %cmp227 = fcmp olt double %138, %22
-  %storemerge450 = select i1 %cmp227, double 0.000000e+00, double %sub
-  %cmp234 = fcmp olt double %storemerge450, %23
-  %storemerge452 = select i1 %cmp234, double %23, double %storemerge450
-  store double %storemerge452, ptr %arrayidx201, align 8, !tbaa !9
+  %storemerge456 = select i1 %cmp227, double 0.000000e+00, double %sub
+  %cmp234 = fcmp olt double %storemerge456, %23
+  %storemerge458 = select i1 %cmp234, double %23, double %storemerge456
+  store double %storemerge458, ptr %arrayidx201, align 8, !tbaa !9
   %indvars.iv.next495 = add nuw nsw i64 %indvars.iv494, 1
   %cmp163 = icmp sgt i64 %129, %indvars.iv.next495
   br i1 %cmp163, label %for.body165, label %for.cond243.preheader, !llvm.loop !78
@@ -865,7 +865,7 @@ for.cond.cleanup247:                              ; preds = %for.inc291, %for.co
   %140 = phi i64 [ %113, %for.cond243.preheader ], [ %33, %for.cond57.preheader ], [ %33, %for.cond39.preheader ], [ %153, %for.inc291 ]
   %dec.i = add i64 %__begin1.sroa.0.0479, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond39.preheader, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond39.preheader, !prof !30
 
 for.body248:                                      ; preds = %for.cond243.preheader, %for.inc291
   %.pre507578 = phi i64 [ %.pre507579, %for.inc291 ], [ %.pre507568, %for.cond243.preheader ]
@@ -930,7 +930,7 @@ for.inc291:                                       ; preds = %for.body248, %if.en
 
 ; Function Attrs: uwtable
 define internal void @_ZL17BM_VOL3D_CALC_RAWRN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %state) #4 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %domain = alloca %struct.ADomain, align 8
   %call = tail call noundef nonnull align 8 dereferenceable(1616) ptr @_Z11getLoopDatav()
   tail call void @_Z8loopInitj(i32 noundef 5)
@@ -982,19 +982,19 @@ invoke.cont:
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad62
 
-for.cond.preheader:                               ; preds = %invoke.cont
+for.cond.preheader:                               ; preds = %entry
   %tobool.not.i.i = icmp ne i8 %8, 0
-  %cmp.not.i.not373377 = icmp eq i64 %9, 0
-  %cmp.not.i.not373 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not373377
-  br i1 %cmp.not.i.not373, label %if.end.i, label %for.body.lr.ph, !prof !30
+  %cmp.not.i.not372376 = icmp eq i64 %9, 0
+  %cmp.not.i.not372 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not372376
+  br i1 %cmp.not.i.not372, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %fpz = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 16
   %10 = load i32, ptr %fpz, align 8, !tbaa !83
   %lpz = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 17
   %11 = load i32, ptr %lpz, align 4, !tbaa !84
-  %cmp.not371 = icmp slt i32 %11, %10
-  br i1 %cmp.not371, label %if.end.i, label %for.body.preheader
+  %cmp.not370 = icmp slt i32 %11, %10
+  br i1 %cmp.not370, label %if.end.i, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %for.body.lr.ph
   %12 = sext i32 %10 to i64
@@ -1006,96 +1006,96 @@ for.body.preheader:                               ; preds = %for.body.lr.ph
   %17 = shl nuw nsw i64 %16, 3
   %18 = add nsw i64 %14, %17
   %19 = add nsw i64 %18, 8
-  %scevgep378 = getelementptr i8, ptr %3, i64 %19
+  %scevgep377 = getelementptr i8, ptr %3, i64 %19
   %20 = shl nsw i64 %idx.ext12, 3
   %21 = shl nsw i64 %idx.ext, 3
   %22 = add nsw i64 %20, %21
   %23 = add nsw i64 %22, %14
-  %scevgep379 = getelementptr i8, ptr %0, i64 %23
+  %scevgep378 = getelementptr i8, ptr %0, i64 %23
   %24 = add nsw i64 %23, %17
   %25 = add nsw i64 %24, 16
-  %scevgep380 = getelementptr i8, ptr %0, i64 %25
+  %scevgep379 = getelementptr i8, ptr %0, i64 %25
   %26 = add nsw i64 %20, %14
-  %scevgep381 = getelementptr i8, ptr %0, i64 %26
+  %scevgep380 = getelementptr i8, ptr %0, i64 %26
   %27 = add nsw i64 %26, %17
   %28 = add nsw i64 %27, 16
-  %scevgep382 = getelementptr i8, ptr %0, i64 %28
-  %scevgep383 = getelementptr i8, ptr %0, i64 %14
+  %scevgep381 = getelementptr i8, ptr %0, i64 %28
+  %scevgep382 = getelementptr i8, ptr %0, i64 %14
   %29 = add nsw i64 %14, %17
   %30 = add nsw i64 %29, 16
-  %scevgep384 = getelementptr i8, ptr %0, i64 %30
+  %scevgep383 = getelementptr i8, ptr %0, i64 %30
   %31 = add nsw i64 %21, %14
-  %scevgep385 = getelementptr i8, ptr %0, i64 %31
+  %scevgep384 = getelementptr i8, ptr %0, i64 %31
   %32 = add nsw i64 %31, %17
   %33 = add nsw i64 %32, 16
-  %scevgep386 = getelementptr i8, ptr %0, i64 %33
-  %scevgep387 = getelementptr i8, ptr %1, i64 %23
-  %scevgep388 = getelementptr i8, ptr %1, i64 %25
-  %scevgep389 = getelementptr i8, ptr %1, i64 %26
-  %scevgep390 = getelementptr i8, ptr %1, i64 %28
-  %scevgep391 = getelementptr i8, ptr %1, i64 %14
-  %scevgep392 = getelementptr i8, ptr %1, i64 %30
-  %scevgep393 = getelementptr i8, ptr %1, i64 %31
-  %scevgep394 = getelementptr i8, ptr %1, i64 %33
-  %scevgep395 = getelementptr i8, ptr %2, i64 %23
-  %scevgep396 = getelementptr i8, ptr %2, i64 %25
-  %scevgep397 = getelementptr i8, ptr %2, i64 %26
-  %scevgep398 = getelementptr i8, ptr %2, i64 %28
-  %scevgep399 = getelementptr i8, ptr %2, i64 %14
-  %scevgep400 = getelementptr i8, ptr %2, i64 %30
-  %scevgep401 = getelementptr i8, ptr %2, i64 %31
-  %scevgep402 = getelementptr i8, ptr %2, i64 %33
+  %scevgep385 = getelementptr i8, ptr %0, i64 %33
+  %scevgep386 = getelementptr i8, ptr %1, i64 %23
+  %scevgep387 = getelementptr i8, ptr %1, i64 %25
+  %scevgep388 = getelementptr i8, ptr %1, i64 %26
+  %scevgep389 = getelementptr i8, ptr %1, i64 %28
+  %scevgep390 = getelementptr i8, ptr %1, i64 %14
+  %scevgep391 = getelementptr i8, ptr %1, i64 %30
+  %scevgep392 = getelementptr i8, ptr %1, i64 %31
+  %scevgep393 = getelementptr i8, ptr %1, i64 %33
+  %scevgep394 = getelementptr i8, ptr %2, i64 %23
+  %scevgep395 = getelementptr i8, ptr %2, i64 %25
+  %scevgep396 = getelementptr i8, ptr %2, i64 %26
+  %scevgep397 = getelementptr i8, ptr %2, i64 %28
+  %scevgep398 = getelementptr i8, ptr %2, i64 %14
+  %scevgep399 = getelementptr i8, ptr %2, i64 %30
+  %scevgep400 = getelementptr i8, ptr %2, i64 %31
+  %scevgep401 = getelementptr i8, ptr %2, i64 %33
   %34 = sub i32 %11, %10
   %35 = zext i32 %34 to i64
   %36 = add nuw nsw i64 %35, 1
   %min.iters.check = icmp ult i32 %34, 3
-  %bound0 = icmp ult ptr %scevgep, %scevgep380
-  %bound1 = icmp ult ptr %scevgep379, %scevgep378
+  %bound0 = icmp ult ptr %scevgep, %scevgep379
+  %bound1 = icmp ult ptr %scevgep378, %scevgep377
   %found.conflict = and i1 %bound0, %bound1
-  %bound0403 = icmp ult ptr %scevgep, %scevgep382
-  %bound1404 = icmp ult ptr %scevgep381, %scevgep378
-  %found.conflict405 = and i1 %bound0403, %bound1404
-  %conflict.rdx = or i1 %found.conflict, %found.conflict405
-  %bound0406 = icmp ult ptr %scevgep, %scevgep384
-  %bound1407 = icmp ult ptr %scevgep383, %scevgep378
-  %found.conflict408 = and i1 %bound0406, %bound1407
-  %conflict.rdx409 = or i1 %conflict.rdx, %found.conflict408
-  %bound0410 = icmp ult ptr %scevgep, %scevgep386
-  %bound1411 = icmp ult ptr %scevgep385, %scevgep378
-  %found.conflict412 = and i1 %bound0410, %bound1411
-  %conflict.rdx413 = or i1 %conflict.rdx409, %found.conflict412
-  %bound0414 = icmp ult ptr %scevgep, %scevgep388
-  %bound1415 = icmp ult ptr %scevgep387, %scevgep378
-  %found.conflict416 = and i1 %bound0414, %bound1415
-  %conflict.rdx417 = or i1 %conflict.rdx413, %found.conflict416
-  %bound0418 = icmp ult ptr %scevgep, %scevgep390
-  %bound1419 = icmp ult ptr %scevgep389, %scevgep378
-  %found.conflict420 = and i1 %bound0418, %bound1419
-  %conflict.rdx421 = or i1 %conflict.rdx417, %found.conflict420
-  %bound0422 = icmp ult ptr %scevgep, %scevgep392
-  %bound1423 = icmp ult ptr %scevgep391, %scevgep378
-  %found.conflict424 = and i1 %bound0422, %bound1423
-  %conflict.rdx425 = or i1 %conflict.rdx421, %found.conflict424
-  %bound0426 = icmp ult ptr %scevgep, %scevgep394
-  %bound1427 = icmp ult ptr %scevgep393, %scevgep378
-  %found.conflict428 = and i1 %bound0426, %bound1427
-  %conflict.rdx429 = or i1 %conflict.rdx425, %found.conflict428
-  %bound0430 = icmp ult ptr %scevgep, %scevgep396
-  %bound1431 = icmp ult ptr %scevgep395, %scevgep378
-  %found.conflict432 = and i1 %bound0430, %bound1431
-  %conflict.rdx433 = or i1 %conflict.rdx429, %found.conflict432
-  %bound0434 = icmp ult ptr %scevgep, %scevgep398
-  %bound1435 = icmp ult ptr %scevgep397, %scevgep378
-  %found.conflict436 = and i1 %bound0434, %bound1435
-  %conflict.rdx437 = or i1 %conflict.rdx433, %found.conflict436
-  %bound0438 = icmp ult ptr %scevgep, %scevgep400
-  %bound1439 = icmp ult ptr %scevgep399, %scevgep378
-  %found.conflict440 = and i1 %bound0438, %bound1439
-  %conflict.rdx441 = or i1 %conflict.rdx437, %found.conflict440
-  %bound0442 = icmp ult ptr %scevgep, %scevgep402
-  %bound1443 = icmp ult ptr %scevgep401, %scevgep378
-  %found.conflict444 = and i1 %bound0442, %bound1443
-  %conflict.rdx445 = or i1 %conflict.rdx441, %found.conflict444
+  %bound0402 = icmp ult ptr %scevgep, %scevgep381
+  %bound1403 = icmp ult ptr %scevgep380, %scevgep377
+  %found.conflict404 = and i1 %bound0402, %bound1403
+  %conflict.rdx = or i1 %found.conflict, %found.conflict404
+  %bound0405 = icmp ult ptr %scevgep, %scevgep383
+  %bound1406 = icmp ult ptr %scevgep382, %scevgep377
+  %found.conflict407 = and i1 %bound0405, %bound1406
+  %conflict.rdx408 = or i1 %conflict.rdx, %found.conflict407
+  %bound0409 = icmp ult ptr %scevgep, %scevgep385
+  %bound1410 = icmp ult ptr %scevgep384, %scevgep377
+  %found.conflict411 = and i1 %bound0409, %bound1410
+  %conflict.rdx412 = or i1 %conflict.rdx408, %found.conflict411
+  %bound0413 = icmp ult ptr %scevgep, %scevgep387
+  %bound1414 = icmp ult ptr %scevgep386, %scevgep377
+  %found.conflict415 = and i1 %bound0413, %bound1414
+  %conflict.rdx416 = or i1 %conflict.rdx412, %found.conflict415
+  %bound0417 = icmp ult ptr %scevgep, %scevgep389
+  %bound1418 = icmp ult ptr %scevgep388, %scevgep377
+  %found.conflict419 = and i1 %bound0417, %bound1418
+  %conflict.rdx420 = or i1 %conflict.rdx416, %found.conflict419
+  %bound0421 = icmp ult ptr %scevgep, %scevgep391
+  %bound1422 = icmp ult ptr %scevgep390, %scevgep377
+  %found.conflict423 = and i1 %bound0421, %bound1422
+  %conflict.rdx424 = or i1 %conflict.rdx420, %found.conflict423
+  %bound0425 = icmp ult ptr %scevgep, %scevgep393
+  %bound1426 = icmp ult ptr %scevgep392, %scevgep377
+  %found.conflict427 = and i1 %bound0425, %bound1426
+  %conflict.rdx428 = or i1 %conflict.rdx424, %found.conflict427
+  %bound0429 = icmp ult ptr %scevgep, %scevgep395
+  %bound1430 = icmp ult ptr %scevgep394, %scevgep377
+  %found.conflict431 = and i1 %bound0429, %bound1430
+  %conflict.rdx432 = or i1 %conflict.rdx428, %found.conflict431
+  %bound0433 = icmp ult ptr %scevgep, %scevgep397
+  %bound1434 = icmp ult ptr %scevgep396, %scevgep377
+  %found.conflict435 = and i1 %bound0433, %bound1434
+  %conflict.rdx436 = or i1 %conflict.rdx432, %found.conflict435
+  %bound0437 = icmp ult ptr %scevgep, %scevgep399
+  %bound1438 = icmp ult ptr %scevgep398, %scevgep377
+  %found.conflict439 = and i1 %bound0437, %bound1438
+  %conflict.rdx440 = or i1 %conflict.rdx436, %found.conflict439
+  %bound0441 = icmp ult ptr %scevgep, %scevgep401
+  %bound1442 = icmp ult ptr %scevgep400, %scevgep377
+  %found.conflict443 = and i1 %bound0441, %bound1442
+  %conflict.rdx444 = or i1 %conflict.rdx440, %found.conflict443
   %n.vec = and i64 %36, -2
   %ind.end = add nsw i64 %n.vec, %12
   %cmp.n = icmp eq i64 %36, %n.vec
@@ -1119,17 +1119,17 @@ _ZN7ADomainD2Ev.exit:                             ; preds = %for.cond.cleanup, %
   call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %domain) #11
   ret void
 
-lpad62:                                           ; preds = %if.end.i, %invoke.cont
+lpad62:                                           ; preds = %if.end.i, %entry
   %38 = landingpad { ptr, i32 }
           cleanup
-  %real_zones.i365 = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 18
-  %39 = load ptr, ptr %real_zones.i365, align 8, !tbaa !85
-  %tobool.not.i366 = icmp eq ptr %39, null
-  br i1 %tobool.not.i366, label %_ZN7ADomainD2Ev.exit369, label %delete.notnull.i367
+  %real_zones.i364 = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 18
+  %39 = load ptr, ptr %real_zones.i364, align 8, !tbaa !85
+  %tobool.not.i365 = icmp eq ptr %39, null
+  br i1 %tobool.not.i365, label %_ZN7ADomainD2Ev.exit368, label %delete.notnull.i366
 
 for.body:                                         ; preds = %for.body.preheader, %for.cond67.for.cond.cleanup68_crit_edge
-  %__begin1.sroa.0.0374 = phi i64 [ %dec.i, %for.cond67.for.cond.cleanup68_crit_edge ], [ %9, %for.body.preheader ]
-  %brmerge = select i1 %min.iters.check, i1 true, i1 %conflict.rdx445
+  %__begin1.sroa.0.0373 = phi i64 [ %dec.i, %for.cond67.for.cond.cleanup68_crit_edge ], [ %9, %for.body.preheader ]
+  %brmerge = select i1 %min.iters.check, i1 true, i1 %conflict.rdx444
   br i1 %brmerge, label %for.body69.preheader, label %vector.body
 
 vector.body:                                      ; preds = %for.body, %vector.body
@@ -1138,69 +1138,69 @@ vector.body:                                      ; preds = %for.body, %vector.b
   %40 = getelementptr inbounds double, ptr %add.ptr22, i64 %offset.idx
   %wide.load = load <2 x double>, ptr %40, align 8, !tbaa !9, !alias.scope !86
   %41 = getelementptr inbounds double, ptr %add.ptr, i64 %offset.idx
-  %wide.load446 = load <2 x double>, ptr %41, align 8, !tbaa !9, !alias.scope !89
-  %42 = fsub <2 x double> %wide.load, %wide.load446
+  %wide.load445 = load <2 x double>, ptr %41, align 8, !tbaa !9, !alias.scope !89
+  %42 = fsub <2 x double> %wide.load, %wide.load445
   %43 = getelementptr inbounds double, ptr %add.ptr8, i64 %offset.idx
-  %wide.load447 = load <2 x double>, ptr %43, align 8, !tbaa !9, !alias.scope !91
-  %44 = fsub <2 x double> %wide.load, %wide.load447
+  %wide.load446 = load <2 x double>, ptr %43, align 8, !tbaa !9, !alias.scope !91
+  %44 = fsub <2 x double> %wide.load, %wide.load446
   %45 = getelementptr inbounds double, ptr %add.ptr13, i64 %offset.idx
-  %wide.load448 = load <2 x double>, ptr %45, align 8, !tbaa !9, !alias.scope !93
-  %46 = fsub <2 x double> %wide.load, %wide.load448
+  %wide.load447 = load <2 x double>, ptr %45, align 8, !tbaa !9, !alias.scope !93
+  %46 = fsub <2 x double> %wide.load, %wide.load447
   %47 = getelementptr inbounds double, ptr %add.ptr11, i64 %offset.idx
-  %wide.load449 = load <2 x double>, ptr %47, align 8, !tbaa !9, !alias.scope !91
+  %wide.load448 = load <2 x double>, ptr %47, align 8, !tbaa !9, !alias.scope !91
   %48 = getelementptr inbounds double, ptr %0, i64 %offset.idx
-  %wide.load450 = load <2 x double>, ptr %48, align 8, !tbaa !9, !alias.scope !89
-  %49 = fsub <2 x double> %wide.load449, %wide.load450
+  %wide.load449 = load <2 x double>, ptr %48, align 8, !tbaa !9, !alias.scope !89
+  %49 = fsub <2 x double> %wide.load448, %wide.load449
   %50 = getelementptr inbounds double, ptr %add.ptr16, i64 %offset.idx
-  %wide.load451 = load <2 x double>, ptr %50, align 8, !tbaa !9, !alias.scope !93
-  %51 = fsub <2 x double> %wide.load451, %wide.load450
+  %wide.load450 = load <2 x double>, ptr %50, align 8, !tbaa !9, !alias.scope !93
+  %51 = fsub <2 x double> %wide.load450, %wide.load449
   %52 = getelementptr inbounds double, ptr %add.ptr19, i64 %offset.idx
-  %wide.load452 = load <2 x double>, ptr %52, align 8, !tbaa !9, !alias.scope !86
-  %53 = fsub <2 x double> %wide.load452, %wide.load450
+  %wide.load451 = load <2 x double>, ptr %52, align 8, !tbaa !9, !alias.scope !86
+  %53 = fsub <2 x double> %wide.load451, %wide.load449
   %54 = getelementptr inbounds double, ptr %add.ptr41, i64 %offset.idx
-  %wide.load453 = load <2 x double>, ptr %54, align 8, !tbaa !9, !alias.scope !95
+  %wide.load452 = load <2 x double>, ptr %54, align 8, !tbaa !9, !alias.scope !95
   %55 = getelementptr inbounds double, ptr %add.ptr23, i64 %offset.idx
-  %wide.load454 = load <2 x double>, ptr %55, align 8, !tbaa !9, !alias.scope !97
-  %56 = fsub <2 x double> %wide.load453, %wide.load454
+  %wide.load453 = load <2 x double>, ptr %55, align 8, !tbaa !9, !alias.scope !97
+  %56 = fsub <2 x double> %wide.load452, %wide.load453
   %57 = getelementptr inbounds double, ptr %add.ptr26, i64 %offset.idx
-  %wide.load455 = load <2 x double>, ptr %57, align 8, !tbaa !9, !alias.scope !99
-  %58 = fsub <2 x double> %wide.load453, %wide.load455
+  %wide.load454 = load <2 x double>, ptr %57, align 8, !tbaa !9, !alias.scope !99
+  %58 = fsub <2 x double> %wide.load452, %wide.load454
   %59 = getelementptr inbounds double, ptr %add.ptr32, i64 %offset.idx
-  %wide.load456 = load <2 x double>, ptr %59, align 8, !tbaa !9, !alias.scope !101
-  %60 = fsub <2 x double> %wide.load453, %wide.load456
+  %wide.load455 = load <2 x double>, ptr %59, align 8, !tbaa !9, !alias.scope !101
+  %60 = fsub <2 x double> %wide.load452, %wide.load455
   %61 = getelementptr inbounds double, ptr %add.ptr29, i64 %offset.idx
-  %wide.load457 = load <2 x double>, ptr %61, align 8, !tbaa !9, !alias.scope !99
+  %wide.load456 = load <2 x double>, ptr %61, align 8, !tbaa !9, !alias.scope !99
   %62 = getelementptr inbounds double, ptr %1, i64 %offset.idx
-  %wide.load458 = load <2 x double>, ptr %62, align 8, !tbaa !9, !alias.scope !97
-  %63 = fsub <2 x double> %wide.load457, %wide.load458
+  %wide.load457 = load <2 x double>, ptr %62, align 8, !tbaa !9, !alias.scope !97
+  %63 = fsub <2 x double> %wide.load456, %wide.load457
   %64 = getelementptr inbounds double, ptr %add.ptr35, i64 %offset.idx
-  %wide.load459 = load <2 x double>, ptr %64, align 8, !tbaa !9, !alias.scope !101
-  %65 = fsub <2 x double> %wide.load459, %wide.load458
+  %wide.load458 = load <2 x double>, ptr %64, align 8, !tbaa !9, !alias.scope !101
+  %65 = fsub <2 x double> %wide.load458, %wide.load457
   %66 = getelementptr inbounds double, ptr %add.ptr38, i64 %offset.idx
-  %wide.load460 = load <2 x double>, ptr %66, align 8, !tbaa !9, !alias.scope !95
-  %67 = fsub <2 x double> %wide.load460, %wide.load458
+  %wide.load459 = load <2 x double>, ptr %66, align 8, !tbaa !9, !alias.scope !95
+  %67 = fsub <2 x double> %wide.load459, %wide.load457
   %68 = getelementptr inbounds double, ptr %add.ptr60, i64 %offset.idx
-  %wide.load461 = load <2 x double>, ptr %68, align 8, !tbaa !9, !alias.scope !103
+  %wide.load460 = load <2 x double>, ptr %68, align 8, !tbaa !9, !alias.scope !103
   %69 = getelementptr inbounds double, ptr %add.ptr42, i64 %offset.idx
-  %wide.load462 = load <2 x double>, ptr %69, align 8, !tbaa !9, !alias.scope !105
-  %70 = fsub <2 x double> %wide.load461, %wide.load462
+  %wide.load461 = load <2 x double>, ptr %69, align 8, !tbaa !9, !alias.scope !105
+  %70 = fsub <2 x double> %wide.load460, %wide.load461
   %71 = getelementptr inbounds double, ptr %add.ptr45, i64 %offset.idx
-  %wide.load463 = load <2 x double>, ptr %71, align 8, !tbaa !9, !alias.scope !107
-  %72 = fsub <2 x double> %wide.load461, %wide.load463
+  %wide.load462 = load <2 x double>, ptr %71, align 8, !tbaa !9, !alias.scope !107
+  %72 = fsub <2 x double> %wide.load460, %wide.load462
   %73 = getelementptr inbounds double, ptr %add.ptr51, i64 %offset.idx
-  %wide.load464 = load <2 x double>, ptr %73, align 8, !tbaa !9, !alias.scope !109
-  %74 = fsub <2 x double> %wide.load461, %wide.load464
+  %wide.load463 = load <2 x double>, ptr %73, align 8, !tbaa !9, !alias.scope !109
+  %74 = fsub <2 x double> %wide.load460, %wide.load463
   %75 = getelementptr inbounds double, ptr %add.ptr48, i64 %offset.idx
-  %wide.load465 = load <2 x double>, ptr %75, align 8, !tbaa !9, !alias.scope !107
+  %wide.load464 = load <2 x double>, ptr %75, align 8, !tbaa !9, !alias.scope !107
   %76 = getelementptr inbounds double, ptr %2, i64 %offset.idx
-  %wide.load466 = load <2 x double>, ptr %76, align 8, !tbaa !9, !alias.scope !105
-  %77 = fsub <2 x double> %wide.load465, %wide.load466
+  %wide.load465 = load <2 x double>, ptr %76, align 8, !tbaa !9, !alias.scope !105
+  %77 = fsub <2 x double> %wide.load464, %wide.load465
   %78 = getelementptr inbounds double, ptr %add.ptr54, i64 %offset.idx
-  %wide.load467 = load <2 x double>, ptr %78, align 8, !tbaa !9, !alias.scope !109
-  %79 = fsub <2 x double> %wide.load467, %wide.load466
+  %wide.load466 = load <2 x double>, ptr %78, align 8, !tbaa !9, !alias.scope !109
+  %79 = fsub <2 x double> %wide.load466, %wide.load465
   %80 = getelementptr inbounds double, ptr %add.ptr57, i64 %offset.idx
-  %wide.load468 = load <2 x double>, ptr %80, align 8, !tbaa !9, !alias.scope !103
-  %81 = fsub <2 x double> %wide.load468, %wide.load466
+  %wide.load467 = load <2 x double>, ptr %80, align 8, !tbaa !9, !alias.scope !103
+  %81 = fsub <2 x double> %wide.load467, %wide.load465
   %82 = fadd <2 x double> %42, %53
   %83 = fadd <2 x double> %56, %67
   %84 = fadd <2 x double> %70, %81
@@ -1263,7 +1263,7 @@ for.body69.preheader:                             ; preds = %for.body, %middle.b
   br label %for.body69
 
 for.cond67.for.cond.cleanup68_crit_edge:          ; preds = %for.body69, %middle.block
-  %dec.i = add i64 %__begin1.sroa.0.0374, -1
+  %dec.i = add i64 %__begin1.sroa.0.0373, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30
 
@@ -1368,11 +1368,11 @@ for.body69:                                       ; preds = %for.body69.preheade
   %shift = shufflevector <2 x double> %204, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %205 = fadd <2 x double> %204, %shift
   %add180 = extractelement <2 x double> %205, i64 0
-  %shift469 = shufflevector <2 x double> %142, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
-  %206 = fadd <2 x double> %shift469, %153
+  %shift468 = shufflevector <2 x double> %142, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
+  %206 = fadd <2 x double> %shift468, %153
   %add181 = extractelement <2 x double> %206, i64 0
-  %shift470 = shufflevector <2 x double> %161, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
-  %207 = fadd <2 x double> %shift470, %172
+  %shift469 = shufflevector <2 x double> %161, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
+  %207 = fadd <2 x double> %shift469, %172
   %add182 = extractelement <2 x double> %207, i64 0
   %add183 = fadd double %sub142, %sub147
   %208 = extractelement <2 x double> %179, i64 1
@@ -1401,11 +1401,11 @@ for.body69:                                       ; preds = %for.body69.preheade
   %exitcond.not = icmp eq i32 %13, %lftr.wideiv
   br i1 %exitcond.not, label %for.cond67.for.cond.cleanup68_crit_edge, label %for.body69, !llvm.loop !115
 
-delete.notnull.i367:                              ; preds = %lpad62
+delete.notnull.i366:                              ; preds = %lpad62
   call void @_ZdaPv(ptr noundef nonnull %39) #12
-  br label %_ZN7ADomainD2Ev.exit369
+  br label %_ZN7ADomainD2Ev.exit368
 
-_ZN7ADomainD2Ev.exit369:                          ; preds = %lpad62, %delete.notnull.i367
+_ZN7ADomainD2Ev.exit368:                          ; preds = %lpad62, %delete.notnull.i366
   call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %domain) #11
   resume { ptr, i32 } %38
 }
@@ -1460,13 +1460,13 @@ sw.epilog.i:                                      ; preds = %sw.bb20.i, %sw.bb8.
   %10 = zext i32 %mul55.i to i64
   %11 = shl nuw nsw i64 %10, 2
   %call.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #13
-  %cmp117223.i.not = icmp eq i32 %add43.i, 0
-  br i1 %cmp117223.i.not, label %invoke.cont, label %for.cond.cleanup.i
+  %cmp117222.i.not = icmp eq i32 %add43.i, 0
+  br i1 %cmp117222.i.not, label %_ZN7ADomainC2Eii.exit, label %for.cond.cleanup.i
 
 for.cond.cleanup.i:                               ; preds = %sw.epilog.i
   tail call void @llvm.memset.p0.i64(ptr nonnull align 4 %call.i, i8 -1, i64 %11, i1 false), !tbaa !116
-  %cmp124255.i = icmp sgt i32 %rzmax.0.i, 1
-  br i1 %cmp124255.i, label %for.body126.us.i.preheader, label %invoke.cont
+  %cmp124254.i = icmp sgt i32 %rzmax.0.i, 1
+  br i1 %cmp124254.i, label %for.body126.us.i.preheader, label %_ZN7ADomainC2Eii.exit
 
 for.body126.us.i.preheader:                       ; preds = %for.cond.cleanup.i
   %12 = add i32 %rzmax.0.i, -1
@@ -1474,16 +1474,16 @@ for.body126.us.i.preheader:                       ; preds = %for.cond.cleanup.i
   %min.iters.check = icmp ult i32 %rzmax.0.i, 9
   %n.vec = and i64 %13, 4294967288
   %.cast = trunc i64 %n.vec to i32
-  %ind.end316 = or i32 %.cast, 2
+  %ind.end315 = or i32 %.cast, 2
   %cmp.n = icmp eq i64 %n.vec, %13
   br label %for.body126.us.i
 
 for.body126.us.i:                                 ; preds = %for.body126.us.i.preheader, %for.cond129.for.cond.cleanup132_crit_edge.us.i
-  %j.0257.us.i = phi i32 [ %inc147.us.i, %for.cond129.for.cond.cleanup132_crit_edge.us.i ], [ 2, %for.body126.us.i.preheader ]
-  %inc142.lcssa254256.us.i = phi i64 [ %indvars.iv.next265.i.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us.i ], [ 0, %for.body126.us.i.preheader ]
-  %mul135.us.i = mul nsw i32 %j.0257.us.i, %add43.i
-  %sext270.i = shl i64 %inc142.lcssa254256.us.i, 32
-  %14 = ashr exact i64 %sext270.i, 32
+  %j.0256.us.i = phi i32 [ %inc147.us.i, %for.cond129.for.cond.cleanup132_crit_edge.us.i ], [ 2, %for.body126.us.i.preheader ]
+  %inc142.lcssa253255.us.i = phi i64 [ %indvars.iv.next264.i.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us.i ], [ 0, %for.body126.us.i.preheader ]
+  %mul135.us.i = mul nsw i32 %j.0256.us.i, %add43.i
+  %sext269.i = shl i64 %inc142.lcssa253255.us.i, 32
+  %14 = ashr exact i64 %sext269.i, 32
   br i1 %min.iters.check, label %for.body133.us.i.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body126.us.i
@@ -1514,32 +1514,32 @@ middle.block:                                     ; preds = %vector.body
   br i1 %cmp.n, label %for.cond129.for.cond.cleanup132_crit_edge.us.i, label %for.body133.us.i.preheader
 
 for.body133.us.i.preheader:                       ; preds = %for.body126.us.i, %middle.block
-  %indvars.iv264.i.ph = phi i64 [ %14, %for.body126.us.i ], [ %ind.end, %middle.block ]
-  %i127.0251.us.i.ph = phi i32 [ 2, %for.body126.us.i ], [ %ind.end316, %middle.block ]
+  %indvars.iv263.i.ph = phi i64 [ %14, %for.body126.us.i ], [ %ind.end, %middle.block ]
+  %i127.0250.us.i.ph = phi i32 [ 2, %for.body126.us.i ], [ %ind.end315, %middle.block ]
   br label %for.body133.us.i
 
 for.body133.us.i:                                 ; preds = %for.body133.us.i.preheader, %for.body133.us.i
-  %indvars.iv264.i = phi i64 [ %indvars.iv.next265.i, %for.body133.us.i ], [ %indvars.iv264.i.ph, %for.body133.us.i.preheader ]
-  %i127.0251.us.i = phi i32 [ %inc144.us.i, %for.body133.us.i ], [ %i127.0251.us.i.ph, %for.body133.us.i.preheader ]
-  %add136.us.i = add nsw i32 %i127.0251.us.i, %mul135.us.i
-  %arrayidx140.us.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv264.i
+  %indvars.iv263.i = phi i64 [ %indvars.iv.next264.i, %for.body133.us.i ], [ %indvars.iv263.i.ph, %for.body133.us.i.preheader ]
+  %i127.0250.us.i = phi i32 [ %inc144.us.i, %for.body133.us.i ], [ %i127.0250.us.i.ph, %for.body133.us.i.preheader ]
+  %add136.us.i = add nsw i32 %i127.0250.us.i, %mul135.us.i
+  %arrayidx140.us.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv263.i
   store i32 %add136.us.i, ptr %arrayidx140.us.i, align 4, !tbaa !116
-  %indvars.iv.next265.i = add nsw i64 %indvars.iv264.i, 1
-  %inc144.us.i = add nuw nsw i32 %i127.0251.us.i, 1
-  %exitcond267.not.i = icmp eq i32 %i127.0251.us.i, %rzmax.0.i
-  br i1 %exitcond267.not.i, label %for.cond129.for.cond.cleanup132_crit_edge.us.i, label %for.body133.us.i, !llvm.loop !118
+  %indvars.iv.next264.i = add nsw i64 %indvars.iv263.i, 1
+  %inc144.us.i = add nuw nsw i32 %i127.0250.us.i, 1
+  %exitcond266.not.i = icmp eq i32 %i127.0250.us.i, %rzmax.0.i
+  br i1 %exitcond266.not.i, label %for.cond129.for.cond.cleanup132_crit_edge.us.i, label %for.body133.us.i, !llvm.loop !118
 
 for.cond129.for.cond.cleanup132_crit_edge.us.i:   ; preds = %for.body133.us.i, %middle.block
-  %indvars.iv.next265.i.lcssa = phi i64 [ %ind.end, %middle.block ], [ %indvars.iv.next265.i, %for.body133.us.i ]
-  %inc147.us.i = add nuw nsw i32 %j.0257.us.i, 1
-  %exitcond268.not.i = icmp eq i32 %j.0257.us.i, %rzmax.0.i
-  br i1 %exitcond268.not.i, label %if.end196.sink.split.i, label %for.body126.us.i, !llvm.loop !119
+  %indvars.iv.next264.i.lcssa = phi i64 [ %ind.end, %middle.block ], [ %indvars.iv.next264.i, %for.body133.us.i ]
+  %inc147.us.i = add nuw nsw i32 %j.0256.us.i, 1
+  %exitcond267.not.i = icmp eq i32 %j.0256.us.i, %rzmax.0.i
+  br i1 %exitcond267.not.i, label %if.end196.sink.split.i, label %for.body126.us.i, !llvm.loop !119
 
 if.end196.sink.split.i:                           ; preds = %for.cond129.for.cond.cleanup132_crit_edge.us.i
-  %22 = trunc i64 %indvars.iv.next265.i.lcssa to i32
-  br label %invoke.cont
+  %22 = trunc i64 %indvars.iv.next264.i.lcssa to i32
+  br label %_ZN7ADomainC2Eii.exit
 
-invoke.cont:                                      ; preds = %sw.epilog.i, %if.end196.sink.split.i, %for.cond.cleanup.i
+_ZN7ADomainC2Eii.exit:                            ; preds = %sw.epilog.i, %for.cond.cleanup.i, %if.end196.sink.split.i
   %domain.sroa.26.0 = phi i32 [ %22, %if.end196.sink.split.i ], [ 0, %for.cond.cleanup.i ], [ 0, %sw.epilog.i ]
   %add.ptr = getelementptr inbounds double, ptr %0, i64 1
   %idx.ext = sext i32 %add43.i to i64
@@ -1561,10 +1561,10 @@ invoke.cont:                                      ; preds = %sw.epilog.i, %if.en
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad36
 
-for.cond.preheader:                               ; preds = %invoke.cont
+for.cond.preheader:                               ; preds = %_ZN7ADomainC2Eii.exit
   %tobool.not.i.i = icmp eq i8 %23, 0
-  %cmp.not.i.not310315 = icmp ne i64 %24, 0
-  %cmp.not.i.not310 = select i1 %tobool.not.i.i, i1 %cmp.not.i.not310315, i1 false
+  %cmp.not.i.not310314 = icmp ne i64 %24, 0
+  %cmp.not.i.not310 = select i1 %tobool.not.i.i, i1 %cmp.not.i.not310314, i1 false
   %cmp308 = icmp sgt i32 %domain.sroa.26.0, 0
   %or.cond = select i1 %cmp.not.i.not310, i1 %cmp308, i1 false
   br i1 %or.cond, label %for.cond41.preheader.us.preheader, label %if.end.i, !prof !120
@@ -1692,13 +1692,13 @@ for.cond41.for.cond.cleanup42_crit_edge.us:       ; preds = %for.body43.us
 
 if.end.i:                                         ; preds = %for.cond41.for.cond.cleanup42_crit_edge.us, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-          to label %_ZN7ADomainD2Ev.exit unwind label %lpad36
+          to label %delete.notnull.i unwind label %lpad36
 
-_ZN7ADomainD2Ev.exit:                             ; preds = %if.end.i
+delete.notnull.i:                                 ; preds = %if.end.i
   tail call void @_ZdaPv(ptr noundef nonnull %call.i) #12
   ret void
 
-lpad36:                                           ; preds = %if.end.i, %invoke.cont
+lpad36:                                           ; preds = %if.end.i, %_ZN7ADomainC2Eii.exit
   %96 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdaPv(ptr noundef nonnull %call.i) #12
@@ -1707,7 +1707,7 @@ lpad36:                                           ; preds = %if.end.i, %invoke.c
 
 ; Function Attrs: uwtable
 define internal void @_ZL13BM_COUPLE_RAWRN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %state) #4 personality ptr @__gxx_personality_v0 {
-invoke.cont18:
+entry:
   %domain = alloca %struct.ADomain, align 8
   %call = tail call noundef nonnull align 8 dereferenceable(1616) ptr @_Z11getLoopDatav()
   tail call void @_Z8loopInitj(i32 noundef 7)
@@ -1746,18 +1746,18 @@ invoke.cont18:
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad20
 
-for.cond.preheader:                               ; preds = %invoke.cont18
+for.cond.preheader:                               ; preds = %entry
   %tobool.not.i.i = icmp ne i8 %13, 0
-  %cmp.not.i.not853888 = icmp eq i64 %14, 0
-  %cmp.not.i.not853 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not853888
-  br i1 %cmp.not.i.not853, label %if.end.i, label %for.cond25.preheader.lr.ph, !prof !30
+  %cmp.not.i.not830865 = icmp eq i64 %14, 0
+  %cmp.not.i.not830 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not830865
+  br i1 %cmp.not.i.not830, label %if.end.i, label %for.cond25.preheader.lr.ph, !prof !30
 
 for.cond25.preheader.lr.ph:                       ; preds = %for.cond.preheader
-  %cmp845 = icmp sge i32 %11, %12
-  %cmp42841 = icmp sge i32 %7, %8
-  %cmp29843 = icmp sge i32 %9, %10
-  %or.cond.not889 = select i1 %cmp845, i1 true, i1 %cmp29843
-  %brmerge = select i1 %or.cond.not889, i1 true, i1 %cmp42841
+  %cmp822 = icmp sge i32 %11, %12
+  %cmp42818 = icmp sge i32 %7, %8
+  %cmp29820 = icmp sge i32 %9, %10
+  %or.cond.not866 = select i1 %cmp822, i1 true, i1 %cmp29820
+  %brmerge = select i1 %or.cond.not866, i1 true, i1 %cmp42818
   br i1 %brmerge, label %if.end.i, label %for.cond25.preheader.us.us.us.preheader
 
 for.cond25.preheader.us.us.us.preheader:          ; preds = %for.cond25.preheader.lr.ph
@@ -1772,30 +1772,30 @@ for.cond25.preheader.us.us.us.preheader:          ; preds = %for.cond25.preheade
   %19 = sext i32 %11 to i64
   %20 = sext i32 %add to i64
   %21 = sext i32 %add36 to i64
-  %wide.trip.count886 = sext i32 %12 to i64
+  %wide.trip.count863 = sext i32 %12 to i64
   %wide.trip.count = sext i32 %10 to i64
   br label %for.cond25.preheader.us.us.us
 
 for.cond25.preheader.us.us.us:                    ; preds = %for.cond25.preheader.us.us.us.preheader, %for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us
-  %__begin1.sroa.0.0854.us.us.us = phi i64 [ %dec.i.us.us.us, %for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us ], [ %14, %for.cond25.preheader.us.us.us.preheader ]
+  %__begin1.sroa.0.0831.us.us.us = phi i64 [ %dec.i.us.us.us, %for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us ], [ %14, %for.cond25.preheader.us.us.us.preheader ]
   br label %for.cond28.preheader.us.us.us.us.us
 
 for.cond28.preheader.us.us.us.us.us:              ; preds = %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us, %for.cond25.preheader.us.us.us
-  %indvars.iv881 = phi i64 [ %indvars.iv.next882, %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us ], [ %19, %for.cond25.preheader.us.us.us ]
-  %22 = mul nsw i64 %indvars.iv881, %20
-  %23 = mul nsw i64 %indvars.iv881, %21
+  %indvars.iv858 = phi i64 [ %indvars.iv.next859, %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us ], [ %19, %for.cond25.preheader.us.us.us ]
+  %22 = mul nsw i64 %indvars.iv858, %20
+  %23 = mul nsw i64 %indvars.iv858, %21
   br label %for.body31.us.us.us.us.us.us
 
 for.body31.us.us.us.us.us.us:                     ; preds = %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us, %for.cond28.preheader.us.us.us.us.us
-  %indvars.iv873 = phi i64 [ %indvars.iv.next874, %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us ], [ %16, %for.cond28.preheader.us.us.us.us.us ]
-  %24 = add nsw i64 %indvars.iv873, %22
+  %indvars.iv850 = phi i64 [ %indvars.iv.next851, %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us ], [ %16, %for.cond28.preheader.us.us.us.us.us ]
+  %24 = add nsw i64 %indvars.iv850, %22
   %25 = mul nsw i64 %24, %17
-  %26 = add nsw i64 %indvars.iv873, %23
+  %26 = add nsw i64 %indvars.iv850, %23
   %27 = mul nsw i64 %26, %18
-  br label %invoke.cont119.us.us.us.us.us.us
+  br label %for.body44.us.us.us.us.us.us
 
-invoke.cont119.us.us.us.us.us.us:                 ; preds = %invoke.cont284.us.us.us.us.us.us, %for.body31.us.us.us.us.us.us
-  %indvars.iv = phi i64 [ %indvars.iv.next, %invoke.cont284.us.us.us.us.us.us ], [ %15, %for.body31.us.us.us.us.us.us ]
+for.body44.us.us.us.us.us.us:                     ; preds = %invoke.cont278.us.us.us.us.us.us, %for.body31.us.us.us.us.us.us
+  %indvars.iv = phi i64 [ %indvars.iv.next, %invoke.cont278.us.us.us.us.us.us ], [ %15, %for.body31.us.us.us.us.us.us ]
   %28 = add nsw i64 %indvars.iv, %27
   %arrayidx46.us.us.us.us.us.us = getelementptr inbounds %"class.std::complex", ptr %3, i64 %28
   %retval.sroa.0.0.copyload.i.us.us.us.us.us.us = load double, ptr %arrayidx46.us.us.us.us.us.us, align 8, !tbaa.struct !128
@@ -1825,8 +1825,8 @@ invoke.cont119.us.us.us.us.us.us:                 ; preds = %invoke.cont284.us.u
   %call80.us.us.us.us.us.us = call double @cos(double noundef %mul76.us.us.us.us.us.us) #11
   %37 = load <2 x double>, ptr %arrayidx83.us.us.us.us.us.us, align 8
   %38 = load <2 x double>, ptr %arrayidx86.us.us.us.us.us.us, align 8
-  %retval.sroa.0.0.copyload.i437.us.us.us.us.us.us = load double, ptr %arrayidx89.us.us.us.us.us.us, align 8, !tbaa.struct !128
-  %retval.sroa.4.0.copyload.i438.us.us.us.us.us.us = load double, ptr %retval.sroa.4.0.__x.sroa_idx.i.us.us.us.us.us.us, align 8, !tbaa.struct !130
+  %retval.sroa.0.0.copyload.i412.us.us.us.us.us.us = load double, ptr %arrayidx89.us.us.us.us.us.us, align 8, !tbaa.struct !128
+  %retval.sroa.4.0.copyload.i413.us.us.us.us.us.us = load double, ptr %retval.sroa.4.0.__x.sroa_idx.i.us.us.us.us.us.us, align 8, !tbaa.struct !130
   %div94.us.us.us.us.us.us = fdiv double 1.000000e+00, %sqrt.us.us.us.us.us.us
   %mul.rl.i.us.us.us.us.us.us = fmul double %mul.rl.i.i.us.us.us.us.us.us, %div94.us.us.us.us.us.us
   %mul.il.i.us.us.us.us.us.us = fmul double %mul.il.i.i.us.us.us.us.us.us, %div94.us.us.us.us.us.us
@@ -1853,7 +1853,7 @@ invoke.cont119.us.us.us.us.us.us:                 ; preds = %invoke.cont284.us.u
   %isnan_cmp.i.i.us.us.us.us.us.us = fcmp uno double %56, 0.000000e+00
   br i1 %isnan_cmp.i.i.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i.us.us.us.us.us.us, label %invoke.cont124.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i.us.us.us.us.us.us:       ; preds = %invoke.cont119.us.us.us.us.us.us
+complex_mul_imag_nan.i.i.us.us.us.us.us.us:       ; preds = %for.body44.us.us.us.us.us.us
   %57 = extractelement <2 x double> %54, i64 1
   %isnan_cmp4.i.i.us.us.us.us.us.us = fcmp uno double %57, 0.000000e+00
   br i1 %isnan_cmp4.i.i.us.us.us.us.us.us, label %complex_mul_libcall.i.i.us.us.us.us.us.us, label %invoke.cont124.us.us.us.us.us.us, !prof !131
@@ -1868,37 +1868,37 @@ complex_mul_libcall.i.i.us.us.us.us.us.us:        ; preds = %complex_mul_imag_na
   %63 = insertelement <2 x double> %62, double %61, i64 1
   br label %invoke.cont124.us.us.us.us.us.us
 
-invoke.cont124.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i.us.us.us.us.us.us, %complex_mul_imag_nan.i.i.us.us.us.us.us.us, %invoke.cont119.us.us.us.us.us.us
-  %64 = phi <2 x double> [ %55, %invoke.cont119.us.us.us.us.us.us ], [ %55, %complex_mul_imag_nan.i.i.us.us.us.us.us.us ], [ %63, %complex_mul_libcall.i.i.us.us.us.us.us.us ]
-  %65 = insertelement <2 x double> poison, double %retval.sroa.4.0.copyload.i438.us.us.us.us.us.us, i64 0
+invoke.cont124.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i.us.us.us.us.us.us, %complex_mul_imag_nan.i.i.us.us.us.us.us.us, %for.body44.us.us.us.us.us.us
+  %64 = phi <2 x double> [ %55, %for.body44.us.us.us.us.us.us ], [ %55, %complex_mul_imag_nan.i.i.us.us.us.us.us.us ], [ %63, %complex_mul_libcall.i.i.us.us.us.us.us.us ]
+  %65 = insertelement <2 x double> poison, double %retval.sroa.4.0.copyload.i413.us.us.us.us.us.us, i64 0
   %66 = shufflevector <2 x double> %65, <2 x double> poison, <2 x i32> zeroinitializer
   %67 = fmul <2 x double> %41, %66
   %68 = shufflevector <2 x double> %67, <2 x double> poison, <2 x i32> <i32 1, i32 0>
-  %69 = insertelement <2 x double> poison, double %retval.sroa.0.0.copyload.i437.us.us.us.us.us.us, i64 0
+  %69 = insertelement <2 x double> poison, double %retval.sroa.0.0.copyload.i412.us.us.us.us.us.us, i64 0
   %70 = shufflevector <2 x double> %69, <2 x double> poison, <2 x i32> zeroinitializer
   %71 = fmul <2 x double> %41, %70
   %72 = fsub <2 x double> %71, %68
   %73 = fadd <2 x double> %71, %68
   %74 = shufflevector <2 x double> %72, <2 x double> %73, <2 x i32> <i32 0, i32 3>
   %75 = extractelement <2 x double> %72, i64 0
-  %isnan_cmp.i.i470.us.us.us.us.us.us = fcmp uno double %75, 0.000000e+00
-  br i1 %isnan_cmp.i.i470.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i472.us.us.us.us.us.us, label %invoke.cont142.us.us.us.us.us.us, !prof !131
+  %isnan_cmp.i.i445.us.us.us.us.us.us = fcmp uno double %75, 0.000000e+00
+  br i1 %isnan_cmp.i.i445.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i447.us.us.us.us.us.us, label %invoke.cont132.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i472.us.us.us.us.us.us:    ; preds = %invoke.cont124.us.us.us.us.us.us
+complex_mul_imag_nan.i.i447.us.us.us.us.us.us:    ; preds = %invoke.cont124.us.us.us.us.us.us
   %76 = extractelement <2 x double> %73, i64 1
-  %isnan_cmp4.i.i471.us.us.us.us.us.us = fcmp uno double %76, 0.000000e+00
-  br i1 %isnan_cmp4.i.i471.us.us.us.us.us.us, label %complex_mul_libcall.i.i474.us.us.us.us.us.us, label %invoke.cont142.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i446.us.us.us.us.us.us = fcmp uno double %76, 0.000000e+00
+  br i1 %isnan_cmp4.i.i446.us.us.us.us.us.us, label %complex_mul_libcall.i.i449.us.us.us.us.us.us, label %invoke.cont132.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i474.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i472.us.us.us.us.us.us
-  %call5.i.i473.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %43, double noundef %retval.sroa.0.0.copyload.i437.us.us.us.us.us.us, double noundef %retval.sroa.4.0.copyload.i438.us.us.us.us.us.us) #11
-  %77 = extractvalue { double, double } %call5.i.i473.us.us.us.us.us.us, 0
-  %78 = extractvalue { double, double } %call5.i.i473.us.us.us.us.us.us, 1
+complex_mul_libcall.i.i449.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i447.us.us.us.us.us.us
+  %call5.i.i448.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %43, double noundef %retval.sroa.0.0.copyload.i412.us.us.us.us.us.us, double noundef %retval.sroa.4.0.copyload.i413.us.us.us.us.us.us) #11
+  %77 = extractvalue { double, double } %call5.i.i448.us.us.us.us.us.us, 0
+  %78 = extractvalue { double, double } %call5.i.i448.us.us.us.us.us.us, 1
   %79 = insertelement <2 x double> poison, double %77, i64 0
   %80 = insertelement <2 x double> %79, double %78, i64 1
-  br label %invoke.cont142.us.us.us.us.us.us
+  br label %invoke.cont132.us.us.us.us.us.us
 
-invoke.cont142.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i474.us.us.us.us.us.us, %complex_mul_imag_nan.i.i472.us.us.us.us.us.us, %invoke.cont124.us.us.us.us.us.us
-  %81 = phi <2 x double> [ %74, %invoke.cont124.us.us.us.us.us.us ], [ %74, %complex_mul_imag_nan.i.i472.us.us.us.us.us.us ], [ %80, %complex_mul_libcall.i.i474.us.us.us.us.us.us ]
+invoke.cont132.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i449.us.us.us.us.us.us, %complex_mul_imag_nan.i.i447.us.us.us.us.us.us, %invoke.cont124.us.us.us.us.us.us
+  %81 = phi <2 x double> [ %74, %invoke.cont124.us.us.us.us.us.us ], [ %74, %complex_mul_imag_nan.i.i447.us.us.us.us.us.us ], [ %80, %complex_mul_libcall.i.i449.us.us.us.us.us.us ]
   %82 = fadd <2 x double> %64, %81
   %83 = insertelement <2 x double> poison, double %call80.us.us.us.us.us.us, i64 0
   %84 = shufflevector <2 x double> %83, <2 x double> poison, <2 x i32> zeroinitializer
@@ -1912,46 +1912,46 @@ invoke.cont142.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall
   %92 = fadd <2 x double> %89, %90
   %93 = shufflevector <2 x double> %91, <2 x double> %92, <2 x i32> <i32 0, i32 3>
   %94 = extractelement <2 x double> %91, i64 0
-  %isnan_cmp.i.i514.us.us.us.us.us.us = fcmp uno double %94, 0.000000e+00
-  br i1 %isnan_cmp.i.i514.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i516.us.us.us.us.us.us, label %invoke.cont150.us.us.us.us.us.us, !prof !131
+  %isnan_cmp.i.i489.us.us.us.us.us.us = fcmp uno double %94, 0.000000e+00
+  br i1 %isnan_cmp.i.i489.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i491.us.us.us.us.us.us, label %invoke.cont150.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i516.us.us.us.us.us.us:    ; preds = %invoke.cont142.us.us.us.us.us.us
+complex_mul_imag_nan.i.i491.us.us.us.us.us.us:    ; preds = %invoke.cont132.us.us.us.us.us.us
   %95 = extractelement <2 x double> %92, i64 1
-  %isnan_cmp4.i.i515.us.us.us.us.us.us = fcmp uno double %95, 0.000000e+00
-  br i1 %isnan_cmp4.i.i515.us.us.us.us.us.us, label %complex_mul_libcall.i.i518.us.us.us.us.us.us, label %invoke.cont150.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i490.us.us.us.us.us.us = fcmp uno double %95, 0.000000e+00
+  br i1 %isnan_cmp4.i.i490.us.us.us.us.us.us, label %complex_mul_libcall.i.i493.us.us.us.us.us.us, label %invoke.cont150.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i518.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i516.us.us.us.us.us.us
+complex_mul_libcall.i.i493.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i491.us.us.us.us.us.us
   %96 = extractelement <2 x double> %88, i64 0
   %97 = extractelement <2 x double> %88, i64 1
-  %call5.i.i517.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %96, double noundef %97) #11
-  %98 = extractvalue { double, double } %call5.i.i517.us.us.us.us.us.us, 0
-  %99 = extractvalue { double, double } %call5.i.i517.us.us.us.us.us.us, 1
+  %call5.i.i492.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %96, double noundef %97) #11
+  %98 = extractvalue { double, double } %call5.i.i492.us.us.us.us.us.us, 0
+  %99 = extractvalue { double, double } %call5.i.i492.us.us.us.us.us.us, 1
   %100 = insertelement <2 x double> poison, double %98, i64 0
   %101 = insertelement <2 x double> %100, double %99, i64 1
   br label %invoke.cont150.us.us.us.us.us.us
 
-invoke.cont150.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i518.us.us.us.us.us.us, %complex_mul_imag_nan.i.i516.us.us.us.us.us.us, %invoke.cont142.us.us.us.us.us.us
-  %102 = phi <2 x double> [ %93, %invoke.cont142.us.us.us.us.us.us ], [ %93, %complex_mul_imag_nan.i.i516.us.us.us.us.us.us ], [ %101, %complex_mul_libcall.i.i518.us.us.us.us.us.us ]
+invoke.cont150.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i493.us.us.us.us.us.us, %complex_mul_imag_nan.i.i491.us.us.us.us.us.us, %invoke.cont132.us.us.us.us.us.us
+  %102 = phi <2 x double> [ %93, %invoke.cont132.us.us.us.us.us.us ], [ %93, %complex_mul_imag_nan.i.i491.us.us.us.us.us.us ], [ %101, %complex_mul_libcall.i.i493.us.us.us.us.us.us ]
   %103 = fsub <2 x double> %85, %102
   store <2 x double> %103, ptr %arrayidx83.us.us.us.us.us.us, align 8
   %104 = call double @llvm.fmuladd.f64(double %42, double %call80.us.us.us.us.us.us, double %45)
-  br i1 %isnan_cmp.i.i470.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i546.us.us.us.us.us.us, label %invoke.cont167.us.us.us.us.us.us, !prof !131
+  br i1 %isnan_cmp.i.i445.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i521.us.us.us.us.us.us, label %invoke.cont161.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i546.us.us.us.us.us.us:    ; preds = %invoke.cont150.us.us.us.us.us.us
+complex_mul_imag_nan.i.i521.us.us.us.us.us.us:    ; preds = %invoke.cont150.us.us.us.us.us.us
   %105 = extractelement <2 x double> %73, i64 1
-  %isnan_cmp4.i.i545.us.us.us.us.us.us = fcmp uno double %105, 0.000000e+00
-  br i1 %isnan_cmp4.i.i545.us.us.us.us.us.us, label %complex_mul_libcall.i.i548.us.us.us.us.us.us, label %invoke.cont167.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i520.us.us.us.us.us.us = fcmp uno double %105, 0.000000e+00
+  br i1 %isnan_cmp4.i.i520.us.us.us.us.us.us, label %complex_mul_libcall.i.i523.us.us.us.us.us.us, label %invoke.cont161.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i548.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i546.us.us.us.us.us.us
-  %call5.i.i547.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %43, double noundef %retval.sroa.0.0.copyload.i437.us.us.us.us.us.us, double noundef %retval.sroa.4.0.copyload.i438.us.us.us.us.us.us) #11
-  %106 = extractvalue { double, double } %call5.i.i547.us.us.us.us.us.us, 0
-  %107 = extractvalue { double, double } %call5.i.i547.us.us.us.us.us.us, 1
+complex_mul_libcall.i.i523.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i521.us.us.us.us.us.us
+  %call5.i.i522.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %43, double noundef %retval.sroa.0.0.copyload.i412.us.us.us.us.us.us, double noundef %retval.sroa.4.0.copyload.i413.us.us.us.us.us.us) #11
+  %106 = extractvalue { double, double } %call5.i.i522.us.us.us.us.us.us, 0
+  %107 = extractvalue { double, double } %call5.i.i522.us.us.us.us.us.us, 1
   %108 = insertelement <2 x double> poison, double %106, i64 0
   %109 = insertelement <2 x double> %108, double %107, i64 1
-  br label %invoke.cont167.us.us.us.us.us.us
+  br label %invoke.cont161.us.us.us.us.us.us
 
-invoke.cont167.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i548.us.us.us.us.us.us, %complex_mul_imag_nan.i.i546.us.us.us.us.us.us, %invoke.cont150.us.us.us.us.us.us
-  %110 = phi <2 x double> [ %74, %invoke.cont150.us.us.us.us.us.us ], [ %74, %complex_mul_imag_nan.i.i546.us.us.us.us.us.us ], [ %109, %complex_mul_libcall.i.i548.us.us.us.us.us.us ]
+invoke.cont161.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i523.us.us.us.us.us.us, %complex_mul_imag_nan.i.i521.us.us.us.us.us.us, %invoke.cont150.us.us.us.us.us.us
+  %110 = phi <2 x double> [ %74, %invoke.cont150.us.us.us.us.us.us ], [ %74, %complex_mul_imag_nan.i.i521.us.us.us.us.us.us ], [ %109, %complex_mul_libcall.i.i523.us.us.us.us.us.us ]
   %fneg.i.us.us.us.us.us.us = fneg double %mul.il.i.us.us.us.us.us.us
   %111 = fmul <2 x double> %47, %110
   %112 = shufflevector <2 x double> %110, <2 x double> poison, <2 x i32> <i32 1, i32 0>
@@ -1960,26 +1960,26 @@ invoke.cont167.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall
   %115 = fsub <2 x double> %111, %113
   %116 = shufflevector <2 x double> %114, <2 x double> %115, <2 x i32> <i32 0, i32 3>
   %117 = extractelement <2 x double> %114, i64 0
-  %isnan_cmp.i.i569.us.us.us.us.us.us = fcmp uno double %117, 0.000000e+00
-  br i1 %isnan_cmp.i.i569.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i571.us.us.us.us.us.us, label %invoke.cont185.us.us.us.us.us.us, !prof !131
+  %isnan_cmp.i.i544.us.us.us.us.us.us = fcmp uno double %117, 0.000000e+00
+  br i1 %isnan_cmp.i.i544.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i546.us.us.us.us.us.us, label %invoke.cont170.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i571.us.us.us.us.us.us:    ; preds = %invoke.cont167.us.us.us.us.us.us
+complex_mul_imag_nan.i.i546.us.us.us.us.us.us:    ; preds = %invoke.cont161.us.us.us.us.us.us
   %118 = extractelement <2 x double> %115, i64 1
-  %isnan_cmp4.i.i570.us.us.us.us.us.us = fcmp uno double %118, 0.000000e+00
-  br i1 %isnan_cmp4.i.i570.us.us.us.us.us.us, label %complex_mul_libcall.i.i573.us.us.us.us.us.us, label %invoke.cont185.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i545.us.us.us.us.us.us = fcmp uno double %118, 0.000000e+00
+  br i1 %isnan_cmp4.i.i545.us.us.us.us.us.us, label %complex_mul_libcall.i.i548.us.us.us.us.us.us, label %invoke.cont170.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i573.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i571.us.us.us.us.us.us
+complex_mul_libcall.i.i548.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i546.us.us.us.us.us.us
   %119 = extractelement <2 x double> %110, i64 0
   %120 = extractelement <2 x double> %110, i64 1
-  %call5.i.i572.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %fneg.i.us.us.us.us.us.us, double noundef %119, double noundef %120) #11
-  %121 = extractvalue { double, double } %call5.i.i572.us.us.us.us.us.us, 0
-  %122 = extractvalue { double, double } %call5.i.i572.us.us.us.us.us.us, 1
+  %call5.i.i547.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %fneg.i.us.us.us.us.us.us, double noundef %119, double noundef %120) #11
+  %121 = extractvalue { double, double } %call5.i.i547.us.us.us.us.us.us, 0
+  %122 = extractvalue { double, double } %call5.i.i547.us.us.us.us.us.us, 1
   %123 = insertelement <2 x double> poison, double %121, i64 0
   %124 = insertelement <2 x double> %123, double %122, i64 1
-  br label %invoke.cont185.us.us.us.us.us.us
+  br label %invoke.cont170.us.us.us.us.us.us
 
-invoke.cont185.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i573.us.us.us.us.us.us, %complex_mul_imag_nan.i.i571.us.us.us.us.us.us, %invoke.cont167.us.us.us.us.us.us
-  %125 = phi <2 x double> [ %116, %invoke.cont167.us.us.us.us.us.us ], [ %116, %complex_mul_imag_nan.i.i571.us.us.us.us.us.us ], [ %124, %complex_mul_libcall.i.i573.us.us.us.us.us.us ]
+invoke.cont170.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i548.us.us.us.us.us.us, %complex_mul_imag_nan.i.i546.us.us.us.us.us.us, %invoke.cont161.us.us.us.us.us.us
+  %125 = phi <2 x double> [ %116, %invoke.cont161.us.us.us.us.us.us ], [ %116, %complex_mul_imag_nan.i.i546.us.us.us.us.us.us ], [ %124, %complex_mul_libcall.i.i548.us.us.us.us.us.us ]
   %sub.us.us.us.us.us.us = fadd double %call80.us.us.us.us.us.us, -1.000000e+00
   %126 = insertelement <2 x double> poison, double %sub.us.us.us.us.us.us, i64 0
   %127 = shufflevector <2 x double> %126, <2 x double> poison, <2 x i32> zeroinitializer
@@ -1991,26 +1991,26 @@ invoke.cont185.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall
   %133 = fsub <2 x double> %129, %131
   %134 = shufflevector <2 x double> %132, <2 x double> %133, <2 x i32> <i32 0, i32 3>
   %135 = extractelement <2 x double> %132, i64 0
-  %isnan_cmp.i.i602.us.us.us.us.us.us = fcmp uno double %135, 0.000000e+00
-  br i1 %isnan_cmp.i.i602.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i604.us.us.us.us.us.us, label %invoke.cont204.us.us.us.us.us.us, !prof !131
+  %isnan_cmp.i.i577.us.us.us.us.us.us = fcmp uno double %135, 0.000000e+00
+  br i1 %isnan_cmp.i.i577.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i579.us.us.us.us.us.us, label %invoke.cont188.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i604.us.us.us.us.us.us:    ; preds = %invoke.cont185.us.us.us.us.us.us
+complex_mul_imag_nan.i.i579.us.us.us.us.us.us:    ; preds = %invoke.cont170.us.us.us.us.us.us
   %136 = extractelement <2 x double> %133, i64 1
-  %isnan_cmp4.i.i603.us.us.us.us.us.us = fcmp uno double %136, 0.000000e+00
-  br i1 %isnan_cmp4.i.i603.us.us.us.us.us.us, label %complex_mul_libcall.i.i606.us.us.us.us.us.us, label %invoke.cont204.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i578.us.us.us.us.us.us = fcmp uno double %136, 0.000000e+00
+  br i1 %isnan_cmp4.i.i578.us.us.us.us.us.us, label %complex_mul_libcall.i.i581.us.us.us.us.us.us, label %invoke.cont188.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i606.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i604.us.us.us.us.us.us
+complex_mul_libcall.i.i581.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i579.us.us.us.us.us.us
   %137 = extractelement <2 x double> %37, i64 0
   %138 = extractelement <2 x double> %37, i64 1
-  %call5.i.i605.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %fneg.i.us.us.us.us.us.us, double noundef %137, double noundef %138) #11
-  %139 = extractvalue { double, double } %call5.i.i605.us.us.us.us.us.us, 0
-  %140 = extractvalue { double, double } %call5.i.i605.us.us.us.us.us.us, 1
+  %call5.i.i580.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %fneg.i.us.us.us.us.us.us, double noundef %137, double noundef %138) #11
+  %139 = extractvalue { double, double } %call5.i.i580.us.us.us.us.us.us, 0
+  %140 = extractvalue { double, double } %call5.i.i580.us.us.us.us.us.us, 1
   %141 = insertelement <2 x double> poison, double %139, i64 0
   %142 = insertelement <2 x double> %141, double %140, i64 1
-  br label %invoke.cont204.us.us.us.us.us.us
+  br label %invoke.cont188.us.us.us.us.us.us
 
-invoke.cont204.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i606.us.us.us.us.us.us, %complex_mul_imag_nan.i.i604.us.us.us.us.us.us, %invoke.cont185.us.us.us.us.us.us
-  %143 = phi <2 x double> [ %134, %invoke.cont185.us.us.us.us.us.us ], [ %134, %complex_mul_imag_nan.i.i604.us.us.us.us.us.us ], [ %142, %complex_mul_libcall.i.i606.us.us.us.us.us.us ]
+invoke.cont188.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i581.us.us.us.us.us.us, %complex_mul_imag_nan.i.i579.us.us.us.us.us.us, %invoke.cont170.us.us.us.us.us.us
+  %143 = phi <2 x double> [ %134, %invoke.cont170.us.us.us.us.us.us ], [ %134, %complex_mul_imag_nan.i.i579.us.us.us.us.us.us ], [ %142, %complex_mul_libcall.i.i581.us.us.us.us.us.us ]
   %144 = fmul <2 x double> %87, %143
   %145 = insertelement <2 x double> poison, double %104, i64 0
   %146 = shufflevector <2 x double> %145, <2 x double> poison, <2 x i32> zeroinitializer
@@ -2022,146 +2022,146 @@ invoke.cont204.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall
   %152 = fadd <2 x double> %149, %150
   %153 = shufflevector <2 x double> %151, <2 x double> %152, <2 x i32> <i32 0, i32 3>
   %154 = extractelement <2 x double> %151, i64 0
-  %isnan_cmp.i.i648.us.us.us.us.us.us = fcmp uno double %154, 0.000000e+00
-  br i1 %isnan_cmp.i.i648.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i650.us.us.us.us.us.us, label %invoke.cont212.us.us.us.us.us.us, !prof !131
+  %isnan_cmp.i.i623.us.us.us.us.us.us = fcmp uno double %154, 0.000000e+00
+  br i1 %isnan_cmp.i.i623.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i625.us.us.us.us.us.us, label %invoke.cont212.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i650.us.us.us.us.us.us:    ; preds = %invoke.cont204.us.us.us.us.us.us
+complex_mul_imag_nan.i.i625.us.us.us.us.us.us:    ; preds = %invoke.cont188.us.us.us.us.us.us
   %155 = extractelement <2 x double> %152, i64 1
-  %isnan_cmp4.i.i649.us.us.us.us.us.us = fcmp uno double %155, 0.000000e+00
-  br i1 %isnan_cmp4.i.i649.us.us.us.us.us.us, label %complex_mul_libcall.i.i652.us.us.us.us.us.us, label %invoke.cont212.us.us.us.us.us.us, !prof !131
+  %isnan_cmp4.i.i624.us.us.us.us.us.us = fcmp uno double %155, 0.000000e+00
+  br i1 %isnan_cmp4.i.i624.us.us.us.us.us.us, label %complex_mul_libcall.i.i627.us.us.us.us.us.us, label %invoke.cont212.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i652.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i650.us.us.us.us.us.us
+complex_mul_libcall.i.i627.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i625.us.us.us.us.us.us
   %156 = extractelement <2 x double> %144, i64 0
   %157 = extractelement <2 x double> %144, i64 1
-  %call5.i.i651.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %156, double noundef %157) #11
-  %158 = extractvalue { double, double } %call5.i.i651.us.us.us.us.us.us, 0
-  %159 = extractvalue { double, double } %call5.i.i651.us.us.us.us.us.us, 1
+  %call5.i.i626.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %156, double noundef %157) #11
+  %158 = extractvalue { double, double } %call5.i.i626.us.us.us.us.us.us, 0
+  %159 = extractvalue { double, double } %call5.i.i626.us.us.us.us.us.us, 1
   %160 = insertelement <2 x double> poison, double %158, i64 0
   %161 = insertelement <2 x double> %160, double %159, i64 1
   br label %invoke.cont212.us.us.us.us.us.us
 
-invoke.cont212.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i652.us.us.us.us.us.us, %complex_mul_imag_nan.i.i650.us.us.us.us.us.us, %invoke.cont204.us.us.us.us.us.us
-  %162 = phi <2 x double> [ %153, %invoke.cont204.us.us.us.us.us.us ], [ %153, %complex_mul_imag_nan.i.i650.us.us.us.us.us.us ], [ %161, %complex_mul_libcall.i.i652.us.us.us.us.us.us ]
+invoke.cont212.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i627.us.us.us.us.us.us, %complex_mul_imag_nan.i.i625.us.us.us.us.us.us, %invoke.cont188.us.us.us.us.us.us
+  %162 = phi <2 x double> [ %153, %invoke.cont188.us.us.us.us.us.us ], [ %153, %complex_mul_imag_nan.i.i625.us.us.us.us.us.us ], [ %161, %complex_mul_libcall.i.i627.us.us.us.us.us.us ]
   %163 = fsub <2 x double> %148, %162
   store <2 x double> %163, ptr %arrayidx86.us.us.us.us.us.us, align 8
   %164 = call double @llvm.fmuladd.f64(double %45, double %call80.us.us.us.us.us.us, double %42)
   %165 = extractelement <2 x double> %54, i64 1
-  br i1 %isnan_cmp.i.i.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i682.us.us.us.us.us.us, label %invoke.cont233.us.us.us.us.us.us, !prof !131
+  br i1 %isnan_cmp.i.i.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i657.us.us.us.us.us.us, label %invoke.cont225.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i682.us.us.us.us.us.us:    ; preds = %invoke.cont212.us.us.us.us.us.us
-  %isnan_cmp4.i.i681.us.us.us.us.us.us = fcmp uno double %165, 0.000000e+00
-  br i1 %isnan_cmp4.i.i681.us.us.us.us.us.us, label %complex_mul_libcall.i.i684.us.us.us.us.us.us, label %invoke.cont233.us.us.us.us.us.us, !prof !131
+complex_mul_imag_nan.i.i657.us.us.us.us.us.us:    ; preds = %invoke.cont212.us.us.us.us.us.us
+  %isnan_cmp4.i.i656.us.us.us.us.us.us = fcmp uno double %165, 0.000000e+00
+  br i1 %isnan_cmp4.i.i656.us.us.us.us.us.us, label %complex_mul_libcall.i.i659.us.us.us.us.us.us, label %invoke.cont225.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i684.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i682.us.us.us.us.us.us
+complex_mul_libcall.i.i659.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i657.us.us.us.us.us.us
   %166 = extractelement <2 x double> %38, i64 0
   %167 = extractelement <2 x double> %38, i64 1
-  %call5.i.i683.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %mul.il.i.us.us.us.us.us.us, double noundef %166, double noundef %167) #11
-  %168 = extractvalue { double, double } %call5.i.i683.us.us.us.us.us.us, 0
-  %169 = extractvalue { double, double } %call5.i.i683.us.us.us.us.us.us, 1
-  br label %invoke.cont233.us.us.us.us.us.us
+  %call5.i.i658.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %mul.rl.i.us.us.us.us.us.us, double noundef %mul.il.i.us.us.us.us.us.us, double noundef %166, double noundef %167) #11
+  %168 = extractvalue { double, double } %call5.i.i658.us.us.us.us.us.us, 0
+  %169 = extractvalue { double, double } %call5.i.i658.us.us.us.us.us.us, 1
+  br label %invoke.cont225.us.us.us.us.us.us
 
-invoke.cont233.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i684.us.us.us.us.us.us, %complex_mul_imag_nan.i.i682.us.us.us.us.us.us, %invoke.cont212.us.us.us.us.us.us
-  %real_mul_phi.i.i685.us.us.us.us.us.us = phi double [ %56, %invoke.cont212.us.us.us.us.us.us ], [ %56, %complex_mul_imag_nan.i.i682.us.us.us.us.us.us ], [ %168, %complex_mul_libcall.i.i684.us.us.us.us.us.us ]
-  %imag_mul_phi.i.i686.us.us.us.us.us.us = phi double [ %165, %invoke.cont212.us.us.us.us.us.us ], [ %165, %complex_mul_imag_nan.i.i682.us.us.us.us.us.us ], [ %169, %complex_mul_libcall.i.i684.us.us.us.us.us.us ]
-  %fneg.i691.us.us.us.us.us.us = fneg double %43
-  %mul_ac.i.i700.us.us.us.us.us.us = fmul double %44, %real_mul_phi.i.i685.us.us.us.us.us.us
-  %mul_ad.i.i702.us.us.us.us.us.us = fmul double %44, %imag_mul_phi.i.i686.us.us.us.us.us.us
-  %170 = fmul double %43, %imag_mul_phi.i.i686.us.us.us.us.us.us
-  %mul_r.i.i704.us.us.us.us.us.us = fadd double %mul_ac.i.i700.us.us.us.us.us.us, %170
-  %171 = fmul double %43, %real_mul_phi.i.i685.us.us.us.us.us.us
-  %mul_i.i.i705.us.us.us.us.us.us = fsub double %mul_ad.i.i702.us.us.us.us.us.us, %171
-  %isnan_cmp.i.i706.us.us.us.us.us.us = fcmp uno double %mul_r.i.i704.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp.i.i706.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i708.us.us.us.us.us.us, label %invoke.cont253.us.us.us.us.us.us, !prof !131
+invoke.cont225.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i659.us.us.us.us.us.us, %complex_mul_imag_nan.i.i657.us.us.us.us.us.us, %invoke.cont212.us.us.us.us.us.us
+  %real_mul_phi.i.i660.us.us.us.us.us.us = phi double [ %56, %invoke.cont212.us.us.us.us.us.us ], [ %56, %complex_mul_imag_nan.i.i657.us.us.us.us.us.us ], [ %168, %complex_mul_libcall.i.i659.us.us.us.us.us.us ]
+  %imag_mul_phi.i.i661.us.us.us.us.us.us = phi double [ %165, %invoke.cont212.us.us.us.us.us.us ], [ %165, %complex_mul_imag_nan.i.i657.us.us.us.us.us.us ], [ %169, %complex_mul_libcall.i.i659.us.us.us.us.us.us ]
+  %fneg.i666.us.us.us.us.us.us = fneg double %43
+  %mul_ac.i.i675.us.us.us.us.us.us = fmul double %44, %real_mul_phi.i.i660.us.us.us.us.us.us
+  %mul_ad.i.i677.us.us.us.us.us.us = fmul double %44, %imag_mul_phi.i.i661.us.us.us.us.us.us
+  %170 = fmul double %43, %imag_mul_phi.i.i661.us.us.us.us.us.us
+  %mul_r.i.i679.us.us.us.us.us.us = fadd double %mul_ac.i.i675.us.us.us.us.us.us, %170
+  %171 = fmul double %43, %real_mul_phi.i.i660.us.us.us.us.us.us
+  %mul_i.i.i680.us.us.us.us.us.us = fsub double %mul_ad.i.i677.us.us.us.us.us.us, %171
+  %isnan_cmp.i.i681.us.us.us.us.us.us = fcmp uno double %mul_r.i.i679.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp.i.i681.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i683.us.us.us.us.us.us, label %invoke.cont236.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i708.us.us.us.us.us.us:    ; preds = %invoke.cont233.us.us.us.us.us.us
-  %isnan_cmp4.i.i707.us.us.us.us.us.us = fcmp uno double %mul_i.i.i705.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp4.i.i707.us.us.us.us.us.us, label %complex_mul_libcall.i.i710.us.us.us.us.us.us, label %invoke.cont253.us.us.us.us.us.us, !prof !131
+complex_mul_imag_nan.i.i683.us.us.us.us.us.us:    ; preds = %invoke.cont225.us.us.us.us.us.us
+  %isnan_cmp4.i.i682.us.us.us.us.us.us = fcmp uno double %mul_i.i.i680.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp4.i.i682.us.us.us.us.us.us, label %complex_mul_libcall.i.i685.us.us.us.us.us.us, label %invoke.cont236.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i710.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i708.us.us.us.us.us.us
-  %call5.i.i709.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %fneg.i691.us.us.us.us.us.us, double noundef %real_mul_phi.i.i685.us.us.us.us.us.us, double noundef %imag_mul_phi.i.i686.us.us.us.us.us.us) #11
-  %172 = extractvalue { double, double } %call5.i.i709.us.us.us.us.us.us, 0
-  %173 = extractvalue { double, double } %call5.i.i709.us.us.us.us.us.us, 1
-  br label %invoke.cont253.us.us.us.us.us.us
+complex_mul_libcall.i.i685.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i683.us.us.us.us.us.us
+  %call5.i.i684.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %fneg.i666.us.us.us.us.us.us, double noundef %real_mul_phi.i.i660.us.us.us.us.us.us, double noundef %imag_mul_phi.i.i661.us.us.us.us.us.us) #11
+  %172 = extractvalue { double, double } %call5.i.i684.us.us.us.us.us.us, 0
+  %173 = extractvalue { double, double } %call5.i.i684.us.us.us.us.us.us, 1
+  br label %invoke.cont236.us.us.us.us.us.us
 
-invoke.cont253.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i710.us.us.us.us.us.us, %complex_mul_imag_nan.i.i708.us.us.us.us.us.us, %invoke.cont233.us.us.us.us.us.us
-  %real_mul_phi.i.i711.us.us.us.us.us.us = phi double [ %mul_r.i.i704.us.us.us.us.us.us, %invoke.cont233.us.us.us.us.us.us ], [ %mul_r.i.i704.us.us.us.us.us.us, %complex_mul_imag_nan.i.i708.us.us.us.us.us.us ], [ %172, %complex_mul_libcall.i.i710.us.us.us.us.us.us ]
-  %imag_mul_phi.i.i712.us.us.us.us.us.us = phi double [ %mul_i.i.i705.us.us.us.us.us.us, %invoke.cont233.us.us.us.us.us.us ], [ %mul_i.i.i705.us.us.us.us.us.us, %complex_mul_imag_nan.i.i708.us.us.us.us.us.us ], [ %173, %complex_mul_libcall.i.i710.us.us.us.us.us.us ]
-  %mul.rl.i.i719.us.us.us.us.us.us = fmul double %sub.us.us.us.us.us.us, %real_mul_phi.i.i711.us.us.us.us.us.us
-  %mul.il.i.i720.us.us.us.us.us.us = fmul double %sub.us.us.us.us.us.us, %imag_mul_phi.i.i712.us.us.us.us.us.us
+invoke.cont236.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i685.us.us.us.us.us.us, %complex_mul_imag_nan.i.i683.us.us.us.us.us.us, %invoke.cont225.us.us.us.us.us.us
+  %real_mul_phi.i.i686.us.us.us.us.us.us = phi double [ %mul_r.i.i679.us.us.us.us.us.us, %invoke.cont225.us.us.us.us.us.us ], [ %mul_r.i.i679.us.us.us.us.us.us, %complex_mul_imag_nan.i.i683.us.us.us.us.us.us ], [ %172, %complex_mul_libcall.i.i685.us.us.us.us.us.us ]
+  %imag_mul_phi.i.i687.us.us.us.us.us.us = phi double [ %mul_i.i.i680.us.us.us.us.us.us, %invoke.cont225.us.us.us.us.us.us ], [ %mul_i.i.i680.us.us.us.us.us.us, %complex_mul_imag_nan.i.i683.us.us.us.us.us.us ], [ %173, %complex_mul_libcall.i.i685.us.us.us.us.us.us ]
+  %mul.rl.i.i694.us.us.us.us.us.us = fmul double %sub.us.us.us.us.us.us, %real_mul_phi.i.i686.us.us.us.us.us.us
+  %mul.il.i.i695.us.us.us.us.us.us = fmul double %sub.us.us.us.us.us.us, %imag_mul_phi.i.i687.us.us.us.us.us.us
   %174 = fmul <2 x double> %37, %41
   %175 = shufflevector <2 x double> %37, <2 x double> poison, <2 x i32> <i32 1, i32 0>
   %shift = shufflevector <2 x double> %174, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %176 = fadd <2 x double> %174, %shift
-  %mul_r.i.i737.us.us.us.us.us.us = extractelement <2 x double> %176, i64 0
+  %mul_r.i.i712.us.us.us.us.us.us = extractelement <2 x double> %176, i64 0
   %177 = fmul <2 x double> %175, %41
-  %shift890 = shufflevector <2 x double> %177, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
-  %178 = fsub <2 x double> %177, %shift890
-  %mul_i.i.i738.us.us.us.us.us.us = extractelement <2 x double> %178, i64 0
-  %isnan_cmp.i.i739.us.us.us.us.us.us = fcmp uno double %mul_r.i.i737.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp.i.i739.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i741.us.us.us.us.us.us, label %invoke.cont273.us.us.us.us.us.us, !prof !131
+  %shift867 = shufflevector <2 x double> %177, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
+  %178 = fsub <2 x double> %177, %shift867
+  %mul_i.i.i713.us.us.us.us.us.us = extractelement <2 x double> %178, i64 0
+  %isnan_cmp.i.i714.us.us.us.us.us.us = fcmp uno double %mul_r.i.i712.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp.i.i714.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i716.us.us.us.us.us.us, label %invoke.cont256.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i741.us.us.us.us.us.us:    ; preds = %invoke.cont253.us.us.us.us.us.us
-  %isnan_cmp4.i.i740.us.us.us.us.us.us = fcmp uno double %mul_i.i.i738.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp4.i.i740.us.us.us.us.us.us, label %complex_mul_libcall.i.i743.us.us.us.us.us.us, label %invoke.cont273.us.us.us.us.us.us, !prof !131
+complex_mul_imag_nan.i.i716.us.us.us.us.us.us:    ; preds = %invoke.cont236.us.us.us.us.us.us
+  %isnan_cmp4.i.i715.us.us.us.us.us.us = fcmp uno double %mul_i.i.i713.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp4.i.i715.us.us.us.us.us.us, label %complex_mul_libcall.i.i718.us.us.us.us.us.us, label %invoke.cont256.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i743.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i741.us.us.us.us.us.us
+complex_mul_libcall.i.i718.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i716.us.us.us.us.us.us
   %179 = extractelement <2 x double> %37, i64 0
   %180 = extractelement <2 x double> %37, i64 1
-  %call5.i.i742.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %fneg.i691.us.us.us.us.us.us, double noundef %179, double noundef %180) #11
-  %181 = extractvalue { double, double } %call5.i.i742.us.us.us.us.us.us, 0
-  %182 = extractvalue { double, double } %call5.i.i742.us.us.us.us.us.us, 1
-  br label %invoke.cont273.us.us.us.us.us.us
+  %call5.i.i717.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef %44, double noundef %fneg.i666.us.us.us.us.us.us, double noundef %179, double noundef %180) #11
+  %181 = extractvalue { double, double } %call5.i.i717.us.us.us.us.us.us, 0
+  %182 = extractvalue { double, double } %call5.i.i717.us.us.us.us.us.us, 1
+  br label %invoke.cont256.us.us.us.us.us.us
 
-invoke.cont273.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i743.us.us.us.us.us.us, %complex_mul_imag_nan.i.i741.us.us.us.us.us.us, %invoke.cont253.us.us.us.us.us.us
-  %real_mul_phi.i.i744.us.us.us.us.us.us = phi double [ %mul_r.i.i737.us.us.us.us.us.us, %invoke.cont253.us.us.us.us.us.us ], [ %mul_r.i.i737.us.us.us.us.us.us, %complex_mul_imag_nan.i.i741.us.us.us.us.us.us ], [ %181, %complex_mul_libcall.i.i743.us.us.us.us.us.us ]
-  %imag_mul_phi.i.i745.us.us.us.us.us.us = phi double [ %mul_i.i.i738.us.us.us.us.us.us, %invoke.cont253.us.us.us.us.us.us ], [ %mul_i.i.i738.us.us.us.us.us.us, %complex_mul_imag_nan.i.i741.us.us.us.us.us.us ], [ %182, %complex_mul_libcall.i.i743.us.us.us.us.us.us ]
-  %mul.rl.i.i752.us.us.us.us.us.us = fmul double %call77.us.us.us.us.us.us, %real_mul_phi.i.i744.us.us.us.us.us.us
-  %mul.il.i.i753.us.us.us.us.us.us = fmul double %call77.us.us.us.us.us.us, %imag_mul_phi.i.i745.us.us.us.us.us.us
-  %mul.rl.i.i759.us.us.us.us.us.us = fmul double %retval.sroa.0.0.copyload.i437.us.us.us.us.us.us, %164
-  %mul.il.i.i760.us.us.us.us.us.us = fmul double %retval.sroa.4.0.copyload.i438.us.us.us.us.us.us, %164
-  %add.r.i.i769.us.us.us.us.us.us = fadd double %mul.rl.i.i759.us.us.us.us.us.us, %mul.rl.i.i719.us.us.us.us.us.us
-  %add.i.i.i770.us.us.us.us.us.us = fadd double %mul.il.i.i760.us.us.us.us.us.us, %mul.il.i.i720.us.us.us.us.us.us
-  %mul_ac.i.i779.us.us.us.us.us.us = fmul double %mul.rl.i.i752.us.us.us.us.us.us, 0.000000e+00
-  %mul_ad.i.i781.us.us.us.us.us.us = fmul double %mul.il.i.i753.us.us.us.us.us.us, 0.000000e+00
-  %mul_r.i.i783.us.us.us.us.us.us = fsub double %mul_ac.i.i779.us.us.us.us.us.us, %mul.il.i.i753.us.us.us.us.us.us
-  %mul_i.i.i784.us.us.us.us.us.us = fadd double %mul.rl.i.i752.us.us.us.us.us.us, %mul_ad.i.i781.us.us.us.us.us.us
-  %isnan_cmp.i.i785.us.us.us.us.us.us = fcmp uno double %mul_r.i.i783.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp.i.i785.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i787.us.us.us.us.us.us, label %invoke.cont284.us.us.us.us.us.us, !prof !131
+invoke.cont256.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i718.us.us.us.us.us.us, %complex_mul_imag_nan.i.i716.us.us.us.us.us.us, %invoke.cont236.us.us.us.us.us.us
+  %real_mul_phi.i.i719.us.us.us.us.us.us = phi double [ %mul_r.i.i712.us.us.us.us.us.us, %invoke.cont236.us.us.us.us.us.us ], [ %mul_r.i.i712.us.us.us.us.us.us, %complex_mul_imag_nan.i.i716.us.us.us.us.us.us ], [ %181, %complex_mul_libcall.i.i718.us.us.us.us.us.us ]
+  %imag_mul_phi.i.i720.us.us.us.us.us.us = phi double [ %mul_i.i.i713.us.us.us.us.us.us, %invoke.cont236.us.us.us.us.us.us ], [ %mul_i.i.i713.us.us.us.us.us.us, %complex_mul_imag_nan.i.i716.us.us.us.us.us.us ], [ %182, %complex_mul_libcall.i.i718.us.us.us.us.us.us ]
+  %mul.rl.i.i727.us.us.us.us.us.us = fmul double %call77.us.us.us.us.us.us, %real_mul_phi.i.i719.us.us.us.us.us.us
+  %mul.il.i.i728.us.us.us.us.us.us = fmul double %call77.us.us.us.us.us.us, %imag_mul_phi.i.i720.us.us.us.us.us.us
+  %mul.il.i.i735.us.us.us.us.us.us = fmul double %retval.sroa.4.0.copyload.i413.us.us.us.us.us.us, %164
+  %mul.rl.i.i734.us.us.us.us.us.us = fmul double %retval.sroa.0.0.copyload.i412.us.us.us.us.us.us, %164
+  %add.r.i.i744.us.us.us.us.us.us = fadd double %mul.rl.i.i734.us.us.us.us.us.us, %mul.rl.i.i694.us.us.us.us.us.us
+  %add.i.i.i745.us.us.us.us.us.us = fadd double %mul.il.i.i735.us.us.us.us.us.us, %mul.il.i.i695.us.us.us.us.us.us
+  %mul_ac.i.i754.us.us.us.us.us.us = fmul double %mul.rl.i.i727.us.us.us.us.us.us, 0.000000e+00
+  %mul_ad.i.i756.us.us.us.us.us.us = fmul double %mul.il.i.i728.us.us.us.us.us.us, 0.000000e+00
+  %mul_r.i.i758.us.us.us.us.us.us = fsub double %mul_ac.i.i754.us.us.us.us.us.us, %mul.il.i.i728.us.us.us.us.us.us
+  %mul_i.i.i759.us.us.us.us.us.us = fadd double %mul.rl.i.i727.us.us.us.us.us.us, %mul_ad.i.i756.us.us.us.us.us.us
+  %isnan_cmp.i.i760.us.us.us.us.us.us = fcmp uno double %mul_r.i.i758.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp.i.i760.us.us.us.us.us.us, label %complex_mul_imag_nan.i.i762.us.us.us.us.us.us, label %invoke.cont278.us.us.us.us.us.us, !prof !131
 
-complex_mul_imag_nan.i.i787.us.us.us.us.us.us:    ; preds = %invoke.cont273.us.us.us.us.us.us
-  %isnan_cmp4.i.i786.us.us.us.us.us.us = fcmp uno double %mul_i.i.i784.us.us.us.us.us.us, 0.000000e+00
-  br i1 %isnan_cmp4.i.i786.us.us.us.us.us.us, label %complex_mul_libcall.i.i789.us.us.us.us.us.us, label %invoke.cont284.us.us.us.us.us.us, !prof !131
+complex_mul_imag_nan.i.i762.us.us.us.us.us.us:    ; preds = %invoke.cont256.us.us.us.us.us.us
+  %isnan_cmp4.i.i761.us.us.us.us.us.us = fcmp uno double %mul_i.i.i759.us.us.us.us.us.us, 0.000000e+00
+  br i1 %isnan_cmp4.i.i761.us.us.us.us.us.us, label %complex_mul_libcall.i.i764.us.us.us.us.us.us, label %invoke.cont278.us.us.us.us.us.us, !prof !131
 
-complex_mul_libcall.i.i789.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i787.us.us.us.us.us.us
-  %call5.i.i788.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %mul.rl.i.i752.us.us.us.us.us.us, double noundef %mul.il.i.i753.us.us.us.us.us.us) #11
-  %183 = extractvalue { double, double } %call5.i.i788.us.us.us.us.us.us, 0
-  %184 = extractvalue { double, double } %call5.i.i788.us.us.us.us.us.us, 1
-  br label %invoke.cont284.us.us.us.us.us.us
+complex_mul_libcall.i.i764.us.us.us.us.us.us:     ; preds = %complex_mul_imag_nan.i.i762.us.us.us.us.us.us
+  %call5.i.i763.us.us.us.us.us.us = call noundef { double, double } @__muldc3(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %mul.rl.i.i727.us.us.us.us.us.us, double noundef %mul.il.i.i728.us.us.us.us.us.us) #11
+  %183 = extractvalue { double, double } %call5.i.i763.us.us.us.us.us.us, 0
+  %184 = extractvalue { double, double } %call5.i.i763.us.us.us.us.us.us, 1
+  br label %invoke.cont278.us.us.us.us.us.us
 
-invoke.cont284.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i789.us.us.us.us.us.us, %complex_mul_imag_nan.i.i787.us.us.us.us.us.us, %invoke.cont273.us.us.us.us.us.us
-  %real_mul_phi.i.i790.us.us.us.us.us.us = phi double [ %mul_r.i.i783.us.us.us.us.us.us, %invoke.cont273.us.us.us.us.us.us ], [ %mul_r.i.i783.us.us.us.us.us.us, %complex_mul_imag_nan.i.i787.us.us.us.us.us.us ], [ %183, %complex_mul_libcall.i.i789.us.us.us.us.us.us ]
-  %imag_mul_phi.i.i791.us.us.us.us.us.us = phi double [ %mul_i.i.i784.us.us.us.us.us.us, %invoke.cont273.us.us.us.us.us.us ], [ %mul_i.i.i784.us.us.us.us.us.us, %complex_mul_imag_nan.i.i787.us.us.us.us.us.us ], [ %184, %complex_mul_libcall.i.i789.us.us.us.us.us.us ]
-  %sub.r.i.i801.us.us.us.us.us.us = fsub double %add.r.i.i769.us.us.us.us.us.us, %real_mul_phi.i.i790.us.us.us.us.us.us
-  %sub.i.i.i802.us.us.us.us.us.us = fsub double %add.i.i.i770.us.us.us.us.us.us, %imag_mul_phi.i.i791.us.us.us.us.us.us
-  store double %sub.r.i.i801.us.us.us.us.us.us, ptr %arrayidx89.us.us.us.us.us.us, align 8, !tbaa.struct !128
-  store double %sub.i.i.i802.us.us.us.us.us.us, ptr %retval.sroa.4.0.__x.sroa_idx.i.us.us.us.us.us.us, align 8, !tbaa.struct !130
+invoke.cont278.us.us.us.us.us.us:                 ; preds = %complex_mul_libcall.i.i764.us.us.us.us.us.us, %complex_mul_imag_nan.i.i762.us.us.us.us.us.us, %invoke.cont256.us.us.us.us.us.us
+  %real_mul_phi.i.i765.us.us.us.us.us.us = phi double [ %mul_r.i.i758.us.us.us.us.us.us, %invoke.cont256.us.us.us.us.us.us ], [ %mul_r.i.i758.us.us.us.us.us.us, %complex_mul_imag_nan.i.i762.us.us.us.us.us.us ], [ %183, %complex_mul_libcall.i.i764.us.us.us.us.us.us ]
+  %imag_mul_phi.i.i766.us.us.us.us.us.us = phi double [ %mul_i.i.i759.us.us.us.us.us.us, %invoke.cont256.us.us.us.us.us.us ], [ %mul_i.i.i759.us.us.us.us.us.us, %complex_mul_imag_nan.i.i762.us.us.us.us.us.us ], [ %184, %complex_mul_libcall.i.i764.us.us.us.us.us.us ]
+  %sub.r.i.i776.us.us.us.us.us.us = fsub double %add.r.i.i744.us.us.us.us.us.us, %real_mul_phi.i.i765.us.us.us.us.us.us
+  %sub.i.i.i777.us.us.us.us.us.us = fsub double %add.i.i.i745.us.us.us.us.us.us, %imag_mul_phi.i.i766.us.us.us.us.us.us
+  store double %sub.r.i.i776.us.us.us.us.us.us, ptr %arrayidx89.us.us.us.us.us.us, align 8, !tbaa.struct !128
+  store double %sub.i.i.i777.us.us.us.us.us.us, ptr %retval.sroa.4.0.__x.sroa_idx.i.us.us.us.us.us.us, align 8, !tbaa.struct !130
   %indvars.iv.next = add nsw i64 %indvars.iv, 1
   %lftr.wideiv = trunc i64 %indvars.iv.next to i32
   %exitcond.not = icmp eq i32 %8, %lftr.wideiv
-  br i1 %exitcond.not, label %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us, label %invoke.cont119.us.us.us.us.us.us, !llvm.loop !132
+  br i1 %exitcond.not, label %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us, label %for.body44.us.us.us.us.us.us, !llvm.loop !132
 
-for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us: ; preds = %invoke.cont284.us.us.us.us.us.us
-  %indvars.iv.next874 = add nsw i64 %indvars.iv873, 1
-  %exitcond880.not = icmp eq i64 %indvars.iv.next874, %wide.trip.count
-  br i1 %exitcond880.not, label %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us, label %for.body31.us.us.us.us.us.us, !llvm.loop !133
+for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us: ; preds = %invoke.cont278.us.us.us.us.us.us
+  %indvars.iv.next851 = add nsw i64 %indvars.iv850, 1
+  %exitcond857.not = icmp eq i64 %indvars.iv.next851, %wide.trip.count
+  br i1 %exitcond857.not, label %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us, label %for.body31.us.us.us.us.us.us, !llvm.loop !133
 
 for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us: ; preds = %for.cond41.for.cond.cleanup43_crit_edge.us.us.us.us.us.us
-  %indvars.iv.next882 = add nsw i64 %indvars.iv881, 1
-  %exitcond887.not = icmp eq i64 %indvars.iv.next882, %wide.trip.count886
-  br i1 %exitcond887.not, label %for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us, label %for.cond28.preheader.us.us.us.us.us, !llvm.loop !134
+  %indvars.iv.next859 = add nsw i64 %indvars.iv858, 1
+  %exitcond864.not = icmp eq i64 %indvars.iv.next859, %wide.trip.count863
+  br i1 %exitcond864.not, label %for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us, label %for.cond28.preheader.us.us.us.us.us, !llvm.loop !134
 
 for.cond25.for.cond.cleanup26_crit_edge.split.us.split.us.us.us.us: ; preds = %for.cond28.for.cond.cleanup30_crit_edge.split.us.us.us.us.us.us
-  %dec.i.us.us.us = add i64 %__begin1.sroa.0.0854.us.us.us, -1
+  %dec.i.us.us.us = add i64 %__begin1.sroa.0.0831.us.us.us, -1
   %cmp.not.i.not.us.us.us = icmp eq i64 %dec.i.us.us.us, 0
   br i1 %cmp.not.i.not.us.us.us, label %if.end.i, label %for.cond25.preheader.us.us.us, !prof !30
 
@@ -2183,19 +2183,19 @@ _ZN7ADomainD2Ev.exit:                             ; preds = %for.cond.cleanup, %
   call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %domain) #11
   ret void
 
-lpad20:                                           ; preds = %if.end.i, %invoke.cont18
+lpad20:                                           ; preds = %if.end.i, %entry
   %186 = landingpad { ptr, i32 }
           cleanup
-  %real_zones.i812 = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 18
-  %187 = load ptr, ptr %real_zones.i812, align 8, !tbaa !85
-  %tobool.not.i813 = icmp eq ptr %187, null
-  br i1 %tobool.not.i813, label %_ZN7ADomainD2Ev.exit816, label %delete.notnull.i814
+  %real_zones.i787 = getelementptr inbounds %struct.ADomain, ptr %domain, i64 0, i32 18
+  %187 = load ptr, ptr %real_zones.i787, align 8, !tbaa !85
+  %tobool.not.i788 = icmp eq ptr %187, null
+  br i1 %tobool.not.i788, label %_ZN7ADomainD2Ev.exit791, label %delete.notnull.i789
 
-delete.notnull.i814:                              ; preds = %lpad20
+delete.notnull.i789:                              ; preds = %lpad20
   call void @_ZdaPv(ptr noundef nonnull %187) #12
-  br label %_ZN7ADomainD2Ev.exit816
+  br label %_ZN7ADomainD2Ev.exit791
 
-_ZN7ADomainD2Ev.exit816:                          ; preds = %lpad20, %delete.notnull.i814
+_ZN7ADomainD2Ev.exit791:                          ; preds = %lpad20, %delete.notnull.i789
   call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %domain) #11
   resume { ptr, i32 } %186
 }
@@ -2224,7 +2224,7 @@ entry:
   %cmp.not.i.not40.not47 = select i1 %tobool.not.i.i, i1 %cmp.not.i.not4042, i1 false
   %cmp38 = icmp sgt i32 %conv, 0
   %or.cond = select i1 %cmp.not.i.not40.not47, i1 %cmp38, i1 false
-  br i1 %or.cond, label %for.cond7.preheader.us.preheader, label %for.cond.cleanup, !prof !120
+  br i1 %or.cond, label %for.cond7.preheader.us.preheader, label %if.end.i, !prof !120
 
 for.cond7.preheader.us.preheader:                 ; preds = %entry
   %wide.trip.count = zext i32 %conv to i64
@@ -2396,9 +2396,9 @@ for.cond10.preheader.us:                          ; preds = %for.cond10.preheade
 for.cond7.for.cond.cleanup8_crit_edge.us:         ; preds = %for.cond10.preheader.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.041.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond7.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond7.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond7.for.cond.cleanup8_crit_edge.us, %entry
+if.end.i:                                         ; preds = %for.cond7.for.cond.cleanup8_crit_edge.us, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -2533,7 +2533,7 @@ if.else56.if.end87_crit_edge:                     ; preds = %if.else56
   %nnalls88.phi.trans.insert = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 11
   %.pre = load i32, ptr %nnalls88.phi.trans.insert, align 4, !tbaa !145
   %kp92.phi.trans.insert = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 10
-  %.pre269 = load i32, ptr %kp92.phi.trans.insert, align 8
+  %.pre268 = load i32, ptr %kp92.phi.trans.insert, align 8
   br label %if.end87
 
 if.then58:                                        ; preds = %if.else56
@@ -2550,7 +2550,7 @@ if.then58:                                        ; preds = %if.else56
   br label %if.end87
 
 if.end87:                                         ; preds = %if.else56.if.end87_crit_edge, %if.then58, %if.then45
-  %6 = phi i32 [ %.pre269, %if.else56.if.end87_crit_edge ], [ %mul73, %if.then58 ], [ 0, %if.then45 ]
+  %6 = phi i32 [ %.pre268, %if.else56.if.end87_crit_edge ], [ %mul73, %if.then58 ], [ 0, %if.then45 ]
   %7 = phi i32 [ %.pre, %if.else56.if.end87_crit_edge ], [ %mul84, %if.then58 ], [ %mul55, %if.then45 ]
   %fpn = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 12
   store i32 0, ptr %fpn, align 8, !tbaa !146
@@ -2558,15 +2558,15 @@ if.end87:                                         ; preds = %if.else56.if.end87_
   %lpn = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 13
   store i32 %sub89, ptr %lpn, align 4, !tbaa !147
   %add94 = add i32 %6, %add43
-  %8 = shl i32 %add94, 1
-  %add98 = add i32 %8, 2
+  %mul95 = shl nsw i32 %add94, 1
+  %add98 = add nsw i32 %mul95, 2
   %frn = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 14
   store i32 %add98, ptr %frn, align 8, !tbaa !148
-  %.neg = xor i32 %add94, -1
-  %sub107 = add i32 %sub89, %.neg
+  %8 = xor i32 %add94, -1
+  %sub107 = add i32 %sub89, %8
   %lrn = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 15
   store i32 %sub107, ptr %lrn, align 4, !tbaa !149
-  %sub113 = add i32 %add98, %.neg
+  %sub113 = add i32 %add98, %8
   %fpz = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 16
   store i32 %sub113, ptr %fpz, align 8, !tbaa !83
   %lpz = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 17
@@ -2578,8 +2578,8 @@ if.end87:                                         ; preds = %if.else56.if.end87_
   %call = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %12) #13
   %real_zones = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 18
   store ptr %call, ptr %real_zones, align 8, !tbaa !85
-  %cmp117223 = icmp sgt i32 %7, 0
-  br i1 %cmp117223, label %for.body.preheader, label %for.cond.cleanup
+  %cmp117222 = icmp sgt i32 %7, 0
+  br i1 %cmp117222, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %if.end87
   %13 = zext i32 %7 to i64
@@ -2593,75 +2593,75 @@ for.cond.cleanup:                                 ; preds = %for.body.preheader,
   br i1 %cmp44, label %for.cond122.preheader, label %if.else149
 
 for.cond122.preheader:                            ; preds = %for.cond.cleanup
-  %cmp124255 = icmp sgt i32 %rzmax.0, 1
-  br i1 %cmp124255, label %for.body126.us.preheader, label %if.end196
+  %cmp124254 = icmp sgt i32 %rzmax.0, 1
+  br i1 %cmp124254, label %for.body126.us.preheader, label %if.end196
 
 for.body126.us.preheader:                         ; preds = %for.cond122.preheader
   %15 = add i32 %rzmax.0, -1
   %16 = zext i32 %15 to i64
-  %min.iters.check284 = icmp ult i32 %rzmax.0, 9
-  %n.vec287 = and i64 %16, 4294967288
-  %.cast290 = trunc i64 %n.vec287 to i32
-  %ind.end291 = or i32 %.cast290, 2
-  %cmp.n293 = icmp eq i64 %n.vec287, %16
+  %min.iters.check283 = icmp ult i32 %rzmax.0, 9
+  %n.vec286 = and i64 %16, 4294967288
+  %.cast289 = trunc i64 %n.vec286 to i32
+  %ind.end290 = or i32 %.cast289, 2
+  %cmp.n292 = icmp eq i64 %n.vec286, %16
   br label %for.body126.us
 
 for.body126.us:                                   ; preds = %for.body126.us.preheader, %for.cond129.for.cond.cleanup132_crit_edge.us
-  %j.0257.us = phi i32 [ %inc147.us, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ 2, %for.body126.us.preheader ]
-  %inc142.lcssa254256.us = phi i64 [ %indvars.iv.next265.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ 0, %for.body126.us.preheader ]
-  %mul135.us = mul nsw i32 %add43, %j.0257.us
-  %sext270 = shl i64 %inc142.lcssa254256.us, 32
-  %17 = ashr exact i64 %sext270, 32
-  br i1 %min.iters.check284, label %for.body133.us.preheader, label %vector.ph285
+  %j.0256.us = phi i32 [ %inc147.us, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ 2, %for.body126.us.preheader ]
+  %inc142.lcssa253255.us = phi i64 [ %indvars.iv.next264.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ 0, %for.body126.us.preheader ]
+  %mul135.us = mul nsw i32 %add43, %j.0256.us
+  %sext269 = shl i64 %inc142.lcssa253255.us, 32
+  %17 = ashr exact i64 %sext269, 32
+  br i1 %min.iters.check283, label %for.body133.us.preheader, label %vector.ph284
 
-vector.ph285:                                     ; preds = %for.body126.us
-  %ind.end288 = add nsw i64 %17, %n.vec287
-  %broadcast.splatinsert301 = insertelement <4 x i32> poison, i32 %mul135.us, i64 0
-  %broadcast.splat302 = shufflevector <4 x i32> %broadcast.splatinsert301, <4 x i32> poison, <4 x i32> zeroinitializer
+vector.ph284:                                     ; preds = %for.body126.us
+  %ind.end287 = add nsw i64 %17, %n.vec286
+  %broadcast.splatinsert300 = insertelement <4 x i32> poison, i32 %mul135.us, i64 0
+  %broadcast.splat301 = shufflevector <4 x i32> %broadcast.splatinsert300, <4 x i32> poison, <4 x i32> zeroinitializer
   %.scalar = add i32 %mul135.us, 4
   %18 = insertelement <4 x i32> poison, i32 %.scalar, i64 0
   %19 = shufflevector <4 x i32> %18, <4 x i32> poison, <4 x i32> zeroinitializer
-  br label %vector.body294
+  br label %vector.body293
 
-vector.body294:                                   ; preds = %vector.body294, %vector.ph285
-  %index295 = phi i64 [ 0, %vector.ph285 ], [ %index.next305, %vector.body294 ]
-  %vec.ind296 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %vector.ph285 ], [ %vec.ind.next299, %vector.body294 ]
-  %offset.idx300 = add i64 %17, %index295
-  %20 = add nsw <4 x i32> %broadcast.splat302, %vec.ind296
-  %21 = add <4 x i32> %19, %vec.ind296
-  %22 = getelementptr inbounds i32, ptr %call, i64 %offset.idx300
+vector.body293:                                   ; preds = %vector.body293, %vector.ph284
+  %index294 = phi i64 [ 0, %vector.ph284 ], [ %index.next304, %vector.body293 ]
+  %vec.ind295 = phi <4 x i32> [ <i32 2, i32 3, i32 4, i32 5>, %vector.ph284 ], [ %vec.ind.next298, %vector.body293 ]
+  %offset.idx299 = add i64 %17, %index294
+  %20 = add nsw <4 x i32> %broadcast.splat301, %vec.ind295
+  %21 = add <4 x i32> %19, %vec.ind295
+  %22 = getelementptr inbounds i32, ptr %call, i64 %offset.idx299
   store <4 x i32> %20, ptr %22, align 4, !tbaa !116
   %23 = getelementptr inbounds i32, ptr %22, i64 4
   store <4 x i32> %21, ptr %23, align 4, !tbaa !116
-  %index.next305 = add nuw i64 %index295, 8
-  %vec.ind.next299 = add <4 x i32> %vec.ind296, <i32 8, i32 8, i32 8, i32 8>
-  %24 = icmp eq i64 %index.next305, %n.vec287
-  br i1 %24, label %middle.block282, label %vector.body294, !llvm.loop !151
+  %index.next304 = add nuw i64 %index294, 8
+  %vec.ind.next298 = add <4 x i32> %vec.ind295, <i32 8, i32 8, i32 8, i32 8>
+  %24 = icmp eq i64 %index.next304, %n.vec286
+  br i1 %24, label %middle.block281, label %vector.body293, !llvm.loop !151
 
-middle.block282:                                  ; preds = %vector.body294
-  br i1 %cmp.n293, label %for.cond129.for.cond.cleanup132_crit_edge.us, label %for.body133.us.preheader
+middle.block281:                                  ; preds = %vector.body293
+  br i1 %cmp.n292, label %for.cond129.for.cond.cleanup132_crit_edge.us, label %for.body133.us.preheader
 
-for.body133.us.preheader:                         ; preds = %for.body126.us, %middle.block282
-  %indvars.iv264.ph = phi i64 [ %17, %for.body126.us ], [ %ind.end288, %middle.block282 ]
-  %i127.0251.us.ph = phi i32 [ 2, %for.body126.us ], [ %ind.end291, %middle.block282 ]
+for.body133.us.preheader:                         ; preds = %for.body126.us, %middle.block281
+  %indvars.iv263.ph = phi i64 [ %17, %for.body126.us ], [ %ind.end287, %middle.block281 ]
+  %i127.0250.us.ph = phi i32 [ 2, %for.body126.us ], [ %ind.end290, %middle.block281 ]
   br label %for.body133.us
 
 for.body133.us:                                   ; preds = %for.body133.us.preheader, %for.body133.us
-  %indvars.iv264 = phi i64 [ %indvars.iv.next265, %for.body133.us ], [ %indvars.iv264.ph, %for.body133.us.preheader ]
-  %i127.0251.us = phi i32 [ %inc144.us, %for.body133.us ], [ %i127.0251.us.ph, %for.body133.us.preheader ]
-  %add136.us = add nsw i32 %mul135.us, %i127.0251.us
-  %arrayidx140.us = getelementptr inbounds i32, ptr %call, i64 %indvars.iv264
+  %indvars.iv263 = phi i64 [ %indvars.iv.next264, %for.body133.us ], [ %indvars.iv263.ph, %for.body133.us.preheader ]
+  %i127.0250.us = phi i32 [ %inc144.us, %for.body133.us ], [ %i127.0250.us.ph, %for.body133.us.preheader ]
+  %add136.us = add nsw i32 %mul135.us, %i127.0250.us
+  %arrayidx140.us = getelementptr inbounds i32, ptr %call, i64 %indvars.iv263
   store i32 %add136.us, ptr %arrayidx140.us, align 4, !tbaa !116
-  %indvars.iv.next265 = add nsw i64 %indvars.iv264, 1
-  %inc144.us = add nuw nsw i32 %i127.0251.us, 1
-  %exitcond267.not = icmp eq i32 %i127.0251.us, %rzmax.0
-  br i1 %exitcond267.not, label %for.cond129.for.cond.cleanup132_crit_edge.us, label %for.body133.us, !llvm.loop !152
+  %indvars.iv.next264 = add nsw i64 %indvars.iv263, 1
+  %inc144.us = add nuw nsw i32 %i127.0250.us, 1
+  %exitcond266.not = icmp eq i32 %i127.0250.us, %rzmax.0
+  br i1 %exitcond266.not, label %for.cond129.for.cond.cleanup132_crit_edge.us, label %for.body133.us, !llvm.loop !152
 
-for.cond129.for.cond.cleanup132_crit_edge.us:     ; preds = %for.body133.us, %middle.block282
-  %indvars.iv.next265.lcssa = phi i64 [ %ind.end288, %middle.block282 ], [ %indvars.iv.next265, %for.body133.us ]
-  %inc147.us = add nuw nsw i32 %j.0257.us, 1
-  %exitcond268.not = icmp eq i32 %j.0257.us, %rzmax.0
-  br i1 %exitcond268.not, label %if.end196.sink.split, label %for.body126.us, !llvm.loop !119
+for.cond129.for.cond.cleanup132_crit_edge.us:     ; preds = %for.body133.us, %middle.block281
+  %indvars.iv.next264.lcssa = phi i64 [ %ind.end287, %middle.block281 ], [ %indvars.iv.next264, %for.body133.us ]
+  %inc147.us = add nuw nsw i32 %j.0256.us, 1
+  %exitcond267.not = icmp eq i32 %j.0256.us, %rzmax.0
+  br i1 %exitcond267.not, label %if.end196.sink.split, label %for.body126.us, !llvm.loop !119
 
 if.else149:                                       ; preds = %for.cond.cleanup
   %cmp150 = icmp eq i32 %ndims, 3
@@ -2672,9 +2672,9 @@ if.then151:                                       ; preds = %if.else149
   %25 = load i32, ptr %kmin152, align 4, !tbaa !126
   %kmax154 = getelementptr inbounds %struct.ADomain, ptr %this, i64 0, i32 8
   %26 = load i32, ptr %kmax154, align 8, !tbaa !127
-  %cmp155238 = icmp slt i32 %25, %26
-  %cmp162232 = icmp sgt i32 %rzmax.0, 1
-  %or.cond = select i1 %cmp155238, i1 %cmp162232, i1 false
+  %cmp155237 = icmp slt i32 %25, %26
+  %cmp162231 = icmp sgt i32 %rzmax.0, 1
+  %or.cond = select i1 %cmp155237, i1 %cmp162231, i1 false
   br i1 %or.cond, label %for.body157.us.us.preheader, label %if.end196
 
 for.body157.us.us.preheader:                      ; preds = %if.then151
@@ -2683,32 +2683,32 @@ for.body157.us.us.preheader:                      ; preds = %if.then151
   %min.iters.check = icmp ult i32 %rzmax.0, 9
   %n.vec = and i64 %28, 4294967288
   %.cast = trunc i64 %n.vec to i32
-  %ind.end273 = or i32 %.cast, 2
+  %ind.end272 = or i32 %.cast, 2
   %cmp.n = icmp eq i64 %n.vec, %28
   br label %for.body157.us.us
 
 for.body157.us.us:                                ; preds = %for.body157.us.us.preheader, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us
-  %k.0240.us.us = phi i32 [ %inc193.us.us, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ], [ %25, %for.body157.us.us.preheader ]
-  %inc185.lcssa.us.lcssa237239.us.us = phi i64 [ %indvars.iv.next.lcssa, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ], [ 0, %for.body157.us.us.preheader ]
-  %mul177.us.us = mul nsw i32 %6, %k.0240.us.us
+  %k.0239.us.us = phi i32 [ %inc193.us.us, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ], [ %25, %for.body157.us.us.preheader ]
+  %inc185.lcssa.us.lcssa236238.us.us = phi i64 [ %indvars.iv.next.lcssa, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ], [ 0, %for.body157.us.us.preheader ]
+  %mul177.us.us = mul nsw i32 %6, %k.0239.us.us
   br label %for.body164.us.us.us
 
 for.body164.us.us.us:                             ; preds = %for.cond167.for.cond.cleanup170_crit_edge.us.us.us, %for.body157.us.us
-  %j158.0234.us.us.us = phi i32 [ 2, %for.body157.us.us ], [ %inc190.us.us.us, %for.cond167.for.cond.cleanup170_crit_edge.us.us.us ]
-  %inc185.lcssa231233.us.us.us = phi i64 [ %inc185.lcssa.us.lcssa237239.us.us, %for.body157.us.us ], [ %indvars.iv.next.lcssa, %for.cond167.for.cond.cleanup170_crit_edge.us.us.us ]
-  %mul174.us.us.us = mul nsw i32 %add43, %j158.0234.us.us.us
-  %sext = shl i64 %inc185.lcssa231233.us.us.us, 32
+  %j158.0233.us.us.us = phi i32 [ 2, %for.body157.us.us ], [ %inc190.us.us.us, %for.cond167.for.cond.cleanup170_crit_edge.us.us.us ]
+  %inc185.lcssa230232.us.us.us = phi i64 [ %inc185.lcssa.us.lcssa236238.us.us, %for.body157.us.us ], [ %indvars.iv.next.lcssa, %for.cond167.for.cond.cleanup170_crit_edge.us.us.us ]
+  %mul174.us.us.us = mul nsw i32 %add43, %j158.0233.us.us.us
+  %sext = shl i64 %inc185.lcssa230232.us.us.us, 32
   %29 = ashr exact i64 %sext, 32
   br i1 %min.iters.check, label %for.body171.us.us.us.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body164.us.us.us
   %ind.end = add nsw i64 %29, %n.vec
-  %.scalar306 = add i32 %mul177.us.us, %mul174.us.us.us
-  %30 = insertelement <4 x i32> poison, i32 %.scalar306, i64 0
+  %.scalar305 = add i32 %mul177.us.us, %mul174.us.us.us
+  %30 = insertelement <4 x i32> poison, i32 %.scalar305, i64 0
   %31 = shufflevector <4 x i32> %30, <4 x i32> poison, <4 x i32> zeroinitializer
-  %.scalar307 = add i32 %mul177.us.us, %mul174.us.us.us
-  %.scalar308 = add i32 %.scalar307, 4
-  %32 = insertelement <4 x i32> poison, i32 %.scalar308, i64 0
+  %.scalar306 = add i32 %mul177.us.us, %mul174.us.us.us
+  %.scalar307 = add i32 %.scalar306, 4
+  %32 = insertelement <4 x i32> poison, i32 %.scalar307, i64 0
   %33 = shufflevector <4 x i32> %32, <4 x i32> poison, <4 x i32> zeroinitializer
   br label %vector.body
 
@@ -2732,35 +2732,35 @@ middle.block:                                     ; preds = %vector.body
 
 for.body171.us.us.us.preheader:                   ; preds = %for.body164.us.us.us, %middle.block
   %indvars.iv.ph = phi i64 [ %29, %for.body164.us.us.us ], [ %ind.end, %middle.block ]
-  %i165.0228.us.us.us.ph = phi i32 [ 2, %for.body164.us.us.us ], [ %ind.end273, %middle.block ]
+  %i165.0227.us.us.us.ph = phi i32 [ 2, %for.body164.us.us.us ], [ %ind.end272, %middle.block ]
   br label %for.body171.us.us.us
 
 for.body171.us.us.us:                             ; preds = %for.body171.us.us.us.preheader, %for.body171.us.us.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body171.us.us.us ], [ %indvars.iv.ph, %for.body171.us.us.us.preheader ]
-  %i165.0228.us.us.us = phi i32 [ %inc187.us.us.us, %for.body171.us.us.us ], [ %i165.0228.us.us.us.ph, %for.body171.us.us.us.preheader ]
-  %add175.us.us.us = add nsw i32 %mul174.us.us.us, %i165.0228.us.us.us
+  %i165.0227.us.us.us = phi i32 [ %inc187.us.us.us, %for.body171.us.us.us ], [ %i165.0227.us.us.us.ph, %for.body171.us.us.us.preheader ]
+  %add175.us.us.us = add nsw i32 %mul174.us.us.us, %i165.0227.us.us.us
   %add178.us.us.us = add nsw i32 %add175.us.us.us, %mul177.us.us
   %arrayidx183.us.us.us = getelementptr inbounds i32, ptr %call, i64 %indvars.iv
   store i32 %add178.us.us.us, ptr %arrayidx183.us.us.us, align 4, !tbaa !116
   %indvars.iv.next = add nsw i64 %indvars.iv, 1
-  %inc187.us.us.us = add nuw nsw i32 %i165.0228.us.us.us, 1
-  %exitcond.not = icmp eq i32 %i165.0228.us.us.us, %rzmax.0
+  %inc187.us.us.us = add nuw nsw i32 %i165.0227.us.us.us, 1
+  %exitcond.not = icmp eq i32 %i165.0227.us.us.us, %rzmax.0
   br i1 %exitcond.not, label %for.cond167.for.cond.cleanup170_crit_edge.us.us.us, label %for.body171.us.us.us, !llvm.loop !154
 
 for.cond167.for.cond.cleanup170_crit_edge.us.us.us: ; preds = %for.body171.us.us.us, %middle.block
   %indvars.iv.next.lcssa = phi i64 [ %ind.end, %middle.block ], [ %indvars.iv.next, %for.body171.us.us.us ]
-  %inc190.us.us.us = add nuw nsw i32 %j158.0234.us.us.us, 1
-  %exitcond262.not = icmp eq i32 %j158.0234.us.us.us, %rzmax.0
-  br i1 %exitcond262.not, label %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us, label %for.body164.us.us.us, !llvm.loop !155
+  %inc190.us.us.us = add nuw nsw i32 %j158.0233.us.us.us, 1
+  %exitcond261.not = icmp eq i32 %j158.0233.us.us.us, %rzmax.0
+  br i1 %exitcond261.not, label %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us, label %for.body164.us.us.us, !llvm.loop !155
 
 for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us: ; preds = %for.cond167.for.cond.cleanup170_crit_edge.us.us.us
-  %inc193.us.us = add nsw i32 %k.0240.us.us, 1
-  %exitcond263.not = icmp eq i32 %inc193.us.us, %26
-  br i1 %exitcond263.not, label %if.end196.sink.split, label %for.body157.us.us, !llvm.loop !156
+  %inc193.us.us = add nsw i32 %k.0239.us.us, 1
+  %exitcond262.not = icmp eq i32 %inc193.us.us, %26
+  br i1 %exitcond262.not, label %if.end196.sink.split, label %for.body157.us.us, !llvm.loop !156
 
 if.end196.sink.split:                             ; preds = %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us, %for.cond129.for.cond.cleanup132_crit_edge.us
-  %indvars.iv.next.lcssa.lcssa271.lcssa.sink = phi i64 [ %indvars.iv.next265.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ %indvars.iv.next.lcssa, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ]
-  %39 = trunc i64 %indvars.iv.next.lcssa.lcssa271.lcssa.sink to i32
+  %indvars.iv.next.lcssa.lcssa270.lcssa.sink = phi i64 [ %indvars.iv.next264.lcssa, %for.cond129.for.cond.cleanup132_crit_edge.us ], [ %indvars.iv.next.lcssa, %for.cond160.for.cond.cleanup163_crit_edge.split.us.us.us ]
+  %39 = trunc i64 %indvars.iv.next.lcssa.lcssa270.lcssa.sink to i32
   store i32 %39, ptr %n_real_zones, align 8, !tbaa !150
   br label %if.end196
 

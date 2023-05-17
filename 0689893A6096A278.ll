@@ -15,12 +15,14 @@ entry:
   store i64 %bf.set, ptr @sv, align 8
   tail call void asm sideeffect "", "~{memory},~{dirflag},~{fpsr},~{flags}"() #2, !srcloc !5
   %bf.load1 = load i64, ptr @sv, align 8
-  %0 = and i64 %bf.load1, -1099511627776
-  %bf.shl = add i64 %0, 1099511627776
+  %bf.lshr = lshr i64 %bf.load1, 40
+  %inc = add nuw nsw i64 %bf.lshr, 1
+  %bf.value = and i64 %inc, 16777215
+  %bf.shl = shl nuw i64 %bf.value, 40
   %bf.clear3 = and i64 %bf.load1, 1099511627775
   %bf.set4 = or i64 %bf.shl, %bf.clear3
   store i64 %bf.set4, ptr @sv, align 8
-  %cmp.not = icmp eq i64 %bf.shl, 0
+  %cmp.not = icmp eq i64 %bf.value, 0
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry

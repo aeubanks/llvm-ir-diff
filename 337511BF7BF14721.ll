@@ -775,13 +775,13 @@ for.body:                                         ; preds = %for.body.lr.ph, %wh
 
 while.body:                                       ; preds = %for.body, %if.end
   %11 = phi i32 [ %76, %if.end ], [ %7, %for.body ]
-  %12 = phi i32 [ %77, %if.end ], [ %7, %for.body ]
-  %13 = phi i32 [ %78, %if.end ], [ %7, %for.body ]
-  %14 = phi i32 [ %79, %if.end ], [ %7, %for.body ]
-  %15 = phi i32 [ %80, %if.end ], [ %7, %for.body ]
-  %16 = phi i32 [ %81, %if.end ], [ %7, %for.body ]
-  %17 = phi i32 [ %82, %if.end ], [ %7, %for.body ]
-  %18 = phi ptr [ %83, %if.end ], [ %8, %for.body ]
+  %12 = phi ptr [ %83, %if.end ], [ %8, %for.body ]
+  %13 = phi i32 [ %77, %if.end ], [ %7, %for.body ]
+  %14 = phi i32 [ %78, %if.end ], [ %7, %for.body ]
+  %15 = phi i32 [ %79, %if.end ], [ %7, %for.body ]
+  %16 = phi i32 [ %80, %if.end ], [ %7, %for.body ]
+  %17 = phi i32 [ %81, %if.end ], [ %7, %for.body ]
+  %18 = phi i32 [ %82, %if.end ], [ %7, %for.body ]
   %ii.035 = phi i32 [ %ii.1, %if.end ], [ 0, %for.body ]
   %19 = load ptr, ptr %r, align 8, !tbaa !22
   %add = add nsw i32 %ii.035, %mul
@@ -852,7 +852,7 @@ if.then.i31:                                      ; preds = %getBoxFromCoord.exi
   %reass.mul180.i = mul i32 %add8.i, %reass.add179.i
   %add16.i = add i32 %ix.0.i, 1
   %add21.i = add i32 %add16.i, %mul4.i
-  %add22.i = add i32 %add21.i, %12
+  %add22.i = add i32 %add21.i, %13
   %add23.i = add i32 %add22.i, %reass.mul180.i
   br label %getBoxFromTuple.exit
 
@@ -869,7 +869,7 @@ if.then25.i:                                      ; preds = %if.else.i32
   %reass.mul177.i = mul i32 %add35.i, %reass.add176.i
   %add37.i = add i32 %ix.0.i, 1
   %add42.i = add i32 %add37.i, %mul30.i
-  %add43.i = add i32 %add42.i, %13
+  %add43.i = add i32 %add42.i, %14
   %add44.i = add i32 %add43.i, %reass.mul177.i
   br label %getBoxFromTuple.exit
 
@@ -884,7 +884,7 @@ if.then48.i:                                      ; preds = %if.else45.i
   %reass.mul175.i = mul i32 %add57.i, %reass.add174.i
   %add59.i = add i32 %ix.0.i, 1
   %add63.i = add i32 %add59.i, %mul53.i
-  %add64.i = add i32 %add63.i, %14
+  %add64.i = add i32 %add63.i, %15
   %add65.i = add i32 %add64.i, %reass.mul175.i
   br label %getBoxFromTuple.exit
 
@@ -899,7 +899,7 @@ if.then68.i:                                      ; preds = %if.else66.i
   %mul77.i = mul nsw i32 %add76.i, %iz.0.i
   %add74.i = add i32 %ix.0.i, 1
   %add78.i = add i32 %add74.i, %mul73.i
-  %add79.i = add i32 %add78.i, %15
+  %add79.i = add i32 %add78.i, %16
   %add80.i = add i32 %add79.i, %mul77.i
   br label %getBoxFromTuple.exit
 
@@ -911,7 +911,7 @@ if.then84.i:                                      ; preds = %if.else81.i
   %reass.add172.i = add i32 %iz.0.i, %44
   %reass.mul173.i = mul i32 %reass.add172.i, %40
   %add92.i = add i32 %reass.mul173.i, %iy.0.i
-  %add93.i = add i32 %add92.i, %16
+  %add93.i = add i32 %add92.i, %17
   br label %getBoxFromTuple.exit
 
 if.else94.i:                                      ; preds = %if.else81.i
@@ -921,7 +921,7 @@ if.else94.i:                                      ; preds = %if.else81.i
   br i1 %cmp95.i, label %if.then96.i, label %if.else102.i
 
 if.then96.i:                                      ; preds = %if.else94.i
-  %add101.i = add i32 %add100.i, %17
+  %add101.i = add i32 %add100.i, %18
   br label %getBoxFromTuple.exit
 
 if.else102.i:                                     ; preds = %if.else94.i
@@ -930,11 +930,11 @@ if.else102.i:                                     ; preds = %if.else94.i
   br label %getBoxFromTuple.exit
 
 getBoxFromTuple.exit:                             ; preds = %if.then.i31, %if.then25.i, %if.then48.i, %if.then68.i, %if.then84.i, %if.then96.i, %if.else102.i
-  %47 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %13, %if.then48.i ], [ %13, %if.then68.i ], [ %13, %if.then84.i ], [ %13, %if.then96.i ], [ %13, %if.else102.i ]
-  %48 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %14, %if.then68.i ], [ %14, %if.then84.i ], [ %14, %if.then96.i ], [ %14, %if.else102.i ]
-  %49 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %15, %if.then84.i ], [ %15, %if.then96.i ], [ %15, %if.else102.i ]
-  %50 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %16, %if.then84.i ], [ %16, %if.then96.i ], [ %16, %if.else102.i ]
-  %51 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %16, %if.then84.i ], [ %17, %if.then96.i ], [ %17, %if.else102.i ]
+  %47 = phi i32 [ %13, %if.then.i31 ], [ %14, %if.then25.i ], [ %14, %if.then48.i ], [ %14, %if.then68.i ], [ %14, %if.then84.i ], [ %14, %if.then96.i ], [ %14, %if.else102.i ]
+  %48 = phi i32 [ %13, %if.then.i31 ], [ %14, %if.then25.i ], [ %15, %if.then48.i ], [ %15, %if.then68.i ], [ %15, %if.then84.i ], [ %15, %if.then96.i ], [ %15, %if.else102.i ]
+  %49 = phi i32 [ %13, %if.then.i31 ], [ %14, %if.then25.i ], [ %15, %if.then48.i ], [ %16, %if.then68.i ], [ %16, %if.then84.i ], [ %16, %if.then96.i ], [ %16, %if.else102.i ]
+  %50 = phi i32 [ %13, %if.then.i31 ], [ %14, %if.then25.i ], [ %15, %if.then48.i ], [ %16, %if.then68.i ], [ %17, %if.then84.i ], [ %17, %if.then96.i ], [ %17, %if.else102.i ]
+  %51 = phi i32 [ %13, %if.then.i31 ], [ %14, %if.then25.i ], [ %15, %if.then48.i ], [ %16, %if.then68.i ], [ %17, %if.then84.i ], [ %18, %if.then96.i ], [ %18, %if.else102.i ]
   %iBox.0.i = phi i32 [ %add23.i, %if.then.i31 ], [ %add44.i, %if.then25.i ], [ %add65.i, %if.then48.i ], [ %add80.i, %if.then68.i ], [ %add93.i, %if.then84.i ], [ %add101.i, %if.then96.i ], [ %add110.i, %if.else102.i ]
   %52 = zext i32 %iBox.0.i to i64
   %cmp4.not = icmp eq i64 %indvars.iv, %52
@@ -942,7 +942,7 @@ getBoxFromTuple.exit:                             ; preds = %if.then.i31, %if.th
 
 if.then:                                          ; preds = %getBoxFromTuple.exit
   %idxprom.i = sext i32 %iBox.0.i to i64
-  %arrayidx.i22 = getelementptr inbounds i32, ptr %18, i64 %idxprom.i
+  %arrayidx.i22 = getelementptr inbounds i32, ptr %12, i64 %idxprom.i
   %53 = load i32, ptr %arrayidx.i22, align 4, !tbaa !9
   %mul1.i.i = shl nsw i32 %iBox.0.i, 6
   %add2.i.i = add nsw i32 %53, %mul1.i.i
@@ -1033,7 +1033,7 @@ if.else:                                          ; preds = %getBoxFromTuple.exi
 
 if.end:                                           ; preds = %if.then10.i, %if.end.i, %if.else
   %76 = phi i32 [ %11, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
-  %77 = phi i32 [ %12, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %77 = phi i32 [ %13, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
   %78 = phi i32 [ %47, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
   %79 = phi i32 [ %48, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
   %80 = phi i32 [ %49, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
@@ -1123,7 +1123,7 @@ for.body.prol:                                    ; preds = %for.body.preheader,
   %prol.iter = phi i64 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
   %arrayidx.prol = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.prol
   %11 = load i32, ptr %arrayidx.prol, align 4, !tbaa !9
-  %..prol = tail call i32 @llvm.smax.i32(i32 %.1416.prol, i32 %11)
+  %..prol = call i32 @llvm.smax.i32(i32 %.1416.prol, i32 %11)
   store i32 %..prol, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.prol = add nuw nsw i64 %indvars.iv.prol, 1
   %prol.iter.next = add i64 %prol.iter, 1
@@ -1151,22 +1151,22 @@ for.body:                                         ; preds = %for.body.prol.loope
   %.1416 = phi i32 [ %..3, %for.body ], [ %.1416.unr, %for.body.prol.loopexit ]
   %arrayidx = getelementptr inbounds i32, ptr %1, i64 %indvars.iv
   %14 = load i32, ptr %arrayidx, align 4, !tbaa !9
-  %. = tail call i32 @llvm.smax.i32(i32 %.1416, i32 %14)
+  %. = call i32 @llvm.smax.i32(i32 %.1416, i32 %14)
   store i32 %., ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx.1 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next
   %15 = load i32, ptr %arrayidx.1, align 4, !tbaa !9
-  %..1 = tail call i32 @llvm.smax.i32(i32 %., i32 %15)
+  %..1 = call i32 @llvm.smax.i32(i32 %., i32 %15)
   store i32 %..1, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %arrayidx.2 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.1
   %16 = load i32, ptr %arrayidx.2, align 4, !tbaa !9
-  %..2 = tail call i32 @llvm.smax.i32(i32 %..1, i32 %16)
+  %..2 = call i32 @llvm.smax.i32(i32 %..1, i32 %16)
   store i32 %..2, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv, 3
   %arrayidx.3 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.2
   %17 = load i32, ptr %arrayidx.3, align 4, !tbaa !9
-  %..3 = tail call i32 @llvm.smax.i32(i32 %..2, i32 %17)
+  %..3 = call i32 @llvm.smax.i32(i32 %..2, i32 %17)
   store i32 %..3, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
   %exitcond.not.3 = icmp eq i64 %indvars.iv.next.3, %wide.trip.count

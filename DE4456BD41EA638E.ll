@@ -207,25 +207,25 @@ _ZL5test1v.exit:                                  ; preds = %middle.block33
   %bin.rdx.le = add <4 x i32> %20, %19
   %22 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx.le)
   store i32 %22, ptr @y, align 4, !tbaa !5
-  %call1.i24 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %myfile, ptr noundef nonnull @.str.2, i64 noundef 7)
+  %call1.i23 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %myfile, ptr noundef nonnull @.str.2, i64 noundef 7)
           to label %invoke.cont4 unwind label %lpad1
 
 invoke.cont4:                                     ; preds = %_ZL5test1v.exit
   %conv.i = zext i32 %22 to i64
-  %call.i25 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %myfile, i64 noundef %conv.i)
+  %call.i24 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %myfile, i64 noundef %conv.i)
           to label %invoke.cont6 unwind label %lpad1
 
 invoke.cont6:                                     ; preds = %invoke.cont4
-  %call1.i27 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i25, ptr noundef nonnull @.str.3, i64 noundef 1)
+  %call1.i26 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i24, ptr noundef nonnull @.str.3, i64 noundef 1)
           to label %invoke.cont8 unwind label %lpad1
 
 invoke.cont8:                                     ; preds = %invoke.cont6
   %_M_filebuf.i = getelementptr inbounds %"class.std::basic_ofstream", ptr %myfile, i64 0, i32 1
-  %call.i29 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
+  %call.i28 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
           to label %call.i.noexc unwind label %lpad1
 
 call.i.noexc:                                     ; preds = %invoke.cont8
-  %tobool.not.i = icmp eq ptr %call.i29, null
+  %tobool.not.i = icmp eq ptr %call.i28, null
   br i1 %tobool.not.i, label %if.then.i, label %invoke.cont10
 
 if.then.i:                                        ; preds = %call.i.noexc
@@ -292,13 +292,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not79 = icmp eq i64 %1, 0
   %cmp.not.i.not7 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not79
-  br i1 %cmp.not.i.not7, label %for.cond.cleanup, label %for.body.i.preheader, !prof !44
+  br i1 %cmp.not.i.not7, label %if.end.i, label %for.body.i.preheader, !prof !44
 
 for.body.i.preheader:                             ; preds = %entry, %_ZL5test1v.exit
   %__begin1.sroa.0.08 = phi i64 [ %dec.i, %_ZL5test1v.exit ], [ %1, %entry ]
   br label %vector.ph
 
-for.cond.cleanup:                                 ; preds = %_ZL5test1v.exit, %entry
+if.end.i:                                         ; preds = %_ZL5test1v.exit, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %x) #12
   ret void
@@ -351,7 +351,7 @@ _ZL5test1v.exit:                                  ; preds = %middle.block
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %x, i32 %add) #12, !srcloc !46
   %dec.i = add i64 %__begin1.sroa.0.08, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body.i.preheader, !prof !44
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body.i.preheader, !prof !44
 }
 
 declare noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef) local_unnamed_addr #0

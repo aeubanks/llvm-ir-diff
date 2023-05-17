@@ -102,26 +102,26 @@ if.end:                                           ; preds = %if.then, %entry
   %1 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %2 = load ptr, ptr @functions, align 8, !tbaa !11
   %3 = load i32, ptr @pc, align 4, !tbaa !13
-  %idxprom808 = sext i32 %3 to i64
-  %f_code_size809 = getelementptr inbounds %struct.bc_function, ptr %2, i64 %idxprom808, i32 2
-  %4 = load i32, ptr %f_code_size809, align 8, !tbaa !15
-  %cmp810 = icmp slt i32 %1, %4
+  %idxprom807 = sext i32 %3 to i64
+  %f_code_size808 = getelementptr inbounds %struct.bc_function, ptr %2, i64 %idxprom807, i32 2
+  %4 = load i32, ptr %f_code_size808, align 8, !tbaa !15
+  %cmp809 = icmp slt i32 %1, %4
   %5 = load i8, ptr @runtime_error, align 1
-  %tobool1.not811 = icmp eq i8 %5, 0
-  %6 = select i1 %cmp810, i1 %tobool1.not811, i1 false
+  %tobool1.not810 = icmp eq i8 %5, 0
+  %6 = select i1 %cmp809, i1 %tobool1.not810, i1 false
   br i1 %6, label %while.body, label %while.cond490thread-pre-split
 
 while.body:                                       ; preds = %if.end, %sw.epilog488
-  %idxprom812 = phi i64 [ %idxprom, %sw.epilog488 ], [ %idxprom808, %if.end ]
-  %7 = phi i32 [ %293, %sw.epilog488 ], [ %3, %if.end ]
-  %8 = phi ptr [ %292, %sw.epilog488 ], [ %2, %if.end ]
-  %9 = phi i32 [ %291, %sw.epilog488 ], [ %1, %if.end ]
-  %shr.i = ashr i32 %9, 10
-  %inc.i = add nsw i32 %9, 1
+  %7 = phi i32 [ %291, %sw.epilog488 ], [ %1, %if.end ]
+  %idxprom811 = phi i64 [ %idxprom, %sw.epilog488 ], [ %idxprom807, %if.end ]
+  %8 = phi i32 [ %293, %sw.epilog488 ], [ %3, %if.end ]
+  %9 = phi ptr [ %292, %sw.epilog488 ], [ %2, %if.end ]
+  %shr.i = ashr i32 %7, 10
+  %inc.i = add nsw i32 %7, 1
   store i32 %inc.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i = srem i32 %9, 1024
+  %rem.i = srem i32 %7, 1024
   %idxprom2.i = sext i32 %shr.i to i64
-  %arrayidx3.i = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i
+  %arrayidx3.i = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i
   %10 = load ptr, ptr %arrayidx3.i, align 8, !tbaa !11
   %idxprom4.i = sext i32 %rem.i to i64
   %arrayidx5.i = getelementptr inbounds i8, ptr %10, i64 %idxprom4.i
@@ -174,11 +174,11 @@ while.body:                                       ; preds = %if.end, %sw.epilog4
 
 sw.bb:                                            ; preds = %while.body
   %shr.i565 = ashr i32 %inc.i, 10
-  %inc.i566 = add nsw i32 %9, 2
+  %inc.i566 = add nsw i32 %7, 2
   store i32 %inc.i566, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i567 = srem i32 %inc.i, 1024
   %idxprom2.i569 = sext i32 %shr.i565 to i64
-  %arrayidx3.i570 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i569
+  %arrayidx3.i570 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i569
   %12 = load ptr, ptr %arrayidx3.i570, align 8, !tbaa !11
   %idxprom4.i571 = sext i32 %rem.i567 to i64
   %arrayidx5.i572 = getelementptr inbounds i8, ptr %12, i64 %idxprom4.i571
@@ -188,11 +188,11 @@ sw.bb:                                            ; preds = %while.body
 
 if.then7:                                         ; preds = %sw.bb
   %shr.i573 = ashr i32 %inc.i566, 10
-  %inc.i574 = add nsw i32 %9, 3
+  %inc.i574 = add nsw i32 %7, 3
   store i32 %inc.i574, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i575 = srem i32 %inc.i566, 1024
   %idxprom2.i577 = sext i32 %shr.i573 to i64
-  %arrayidx3.i578 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i577
+  %arrayidx3.i578 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i577
   %14 = load ptr, ptr %arrayidx3.i578, align 8, !tbaa !11
   %idxprom4.i579 = sext i32 %rem.i575 to i64
   %arrayidx5.i580 = getelementptr inbounds i8, ptr %14, i64 %idxprom4.i579
@@ -213,15 +213,15 @@ sw.bb12:                                          ; preds = %while.body, %while.
   %conv16 = zext i1 %tobool14.not to i8
   store i8 %conv16, ptr @c_code, align 1, !tbaa !14
   call void @pop() #12
-  %.pre828 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %.pre829 = load ptr, ptr @functions, align 8, !tbaa !11
-  %.pre830 = load i32, ptr @pc, align 4, !tbaa !13
+  %.pre827 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %.pre828 = load ptr, ptr @functions, align 8, !tbaa !11
+  %.pre829 = load i32, ptr @pc, align 4, !tbaa !13
   br label %sw.bb17
 
 sw.bb17:                                          ; preds = %while.body, %sw.bb12
-  %18 = phi i32 [ %7, %while.body ], [ %.pre830, %sw.bb12 ]
-  %19 = phi ptr [ %8, %while.body ], [ %.pre829, %sw.bb12 ]
-  %20 = phi i32 [ %inc.i, %while.body ], [ %.pre828, %sw.bb12 ]
+  %18 = phi i32 [ %8, %while.body ], [ %.pre829, %sw.bb12 ]
+  %19 = phi ptr [ %9, %while.body ], [ %.pre828, %sw.bb12 ]
+  %20 = phi i32 [ %inc.i, %while.body ], [ %.pre827, %sw.bb12 ]
   %shr.i581 = ashr i32 %20, 10
   %inc.i582 = add nsw i32 %20, 1
   store i32 %inc.i582, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
@@ -258,31 +258,31 @@ lor.lhs.false:                                    ; preds = %sw.bb17
   %or.cond.not = xor i1 %or.cond, true
   %cmp34 = icmp ne i8 %11, 90
   %or.cond517 = select i1 %cmp34, i1 true, i1 %tobool31
-  %or.cond795 = select i1 %or.cond.not, i1 %or.cond517, i1 false
-  br i1 %or.cond795, label %sw.epilog488, label %if.then38
+  %or.cond838 = select i1 %or.cond.not, i1 %or.cond517, i1 false
+  br i1 %or.cond838, label %sw.epilog488, label %if.then38
 
 if.then38:                                        ; preds = %lor.lhs.false, %sw.bb17
   %f_label = getelementptr inbounds %struct.bc_function, ptr %19, i64 %idxprom.i584, i32 3
   %rem = and i32 %conv19, 63
-  %gp.0804 = load ptr, ptr %f_label, align 8, !tbaa !11
-  %cmp42805.not = icmp ult i32 %add23, 64
-  br i1 %cmp42805.not, label %while.end, label %while.body44.preheader
+  %gp.0803 = load ptr, ptr %f_label, align 8, !tbaa !11
+  %cmp42804.not = icmp ult i32 %add23, 64
+  br i1 %cmp42804.not, label %while.end, label %while.body44.preheader
 
 while.body44.preheader:                           ; preds = %if.then38
   %shr = lshr i32 %add23, 6
   br label %while.body44
 
 while.body44:                                     ; preds = %while.body44.preheader, %while.body44
-  %gp.0807 = phi ptr [ %gp.0, %while.body44 ], [ %gp.0804, %while.body44.preheader ]
-  %l_gp.0806 = phi i32 [ %dec, %while.body44 ], [ %shr, %while.body44.preheader ]
-  %dec = add nsw i32 %l_gp.0806, -1
-  %l_next = getelementptr inbounds %struct.bc_label_group, ptr %gp.0807, i64 0, i32 1
+  %gp.0806 = phi ptr [ %gp.0, %while.body44 ], [ %gp.0803, %while.body44.preheader ]
+  %l_gp.0805 = phi i32 [ %dec, %while.body44 ], [ %shr, %while.body44.preheader ]
+  %dec = add nsw i32 %l_gp.0805, -1
+  %l_next = getelementptr inbounds %struct.bc_label_group, ptr %gp.0806, i64 0, i32 1
   %gp.0 = load ptr, ptr %l_next, align 8, !tbaa !11
-  %cmp42 = icmp ugt i32 %l_gp.0806, 1
+  %cmp42 = icmp ugt i32 %l_gp.0805, 1
   br i1 %cmp42, label %while.body44, label %while.end, !llvm.loop !19
 
 while.end:                                        ; preds = %while.body44, %if.then38
-  %gp.0.lcssa = phi ptr [ %gp.0804, %if.then38 ], [ %gp.0, %while.body44 ]
+  %gp.0.lcssa = phi ptr [ %gp.0803, %if.then38 ], [ %gp.0, %while.body44 ]
   %idxprom45 = zext i32 %rem to i64
   %arrayidx46 = getelementptr inbounds [64 x i64], ptr %gp.0.lcssa, i64 0, i64 %idxprom45
   %26 = load i64, ptr %arrayidx46, align 8, !tbaa !21
@@ -292,11 +292,11 @@ while.end:                                        ; preds = %while.body44, %if.t
 
 sw.bb49:                                          ; preds = %while.body
   %shr.i597 = ashr i32 %inc.i, 10
-  %inc.i598 = add nsw i32 %9, 2
+  %inc.i598 = add nsw i32 %7, 2
   store i32 %inc.i598, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i599 = srem i32 %inc.i, 1024
   %idxprom2.i601 = sext i32 %shr.i597 to i64
-  %arrayidx3.i602 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i601
+  %arrayidx3.i602 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i601
   %27 = load ptr, ptr %arrayidx3.i602, align 8, !tbaa !11
   %idxprom4.i603 = sext i32 %rem.i599 to i64
   %arrayidx5.i604 = getelementptr inbounds i8, ptr %27, i64 %idxprom4.i603
@@ -306,11 +306,11 @@ sw.bb49:                                          ; preds = %while.body
 
 if.then55:                                        ; preds = %sw.bb49
   %shr.i605 = ashr i32 %inc.i598, 10
-  %inc.i606 = add nsw i32 %9, 3
+  %inc.i606 = add nsw i32 %7, 3
   store i32 %inc.i606, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i607 = srem i32 %inc.i598, 1024
   %idxprom2.i609 = sext i32 %shr.i605 to i64
-  %arrayidx3.i610 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i609
+  %arrayidx3.i610 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i609
   %29 = load ptr, ptr %arrayidx3.i610, align 8, !tbaa !11
   %idxprom4.i611 = sext i32 %rem.i607 to i64
   %arrayidx5.i612 = getelementptr inbounds i8, ptr %29, i64 %idxprom4.i611
@@ -321,7 +321,7 @@ if.end61:                                         ; preds = %if.then55, %sw.bb49
   %new_func.0.in = phi i8 [ %30, %if.then55 ], [ %28, %sw.bb49 ]
   %new_func.0 = zext i8 %new_func.0.in to i32
   %idxprom62 = zext i8 %new_func.0.in to i64
-  %arrayidx63 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom62
+  %arrayidx63 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom62
   %31 = load i8, ptr %arrayidx63, align 8, !tbaa !23
   %tobool64.not = icmp eq i8 %31, 0
   br i1 %tobool64.not, label %if.then65, label %if.end68
@@ -337,15 +337,15 @@ if.end68:                                         ; preds = %if.end61
   call void @process_params(ptr noundef nonnull @pc, i32 noundef %new_func.0) #12
   %34 = load ptr, ptr @functions, align 8, !tbaa !11
   %f_autos = getelementptr inbounds %struct.bc_function, ptr %34, i64 %idxprom62, i32 5
-  %auto_list.0801 = load ptr, ptr %f_autos, align 8, !tbaa !11
-  %cmp71.not802 = icmp eq ptr %auto_list.0801, null
-  br i1 %cmp71.not802, label %for.end, label %for.body
+  %auto_list.0800 = load ptr, ptr %f_autos, align 8, !tbaa !11
+  %cmp71.not801 = icmp eq ptr %auto_list.0800, null
+  br i1 %cmp71.not801, label %for.end, label %for.body
 
 for.body:                                         ; preds = %if.end68, %for.body
-  %auto_list.0803 = phi ptr [ %auto_list.0, %for.body ], [ %auto_list.0801, %if.end68 ]
-  %35 = load i32, ptr %auto_list.0803, align 8, !tbaa !24
+  %auto_list.0802 = phi ptr [ %auto_list.0, %for.body ], [ %auto_list.0800, %if.end68 ]
+  %35 = load i32, ptr %auto_list.0802, align 8, !tbaa !24
   call void @auto_var(i32 noundef %35) #12
-  %next = getelementptr inbounds %struct.arg_list, ptr %auto_list.0803, i64 0, i32 1
+  %next = getelementptr inbounds %struct.arg_list, ptr %auto_list.0802, i64 0, i32 1
   %auto_list.0 = load ptr, ptr %next, align 8, !tbaa !11
   %cmp71.not = icmp eq ptr %auto_list.0, null
   br i1 %cmp71.not, label %for.end, label %for.body, !llvm.loop !26
@@ -368,7 +368,7 @@ sw.bb73:                                          ; preds = %while.body
   br label %sw.epilog488
 
 sw.bb75:                                          ; preds = %while.body
-  %cmp76 = icmp eq i32 %7, 0
+  %cmp76 = icmp eq i32 %8, 0
   %41 = load ptr, ptr @fn_stack, align 8
   %const_base.0.in = select i1 %cmp76, ptr @i_base, ptr %41
   %const_base.0 = load i32, ptr %const_base.0.in, align 4, !tbaa !5
@@ -401,16 +401,16 @@ if.else83:                                        ; preds = %sw.bb75
   br label %while.cond.i
 
 while.cond.i:                                     ; preds = %while.body.i, %if.else83
-  %shr.i.i2.sink.in.i = phi i32 [ %46, %while.body.i ], [ %43, %if.else83 ]
-  %46 = phi i32 [ %inc.i.i3.i, %while.body.i ], [ %inc.i.i.i, %if.else83 ]
-  %rem.i.i4.sink.i = srem i32 %shr.i.i2.sink.in.i, 1024
-  %shr.i.i2.sink.i = ashr i32 %shr.i.i2.sink.in.i, 10
-  %idxprom2.i.i6.i = sext i32 %shr.i.i2.sink.i to i64
-  %arrayidx3.i.i7.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i6.i
-  %47 = load ptr, ptr %arrayidx3.i.i7.i, align 8, !tbaa !11
-  %idxprom4.i.i8.i = sext i32 %rem.i.i4.sink.i to i64
-  %arrayidx5.i.i9.i = getelementptr inbounds i8, ptr %47, i64 %idxprom4.i.i8.i
-  %in_ch.0.i = load i8, ptr %arrayidx5.i.i9.i, align 1, !tbaa !14
+  %shr.i.i1.sink.in.i = phi i32 [ %46, %while.body.i ], [ %43, %if.else83 ]
+  %46 = phi i32 [ %inc.i.i2.i, %while.body.i ], [ %inc.i.i.i, %if.else83 ]
+  %rem.i.i3.sink.i = srem i32 %shr.i.i1.sink.in.i, 1024
+  %shr.i.i1.sink.i = ashr i32 %shr.i.i1.sink.in.i, 10
+  %idxprom2.i.i5.i = sext i32 %shr.i.i1.sink.i to i64
+  %arrayidx3.i.i6.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i5.i
+  %47 = load ptr, ptr %arrayidx3.i.i6.i, align 8, !tbaa !11
+  %idxprom4.i.i7.i = sext i32 %rem.i.i3.sink.i to i64
+  %arrayidx5.i.i8.i = getelementptr inbounds i8, ptr %47, i64 %idxprom4.i.i7.i
+  %in_ch.0.i = load i8, ptr %arrayidx5.i.i8.i, align 1, !tbaa !14
   switch i8 %in_ch.0.i, label %if.end13.i [
     i8 32, label %while.body.i
     i8 43, label %if.end13.sink.split.i.loopexit
@@ -418,8 +418,8 @@ while.cond.i:                                     ; preds = %while.body.i, %if.e
   ]
 
 while.body.i:                                     ; preds = %while.cond.i
-  %inc.i.i3.i = add nsw i32 %46, 1
-  store i32 %inc.i.i3.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %inc.i.i2.i = add nsw i32 %46, 1
+  store i32 %inc.i.i2.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   br label %while.cond.i, !llvm.loop !27
 
 if.end13.sink.split.i.loopexit:                   ; preds = %while.cond.i
@@ -427,20 +427,20 @@ if.end13.sink.split.i.loopexit:                   ; preds = %while.cond.i
 
 if.end13.sink.split.i:                            ; preds = %while.cond.i, %if.end13.sink.split.i.loopexit
   %tobool.not.ph.i = phi i1 [ true, %if.end13.sink.split.i.loopexit ], [ false, %while.cond.i ]
-  %shr.i.i10.i = ashr i32 %46, 10
-  %inc.i.i11.i = add nsw i32 %46, 1
-  store i32 %inc.i.i11.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i.i20.i = srem i32 %46, 1024
-  %idxprom2.i.i22.i = sext i32 %shr.i.i10.i to i64
-  %arrayidx3.i.i23.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i22.i
-  %48 = load ptr, ptr %arrayidx3.i.i23.i, align 8, !tbaa !11
-  %idxprom4.i.i24.i = sext i32 %rem.i.i20.i to i64
-  %arrayidx5.i.i25.i = getelementptr inbounds i8, ptr %48, i64 %idxprom4.i.i24.i
-  %49 = load i8, ptr %arrayidx5.i.i25.i, align 1, !tbaa !14
+  %shr.i.i9.i = ashr i32 %46, 10
+  %inc.i.i10.i = add nsw i32 %46, 1
+  store i32 %inc.i.i10.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %rem.i.i19.i = srem i32 %46, 1024
+  %idxprom2.i.i21.i = sext i32 %shr.i.i9.i to i64
+  %arrayidx3.i.i22.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i21.i
+  %48 = load ptr, ptr %arrayidx3.i.i22.i, align 8, !tbaa !11
+  %idxprom4.i.i23.i = sext i32 %rem.i.i19.i to i64
+  %arrayidx5.i.i24.i = getelementptr inbounds i8, ptr %48, i64 %idxprom4.i.i23.i
+  %49 = load i8, ptr %arrayidx5.i.i24.i, align 1, !tbaa !14
   br label %if.end13.i
 
 if.end13.i:                                       ; preds = %while.cond.i, %if.end13.sink.split.i
-  %50 = phi i32 [ %inc.i.i11.i, %if.end13.sink.split.i ], [ %46, %while.cond.i ]
+  %50 = phi i32 [ %inc.i.i10.i, %if.end13.sink.split.i ], [ %46, %while.cond.i ]
   %in_ch.1.i = phi i8 [ %49, %if.end13.sink.split.i ], [ %in_ch.0.i, %while.cond.i ]
   %tobool.not.i = phi i1 [ %tobool.not.ph.i, %if.end13.sink.split.i ], [ true, %while.cond.i ]
   %cmp15.i = icmp slt i8 %in_ch.1.i, 16
@@ -448,16 +448,16 @@ if.end13.i:                                       ; preds = %while.cond.i, %if.e
 
 if.end29.i:                                       ; preds = %if.end13.i
   %conv14.i = sext i8 %in_ch.1.i to i32
-  %shr.i.i26.i = ashr i32 %50, 10
-  %inc.i.i27.i = add nsw i32 %50, 1
-  store i32 %inc.i.i27.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i.i28.i = srem i32 %50, 1024
-  %idxprom2.i.i30.i = sext i32 %shr.i.i26.i to i64
-  %arrayidx3.i.i31.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i30.i
-  %51 = load ptr, ptr %arrayidx3.i.i31.i, align 8, !tbaa !11
-  %idxprom4.i.i32.i = sext i32 %rem.i.i28.i to i64
-  %arrayidx5.i.i33.i = getelementptr inbounds i8, ptr %51, i64 %idxprom4.i.i32.i
-  %52 = load i8, ptr %arrayidx5.i.i33.i, align 1, !tbaa !14
+  %shr.i.i25.i = ashr i32 %50, 10
+  %inc.i.i26.i = add nsw i32 %50, 1
+  store i32 %inc.i.i26.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %rem.i.i27.i = srem i32 %50, 1024
+  %idxprom2.i.i29.i = sext i32 %shr.i.i25.i to i64
+  %arrayidx3.i.i30.i = getelementptr inbounds %struct.bc_function, ptr %44, i64 %idxprom.i.i.i, i32 1, i64 %idxprom2.i.i29.i
+  %51 = load ptr, ptr %arrayidx3.i.i30.i, align 8, !tbaa !11
+  %idxprom4.i.i31.i = sext i32 %rem.i.i27.i to i64
+  %arrayidx5.i.i32.i = getelementptr inbounds i8, ptr %51, i64 %idxprom4.i.i31.i
+  %52 = load i8, ptr %arrayidx5.i.i32.i, align 1, !tbaa !14
   %cmp20.i = icmp sgt i8 %52, 15
   %cmp23.not.i = icmp sgt i32 %const_base.0, %conv14.i
   %or.cond.i = or i1 %cmp23.not.i, %cmp20.i
@@ -466,14 +466,14 @@ if.end29.i:                                       ; preds = %if.end13.i
   %first_ch.0.i = select i1 %or.cond.i, i8 %in_ch.1.i, i8 %conv26.i
   %conv28.i = sext i8 %first_ch.0.i to i32
   call void @int2num(ptr noundef nonnull %build.i, i32 noundef %conv28.i) #12
-  %cmp324.i = icmp slt i8 %52, 16
-  br i1 %cmp324.i, label %land.lhs.true38.i, label %while.end48.i
+  %cmp326.i = icmp slt i8 %52, 16
+  br i1 %cmp326.i, label %land.lhs.true38.i, label %while.end48.i
 
 land.lhs.true38.i:                                ; preds = %if.end29.i, %land.lhs.true38.i
-  %in_ch.35.i = phi i8 [ %62, %land.lhs.true38.i ], [ %52, %if.end29.i ]
-  %conv31.i = sext i8 %in_ch.35.i to i32
-  %cmp40.not.i = icmp sgt i32 %const_base.0, %conv31.i
-  %in_ch.4.i = select i1 %cmp40.not.i, i8 %in_ch.35.i, i8 %conv26.i
+  %in_ch.37.i = phi i8 [ %62, %land.lhs.true38.i ], [ %52, %if.end29.i ]
+  %conv318.i = sext i8 %in_ch.37.i to i32
+  %cmp40.not.i = icmp sgt i32 %const_base.0, %conv318.i
+  %in_ch.4.i = select i1 %cmp40.not.i, i8 %in_ch.37.i, i8 %conv26.i
   %54 = load ptr, ptr %build.i, align 8, !tbaa !11
   %55 = load ptr, ptr %mult.i, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %54, ptr noundef %55, ptr noundef nonnull %result.i, i32 noundef 0) #12
@@ -483,19 +483,19 @@ land.lhs.true38.i:                                ; preds = %if.end29.i, %land.l
   %57 = load ptr, ptr %temp.i, align 8, !tbaa !11
   call void @bc_add(ptr noundef %56, ptr noundef %57, ptr noundef nonnull %build.i) #12
   %58 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %shr.i.i34.i = ashr i32 %58, 10
-  %inc.i.i35.i = add nsw i32 %58, 1
-  store i32 %inc.i.i35.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i.i36.i = srem i32 %58, 1024
+  %shr.i.i33.i = ashr i32 %58, 10
+  %inc.i.i34.i = add nsw i32 %58, 1
+  store i32 %inc.i.i34.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %rem.i.i35.i = srem i32 %58, 1024
   %59 = load ptr, ptr @functions, align 8, !tbaa !11
   %60 = load i32, ptr @pc, align 4, !tbaa !13
-  %idxprom.i.i37.i = sext i32 %60 to i64
-  %idxprom2.i.i38.i = sext i32 %shr.i.i34.i to i64
-  %arrayidx3.i.i39.i = getelementptr inbounds %struct.bc_function, ptr %59, i64 %idxprom.i.i37.i, i32 1, i64 %idxprom2.i.i38.i
-  %61 = load ptr, ptr %arrayidx3.i.i39.i, align 8, !tbaa !11
-  %idxprom4.i.i40.i = sext i32 %rem.i.i36.i to i64
-  %arrayidx5.i.i41.i = getelementptr inbounds i8, ptr %61, i64 %idxprom4.i.i40.i
-  %62 = load i8, ptr %arrayidx5.i.i41.i, align 1, !tbaa !14
+  %idxprom.i.i36.i = sext i32 %60 to i64
+  %idxprom2.i.i37.i = sext i32 %shr.i.i33.i to i64
+  %arrayidx3.i.i38.i = getelementptr inbounds %struct.bc_function, ptr %59, i64 %idxprom.i.i36.i, i32 1, i64 %idxprom2.i.i37.i
+  %61 = load ptr, ptr %arrayidx3.i.i38.i, align 8, !tbaa !11
+  %idxprom4.i.i39.i = sext i32 %rem.i.i35.i to i64
+  %arrayidx5.i.i40.i = getelementptr inbounds i8, ptr %61, i64 %idxprom4.i.i39.i
+  %62 = load i8, ptr %arrayidx5.i.i40.i, align 1, !tbaa !14
   %cmp32.i = icmp slt i8 %62, 16
   br i1 %cmp32.i, label %land.lhs.true38.i, label %while.end48.i, !llvm.loop !28
 
@@ -506,19 +506,19 @@ while.end48.i:                                    ; preds = %land.lhs.true38.i, 
 
 if.then52.i:                                      ; preds = %while.end48.i
   %63 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %shr.i.i42.i = ashr i32 %63, 10
-  %inc.i.i43.i = add nsw i32 %63, 1
-  store i32 %inc.i.i43.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i.i44.i = srem i32 %63, 1024
+  %shr.i.i41.i = ashr i32 %63, 10
+  %inc.i.i42.i = add nsw i32 %63, 1
+  store i32 %inc.i.i42.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %rem.i.i43.i = srem i32 %63, 1024
   %64 = load ptr, ptr @functions, align 8, !tbaa !11
   %65 = load i32, ptr @pc, align 4, !tbaa !13
-  %idxprom.i.i45.i = sext i32 %65 to i64
-  %idxprom2.i.i46.i = sext i32 %shr.i.i42.i to i64
-  %arrayidx3.i.i47.i = getelementptr inbounds %struct.bc_function, ptr %64, i64 %idxprom.i.i45.i, i32 1, i64 %idxprom2.i.i46.i
-  %66 = load ptr, ptr %arrayidx3.i.i47.i, align 8, !tbaa !11
-  %idxprom4.i.i48.i = sext i32 %rem.i.i44.i to i64
-  %arrayidx5.i.i49.i = getelementptr inbounds i8, ptr %66, i64 %idxprom4.i.i48.i
-  %67 = load i8, ptr %arrayidx5.i.i49.i, align 1, !tbaa !14
+  %idxprom.i.i44.i = sext i32 %65 to i64
+  %idxprom2.i.i45.i = sext i32 %shr.i.i41.i to i64
+  %arrayidx3.i.i46.i = getelementptr inbounds %struct.bc_function, ptr %64, i64 %idxprom.i.i44.i, i32 1, i64 %idxprom2.i.i45.i
+  %66 = load ptr, ptr %arrayidx3.i.i46.i, align 8, !tbaa !11
+  %idxprom4.i.i47.i = sext i32 %rem.i.i43.i to i64
+  %arrayidx5.i.i48.i = getelementptr inbounds i8, ptr %66, i64 %idxprom4.i.i47.i
+  %67 = load i8, ptr %arrayidx5.i.i48.i, align 1, !tbaa !14
   %conv54.i = sext i8 %67 to i32
   %cmp55.not.i = icmp sgt i32 %const_base.0, %conv54.i
   %68 = trunc i32 %const_base.0 to i8
@@ -532,13 +532,13 @@ if.then52.i:                                      ; preds = %while.end48.i
   %70 = load ptr, ptr @_zero_, align 8, !tbaa !11
   %call62.i = call ptr @copy_num(ptr noundef %70) #12
   store ptr %call62.i, ptr %result.i, align 8, !tbaa !11
-  %cmp656.i = icmp slt i8 %in_ch.5.i, 16
-  br i1 %cmp656.i, label %while.body67.i, label %while.end81.i
+  %cmp659.i = icmp slt i8 %in_ch.5.i, 16
+  br i1 %cmp659.i, label %while.body67.i, label %while.end81.i
 
 while.body67.i:                                   ; preds = %if.then52.i, %while.body67.i
-  %in_ch.68.i = phi i8 [ %in_ch.7.i, %while.body67.i ], [ %in_ch.5.i, %if.then52.i ]
-  %digits.07.i = phi i32 [ %inc.i613, %while.body67.i ], [ 0, %if.then52.i ]
-  %conv64.i = sext i8 %in_ch.68.i to i32
+  %in_ch.611.i = phi i8 [ %in_ch.7.i, %while.body67.i ], [ %in_ch.5.i, %if.then52.i ]
+  %digits.010.i = phi i32 [ %inc.i613, %while.body67.i ], [ 0, %if.then52.i ]
+  %conv64.i = sext i8 %in_ch.611.i to i32
   %71 = load ptr, ptr %result.i, align 8, !tbaa !11
   %72 = load ptr, ptr %mult.i, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %71, ptr noundef %72, ptr noundef nonnull %result.i, i32 noundef 0) #12
@@ -549,21 +549,21 @@ while.body67.i:                                   ; preds = %if.then52.i, %while
   %75 = load ptr, ptr %divisor.i, align 8, !tbaa !11
   %76 = load ptr, ptr %mult.i, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %75, ptr noundef %76, ptr noundef nonnull %divisor.i, i32 noundef 0) #12
-  %inc.i613 = add nuw nsw i32 %digits.07.i, 1
+  %inc.i613 = add nuw nsw i32 %digits.010.i, 1
   %77 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %shr.i.i50.i = ashr i32 %77, 10
-  %inc.i.i51.i = add nsw i32 %77, 1
-  store i32 %inc.i.i51.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %rem.i.i52.i = srem i32 %77, 1024
+  %shr.i.i49.i = ashr i32 %77, 10
+  %inc.i.i50.i = add nsw i32 %77, 1
+  store i32 %inc.i.i50.i, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %rem.i.i51.i = srem i32 %77, 1024
   %78 = load ptr, ptr @functions, align 8, !tbaa !11
   %79 = load i32, ptr @pc, align 4, !tbaa !13
-  %idxprom.i.i53.i = sext i32 %79 to i64
-  %idxprom2.i.i54.i = sext i32 %shr.i.i50.i to i64
-  %arrayidx3.i.i55.i = getelementptr inbounds %struct.bc_function, ptr %78, i64 %idxprom.i.i53.i, i32 1, i64 %idxprom2.i.i54.i
-  %80 = load ptr, ptr %arrayidx3.i.i55.i, align 8, !tbaa !11
-  %idxprom4.i.i56.i = sext i32 %rem.i.i52.i to i64
-  %arrayidx5.i.i57.i = getelementptr inbounds i8, ptr %80, i64 %idxprom4.i.i56.i
-  %81 = load i8, ptr %arrayidx5.i.i57.i, align 1, !tbaa !14
+  %idxprom.i.i52.i = sext i32 %79 to i64
+  %idxprom2.i.i53.i = sext i32 %shr.i.i49.i to i64
+  %arrayidx3.i.i54.i = getelementptr inbounds %struct.bc_function, ptr %78, i64 %idxprom.i.i52.i, i32 1, i64 %idxprom2.i.i53.i
+  %80 = load ptr, ptr %arrayidx3.i.i54.i, align 8, !tbaa !11
+  %idxprom4.i.i55.i = sext i32 %rem.i.i51.i to i64
+  %arrayidx5.i.i56.i = getelementptr inbounds i8, ptr %80, i64 %idxprom4.i.i55.i
+  %81 = load i8, ptr %arrayidx5.i.i56.i, align 1, !tbaa !14
   %cmp71.i = icmp sgt i8 %81, 15
   %conv70.i = sext i8 %81 to i32
   %cmp75.not.i = icmp sgt i32 %const_base.0, %conv70.i
@@ -574,11 +574,11 @@ while.body67.i:                                   ; preds = %if.then52.i, %while
 
 while.end81.loopexit.i:                           ; preds = %while.body67.i
   %.pre.i = load ptr, ptr %result.i, align 8, !tbaa !11
-  %.pre12.i = load ptr, ptr %divisor.i, align 8, !tbaa !11
+  %.pre15.i = load ptr, ptr %divisor.i, align 8, !tbaa !11
   br label %while.end81.i
 
 while.end81.i:                                    ; preds = %while.end81.loopexit.i, %if.then52.i
-  %82 = phi ptr [ %call61.i, %if.then52.i ], [ %.pre12.i, %while.end81.loopexit.i ]
+  %82 = phi ptr [ %call61.i, %if.then52.i ], [ %.pre15.i, %while.end81.loopexit.i ]
   %83 = phi ptr [ %call62.i, %if.then52.i ], [ %.pre.i, %while.end81.loopexit.i ]
   %digits.0.lcssa.i = phi i32 [ 0, %if.then52.i ], [ %inc.i613, %while.end81.loopexit.i ]
   %call82.i = call i32 @bc_divide(ptr noundef %83, ptr noundef %82, ptr noundef nonnull %result.i, i32 noundef %digits.0.lcssa.i) #12
@@ -611,11 +611,11 @@ push_constant.10.exit:                            ; preds = %if.end83.i, %if.the
 
 sw.bb85:                                          ; preds = %while.body
   %shr.i614 = ashr i32 %inc.i, 10
-  %inc.i615 = add nsw i32 %9, 2
+  %inc.i615 = add nsw i32 %7, 2
   store i32 %inc.i615, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i616 = srem i32 %inc.i, 1024
   %idxprom2.i618 = sext i32 %shr.i614 to i64
-  %arrayidx3.i619 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i618
+  %arrayidx3.i619 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i618
   %89 = load ptr, ptr %arrayidx3.i619, align 8, !tbaa !11
   %idxprom4.i620 = sext i32 %rem.i616 to i64
   %arrayidx5.i621 = getelementptr inbounds i8, ptr %89, i64 %idxprom4.i620
@@ -625,11 +625,11 @@ sw.bb85:                                          ; preds = %while.body
 
 if.then91:                                        ; preds = %sw.bb85
   %shr.i622 = ashr i32 %inc.i615, 10
-  %inc.i623 = add nsw i32 %9, 3
+  %inc.i623 = add nsw i32 %7, 3
   store i32 %inc.i623, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i624 = srem i32 %inc.i615, 1024
   %idxprom2.i626 = sext i32 %shr.i622 to i64
-  %arrayidx3.i627 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i626
+  %arrayidx3.i627 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i626
   %91 = load ptr, ptr %arrayidx3.i627, align 8, !tbaa !11
   %idxprom4.i628 = sext i32 %rem.i624 to i64
   %arrayidx5.i629 = getelementptr inbounds i8, ptr %91, i64 %idxprom4.i628
@@ -644,11 +644,11 @@ if.end97:                                         ; preds = %if.then91, %sw.bb85
 
 sw.bb98:                                          ; preds = %while.body
   %shr.i630 = ashr i32 %inc.i, 10
-  %inc.i631 = add nsw i32 %9, 2
+  %inc.i631 = add nsw i32 %7, 2
   store i32 %inc.i631, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i632 = srem i32 %inc.i, 1024
   %idxprom2.i634 = sext i32 %shr.i630 to i64
-  %arrayidx3.i635 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i634
+  %arrayidx3.i635 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i634
   %93 = load ptr, ptr %arrayidx3.i635, align 8, !tbaa !11
   %idxprom4.i636 = sext i32 %rem.i632 to i64
   %arrayidx5.i637 = getelementptr inbounds i8, ptr %93, i64 %idxprom4.i636
@@ -658,11 +658,11 @@ sw.bb98:                                          ; preds = %while.body
 
 if.then104:                                       ; preds = %sw.bb98
   %shr.i638 = ashr i32 %inc.i631, 10
-  %inc.i639 = add nsw i32 %9, 3
+  %inc.i639 = add nsw i32 %7, 3
   store i32 %inc.i639, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i640 = srem i32 %inc.i631, 1024
   %idxprom2.i642 = sext i32 %shr.i638 to i64
-  %arrayidx3.i643 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i642
+  %arrayidx3.i643 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i642
   %95 = load ptr, ptr %arrayidx3.i643, align 8, !tbaa !11
   %idxprom4.i644 = sext i32 %rem.i640 to i64
   %arrayidx5.i645 = getelementptr inbounds i8, ptr %95, i64 %idxprom4.i644
@@ -675,9 +675,9 @@ if.end110:                                        ; preds = %if.then104, %sw.bb9
   br label %sw.epilog488
 
 while.cond113:                                    ; preds = %while.body, %if.end137
-  %97 = phi i32 [ %.pre827, %if.end137 ], [ %7, %while.body ]
-  %98 = phi ptr [ %.pre826, %if.end137 ], [ %8, %while.body ]
-  %99 = phi i32 [ %.pre825, %if.end137 ], [ %inc.i, %while.body ]
+  %97 = phi i32 [ %.pre826, %if.end137 ], [ %8, %while.body ]
+  %98 = phi ptr [ %.pre825, %if.end137 ], [ %9, %while.body ]
+  %99 = phi i32 [ %.pre824, %if.end137 ], [ %inc.i, %while.body ]
   %shr.i646 = ashr i32 %99, 10
   %inc.i647 = add nsw i32 %99, 1
   store i32 %inc.i647, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
@@ -734,9 +734,9 @@ if.end137.sink.split:                             ; preds = %switch.lookup, %whi
   br label %if.end137
 
 if.end137:                                        ; preds = %switch.hole_check, %if.end129, %if.end137.sink.split
-  %.pre825 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %.pre826 = load ptr, ptr @functions, align 8, !tbaa !11
-  %.pre827 = load i32, ptr @pc, align 4, !tbaa !13
+  %.pre824 = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
+  %.pre825 = load ptr, ptr @functions, align 8, !tbaa !11
+  %.pre826 = load i32, ptr @pc, align 4, !tbaa !13
   br label %while.cond113, !llvm.loop !30
 
 while.end138:                                     ; preds = %while.cond113, %if.else123
@@ -750,11 +750,11 @@ if.then140:                                       ; preds = %while.end138
   br label %sw.epilog488
 
 sw.bb143:                                         ; preds = %while.body
-  %cmp144.not = icmp eq i32 %7, 0
+  %cmp144.not = icmp eq i32 %8, 0
   br i1 %cmp144.not, label %if.else155, label %if.then146
 
 if.then146:                                       ; preds = %sw.bb143
-  %f_autos149 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 5
+  %f_autos149 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 5
   %111 = load ptr, ptr %f_autos149, align 8, !tbaa !31
   call void @pop_vars(ptr noundef %111) #12
   %112 = load ptr, ptr @functions, align 8, !tbaa !11
@@ -776,11 +776,11 @@ if.else155:                                       ; preds = %sw.bb143
 
 sw.bb157:                                         ; preds = %while.body
   %shr.i662 = ashr i32 %inc.i, 10
-  %inc.i663 = add nsw i32 %9, 2
+  %inc.i663 = add nsw i32 %7, 2
   store i32 %inc.i663, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i664 = srem i32 %inc.i, 1024
   %idxprom2.i666 = sext i32 %shr.i662 to i64
-  %arrayidx3.i667 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i666
+  %arrayidx3.i667 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i666
   %115 = load ptr, ptr %arrayidx3.i667, align 8, !tbaa !11
   %idxprom4.i668 = sext i32 %rem.i664 to i64
   %arrayidx5.i669 = getelementptr inbounds i8, ptr %115, i64 %idxprom4.i668
@@ -790,11 +790,11 @@ sw.bb157:                                         ; preds = %while.body
 
 if.then163:                                       ; preds = %sw.bb157
   %shr.i670 = ashr i32 %inc.i663, 10
-  %inc.i671 = add nsw i32 %9, 3
+  %inc.i671 = add nsw i32 %7, 3
   store i32 %inc.i671, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i672 = srem i32 %inc.i663, 1024
   %idxprom2.i674 = sext i32 %shr.i670 to i64
-  %arrayidx3.i675 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i674
+  %arrayidx3.i675 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i674
   %117 = load ptr, ptr %arrayidx3.i675, align 8, !tbaa !11
   %idxprom4.i676 = sext i32 %rem.i672 to i64
   %arrayidx5.i677 = getelementptr inbounds i8, ptr %117, i64 %idxprom4.i676
@@ -848,11 +848,11 @@ if.then181:                                       ; preds = %if.end179
 
 sw.bb184:                                         ; preds = %while.body
   %shr.i679 = ashr i32 %inc.i, 10
-  %inc.i680 = add nsw i32 %9, 2
+  %inc.i680 = add nsw i32 %7, 2
   store i32 %inc.i680, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i681 = srem i32 %inc.i, 1024
   %idxprom2.i683 = sext i32 %shr.i679 to i64
-  %arrayidx3.i684 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i683
+  %arrayidx3.i684 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i683
   %129 = load ptr, ptr %arrayidx3.i684, align 8, !tbaa !11
   %idxprom4.i685 = sext i32 %rem.i681 to i64
   %arrayidx5.i686 = getelementptr inbounds i8, ptr %129, i64 %idxprom4.i685
@@ -920,11 +920,11 @@ sw.bb223:                                         ; preds = %sw.bb184
 
 sw.bb225:                                         ; preds = %while.body
   %shr.i687 = ashr i32 %inc.i, 10
-  %inc.i688 = add nsw i32 %9, 2
+  %inc.i688 = add nsw i32 %7, 2
   store i32 %inc.i688, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i689 = srem i32 %inc.i, 1024
   %idxprom2.i691 = sext i32 %shr.i687 to i64
-  %arrayidx3.i692 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i691
+  %arrayidx3.i692 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i691
   %143 = load ptr, ptr %arrayidx3.i692, align 8, !tbaa !11
   %idxprom4.i693 = sext i32 %rem.i689 to i64
   %arrayidx5.i694 = getelementptr inbounds i8, ptr %143, i64 %idxprom4.i693
@@ -934,11 +934,11 @@ sw.bb225:                                         ; preds = %while.body
 
 if.then231:                                       ; preds = %sw.bb225
   %shr.i695 = ashr i32 %inc.i688, 10
-  %inc.i696 = add nsw i32 %9, 3
+  %inc.i696 = add nsw i32 %7, 3
   store i32 %inc.i696, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i697 = srem i32 %inc.i688, 1024
   %idxprom2.i699 = sext i32 %shr.i695 to i64
-  %arrayidx3.i700 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i699
+  %arrayidx3.i700 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i699
   %145 = load ptr, ptr %arrayidx3.i700, align 8, !tbaa !11
   %idxprom4.i701 = sext i32 %rem.i697 to i64
   %arrayidx5.i702 = getelementptr inbounds i8, ptr %145, i64 %idxprom4.i701
@@ -957,11 +957,11 @@ sw.bb238:                                         ; preds = %while.body
 
 sw.bb239:                                         ; preds = %while.body
   %shr.i703 = ashr i32 %inc.i, 10
-  %inc.i704 = add nsw i32 %9, 2
+  %inc.i704 = add nsw i32 %7, 2
   store i32 %inc.i704, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i705 = srem i32 %inc.i, 1024
   %idxprom2.i707 = sext i32 %shr.i703 to i64
-  %arrayidx3.i708 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i707
+  %arrayidx3.i708 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i707
   %147 = load ptr, ptr %arrayidx3.i708, align 8, !tbaa !11
   %idxprom4.i709 = sext i32 %rem.i705 to i64
   %arrayidx5.i710 = getelementptr inbounds i8, ptr %147, i64 %idxprom4.i709
@@ -971,11 +971,11 @@ sw.bb239:                                         ; preds = %while.body
 
 if.then245:                                       ; preds = %sw.bb239
   %shr.i711 = ashr i32 %inc.i704, 10
-  %inc.i712 = add nsw i32 %9, 3
+  %inc.i712 = add nsw i32 %7, 3
   store i32 %inc.i712, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i713 = srem i32 %inc.i704, 1024
   %idxprom2.i715 = sext i32 %shr.i711 to i64
-  %arrayidx3.i716 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i715
+  %arrayidx3.i716 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i715
   %149 = load ptr, ptr %arrayidx3.i716, align 8, !tbaa !11
   %idxprom4.i717 = sext i32 %rem.i713 to i64
   %arrayidx5.i718 = getelementptr inbounds i8, ptr %149, i64 %idxprom4.i717
@@ -990,11 +990,11 @@ if.end251:                                        ; preds = %if.then245, %sw.bb2
 
 sw.bb252:                                         ; preds = %while.body
   %shr.i719 = ashr i32 %inc.i, 10
-  %inc.i720 = add nsw i32 %9, 2
+  %inc.i720 = add nsw i32 %7, 2
   store i32 %inc.i720, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i721 = srem i32 %inc.i, 1024
   %idxprom2.i723 = sext i32 %shr.i719 to i64
-  %arrayidx3.i724 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i723
+  %arrayidx3.i724 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i723
   %151 = load ptr, ptr %arrayidx3.i724, align 8, !tbaa !11
   %idxprom4.i725 = sext i32 %rem.i721 to i64
   %arrayidx5.i726 = getelementptr inbounds i8, ptr %151, i64 %idxprom4.i725
@@ -1004,11 +1004,11 @@ sw.bb252:                                         ; preds = %while.body
 
 if.then258:                                       ; preds = %sw.bb252
   %shr.i727 = ashr i32 %inc.i720, 10
-  %inc.i728 = add nsw i32 %9, 3
+  %inc.i728 = add nsw i32 %7, 3
   store i32 %inc.i728, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i729 = srem i32 %inc.i720, 1024
   %idxprom2.i731 = sext i32 %shr.i727 to i64
-  %arrayidx3.i732 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i731
+  %arrayidx3.i732 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i731
   %153 = load ptr, ptr %arrayidx3.i732, align 8, !tbaa !11
   %idxprom4.i733 = sext i32 %rem.i729 to i64
   %arrayidx5.i734 = getelementptr inbounds i8, ptr %153, i64 %idxprom4.i733
@@ -1034,11 +1034,11 @@ sw.bb268:                                         ; preds = %while.body
 
 sw.bb269:                                         ; preds = %while.body
   %shr.i735 = ashr i32 %inc.i, 10
-  %inc.i736 = add nsw i32 %9, 2
+  %inc.i736 = add nsw i32 %7, 2
   store i32 %inc.i736, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i737 = srem i32 %inc.i, 1024
   %idxprom2.i739 = sext i32 %shr.i735 to i64
-  %arrayidx3.i740 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i739
+  %arrayidx3.i740 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i739
   %158 = load ptr, ptr %arrayidx3.i740, align 8, !tbaa !11
   %idxprom4.i741 = sext i32 %rem.i737 to i64
   %arrayidx5.i742 = getelementptr inbounds i8, ptr %158, i64 %idxprom4.i741
@@ -1048,11 +1048,11 @@ sw.bb269:                                         ; preds = %while.body
 
 if.then275:                                       ; preds = %sw.bb269
   %shr.i743 = ashr i32 %inc.i736, 10
-  %inc.i744 = add nsw i32 %9, 3
+  %inc.i744 = add nsw i32 %7, 3
   store i32 %inc.i744, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
   %rem.i745 = srem i32 %inc.i736, 1024
   %idxprom2.i747 = sext i32 %shr.i743 to i64
-  %arrayidx3.i748 = getelementptr inbounds %struct.bc_function, ptr %8, i64 %idxprom812, i32 1, i64 %idxprom2.i747
+  %arrayidx3.i748 = getelementptr inbounds %struct.bc_function, ptr %9, i64 %idxprom811, i32 1, i64 %idxprom2.i747
   %160 = load ptr, ptr %arrayidx3.i748, align 8, !tbaa !11
   %idxprom4.i749 = sext i32 %rem.i745 to i64
   %arrayidx5.i750 = getelementptr inbounds i8, ptr %160, i64 %idxprom4.i749
@@ -1066,8 +1066,8 @@ if.end281:                                        ; preds = %if.then275, %sw.bb2
   br label %sw.epilog488
 
 while.cond283:                                    ; preds = %while.body, %while.body288
-  %162 = phi i32 [ %.pre823, %while.body288 ], [ %7, %while.body ]
-  %163 = phi ptr [ %.pre822, %while.body288 ], [ %8, %while.body ]
+  %162 = phi i32 [ %.pre822, %while.body288 ], [ %8, %while.body ]
+  %163 = phi ptr [ %.pre821, %while.body288 ], [ %9, %while.body ]
   %164 = phi i32 [ %.pre, %while.body288 ], [ %inc.i, %while.body ]
   %shr.i751 = ashr i32 %164, 10
   %inc.i752 = add nsw i32 %164, 1
@@ -1086,8 +1086,8 @@ while.cond283:                                    ; preds = %while.body, %while.
 while.body288:                                    ; preds = %while.cond283
   call void @out_char(i8 noundef signext %166) #12
   %.pre = load i32, ptr getelementptr inbounds (%struct.program_counter, ptr @pc, i64 0, i32 1), align 4, !tbaa !9
-  %.pre822 = load ptr, ptr @functions, align 8, !tbaa !11
-  %.pre823 = load i32, ptr @pc, align 4, !tbaa !13
+  %.pre821 = load ptr, ptr @functions, align 8, !tbaa !11
+  %.pre822 = load i32, ptr @pc, align 4, !tbaa !13
   br label %while.cond283, !llvm.loop !36
 
 while.end289:                                     ; preds = %while.cond283
@@ -1564,13 +1564,13 @@ sw.epilog488:                                     ; preds = %lor.lhs.false, %sw.
 
 while.cond490thread-pre-split:                    ; preds = %sw.epilog488, %if.end
   %.pr = phi i32 [ %3, %if.end ], [ %293, %sw.epilog488 ]
-  %cmp491.not813 = icmp eq i32 %.pr, 0
-  br i1 %cmp491.not813, label %while.cond504.preheader, label %while.body493
+  %cmp491.not812 = icmp eq i32 %.pr, 0
+  br i1 %cmp491.not812, label %while.cond504.preheader, label %while.body493
 
 while.cond504.preheader:                          ; preds = %while.body493, %while.cond490thread-pre-split
   %297 = load ptr, ptr @ex_stack, align 8, !tbaa !11
-  %cmp505.not814 = icmp eq ptr %297, null
-  br i1 %cmp505.not814, label %while.end508, label %while.body507
+  %cmp505.not813 = icmp eq ptr %297, null
+  br i1 %cmp505.not813, label %while.end508, label %while.body507
 
 while.body493:                                    ; preds = %while.cond490thread-pre-split, %while.body493
   %298 = phi i32 [ %call502, %while.body493 ], [ %.pr, %while.cond490thread-pre-split ]
@@ -1643,23 +1643,22 @@ define dso_local void @push_b10_const(ptr nocapture noundef %pc) local_unnamed_a
 entry:
   %build = alloca ptr, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %build) #12
-  %0 = load i64, ptr %pc, align 4
-  %look_pc.sroa.7.0.extract.shift = lshr i64 %0, 32
-  %look_pc.sroa.7.0.extract.trunc = trunc i64 %look_pc.sroa.7.0.extract.shift to i32
-  %shr.i = ashr i32 %look_pc.sroa.7.0.extract.trunc, 10
-  %rem.i = srem i32 %look_pc.sroa.7.0.extract.trunc, 1024
-  %1 = load ptr, ptr @functions, align 8, !tbaa !11
-  %sext = shl i64 %0, 32
-  %idxprom.i = ashr exact i64 %sext, 32
+  %look_pc.sroa.0.0.copyload = load i32, ptr %pc, align 4
+  %look_pc.sroa.7.0.pc.sroa_idx = getelementptr inbounds i8, ptr %pc, i64 4
+  %look_pc.sroa.7.0.copyload = load i32, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4
+  %shr.i = ashr i32 %look_pc.sroa.7.0.copyload, 10
+  %rem.i = srem i32 %look_pc.sroa.7.0.copyload, 1024
+  %0 = load ptr, ptr @functions, align 8, !tbaa !11
+  %idxprom.i = sext i32 %look_pc.sroa.0.0.copyload to i64
   %idxprom2.i = sext i32 %shr.i to i64
-  %arrayidx3.i = getelementptr inbounds %struct.bc_function, ptr %1, i64 %idxprom.i, i32 1, i64 %idxprom2.i
-  %2 = load ptr, ptr %arrayidx3.i, align 8, !tbaa !11
+  %arrayidx3.i = getelementptr inbounds %struct.bc_function, ptr %0, i64 %idxprom.i, i32 1, i64 %idxprom2.i
+  %1 = load ptr, ptr %arrayidx3.i, align 8, !tbaa !11
   %idxprom4.i = sext i32 %rem.i to i64
-  %arrayidx5.i = getelementptr inbounds i8, ptr %2, i64 %idxprom4.i
+  %arrayidx5.i = getelementptr inbounds i8, ptr %1, i64 %idxprom4.i
   br label %while.cond
 
 while.cond:                                       ; preds = %while.body, %entry
-  %look_pc.sroa.7.0.in = phi i32 [ %look_pc.sroa.7.0.extract.trunc, %entry ], [ %look_pc.sroa.7.0, %while.body ]
+  %look_pc.sroa.7.0.in = phi i32 [ %look_pc.sroa.7.0.copyload, %entry ], [ %look_pc.sroa.7.0, %while.body ]
   %kdigits.0 = phi i32 [ 0, %entry ], [ %inc, %while.body ]
   %inchar.0.in = phi ptr [ %arrayidx5.i, %entry ], [ %arrayidx5.i109, %while.body ]
   %inchar.0 = load i8, ptr %inchar.0.in, align 1, !tbaa !14
@@ -1674,20 +1673,20 @@ while.body:                                       ; preds = %while.cond
   %shr.i102 = ashr i32 %look_pc.sroa.7.0, 10
   %rem.i104 = srem i32 %look_pc.sroa.7.0, 1024
   %idxprom2.i106 = sext i32 %shr.i102 to i64
-  %arrayidx3.i107 = getelementptr inbounds %struct.bc_function, ptr %1, i64 %idxprom.i, i32 1, i64 %idxprom2.i106
-  %3 = load ptr, ptr %arrayidx3.i107, align 8, !tbaa !11
+  %arrayidx3.i107 = getelementptr inbounds %struct.bc_function, ptr %0, i64 %idxprom.i, i32 1, i64 %idxprom2.i106
+  %2 = load ptr, ptr %arrayidx3.i107, align 8, !tbaa !11
   %idxprom4.i108 = sext i32 %rem.i104 to i64
-  %arrayidx5.i109 = getelementptr inbounds i8, ptr %3, i64 %idxprom4.i108
+  %arrayidx5.i109 = getelementptr inbounds i8, ptr %2, i64 %idxprom4.i108
   br label %while.cond, !llvm.loop !41
 
 if.then:                                          ; preds = %while.cond
   %shr.i111 = ashr i32 %look_pc.sroa.7.0, 10
   %rem.i113 = srem i32 %look_pc.sroa.7.0, 1024
   %idxprom2.i115 = sext i32 %shr.i111 to i64
-  %arrayidx3.i116 = getelementptr inbounds %struct.bc_function, ptr %1, i64 %idxprom.i, i32 1, i64 %idxprom2.i115
-  %4 = load ptr, ptr %arrayidx3.i116, align 8, !tbaa !11
+  %arrayidx3.i116 = getelementptr inbounds %struct.bc_function, ptr %0, i64 %idxprom.i, i32 1, i64 %idxprom2.i115
+  %3 = load ptr, ptr %arrayidx3.i116, align 8, !tbaa !11
   %idxprom4.i117 = sext i32 %rem.i113 to i64
-  %arrayidx5.i118 = getelementptr inbounds i8, ptr %4, i64 %idxprom4.i117
+  %arrayidx5.i118 = getelementptr inbounds i8, ptr %3, i64 %idxprom4.i117
   %inchar.1185 = load i8, ptr %arrayidx5.i118, align 1, !tbaa !14
   %cmp12.not186 = icmp eq i8 %inchar.1185, 58
   br i1 %cmp12.not186, label %if.end, label %while.body14.preheader
@@ -1704,73 +1703,72 @@ while.body14:                                     ; preds = %while.body14.prehea
   %inc.i121 = add nsw i32 %look_pc.sroa.7.1187, 1
   %rem.i122 = srem i32 %look_pc.sroa.7.1187, 1024
   %idxprom2.i124 = sext i32 %shr.i120 to i64
-  %arrayidx3.i125 = getelementptr inbounds %struct.bc_function, ptr %1, i64 %idxprom.i, i32 1, i64 %idxprom2.i124
-  %5 = load ptr, ptr %arrayidx3.i125, align 8, !tbaa !11
+  %arrayidx3.i125 = getelementptr inbounds %struct.bc_function, ptr %0, i64 %idxprom.i, i32 1, i64 %idxprom2.i124
+  %4 = load ptr, ptr %arrayidx3.i125, align 8, !tbaa !11
   %idxprom4.i126 = sext i32 %rem.i122 to i64
-  %arrayidx5.i127 = getelementptr inbounds i8, ptr %5, i64 %idxprom4.i126
+  %arrayidx5.i127 = getelementptr inbounds i8, ptr %4, i64 %idxprom4.i126
   %inchar.1 = load i8, ptr %arrayidx5.i127, align 1, !tbaa !14
   %cmp12.not = icmp eq i8 %inchar.1, 58
-  br i1 %cmp12.not, label %if.end, label %while.body14, !llvm.loop !42
+  br i1 %cmp12.not, label %if.end.thread, label %while.body14, !llvm.loop !42
 
-if.end:                                           ; preds = %while.cond, %while.body14, %if.then
-  %kscale.1 = phi i32 [ 0, %if.then ], [ %inc15, %while.body14 ], [ 0, %while.cond ]
-  %pc_addr.i128 = getelementptr inbounds %struct.program_counter, ptr %pc, i64 0, i32 1
-  %inc.i130 = add nsw i32 %look_pc.sroa.7.0.extract.trunc, 1
-  store i32 %inc.i130, ptr %pc_addr.i128, align 4, !tbaa !9
-  %sext194 = shl i64 %0, 32
-  %idxprom.i132 = ashr exact i64 %sext194, 32
-  %arrayidx3.i134 = getelementptr inbounds %struct.bc_function, ptr %1, i64 %idxprom.i132, i32 1, i64 %idxprom2.i
-  %6 = load ptr, ptr %arrayidx3.i134, align 8, !tbaa !11
-  %arrayidx5.i136 = getelementptr inbounds i8, ptr %6, i64 %idxprom4.i
-  %7 = load i8, ptr %arrayidx5.i136, align 1, !tbaa !14
+if.end.thread:                                    ; preds = %while.body14
+  %inc.i130195 = add nsw i32 %look_pc.sroa.7.0.copyload, 1
+  store i32 %inc.i130195, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %5 = load i8, ptr %arrayidx5.i, align 1, !tbaa !14
+  br label %if.end43
+
+if.end:                                           ; preds = %while.cond, %if.then
+  %inc.i130 = add nsw i32 %look_pc.sroa.7.0.copyload, 1
+  store i32 %inc.i130, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %6 = load i8, ptr %arrayidx5.i, align 1, !tbaa !14
   %cmp19 = icmp eq i32 %kdigits.0, 1
-  %cmp21 = icmp eq i32 %kscale.1, 0
-  %or.cond = select i1 %cmp19, i1 %cmp21, i1 false
-  br i1 %or.cond, label %if.then23, label %if.end43
+  br i1 %cmp19, label %if.then23, label %if.end43
 
 if.then23:                                        ; preds = %if.end
-  %conv24 = sext i8 %7 to i32
-  switch i8 %7, label %if.end35 [
+  %conv24 = sext i8 %6 to i32
+  switch i8 %6, label %if.end35 [
     i8 0, label %if.then27
     i8 1, label %if.then33
   ]
 
 if.then27:                                        ; preds = %if.then23
-  %8 = load ptr, ptr @_zero_, align 8, !tbaa !11
-  tail call void @push_copy(ptr noundef %8) #12
-  %9 = load i32, ptr %pc_addr.i128, align 4, !tbaa !9
-  %inc.i139 = add nsw i32 %9, 1
-  store i32 %inc.i139, ptr %pc_addr.i128, align 4, !tbaa !9
+  %7 = load ptr, ptr @_zero_, align 8, !tbaa !11
+  tail call void @push_copy(ptr noundef %7) #12
+  %8 = load i32, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %inc.i139 = add nsw i32 %8, 1
+  store i32 %inc.i139, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
   br label %cleanup
 
 if.then33:                                        ; preds = %if.then23
-  %10 = load ptr, ptr @_one_, align 8, !tbaa !11
-  tail call void @push_copy(ptr noundef %10) #12
-  %11 = load i32, ptr %pc_addr.i128, align 4, !tbaa !9
-  %inc.i148 = add nsw i32 %11, 1
-  store i32 %inc.i148, ptr %pc_addr.i128, align 4, !tbaa !9
+  %9 = load ptr, ptr @_one_, align 8, !tbaa !11
+  tail call void @push_copy(ptr noundef %9) #12
+  %10 = load i32, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %inc.i148 = add nsw i32 %10, 1
+  store i32 %inc.i148, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
   br label %cleanup
 
 if.end35:                                         ; preds = %if.then23
-  %cmp37 = icmp sgt i8 %7, 9
+  %cmp37 = icmp sgt i8 %6, 9
   br i1 %cmp37, label %if.then39, label %if.else
 
 if.then39:                                        ; preds = %if.end35
   call void @init_num(ptr noundef nonnull %build) #12
   call void @int2num(ptr noundef nonnull %build, i32 noundef %conv24) #12
-  %12 = load ptr, ptr %build, align 8, !tbaa !11
-  call void @push_num(ptr noundef %12) #12
-  %13 = load i32, ptr %pc_addr.i128, align 4, !tbaa !9
-  %inc.i157 = add nsw i32 %13, 1
-  store i32 %inc.i157, ptr %pc_addr.i128, align 4, !tbaa !9
+  %11 = load ptr, ptr %build, align 8, !tbaa !11
+  call void @push_num(ptr noundef %11) #12
+  %12 = load i32, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %inc.i157 = add nsw i32 %12, 1
+  store i32 %inc.i157, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
   br label %cleanup
 
-if.end43:                                         ; preds = %if.end
+if.end43:                                         ; preds = %if.end.thread, %if.end
+  %13 = phi i8 [ %5, %if.end.thread ], [ %6, %if.end ]
+  %kscale.1199 = phi i32 [ %inc15, %if.end.thread ], [ 0, %if.end ]
   %cmp44 = icmp eq i32 %kdigits.0, 0
   br i1 %cmp44, label %if.then46, label %if.else
 
 if.then46:                                        ; preds = %if.end43
-  %call47 = tail call ptr @new_num(i32 noundef 1, i32 noundef %kscale.1) #12
+  %call47 = tail call ptr @new_num(i32 noundef 1, i32 noundef %kscale.1199) #12
   store ptr %call47, ptr %build, align 8, !tbaa !11
   %n_value = getelementptr inbounds %struct.bc_struct, ptr %call47, i64 0, i32 4
   %incdec.ptr = getelementptr inbounds %struct.bc_struct, ptr %call47, i64 0, i32 4, i64 1
@@ -1778,17 +1776,20 @@ if.then46:                                        ; preds = %if.end43
   br label %while.cond52.preheader
 
 if.else:                                          ; preds = %if.end35, %if.end43
-  %call48 = tail call ptr @new_num(i32 noundef %kdigits.0, i32 noundef %kscale.1) #12
+  %14 = phi i8 [ %6, %if.end35 ], [ %13, %if.end43 ]
+  %kscale.1200 = phi i32 [ 0, %if.end35 ], [ %kscale.1199, %if.end43 ]
+  %call48 = tail call ptr @new_num(i32 noundef %kdigits.0, i32 noundef %kscale.1200) #12
   store ptr %call48, ptr %build, align 8, !tbaa !11
   %n_value49 = getelementptr inbounds %struct.bc_struct, ptr %call48, i64 0, i32 4
   br label %while.cond52.preheader
 
 while.cond52.preheader:                           ; preds = %if.else, %if.then46
-  %ptr.1.ph = phi ptr [ %incdec.ptr, %if.then46 ], [ %n_value49, %if.else ]
+  %inchar.2.ph = phi i8 [ %14, %if.else ], [ %13, %if.then46 ]
+  %ptr.1.ph = phi ptr [ %n_value49, %if.else ], [ %incdec.ptr, %if.then46 ]
   br label %while.cond52
 
 while.cond52:                                     ; preds = %while.cond52.preheader, %if.end69
-  %inchar.2 = phi i8 [ %18, %if.end69 ], [ %7, %while.cond52.preheader ]
+  %inchar.2 = phi i8 [ %19, %if.end69 ], [ %inchar.2.ph, %while.cond52.preheader ]
   %ptr.1 = phi ptr [ %ptr.2, %if.end69 ], [ %ptr.1.ph, %while.cond52.preheader ]
   switch i8 %inchar.2, label %if.then60 [
     i8 58, label %while.end71
@@ -1803,25 +1804,25 @@ if.then60:                                        ; preds = %while.cond52
 
 if.end69:                                         ; preds = %if.then60, %while.cond52
   %ptr.2 = phi ptr [ %ptr.1, %while.cond52 ], [ %incdec.ptr65, %if.then60 ]
-  %14 = load i32, ptr %pc_addr.i128, align 4, !tbaa !9
-  %shr.i165 = ashr i32 %14, 10
-  %inc.i166 = add nsw i32 %14, 1
-  store i32 %inc.i166, ptr %pc_addr.i128, align 4, !tbaa !9
-  %rem.i167 = srem i32 %14, 1024
-  %15 = load ptr, ptr @functions, align 8, !tbaa !11
-  %16 = load i32, ptr %pc, align 4, !tbaa !13
-  %idxprom.i168 = sext i32 %16 to i64
+  %15 = load i32, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %shr.i165 = ashr i32 %15, 10
+  %inc.i166 = add nsw i32 %15, 1
+  store i32 %inc.i166, ptr %look_pc.sroa.7.0.pc.sroa_idx, align 4, !tbaa !9
+  %rem.i167 = srem i32 %15, 1024
+  %16 = load ptr, ptr @functions, align 8, !tbaa !11
+  %17 = load i32, ptr %pc, align 4, !tbaa !13
+  %idxprom.i168 = sext i32 %17 to i64
   %idxprom2.i169 = sext i32 %shr.i165 to i64
-  %arrayidx3.i170 = getelementptr inbounds %struct.bc_function, ptr %15, i64 %idxprom.i168, i32 1, i64 %idxprom2.i169
-  %17 = load ptr, ptr %arrayidx3.i170, align 8, !tbaa !11
+  %arrayidx3.i170 = getelementptr inbounds %struct.bc_function, ptr %16, i64 %idxprom.i168, i32 1, i64 %idxprom2.i169
+  %18 = load ptr, ptr %arrayidx3.i170, align 8, !tbaa !11
   %idxprom4.i171 = sext i32 %rem.i167 to i64
-  %arrayidx5.i172 = getelementptr inbounds i8, ptr %17, i64 %idxprom4.i171
-  %18 = load i8, ptr %arrayidx5.i172, align 1, !tbaa !14
+  %arrayidx5.i172 = getelementptr inbounds i8, ptr %18, i64 %idxprom4.i171
+  %19 = load i8, ptr %arrayidx5.i172, align 1, !tbaa !14
   br label %while.cond52, !llvm.loop !43
 
 while.end71:                                      ; preds = %while.cond52
-  %19 = load ptr, ptr %build, align 8, !tbaa !11
-  tail call void @push_num(ptr noundef %19) #12
+  %20 = load ptr, ptr %build, align 8, !tbaa !11
+  tail call void @push_num(ptr noundef %20) #12
   br label %cleanup
 
 cleanup:                                          ; preds = %while.end71, %if.then39, %if.then33, %if.then27
@@ -1856,14 +1857,14 @@ while.cond:                                       ; preds = %while.cond, %entry
   switch i8 %call3, label %if.end13 [
     i8 32, label %while.cond
     i8 43, label %if.end13.sink.split
-    i8 45, label %if.end13.sink.split.loopexit136
+    i8 45, label %if.end13.sink.split.loopexit138
   ], !llvm.loop !27
 
-if.end13.sink.split.loopexit136:                  ; preds = %while.cond
+if.end13.sink.split.loopexit138:                  ; preds = %while.cond
   br label %if.end13.sink.split
 
-if.end13.sink.split:                              ; preds = %while.cond, %if.end13.sink.split.loopexit136
-  %tobool.not.ph = phi i1 [ false, %if.end13.sink.split.loopexit136 ], [ true, %while.cond ]
+if.end13.sink.split:                              ; preds = %while.cond, %if.end13.sink.split.loopexit138
+  %tobool.not.ph = phi i1 [ false, %if.end13.sink.split.loopexit138 ], [ true, %while.cond ]
   %call12 = call signext i8 %in_char() #12
   br label %if.end13
 
@@ -1884,8 +1885,8 @@ if.end29:                                         ; preds = %if.end13
   %first_ch.0 = select i1 %or.cond, i8 %in_ch.1, i8 %conv26
   %conv28 = sext i8 %first_ch.0 to i32
   call void @int2num(ptr noundef nonnull %build, i32 noundef %conv28) #12
-  %cmp32121 = icmp slt i8 %call18, 16
-  br i1 %cmp32121, label %land.lhs.true38.lr.ph, label %while.end48
+  %cmp32122 = icmp slt i8 %call18, 16
+  br i1 %cmp32122, label %land.lhs.true38.lr.ph, label %while.end48
 
 land.lhs.true38.lr.ph:                            ; preds = %if.end29
   %2 = trunc i32 %conv_base to i8
@@ -1893,10 +1894,10 @@ land.lhs.true38.lr.ph:                            ; preds = %if.end29
   br label %land.lhs.true38
 
 land.lhs.true38:                                  ; preds = %land.lhs.true38.lr.ph, %land.lhs.true38
-  %in_ch.3122 = phi i8 [ %call18, %land.lhs.true38.lr.ph ], [ %call47, %land.lhs.true38 ]
-  %conv31 = sext i8 %in_ch.3122 to i32
-  %cmp40.not = icmp slt i32 %conv31, %conv_base
-  %in_ch.4 = select i1 %cmp40.not, i8 %in_ch.3122, i8 %conv44
+  %in_ch.3123 = phi i8 [ %call18, %land.lhs.true38.lr.ph ], [ %call47, %land.lhs.true38 ]
+  %conv31124 = sext i8 %in_ch.3123 to i32
+  %cmp40.not = icmp slt i32 %conv31124, %conv_base
+  %in_ch.4 = select i1 %cmp40.not, i8 %in_ch.3123, i8 %conv44
   %3 = load ptr, ptr %build, align 8, !tbaa !11
   %4 = load ptr, ptr %mult, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %3, ptr noundef %4, ptr noundef nonnull %result, i32 noundef 0) #12
@@ -1929,13 +1930,13 @@ if.then52:                                        ; preds = %while.end48
   %9 = load ptr, ptr @_zero_, align 8, !tbaa !11
   %call62 = call ptr @copy_num(ptr noundef %9) #12
   store ptr %call62, ptr %result, align 8, !tbaa !11
-  %cmp65123 = icmp slt i8 %in_ch.5, 16
-  br i1 %cmp65123, label %while.body67, label %while.end81
+  %cmp65125 = icmp slt i8 %in_ch.5, 16
+  br i1 %cmp65125, label %while.body67, label %while.end81
 
 while.body67:                                     ; preds = %if.then52, %while.body67
-  %in_ch.6125 = phi i8 [ %in_ch.7, %while.body67 ], [ %in_ch.5, %if.then52 ]
-  %digits.0124 = phi i32 [ %inc, %while.body67 ], [ 0, %if.then52 ]
-  %conv64 = sext i8 %in_ch.6125 to i32
+  %in_ch.6127 = phi i8 [ %in_ch.7, %while.body67 ], [ %in_ch.5, %if.then52 ]
+  %digits.0126 = phi i32 [ %inc, %while.body67 ], [ 0, %if.then52 ]
+  %conv64 = sext i8 %in_ch.6127 to i32
   %10 = load ptr, ptr %result, align 8, !tbaa !11
   %11 = load ptr, ptr %mult, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %10, ptr noundef %11, ptr noundef nonnull %result, i32 noundef 0) #12
@@ -1946,7 +1947,7 @@ while.body67:                                     ; preds = %if.then52, %while.b
   %14 = load ptr, ptr %divisor, align 8, !tbaa !11
   %15 = load ptr, ptr %mult, align 8, !tbaa !11
   call void @bc_multiply(ptr noundef %14, ptr noundef %15, ptr noundef nonnull %divisor, i32 noundef 0) #12
-  %inc = add nuw nsw i32 %digits.0124, 1
+  %inc = add nuw nsw i32 %digits.0126, 1
   %call69 = call signext i8 %in_char() #12
   %cmp71 = icmp sgt i8 %call69, 15
   %conv70 = sext i8 %call69 to i32
@@ -1958,11 +1959,11 @@ while.body67:                                     ; preds = %if.then52, %while.b
 
 while.end81.loopexit:                             ; preds = %while.body67
   %.pre = load ptr, ptr %result, align 8, !tbaa !11
-  %.pre129 = load ptr, ptr %divisor, align 8, !tbaa !11
+  %.pre131 = load ptr, ptr %divisor, align 8, !tbaa !11
   br label %while.end81
 
 while.end81:                                      ; preds = %while.end81.loopexit, %if.then52
-  %16 = phi ptr [ %call61, %if.then52 ], [ %.pre129, %while.end81.loopexit ]
+  %16 = phi ptr [ %call61, %if.then52 ], [ %.pre131, %while.end81.loopexit ]
   %17 = phi ptr [ %call62, %if.then52 ], [ %.pre, %while.end81.loopexit ]
   %digits.0.lcssa = phi i32 [ 0, %if.then52 ], [ %inc, %while.end81.loopexit ]
   %call82 = call i32 @bc_divide(ptr noundef %17, ptr noundef %16, ptr noundef nonnull %result, i32 noundef %digits.0.lcssa) #12
@@ -2063,18 +2064,18 @@ entry:
 
 if.then:                                          ; preds = %entry
   %1 = load ptr, ptr @stdin, align 8, !tbaa !11
-  %call.i78 = tail call i32 @getc(ptr noundef %1)
-  %sext.mask77 = and i32 %call.i78, 255
-  %cmp6 = icmp eq i32 %sext.mask77, 10
+  %call.i77 = tail call i32 @getc(ptr noundef %1)
+  %sext.mask79 = and i32 %call.i77, 255
+  %cmp6 = icmp eq i32 %sext.mask79, 10
   br i1 %cmp6, label %if.then8, label %if.end11
 
 if.then8:                                         ; preds = %if.then
   %2 = load ptr, ptr @stdin, align 8, !tbaa !11
-  %call.i79 = tail call i32 @getc(ptr noundef %2)
+  %call.i78 = tail call i32 @getc(ptr noundef %2)
   br label %if.end11
 
 if.end11:                                         ; preds = %if.then, %if.then8, %entry
-  %in_ch.0.in = phi i32 [ %call.i79, %if.then8 ], [ %call.i78, %if.then ], [ %call.i, %entry ]
+  %in_ch.0.in = phi i32 [ %call.i78, %if.then8 ], [ %call.i77, %if.then ], [ %call.i, %entry ]
   %in_ch.0 = trunc i32 %in_ch.0.in to i8
   %call12 = tail call ptr @__ctype_b_loc() #14
   %3 = load ptr, ptr %call12, align 8, !tbaa !11
@@ -2170,14 +2171,14 @@ declare noundef i32 @getc(ptr nocapture noundef) local_unnamed_addr #6
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i8 @llvm.smin.i8(i8, i8) #11
+
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.fshl.i32(i32, i32, i32) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i8 @llvm.smin.i8(i8, i8) #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

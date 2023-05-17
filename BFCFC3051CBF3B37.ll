@@ -265,10 +265,10 @@ while.condthread-pre-split:                       ; preds = %for.inc39
 while.body:                                       ; preds = %enqueue.exit, %while.condthread-pre-split
   %.pr97 = phi i32 [ %.pr, %while.condthread-pre-split ], [ %inc.i, %enqueue.exit ]
   %5 = load ptr, ptr @qHead, align 8, !tbaa !10
-  %tobool.not.i58 = icmp eq ptr %5, null
-  br i1 %tobool.not.i58, label %dequeue.exit, label %if.then.i60
+  %tobool.not.i57 = icmp eq ptr %5, null
+  br i1 %tobool.not.i57, label %dequeue.exit, label %if.then.i59
 
-if.then.i60:                                      ; preds = %while.body
+if.then.i59:                                      ; preds = %while.body
   %6 = load i32, ptr %5, align 8, !tbaa !12
   store i32 %6, ptr @iNode, align 4, !tbaa !19
   %iDist.i = getelementptr inbounds %struct._QITEM, ptr %5, i64 0, i32 1
@@ -277,8 +277,8 @@ if.then.i60:                                      ; preds = %while.body
   %iPrev.i = getelementptr inbounds %struct._QITEM, ptr %5, i64 0, i32 2
   %8 = load i32, ptr %iPrev.i, align 8, !tbaa !15
   store i32 %8, ptr @iPrev, align 4, !tbaa !19
-  %qNext.i59 = getelementptr inbounds %struct._QITEM, ptr %5, i64 0, i32 3
-  %9 = load ptr, ptr %qNext.i59, align 8, !tbaa !16
+  %qNext.i58 = getelementptr inbounds %struct._QITEM, ptr %5, i64 0, i32 3
+  %9 = load ptr, ptr %qNext.i58, align 8, !tbaa !16
   store ptr %9, ptr @qHead, align 8, !tbaa !10
   tail call void @free(ptr noundef nonnull %5) #15
   %10 = load i32, ptr @g_qCount, align 4, !tbaa !19
@@ -286,8 +286,8 @@ if.then.i60:                                      ; preds = %while.body
   store i32 %dec.i, ptr @g_qCount, align 4, !tbaa !19
   br label %dequeue.exit
 
-dequeue.exit:                                     ; preds = %while.body, %if.then.i60
-  %.pr96 = phi i32 [ %.pr97, %while.body ], [ %dec.i, %if.then.i60 ]
+dequeue.exit:                                     ; preds = %while.body, %if.then.i59
+  %.pr96 = phi i32 [ %.pr97, %while.body ], [ %dec.i, %if.then.i59 ]
   %11 = load i32, ptr @iNode, align 4, !tbaa !19
   %idxprom15 = sext i32 %11 to i64
   %12 = load i32, ptr @iDist, align 4
@@ -296,7 +296,7 @@ dequeue.exit:                                     ; preds = %while.body, %if.the
 for.body14:                                       ; preds = %dequeue.exit, %for.inc39
   %.pr98 = phi i32 [ %.pr96, %dequeue.exit ], [ %.pr, %for.inc39 ]
   %indvars.iv90 = phi i64 [ 0, %dequeue.exit ], [ %indvars.iv.next91, %for.inc39 ]
-  %inc.i778384 = phi i32 [ %.pr96, %dequeue.exit ], [ %inc.i7782, %for.inc39 ]
+  %inc.i768384 = phi i32 [ %.pr96, %dequeue.exit ], [ %inc.i7682, %for.inc39 ]
   %arrayidx18 = getelementptr inbounds [100 x [100 x i32]], ptr @AdjMatrix, i64 0, i64 %idxprom15, i64 %indvars.iv90
   %13 = load i32, ptr %arrayidx18, align 4, !tbaa !19
   %cmp19.not = icmp eq i32 %13, 9999
@@ -315,11 +315,11 @@ if.then29:                                        ; preds = %if.then20
   store i32 %add, ptr %arrayidx22, align 8, !tbaa !20
   %iPrev36 = getelementptr inbounds [100 x %struct._NODE], ptr @rgnNodes, i64 0, i64 %indvars.iv90, i32 1
   store i32 %11, ptr %iPrev36, align 4, !tbaa !5
-  %call.i62 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #12
-  %tobool.not.i63 = icmp eq ptr %call.i62, null
-  br i1 %tobool.not.i63, label %if.then.i64, label %if.end.i69
+  %call.i61 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #12
+  %tobool.not.i62 = icmp eq ptr %call.i61, null
+  br i1 %tobool.not.i62, label %if.then.i63, label %if.end.i68
 
-if.then.i64:                                      ; preds = %if.then29
+if.then.i63:                                      ; preds = %if.then29
   %15 = trunc i64 %indvars.iv90 to i32
   store i32 %15, ptr @i, align 4, !tbaa !19
   store i32 %13, ptr @iCost, align 4, !tbaa !19
@@ -328,40 +328,40 @@ if.then.i64:                                      ; preds = %if.then29
   tail call void @exit(i32 noundef 1) #14
   unreachable
 
-if.end.i69:                                       ; preds = %if.then29
+if.end.i68:                                       ; preds = %if.then29
   %18 = load ptr, ptr @qHead, align 8, !tbaa !10
   %19 = trunc i64 %indvars.iv90 to i32
-  store i32 %19, ptr %call.i62, align 8, !tbaa !12
-  %iDist3.i65 = getelementptr inbounds %struct._QITEM, ptr %call.i62, i64 0, i32 1
-  store i32 %add, ptr %iDist3.i65, align 4, !tbaa !14
-  %iPrev4.i66 = getelementptr inbounds %struct._QITEM, ptr %call.i62, i64 0, i32 2
-  store i32 %11, ptr %iPrev4.i66, align 8, !tbaa !15
-  %qNext.i67 = getelementptr inbounds %struct._QITEM, ptr %call.i62, i64 0, i32 3
-  store ptr null, ptr %qNext.i67, align 8, !tbaa !16
-  %tobool5.not.i68 = icmp eq ptr %18, null
-  br i1 %tobool5.not.i68, label %enqueue.exit78, label %while.cond.i73
+  store i32 %19, ptr %call.i61, align 8, !tbaa !12
+  %iDist3.i64 = getelementptr inbounds %struct._QITEM, ptr %call.i61, i64 0, i32 1
+  store i32 %add, ptr %iDist3.i64, align 4, !tbaa !14
+  %iPrev4.i65 = getelementptr inbounds %struct._QITEM, ptr %call.i61, i64 0, i32 2
+  store i32 %11, ptr %iPrev4.i65, align 8, !tbaa !15
+  %qNext.i66 = getelementptr inbounds %struct._QITEM, ptr %call.i61, i64 0, i32 3
+  store ptr null, ptr %qNext.i66, align 8, !tbaa !16
+  %tobool5.not.i67 = icmp eq ptr %18, null
+  br i1 %tobool5.not.i67, label %enqueue.exit77, label %while.cond.i72
 
-while.cond.i73:                                   ; preds = %if.end.i69, %while.cond.i73
-  %qLast.0.i70 = phi ptr [ %20, %while.cond.i73 ], [ %18, %if.end.i69 ]
-  %qNext7.i71 = getelementptr inbounds %struct._QITEM, ptr %qLast.0.i70, i64 0, i32 3
-  %20 = load ptr, ptr %qNext7.i71, align 8, !tbaa !16
-  %tobool8.not.i72 = icmp eq ptr %20, null
-  br i1 %tobool8.not.i72, label %enqueue.exit78.loopexit, label %while.cond.i73, !llvm.loop !17
+while.cond.i72:                                   ; preds = %if.end.i68, %while.cond.i72
+  %qLast.0.i69 = phi ptr [ %20, %while.cond.i72 ], [ %18, %if.end.i68 ]
+  %qNext7.i70 = getelementptr inbounds %struct._QITEM, ptr %qLast.0.i69, i64 0, i32 3
+  %20 = load ptr, ptr %qNext7.i70, align 8, !tbaa !16
+  %tobool8.not.i71 = icmp eq ptr %20, null
+  br i1 %tobool8.not.i71, label %enqueue.exit77.loopexit, label %while.cond.i72, !llvm.loop !17
 
-enqueue.exit78.loopexit:                          ; preds = %while.cond.i73
-  %qNext7.i71.le = getelementptr inbounds %struct._QITEM, ptr %qLast.0.i70, i64 0, i32 3
-  br label %enqueue.exit78
+enqueue.exit77.loopexit:                          ; preds = %while.cond.i72
+  %qNext7.i70.le = getelementptr inbounds %struct._QITEM, ptr %qLast.0.i69, i64 0, i32 3
+  br label %enqueue.exit77
 
-enqueue.exit78:                                   ; preds = %enqueue.exit78.loopexit, %if.end.i69
-  %qNext7.le.sink.i76 = phi ptr [ @qHead, %if.end.i69 ], [ %qNext7.i71.le, %enqueue.exit78.loopexit ]
-  store ptr %call.i62, ptr %qNext7.le.sink.i76, align 8, !tbaa !10
-  %inc.i77 = add nsw i32 %inc.i778384, 1
-  store i32 %inc.i77, ptr @g_qCount, align 4, !tbaa !19
+enqueue.exit77:                                   ; preds = %enqueue.exit77.loopexit, %if.end.i68
+  %qNext7.le.sink.i75 = phi ptr [ @qHead, %if.end.i68 ], [ %qNext7.i70.le, %enqueue.exit77.loopexit ]
+  store ptr %call.i61, ptr %qNext7.le.sink.i75, align 8, !tbaa !10
+  %inc.i76 = add nsw i32 %inc.i768384, 1
+  store i32 %inc.i76, ptr @g_qCount, align 4, !tbaa !19
   br label %for.inc39
 
-for.inc39:                                        ; preds = %if.then20, %for.body14, %enqueue.exit78
-  %.pr = phi i32 [ %.pr98, %for.body14 ], [ %inc.i77, %enqueue.exit78 ], [ %.pr98, %if.then20 ]
-  %inc.i7782 = phi i32 [ %inc.i778384, %for.body14 ], [ %inc.i77, %enqueue.exit78 ], [ %inc.i778384, %if.then20 ]
+for.inc39:                                        ; preds = %if.then20, %for.body14, %enqueue.exit77
+  %.pr = phi i32 [ %.pr98, %for.body14 ], [ %inc.i76, %enqueue.exit77 ], [ %.pr98, %if.then20 ]
+  %inc.i7682 = phi i32 [ %inc.i768384, %for.body14 ], [ %inc.i76, %enqueue.exit77 ], [ %inc.i768384, %if.then20 ]
   %indvars.iv.next91 = add nuw nsw i64 %indvars.iv90, 1
   %exitcond93.not = icmp eq i64 %indvars.iv.next91, 100
   br i1 %exitcond93.not, label %while.condthread-pre-split, label %for.body14, !llvm.loop !21

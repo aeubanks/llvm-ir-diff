@@ -89,7 +89,7 @@ if.end.i:                                         ; preds = %sw.bb22
   %tobool.not.not.i = icmp eq i32 %not.i, 0
   %not13.i = and i32 %conv2.i, 256
   %tobool15.not.not.i = icmp eq i32 %not13.i, 0
-  %or.cond.i = or i1 %tobool15.not.not.i, %tobool.not.not.i
+  %or.cond.i = or i1 %tobool.not.not.i, %tobool15.not.not.i
   br i1 %or.cond.i, label %cleanup35, label %if.end17.i
 
 if.end17.i:                                       ; preds = %if.end.i
@@ -125,7 +125,7 @@ sw.bb24:                                          ; preds = %entry
   %call25 = tail call i32 (ptr, ...) @zcopy_dict(ptr noundef nonnull %op) #6
   br label %cleanup35
 
-if.end27:                                         ; preds = %sw.bb32.i, %if.end24.i, %sw.bb.i
+if.end27:                                         ; preds = %if.end24.i, %sw.bb.i, %sw.bb32.i
   %14 = load i16, ptr %size.i, align 2, !tbaa !13
   store i16 %14, ptr %size19.i, align 2, !tbaa !13
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr23, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !14
@@ -223,9 +223,9 @@ entry:
   %str = alloca %struct.ref_s, align 8
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !5
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %return [
     i32 0, label %sw.bb
     i32 10, label %sw.bb
@@ -235,14 +235,14 @@ entry:
   ]
 
 sw.bb:                                            ; preds = %entry, %entry, %entry
-  %3 = and i16 %0, 512
-  %tobool.not.not = icmp eq i16 %3, 0
+  %not = and i32 %conv, 512
+  %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %return, label %if.end
 
 if.end:                                           ; preds = %sw.bb
   %size = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 2
-  %4 = load i16, ptr %size, align 2, !tbaa !13
-  %conv4 = zext i16 %4 to i64
+  %1 = load i16, ptr %size, align 2, !tbaa !13
+  %conv4 = zext i16 %1 to i64
   store i64 %conv4, ptr %op, align 8, !tbaa !10
   store i16 20, ptr %type_attrs, align 8, !tbaa !5
   br label %return
@@ -250,9 +250,9 @@ if.end:                                           ; preds = %sw.bb
 sw.bb6:                                           ; preds = %entry
   %call = tail call ptr @dict_access_ref(ptr noundef nonnull %op) #6
   %type_attrs7 = getelementptr inbounds %struct.ref_s, ptr %call, i64 0, i32 1
-  %5 = load i16, ptr %type_attrs7, align 8, !tbaa !5
-  %6 = and i16 %5, 512
-  %tobool11.not.not = icmp eq i16 %6, 0
+  %2 = load i16, ptr %type_attrs7, align 8, !tbaa !5
+  %3 = and i16 %2, 512
+  %tobool11.not.not = icmp eq i16 %3, 0
   br i1 %tobool11.not.not, label %return, label %if.end13
 
 if.end13:                                         ; preds = %sw.bb6
@@ -266,8 +266,8 @@ sw.bb18:                                          ; preds = %entry
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %str) #6
   %call19 = call i32 (ptr, ptr, ...) @name_string_ref(ptr noundef nonnull %op, ptr noundef nonnull %str) #6
   %size20 = getelementptr inbounds %struct.ref_s, ptr %str, i64 0, i32 2
-  %7 = load i16, ptr %size20, align 2, !tbaa !13
-  %conv21 = zext i16 %7 to i64
+  %4 = load i16, ptr %size20, align 2, !tbaa !13
+  %conv21 = zext i16 %4 to i64
   store i64 %conv21, ptr %op, align 8, !tbaa !10
   store i16 20, ptr %type_attrs, align 8, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %str) #6
@@ -327,29 +327,29 @@ sw.bb8:                                           ; preds = %entry, %entry
   br i1 %cmp12, label %if.end15, label %cleanup
 
 if.end15:                                         ; preds = %sw.bb8
-  %5 = and i16 %0, 512
-  %tobool20.not.not = icmp eq i16 %5, 0
+  %not18 = and i32 %conv, 512
+  %tobool20.not.not = icmp eq i32 %not18, 0
   br i1 %tobool20.not.not, label %cleanup, label %if.end22
 
 if.end22:                                         ; preds = %if.end15
-  %6 = load i64, ptr %op, align 8, !tbaa !10
+  %5 = load i64, ptr %op, align 8, !tbaa !10
   %size = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 2
-  %7 = load i16, ptr %size, align 2, !tbaa !13
-  %conv23 = zext i16 %7 to i64
-  %cmp24.not = icmp ult i64 %6, %conv23
+  %6 = load i16, ptr %size, align 2, !tbaa !13
+  %conv23 = zext i16 %6 to i64
+  %cmp24.not = icmp ult i64 %5, %conv23
   br i1 %cmp24.not, label %if.end27, label %cleanup
 
 if.end27:                                         ; preds = %if.end22
-  %8 = load ptr, ptr %add.ptr, align 8, !tbaa !10
-  %idx.ext = and i64 %6, 4294967295
-  %add.ptr31 = getelementptr inbounds %struct.ref_s, ptr %8, i64 %idx.ext
+  %7 = load ptr, ptr %add.ptr, align 8, !tbaa !10
+  %idx.ext = and i64 %5, 4294967295
+  %add.ptr31 = getelementptr inbounds %struct.ref_s, ptr %7, i64 %idx.ext
   br label %sw.epilog
 
 sw.bb32:                                          ; preds = %entry
   %type_attrs33 = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
-  %9 = load i16, ptr %type_attrs33, align 8, !tbaa !5
-  %10 = and i16 %9, 252
-  %cmp36 = icmp eq i16 %10, 20
+  %8 = load i16, ptr %type_attrs33, align 8, !tbaa !5
+  %9 = and i16 %8, 252
+  %cmp36 = icmp eq i16 %9, 20
   br i1 %cmp36, label %if.end39, label %cleanup
 
 if.end39:                                         ; preds = %sw.bb32
@@ -358,31 +358,31 @@ if.end39:                                         ; preds = %sw.bb32
   br i1 %tobool44.not.not, label %cleanup, label %if.end46
 
 if.end46:                                         ; preds = %if.end39
-  %11 = load i64, ptr %op, align 8, !tbaa !10
+  %10 = load i64, ptr %op, align 8, !tbaa !10
   %size48 = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 2
-  %12 = load i16, ptr %size48, align 2, !tbaa !13
-  %conv49 = zext i16 %12 to i64
-  %cmp50.not = icmp ult i64 %11, %conv49
+  %11 = load i16, ptr %size48, align 2, !tbaa !13
+  %conv49 = zext i16 %11 to i64
+  %cmp50.not = icmp ult i64 %10, %conv49
   br i1 %cmp50.not, label %if.end53, label %cleanup
 
 if.end53:                                         ; preds = %if.end46
-  %13 = load ptr, ptr %add.ptr, align 8, !tbaa !10
-  %idxprom = and i64 %11, 4294967295
-  %arrayidx = getelementptr inbounds i8, ptr %13, i64 %idxprom
-  %14 = load i8, ptr %arrayidx, align 1, !tbaa !10
-  %conv58 = zext i8 %14 to i64
+  %12 = load ptr, ptr %add.ptr, align 8, !tbaa !10
+  %idxprom = and i64 %10, 4294967295
+  %arrayidx = getelementptr inbounds i8, ptr %12, i64 %idxprom
+  %13 = load i8, ptr %arrayidx, align 1, !tbaa !10
+  %conv58 = zext i8 %13 to i64
   store i64 %conv58, ptr %add.ptr, align 8, !tbaa !10
   store i16 20, ptr %type_attrs, align 8, !tbaa !5
   br label %cleanup.sink.split
 
 sw.epilog:                                        ; preds = %if.end.sw.epilog_crit_edge, %if.end27
-  %15 = phi ptr [ %.pre, %if.end.sw.epilog_crit_edge ], [ %add.ptr31, %if.end27 ]
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr, ptr noundef nonnull align 8 dereferenceable(16) %15, i64 16, i1 false), !tbaa.struct !14
+  %14 = phi ptr [ %.pre, %if.end.sw.epilog_crit_edge ], [ %add.ptr31, %if.end27 ]
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr, ptr noundef nonnull align 8 dereferenceable(16) %14, i64 16, i1 false), !tbaa.struct !14
   br label %cleanup.sink.split
 
 cleanup.sink.split:                               ; preds = %if.end53, %sw.epilog
-  %16 = load ptr, ptr @osp, align 8, !tbaa !11
-  %add.ptr63 = getelementptr inbounds %struct.ref_s, ptr %16, i64 -1
+  %15 = load ptr, ptr @osp, align 8, !tbaa !11
+  %add.ptr63 = getelementptr inbounds %struct.ref_s, ptr %15, i64 -1
   store ptr %add.ptr63, ptr @osp, align 8, !tbaa !11
   br label %cleanup
 
@@ -536,9 +536,9 @@ if.end:                                           ; preds = %entry
 if.end9:                                          ; preds = %if.end
   %type_attrs10 = getelementptr %struct.ref_s, ptr %op, i64 -2, i32 1
   %4 = load i16, ptr %type_attrs10, align 8, !tbaa !5
-  %5 = lshr i16 %4, 2
-  %6 = and i16 %5, 63
-  %shr = zext i16 %6 to i32
+  %conv11 = zext i16 %4 to i32
+  %and12 = lshr i32 %conv11, 2
+  %shr = and i32 %and12, 63
   switch i32 %shr, label %cleanup [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
@@ -546,45 +546,42 @@ if.end9:                                          ; preds = %if.end
   ]
 
 sw.epilog:                                        ; preds = %if.end9, %if.end9, %if.end9
-  %conv14 = zext i16 %4 to i32
-  %not = and i32 %conv14, 512
+  %not = and i32 %conv11, 512
   %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %cleanup, label %if.end17
 
 if.end17:                                         ; preds = %sw.epilog
-  %7 = load i64, ptr %add.ptr, align 8, !tbaa !10
+  %5 = load i64, ptr %add.ptr, align 8, !tbaa !10
   %size = getelementptr %struct.ref_s, ptr %op, i64 -2, i32 2
-  %8 = load i16, ptr %size, align 2, !tbaa !13
-  %conv18 = zext i16 %8 to i64
-  %cmp19 = icmp ugt i64 %7, %conv18
+  %6 = load i16, ptr %size, align 2, !tbaa !13
+  %conv18 = zext i16 %6 to i64
+  %cmp19 = icmp ugt i64 %5, %conv18
   br i1 %cmp19, label %cleanup, label %if.end22
 
 if.end22:                                         ; preds = %if.end17
-  %9 = load i64, ptr %op, align 8, !tbaa !10
-  %sub = sub i64 %conv18, %7
+  %7 = load i64, ptr %op, align 8, !tbaa !10
+  %sub = sub i64 %conv18, %5
   %conv28 = and i64 %sub, 4294967295
-  %cmp29 = icmp ugt i64 %9, %conv28
+  %cmp29 = icmp ugt i64 %7, %conv28
   br i1 %cmp29, label %cleanup, label %if.end32
 
 if.end32:                                         ; preds = %if.end22
-  %and37 = lshr i32 %conv14, 2
-  %shr38 = and i32 %and37, 63
-  switch i32 %shr38, label %sw.epilog46 [
+  switch i32 %shr, label %sw.epilog46 [
     i32 0, label %sw.bb39
     i32 10, label %sw.bb39
     i32 13, label %sw.bb42
   ]
 
 sw.bb39:                                          ; preds = %if.end32, %if.end32
-  %10 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
-  %idx.ext = and i64 %7, 4294967295
-  %add.ptr41 = getelementptr inbounds %struct.ref_s, ptr %10, i64 %idx.ext
+  %8 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
+  %idx.ext = and i64 %5, 4294967295
+  %add.ptr41 = getelementptr inbounds %struct.ref_s, ptr %8, i64 %idx.ext
   br label %sw.epilog46.sink.split
 
 sw.bb42:                                          ; preds = %if.end32
-  %11 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
-  %idx.ext44 = and i64 %7, 4294967295
-  %add.ptr45 = getelementptr inbounds i8, ptr %11, i64 %idx.ext44
+  %9 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
+  %idx.ext44 = and i64 %5, 4294967295
+  %add.ptr45 = getelementptr inbounds i8, ptr %9, i64 %idx.ext44
   br label %sw.epilog46.sink.split
 
 sw.epilog46.sink.split:                           ; preds = %sw.bb39, %sw.bb42
@@ -593,12 +590,12 @@ sw.epilog46.sink.split:                           ; preds = %sw.bb39, %sw.bb42
   br label %sw.epilog46
 
 sw.epilog46:                                      ; preds = %sw.epilog46.sink.split, %if.end32
-  %conv47 = trunc i64 %9 to i16
+  %conv47 = trunc i64 %7 to i16
   store i16 %conv47, ptr %size, align 2, !tbaa !13
-  %12 = or i16 %4, -32768
-  store i16 %12, ptr %type_attrs10, align 8, !tbaa !5
-  %13 = load ptr, ptr @osp, align 8, !tbaa !11
-  %add.ptr52 = getelementptr inbounds %struct.ref_s, ptr %13, i64 -2
+  %10 = or i16 %4, -32768
+  store i16 %10, ptr %type_attrs10, align 8, !tbaa !5
+  %11 = load ptr, ptr @osp, align 8, !tbaa !11
+  %add.ptr52 = getelementptr inbounds %struct.ref_s, ptr %11, i64 -2
   store ptr %add.ptr52, ptr @osp, align 8, !tbaa !11
   br label %cleanup
 
@@ -621,9 +618,9 @@ entry:
 if.end:                                           ; preds = %entry
   %type_attrs3 = getelementptr %struct.ref_s, ptr %op, i64 -2, i32 1
   %2 = load i16, ptr %type_attrs3, align 8, !tbaa !5
-  %3 = lshr i16 %2, 2
-  %4 = and i16 %3, 63
-  %shr = zext i16 %4 to i32
+  %conv4 = zext i16 %2 to i32
+  %and5 = lshr i32 %conv4, 2
+  %shr = and i32 %and5, 63
   switch i32 %shr, label %cleanup [
     i32 10, label %sw.bb
     i32 0, label %sw.epilog
@@ -634,80 +631,72 @@ sw.bb:                                            ; preds = %if.end
   br label %cleanup
 
 sw.epilog:                                        ; preds = %if.end, %if.end
-  %5 = and i16 %2, 256
-  %tobool.not.not = icmp eq i16 %5, 0
+  %not = and i32 %conv4, 256
+  %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %cleanup, label %if.end11
 
 if.end11:                                         ; preds = %sw.epilog
-  %6 = load i64, ptr %add.ptr, align 8, !tbaa !10
+  %3 = load i64, ptr %add.ptr, align 8, !tbaa !10
   %size = getelementptr %struct.ref_s, ptr %op, i64 -2, i32 2
-  %7 = load i16, ptr %size, align 2, !tbaa !13
-  %conv12 = zext i16 %7 to i64
-  %cmp13 = icmp ugt i64 %6, %conv12
+  %4 = load i16, ptr %size, align 2, !tbaa !13
+  %conv12 = zext i16 %4 to i64
+  %cmp13 = icmp ugt i64 %3, %conv12
   br i1 %cmp13, label %cleanup, label %if.end16
 
 if.end16:                                         ; preds = %if.end11
-  %conv18 = trunc i64 %6 to i32
   %type_attrs.i = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
-  %8 = load i16, ptr %type_attrs.i, align 8, !tbaa !5
-  %conv.i = zext i16 %8 to i32
+  %5 = load i16, ptr %type_attrs.i, align 8, !tbaa !5
+  %conv.i = zext i16 %5 to i32
   %and.i = lshr i32 %conv.i, 2
   %shr.i = and i32 %and.i, 63
-  %conv2.i = zext i16 %2 to i32
-  %and3.i = lshr i32 %conv2.i, 2
-  %shr4.i = and i32 %and3.i, 63
-  %cmp.not.i = icmp eq i32 %shr.i, %shr4.i
-  br i1 %cmp.not.i, label %if.end.i, label %cleanup
-
-if.end.i:                                         ; preds = %if.end16
+  %cmp.not.i = icmp ne i32 %shr.i, %shr
   %not.i = and i32 %conv.i, 512
   %tobool.not.not.i = icmp eq i32 %not.i, 0
-  %not13.i = and i32 %conv2.i, 256
-  %tobool15.not.not.i = icmp eq i32 %not13.i, 0
-  %or.cond.i = or i1 %tobool.not.not.i, %tobool15.not.not.i
-  br i1 %or.cond.i, label %cleanup, label %if.end17.i
+  %or.cond = or i1 %cmp.not.i, %tobool.not.not.i
+  br i1 %or.cond, label %cleanup, label %if.end17.i
 
-if.end17.i:                                       ; preds = %if.end.i
+if.end17.i:                                       ; preds = %if.end16
+  %conv18 = trunc i64 %3 to i32
   %size.i = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 2
-  %9 = load i16, ptr %size.i, align 2, !tbaa !13
-  %conv18.i = zext i16 %9 to i32
-  %conv20.i = zext i16 %7 to i32
+  %6 = load i16, ptr %size.i, align 2, !tbaa !13
+  %conv18.i = zext i16 %6 to i32
+  %conv20.i = zext i16 %4 to i32
   %sub.i = sub i32 %conv20.i, %conv18
   %cmp21.i = icmp ult i32 %sub.i, %conv18.i
   br i1 %cmp21.i, label %cleanup, label %if.end24.i
 
 if.end24.i:                                       ; preds = %if.end17.i
-  switch i32 %shr.i, label %if.then21 [
+  switch i32 %shr, label %if.then21 [
     i32 0, label %sw.bb.i
     i32 10, label %sw.bb.i
     i32 13, label %sw.bb32.i
   ]
 
 sw.bb.i:                                          ; preds = %if.end24.i, %if.end24.i
-  %10 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
-  %idx.ext.i = and i64 %6, 4294967295
-  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %10, i64 %idx.ext.i
-  %11 = load ptr, ptr %op, align 8, !tbaa !10
-  %call.i = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %add.ptr.i, ptr noundef %11, i32 noundef %conv18.i) #6
+  %7 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
+  %idx.ext.i = and i64 %3, 4294967295
+  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %7, i64 %idx.ext.i
+  %8 = load ptr, ptr %op, align 8, !tbaa !10
+  %call.i = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %add.ptr.i, ptr noundef %8, i32 noundef %conv18.i) #6
   br label %if.then21
 
 sw.bb32.i:                                        ; preds = %if.end24.i
-  %12 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
-  %idx.ext34.i = and i64 %6, 4294967295
-  %add.ptr35.i = getelementptr inbounds i8, ptr %12, i64 %idx.ext34.i
-  %13 = load ptr, ptr %op, align 8, !tbaa !10
-  %conv38.i = zext i16 %9 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr35.i, ptr align 1 %13, i64 %conv38.i, i1 false)
+  %9 = load ptr, ptr %add.ptr1, align 8, !tbaa !10
+  %idx.ext34.i = and i64 %3, 4294967295
+  %add.ptr35.i = getelementptr inbounds i8, ptr %9, i64 %idx.ext34.i
+  %10 = load ptr, ptr %op, align 8, !tbaa !10
+  %conv38.i = zext i16 %6 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr35.i, ptr align 1 %10, i64 %conv38.i, i1 false)
   br label %if.then21
 
-if.then21:                                        ; preds = %sw.bb32.i, %if.end24.i, %sw.bb.i
-  %14 = load ptr, ptr @osp, align 8, !tbaa !11
-  %add.ptr22 = getelementptr inbounds %struct.ref_s, ptr %14, i64 -3
+if.then21:                                        ; preds = %sw.bb32.i, %sw.bb.i, %if.end24.i
+  %11 = load ptr, ptr @osp, align 8, !tbaa !11
+  %add.ptr22 = getelementptr inbounds %struct.ref_s, ptr %11, i64 -3
   store ptr %add.ptr22, ptr @osp, align 8, !tbaa !11
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end17.i, %if.end.i, %if.end16, %if.then21, %if.end11, %sw.epilog, %if.end, %entry, %sw.bb
-  %retval.0 = phi i32 [ -7, %sw.bb ], [ -20, %entry ], [ -20, %if.end ], [ -7, %sw.epilog ], [ -15, %if.end11 ], [ 0, %if.then21 ], [ 0, %if.end16 ], [ 0, %if.end.i ], [ 0, %if.end17.i ]
+cleanup:                                          ; preds = %if.then21, %if.end17.i, %if.end16, %if.end11, %sw.epilog, %if.end, %entry, %sw.bb
+  %retval.0 = phi i32 [ -7, %sw.bb ], [ -20, %entry ], [ -20, %if.end ], [ -7, %sw.epilog ], [ -15, %if.end11 ], [ 0, %if.end16 ], [ 0, %if.end17.i ], [ 0, %if.then21 ]
   ret i32 %retval.0
 }
 
@@ -728,8 +717,8 @@ entry:
   ]
 
 sw.bb:                                            ; preds = %entry, %entry
-  %1 = and i16 %0, 512
-  %tobool.not.not = icmp eq i16 %1, 0
+  %not = and i32 %conv, 512
+  %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %cleanup, label %sw.epilog
 
 sw.bb4:                                           ; preds = %entry
@@ -740,42 +729,42 @@ sw.bb4:                                           ; preds = %entry
 sw.bb12:                                          ; preds = %entry
   %call = tail call ptr @dict_access_ref(ptr noundef nonnull %add.ptr) #6
   %type_attrs13 = getelementptr inbounds %struct.ref_s, ptr %call, i64 0, i32 1
-  %2 = load i16, ptr %type_attrs13, align 8, !tbaa !5
-  %3 = and i16 %2, 512
-  %tobool17.not.not = icmp eq i16 %3, 0
+  %1 = load i16, ptr %type_attrs13, align 8, !tbaa !5
+  %2 = and i16 %1, 512
+  %tobool17.not.not = icmp eq i16 %2, 0
   br i1 %tobool17.not.not, label %cleanup, label %if.end19
 
 if.end19:                                         ; preds = %sw.bb12
   %call20 = tail call i32 @dict_first(ptr noundef nonnull %add.ptr) #6
-  %4 = zext i32 %call20 to i64
+  %3 = zext i32 %call20 to i64
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %sw.bb4, %sw.bb, %if.end19
   %cproc.0 = phi ptr [ @dict_continue, %if.end19 ], [ @array_continue, %sw.bb ], [ @string_continue, %sw.bb4 ]
-  %index.0 = phi i64 [ %4, %if.end19 ], [ 0, %sw.bb ], [ 0, %sw.bb4 ]
-  %5 = load ptr, ptr @esp, align 8, !tbaa !11
-  %add.ptr21 = getelementptr inbounds %struct.ref_s, ptr %5, i64 6
-  %6 = load ptr, ptr @estop, align 8, !tbaa !11
-  %cmp = icmp ugt ptr %add.ptr21, %6
+  %index.0 = phi i64 [ %3, %if.end19 ], [ 0, %sw.bb ], [ 0, %sw.bb4 ]
+  %4 = load ptr, ptr @esp, align 8, !tbaa !11
+  %add.ptr21 = getelementptr inbounds %struct.ref_s, ptr %4, i64 6
+  %5 = load ptr, ptr @estop, align 8, !tbaa !11
+  %cmp = icmp ugt ptr %add.ptr21, %5
   br i1 %cmp, label %cleanup, label %if.end24
 
 if.end24:                                         ; preds = %sw.epilog
-  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %5, i64 1
+  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %4, i64 1
   store i16 2, ptr %incdec.ptr, align 8, !tbaa !10
-  %type_attrs25 = getelementptr inbounds %struct.ref_s, ptr %5, i64 1, i32 1
+  %type_attrs25 = getelementptr inbounds %struct.ref_s, ptr %4, i64 1, i32 1
   store i16 33, ptr %type_attrs25, align 8, !tbaa !5
-  %incdec.ptr26 = getelementptr inbounds %struct.ref_s, ptr %5, i64 2
+  %incdec.ptr26 = getelementptr inbounds %struct.ref_s, ptr %4, i64 2
   store ptr %incdec.ptr26, ptr @esp, align 8, !tbaa !11
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr26, ptr noundef nonnull align 8 dereferenceable(16) %add.ptr, i64 16, i1 false), !tbaa.struct !14
-  %incdec.ptr27 = getelementptr inbounds %struct.ref_s, ptr %5, i64 3
+  %incdec.ptr27 = getelementptr inbounds %struct.ref_s, ptr %4, i64 3
   store i64 %index.0, ptr %incdec.ptr27, align 8, !tbaa !10
-  %type_attrs30 = getelementptr inbounds %struct.ref_s, ptr %5, i64 3, i32 1
+  %type_attrs30 = getelementptr inbounds %struct.ref_s, ptr %4, i64 3, i32 1
   store i16 20, ptr %type_attrs30, align 8, !tbaa !5
-  %incdec.ptr31 = getelementptr inbounds %struct.ref_s, ptr %5, i64 4
+  %incdec.ptr31 = getelementptr inbounds %struct.ref_s, ptr %4, i64 4
   store ptr %incdec.ptr31, ptr @esp, align 8, !tbaa !11
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr31, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !14
-  %7 = load ptr, ptr @osp, align 8, !tbaa !11
-  %add.ptr32 = getelementptr inbounds %struct.ref_s, ptr %7, i64 -2
+  %6 = load ptr, ptr @osp, align 8, !tbaa !11
+  %add.ptr32 = getelementptr inbounds %struct.ref_s, ptr %6, i64 -2
   store ptr %add.ptr32, ptr @osp, align 8, !tbaa !11
   %add.ptr33 = getelementptr inbounds %struct.ref_s, ptr %op, i64 -2
   %call34 = tail call i32 %cproc.0(ptr noundef nonnull %add.ptr33) #6, !callees !20

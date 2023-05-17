@@ -641,11 +641,11 @@ if.end208:                                        ; preds = %cond.end203
   %cmp213 = icmp ult i16 %26, 2
   br i1 %cmp213, label %if.then215, label %top.backedge
 
-top.backedge:                                     ; preds = %if.end208, %if.then215, %if.end271, %if.end260, %cond.true282, %sw.default279, %if.else86, %if.then81, %sw.default, %cleanup360.thread951, %cleanup324.thread946, %if.then10, %if.then22, %if.then37, %if.then102, %if.then114, %if.then127, %if.then172
-  %icount.0.be = phi i32 [ %dec, %if.then10 ], [ %dec19, %if.then22 ], [ %dec34, %if.then37 ], [ %dec99, %if.then102 ], [ %dec111, %if.then114 ], [ %dec124, %if.then127 ], [ %dec169, %if.then172 ], [ 0, %cleanup324.thread946 ], [ 0, %cleanup360.thread951 ], [ 0, %sw.default ], [ %dec78, %if.then81 ], [ %dec78, %if.else86 ], [ %dec273, %if.end271 ], [ %dec261, %if.end260 ], [ 0, %cond.true282 ], [ 0, %sw.default279 ], [ %sub, %if.then215 ], [ %sub, %if.end208 ]
-  %iosp.0.be = phi ptr [ %incdec.ptr7, %if.then10 ], [ %incdec.ptr17, %if.then22 ], [ %iosp.0, %if.then37 ], [ %incdec.ptr95, %if.then102 ], [ %incdec.ptr110, %if.then114 ], [ %incdec.ptr123, %if.then127 ], [ %15, %if.then172 ], [ %iosp.0, %cleanup324.thread946 ], [ %iosp.0, %cleanup360.thread951 ], [ %add.ptr57, %sw.default ], [ %add.ptr57, %if.then81 ], [ %add.ptr57, %if.else86 ], [ %incdec.ptr272, %if.end271 ], [ %28, %if.end260 ], [ %iosp.0, %cond.true282 ], [ %iosp.0, %sw.default279 ], [ %iosp.0, %if.then215 ], [ %iosp.0, %if.end208 ]
-  %iesp.0.be = phi ptr [ %iesp.0, %if.then10 ], [ %iesp.0, %if.then22 ], [ %iesp.0, %if.then37 ], [ %iesp.0, %if.then102 ], [ %iesp.0, %if.then114 ], [ %iesp.0, %if.then127 ], [ %iesp.0, %if.then172 ], [ %incdec.ptr316, %cleanup324.thread946 ], [ %incdec.ptr347, %cleanup360.thread951 ], [ %iesp.0, %sw.default ], [ %iesp.0, %if.then81 ], [ %incdec.ptr87, %if.else86 ], [ %iesp.0, %if.end271 ], [ %iesp.0, %if.end260 ], [ %iesp.0, %cond.true282 ], [ %iesp.0, %sw.default279 ], [ %iesp.0, %if.then215 ], [ %incdec.ptr209, %if.end208 ]
-  %iref.0.be = phi ptr [ %incdec.ptr11, %if.then10 ], [ %incdec.ptr23, %if.then22 ], [ %incdec.ptr38, %if.then37 ], [ %incdec.ptr103, %if.then102 ], [ %incdec.ptr115, %if.then114 ], [ %incdec.ptr128, %if.then127 ], [ %incdec.ptr173, %if.then172 ], [ %token, %cleanup324.thread946 ], [ %token, %cleanup360.thread951 ], [ %arrayidx70, %sw.default ], [ %11, %if.then81 ], [ %11, %if.else86 ], [ %incdec.ptr277, %if.end271 ], [ %incdec.ptr265, %if.end260 ], [ %pvalue.1, %cond.true282 ], [ %pvalue.1, %sw.default279 ], [ %25, %if.then215 ], [ %25, %if.end208 ]
+top.backedge:                                     ; preds = %if.end208, %if.then215, %if.end271, %if.end260, %cond.true282, %sw.default279, %if.else86, %if.then81, %sw.default, %cleanup360.thread974, %cleanup324.thread969, %if.then10, %if.then22, %if.then37, %if.then102, %if.then114, %if.then127, %if.then172
+  %icount.0.be = phi i32 [ %dec, %if.then10 ], [ %dec19, %if.then22 ], [ %dec34, %if.then37 ], [ %dec99, %if.then102 ], [ %dec111, %if.then114 ], [ %dec124, %if.then127 ], [ %dec169, %if.then172 ], [ 0, %cleanup324.thread969 ], [ 0, %cleanup360.thread974 ], [ 0, %sw.default ], [ %dec78, %if.then81 ], [ %dec78, %if.else86 ], [ %dec273, %if.end271 ], [ %dec261, %if.end260 ], [ 0, %cond.true282 ], [ 0, %sw.default279 ], [ %sub, %if.then215 ], [ %sub, %if.end208 ]
+  %iosp.0.be = phi ptr [ %incdec.ptr7, %if.then10 ], [ %incdec.ptr17, %if.then22 ], [ %iosp.0, %if.then37 ], [ %incdec.ptr95, %if.then102 ], [ %incdec.ptr110, %if.then114 ], [ %incdec.ptr123, %if.then127 ], [ %15, %if.then172 ], [ %iosp.0, %cleanup324.thread969 ], [ %iosp.0, %cleanup360.thread974 ], [ %add.ptr57, %sw.default ], [ %add.ptr57, %if.then81 ], [ %add.ptr57, %if.else86 ], [ %incdec.ptr272, %if.end271 ], [ %28, %if.end260 ], [ %iosp.0, %cond.true282 ], [ %iosp.0, %sw.default279 ], [ %iosp.0, %if.then215 ], [ %iosp.0, %if.end208 ]
+  %iesp.0.be = phi ptr [ %iesp.0, %if.then10 ], [ %iesp.0, %if.then22 ], [ %iesp.0, %if.then37 ], [ %iesp.0, %if.then102 ], [ %iesp.0, %if.then114 ], [ %iesp.0, %if.then127 ], [ %iesp.0, %if.then172 ], [ %incdec.ptr316, %cleanup324.thread969 ], [ %incdec.ptr347, %cleanup360.thread974 ], [ %iesp.0, %sw.default ], [ %iesp.0, %if.then81 ], [ %incdec.ptr87, %if.else86 ], [ %iesp.0, %if.end271 ], [ %iesp.0, %if.end260 ], [ %iesp.0, %cond.true282 ], [ %iesp.0, %sw.default279 ], [ %iesp.0, %if.then215 ], [ %incdec.ptr209, %if.end208 ]
+  %iref.0.be = phi ptr [ %incdec.ptr11, %if.then10 ], [ %incdec.ptr23, %if.then22 ], [ %incdec.ptr38, %if.then37 ], [ %incdec.ptr103, %if.then102 ], [ %incdec.ptr115, %if.then114 ], [ %incdec.ptr128, %if.then127 ], [ %incdec.ptr173, %if.then172 ], [ %token, %cleanup324.thread969 ], [ %token, %cleanup360.thread974 ], [ %arrayidx70, %sw.default ], [ %11, %if.then81 ], [ %11, %if.else86 ], [ %incdec.ptr277, %if.end271 ], [ %incdec.ptr265, %if.end260 ], [ %pvalue.1, %cond.true282 ], [ %pvalue.1, %sw.default279 ], [ %25, %if.then215 ], [ %25, %if.end208 ]
   br label %top
 
 if.then215:                                       ; preds = %if.end208
@@ -741,12 +741,12 @@ up.preheader.sink.split:                          ; preds = %if.then231, %if.the
   %conv237 = trunc i32 %icount.0 to i16
   %size238 = getelementptr inbounds %struct.ref_s, ptr %iesp.0, i64 0, i32 2
   store i16 %conv237, ptr %size238, align 2, !tbaa !15
-  %.pre925 = load ptr, ptr @esp, align 8, !tbaa !5
+  %.pre948 = load ptr, ptr @esp, align 8, !tbaa !5
   br label %up.preheader
 
 up.preheader:                                     ; preds = %if.then215, %if.then81, %up.preheader.sink.split, %if.then231, %if.else243, %if.then140, %if.else152, %out
   %iosp.4.ph = phi ptr [ %iosp.3, %out ], [ %15, %if.else152 ], [ %15, %if.then140 ], [ %28, %if.else243 ], [ %28, %if.then231 ], [ %iosp.4.ph.ph, %up.preheader.sink.split ], [ %iosp.0, %if.then215 ], [ %add.ptr57, %if.then81 ]
-  %iesp.9.ph = phi ptr [ %iesp.8, %out ], [ %16, %if.else152 ], [ %16, %if.then140 ], [ %29, %if.else243 ], [ %29, %if.then231 ], [ %.pre925, %up.preheader.sink.split ], [ %incdec.ptr209, %if.then215 ], [ %iesp.0, %if.then81 ]
+  %iesp.9.ph = phi ptr [ %iesp.8, %out ], [ %16, %if.else152 ], [ %16, %if.then140 ], [ %29, %if.else243 ], [ %29, %if.then231 ], [ %.pre948, %up.preheader.sink.split ], [ %incdec.ptr209, %if.then215 ], [ %iesp.0, %if.then81 ]
   br label %up
 
 sw.bb293:                                         ; preds = %top
@@ -779,9 +779,9 @@ cond.true303:                                     ; preds = %sw.bb300
 cond.end310:                                      ; preds = %sw.bb300, %cond.true303
   %34 = load ptr, ptr @estop, align 8, !tbaa !5
   %cmp312.not = icmp ult ptr %iesp.0, %34
-  br i1 %cmp312.not, label %cleanup324.thread946, label %cleanup324.thread
+  br i1 %cmp312.not, label %cleanup324.thread969, label %cleanup324.thread
 
-cleanup324.thread946:                             ; preds = %cond.end310
+cleanup324.thread969:                             ; preds = %cond.end310
   %incdec.ptr316 = getelementptr inbounds %struct.ref_s, ptr %iesp.0, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr316, ptr noundef nonnull align 8 dereferenceable(16) %iref.0, i64 16, i1 false), !tbaa.struct !16
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %s) #7
@@ -833,9 +833,9 @@ cond.true334:                                     ; preds = %sw.bb331
 cond.end341:                                      ; preds = %sw.bb331, %cond.true334
   %38 = load ptr, ptr @estop, align 8, !tbaa !5
   %cmp343.not = icmp ult ptr %iesp.0, %38
-  br i1 %cmp343.not, label %cleanup360.thread951, label %cleanup360.thread
+  br i1 %cmp343.not, label %cleanup360.thread974, label %cleanup360.thread
 
-cleanup360.thread951:                             ; preds = %cond.end341
+cleanup360.thread974:                             ; preds = %cond.end341
   %incdec.ptr347 = getelementptr inbounds %struct.ref_s, ptr %iesp.0, i64 1
   %39 = load i16, ptr %type_attrs, align 8, !tbaa !10
   %type_attrs349 = getelementptr inbounds %struct.ref_s, ptr %iesp.0, i64 1, i32 1

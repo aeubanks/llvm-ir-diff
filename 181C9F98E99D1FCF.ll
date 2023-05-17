@@ -39,8 +39,8 @@ entry:
   %siteLocArray = getelementptr inbounds %struct.tilebox, ptr %3, i64 0, i32 18
   %6 = load ptr, ptr %siteLocArray, align 8, !tbaa !17
   %7 = load i32, ptr @overfill, align 4, !tbaa !9
-  %cmp.not578 = icmp slt i32 %lastNewSite, %firstNewSite
-  br i1 %cmp.not578, label %for.end, label %for.body.preheader
+  %cmp.not579 = icmp slt i32 %lastNewSite, %firstNewSite
+  br i1 %cmp.not579, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %8 = sext i32 %firstNewSite to i64
@@ -103,38 +103,38 @@ for.end:                                          ; preds = %for.body.prol.loope
   %idxprom9 = sext i32 %sub to i64
   %site11 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %idxprom9, i32 1
   %19 = load i32, ptr %site11, align 4, !tbaa !26
-  %cmp12.not580 = icmp slt i32 %19, %18
-  br i1 %cmp12.not580, label %for.cond23.preheader, label %for.body13.preheader
+  %cmp12.not581 = icmp slt i32 %19, %18
+  br i1 %cmp12.not581, label %for.cond23.preheader, label %for.body13.preheader
 
 for.body13.preheader:                             ; preds = %for.end
   %20 = sext i32 %18 to i64
   %21 = add i32 %19, 1
   %22 = sub i32 %21, %18
   %23 = sub i32 %19, %18
-  %xtraiter661 = and i32 %22, 3
-  %lcmp.mod662.not = icmp eq i32 %xtraiter661, 0
-  br i1 %lcmp.mod662.not, label %for.body13.prol.loopexit, label %for.body13.prol
+  %xtraiter662 = and i32 %22, 3
+  %lcmp.mod663.not = icmp eq i32 %xtraiter662, 0
+  br i1 %lcmp.mod663.not, label %for.body13.prol.loopexit, label %for.body13.prol
 
 for.body13.prol:                                  ; preds = %for.body13.preheader, %for.body13.prol
-  %indvars.iv612.prol = phi i64 [ %indvars.iv.next613.prol, %for.body13.prol ], [ %20, %for.body13.preheader ]
-  %prol.iter663 = phi i32 [ %prol.iter663.next, %for.body13.prol ], [ 0, %for.body13.preheader ]
-  %arrayidx15.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv612.prol
+  %indvars.iv613.prol = phi i64 [ %indvars.iv.next614.prol, %for.body13.prol ], [ %20, %for.body13.preheader ]
+  %prol.iter664 = phi i32 [ %prol.iter664.next, %for.body13.prol ], [ 0, %for.body13.preheader ]
+  %arrayidx15.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv613.prol
   %24 = load i32, ptr %arrayidx15.prol, align 4, !tbaa !19
-  %newContents19.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv612.prol, i32 1
+  %newContents19.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv613.prol, i32 1
   store i32 %24, ptr %newContents19.prol, align 4, !tbaa !21
-  %indvars.iv.next613.prol = add nsw i64 %indvars.iv612.prol, 1
-  %prol.iter663.next = add i32 %prol.iter663, 1
-  %prol.iter663.cmp.not = icmp eq i32 %prol.iter663.next, %xtraiter661
-  br i1 %prol.iter663.cmp.not, label %for.body13.prol.loopexit, label %for.body13.prol, !llvm.loop !28
+  %indvars.iv.next614.prol = add nsw i64 %indvars.iv613.prol, 1
+  %prol.iter664.next = add i32 %prol.iter664, 1
+  %prol.iter664.cmp.not = icmp eq i32 %prol.iter664.next, %xtraiter662
+  br i1 %prol.iter664.cmp.not, label %for.body13.prol.loopexit, label %for.body13.prol, !llvm.loop !28
 
 for.body13.prol.loopexit:                         ; preds = %for.body13.prol, %for.body13.preheader
-  %indvars.iv612.unr = phi i64 [ %20, %for.body13.preheader ], [ %indvars.iv.next613.prol, %for.body13.prol ]
+  %indvars.iv613.unr = phi i64 [ %20, %for.body13.preheader ], [ %indvars.iv.next614.prol, %for.body13.prol ]
   %25 = icmp ult i32 %23, 3
   br i1 %25, label %for.cond23.preheader, label %for.body13
 
 for.cond23.preheader:                             ; preds = %for.body13.prol.loopexit, %for.body13, %for.end
-  %cmp25583 = icmp sgt i32 %seq, 0
-  br i1 %cmp25583, label %for.body26.lr.ph, label %for.end136.thread
+  %cmp25584 = icmp sgt i32 %seq, 0
+  br i1 %cmp25584, label %for.body26.lr.ph, label %for.end136.thread
 
 for.body26.lr.ph:                                 ; preds = %for.cond23.preheader
   %mul41 = fmul double %div, 1.000000e+01
@@ -143,35 +143,35 @@ for.body26.lr.ph:                                 ; preds = %for.cond23.preheade
   br label %for.body26
 
 for.body13:                                       ; preds = %for.body13.prol.loopexit, %for.body13
-  %indvars.iv612 = phi i64 [ %indvars.iv.next613.3, %for.body13 ], [ %indvars.iv612.unr, %for.body13.prol.loopexit ]
-  %arrayidx15 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv612
+  %indvars.iv613 = phi i64 [ %indvars.iv.next614.3, %for.body13 ], [ %indvars.iv613.unr, %for.body13.prol.loopexit ]
+  %arrayidx15 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv613
   %27 = load i32, ptr %arrayidx15, align 4, !tbaa !19
-  %newContents19 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv612, i32 1
+  %newContents19 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv613, i32 1
   store i32 %27, ptr %newContents19, align 4, !tbaa !21
-  %indvars.iv.next613 = add nsw i64 %indvars.iv612, 1
-  %arrayidx15.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613
+  %indvars.iv.next614 = add nsw i64 %indvars.iv613, 1
+  %arrayidx15.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614
   %28 = load i32, ptr %arrayidx15.1, align 4, !tbaa !19
-  %newContents19.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613, i32 1
+  %newContents19.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614, i32 1
   store i32 %28, ptr %newContents19.1, align 4, !tbaa !21
-  %indvars.iv.next613.1 = add nsw i64 %indvars.iv612, 2
-  %arrayidx15.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613.1
+  %indvars.iv.next614.1 = add nsw i64 %indvars.iv613, 2
+  %arrayidx15.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614.1
   %29 = load i32, ptr %arrayidx15.2, align 4, !tbaa !19
-  %newContents19.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613.1, i32 1
+  %newContents19.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614.1, i32 1
   store i32 %29, ptr %newContents19.2, align 4, !tbaa !21
-  %indvars.iv.next613.2 = add nsw i64 %indvars.iv612, 3
-  %arrayidx15.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613.2
+  %indvars.iv.next614.2 = add nsw i64 %indvars.iv613, 3
+  %arrayidx15.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614.2
   %30 = load i32, ptr %arrayidx15.3, align 4, !tbaa !19
-  %newContents19.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next613.2, i32 1
+  %newContents19.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next614.2, i32 1
   store i32 %30, ptr %newContents19.3, align 4, !tbaa !21
-  %indvars.iv.next613.3 = add nsw i64 %indvars.iv612, 4
-  %lftr.wideiv615.3 = trunc i64 %indvars.iv.next613.3 to i32
-  %exitcond616.not.3 = icmp eq i32 %21, %lftr.wideiv615.3
-  br i1 %exitcond616.not.3, label %for.cond23.preheader, label %for.body13, !llvm.loop !29
+  %indvars.iv.next614.3 = add nsw i64 %indvars.iv613, 4
+  %lftr.wideiv616.3 = trunc i64 %indvars.iv.next614.3 to i32
+  %exitcond617.not.3 = icmp eq i32 %21, %lftr.wideiv616.3
+  br i1 %exitcond617.not.3, label %for.cond23.preheader, label %for.body13, !llvm.loop !29
 
 for.body26:                                       ; preds = %for.body26.lr.ph, %for.inc56
-  %indvars.iv617 = phi i64 [ %idxprom5, %for.body26.lr.ph ], [ %indvars.iv.next618, %for.inc56 ]
-  %newOverFill.0585 = phi i32 [ %7, %for.body26.lr.ph ], [ %newOverFill.1, %for.inc56 ]
-  %site29 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv617, i32 1
+  %indvars.iv618 = phi i64 [ %idxprom5, %for.body26.lr.ph ], [ %indvars.iv.next619, %for.inc56 ]
+  %newOverFill.0586 = phi i32 [ %7, %for.body26.lr.ph ], [ %newOverFill.1, %for.inc56 ]
+  %site29 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv618, i32 1
   %31 = load i32, ptr %site29, align 4, !tbaa !26
   %idxprom30 = sext i32 %31 to i64
   %newContents32 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %idxprom30, i32 1
@@ -189,7 +189,7 @@ if.then:                                          ; preds = %for.body26
   br i1 %cmp38, label %if.then39, label %if.else
 
 if.then39:                                        ; preds = %if.then
-  %sub40 = sub nsw i32 %newOverFill.0585, %conv
+  %sub40 = sub nsw i32 %newOverFill.0586, %conv
   br label %for.inc56
 
 if.else:                                          ; preds = %if.then
@@ -202,18 +202,18 @@ if.else:                                          ; preds = %if.then
   %conv50 = sitofp i32 %mul49 to double
   %mul51 = fmul double %mul41, %conv50
   %conv52 = fptosi double %mul51 to i32
-  %sub53.neg = sub i32 %newOverFill.0585, %conv45
+  %sub53.neg = sub i32 %newOverFill.0586, %conv45
   %sub54 = add i32 %sub53.neg, %conv52
   br label %for.inc56
 
 for.inc56:                                        ; preds = %for.body26, %if.else, %if.then39
-  %newOverFill.1 = phi i32 [ %sub40, %if.then39 ], [ %sub54, %if.else ], [ %newOverFill.0585, %for.body26 ]
-  %indvars.iv.next618 = add nsw i64 %indvars.iv617, 1
-  %cmp25 = icmp slt i64 %indvars.iv.next618, %26
+  %newOverFill.1 = phi i32 [ %sub40, %if.then39 ], [ %sub54, %if.else ], [ %newOverFill.0586, %for.body26 ]
+  %indvars.iv.next619 = add nsw i64 %indvars.iv618, 1
+  %cmp25 = icmp slt i64 %indvars.iv.next619, %26
   br i1 %cmp25, label %for.body26, label %for.end58, !llvm.loop !31
 
 for.end58:                                        ; preds = %for.inc56
-  br i1 %cmp25583, label %for.body64.lr.ph, label %for.end136.thread
+  br i1 %cmp25584, label %for.body64.lr.ph, label %for.end136.thread
 
 for.body64.lr.ph:                                 ; preds = %for.end58
   %sub59 = add nsw i32 %firstNewSite, -1
@@ -223,7 +223,7 @@ for.body64.lr.ph:                                 ; preds = %for.end58
   br label %for.body64
 
 for.cond111.preheader:                            ; preds = %if.end104
-  br i1 %cmp25583, label %for.body115.lr.ph, label %for.end136.thread
+  br i1 %cmp25584, label %for.body115.lr.ph, label %for.end136.thread
 
 for.body115.lr.ph:                                ; preds = %for.cond111.preheader
   %35 = load ptr, ptr @termarray, align 8, !tbaa !14
@@ -232,21 +232,21 @@ for.body115.lr.ph:                                ; preds = %for.cond111.prehead
   br label %for.body115
 
 for.body64:                                       ; preds = %for.body64.lr.ph, %if.end104
-  %indvars.iv620 = phi i64 [ %idxprom5, %for.body64.lr.ph ], [ %indvars.iv.next621, %if.end104 ]
-  %count.0592 = phi i32 [ 0, %for.body64.lr.ph ], [ %count.1, %if.end104 ]
-  %capacity.0591 = phi i32 [ 0, %for.body64.lr.ph ], [ %capacity.1, %if.end104 ]
-  %newOverFill.2590 = phi i32 [ %newOverFill.1, %for.body64.lr.ph ], [ %newOverFill.3, %if.end104 ]
-  %site.2589 = phi i32 [ %sub59, %for.body64.lr.ph ], [ %site.3, %if.end104 ]
-  %cmp66.not = icmp slt i32 %count.0592, %capacity.0591
+  %indvars.iv621 = phi i64 [ %idxprom5, %for.body64.lr.ph ], [ %indvars.iv.next622, %if.end104 ]
+  %count.0593 = phi i32 [ 0, %for.body64.lr.ph ], [ %count.1, %if.end104 ]
+  %capacity.0592 = phi i32 [ 0, %for.body64.lr.ph ], [ %capacity.1, %if.end104 ]
+  %newOverFill.2591 = phi i32 [ %newOverFill.1, %for.body64.lr.ph ], [ %newOverFill.3, %if.end104 ]
+  %site.2590 = phi i32 [ %sub59, %for.body64.lr.ph ], [ %site.3, %if.end104 ]
+  %cmp66.not = icmp slt i32 %count.0593, %capacity.0592
   br i1 %cmp66.not, label %for.body64.if.end73_crit_edge, label %if.then68
 
 for.body64.if.end73_crit_edge:                    ; preds = %for.body64
-  %inc65 = add nsw i32 %count.0592, 1
-  %.pre = sext i32 %site.2589 to i64
+  %inc65 = add nsw i32 %count.0593, 1
+  %.pre = sext i32 %site.2590 to i64
   br label %if.end73
 
 if.then68:                                        ; preds = %for.body64
-  %inc69 = add nsw i32 %site.2589, 1
+  %inc69 = add nsw i32 %site.2590, 1
   %idxprom70 = sext i32 %inc69 to i64
   %capacity72 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %idxprom70, i32 2
   %38 = load i32, ptr %capacity72, align 4, !tbaa !30
@@ -254,8 +254,8 @@ if.then68:                                        ; preds = %for.body64
 
 if.end73:                                         ; preds = %for.body64.if.end73_crit_edge, %if.then68
   %idxprom74.pre-phi = phi i64 [ %.pre, %for.body64.if.end73_crit_edge ], [ %idxprom70, %if.then68 ]
-  %site.3 = phi i32 [ %site.2589, %for.body64.if.end73_crit_edge ], [ %inc69, %if.then68 ]
-  %capacity.1 = phi i32 [ %capacity.0591, %for.body64.if.end73_crit_edge ], [ %38, %if.then68 ]
+  %site.3 = phi i32 [ %site.2590, %for.body64.if.end73_crit_edge ], [ %inc69, %if.then68 ]
+  %capacity.1 = phi i32 [ %capacity.0592, %for.body64.if.end73_crit_edge ], [ %38, %if.then68 ]
   %count.1 = phi i32 [ %inc65, %for.body64.if.end73_crit_edge ], [ 1, %if.then68 ]
   %newContents76 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %idxprom74.pre-phi, i32 1
   %39 = load i32, ptr %newContents76, align 4, !tbaa !21
@@ -270,7 +270,7 @@ if.then81:                                        ; preds = %if.end73
   br i1 %cmp82, label %if.then84, label %if.else88
 
 if.then84:                                        ; preds = %if.then81
-  %add87 = add nsw i32 %newOverFill.2590, %conv86
+  %add87 = add nsw i32 %newOverFill.2591, %conv86
   br label %if.end104
 
 if.else88:                                        ; preds = %if.then81
@@ -283,22 +283,22 @@ if.else88:                                        ; preds = %if.then81
   %conv98 = sitofp i32 %mul97 to double
   %mul99 = fmul double %mul89, %conv98
   %conv100 = fptosi double %mul99 to i32
-  %sub101 = add i32 %newOverFill.2590, %conv93
+  %sub101 = add i32 %newOverFill.2591, %conv93
   %add102 = sub i32 %sub101, %conv100
   br label %if.end104
 
 if.end104:                                        ; preds = %if.then84, %if.else88, %if.end73
-  %newOverFill.3 = phi i32 [ %add87, %if.then84 ], [ %add102, %if.else88 ], [ %newOverFill.2590, %if.end73 ]
-  %newsite107 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv620, i32 2
+  %newOverFill.3 = phi i32 [ %add87, %if.then84 ], [ %add102, %if.else88 ], [ %newOverFill.2591, %if.end73 ]
+  %newsite107 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv621, i32 2
   store i32 %site.3, ptr %newsite107, align 4, !tbaa !32
-  %indvars.iv.next621 = add nsw i64 %indvars.iv620, 1
-  %cmp62 = icmp slt i64 %indvars.iv.next621, %34
+  %indvars.iv.next622 = add nsw i64 %indvars.iv621, 1
+  %cmp62 = icmp slt i64 %indvars.iv.next622, %34
   br i1 %cmp62, label %for.body64, label %for.cond111.preheader, !llvm.loop !33
 
 for.body115:                                      ; preds = %for.body115.lr.ph, %for.body115
-  %indvars.iv623 = phi i64 [ %idxprom5, %for.body115.lr.ph ], [ %indvars.iv.next624, %for.body115 ]
-  %arrayidx117 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv623
-  %newsite118 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv623, i32 2
+  %indvars.iv624 = phi i64 [ %idxprom5, %for.body115.lr.ph ], [ %indvars.iv.next625, %for.body115 ]
+  %arrayidx117 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv624
+  %newsite118 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv624, i32 2
   %40 = load i32, ptr %newsite118, align 4, !tbaa !32
   %idxprom119 = sext i32 %40 to i64
   %arrayidx120 = getelementptr inbounds %struct.locbox, ptr %6, i64 %idxprom119
@@ -320,18 +320,18 @@ for.body115:                                      ; preds = %for.body115.lr.ph, 
   %46 = load <2 x i32>, ptr %arrayidx120, align 4, !tbaa !9
   %47 = add nsw <2 x i32> %46, %1
   store <2 x i32> %47, ptr %newx, align 8, !tbaa !9
-  %indvars.iv.next624 = add nsw i64 %indvars.iv623, 1
-  %cmp113 = icmp slt i64 %indvars.iv.next624, %37
+  %indvars.iv.next625 = add nsw i64 %indvars.iv624, 1
+  %cmp113 = icmp slt i64 %indvars.iv.next625, %37
   br i1 %cmp113, label %for.body115, label %for.end136, !llvm.loop !42
 
 for.end136.thread:                                ; preds = %for.cond111.preheader, %for.end58, %for.cond23.preheader
-  %newOverFill.2.lcssa650.ph = phi i32 [ %newOverFill.3, %for.cond111.preheader ], [ %newOverFill.1, %for.end58 ], [ %7, %for.cond23.preheader ]
+  %newOverFill.2.lcssa651.ph = phi i32 [ %newOverFill.3, %for.cond111.preheader ], [ %newOverFill.1, %for.end58 ], [ %7, %for.cond23.preheader ]
   %48 = load i32, ptr @funccost, align 4, !tbaa !9
   br label %for.end264
 
 for.end136:                                       ; preds = %for.body115
   %49 = load i32, ptr @funccost, align 4, !tbaa !9
-  br i1 %cmp25583, label %for.body141.lr.ph, label %for.end264
+  br i1 %cmp25584, label %for.body141.lr.ph, label %for.end264
 
 for.body141.lr.ph:                                ; preds = %for.end136
   %50 = load ptr, ptr @termarray, align 8, !tbaa !14
@@ -340,9 +340,9 @@ for.body141.lr.ph:                                ; preds = %for.end136
   br label %for.body141
 
 for.body141:                                      ; preds = %for.body141.lr.ph, %for.inc262
-  %indvars.iv626 = phi i64 [ %idxprom5, %for.body141.lr.ph ], [ %indvars.iv.next627, %for.inc262 ]
-  %cost.0600 = phi i32 [ %49, %for.body141.lr.ph ], [ %cost.1, %for.inc262 ]
-  %arrayidx143 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv626
+  %indvars.iv627 = phi i64 [ %idxprom5, %for.body141.lr.ph ], [ %indvars.iv.next628, %for.inc262 ]
+  %cost.0601 = phi i32 [ %49, %for.body141.lr.ph ], [ %cost.1, %for.inc262 ]
+  %arrayidx143 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv627
   %53 = load i32, ptr %arrayidx143, align 4, !tbaa !34
   %idxprom145 = sext i32 %53 to i64
   %arrayidx146 = getelementptr inbounds ptr, ptr %50, i64 %idxprom145
@@ -400,19 +400,19 @@ if.else176:                                       ; preds = %if.end168
   br label %for.end186
 
 for.end186:                                       ; preds = %if.then172, %if.else176
-  %.sink647 = phi i32 [ %61, %if.then172 ], [ %63, %if.else176 ]
-  %.sink645 = phi i32 [ %62, %if.then172 ], [ %64, %if.else176 ]
+  %.sink648 = phi i32 [ %61, %if.then172 ], [ %63, %if.else176 ]
+  %.sink646 = phi i32 [ %62, %if.then172 ], [ %64, %if.else176 ]
   %65 = getelementptr inbounds %struct.dimbox, ptr %56, i64 0, i32 5
-  store i32 %.sink647, ptr %65, align 8
+  store i32 %.sink648, ptr %65, align 8
   %66 = getelementptr inbounds %struct.dimbox, ptr %56, i64 0, i32 3
-  store i32 %.sink647, ptr %66, align 8
+  store i32 %.sink648, ptr %66, align 8
   %67 = getelementptr inbounds %struct.dimbox, ptr %56, i64 0, i32 10
-  store i32 %.sink645, ptr %67, align 4
+  store i32 %.sink646, ptr %67, align 4
   %68 = getelementptr inbounds %struct.dimbox, ptr %56, i64 0, i32 8
-  store i32 %.sink645, ptr %68, align 4
+  store i32 %.sink646, ptr %68, align 4
   %69 = load ptr, ptr %netptr.0, align 8, !tbaa !49
-  %cmp188.not596 = icmp eq ptr %69, null
-  br i1 %cmp188.not596, label %for.end235, label %for.body190.lr.ph
+  %cmp188.not597 = icmp eq ptr %69, null
+  br i1 %cmp188.not597, label %for.end235, label %for.body190.lr.ph
 
 for.body190.lr.ph:                                ; preds = %for.end186
   %newxmin207 = getelementptr inbounds %struct.dimbox, ptr %56, i64 0, i32 3
@@ -422,30 +422,30 @@ for.body190.lr.ph:                                ; preds = %for.end186
   br label %for.body190
 
 for.body190:                                      ; preds = %for.body190.lr.ph, %for.inc233
-  %netptr.2597 = phi ptr [ %69, %for.body190.lr.ph ], [ %80, %for.inc233 ]
-  %skip191 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 9
+  %netptr.2598 = phi ptr [ %69, %for.body190.lr.ph ], [ %80, %for.inc233 ]
+  %skip191 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 9
   %70 = load i32, ptr %skip191, align 8, !tbaa !44
   %cmp192 = icmp eq i32 %70, 1
   br i1 %cmp192, label %for.inc233, label %if.end195
 
 if.end195:                                        ; preds = %for.body190
-  %flag196 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 6
+  %flag196 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 6
   %71 = load i32, ptr %flag196, align 4, !tbaa !40
   %cmp197 = icmp eq i32 %71, 1
   br i1 %cmp197, label %if.then199, label %if.else203
 
 if.then199:                                       ; preds = %if.end195
-  %newx200 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 3
+  %newx200 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 3
   %72 = load i32, ptr %newx200, align 8, !tbaa !45
-  %newy201 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 4
+  %newy201 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 4
   %73 = load i32, ptr %newy201, align 4, !tbaa !46
   store i32 0, ptr %flag196, align 4, !tbaa !40
   br label %if.end206
 
 if.else203:                                       ; preds = %if.end195
-  %xpos204 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 1
+  %xpos204 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 1
   %74 = load i32, ptr %xpos204, align 8, !tbaa !47
-  %ypos205 = getelementptr inbounds %struct.netbox, ptr %netptr.2597, i64 0, i32 2
+  %ypos205 = getelementptr inbounds %struct.netbox, ptr %netptr.2598, i64 0, i32 2
   %75 = load i32, ptr %ypos205, align 4, !tbaa !48
   br label %if.end206
 
@@ -482,7 +482,7 @@ for.inc233.sink.split:                            ; preds = %if.else225, %if.end
   br label %for.inc233
 
 for.inc233:                                       ; preds = %for.inc233.sink.split, %if.else225, %for.body190
-  %80 = load ptr, ptr %netptr.2597, align 8, !tbaa !49
+  %80 = load ptr, ptr %netptr.2598, align 8, !tbaa !49
   %cmp188.not = icmp eq ptr %80, null
   br i1 %cmp188.not, label %for.end235, label %for.body190, !llvm.loop !54
 
@@ -523,23 +523,23 @@ for.end235:                                       ; preds = %for.cond159, %for.i
   %conv257 = sitofp i32 %sub256 to double
   %mul258 = fmul double %86, %conv257
   %conv259 = fptosi double %mul258 to i32
-  %.neg = add i32 %cost.0600, %conv241
-  %91 = add i32 %.neg, %conv253
+  %.neg577 = add i32 %cost.0601, %conv241
+  %91 = add i32 %.neg577, %conv253
   %92 = add i32 %conv246, %conv259
   %add261 = sub i32 %91, %92
   br label %for.inc262
 
 for.inc262:                                       ; preds = %for.body141, %lor.lhs.false, %for.end235
-  %cost.1 = phi i32 [ %cost.0600, %for.body141 ], [ %cost.0600, %lor.lhs.false ], [ %add261, %for.end235 ]
-  %indvars.iv.next627 = add nsw i64 %indvars.iv626, 1
-  %cmp139 = icmp slt i64 %indvars.iv.next627, %52
+  %cost.1 = phi i32 [ %cost.0601, %for.body141 ], [ %cost.0601, %lor.lhs.false ], [ %add261, %for.end235 ]
+  %indvars.iv.next628 = add nsw i64 %indvars.iv627, 1
+  %cmp139 = icmp slt i64 %indvars.iv.next628, %52
   br i1 %cmp139, label %for.body141, label %for.end264, !llvm.loop !61
 
 for.end264:                                       ; preds = %for.inc262, %for.end136.thread, %for.end136
   %93 = phi i32 [ %49, %for.end136 ], [ %48, %for.end136.thread ], [ %49, %for.inc262 ]
-  %newOverFill.2.lcssa650652 = phi i32 [ %newOverFill.3, %for.end136 ], [ %newOverFill.2.lcssa650.ph, %for.end136.thread ], [ %newOverFill.3, %for.inc262 ]
+  %newOverFill.2.lcssa651653 = phi i32 [ %newOverFill.3, %for.end136 ], [ %newOverFill.2.lcssa651.ph, %for.end136.thread ], [ %newOverFill.3, %for.inc262 ]
   %cost.0.lcssa = phi i32 [ %49, %for.end136 ], [ %48, %for.end136.thread ], [ %cost.1, %for.inc262 ]
-  %add265 = add nsw i32 %cost.0.lcssa, %newOverFill.2.lcssa650652
+  %add265 = add i32 %cost.0.lcssa, %newOverFill.2.lcssa651653
   %94 = load i32, ptr @overfill, align 4, !tbaa !9
   %add266 = add nsw i32 %94, %93
   %cmp267.not = icmp slt i32 %add266, %add265
@@ -562,7 +562,7 @@ lor.lhs.false269:                                 ; preds = %for.end264
   br i1 %cmp279, label %if.then281, label %cleanup
 
 if.then281:                                       ; preds = %lor.lhs.false269, %for.end264
-  br i1 %cmp25583, label %for.body286.lr.ph, label %for.cond314.preheader
+  br i1 %cmp25584, label %for.body286.lr.ph, label %for.cond314.preheader
 
 for.body286.lr.ph:                                ; preds = %if.then281
   %97 = load ptr, ptr @termarray, align 8, !tbaa !14
@@ -571,37 +571,37 @@ for.body286.lr.ph:                                ; preds = %if.then281
   br label %for.body286
 
 for.cond314.preheader:                            ; preds = %for.body286, %if.then281
-  br i1 %cmp.not578, label %for.end326, label %for.body317.preheader
+  br i1 %cmp.not579, label %for.end326, label %for.body317.preheader
 
 for.body317.preheader:                            ; preds = %for.cond314.preheader
   %100 = sext i32 %firstNewSite to i64
   %101 = add i32 %lastNewSite, 1
   %102 = sub i32 %101, %firstNewSite
   %103 = sub i32 %lastNewSite, %firstNewSite
-  %xtraiter664 = and i32 %102, 3
-  %lcmp.mod665.not = icmp eq i32 %xtraiter664, 0
-  br i1 %lcmp.mod665.not, label %for.body317.prol.loopexit, label %for.body317.prol
+  %xtraiter665 = and i32 %102, 3
+  %lcmp.mod666.not = icmp eq i32 %xtraiter665, 0
+  br i1 %lcmp.mod666.not, label %for.body317.prol.loopexit, label %for.body317.prol
 
 for.body317.prol:                                 ; preds = %for.body317.preheader, %for.body317.prol
-  %indvars.iv632.prol = phi i64 [ %indvars.iv.next633.prol, %for.body317.prol ], [ %100, %for.body317.preheader ]
-  %prol.iter666 = phi i32 [ %prol.iter666.next, %for.body317.prol ], [ 0, %for.body317.preheader ]
-  %arrayidx319.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv632.prol
-  %newContents320.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv632.prol, i32 1
+  %indvars.iv633.prol = phi i64 [ %indvars.iv.next634.prol, %for.body317.prol ], [ %100, %for.body317.preheader ]
+  %prol.iter667 = phi i32 [ %prol.iter667.next, %for.body317.prol ], [ 0, %for.body317.preheader ]
+  %arrayidx319.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv633.prol
+  %newContents320.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv633.prol, i32 1
   %104 = load i32, ptr %newContents320.prol, align 4, !tbaa !21
   store i32 %104, ptr %arrayidx319.prol, align 4, !tbaa !19
-  %indvars.iv.next633.prol = add nsw i64 %indvars.iv632.prol, 1
-  %prol.iter666.next = add i32 %prol.iter666, 1
-  %prol.iter666.cmp.not = icmp eq i32 %prol.iter666.next, %xtraiter664
-  br i1 %prol.iter666.cmp.not, label %for.body317.prol.loopexit, label %for.body317.prol, !llvm.loop !62
+  %indvars.iv.next634.prol = add nsw i64 %indvars.iv633.prol, 1
+  %prol.iter667.next = add i32 %prol.iter667, 1
+  %prol.iter667.cmp.not = icmp eq i32 %prol.iter667.next, %xtraiter665
+  br i1 %prol.iter667.cmp.not, label %for.body317.prol.loopexit, label %for.body317.prol, !llvm.loop !62
 
 for.body317.prol.loopexit:                        ; preds = %for.body317.prol, %for.body317.preheader
-  %indvars.iv632.unr = phi i64 [ %100, %for.body317.preheader ], [ %indvars.iv.next633.prol, %for.body317.prol ]
+  %indvars.iv633.unr = phi i64 [ %100, %for.body317.preheader ], [ %indvars.iv.next634.prol, %for.body317.prol ]
   %105 = icmp ult i32 %103, 3
   br i1 %105, label %for.end326, label %for.body317
 
 for.body286:                                      ; preds = %for.body286.lr.ph, %for.body286
-  %indvars.iv629 = phi i64 [ %idxprom5, %for.body286.lr.ph ], [ %indvars.iv.next630, %for.body286 ]
-  %arrayidx288 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv629
+  %indvars.iv630 = phi i64 [ %idxprom5, %for.body286.lr.ph ], [ %indvars.iv.next631, %for.body286 ]
+  %arrayidx288 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv630
   %106 = load i32, ptr %arrayidx288, align 4, !tbaa !34
   %idxprom290 = sext i32 %106 to i64
   %arrayidx291 = getelementptr inbounds ptr, ptr %97, i64 %idxprom290
@@ -632,114 +632,114 @@ for.body286:                                      ; preds = %for.body286.lr.ph, 
   %xpos306 = getelementptr inbounds %struct.netbox, ptr %114, i64 0, i32 1
   %115 = load <2 x i32>, ptr %newx304, align 8, !tbaa !9
   store <2 x i32> %115, ptr %xpos306, align 8, !tbaa !9
-  %indvars.iv.next630 = add nsw i64 %indvars.iv629, 1
-  %cmp284 = icmp slt i64 %indvars.iv.next630, %99
+  %indvars.iv.next631 = add nsw i64 %indvars.iv630, 1
+  %cmp284 = icmp slt i64 %indvars.iv.next631, %99
   br i1 %cmp284, label %for.body286, label %for.cond314.preheader, !llvm.loop !63
 
 for.body317:                                      ; preds = %for.body317.prol.loopexit, %for.body317
-  %indvars.iv632 = phi i64 [ %indvars.iv.next633.3, %for.body317 ], [ %indvars.iv632.unr, %for.body317.prol.loopexit ]
-  %arrayidx319 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv632
-  %newContents320 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv632, i32 1
+  %indvars.iv633 = phi i64 [ %indvars.iv.next634.3, %for.body317 ], [ %indvars.iv633.unr, %for.body317.prol.loopexit ]
+  %arrayidx319 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv633
+  %newContents320 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv633, i32 1
   %116 = load i32, ptr %newContents320, align 4, !tbaa !21
   store i32 %116, ptr %arrayidx319, align 4, !tbaa !19
-  %indvars.iv.next633 = add nsw i64 %indvars.iv632, 1
-  %arrayidx319.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633
-  %newContents320.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633, i32 1
+  %indvars.iv.next634 = add nsw i64 %indvars.iv633, 1
+  %arrayidx319.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634
+  %newContents320.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634, i32 1
   %117 = load i32, ptr %newContents320.1, align 4, !tbaa !21
   store i32 %117, ptr %arrayidx319.1, align 4, !tbaa !19
-  %indvars.iv.next633.1 = add nsw i64 %indvars.iv632, 2
-  %arrayidx319.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633.1
-  %newContents320.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633.1, i32 1
+  %indvars.iv.next634.1 = add nsw i64 %indvars.iv633, 2
+  %arrayidx319.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634.1
+  %newContents320.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634.1, i32 1
   %118 = load i32, ptr %newContents320.2, align 4, !tbaa !21
   store i32 %118, ptr %arrayidx319.2, align 4, !tbaa !19
-  %indvars.iv.next633.2 = add nsw i64 %indvars.iv632, 3
-  %arrayidx319.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633.2
-  %newContents320.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next633.2, i32 1
+  %indvars.iv.next634.2 = add nsw i64 %indvars.iv633, 3
+  %arrayidx319.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634.2
+  %newContents320.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next634.2, i32 1
   %119 = load i32, ptr %newContents320.3, align 4, !tbaa !21
   store i32 %119, ptr %arrayidx319.3, align 4, !tbaa !19
-  %indvars.iv.next633.3 = add nsw i64 %indvars.iv632, 4
-  %lftr.wideiv635.3 = trunc i64 %indvars.iv.next633.3 to i32
-  %exitcond636.not.3 = icmp eq i32 %101, %lftr.wideiv635.3
-  br i1 %exitcond636.not.3, label %for.end326, label %for.body317, !llvm.loop !64
+  %indvars.iv.next634.3 = add nsw i64 %indvars.iv633, 4
+  %lftr.wideiv636.3 = trunc i64 %indvars.iv.next634.3 to i32
+  %exitcond637.not.3 = icmp eq i32 %101, %lftr.wideiv636.3
+  br i1 %exitcond637.not.3, label %for.end326, label %for.body317, !llvm.loop !64
 
 for.end326:                                       ; preds = %for.body317.prol.loopexit, %for.body317, %for.cond314.preheader
   %120 = load i32, ptr %site7, align 4, !tbaa !26
   %121 = load i32, ptr %site11, align 4, !tbaa !26
-  %cmp336.not606 = icmp slt i32 %121, %120
-  br i1 %cmp336.not606, label %for.cond348.preheader, label %for.body338.preheader
+  %cmp336.not607 = icmp slt i32 %121, %120
+  br i1 %cmp336.not607, label %for.cond348.preheader, label %for.body338.preheader
 
 for.body338.preheader:                            ; preds = %for.end326
   %122 = sext i32 %120 to i64
   %123 = add i32 %121, 1
   %124 = sub i32 %123, %120
   %125 = sub i32 %121, %120
-  %xtraiter667 = and i32 %124, 3
-  %lcmp.mod668.not = icmp eq i32 %xtraiter667, 0
-  br i1 %lcmp.mod668.not, label %for.body338.prol.loopexit, label %for.body338.prol
+  %xtraiter668 = and i32 %124, 3
+  %lcmp.mod669.not = icmp eq i32 %xtraiter668, 0
+  br i1 %lcmp.mod669.not, label %for.body338.prol.loopexit, label %for.body338.prol
 
 for.body338.prol:                                 ; preds = %for.body338.preheader, %for.body338.prol
-  %indvars.iv637.prol = phi i64 [ %indvars.iv.next638.prol, %for.body338.prol ], [ %122, %for.body338.preheader ]
-  %prol.iter669 = phi i32 [ %prol.iter669.next, %for.body338.prol ], [ 0, %for.body338.preheader ]
-  %arrayidx340.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv637.prol
-  %newContents341.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv637.prol, i32 1
+  %indvars.iv638.prol = phi i64 [ %indvars.iv.next639.prol, %for.body338.prol ], [ %122, %for.body338.preheader ]
+  %prol.iter670 = phi i32 [ %prol.iter670.next, %for.body338.prol ], [ 0, %for.body338.preheader ]
+  %arrayidx340.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv638.prol
+  %newContents341.prol = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv638.prol, i32 1
   %126 = load i32, ptr %newContents341.prol, align 4, !tbaa !21
   store i32 %126, ptr %arrayidx340.prol, align 4, !tbaa !19
-  %indvars.iv.next638.prol = add nsw i64 %indvars.iv637.prol, 1
-  %prol.iter669.next = add i32 %prol.iter669, 1
-  %prol.iter669.cmp.not = icmp eq i32 %prol.iter669.next, %xtraiter667
-  br i1 %prol.iter669.cmp.not, label %for.body338.prol.loopexit, label %for.body338.prol, !llvm.loop !65
+  %indvars.iv.next639.prol = add nsw i64 %indvars.iv638.prol, 1
+  %prol.iter670.next = add i32 %prol.iter670, 1
+  %prol.iter670.cmp.not = icmp eq i32 %prol.iter670.next, %xtraiter668
+  br i1 %prol.iter670.cmp.not, label %for.body338.prol.loopexit, label %for.body338.prol, !llvm.loop !65
 
 for.body338.prol.loopexit:                        ; preds = %for.body338.prol, %for.body338.preheader
-  %indvars.iv637.unr = phi i64 [ %122, %for.body338.preheader ], [ %indvars.iv.next638.prol, %for.body338.prol ]
+  %indvars.iv638.unr = phi i64 [ %122, %for.body338.preheader ], [ %indvars.iv.next639.prol, %for.body338.prol ]
   %127 = icmp ult i32 %125, 3
   br i1 %127, label %for.cond348.preheader, label %for.body338
 
 for.cond348.preheader:                            ; preds = %for.body338.prol.loopexit, %for.body338, %for.end326
-  br i1 %cmp25583, label %for.body352.preheader, label %for.end361
+  br i1 %cmp25584, label %for.body352.preheader, label %for.end361
 
 for.body352.preheader:                            ; preds = %for.cond348.preheader
   %128 = sext i32 %add to i64
   br label %for.body352
 
 for.body338:                                      ; preds = %for.body338.prol.loopexit, %for.body338
-  %indvars.iv637 = phi i64 [ %indvars.iv.next638.3, %for.body338 ], [ %indvars.iv637.unr, %for.body338.prol.loopexit ]
-  %arrayidx340 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv637
-  %newContents341 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv637, i32 1
+  %indvars.iv638 = phi i64 [ %indvars.iv.next639.3, %for.body338 ], [ %indvars.iv638.unr, %for.body338.prol.loopexit ]
+  %arrayidx340 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv638
+  %newContents341 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv638, i32 1
   %129 = load i32, ptr %newContents341, align 4, !tbaa !21
   store i32 %129, ptr %arrayidx340, align 4, !tbaa !19
-  %indvars.iv.next638 = add nsw i64 %indvars.iv637, 1
-  %arrayidx340.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638
-  %newContents341.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638, i32 1
+  %indvars.iv.next639 = add nsw i64 %indvars.iv638, 1
+  %arrayidx340.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639
+  %newContents341.1 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639, i32 1
   %130 = load i32, ptr %newContents341.1, align 4, !tbaa !21
   store i32 %130, ptr %arrayidx340.1, align 4, !tbaa !19
-  %indvars.iv.next638.1 = add nsw i64 %indvars.iv637, 2
-  %arrayidx340.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638.1
-  %newContents341.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638.1, i32 1
+  %indvars.iv.next639.1 = add nsw i64 %indvars.iv638, 2
+  %arrayidx340.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639.1
+  %newContents341.2 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639.1, i32 1
   %131 = load i32, ptr %newContents341.2, align 4, !tbaa !21
   store i32 %131, ptr %arrayidx340.2, align 4, !tbaa !19
-  %indvars.iv.next638.2 = add nsw i64 %indvars.iv637, 3
-  %arrayidx340.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638.2
-  %newContents341.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next638.2, i32 1
+  %indvars.iv.next639.2 = add nsw i64 %indvars.iv638, 3
+  %arrayidx340.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639.2
+  %newContents341.3 = getelementptr inbounds %struct.contentbox, ptr %5, i64 %indvars.iv.next639.2, i32 1
   %132 = load i32, ptr %newContents341.3, align 4, !tbaa !21
   store i32 %132, ptr %arrayidx340.3, align 4, !tbaa !19
-  %indvars.iv.next638.3 = add nsw i64 %indvars.iv637, 4
-  %lftr.wideiv640.3 = trunc i64 %indvars.iv.next638.3 to i32
-  %exitcond641.not.3 = icmp eq i32 %123, %lftr.wideiv640.3
-  br i1 %exitcond641.not.3, label %for.cond348.preheader, label %for.body338, !llvm.loop !66
+  %indvars.iv.next639.3 = add nsw i64 %indvars.iv638, 4
+  %lftr.wideiv641.3 = trunc i64 %indvars.iv.next639.3 to i32
+  %exitcond642.not.3 = icmp eq i32 %123, %lftr.wideiv641.3
+  br i1 %exitcond642.not.3, label %for.cond348.preheader, label %for.body338, !llvm.loop !66
 
 for.body352:                                      ; preds = %for.body352.preheader, %for.body352
-  %indvars.iv642 = phi i64 [ %idxprom5, %for.body352.preheader ], [ %indvars.iv.next643, %for.body352 ]
-  %newsite355 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv642, i32 2
+  %indvars.iv643 = phi i64 [ %idxprom5, %for.body352.preheader ], [ %indvars.iv.next644, %for.body352 ]
+  %newsite355 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv643, i32 2
   %133 = load i32, ptr %newsite355, align 4, !tbaa !32
-  %site358 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv642, i32 1
+  %site358 = getelementptr inbounds %struct.uncombox, ptr %4, i64 %indvars.iv643, i32 1
   store i32 %133, ptr %site358, align 4, !tbaa !26
-  %indvars.iv.next643 = add nsw i64 %indvars.iv642, 1
-  %cmp350 = icmp slt i64 %indvars.iv.next643, %128
+  %indvars.iv.next644 = add nsw i64 %indvars.iv643, 1
+  %cmp350 = icmp slt i64 %indvars.iv.next644, %128
   br i1 %cmp350, label %for.body352, label %for.end361, !llvm.loop !67
 
 for.end361:                                       ; preds = %for.body352, %for.cond348.preheader
   store i32 %cost.0.lcssa, ptr @funccost, align 4, !tbaa !9
-  store i32 %newOverFill.2.lcssa650652, ptr @overfill, align 4, !tbaa !9
+  store i32 %newOverFill.2.lcssa651653, ptr @overfill, align 4, !tbaa !9
   br label %cleanup
 
 cleanup:                                          ; preds = %lor.lhs.false269, %for.end361

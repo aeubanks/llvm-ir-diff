@@ -161,8 +161,8 @@ while.end:                                        ; preds = %while.body, %entry
   %CONVERT.0.lcssa = phi i32 [ 0, %entry ], [ %CONVERT.1, %while.body ]
   %.lcssa = phi i8 [ %0, %entry ], [ %4, %while.body ]
   %cmp8.not = icmp slt i32 %CONVERT.0.lcssa, %conv1
-  %cmp.i22.not = icmp eq i8 %.lcssa, 0
-  %or.cond25 = and i1 %cmp8.not, %cmp.i22.not
+  %cmp.i22 = icmp eq i8 %.lcssa, 0
+  %or.cond25 = and i1 %cmp8.not, %cmp.i22
   br i1 %or.cond25, label %if.end13, label %if.then12
 
 if.then12:                                        ; preds = %while.end

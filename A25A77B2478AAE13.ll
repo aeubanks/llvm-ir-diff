@@ -26,13 +26,13 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !13
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayI9btElementED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %_ZN11btUnionFind4FreeEv.exit, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayI9btElementED2Ev.exit unwind label %lpad
+          to label %_ZN11btUnionFind4FreeEv.exit unwind label %lpad
 
-_ZN20btAlignedObjectArrayI9btElementED2Ev.exit:   ; preds = %if.then3.i.i.i, %entry
+_ZN11btUnionFind4FreeEv.exit:                     ; preds = %if.then3.i.i.i, %entry
   %m_size.i.i.i = getelementptr inbounds %class.btAlignedObjectArray, ptr %this, i64 0, i32 2
   %m_capacity.i.i.i = getelementptr inbounds %class.btAlignedObjectArray, ptr %this, i64 0, i32 3
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !14
@@ -590,59 +590,58 @@ tailrecurse:                                      ; preds = %if.end17, %entry
   %div = sdiv i32 %add, 2
   %idxprom = sext i32 %div to i64
   %arrayidx = getelementptr inbounds %struct.btElement, ptr %0, i64 %idxprom
-  %1 = load i64, ptr %arrayidx, align 4
-  %x.sroa.0.0.extract.trunc = trunc i64 %1 to i32
+  %x.sroa.0.0.copyload = load i32, ptr %arrayidx, align 4, !tbaa.struct !30
   br label %do.body
 
 do.body:                                          ; preds = %do.cond, %tailrecurse
   %i.0 = phi i32 [ %lo.tr, %tailrecurse ], [ %i.2, %do.cond ]
   %j.0 = phi i32 [ %hi, %tailrecurse ], [ %j.2, %do.cond ]
-  %2 = load ptr, ptr %m_data, align 8, !tbaa !5
-  %3 = sext i32 %i.0 to i64
+  %1 = load ptr, ptr %m_data, align 8, !tbaa !5
+  %2 = sext i32 %i.0 to i64
   br label %while.cond
 
 while.cond:                                       ; preds = %while.cond, %do.body
-  %indvars.iv = phi i64 [ %indvars.iv.next, %while.cond ], [ %3, %do.body ]
-  %arrayidx4 = getelementptr inbounds %struct.btElement, ptr %2, i64 %indvars.iv
-  %4 = load i32, ptr %arrayidx4, align 4, !tbaa !26
-  %cmp.i = icmp slt i32 %4, %x.sroa.0.0.extract.trunc
+  %indvars.iv = phi i64 [ %indvars.iv.next, %while.cond ], [ %2, %do.body ]
+  %arrayidx4 = getelementptr inbounds %struct.btElement, ptr %1, i64 %indvars.iv
+  %3 = load i32, ptr %arrayidx4, align 4, !tbaa !26
+  %cmp.i = icmp slt i32 %3, %x.sroa.0.0.copyload
   %indvars.iv.next = add i64 %indvars.iv, 1
   br i1 %cmp.i, label %while.cond, label %while.cond5.preheader
 
 while.cond5.preheader:                            ; preds = %while.cond
-  %arrayidx4.le = getelementptr inbounds %struct.btElement, ptr %2, i64 %indvars.iv
-  %5 = trunc i64 %indvars.iv to i32
-  %6 = sext i32 %j.0 to i64
+  %arrayidx4.le = getelementptr inbounds %struct.btElement, ptr %1, i64 %indvars.iv
+  %4 = sext i32 %j.0 to i64
   br label %while.cond5
 
 while.cond5:                                      ; preds = %while.cond5, %while.cond5.preheader
-  %indvars.iv47 = phi i64 [ %indvars.iv.next48, %while.cond5 ], [ %6, %while.cond5.preheader ]
-  %arrayidx8 = getelementptr inbounds %struct.btElement, ptr %2, i64 %indvars.iv47
-  %7 = load i32, ptr %arrayidx8, align 4, !tbaa !26
-  %cmp.i42 = icmp sgt i32 %7, %x.sroa.0.0.extract.trunc
-  %indvars.iv.next48 = add i64 %indvars.iv47, -1
+  %indvars.iv45 = phi i64 [ %indvars.iv.next46, %while.cond5 ], [ %4, %while.cond5.preheader ]
+  %arrayidx8 = getelementptr inbounds %struct.btElement, ptr %1, i64 %indvars.iv45
+  %5 = load i32, ptr %arrayidx8, align 4, !tbaa !26
+  %cmp.i42 = icmp slt i32 %x.sroa.0.0.copyload, %5
+  %indvars.iv.next46 = add i64 %indvars.iv45, -1
   br i1 %cmp.i42, label %while.cond5, label %while.end11
 
 while.end11:                                      ; preds = %while.cond5
-  %8 = trunc i64 %indvars.iv47 to i32
-  %cmp.not = icmp sgt i32 %5, %8
+  %6 = trunc i64 %indvars.iv to i32
+  %7 = trunc i64 %indvars.iv45 to i32
+  %cmp.not = icmp sgt i32 %6, %7
   br i1 %cmp.not, label %do.cond, label %if.then
 
 if.then:                                          ; preds = %while.end11
-  %arrayidx8.le = getelementptr inbounds %struct.btElement, ptr %2, i64 %indvars.iv47
-  %9 = load i64, ptr %arrayidx4.le, align 4
-  %10 = load i64, ptr %arrayidx8.le, align 4
-  store i64 %10, ptr %arrayidx4.le, align 4
-  %11 = load ptr, ptr %m_data, align 8, !tbaa !5
-  %arrayidx10.i = getelementptr inbounds %struct.btElement, ptr %11, i64 %indvars.iv47
-  store i64 %9, ptr %arrayidx10.i, align 4
-  %inc12 = add nsw i32 %5, 1
-  %dec13 = add nsw i32 %8, -1
+  %arrayidx8.le = getelementptr inbounds %struct.btElement, ptr %1, i64 %indvars.iv45
+  %8 = load i64, ptr %arrayidx4.le, align 4
+  %9 = load i64, ptr %arrayidx8.le, align 4
+  store i64 %9, ptr %arrayidx4.le, align 4
+  %10 = load ptr, ptr %m_data, align 8, !tbaa !5
+  %arrayidx10.i = getelementptr inbounds %struct.btElement, ptr %10, i64 %indvars.iv45
+  store i64 %8, ptr %arrayidx10.i, align 4
+  %inc12 = add nsw i32 %6, 1
+  %dec13 = add nsw i32 %7, -1
   br label %do.cond
 
 do.cond:                                          ; preds = %while.end11, %if.then
-  %i.2 = phi i32 [ %inc12, %if.then ], [ %5, %while.end11 ]
-  %j.2 = phi i32 [ %dec13, %if.then ], [ %8, %while.end11 ]
+  %i.2 = phi i32 [ %inc12, %if.then ], [ %6, %while.end11 ]
+  %j.2 = phi i32 [ %dec13, %if.then ], [ %7, %while.end11 ]
   %cmp14.not = icmp sgt i32 %i.2, %j.2
   br i1 %cmp14.not, label %do.end, label %do.body
 
@@ -702,3 +701,4 @@ attributes #5 = { nounwind }
 !27 = !{!"_ZTS9btElement", !8, i64 0, !8, i64 4}
 !28 = !{!27, !8, i64 4}
 !29 = distinct !{!29, !25, !24}
+!30 = !{i64 0, i64 4, !22, i64 4, i64 4, !22}

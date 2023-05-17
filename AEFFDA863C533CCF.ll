@@ -21,18 +21,21 @@ land.rhs.preheader:                               ; preds = %entry
 
 land.rhs:                                         ; preds = %land.rhs.preheader, %while.body
   %indvars.iv = phi i64 [ %0, %land.rhs.preheader ], [ %indvars.iv.next, %while.body ]
-  %indvars.iv.next = add nsw i64 %indvars.iv, -1
-  %idxprom = and i64 %indvars.iv.next, 4294967295
+  %sub = add nuw i64 %indvars.iv, 4294967295
+  %idxprom = and i64 %sub, 4294967295
   %arrayidx = getelementptr inbounds %struct.S, ptr %x, i64 0, i32 2, i64 %idxprom
   %1 = load i8, ptr %arrayidx, align 1, !tbaa !10
   %cmp2 = icmp eq i8 %1, 47
   br i1 %cmp2, label %while.body, label %while.end
 
 while.body:                                       ; preds = %land.rhs
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
   %indvars = trunc i64 %indvars.iv.next to i32
   store i32 %indvars, ptr %b, align 4, !tbaa !5
-  store i8 0, ptr %arrayidx, align 1, !tbaa !10
-  %cmp = icmp ugt i64 %indvars.iv, 2
+  %idxprom7 = and i64 %indvars.iv.next, 4294967295
+  %arrayidx8 = getelementptr inbounds %struct.S, ptr %x, i64 0, i32 2, i64 %idxprom7
+  store i8 0, ptr %arrayidx8, align 1, !tbaa !10
+  %cmp = icmp sgt i64 %indvars.iv, 2
   br i1 %cmp, label %land.rhs, label %while.end, !llvm.loop !11
 
 while.end:                                        ; preds = %land.rhs, %while.body, %entry

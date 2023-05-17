@@ -242,7 +242,7 @@ for.body:                                         ; preds = %for.body, %for.body
   %6 = shl nsw i32 %conv.i, 8
   %7 = add nsw i32 %6, 65536
   %8 = select i1 %cmp.i, i32 %7, i32 %6
-  %mul9.1 = or i32 %5, %8
+  %mul9.1 = add i32 %5, %8
   %9 = add nsw i64 %indvars.iv.next, %0
   %arrayidx.1 = getelementptr inbounds i8, ptr %MEMORY, i64 %9
   %10 = load i8, ptr %arrayidx.1, align 1, !tbaa !18
@@ -250,7 +250,7 @@ for.body:                                         ; preds = %for.body, %for.body
   %cmp.i.1 = icmp slt i8 %10, 0
   %add.i.1 = add nsw i32 %conv.i.1, 256
   %retval.0.i.1 = select i1 %cmp.i.1, i32 %add.i.1, i32 %conv.i.1
-  %add11.1 = or i32 %retval.0.i.1, %mul9.1
+  %add11.1 = add nsw i32 %retval.0.i.1, %mul9.1
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
@@ -275,7 +275,7 @@ for.body.epil:                                    ; preds = %if.then.i.unr-lcssa
   %cmp.i.epil = icmp slt i8 %13, 0
   %add.i.epil = add nsw i32 %conv.i.epil, 256
   %retval.0.i.epil = select i1 %cmp.i.epil, i32 %add.i.epil, i32 %conv.i.epil
-  %add11.epil = or i32 %retval.0.i.epil, %INT_MEM_VAL.041.unr
+  %add11.epil = add nsw i32 %retval.0.i.epil, %INT_MEM_VAL.041.unr
   br label %if.then.i
 
 if.then.i:                                        ; preds = %if.then.i.unr-lcssa, %for.body.epil
@@ -481,18 +481,18 @@ if.then:                                          ; preds = %entry
   br label %if.end54
 
 for.body:                                         ; preds = %entry, %do.end
-  %STEP.0117 = phi ptr [ %54, %do.end ], [ %3, %entry ]
-  %PREVIOUS_ADDR.0116 = phi i32 [ %add45, %do.end ], [ 0, %entry ]
-  %PREVIOUS.0115 = phi ptr [ %STEP.4105.3, %do.end ], [ null, %entry ]
-  call void @PRINT_ELIPSE(ptr noundef %PREVIOUS.0115, ptr noundef nonnull %STEP.0117, i32 noundef %PREVIOUS_ADDR.0116, ptr noundef %OUTPUT)
-  %5 = load i32, ptr %STEP.0117, align 8, !tbaa !12
+  %STEP.0116 = phi ptr [ %54, %do.end ], [ %3, %entry ]
+  %PREVIOUS_ADDR.0115 = phi i32 [ %add45, %do.end ], [ 0, %entry ]
+  %PREVIOUS.0114 = phi ptr [ %STEP.4105.3, %do.end ], [ null, %entry ]
+  call void @PRINT_ELIPSE(ptr noundef %PREVIOUS.0114, ptr noundef nonnull %STEP.0116, i32 noundef %PREVIOUS_ADDR.0115, ptr noundef %OUTPUT)
+  %5 = load i32, ptr %STEP.0116, align 8, !tbaa !12
   %div.i = sdiv i32 %5, 16
   %mul1.i = shl nsw i32 %div.i, 4
   br label %do.body
 
 do.body:                                          ; preds = %for.end42, %for.body
   %ADDRESS.0 = phi i32 [ %mul1.i, %for.body ], [ %add45, %for.end42 ]
-  %STEP.1 = phi ptr [ %STEP.0117, %for.body ], [ %STEP.4105.3, %for.end42 ]
+  %STEP.1 = phi ptr [ %STEP.0116, %for.body ], [ %STEP.4105.3, %for.end42 ]
   call void @llvm.lifetime.start.p0(i64 3, ptr nonnull %STR_BYTE) #11
   call void (i32, i32, i32, ptr, ...) @NUM_TO_STR(i32 noundef %ADDRESS.0, i32 noundef 16, i32 noundef 5, ptr noundef nonnull %STR_ADDR) #11
   %call7 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.10, ptr noundef nonnull %STR_ADDR)
@@ -501,41 +501,42 @@ do.body:                                          ; preds = %for.end42, %for.bod
 
 for.cond11.preheader:                             ; preds = %do.body, %if.end38.3
   %indvars.iv = phi i64 [ 0, %do.body ], [ %indvars.iv.next, %if.end38.3 ]
-  %STEP.2113 = phi ptr [ %STEP.1, %do.body ], [ %STEP.4105.3, %if.end38.3 ]
-  %REST_EMPTY.0111 = phi i32 [ 0, %do.body ], [ %REST_EMPTY.2103.3, %if.end38.3 ]
+  %STEP.2112 = phi ptr [ %STEP.1, %do.body ], [ %STEP.4105.3, %if.end38.3 ]
+  %REST_EMPTY.0110 = phi i32 [ 0, %do.body ], [ %REST_EMPTY.2103.3, %if.end38.3 ]
   %7 = shl nsw i64 %indvars.iv, 2
   %8 = add nuw nsw i64 %7, %6
-  %tobool.not = icmp eq i32 %REST_EMPTY.0111, 0
-  br i1 %tobool.not, label %land.lhs.true, label %if.end38.thread128
+  %tobool.not = icmp eq i32 %REST_EMPTY.0110, 0
+  br i1 %tobool.not, label %land.lhs.true, label %if.end38.thread127
 
 land.lhs.true:                                    ; preds = %for.cond11.preheader
-  %9 = load i32, ptr %STEP.2113, align 8, !tbaa !12
-  %LENGTH = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.2113, i64 0, i32 1
+  %9 = load i32, ptr %STEP.2112, align 8, !tbaa !12
+  %LENGTH = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.2112, i64 0, i32 1
   %10 = load i32, ptr %LENGTH, align 4, !tbaa !15
-  %add16 = add i32 %10, %9
+  %add16 = add nsw i32 %10, %9
   %11 = sext i32 %add16 to i64
   %cmp17.not = icmp slt i64 %8, %11
   br i1 %cmp17.not, label %lor.lhs.false28, label %if.then18
 
 if.then18:                                        ; preds = %land.lhs.true
-  %NEXT = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.2113, i64 0, i32 2
+  %NEXT = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.2112, i64 0, i32 2
   %12 = load ptr, ptr %NEXT, align 8, !tbaa !16
   %cmp19 = icmp eq ptr %12, null
-  br i1 %cmp19, label %if.end38.thread128, label %LINES_OF_GAP.exit
+  br i1 %cmp19, label %if.end38.thread127, label %if.else.i
 
-LINES_OF_GAP.exit:                                ; preds = %if.then18
-  %sub.i = add i32 %add16, -1
+if.else.i:                                        ; preds = %if.then18
+  %add.i = add i32 %9, -1
+  %sub.i = add i32 %add.i, %10
   %div.i.neg.i = sdiv i32 %sub.i, -16
   %13 = load i32, ptr %12, align 8, !tbaa !12
   %div.i12.i = sdiv i32 %13, 16
-  %mul1.i13.i107 = add nsw i32 %div.i12.i, %div.i.neg.i
-  %sub8.i = shl i32 %mul1.i13.i107, 4
-  %cmp22 = icmp sgt i32 %sub8.i, 0
-  br i1 %cmp22, label %if.end38.thread128, label %lor.lhs.false28
+  %reass.add = add nsw i32 %div.i12.i, %div.i.neg.i
+  %reass.mul = shl i32 %reass.add, 4
+  %cmp22 = icmp sgt i32 %reass.mul, 0
+  br i1 %cmp22, label %if.end38.thread127, label %lor.lhs.false28
 
-lor.lhs.false28:                                  ; preds = %LINES_OF_GAP.exit, %land.lhs.true
-  %14 = phi i32 [ %9, %land.lhs.true ], [ %13, %LINES_OF_GAP.exit ]
-  %STEP.4 = phi ptr [ %STEP.2113, %land.lhs.true ], [ %12, %LINES_OF_GAP.exit ]
+lor.lhs.false28:                                  ; preds = %if.else.i, %land.lhs.true
+  %14 = phi i32 [ %9, %land.lhs.true ], [ %13, %if.else.i ]
+  %STEP.4 = phi ptr [ %STEP.2112, %land.lhs.true ], [ %12, %if.else.i ]
   %15 = sext i32 %14 to i64
   %cmp30 = icmp slt i64 %8, %15
   br i1 %cmp30, label %if.end38, label %if.end38.thread
@@ -551,9 +552,9 @@ if.end38.thread:                                  ; preds = %lor.lhs.false28
   %fputs = call i32 @fputs(ptr nonnull %STR_BYTE, ptr %OUTPUT)
   br label %land.lhs.true.1
 
-if.end38.thread128:                               ; preds = %for.cond11.preheader, %LINES_OF_GAP.exit, %if.then18
+if.end38.thread127:                               ; preds = %for.cond11.preheader, %if.else.i, %if.then18
   %17 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
-  br label %if.end38.1.thread136
+  br label %if.end38.1.thread135
 
 if.end38:                                         ; preds = %lor.lhs.false28
   %18 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
@@ -564,7 +565,7 @@ land.lhs.true.1:                                  ; preds = %if.end38, %if.end38
   %20 = load i32, ptr %STEP.4, align 8, !tbaa !12
   %LENGTH.1 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4, i64 0, i32 1
   %21 = load i32, ptr %LENGTH.1, align 4, !tbaa !15
-  %add16.1 = add i32 %21, %20
+  %add16.1 = add nsw i32 %21, %20
   %22 = sext i32 %add16.1 to i64
   %cmp17.not.1 = icmp slt i64 %19, %22
   br i1 %cmp17.not.1, label %lor.lhs.false28.1, label %if.then18.1
@@ -573,21 +574,22 @@ if.then18.1:                                      ; preds = %land.lhs.true.1
   %NEXT.1 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4, i64 0, i32 2
   %23 = load ptr, ptr %NEXT.1, align 8, !tbaa !16
   %cmp19.1 = icmp eq ptr %23, null
-  br i1 %cmp19.1, label %if.end38.1.thread136, label %LINES_OF_GAP.exit.1
+  br i1 %cmp19.1, label %if.end38.1.thread135, label %if.else.i.1
 
-LINES_OF_GAP.exit.1:                              ; preds = %if.then18.1
-  %sub.i.1 = add i32 %add16.1, -1
+if.else.i.1:                                      ; preds = %if.then18.1
+  %add.i.1 = add i32 %20, -1
+  %sub.i.1 = add i32 %add.i.1, %21
   %div.i.neg.i.1 = sdiv i32 %sub.i.1, -16
   %24 = load i32, ptr %23, align 8, !tbaa !12
   %div.i12.i.1 = sdiv i32 %24, 16
-  %mul1.i13.i107.1 = add nsw i32 %div.i12.i.1, %div.i.neg.i.1
-  %sub8.i.1 = shl i32 %mul1.i13.i107.1, 4
-  %cmp22.1 = icmp sgt i32 %sub8.i.1, 0
-  br i1 %cmp22.1, label %if.end38.1.thread136, label %lor.lhs.false28.1
+  %reass.add.1 = add nsw i32 %div.i12.i.1, %div.i.neg.i.1
+  %reass.mul.1 = shl i32 %reass.add.1, 4
+  %cmp22.1 = icmp sgt i32 %reass.mul.1, 0
+  br i1 %cmp22.1, label %if.end38.1.thread135, label %lor.lhs.false28.1
 
-lor.lhs.false28.1:                                ; preds = %LINES_OF_GAP.exit.1, %land.lhs.true.1
-  %25 = phi i32 [ %20, %land.lhs.true.1 ], [ %24, %LINES_OF_GAP.exit.1 ]
-  %STEP.4.1 = phi ptr [ %STEP.4, %land.lhs.true.1 ], [ %23, %LINES_OF_GAP.exit.1 ]
+lor.lhs.false28.1:                                ; preds = %if.else.i.1, %land.lhs.true.1
+  %25 = phi i32 [ %20, %land.lhs.true.1 ], [ %24, %if.else.i.1 ]
+  %STEP.4.1 = phi ptr [ %STEP.4, %land.lhs.true.1 ], [ %23, %if.else.i.1 ]
   %26 = sext i32 %25 to i64
   %cmp30.1 = icmp slt i64 %19, %26
   br i1 %cmp30.1, label %if.end38.1, label %if.end38.1.thread
@@ -603,10 +605,10 @@ if.end38.1.thread:                                ; preds = %lor.lhs.false28.1
   %fputs.1 = call i32 @fputs(ptr nonnull %STR_BYTE, ptr %OUTPUT)
   br label %land.lhs.true.2
 
-if.end38.1.thread136:                             ; preds = %LINES_OF_GAP.exit.1, %if.then18.1, %if.end38.thread128
-  %STEP.4106.1.ph = phi ptr [ %STEP.2113, %if.end38.thread128 ], [ %STEP.4, %if.then18.1 ], [ %STEP.4, %LINES_OF_GAP.exit.1 ]
+if.end38.1.thread135:                             ; preds = %if.else.i.1, %if.then18.1, %if.end38.thread127
+  %STEP.4106.1.ph = phi ptr [ %STEP.2112, %if.end38.thread127 ], [ %STEP.4, %if.then18.1 ], [ %STEP.4, %if.else.i.1 ]
   %28 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
-  br label %if.end38.2.thread144
+  br label %if.end38.2.thread143
 
 if.end38.1:                                       ; preds = %lor.lhs.false28.1
   %29 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
@@ -617,7 +619,7 @@ land.lhs.true.2:                                  ; preds = %if.end38.1, %if.end
   %31 = load i32, ptr %STEP.4.1, align 8, !tbaa !12
   %LENGTH.2 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4.1, i64 0, i32 1
   %32 = load i32, ptr %LENGTH.2, align 4, !tbaa !15
-  %add16.2 = add i32 %32, %31
+  %add16.2 = add nsw i32 %32, %31
   %33 = sext i32 %add16.2 to i64
   %cmp17.not.2 = icmp slt i64 %30, %33
   br i1 %cmp17.not.2, label %lor.lhs.false28.2, label %if.then18.2
@@ -626,21 +628,22 @@ if.then18.2:                                      ; preds = %land.lhs.true.2
   %NEXT.2 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4.1, i64 0, i32 2
   %34 = load ptr, ptr %NEXT.2, align 8, !tbaa !16
   %cmp19.2 = icmp eq ptr %34, null
-  br i1 %cmp19.2, label %if.end38.2.thread144, label %LINES_OF_GAP.exit.2
+  br i1 %cmp19.2, label %if.end38.2.thread143, label %if.else.i.2
 
-LINES_OF_GAP.exit.2:                              ; preds = %if.then18.2
-  %sub.i.2 = add i32 %add16.2, -1
+if.else.i.2:                                      ; preds = %if.then18.2
+  %add.i.2 = add i32 %31, -1
+  %sub.i.2 = add i32 %add.i.2, %32
   %div.i.neg.i.2 = sdiv i32 %sub.i.2, -16
   %35 = load i32, ptr %34, align 8, !tbaa !12
   %div.i12.i.2 = sdiv i32 %35, 16
-  %mul1.i13.i107.2 = add nsw i32 %div.i12.i.2, %div.i.neg.i.2
-  %sub8.i.2 = shl i32 %mul1.i13.i107.2, 4
-  %cmp22.2 = icmp sgt i32 %sub8.i.2, 0
-  br i1 %cmp22.2, label %if.end38.2.thread144, label %lor.lhs.false28.2
+  %reass.add.2 = add nsw i32 %div.i12.i.2, %div.i.neg.i.2
+  %reass.mul.2 = shl i32 %reass.add.2, 4
+  %cmp22.2 = icmp sgt i32 %reass.mul.2, 0
+  br i1 %cmp22.2, label %if.end38.2.thread143, label %lor.lhs.false28.2
 
-lor.lhs.false28.2:                                ; preds = %LINES_OF_GAP.exit.2, %land.lhs.true.2
-  %36 = phi i32 [ %31, %land.lhs.true.2 ], [ %35, %LINES_OF_GAP.exit.2 ]
-  %STEP.4.2 = phi ptr [ %STEP.4.1, %land.lhs.true.2 ], [ %34, %LINES_OF_GAP.exit.2 ]
+lor.lhs.false28.2:                                ; preds = %if.else.i.2, %land.lhs.true.2
+  %36 = phi i32 [ %31, %land.lhs.true.2 ], [ %35, %if.else.i.2 ]
+  %STEP.4.2 = phi ptr [ %STEP.4.1, %land.lhs.true.2 ], [ %34, %if.else.i.2 ]
   %37 = sext i32 %36 to i64
   %cmp30.2 = icmp slt i64 %30, %37
   br i1 %cmp30.2, label %if.end38.2, label %if.end38.2.thread
@@ -656,8 +659,8 @@ if.end38.2.thread:                                ; preds = %lor.lhs.false28.2
   %fputs.2 = call i32 @fputs(ptr nonnull %STR_BYTE, ptr %OUTPUT)
   br label %land.lhs.true.3
 
-if.end38.2.thread144:                             ; preds = %LINES_OF_GAP.exit.2, %if.then18.2, %if.end38.1.thread136
-  %STEP.4106.2.ph = phi ptr [ %STEP.4106.1.ph, %if.end38.1.thread136 ], [ %STEP.4.1, %if.then18.2 ], [ %STEP.4.1, %LINES_OF_GAP.exit.2 ]
+if.end38.2.thread143:                             ; preds = %if.else.i.2, %if.then18.2, %if.end38.1.thread135
+  %STEP.4106.2.ph = phi ptr [ %STEP.4106.1.ph, %if.end38.1.thread135 ], [ %STEP.4.1, %if.then18.2 ], [ %STEP.4.1, %if.else.i.2 ]
   %39 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
   br label %if.then31.3
 
@@ -670,7 +673,7 @@ land.lhs.true.3:                                  ; preds = %if.end38.2, %if.end
   %42 = load i32, ptr %STEP.4.2, align 8, !tbaa !12
   %LENGTH.3 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4.2, i64 0, i32 1
   %43 = load i32, ptr %LENGTH.3, align 4, !tbaa !15
-  %add16.3 = add i32 %43, %42
+  %add16.3 = add nsw i32 %43, %42
   %44 = sext i32 %add16.3 to i64
   %cmp17.not.3 = icmp slt i64 %41, %44
   br i1 %cmp17.not.3, label %lor.lhs.false28.3, label %if.then18.3
@@ -679,21 +682,22 @@ if.then18.3:                                      ; preds = %land.lhs.true.3
   %NEXT.3 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4.2, i64 0, i32 2
   %45 = load ptr, ptr %NEXT.3, align 8, !tbaa !16
   %cmp19.3 = icmp eq ptr %45, null
-  br i1 %cmp19.3, label %if.then31.3, label %LINES_OF_GAP.exit.3
+  br i1 %cmp19.3, label %if.then31.3, label %if.else.i.3
 
-LINES_OF_GAP.exit.3:                              ; preds = %if.then18.3
-  %sub.i.3 = add i32 %add16.3, -1
+if.else.i.3:                                      ; preds = %if.then18.3
+  %add.i.3 = add i32 %42, -1
+  %sub.i.3 = add i32 %add.i.3, %43
   %div.i.neg.i.3 = sdiv i32 %sub.i.3, -16
   %46 = load i32, ptr %45, align 8, !tbaa !12
   %div.i12.i.3 = sdiv i32 %46, 16
-  %mul1.i13.i107.3 = add nsw i32 %div.i12.i.3, %div.i.neg.i.3
-  %sub8.i.3 = shl i32 %mul1.i13.i107.3, 4
-  %cmp22.3 = icmp sgt i32 %sub8.i.3, 0
+  %reass.add.3 = add nsw i32 %div.i12.i.3, %div.i.neg.i.3
+  %reass.mul.3 = shl i32 %reass.add.3, 4
+  %cmp22.3 = icmp sgt i32 %reass.mul.3, 0
   br i1 %cmp22.3, label %if.then31.3, label %lor.lhs.false28.3
 
-lor.lhs.false28.3:                                ; preds = %LINES_OF_GAP.exit.3, %land.lhs.true.3
-  %47 = phi i32 [ %42, %land.lhs.true.3 ], [ %46, %LINES_OF_GAP.exit.3 ]
-  %STEP.4.3 = phi ptr [ %STEP.4.2, %land.lhs.true.3 ], [ %45, %LINES_OF_GAP.exit.3 ]
+lor.lhs.false28.3:                                ; preds = %if.else.i.3, %land.lhs.true.3
+  %47 = phi i32 [ %42, %land.lhs.true.3 ], [ %46, %if.else.i.3 ]
+  %STEP.4.3 = phi ptr [ %STEP.4.2, %land.lhs.true.3 ], [ %45, %if.else.i.3 ]
   %48 = sext i32 %47 to i64
   %cmp30.3 = icmp slt i64 %41, %48
   br i1 %cmp30.3, label %if.then31.3, label %if.else33.3
@@ -709,9 +713,9 @@ if.else33.3:                                      ; preds = %lor.lhs.false28.3
   %fputs.3 = call i32 @fputs(ptr nonnull %STR_BYTE, ptr %OUTPUT)
   br label %if.end38.3
 
-if.then31.3:                                      ; preds = %if.end38.2.thread144, %lor.lhs.false28.3, %LINES_OF_GAP.exit.3, %if.then18.3
-  %STEP.4106.3 = phi ptr [ %STEP.4.3, %lor.lhs.false28.3 ], [ %STEP.4.2, %LINES_OF_GAP.exit.3 ], [ %STEP.4.2, %if.then18.3 ], [ %STEP.4106.2.ph, %if.end38.2.thread144 ]
-  %REST_EMPTY.2104.3 = phi i32 [ 0, %lor.lhs.false28.3 ], [ 1, %LINES_OF_GAP.exit.3 ], [ 1, %if.then18.3 ], [ 1, %if.end38.2.thread144 ]
+if.then31.3:                                      ; preds = %if.end38.2.thread143, %lor.lhs.false28.3, %if.else.i.3, %if.then18.3
+  %STEP.4106.3 = phi ptr [ %STEP.4.3, %lor.lhs.false28.3 ], [ %STEP.4.2, %if.else.i.3 ], [ %STEP.4.2, %if.then18.3 ], [ %STEP.4106.2.ph, %if.end38.2.thread143 ]
+  %REST_EMPTY.2104.3 = phi i32 [ 0, %lor.lhs.false28.3 ], [ 1, %if.else.i.3 ], [ 1, %if.then18.3 ], [ 1, %if.end38.2.thread143 ]
   %50 = call i64 @fwrite(ptr nonnull @.str.11, i64 2, i64 1, ptr %OUTPUT)
   br label %if.end38.3
 
@@ -727,7 +731,6 @@ for.end42:                                        ; preds = %if.end38.3
   %fputc = call i32 @fputc(i32 10, ptr %OUTPUT)
   %div.i.i = sdiv i32 %ADDRESS.0, 16
   %mul1.i.i = shl nsw i32 %div.i.i, 4
-  %sub.i96 = or i32 %mul1.i.i, 15
   %add45 = add i32 %mul1.i.i, 16
   call void @llvm.lifetime.end.p0(i64 3, ptr nonnull %STR_BYTE) #11
   %52 = load i32, ptr %STEP.4105.3, align 8, !tbaa !12
@@ -738,8 +741,8 @@ for.end42:                                        ; preds = %if.end38.3
   %div.i.i97 = sdiv i32 %sub, 16
   %mul1.i.i98 = shl nsw i32 %div.i.i97, 4
   %sub.i99 = or i32 %mul1.i.i98, 15
-  %cmp50.not.not = icmp slt i32 %sub.i96, %sub.i99
-  br i1 %cmp50.not.not, label %do.body, label %do.end, !llvm.loop !23
+  %cmp50.not = icmp sgt i32 %add45, %sub.i99
+  br i1 %cmp50.not, label %do.end, label %do.body, !llvm.loop !23
 
 do.end:                                           ; preds = %for.end42
   %NEXT52 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %STEP.4105.3, i64 0, i32 2

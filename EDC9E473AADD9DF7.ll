@@ -155,15 +155,15 @@ if.end37:                                         ; preds = %if.end31
   br i1 %cmp42, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %if.end37, %if.end6.i
-  %.sink68 = phi i64 [ -5, %if.end6.i ], [ %npop.0.neg, %if.end37 ]
+  %npop.0.neg.sink = phi i64 [ -5, %if.end6.i ], [ %npop.0.neg, %if.end37 ]
   %retval.0.ph = phi i32 [ %call.i, %if.end6.i ], [ %call41, %if.end37 ]
   %13 = load ptr, ptr @osp, align 8, !tbaa !5
-  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %13, i64 %.sink68
-  store ptr %add.ptr.i, ptr @osp, align 8, !tbaa !5
+  %add.ptr47 = getelementptr inbounds %struct.ref_s, ptr %13, i64 %npop.0.neg.sink
+  store ptr %add.ptr47, ptr @osp, align 8, !tbaa !5
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.end6.i, %if.end.i, %sw.bb, %if.end37, %if.end31, %if.end23, %if.end12, %if.end8, %if.end, %entry
-  %retval.0 = phi i32 [ -20, %entry ], [ -20, %if.end ], [ -15, %if.end8 ], [ -15, %if.end12 ], [ -20, %if.end23 ], [ -15, %if.end31 ], [ %call41, %if.end37 ], [ -20, %sw.bb ], [ -15, %if.end.i ], [ %call.i, %if.end6.i ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end37, %if.end31, %if.end23, %if.end12, %if.end6.i, %if.end.i, %sw.bb, %if.end8, %if.end, %entry
+  %retval.0 = phi i32 [ -20, %entry ], [ -20, %if.end ], [ -15, %if.end8 ], [ -20, %sw.bb ], [ -15, %if.end.i ], [ %call.i, %if.end6.i ], [ -15, %if.end12 ], [ -20, %if.end23 ], [ -15, %if.end31 ], [ %call41, %if.end37 ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -213,21 +213,18 @@ for.body:                                         ; preds = %for.body.preheader,
   %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
   %type_attrs17 = getelementptr inbounds %struct.ref_s, ptr %op, i64 %indvars.iv, i32 1
   %7 = load i16, ptr %type_attrs17, align 8, !tbaa !9
-  %8 = lshr i16 %7, 2
-  %9 = and i16 %8, 63
-  %cmp20.not = icmp eq i16 %9, 13
-  br i1 %cmp20.not, label %for.inc, label %if.then22
-
-if.then22:                                        ; preds = %for.body
-  %shr = zext i16 %9 to i32
+  %conv18 = zext i16 %7 to i32
+  %and19 = lshr i32 %conv18, 2
+  %shr = and i32 %and19, 63
   switch i32 %shr, label %cleanup [
+    i32 13, label %for.inc
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
-sw.epilog:                                        ; preds = %if.then22, %if.then22
-  %10 = and i16 %7, 3
-  %tobool.not = icmp eq i16 %10, 3
+sw.epilog:                                        ; preds = %for.body, %for.body
+  %not32 = and i32 %conv18, 3
+  %tobool.not = icmp eq i32 %not32, 3
   br i1 %tobool.not, label %for.inc, label %cleanup
 
 for.inc:                                          ; preds = %for.body, %sw.epilog
@@ -236,17 +233,17 @@ for.inc:                                          ; preds = %for.body, %sw.epilo
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !14
 
 for.end:                                          ; preds = %for.inc, %for.cond.preheader
-  %11 = load i64, ptr %arrayidx, align 8, !tbaa !12
-  %cmp38 = icmp slt i64 %11, 1
+  %8 = load i64, ptr %arrayidx, align 8, !tbaa !12
+  %cmp38 = icmp slt i64 %8, 1
   br i1 %cmp38, label %cleanup, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %for.end
-  %12 = load i64, ptr %arrayidx6, align 8, !tbaa !12
-  %cmp42 = icmp slt i64 %12, 0
+  %9 = load i64, ptr %arrayidx6, align 8, !tbaa !12
+  %cmp42 = icmp slt i64 %9, 0
   br i1 %cmp42, label %cleanup, label %if.end45
 
 if.end45:                                         ; preds = %lor.lhs.false
-  %cmp48 = icmp eq i64 %12, 0
+  %cmp48 = icmp eq i64 %9, 0
   br i1 %cmp48, label %cleanup, label %if.end51
 
 if.end51:                                         ; preds = %if.end45
@@ -256,26 +253,26 @@ if.end51:                                         ; preds = %if.end45
   br i1 %cmp53, label %cleanup, label %if.end56
 
 if.end56:                                         ; preds = %if.end51
-  %13 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
-  %call57 = call ptr @alloc(i32 noundef 1, i32 noundef %13, ptr noundef nonnull @.str) #4
+  %10 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
+  %call57 = call ptr @alloc(i32 noundef 1, i32 noundef %10, ptr noundef nonnull @.str) #4
   %cmp58 = icmp eq ptr %call57, null
   br i1 %cmp58, label %cleanup, label %if.end61
 
 if.end61:                                         ; preds = %if.end56
   %cmp62 = icmp eq i32 %spp, 0
-  %14 = load ptr, ptr @igs, align 8, !tbaa !5
-  %15 = load i64, ptr %arrayidx, align 8, !tbaa !12
-  %conv67 = trunc i64 %15 to i32
-  %16 = load i64, ptr %arrayidx6, align 8, !tbaa !12
-  %conv70 = trunc i64 %16 to i32
+  %11 = load ptr, ptr @igs, align 8, !tbaa !5
+  %12 = load i64, ptr %arrayidx, align 8, !tbaa !12
+  %conv67 = trunc i64 %12 to i32
+  %13 = load i64, ptr %arrayidx6, align 8, !tbaa !12
+  %conv70 = trunc i64 %13 to i32
   br i1 %cmp62, label %cond.true64, label %cond.false72
 
 cond.true64:                                      ; preds = %if.end61
-  %call71 = call i32 @gs_imagemask_init(ptr noundef nonnull %call57, ptr noundef %14, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %param3, ptr noundef nonnull %mat) #4
+  %call71 = call i32 @gs_imagemask_init(ptr noundef nonnull %call57, ptr noundef %11, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %param3, ptr noundef nonnull %mat) #4
   br label %cond.end80
 
 cond.false72:                                     ; preds = %if.end61
-  %call79 = call i32 @gs_image_init(ptr noundef nonnull %call57, ptr noundef %14, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %param3, i32 noundef %spp, ptr noundef nonnull %mat) #4
+  %call79 = call i32 @gs_image_init(ptr noundef nonnull %call57, ptr noundef %11, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %param3, i32 noundef %spp, ptr noundef nonnull %mat) #4
   br label %cond.end80
 
 cond.end80:                                       ; preds = %cond.false72, %cond.true64
@@ -284,57 +281,57 @@ cond.end80:                                       ; preds = %cond.false72, %cond
   br i1 %cmp82, label %cleanup, label %if.end85
 
 if.end85:                                         ; preds = %cond.end80
-  %17 = load ptr, ptr @esp, align 8, !tbaa !5
-  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %17, i64 1
+  %14 = load ptr, ptr @esp, align 8, !tbaa !5
+  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %14, i64 1
   store i16 0, ptr %incdec.ptr, align 8, !tbaa !12
-  %type_attrs87 = getelementptr inbounds %struct.ref_s, ptr %17, i64 1, i32 1
+  %type_attrs87 = getelementptr inbounds %struct.ref_s, ptr %14, i64 1, i32 1
   store i16 33, ptr %type_attrs87, align 8, !tbaa !9
-  %incdec.ptr88 = getelementptr inbounds %struct.ref_s, ptr %17, i64 2
+  %incdec.ptr88 = getelementptr inbounds %struct.ref_s, ptr %14, i64 2
   store ptr %incdec.ptr88, ptr @esp, align 8, !tbaa !5
   %cmp93.not = icmp slt i32 %cond, 0
   br i1 %cmp93.not, label %for.inc101.thread, label %for.inc101
 
 for.inc101.thread:                                ; preds = %if.end85
   store i64 0, ptr %incdec.ptr88, align 8, !tbaa !12
-  %type_attrs99 = getelementptr inbounds %struct.ref_s, ptr %17, i64 2, i32 1
+  %type_attrs99 = getelementptr inbounds %struct.ref_s, ptr %14, i64 2, i32 1
   store i16 32, ptr %type_attrs99, align 8, !tbaa !9
-  %incdec.ptr102162 = getelementptr inbounds %struct.ref_s, ptr %17, i64 3
+  %incdec.ptr102162 = getelementptr inbounds %struct.ref_s, ptr %14, i64 3
   store ptr %incdec.ptr102162, ptr @esp, align 8, !tbaa !5
   br label %for.inc101.1.thread
 
 for.inc101:                                       ; preds = %if.end85
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr88, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !18
-  %incdec.ptr102 = getelementptr inbounds %struct.ref_s, ptr %17, i64 3
+  %incdec.ptr102 = getelementptr inbounds %struct.ref_s, ptr %14, i64 3
   %cmp93.not.1 = icmp eq i32 %cond, 0
   br i1 %cmp93.not.1, label %for.inc101.1.thread, label %for.inc101.1
 
 for.inc101.1.thread:                              ; preds = %for.inc101, %for.inc101.thread
   %incdec.ptr102164 = phi ptr [ %incdec.ptr102162, %for.inc101.thread ], [ %incdec.ptr102, %for.inc101 ]
   store i64 0, ptr %incdec.ptr102164, align 8, !tbaa !12
-  %type_attrs99.1 = getelementptr inbounds %struct.ref_s, ptr %17, i64 3, i32 1
+  %type_attrs99.1 = getelementptr inbounds %struct.ref_s, ptr %14, i64 3, i32 1
   store i16 32, ptr %type_attrs99.1, align 8, !tbaa !9
-  %incdec.ptr102.1165 = getelementptr inbounds %struct.ref_s, ptr %17, i64 4
+  %incdec.ptr102.1165 = getelementptr inbounds %struct.ref_s, ptr %14, i64 4
   br label %for.inc101.2.thread
 
 for.inc101.1:                                     ; preds = %for.inc101
   %arrayidx97.1 = getelementptr inbounds %struct.ref_s, ptr %op, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr102, ptr noundef nonnull align 8 dereferenceable(16) %arrayidx97.1, i64 16, i1 false), !tbaa.struct !18
-  %incdec.ptr102.1 = getelementptr inbounds %struct.ref_s, ptr %17, i64 4
+  %incdec.ptr102.1 = getelementptr inbounds %struct.ref_s, ptr %14, i64 4
   %cmp93.not.2 = icmp eq i32 %cond, 1
   br i1 %cmp93.not.2, label %for.inc101.2.thread, label %for.inc101.2
 
 for.inc101.2.thread:                              ; preds = %for.inc101.1, %for.inc101.1.thread
   %incdec.ptr102.1167 = phi ptr [ %incdec.ptr102.1165, %for.inc101.1.thread ], [ %incdec.ptr102.1, %for.inc101.1 ]
   store i64 0, ptr %incdec.ptr102.1167, align 8, !tbaa !12
-  %type_attrs99.2 = getelementptr inbounds %struct.ref_s, ptr %17, i64 4, i32 1
+  %type_attrs99.2 = getelementptr inbounds %struct.ref_s, ptr %14, i64 4, i32 1
   store i16 32, ptr %type_attrs99.2, align 8, !tbaa !9
-  %incdec.ptr102.2168 = getelementptr inbounds %struct.ref_s, ptr %17, i64 5
+  %incdec.ptr102.2168 = getelementptr inbounds %struct.ref_s, ptr %14, i64 5
   br label %if.else.3
 
 for.inc101.2:                                     ; preds = %for.inc101.1
   %arrayidx97.2 = getelementptr inbounds %struct.ref_s, ptr %op, i64 2
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr102.1, ptr noundef nonnull align 8 dereferenceable(16) %arrayidx97.2, i64 16, i1 false), !tbaa.struct !18
-  %incdec.ptr102.2 = getelementptr inbounds %struct.ref_s, ptr %17, i64 5
+  %incdec.ptr102.2 = getelementptr inbounds %struct.ref_s, ptr %14, i64 5
   %cmp93.not.3 = icmp ult i32 %cond, 3
   br i1 %cmp93.not.3, label %if.else.3, label %if.then95.3
 
@@ -346,39 +343,39 @@ if.then95.3:                                      ; preds = %for.inc101.2
 if.else.3:                                        ; preds = %for.inc101.2.thread, %for.inc101.2
   %incdec.ptr102.2170 = phi ptr [ %incdec.ptr102.2168, %for.inc101.2.thread ], [ %incdec.ptr102.2, %for.inc101.2 ]
   store i64 0, ptr %incdec.ptr102.2170, align 8, !tbaa !12
-  %type_attrs99.3 = getelementptr inbounds %struct.ref_s, ptr %17, i64 5, i32 1
+  %type_attrs99.3 = getelementptr inbounds %struct.ref_s, ptr %14, i64 5, i32 1
   store i16 32, ptr %type_attrs99.3, align 8, !tbaa !9
   br label %for.inc101.3
 
 for.inc101.3:                                     ; preds = %if.else.3, %if.then95.3
-  %incdec.ptr102.3 = getelementptr inbounds %struct.ref_s, ptr %17, i64 6
+  %incdec.ptr102.3 = getelementptr inbounds %struct.ref_s, ptr %14, i64 6
   store i64 0, ptr %incdec.ptr102.3, align 8, !tbaa !12
-  %type_attrs106 = getelementptr inbounds %struct.ref_s, ptr %17, i64 6, i32 1
+  %type_attrs106 = getelementptr inbounds %struct.ref_s, ptr %14, i64 6, i32 1
   store i16 20, ptr %type_attrs106, align 8, !tbaa !9
   %conv107 = trunc i32 %cond to i16
-  %size = getelementptr inbounds %struct.ref_s, ptr %17, i64 6, i32 2
+  %size = getelementptr inbounds %struct.ref_s, ptr %14, i64 6, i32 2
   store i16 %conv107, ptr %size, align 2, !tbaa !24
-  %incdec.ptr108 = getelementptr inbounds %struct.ref_s, ptr %17, i64 7
+  %incdec.ptr108 = getelementptr inbounds %struct.ref_s, ptr %14, i64 7
   store ptr %call57, ptr %incdec.ptr108, align 8, !tbaa !12
-  %type_attrs110 = getelementptr inbounds %struct.ref_s, ptr %17, i64 7, i32 1
+  %type_attrs110 = getelementptr inbounds %struct.ref_s, ptr %14, i64 7, i32 1
   store i16 52, ptr %type_attrs110, align 8, !tbaa !9
-  %18 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
-  %conv111 = trunc i32 %18 to i16
-  %size112 = getelementptr inbounds %struct.ref_s, ptr %17, i64 7, i32 2
+  %15 = load i32, ptr @gs_image_enum_sizeof, align 4, !tbaa !16
+  %conv111 = trunc i32 %15 to i16
+  %size112 = getelementptr inbounds %struct.ref_s, ptr %14, i64 7, i32 2
   store i16 %conv111, ptr %size112, align 2, !tbaa !24
-  %incdec.ptr113 = getelementptr inbounds %struct.ref_s, ptr %17, i64 8
+  %incdec.ptr113 = getelementptr inbounds %struct.ref_s, ptr %14, i64 8
   store ptr @image_continue, ptr %incdec.ptr113, align 8, !tbaa !12
-  %type_attrs115 = getelementptr inbounds %struct.ref_s, ptr %17, i64 8, i32 1
+  %type_attrs115 = getelementptr inbounds %struct.ref_s, ptr %14, i64 8, i32 1
   store i16 37, ptr %type_attrs115, align 8, !tbaa !9
-  %size116 = getelementptr inbounds %struct.ref_s, ptr %17, i64 8, i32 2
+  %size116 = getelementptr inbounds %struct.ref_s, ptr %14, i64 8, i32 2
   store i16 0, ptr %size116, align 2, !tbaa !24
-  %incdec.ptr117 = getelementptr inbounds %struct.ref_s, ptr %17, i64 9
+  %incdec.ptr117 = getelementptr inbounds %struct.ref_s, ptr %14, i64 9
   store ptr %incdec.ptr117, ptr @esp, align 8, !tbaa !5
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr117, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !18
   br label %cleanup
 
-cleanup:                                          ; preds = %sw.epilog, %if.then22, %cond.end80, %if.end56, %if.end51, %if.end45, %for.end, %lor.lhs.false, %if.end5, %if.end, %entry, %for.inc101.3
-  %retval.0 = phi i32 [ 1, %for.inc101.3 ], [ -5, %entry ], [ -20, %if.end ], [ -20, %if.end5 ], [ -23, %lor.lhs.false ], [ -23, %for.end ], [ 0, %if.end45 ], [ %call, %if.end51 ], [ -25, %if.end56 ], [ %cond81, %cond.end80 ], [ -7, %sw.epilog ], [ -20, %if.then22 ]
+cleanup:                                          ; preds = %sw.epilog, %for.body, %cond.end80, %if.end56, %if.end51, %if.end45, %for.end, %lor.lhs.false, %if.end5, %if.end, %entry, %for.inc101.3
+  %retval.0 = phi i32 [ 1, %for.inc101.3 ], [ -5, %entry ], [ -20, %if.end ], [ -20, %if.end5 ], [ -23, %lor.lhs.false ], [ -23, %for.end ], [ 0, %if.end45 ], [ %call, %if.end51 ], [ -25, %if.end56 ], [ %cond81, %cond.end80 ], [ -7, %sw.epilog ], [ -20, %for.body ]
   call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %mat) #4
   ret i32 %retval.0
 }

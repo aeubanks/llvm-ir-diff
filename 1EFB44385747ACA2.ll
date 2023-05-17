@@ -8,8 +8,8 @@ define dso_local i32 @f(ptr noundef %q) local_unnamed_addr #0 {
 entry:
   %0 = ptrtoint ptr %q to i64
   %and.i = and i64 %0, 1
-  %tobool.not.i.not = icmp eq i64 %and.i, 0
-  br i1 %tobool.not.i.not, label %land.lhs.true, label %if.end
+  %tobool.not.i = icmp eq i64 %and.i, 0
+  br i1 %tobool.not.i, label %land.lhs.true, label %if.end
 
 land.lhs.true:                                    ; preds = %entry
   %1 = load i32, ptr %q, align 4, !tbaa !5
@@ -26,7 +26,7 @@ return:                                           ; preds = %land.lhs.true, %if.
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

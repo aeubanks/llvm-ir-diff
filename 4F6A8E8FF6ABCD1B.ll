@@ -185,14 +185,14 @@ middle.block:                                     ; preds = %vector.body
   %bin.rdx = mul <4 x i32> %26, %25
   %28 = tail call i32 @llvm.vector.reduce.mul.v4i32(<4 x i32> %bin.rdx)
   %cmp.n = icmp eq i64 %n.vec, %wide.trip.count158.i.i
-  br i1 %cmp.n, label %do.body21.preheader.split.us.i.i, label %for.body15.i.i.preheader
+  br i1 %cmp.n, label %do.body21.preheader.i.i, label %for.body15.i.i.preheader
 
 for.body15.i.i.preheader:                         ; preds = %for.body15.preheader.i.i, %middle.block
   %indvars.iv155.i.i.ph = phi i64 [ 0, %for.body15.preheader.i.i ], [ %n.vec, %middle.block ]
   %total_colors.092.i.i.ph = phi i32 [ 1, %for.body15.preheader.i.i ], [ %28, %middle.block ]
   br label %for.body15.i.i
 
-do.body21.preheader.split.us.i.i:                 ; preds = %for.body15.i.i, %middle.block
+do.body21.preheader.i.i:                          ; preds = %for.body15.i.i, %middle.block
   %mul17.i.i.lcssa = phi i32 [ %28, %middle.block ], [ %mul17.i.i, %for.body15.i.i ]
   %arrayidx31.us117.i.i = getelementptr inbounds %struct.my_cquantizer, ptr %11, i64 0, i32 5, i64 1
   %out_color_space.i.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 10
@@ -202,7 +202,7 @@ do.body21.preheader.split.us.i.i:                 ; preds = %for.body15.i.i, %mi
   %wide.trip.count168.i.i = zext i32 %30 to i64
   br i1 %cmp26.us.i.i, label %do.body21.us.us.i.i.preheader, label %do.body21.us.i.i.preheader
 
-do.body21.us.i.i.preheader:                       ; preds = %do.body21.preheader.split.us.i.i
+do.body21.us.i.i.preheader:                       ; preds = %do.body21.preheader.i.i
   %31 = load i32, ptr %Ncolors.i, align 4, !tbaa !35
   %div105.us.i.i49 = sdiv i32 %mul17.i.i.lcssa, %31
   %conv32106.us.i.i50 = sext i32 %div105.us.i.i49 to i64
@@ -212,7 +212,7 @@ do.body21.us.i.i.preheader:                       ; preds = %do.body21.preheader
   %cmp38110.us.i.i54 = icmp sgt i64 %mul36109.us.i.i53, %conv4.i.i
   br i1 %cmp38110.us.i.i54, label %select_ncolors.exit.i, label %if.end41.us139.i.i
 
-do.body21.us.us.i.i.preheader:                    ; preds = %do.body21.preheader.split.us.i.i
+do.body21.us.us.i.i.preheader:                    ; preds = %do.body21.preheader.i.i
   %32 = load i32, ptr %arrayidx31.us117.i.i, align 4, !tbaa !35
   %div.us118.us.us.i.i57 = sdiv i32 %mul17.i.i.lcssa, %32
   %conv32.us119.us.us.i.i58 = sext i32 %div.us118.us.us.i.i57 to i64
@@ -311,7 +311,7 @@ for.body15.i.i:                                   ; preds = %for.body15.i.i.preh
   %mul17.i.i = mul nsw i32 %total_colors.092.i.i, %.us-phi.i.i
   %indvars.iv.next156.i.i = add nuw nsw i64 %indvars.iv155.i.i, 1
   %exitcond159.not.i.i = icmp eq i64 %indvars.iv.next156.i.i, %wide.trip.count158.i.i
-  br i1 %exitcond159.not.i.i, label %do.body21.preheader.split.us.i.i, label %for.body15.i.i, !llvm.loop !41
+  br i1 %exitcond159.not.i.i, label %do.body21.preheader.i.i, label %for.body15.i.i, !llvm.loop !41
 
 select_ncolors.exit.i:                            ; preds = %do.cond49.us.i.i, %do.cond49.us.us.i.i, %do.body21.us.i.i.preheader, %do.body21.us.us.i.i.preheader, %if.end.i.i
   %.us-phi149.i.i = phi i32 [ 1, %if.end.i.i ], [ %mul17.i.i.lcssa, %do.body21.us.us.i.i.preheader ], [ %mul17.i.i.lcssa, %do.body21.us.i.i.preheader ], [ %conv45.us.us.us.i.i, %do.cond49.us.us.i.i ], [ %conv45.us140.i.i, %do.cond49.us.i.i ]

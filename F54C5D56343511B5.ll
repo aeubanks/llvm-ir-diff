@@ -428,9 +428,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.328 = private unnamed_addr constant [34 x i8] c"CABAC is not allowed in extended.\00", align 1
 @.str.329 = private unnamed_addr constant [107 x i8] c"\0AWarning: LevelIDC 3.0 and above require direct_8x8_inference to be set to 1. Please check your settings.\0A\00", align 1
 @.str.330 = private unnamed_addr constant [103 x i8] c"\0AInterlace modes only supported for LevelIDC in the range of 2.1 and 4.1. Please check your settings.\0A\00", align 1
-@str = private unnamed_addr constant [30 x i8] c"Setting Default Parameters...\00", align 1
-@str.332 = private unnamed_addr constant [55 x i8] c"*               Encoder Parameters                   *\00", align 1
-@str.334 = private unnamed_addr constant [55 x i8] c"******************************************************\00", align 1
+@str.331 = private unnamed_addr constant [55 x i8] c"*               Encoder Parameters                   *\00", align 1
+@str.333 = private unnamed_addr constant [55 x i8] c"******************************************************\00", align 1
+@str.334 = private unnamed_addr constant [30 x i8] c"Setting Default Parameters...\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @JMHelpExit() local_unnamed_addr #0 {
@@ -452,7 +452,7 @@ define dso_local void @Configure(i32 noundef %ac, ptr nocapture noundef readonly
 entry:
   %tmp.i = alloca i32, align 4
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(5800) @configinput, i8 0, i64 5800, i1 false)
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
   %0 = load ptr, ptr @Map, align 16, !tbaa !9
   %cmp.not28.i = icmp eq ptr %0, null
   br i1 %cmp.not28.i, label %InitEncoderParams.exit, label %while.body.i
@@ -600,7 +600,7 @@ if.end48:                                         ; preds = %if.then47, %if.then
   %call53 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call44) #20
   %conv54 = trunc i64 %call53 to i32
   tail call fastcc void @ParseContent(ptr noundef %call44, i32 noundef %conv54)
-  %putchar187 = tail call i32 @putchar(i32 10)
+  %putchar204 = tail call i32 @putchar(i32 10)
   tail call void @free(ptr noundef %call44) #21
   %add56 = add nsw i32 %CLcount.2217, 2
   br label %if.end124
@@ -713,7 +713,7 @@ while.end114:                                     ; preds = %while.end112, %if.e
   %conv117 = trunc i64 %call116 to i32
   tail call fastcc void @ParseContent(ptr noundef nonnull %call82, i32 noundef %conv117)
   tail call void @free(ptr noundef %call82) #21
-  %putchar185 = tail call i32 @putchar(i32 10)
+  %putchar202 = tail call i32 @putchar(i32 10)
   br label %if.end124
 
 if.else119:                                       ; preds = %if.else
@@ -727,7 +727,7 @@ if.end124:                                        ; preds = %while.end114, %if.e
   br i1 %cmp28, label %while.body, label %while.end125, !llvm.loop !24
 
 while.end125:                                     ; preds = %if.end124, %if.end25
-  %putchar184 = tail call i32 @putchar(i32 10)
+  %putchar201 = tail call i32 @putchar(i32 10)
   %27 = load ptr, ptr @Map, align 16, !tbaa !9
   %cmp.not228.i.i = icmp eq ptr %27, null
   br i1 %cmp.not228.i.i, label %TestEncoderParams.exit.i, label %while.body.lr.ph.i.i
@@ -873,13 +873,13 @@ TestEncoderParams.exit.i:                         ; preds = %if.end181.i.i, %whi
   %FrameRate.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 92
   %53 = load double, ptr %FrameRate.i, align 8, !tbaa !31
   %cmp.i = fcmp oeq double %53, 0.000000e+00
-  br i1 %cmp.i, label %if.then.i190, label %if.end.i
+  br i1 %cmp.i, label %if.then.i186, label %if.end.i
 
-if.then.i190:                                     ; preds = %TestEncoderParams.exit.i
+if.then.i186:                                     ; preds = %TestEncoderParams.exit.i
   store double 3.000000e+01, ptr %FrameRate.i, align 8, !tbaa !31
   br label %if.end.i
 
-if.end.i:                                         ; preds = %if.then.i190, %TestEncoderParams.exit.i
+if.end.i:                                         ; preds = %if.then.i186, %TestEncoderParams.exit.i
   %part_size.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 19
   store <4 x i32> <i32 4, i32 4, i32 4, i32 4>, ptr %part_size.i, align 8, !tbaa !16
   %arrayidx13.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 19, i64 2
@@ -912,8 +912,8 @@ if.end.i:                                         ; preds = %if.then.i190, %Test
   store <4 x i32> <i32 4, i32 8, i32 4, i32 4>, ptr %arrayidx80.6.i, align 4, !tbaa !16
   %BRefPictures.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 68
   %54 = load i32, ptr %BRefPictures.i, align 4, !tbaa !32
-  %tobool.not.i191 = icmp eq i32 %54, 0
-  br i1 %tobool.not.i191, label %cond.end.i, label %cond.true.i
+  %tobool.not.i187 = icmp eq i32 %54, 0
+  br i1 %tobool.not.i187, label %cond.end.i, label %cond.true.i
 
 cond.true.i:                                      ; preds = %if.end.i
   %successive_Bframe.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 40
@@ -922,7 +922,7 @@ cond.true.i:                                      ; preds = %if.end.i
   br label %cond.end.i
 
 cond.end.i:                                       ; preds = %cond.true.i, %if.end.i
-  %cond.i192 = phi i32 [ %add.i, %cond.true.i ], [ 1, %if.end.i ]
+  %cond.i188 = phi i32 [ %add.i, %cond.true.i ], [ 1, %if.end.i ]
   %Log2MaxFNumMinus4.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 12
   %56 = load i32, ptr %Log2MaxFNumMinus4.i, align 8, !tbaa !34
   %cmp84.i = icmp eq i32 %56, -1
@@ -931,21 +931,21 @@ cond.end.i:                                       ; preds = %cond.true.i, %if.en
 if.then85.i:                                      ; preds = %cond.end.i
   %no_frames.i = getelementptr inbounds %struct.InputParameters, ptr %52, i64 0, i32 2
   %57 = load i32, ptr %no_frames.i, align 8, !tbaa !35
-  %mul86.i = mul nsw i32 %57, %cond.i192
-  %sub.i832.i = add i32 %mul86.i, -1
-  %cmp.not3.i.i = icmp eq i32 %sub.i832.i, 0
-  br i1 %cmp.not3.i.i, label %CeilLog2.exit.i, label %while.body.i834.i
+  %mul86.i = mul nsw i32 %57, %cond.i188
+  %sub.i821.i = add i32 %mul86.i, -1
+  %cmp.not3.i.i = icmp eq i32 %sub.i821.i, 0
+  br i1 %cmp.not3.i.i, label %CeilLog2.exit.i, label %while.body.i823.i
 
-while.body.i834.i:                                ; preds = %if.then85.i, %while.body.i834.i
-  %uiRet.05.i.i = phi i32 [ %inc.i.i, %while.body.i834.i ], [ 0, %if.then85.i ]
-  %uiTmp.04.i.i = phi i32 [ %shr.i.i, %while.body.i834.i ], [ %sub.i832.i, %if.then85.i ]
+while.body.i823.i:                                ; preds = %if.then85.i, %while.body.i823.i
+  %uiRet.05.i.i = phi i32 [ %inc.i.i, %while.body.i823.i ], [ 0, %if.then85.i ]
+  %uiTmp.04.i.i = phi i32 [ %shr.i.i, %while.body.i823.i ], [ %sub.i821.i, %if.then85.i ]
   %shr.i.i = lshr i32 %uiTmp.04.i.i, 1
   %inc.i.i = add nuw nsw i32 %uiRet.05.i.i, 1
-  %cmp.not.i833.i = icmp ult i32 %uiTmp.04.i.i, 2
-  br i1 %cmp.not.i833.i, label %CeilLog2.exit.i, label %while.body.i834.i, !llvm.loop !36
+  %cmp.not.i822.i = icmp ult i32 %uiTmp.04.i.i, 2
+  br i1 %cmp.not.i822.i, label %CeilLog2.exit.i, label %while.body.i823.i, !llvm.loop !36
 
-CeilLog2.exit.i:                                  ; preds = %while.body.i834.i, %if.then85.i
-  %uiRet.0.lcssa.i.i = phi i32 [ 0, %if.then85.i ], [ %inc.i.i, %while.body.i834.i ]
+CeilLog2.exit.i:                                  ; preds = %while.body.i823.i, %if.then85.i
+  %uiRet.0.lcssa.i.i = phi i32 [ 0, %if.then85.i ], [ %inc.i.i, %while.body.i823.i ]
   %sub88.i = add i32 %uiRet.0.lcssa.i.i, -4
   %cond.i.i.i = tail call i32 @llvm.smax.i32(i32 %sub88.i, i32 0)
   %cond.i4.i.i = tail call i32 @llvm.smin.i32(i32 %cond.i.i.i, i32 12)
@@ -974,161 +974,162 @@ if.end98.i:                                       ; preds = %if.then94.i, %land.
   %Log2MaxPOCLsbMinus4.i = getelementptr inbounds %struct.InputParameters, ptr %59, i64 0, i32 13
   %60 = load i32, ptr %Log2MaxPOCLsbMinus4.i, align 4, !tbaa !38
   %cmp99.i = icmp eq i32 %60, -1
-  %jumpd.i = getelementptr inbounds %struct.InputParameters, ptr %59, i64 0, i32 5
   br i1 %cmp99.i, label %if.then100.i, label %if.end110.thread.i
 
 if.then100.i:                                     ; preds = %if.end98.i
   %no_frames101.i = getelementptr inbounds %struct.InputParameters, ptr %59, i64 0, i32 2
   %61 = load i32, ptr %no_frames101.i, align 8, !tbaa !35
   %mul102.i = shl nsw i32 %61, 1
+  %jumpd.i = getelementptr inbounds %struct.InputParameters, ptr %59, i64 0, i32 5
   %62 = load i32, ptr %jumpd.i, align 4, !tbaa !39
   %add103.i = add nsw i32 %62, 1
   %mul104.i = mul nsw i32 %mul102.i, %add103.i
-  %sub.i835.i = add i32 %mul104.i, -1
-  br label %while.body.i841.i
+  %sub.i824.i = add i32 %mul104.i, -1
+  br label %while.body.i830.i
 
-while.body.i841.i:                                ; preds = %while.body.i841.i, %if.then100.i
-  %uiRet.05.i836.i = phi i32 [ %inc.i839.i, %while.body.i841.i ], [ 0, %if.then100.i ]
-  %uiTmp.04.i837.i = phi i32 [ %shr.i838.i, %while.body.i841.i ], [ %sub.i835.i, %if.then100.i ]
-  %shr.i838.i = lshr i32 %uiTmp.04.i837.i, 1
-  %inc.i839.i = add nuw nsw i32 %uiRet.05.i836.i, 1
-  %cmp.not.i840.i = icmp ult i32 %uiTmp.04.i837.i, 2
-  br i1 %cmp.not.i840.i, label %if.end110.i, label %while.body.i841.i, !llvm.loop !36
+while.body.i830.i:                                ; preds = %while.body.i830.i, %if.then100.i
+  %uiRet.05.i825.i = phi i32 [ %inc.i828.i, %while.body.i830.i ], [ 0, %if.then100.i ]
+  %uiTmp.04.i826.i = phi i32 [ %shr.i827.i, %while.body.i830.i ], [ %sub.i824.i, %if.then100.i ]
+  %shr.i827.i = lshr i32 %uiTmp.04.i826.i, 1
+  %inc.i828.i = add nuw nsw i32 %uiRet.05.i825.i, 1
+  %cmp.not.i829.i = icmp ult i32 %uiTmp.04.i826.i, 2
+  br i1 %cmp.not.i829.i, label %if.end110.i, label %while.body.i830.i, !llvm.loop !36
 
-if.end110.i:                                      ; preds = %while.body.i841.i
-  %63 = tail call i32 @llvm.smax.i32(i32 %uiRet.05.i836.i, i32 3)
+if.end110.i:                                      ; preds = %while.body.i830.i
+  %63 = tail call i32 @llvm.smax.i32(i32 %uiRet.05.i825.i, i32 3)
   %64 = tail call i32 @llvm.smin.i32(i32 %63, i32 15)
-  %cond.i4.i845.i = add nsw i32 %64, -3
-  store i32 %cond.i4.i845.i, ptr @log2_max_pic_order_cnt_lsb_minus4, align 4, !tbaa !16
+  %cond.i4.i834.i = add nsw i32 %64, -3
+  store i32 %cond.i4.i834.i, ptr @log2_max_pic_order_cnt_lsb_minus4, align 4, !tbaa !16
   br label %if.end119.i
 
 if.end110.thread.i:                               ; preds = %if.end98.i
+  %jumpd112.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %59, i64 0, i32 5
+  %.pre880.i = load i32, ptr %jumpd112.phi.trans.insert.i, align 4, !tbaa !39
   store i32 %60, ptr @log2_max_pic_order_cnt_lsb_minus4, align 4, !tbaa !16
-  %add111857.i = add i32 %60, 3
-  %shl858.i = shl nuw i32 1, %add111857.i
-  %65 = load i32, ptr %jumpd.i, align 4, !tbaa !39
-  %mul113860.i = shl nsw i32 %65, 2
-  %cmp114861.i = icmp slt i32 %shl858.i, %mul113860.i
-  br i1 %cmp114861.i, label %if.then118.i, label %if.end119.i
+  %add111944.i = add i32 %60, 3
+  %shl945.i = shl nuw i32 1, %add111944.i
+  %mul113946.i = shl nsw i32 %.pre880.i, 2
+  %cmp114947.i = icmp slt i32 %shl945.i, %mul113946.i
+  br i1 %cmp114947.i, label %if.then118.i, label %if.end119.i
 
 if.then118.i:                                     ; preds = %if.end110.thread.i
   tail call void @error(ptr noundef nonnull @.str.256, i32 noundef 400) #21
-  %.pre886.i = load ptr, ptr @input, align 8, !tbaa !5
-  %jumpd121.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre886.i, i64 0, i32 5
-  %.pre887.i = load i32, ptr %jumpd121.phi.trans.insert.i, align 4, !tbaa !39
+  %.pre881.i = load ptr, ptr @input, align 8, !tbaa !5
+  %jumpd121.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre881.i, i64 0, i32 5
+  %.pre882.i = load i32, ptr %jumpd121.phi.trans.insert.i, align 4, !tbaa !39
   br label %if.end119.i
 
-if.end119.i:                                      ; preds = %if.then118.i, %if.end110.thread.i, %if.end110.i
-  %66 = phi i32 [ %62, %if.end110.i ], [ %65, %if.end110.thread.i ], [ %.pre887.i, %if.then118.i ]
-  %67 = phi ptr [ %59, %if.end110.i ], [ %59, %if.end110.thread.i ], [ %.pre886.i, %if.then118.i ]
-  %successive_Bframe120.i = getelementptr inbounds %struct.InputParameters, ptr %67, i64 0, i32 40
-  %68 = load i32, ptr %successive_Bframe120.i, align 8, !tbaa !33
-  %cmp122.i = icmp sgt i32 %68, %66
+if.end119.i:                                      ; preds = %if.end110.i, %if.then118.i, %if.end110.thread.i
+  %65 = phi i32 [ %.pre882.i, %if.then118.i ], [ %62, %if.end110.i ], [ %.pre880.i, %if.end110.thread.i ]
+  %66 = phi ptr [ %.pre881.i, %if.then118.i ], [ %59, %if.end110.i ], [ %59, %if.end110.thread.i ]
+  %successive_Bframe120.i = getelementptr inbounds %struct.InputParameters, ptr %66, i64 0, i32 40
+  %67 = load i32, ptr %successive_Bframe120.i, align 8, !tbaa !33
+  %cmp122.i = icmp sgt i32 %67, %65
   br i1 %cmp122.i, label %if.then123.i, label %if.end126.i
 
 if.then123.i:                                     ; preds = %if.end119.i
-  %call125.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.257, i32 noundef %68) #21
+  %call125.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.257, i32 noundef %67) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre888.i = load ptr, ptr @input, align 8, !tbaa !5
-  %successive_Bframe127.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre888.i, i64 0, i32 40
-  %.pre889.i = load i32, ptr %successive_Bframe127.phi.trans.insert.i, align 8, !tbaa !33
+  %.pre883.i = load ptr, ptr @input, align 8, !tbaa !5
+  %successive_Bframe127.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre883.i, i64 0, i32 40
+  %.pre884.i = load i32, ptr %successive_Bframe127.phi.trans.insert.i, align 8, !tbaa !33
   br label %if.end126.i
 
 if.end126.i:                                      ; preds = %if.then123.i, %if.end119.i
-  %69 = phi i32 [ %.pre889.i, %if.then123.i ], [ %68, %if.end119.i ]
-  %70 = phi ptr [ %.pre888.i, %if.then123.i ], [ %67, %if.end119.i ]
-  %tobool128.not.i = icmp eq i32 %69, 0
+  %68 = phi i32 [ %.pre884.i, %if.then123.i ], [ %67, %if.end119.i ]
+  %69 = phi ptr [ %.pre883.i, %if.then123.i ], [ %66, %if.end119.i ]
+  %tobool128.not.i = icmp eq i32 %68, 0
   br i1 %tobool128.not.i, label %if.end137.i, label %land.lhs.true129.i
 
 land.lhs.true129.i:                               ; preds = %if.end126.i
-  %direct_spatial_mv_pred_flag.i = getelementptr inbounds %struct.InputParameters, ptr %70, i64 0, i32 44
-  %71 = load i32, ptr %direct_spatial_mv_pred_flag.i, align 8, !tbaa !40
-  %switch.i = icmp ult i32 %71, 2
+  %direct_spatial_mv_pred_flag.i = getelementptr inbounds %struct.InputParameters, ptr %69, i64 0, i32 44
+  %70 = load i32, ptr %direct_spatial_mv_pred_flag.i, align 8, !tbaa !40
+  %switch.i = icmp ult i32 %70, 2
   br i1 %switch.i, label %if.end137.i, label %if.then134.i
 
 if.then134.i:                                     ; preds = %land.lhs.true129.i
-  %call136.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.258, i32 noundef %71) #21
+  %call136.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.258, i32 noundef %70) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre890.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre885.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end137.i
 
 if.end137.i:                                      ; preds = %if.then134.i, %land.lhs.true129.i, %if.end126.i
-  %72 = phi ptr [ %70, %land.lhs.true129.i ], [ %.pre890.i, %if.then134.i ], [ %70, %if.end126.i ]
-  %PicInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %72, i64 0, i32 121
-  %73 = load i32, ptr %PicInterlace.i, align 8, !tbaa !41
-  %cmp138.i = icmp sgt i32 %73, 0
+  %71 = phi ptr [ %69, %land.lhs.true129.i ], [ %.pre885.i, %if.then134.i ], [ %69, %if.end126.i ]
+  %PicInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %71, i64 0, i32 121
+  %72 = load i32, ptr %PicInterlace.i, align 8, !tbaa !41
+  %cmp138.i = icmp sgt i32 %72, 0
   br i1 %cmp138.i, label %if.then140.i, label %lor.lhs.false.i
 
 lor.lhs.false.i:                                  ; preds = %if.end137.i
-  %MbInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %72, i64 0, i32 122
-  %74 = load i32, ptr %MbInterlace.i, align 4, !tbaa !42
-  %cmp139.i = icmp sgt i32 %74, 0
+  %MbInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %71, i64 0, i32 122
+  %73 = load i32, ptr %MbInterlace.i, align 4, !tbaa !42
+  %cmp139.i = icmp sgt i32 %73, 0
   br i1 %cmp139.i, label %if.then140.i, label %if.end158.i
 
 if.then140.i:                                     ; preds = %lor.lhs.false.i, %if.end137.i
-  %directInferenceFlag.i = getelementptr inbounds %struct.InputParameters, ptr %72, i64 0, i32 45
-  %75 = load i32, ptr %directInferenceFlag.i, align 4, !tbaa !43
-  %cmp141.i = icmp eq i32 %75, 0
+  %directInferenceFlag.i = getelementptr inbounds %struct.InputParameters, ptr %71, i64 0, i32 45
+  %74 = load i32, ptr %directInferenceFlag.i, align 4, !tbaa !43
+  %cmp141.i = icmp eq i32 %74, 0
   br i1 %cmp141.i, label %if.then142.i, label %if.end146.i
 
 if.then142.i:                                     ; preds = %if.then140.i
   %call143.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.259)
-  %.pre891.i = load ptr, ptr @input, align 8, !tbaa !5
-  %PicInterlace147.phi.trans.insert.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre891.i, i64 0, i32 121
-  %.pre892.pre.i = load i32, ptr %PicInterlace147.phi.trans.insert.phi.trans.insert.i, align 8, !tbaa !41
+  %.pre886.i = load ptr, ptr @input, align 8, !tbaa !5
+  %PicInterlace147.phi.trans.insert.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre886.i, i64 0, i32 121
+  %.pre887.pre.i = load i32, ptr %PicInterlace147.phi.trans.insert.phi.trans.insert.i, align 8, !tbaa !41
   br label %if.end146.i
 
 if.end146.i:                                      ; preds = %if.then142.i, %if.then140.i
-  %.pre892.i = phi i32 [ %.pre892.pre.i, %if.then142.i ], [ %73, %if.then140.i ]
-  %76 = phi ptr [ %.pre891.i, %if.then142.i ], [ %72, %if.then140.i ]
-  %directInferenceFlag145.i = getelementptr inbounds %struct.InputParameters, ptr %76, i64 0, i32 45
+  %.pre887.i = phi i32 [ %.pre887.pre.i, %if.then142.i ], [ %72, %if.then140.i ]
+  %75 = phi ptr [ %.pre886.i, %if.then142.i ], [ %71, %if.then140.i ]
+  %directInferenceFlag145.i = getelementptr inbounds %struct.InputParameters, ptr %75, i64 0, i32 45
   store i32 1, ptr %directInferenceFlag145.i, align 4, !tbaa !43
-  %cmp148.i = icmp sgt i32 %.pre892.i, 0
+  %cmp148.i = icmp sgt i32 %.pre887.i, 0
   br i1 %cmp148.i, label %if.then149.i, label %if.end158.i
 
 if.then149.i:                                     ; preds = %if.end146.i
-  %IntraBottom.i = getelementptr inbounds %struct.InputParameters, ptr %76, i64 0, i32 123
-  %77 = load i32, ptr %IntraBottom.i, align 8, !tbaa !44
-  %switch828.i = icmp ult i32 %77, 2
-  br i1 %switch828.i, label %if.end158.i, label %if.then154.i
+  %IntraBottom.i = getelementptr inbounds %struct.InputParameters, ptr %75, i64 0, i32 123
+  %76 = load i32, ptr %IntraBottom.i, align 8, !tbaa !44
+  %switch852.i = icmp ult i32 %76, 2
+  br i1 %switch852.i, label %if.end158.i, label %if.then154.i
 
 if.then154.i:                                     ; preds = %if.then149.i
-  %call156.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.260, i32 noundef %77) #21
+  %call156.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.260, i32 noundef %76) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre893.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre888.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end158.i
 
 if.end158.i:                                      ; preds = %if.then154.i, %if.then149.i, %if.end146.i, %lor.lhs.false.i
-  %78 = phi ptr [ %76, %if.then149.i ], [ %.pre893.i, %if.then154.i ], [ %76, %if.end146.i ], [ %72, %lor.lhs.false.i ]
-  %symbol_mode.i = getelementptr inbounds %struct.InputParameters, ptr %78, i64 0, i32 74
-  %79 = load i32, ptr %symbol_mode.i, align 8, !tbaa !45
-  %switch829.i = icmp ult i32 %79, 2
-  br i1 %switch829.i, label %if.end166.i, label %if.then163.i
+  %77 = phi ptr [ %75, %if.then149.i ], [ %.pre888.i, %if.then154.i ], [ %75, %if.end146.i ], [ %71, %lor.lhs.false.i ]
+  %symbol_mode.i = getelementptr inbounds %struct.InputParameters, ptr %77, i64 0, i32 74
+  %78 = load i32, ptr %symbol_mode.i, align 8, !tbaa !45
+  %switch853.i = icmp ult i32 %78, 2
+  br i1 %switch853.i, label %if.end166.i, label %if.then163.i
 
 if.then163.i:                                     ; preds = %if.end158.i
-  %call165.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.261, i32 noundef %79) #21
+  %call165.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.261, i32 noundef %78) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre894.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre889.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end166.i
 
 if.end166.i:                                      ; preds = %if.then163.i, %if.end158.i
-  %80 = phi ptr [ %78, %if.end158.i ], [ %.pre894.i, %if.then163.i ]
-  %infile.i = getelementptr inbounds %struct.InputParameters, ptr %80, i64 0, i32 25
+  %79 = phi ptr [ %77, %if.end158.i ], [ %.pre889.i, %if.then163.i ]
+  %infile.i = getelementptr inbounds %struct.InputParameters, ptr %79, i64 0, i32 25
   %call167.i = tail call i32 (ptr, i32, ...) @open64(ptr noundef nonnull %infile.i, i32 noundef 0) #21
   store i32 %call167.i, ptr @p_in, align 4, !tbaa !16
   %cmp168.i = icmp eq i32 %call167.i, -1
   br i1 %cmp168.i, label %if.then169.i, label %if.end173.i
 
 if.then169.i:                                     ; preds = %if.end166.i
-  %81 = load ptr, ptr @input, align 8, !tbaa !5
-  %infile170.i = getelementptr inbounds %struct.InputParameters, ptr %81, i64 0, i32 25
+  %80 = load ptr, ptr @input, align 8, !tbaa !5
+  %infile170.i = getelementptr inbounds %struct.InputParameters, ptr %80, i64 0, i32 25
   %call172.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.262, ptr noundef nonnull %infile170.i) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
   br label %if.end173.i
 
 if.end173.i:                                      ; preds = %if.then169.i, %if.end166.i
-  %82 = load ptr, ptr @input, align 8, !tbaa !5
-  %ReconFile.i = getelementptr inbounds %struct.InputParameters, ptr %82, i64 0, i32 27
+  %81 = load ptr, ptr @input, align 8, !tbaa !5
+  %ReconFile.i = getelementptr inbounds %struct.InputParameters, ptr %81, i64 0, i32 27
   %char0.i = load i8, ptr %ReconFile.i, align 1
   %cmp176.not.i = icmp eq i8 %char0.i, 0
   br i1 %cmp176.not.i, label %if.end186.i, label %land.lhs.true177.i
@@ -1140,72 +1141,72 @@ land.lhs.true177.i:                               ; preds = %if.end173.i
   br i1 %cmp181.i, label %if.then182.i, label %if.end186.i
 
 if.then182.i:                                     ; preds = %land.lhs.true177.i
-  %83 = load ptr, ptr @input, align 8, !tbaa !5
-  %ReconFile183.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 27
+  %82 = load ptr, ptr @input, align 8, !tbaa !5
+  %ReconFile183.i = getelementptr inbounds %struct.InputParameters, ptr %82, i64 0, i32 27
   %call185.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.263, ptr noundef nonnull %ReconFile183.i) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
   br label %if.end186.i
 
 if.end186.i:                                      ; preds = %if.then182.i, %land.lhs.true177.i, %if.end173.i
-  %84 = load ptr, ptr @input, align 8, !tbaa !5
-  %img_width.i = getelementptr inbounds %struct.InputParameters, ptr %84, i64 0, i32 14
-  %85 = load i32, ptr %img_width.i, align 8, !tbaa !46
-  %rem.i = srem i32 %85, 16
+  %83 = load ptr, ptr @input, align 8, !tbaa !5
+  %img_width.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 14
+  %84 = load i32, ptr %img_width.i, align 8, !tbaa !46
+  %rem.i = srem i32 %84, 16
   %cmp187.not.i = icmp eq i32 %rem.i, 0
   %sub191.i = sub nsw i32 16, %rem.i
   %.sink.i = select i1 %cmp187.not.i, i32 0, i32 %sub191.i
-  %86 = load ptr, ptr @img, align 8, !tbaa !5
-  %auto_crop_right193.i = getelementptr inbounds %struct.ImageParameters, ptr %86, i64 0, i32 166
+  %85 = load ptr, ptr @img, align 8, !tbaa !5
+  %auto_crop_right193.i = getelementptr inbounds %struct.ImageParameters, ptr %85, i64 0, i32 166
   store i32 %.sink.i, ptr %auto_crop_right193.i, align 8, !tbaa !47
-  %PicInterlace195.i = getelementptr inbounds %struct.InputParameters, ptr %84, i64 0, i32 121
-  %87 = load i32, ptr %PicInterlace195.i, align 8, !tbaa !41
-  %tobool196.not.i = icmp eq i32 %87, 0
+  %PicInterlace195.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 121
+  %86 = load i32, ptr %PicInterlace195.i, align 8, !tbaa !41
+  %tobool196.not.i = icmp eq i32 %86, 0
   br i1 %tobool196.not.i, label %lor.lhs.false197.i, label %if.then200.i
 
 lor.lhs.false197.i:                               ; preds = %if.end186.i
-  %MbInterlace198.i = getelementptr inbounds %struct.InputParameters, ptr %84, i64 0, i32 122
-  %88 = load i32, ptr %MbInterlace198.i, align 4, !tbaa !42
-  %tobool199.not.i = icmp eq i32 %88, 0
+  %MbInterlace198.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 122
+  %87 = load i32, ptr %MbInterlace198.i, align 4, !tbaa !42
+  %tobool199.not.i = icmp eq i32 %87, 0
   br i1 %tobool199.not.i, label %if.else215.i, label %if.then200.i
 
 if.then200.i:                                     ; preds = %lor.lhs.false197.i, %if.end186.i
-  %img_height.i = getelementptr inbounds %struct.InputParameters, ptr %84, i64 0, i32 15
-  %89 = load i32, ptr %img_height.i, align 4, !tbaa !51
-  %90 = and i32 %89, 1
-  %cmp202.not.i = icmp eq i32 %90, 0
+  %img_height.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 15
+  %88 = load i32, ptr %img_height.i, align 4, !tbaa !51
+  %89 = and i32 %88, 1
+  %cmp202.not.i = icmp eq i32 %89, 0
   br i1 %cmp202.not.i, label %if.end204.i, label %if.then203.i
 
 if.then203.i:                                     ; preds = %if.then200.i
   tail call void @error(ptr noundef nonnull @.str.264, i32 noundef 500) #21
-  %.pre895.i = load ptr, ptr @input, align 8, !tbaa !5
-  %img_height205.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre895.i, i64 0, i32 15
-  %.pre896.i = load i32, ptr %img_height205.phi.trans.insert.i, align 4, !tbaa !51
+  %.pre890.i = load ptr, ptr @input, align 8, !tbaa !5
+  %img_height205.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre890.i, i64 0, i32 15
+  %.pre891.i = load i32, ptr %img_height205.phi.trans.insert.i, align 4, !tbaa !51
   br label %if.end204.i
 
 if.end204.i:                                      ; preds = %if.then203.i, %if.then200.i
-  %91 = phi i32 [ %.pre896.i, %if.then203.i ], [ %89, %if.then200.i ]
-  %92 = phi ptr [ %.pre895.i, %if.then203.i ], [ %84, %if.then200.i ]
-  %rem206.i = srem i32 %91, 32
+  %90 = phi i32 [ %.pre891.i, %if.then203.i ], [ %88, %if.then200.i ]
+  %91 = phi ptr [ %.pre890.i, %if.then203.i ], [ %83, %if.then200.i ]
+  %rem206.i = srem i32 %90, 32
   %cmp207.not.i = icmp eq i32 %rem206.i, 0
   br i1 %cmp207.not.i, label %if.else212.i, label %if.then208.i
 
 if.then208.i:                                     ; preds = %if.end204.i
   %sub211.i = sub nsw i32 32, %rem206.i
-  %93 = load ptr, ptr @img, align 8, !tbaa !5
-  %auto_crop_right235.phi.trans.insert.i.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %93, i64 0, i32 166
-  %.pre897.i.pre = load i32, ptr %auto_crop_right235.phi.trans.insert.i.phi.trans.insert, align 8, !tbaa !47
+  %92 = load ptr, ptr @img, align 8, !tbaa !5
+  %auto_crop_right235.phi.trans.insert.i.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %92, i64 0, i32 166
+  %.pre892.i.pre = load i32, ptr %auto_crop_right235.phi.trans.insert.i.phi.trans.insert, align 8, !tbaa !47
   br label %if.end227.if.then233_crit_edge.i
 
 if.else212.i:                                     ; preds = %if.end204.i
-  %94 = load ptr, ptr @img, align 8, !tbaa !5
-  %auto_crop_right231.i.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %94, i64 0, i32 166
+  %93 = load ptr, ptr @img, align 8, !tbaa !5
+  %auto_crop_right231.i.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %93, i64 0, i32 166
   %.pre = load i32, ptr %auto_crop_right231.i.phi.trans.insert, align 8, !tbaa !47
   br label %lor.lhs.false230.i
 
 if.else215.i:                                     ; preds = %lor.lhs.false197.i
-  %img_height216.i = getelementptr inbounds %struct.InputParameters, ptr %84, i64 0, i32 15
-  %95 = load i32, ptr %img_height216.i, align 4, !tbaa !51
-  %rem217.i = srem i32 %95, 16
+  %img_height216.i = getelementptr inbounds %struct.InputParameters, ptr %83, i64 0, i32 15
+  %94 = load i32, ptr %img_height216.i, align 4, !tbaa !51
+  %rem217.i = srem i32 %94, 16
   %cmp218.not.i = icmp eq i32 %rem217.i, 0
   br i1 %cmp218.not.i, label %lor.lhs.false230.i, label %if.then219.i
 
@@ -1214,261 +1215,261 @@ if.then219.i:                                     ; preds = %if.else215.i
   br label %if.end227.if.then233_crit_edge.i
 
 if.end227.if.then233_crit_edge.i:                 ; preds = %if.then219.i, %if.then208.i
-  %.pre897.i = phi i32 [ %.pre897.i.pre, %if.then208.i ], [ %.sink.i, %if.then219.i ]
-  %.sink968.i = phi ptr [ %93, %if.then208.i ], [ %86, %if.then219.i ]
+  %.pre892.i = phi i32 [ %.pre892.i.pre, %if.then208.i ], [ %.sink.i, %if.then219.i ]
+  %.sink968.i = phi ptr [ %92, %if.then208.i ], [ %85, %if.then219.i ]
   %sub211.sink.i = phi i32 [ %sub211.i, %if.then208.i ], [ %sub222.i, %if.then219.i ]
-  %96 = phi i32 [ %91, %if.then208.i ], [ %95, %if.then219.i ]
-  %97 = phi ptr [ %92, %if.then208.i ], [ %84, %if.then219.i ]
+  %95 = phi i32 [ %90, %if.then208.i ], [ %94, %if.then219.i ]
+  %96 = phi ptr [ %91, %if.then208.i ], [ %83, %if.then219.i ]
   %auto_crop_bottom.i = getelementptr inbounds %struct.ImageParameters, ptr %.sink968.i, i64 0, i32 167
   store i32 %sub211.sink.i, ptr %auto_crop_bottom.i, align 4, !tbaa !52
   br label %if.then233.i
 
 lor.lhs.false230.i:                               ; preds = %if.else215.i, %if.else212.i
-  %98 = phi i32 [ %.pre, %if.else212.i ], [ %.sink.i, %if.else215.i ]
-  %.sink969.i = phi ptr [ %94, %if.else212.i ], [ %86, %if.else215.i ]
-  %.ph.i = phi i32 [ %91, %if.else212.i ], [ %95, %if.else215.i ]
-  %.ph949.i = phi ptr [ %92, %if.else212.i ], [ %84, %if.else215.i ]
+  %97 = phi i32 [ %.pre, %if.else212.i ], [ %.sink.i, %if.else215.i ]
+  %.sink969.i = phi ptr [ %93, %if.else212.i ], [ %85, %if.else215.i ]
+  %.ph.i = phi i32 [ %90, %if.else212.i ], [ %94, %if.else215.i ]
+  %.ph949.i = phi ptr [ %91, %if.else212.i ], [ %83, %if.else215.i ]
   %auto_crop_bottom225.i = getelementptr inbounds %struct.ImageParameters, ptr %.sink969.i, i64 0, i32 167
   store i32 0, ptr %auto_crop_bottom225.i, align 4, !tbaa !52
-  %tobool232.not.i = icmp eq i32 %98, 0
+  %tobool232.not.i = icmp eq i32 %97, 0
   br i1 %tobool232.not.i, label %if.end241.i, label %if.then233.i
 
 if.then233.i:                                     ; preds = %lor.lhs.false230.i, %if.end227.if.then233_crit_edge.i
-  %99 = phi i32 [ %sub211.sink.i, %if.end227.if.then233_crit_edge.i ], [ 0, %lor.lhs.false230.i ]
-  %100 = phi ptr [ %97, %if.end227.if.then233_crit_edge.i ], [ %.ph949.i, %lor.lhs.false230.i ]
-  %101 = phi i32 [ %96, %if.end227.if.then233_crit_edge.i ], [ %.ph.i, %lor.lhs.false230.i ]
-  %102 = phi i32 [ %.pre897.i, %if.end227.if.then233_crit_edge.i ], [ %98, %lor.lhs.false230.i ]
-  %103 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %img_width234.i = getelementptr inbounds %struct.InputParameters, ptr %100, i64 0, i32 14
-  %104 = load i32, ptr %img_width234.i, align 8, !tbaa !46
-  %add236.i = add nsw i32 %104, %102
-  %add239.i = add nsw i32 %101, %99
-  %call240.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %103, ptr noundef nonnull @.str.265, i32 noundef %add236.i, i32 noundef %add239.i) #18
-  %.pre898.i = load ptr, ptr @input, align 8, !tbaa !5
+  %98 = phi i32 [ %sub211.sink.i, %if.end227.if.then233_crit_edge.i ], [ 0, %lor.lhs.false230.i ]
+  %99 = phi ptr [ %96, %if.end227.if.then233_crit_edge.i ], [ %.ph949.i, %lor.lhs.false230.i ]
+  %100 = phi i32 [ %95, %if.end227.if.then233_crit_edge.i ], [ %.ph.i, %lor.lhs.false230.i ]
+  %101 = phi i32 [ %.pre892.i, %if.end227.if.then233_crit_edge.i ], [ %97, %lor.lhs.false230.i ]
+  %102 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %img_width234.i = getelementptr inbounds %struct.InputParameters, ptr %99, i64 0, i32 14
+  %103 = load i32, ptr %img_width234.i, align 8, !tbaa !46
+  %add236.i = add nsw i32 %103, %101
+  %add239.i = add nsw i32 %100, %98
+  %call240.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %102, ptr noundef nonnull @.str.265, i32 noundef %add236.i, i32 noundef %add239.i) #18
+  %.pre893.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end241.i
 
 if.end241.i:                                      ; preds = %if.then233.i, %lor.lhs.false230.i
-  %105 = phi ptr [ %.pre898.i, %if.then233.i ], [ %.ph949.i, %lor.lhs.false230.i ]
-  %slice_mode.i = getelementptr inbounds %struct.InputParameters, ptr %105, i64 0, i32 21
-  %106 = load i32, ptr %slice_mode.i, align 8, !tbaa !53
-  %cmp242.i = icmp eq i32 %106, 1
+  %104 = phi ptr [ %.pre893.i, %if.then233.i ], [ %.ph949.i, %lor.lhs.false230.i ]
+  %slice_mode.i = getelementptr inbounds %struct.InputParameters, ptr %104, i64 0, i32 21
+  %105 = load i32, ptr %slice_mode.i, align 8, !tbaa !53
+  %cmp242.i = icmp eq i32 %105, 1
   br i1 %cmp242.i, label %land.lhs.true243.i, label %if.end262.i
 
 land.lhs.true243.i:                               ; preds = %if.end241.i
-  %MbInterlace244.i = getelementptr inbounds %struct.InputParameters, ptr %105, i64 0, i32 122
-  %107 = load i32, ptr %MbInterlace244.i, align 4, !tbaa !42
-  %cmp245.not.i = icmp eq i32 %107, 0
+  %MbInterlace244.i = getelementptr inbounds %struct.InputParameters, ptr %104, i64 0, i32 122
+  %106 = load i32, ptr %MbInterlace244.i, align 4, !tbaa !42
+  %cmp245.not.i = icmp eq i32 %106, 0
   br i1 %cmp245.not.i, label %if.end262.i, label %if.then246.i
 
 if.then246.i:                                     ; preds = %land.lhs.true243.i
-  %slice_argument.i = getelementptr inbounds %struct.InputParameters, ptr %105, i64 0, i32 22
-  %108 = load i32, ptr %slice_argument.i, align 4, !tbaa !54
-  %109 = and i32 %108, 1
-  %cmp248.not.i = icmp eq i32 %109, 0
+  %slice_argument.i = getelementptr inbounds %struct.InputParameters, ptr %104, i64 0, i32 22
+  %107 = load i32, ptr %slice_argument.i, align 4, !tbaa !54
+  %108 = and i32 %107, 1
+  %cmp248.not.i = icmp eq i32 %108, 0
   br i1 %cmp248.not.i, label %if.end262.i, label %if.then249.i
 
 if.then249.i:                                     ; preds = %if.then246.i
-  %110 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %111 = tail call i64 @fwrite(ptr nonnull @.str.266, i64 46, i64 1, ptr %110) #18
-  %112 = load ptr, ptr @input, align 8, !tbaa !5
-  %slice_argument251.i = getelementptr inbounds %struct.InputParameters, ptr %112, i64 0, i32 22
-  %113 = load i32, ptr %slice_argument251.i, align 4, !tbaa !54
-  %cmp252.i = icmp sgt i32 %113, 1
-  %storemerge823.v.i = select i1 %cmp252.i, i32 -1, i32 1
-  %storemerge823.i = add nsw i32 %storemerge823.v.i, %113
-  store i32 %storemerge823.i, ptr %slice_argument251.i, align 4, !tbaa !54
-  %114 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call260.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %114, ptr noundef nonnull @.str.267, i32 noundef %storemerge823.i) #18
-  %.pre899.i = load ptr, ptr @input, align 8, !tbaa !5
+  %109 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %110 = tail call i64 @fwrite(ptr nonnull @.str.266, i64 46, i64 1, ptr %109) #18
+  %111 = load ptr, ptr @input, align 8, !tbaa !5
+  %slice_argument251.i = getelementptr inbounds %struct.InputParameters, ptr %111, i64 0, i32 22
+  %112 = load i32, ptr %slice_argument251.i, align 4, !tbaa !54
+  %cmp252.i = icmp sgt i32 %112, 1
+  %storemerge847.v.i = select i1 %cmp252.i, i32 -1, i32 1
+  %storemerge847.i = add nsw i32 %storemerge847.v.i, %112
+  store i32 %storemerge847.i, ptr %slice_argument251.i, align 4, !tbaa !54
+  %113 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call260.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %113, ptr noundef nonnull @.str.267, i32 noundef %storemerge847.i) #18
+  %.pre894.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end262.i
 
 if.end262.i:                                      ; preds = %if.then249.i, %if.then246.i, %land.lhs.true243.i, %if.end241.i
-  %115 = phi ptr [ %105, %if.then246.i ], [ %.pre899.i, %if.then249.i ], [ %105, %land.lhs.true243.i ], [ %105, %if.end241.i ]
-  %num_slice_groups_minus1.i = getelementptr inbounds %struct.InputParameters, ptr %115, i64 0, i32 140
-  %116 = load i32, ptr %num_slice_groups_minus1.i, align 8, !tbaa !55
-  %cmp263.not.i = icmp eq i32 %116, 0
+  %114 = phi ptr [ %104, %if.then246.i ], [ %.pre894.i, %if.then249.i ], [ %104, %land.lhs.true243.i ], [ %104, %if.end241.i ]
+  %num_slice_groups_minus1.i = getelementptr inbounds %struct.InputParameters, ptr %114, i64 0, i32 140
+  %115 = load i32, ptr %num_slice_groups_minus1.i, align 8, !tbaa !55
+  %cmp263.not.i = icmp eq i32 %115, 0
   br i1 %cmp263.not.i, label %if.end408.i, label %land.lhs.true264.i
 
 land.lhs.true264.i:                               ; preds = %if.end262.i
-  %slice_group_map_type.i = getelementptr inbounds %struct.InputParameters, ptr %115, i64 0, i32 141
-  %117 = load i32, ptr %slice_group_map_type.i, align 4, !tbaa !56
-  switch i32 %117, label %if.end408.i [
+  %slice_group_map_type.i = getelementptr inbounds %struct.InputParameters, ptr %114, i64 0, i32 141
+  %116 = load i32, ptr %slice_group_map_type.i, align 4, !tbaa !56
+  switch i32 %116, label %if.end408.i [
     i32 0, label %if.then272.i
     i32 2, label %if.then272.i
     i32 6, label %if.then272.i
   ]
 
 if.then272.i:                                     ; preds = %land.lhs.true264.i, %land.lhs.true264.i, %land.lhs.true264.i
-  %SliceGroupConfigFileName.i = getelementptr inbounds %struct.InputParameters, ptr %115, i64 0, i32 139
-  %char0822.i = load i8, ptr %SliceGroupConfigFileName.i, align 1
-  %cmp275.not.i = icmp eq i8 %char0822.i, 0
+  %SliceGroupConfigFileName.i = getelementptr inbounds %struct.InputParameters, ptr %114, i64 0, i32 139
+  %char0846.i = load i8, ptr %SliceGroupConfigFileName.i, align 1
+  %cmp275.not.i = icmp eq i8 %char0846.i, 0
   br i1 %cmp275.not.i, label %if.else285.i, label %land.lhs.true276.i
 
 land.lhs.true276.i:                               ; preds = %if.then272.i
   %call279.i = tail call noalias ptr @fopen64(ptr noundef nonnull %SliceGroupConfigFileName.i, ptr noundef nonnull @.str.237)
   %cmp280.i = icmp eq ptr %call279.i, null
-  %118 = load ptr, ptr @input, align 8, !tbaa !5
+  %117 = load ptr, ptr @input, align 8, !tbaa !5
   br i1 %cmp280.i, label %if.then281.i, label %land.lhs.true276.if.else285_crit_edge.i
 
 land.lhs.true276.if.else285_crit_edge.i:          ; preds = %land.lhs.true276.i
-  %slice_group_map_type286.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %118, i64 0, i32 141
-  %.pre901.i = load i32, ptr %slice_group_map_type286.phi.trans.insert.i, align 4, !tbaa !56
+  %slice_group_map_type286.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %117, i64 0, i32 141
+  %.pre896.i = load i32, ptr %slice_group_map_type286.phi.trans.insert.i, align 4, !tbaa !56
   br label %if.else285.i
 
 if.then281.i:                                     ; preds = %land.lhs.true276.i
-  %SliceGroupConfigFileName282.i = getelementptr inbounds %struct.InputParameters, ptr %118, i64 0, i32 139
+  %SliceGroupConfigFileName282.i = getelementptr inbounds %struct.InputParameters, ptr %117, i64 0, i32 139
   %call284.i = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.263, ptr noundef nonnull %SliceGroupConfigFileName282.i) #21
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
   br label %if.end408.i
 
 if.else285.i:                                     ; preds = %land.lhs.true276.if.else285_crit_edge.i, %if.then272.i
-  %119 = phi i32 [ %.pre901.i, %land.lhs.true276.if.else285_crit_edge.i ], [ %117, %if.then272.i ]
-  %120 = phi ptr [ %118, %land.lhs.true276.if.else285_crit_edge.i ], [ %115, %if.then272.i ]
+  %118 = phi i32 [ %.pre896.i, %land.lhs.true276.if.else285_crit_edge.i ], [ %116, %if.then272.i ]
+  %119 = phi ptr [ %117, %land.lhs.true276.if.else285_crit_edge.i ], [ %114, %if.then272.i ]
   %sgfile.0.i = phi ptr [ %call279.i, %land.lhs.true276.if.else285_crit_edge.i ], [ null, %if.then272.i ]
-  switch i32 %119, label %if.end405.i [
+  switch i32 %118, label %if.end405.i [
     i32 0, label %if.then288.i
     i32 2, label %if.then313.i
     i32 6, label %if.then354.i
   ]
 
 if.then288.i:                                     ; preds = %if.else285.i
-  %num_slice_groups_minus1289.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 140
-  %121 = load i32, ptr %num_slice_groups_minus1289.i, align 8, !tbaa !55
-  %add290.i = add nsw i32 %121, 1
-  %conv.i193 = sext i32 %add290.i to i64
-  %mul291.i = shl nsw i64 %conv.i193, 2
+  %num_slice_groups_minus1289.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 140
+  %120 = load i32, ptr %num_slice_groups_minus1289.i, align 8, !tbaa !55
+  %add290.i = add nsw i32 %120, 1
+  %conv.i189 = sext i32 %add290.i to i64
+  %mul291.i = shl nsw i64 %conv.i189, 2
   %call292.i = tail call noalias ptr @malloc(i64 noundef %mul291.i) #22
-  %run_length_minus1.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 145
+  %run_length_minus1.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 145
   store ptr %call292.i, ptr %run_length_minus1.i, align 8, !tbaa !57
   %cmp294.i = icmp eq ptr %call292.i, null
   br i1 %cmp294.i, label %if.then296.i, label %if.end297.i
 
 if.then296.i:                                     ; preds = %if.then288.i
   tail call void @no_mem_exit(ptr noundef nonnull @.str.268) #21
-  %.pre905.i = load ptr, ptr @input, align 8, !tbaa !5
-  %num_slice_groups_minus1299870.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre905.i, i64 0, i32 140
-  %.pre906.i = load i32, ptr %num_slice_groups_minus1299870.phi.trans.insert.i, align 8, !tbaa !55
+  %.pre900.i = load ptr, ptr @input, align 8, !tbaa !5
+  %num_slice_groups_minus1299864.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre900.i, i64 0, i32 140
+  %.pre901.i = load i32, ptr %num_slice_groups_minus1299864.phi.trans.insert.i, align 8, !tbaa !55
   br label %if.end297.i
 
 if.end297.i:                                      ; preds = %if.then296.i, %if.then288.i
-  %122 = phi i32 [ %.pre906.i, %if.then296.i ], [ %121, %if.then288.i ]
-  %123 = phi ptr [ %.pre905.i, %if.then296.i ], [ %120, %if.then288.i ]
-  %cmp300.not871.i = icmp slt i32 %122, 0
-  br i1 %cmp300.not871.i, label %if.end405.i, label %for.body302.i
+  %121 = phi i32 [ %.pre901.i, %if.then296.i ], [ %120, %if.then288.i ]
+  %122 = phi ptr [ %.pre900.i, %if.then296.i ], [ %119, %if.then288.i ]
+  %cmp300.not865.i = icmp slt i32 %121, 0
+  br i1 %cmp300.not865.i, label %if.end405.i, label %for.body302.i
 
 for.body302.i:                                    ; preds = %if.end297.i, %for.body302.i
-  %indvars.iv883.i = phi i64 [ %indvars.iv.next884.i, %for.body302.i ], [ 0, %if.end297.i ]
-  %124 = phi ptr [ %126, %for.body302.i ], [ %123, %if.end297.i ]
-  %run_length_minus1303.i = getelementptr inbounds %struct.InputParameters, ptr %124, i64 0, i32 145
-  %125 = load ptr, ptr %run_length_minus1303.i, align 8, !tbaa !57
-  %add.ptr.i194 = getelementptr inbounds i32, ptr %125, i64 %indvars.iv883.i
-  %call304.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.245, ptr noundef %add.ptr.i194) #21
+  %indvars.iv877.i = phi i64 [ %indvars.iv.next878.i, %for.body302.i ], [ 0, %if.end297.i ]
+  %123 = phi ptr [ %125, %for.body302.i ], [ %122, %if.end297.i ]
+  %run_length_minus1303.i = getelementptr inbounds %struct.InputParameters, ptr %123, i64 0, i32 145
+  %124 = load ptr, ptr %run_length_minus1303.i, align 8, !tbaa !57
+  %add.ptr.i190 = getelementptr inbounds i32, ptr %124, i64 %indvars.iv877.i
+  %call304.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.245, ptr noundef %add.ptr.i190) #21
   %call305.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.269) #21
-  %indvars.iv.next884.i = add nuw nsw i64 %indvars.iv883.i, 1
-  %126 = load ptr, ptr @input, align 8, !tbaa !5
-  %num_slice_groups_minus1299.i = getelementptr inbounds %struct.InputParameters, ptr %126, i64 0, i32 140
-  %127 = load i32, ptr %num_slice_groups_minus1299.i, align 8, !tbaa !55
-  %128 = sext i32 %127 to i64
-  %cmp300.not.not.i = icmp slt i64 %indvars.iv883.i, %128
+  %indvars.iv.next878.i = add nuw nsw i64 %indvars.iv877.i, 1
+  %125 = load ptr, ptr @input, align 8, !tbaa !5
+  %num_slice_groups_minus1299.i = getelementptr inbounds %struct.InputParameters, ptr %125, i64 0, i32 140
+  %126 = load i32, ptr %num_slice_groups_minus1299.i, align 8, !tbaa !55
+  %127 = sext i32 %126 to i64
+  %cmp300.not.not.i = icmp slt i64 %indvars.iv877.i, %127
   br i1 %cmp300.not.not.i, label %for.body302.i, label %if.end405.i, !llvm.loop !58
 
 if.then313.i:                                     ; preds = %if.else285.i
-  %num_slice_groups_minus1314.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 140
-  %129 = load i32, ptr %num_slice_groups_minus1314.i, align 8, !tbaa !55
-  %conv315.i = sext i32 %129 to i64
+  %num_slice_groups_minus1314.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 140
+  %128 = load i32, ptr %num_slice_groups_minus1314.i, align 8, !tbaa !55
+  %conv315.i = sext i32 %128 to i64
   %mul316.i = shl nsw i64 %conv315.i, 2
   %call317.i = tail call noalias ptr @malloc(i64 noundef %mul316.i) #22
-  %top_left.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 142
+  %top_left.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 142
   store ptr %call317.i, ptr %top_left.i, align 8, !tbaa !59
   %call321.i = tail call noalias ptr @malloc(i64 noundef %mul316.i) #22
-  %bottom_right.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 143
+  %bottom_right.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 143
   store ptr %call321.i, ptr %bottom_right.i, align 8, !tbaa !60
   %cmp323.i = icmp eq ptr %call317.i, null
   br i1 %cmp323.i, label %if.then325.i, label %if.end326.i
 
 if.then325.i:                                     ; preds = %if.then313.i
   tail call void @no_mem_exit(ptr noundef nonnull @.str.270) #21
-  %.pre902.i = load ptr, ptr @input, align 8, !tbaa !5
-  %bottom_right327.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre902.i, i64 0, i32 143
-  %.pre903.i = load ptr, ptr %bottom_right327.phi.trans.insert.i, align 8, !tbaa !60
+  %.pre897.i = load ptr, ptr @input, align 8, !tbaa !5
+  %bottom_right327.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre897.i, i64 0, i32 143
+  %.pre898.i = load ptr, ptr %bottom_right327.phi.trans.insert.i, align 8, !tbaa !60
   br label %if.end326.i
 
 if.end326.i:                                      ; preds = %if.then325.i, %if.then313.i
-  %130 = phi ptr [ %.pre903.i, %if.then325.i ], [ %call321.i, %if.then313.i ]
-  %131 = phi ptr [ %.pre902.i, %if.then325.i ], [ %120, %if.then313.i ]
-  %cmp328.i = icmp eq ptr %130, null
+  %129 = phi ptr [ %.pre898.i, %if.then325.i ], [ %call321.i, %if.then313.i ]
+  %130 = phi ptr [ %.pre897.i, %if.then325.i ], [ %119, %if.then313.i ]
+  %cmp328.i = icmp eq ptr %129, null
   br i1 %cmp328.i, label %if.then330.i, label %if.end331.i
 
 if.then330.i:                                     ; preds = %if.end326.i
   tail call void @no_mem_exit(ptr noundef nonnull @.str.271) #21
-  %.pre904.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre899.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end331.i
 
 if.end331.i:                                      ; preds = %if.then330.i, %if.end326.i
-  %132 = phi ptr [ %.pre904.i, %if.then330.i ], [ %131, %if.end326.i ]
-  %num_slice_groups_minus1333867.i = getelementptr inbounds %struct.InputParameters, ptr %132, i64 0, i32 140
-  %133 = load i32, ptr %num_slice_groups_minus1333867.i, align 8, !tbaa !55
-  %cmp334868.i = icmp sgt i32 %133, 0
-  br i1 %cmp334868.i, label %for.body336.i, label %if.end405.i
+  %131 = phi ptr [ %.pre899.i, %if.then330.i ], [ %130, %if.end326.i ]
+  %num_slice_groups_minus1333861.i = getelementptr inbounds %struct.InputParameters, ptr %131, i64 0, i32 140
+  %132 = load i32, ptr %num_slice_groups_minus1333861.i, align 8, !tbaa !55
+  %cmp334862.i = icmp sgt i32 %132, 0
+  br i1 %cmp334862.i, label %for.body336.i, label %if.end405.i
 
 for.body336.i:                                    ; preds = %if.end331.i, %for.body336.i
-  %indvars.iv880.i = phi i64 [ %indvars.iv.next881.i, %for.body336.i ], [ 0, %if.end331.i ]
-  %134 = phi ptr [ %138, %for.body336.i ], [ %132, %if.end331.i ]
-  %top_left337.i = getelementptr inbounds %struct.InputParameters, ptr %134, i64 0, i32 142
-  %135 = load ptr, ptr %top_left337.i, align 8, !tbaa !59
-  %add.ptr339.i = getelementptr inbounds i32, ptr %135, i64 %indvars.iv880.i
+  %indvars.iv874.i = phi i64 [ %indvars.iv.next875.i, %for.body336.i ], [ 0, %if.end331.i ]
+  %133 = phi ptr [ %137, %for.body336.i ], [ %131, %if.end331.i ]
+  %top_left337.i = getelementptr inbounds %struct.InputParameters, ptr %133, i64 0, i32 142
+  %134 = load ptr, ptr %top_left337.i, align 8, !tbaa !59
+  %add.ptr339.i = getelementptr inbounds i32, ptr %134, i64 %indvars.iv874.i
   %call340.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.245, ptr noundef %add.ptr339.i) #21
   %call341.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.269) #21
-  %136 = load ptr, ptr @input, align 8, !tbaa !5
-  %bottom_right342.i = getelementptr inbounds %struct.InputParameters, ptr %136, i64 0, i32 143
-  %137 = load ptr, ptr %bottom_right342.i, align 8, !tbaa !60
-  %add.ptr344.i = getelementptr inbounds i32, ptr %137, i64 %indvars.iv880.i
+  %135 = load ptr, ptr @input, align 8, !tbaa !5
+  %bottom_right342.i = getelementptr inbounds %struct.InputParameters, ptr %135, i64 0, i32 143
+  %136 = load ptr, ptr %bottom_right342.i, align 8, !tbaa !60
+  %add.ptr344.i = getelementptr inbounds i32, ptr %136, i64 %indvars.iv874.i
   %call345.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.245, ptr noundef %add.ptr344.i) #21
   %call346.i = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.269) #21
-  %indvars.iv.next881.i = add nuw nsw i64 %indvars.iv880.i, 1
-  %138 = load ptr, ptr @input, align 8, !tbaa !5
-  %num_slice_groups_minus1333.i = getelementptr inbounds %struct.InputParameters, ptr %138, i64 0, i32 140
-  %139 = load i32, ptr %num_slice_groups_minus1333.i, align 8, !tbaa !55
-  %140 = sext i32 %139 to i64
-  %cmp334.i = icmp slt i64 %indvars.iv.next881.i, %140
+  %indvars.iv.next875.i = add nuw nsw i64 %indvars.iv874.i, 1
+  %137 = load ptr, ptr @input, align 8, !tbaa !5
+  %num_slice_groups_minus1333.i = getelementptr inbounds %struct.InputParameters, ptr %137, i64 0, i32 140
+  %138 = load i32, ptr %num_slice_groups_minus1333.i, align 8, !tbaa !55
+  %139 = sext i32 %138 to i64
+  %cmp334.i = icmp slt i64 %indvars.iv.next875.i, %139
   br i1 %cmp334.i, label %for.body336.i, label %if.end405.i, !llvm.loop !61
 
 if.then354.i:                                     ; preds = %if.else285.i
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %tmp.i) #21
-  %PicInterlace355.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 121
-  %141 = load i32, ptr %PicInterlace355.i, align 8, !tbaa !41
-  %tobool356.not.i = icmp eq i32 %141, 0
+  %PicInterlace355.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 121
+  %140 = load i32, ptr %PicInterlace355.i, align 8, !tbaa !41
+  %tobool356.not.i = icmp eq i32 %140, 0
   br i1 %tobool356.not.i, label %lor.rhs.i, label %lor.end.i
 
 lor.rhs.i:                                        ; preds = %if.then354.i
-  %MbInterlace357.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 122
-  %142 = load i32, ptr %MbInterlace357.i, align 4, !tbaa !42
-  %tobool358.i = icmp ne i32 %142, 0
+  %MbInterlace357.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 122
+  %141 = load i32, ptr %MbInterlace357.i, align 4, !tbaa !42
+  %tobool358.i = icmp ne i32 %141, 0
   br label %lor.end.i
 
 lor.end.i:                                        ; preds = %lor.rhs.i, %if.then354.i
-  %143 = phi i1 [ true, %if.then354.i ], [ %tobool358.i, %lor.rhs.i ]
-  %img_width359.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 14
-  %144 = load i32, ptr %img_width359.i, align 8, !tbaa !46
-  %145 = load ptr, ptr @img, align 8, !tbaa !5
-  %auto_crop_right360.i = getelementptr inbounds %struct.ImageParameters, ptr %145, i64 0, i32 166
-  %146 = load i32, ptr %auto_crop_right360.i, align 8, !tbaa !47
-  %add361.i = add nsw i32 %146, %144
+  %142 = phi i1 [ true, %if.then354.i ], [ %tobool358.i, %lor.rhs.i ]
+  %img_width359.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 14
+  %143 = load i32, ptr %img_width359.i, align 8, !tbaa !46
+  %144 = load ptr, ptr @img, align 8, !tbaa !5
+  %auto_crop_right360.i = getelementptr inbounds %struct.ImageParameters, ptr %144, i64 0, i32 166
+  %145 = load i32, ptr %auto_crop_right360.i, align 8, !tbaa !47
+  %add361.i = add nsw i32 %145, %143
   %shr.i = ashr i32 %add361.i, 4
-  %img_height362.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 15
-  %147 = load i32, ptr %img_height362.i, align 4, !tbaa !51
-  %auto_crop_bottom363.i = getelementptr inbounds %struct.ImageParameters, ptr %145, i64 0, i32 167
-  %148 = load i32, ptr %auto_crop_bottom363.i, align 4, !tbaa !52
-  %add364.i = add nsw i32 %148, %147
+  %img_height362.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 15
+  %146 = load i32, ptr %img_height362.i, align 4, !tbaa !51
+  %auto_crop_bottom363.i = getelementptr inbounds %struct.ImageParameters, ptr %144, i64 0, i32 167
+  %147 = load i32, ptr %auto_crop_bottom363.i, align 4, !tbaa !52
+  %add364.i = add nsw i32 %147, %146
   %shr365.i = ashr i32 %add364.i, 4
-  %cond.fr.i = freeze i1 %143
+  %cond.fr.i = freeze i1 %142
   %spec.select.i = select i1 %cond.fr.i, i32 2, i32 1
   %div.i = sdiv i32 %shr365.i, %spec.select.i
   %conv367.i = sext i32 %div.i to i64
   %conv369.i = sext i32 %shr.i to i64
   %mul370.i = mul nsw i64 %conv367.i, %conv369.i
   %call371.i = tail call noalias ptr @malloc(i64 noundef %mul370.i) #22
-  %slice_group_id.i = getelementptr inbounds %struct.InputParameters, ptr %120, i64 0, i32 144
+  %slice_group_id.i = getelementptr inbounds %struct.InputParameters, ptr %119, i64 0, i32 144
   store ptr %call371.i, ptr %slice_group_id.i, align 8, !tbaa !62
   %cmp373.i = icmp eq ptr %call371.i, null
   br i1 %cmp373.i, label %if.then375.i, label %if.end376.i
@@ -1479,44 +1480,44 @@ if.then375.i:                                     ; preds = %lor.end.i
 
 if.end376.i:                                      ; preds = %if.then375.i, %lor.end.i
   %mul378.i = mul nsw i32 %div.i, %shr.i
-  %cmp379865.i = icmp sgt i32 %mul378.i, 0
-  br i1 %cmp379865.i, label %for.body381.preheader.i, label %for.end402.i
+  %cmp379859.i = icmp sgt i32 %mul378.i, 0
+  br i1 %cmp379859.i, label %for.body381.preheader.i, label %for.end402.i
 
 for.body381.preheader.i:                          ; preds = %if.end376.i
   %wide.trip.count.i = zext i32 %mul378.i to i64
   br label %for.body381.i
 
 for.body381.i:                                    ; preds = %if.end398.i, %for.body381.preheader.i
-  %indvars.iv.i195 = phi i64 [ 0, %for.body381.preheader.i ], [ %indvars.iv.next.i196, %if.end398.i ]
+  %indvars.iv.i191 = phi i64 [ 0, %for.body381.preheader.i ], [ %indvars.iv.next.i192, %if.end398.i ]
   %call382.i = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.245, ptr noundef nonnull %tmp.i) #21
-  %149 = load i32, ptr %tmp.i, align 4, !tbaa !16
-  %conv383.i = trunc i32 %149 to i8
-  %150 = load ptr, ptr @input, align 8, !tbaa !5
-  %slice_group_id384.i = getelementptr inbounds %struct.InputParameters, ptr %150, i64 0, i32 144
-  %151 = load ptr, ptr %slice_group_id384.i, align 8, !tbaa !62
-  %arrayidx386.i = getelementptr inbounds i8, ptr %151, i64 %indvars.iv.i195
+  %148 = load i32, ptr %tmp.i, align 4, !tbaa !16
+  %conv383.i = trunc i32 %148 to i8
+  %149 = load ptr, ptr @input, align 8, !tbaa !5
+  %slice_group_id384.i = getelementptr inbounds %struct.InputParameters, ptr %149, i64 0, i32 144
+  %150 = load ptr, ptr %slice_group_id384.i, align 8, !tbaa !62
+  %arrayidx386.i = getelementptr inbounds i8, ptr %150, i64 %indvars.iv.i191
   store i8 %conv383.i, ptr %arrayidx386.i, align 1, !tbaa !20
-  %152 = load ptr, ptr @input, align 8, !tbaa !5
-  %slice_group_id387.i = getelementptr inbounds %struct.InputParameters, ptr %152, i64 0, i32 144
-  %153 = load ptr, ptr %slice_group_id387.i, align 8, !tbaa !62
-  %add.ptr389.i = getelementptr inbounds i8, ptr %153, i64 %indvars.iv.i195
-  %154 = load i8, ptr %add.ptr389.i, align 1, !tbaa !20
-  %conv390.i = zext i8 %154 to i32
-  %num_slice_groups_minus1391.i = getelementptr inbounds %struct.InputParameters, ptr %152, i64 0, i32 140
-  %155 = load i32, ptr %num_slice_groups_minus1391.i, align 8, !tbaa !55
-  %cmp392.i = icmp slt i32 %155, %conv390.i
+  %151 = load ptr, ptr @input, align 8, !tbaa !5
+  %slice_group_id387.i = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 144
+  %152 = load ptr, ptr %slice_group_id387.i, align 8, !tbaa !62
+  %add.ptr389.i = getelementptr inbounds i8, ptr %152, i64 %indvars.iv.i191
+  %153 = load i8, ptr %add.ptr389.i, align 1, !tbaa !20
+  %conv390.i = zext i8 %153 to i32
+  %num_slice_groups_minus1391.i = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 140
+  %154 = load i32, ptr %num_slice_groups_minus1391.i, align 8, !tbaa !55
+  %cmp392.i = icmp slt i32 %154, %conv390.i
   br i1 %cmp392.i, label %if.then394.i, label %if.end398.i
 
 if.then394.i:                                     ; preds = %for.body381.i
-  %SliceGroupConfigFileName395.i = getelementptr inbounds %struct.InputParameters, ptr %152, i64 0, i32 139
+  %SliceGroupConfigFileName395.i = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 139
   %call397.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.273, ptr noundef nonnull %SliceGroupConfigFileName395.i) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
   br label %if.end398.i
 
 if.end398.i:                                      ; preds = %if.then394.i, %for.body381.i
   %call399.i = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %sgfile.0.i, ptr noundef nonnull @.str.269) #21
-  %indvars.iv.next.i196 = add nuw nsw i64 %indvars.iv.i195, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i196, %wide.trip.count.i
+  %indvars.iv.next.i192 = add nuw nsw i64 %indvars.iv.i191, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i192, %wide.trip.count.i
   br i1 %exitcond.not.i, label %for.end402.i, label %for.body381.i, !llvm.loop !63
 
 for.end402.i:                                     ; preds = %if.end398.i, %if.end376.i
@@ -1528,731 +1529,731 @@ if.end405.i:                                      ; preds = %for.body336.i, %for
   br label %if.end408.i
 
 if.end408.i:                                      ; preds = %if.end405.i, %if.then281.i, %land.lhs.true264.i, %if.end262.i
-  %156 = load ptr, ptr @input, align 8, !tbaa !5
-  %ReferenceReorder.i = getelementptr inbounds %struct.InputParameters, ptr %156, i64 0, i32 72
-  %157 = load i32, ptr %ReferenceReorder.i, align 8, !tbaa !64
-  %tobool409.not.i = icmp eq i32 %157, 0
+  %155 = load ptr, ptr @input, align 8, !tbaa !5
+  %ReferenceReorder.i = getelementptr inbounds %struct.InputParameters, ptr %155, i64 0, i32 72
+  %156 = load i32, ptr %ReferenceReorder.i, align 8, !tbaa !64
+  %tobool409.not.i = icmp eq i32 %156, 0
   br i1 %tobool409.not.i, label %if.end418.i, label %land.lhs.true410.i
 
 land.lhs.true410.i:                               ; preds = %if.end408.i
-  %PicInterlace411.i = getelementptr inbounds %struct.InputParameters, ptr %156, i64 0, i32 121
-  %158 = load i32, ptr %PicInterlace411.i, align 8, !tbaa !41
-  %tobool412.not.i = icmp eq i32 %158, 0
+  %PicInterlace411.i = getelementptr inbounds %struct.InputParameters, ptr %155, i64 0, i32 121
+  %157 = load i32, ptr %PicInterlace411.i, align 8, !tbaa !41
+  %tobool412.not.i = icmp eq i32 %157, 0
   br i1 %tobool412.not.i, label %lor.lhs.false413.i, label %if.then416.i
 
 lor.lhs.false413.i:                               ; preds = %land.lhs.true410.i
-  %MbInterlace414.i = getelementptr inbounds %struct.InputParameters, ptr %156, i64 0, i32 122
-  %159 = load i32, ptr %MbInterlace414.i, align 4, !tbaa !42
-  %tobool415.not.i = icmp eq i32 %159, 0
+  %MbInterlace414.i = getelementptr inbounds %struct.InputParameters, ptr %155, i64 0, i32 122
+  %158 = load i32, ptr %MbInterlace414.i, align 4, !tbaa !42
+  %tobool415.not.i = icmp eq i32 %158, 0
   br i1 %tobool415.not.i, label %if.end418.i, label %if.then416.i
 
 if.then416.i:                                     ; preds = %lor.lhs.false413.i, %land.lhs.true410.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(64) @errortext, ptr noundef nonnull align 1 dereferenceable(64) @.str.274, i64 64, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre907.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre902.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end418.i
 
 if.end418.i:                                      ; preds = %if.then416.i, %lor.lhs.false413.i, %if.end408.i
-  %160 = phi ptr [ %.pre907.i, %if.then416.i ], [ %156, %lor.lhs.false413.i ], [ %156, %if.end408.i ]
-  %PocMemoryManagement.i = getelementptr inbounds %struct.InputParameters, ptr %160, i64 0, i32 73
-  %161 = load i32, ptr %PocMemoryManagement.i, align 4, !tbaa !65
-  %tobool419.not.i = icmp eq i32 %161, 0
+  %159 = phi ptr [ %.pre902.i, %if.then416.i ], [ %155, %lor.lhs.false413.i ], [ %155, %if.end408.i ]
+  %PocMemoryManagement.i = getelementptr inbounds %struct.InputParameters, ptr %159, i64 0, i32 73
+  %160 = load i32, ptr %PocMemoryManagement.i, align 4, !tbaa !65
+  %tobool419.not.i = icmp eq i32 %160, 0
   br i1 %tobool419.not.i, label %if.end428.i, label %land.lhs.true420.i
 
 land.lhs.true420.i:                               ; preds = %if.end418.i
-  %PicInterlace421.i = getelementptr inbounds %struct.InputParameters, ptr %160, i64 0, i32 121
-  %162 = load i32, ptr %PicInterlace421.i, align 8, !tbaa !41
-  %tobool422.not.i = icmp eq i32 %162, 0
+  %PicInterlace421.i = getelementptr inbounds %struct.InputParameters, ptr %159, i64 0, i32 121
+  %161 = load i32, ptr %PicInterlace421.i, align 8, !tbaa !41
+  %tobool422.not.i = icmp eq i32 %161, 0
   br i1 %tobool422.not.i, label %lor.lhs.false423.i, label %if.then426.i
 
 lor.lhs.false423.i:                               ; preds = %land.lhs.true420.i
-  %MbInterlace424.i = getelementptr inbounds %struct.InputParameters, ptr %160, i64 0, i32 122
-  %163 = load i32, ptr %MbInterlace424.i, align 4, !tbaa !42
-  %tobool425.not.i = icmp eq i32 %163, 0
+  %MbInterlace424.i = getelementptr inbounds %struct.InputParameters, ptr %159, i64 0, i32 122
+  %162 = load i32, ptr %MbInterlace424.i, align 4, !tbaa !42
+  %tobool425.not.i = icmp eq i32 %162, 0
   br i1 %tobool425.not.i, label %if.end428.i, label %if.then426.i
 
 if.then426.i:                                     ; preds = %lor.lhs.false423.i, %land.lhs.true420.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(67) @errortext, ptr noundef nonnull align 1 dereferenceable(67) @.str.275, i64 67, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre908.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre903.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end428.i
 
 if.end428.i:                                      ; preds = %if.then426.i, %lor.lhs.false423.i, %if.end418.i
-  %164 = phi ptr [ %.pre908.i, %if.then426.i ], [ %160, %lor.lhs.false423.i ], [ %160, %if.end418.i ]
-  %PicInterlace429.i = getelementptr inbounds %struct.InputParameters, ptr %164, i64 0, i32 121
-  %165 = load i32, ptr %PicInterlace429.i, align 8, !tbaa !41
-  %switch830.i = icmp ult i32 %165, 3
-  br i1 %switch830.i, label %if.end443.i, label %if.then440.i
+  %163 = phi ptr [ %.pre903.i, %if.then426.i ], [ %159, %lor.lhs.false423.i ], [ %159, %if.end418.i ]
+  %PicInterlace429.i = getelementptr inbounds %struct.InputParameters, ptr %163, i64 0, i32 121
+  %164 = load i32, ptr %PicInterlace429.i, align 8, !tbaa !41
+  %switch854.i = icmp ult i32 %164, 3
+  br i1 %switch854.i, label %if.end443.i, label %if.then440.i
 
 if.then440.i:                                     ; preds = %if.end428.i
-  %call442.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.276, i32 noundef %165) #21
+  %call442.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.276, i32 noundef %164) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre909.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre904.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end443.i
 
 if.end443.i:                                      ; preds = %if.then440.i, %if.end428.i
-  %166 = phi ptr [ %164, %if.end428.i ], [ %.pre909.i, %if.then440.i ]
-  %MbInterlace444.i = getelementptr inbounds %struct.InputParameters, ptr %166, i64 0, i32 122
-  %167 = load i32, ptr %MbInterlace444.i, align 4, !tbaa !42
-  %switch831.i = icmp ult i32 %167, 4
-  br i1 %switch831.i, label %if.end462.i, label %if.then459.i
+  %165 = phi ptr [ %163, %if.end428.i ], [ %.pre904.i, %if.then440.i ]
+  %MbInterlace444.i = getelementptr inbounds %struct.InputParameters, ptr %165, i64 0, i32 122
+  %166 = load i32, ptr %MbInterlace444.i, align 4, !tbaa !42
+  %switch855.i = icmp ult i32 %166, 4
+  br i1 %switch855.i, label %if.end462.i, label %if.then459.i
 
 if.then459.i:                                     ; preds = %if.end443.i
-  %call461.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.277, i32 noundef %167) #21
+  %call461.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.277, i32 noundef %166) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 400) #21
-  %.pre910.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre905.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end462.i
 
 if.end462.i:                                      ; preds = %if.then459.i, %if.end443.i
-  %168 = phi ptr [ %166, %if.end443.i ], [ %.pre910.i, %if.then459.i ]
-  %rdopt.i = getelementptr inbounds %struct.InputParameters, ptr %168, i64 0, i32 113
-  %169 = load i32, ptr %rdopt.i, align 8, !tbaa !66
-  %tobool463.not.i = icmp eq i32 %169, 0
+  %167 = phi ptr [ %165, %if.end443.i ], [ %.pre905.i, %if.then459.i ]
+  %rdopt.i = getelementptr inbounds %struct.InputParameters, ptr %167, i64 0, i32 113
+  %168 = load i32, ptr %rdopt.i, align 8, !tbaa !66
+  %tobool463.not.i = icmp eq i32 %168, 0
   br i1 %tobool463.not.i, label %land.lhs.true464.i, label %if.end469.i
 
 land.lhs.true464.i:                               ; preds = %if.end462.i
-  %MbInterlace465.i = getelementptr inbounds %struct.InputParameters, ptr %168, i64 0, i32 122
-  %170 = load i32, ptr %MbInterlace465.i, align 4, !tbaa !42
-  %tobool466.not.i = icmp eq i32 %170, 0
+  %MbInterlace465.i = getelementptr inbounds %struct.InputParameters, ptr %167, i64 0, i32 122
+  %169 = load i32, ptr %MbInterlace465.i, align 4, !tbaa !42
+  %tobool466.not.i = icmp eq i32 %169, 0
   br i1 %tobool466.not.i, label %if.end478.i, label %if.then467.i
 
 if.then467.i:                                     ; preds = %land.lhs.true464.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(55) @errortext, ptr noundef nonnull align 1 dereferenceable(55) @.str.278, i64 55, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre911.i = load ptr, ptr @input, align 8, !tbaa !5
-  %rdopt470.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre911.i, i64 0, i32 113
-  %.pre912.i = load i32, ptr %rdopt470.phi.trans.insert.i, align 8, !tbaa !66
+  %.pre906.i = load ptr, ptr @input, align 8, !tbaa !5
+  %rdopt470.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre906.i, i64 0, i32 113
+  %.pre907.i = load i32, ptr %rdopt470.phi.trans.insert.i, align 8, !tbaa !66
   br label %if.end469.i
 
 if.end469.i:                                      ; preds = %if.then467.i, %if.end462.i
-  %171 = phi i32 [ %.pre912.i, %if.then467.i ], [ %169, %if.end462.i ]
-  %172 = phi ptr [ %.pre911.i, %if.then467.i ], [ %168, %if.end462.i ]
-  %cmp471.i = icmp eq i32 %171, 2
+  %170 = phi i32 [ %.pre907.i, %if.then467.i ], [ %168, %if.end462.i ]
+  %171 = phi ptr [ %.pre906.i, %if.then467.i ], [ %167, %if.end462.i ]
+  %cmp471.i = icmp eq i32 %170, 2
   br i1 %cmp471.i, label %land.lhs.true473.i, label %if.end478.i
 
 land.lhs.true473.i:                               ; preds = %if.end469.i
-  %173 = load i32, ptr %172, align 8, !tbaa !67
-  %cmp474.i = icmp sgt i32 %173, 99
+  %172 = load i32, ptr %171, align 8, !tbaa !67
+  %cmp474.i = icmp sgt i32 %172, 99
   br i1 %cmp474.i, label %if.then476.i, label %if.end478.i
 
 if.then476.i:                                     ; preds = %land.lhs.true473.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(58) @errortext, ptr noundef nonnull align 1 dereferenceable(58) @.str.279, i64 58, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre913.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre908.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end478.i
 
 if.end478.i:                                      ; preds = %if.then476.i, %land.lhs.true473.i, %if.end469.i, %land.lhs.true464.i
-  %174 = phi ptr [ %.pre913.i, %if.then476.i ], [ %172, %land.lhs.true473.i ], [ %172, %if.end469.i ], [ %168, %land.lhs.true464.i ]
-  %MEErrorMetric.i = getelementptr inbounds %struct.InputParameters, ptr %174, i64 0, i32 199
-  %arrayidx479.i = getelementptr inbounds %struct.InputParameters, ptr %174, i64 0, i32 199, i64 2
-  %175 = load i32, ptr %arrayidx479.i, align 4, !tbaa !16
-  %cmp480.i = icmp eq i32 %175, 2
+  %173 = phi ptr [ %.pre908.i, %if.then476.i ], [ %171, %land.lhs.true473.i ], [ %171, %if.end469.i ], [ %167, %land.lhs.true464.i ]
+  %MEErrorMetric.i = getelementptr inbounds %struct.InputParameters, ptr %173, i64 0, i32 199
+  %arrayidx479.i = getelementptr inbounds %struct.InputParameters, ptr %173, i64 0, i32 199, i64 2
+  %174 = load i32, ptr %arrayidx479.i, align 4, !tbaa !16
+  %cmp480.i = icmp eq i32 %174, 2
   br i1 %cmp480.i, label %land.lhs.true482.i, label %if.end501.i
 
 land.lhs.true482.i:                               ; preds = %if.end478.i
-  %arrayidx484.i = getelementptr inbounds %struct.InputParameters, ptr %174, i64 0, i32 199, i64 1
-  %176 = load i32, ptr %arrayidx484.i, align 4, !tbaa !16
-  %cmp485.i = icmp eq i32 %176, 0
+  %arrayidx484.i = getelementptr inbounds %struct.InputParameters, ptr %173, i64 0, i32 199, i64 1
+  %175 = load i32, ptr %arrayidx484.i, align 4, !tbaa !16
+  %cmp485.i = icmp eq i32 %175, 0
   br i1 %cmp485.i, label %land.lhs.true487.i, label %if.end501.i
 
 land.lhs.true487.i:                               ; preds = %land.lhs.true482.i
-  %177 = load i32, ptr %MEErrorMetric.i, align 4, !tbaa !16
-  %cmp490.i = icmp eq i32 %177, 0
+  %176 = load i32, ptr %MEErrorMetric.i, align 4, !tbaa !16
+  %cmp490.i = icmp eq i32 %176, 0
   br i1 %cmp490.i, label %land.lhs.true492.i, label %if.end501.i
 
 land.lhs.true492.i:                               ; preds = %land.lhs.true487.i
-  %SearchMode.i = getelementptr inbounds %struct.InputParameters, ptr %174, i64 0, i32 169
-  %178 = load i32, ptr %SearchMode.i, align 4, !tbaa !68
-  %179 = add i32 %178, -1
-  %or.cond.i = icmp ult i32 %179, 2
+  %SearchMode.i = getelementptr inbounds %struct.InputParameters, ptr %173, i64 0, i32 169
+  %177 = load i32, ptr %SearchMode.i, align 4, !tbaa !68
+  %178 = add i32 %177, -1
+  %or.cond.i = icmp ult i32 %178, 2
   br i1 %or.cond.i, label %if.then499.i, label %if.end501.i
 
 if.then499.i:                                     ; preds = %land.lhs.true492.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(108) @errortext, ptr noundef nonnull align 1 dereferenceable(108) @.str.280, i64 108, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre914.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre909.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end501.i
 
 if.end501.i:                                      ; preds = %if.then499.i, %land.lhs.true492.i, %land.lhs.true487.i, %land.lhs.true482.i, %if.end478.i
-  %180 = phi ptr [ %.pre914.i, %if.then499.i ], [ %174, %land.lhs.true492.i ], [ %174, %land.lhs.true487.i ], [ %174, %land.lhs.true482.i ], [ %174, %if.end478.i ]
-  %NumFramesInELSubSeq.i = getelementptr inbounds %struct.InputParameters, ptr %180, i64 0, i32 129
-  %181 = load i32, ptr %NumFramesInELSubSeq.i, align 8, !tbaa !69
-  %num_ref_frames502.i = getelementptr inbounds %struct.InputParameters, ptr %180, i64 0, i32 8
-  %182 = load i32, ptr %num_ref_frames502.i, align 8, !tbaa !37
-  %cmp503.not.i = icmp sge i32 %181, %182
-  %cmp507.i = icmp slt i32 %181, 0
-  %or.cond824.i = or i1 %cmp507.i, %cmp503.not.i
-  br i1 %or.cond824.i, label %if.then509.i, label %if.end513.i
+  %179 = phi ptr [ %.pre909.i, %if.then499.i ], [ %173, %land.lhs.true492.i ], [ %173, %land.lhs.true487.i ], [ %173, %land.lhs.true482.i ], [ %173, %if.end478.i ]
+  %NumFramesInELSubSeq.i = getelementptr inbounds %struct.InputParameters, ptr %179, i64 0, i32 129
+  %180 = load i32, ptr %NumFramesInELSubSeq.i, align 8, !tbaa !69
+  %num_ref_frames502.i = getelementptr inbounds %struct.InputParameters, ptr %179, i64 0, i32 8
+  %181 = load i32, ptr %num_ref_frames502.i, align 8, !tbaa !37
+  %cmp503.not.i = icmp sge i32 %180, %181
+  %cmp507.i = icmp slt i32 %180, 0
+  %or.cond848.i = or i1 %cmp507.i, %cmp503.not.i
+  br i1 %or.cond848.i, label %if.then509.i, label %if.end513.i
 
 if.then509.i:                                     ; preds = %if.end501.i
-  %call512.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.281, i32 noundef %181, i32 noundef %182) #21
+  %call512.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.281, i32 noundef %180, i32 noundef %181) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre915.i = load ptr, ptr @input, align 8, !tbaa !5
-  %NumFramesInELSubSeq514.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre915.i, i64 0, i32 129
-  %.pre916.i = load i32, ptr %NumFramesInELSubSeq514.phi.trans.insert.i, align 8, !tbaa !69
+  %.pre910.i = load ptr, ptr @input, align 8, !tbaa !5
+  %NumFramesInELSubSeq514.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre910.i, i64 0, i32 129
+  %.pre911.i = load i32, ptr %NumFramesInELSubSeq514.phi.trans.insert.i, align 8, !tbaa !69
   br label %if.end513.i
 
 if.end513.i:                                      ; preds = %if.then509.i, %if.end501.i
-  %183 = phi i32 [ %181, %if.end501.i ], [ %.pre916.i, %if.then509.i ]
-  %184 = phi ptr [ %180, %if.end501.i ], [ %.pre915.i, %if.then509.i ]
-  %cmp515.i = icmp sgt i32 %183, 0
+  %182 = phi i32 [ %180, %if.end501.i ], [ %.pre911.i, %if.then509.i ]
+  %183 = phi ptr [ %179, %if.end501.i ], [ %.pre910.i, %if.then509.i ]
+  %cmp515.i = icmp sgt i32 %182, 0
   br i1 %cmp515.i, label %land.lhs.true517.i, label %if.end522.i
 
 land.lhs.true517.i:                               ; preds = %if.end513.i
-  %of_mode.i = getelementptr inbounds %struct.InputParameters, ptr %184, i64 0, i32 75
-  %185 = load i32, ptr %of_mode.i, align 4, !tbaa !70
-  %cmp518.i = icmp eq i32 %185, 0
+  %of_mode.i = getelementptr inbounds %struct.InputParameters, ptr %183, i64 0, i32 75
+  %184 = load i32, ptr %of_mode.i, align 4, !tbaa !70
+  %cmp518.i = icmp eq i32 %184, 0
   br i1 %cmp518.i, label %if.then520.i, label %if.end522.i
 
 if.then520.i:                                     ; preds = %land.lhs.true517.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(66) @errortext, ptr noundef nonnull align 1 dereferenceable(66) @.str.282, i64 66, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre917.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre912.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end522.i
 
 if.end522.i:                                      ; preds = %if.then520.i, %land.lhs.true517.i, %if.end513.i
-  %186 = phi ptr [ %.pre917.i, %if.then520.i ], [ %184, %land.lhs.true517.i ], [ %184, %if.end513.i ]
-  %PicInterlace523.i = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 121
-  %187 = load i32, ptr %PicInterlace523.i, align 8, !tbaa !41
-  %tobool524.not.i = icmp eq i32 %187, 0
+  %185 = phi ptr [ %.pre912.i, %if.then520.i ], [ %183, %land.lhs.true517.i ], [ %183, %if.end513.i ]
+  %PicInterlace523.i = getelementptr inbounds %struct.InputParameters, ptr %185, i64 0, i32 121
+  %186 = load i32, ptr %PicInterlace523.i, align 8, !tbaa !41
+  %tobool524.not.i = icmp eq i32 %186, 0
   br i1 %tobool524.not.i, label %lor.lhs.false525.i, label %land.lhs.true528.i
 
 lor.lhs.false525.i:                               ; preds = %if.end522.i
-  %MbInterlace526.i = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 122
-  %188 = load i32, ptr %MbInterlace526.i, align 4, !tbaa !42
-  %tobool527.not.i = icmp eq i32 %188, 0
+  %MbInterlace526.i = getelementptr inbounds %struct.InputParameters, ptr %185, i64 0, i32 122
+  %187 = load i32, ptr %MbInterlace526.i, align 4, !tbaa !42
+  %tobool527.not.i = icmp eq i32 %187, 0
   br i1 %tobool527.not.i, label %if.end533.i, label %land.lhs.true528.i
 
 land.lhs.true528.i:                               ; preds = %lor.lhs.false525.i, %if.end522.i
-  %SparePictureOption.i = getelementptr inbounds %struct.InputParameters, ptr %186, i64 0, i32 136
-  %189 = load i32, ptr %SparePictureOption.i, align 4, !tbaa !71
-  %cmp529.i = icmp eq i32 %189, 1
+  %SparePictureOption.i = getelementptr inbounds %struct.InputParameters, ptr %185, i64 0, i32 136
+  %188 = load i32, ptr %SparePictureOption.i, align 4, !tbaa !71
+  %cmp529.i = icmp eq i32 %188, 1
   br i1 %cmp529.i, label %if.then531.i, label %if.end533.i
 
 if.then531.i:                                     ; preds = %land.lhs.true528.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(42) @errortext, ptr noundef nonnull align 1 dereferenceable(42) @.str.283, i64 42, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre918.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre913.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end533.i
 
 if.end533.i:                                      ; preds = %if.then531.i, %land.lhs.true528.i, %lor.lhs.false525.i
-  %190 = phi ptr [ %.pre918.i, %if.then531.i ], [ %186, %land.lhs.true528.i ], [ %186, %lor.lhs.false525.i ]
-  %of_mode534.i = getelementptr inbounds %struct.InputParameters, ptr %190, i64 0, i32 75
-  %191 = load i32, ptr %of_mode534.i, align 4, !tbaa !70
-  %cmp535.not.i = icmp eq i32 %191, 1
+  %189 = phi ptr [ %.pre913.i, %if.then531.i ], [ %185, %land.lhs.true528.i ], [ %185, %lor.lhs.false525.i ]
+  %of_mode534.i = getelementptr inbounds %struct.InputParameters, ptr %189, i64 0, i32 75
+  %190 = load i32, ptr %of_mode534.i, align 4, !tbaa !70
+  %cmp535.not.i = icmp eq i32 %190, 1
   br i1 %cmp535.not.i, label %if.end543.i, label %land.lhs.true537.i
 
 land.lhs.true537.i:                               ; preds = %if.end533.i
-  %SparePictureOption538.i = getelementptr inbounds %struct.InputParameters, ptr %190, i64 0, i32 136
-  %192 = load i32, ptr %SparePictureOption538.i, align 4, !tbaa !71
-  %cmp539.i = icmp eq i32 %192, 1
+  %SparePictureOption538.i = getelementptr inbounds %struct.InputParameters, ptr %189, i64 0, i32 136
+  %191 = load i32, ptr %SparePictureOption538.i, align 4, !tbaa !71
+  %cmp539.i = icmp eq i32 %191, 1
   br i1 %cmp539.i, label %if.then541.i, label %if.end543.i
 
 if.then541.i:                                     ; preds = %land.lhs.true537.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(64) @errortext, ptr noundef nonnull align 1 dereferenceable(64) @.str.284, i64 64, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre919.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre914.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end543.i
 
 if.end543.i:                                      ; preds = %if.then541.i, %land.lhs.true537.i, %if.end533.i
-  %193 = phi ptr [ %.pre919.i, %if.then541.i ], [ %190, %land.lhs.true537.i ], [ %190, %if.end533.i ]
-  %WeightedPrediction.i = getelementptr inbounds %struct.InputParameters, ptr %193, i64 0, i32 59
-  %194 = load i32, ptr %WeightedPrediction.i, align 8, !tbaa !72
-  %cmp544.i = icmp sgt i32 %194, 0
+  %192 = phi ptr [ %.pre914.i, %if.then541.i ], [ %189, %land.lhs.true537.i ], [ %189, %if.end533.i ]
+  %WeightedPrediction.i = getelementptr inbounds %struct.InputParameters, ptr %192, i64 0, i32 59
+  %193 = load i32, ptr %WeightedPrediction.i, align 8, !tbaa !72
+  %cmp544.i = icmp sgt i32 %193, 0
   br i1 %cmp544.i, label %land.lhs.true549.i, label %lor.lhs.false546.i
 
 lor.lhs.false546.i:                               ; preds = %if.end543.i
-  %WeightedBiprediction.i = getelementptr inbounds %struct.InputParameters, ptr %193, i64 0, i32 60
-  %195 = load i32, ptr %WeightedBiprediction.i, align 4, !tbaa !73
-  %cmp547.i = icmp sgt i32 %195, 0
+  %WeightedBiprediction.i = getelementptr inbounds %struct.InputParameters, ptr %192, i64 0, i32 60
+  %194 = load i32, ptr %WeightedBiprediction.i, align 4, !tbaa !73
+  %cmp547.i = icmp sgt i32 %194, 0
   br i1 %cmp547.i, label %land.lhs.true549.i, label %if.end554.i
 
 land.lhs.true549.i:                               ; preds = %lor.lhs.false546.i, %if.end543.i
-  %MbInterlace550.i = getelementptr inbounds %struct.InputParameters, ptr %193, i64 0, i32 122
-  %196 = load i32, ptr %MbInterlace550.i, align 4, !tbaa !42
-  %tobool551.not.i = icmp eq i32 %196, 0
+  %MbInterlace550.i = getelementptr inbounds %struct.InputParameters, ptr %192, i64 0, i32 122
+  %195 = load i32, ptr %MbInterlace550.i, align 4, !tbaa !42
+  %tobool551.not.i = icmp eq i32 %195, 0
   br i1 %tobool551.not.i, label %if.end554.i, label %if.then552.i
 
 if.then552.i:                                     ; preds = %land.lhs.true549.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(66) @errortext, ptr noundef nonnull align 1 dereferenceable(66) @.str.285, i64 66, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre920.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre915.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end554.i
 
 if.end554.i:                                      ; preds = %if.then552.i, %land.lhs.true549.i, %lor.lhs.false546.i
-  %197 = phi ptr [ %.pre920.i, %if.then552.i ], [ %193, %land.lhs.true549.i ], [ %193, %lor.lhs.false546.i ]
-  %NumFramesInELSubSeq555.i = getelementptr inbounds %struct.InputParameters, ptr %197, i64 0, i32 129
-  %198 = load i32, ptr %NumFramesInELSubSeq555.i, align 8, !tbaa !69
-  %cmp556.i = icmp sgt i32 %198, 0
+  %196 = phi ptr [ %.pre915.i, %if.then552.i ], [ %192, %land.lhs.true549.i ], [ %192, %lor.lhs.false546.i ]
+  %NumFramesInELSubSeq555.i = getelementptr inbounds %struct.InputParameters, ptr %196, i64 0, i32 129
+  %197 = load i32, ptr %NumFramesInELSubSeq555.i, align 8, !tbaa !69
+  %cmp556.i = icmp sgt i32 %197, 0
   br i1 %cmp556.i, label %land.lhs.true558.i, label %if.end564.i
 
 land.lhs.true558.i:                               ; preds = %if.end554.i
-  %WeightedPrediction559.i = getelementptr inbounds %struct.InputParameters, ptr %197, i64 0, i32 59
-  %199 = load i32, ptr %WeightedPrediction559.i, align 8, !tbaa !72
-  %cmp560.i = icmp sgt i32 %199, 0
+  %WeightedPrediction559.i = getelementptr inbounds %struct.InputParameters, ptr %196, i64 0, i32 59
+  %198 = load i32, ptr %WeightedPrediction559.i, align 8, !tbaa !72
+  %cmp560.i = icmp sgt i32 %198, 0
   br i1 %cmp560.i, label %if.then562.i, label %if.end564.i
 
 if.then562.i:                                     ; preds = %land.lhs.true558.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(70) @errortext, ptr noundef nonnull align 1 dereferenceable(70) @.str.286, i64 70, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre921.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre916.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end564.i
 
 if.end564.i:                                      ; preds = %if.then562.i, %land.lhs.true558.i, %if.end554.i
-  %200 = phi ptr [ %.pre921.i, %if.then562.i ], [ %197, %land.lhs.true558.i ], [ %197, %if.end554.i ]
-  %num_slice_groups_minus1565.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 140
-  %201 = load i32, ptr %num_slice_groups_minus1565.i, align 8, !tbaa !55
-  %cmp566.i = icmp sgt i32 %201, 0
+  %199 = phi ptr [ %.pre916.i, %if.then562.i ], [ %196, %land.lhs.true558.i ], [ %196, %if.end554.i ]
+  %num_slice_groups_minus1565.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 140
+  %200 = load i32, ptr %num_slice_groups_minus1565.i, align 8, !tbaa !55
+  %cmp566.i = icmp sgt i32 %200, 0
   br i1 %cmp566.i, label %if.then568.i, label %if.end579.i
 
 if.then568.i:                                     ; preds = %if.end564.i
-  %slice_group_map_type569.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 141
-  %202 = load i32, ptr %slice_group_map_type569.i, align 4, !tbaa !56
-  %203 = add i32 %202, -3
-  %or.cond825.i = icmp ult i32 %203, 3
-  br i1 %or.cond825.i, label %if.then576.i, label %if.end579.i
+  %slice_group_map_type569.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 141
+  %201 = load i32, ptr %slice_group_map_type569.i, align 4, !tbaa !56
+  %202 = add i32 %201, -3
+  %or.cond849.i = icmp ult i32 %202, 3
+  br i1 %or.cond849.i, label %if.then576.i, label %if.end579.i
 
 if.then576.i:                                     ; preds = %if.then568.i
   store i32 1, ptr %num_slice_groups_minus1565.i, align 8, !tbaa !55
   br label %if.end579.i
 
 if.end579.i:                                      ; preds = %if.then576.i, %if.then568.i, %if.end564.i
-  %RCEnable.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 157
-  %204 = load i32, ptr %RCEnable.i, align 4, !tbaa !74
-  %tobool580.not.i = icmp eq i32 %204, 0
+  %RCEnable.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 157
+  %203 = load i32, ptr %RCEnable.i, align 4, !tbaa !74
+  %tobool580.not.i = icmp eq i32 %203, 0
   br i1 %tobool580.not.i, label %if.end607.i, label %if.then581.i
 
 if.then581.i:                                     ; preds = %if.end579.i
-  %img_height582.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 15
-  %205 = load i32, ptr %img_height582.i, align 4, !tbaa !51
-  %206 = load ptr, ptr @img, align 8, !tbaa !5
-  %auto_crop_bottom583.i = getelementptr inbounds %struct.ImageParameters, ptr %206, i64 0, i32 167
-  %207 = load i32, ptr %auto_crop_bottom583.i, align 4, !tbaa !52
-  %add584.i = add nsw i32 %207, %205
-  %img_width585.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 14
-  %208 = load i32, ptr %img_width585.i, align 8, !tbaa !46
-  %auto_crop_right586.i = getelementptr inbounds %struct.ImageParameters, ptr %206, i64 0, i32 166
-  %209 = load i32, ptr %auto_crop_right586.i, align 8, !tbaa !47
-  %add587.i = add nsw i32 %209, %208
+  %img_height582.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 15
+  %204 = load i32, ptr %img_height582.i, align 4, !tbaa !51
+  %205 = load ptr, ptr @img, align 8, !tbaa !5
+  %auto_crop_bottom583.i = getelementptr inbounds %struct.ImageParameters, ptr %205, i64 0, i32 167
+  %206 = load i32, ptr %auto_crop_bottom583.i, align 4, !tbaa !52
+  %add584.i = add nsw i32 %206, %204
+  %img_width585.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 14
+  %207 = load i32, ptr %img_width585.i, align 8, !tbaa !46
+  %auto_crop_right586.i = getelementptr inbounds %struct.ImageParameters, ptr %205, i64 0, i32 166
+  %208 = load i32, ptr %auto_crop_right586.i, align 8, !tbaa !47
+  %add587.i = add nsw i32 %208, %207
   %mul588.i = mul nsw i32 %add587.i, %add584.i
   %div589.i = sdiv i32 %mul588.i, 256
-  %basicunit.i = getelementptr inbounds %struct.InputParameters, ptr %200, i64 0, i32 160
-  %210 = load i32, ptr %basicunit.i, align 8, !tbaa !75
-  %rem590.i = urem i32 %div589.i, %210
+  %basicunit.i = getelementptr inbounds %struct.InputParameters, ptr %199, i64 0, i32 160
+  %209 = load i32, ptr %basicunit.i, align 8, !tbaa !75
+  %rem590.i = urem i32 %div589.i, %209
   %cmp591.not.i = icmp eq i32 %rem590.i, 0
   br i1 %cmp591.not.i, label %if.end595.i, label %if.then593.i
 
 if.then593.i:                                     ; preds = %if.then581.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(59) @errortext, ptr noundef nonnull align 1 dereferenceable(59) @.str.287, i64 59, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre922.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre917.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end595.i
 
 if.end595.i:                                      ; preds = %if.then593.i, %if.then581.i
-  %211 = phi ptr [ %.pre922.i, %if.then593.i ], [ %200, %if.then581.i ]
-  %successive_Bframe596.i = getelementptr inbounds %struct.InputParameters, ptr %211, i64 0, i32 40
-  %212 = load i32, ptr %successive_Bframe596.i, align 8, !tbaa !33
-  %tobool597.not.i = icmp eq i32 %212, 0
+  %210 = phi ptr [ %.pre917.i, %if.then593.i ], [ %199, %if.then581.i ]
+  %successive_Bframe596.i = getelementptr inbounds %struct.InputParameters, ptr %210, i64 0, i32 40
+  %211 = load i32, ptr %successive_Bframe596.i, align 8, !tbaa !33
+  %tobool597.not.i = icmp eq i32 %211, 0
   br i1 %tobool597.not.i, label %lor.lhs.false598.i, label %land.lhs.true601.i
 
 lor.lhs.false598.i:                               ; preds = %if.end595.i
-  %jumpd599.i = getelementptr inbounds %struct.InputParameters, ptr %211, i64 0, i32 5
-  %213 = load i32, ptr %jumpd599.i, align 4, !tbaa !39
-  %tobool600.not.i = icmp eq i32 %213, 0
+  %jumpd599.i = getelementptr inbounds %struct.InputParameters, ptr %210, i64 0, i32 5
+  %212 = load i32, ptr %jumpd599.i, align 4, !tbaa !39
+  %tobool600.not.i = icmp eq i32 %212, 0
   br i1 %tobool600.not.i, label %if.end607.i, label %land.lhs.true601.i
 
 land.lhs.true601.i:                               ; preds = %lor.lhs.false598.i, %if.end595.i
-  %RCUpdateMode.i = getelementptr inbounds %struct.InputParameters, ptr %211, i64 0, i32 162
-  %214 = load i32, ptr %RCUpdateMode.i, align 8, !tbaa !76
-  %cmp602.i = icmp eq i32 %214, 1
+  %RCUpdateMode.i = getelementptr inbounds %struct.InputParameters, ptr %210, i64 0, i32 162
+  %213 = load i32, ptr %RCUpdateMode.i, align 8, !tbaa !76
+  %cmp602.i = icmp eq i32 %213, 1
   br i1 %cmp602.i, label %if.then604.i, label %if.end607.i
 
 if.then604.i:                                     ; preds = %land.lhs.true601.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(41) @errortext, ptr noundef nonnull align 1 dereferenceable(41) @.str.288, i64 41, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre923.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre918.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end607.i
 
 if.end607.i:                                      ; preds = %if.then604.i, %land.lhs.true601.i, %lor.lhs.false598.i, %if.end579.i
-  %215 = phi ptr [ %211, %lor.lhs.false598.i ], [ %211, %land.lhs.true601.i ], [ %.pre923.i, %if.then604.i ], [ %200, %if.end579.i ]
-  %successive_Bframe608.i = getelementptr inbounds %struct.InputParameters, ptr %215, i64 0, i32 40
-  %216 = load i32, ptr %successive_Bframe608.i, align 8, !tbaa !33
-  %tobool609.not.i = icmp eq i32 %216, 0
+  %214 = phi ptr [ %210, %lor.lhs.false598.i ], [ %210, %land.lhs.true601.i ], [ %.pre918.i, %if.then604.i ], [ %199, %if.end579.i ]
+  %successive_Bframe608.i = getelementptr inbounds %struct.InputParameters, ptr %214, i64 0, i32 40
+  %215 = load i32, ptr %successive_Bframe608.i, align 8, !tbaa !33
+  %tobool609.not.i = icmp eq i32 %215, 0
   br i1 %tobool609.not.i, label %if.end621.i, label %land.lhs.true610.i
 
 land.lhs.true610.i:                               ; preds = %if.end607.i
-  %BRefPictures611.i = getelementptr inbounds %struct.InputParameters, ptr %215, i64 0, i32 68
-  %217 = load i32, ptr %BRefPictures611.i, align 4, !tbaa !32
-  %tobool612.not.i = icmp eq i32 %217, 0
+  %BRefPictures611.i = getelementptr inbounds %struct.InputParameters, ptr %214, i64 0, i32 68
+  %216 = load i32, ptr %BRefPictures611.i, align 4, !tbaa !32
+  %tobool612.not.i = icmp eq i32 %216, 0
   br i1 %tobool612.not.i, label %if.end621.i, label %land.lhs.true613.i
 
 land.lhs.true613.i:                               ; preds = %land.lhs.true610.i
-  %idr_enable.i = getelementptr inbounds %struct.InputParameters, ptr %215, i64 0, i32 32
-  %218 = load i32, ptr %idr_enable.i, align 8, !tbaa !77
-  %tobool614.not.i = icmp eq i32 %218, 0
+  %idr_enable.i = getelementptr inbounds %struct.InputParameters, ptr %214, i64 0, i32 32
+  %217 = load i32, ptr %idr_enable.i, align 8, !tbaa !77
+  %tobool614.not.i = icmp eq i32 %217, 0
   br i1 %tobool614.not.i, label %if.end621.i, label %land.lhs.true615.i
 
 land.lhs.true615.i:                               ; preds = %land.lhs.true613.i
-  %intra_period.i = getelementptr inbounds %struct.InputParameters, ptr %215, i64 0, i32 30
-  %219 = load i32, ptr %intra_period.i, align 8, !tbaa !78
-  %tobool616.not.i = icmp eq i32 %219, 0
+  %intra_period.i = getelementptr inbounds %struct.InputParameters, ptr %214, i64 0, i32 30
+  %218 = load i32, ptr %intra_period.i, align 8, !tbaa !78
+  %tobool616.not.i = icmp eq i32 %218, 0
   br i1 %tobool616.not.i, label %if.end621.i, label %land.lhs.true617.i
 
 land.lhs.true617.i:                               ; preds = %land.lhs.true615.i
-  %pic_order_cnt_type.i = getelementptr inbounds %struct.InputParameters, ptr %215, i64 0, i32 150
-  %220 = load i32, ptr %pic_order_cnt_type.i, align 8, !tbaa !79
-  %cmp618.not.i = icmp eq i32 %220, 0
+  %pic_order_cnt_type.i = getelementptr inbounds %struct.InputParameters, ptr %214, i64 0, i32 150
+  %219 = load i32, ptr %pic_order_cnt_type.i, align 8, !tbaa !79
+  %cmp618.not.i = icmp eq i32 %219, 0
   br i1 %cmp618.not.i, label %if.end621.i, label %if.then620.i
 
 if.then620.i:                                     ; preds = %land.lhs.true617.i
   call void @error(ptr noundef nonnull @.str.289, i32 noundef -1000) #21
-  %.pre924.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre919.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end621.i
 
 if.end621.i:                                      ; preds = %if.then620.i, %land.lhs.true617.i, %land.lhs.true615.i, %land.lhs.true613.i, %land.lhs.true610.i, %if.end607.i
-  %221 = phi ptr [ %.pre924.i, %if.then620.i ], [ %215, %land.lhs.true617.i ], [ %215, %land.lhs.true615.i ], [ %215, %land.lhs.true613.i ], [ %215, %land.lhs.true610.i ], [ %215, %if.end607.i ]
-  %direct_spatial_mv_pred_flag622.i = getelementptr inbounds %struct.InputParameters, ptr %221, i64 0, i32 44
-  %222 = load i32, ptr %direct_spatial_mv_pred_flag622.i, align 8, !tbaa !40
-  %tobool623.not.i = icmp eq i32 %222, 0
+  %220 = phi ptr [ %.pre919.i, %if.then620.i ], [ %214, %land.lhs.true617.i ], [ %214, %land.lhs.true615.i ], [ %214, %land.lhs.true613.i ], [ %214, %land.lhs.true610.i ], [ %214, %if.end607.i ]
+  %direct_spatial_mv_pred_flag622.i = getelementptr inbounds %struct.InputParameters, ptr %220, i64 0, i32 44
+  %221 = load i32, ptr %direct_spatial_mv_pred_flag622.i, align 8, !tbaa !40
+  %tobool623.not.i = icmp eq i32 %221, 0
   br i1 %tobool623.not.i, label %land.lhs.true624.i, label %if.end633.i
 
 land.lhs.true624.i:                               ; preds = %if.end621.i
-  %num_ref_frames625.i = getelementptr inbounds %struct.InputParameters, ptr %221, i64 0, i32 8
-  %223 = load i32, ptr %num_ref_frames625.i, align 8, !tbaa !37
-  %cmp626.i = icmp slt i32 %223, 2
+  %num_ref_frames625.i = getelementptr inbounds %struct.InputParameters, ptr %220, i64 0, i32 8
+  %222 = load i32, ptr %num_ref_frames625.i, align 8, !tbaa !37
+  %cmp626.i = icmp slt i32 %222, 2
   br i1 %cmp626.i, label %land.lhs.true628.i, label %if.end633.i
 
 land.lhs.true628.i:                               ; preds = %land.lhs.true624.i
-  %successive_Bframe629.i = getelementptr inbounds %struct.InputParameters, ptr %221, i64 0, i32 40
-  %224 = load i32, ptr %successive_Bframe629.i, align 8, !tbaa !33
-  %cmp630.i = icmp sgt i32 %224, 0
+  %successive_Bframe629.i = getelementptr inbounds %struct.InputParameters, ptr %220, i64 0, i32 40
+  %223 = load i32, ptr %successive_Bframe629.i, align 8, !tbaa !33
+  %cmp630.i = icmp sgt i32 %223, 0
   br i1 %cmp630.i, label %if.then632.i, label %if.end633.i
 
 if.then632.i:                                     ; preds = %land.lhs.true628.i
   call void @error(ptr noundef nonnull @.str.290, i32 noundef -1000) #21
-  %.pre925.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre920.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end633.i
 
 if.end633.i:                                      ; preds = %if.then632.i, %land.lhs.true628.i, %land.lhs.true624.i, %if.end621.i
-  %225 = phi ptr [ %.pre925.i, %if.then632.i ], [ %221, %land.lhs.true628.i ], [ %221, %land.lhs.true624.i ], [ %221, %if.end621.i ]
-  %Transform8x8Mode.i = getelementptr inbounds %struct.InputParameters, ptr %225, i64 0, i32 153
-  %226 = load i32, ptr %Transform8x8Mode.i, align 4, !tbaa !80
-  %tobool634.not.i = icmp eq i32 %226, 0
+  %224 = phi ptr [ %.pre920.i, %if.then632.i ], [ %220, %land.lhs.true628.i ], [ %220, %land.lhs.true624.i ], [ %220, %if.end621.i ]
+  %Transform8x8Mode.i = getelementptr inbounds %struct.InputParameters, ptr %224, i64 0, i32 153
+  %225 = load i32, ptr %Transform8x8Mode.i, align 4, !tbaa !80
+  %tobool634.not.i = icmp eq i32 %225, 0
   br i1 %tobool634.not.i, label %if.end652.i, label %land.lhs.true635.i
 
 land.lhs.true635.i:                               ; preds = %if.end633.i
-  %sp_periodicity.i = getelementptr inbounds %struct.InputParameters, ptr %225, i64 0, i32 50
-  %227 = load i32, ptr %sp_periodicity.i, align 8, !tbaa !81
-  %tobool636.not.i = icmp eq i32 %227, 0
+  %sp_periodicity.i = getelementptr inbounds %struct.InputParameters, ptr %224, i64 0, i32 50
+  %226 = load i32, ptr %sp_periodicity.i, align 8, !tbaa !81
+  %tobool636.not.i = icmp eq i32 %226, 0
   br i1 %tobool636.not.i, label %land.lhs.true642.i, label %if.end639.i
 
 if.end639.i:                                      ; preds = %land.lhs.true635.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(52) @errortext, ptr noundef nonnull align 1 dereferenceable(52) @.str.291, i64 52, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre926.i = load ptr, ptr @input, align 8, !tbaa !5
-  %Transform8x8Mode640.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre926.i, i64 0, i32 153
-  %.pre927.i = load i32, ptr %Transform8x8Mode640.phi.trans.insert.i, align 4, !tbaa !80
-  %tobool641.not.i = icmp eq i32 %.pre927.i, 0
+  %.pre921.i = load ptr, ptr @input, align 8, !tbaa !5
+  %Transform8x8Mode640.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre921.i, i64 0, i32 153
+  %.pre922.i = load i32, ptr %Transform8x8Mode640.phi.trans.insert.i, align 4, !tbaa !80
+  %tobool641.not.i = icmp eq i32 %.pre922.i, 0
   br i1 %tobool641.not.i, label %if.end652.i, label %land.lhs.true642.i
 
 land.lhs.true642.i:                               ; preds = %if.end639.i, %land.lhs.true635.i
-  %228 = phi ptr [ %.pre926.i, %if.end639.i ], [ %225, %land.lhs.true635.i ]
-  %229 = load i32, ptr %228, align 8, !tbaa !67
-  %230 = add i32 %229, -145
-  %or.cond826.i = icmp ult i32 %230, -45
-  br i1 %or.cond826.i, label %if.then650.i, label %if.end652.i
+  %227 = phi ptr [ %.pre921.i, %if.end639.i ], [ %224, %land.lhs.true635.i ]
+  %228 = load i32, ptr %227, align 8, !tbaa !67
+  %229 = add i32 %228, -145
+  %or.cond850.i = icmp ult i32 %229, -45
+  br i1 %or.cond850.i, label %if.then650.i, label %if.end652.i
 
 if.then650.i:                                     ; preds = %land.lhs.true642.i
   %call651.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.292, i32 noundef 100, i32 noundef 144) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre928.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre923.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end652.i
 
 if.end652.i:                                      ; preds = %if.then650.i, %land.lhs.true642.i, %if.end639.i, %if.end633.i
-  %231 = phi ptr [ %228, %land.lhs.true642.i ], [ %.pre928.i, %if.then650.i ], [ %.pre926.i, %if.end639.i ], [ %225, %if.end633.i ]
-  %ScalingMatrixPresentFlag.i = getelementptr inbounds %struct.InputParameters, ptr %231, i64 0, i32 167
-  %232 = load i32, ptr %ScalingMatrixPresentFlag.i, align 8, !tbaa !82
-  %tobool653.not.i = icmp eq i32 %232, 0
+  %230 = phi ptr [ %227, %land.lhs.true642.i ], [ %.pre923.i, %if.then650.i ], [ %.pre921.i, %if.end639.i ], [ %224, %if.end633.i ]
+  %ScalingMatrixPresentFlag.i = getelementptr inbounds %struct.InputParameters, ptr %230, i64 0, i32 167
+  %231 = load i32, ptr %ScalingMatrixPresentFlag.i, align 8, !tbaa !82
+  %tobool653.not.i = icmp eq i32 %231, 0
   br i1 %tobool653.not.i, label %if.end664.i, label %land.lhs.true654.i
 
 land.lhs.true654.i:                               ; preds = %if.end652.i
-  %233 = load i32, ptr %231, align 8, !tbaa !67
-  %234 = add i32 %233, -145
-  %or.cond827.i = icmp ult i32 %234, -45
-  br i1 %or.cond827.i, label %if.then662.i, label %if.end664.i
+  %232 = load i32, ptr %230, align 8, !tbaa !67
+  %233 = add i32 %232, -145
+  %or.cond851.i = icmp ult i32 %233, -45
+  br i1 %or.cond851.i, label %if.then662.i, label %if.end664.i
 
 if.then662.i:                                     ; preds = %land.lhs.true654.i
   %call663.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.293, i32 noundef 100, i32 noundef 144) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre929.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre924.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end664.i
 
 if.end664.i:                                      ; preds = %if.then662.i, %land.lhs.true654.i, %if.end652.i
-  %235 = phi ptr [ %231, %land.lhs.true654.i ], [ %.pre929.i, %if.then662.i ], [ %231, %if.end652.i ]
-  %yuv_format.i = getelementptr inbounds %struct.InputParameters, ptr %235, i64 0, i32 16
-  %236 = load i32, ptr %yuv_format.i, align 8, !tbaa !83
-  %cmp665.i = icmp eq i32 %236, 2
+  %234 = phi ptr [ %230, %land.lhs.true654.i ], [ %.pre924.i, %if.then662.i ], [ %230, %if.end652.i ]
+  %yuv_format.i = getelementptr inbounds %struct.InputParameters, ptr %234, i64 0, i32 16
+  %235 = load i32, ptr %yuv_format.i, align 8, !tbaa !83
+  %cmp665.i = icmp eq i32 %235, 2
   br i1 %cmp665.i, label %land.lhs.true667.i, label %if.end673.i
 
 land.lhs.true667.i:                               ; preds = %if.end664.i
-  %237 = load i32, ptr %235, align 8, !tbaa !67
-  %cmp669.i = icmp slt i32 %237, 122
+  %236 = load i32, ptr %234, align 8, !tbaa !67
+  %cmp669.i = icmp slt i32 %236, 122
   br i1 %cmp669.i, label %if.then671.i, label %if.end683.i
 
 if.then671.i:                                     ; preds = %land.lhs.true667.i
   %call672.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.294, i32 noundef 122, i32 noundef 144) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre930.i = load ptr, ptr @input, align 8, !tbaa !5
-  %yuv_format674.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre930.i, i64 0, i32 16
-  %.pre931.i = load i32, ptr %yuv_format674.phi.trans.insert.i, align 8, !tbaa !83
+  %.pre925.i = load ptr, ptr @input, align 8, !tbaa !5
+  %yuv_format674.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre925.i, i64 0, i32 16
+  %.pre926.i = load i32, ptr %yuv_format674.phi.trans.insert.i, align 8, !tbaa !83
   br label %if.end673.i
 
 if.end673.i:                                      ; preds = %if.then671.i, %if.end664.i
-  %238 = phi i32 [ %.pre931.i, %if.then671.i ], [ %236, %if.end664.i ]
-  %239 = phi ptr [ %.pre930.i, %if.then671.i ], [ %235, %if.end664.i ]
-  %cmp675.i = icmp eq i32 %238, 3
+  %237 = phi i32 [ %.pre926.i, %if.then671.i ], [ %235, %if.end664.i ]
+  %238 = phi ptr [ %.pre925.i, %if.then671.i ], [ %234, %if.end664.i ]
+  %cmp675.i = icmp eq i32 %237, 3
   br i1 %cmp675.i, label %land.lhs.true677.i, label %if.end683.i
 
 land.lhs.true677.i:                               ; preds = %if.end673.i
-  %240 = load i32, ptr %239, align 8, !tbaa !67
-  %cmp679.i = icmp slt i32 %240, 144
+  %239 = load i32, ptr %238, align 8, !tbaa !67
+  %cmp679.i = icmp slt i32 %239, 144
   br i1 %cmp679.i, label %if.then681.i, label %if.end683.i
 
 if.then681.i:                                     ; preds = %land.lhs.true677.i
   %call682.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.295, i32 noundef 144) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre932.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre927.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end683.i
 
 if.end683.i:                                      ; preds = %if.then681.i, %land.lhs.true677.i, %if.end673.i, %land.lhs.true667.i
-  %241 = phi ptr [ %.pre932.i, %if.then681.i ], [ %239, %land.lhs.true677.i ], [ %239, %if.end673.i ], [ %235, %land.lhs.true667.i ]
-  %successive_Bframe684.i = getelementptr inbounds %struct.InputParameters, ptr %241, i64 0, i32 40
-  %242 = load i32, ptr %successive_Bframe684.i, align 8, !tbaa !33
-  %tobool685.not.i = icmp eq i32 %242, 0
+  %240 = phi ptr [ %.pre927.i, %if.then681.i ], [ %238, %land.lhs.true677.i ], [ %238, %if.end673.i ], [ %234, %land.lhs.true667.i ]
+  %successive_Bframe684.i = getelementptr inbounds %struct.InputParameters, ptr %240, i64 0, i32 40
+  %241 = load i32, ptr %successive_Bframe684.i, align 8, !tbaa !33
+  %tobool685.not.i = icmp eq i32 %241, 0
   br i1 %tobool685.not.i, label %if.end693.i, label %land.lhs.true686.i
 
 land.lhs.true686.i:                               ; preds = %if.end683.i
-  %BiPredMotionEstimation.i = getelementptr inbounds %struct.InputParameters, ptr %241, i64 0, i32 46
-  %243 = load i32, ptr %BiPredMotionEstimation.i, align 8, !tbaa !84
-  %tobool687.not.i = icmp eq i32 %243, 0
+  %BiPredMotionEstimation.i = getelementptr inbounds %struct.InputParameters, ptr %240, i64 0, i32 46
+  %242 = load i32, ptr %BiPredMotionEstimation.i, align 8, !tbaa !84
+  %tobool687.not.i = icmp eq i32 %242, 0
   br i1 %tobool687.not.i, label %if.end693.i, label %land.lhs.true688.i
 
 land.lhs.true688.i:                               ; preds = %land.lhs.true686.i
-  %search_range.i = getelementptr inbounds %struct.InputParameters, ptr %241, i64 0, i32 7
-  %244 = load i32, ptr %search_range.i, align 4, !tbaa !85
-  %BiPredMESearchRange.i = getelementptr inbounds %struct.InputParameters, ptr %241, i64 0, i32 48
-  %245 = load i32, ptr %BiPredMESearchRange.i, align 8, !tbaa !86
-  %cmp689.i = icmp slt i32 %244, %245
+  %search_range.i = getelementptr inbounds %struct.InputParameters, ptr %240, i64 0, i32 7
+  %243 = load i32, ptr %search_range.i, align 4, !tbaa !85
+  %BiPredMESearchRange.i = getelementptr inbounds %struct.InputParameters, ptr %240, i64 0, i32 48
+  %244 = load i32, ptr %BiPredMESearchRange.i, align 8, !tbaa !86
+  %cmp689.i = icmp slt i32 %243, %244
   br i1 %cmp689.i, label %if.then691.i, label %if.end693.i
 
 if.then691.i:                                     ; preds = %land.lhs.true688.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(59) @errortext, ptr noundef nonnull align 1 dereferenceable(59) @.str.296, i64 59, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre933.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre928.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end693.i
 
 if.end693.i:                                      ; preds = %if.then691.i, %land.lhs.true688.i, %land.lhs.true686.i, %if.end683.i
-  %246 = phi ptr [ %.pre933.i, %if.then691.i ], [ %241, %land.lhs.true688.i ], [ %241, %land.lhs.true686.i ], [ %241, %if.end683.i ]
-  %ChromaMEEnable.i = getelementptr inbounds %struct.InputParameters, ptr %246, i64 0, i32 198
-  %247 = load i32, ptr %ChromaMEEnable.i, align 8, !tbaa !87
-  %tobool694.not.i = icmp eq i32 %247, 0
+  %245 = phi ptr [ %.pre928.i, %if.then691.i ], [ %240, %land.lhs.true688.i ], [ %240, %land.lhs.true686.i ], [ %240, %if.end683.i ]
+  %ChromaMEEnable.i = getelementptr inbounds %struct.InputParameters, ptr %245, i64 0, i32 198
+  %246 = load i32, ptr %ChromaMEEnable.i, align 8, !tbaa !87
+  %tobool694.not.i = icmp eq i32 %246, 0
   br i1 %tobool694.not.i, label %if.end709.i, label %land.lhs.true695.i
 
 land.lhs.true695.i:                               ; preds = %if.end693.i
-  %ChromaMCBuffer.i = getelementptr inbounds %struct.InputParameters, ptr %246, i64 0, i32 197
-  %248 = load i32, ptr %ChromaMCBuffer.i, align 4, !tbaa !88
-  %tobool696.not.i = icmp eq i32 %248, 0
+  %ChromaMCBuffer.i = getelementptr inbounds %struct.InputParameters, ptr %245, i64 0, i32 197
+  %247 = load i32, ptr %ChromaMCBuffer.i, align 4, !tbaa !88
+  %tobool696.not.i = icmp eq i32 %247, 0
   br i1 %tobool696.not.i, label %if.end699.i, label %land.lhs.true702.i
 
 if.end699.i:                                      ; preds = %land.lhs.true695.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(59) @errortext, ptr noundef nonnull align 1 dereferenceable(59) @.str.297, i64 59, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre934.i = load ptr, ptr @input, align 8, !tbaa !5
-  %ChromaMEEnable700.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre934.i, i64 0, i32 198
-  %.pre935.i = load i32, ptr %ChromaMEEnable700.phi.trans.insert.i, align 8, !tbaa !87
-  %tobool701.not.i = icmp eq i32 %.pre935.i, 0
+  %.pre929.i = load ptr, ptr @input, align 8, !tbaa !5
+  %ChromaMEEnable700.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre929.i, i64 0, i32 198
+  %.pre930.i = load i32, ptr %ChromaMEEnable700.phi.trans.insert.i, align 8, !tbaa !87
+  %tobool701.not.i = icmp eq i32 %.pre930.i, 0
   br i1 %tobool701.not.i, label %if.end709.i, label %land.lhs.true702.i
 
 land.lhs.true702.i:                               ; preds = %land.lhs.true695.i, %if.end699.i
-  %249 = phi ptr [ %.pre934.i, %if.end699.i ], [ %246, %land.lhs.true695.i ]
-  %yuv_format703.i = getelementptr inbounds %struct.InputParameters, ptr %249, i64 0, i32 16
-  %250 = load i32, ptr %yuv_format703.i, align 8, !tbaa !83
-  %cmp704.i = icmp eq i32 %250, 0
+  %248 = phi ptr [ %.pre929.i, %if.end699.i ], [ %245, %land.lhs.true695.i ]
+  %yuv_format703.i = getelementptr inbounds %struct.InputParameters, ptr %248, i64 0, i32 16
+  %249 = load i32, ptr %yuv_format703.i, align 8, !tbaa !83
+  %cmp704.i = icmp eq i32 %249, 0
   br i1 %cmp704.i, label %if.then706.i, label %if.end709.i
 
 if.then706.i:                                     ; preds = %land.lhs.true702.i
-  %ChromaMEEnable700962.i = getelementptr inbounds %struct.InputParameters, ptr %249, i64 0, i32 198
+  %ChromaMEEnable700962.i = getelementptr inbounds %struct.InputParameters, ptr %248, i64 0, i32 198
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(57) @errortext, ptr noundef nonnull align 1 dereferenceable(57) @.str.298, i64 57, i1 false)
   store i32 0, ptr %ChromaMEEnable700962.i, align 8, !tbaa !87
   br label %if.end709.i
 
 if.end709.i:                                      ; preds = %if.then706.i, %land.lhs.true702.i, %if.end699.i, %if.end693.i
-  %251 = phi ptr [ %249, %if.then706.i ], [ %249, %land.lhs.true702.i ], [ %.pre934.i, %if.end699.i ], [ %246, %if.end693.i ]
-  %EnableOpenGOP.i = getelementptr inbounds %struct.InputParameters, ptr %251, i64 0, i32 31
-  %252 = load i32, ptr %EnableOpenGOP.i, align 4, !tbaa !89
-  %tobool710.not.i = icmp eq i32 %252, 0
+  %250 = phi ptr [ %248, %if.then706.i ], [ %248, %land.lhs.true702.i ], [ %.pre929.i, %if.end699.i ], [ %245, %if.end693.i ]
+  %EnableOpenGOP.i = getelementptr inbounds %struct.InputParameters, ptr %250, i64 0, i32 31
+  %251 = load i32, ptr %EnableOpenGOP.i, align 4, !tbaa !89
+  %tobool710.not.i = icmp eq i32 %251, 0
   br i1 %tobool710.not.i, label %if.end721.i, label %land.lhs.true711.i
 
 land.lhs.true711.i:                               ; preds = %if.end709.i
-  %PicInterlace712.i = getelementptr inbounds %struct.InputParameters, ptr %251, i64 0, i32 121
-  %253 = load i32, ptr %PicInterlace712.i, align 8, !tbaa !41
-  %tobool713.not.i = icmp eq i32 %253, 0
+  %PicInterlace712.i = getelementptr inbounds %struct.InputParameters, ptr %250, i64 0, i32 121
+  %252 = load i32, ptr %PicInterlace712.i, align 8, !tbaa !41
+  %tobool713.not.i = icmp eq i32 %252, 0
   br i1 %tobool713.not.i, label %if.then719.i, label %if.end716.i
 
 if.end716.i:                                      ; preds = %land.lhs.true711.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(59) @errortext, ptr noundef nonnull align 1 dereferenceable(59) @.str.299, i64 59, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre936.i = load ptr, ptr @input, align 8, !tbaa !5
-  %EnableOpenGOP717.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre936.i, i64 0, i32 31
-  %.pre937.i = load i32, ptr %EnableOpenGOP717.phi.trans.insert.i, align 4, !tbaa !89
-  %tobool718.not.i = icmp eq i32 %.pre937.i, 0
+  %.pre931.i = load ptr, ptr @input, align 8, !tbaa !5
+  %EnableOpenGOP717.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre931.i, i64 0, i32 31
+  %.pre932.i = load i32, ptr %EnableOpenGOP717.phi.trans.insert.i, align 4, !tbaa !89
+  %tobool718.not.i = icmp eq i32 %.pre932.i, 0
   br i1 %tobool718.not.i, label %if.end721.i, label %if.then719.i
 
 if.then719.i:                                     ; preds = %if.end716.i, %land.lhs.true711.i
-  %254 = phi ptr [ %.pre936.i, %if.end716.i ], [ %251, %land.lhs.true711.i ]
-  %ReferenceReorder720.i = getelementptr inbounds %struct.InputParameters, ptr %254, i64 0, i32 72
+  %253 = phi ptr [ %.pre931.i, %if.end716.i ], [ %250, %land.lhs.true711.i ]
+  %ReferenceReorder720.i = getelementptr inbounds %struct.InputParameters, ptr %253, i64 0, i32 72
   store i32 1, ptr %ReferenceReorder720.i, align 8, !tbaa !64
   br label %if.end721.i
 
 if.end721.i:                                      ; preds = %if.then719.i, %if.end716.i, %if.end709.i
-  %255 = phi ptr [ %254, %if.then719.i ], [ %.pre936.i, %if.end716.i ], [ %251, %if.end709.i ]
-  %redundant_pic_flag.i = getelementptr inbounds %struct.InputParameters, ptr %255, i64 0, i32 149
-  %256 = load i32, ptr %redundant_pic_flag.i, align 4, !tbaa !90
-  %tobool722.not.i = icmp eq i32 %256, 0
+  %254 = phi ptr [ %253, %if.then719.i ], [ %.pre931.i, %if.end716.i ], [ %250, %if.end709.i ]
+  %redundant_pic_flag.i = getelementptr inbounds %struct.InputParameters, ptr %254, i64 0, i32 149
+  %255 = load i32, ptr %redundant_pic_flag.i, align 4, !tbaa !90
+  %tobool722.not.i = icmp eq i32 %255, 0
   br i1 %tobool722.not.i, label %if.end754.i, label %if.then723.i
 
 if.then723.i:                                     ; preds = %if.end721.i
-  %PicInterlace724.i = getelementptr inbounds %struct.InputParameters, ptr %255, i64 0, i32 121
-  %257 = load i32, ptr %PicInterlace724.i, align 8, !tbaa !41
-  %tobool725.not.i = icmp eq i32 %257, 0
+  %PicInterlace724.i = getelementptr inbounds %struct.InputParameters, ptr %254, i64 0, i32 121
+  %256 = load i32, ptr %PicInterlace724.i, align 8, !tbaa !41
+  %tobool725.not.i = icmp eq i32 %256, 0
   br i1 %tobool725.not.i, label %lor.lhs.false726.i, label %if.then729.i
 
 lor.lhs.false726.i:                               ; preds = %if.then723.i
-  %MbInterlace727.i = getelementptr inbounds %struct.InputParameters, ptr %255, i64 0, i32 122
-  %258 = load i32, ptr %MbInterlace727.i, align 4, !tbaa !42
-  %tobool728.not.i = icmp eq i32 %258, 0
+  %MbInterlace727.i = getelementptr inbounds %struct.InputParameters, ptr %254, i64 0, i32 122
+  %257 = load i32, ptr %MbInterlace727.i, align 4, !tbaa !42
+  %tobool728.not.i = icmp eq i32 %257, 0
   br i1 %tobool728.not.i, label %if.end731.i, label %if.then729.i
 
 if.then729.i:                                     ; preds = %lor.lhs.false726.i, %if.then723.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(57) @errortext, ptr noundef nonnull align 1 dereferenceable(57) @.str.300, i64 57, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre938.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre933.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end731.i
 
 if.end731.i:                                      ; preds = %if.then729.i, %lor.lhs.false726.i
-  %259 = phi ptr [ %.pre938.i, %if.then729.i ], [ %255, %lor.lhs.false726.i ]
-  %RDPictureDecision.i = getelementptr inbounds %struct.InputParameters, ptr %259, i64 0, i32 62
-  %260 = load i32, ptr %RDPictureDecision.i, align 4, !tbaa !91
-  %tobool732.not.i = icmp eq i32 %260, 0
+  %258 = phi ptr [ %.pre933.i, %if.then729.i ], [ %254, %lor.lhs.false726.i ]
+  %RDPictureDecision.i = getelementptr inbounds %struct.InputParameters, ptr %258, i64 0, i32 62
+  %259 = load i32, ptr %RDPictureDecision.i, align 4, !tbaa !91
+  %tobool732.not.i = icmp eq i32 %259, 0
   br i1 %tobool732.not.i, label %if.end735.i, label %if.then733.i
 
 if.then733.i:                                     ; preds = %if.end731.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(58) @errortext, ptr noundef nonnull align 1 dereferenceable(58) @.str.301, i64 58, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre939.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre934.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end735.i
 
 if.end735.i:                                      ; preds = %if.then733.i, %if.end731.i
-  %261 = phi ptr [ %.pre939.i, %if.then733.i ], [ %259, %if.end731.i ]
-  %successive_Bframe736.i = getelementptr inbounds %struct.InputParameters, ptr %261, i64 0, i32 40
-  %262 = load i32, ptr %successive_Bframe736.i, align 8, !tbaa !33
-  %tobool737.not.i = icmp eq i32 %262, 0
+  %260 = phi ptr [ %.pre934.i, %if.then733.i ], [ %258, %if.end731.i ]
+  %successive_Bframe736.i = getelementptr inbounds %struct.InputParameters, ptr %260, i64 0, i32 40
+  %261 = load i32, ptr %successive_Bframe736.i, align 8, !tbaa !33
+  %tobool737.not.i = icmp eq i32 %261, 0
   br i1 %tobool737.not.i, label %if.end740.i, label %if.then738.i
 
 if.then738.i:                                     ; preds = %if.end735.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(49) @errortext, ptr noundef nonnull align 1 dereferenceable(49) @.str.302, i64 49, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre940.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre935.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end740.i
 
 if.end740.i:                                      ; preds = %if.then738.i, %if.end735.i
-  %263 = phi ptr [ %.pre940.i, %if.then738.i ], [ %261, %if.end735.i ]
-  %PrimaryGOPLength.i = getelementptr inbounds %struct.InputParameters, ptr %263, i64 0, i32 195
-  %264 = load i32, ptr %PrimaryGOPLength.i, align 4, !tbaa !92
-  %NumRedundantHierarchy.i = getelementptr inbounds %struct.InputParameters, ptr %263, i64 0, i32 194
-  %265 = load i32, ptr %NumRedundantHierarchy.i, align 8, !tbaa !93
-  %shl741.i = shl nuw i32 1, %265
-  %cmp742.i = icmp slt i32 %264, %shl741.i
+  %262 = phi ptr [ %.pre935.i, %if.then738.i ], [ %260, %if.end735.i ]
+  %PrimaryGOPLength.i = getelementptr inbounds %struct.InputParameters, ptr %262, i64 0, i32 195
+  %263 = load i32, ptr %PrimaryGOPLength.i, align 4, !tbaa !92
+  %NumRedundantHierarchy.i = getelementptr inbounds %struct.InputParameters, ptr %262, i64 0, i32 194
+  %264 = load i32, ptr %NumRedundantHierarchy.i, align 8, !tbaa !93
+  %shl741.i = shl nuw i32 1, %264
+  %cmp742.i = icmp slt i32 %263, %shl741.i
   br i1 %cmp742.i, label %if.then744.i, label %if.end746.i
 
 if.then744.i:                                     ; preds = %if.end740.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) @errortext, ptr noundef nonnull align 1 dereferenceable(72) @.str.303, i64 72, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre941.i = load ptr, ptr @input, align 8, !tbaa !5
-  %PrimaryGOPLength748.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre941.i, i64 0, i32 195
-  %.pre942.i = load i32, ptr %PrimaryGOPLength748.phi.trans.insert.i, align 4, !tbaa !92
+  %.pre936.i = load ptr, ptr @input, align 8, !tbaa !5
+  %PrimaryGOPLength748.phi.trans.insert.i = getelementptr inbounds %struct.InputParameters, ptr %.pre936.i, i64 0, i32 195
+  %.pre937.i = load i32, ptr %PrimaryGOPLength748.phi.trans.insert.i, align 4, !tbaa !92
   br label %if.end746.i
 
 if.end746.i:                                      ; preds = %if.then744.i, %if.end740.i
-  %266 = phi i32 [ %.pre942.i, %if.then744.i ], [ %264, %if.end740.i ]
-  %267 = phi ptr [ %.pre941.i, %if.then744.i ], [ %263, %if.end740.i ]
-  %num_ref_frames747.i = getelementptr inbounds %struct.InputParameters, ptr %267, i64 0, i32 8
-  %268 = load i32, ptr %num_ref_frames747.i, align 8, !tbaa !37
-  %cmp749.i = icmp slt i32 %268, %266
+  %265 = phi i32 [ %.pre937.i, %if.then744.i ], [ %263, %if.end740.i ]
+  %266 = phi ptr [ %.pre936.i, %if.then744.i ], [ %262, %if.end740.i ]
+  %num_ref_frames747.i = getelementptr inbounds %struct.InputParameters, ptr %266, i64 0, i32 8
+  %267 = load i32, ptr %num_ref_frames747.i, align 8, !tbaa !37
+  %cmp749.i = icmp slt i32 %267, %265
   br i1 %cmp749.i, label %if.then751.i, label %if.end754.i
 
 if.then751.i:                                     ; preds = %if.end746.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(73) @errortext, ptr noundef nonnull align 1 dereferenceable(73) @.str.304, i64 73, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre943.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre938.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end754.i
 
 if.end754.i:                                      ; preds = %if.then751.i, %if.end746.i, %if.end721.i
-  %269 = phi ptr [ %267, %if.end746.i ], [ %.pre943.i, %if.then751.i ], [ %255, %if.end721.i ]
-  %num_ref_frames755.i = getelementptr inbounds %struct.InputParameters, ptr %269, i64 0, i32 8
-  %270 = load i32, ptr %num_ref_frames755.i, align 8, !tbaa !37
-  %cmp756.i = icmp eq i32 %270, 1
+  %268 = phi ptr [ %266, %if.end746.i ], [ %.pre938.i, %if.then751.i ], [ %254, %if.end721.i ]
+  %num_ref_frames755.i = getelementptr inbounds %struct.InputParameters, ptr %268, i64 0, i32 8
+  %269 = load i32, ptr %num_ref_frames755.i, align 8, !tbaa !37
+  %cmp756.i = icmp eq i32 %269, 1
   br i1 %cmp756.i, label %land.lhs.true758.i, label %if.end765.i
 
 land.lhs.true758.i:                               ; preds = %if.end754.i
-  %successive_Bframe759.i = getelementptr inbounds %struct.InputParameters, ptr %269, i64 0, i32 40
-  %271 = load i32, ptr %successive_Bframe759.i, align 8, !tbaa !33
-  %tobool760.not.i = icmp eq i32 %271, 0
+  %successive_Bframe759.i = getelementptr inbounds %struct.InputParameters, ptr %268, i64 0, i32 40
+  %270 = load i32, ptr %successive_Bframe759.i, align 8, !tbaa !33
+  %tobool760.not.i = icmp eq i32 %270, 0
   br i1 %tobool760.not.i, label %if.end765.i, label %if.then761.i
 
 if.then761.i:                                     ; preds = %land.lhs.true758.i
-  %272 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %273 = call i64 @fwrite(ptr nonnull @.str.305, i64 82, i64 1, ptr %272) #18
-  %274 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %275 = call i64 @fwrite(ptr nonnull @.str.306, i64 55, i64 1, ptr %274) #18
-  %276 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %277 = call i64 @fwrite(ptr nonnull @.str.307, i64 65, i64 1, ptr %276) #18
-  %.pre944.i = load ptr, ptr @input, align 8, !tbaa !5
+  %271 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %272 = call i64 @fwrite(ptr nonnull @.str.305, i64 82, i64 1, ptr %271) #18
+  %273 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %274 = call i64 @fwrite(ptr nonnull @.str.306, i64 55, i64 1, ptr %273) #18
+  %275 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %276 = call i64 @fwrite(ptr nonnull @.str.307, i64 65, i64 1, ptr %275) #18
+  %.pre939.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end765.i
 
 if.end765.i:                                      ; preds = %if.then761.i, %land.lhs.true758.i, %if.end754.i
-  %278 = phi ptr [ %.pre944.i, %if.then761.i ], [ %269, %land.lhs.true758.i ], [ %269, %if.end754.i ]
-  %HierarchicalCoding.i = getelementptr inbounds %struct.InputParameters, ptr %278, i64 0, i32 69
-  %279 = load i32, ptr %HierarchicalCoding.i, align 8, !tbaa !94
-  %tobool766.not.i = icmp eq i32 %279, 0
+  %277 = phi ptr [ %.pre939.i, %if.then761.i ], [ %268, %land.lhs.true758.i ], [ %268, %if.end754.i ]
+  %HierarchicalCoding.i = getelementptr inbounds %struct.InputParameters, ptr %277, i64 0, i32 69
+  %278 = load i32, ptr %HierarchicalCoding.i, align 8, !tbaa !94
+  %tobool766.not.i = icmp eq i32 %278, 0
   br i1 %tobool766.not.i, label %lor.lhs.false767.i, label %land.lhs.true770.i
 
 lor.lhs.false767.i:                               ; preds = %if.end765.i
-  %BRefPictures768.i = getelementptr inbounds %struct.InputParameters, ptr %278, i64 0, i32 68
-  %280 = load i32, ptr %BRefPictures768.i, align 4, !tbaa !32
-  %tobool769.not.i = icmp eq i32 %280, 0
+  %BRefPictures768.i = getelementptr inbounds %struct.InputParameters, ptr %277, i64 0, i32 68
+  %279 = load i32, ptr %BRefPictures768.i, align 4, !tbaa !32
+  %tobool769.not.i = icmp eq i32 %279, 0
   br i1 %tobool769.not.i, label %if.end777.i, label %land.lhs.true770.i
 
 land.lhs.true770.i:                               ; preds = %lor.lhs.false767.i, %if.end765.i
-  %successive_Bframe771.i = getelementptr inbounds %struct.InputParameters, ptr %278, i64 0, i32 40
-  %281 = load i32, ptr %successive_Bframe771.i, align 8, !tbaa !33
-  %tobool772.not.i = icmp eq i32 %281, 0
+  %successive_Bframe771.i = getelementptr inbounds %struct.InputParameters, ptr %277, i64 0, i32 40
+  %280 = load i32, ptr %successive_Bframe771.i, align 8, !tbaa !33
+  %tobool772.not.i = icmp eq i32 %280, 0
   br i1 %tobool772.not.i, label %if.end777.i, label %if.then773.i
 
 if.then773.i:                                     ; preds = %land.lhs.true770.i
-  %282 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %283 = call i64 @fwrite(ptr nonnull @.str.308, i64 59, i64 1, ptr %282) #18
-  %284 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %285 = call i64 @fwrite(ptr nonnull @.str.309, i64 61, i64 1, ptr %284) #18
-  %286 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %287 = call i64 @fwrite(ptr nonnull @.str.310, i64 58, i64 1, ptr %286) #18
-  %.pre945.i = load ptr, ptr @input, align 8, !tbaa !5
+  %281 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %282 = call i64 @fwrite(ptr nonnull @.str.308, i64 59, i64 1, ptr %281) #18
+  %283 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %284 = call i64 @fwrite(ptr nonnull @.str.309, i64 61, i64 1, ptr %283) #18
+  %285 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %286 = call i64 @fwrite(ptr nonnull @.str.310, i64 58, i64 1, ptr %285) #18
+  %.pre940.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end777.i
 
 if.end777.i:                                      ; preds = %if.then773.i, %land.lhs.true770.i, %lor.lhs.false767.i
-  %288 = phi ptr [ %.pre945.i, %if.then773.i ], [ %278, %land.lhs.true770.i ], [ %278, %lor.lhs.false767.i ]
-  %289 = load i32, ptr %288, align 8, !tbaa !67
-  switch i32 %289, label %if.then.i848.i [
+  %287 = phi ptr [ %.pre940.i, %if.then773.i ], [ %277, %land.lhs.true770.i ], [ %277, %lor.lhs.false767.i ]
+  %288 = load i32, ptr %287, align 8, !tbaa !67
+  switch i32 %288, label %if.then.i837.i [
     i32 66, label %if.end.i.i
     i32 77, label %if.end.i.i
     i32 88, label %if.end.i.i
@@ -2262,23 +2263,23 @@ if.end777.i:                                      ; preds = %if.then773.i, %land
     i32 144, label %if.end.i.i
   ]
 
-if.then.i848.i:                                   ; preds = %if.end777.i
-  %call.i846.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.315, i32 noundef 100, i32 noundef 144) #21
+if.then.i837.i:                                   ; preds = %if.end777.i
+  %call.i835.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.315, i32 noundef 100, i32 noundef 144) #21
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre.i847.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre.i836.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end.i.i
 
-if.end.i.i:                                       ; preds = %if.then.i848.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i
-  %290 = phi ptr [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %288, %if.end777.i ], [ %.pre.i847.i, %if.then.i848.i ]
-  %partition_mode.i.i = getelementptr inbounds %struct.InputParameters, ptr %290, i64 0, i32 76
-  %291 = load i32, ptr %partition_mode.i.i, align 8, !tbaa !95
-  %tobool.not.i.i = icmp eq i32 %291, 0
+if.end.i.i:                                       ; preds = %if.then.i837.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i, %if.end777.i
+  %289 = phi ptr [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %287, %if.end777.i ], [ %.pre.i836.i, %if.then.i837.i ]
+  %partition_mode.i.i = getelementptr inbounds %struct.InputParameters, ptr %289, i64 0, i32 76
+  %290 = load i32, ptr %partition_mode.i.i, align 8, !tbaa !95
+  %tobool.not.i.i = icmp eq i32 %290, 0
   br i1 %tobool.not.i.i, label %if.end22.i.i, label %land.lhs.true18.i.i
 
 land.lhs.true18.i.i:                              ; preds = %if.end.i.i
-  %symbol_mode.i.i = getelementptr inbounds %struct.InputParameters, ptr %290, i64 0, i32 74
-  %292 = load i32, ptr %symbol_mode.i.i, align 8, !tbaa !45
-  %cmp19.i.i = icmp eq i32 %292, 1
+  %symbol_mode.i.i = getelementptr inbounds %struct.InputParameters, ptr %289, i64 0, i32 74
+  %291 = load i32, ptr %symbol_mode.i.i, align 8, !tbaa !45
+  %cmp19.i.i = icmp eq i32 %291, 1
   br i1 %cmp19.i.i, label %if.then20.i.i, label %if.end22.i.i
 
 if.then20.i.i:                                    ; preds = %land.lhs.true18.i.i
@@ -2288,15 +2289,15 @@ if.then20.i.i:                                    ; preds = %land.lhs.true18.i.i
   br label %if.end22.i.i
 
 if.end22.i.i:                                     ; preds = %if.then20.i.i, %land.lhs.true18.i.i, %if.end.i.i
-  %293 = phi ptr [ %.pre103.i.i, %if.then20.i.i ], [ %290, %land.lhs.true18.i.i ], [ %290, %if.end.i.i ]
-  %redundant_pic_flag.i.i = getelementptr inbounds %struct.InputParameters, ptr %293, i64 0, i32 149
-  %294 = load i32, ptr %redundant_pic_flag.i.i, align 4, !tbaa !90
-  %tobool23.not.i.i = icmp eq i32 %294, 0
+  %292 = phi ptr [ %.pre103.i.i, %if.then20.i.i ], [ %289, %land.lhs.true18.i.i ], [ %289, %if.end.i.i ]
+  %redundant_pic_flag.i.i = getelementptr inbounds %struct.InputParameters, ptr %292, i64 0, i32 149
+  %293 = load i32, ptr %redundant_pic_flag.i.i, align 4, !tbaa !90
+  %tobool23.not.i.i = icmp eq i32 %293, 0
   br i1 %tobool23.not.i.i, label %if.end30.i.i, label %if.then24.i.i
 
 if.then24.i.i:                                    ; preds = %if.end22.i.i
-  %295 = load i32, ptr %293, align 8, !tbaa !67
-  %cmp26.not.i.i = icmp eq i32 %295, 66
+  %294 = load i32, ptr %292, align 8, !tbaa !67
+  %cmp26.not.i.i = icmp eq i32 %294, 66
   br i1 %cmp26.not.i.i, label %if.end30.i.i, label %if.then27.i.i
 
 if.then27.i.i:                                    ; preds = %if.then24.i.i
@@ -2306,15 +2307,15 @@ if.then27.i.i:                                    ; preds = %if.then24.i.i
   br label %if.end30.i.i
 
 if.end30.i.i:                                     ; preds = %if.then27.i.i, %if.then24.i.i, %if.end22.i.i
-  %296 = phi ptr [ %293, %if.then24.i.i ], [ %.pre104.i.i, %if.then27.i.i ], [ %293, %if.end22.i.i ]
-  %partition_mode31.i.i = getelementptr inbounds %struct.InputParameters, ptr %296, i64 0, i32 76
-  %297 = load i32, ptr %partition_mode31.i.i, align 8, !tbaa !95
-  %tobool32.not.i.i = icmp eq i32 %297, 0
+  %295 = phi ptr [ %292, %if.then24.i.i ], [ %.pre104.i.i, %if.then27.i.i ], [ %292, %if.end22.i.i ]
+  %partition_mode31.i.i = getelementptr inbounds %struct.InputParameters, ptr %295, i64 0, i32 76
+  %296 = load i32, ptr %partition_mode31.i.i, align 8, !tbaa !95
+  %tobool32.not.i.i = icmp eq i32 %296, 0
   br i1 %tobool32.not.i.i, label %if.end39.i.i, label %if.then33.i.i
 
 if.then33.i.i:                                    ; preds = %if.end30.i.i
-  %298 = load i32, ptr %296, align 8, !tbaa !67
-  %cmp35.not.i.i = icmp eq i32 %298, 88
+  %297 = load i32, ptr %295, align 8, !tbaa !67
+  %cmp35.not.i.i = icmp eq i32 %297, 88
   br i1 %cmp35.not.i.i, label %if.end39.i.i, label %if.then36.i.i
 
 if.then36.i.i:                                    ; preds = %if.then33.i.i
@@ -2324,53 +2325,53 @@ if.then36.i.i:                                    ; preds = %if.then33.i.i
   br label %if.end39.i.i
 
 if.end39.i.i:                                     ; preds = %if.then36.i.i, %if.then33.i.i, %if.end30.i.i
-  %299 = phi ptr [ %296, %if.then33.i.i ], [ %.pre105.i.i, %if.then36.i.i ], [ %296, %if.end30.i.i ]
-  %ChromaIntraDisable.i.i = getelementptr inbounds %struct.InputParameters, ptr %299, i64 0, i32 90
-  %300 = load i32, ptr %ChromaIntraDisable.i.i, align 8, !tbaa !96
-  %tobool40.not.i.i = icmp eq i32 %300, 0
+  %298 = phi ptr [ %295, %if.then33.i.i ], [ %.pre105.i.i, %if.then36.i.i ], [ %295, %if.end30.i.i ]
+  %ChromaIntraDisable.i.i = getelementptr inbounds %struct.InputParameters, ptr %298, i64 0, i32 90
+  %299 = load i32, ptr %ChromaIntraDisable.i.i, align 8, !tbaa !96
+  %tobool40.not.i.i = icmp eq i32 %299, 0
   br i1 %tobool40.not.i.i, label %if.end48.i.i, label %land.lhs.true41.i.i
 
 land.lhs.true41.i.i:                              ; preds = %if.end39.i.i
-  %FastCrIntraDecision.i.i = getelementptr inbounds %struct.InputParameters, ptr %299, i64 0, i32 115
-  %301 = load i32, ptr %FastCrIntraDecision.i.i, align 8, !tbaa !97
-  %tobool42.not.i.i = icmp eq i32 %301, 0
+  %FastCrIntraDecision.i.i = getelementptr inbounds %struct.InputParameters, ptr %298, i64 0, i32 115
+  %300 = load i32, ptr %FastCrIntraDecision.i.i, align 8, !tbaa !97
+  %tobool42.not.i.i = icmp eq i32 %300, 0
   br i1 %tobool42.not.i.i, label %if.end48.i.i, label %if.then43.i.i
 
 if.then43.i.i:                                    ; preds = %land.lhs.true41.i.i
-  %302 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %303 = call i64 @fwrite(ptr nonnull @.str.319, i64 84, i64 1, ptr %302) #18
-  %304 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %305 = call i64 @fwrite(ptr nonnull @.str.320, i64 117, i64 1, ptr %304) #18
-  %306 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %307 = call i64 @fwrite(ptr nonnull @.str.319, i64 84, i64 1, ptr %306) #18
-  %308 = load ptr, ptr @input, align 8, !tbaa !5
-  %FastCrIntraDecision47.i.i = getelementptr inbounds %struct.InputParameters, ptr %308, i64 0, i32 115
+  %301 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %302 = call i64 @fwrite(ptr nonnull @.str.319, i64 84, i64 1, ptr %301) #18
+  %303 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %304 = call i64 @fwrite(ptr nonnull @.str.320, i64 117, i64 1, ptr %303) #18
+  %305 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %306 = call i64 @fwrite(ptr nonnull @.str.319, i64 84, i64 1, ptr %305) #18
+  %307 = load ptr, ptr @input, align 8, !tbaa !5
+  %FastCrIntraDecision47.i.i = getelementptr inbounds %struct.InputParameters, ptr %307, i64 0, i32 115
   store i32 0, ptr %FastCrIntraDecision47.i.i, align 8, !tbaa !97
   br label %if.end48.i.i
 
 if.end48.i.i:                                     ; preds = %if.then43.i.i, %land.lhs.true41.i.i, %if.end39.i.i
-  %309 = phi ptr [ %308, %if.then43.i.i ], [ %299, %land.lhs.true41.i.i ], [ %299, %if.end39.i.i ]
-  %310 = load i32, ptr %309, align 8, !tbaa !67
-  %cmp50.i.i = icmp eq i32 %310, 66
+  %308 = phi ptr [ %307, %if.then43.i.i ], [ %298, %land.lhs.true41.i.i ], [ %298, %if.end39.i.i ]
+  %309 = load i32, ptr %308, align 8, !tbaa !67
+  %cmp50.i.i = icmp eq i32 %309, 66
   br i1 %cmp50.i.i, label %if.then51.i.i, label %if.end76.i.i
 
 if.then51.i.i:                                    ; preds = %if.end48.i.i
-  %successive_Bframe.i.i = getelementptr inbounds %struct.InputParameters, ptr %309, i64 0, i32 40
-  %311 = load i32, ptr %successive_Bframe.i.i, align 8, !tbaa !33
-  %tobool52.not.i.i = icmp eq i32 %311, 0
+  %successive_Bframe.i.i = getelementptr inbounds %struct.InputParameters, ptr %308, i64 0, i32 40
+  %310 = load i32, ptr %successive_Bframe.i.i, align 8, !tbaa !33
+  %tobool52.not.i.i = icmp eq i32 %310, 0
   br i1 %tobool52.not.i.i, label %lor.lhs.false.i.i, label %land.lhs.true54.i.i
 
 lor.lhs.false.i.i:                                ; preds = %if.then51.i.i
-  %BRefPictures.i.i = getelementptr inbounds %struct.InputParameters, ptr %309, i64 0, i32 68
-  %312 = load i32, ptr %BRefPictures.i.i, align 4, !tbaa !32
-  %cmp53.i.i = icmp eq i32 %312, 2
+  %BRefPictures.i.i = getelementptr inbounds %struct.InputParameters, ptr %308, i64 0, i32 68
+  %311 = load i32, ptr %BRefPictures.i.i, align 4, !tbaa !32
+  %cmp53.i.i = icmp eq i32 %311, 2
   br i1 %cmp53.i.i, label %land.lhs.true54.i.i, label %if.end58.i.i
 
 land.lhs.true54.i.i:                              ; preds = %lor.lhs.false.i.i, %if.then51.i.i
-  %PReplaceBSlice.i.i = getelementptr inbounds %struct.InputParameters, ptr %309, i64 0, i32 41
-  %313 = load i32, ptr %PReplaceBSlice.i.i, align 4, !tbaa !98
-  %cmp55.i849.i = icmp eq i32 %313, 0
-  br i1 %cmp55.i849.i, label %if.then56.i.i, label %if.end58.i.i
+  %PReplaceBSlice.i.i = getelementptr inbounds %struct.InputParameters, ptr %308, i64 0, i32 41
+  %312 = load i32, ptr %PReplaceBSlice.i.i, align 4, !tbaa !98
+  %cmp55.i838.i = icmp eq i32 %312, 0
+  br i1 %cmp55.i838.i, label %if.then56.i.i, label %if.end58.i.i
 
 if.then56.i.i:                                    ; preds = %land.lhs.true54.i.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(38) @errortext, ptr noundef nonnull align 1 dereferenceable(38) @.str.321, i64 38, i1 false)
@@ -2379,10 +2380,10 @@ if.then56.i.i:                                    ; preds = %land.lhs.true54.i.i
   br label %if.end58.i.i
 
 if.end58.i.i:                                     ; preds = %if.then56.i.i, %land.lhs.true54.i.i, %lor.lhs.false.i.i
-  %314 = phi ptr [ %.pre106.i.i, %if.then56.i.i ], [ %309, %land.lhs.true54.i.i ], [ %309, %lor.lhs.false.i.i ]
-  %sp_periodicity.i.i = getelementptr inbounds %struct.InputParameters, ptr %314, i64 0, i32 50
-  %315 = load i32, ptr %sp_periodicity.i.i, align 8, !tbaa !81
-  %tobool59.not.i.i = icmp eq i32 %315, 0
+  %313 = phi ptr [ %.pre106.i.i, %if.then56.i.i ], [ %308, %land.lhs.true54.i.i ], [ %308, %lor.lhs.false.i.i ]
+  %sp_periodicity.i.i = getelementptr inbounds %struct.InputParameters, ptr %313, i64 0, i32 50
+  %314 = load i32, ptr %sp_periodicity.i.i, align 8, !tbaa !81
+  %tobool59.not.i.i = icmp eq i32 %314, 0
   br i1 %tobool59.not.i.i, label %if.end62.i.i, label %if.then60.i.i
 
 if.then60.i.i:                                    ; preds = %if.end58.i.i
@@ -2392,10 +2393,10 @@ if.then60.i.i:                                    ; preds = %if.end58.i.i
   br label %if.end62.i.i
 
 if.end62.i.i:                                     ; preds = %if.then60.i.i, %if.end58.i.i
-  %316 = phi ptr [ %.pre107.i.i, %if.then60.i.i ], [ %314, %if.end58.i.i ]
-  %WeightedPrediction.i.i = getelementptr inbounds %struct.InputParameters, ptr %316, i64 0, i32 59
-  %317 = load i32, ptr %WeightedPrediction.i.i, align 8, !tbaa !72
-  %tobool63.not.i.i = icmp eq i32 %317, 0
+  %315 = phi ptr [ %.pre107.i.i, %if.then60.i.i ], [ %313, %if.end58.i.i ]
+  %WeightedPrediction.i.i = getelementptr inbounds %struct.InputParameters, ptr %315, i64 0, i32 59
+  %316 = load i32, ptr %WeightedPrediction.i.i, align 8, !tbaa !72
+  %tobool63.not.i.i = icmp eq i32 %316, 0
   br i1 %tobool63.not.i.i, label %if.end66.i.i, label %if.then64.i.i
 
 if.then64.i.i:                                    ; preds = %if.end62.i.i
@@ -2405,10 +2406,10 @@ if.then64.i.i:                                    ; preds = %if.end62.i.i
   br label %if.end66.i.i
 
 if.end66.i.i:                                     ; preds = %if.then64.i.i, %if.end62.i.i
-  %318 = phi ptr [ %.pre108.i.i, %if.then64.i.i ], [ %316, %if.end62.i.i ]
-  %WeightedBiprediction.i.i = getelementptr inbounds %struct.InputParameters, ptr %318, i64 0, i32 60
-  %319 = load i32, ptr %WeightedBiprediction.i.i, align 4, !tbaa !73
-  %tobool67.not.i.i = icmp eq i32 %319, 0
+  %317 = phi ptr [ %.pre108.i.i, %if.then64.i.i ], [ %315, %if.end62.i.i ]
+  %WeightedBiprediction.i.i = getelementptr inbounds %struct.InputParameters, ptr %317, i64 0, i32 60
+  %318 = load i32, ptr %WeightedBiprediction.i.i, align 4, !tbaa !73
+  %tobool67.not.i.i = icmp eq i32 %318, 0
   br i1 %tobool67.not.i.i, label %if.end70.i.i, label %if.then68.i.i
 
 if.then68.i.i:                                    ; preds = %if.end66.i.i
@@ -2418,10 +2419,10 @@ if.then68.i.i:                                    ; preds = %if.end66.i.i
   br label %if.end70.i.i
 
 if.end70.i.i:                                     ; preds = %if.then68.i.i, %if.end66.i.i
-  %320 = phi ptr [ %.pre109.i.i, %if.then68.i.i ], [ %318, %if.end66.i.i ]
-  %symbol_mode71.i.i = getelementptr inbounds %struct.InputParameters, ptr %320, i64 0, i32 74
-  %321 = load i32, ptr %symbol_mode71.i.i, align 8, !tbaa !45
-  %cmp72.i.i = icmp eq i32 %321, 1
+  %319 = phi ptr [ %.pre109.i.i, %if.then68.i.i ], [ %317, %if.end66.i.i ]
+  %symbol_mode71.i.i = getelementptr inbounds %struct.InputParameters, ptr %319, i64 0, i32 74
+  %320 = load i32, ptr %symbol_mode71.i.i, align 8, !tbaa !45
+  %cmp72.i.i = icmp eq i32 %320, 1
   br i1 %cmp72.i.i, label %if.then73.i.i, label %if.end76thread-pre-split.i.i
 
 if.then73.i.i:                                    ; preds = %if.end70.i.i
@@ -2431,20 +2432,20 @@ if.then73.i.i:                                    ; preds = %if.end70.i.i
   br label %if.end76thread-pre-split.i.i
 
 if.end76thread-pre-split.i.i:                     ; preds = %if.then73.i.i, %if.end70.i.i
-  %.ph.i.i = phi ptr [ %.pre110.i.i, %if.then73.i.i ], [ %320, %if.end70.i.i ]
+  %.ph.i.i = phi ptr [ %.pre110.i.i, %if.then73.i.i ], [ %319, %if.end70.i.i ]
   %.pr.i.i = load i32, ptr %.ph.i.i, align 8, !tbaa !67
   br label %if.end76.i.i
 
 if.end76.i.i:                                     ; preds = %if.end76thread-pre-split.i.i, %if.end48.i.i
-  %322 = phi i32 [ %.pr.i.i, %if.end76thread-pre-split.i.i ], [ %310, %if.end48.i.i ]
-  %323 = phi ptr [ %.ph.i.i, %if.end76thread-pre-split.i.i ], [ %309, %if.end48.i.i ]
-  %cmp78.i.i = icmp eq i32 %322, 77
+  %321 = phi i32 [ %.pr.i.i, %if.end76thread-pre-split.i.i ], [ %309, %if.end48.i.i ]
+  %322 = phi ptr [ %.ph.i.i, %if.end76thread-pre-split.i.i ], [ %308, %if.end48.i.i ]
+  %cmp78.i.i = icmp eq i32 %321, 77
   br i1 %cmp78.i.i, label %if.then79.i.i, label %if.end89.i.i
 
 if.then79.i.i:                                    ; preds = %if.end76.i.i
-  %sp_periodicity80.i.i = getelementptr inbounds %struct.InputParameters, ptr %323, i64 0, i32 50
-  %324 = load i32, ptr %sp_periodicity80.i.i, align 8, !tbaa !81
-  %tobool81.not.i.i = icmp eq i32 %324, 0
+  %sp_periodicity80.i.i = getelementptr inbounds %struct.InputParameters, ptr %322, i64 0, i32 50
+  %323 = load i32, ptr %sp_periodicity80.i.i, align 8, !tbaa !81
+  %tobool81.not.i.i = icmp eq i32 %323, 0
   br i1 %tobool81.not.i.i, label %if.end84.i.i, label %if.then82.i.i
 
 if.then82.i.i:                                    ; preds = %if.then79.i.i
@@ -2454,10 +2455,10 @@ if.then82.i.i:                                    ; preds = %if.then79.i.i
   br label %if.end84.i.i
 
 if.end84.i.i:                                     ; preds = %if.then82.i.i, %if.then79.i.i
-  %325 = phi ptr [ %.pre111.i.i, %if.then82.i.i ], [ %323, %if.then79.i.i ]
-  %num_slice_groups_minus1.i.i = getelementptr inbounds %struct.InputParameters, ptr %325, i64 0, i32 140
-  %326 = load i32, ptr %num_slice_groups_minus1.i.i, align 8, !tbaa !55
-  %tobool85.not.i.i = icmp eq i32 %326, 0
+  %324 = phi ptr [ %.pre111.i.i, %if.then82.i.i ], [ %322, %if.then79.i.i ]
+  %num_slice_groups_minus1.i.i = getelementptr inbounds %struct.InputParameters, ptr %324, i64 0, i32 140
+  %325 = load i32, ptr %num_slice_groups_minus1.i.i, align 8, !tbaa !55
+  %tobool85.not.i.i = icmp eq i32 %325, 0
   br i1 %tobool85.not.i.i, label %if.end89.i.i, label %if.then86.i.i
 
 if.then86.i.i:                                    ; preds = %if.end84.i.i
@@ -2467,15 +2468,15 @@ if.then86.i.i:                                    ; preds = %if.end84.i.i
   br label %if.end89.i.i
 
 if.end89.i.i:                                     ; preds = %if.then86.i.i, %if.end84.i.i, %if.end76.i.i
-  %327 = phi ptr [ %325, %if.end84.i.i ], [ %.pre112.i.i, %if.then86.i.i ], [ %323, %if.end76.i.i ]
-  %328 = load i32, ptr %327, align 8, !tbaa !67
-  %cmp91.i850.i = icmp eq i32 %328, 88
-  br i1 %cmp91.i850.i, label %if.then92.i.i, label %ProfileCheck.exit.i
+  %326 = phi ptr [ %324, %if.end84.i.i ], [ %.pre112.i.i, %if.then86.i.i ], [ %322, %if.end76.i.i ]
+  %327 = load i32, ptr %326, align 8, !tbaa !67
+  %cmp91.i839.i = icmp eq i32 %327, 88
+  br i1 %cmp91.i839.i, label %if.then92.i.i, label %ProfileCheck.exit.i
 
 if.then92.i.i:                                    ; preds = %if.end89.i.i
-  %directInferenceFlag.i.i = getelementptr inbounds %struct.InputParameters, ptr %327, i64 0, i32 45
-  %329 = load i32, ptr %directInferenceFlag.i.i, align 4, !tbaa !43
-  %tobool93.not.i.i = icmp eq i32 %329, 0
+  %directInferenceFlag.i.i = getelementptr inbounds %struct.InputParameters, ptr %326, i64 0, i32 45
+  %328 = load i32, ptr %directInferenceFlag.i.i, align 4, !tbaa !43
+  %tobool93.not.i.i = icmp eq i32 %328, 0
   br i1 %tobool93.not.i.i, label %if.then94.i.i, label %if.end96.i.i
 
 if.then94.i.i:                                    ; preds = %if.then92.i.i
@@ -2485,58 +2486,58 @@ if.then94.i.i:                                    ; preds = %if.then92.i.i
   br label %if.end96.i.i
 
 if.end96.i.i:                                     ; preds = %if.then94.i.i, %if.then92.i.i
-  %330 = phi ptr [ %.pre113.i.i, %if.then94.i.i ], [ %327, %if.then92.i.i ]
-  %symbol_mode97.i.i = getelementptr inbounds %struct.InputParameters, ptr %330, i64 0, i32 74
-  %331 = load i32, ptr %symbol_mode97.i.i, align 8, !tbaa !45
-  %cmp98.i.i = icmp eq i32 %331, 1
+  %329 = phi ptr [ %.pre113.i.i, %if.then94.i.i ], [ %326, %if.then92.i.i ]
+  %symbol_mode97.i.i = getelementptr inbounds %struct.InputParameters, ptr %329, i64 0, i32 74
+  %330 = load i32, ptr %symbol_mode97.i.i, align 8, !tbaa !45
+  %cmp98.i.i = icmp eq i32 %330, 1
   br i1 %cmp98.i.i, label %if.then99.i.i, label %ProfileCheck.exit.i
 
 if.then99.i.i:                                    ; preds = %if.end96.i.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(34) @errortext, ptr noundef nonnull align 1 dereferenceable(34) @.str.328, i64 34, i1 false)
   call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #21
-  %.pre946.i = load ptr, ptr @input, align 8, !tbaa !5
+  %.pre941.i = load ptr, ptr @input, align 8, !tbaa !5
   br label %ProfileCheck.exit.i
 
 ProfileCheck.exit.i:                              ; preds = %if.then99.i.i, %if.end96.i.i, %if.end89.i.i
-  %332 = phi ptr [ %327, %if.end89.i.i ], [ %330, %if.end96.i.i ], [ %.pre946.i, %if.then99.i.i ]
-  %LevelIDC.i.i = getelementptr inbounds %struct.InputParameters, ptr %332, i64 0, i32 1
-  %333 = load i32, ptr %LevelIDC.i.i, align 4, !tbaa !99
-  %cmp.i.i = icmp sgt i32 %333, 29
-  br i1 %cmp.i.i, label %land.lhs.true.i.i, label %if.end.i855.i
+  %331 = phi ptr [ %326, %if.end89.i.i ], [ %329, %if.end96.i.i ], [ %.pre941.i, %if.then99.i.i ]
+  %LevelIDC.i.i = getelementptr inbounds %struct.InputParameters, ptr %331, i64 0, i32 1
+  %332 = load i32, ptr %LevelIDC.i.i, align 4, !tbaa !99
+  %cmp.i.i = icmp sgt i32 %332, 29
+  br i1 %cmp.i.i, label %land.lhs.true.i.i, label %if.end.i844.i
 
 land.lhs.true.i.i:                                ; preds = %ProfileCheck.exit.i
-  %directInferenceFlag.i851.i = getelementptr inbounds %struct.InputParameters, ptr %332, i64 0, i32 45
-  %334 = load i32, ptr %directInferenceFlag.i851.i, align 4, !tbaa !43
-  %cmp1.i.i = icmp eq i32 %334, 0
-  br i1 %cmp1.i.i, label %if.then.i853.i, label %if.end.i855.i
+  %directInferenceFlag.i840.i = getelementptr inbounds %struct.InputParameters, ptr %331, i64 0, i32 45
+  %333 = load i32, ptr %directInferenceFlag.i840.i, align 4, !tbaa !43
+  %cmp1.i.i = icmp eq i32 %333, 0
+  br i1 %cmp1.i.i, label %if.then.i842.i, label %if.end.i844.i
 
-if.then.i853.i:                                   ; preds = %land.lhs.true.i.i
-  %335 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %336 = call i64 @fwrite(ptr nonnull @.str.329, i64 106, i64 1, ptr %335) #18
-  %337 = load ptr, ptr @input, align 8, !tbaa !5
-  %directInferenceFlag2.i.i = getelementptr inbounds %struct.InputParameters, ptr %337, i64 0, i32 45
+if.then.i842.i:                                   ; preds = %land.lhs.true.i.i
+  %334 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %335 = call i64 @fwrite(ptr nonnull @.str.329, i64 106, i64 1, ptr %334) #18
+  %336 = load ptr, ptr @input, align 8, !tbaa !5
+  %directInferenceFlag2.i.i = getelementptr inbounds %struct.InputParameters, ptr %336, i64 0, i32 45
   store i32 1, ptr %directInferenceFlag2.i.i, align 4, !tbaa !43
-  %LevelIDC3.phi.trans.insert.i.i = getelementptr inbounds %struct.InputParameters, ptr %337, i64 0, i32 1
-  %.pre.i852.i = load i32, ptr %LevelIDC3.phi.trans.insert.i.i, align 4, !tbaa !99
-  br label %if.end.i855.i
+  %LevelIDC3.phi.trans.insert.i.i = getelementptr inbounds %struct.InputParameters, ptr %336, i64 0, i32 1
+  %.pre.i841.i = load i32, ptr %LevelIDC3.phi.trans.insert.i.i, align 4, !tbaa !99
+  br label %if.end.i844.i
 
-if.end.i855.i:                                    ; preds = %if.then.i853.i, %land.lhs.true.i.i, %ProfileCheck.exit.i
-  %338 = phi i32 [ %.pre.i852.i, %if.then.i853.i ], [ %333, %land.lhs.true.i.i ], [ %333, %ProfileCheck.exit.i ]
-  %339 = phi ptr [ %337, %if.then.i853.i ], [ %332, %land.lhs.true.i.i ], [ %332, %ProfileCheck.exit.i ]
-  %340 = add i32 %338, -42
-  %or.cond.i854.i = icmp ult i32 %340, -21
-  br i1 %or.cond.i854.i, label %land.lhs.true7.i.i, label %PatchInp.exit
+if.end.i844.i:                                    ; preds = %if.then.i842.i, %land.lhs.true.i.i, %ProfileCheck.exit.i
+  %337 = phi i32 [ %.pre.i841.i, %if.then.i842.i ], [ %332, %land.lhs.true.i.i ], [ %332, %ProfileCheck.exit.i ]
+  %338 = phi ptr [ %336, %if.then.i842.i ], [ %331, %land.lhs.true.i.i ], [ %331, %ProfileCheck.exit.i ]
+  %339 = add i32 %337, -42
+  %or.cond.i843.i = icmp ult i32 %339, -21
+  br i1 %or.cond.i843.i, label %land.lhs.true7.i.i, label %PatchInp.exit
 
-land.lhs.true7.i.i:                               ; preds = %if.end.i855.i
-  %PicInterlace.i.i = getelementptr inbounds %struct.InputParameters, ptr %339, i64 0, i32 121
-  %341 = load i32, ptr %PicInterlace.i.i, align 8, !tbaa !41
-  %cmp8.i.i = icmp sgt i32 %341, 0
+land.lhs.true7.i.i:                               ; preds = %if.end.i844.i
+  %PicInterlace.i.i = getelementptr inbounds %struct.InputParameters, ptr %338, i64 0, i32 121
+  %340 = load i32, ptr %PicInterlace.i.i, align 8, !tbaa !41
+  %cmp8.i.i = icmp sgt i32 %340, 0
   br i1 %cmp8.i.i, label %if.then11.i.i, label %lor.lhs.false9.i.i
 
 lor.lhs.false9.i.i:                               ; preds = %land.lhs.true7.i.i
-  %MbInterlace.i.i = getelementptr inbounds %struct.InputParameters, ptr %339, i64 0, i32 122
-  %342 = load i32, ptr %MbInterlace.i.i, align 4, !tbaa !42
-  %cmp10.i.i = icmp sgt i32 %342, 0
+  %MbInterlace.i.i = getelementptr inbounds %struct.InputParameters, ptr %338, i64 0, i32 122
+  %341 = load i32, ptr %MbInterlace.i.i, align 4, !tbaa !42
+  %cmp10.i.i = icmp sgt i32 %341, 0
   br i1 %cmp10.i.i, label %if.then11.i.i, label %PatchInp.exit
 
 if.then11.i.i:                                    ; preds = %lor.lhs.false9.i.i, %land.lhs.true7.i.i
@@ -2545,61 +2546,61 @@ if.then11.i.i:                                    ; preds = %lor.lhs.false9.i.i,
   %.pre226 = load ptr, ptr @input, align 8, !tbaa !5
   br label %PatchInp.exit
 
-PatchInp.exit:                                    ; preds = %if.end.i855.i, %lor.lhs.false9.i.i, %if.then11.i.i
-  %343 = phi ptr [ %339, %if.end.i855.i ], [ %339, %lor.lhs.false9.i.i ], [ %.pre226, %if.then11.i.i ]
-  %DisplayEncParams = getelementptr inbounds %struct.InputParameters, ptr %343, i64 0, i32 155
-  %344 = load i32, ptr %DisplayEncParams, align 4, !tbaa !100
-  %tobool.not = icmp eq i32 %344, 0
+PatchInp.exit:                                    ; preds = %if.end.i844.i, %lor.lhs.false9.i.i, %if.then11.i.i
+  %342 = phi ptr [ %338, %if.end.i844.i ], [ %338, %lor.lhs.false9.i.i ], [ %.pre226, %if.then11.i.i ]
+  %DisplayEncParams = getelementptr inbounds %struct.InputParameters, ptr %342, i64 0, i32 155
+  %343 = load i32, ptr %DisplayEncParams, align 4, !tbaa !100
+  %tobool.not = icmp eq i32 %343, 0
   br i1 %tobool.not, label %if.end129, label %if.then127
 
 if.then127:                                       ; preds = %PatchInp.exit
-  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
-  %puts51.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.332)
-  %puts52.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
-  %345 = load ptr, ptr @Map, align 16, !tbaa !9
-  %cmp.not54.i = icmp eq ptr %345, null
-  br i1 %cmp.not54.i, label %DisplayEncoderParams.exit, label %while.body.i199
+  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
+  %puts51.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.331)
+  %puts52.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
+  %344 = load ptr, ptr @Map, align 16, !tbaa !9
+  %cmp.not54.i = icmp eq ptr %344, null
+  br i1 %cmp.not54.i, label %DisplayEncoderParams.exit, label %while.body.i195
 
-while.body.i199:                                  ; preds = %if.then127, %if.end38.i
-  %indvars.iv.i197 = phi i64 [ %indvars.iv.next.i202, %if.end38.i ], [ 0, %if.then127 ]
-  %346 = phi ptr [ %353, %if.end38.i ], [ %345, %if.then127 ]
-  %Type.i198 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i197, i32 2
-  %347 = load i32, ptr %Type.i198, align 8, !tbaa !13
-  switch i32 %347, label %if.end38.i [
-    i32 0, label %if.then.i201
+while.body.i195:                                  ; preds = %if.then127, %if.end38.i
+  %indvars.iv.i193 = phi i64 [ %indvars.iv.next.i198, %if.end38.i ], [ 0, %if.then127 ]
+  %345 = phi ptr [ %352, %if.end38.i ], [ %344, %if.then127 ]
+  %Type.i194 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i193, i32 2
+  %346 = load i32, ptr %Type.i194, align 8, !tbaa !13
+  switch i32 %346, label %if.end38.i [
+    i32 0, label %if.then.i197
     i32 1, label %if.then16.i
     i32 2, label %if.then29.i
   ]
 
-if.then.i201:                                     ; preds = %while.body.i199
-  %Place.i200 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i197, i32 1
-  %348 = load ptr, ptr %Place.i200, align 8, !tbaa !15
-  %349 = load i32, ptr %348, align 4, !tbaa !16
-  %call11.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.252, ptr noundef nonnull %346, i32 noundef %349)
+if.then.i197:                                     ; preds = %while.body.i195
+  %Place.i196 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i193, i32 1
+  %347 = load ptr, ptr %Place.i196, align 8, !tbaa !15
+  %348 = load i32, ptr %347, align 4, !tbaa !16
+  %call11.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.252, ptr noundef nonnull %345, i32 noundef %348)
   br label %if.end38.i
 
-if.then16.i:                                      ; preds = %while.body.i199
-  %Place22.i = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i197, i32 1
-  %350 = load ptr, ptr %Place22.i, align 8, !tbaa !15
-  %call23.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.253, ptr noundef nonnull %346, ptr noundef %350)
+if.then16.i:                                      ; preds = %while.body.i195
+  %Place22.i = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i193, i32 1
+  %349 = load ptr, ptr %Place22.i, align 8, !tbaa !15
+  %call23.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.253, ptr noundef nonnull %345, ptr noundef %349)
   br label %if.end38.i
 
-if.then29.i:                                      ; preds = %while.body.i199
-  %Place35.i = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i197, i32 1
-  %351 = load ptr, ptr %Place35.i, align 8, !tbaa !15
-  %352 = load double, ptr %351, align 8, !tbaa !17
-  %call36.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.254, ptr noundef nonnull %346, double noundef %352)
+if.then29.i:                                      ; preds = %while.body.i195
+  %Place35.i = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.i193, i32 1
+  %350 = load ptr, ptr %Place35.i, align 8, !tbaa !15
+  %351 = load double, ptr %350, align 8, !tbaa !17
+  %call36.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.254, ptr noundef nonnull %345, double noundef %351)
   br label %if.end38.i
 
-if.end38.i:                                       ; preds = %if.then29.i, %if.then16.i, %if.then.i201, %while.body.i199
-  %indvars.iv.next.i202 = add nuw i64 %indvars.iv.i197, 1
-  %arrayidx.i203 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.next.i202
-  %353 = load ptr, ptr %arrayidx.i203, align 8, !tbaa !9
-  %cmp.not.i204 = icmp eq ptr %353, null
-  br i1 %cmp.not.i204, label %DisplayEncoderParams.exit, label %while.body.i199, !llvm.loop !101
+if.end38.i:                                       ; preds = %if.then29.i, %if.then16.i, %if.then.i197, %while.body.i195
+  %indvars.iv.next.i198 = add nuw i64 %indvars.iv.i193, 1
+  %arrayidx.i199 = getelementptr inbounds [225 x %struct.Mapping], ptr @Map, i64 0, i64 %indvars.iv.next.i198
+  %352 = load ptr, ptr %arrayidx.i199, align 8, !tbaa !9
+  %cmp.not.i200 = icmp eq ptr %352, null
+  br i1 %cmp.not.i200, label %DisplayEncoderParams.exit, label %while.body.i195, !llvm.loop !101
 
 DisplayEncoderParams.exit:                        ; preds = %if.end38.i, %if.then127
-  %puts53.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
+  %puts53.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
   br label %if.end129
 
 if.end129:                                        ; preds = %DisplayEncoderParams.exit, %PatchInp.exit
@@ -3025,9 +3026,6 @@ declare i32 @__isoc99_fscanf(ptr noundef, ptr noundef, ...) local_unnamed_addr #
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
-
-; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -3035,6 +3033,9 @@ declare i32 @llvm.smax.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #17
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

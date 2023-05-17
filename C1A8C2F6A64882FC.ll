@@ -42,64 +42,64 @@ if.end15.peel:
 if.end34.peel:                                    ; preds = %if.end15.peel
   %call19.peel = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
   %cmp35.not.peel = icmp eq i32 %call19.peel, 8
-  br i1 %cmp35.not.peel, label %if.end15.peel57, label %if.then36
+  br i1 %cmp35.not.peel, label %if.end15.peel56, label %if.then36
 
-if.end15.peel57:                                  ; preds = %if.end34.peel
+if.end15.peel56:                                  ; preds = %if.end34.peel
   store i32 2, ptr %i, align 4, !tbaa !5
   %call.peel46 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
-  %cmp16.not.peel59 = icmp eq i32 %call.peel46, 16
-  br i1 %cmp16.not.peel59, label %if.end34.peel70, label %if.then17
+  %cmp16.not.peel58 = icmp eq i32 %call.peel46, 16
+  br i1 %cmp16.not.peel58, label %if.end34.peel69, label %if.then17
 
-if.end34.peel70:                                  ; preds = %if.end15.peel57
-  %call19.peel61 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
-  %cmp35.not.peel72 = icmp eq i32 %call19.peel61, 8
-  br i1 %cmp35.not.peel72, label %if.end15.peel89, label %if.then36
+if.end34.peel69:                                  ; preds = %if.end15.peel56
+  %call19.peel60 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
+  %cmp35.not.peel71 = icmp eq i32 %call19.peel60, 8
+  br i1 %cmp35.not.peel71, label %if.end15.peel87, label %if.then36
 
-if.end15.peel89:                                  ; preds = %if.end34.peel70
+if.end15.peel87:                                  ; preds = %if.end34.peel69
   store i32 3, ptr %i, align 4, !tbaa !5
-  %call.peel78 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
-  %cmp16.not.peel91 = icmp eq i32 %call.peel78, 24
-  br i1 %cmp16.not.peel91, label %if.end34.peel102, label %if.then17
+  %call.peel77 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
+  %cmp16.not.peel89 = icmp eq i32 %call.peel77, 24
+  br i1 %cmp16.not.peel89, label %if.end34.peel100, label %if.then17
 
-if.end34.peel102:                                 ; preds = %if.end15.peel89
-  %call19.peel93 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
-  %cmp35.not.peel104 = icmp eq i32 %call19.peel93, 12
-  br i1 %cmp35.not.peel104, label %if.end15.peel121, label %if.then36
+if.end34.peel100:                                 ; preds = %if.end15.peel87
+  %call19.peel91 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
+  %cmp35.not.peel102 = icmp eq i32 %call19.peel91, 12
+  br i1 %cmp35.not.peel102, label %if.end15.peel118, label %if.then36
 
-if.end15.peel121:                                 ; preds = %if.end34.peel102
+if.end15.peel118:                                 ; preds = %if.end34.peel100
   store i32 4, ptr %i, align 4, !tbaa !5
-  %call.peel110 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
-  %cmp16.not.peel123 = icmp eq i32 %call.peel110, 16
-  br i1 %cmp16.not.peel123, label %if.end34.peel134, label %if.then17
+  %call.peel108 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
+  %cmp16.not.peel120 = icmp eq i32 %call.peel108, 16
+  br i1 %cmp16.not.peel120, label %if.end34.peel131, label %if.then17
 
-if.end34.peel134:                                 ; preds = %if.end15.peel121
-  %call19.peel125 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
-  %cmp35.not.peel136 = icmp eq i32 %call19.peel125, 8
-  br i1 %cmp35.not.peel136, label %if.end15.peel153, label %if.then36
+if.end34.peel131:                                 ; preds = %if.end15.peel118
+  %call19.peel122 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
+  %cmp35.not.peel133 = icmp eq i32 %call19.peel122, 8
+  br i1 %cmp35.not.peel133, label %if.end15.peel149, label %if.then36
 
-if.end15.peel153:                                 ; preds = %if.end34.peel134
+if.end15.peel149:                                 ; preds = %if.end34.peel131
   store i32 5, ptr %i, align 4, !tbaa !5
-  %call.peel142 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
-  %cmp16.not.peel155 = icmp eq i32 %call.peel142, 20
-  br i1 %cmp16.not.peel155, label %if.end34.peel166, label %if.then17
+  %call.peel139 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
+  %cmp16.not.peel151 = icmp eq i32 %call.peel139, 20
+  br i1 %cmp16.not.peel151, label %if.end34.peel162, label %if.then17
 
-if.end34.peel166:                                 ; preds = %if.end15.peel153
-  %call19.peel157 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
-  %cmp35.not.peel168 = icmp eq i32 %call19.peel157, 10
-  br i1 %cmp35.not.peel168, label %if.end15.peel185, label %if.then36
+if.end34.peel162:                                 ; preds = %if.end15.peel149
+  %call19.peel153 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
+  %cmp35.not.peel164 = icmp eq i32 %call19.peel153, 10
+  br i1 %cmp35.not.peel164, label %if.end15.peel180, label %if.then36
 
-if.end15.peel185:                                 ; preds = %if.end34.peel166
+if.end15.peel180:                                 ; preds = %if.end34.peel162
   store i32 6, ptr %i, align 4, !tbaa !5
-  %call.peel174 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
-  %cmp16.not.peel187 = icmp eq i32 %call.peel174, 24
-  br i1 %cmp16.not.peel187, label %if.end34.peel198, label %if.then17
+  %call.peel170 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
+  %cmp16.not.peel182 = icmp eq i32 %call.peel170, 24
+  br i1 %cmp16.not.peel182, label %if.end34.peel193, label %if.then17
 
-if.end34.peel198:                                 ; preds = %if.end15.peel185
-  %call19.peel189 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
-  %cmp35.not.peel200 = icmp eq i32 %call19.peel189, 12
-  br i1 %cmp35.not.peel200, label %for.body.peel.next172, label %if.then36
+if.end34.peel193:                                 ; preds = %if.end15.peel180
+  %call19.peel184 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
+  %cmp35.not.peel195 = icmp eq i32 %call19.peel184, 12
+  br i1 %cmp35.not.peel195, label %for.body.peel.next168, label %if.then36
 
-for.body.peel.next172:                            ; preds = %if.end34.peel198
+for.body.peel.next168:                            ; preds = %if.end34.peel193
   store i32 7, ptr %i, align 4, !tbaa !5
   %call = call i32 @foo(ptr noundef nonnull %i, i32 noundef 16)
   %cmp16.not = icmp eq i32 %call, 28
@@ -209,16 +209,16 @@ for.cond.9:                                       ; preds = %if.end34.9
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i) #4
   ret i32 0
 
-if.then17:                                        ; preds = %for.body.peel.next172, %for.cond, %for.cond.1, %for.cond.2, %for.cond.3, %for.cond.4, %for.cond.5, %for.cond.6, %for.cond.7, %for.cond.8, %if.end15.peel185, %if.end15.peel153, %if.end15.peel121, %if.end15.peel89, %if.end15.peel57, %if.end15.peel
+if.then17:                                        ; preds = %for.body.peel.next168, %for.cond, %for.cond.1, %for.cond.2, %for.cond.3, %for.cond.4, %for.cond.5, %for.cond.6, %for.cond.7, %for.cond.8, %if.end15.peel180, %if.end15.peel149, %if.end15.peel118, %if.end15.peel87, %if.end15.peel56, %if.end15.peel
   tail call void @abort() #5
   unreachable
 
-if.end34:                                         ; preds = %for.body.peel.next172
+if.end34:                                         ; preds = %for.body.peel.next168
   %call19 = call i32 @foo(ptr noundef nonnull %i, i32 noundef 7)
   %cmp35.not = icmp eq i32 %call19, 7
   br i1 %cmp35.not, label %for.cond, label %if.then36
 
-if.then36:                                        ; preds = %if.end34, %if.end34.1, %if.end34.2, %if.end34.3, %if.end34.4, %if.end34.5, %if.end34.6, %if.end34.7, %if.end34.8, %if.end34.9, %if.end34.peel198, %if.end34.peel166, %if.end34.peel134, %if.end34.peel102, %if.end34.peel70, %if.end34.peel
+if.then36:                                        ; preds = %if.end34, %if.end34.1, %if.end34.2, %if.end34.3, %if.end34.4, %if.end34.5, %if.end34.6, %if.end34.7, %if.end34.8, %if.end34.9, %if.end34.peel193, %if.end34.peel162, %if.end34.peel131, %if.end34.peel100, %if.end34.peel69, %if.end34.peel
   tail call void @abort() #5
   unreachable
 }

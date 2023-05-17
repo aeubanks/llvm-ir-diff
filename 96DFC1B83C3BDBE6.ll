@@ -125,7 +125,7 @@ for.end:                                          ; preds = %for.cond.for.end_cr
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-for.body.lr.ph.i:
+entry:
   %temp_1 = alloca i64, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %temp_1) #5
   store i64 0, ptr %temp_1, align 8, !tbaa !9

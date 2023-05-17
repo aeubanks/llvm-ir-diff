@@ -98,7 +98,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2224 = icmp eq i64 %11, 0
   %cmp.not.i.not22 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2224
-  br i1 %cmp.not.i.not22, label %for.cond.cleanup, label %for.body.lr.ph, !prof !28
+  br i1 %cmp.not.i.not22, label %if.end.i, label %for.body.lr.ph, !prof !28
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -107,7 +107,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %13 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %13, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %min.iters.check = icmp ult i64 %wide.trip.count.i.i, 26
@@ -243,9 +243,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pro
 "_Z6forallI9simd_execZL15BM_INIT3_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us.prol.loopexit, %for.body.i.i.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.023.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !28
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !28
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL15BM_INIT3_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL15BM_INIT3_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -282,7 +282,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2224 = icmp eq i64 %6, 0
   %cmp.not.i.not22 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2224
-  br i1 %cmp.not.i.not22, label %for.cond.cleanup, label %for.body.lr.ph, !prof !28
+  br i1 %cmp.not.i.not22, label %if.end.i, label %for.body.lr.ph, !prof !28
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -291,7 +291,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %8 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %8, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %9 = shl nuw nsw i64 %wide.trip.count.i.i, 3
@@ -400,9 +400,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pre
 "_Z6forallI9simd_execZL19BM_MULADDSUB_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.023.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !28
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !28
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL19BM_MULADDSUB_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL19BM_MULADDSUB_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -430,13 +430,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2325 = icmp eq i64 %6, 0
   %cmp.not.i.not23 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2325
-  br i1 %cmp.not.i.not23, label %for.cond.cleanup, label %for.body.lr.ph, !prof !28
+  br i1 %cmp.not.i.not23, label %if.end.i, label %for.body.lr.ph, !prof !28
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL17BM_IF_QUAD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL17BM_IF_QUAD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -499,7 +499,7 @@ if.else.i.i.i:                                    ; preds = %for.body.i.i
 "_Z6forallI9simd_execZL17BM_IF_QUAD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit": ; preds = %"_ZZL17BM_IF_QUAD_LAMBDARN9benchmark5StateEENK3$_0clEi.exit.i.i", %for.body
   %dec.i = add i64 %__begin1.sroa.0.024, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !28
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !28
 }
 
 ; Function Attrs: uwtable
@@ -535,9 +535,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %9 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not4447 = icmp eq i64 %9, 0
-  %cmp.not.i.not44 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4447
-  br i1 %cmp.not.i.not44, label %for.cond.cleanup, label %for.body.lr.ph, !prof !28
+  %cmp.not.i.not4548 = icmp eq i64 %9, 0
+  %cmp.not.i.not45 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4548
+  br i1 %cmp.not.i.not45, label %if.end.i, label %for.body.lr.ph, !prof !28
 
 for.body.lr.ph:                                   ; preds = %entry
   %10 = insertelement <2 x double> poison, double %1, i64 0
@@ -555,14 +555,14 @@ for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %val) #10
   ret void
 
 for.body:                                         ; preds = %for.body.lr.ph, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit"
-  %__begin1.sroa.0.046 = phi i64 [ %9, %for.body.lr.ph ], [ %dec.i, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ]
-  %sumx.045 = phi double [ %mul, %for.body.lr.ph ], [ %sumx.1, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ]
+  %__begin1.sroa.0.047 = phi i64 [ %9, %for.body.lr.ph ], [ %dec.i, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ]
+  %sumx.046 = phi double [ %mul, %for.body.lr.ph ], [ %sumx.1, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ]
   %19 = load ptr, ptr %range_.i, align 8, !tbaa !29
   %20 = load i64, ptr %19, align 8, !tbaa !30
   %conv18 = trunc i64 %20 to i32
@@ -579,7 +579,7 @@ for.body.i.i.preheader.new:                       ; preds = %for.body.i.i.prehea
   br label %for.body.i.i
 
 for.body.i.i:                                     ; preds = %for.body.i.i, %for.body.i.i.preheader.new
-  %22 = phi double [ %sumx.045, %for.body.i.i.preheader.new ], [ %add.i.i.i.1, %for.body.i.i ]
+  %22 = phi double [ %sumx.046, %for.body.i.i.preheader.new ], [ %add.i.i.i.1, %for.body.i.i ]
   %ii.04.i.i = phi i32 [ 0, %for.body.i.i.preheader.new ], [ %inc.i.i.1, %for.body.i.i ]
   %niter = phi i32 [ 0, %for.body.i.i.preheader.new ], [ %niter.next.1, %for.body.i.i ]
   %conv.i.i.i = sitofp i32 %ii.04.i.i to double
@@ -604,7 +604,7 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
 
 "_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.unr-lcssa": ; preds = %for.body.i.i, %for.body.i.i.preheader
   %add.i.i.i.lcssa.ph = phi double [ undef, %for.body.i.i.preheader ], [ %add.i.i.i.1, %for.body.i.i ]
-  %.unr = phi double [ %sumx.045, %for.body.i.i.preheader ], [ %add.i.i.i.1, %for.body.i.i ]
+  %.unr = phi double [ %sumx.046, %for.body.i.i.preheader ], [ %add.i.i.i.1, %for.body.i.i ]
   %ii.04.i.i.unr = phi i32 [ 0, %for.body.i.i.preheader ], [ %inc.i.i.1, %for.body.i.i ]
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", label %for.body.i.i.epil
@@ -620,13 +620,13 @@ for.body.i.i.epil:                                ; preds = %"_Z6forallI9simd_ex
   br label %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit"
 
 "_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit": ; preds = %for.body.i.i.epil, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.unr-lcssa", %for.body
-  %sumx.1 = phi double [ %sumx.045, %for.body ], [ %add.i.i.i.lcssa.ph, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.unr-lcssa" ], [ %add.i.i.i.epil, %for.body.i.i.epil ]
+  %sumx.1 = phi double [ %sumx.046, %for.body ], [ %add.i.i.i.lcssa.ph, %"_Z6forallI9simd_execZL18BM_TRAP_INT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.unr-lcssa" ], [ %add.i.i.i.epil, %for.body.i.i.epil ]
   %mul19 = fmul double %div, %sumx.1
   store double %mul19, ptr %val, align 8, !tbaa !31
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(double) %val, double %mul19) #10, !srcloc !57
-  %dec.i = add i64 %__begin1.sroa.0.046, -1
+  %dec.i = add i64 %__begin1.sroa.0.047, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !28
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !28
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

@@ -257,8 +257,8 @@ sw.bb:                                            ; preds = %while.body
   tail call void @read_string(ptr noundef %in_stream, ptr noundef %buffer, i32 noundef %buffer_length)
   %sext = shl i32 %call2, 24
   %conv5 = ashr exact i32 %sext, 24
-  %sext126 = shl i32 %call3, 24
-  %conv6 = ashr exact i32 %sext126, 24
+  %sext719 = shl i32 %call3, 24
+  %conv6 = ashr exact i32 %sext719, 24
   %call7 = tail call i32 @alabel(i32 noundef %conv5, i32 noundef %conv6, ptr noundef %buffer) #12
   br label %sw.epilog
 
@@ -291,360 +291,360 @@ coord.exit:                                       ; preds = %if.then.i, %if.else
   %and12.i = and i32 %x.0.i, 65535
   %spec.select.i = select i1 %tobool10.not.i, i32 %and12.i, i32 %x.0.i
   %2 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i127 = icmp eq i32 %2, 0
-  %call3.i128 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i127, label %if.else.i140, label %if.then.i134
+  %tobool.not.i126 = icmp eq i32 %2, 0
+  %call3.i127 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i126, label %if.else.i139, label %if.then.i133
 
-if.then.i134:                                     ; preds = %coord.exit
-  %sext20.i129 = shl i32 %call3.i128, 24
-  %shl.i130 = ashr exact i32 %sext20.i129, 16
-  %call2.i131 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i132 = and i32 %call2.i131, 255
-  %or.i133 = or i32 %and.i132, %shl.i130
-  br label %coord.exit145
+if.then.i133:                                     ; preds = %coord.exit
+  %sext20.i128 = shl i32 %call3.i127, 24
+  %shl.i129 = ashr exact i32 %sext20.i128, 16
+  %call2.i130 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i131 = and i32 %call2.i130, 255
+  %or.i132 = or i32 %and.i131, %shl.i129
+  br label %coord.exit144
 
-if.else.i140:                                     ; preds = %coord.exit
-  %and4.i135 = and i32 %call3.i128, 255
-  %call5.i136 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i137 = shl i32 %call5.i136, 24
-  %shl8.i138 = ashr exact i32 %sext.i137, 16
-  %or9.i139 = or i32 %shl8.i138, %and4.i135
-  br label %coord.exit145
+if.else.i139:                                     ; preds = %coord.exit
+  %and4.i134 = and i32 %call3.i127, 255
+  %call5.i135 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i136 = shl i32 %call5.i135, 24
+  %shl8.i137 = ashr exact i32 %sext.i136, 16
+  %or9.i138 = or i32 %shl8.i137, %and4.i134
+  br label %coord.exit144
 
-coord.exit145:                                    ; preds = %if.then.i134, %if.else.i140
-  %x.0.i141 = phi i32 [ %or.i133, %if.then.i134 ], [ %or9.i139, %if.else.i140 ]
+coord.exit144:                                    ; preds = %if.then.i133, %if.else.i139
+  %x.0.i140 = phi i32 [ %or.i132, %if.then.i133 ], [ %or9.i138, %if.else.i139 ]
   %3 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i142 = icmp eq i32 %3, 0
-  %and12.i143 = and i32 %x.0.i141, 65535
-  %spec.select.i144 = select i1 %tobool10.not.i142, i32 %and12.i143, i32 %x.0.i141
+  %tobool10.not.i141 = icmp eq i32 %3, 0
+  %and12.i142 = and i32 %x.0.i140, 65535
+  %spec.select.i143 = select i1 %tobool10.not.i141, i32 %and12.i142, i32 %x.0.i140
   %4 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i146 = icmp eq i32 %4, 0
-  %call3.i147 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i146, label %if.else.i159, label %if.then.i153
+  %tobool.not.i145 = icmp eq i32 %4, 0
+  %call3.i146 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i145, label %if.else.i158, label %if.then.i152
 
-if.then.i153:                                     ; preds = %coord.exit145
-  %sext20.i148 = shl i32 %call3.i147, 24
-  %shl.i149 = ashr exact i32 %sext20.i148, 16
-  %call2.i150 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i151 = and i32 %call2.i150, 255
-  %or.i152 = or i32 %and.i151, %shl.i149
-  br label %coord.exit164
+if.then.i152:                                     ; preds = %coord.exit144
+  %sext20.i147 = shl i32 %call3.i146, 24
+  %shl.i148 = ashr exact i32 %sext20.i147, 16
+  %call2.i149 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i150 = and i32 %call2.i149, 255
+  %or.i151 = or i32 %and.i150, %shl.i148
+  br label %coord.exit163
 
-if.else.i159:                                     ; preds = %coord.exit145
-  %and4.i154 = and i32 %call3.i147, 255
-  %call5.i155 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i156 = shl i32 %call5.i155, 24
-  %shl8.i157 = ashr exact i32 %sext.i156, 16
-  %or9.i158 = or i32 %shl8.i157, %and4.i154
-  br label %coord.exit164
+if.else.i158:                                     ; preds = %coord.exit144
+  %and4.i153 = and i32 %call3.i146, 255
+  %call5.i154 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i155 = shl i32 %call5.i154, 24
+  %shl8.i156 = ashr exact i32 %sext.i155, 16
+  %or9.i157 = or i32 %shl8.i156, %and4.i153
+  br label %coord.exit163
 
-coord.exit164:                                    ; preds = %if.then.i153, %if.else.i159
-  %x.0.i160 = phi i32 [ %or.i152, %if.then.i153 ], [ %or9.i158, %if.else.i159 ]
+coord.exit163:                                    ; preds = %if.then.i152, %if.else.i158
+  %x.0.i159 = phi i32 [ %or.i151, %if.then.i152 ], [ %or9.i157, %if.else.i158 ]
   %5 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i161 = icmp eq i32 %5, 0
-  %and12.i162 = and i32 %x.0.i160, 65535
-  %spec.select.i163 = select i1 %tobool10.not.i161, i32 %and12.i162, i32 %x.0.i160
+  %tobool10.not.i160 = icmp eq i32 %5, 0
+  %and12.i161 = and i32 %x.0.i159, 65535
+  %spec.select.i162 = select i1 %tobool10.not.i160, i32 %and12.i161, i32 %x.0.i159
   %6 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i165 = icmp eq i32 %6, 0
-  %call3.i166 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i165, label %if.else.i178, label %if.then.i172
+  %tobool.not.i164 = icmp eq i32 %6, 0
+  %call3.i165 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i164, label %if.else.i177, label %if.then.i171
 
-if.then.i172:                                     ; preds = %coord.exit164
-  %sext20.i167 = shl i32 %call3.i166, 24
-  %shl.i168 = ashr exact i32 %sext20.i167, 16
-  %call2.i169 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i170 = and i32 %call2.i169, 255
-  %or.i171 = or i32 %and.i170, %shl.i168
-  br label %coord.exit183
+if.then.i171:                                     ; preds = %coord.exit163
+  %sext20.i166 = shl i32 %call3.i165, 24
+  %shl.i167 = ashr exact i32 %sext20.i166, 16
+  %call2.i168 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i169 = and i32 %call2.i168, 255
+  %or.i170 = or i32 %and.i169, %shl.i167
+  br label %coord.exit182
 
-if.else.i178:                                     ; preds = %coord.exit164
-  %and4.i173 = and i32 %call3.i166, 255
-  %call5.i174 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i175 = shl i32 %call5.i174, 24
-  %shl8.i176 = ashr exact i32 %sext.i175, 16
-  %or9.i177 = or i32 %shl8.i176, %and4.i173
-  br label %coord.exit183
+if.else.i177:                                     ; preds = %coord.exit163
+  %and4.i172 = and i32 %call3.i165, 255
+  %call5.i173 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i174 = shl i32 %call5.i173, 24
+  %shl8.i175 = ashr exact i32 %sext.i174, 16
+  %or9.i176 = or i32 %shl8.i175, %and4.i172
+  br label %coord.exit182
 
-coord.exit183:                                    ; preds = %if.then.i172, %if.else.i178
-  %x.0.i179 = phi i32 [ %or.i171, %if.then.i172 ], [ %or9.i177, %if.else.i178 ]
+coord.exit182:                                    ; preds = %if.then.i171, %if.else.i177
+  %x.0.i178 = phi i32 [ %or.i170, %if.then.i171 ], [ %or9.i176, %if.else.i177 ]
   %7 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i180 = icmp eq i32 %7, 0
-  %and12.i181 = and i32 %x.0.i179, 65535
-  %spec.select.i182 = select i1 %tobool10.not.i180, i32 %and12.i181, i32 %x.0.i179
+  %tobool10.not.i179 = icmp eq i32 %7, 0
+  %and12.i180 = and i32 %x.0.i178, 65535
+  %spec.select.i181 = select i1 %tobool10.not.i179, i32 %and12.i180, i32 %x.0.i178
   %8 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i184 = icmp eq i32 %8, 0
-  %call3.i185 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i184, label %if.else.i197, label %if.then.i191
+  %tobool.not.i183 = icmp eq i32 %8, 0
+  %call3.i184 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i183, label %if.else.i196, label %if.then.i190
 
-if.then.i191:                                     ; preds = %coord.exit183
-  %sext20.i186 = shl i32 %call3.i185, 24
-  %shl.i187 = ashr exact i32 %sext20.i186, 16
-  %call2.i188 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i189 = and i32 %call2.i188, 255
-  %or.i190 = or i32 %and.i189, %shl.i187
-  br label %coord.exit202
+if.then.i190:                                     ; preds = %coord.exit182
+  %sext20.i185 = shl i32 %call3.i184, 24
+  %shl.i186 = ashr exact i32 %sext20.i185, 16
+  %call2.i187 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i188 = and i32 %call2.i187, 255
+  %or.i189 = or i32 %and.i188, %shl.i186
+  br label %coord.exit201
 
-if.else.i197:                                     ; preds = %coord.exit183
-  %and4.i192 = and i32 %call3.i185, 255
-  %call5.i193 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i194 = shl i32 %call5.i193, 24
-  %shl8.i195 = ashr exact i32 %sext.i194, 16
-  %or9.i196 = or i32 %shl8.i195, %and4.i192
-  br label %coord.exit202
+if.else.i196:                                     ; preds = %coord.exit182
+  %and4.i191 = and i32 %call3.i184, 255
+  %call5.i192 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i193 = shl i32 %call5.i192, 24
+  %shl8.i194 = ashr exact i32 %sext.i193, 16
+  %or9.i195 = or i32 %shl8.i194, %and4.i191
+  br label %coord.exit201
 
-coord.exit202:                                    ; preds = %if.then.i191, %if.else.i197
-  %x.0.i198 = phi i32 [ %or.i190, %if.then.i191 ], [ %or9.i196, %if.else.i197 ]
+coord.exit201:                                    ; preds = %if.then.i190, %if.else.i196
+  %x.0.i197 = phi i32 [ %or.i189, %if.then.i190 ], [ %or9.i195, %if.else.i196 ]
   %9 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i199 = icmp eq i32 %9, 0
-  %and12.i200 = and i32 %x.0.i198, 65535
-  %spec.select.i201 = select i1 %tobool10.not.i199, i32 %and12.i200, i32 %x.0.i198
+  %tobool10.not.i198 = icmp eq i32 %9, 0
+  %and12.i199 = and i32 %x.0.i197, 65535
+  %spec.select.i200 = select i1 %tobool10.not.i198, i32 %and12.i199, i32 %x.0.i197
   %10 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i203 = icmp eq i32 %10, 0
-  %call3.i204 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i203, label %if.else.i216, label %if.then.i210
+  %tobool.not.i202 = icmp eq i32 %10, 0
+  %call3.i203 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i202, label %if.else.i215, label %if.then.i209
 
-if.then.i210:                                     ; preds = %coord.exit202
-  %sext20.i205 = shl i32 %call3.i204, 24
-  %shl.i206 = ashr exact i32 %sext20.i205, 16
-  %call2.i207 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i208 = and i32 %call2.i207, 255
-  %or.i209 = or i32 %and.i208, %shl.i206
-  br label %coord.exit221
+if.then.i209:                                     ; preds = %coord.exit201
+  %sext20.i204 = shl i32 %call3.i203, 24
+  %shl.i205 = ashr exact i32 %sext20.i204, 16
+  %call2.i206 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i207 = and i32 %call2.i206, 255
+  %or.i208 = or i32 %and.i207, %shl.i205
+  br label %coord.exit220
 
-if.else.i216:                                     ; preds = %coord.exit202
-  %and4.i211 = and i32 %call3.i204, 255
-  %call5.i212 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i213 = shl i32 %call5.i212, 24
-  %shl8.i214 = ashr exact i32 %sext.i213, 16
-  %or9.i215 = or i32 %shl8.i214, %and4.i211
-  br label %coord.exit221
+if.else.i215:                                     ; preds = %coord.exit201
+  %and4.i210 = and i32 %call3.i203, 255
+  %call5.i211 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i212 = shl i32 %call5.i211, 24
+  %shl8.i213 = ashr exact i32 %sext.i212, 16
+  %or9.i214 = or i32 %shl8.i213, %and4.i210
+  br label %coord.exit220
 
-coord.exit221:                                    ; preds = %if.then.i210, %if.else.i216
-  %x.0.i217 = phi i32 [ %or.i209, %if.then.i210 ], [ %or9.i215, %if.else.i216 ]
+coord.exit220:                                    ; preds = %if.then.i209, %if.else.i215
+  %x.0.i216 = phi i32 [ %or.i208, %if.then.i209 ], [ %or9.i214, %if.else.i215 ]
   %11 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i218 = icmp eq i32 %11, 0
-  %and12.i219 = and i32 %x.0.i217, 65535
-  %spec.select.i220 = select i1 %tobool10.not.i218, i32 %and12.i219, i32 %x.0.i217
-  %call15 = tail call i32 @arc(i32 noundef %spec.select.i, i32 noundef %spec.select.i144, i32 noundef %spec.select.i163, i32 noundef %spec.select.i182, i32 noundef %spec.select.i201, i32 noundef %spec.select.i220) #12
+  %tobool10.not.i217 = icmp eq i32 %11, 0
+  %and12.i218 = and i32 %x.0.i216, 65535
+  %spec.select.i219 = select i1 %tobool10.not.i217, i32 %and12.i218, i32 %x.0.i216
+  %call15 = tail call i32 @arc(i32 noundef %spec.select.i, i32 noundef %spec.select.i143, i32 noundef %spec.select.i162, i32 noundef %spec.select.i181, i32 noundef %spec.select.i200, i32 noundef %spec.select.i219) #12
   br label %sw.epilog
 
 sw.bb16:                                          ; preds = %while.body
   %12 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i222 = icmp eq i32 %12, 0
-  %call3.i223 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i222, label %if.else.i235, label %if.then.i229
+  %tobool.not.i221 = icmp eq i32 %12, 0
+  %call3.i222 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i221, label %if.else.i234, label %if.then.i228
 
-if.then.i229:                                     ; preds = %sw.bb16
-  %sext20.i224 = shl i32 %call3.i223, 24
-  %shl.i225 = ashr exact i32 %sext20.i224, 16
-  %call2.i226 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i227 = and i32 %call2.i226, 255
-  %or.i228 = or i32 %and.i227, %shl.i225
-  br label %coord.exit240
+if.then.i228:                                     ; preds = %sw.bb16
+  %sext20.i223 = shl i32 %call3.i222, 24
+  %shl.i224 = ashr exact i32 %sext20.i223, 16
+  %call2.i225 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i226 = and i32 %call2.i225, 255
+  %or.i227 = or i32 %and.i226, %shl.i224
+  br label %coord.exit239
 
-if.else.i235:                                     ; preds = %sw.bb16
-  %and4.i230 = and i32 %call3.i223, 255
-  %call5.i231 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i232 = shl i32 %call5.i231, 24
-  %shl8.i233 = ashr exact i32 %sext.i232, 16
-  %or9.i234 = or i32 %shl8.i233, %and4.i230
-  br label %coord.exit240
+if.else.i234:                                     ; preds = %sw.bb16
+  %and4.i229 = and i32 %call3.i222, 255
+  %call5.i230 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i231 = shl i32 %call5.i230, 24
+  %shl8.i232 = ashr exact i32 %sext.i231, 16
+  %or9.i233 = or i32 %shl8.i232, %and4.i229
+  br label %coord.exit239
 
-coord.exit240:                                    ; preds = %if.then.i229, %if.else.i235
-  %x.0.i236 = phi i32 [ %or.i228, %if.then.i229 ], [ %or9.i234, %if.else.i235 ]
+coord.exit239:                                    ; preds = %if.then.i228, %if.else.i234
+  %x.0.i235 = phi i32 [ %or.i227, %if.then.i228 ], [ %or9.i233, %if.else.i234 ]
   %13 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i237 = icmp eq i32 %13, 0
-  %and12.i238 = and i32 %x.0.i236, 65535
-  %spec.select.i239 = select i1 %tobool10.not.i237, i32 %and12.i238, i32 %x.0.i236
+  %tobool10.not.i236 = icmp eq i32 %13, 0
+  %and12.i237 = and i32 %x.0.i235, 65535
+  %spec.select.i238 = select i1 %tobool10.not.i236, i32 %and12.i237, i32 %x.0.i235
   %14 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i241 = icmp eq i32 %14, 0
-  %call3.i242 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i241, label %if.else.i254, label %if.then.i248
+  %tobool.not.i240 = icmp eq i32 %14, 0
+  %call3.i241 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i240, label %if.else.i253, label %if.then.i247
 
-if.then.i248:                                     ; preds = %coord.exit240
-  %sext20.i243 = shl i32 %call3.i242, 24
-  %shl.i244 = ashr exact i32 %sext20.i243, 16
-  %call2.i245 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i246 = and i32 %call2.i245, 255
-  %or.i247 = or i32 %and.i246, %shl.i244
-  br label %coord.exit259
+if.then.i247:                                     ; preds = %coord.exit239
+  %sext20.i242 = shl i32 %call3.i241, 24
+  %shl.i243 = ashr exact i32 %sext20.i242, 16
+  %call2.i244 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i245 = and i32 %call2.i244, 255
+  %or.i246 = or i32 %and.i245, %shl.i243
+  br label %coord.exit258
 
-if.else.i254:                                     ; preds = %coord.exit240
-  %and4.i249 = and i32 %call3.i242, 255
-  %call5.i250 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i251 = shl i32 %call5.i250, 24
-  %shl8.i252 = ashr exact i32 %sext.i251, 16
-  %or9.i253 = or i32 %shl8.i252, %and4.i249
-  br label %coord.exit259
+if.else.i253:                                     ; preds = %coord.exit239
+  %and4.i248 = and i32 %call3.i241, 255
+  %call5.i249 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i250 = shl i32 %call5.i249, 24
+  %shl8.i251 = ashr exact i32 %sext.i250, 16
+  %or9.i252 = or i32 %shl8.i251, %and4.i248
+  br label %coord.exit258
 
-coord.exit259:                                    ; preds = %if.then.i248, %if.else.i254
-  %x.0.i255 = phi i32 [ %or.i247, %if.then.i248 ], [ %or9.i253, %if.else.i254 ]
+coord.exit258:                                    ; preds = %if.then.i247, %if.else.i253
+  %x.0.i254 = phi i32 [ %or.i246, %if.then.i247 ], [ %or9.i252, %if.else.i253 ]
   %15 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i256 = icmp eq i32 %15, 0
-  %and12.i257 = and i32 %x.0.i255, 65535
-  %spec.select.i258 = select i1 %tobool10.not.i256, i32 %and12.i257, i32 %x.0.i255
+  %tobool10.not.i255 = icmp eq i32 %15, 0
+  %and12.i256 = and i32 %x.0.i254, 65535
+  %spec.select.i257 = select i1 %tobool10.not.i255, i32 %and12.i256, i32 %x.0.i254
   %16 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i260 = icmp eq i32 %16, 0
-  %call3.i261 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i260, label %if.else.i273, label %if.then.i267
+  %tobool.not.i259 = icmp eq i32 %16, 0
+  %call3.i260 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i259, label %if.else.i272, label %if.then.i266
 
-if.then.i267:                                     ; preds = %coord.exit259
-  %sext20.i262 = shl i32 %call3.i261, 24
-  %shl.i263 = ashr exact i32 %sext20.i262, 16
-  %call2.i264 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i265 = and i32 %call2.i264, 255
-  %or.i266 = or i32 %and.i265, %shl.i263
-  br label %coord.exit278
+if.then.i266:                                     ; preds = %coord.exit258
+  %sext20.i261 = shl i32 %call3.i260, 24
+  %shl.i262 = ashr exact i32 %sext20.i261, 16
+  %call2.i263 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i264 = and i32 %call2.i263, 255
+  %or.i265 = or i32 %and.i264, %shl.i262
+  br label %coord.exit277
 
-if.else.i273:                                     ; preds = %coord.exit259
-  %and4.i268 = and i32 %call3.i261, 255
-  %call5.i269 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i270 = shl i32 %call5.i269, 24
-  %shl8.i271 = ashr exact i32 %sext.i270, 16
-  %or9.i272 = or i32 %shl8.i271, %and4.i268
-  br label %coord.exit278
+if.else.i272:                                     ; preds = %coord.exit258
+  %and4.i267 = and i32 %call3.i260, 255
+  %call5.i268 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i269 = shl i32 %call5.i268, 24
+  %shl8.i270 = ashr exact i32 %sext.i269, 16
+  %or9.i271 = or i32 %shl8.i270, %and4.i267
+  br label %coord.exit277
 
-coord.exit278:                                    ; preds = %if.then.i267, %if.else.i273
-  %x.0.i274 = phi i32 [ %or.i266, %if.then.i267 ], [ %or9.i272, %if.else.i273 ]
+coord.exit277:                                    ; preds = %if.then.i266, %if.else.i272
+  %x.0.i273 = phi i32 [ %or.i265, %if.then.i266 ], [ %or9.i271, %if.else.i272 ]
   %17 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i275 = icmp eq i32 %17, 0
-  %and12.i276 = and i32 %x.0.i274, 65535
-  %spec.select.i277 = select i1 %tobool10.not.i275, i32 %and12.i276, i32 %x.0.i274
-  %call20 = tail call i32 @circle(i32 noundef %spec.select.i239, i32 noundef %spec.select.i258, i32 noundef %spec.select.i277) #12
+  %tobool10.not.i274 = icmp eq i32 %17, 0
+  %and12.i275 = and i32 %x.0.i273, 65535
+  %spec.select.i276 = select i1 %tobool10.not.i274, i32 %and12.i275, i32 %x.0.i273
+  %call20 = tail call i32 @circle(i32 noundef %spec.select.i238, i32 noundef %spec.select.i257, i32 noundef %spec.select.i276) #12
   br label %sw.epilog
 
 sw.bb21:                                          ; preds = %while.body
   %18 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i279 = icmp eq i32 %18, 0
-  %call3.i280 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i279, label %if.else.i292, label %if.then.i286
+  %tobool.not.i278 = icmp eq i32 %18, 0
+  %call3.i279 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i278, label %if.else.i291, label %if.then.i285
 
-if.then.i286:                                     ; preds = %sw.bb21
-  %sext20.i281 = shl i32 %call3.i280, 24
-  %shl.i282 = ashr exact i32 %sext20.i281, 16
-  %call2.i283 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i284 = and i32 %call2.i283, 255
-  %or.i285 = or i32 %and.i284, %shl.i282
-  br label %coord.exit297
+if.then.i285:                                     ; preds = %sw.bb21
+  %sext20.i280 = shl i32 %call3.i279, 24
+  %shl.i281 = ashr exact i32 %sext20.i280, 16
+  %call2.i282 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i283 = and i32 %call2.i282, 255
+  %or.i284 = or i32 %and.i283, %shl.i281
+  br label %coord.exit296
 
-if.else.i292:                                     ; preds = %sw.bb21
-  %and4.i287 = and i32 %call3.i280, 255
-  %call5.i288 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i289 = shl i32 %call5.i288, 24
-  %shl8.i290 = ashr exact i32 %sext.i289, 16
-  %or9.i291 = or i32 %shl8.i290, %and4.i287
-  br label %coord.exit297
+if.else.i291:                                     ; preds = %sw.bb21
+  %and4.i286 = and i32 %call3.i279, 255
+  %call5.i287 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i288 = shl i32 %call5.i287, 24
+  %shl8.i289 = ashr exact i32 %sext.i288, 16
+  %or9.i290 = or i32 %shl8.i289, %and4.i286
+  br label %coord.exit296
 
-coord.exit297:                                    ; preds = %if.then.i286, %if.else.i292
-  %x.0.i293 = phi i32 [ %or.i285, %if.then.i286 ], [ %or9.i291, %if.else.i292 ]
-  %and12.i295 = and i32 %x.0.i293, 65535
+coord.exit296:                                    ; preds = %if.then.i285, %if.else.i291
+  %x.0.i292 = phi i32 [ %or.i284, %if.then.i285 ], [ %or9.i290, %if.else.i291 ]
+  %and12.i294 = and i32 %x.0.i292, 65535
   %19 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i298 = icmp eq i32 %19, 0
-  %call3.i299 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i298, label %if.else.i311, label %if.then.i305
+  %tobool.not.i297 = icmp eq i32 %19, 0
+  %call3.i298 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i297, label %if.else.i310, label %if.then.i304
 
-if.then.i305:                                     ; preds = %coord.exit297
-  %sext20.i300 = shl i32 %call3.i299, 24
-  %shl.i301 = ashr exact i32 %sext20.i300, 16
-  %call2.i302 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i303 = and i32 %call2.i302, 255
-  %or.i304 = or i32 %and.i303, %shl.i301
-  br label %coord.exit316
+if.then.i304:                                     ; preds = %coord.exit296
+  %sext20.i299 = shl i32 %call3.i298, 24
+  %shl.i300 = ashr exact i32 %sext20.i299, 16
+  %call2.i301 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i302 = and i32 %call2.i301, 255
+  %or.i303 = or i32 %and.i302, %shl.i300
+  br label %coord.exit315
 
-if.else.i311:                                     ; preds = %coord.exit297
-  %and4.i306 = and i32 %call3.i299, 255
-  %call5.i307 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i308 = shl i32 %call5.i307, 24
-  %shl8.i309 = ashr exact i32 %sext.i308, 16
-  %or9.i310 = or i32 %shl8.i309, %and4.i306
-  br label %coord.exit316
+if.else.i310:                                     ; preds = %coord.exit296
+  %and4.i305 = and i32 %call3.i298, 255
+  %call5.i306 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i307 = shl i32 %call5.i306, 24
+  %shl8.i308 = ashr exact i32 %sext.i307, 16
+  %or9.i309 = or i32 %shl8.i308, %and4.i305
+  br label %coord.exit315
 
-coord.exit316:                                    ; preds = %if.then.i305, %if.else.i311
-  %x.0.i312 = phi i32 [ %or.i304, %if.then.i305 ], [ %or9.i310, %if.else.i311 ]
-  %and12.i314 = and i32 %x.0.i312, 65535
+coord.exit315:                                    ; preds = %if.then.i304, %if.else.i310
+  %x.0.i311 = phi i32 [ %or.i303, %if.then.i304 ], [ %or9.i309, %if.else.i310 ]
+  %and12.i313 = and i32 %x.0.i311, 65535
   %20 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i317 = icmp eq i32 %20, 0
-  %call3.i318 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i317, label %if.else.i330, label %if.then.i324
+  %tobool.not.i316 = icmp eq i32 %20, 0
+  %call3.i317 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i316, label %if.else.i329, label %if.then.i323
 
-if.then.i324:                                     ; preds = %coord.exit316
-  %sext20.i319 = shl i32 %call3.i318, 24
-  %shl.i320 = ashr exact i32 %sext20.i319, 16
-  %call2.i321 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i322 = and i32 %call2.i321, 255
-  %or.i323 = or i32 %and.i322, %shl.i320
-  br label %coord.exit335
+if.then.i323:                                     ; preds = %coord.exit315
+  %sext20.i318 = shl i32 %call3.i317, 24
+  %shl.i319 = ashr exact i32 %sext20.i318, 16
+  %call2.i320 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i321 = and i32 %call2.i320, 255
+  %or.i322 = or i32 %and.i321, %shl.i319
+  br label %coord.exit334
 
-if.else.i330:                                     ; preds = %coord.exit316
-  %and4.i325 = and i32 %call3.i318, 255
-  %call5.i326 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i327 = shl i32 %call5.i326, 24
-  %shl8.i328 = ashr exact i32 %sext.i327, 16
-  %or9.i329 = or i32 %shl8.i328, %and4.i325
-  br label %coord.exit335
+if.else.i329:                                     ; preds = %coord.exit315
+  %and4.i324 = and i32 %call3.i317, 255
+  %call5.i325 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i326 = shl i32 %call5.i325, 24
+  %shl8.i327 = ashr exact i32 %sext.i326, 16
+  %or9.i328 = or i32 %shl8.i327, %and4.i324
+  br label %coord.exit334
 
-coord.exit335:                                    ; preds = %if.then.i324, %if.else.i330
-  %x.0.i331 = phi i32 [ %or.i323, %if.then.i324 ], [ %or9.i329, %if.else.i330 ]
-  %and12.i333 = and i32 %x.0.i331, 65535
-  %call27 = tail call i32 @color(i32 noundef %and12.i295, i32 noundef %and12.i314, i32 noundef %and12.i333) #12
+coord.exit334:                                    ; preds = %if.then.i323, %if.else.i329
+  %x.0.i330 = phi i32 [ %or.i322, %if.then.i323 ], [ %or9.i328, %if.else.i329 ]
+  %and12.i332 = and i32 %x.0.i330, 65535
+  %call27 = tail call i32 @color(i32 noundef %and12.i294, i32 noundef %and12.i313, i32 noundef %and12.i332) #12
   br label %sw.epilog
 
 sw.bb28:                                          ; preds = %while.body
   %21 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i336 = icmp eq i32 %21, 0
-  %call3.i337 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i336, label %if.else.i349, label %if.then.i343
+  %tobool.not.i335 = icmp eq i32 %21, 0
+  %call3.i336 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i335, label %if.else.i348, label %if.then.i342
 
-if.then.i343:                                     ; preds = %sw.bb28
-  %sext20.i338 = shl i32 %call3.i337, 24
-  %shl.i339 = ashr exact i32 %sext20.i338, 16
-  %call2.i340 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i341 = and i32 %call2.i340, 255
-  %or.i342 = or i32 %and.i341, %shl.i339
-  br label %coord.exit354
+if.then.i342:                                     ; preds = %sw.bb28
+  %sext20.i337 = shl i32 %call3.i336, 24
+  %shl.i338 = ashr exact i32 %sext20.i337, 16
+  %call2.i339 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i340 = and i32 %call2.i339, 255
+  %or.i341 = or i32 %and.i340, %shl.i338
+  br label %coord.exit353
 
-if.else.i349:                                     ; preds = %sw.bb28
-  %and4.i344 = and i32 %call3.i337, 255
-  %call5.i345 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i346 = shl i32 %call5.i345, 24
-  %shl8.i347 = ashr exact i32 %sext.i346, 16
-  %or9.i348 = or i32 %shl8.i347, %and4.i344
-  br label %coord.exit354
+if.else.i348:                                     ; preds = %sw.bb28
+  %and4.i343 = and i32 %call3.i336, 255
+  %call5.i344 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i345 = shl i32 %call5.i344, 24
+  %shl8.i346 = ashr exact i32 %sext.i345, 16
+  %or9.i347 = or i32 %shl8.i346, %and4.i343
+  br label %coord.exit353
 
-coord.exit354:                                    ; preds = %if.then.i343, %if.else.i349
-  %x.0.i350 = phi i32 [ %or.i342, %if.then.i343 ], [ %or9.i348, %if.else.i349 ]
+coord.exit353:                                    ; preds = %if.then.i342, %if.else.i348
+  %x.0.i349 = phi i32 [ %or.i341, %if.then.i342 ], [ %or9.i347, %if.else.i348 ]
   %22 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i351 = icmp eq i32 %22, 0
-  %and12.i352 = and i32 %x.0.i350, 65535
-  %spec.select.i353 = select i1 %tobool10.not.i351, i32 %and12.i352, i32 %x.0.i350
+  %tobool10.not.i350 = icmp eq i32 %22, 0
+  %and12.i351 = and i32 %x.0.i349, 65535
+  %spec.select.i352 = select i1 %tobool10.not.i350, i32 %and12.i351, i32 %x.0.i349
   %23 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i355 = icmp eq i32 %23, 0
-  %call3.i356 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i355, label %if.else.i368, label %if.then.i362
+  %tobool.not.i354 = icmp eq i32 %23, 0
+  %call3.i355 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i354, label %if.else.i367, label %if.then.i361
 
-if.then.i362:                                     ; preds = %coord.exit354
-  %sext20.i357 = shl i32 %call3.i356, 24
-  %shl.i358 = ashr exact i32 %sext20.i357, 16
-  %call2.i359 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i360 = and i32 %call2.i359, 255
-  %or.i361 = or i32 %and.i360, %shl.i358
-  br label %coord.exit373
+if.then.i361:                                     ; preds = %coord.exit353
+  %sext20.i356 = shl i32 %call3.i355, 24
+  %shl.i357 = ashr exact i32 %sext20.i356, 16
+  %call2.i358 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i359 = and i32 %call2.i358, 255
+  %or.i360 = or i32 %and.i359, %shl.i357
+  br label %coord.exit372
 
-if.else.i368:                                     ; preds = %coord.exit354
-  %and4.i363 = and i32 %call3.i356, 255
-  %call5.i364 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i365 = shl i32 %call5.i364, 24
-  %shl8.i366 = ashr exact i32 %sext.i365, 16
-  %or9.i367 = or i32 %shl8.i366, %and4.i363
-  br label %coord.exit373
+if.else.i367:                                     ; preds = %coord.exit353
+  %and4.i362 = and i32 %call3.i355, 255
+  %call5.i363 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i364 = shl i32 %call5.i363, 24
+  %shl8.i365 = ashr exact i32 %sext.i364, 16
+  %or9.i366 = or i32 %shl8.i365, %and4.i362
+  br label %coord.exit372
 
-coord.exit373:                                    ; preds = %if.then.i362, %if.else.i368
-  %x.0.i369 = phi i32 [ %or.i361, %if.then.i362 ], [ %or9.i367, %if.else.i368 ]
+coord.exit372:                                    ; preds = %if.then.i361, %if.else.i367
+  %x.0.i368 = phi i32 [ %or.i360, %if.then.i361 ], [ %or9.i366, %if.else.i367 ]
   %24 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i370 = icmp eq i32 %24, 0
-  %and12.i371 = and i32 %x.0.i369, 65535
-  %spec.select.i372 = select i1 %tobool10.not.i370, i32 %and12.i371, i32 %x.0.i369
-  %call31 = tail call i32 @cont(i32 noundef %spec.select.i353, i32 noundef %spec.select.i372) #12
+  %tobool10.not.i369 = icmp eq i32 %24, 0
+  %and12.i370 = and i32 %x.0.i368, 65535
+  %spec.select.i371 = select i1 %tobool10.not.i369, i32 %and12.i370, i32 %x.0.i368
+  %call31 = tail call i32 @cont(i32 noundef %spec.select.i352, i32 noundef %spec.select.i371) #12
   br label %sw.epilog
 
 sw.bb32:                                          ; preds = %while.body
@@ -653,30 +653,30 @@ sw.bb32:                                          ; preds = %while.body
 
 sw.bb34:                                          ; preds = %while.body
   %25 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i374 = icmp eq i32 %25, 0
-  %call3.i375 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i374, label %if.else.i387, label %if.then.i381
+  %tobool.not.i373 = icmp eq i32 %25, 0
+  %call3.i374 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i373, label %if.else.i386, label %if.then.i380
 
-if.then.i381:                                     ; preds = %sw.bb34
-  %sext20.i376 = shl i32 %call3.i375, 24
-  %shl.i377 = ashr exact i32 %sext20.i376, 16
-  %call2.i378 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i379 = and i32 %call2.i378, 255
-  %or.i380 = or i32 %and.i379, %shl.i377
-  br label %coord.exit392
+if.then.i380:                                     ; preds = %sw.bb34
+  %sext20.i375 = shl i32 %call3.i374, 24
+  %shl.i376 = ashr exact i32 %sext20.i375, 16
+  %call2.i377 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i378 = and i32 %call2.i377, 255
+  %or.i379 = or i32 %and.i378, %shl.i376
+  br label %coord.exit391
 
-if.else.i387:                                     ; preds = %sw.bb34
-  %and4.i382 = and i32 %call3.i375, 255
-  %call5.i383 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i384 = shl i32 %call5.i383, 24
-  %shl8.i385 = ashr exact i32 %sext.i384, 16
-  %or9.i386 = or i32 %shl8.i385, %and4.i382
-  br label %coord.exit392
+if.else.i386:                                     ; preds = %sw.bb34
+  %and4.i381 = and i32 %call3.i374, 255
+  %call5.i382 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i383 = shl i32 %call5.i382, 24
+  %shl8.i384 = ashr exact i32 %sext.i383, 16
+  %or9.i385 = or i32 %shl8.i384, %and4.i381
+  br label %coord.exit391
 
-coord.exit392:                                    ; preds = %if.then.i381, %if.else.i387
-  %x.0.i388 = phi i32 [ %or.i380, %if.then.i381 ], [ %or9.i386, %if.else.i387 ]
-  %and12.i390 = and i32 %x.0.i388, 65535
-  %call37 = tail call i32 @fill(i32 noundef %and12.i390) #12
+coord.exit391:                                    ; preds = %if.then.i380, %if.else.i386
+  %x.0.i387 = phi i32 [ %or.i379, %if.then.i380 ], [ %or9.i385, %if.else.i386 ]
+  %and12.i389 = and i32 %x.0.i387, 65535
+  %call37 = tail call i32 @fill(i32 noundef %and12.i389) #12
   br label %sw.epilog
 
 sw.bb38:                                          ; preds = %while.body
@@ -686,33 +686,33 @@ sw.bb38:                                          ; preds = %while.body
 
 sw.bb40:                                          ; preds = %while.body
   %26 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i393 = icmp eq i32 %26, 0
-  %call3.i394 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i393, label %if.else.i406, label %if.then.i400
+  %tobool.not.i392 = icmp eq i32 %26, 0
+  %call3.i393 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i392, label %if.else.i405, label %if.then.i399
 
-if.then.i400:                                     ; preds = %sw.bb40
-  %sext20.i395 = shl i32 %call3.i394, 24
-  %shl.i396 = ashr exact i32 %sext20.i395, 16
-  %call2.i397 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i398 = and i32 %call2.i397, 255
-  %or.i399 = or i32 %and.i398, %shl.i396
-  br label %coord.exit411
+if.then.i399:                                     ; preds = %sw.bb40
+  %sext20.i394 = shl i32 %call3.i393, 24
+  %shl.i395 = ashr exact i32 %sext20.i394, 16
+  %call2.i396 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i397 = and i32 %call2.i396, 255
+  %or.i398 = or i32 %and.i397, %shl.i395
+  br label %coord.exit410
 
-if.else.i406:                                     ; preds = %sw.bb40
-  %and4.i401 = and i32 %call3.i394, 255
-  %call5.i402 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i403 = shl i32 %call5.i402, 24
-  %shl8.i404 = ashr exact i32 %sext.i403, 16
-  %or9.i405 = or i32 %shl8.i404, %and4.i401
-  br label %coord.exit411
+if.else.i405:                                     ; preds = %sw.bb40
+  %and4.i400 = and i32 %call3.i393, 255
+  %call5.i401 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i402 = shl i32 %call5.i401, 24
+  %shl8.i403 = ashr exact i32 %sext.i402, 16
+  %or9.i404 = or i32 %shl8.i403, %and4.i400
+  br label %coord.exit410
 
-coord.exit411:                                    ; preds = %if.then.i400, %if.else.i406
-  %x.0.i407 = phi i32 [ %or.i399, %if.then.i400 ], [ %or9.i405, %if.else.i406 ]
+coord.exit410:                                    ; preds = %if.then.i399, %if.else.i405
+  %x.0.i406 = phi i32 [ %or.i398, %if.then.i399 ], [ %or9.i404, %if.else.i405 ]
   %27 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i408 = icmp eq i32 %27, 0
-  %and12.i409 = and i32 %x.0.i407, 65535
-  %spec.select.i410 = select i1 %tobool10.not.i408, i32 %and12.i409, i32 %x.0.i407
-  %call42 = tail call i32 @fontsize(i32 noundef %spec.select.i410) #12
+  %tobool10.not.i407 = icmp eq i32 %27, 0
+  %and12.i408 = and i32 %x.0.i406, 65535
+  %spec.select.i409 = select i1 %tobool10.not.i407, i32 %and12.i408, i32 %x.0.i406
+  %call42 = tail call i32 @fontsize(i32 noundef %spec.select.i409) #12
   br label %sw.epilog
 
 sw.bb43:                                          ; preds = %while.body
@@ -722,114 +722,114 @@ sw.bb43:                                          ; preds = %while.body
 
 sw.bb45:                                          ; preds = %while.body
   %28 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i412 = icmp eq i32 %28, 0
-  %call3.i413 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i412, label %if.else.i425, label %if.then.i419
+  %tobool.not.i411 = icmp eq i32 %28, 0
+  %call3.i412 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i411, label %if.else.i424, label %if.then.i418
 
-if.then.i419:                                     ; preds = %sw.bb45
-  %sext20.i414 = shl i32 %call3.i413, 24
-  %shl.i415 = ashr exact i32 %sext20.i414, 16
-  %call2.i416 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i417 = and i32 %call2.i416, 255
-  %or.i418 = or i32 %and.i417, %shl.i415
-  br label %coord.exit430
+if.then.i418:                                     ; preds = %sw.bb45
+  %sext20.i413 = shl i32 %call3.i412, 24
+  %shl.i414 = ashr exact i32 %sext20.i413, 16
+  %call2.i415 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i416 = and i32 %call2.i415, 255
+  %or.i417 = or i32 %and.i416, %shl.i414
+  br label %coord.exit429
 
-if.else.i425:                                     ; preds = %sw.bb45
-  %and4.i420 = and i32 %call3.i413, 255
-  %call5.i421 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i422 = shl i32 %call5.i421, 24
-  %shl8.i423 = ashr exact i32 %sext.i422, 16
-  %or9.i424 = or i32 %shl8.i423, %and4.i420
-  br label %coord.exit430
+if.else.i424:                                     ; preds = %sw.bb45
+  %and4.i419 = and i32 %call3.i412, 255
+  %call5.i420 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i421 = shl i32 %call5.i420, 24
+  %shl8.i422 = ashr exact i32 %sext.i421, 16
+  %or9.i423 = or i32 %shl8.i422, %and4.i419
+  br label %coord.exit429
 
-coord.exit430:                                    ; preds = %if.then.i419, %if.else.i425
-  %x.0.i426 = phi i32 [ %or.i418, %if.then.i419 ], [ %or9.i424, %if.else.i425 ]
+coord.exit429:                                    ; preds = %if.then.i418, %if.else.i424
+  %x.0.i425 = phi i32 [ %or.i417, %if.then.i418 ], [ %or9.i423, %if.else.i424 ]
   %29 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i427 = icmp eq i32 %29, 0
-  %and12.i428 = and i32 %x.0.i426, 65535
-  %spec.select.i429 = select i1 %tobool10.not.i427, i32 %and12.i428, i32 %x.0.i426
+  %tobool10.not.i426 = icmp eq i32 %29, 0
+  %and12.i427 = and i32 %x.0.i425, 65535
+  %spec.select.i428 = select i1 %tobool10.not.i426, i32 %and12.i427, i32 %x.0.i425
   %30 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i431 = icmp eq i32 %30, 0
-  %call3.i432 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i431, label %if.else.i444, label %if.then.i438
+  %tobool.not.i430 = icmp eq i32 %30, 0
+  %call3.i431 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i430, label %if.else.i443, label %if.then.i437
 
-if.then.i438:                                     ; preds = %coord.exit430
-  %sext20.i433 = shl i32 %call3.i432, 24
-  %shl.i434 = ashr exact i32 %sext20.i433, 16
-  %call2.i435 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i436 = and i32 %call2.i435, 255
-  %or.i437 = or i32 %and.i436, %shl.i434
-  br label %coord.exit449
+if.then.i437:                                     ; preds = %coord.exit429
+  %sext20.i432 = shl i32 %call3.i431, 24
+  %shl.i433 = ashr exact i32 %sext20.i432, 16
+  %call2.i434 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i435 = and i32 %call2.i434, 255
+  %or.i436 = or i32 %and.i435, %shl.i433
+  br label %coord.exit448
 
-if.else.i444:                                     ; preds = %coord.exit430
-  %and4.i439 = and i32 %call3.i432, 255
-  %call5.i440 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i441 = shl i32 %call5.i440, 24
-  %shl8.i442 = ashr exact i32 %sext.i441, 16
-  %or9.i443 = or i32 %shl8.i442, %and4.i439
-  br label %coord.exit449
+if.else.i443:                                     ; preds = %coord.exit429
+  %and4.i438 = and i32 %call3.i431, 255
+  %call5.i439 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i440 = shl i32 %call5.i439, 24
+  %shl8.i441 = ashr exact i32 %sext.i440, 16
+  %or9.i442 = or i32 %shl8.i441, %and4.i438
+  br label %coord.exit448
 
-coord.exit449:                                    ; preds = %if.then.i438, %if.else.i444
-  %x.0.i445 = phi i32 [ %or.i437, %if.then.i438 ], [ %or9.i443, %if.else.i444 ]
+coord.exit448:                                    ; preds = %if.then.i437, %if.else.i443
+  %x.0.i444 = phi i32 [ %or.i436, %if.then.i437 ], [ %or9.i442, %if.else.i443 ]
   %31 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i446 = icmp eq i32 %31, 0
-  %and12.i447 = and i32 %x.0.i445, 65535
-  %spec.select.i448 = select i1 %tobool10.not.i446, i32 %and12.i447, i32 %x.0.i445
+  %tobool10.not.i445 = icmp eq i32 %31, 0
+  %and12.i446 = and i32 %x.0.i444, 65535
+  %spec.select.i447 = select i1 %tobool10.not.i445, i32 %and12.i446, i32 %x.0.i444
   %32 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i450 = icmp eq i32 %32, 0
-  %call3.i451 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i450, label %if.else.i463, label %if.then.i457
+  %tobool.not.i449 = icmp eq i32 %32, 0
+  %call3.i450 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i449, label %if.else.i462, label %if.then.i456
 
-if.then.i457:                                     ; preds = %coord.exit449
-  %sext20.i452 = shl i32 %call3.i451, 24
-  %shl.i453 = ashr exact i32 %sext20.i452, 16
-  %call2.i454 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i455 = and i32 %call2.i454, 255
-  %or.i456 = or i32 %and.i455, %shl.i453
-  br label %coord.exit468
+if.then.i456:                                     ; preds = %coord.exit448
+  %sext20.i451 = shl i32 %call3.i450, 24
+  %shl.i452 = ashr exact i32 %sext20.i451, 16
+  %call2.i453 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i454 = and i32 %call2.i453, 255
+  %or.i455 = or i32 %and.i454, %shl.i452
+  br label %coord.exit467
 
-if.else.i463:                                     ; preds = %coord.exit449
-  %and4.i458 = and i32 %call3.i451, 255
-  %call5.i459 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i460 = shl i32 %call5.i459, 24
-  %shl8.i461 = ashr exact i32 %sext.i460, 16
-  %or9.i462 = or i32 %shl8.i461, %and4.i458
-  br label %coord.exit468
+if.else.i462:                                     ; preds = %coord.exit448
+  %and4.i457 = and i32 %call3.i450, 255
+  %call5.i458 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i459 = shl i32 %call5.i458, 24
+  %shl8.i460 = ashr exact i32 %sext.i459, 16
+  %or9.i461 = or i32 %shl8.i460, %and4.i457
+  br label %coord.exit467
 
-coord.exit468:                                    ; preds = %if.then.i457, %if.else.i463
-  %x.0.i464 = phi i32 [ %or.i456, %if.then.i457 ], [ %or9.i462, %if.else.i463 ]
+coord.exit467:                                    ; preds = %if.then.i456, %if.else.i462
+  %x.0.i463 = phi i32 [ %or.i455, %if.then.i456 ], [ %or9.i461, %if.else.i462 ]
   %33 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i465 = icmp eq i32 %33, 0
-  %and12.i466 = and i32 %x.0.i464, 65535
-  %spec.select.i467 = select i1 %tobool10.not.i465, i32 %and12.i466, i32 %x.0.i464
+  %tobool10.not.i464 = icmp eq i32 %33, 0
+  %and12.i465 = and i32 %x.0.i463, 65535
+  %spec.select.i466 = select i1 %tobool10.not.i464, i32 %and12.i465, i32 %x.0.i463
   %34 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i469 = icmp eq i32 %34, 0
-  %call3.i470 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i469, label %if.else.i482, label %if.then.i476
+  %tobool.not.i468 = icmp eq i32 %34, 0
+  %call3.i469 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i468, label %if.else.i481, label %if.then.i475
 
-if.then.i476:                                     ; preds = %coord.exit468
-  %sext20.i471 = shl i32 %call3.i470, 24
-  %shl.i472 = ashr exact i32 %sext20.i471, 16
-  %call2.i473 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i474 = and i32 %call2.i473, 255
-  %or.i475 = or i32 %and.i474, %shl.i472
-  br label %coord.exit487
+if.then.i475:                                     ; preds = %coord.exit467
+  %sext20.i470 = shl i32 %call3.i469, 24
+  %shl.i471 = ashr exact i32 %sext20.i470, 16
+  %call2.i472 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i473 = and i32 %call2.i472, 255
+  %or.i474 = or i32 %and.i473, %shl.i471
+  br label %coord.exit486
 
-if.else.i482:                                     ; preds = %coord.exit468
-  %and4.i477 = and i32 %call3.i470, 255
-  %call5.i478 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i479 = shl i32 %call5.i478, 24
-  %shl8.i480 = ashr exact i32 %sext.i479, 16
-  %or9.i481 = or i32 %shl8.i480, %and4.i477
-  br label %coord.exit487
+if.else.i481:                                     ; preds = %coord.exit467
+  %and4.i476 = and i32 %call3.i469, 255
+  %call5.i477 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i478 = shl i32 %call5.i477, 24
+  %shl8.i479 = ashr exact i32 %sext.i478, 16
+  %or9.i480 = or i32 %shl8.i479, %and4.i476
+  br label %coord.exit486
 
-coord.exit487:                                    ; preds = %if.then.i476, %if.else.i482
-  %x.0.i483 = phi i32 [ %or.i475, %if.then.i476 ], [ %or9.i481, %if.else.i482 ]
+coord.exit486:                                    ; preds = %if.then.i475, %if.else.i481
+  %x.0.i482 = phi i32 [ %or.i474, %if.then.i475 ], [ %or9.i480, %if.else.i481 ]
   %35 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i484 = icmp eq i32 %35, 0
-  %and12.i485 = and i32 %x.0.i483, 65535
-  %spec.select.i486 = select i1 %tobool10.not.i484, i32 %and12.i485, i32 %x.0.i483
-  %call50 = tail call i32 @line(i32 noundef %spec.select.i429, i32 noundef %spec.select.i448, i32 noundef %spec.select.i467, i32 noundef %spec.select.i486) #12
+  %tobool10.not.i483 = icmp eq i32 %35, 0
+  %and12.i484 = and i32 %x.0.i482, 65535
+  %spec.select.i485 = select i1 %tobool10.not.i483, i32 %and12.i484, i32 %x.0.i482
+  %call50 = tail call i32 @line(i32 noundef %spec.select.i428, i32 noundef %spec.select.i447, i32 noundef %spec.select.i466, i32 noundef %spec.select.i485) #12
   br label %sw.epilog
 
 sw.bb51:                                          ; preds = %while.body
@@ -839,319 +839,319 @@ sw.bb51:                                          ; preds = %while.body
 
 sw.bb53:                                          ; preds = %while.body
   %36 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i488 = icmp eq i32 %36, 0
-  %call3.i489 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i488, label %if.else.i501, label %if.then.i495
+  %tobool.not.i487 = icmp eq i32 %36, 0
+  %call3.i488 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i487, label %if.else.i500, label %if.then.i494
 
-if.then.i495:                                     ; preds = %sw.bb53
-  %sext20.i490 = shl i32 %call3.i489, 24
-  %shl.i491 = ashr exact i32 %sext20.i490, 16
-  %call2.i492 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i493 = and i32 %call2.i492, 255
-  %or.i494 = or i32 %and.i493, %shl.i491
-  br label %coord.exit506
+if.then.i494:                                     ; preds = %sw.bb53
+  %sext20.i489 = shl i32 %call3.i488, 24
+  %shl.i490 = ashr exact i32 %sext20.i489, 16
+  %call2.i491 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i492 = and i32 %call2.i491, 255
+  %or.i493 = or i32 %and.i492, %shl.i490
+  br label %coord.exit505
 
-if.else.i501:                                     ; preds = %sw.bb53
-  %and4.i496 = and i32 %call3.i489, 255
-  %call5.i497 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i498 = shl i32 %call5.i497, 24
-  %shl8.i499 = ashr exact i32 %sext.i498, 16
-  %or9.i500 = or i32 %shl8.i499, %and4.i496
-  br label %coord.exit506
+if.else.i500:                                     ; preds = %sw.bb53
+  %and4.i495 = and i32 %call3.i488, 255
+  %call5.i496 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i497 = shl i32 %call5.i496, 24
+  %shl8.i498 = ashr exact i32 %sext.i497, 16
+  %or9.i499 = or i32 %shl8.i498, %and4.i495
+  br label %coord.exit505
 
-coord.exit506:                                    ; preds = %if.then.i495, %if.else.i501
-  %x.0.i502 = phi i32 [ %or.i494, %if.then.i495 ], [ %or9.i500, %if.else.i501 ]
+coord.exit505:                                    ; preds = %if.then.i494, %if.else.i500
+  %x.0.i501 = phi i32 [ %or.i493, %if.then.i494 ], [ %or9.i499, %if.else.i500 ]
   %37 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i503 = icmp eq i32 %37, 0
-  %and12.i504 = and i32 %x.0.i502, 65535
-  %spec.select.i505 = select i1 %tobool10.not.i503, i32 %and12.i504, i32 %x.0.i502
+  %tobool10.not.i502 = icmp eq i32 %37, 0
+  %and12.i503 = and i32 %x.0.i501, 65535
+  %spec.select.i504 = select i1 %tobool10.not.i502, i32 %and12.i503, i32 %x.0.i501
   %38 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i507 = icmp eq i32 %38, 0
-  %call3.i508 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i507, label %if.else.i520, label %if.then.i514
+  %tobool.not.i506 = icmp eq i32 %38, 0
+  %call3.i507 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i506, label %if.else.i519, label %if.then.i513
 
-if.then.i514:                                     ; preds = %coord.exit506
-  %sext20.i509 = shl i32 %call3.i508, 24
-  %shl.i510 = ashr exact i32 %sext20.i509, 16
-  %call2.i511 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i512 = and i32 %call2.i511, 255
-  %or.i513 = or i32 %and.i512, %shl.i510
-  br label %coord.exit525
+if.then.i513:                                     ; preds = %coord.exit505
+  %sext20.i508 = shl i32 %call3.i507, 24
+  %shl.i509 = ashr exact i32 %sext20.i508, 16
+  %call2.i510 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i511 = and i32 %call2.i510, 255
+  %or.i512 = or i32 %and.i511, %shl.i509
+  br label %coord.exit524
 
-if.else.i520:                                     ; preds = %coord.exit506
-  %and4.i515 = and i32 %call3.i508, 255
-  %call5.i516 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i517 = shl i32 %call5.i516, 24
-  %shl8.i518 = ashr exact i32 %sext.i517, 16
-  %or9.i519 = or i32 %shl8.i518, %and4.i515
-  br label %coord.exit525
+if.else.i519:                                     ; preds = %coord.exit505
+  %and4.i514 = and i32 %call3.i507, 255
+  %call5.i515 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i516 = shl i32 %call5.i515, 24
+  %shl8.i517 = ashr exact i32 %sext.i516, 16
+  %or9.i518 = or i32 %shl8.i517, %and4.i514
+  br label %coord.exit524
 
-coord.exit525:                                    ; preds = %if.then.i514, %if.else.i520
-  %x.0.i521 = phi i32 [ %or.i513, %if.then.i514 ], [ %or9.i519, %if.else.i520 ]
+coord.exit524:                                    ; preds = %if.then.i513, %if.else.i519
+  %x.0.i520 = phi i32 [ %or.i512, %if.then.i513 ], [ %or9.i518, %if.else.i519 ]
   %39 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i522 = icmp eq i32 %39, 0
-  %and12.i523 = and i32 %x.0.i521, 65535
-  %spec.select.i524 = select i1 %tobool10.not.i522, i32 %and12.i523, i32 %x.0.i521
-  %call56 = tail call i32 @move_nasko(i32 noundef %spec.select.i505, i32 noundef %spec.select.i524) #12
+  %tobool10.not.i521 = icmp eq i32 %39, 0
+  %and12.i522 = and i32 %x.0.i520, 65535
+  %spec.select.i523 = select i1 %tobool10.not.i521, i32 %and12.i522, i32 %x.0.i520
+  %call56 = tail call i32 @move_nasko(i32 noundef %spec.select.i504, i32 noundef %spec.select.i523) #12
   br label %sw.epilog
 
 sw.bb57:                                          ; preds = %while.body
   %40 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i526 = icmp eq i32 %40, 0
-  %call3.i527 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i526, label %if.else.i539, label %if.then.i533
+  %tobool.not.i525 = icmp eq i32 %40, 0
+  %call3.i526 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i525, label %if.else.i538, label %if.then.i532
 
-if.then.i533:                                     ; preds = %sw.bb57
-  %sext20.i528 = shl i32 %call3.i527, 24
-  %shl.i529 = ashr exact i32 %sext20.i528, 16
-  %call2.i530 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i531 = and i32 %call2.i530, 255
-  %or.i532 = or i32 %and.i531, %shl.i529
-  br label %coord.exit544
+if.then.i532:                                     ; preds = %sw.bb57
+  %sext20.i527 = shl i32 %call3.i526, 24
+  %shl.i528 = ashr exact i32 %sext20.i527, 16
+  %call2.i529 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i530 = and i32 %call2.i529, 255
+  %or.i531 = or i32 %and.i530, %shl.i528
+  br label %coord.exit543
 
-if.else.i539:                                     ; preds = %sw.bb57
-  %and4.i534 = and i32 %call3.i527, 255
-  %call5.i535 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i536 = shl i32 %call5.i535, 24
-  %shl8.i537 = ashr exact i32 %sext.i536, 16
-  %or9.i538 = or i32 %shl8.i537, %and4.i534
-  br label %coord.exit544
+if.else.i538:                                     ; preds = %sw.bb57
+  %and4.i533 = and i32 %call3.i526, 255
+  %call5.i534 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i535 = shl i32 %call5.i534, 24
+  %shl8.i536 = ashr exact i32 %sext.i535, 16
+  %or9.i537 = or i32 %shl8.i536, %and4.i533
+  br label %coord.exit543
 
-coord.exit544:                                    ; preds = %if.then.i533, %if.else.i539
-  %x.0.i540 = phi i32 [ %or.i532, %if.then.i533 ], [ %or9.i538, %if.else.i539 ]
+coord.exit543:                                    ; preds = %if.then.i532, %if.else.i538
+  %x.0.i539 = phi i32 [ %or.i531, %if.then.i532 ], [ %or9.i537, %if.else.i538 ]
   %41 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i541 = icmp eq i32 %41, 0
-  %and12.i542 = and i32 %x.0.i540, 65535
-  %spec.select.i543 = select i1 %tobool10.not.i541, i32 %and12.i542, i32 %x.0.i540
+  %tobool10.not.i540 = icmp eq i32 %41, 0
+  %and12.i541 = and i32 %x.0.i539, 65535
+  %spec.select.i542 = select i1 %tobool10.not.i540, i32 %and12.i541, i32 %x.0.i539
   %42 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i545 = icmp eq i32 %42, 0
-  %call3.i546 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i545, label %if.else.i558, label %if.then.i552
+  %tobool.not.i544 = icmp eq i32 %42, 0
+  %call3.i545 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i544, label %if.else.i557, label %if.then.i551
 
-if.then.i552:                                     ; preds = %coord.exit544
-  %sext20.i547 = shl i32 %call3.i546, 24
-  %shl.i548 = ashr exact i32 %sext20.i547, 16
-  %call2.i549 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i550 = and i32 %call2.i549, 255
-  %or.i551 = or i32 %and.i550, %shl.i548
-  br label %coord.exit563
+if.then.i551:                                     ; preds = %coord.exit543
+  %sext20.i546 = shl i32 %call3.i545, 24
+  %shl.i547 = ashr exact i32 %sext20.i546, 16
+  %call2.i548 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i549 = and i32 %call2.i548, 255
+  %or.i550 = or i32 %and.i549, %shl.i547
+  br label %coord.exit562
 
-if.else.i558:                                     ; preds = %coord.exit544
-  %and4.i553 = and i32 %call3.i546, 255
-  %call5.i554 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i555 = shl i32 %call5.i554, 24
-  %shl8.i556 = ashr exact i32 %sext.i555, 16
-  %or9.i557 = or i32 %shl8.i556, %and4.i553
-  br label %coord.exit563
+if.else.i557:                                     ; preds = %coord.exit543
+  %and4.i552 = and i32 %call3.i545, 255
+  %call5.i553 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i554 = shl i32 %call5.i553, 24
+  %shl8.i555 = ashr exact i32 %sext.i554, 16
+  %or9.i556 = or i32 %shl8.i555, %and4.i552
+  br label %coord.exit562
 
-coord.exit563:                                    ; preds = %if.then.i552, %if.else.i558
-  %x.0.i559 = phi i32 [ %or.i551, %if.then.i552 ], [ %or9.i557, %if.else.i558 ]
+coord.exit562:                                    ; preds = %if.then.i551, %if.else.i557
+  %x.0.i558 = phi i32 [ %or.i550, %if.then.i551 ], [ %or9.i556, %if.else.i557 ]
   %43 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i560 = icmp eq i32 %43, 0
-  %and12.i561 = and i32 %x.0.i559, 65535
-  %spec.select.i562 = select i1 %tobool10.not.i560, i32 %and12.i561, i32 %x.0.i559
-  %call60 = tail call i32 @point(i32 noundef %spec.select.i543, i32 noundef %spec.select.i562) #12
+  %tobool10.not.i559 = icmp eq i32 %43, 0
+  %and12.i560 = and i32 %x.0.i558, 65535
+  %spec.select.i561 = select i1 %tobool10.not.i559, i32 %and12.i560, i32 %x.0.i558
+  %call60 = tail call i32 @point(i32 noundef %spec.select.i542, i32 noundef %spec.select.i561) #12
   br label %sw.epilog
 
 sw.bb61:                                          ; preds = %while.body
   %44 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i564 = icmp eq i32 %44, 0
-  %call3.i565 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i564, label %if.else.i577, label %if.then.i571
+  %tobool.not.i563 = icmp eq i32 %44, 0
+  %call3.i564 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i563, label %if.else.i576, label %if.then.i570
 
-if.then.i571:                                     ; preds = %sw.bb61
-  %sext20.i566 = shl i32 %call3.i565, 24
-  %shl.i567 = ashr exact i32 %sext20.i566, 16
-  %call2.i568 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i569 = and i32 %call2.i568, 255
-  %or.i570 = or i32 %and.i569, %shl.i567
-  br label %coord.exit582
+if.then.i570:                                     ; preds = %sw.bb61
+  %sext20.i565 = shl i32 %call3.i564, 24
+  %shl.i566 = ashr exact i32 %sext20.i565, 16
+  %call2.i567 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i568 = and i32 %call2.i567, 255
+  %or.i569 = or i32 %and.i568, %shl.i566
+  br label %coord.exit581
 
-if.else.i577:                                     ; preds = %sw.bb61
-  %and4.i572 = and i32 %call3.i565, 255
-  %call5.i573 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i574 = shl i32 %call5.i573, 24
-  %shl8.i575 = ashr exact i32 %sext.i574, 16
-  %or9.i576 = or i32 %shl8.i575, %and4.i572
-  br label %coord.exit582
+if.else.i576:                                     ; preds = %sw.bb61
+  %and4.i571 = and i32 %call3.i564, 255
+  %call5.i572 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i573 = shl i32 %call5.i572, 24
+  %shl8.i574 = ashr exact i32 %sext.i573, 16
+  %or9.i575 = or i32 %shl8.i574, %and4.i571
+  br label %coord.exit581
 
-coord.exit582:                                    ; preds = %if.then.i571, %if.else.i577
-  %x.0.i578 = phi i32 [ %or.i570, %if.then.i571 ], [ %or9.i576, %if.else.i577 ]
+coord.exit581:                                    ; preds = %if.then.i570, %if.else.i576
+  %x.0.i577 = phi i32 [ %or.i569, %if.then.i570 ], [ %or9.i575, %if.else.i576 ]
   %45 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i579 = icmp eq i32 %45, 0
-  %and12.i580 = and i32 %x.0.i578, 65535
-  %spec.select.i581 = select i1 %tobool10.not.i579, i32 %and12.i580, i32 %x.0.i578
+  %tobool10.not.i578 = icmp eq i32 %45, 0
+  %and12.i579 = and i32 %x.0.i577, 65535
+  %spec.select.i580 = select i1 %tobool10.not.i578, i32 %and12.i579, i32 %x.0.i577
   %46 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i583 = icmp eq i32 %46, 0
-  %call3.i584 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i583, label %if.else.i596, label %if.then.i590
+  %tobool.not.i582 = icmp eq i32 %46, 0
+  %call3.i583 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i582, label %if.else.i595, label %if.then.i589
 
-if.then.i590:                                     ; preds = %coord.exit582
-  %sext20.i585 = shl i32 %call3.i584, 24
-  %shl.i586 = ashr exact i32 %sext20.i585, 16
-  %call2.i587 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i588 = and i32 %call2.i587, 255
-  %or.i589 = or i32 %and.i588, %shl.i586
-  br label %coord.exit601
+if.then.i589:                                     ; preds = %coord.exit581
+  %sext20.i584 = shl i32 %call3.i583, 24
+  %shl.i585 = ashr exact i32 %sext20.i584, 16
+  %call2.i586 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i587 = and i32 %call2.i586, 255
+  %or.i588 = or i32 %and.i587, %shl.i585
+  br label %coord.exit600
 
-if.else.i596:                                     ; preds = %coord.exit582
-  %and4.i591 = and i32 %call3.i584, 255
-  %call5.i592 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i593 = shl i32 %call5.i592, 24
-  %shl8.i594 = ashr exact i32 %sext.i593, 16
-  %or9.i595 = or i32 %shl8.i594, %and4.i591
-  br label %coord.exit601
+if.else.i595:                                     ; preds = %coord.exit581
+  %and4.i590 = and i32 %call3.i583, 255
+  %call5.i591 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i592 = shl i32 %call5.i591, 24
+  %shl8.i593 = ashr exact i32 %sext.i592, 16
+  %or9.i594 = or i32 %shl8.i593, %and4.i590
+  br label %coord.exit600
 
-coord.exit601:                                    ; preds = %if.then.i590, %if.else.i596
-  %x.0.i597 = phi i32 [ %or.i589, %if.then.i590 ], [ %or9.i595, %if.else.i596 ]
+coord.exit600:                                    ; preds = %if.then.i589, %if.else.i595
+  %x.0.i596 = phi i32 [ %or.i588, %if.then.i589 ], [ %or9.i594, %if.else.i595 ]
   %47 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i598 = icmp eq i32 %47, 0
-  %and12.i599 = and i32 %x.0.i597, 65535
-  %spec.select.i600 = select i1 %tobool10.not.i598, i32 %and12.i599, i32 %x.0.i597
+  %tobool10.not.i597 = icmp eq i32 %47, 0
+  %and12.i598 = and i32 %x.0.i596, 65535
+  %spec.select.i599 = select i1 %tobool10.not.i597, i32 %and12.i598, i32 %x.0.i596
   %48 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i602 = icmp eq i32 %48, 0
-  %call3.i603 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i602, label %if.else.i615, label %if.then.i609
+  %tobool.not.i601 = icmp eq i32 %48, 0
+  %call3.i602 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i601, label %if.else.i614, label %if.then.i608
 
-if.then.i609:                                     ; preds = %coord.exit601
-  %sext20.i604 = shl i32 %call3.i603, 24
-  %shl.i605 = ashr exact i32 %sext20.i604, 16
-  %call2.i606 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i607 = and i32 %call2.i606, 255
-  %or.i608 = or i32 %and.i607, %shl.i605
-  br label %coord.exit620
+if.then.i608:                                     ; preds = %coord.exit600
+  %sext20.i603 = shl i32 %call3.i602, 24
+  %shl.i604 = ashr exact i32 %sext20.i603, 16
+  %call2.i605 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i606 = and i32 %call2.i605, 255
+  %or.i607 = or i32 %and.i606, %shl.i604
+  br label %coord.exit619
 
-if.else.i615:                                     ; preds = %coord.exit601
-  %and4.i610 = and i32 %call3.i603, 255
-  %call5.i611 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i612 = shl i32 %call5.i611, 24
-  %shl8.i613 = ashr exact i32 %sext.i612, 16
-  %or9.i614 = or i32 %shl8.i613, %and4.i610
-  br label %coord.exit620
+if.else.i614:                                     ; preds = %coord.exit600
+  %and4.i609 = and i32 %call3.i602, 255
+  %call5.i610 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i611 = shl i32 %call5.i610, 24
+  %shl8.i612 = ashr exact i32 %sext.i611, 16
+  %or9.i613 = or i32 %shl8.i612, %and4.i609
+  br label %coord.exit619
 
-coord.exit620:                                    ; preds = %if.then.i609, %if.else.i615
-  %x.0.i616 = phi i32 [ %or.i608, %if.then.i609 ], [ %or9.i614, %if.else.i615 ]
+coord.exit619:                                    ; preds = %if.then.i608, %if.else.i614
+  %x.0.i615 = phi i32 [ %or.i607, %if.then.i608 ], [ %or9.i613, %if.else.i614 ]
   %49 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i617 = icmp eq i32 %49, 0
-  %and12.i618 = and i32 %x.0.i616, 65535
-  %spec.select.i619 = select i1 %tobool10.not.i617, i32 %and12.i618, i32 %x.0.i616
-  %call65 = tail call i32 @rotate(i32 noundef %spec.select.i581, i32 noundef %spec.select.i600, i32 noundef %spec.select.i619) #12
+  %tobool10.not.i616 = icmp eq i32 %49, 0
+  %and12.i617 = and i32 %x.0.i615, 65535
+  %spec.select.i618 = select i1 %tobool10.not.i616, i32 %and12.i617, i32 %x.0.i615
+  %call65 = tail call i32 @rotate(i32 noundef %spec.select.i580, i32 noundef %spec.select.i599, i32 noundef %spec.select.i618) #12
   br label %sw.epilog
 
 sw.bb66:                                          ; preds = %while.body
   %50 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i621 = icmp eq i32 %50, 0
-  %call3.i622 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i621, label %if.else.i634, label %if.then.i628
+  %tobool.not.i620 = icmp eq i32 %50, 0
+  %call3.i621 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i620, label %if.else.i633, label %if.then.i627
 
-if.then.i628:                                     ; preds = %sw.bb66
-  %sext20.i623 = shl i32 %call3.i622, 24
-  %shl.i624 = ashr exact i32 %sext20.i623, 16
-  %call2.i625 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i626 = and i32 %call2.i625, 255
-  %or.i627 = or i32 %and.i626, %shl.i624
-  br label %coord.exit639
+if.then.i627:                                     ; preds = %sw.bb66
+  %sext20.i622 = shl i32 %call3.i621, 24
+  %shl.i623 = ashr exact i32 %sext20.i622, 16
+  %call2.i624 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i625 = and i32 %call2.i624, 255
+  %or.i626 = or i32 %and.i625, %shl.i623
+  br label %coord.exit638
 
-if.else.i634:                                     ; preds = %sw.bb66
-  %and4.i629 = and i32 %call3.i622, 255
-  %call5.i630 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i631 = shl i32 %call5.i630, 24
-  %shl8.i632 = ashr exact i32 %sext.i631, 16
-  %or9.i633 = or i32 %shl8.i632, %and4.i629
-  br label %coord.exit639
+if.else.i633:                                     ; preds = %sw.bb66
+  %and4.i628 = and i32 %call3.i621, 255
+  %call5.i629 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i630 = shl i32 %call5.i629, 24
+  %shl8.i631 = ashr exact i32 %sext.i630, 16
+  %or9.i632 = or i32 %shl8.i631, %and4.i628
+  br label %coord.exit638
 
-coord.exit639:                                    ; preds = %if.then.i628, %if.else.i634
-  %x.0.i635 = phi i32 [ %or.i627, %if.then.i628 ], [ %or9.i633, %if.else.i634 ]
+coord.exit638:                                    ; preds = %if.then.i627, %if.else.i633
+  %x.0.i634 = phi i32 [ %or.i626, %if.then.i627 ], [ %or9.i632, %if.else.i633 ]
   %51 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i636 = icmp eq i32 %51, 0
-  %and12.i637 = and i32 %x.0.i635, 65535
-  %spec.select.i638 = select i1 %tobool10.not.i636, i32 %and12.i637, i32 %x.0.i635
+  %tobool10.not.i635 = icmp eq i32 %51, 0
+  %and12.i636 = and i32 %x.0.i634, 65535
+  %spec.select.i637 = select i1 %tobool10.not.i635, i32 %and12.i636, i32 %x.0.i634
   %52 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i640 = icmp eq i32 %52, 0
-  %call3.i641 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i640, label %if.else.i653, label %if.then.i647
+  %tobool.not.i639 = icmp eq i32 %52, 0
+  %call3.i640 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i639, label %if.else.i652, label %if.then.i646
 
-if.then.i647:                                     ; preds = %coord.exit639
-  %sext20.i642 = shl i32 %call3.i641, 24
-  %shl.i643 = ashr exact i32 %sext20.i642, 16
-  %call2.i644 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i645 = and i32 %call2.i644, 255
-  %or.i646 = or i32 %and.i645, %shl.i643
-  br label %coord.exit658
+if.then.i646:                                     ; preds = %coord.exit638
+  %sext20.i641 = shl i32 %call3.i640, 24
+  %shl.i642 = ashr exact i32 %sext20.i641, 16
+  %call2.i643 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i644 = and i32 %call2.i643, 255
+  %or.i645 = or i32 %and.i644, %shl.i642
+  br label %coord.exit657
 
-if.else.i653:                                     ; preds = %coord.exit639
-  %and4.i648 = and i32 %call3.i641, 255
-  %call5.i649 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i650 = shl i32 %call5.i649, 24
-  %shl8.i651 = ashr exact i32 %sext.i650, 16
-  %or9.i652 = or i32 %shl8.i651, %and4.i648
-  br label %coord.exit658
+if.else.i652:                                     ; preds = %coord.exit638
+  %and4.i647 = and i32 %call3.i640, 255
+  %call5.i648 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i649 = shl i32 %call5.i648, 24
+  %shl8.i650 = ashr exact i32 %sext.i649, 16
+  %or9.i651 = or i32 %shl8.i650, %and4.i647
+  br label %coord.exit657
 
-coord.exit658:                                    ; preds = %if.then.i647, %if.else.i653
-  %x.0.i654 = phi i32 [ %or.i646, %if.then.i647 ], [ %or9.i652, %if.else.i653 ]
+coord.exit657:                                    ; preds = %if.then.i646, %if.else.i652
+  %x.0.i653 = phi i32 [ %or.i645, %if.then.i646 ], [ %or9.i651, %if.else.i652 ]
   %53 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i655 = icmp eq i32 %53, 0
-  %and12.i656 = and i32 %x.0.i654, 65535
-  %spec.select.i657 = select i1 %tobool10.not.i655, i32 %and12.i656, i32 %x.0.i654
+  %tobool10.not.i654 = icmp eq i32 %53, 0
+  %and12.i655 = and i32 %x.0.i653, 65535
+  %spec.select.i656 = select i1 %tobool10.not.i654, i32 %and12.i655, i32 %x.0.i653
   %54 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i659 = icmp eq i32 %54, 0
-  %call3.i660 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i659, label %if.else.i672, label %if.then.i666
+  %tobool.not.i658 = icmp eq i32 %54, 0
+  %call3.i659 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i658, label %if.else.i671, label %if.then.i665
 
-if.then.i666:                                     ; preds = %coord.exit658
-  %sext20.i661 = shl i32 %call3.i660, 24
-  %shl.i662 = ashr exact i32 %sext20.i661, 16
-  %call2.i663 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i664 = and i32 %call2.i663, 255
-  %or.i665 = or i32 %and.i664, %shl.i662
-  br label %coord.exit677
+if.then.i665:                                     ; preds = %coord.exit657
+  %sext20.i660 = shl i32 %call3.i659, 24
+  %shl.i661 = ashr exact i32 %sext20.i660, 16
+  %call2.i662 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i663 = and i32 %call2.i662, 255
+  %or.i664 = or i32 %and.i663, %shl.i661
+  br label %coord.exit676
 
-if.else.i672:                                     ; preds = %coord.exit658
-  %and4.i667 = and i32 %call3.i660, 255
-  %call5.i668 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i669 = shl i32 %call5.i668, 24
-  %shl8.i670 = ashr exact i32 %sext.i669, 16
-  %or9.i671 = or i32 %shl8.i670, %and4.i667
-  br label %coord.exit677
+if.else.i671:                                     ; preds = %coord.exit657
+  %and4.i666 = and i32 %call3.i659, 255
+  %call5.i667 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i668 = shl i32 %call5.i667, 24
+  %shl8.i669 = ashr exact i32 %sext.i668, 16
+  %or9.i670 = or i32 %shl8.i669, %and4.i666
+  br label %coord.exit676
 
-coord.exit677:                                    ; preds = %if.then.i666, %if.else.i672
-  %x.0.i673 = phi i32 [ %or.i665, %if.then.i666 ], [ %or9.i671, %if.else.i672 ]
+coord.exit676:                                    ; preds = %if.then.i665, %if.else.i671
+  %x.0.i672 = phi i32 [ %or.i664, %if.then.i665 ], [ %or9.i670, %if.else.i671 ]
   %55 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i674 = icmp eq i32 %55, 0
-  %and12.i675 = and i32 %x.0.i673, 65535
-  %spec.select.i676 = select i1 %tobool10.not.i674, i32 %and12.i675, i32 %x.0.i673
+  %tobool10.not.i673 = icmp eq i32 %55, 0
+  %and12.i674 = and i32 %x.0.i672, 65535
+  %spec.select.i675 = select i1 %tobool10.not.i673, i32 %and12.i674, i32 %x.0.i672
   %56 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i678 = icmp eq i32 %56, 0
-  %call3.i679 = tail call i32 @getc(ptr noundef %in_stream)
-  br i1 %tobool.not.i678, label %if.else.i691, label %if.then.i685
+  %tobool.not.i677 = icmp eq i32 %56, 0
+  %call3.i678 = tail call i32 @getc(ptr noundef %in_stream)
+  br i1 %tobool.not.i677, label %if.else.i690, label %if.then.i684
 
-if.then.i685:                                     ; preds = %coord.exit677
-  %sext20.i680 = shl i32 %call3.i679, 24
-  %shl.i681 = ashr exact i32 %sext20.i680, 16
-  %call2.i682 = tail call i32 @getc(ptr noundef %in_stream)
-  %and.i683 = and i32 %call2.i682, 255
-  %or.i684 = or i32 %and.i683, %shl.i681
-  br label %coord.exit696
+if.then.i684:                                     ; preds = %coord.exit676
+  %sext20.i679 = shl i32 %call3.i678, 24
+  %shl.i680 = ashr exact i32 %sext20.i679, 16
+  %call2.i681 = tail call i32 @getc(ptr noundef %in_stream)
+  %and.i682 = and i32 %call2.i681, 255
+  %or.i683 = or i32 %and.i682, %shl.i680
+  br label %coord.exit695
 
-if.else.i691:                                     ; preds = %coord.exit677
-  %and4.i686 = and i32 %call3.i679, 255
-  %call5.i687 = tail call i32 @getc(ptr noundef %in_stream)
-  %sext.i688 = shl i32 %call5.i687, 24
-  %shl8.i689 = ashr exact i32 %sext.i688, 16
-  %or9.i690 = or i32 %shl8.i689, %and4.i686
-  br label %coord.exit696
+if.else.i690:                                     ; preds = %coord.exit676
+  %and4.i685 = and i32 %call3.i678, 255
+  %call5.i686 = tail call i32 @getc(ptr noundef %in_stream)
+  %sext.i687 = shl i32 %call5.i686, 24
+  %shl8.i688 = ashr exact i32 %sext.i687, 16
+  %or9.i689 = or i32 %shl8.i688, %and4.i685
+  br label %coord.exit695
 
-coord.exit696:                                    ; preds = %if.then.i685, %if.else.i691
-  %x.0.i692 = phi i32 [ %or.i684, %if.then.i685 ], [ %or9.i690, %if.else.i691 ]
+coord.exit695:                                    ; preds = %if.then.i684, %if.else.i690
+  %x.0.i691 = phi i32 [ %or.i683, %if.then.i684 ], [ %or9.i689, %if.else.i690 ]
   %57 = load i32, ptr @signed_input, align 4, !tbaa !5
-  %tobool10.not.i693 = icmp eq i32 %57, 0
-  %and12.i694 = and i32 %x.0.i692, 65535
-  %spec.select.i695 = select i1 %tobool10.not.i693, i32 %and12.i694, i32 %x.0.i692
+  %tobool10.not.i692 = icmp eq i32 %57, 0
+  %and12.i693 = and i32 %x.0.i691, 65535
+  %spec.select.i694 = select i1 %tobool10.not.i692, i32 %and12.i693, i32 %x.0.i691
   %58 = load i32, ptr @guess_byte_order, align 4, !tbaa !5
   %tobool71.not = icmp eq i32 %58, 0
   br i1 %tobool71.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %coord.exit696
+if.then:                                          ; preds = %coord.exit695
   %59 = load i32, ptr @known_size, align 16, !tbaa !5
   %cmp.not46.i = icmp eq i32 %59, 0
   br i1 %cmp.not46.i, label %if.end, label %for.body.i
@@ -1166,7 +1166,7 @@ for.cond.i:                                       ; preds = %for.body.i
 for.body.i:                                       ; preds = %if.then, %for.cond.i
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %if.then ]
   %61 = phi i32 [ %60, %for.cond.i ], [ %59, %if.then ]
-  %cmp3.i = icmp eq i32 %spec.select.i676, %61
+  %cmp3.i = icmp eq i32 %spec.select.i675, %61
   br i1 %cmp3.i, label %if.end, label %for.cond.i
 
 for.cond4.i:                                      ; preds = %for.body8.i
@@ -1182,33 +1182,33 @@ for.body8.i:                                      ; preds = %for.cond.i, %for.co
   %trunc.i.i = trunc i32 %63 to i16
   %rev.i.i = tail call i16 @llvm.bswap.i16(i16 %trunc.i.i)
   %or.i.i = zext i16 %rev.i.i to i32
-  %cmp11.i = icmp eq i32 %spec.select.i676, %or.i.i
+  %cmp11.i = icmp eq i32 %spec.select.i675, %or.i.i
   br i1 %cmp11.i, label %if.then12.i, label %for.cond4.i
 
 if.then12.i:                                      ; preds = %for.body8.i
-  %trunc.i33.i = trunc i32 %spec.select.i638 to i16
+  %trunc.i33.i = trunc i32 %spec.select.i637 to i16
   %rev.i34.i = tail call i16 @llvm.bswap.i16(i16 %trunc.i33.i)
   %or.i35.i = zext i16 %rev.i34.i to i32
-  %trunc.i36.i = trunc i32 %spec.select.i657 to i16
+  %trunc.i36.i = trunc i32 %spec.select.i656 to i16
   %rev.i37.i = tail call i16 @llvm.bswap.i16(i16 %trunc.i36.i)
   %or.i38.i = zext i16 %rev.i37.i to i32
-  %trunc.i39.i = trunc i32 %spec.select.i676 to i16
+  %trunc.i39.i = trunc i32 %spec.select.i675 to i16
   %rev.i40.i = tail call i16 @llvm.bswap.i16(i16 %trunc.i39.i)
   %or.i41.i = zext i16 %rev.i40.i to i32
-  %trunc.i42.i = trunc i32 %spec.select.i695 to i16
+  %trunc.i42.i = trunc i32 %spec.select.i694 to i16
   %rev.i43.i = tail call i16 @llvm.bswap.i16(i16 %trunc.i42.i)
   %or.i44.i = zext i16 %rev.i43.i to i32
   %64 = load i32, ptr @high_byte_first, align 4, !tbaa !5
-  %tobool.not.i697 = icmp eq i32 %64, 0
-  %lnot.ext.i = zext i1 %tobool.not.i697 to i32
+  %tobool.not.i696 = icmp eq i32 %64, 0
+  %lnot.ext.i = zext i1 %tobool.not.i696 to i32
   store i32 %lnot.ext.i, ptr @high_byte_first, align 4, !tbaa !5
   br label %if.end
 
-if.end:                                           ; preds = %for.body.i, %for.cond4.i, %if.then12.i, %if.then, %coord.exit696
-  %x0.1 = phi i32 [ %spec.select.i638, %coord.exit696 ], [ %spec.select.i638, %if.then ], [ %or.i35.i, %if.then12.i ], [ %spec.select.i638, %for.cond4.i ], [ %spec.select.i638, %for.body.i ]
-  %y0.1 = phi i32 [ %spec.select.i657, %coord.exit696 ], [ %spec.select.i657, %if.then ], [ %or.i38.i, %if.then12.i ], [ %spec.select.i657, %for.cond4.i ], [ %spec.select.i657, %for.body.i ]
-  %x1.1 = phi i32 [ %spec.select.i676, %coord.exit696 ], [ %spec.select.i676, %if.then ], [ %or.i41.i, %if.then12.i ], [ %spec.select.i676, %for.cond4.i ], [ %spec.select.i676, %for.body.i ]
-  %y1.1 = phi i32 [ %spec.select.i695, %coord.exit696 ], [ %spec.select.i695, %if.then ], [ %or.i44.i, %if.then12.i ], [ %spec.select.i695, %for.cond4.i ], [ %spec.select.i695, %for.body.i ]
+if.end:                                           ; preds = %for.body.i, %for.cond4.i, %if.then12.i, %if.then, %coord.exit695
+  %x0.1 = phi i32 [ %spec.select.i637, %coord.exit695 ], [ %spec.select.i637, %if.then ], [ %or.i35.i, %if.then12.i ], [ %spec.select.i637, %for.cond4.i ], [ %spec.select.i637, %for.body.i ]
+  %y0.1 = phi i32 [ %spec.select.i656, %coord.exit695 ], [ %spec.select.i656, %if.then ], [ %or.i38.i, %if.then12.i ], [ %spec.select.i656, %for.cond4.i ], [ %spec.select.i656, %for.body.i ]
+  %x1.1 = phi i32 [ %spec.select.i675, %coord.exit695 ], [ %spec.select.i675, %if.then ], [ %or.i41.i, %if.then12.i ], [ %spec.select.i675, %for.cond4.i ], [ %spec.select.i675, %for.body.i ]
+  %y1.1 = phi i32 [ %spec.select.i694, %coord.exit695 ], [ %spec.select.i694, %if.then ], [ %or.i44.i, %if.then12.i ], [ %spec.select.i694, %for.cond4.i ], [ %spec.select.i694, %for.body.i ]
   %call72 = tail call i32 @space(i32 noundef %x0.1, i32 noundef %y0.1, i32 noundef %x1.1, i32 noundef %y1.1) #12
   br label %sw.epilog
 
@@ -1217,7 +1217,7 @@ sw.default:                                       ; preds = %while.body
   %call73 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %65, ptr noundef nonnull @.str.1, i32 noundef %instruction.0723) #14
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %sw.default, %if.end, %coord.exit620, %coord.exit563, %coord.exit525, %sw.bb51, %coord.exit487, %sw.bb43, %coord.exit411, %sw.bb38, %coord.exit392, %sw.bb32, %coord.exit373, %coord.exit335, %coord.exit278, %coord.exit221, %sw.bb
+sw.epilog:                                        ; preds = %sw.default, %if.end, %coord.exit619, %coord.exit562, %coord.exit524, %sw.bb51, %coord.exit486, %sw.bb43, %coord.exit410, %sw.bb38, %coord.exit391, %sw.bb32, %coord.exit372, %coord.exit334, %coord.exit277, %coord.exit220, %sw.bb
   %call74 = tail call i32 @getc(ptr noundef %in_stream)
   %call1 = tail call i32 @feof(ptr noundef %in_stream) #12
   %tobool.not = icmp eq i32 %call1, 0

@@ -213,9 +213,9 @@ entry:
   %m_manifoldPtr = getelementptr inbounds %class.btSphereTriangleCollisionAlgorithm, ptr %this, i64 0, i32 3
   %0 = load ptr, ptr %m_manifoldPtr, align 8, !tbaa !15
   %tobool.not = icmp eq ptr %0, null
-  br i1 %tobool.not, label %return, label %invoke.cont19
+  br i1 %tobool.not, label %return, label %if.end
 
-invoke.cont19:                                    ; preds = %entry
+if.end:                                           ; preds = %entry
   %m_swapped = getelementptr inbounds %class.btSphereTriangleCollisionAlgorithm, ptr %this, i64 0, i32 4
   %1 = load i8, ptr %m_swapped, align 8, !tbaa !16, !range !18, !noundef !19
   %tobool2.not = icmp eq i8 %1, 0
@@ -223,8 +223,8 @@ invoke.cont19:                                    ; preds = %entry
   %cond8 = select i1 %tobool2.not, ptr %col1, ptr %col0
   %m_collisionShape.i = getelementptr inbounds %class.btCollisionObject, ptr %cond, i64 0, i32 9
   %2 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !20
-  %m_collisionShape.i45 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 9
-  %3 = load ptr, ptr %m_collisionShape.i45, align 8, !tbaa !20
+  %m_collisionShape.i44 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 9
+  %3 = load ptr, ptr %m_collisionShape.i44, align 8, !tbaa !20
   %m_manifoldPtr.i = getelementptr inbounds %class.btManifoldResult, ptr %resultOut, i64 0, i32 1
   store ptr %0, ptr %m_manifoldPtr.i, align 8, !tbaa !27
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %detector) #8
@@ -246,18 +246,18 @@ invoke.cont19:                                    ; preds = %entry
   %m_origin.i = getelementptr inbounds %class.btCollisionObject, ptr %cond, i64 0, i32 1, i32 1
   %m_origin3.i = getelementptr inbounds %class.btTransform, ptr %input, i64 0, i32 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_origin3.i, ptr noundef nonnull align 4 dereferenceable(16) %m_origin.i, i64 16, i1 false), !tbaa.struct !33
-  %m_worldTransform.i46 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1
+  %m_worldTransform.i45 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1
   %m_transformB = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_transformB, ptr noundef nonnull align 4 dereferenceable(16) %m_worldTransform.i46, i64 16, i1 false), !tbaa.struct !33
-  %arrayidx5.i.i47 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 0, i32 0, i64 1
-  %arrayidx7.i.i48 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 0, i32 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx7.i.i48, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx5.i.i47, i64 16, i1 false), !tbaa.struct !33
-  %arrayidx9.i.i49 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 0, i32 0, i64 2
-  %arrayidx11.i.i50 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 0, i32 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx11.i.i50, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx9.i.i49, i64 16, i1 false), !tbaa.struct !33
-  %m_origin.i51 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 1
-  %m_origin3.i52 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_origin3.i52, ptr noundef nonnull align 4 dereferenceable(16) %m_origin.i51, i64 16, i1 false), !tbaa.struct !33
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_transformB, ptr noundef nonnull align 4 dereferenceable(16) %m_worldTransform.i45, i64 16, i1 false), !tbaa.struct !33
+  %arrayidx5.i.i46 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 0, i32 0, i64 1
+  %arrayidx7.i.i47 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 0, i32 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx7.i.i47, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx5.i.i46, i64 16, i1 false), !tbaa.struct !33
+  %arrayidx9.i.i48 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 0, i32 0, i64 2
+  %arrayidx11.i.i49 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 0, i32 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx11.i.i49, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx9.i.i48, i64 16, i1 false), !tbaa.struct !33
+  %m_origin.i50 = getelementptr inbounds %class.btCollisionObject, ptr %cond8, i64 0, i32 1, i32 1
+  %m_origin3.i51 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %input, i64 0, i32 1, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_origin3.i51, ptr noundef nonnull align 4 dereferenceable(16) %m_origin.i50, i64 16, i1 false), !tbaa.struct !33
   %4 = load i8, ptr %m_swapped, align 8, !tbaa !16, !range !18, !noundef !19
   %tobool22 = icmp ne i8 %4, 0
   %m_debugDraw = getelementptr inbounds %struct.btDispatcherInfo, ptr %dispatchInfo, i64 0, i32 5
@@ -268,7 +268,7 @@ invoke.cont19:                                    ; preds = %entry
   %tobool26.not = icmp eq i8 %6, 0
   br i1 %tobool26.not, label %if.end29, label %if.then27
 
-if.then27:                                        ; preds = %invoke.cont19
+if.then27:                                        ; preds = %if.end
   %7 = load ptr, ptr %m_manifoldPtr.i, align 8, !tbaa !27
   %m_cachedPoints.i.i = getelementptr inbounds %class.btPersistentManifold, ptr %7, i64 0, i32 5
   %8 = load i32, ptr %m_cachedPoints.i.i, align 8, !tbaa !37
@@ -295,7 +295,7 @@ if.else.i:                                        ; preds = %if.end.i
   call void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %7, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransA8.i, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransB9.i)
   br label %if.end29
 
-if.end29:                                         ; preds = %if.then5.i, %if.else.i, %if.then27, %invoke.cont19
+if.end29:                                         ; preds = %if.then5.i, %if.else.i, %if.then27, %if.end
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %input) #8
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %detector) #8
   br label %return

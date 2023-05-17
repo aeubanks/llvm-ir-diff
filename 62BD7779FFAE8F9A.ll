@@ -60,11 +60,11 @@ entry:
   br i1 %cmp, label %if.then, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %entry
-  %call484 = call ptr @fgets(ptr noundef nonnull %s, i32 noundef 80, ptr noundef nonnull %call2)
-  %cmp585 = icmp ne ptr %call484, null
+  %call485 = call ptr @fgets(ptr noundef nonnull %s, i32 noundef 80, ptr noundef nonnull %call2)
+  %cmp586 = icmp ne ptr %call485, null
   %0 = load i8, ptr %s, align 16
-  %cmp786 = icmp ne i8 %0, 10
-  %1 = select i1 %cmp585, i1 %cmp786, i1 false
+  %cmp787 = icmp ne i8 %0, 10
+  %1 = select i1 %cmp586, i1 %cmp787, i1 false
   br i1 %1, label %while.body, label %while.end64
 
 if.then:                                          ; preds = %entry
@@ -77,17 +77,17 @@ while.body:                                       ; preds = %while.cond.preheade
   %call12 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %read_parm, ptr noundef nonnull dereferenceable(1) %call11) #11
   %call14 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.3) #11
   %call15 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %read_val, ptr noundef nonnull dereferenceable(1) %call14) #11
-  %call2695 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %read_parm, ptr noundef nonnull dereferenceable(1) %parms) #12
-  %tobool.not96 = icmp eq i32 %call2695, 0
-  br i1 %tobool.not96, label %if.end35, label %while.cond16
+  %call2696 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %read_parm, ptr noundef nonnull dereferenceable(1) %parms) #12
+  %tobool.not97 = icmp eq i32 %call2696, 0
+  br i1 %tobool.not97, label %if.end35, label %while.cond16
 
 while.cond16:                                     ; preds = %while.body, %land.rhs21
-  %indvars.iv97 = phi i64 [ %indvars.iv.next, %land.rhs21 ], [ 0, %while.body ]
-  %indvars.iv.next = add nuw i64 %indvars.iv97, 1
+  %indvars.iv98 = phi i64 [ %indvars.iv.next, %land.rhs21 ], [ 0, %while.body ]
+  %indvars.iv.next = add nuw i64 %indvars.iv98, 1
   %var18 = getelementptr inbounds [13 x %struct.ParmT], ptr %parms, i64 0, i64 %indvars.iv.next, i32 2
   %2 = load ptr, ptr %var18, align 8, !tbaa !5
-  %cmp19.not = icmp eq ptr %2, null
-  br i1 %cmp19.not, label %while.cond.backedge, label %land.rhs21, !llvm.loop !10
+  %cond = icmp eq ptr %2, null
+  br i1 %cond, label %while.cond.backedge, label %land.rhs21, !llvm.loop !10
 
 land.rhs21:                                       ; preds = %while.cond16
   %arrayidx17 = getelementptr inbounds [13 x %struct.ParmT], ptr %parms, i64 0, i64 %indvars.iv.next

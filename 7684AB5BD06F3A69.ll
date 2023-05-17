@@ -32,9 +32,9 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then, %entry
   %0 = load ptr, ptr @_T_gtol, align 8, !tbaa !5
   %cmp = icmp eq ptr %0, null
-  br i1 %cmp, label %if.end.i, label %if.end2
+  br i1 %cmp, label %if.then.i, label %if.end2
 
-if.end.i:                                         ; preds = %if.end
+if.then.i:                                        ; preds = %if.end
   %call.i = tail call ptr (i64, ...) @_Z_myalloc(i64 noundef 24) #7
   store ptr %call.i, ptr @_T_gtol, align 8, !tbaa !5
   store i32 0, ptr %call.i, align 8, !tbaa !9
@@ -48,12 +48,12 @@ if.end.i:                                         ; preds = %if.end
   %tobool.not.i = icmp eq i32 %1, 0
   br i1 %tobool.not.i, label %_T_addtol.exit, label %if.then13.i
 
-if.then13.i:                                      ; preds = %if.end.i
+if.then13.i:                                      ; preds = %if.then.i
   %call14.i = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @Z_err_buf, ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef nonnull @.str.1) #7
   tail call void (ptr, ...) @Z_fatal(ptr noundef nonnull @Z_err_buf) #7
   br label %_T_addtol.exit
 
-_T_addtol.exit:                                   ; preds = %if.end.i, %if.then13.i
+_T_addtol.exit:                                   ; preds = %if.then.i, %if.then13.i
   %2 = load ptr, ptr @_T_gtol, align 8, !tbaa !5
   %cmp.i3 = icmp eq ptr %2, null
   br i1 %cmp.i3, label %if.then.i5, label %for.cond.i9
@@ -323,12 +323,12 @@ define dso_local void @T_tolline(ptr nocapture noundef readonly %str) local_unna
 entry:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) @_T_tols, i8 0, i64 80, i1 false), !tbaa !5
   %0 = load i8, ptr %str, align 1, !tbaa !18
-  %cmp.not10 = icmp eq i8 %0, 0
-  br i1 %cmp.not10, label %for.end, label %for.body
+  %cmp.not11 = icmp eq i8 %0, 0
+  br i1 %cmp.not11, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %_T_nextspec.exit
   %indvars.iv = phi i64 [ %indvars.iv.next, %_T_nextspec.exit ], [ 0, %entry ]
-  %str.addr.011 = phi ptr [ %spec.select.i, %_T_nextspec.exit ], [ %str, %entry ]
+  %str.addr.012 = phi ptr [ %incdec.ptr8.i, %_T_nextspec.exit ], [ %str, %entry ]
   %cmp2 = icmp ugt i64 %indvars.iv, 9
   br i1 %cmp2, label %if.then, label %if.end
 
@@ -341,7 +341,7 @@ if.end:                                           ; preds = %if.then, %for.body
   br label %while.cond.i
 
 while.cond.i:                                     ; preds = %while.body.i, %if.end
-  %from.addr.0.i = phi ptr [ %str.addr.011, %if.end ], [ %incdec.ptr.i, %while.body.i ]
+  %from.addr.0.i = phi ptr [ %str.addr.012, %if.end ], [ %incdec.ptr.i, %while.body.i ]
   %ptr.0.i = phi ptr [ @_T_getspec.retval, %if.end ], [ %incdec.ptr5.i, %while.body.i ]
   %1 = load i8, ptr %from.addr.0.i, align 1, !tbaa !18
   switch i8 %1, label %while.body.i [
@@ -362,26 +362,24 @@ _T_getspec.exit:                                  ; preds = %while.cond.i, %whil
   br label %for.cond.i
 
 for.cond.i:                                       ; preds = %for.inc.i, %_T_getspec.exit
-  %ptr.addr.0.i = phi ptr [ %str.addr.011, %_T_getspec.exit ], [ %incdec.ptr.i9, %for.inc.i ]
+  %ptr.addr.0.i = phi ptr [ %str.addr.012, %_T_getspec.exit ], [ %incdec.ptr.i9, %for.inc.i ]
   %2 = load i8, ptr %ptr.addr.0.i, align 1, !tbaa !18
   switch i8 %2, label %for.inc.i [
     i8 59, label %_T_nextspec.exit
-    i8 0, label %_T_nextspec.exit
+    i8 0, label %for.end
   ]
 
 for.inc.i:                                        ; preds = %for.cond.i
   %incdec.ptr.i9 = getelementptr inbounds i8, ptr %ptr.addr.0.i, i64 1
   br label %for.cond.i, !llvm.loop !22
 
-_T_nextspec.exit:                                 ; preds = %for.cond.i, %for.cond.i
-  %cmp6.i = icmp eq i8 %2, 59
-  %spec.select.idx.i = zext i1 %cmp6.i to i64
-  %spec.select.i = getelementptr i8, ptr %ptr.addr.0.i, i64 %spec.select.idx.i
-  %3 = load i8, ptr %spec.select.i, align 1, !tbaa !18
-  %cmp.not = icmp eq i8 %3, 0
+_T_nextspec.exit:                                 ; preds = %for.cond.i
+  %incdec.ptr8.i = getelementptr inbounds i8, ptr %ptr.addr.0.i, i64 1
+  %.pre = load i8, ptr %incdec.ptr8.i, align 1, !tbaa !18
+  %cmp.not = icmp eq i8 %.pre, 0
   br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !23
 
-for.end:                                          ; preds = %_T_nextspec.exit, %entry
+for.end:                                          ; preds = %_T_nextspec.exit, %for.cond.i, %entry
   ret void
 }
 

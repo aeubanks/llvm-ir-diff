@@ -70,10 +70,10 @@ if.end15:                                         ; preds = %if.then7, %if.else9
   %4 = phi ptr [ %call8, %if.then7 ], [ %1, %if.else9 ]
   %ou1 = getelementptr inbounds %struct.word_type, ptr %4, i64 0, i32 1
   store i8 %xtype, ptr %ou1, align 8, !tbaa !5
+  %arrayidx17 = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1
   %osucc = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1, i32 1
   store ptr %4, ptr %osucc, align 8, !tbaa !5
-  %arrayidx19 = getelementptr inbounds [2 x %struct.LIST], ptr %4, i64 0, i64 1
-  store ptr %4, ptr %arrayidx19, align 8, !tbaa !5
+  store ptr %4, ptr %arrayidx17, align 8, !tbaa !5
   %osucc23 = getelementptr inbounds %struct.LIST, ptr %4, i64 0, i32 1
   store ptr %4, ptr %osucc23, align 8, !tbaa !5
   store ptr %4, ptr %4, align 8, !tbaa !5
@@ -129,9 +129,9 @@ do.body:                                          ; preds = %do.body.preheader, 
   br i1 %switch, label %if.then8, label %if.else
 
 if.then8:                                         ; preds = %do.body
-  %conv11 = zext i8 %0 to i32
+  %conv = zext i8 %0 to i32
   %ostring = getelementptr inbounds %struct.word_type, ptr %y.0, i64 0, i32 4
-  %call = tail call ptr @MakeWord(i32 noundef %conv11, ptr noundef nonnull %ostring, ptr noundef %pos) #2
+  %call = tail call ptr @MakeWord(i32 noundef %conv, ptr noundef nonnull %ostring, ptr noundef %pos) #2
   %ovspace = getelementptr inbounds i8, ptr %y.0, i64 42
   %1 = load i8, ptr %ovspace, align 2, !tbaa !5
   %ovspace13 = getelementptr inbounds i8, ptr %call, i64 42
@@ -178,10 +178,10 @@ NewToken.exit:                                    ; preds = %if.then7.i, %if.els
   %11 = phi ptr [ %call8.i, %if.then7.i ], [ %8, %if.else9.i ]
   %ou1.i = getelementptr inbounds %struct.word_type, ptr %11, i64 0, i32 1
   store i8 %0, ptr %ou1.i, align 8, !tbaa !5
+  %arrayidx17.i = getelementptr inbounds [2 x %struct.LIST], ptr %11, i64 0, i64 1
   %osucc.i = getelementptr inbounds [2 x %struct.LIST], ptr %11, i64 0, i64 1, i32 1
   store ptr %11, ptr %osucc.i, align 8, !tbaa !5
-  %arrayidx19.i = getelementptr inbounds [2 x %struct.LIST], ptr %11, i64 0, i64 1
-  store ptr %11, ptr %arrayidx19.i, align 8, !tbaa !5
+  store ptr %11, ptr %arrayidx17.i, align 8, !tbaa !5
   %osucc23.i = getelementptr inbounds %struct.LIST, ptr %11, i64 0, i32 1
   store ptr %11, ptr %osucc23.i, align 8, !tbaa !5
   store ptr %11, ptr %11, align 8, !tbaa !5

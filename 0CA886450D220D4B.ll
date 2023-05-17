@@ -257,10 +257,10 @@ if.end58:                                         ; preds = %if.end36.if.end58_c
   %8 = load i32, ptr %subdomains_per_rank_in64, align 8, !tbaa !23
   %cmp66.not = icmp sge i32 %add59, %8
   %inc = zext i1 %cmp66.not to i32
+  %ri.addr.1 = add nsw i32 %spec.select, %inc
   %ranks_in = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 14
   %9 = load i32, ptr %ranks_in, align 4, !tbaa !35
-  %ri.addr.1 = add i32 %spec.select, %9
-  %add70 = add i32 %ri.addr.1, %inc
+  %add70 = add nsw i32 %ri.addr.1, %9
   %rem = srem i32 %add70, %9
   %add73 = add nsw i32 %dj, %bj
   %add73.lobit = ashr i32 %add73, 31
@@ -269,19 +269,19 @@ if.end58:                                         ; preds = %if.end36.if.end58_c
   %10 = load i32, ptr %j80, align 4, !tbaa !27
   %cmp81.not = icmp sge i32 %add73, %10
   %inc83 = zext i1 %cmp81.not to i32
+  %rj.addr.1 = add nsw i32 %rj.addr.0, %inc83
   %j86 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 14, i32 1
   %11 = load i32, ptr %j86, align 4, !tbaa !36
-  %rj.addr.1 = add i32 %rj.addr.0, %11
-  %add87 = add i32 %rj.addr.1, %inc83
+  %add87 = add nsw i32 %rj.addr.1, %11
   %rem90 = srem i32 %add87, %11
   %add91.lobit = ashr i32 %add91.pre-phi, 31
   %rk.addr.0 = add nsw i32 %add91.lobit, %rk
   %cmp99.not = icmp sge i32 %add91.pre-phi, %.pre
   %inc101 = zext i1 %cmp99.not to i32
+  %rk.addr.1 = add nsw i32 %rk.addr.0, %inc101
   %k104 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 14, i32 2
   %12 = load i32, ptr %k104, align 4, !tbaa !37
-  %rk.addr.1 = add i32 %rk.addr.0, %12
-  %add105 = add i32 %rk.addr.1, %inc101
+  %add105 = add nsw i32 %rk.addr.1, %12
   %rem108 = srem i32 %add105, %12
   %mul118 = mul i32 %rem108, %11
   %reass.add = add i32 %mul118, %rem90
@@ -333,8 +333,8 @@ if.end13:                                         ; preds = %if.end
   %cmp15.not = icmp eq i32 %subdomain_dim_j, %subdomain_dim_k
   %or.cond = and i1 %cmp14.not, %cmp15.not
   %cmp17.not = icmp eq i32 %subdomain_dim_i, %subdomain_dim_k
-  %or.cond1187 = and i1 %cmp17.not, %or.cond
-  br i1 %or.cond1187, label %if.end24, label %if.then18
+  %or.cond1290 = and i1 %cmp17.not, %or.cond
+  br i1 %or.cond1290, label %if.end24, label %if.then18
 
 if.then18:                                        ; preds = %if.end13
   %2 = load i32, ptr %rank1, align 4, !tbaa !38
@@ -342,7 +342,7 @@ if.then18:                                        ; preds = %if.end13
   br i1 %cmp20, label %if.then21, label %if.end23
 
 if.then21:                                        ; preds = %if.then18
-  %puts1186 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  %puts1289 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
   br label %if.end23
 
 if.end23:                                         ; preds = %if.then21, %if.then18
@@ -644,7 +644,7 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %47 = trunc i64 %indvars.iv1759 to i32
   %48 = add i32 %47, -1
   %add1.i.us.us.us = add i32 %42, %48
-  %rem.i1195.us.us.us = srem i32 %add1.i.us.us.us, %42
+  %rem.i1193.us.us.us = srem i32 %add1.i.us.us.us, %42
   %mul42.i.us.us.us.1 = mul nsw i32 %44, %div
   %add59.lobit.i.us.us.us.1 = ashr i32 %indvars1769, 31
   %spec.select.i.us.us.us.1 = add nsw i32 %add59.lobit.i.us.us.us.1, %sub33.recomposed
@@ -655,10 +655,10 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %cmp81.not.i.us.us.us.1 = icmp sgt i64 %indvars.iv1772, %50
   %inc83.i.us.us.us.1 = zext i1 %cmp81.not.i.us.us.us.1 to i32
   %add1.i.us.us.us.1 = add i32 %42, %indvars1769
-  %rem.i1195.us.us.us.1 = srem i32 %add1.i.us.us.us.1, %42
-  %mul.i1188.us.us.us.2 = mul nsw i32 %42, %sub33.recomposed
+  %rem.i1193.us.us.us.1 = srem i32 %add1.i.us.us.us.1, %42
+  %mul.i1186.us.us.us.2 = mul nsw i32 %42, %sub33.recomposed
   %add.i.us.us.us.2 = add nuw nsw i32 %indvars1769, 1
-  %add2.i.us.us.us.2 = add i32 %add.i.us.us.us.2, %mul.i1188.us.us.us.2
+  %add2.i.us.us.us.2 = add i32 %add.i.us.us.us.2, %mul.i1186.us.us.us.2
   %cmp3.i.us.us.us.2 = icmp slt i32 %add2.i.us.us.us.2, 0
   %mul20.i.us.us.us.2 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.2 = add i32 %add21.i.us.us.us, %mul20.i.us.us.us.2
@@ -677,12 +677,12 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %55 = add nuw nsw i64 %indvars.iv1759, 1
   %56 = trunc i64 %55 to i32
   %add1.i.us.us.us.2 = add i32 %42, %56
-  %rem.i1195.us.us.us.2 = srem i32 %add1.i.us.us.us.2, %42
+  %rem.i1193.us.us.us.2 = srem i32 %add1.i.us.us.us.2, %42
   %add6.i.us.us.us.1 = add i32 %43, %indvars1778
   %rem9.i.us.us.us.1 = srem i32 %add6.i.us.us.us.1, %43
-  %mul.i1188.us.us.us.11639 = mul nsw i32 %42, %sub33.recomposed
+  %mul.i1186.us.us.us.11639 = mul nsw i32 %42, %sub33.recomposed
   %add.i.us.us.us.1 = add nsw i32 %indvars1769, -1
-  %add2.i.us.us.us.11640 = add i32 %add.i.us.us.us.1, %mul.i1188.us.us.us.11639
+  %add2.i.us.us.us.11640 = add i32 %add.i.us.us.us.1, %mul.i1186.us.us.us.11639
   %cmp3.i.us.us.us.11641 = icmp slt i32 %add2.i.us.us.us.11640, 0
   %mul20.i.us.us.us.11647 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.11648 = add i32 %mul20.i.us.us.us.11647, %indvars1778
@@ -696,8 +696,8 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %58 = sext i32 %43 to i64
   %cmp81.not.i.us.us.us.11670 = icmp sge i64 %indvars.iv1772, %58
   %inc83.i.us.us.us.11671 = zext i1 %cmp81.not.i.us.us.us.11670 to i32
-  %mul.i1188.us.us.us.1.1 = mul nsw i32 %42, %sub33.recomposed
-  %add2.i.us.us.us.1.1 = add i32 %mul.i1188.us.us.us.1.1, %indvars1769
+  %mul.i1186.us.us.us.1.1 = mul nsw i32 %42, %sub33.recomposed
+  %add2.i.us.us.us.1.1 = add i32 %mul.i1186.us.us.us.1.1, %indvars1769
   %cmp3.i.us.us.us.1.1 = icmp slt i32 %add2.i.us.us.us.1.1, 0
   %mul20.i.us.us.us.1.1 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.1.1 = add i32 %mul20.i.us.us.us.1.1, %indvars1778
@@ -711,9 +711,9 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %60 = sext i32 %43 to i64
   %cmp81.not.i.us.us.us.1.1 = icmp sge i64 %indvars.iv1772, %60
   %inc83.i.us.us.us.1.1 = zext i1 %cmp81.not.i.us.us.us.1.1 to i32
-  %mul.i1188.us.us.us.2.1 = mul nsw i32 %42, %sub33.recomposed
+  %mul.i1186.us.us.us.2.1 = mul nsw i32 %42, %sub33.recomposed
   %add.i.us.us.us.2.1 = add nuw nsw i32 %indvars1769, 1
-  %add2.i.us.us.us.2.1 = add i32 %add.i.us.us.us.2.1, %mul.i1188.us.us.us.2.1
+  %add2.i.us.us.us.2.1 = add i32 %add.i.us.us.us.2.1, %mul.i1186.us.us.us.2.1
   %cmp3.i.us.us.us.2.1 = icmp slt i32 %add2.i.us.us.us.2.1, 0
   %mul20.i.us.us.us.2.1 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.2.1 = add i32 %mul20.i.us.us.us.2.1, %indvars1778
@@ -729,9 +729,9 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %inc83.i.us.us.us.2.1 = zext i1 %cmp81.not.i.us.us.us.2.1 to i32
   %add6.i.us.us.us.2 = add i32 %43, %33
   %rem9.i.us.us.us.2 = srem i32 %add6.i.us.us.us.2, %43
-  %mul.i1188.us.us.us.21694 = mul nsw i32 %42, %sub33.recomposed
+  %mul.i1186.us.us.us.21694 = mul nsw i32 %42, %sub33.recomposed
   %add.i.us.us.us.21695 = add nsw i32 %indvars1769, -1
-  %add2.i.us.us.us.21696 = add i32 %add.i.us.us.us.21695, %mul.i1188.us.us.us.21694
+  %add2.i.us.us.us.21696 = add i32 %add.i.us.us.us.21695, %mul.i1186.us.us.us.21694
   %cmp3.i.us.us.us.21697 = icmp slt i32 %add2.i.us.us.us.21696, 0
   %mul20.i.us.us.us.21703 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.21704 = add i32 %add21.i.us.us.us.2, %mul20.i.us.us.us.21703
@@ -745,8 +745,8 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %64 = sext i32 %43 to i64
   %cmp81.not.i.us.us.us.21726 = icmp sge i64 %32, %64
   %inc83.i.us.us.us.21727 = zext i1 %cmp81.not.i.us.us.us.21726 to i32
-  %mul.i1188.us.us.us.1.2 = mul nsw i32 %42, %sub33.recomposed
-  %add2.i.us.us.us.1.2 = add i32 %mul.i1188.us.us.us.1.2, %indvars1769
+  %mul.i1186.us.us.us.1.2 = mul nsw i32 %42, %sub33.recomposed
+  %add2.i.us.us.us.1.2 = add i32 %mul.i1186.us.us.us.1.2, %indvars1769
   %cmp3.i.us.us.us.1.2 = icmp slt i32 %add2.i.us.us.us.1.2, 0
   %mul20.i.us.us.us.1.2 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.1.2 = add i32 %add21.i.us.us.us.2, %mul20.i.us.us.us.1.2
@@ -760,9 +760,9 @@ create_subdomain.exit.us.us.us:                   ; preds = %if.end.i.us.us.us, 
   %66 = sext i32 %43 to i64
   %cmp81.not.i.us.us.us.1.2 = icmp sge i64 %32, %66
   %inc83.i.us.us.us.1.2 = zext i1 %cmp81.not.i.us.us.us.1.2 to i32
-  %mul.i1188.us.us.us.2.2 = mul nsw i32 %42, %sub33.recomposed
+  %mul.i1186.us.us.us.2.2 = mul nsw i32 %42, %sub33.recomposed
   %add.i.us.us.us.2.2 = add nuw nsw i32 %indvars1769, 1
-  %add2.i.us.us.us.2.2 = add i32 %add.i.us.us.us.2.2, %mul.i1188.us.us.us.2.2
+  %add2.i.us.us.us.2.2 = add i32 %add.i.us.us.us.2.2, %mul.i1186.us.us.us.2.2
   %cmp3.i.us.us.us.2.2 = icmp slt i32 %add2.i.us.us.us.2.2, 0
   %mul20.i.us.us.us.2.2 = mul nsw i32 %43, %div28
   %add22.i.us.us.us.2.2 = add i32 %add21.i.us.us.us.2, %mul20.i.us.us.us.2.2
@@ -783,18 +783,18 @@ for.end269.us.us.us:                              ; preds = %calculate_neighbori
   %exitcond1771.not = icmp eq i64 %55, %wide.trip.count1770
   br i1 %exitcond1771.not, label %for.cond205.for.inc273_crit_edge.us.us.us, label %for.body208.us.us.us, !llvm.loop !55
 
-if.then.i1189.us.us.us:                           ; preds = %for.cond233.preheader.us.us.us
-  %mul.i1188.us.us.us = mul nsw i32 %282, %sub33.recomposed
-  %add2.i.us.us.us = add i32 %add.i.us.us.us, %mul.i1188.us.us.us
+if.then.i1187.us.us.us:                           ; preds = %for.cond233.preheader.us.us.us
+  %mul.i1186.us.us.us = mul nsw i32 %282, %sub33.recomposed
+  %add2.i.us.us.us = add i32 %add.i.us.us.us, %mul.i1186.us.us.us
   %cmp3.i.us.us.us = icmp slt i32 %add2.i.us.us.us, 0
-  br i1 %cmp3.i.us.us.us, label %calculate_neighboring_subdomain_rank.exit.us.us.us, label %if.end.i1190.us.us.us
+  br i1 %cmp3.i.us.us.us, label %calculate_neighboring_subdomain_rank.exit.us.us.us, label %if.end.i1188.us.us.us
 
-if.end.i1190.us.us.us:                            ; preds = %if.then.i1189.us.us.us
+if.end.i1188.us.us.us:                            ; preds = %if.then.i1187.us.us.us
   %69 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us = icmp slt i32 %add2.i.us.us.us, %69
   br i1 %cmp11.not.i.us.us.us, label %if.end14.i.us.us.us, label %calculate_neighboring_subdomain_rank.exit.us.us.us
 
-if.end14.i.us.us.us:                              ; preds = %if.end.i1190.us.us.us, %for.cond233.preheader.us.us.us
+if.end14.i.us.us.us:                              ; preds = %if.end.i1188.us.us.us, %for.cond233.preheader.us.us.us
   %70 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us = icmp eq i32 %70, 0
   br i1 %cmp16.not.i.us.us.us, label %if.end36.i.us.us.us, label %if.then17.i.us.us.us
@@ -845,9 +845,9 @@ if.end58.i.us.us.us:                              ; preds = %if.end36.i.us.us.us
   %rk.addr.0.i.us.us.us = add nsw i32 %add91.lobit.i.us.us.us, %div
   %cmp99.not.i.us.us.us = icmp sge i32 %add91.pre-phi.i.us.us.us, %44
   %inc101.i.us.us.us = zext i1 %cmp99.not.i.us.us.us to i32
+  %rk.addr.1.i.us.us.us = add nsw i32 %rk.addr.0.i.us.us.us, %inc101.i.us.us.us
   %78 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us = add i32 %rk.addr.0.i.us.us.us, %inc101.i.us.us.us
-  %add105.i.us.us.us = add i32 %rk.addr.1.i.us.us.us, %78
+  %add105.i.us.us.us = add nsw i32 %rk.addr.1.i.us.us.us, %78
   %rem108.i.us.us.us = srem i32 %add105.i.us.us.us, %78
   %mul118.i.us.us.us = mul i32 %rem108.i.us.us.us, %77
   %reass.add.i.us.us.us = add i32 %mul118.i.us.us.us, %rem90.i.us.us.us
@@ -855,31 +855,31 @@ if.end58.i.us.us.us:                              ; preds = %if.end36.i.us.us.us
   %add119.i.us.us.us = add i32 %reass.mul.i.us.us.us, %rem.i.us.us.us
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us
 
-calculate_neighboring_subdomain_rank.exit.us.us.us: ; preds = %if.end58.i.us.us.us, %if.end47.i.us.us.us, %if.then39.i.us.us.us, %if.end25.i.us.us.us, %if.then17.i.us.us.us, %if.end.i1190.us.us.us, %if.then.i1189.us.us.us
-  %79 = phi i32 [ %279, %if.end58.i.us.us.us ], [ %281, %if.then.i1189.us.us.us ], [ %281, %if.end.i1190.us.us.us ], [ %281, %if.then17.i.us.us.us ], [ %281, %if.end25.i.us.us.us ], [ %281, %if.then39.i.us.us.us ], [ %281, %if.end47.i.us.us.us ]
-  %80 = phi i32 [ %280, %if.end58.i.us.us.us ], [ %282, %if.then.i1189.us.us.us ], [ %282, %if.end.i1190.us.us.us ], [ %282, %if.then17.i.us.us.us ], [ %282, %if.end25.i.us.us.us ], [ %282, %if.then39.i.us.us.us ], [ %282, %if.end47.i.us.us.us ]
-  %retval.0.i.us.us.us = phi i32 [ %add119.i.us.us.us, %if.end58.i.us.us.us ], [ -1, %if.then.i1189.us.us.us ], [ -1, %if.end.i1190.us.us.us ], [ -1, %if.then17.i.us.us.us ], [ -1, %if.end25.i.us.us.us ], [ -1, %if.then39.i.us.us.us ], [ -1, %if.end47.i.us.us.us ]
+calculate_neighboring_subdomain_rank.exit.us.us.us: ; preds = %if.end58.i.us.us.us, %if.end47.i.us.us.us, %if.then39.i.us.us.us, %if.end25.i.us.us.us, %if.then17.i.us.us.us, %if.end.i1188.us.us.us, %if.then.i1187.us.us.us
+  %79 = phi i32 [ %279, %if.end58.i.us.us.us ], [ %281, %if.then.i1187.us.us.us ], [ %281, %if.end.i1188.us.us.us ], [ %281, %if.then17.i.us.us.us ], [ %281, %if.end25.i.us.us.us ], [ %281, %if.then39.i.us.us.us ], [ %281, %if.end47.i.us.us.us ]
+  %80 = phi i32 [ %280, %if.end58.i.us.us.us ], [ %282, %if.then.i1187.us.us.us ], [ %282, %if.end.i1188.us.us.us ], [ %282, %if.then17.i.us.us.us ], [ %282, %if.end25.i.us.us.us ], [ %282, %if.then39.i.us.us.us ], [ %282, %if.end47.i.us.us.us ]
+  %retval.0.i.us.us.us = phi i32 [ %add119.i.us.us.us, %if.end58.i.us.us.us ], [ -1, %if.then.i1187.us.us.us ], [ -1, %if.end.i1188.us.us.us ], [ -1, %if.then17.i.us.us.us ], [ -1, %if.end25.i.us.us.us ], [ -1, %if.then39.i.us.us.us ], [ -1, %if.end47.i.us.us.us ]
   %arrayidx252.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %288
   store i32 %retval.0.i.us.us.us, ptr %arrayidx252.us.us.us, align 8, !tbaa !56
-  %add25.i1200.us.us.us = add i32 %reass.mul.i1199.us.us.us, %rem.i1195.us.us.us
+  %add25.i1198.us.us.us = add i32 %reass.mul.i1197.us.us.us, %rem.i1193.us.us.us
   %local_index.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %288, i32 1
-  store i32 %add25.i1200.us.us.us, ptr %local_index.us.us.us, align 4, !tbaa !58
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1, label %if.then.i1189.us.us.us.1
+  store i32 %add25.i1198.us.us.us, ptr %local_index.us.us.us, align 4, !tbaa !58
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1, label %if.then.i1187.us.us.us.1
 
-if.then.i1189.us.us.us.1:                         ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us
-  %mul.i1188.us.us.us.1 = mul nsw i32 %278, %sub33.recomposed
-  %add2.i.us.us.us.1 = add i32 %mul.i1188.us.us.us.1, %indvars1769
+if.then.i1187.us.us.us.1:                         ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us
+  %mul.i1186.us.us.us.1 = mul nsw i32 %278, %sub33.recomposed
+  %add2.i.us.us.us.1 = add i32 %mul.i1186.us.us.us.1, %indvars1769
   %cmp3.i.us.us.us.1 = icmp slt i32 %add2.i.us.us.us.1, 0
-  br i1 %cmp3.i.us.us.us.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1, label %if.end.i1190.us.us.us.1
+  br i1 %cmp3.i.us.us.us.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1, label %if.end.i1188.us.us.us.1
 
-if.end.i1190.us.us.us.1:                          ; preds = %if.then.i1189.us.us.us.1
+if.end.i1188.us.us.us.1:                          ; preds = %if.then.i1187.us.us.us.1
   %81 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.1 = icmp slt i32 %add2.i.us.us.us.1, %81
   br i1 %cmp11.not.i.us.us.us.1, label %if.end14.i.us.us.us.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1
 
-if.end14.i.us.us.us.1:                            ; preds = %if.end.i1190.us.us.us.1, %calculate_neighboring_subdomain_rank.exit.us.us.us
-  %82 = phi i32 [ %278, %if.end.i1190.us.us.us.1 ], [ %280, %calculate_neighboring_subdomain_rank.exit.us.us.us ]
-  %83 = phi i32 [ %278, %if.end.i1190.us.us.us.1 ], [ %80, %calculate_neighboring_subdomain_rank.exit.us.us.us ]
+if.end14.i.us.us.us.1:                            ; preds = %if.end.i1188.us.us.us.1, %calculate_neighboring_subdomain_rank.exit.us.us.us
+  %82 = phi i32 [ %278, %if.end.i1188.us.us.us.1 ], [ %280, %calculate_neighboring_subdomain_rank.exit.us.us.us ]
+  %83 = phi i32 [ %278, %if.end.i1188.us.us.us.1 ], [ %80, %calculate_neighboring_subdomain_rank.exit.us.us.us ]
   %84 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.1 = icmp eq i32 %84, 0
   br i1 %cmp16.not.i.us.us.us.1, label %if.end36.i.us.us.us.1, label %if.then17.i.us.us.us.1
@@ -926,9 +926,9 @@ if.end58.i.us.us.us.1:                            ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.1 = add nsw i32 %add91.lobit.i.us.us.us.1, %div
   %cmp99.not.i.us.us.us.1 = icmp sge i32 %add91.pre-phi.i.us.us.us.1, %44
   %inc101.i.us.us.us.1 = zext i1 %cmp99.not.i.us.us.us.1 to i32
+  %rk.addr.1.i.us.us.us.1 = add nsw i32 %rk.addr.0.i.us.us.us.1, %inc101.i.us.us.us.1
   %92 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.1 = add i32 %rk.addr.0.i.us.us.us.1, %inc101.i.us.us.us.1
-  %add105.i.us.us.us.1 = add i32 %rk.addr.1.i.us.us.us.1, %92
+  %add105.i.us.us.us.1 = add nsw i32 %rk.addr.1.i.us.us.us.1, %92
   %rem108.i.us.us.us.1 = srem i32 %add105.i.us.us.us.1, %92
   %mul118.i.us.us.us.1 = mul i32 %rem108.i.us.us.us.1, %91
   %reass.add.i.us.us.us.1 = add i32 %mul118.i.us.us.us.1, %rem90.i.us.us.us.1
@@ -936,34 +936,34 @@ if.end58.i.us.us.us.1:                            ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.1 = add i32 %reass.mul.i.us.us.us.1, %rem.i.us.us.us.1
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.1
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.1: ; preds = %if.end58.i.us.us.us.1, %if.end47.i.us.us.us.1, %if.then39.i.us.us.us.1, %if.end25.i.us.us.us.1, %if.then17.i.us.us.us.1, %if.end.i1190.us.us.us.1, %if.then.i1189.us.us.us.1
-  %93 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %277, %if.then.i1189.us.us.us.1 ], [ %277, %if.end.i1190.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %277, %if.then39.i.us.us.us.1 ], [ %277, %if.end47.i.us.us.us.1 ]
-  %94 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1189.us.us.us.1 ], [ %278, %if.end.i1190.us.us.us.1 ], [ %278, %if.then17.i.us.us.us.1 ], [ %278, %if.end25.i.us.us.us.1 ], [ %278, %if.then39.i.us.us.us.1 ], [ %278, %if.end47.i.us.us.us.1 ]
-  %95 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %279, %if.then.i1189.us.us.us.1 ], [ %279, %if.end.i1190.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %86, %if.then39.i.us.us.us.1 ], [ %86, %if.end47.i.us.us.us.1 ]
-  %96 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1189.us.us.us.1 ], [ %278, %if.end.i1190.us.us.us.1 ], [ %82, %if.then17.i.us.us.us.1 ], [ %82, %if.end25.i.us.us.us.1 ], [ %82, %if.then39.i.us.us.us.1 ], [ %82, %if.end47.i.us.us.us.1 ]
-  %97 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %79, %if.then.i1189.us.us.us.1 ], [ %79, %if.end.i1190.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %87, %if.then39.i.us.us.us.1 ], [ %87, %if.end47.i.us.us.us.1 ]
-  %98 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1189.us.us.us.1 ], [ %278, %if.end.i1190.us.us.us.1 ], [ %83, %if.then17.i.us.us.us.1 ], [ %83, %if.end25.i.us.us.us.1 ], [ %83, %if.then39.i.us.us.us.1 ], [ %83, %if.end47.i.us.us.us.1 ]
-  %retval.0.i.us.us.us.1 = phi i32 [ %add119.i.us.us.us.1, %if.end58.i.us.us.us.1 ], [ -1, %if.then.i1189.us.us.us.1 ], [ -1, %if.end.i1190.us.us.us.1 ], [ -1, %if.then17.i.us.us.us.1 ], [ -1, %if.end25.i.us.us.us.1 ], [ -1, %if.then39.i.us.us.us.1 ], [ -1, %if.end47.i.us.us.us.1 ]
+calculate_neighboring_subdomain_rank.exit.us.us.us.1: ; preds = %if.end58.i.us.us.us.1, %if.end47.i.us.us.us.1, %if.then39.i.us.us.us.1, %if.end25.i.us.us.us.1, %if.then17.i.us.us.us.1, %if.end.i1188.us.us.us.1, %if.then.i1187.us.us.us.1
+  %93 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %277, %if.then.i1187.us.us.us.1 ], [ %277, %if.end.i1188.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %277, %if.then39.i.us.us.us.1 ], [ %277, %if.end47.i.us.us.us.1 ]
+  %94 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1187.us.us.us.1 ], [ %278, %if.end.i1188.us.us.us.1 ], [ %278, %if.then17.i.us.us.us.1 ], [ %278, %if.end25.i.us.us.us.1 ], [ %278, %if.then39.i.us.us.us.1 ], [ %278, %if.end47.i.us.us.us.1 ]
+  %95 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %279, %if.then.i1187.us.us.us.1 ], [ %279, %if.end.i1188.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %86, %if.then39.i.us.us.us.1 ], [ %86, %if.end47.i.us.us.us.1 ]
+  %96 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1187.us.us.us.1 ], [ %278, %if.end.i1188.us.us.us.1 ], [ %82, %if.then17.i.us.us.us.1 ], [ %82, %if.end25.i.us.us.us.1 ], [ %82, %if.then39.i.us.us.us.1 ], [ %82, %if.end47.i.us.us.us.1 ]
+  %97 = phi i32 [ %43, %if.end58.i.us.us.us.1 ], [ %79, %if.then.i1187.us.us.us.1 ], [ %79, %if.end.i1188.us.us.us.1 ], [ %277, %if.then17.i.us.us.us.1 ], [ %277, %if.end25.i.us.us.us.1 ], [ %87, %if.then39.i.us.us.us.1 ], [ %87, %if.end47.i.us.us.us.1 ]
+  %98 = phi i32 [ %42, %if.end58.i.us.us.us.1 ], [ %278, %if.then.i1187.us.us.us.1 ], [ %278, %if.end.i1188.us.us.us.1 ], [ %83, %if.then17.i.us.us.us.1 ], [ %83, %if.end25.i.us.us.us.1 ], [ %83, %if.then39.i.us.us.us.1 ], [ %83, %if.end47.i.us.us.us.1 ]
+  %retval.0.i.us.us.us.1 = phi i32 [ %add119.i.us.us.us.1, %if.end58.i.us.us.us.1 ], [ -1, %if.then.i1187.us.us.us.1 ], [ -1, %if.end.i1188.us.us.us.1 ], [ -1, %if.then17.i.us.us.us.1 ], [ -1, %if.end25.i.us.us.us.1 ], [ -1, %if.then39.i.us.us.us.1 ], [ -1, %if.end47.i.us.us.us.1 ]
   %arrayidx252.us.us.us.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %287
   store i32 %retval.0.i.us.us.us.1, ptr %arrayidx252.us.us.us.1, align 8, !tbaa !56
-  %add25.i1200.us.us.us.1 = add i32 %reass.mul.i1199.us.us.us, %rem.i1195.us.us.us.1
+  %add25.i1198.us.us.us.1 = add i32 %reass.mul.i1197.us.us.us, %rem.i1193.us.us.us.1
   %local_index.us.us.us.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %287, i32 1
-  store i32 %add25.i1200.us.us.us.1, ptr %local_index.us.us.us.1, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.1, ptr %local_index.us.us.us.1, align 4, !tbaa !58
   %99 = add nsw i64 %283, 11
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2, label %if.then.i1189.us.us.us.2
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2, label %if.then.i1187.us.us.us.2
 
-if.then.i1189.us.us.us.2:                         ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1
-  br i1 %cmp3.i.us.us.us.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2, label %if.end.i1190.us.us.us.2
+if.then.i1187.us.us.us.2:                         ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1
+  br i1 %cmp3.i.us.us.us.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2, label %if.end.i1188.us.us.us.2
 
-if.end.i1190.us.us.us.2:                          ; preds = %if.then.i1189.us.us.us.2
+if.end.i1188.us.us.us.2:                          ; preds = %if.then.i1187.us.us.us.2
   %100 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.2 = icmp slt i32 %add2.i.us.us.us.2, %100
   br i1 %cmp11.not.i.us.us.us.2, label %if.end14.i.us.us.us.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2
 
-if.end14.i.us.us.us.2:                            ; preds = %if.end.i1190.us.us.us.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.1
-  %101 = phi i32 [ %42, %if.end.i1190.us.us.us.2 ], [ %94, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
-  %102 = phi i32 [ %42, %if.end.i1190.us.us.us.2 ], [ %96, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
-  %103 = phi i32 [ %42, %if.end.i1190.us.us.us.2 ], [ %98, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
+if.end14.i.us.us.us.2:                            ; preds = %if.end.i1188.us.us.us.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.1
+  %101 = phi i32 [ %42, %if.end.i1188.us.us.us.2 ], [ %94, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
+  %102 = phi i32 [ %42, %if.end.i1188.us.us.us.2 ], [ %96, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
+  %103 = phi i32 [ %42, %if.end.i1188.us.us.us.2 ], [ %98, %calculate_neighboring_subdomain_rank.exit.us.us.us.1 ]
   %104 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.2 = icmp eq i32 %104, 0
   br i1 %cmp16.not.i.us.us.us.2, label %if.end36.i.us.us.us.2, label %if.then17.i.us.us.us.2
@@ -1008,9 +1008,9 @@ if.end58.i.us.us.us.2:                            ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.2 = add nsw i32 %add91.lobit.i.us.us.us.2, %div
   %cmp99.not.i.us.us.us.2 = icmp sge i32 %add91.pre-phi.i.us.us.us.2, %44
   %inc101.i.us.us.us.2 = zext i1 %cmp99.not.i.us.us.us.2 to i32
+  %rk.addr.1.i.us.us.us.2 = add nsw i32 %rk.addr.0.i.us.us.us.2, %inc101.i.us.us.us.2
   %113 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.2 = add i32 %rk.addr.0.i.us.us.us.2, %inc101.i.us.us.us.2
-  %add105.i.us.us.us.2 = add i32 %rk.addr.1.i.us.us.us.2, %113
+  %add105.i.us.us.us.2 = add nsw i32 %rk.addr.1.i.us.us.us.2, %113
   %rem108.i.us.us.us.2 = srem i32 %add105.i.us.us.us.2, %113
   %mul118.i.us.us.us.2 = mul i32 %rem108.i.us.us.us.2, %112
   %reass.add.i.us.us.us.2 = add i32 %mul118.i.us.us.us.2, %rem90.i.us.us.us.2
@@ -1018,36 +1018,36 @@ if.end58.i.us.us.us.2:                            ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.2 = add i32 %reass.mul.i.us.us.us.2, %rem.i.us.us.us.2
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.2
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.2: ; preds = %if.end58.i.us.us.us.2, %if.end47.i.us.us.us.2, %if.then39.i.us.us.us.2, %if.end25.i.us.us.us.2, %if.then17.i.us.us.us.2, %if.end.i1190.us.us.us.2, %if.then.i1189.us.us.us.2
-  %114 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %93, %if.then.i1189.us.us.us.2 ], [ %93, %if.end.i1190.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %106, %if.then39.i.us.us.us.2 ], [ %106, %if.end47.i.us.us.us.2 ]
-  %115 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1189.us.us.us.2 ], [ %42, %if.end.i1190.us.us.us.2 ], [ %101, %if.then17.i.us.us.us.2 ], [ %101, %if.end25.i.us.us.us.2 ], [ %101, %if.then39.i.us.us.us.2 ], [ %101, %if.end47.i.us.us.us.2 ]
-  %116 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %95, %if.then.i1189.us.us.us.2 ], [ %95, %if.end.i1190.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %107, %if.then39.i.us.us.us.2 ], [ %107, %if.end47.i.us.us.us.2 ]
-  %117 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1189.us.us.us.2 ], [ %42, %if.end.i1190.us.us.us.2 ], [ %102, %if.then17.i.us.us.us.2 ], [ %102, %if.end25.i.us.us.us.2 ], [ %102, %if.then39.i.us.us.us.2 ], [ %102, %if.end47.i.us.us.us.2 ]
-  %118 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %97, %if.then.i1189.us.us.us.2 ], [ %97, %if.end.i1190.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %108, %if.then39.i.us.us.us.2 ], [ %108, %if.end47.i.us.us.us.2 ]
-  %119 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1189.us.us.us.2 ], [ %42, %if.end.i1190.us.us.us.2 ], [ %103, %if.then17.i.us.us.us.2 ], [ %103, %if.end25.i.us.us.us.2 ], [ %103, %if.then39.i.us.us.us.2 ], [ %103, %if.end47.i.us.us.us.2 ]
-  %retval.0.i.us.us.us.2 = phi i32 [ %add119.i.us.us.us.2, %if.end58.i.us.us.us.2 ], [ -1, %if.then.i1189.us.us.us.2 ], [ -1, %if.end.i1190.us.us.us.2 ], [ -1, %if.then17.i.us.us.us.2 ], [ -1, %if.end25.i.us.us.us.2 ], [ -1, %if.then39.i.us.us.us.2 ], [ -1, %if.end47.i.us.us.us.2 ]
+calculate_neighboring_subdomain_rank.exit.us.us.us.2: ; preds = %if.end58.i.us.us.us.2, %if.end47.i.us.us.us.2, %if.then39.i.us.us.us.2, %if.end25.i.us.us.us.2, %if.then17.i.us.us.us.2, %if.end.i1188.us.us.us.2, %if.then.i1187.us.us.us.2
+  %114 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %93, %if.then.i1187.us.us.us.2 ], [ %93, %if.end.i1188.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %106, %if.then39.i.us.us.us.2 ], [ %106, %if.end47.i.us.us.us.2 ]
+  %115 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1187.us.us.us.2 ], [ %42, %if.end.i1188.us.us.us.2 ], [ %101, %if.then17.i.us.us.us.2 ], [ %101, %if.end25.i.us.us.us.2 ], [ %101, %if.then39.i.us.us.us.2 ], [ %101, %if.end47.i.us.us.us.2 ]
+  %116 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %95, %if.then.i1187.us.us.us.2 ], [ %95, %if.end.i1188.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %107, %if.then39.i.us.us.us.2 ], [ %107, %if.end47.i.us.us.us.2 ]
+  %117 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1187.us.us.us.2 ], [ %42, %if.end.i1188.us.us.us.2 ], [ %102, %if.then17.i.us.us.us.2 ], [ %102, %if.end25.i.us.us.us.2 ], [ %102, %if.then39.i.us.us.us.2 ], [ %102, %if.end47.i.us.us.us.2 ]
+  %118 = phi i32 [ %43, %if.end58.i.us.us.us.2 ], [ %97, %if.then.i1187.us.us.us.2 ], [ %97, %if.end.i1188.us.us.us.2 ], [ %43, %if.then17.i.us.us.us.2 ], [ %43, %if.end25.i.us.us.us.2 ], [ %108, %if.then39.i.us.us.us.2 ], [ %108, %if.end47.i.us.us.us.2 ]
+  %119 = phi i32 [ %42, %if.end58.i.us.us.us.2 ], [ %42, %if.then.i1187.us.us.us.2 ], [ %42, %if.end.i1188.us.us.us.2 ], [ %103, %if.then17.i.us.us.us.2 ], [ %103, %if.end25.i.us.us.us.2 ], [ %103, %if.then39.i.us.us.us.2 ], [ %103, %if.end47.i.us.us.us.2 ]
+  %retval.0.i.us.us.us.2 = phi i32 [ %add119.i.us.us.us.2, %if.end58.i.us.us.us.2 ], [ -1, %if.then.i1187.us.us.us.2 ], [ -1, %if.end.i1188.us.us.us.2 ], [ -1, %if.then17.i.us.us.us.2 ], [ -1, %if.end25.i.us.us.us.2 ], [ -1, %if.then39.i.us.us.us.2 ], [ -1, %if.end47.i.us.us.us.2 ]
   %arrayidx252.us.us.us.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %99
   store i32 %retval.0.i.us.us.us.2, ptr %arrayidx252.us.us.us.2, align 8, !tbaa !56
-  %add25.i1200.us.us.us.2 = add i32 %reass.mul.i1199.us.us.us, %rem.i1195.us.us.us.2
+  %add25.i1198.us.us.us.2 = add i32 %reass.mul.i1197.us.us.us, %rem.i1193.us.us.us.2
   %local_index.us.us.us.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %99, i32 1
-  store i32 %add25.i1200.us.us.us.2, ptr %local_index.us.us.us.2, align 4, !tbaa !58
-  %reass.add.i1198.us.us.us.1 = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us.1
-  %reass.mul.i1199.us.us.us.1 = mul i32 %reass.add.i1198.us.us.us.1, %42
+  store i32 %add25.i1198.us.us.us.2, ptr %local_index.us.us.us.2, align 4, !tbaa !58
+  %reass.add.i1196.us.us.us.1 = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us.1
+  %reass.mul.i1197.us.us.us.1 = mul i32 %reass.add.i1196.us.us.us.1, %42
   %120 = add nsw i64 %283, 12
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.11646, label %if.then.i1189.us.us.us.11642
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.11646, label %if.then.i1187.us.us.us.11642
 
-if.then.i1189.us.us.us.11642:                     ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.2
-  br i1 %cmp3.i.us.us.us.11641, label %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread, label %if.end.i1190.us.us.us.11644
+if.then.i1187.us.us.us.11642:                     ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.2
+  br i1 %cmp3.i.us.us.us.11641, label %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread, label %if.end.i1188.us.us.us.11644
 
-if.end.i1190.us.us.us.11644:                      ; preds = %if.then.i1189.us.us.us.11642
+if.end.i1188.us.us.us.11644:                      ; preds = %if.then.i1187.us.us.us.11642
   %121 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.11643 = icmp slt i32 %add2.i.us.us.us.11640, %121
   br i1 %cmp11.not.i.us.us.us.11643, label %if.end14.i.us.us.us.11646, label %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread
 
-if.end14.i.us.us.us.11646:                        ; preds = %if.end.i1190.us.us.us.11644, %calculate_neighboring_subdomain_rank.exit.us.us.us.2
-  %122 = phi i32 [ %42, %if.end.i1190.us.us.us.11644 ], [ %115, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
-  %123 = phi i32 [ %42, %if.end.i1190.us.us.us.11644 ], [ %117, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
-  %124 = phi i32 [ %42, %if.end.i1190.us.us.us.11644 ], [ %119, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
+if.end14.i.us.us.us.11646:                        ; preds = %if.end.i1188.us.us.us.11644, %calculate_neighboring_subdomain_rank.exit.us.us.us.2
+  %122 = phi i32 [ %42, %if.end.i1188.us.us.us.11644 ], [ %115, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
+  %123 = phi i32 [ %42, %if.end.i1188.us.us.us.11644 ], [ %117, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
+  %124 = phi i32 [ %42, %if.end.i1188.us.us.us.11644 ], [ %119, %calculate_neighboring_subdomain_rank.exit.us.us.us.2 ]
   %125 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.11645 = icmp eq i32 %125, 0
   br i1 %cmp16.not.i.us.us.us.11645, label %if.end36.i.us.us.us.11655, label %if.then17.i.us.us.us.11650
@@ -1092,9 +1092,9 @@ if.end58.i.us.us.us.11686:                        ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.11676 = add nsw i32 %add91.lobit.i.us.us.us.11675, %div
   %cmp99.not.i.us.us.us.11677 = icmp sge i32 %add91.pre-phi.i.us.us.us.11662, %44
   %inc101.i.us.us.us.11678 = zext i1 %cmp99.not.i.us.us.us.11677 to i32
+  %rk.addr.1.i.us.us.us.11679 = add nsw i32 %rk.addr.0.i.us.us.us.11676, %inc101.i.us.us.us.11678
   %134 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.11679 = add i32 %rk.addr.0.i.us.us.us.11676, %inc101.i.us.us.us.11678
-  %add105.i.us.us.us.11680 = add i32 %rk.addr.1.i.us.us.us.11679, %134
+  %add105.i.us.us.us.11680 = add nsw i32 %rk.addr.1.i.us.us.us.11679, %134
   %rem108.i.us.us.us.11681 = srem i32 %add105.i.us.us.us.11680, %134
   %mul118.i.us.us.us.11682 = mul i32 %rem108.i.us.us.us.11681, %133
   %reass.add.i.us.us.us.11683 = add i32 %mul118.i.us.us.us.11682, %rem90.i.us.us.us.11674
@@ -1102,13 +1102,13 @@ if.end58.i.us.us.us.11686:                        ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.11685 = add i32 %reass.mul.i.us.us.us.11684, %rem.i.us.us.us.11669
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.11693
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread: ; preds = %if.end.i1190.us.us.us.11644, %if.then.i1189.us.us.us.11642
+calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread: ; preds = %if.end.i1188.us.us.us.11644, %if.then.i1187.us.us.us.11642
   %arrayidx252.us.us.us.116881867 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %120
   store i32 -1, ptr %arrayidx252.us.us.us.116881867, align 8, !tbaa !56
-  %add25.i1200.us.us.us.116911868 = add i32 %reass.mul.i1199.us.us.us.1, %rem.i1195.us.us.us
+  %add25.i1198.us.us.us.116911868 = add i32 %reass.mul.i1197.us.us.us.1, %rem.i1193.us.us.us
   %local_index.us.us.us.116921869 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %120, i32 1
-  store i32 %add25.i1200.us.us.us.116911868, ptr %local_index.us.us.us.116921869, align 4, !tbaa !58
-  br label %if.then.i1189.us.us.us.1.1
+  store i32 %add25.i1198.us.us.us.116911868, ptr %local_index.us.us.us.116921869, align 4, !tbaa !58
+  br label %if.then.i1187.us.us.us.1.1
 
 calculate_neighboring_subdomain_rank.exit.us.us.us.11693: ; preds = %if.end58.i.us.us.us.11686, %if.end47.i.us.us.us.11661, %if.then39.i.us.us.us.11659, %if.end25.i.us.us.us.11652, %if.then17.i.us.us.us.11650
   %135 = phi i32 [ %43, %if.end58.i.us.us.us.11686 ], [ %43, %if.then17.i.us.us.us.11650 ], [ %43, %if.end25.i.us.us.us.11652 ], [ %127, %if.then39.i.us.us.us.11659 ], [ %127, %if.end47.i.us.us.us.11661 ]
@@ -1120,29 +1120,29 @@ calculate_neighboring_subdomain_rank.exit.us.us.us.11693: ; preds = %if.end58.i.
   %retval.0.i.us.us.us.11687 = phi i32 [ %add119.i.us.us.us.11685, %if.end58.i.us.us.us.11686 ], [ -1, %if.then17.i.us.us.us.11650 ], [ -1, %if.end25.i.us.us.us.11652 ], [ -1, %if.then39.i.us.us.us.11659 ], [ -1, %if.end47.i.us.us.us.11661 ]
   %arrayidx252.us.us.us.11688 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %120
   store i32 %retval.0.i.us.us.us.11687, ptr %arrayidx252.us.us.us.11688, align 8, !tbaa !56
-  %add25.i1200.us.us.us.11691 = add i32 %reass.mul.i1199.us.us.us.1, %rem.i1195.us.us.us
+  %add25.i1198.us.us.us.11691 = add i32 %reass.mul.i1197.us.us.us.1, %rem.i1193.us.us.us
   %local_index.us.us.us.11692 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %120, i32 1
-  store i32 %add25.i1200.us.us.us.11691, ptr %local_index.us.us.us.11692, align 4, !tbaa !58
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1.1, label %if.then.i1189.us.us.us.1.1
+  store i32 %add25.i1198.us.us.us.11691, ptr %local_index.us.us.us.11692, align 4, !tbaa !58
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1.1, label %if.then.i1187.us.us.us.1.1
 
-if.then.i1189.us.us.us.1.1:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693
+if.then.i1187.us.us.us.1.1:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693
   %141 = phi i32 [ %118, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread ], [ %139, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
   %142 = phi i32 [ %116, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread ], [ %137, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
   %143 = phi i32 [ %114, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693.thread ], [ %135, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  br i1 %cmp3.i.us.us.us.1.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread, label %if.end.i1190.us.us.us.1.1
+  br i1 %cmp3.i.us.us.us.1.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread, label %if.end.i1188.us.us.us.1.1
 
-if.end.i1190.us.us.us.1.1:                        ; preds = %if.then.i1189.us.us.us.1.1
+if.end.i1188.us.us.us.1.1:                        ; preds = %if.then.i1187.us.us.us.1.1
   %144 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.1.1 = icmp slt i32 %add2.i.us.us.us.1.1, %144
   br i1 %cmp11.not.i.us.us.us.1.1, label %if.end14.i.us.us.us.1.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread
 
-if.end14.i.us.us.us.1.1:                          ; preds = %if.end.i1190.us.us.us.1.1, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693
-  %145 = phi i32 [ %141, %if.end.i1190.us.us.us.1.1 ], [ %139, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  %146 = phi i32 [ %142, %if.end.i1190.us.us.us.1.1 ], [ %137, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  %147 = phi i32 [ %143, %if.end.i1190.us.us.us.1.1 ], [ %135, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  %148 = phi i32 [ %42, %if.end.i1190.us.us.us.1.1 ], [ %136, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  %149 = phi i32 [ %42, %if.end.i1190.us.us.us.1.1 ], [ %138, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
-  %150 = phi i32 [ %42, %if.end.i1190.us.us.us.1.1 ], [ %140, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+if.end14.i.us.us.us.1.1:                          ; preds = %if.end.i1188.us.us.us.1.1, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693
+  %145 = phi i32 [ %141, %if.end.i1188.us.us.us.1.1 ], [ %139, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+  %146 = phi i32 [ %142, %if.end.i1188.us.us.us.1.1 ], [ %137, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+  %147 = phi i32 [ %143, %if.end.i1188.us.us.us.1.1 ], [ %135, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+  %148 = phi i32 [ %42, %if.end.i1188.us.us.us.1.1 ], [ %136, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+  %149 = phi i32 [ %42, %if.end.i1188.us.us.us.1.1 ], [ %138, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
+  %150 = phi i32 [ %42, %if.end.i1188.us.us.us.1.1 ], [ %140, %calculate_neighboring_subdomain_rank.exit.us.us.us.11693 ]
   %151 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.1.1 = icmp eq i32 %151, 0
   br i1 %cmp16.not.i.us.us.us.1.1, label %if.end36.i.us.us.us.1.1, label %if.then17.i.us.us.us.1.1
@@ -1187,9 +1187,9 @@ if.end58.i.us.us.us.1.1:                          ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.1.1 = add nsw i32 %add91.lobit.i.us.us.us.1.1, %div
   %cmp99.not.i.us.us.us.1.1 = icmp sge i32 %add91.pre-phi.i.us.us.us.1.1, %44
   %inc101.i.us.us.us.1.1 = zext i1 %cmp99.not.i.us.us.us.1.1 to i32
+  %rk.addr.1.i.us.us.us.1.1 = add nsw i32 %rk.addr.0.i.us.us.us.1.1, %inc101.i.us.us.us.1.1
   %160 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.1.1 = add i32 %rk.addr.0.i.us.us.us.1.1, %inc101.i.us.us.us.1.1
-  %add105.i.us.us.us.1.1 = add i32 %rk.addr.1.i.us.us.us.1.1, %160
+  %add105.i.us.us.us.1.1 = add nsw i32 %rk.addr.1.i.us.us.us.1.1, %160
   %rem108.i.us.us.us.1.1 = srem i32 %add105.i.us.us.us.1.1, %160
   %mul118.i.us.us.us.1.1 = mul i32 %rem108.i.us.us.us.1.1, %159
   %reass.add.i.us.us.us.1.1 = add i32 %mul118.i.us.us.us.1.1, %rem90.i.us.us.us.1.1
@@ -1197,14 +1197,14 @@ if.end58.i.us.us.us.1.1:                          ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.1.1 = add i32 %reass.mul.i.us.us.us.1.1, %rem.i.us.us.us.1.1
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread: ; preds = %if.end.i1190.us.us.us.1.1, %if.then.i1189.us.us.us.1.1
+calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread: ; preds = %if.end.i1188.us.us.us.1.1, %if.then.i1187.us.us.us.1.1
   %arrayidx252.us.us.us.1.11871 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %284
   store i32 -1, ptr %arrayidx252.us.us.us.1.11871, align 8, !tbaa !56
-  %add25.i1200.us.us.us.1.11872 = add i32 %reass.mul.i1199.us.us.us.1, %rem.i1195.us.us.us.1
+  %add25.i1198.us.us.us.1.11872 = add i32 %reass.mul.i1197.us.us.us.1, %rem.i1193.us.us.us.1
   %local_index.us.us.us.1.11873 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %284, i32 1
-  store i32 %add25.i1200.us.us.us.1.11872, ptr %local_index.us.us.us.1.11873, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.1.11872, ptr %local_index.us.us.us.1.11873, align 4, !tbaa !58
   %161 = add nsw i64 %283, 14
-  br label %if.then.i1189.us.us.us.2.1
+  br label %if.then.i1187.us.us.us.2.1
 
 calculate_neighboring_subdomain_rank.exit.us.us.us.1.1: ; preds = %if.end58.i.us.us.us.1.1, %if.end47.i.us.us.us.1.1, %if.then39.i.us.us.us.1.1, %if.end25.i.us.us.us.1.1, %if.then17.i.us.us.us.1.1
   %162 = phi i32 [ %43, %if.end58.i.us.us.us.1.1 ], [ %43, %if.then17.i.us.us.us.1.1 ], [ %43, %if.end25.i.us.us.us.1.1 ], [ %153, %if.then39.i.us.us.us.1.1 ], [ %153, %if.end47.i.us.us.us.1.1 ]
@@ -1216,32 +1216,32 @@ calculate_neighboring_subdomain_rank.exit.us.us.us.1.1: ; preds = %if.end58.i.us
   %retval.0.i.us.us.us.1.1 = phi i32 [ %add119.i.us.us.us.1.1, %if.end58.i.us.us.us.1.1 ], [ -1, %if.then17.i.us.us.us.1.1 ], [ -1, %if.end25.i.us.us.us.1.1 ], [ -1, %if.then39.i.us.us.us.1.1 ], [ -1, %if.end47.i.us.us.us.1.1 ]
   %arrayidx252.us.us.us.1.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %284
   store i32 %retval.0.i.us.us.us.1.1, ptr %arrayidx252.us.us.us.1.1, align 8, !tbaa !56
-  %add25.i1200.us.us.us.1.1 = add i32 %reass.mul.i1199.us.us.us.1, %rem.i1195.us.us.us.1
+  %add25.i1198.us.us.us.1.1 = add i32 %reass.mul.i1197.us.us.us.1, %rem.i1193.us.us.us.1
   %local_index.us.us.us.1.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %284, i32 1
-  store i32 %add25.i1200.us.us.us.1.1, ptr %local_index.us.us.us.1.1, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.1.1, ptr %local_index.us.us.us.1.1, align 4, !tbaa !58
   %168 = add nsw i64 %283, 14
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2.1, label %if.then.i1189.us.us.us.2.1
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2.1, label %if.then.i1187.us.us.us.2.1
 
-if.then.i1189.us.us.us.2.1:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1
+if.then.i1187.us.us.us.2.1:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1
   %169 = phi i64 [ %161, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread ], [ %168, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
   %170 = phi i32 [ %141, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread ], [ %166, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
   %171 = phi i32 [ %142, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread ], [ %164, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
   %172 = phi i32 [ %143, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1.thread ], [ %162, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  br i1 %cmp3.i.us.us.us.2.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1, label %if.end.i1190.us.us.us.2.1
+  br i1 %cmp3.i.us.us.us.2.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1, label %if.end.i1188.us.us.us.2.1
 
-if.end.i1190.us.us.us.2.1:                        ; preds = %if.then.i1189.us.us.us.2.1
+if.end.i1188.us.us.us.2.1:                        ; preds = %if.then.i1187.us.us.us.2.1
   %173 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.2.1 = icmp slt i32 %add2.i.us.us.us.2.1, %173
   br i1 %cmp11.not.i.us.us.us.2.1, label %if.end14.i.us.us.us.2.1, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
 
-if.end14.i.us.us.us.2.1:                          ; preds = %if.end.i1190.us.us.us.2.1, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1
-  %174 = phi i64 [ %169, %if.end.i1190.us.us.us.2.1 ], [ %168, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %175 = phi i32 [ %170, %if.end.i1190.us.us.us.2.1 ], [ %166, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %176 = phi i32 [ %171, %if.end.i1190.us.us.us.2.1 ], [ %164, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %177 = phi i32 [ %172, %if.end.i1190.us.us.us.2.1 ], [ %162, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %178 = phi i32 [ %42, %if.end.i1190.us.us.us.2.1 ], [ %163, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %179 = phi i32 [ %42, %if.end.i1190.us.us.us.2.1 ], [ %165, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
-  %180 = phi i32 [ %42, %if.end.i1190.us.us.us.2.1 ], [ %167, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+if.end14.i.us.us.us.2.1:                          ; preds = %if.end.i1188.us.us.us.2.1, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1
+  %174 = phi i64 [ %169, %if.end.i1188.us.us.us.2.1 ], [ %168, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %175 = phi i32 [ %170, %if.end.i1188.us.us.us.2.1 ], [ %166, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %176 = phi i32 [ %171, %if.end.i1188.us.us.us.2.1 ], [ %164, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %177 = phi i32 [ %172, %if.end.i1188.us.us.us.2.1 ], [ %162, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %178 = phi i32 [ %42, %if.end.i1188.us.us.us.2.1 ], [ %163, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %179 = phi i32 [ %42, %if.end.i1188.us.us.us.2.1 ], [ %165, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
+  %180 = phi i32 [ %42, %if.end.i1188.us.us.us.2.1 ], [ %167, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.1 ]
   %181 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.2.1 = icmp eq i32 %181, 0
   br i1 %cmp16.not.i.us.us.us.2.1, label %if.end36.i.us.us.us.2.1, label %if.then17.i.us.us.us.2.1
@@ -1286,9 +1286,9 @@ if.end58.i.us.us.us.2.1:                          ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.2.1 = add nsw i32 %add91.lobit.i.us.us.us.2.1, %div
   %cmp99.not.i.us.us.us.2.1 = icmp sge i32 %add91.pre-phi.i.us.us.us.2.1, %44
   %inc101.i.us.us.us.2.1 = zext i1 %cmp99.not.i.us.us.us.2.1 to i32
+  %rk.addr.1.i.us.us.us.2.1 = add nsw i32 %rk.addr.0.i.us.us.us.2.1, %inc101.i.us.us.us.2.1
   %190 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.2.1 = add i32 %rk.addr.0.i.us.us.us.2.1, %inc101.i.us.us.us.2.1
-  %add105.i.us.us.us.2.1 = add i32 %rk.addr.1.i.us.us.us.2.1, %190
+  %add105.i.us.us.us.2.1 = add nsw i32 %rk.addr.1.i.us.us.us.2.1, %190
   %rem108.i.us.us.us.2.1 = srem i32 %add105.i.us.us.us.2.1, %190
   %mul118.i.us.us.us.2.1 = mul i32 %rem108.i.us.us.us.2.1, %189
   %reass.add.i.us.us.us.2.1 = add i32 %mul118.i.us.us.us.2.1, %rem90.i.us.us.us.2.1
@@ -1296,38 +1296,38 @@ if.end58.i.us.us.us.2.1:                          ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.2.1 = add i32 %reass.mul.i.us.us.us.2.1, %rem.i.us.us.us.2.1
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.2.1: ; preds = %if.end58.i.us.us.us.2.1, %if.end47.i.us.us.us.2.1, %if.then39.i.us.us.us.2.1, %if.end25.i.us.us.us.2.1, %if.then17.i.us.us.us.2.1, %if.end.i1190.us.us.us.2.1, %if.then.i1189.us.us.us.2.1
-  %191 = phi i64 [ %174, %if.end58.i.us.us.us.2.1 ], [ %169, %if.then.i1189.us.us.us.2.1 ], [ %169, %if.end.i1190.us.us.us.2.1 ], [ %174, %if.then17.i.us.us.us.2.1 ], [ %174, %if.end25.i.us.us.us.2.1 ], [ %174, %if.then39.i.us.us.us.2.1 ], [ %174, %if.end47.i.us.us.us.2.1 ]
-  %192 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %172, %if.then.i1189.us.us.us.2.1 ], [ %172, %if.end.i1190.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %183, %if.then39.i.us.us.us.2.1 ], [ %183, %if.end47.i.us.us.us.2.1 ]
-  %193 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1189.us.us.us.2.1 ], [ %42, %if.end.i1190.us.us.us.2.1 ], [ %178, %if.then17.i.us.us.us.2.1 ], [ %178, %if.end25.i.us.us.us.2.1 ], [ %178, %if.then39.i.us.us.us.2.1 ], [ %178, %if.end47.i.us.us.us.2.1 ]
-  %194 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %171, %if.then.i1189.us.us.us.2.1 ], [ %171, %if.end.i1190.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %184, %if.then39.i.us.us.us.2.1 ], [ %184, %if.end47.i.us.us.us.2.1 ]
-  %195 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1189.us.us.us.2.1 ], [ %42, %if.end.i1190.us.us.us.2.1 ], [ %179, %if.then17.i.us.us.us.2.1 ], [ %179, %if.end25.i.us.us.us.2.1 ], [ %179, %if.then39.i.us.us.us.2.1 ], [ %179, %if.end47.i.us.us.us.2.1 ]
-  %196 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %170, %if.then.i1189.us.us.us.2.1 ], [ %170, %if.end.i1190.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %185, %if.then39.i.us.us.us.2.1 ], [ %185, %if.end47.i.us.us.us.2.1 ]
-  %197 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1189.us.us.us.2.1 ], [ %42, %if.end.i1190.us.us.us.2.1 ], [ %180, %if.then17.i.us.us.us.2.1 ], [ %180, %if.end25.i.us.us.us.2.1 ], [ %180, %if.then39.i.us.us.us.2.1 ], [ %180, %if.end47.i.us.us.us.2.1 ]
-  %retval.0.i.us.us.us.2.1 = phi i32 [ %add119.i.us.us.us.2.1, %if.end58.i.us.us.us.2.1 ], [ -1, %if.then.i1189.us.us.us.2.1 ], [ -1, %if.end.i1190.us.us.us.2.1 ], [ -1, %if.then17.i.us.us.us.2.1 ], [ -1, %if.end25.i.us.us.us.2.1 ], [ -1, %if.then39.i.us.us.us.2.1 ], [ -1, %if.end47.i.us.us.us.2.1 ]
+calculate_neighboring_subdomain_rank.exit.us.us.us.2.1: ; preds = %if.end58.i.us.us.us.2.1, %if.end47.i.us.us.us.2.1, %if.then39.i.us.us.us.2.1, %if.end25.i.us.us.us.2.1, %if.then17.i.us.us.us.2.1, %if.end.i1188.us.us.us.2.1, %if.then.i1187.us.us.us.2.1
+  %191 = phi i64 [ %174, %if.end58.i.us.us.us.2.1 ], [ %169, %if.then.i1187.us.us.us.2.1 ], [ %169, %if.end.i1188.us.us.us.2.1 ], [ %174, %if.then17.i.us.us.us.2.1 ], [ %174, %if.end25.i.us.us.us.2.1 ], [ %174, %if.then39.i.us.us.us.2.1 ], [ %174, %if.end47.i.us.us.us.2.1 ]
+  %192 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %172, %if.then.i1187.us.us.us.2.1 ], [ %172, %if.end.i1188.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %183, %if.then39.i.us.us.us.2.1 ], [ %183, %if.end47.i.us.us.us.2.1 ]
+  %193 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1187.us.us.us.2.1 ], [ %42, %if.end.i1188.us.us.us.2.1 ], [ %178, %if.then17.i.us.us.us.2.1 ], [ %178, %if.end25.i.us.us.us.2.1 ], [ %178, %if.then39.i.us.us.us.2.1 ], [ %178, %if.end47.i.us.us.us.2.1 ]
+  %194 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %171, %if.then.i1187.us.us.us.2.1 ], [ %171, %if.end.i1188.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %184, %if.then39.i.us.us.us.2.1 ], [ %184, %if.end47.i.us.us.us.2.1 ]
+  %195 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1187.us.us.us.2.1 ], [ %42, %if.end.i1188.us.us.us.2.1 ], [ %179, %if.then17.i.us.us.us.2.1 ], [ %179, %if.end25.i.us.us.us.2.1 ], [ %179, %if.then39.i.us.us.us.2.1 ], [ %179, %if.end47.i.us.us.us.2.1 ]
+  %196 = phi i32 [ %43, %if.end58.i.us.us.us.2.1 ], [ %170, %if.then.i1187.us.us.us.2.1 ], [ %170, %if.end.i1188.us.us.us.2.1 ], [ %43, %if.then17.i.us.us.us.2.1 ], [ %43, %if.end25.i.us.us.us.2.1 ], [ %185, %if.then39.i.us.us.us.2.1 ], [ %185, %if.end47.i.us.us.us.2.1 ]
+  %197 = phi i32 [ %42, %if.end58.i.us.us.us.2.1 ], [ %42, %if.then.i1187.us.us.us.2.1 ], [ %42, %if.end.i1188.us.us.us.2.1 ], [ %180, %if.then17.i.us.us.us.2.1 ], [ %180, %if.end25.i.us.us.us.2.1 ], [ %180, %if.then39.i.us.us.us.2.1 ], [ %180, %if.end47.i.us.us.us.2.1 ]
+  %retval.0.i.us.us.us.2.1 = phi i32 [ %add119.i.us.us.us.2.1, %if.end58.i.us.us.us.2.1 ], [ -1, %if.then.i1187.us.us.us.2.1 ], [ -1, %if.end.i1188.us.us.us.2.1 ], [ -1, %if.then17.i.us.us.us.2.1 ], [ -1, %if.end25.i.us.us.us.2.1 ], [ -1, %if.then39.i.us.us.us.2.1 ], [ -1, %if.end47.i.us.us.us.2.1 ]
   %arrayidx252.us.us.us.2.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %191
   store i32 %retval.0.i.us.us.us.2.1, ptr %arrayidx252.us.us.us.2.1, align 8, !tbaa !56
-  %add25.i1200.us.us.us.2.1 = add i32 %reass.mul.i1199.us.us.us.1, %rem.i1195.us.us.us.2
+  %add25.i1198.us.us.us.2.1 = add i32 %reass.mul.i1197.us.us.us.1, %rem.i1193.us.us.us.2
   %local_index.us.us.us.2.1 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %191, i32 1
-  store i32 %add25.i1200.us.us.us.2.1, ptr %local_index.us.us.us.2.1, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.2.1, ptr %local_index.us.us.us.2.1, align 4, !tbaa !58
   %198 = add nsw i64 %283, 16
-  %reass.add.i1198.us.us.us.2 = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us.2
-  %reass.mul.i1199.us.us.us.2 = mul i32 %reass.add.i1198.us.us.us.2, %42
+  %reass.add.i1196.us.us.us.2 = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us.2
+  %reass.mul.i1197.us.us.us.2 = mul i32 %reass.add.i1196.us.us.us.2, %42
   %199 = add nsw i64 %283, 15
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.21702, label %if.then.i1189.us.us.us.21698
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.21702, label %if.then.i1187.us.us.us.21698
 
-if.then.i1189.us.us.us.21698:                     ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
-  br i1 %cmp3.i.us.us.us.21697, label %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread, label %if.end.i1190.us.us.us.21700
+if.then.i1187.us.us.us.21698:                     ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
+  br i1 %cmp3.i.us.us.us.21697, label %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread, label %if.end.i1188.us.us.us.21700
 
-if.end.i1190.us.us.us.21700:                      ; preds = %if.then.i1189.us.us.us.21698
+if.end.i1188.us.us.us.21700:                      ; preds = %if.then.i1187.us.us.us.21698
   %200 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.21699 = icmp slt i32 %add2.i.us.us.us.21696, %200
   br i1 %cmp11.not.i.us.us.us.21699, label %if.end14.i.us.us.us.21702, label %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread
 
-if.end14.i.us.us.us.21702:                        ; preds = %if.end.i1190.us.us.us.21700, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
-  %201 = phi i32 [ %42, %if.end.i1190.us.us.us.21700 ], [ %193, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
-  %202 = phi i32 [ %42, %if.end.i1190.us.us.us.21700 ], [ %195, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
-  %203 = phi i32 [ %42, %if.end.i1190.us.us.us.21700 ], [ %197, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
+if.end14.i.us.us.us.21702:                        ; preds = %if.end.i1188.us.us.us.21700, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1
+  %201 = phi i32 [ %42, %if.end.i1188.us.us.us.21700 ], [ %193, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
+  %202 = phi i32 [ %42, %if.end.i1188.us.us.us.21700 ], [ %195, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
+  %203 = phi i32 [ %42, %if.end.i1188.us.us.us.21700 ], [ %197, %calculate_neighboring_subdomain_rank.exit.us.us.us.2.1 ]
   %204 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.21701 = icmp eq i32 %204, 0
   br i1 %cmp16.not.i.us.us.us.21701, label %if.end36.i.us.us.us.21711, label %if.then17.i.us.us.us.21706
@@ -1372,9 +1372,9 @@ if.end58.i.us.us.us.21742:                        ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.21732 = add nsw i32 %add91.lobit.i.us.us.us.21731, %div
   %cmp99.not.i.us.us.us.21733 = icmp sge i32 %add91.pre-phi.i.us.us.us.21718, %44
   %inc101.i.us.us.us.21734 = zext i1 %cmp99.not.i.us.us.us.21733 to i32
+  %rk.addr.1.i.us.us.us.21735 = add nsw i32 %rk.addr.0.i.us.us.us.21732, %inc101.i.us.us.us.21734
   %213 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.21735 = add i32 %rk.addr.0.i.us.us.us.21732, %inc101.i.us.us.us.21734
-  %add105.i.us.us.us.21736 = add i32 %rk.addr.1.i.us.us.us.21735, %213
+  %add105.i.us.us.us.21736 = add nsw i32 %rk.addr.1.i.us.us.us.21735, %213
   %rem108.i.us.us.us.21737 = srem i32 %add105.i.us.us.us.21736, %213
   %mul118.i.us.us.us.21738 = mul i32 %rem108.i.us.us.us.21737, %212
   %reass.add.i.us.us.us.21739 = add i32 %mul118.i.us.us.us.21738, %rem90.i.us.us.us.21730
@@ -1382,13 +1382,13 @@ if.end58.i.us.us.us.21742:                        ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.21741 = add i32 %reass.mul.i.us.us.us.21740, %rem.i.us.us.us.21725
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.21749
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread: ; preds = %if.end.i1190.us.us.us.21700, %if.then.i1189.us.us.us.21698
+calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread: ; preds = %if.end.i1188.us.us.us.21700, %if.then.i1187.us.us.us.21698
   %arrayidx252.us.us.us.217441875 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %199
   store i32 -1, ptr %arrayidx252.us.us.us.217441875, align 8, !tbaa !56
-  %add25.i1200.us.us.us.217471876 = add i32 %reass.mul.i1199.us.us.us.2, %rem.i1195.us.us.us
+  %add25.i1198.us.us.us.217471876 = add i32 %reass.mul.i1197.us.us.us.2, %rem.i1193.us.us.us
   %local_index.us.us.us.217481877 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %199, i32 1
-  store i32 %add25.i1200.us.us.us.217471876, ptr %local_index.us.us.us.217481877, align 4, !tbaa !58
-  br label %if.then.i1189.us.us.us.1.2
+  store i32 %add25.i1198.us.us.us.217471876, ptr %local_index.us.us.us.217481877, align 4, !tbaa !58
+  br label %if.then.i1187.us.us.us.1.2
 
 calculate_neighboring_subdomain_rank.exit.us.us.us.21749: ; preds = %if.end58.i.us.us.us.21742, %if.end47.i.us.us.us.21717, %if.then39.i.us.us.us.21715, %if.end25.i.us.us.us.21708, %if.then17.i.us.us.us.21706
   %214 = phi i32 [ %43, %if.end58.i.us.us.us.21742 ], [ %43, %if.then17.i.us.us.us.21706 ], [ %43, %if.end25.i.us.us.us.21708 ], [ %206, %if.then39.i.us.us.us.21715 ], [ %206, %if.end47.i.us.us.us.21717 ]
@@ -1400,29 +1400,29 @@ calculate_neighboring_subdomain_rank.exit.us.us.us.21749: ; preds = %if.end58.i.
   %retval.0.i.us.us.us.21743 = phi i32 [ %add119.i.us.us.us.21741, %if.end58.i.us.us.us.21742 ], [ -1, %if.then17.i.us.us.us.21706 ], [ -1, %if.end25.i.us.us.us.21708 ], [ -1, %if.then39.i.us.us.us.21715 ], [ -1, %if.end47.i.us.us.us.21717 ]
   %arrayidx252.us.us.us.21744 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %199
   store i32 %retval.0.i.us.us.us.21743, ptr %arrayidx252.us.us.us.21744, align 8, !tbaa !56
-  %add25.i1200.us.us.us.21747 = add i32 %reass.mul.i1199.us.us.us.2, %rem.i1195.us.us.us
+  %add25.i1198.us.us.us.21747 = add i32 %reass.mul.i1197.us.us.us.2, %rem.i1193.us.us.us
   %local_index.us.us.us.21748 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %199, i32 1
-  store i32 %add25.i1200.us.us.us.21747, ptr %local_index.us.us.us.21748, align 4, !tbaa !58
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1.2, label %if.then.i1189.us.us.us.1.2
+  store i32 %add25.i1198.us.us.us.21747, ptr %local_index.us.us.us.21748, align 4, !tbaa !58
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.1.2, label %if.then.i1187.us.us.us.1.2
 
-if.then.i1189.us.us.us.1.2:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749
+if.then.i1187.us.us.us.1.2:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749
   %220 = phi i32 [ %196, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread ], [ %218, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
   %221 = phi i32 [ %194, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread ], [ %216, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
   %222 = phi i32 [ %192, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749.thread ], [ %214, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  br i1 %cmp3.i.us.us.us.1.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread, label %if.end.i1190.us.us.us.1.2
+  br i1 %cmp3.i.us.us.us.1.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread, label %if.end.i1188.us.us.us.1.2
 
-if.end.i1190.us.us.us.1.2:                        ; preds = %if.then.i1189.us.us.us.1.2
+if.end.i1188.us.us.us.1.2:                        ; preds = %if.then.i1187.us.us.us.1.2
   %223 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.1.2 = icmp slt i32 %add2.i.us.us.us.1.2, %223
   br i1 %cmp11.not.i.us.us.us.1.2, label %if.end14.i.us.us.us.1.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread
 
-if.end14.i.us.us.us.1.2:                          ; preds = %if.end.i1190.us.us.us.1.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749
-  %224 = phi i32 [ %220, %if.end.i1190.us.us.us.1.2 ], [ %218, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  %225 = phi i32 [ %221, %if.end.i1190.us.us.us.1.2 ], [ %216, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  %226 = phi i32 [ %222, %if.end.i1190.us.us.us.1.2 ], [ %214, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  %227 = phi i32 [ %42, %if.end.i1190.us.us.us.1.2 ], [ %215, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  %228 = phi i32 [ %42, %if.end.i1190.us.us.us.1.2 ], [ %217, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
-  %229 = phi i32 [ %42, %if.end.i1190.us.us.us.1.2 ], [ %219, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+if.end14.i.us.us.us.1.2:                          ; preds = %if.end.i1188.us.us.us.1.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749
+  %224 = phi i32 [ %220, %if.end.i1188.us.us.us.1.2 ], [ %218, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+  %225 = phi i32 [ %221, %if.end.i1188.us.us.us.1.2 ], [ %216, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+  %226 = phi i32 [ %222, %if.end.i1188.us.us.us.1.2 ], [ %214, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+  %227 = phi i32 [ %42, %if.end.i1188.us.us.us.1.2 ], [ %215, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+  %228 = phi i32 [ %42, %if.end.i1188.us.us.us.1.2 ], [ %217, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
+  %229 = phi i32 [ %42, %if.end.i1188.us.us.us.1.2 ], [ %219, %calculate_neighboring_subdomain_rank.exit.us.us.us.21749 ]
   %230 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.1.2 = icmp eq i32 %230, 0
   br i1 %cmp16.not.i.us.us.us.1.2, label %if.end36.i.us.us.us.1.2, label %if.then17.i.us.us.us.1.2
@@ -1467,9 +1467,9 @@ if.end58.i.us.us.us.1.2:                          ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.1.2 = add nsw i32 %add91.lobit.i.us.us.us.1.2, %div
   %cmp99.not.i.us.us.us.1.2 = icmp sge i32 %add91.pre-phi.i.us.us.us.1.2, %44
   %inc101.i.us.us.us.1.2 = zext i1 %cmp99.not.i.us.us.us.1.2 to i32
+  %rk.addr.1.i.us.us.us.1.2 = add nsw i32 %rk.addr.0.i.us.us.us.1.2, %inc101.i.us.us.us.1.2
   %239 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.1.2 = add i32 %rk.addr.0.i.us.us.us.1.2, %inc101.i.us.us.us.1.2
-  %add105.i.us.us.us.1.2 = add i32 %rk.addr.1.i.us.us.us.1.2, %239
+  %add105.i.us.us.us.1.2 = add nsw i32 %rk.addr.1.i.us.us.us.1.2, %239
   %rem108.i.us.us.us.1.2 = srem i32 %add105.i.us.us.us.1.2, %239
   %mul118.i.us.us.us.1.2 = mul i32 %rem108.i.us.us.us.1.2, %238
   %reass.add.i.us.us.us.1.2 = add i32 %mul118.i.us.us.us.1.2, %rem90.i.us.us.us.1.2
@@ -1477,14 +1477,14 @@ if.end58.i.us.us.us.1.2:                          ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.1.2 = add i32 %reass.mul.i.us.us.us.1.2, %rem.i.us.us.us.1.2
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread: ; preds = %if.end.i1190.us.us.us.1.2, %if.then.i1189.us.us.us.1.2
+calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread: ; preds = %if.end.i1188.us.us.us.1.2, %if.then.i1187.us.us.us.1.2
   %arrayidx252.us.us.us.1.21879 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %198
   store i32 -1, ptr %arrayidx252.us.us.us.1.21879, align 8, !tbaa !56
-  %add25.i1200.us.us.us.1.21880 = add i32 %reass.mul.i1199.us.us.us.2, %rem.i1195.us.us.us.1
+  %add25.i1198.us.us.us.1.21880 = add i32 %reass.mul.i1197.us.us.us.2, %rem.i1193.us.us.us.1
   %local_index.us.us.us.1.21881 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %198, i32 1
-  store i32 %add25.i1200.us.us.us.1.21880, ptr %local_index.us.us.us.1.21881, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.1.21880, ptr %local_index.us.us.us.1.21881, align 4, !tbaa !58
   %240 = add nsw i64 %283, 17
-  br label %if.then.i1189.us.us.us.2.2
+  br label %if.then.i1187.us.us.us.2.2
 
 calculate_neighboring_subdomain_rank.exit.us.us.us.1.2: ; preds = %if.end58.i.us.us.us.1.2, %if.end47.i.us.us.us.1.2, %if.then39.i.us.us.us.1.2, %if.end25.i.us.us.us.1.2, %if.then17.i.us.us.us.1.2
   %241 = phi i32 [ %43, %if.end58.i.us.us.us.1.2 ], [ %43, %if.then17.i.us.us.us.1.2 ], [ %43, %if.end25.i.us.us.us.1.2 ], [ %232, %if.then39.i.us.us.us.1.2 ], [ %232, %if.end47.i.us.us.us.1.2 ]
@@ -1496,32 +1496,32 @@ calculate_neighboring_subdomain_rank.exit.us.us.us.1.2: ; preds = %if.end58.i.us
   %retval.0.i.us.us.us.1.2 = phi i32 [ %add119.i.us.us.us.1.2, %if.end58.i.us.us.us.1.2 ], [ -1, %if.then17.i.us.us.us.1.2 ], [ -1, %if.end25.i.us.us.us.1.2 ], [ -1, %if.then39.i.us.us.us.1.2 ], [ -1, %if.end47.i.us.us.us.1.2 ]
   %arrayidx252.us.us.us.1.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %198
   store i32 %retval.0.i.us.us.us.1.2, ptr %arrayidx252.us.us.us.1.2, align 8, !tbaa !56
-  %add25.i1200.us.us.us.1.2 = add i32 %reass.mul.i1199.us.us.us.2, %rem.i1195.us.us.us.1
+  %add25.i1198.us.us.us.1.2 = add i32 %reass.mul.i1197.us.us.us.2, %rem.i1193.us.us.us.1
   %local_index.us.us.us.1.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %198, i32 1
-  store i32 %add25.i1200.us.us.us.1.2, ptr %local_index.us.us.us.1.2, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.1.2, ptr %local_index.us.us.us.1.2, align 4, !tbaa !58
   %247 = add nsw i64 %283, 17
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2.2, label %if.then.i1189.us.us.us.2.2
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us.2.2, label %if.then.i1187.us.us.us.2.2
 
-if.then.i1189.us.us.us.2.2:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2
+if.then.i1187.us.us.us.2.2:                       ; preds = %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2
   %248 = phi i64 [ %240, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread ], [ %247, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
   %249 = phi i32 [ %220, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread ], [ %245, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
   %250 = phi i32 [ %221, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread ], [ %243, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
   %251 = phi i32 [ %222, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2.thread ], [ %241, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  br i1 %cmp3.i.us.us.us.2.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.2, label %if.end.i1190.us.us.us.2.2
+  br i1 %cmp3.i.us.us.us.2.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.2, label %if.end.i1188.us.us.us.2.2
 
-if.end.i1190.us.us.us.2.2:                        ; preds = %if.then.i1189.us.us.us.2.2
+if.end.i1188.us.us.us.2.2:                        ; preds = %if.then.i1187.us.us.us.2.2
   %252 = load i32, ptr %subdomains_in, align 4, !tbaa !30
   %cmp11.not.i.us.us.us.2.2 = icmp slt i32 %add2.i.us.us.us.2.2, %252
   br i1 %cmp11.not.i.us.us.us.2.2, label %if.end14.i.us.us.us.2.2, label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.2
 
-if.end14.i.us.us.us.2.2:                          ; preds = %if.end.i1190.us.us.us.2.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2
-  %253 = phi i64 [ %248, %if.end.i1190.us.us.us.2.2 ], [ %247, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %254 = phi i32 [ %249, %if.end.i1190.us.us.us.2.2 ], [ %245, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %255 = phi i32 [ %250, %if.end.i1190.us.us.us.2.2 ], [ %243, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %256 = phi i32 [ %251, %if.end.i1190.us.us.us.2.2 ], [ %241, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %257 = phi i32 [ %42, %if.end.i1190.us.us.us.2.2 ], [ %242, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %258 = phi i32 [ %42, %if.end.i1190.us.us.us.2.2 ], [ %244, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
-  %259 = phi i32 [ %42, %if.end.i1190.us.us.us.2.2 ], [ %246, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+if.end14.i.us.us.us.2.2:                          ; preds = %if.end.i1188.us.us.us.2.2, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2
+  %253 = phi i64 [ %248, %if.end.i1188.us.us.us.2.2 ], [ %247, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %254 = phi i32 [ %249, %if.end.i1188.us.us.us.2.2 ], [ %245, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %255 = phi i32 [ %250, %if.end.i1188.us.us.us.2.2 ], [ %243, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %256 = phi i32 [ %251, %if.end.i1188.us.us.us.2.2 ], [ %241, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %257 = phi i32 [ %42, %if.end.i1188.us.us.us.2.2 ], [ %242, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %258 = phi i32 [ %42, %if.end.i1188.us.us.us.2.2 ], [ %244, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
+  %259 = phi i32 [ %42, %if.end.i1188.us.us.us.2.2 ], [ %246, %calculate_neighboring_subdomain_rank.exit.us.us.us.1.2 ]
   %260 = load i32, ptr %j77, align 4, !tbaa !31
   %cmp16.not.i.us.us.us.2.2 = icmp eq i32 %260, 0
   br i1 %cmp16.not.i.us.us.us.2.2, label %if.end36.i.us.us.us.2.2, label %if.then17.i.us.us.us.2.2
@@ -1566,9 +1566,9 @@ if.end58.i.us.us.us.2.2:                          ; preds = %if.end47.i.us.us.us
   %rk.addr.0.i.us.us.us.2.2 = add nsw i32 %add91.lobit.i.us.us.us.2.2, %div
   %cmp99.not.i.us.us.us.2.2 = icmp sge i32 %add91.pre-phi.i.us.us.us.2.2, %44
   %inc101.i.us.us.us.2.2 = zext i1 %cmp99.not.i.us.us.us.2.2 to i32
+  %rk.addr.1.i.us.us.us.2.2 = add nsw i32 %rk.addr.0.i.us.us.us.2.2, %inc101.i.us.us.us.2.2
   %269 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i.us.us.us.2.2 = add i32 %rk.addr.0.i.us.us.us.2.2, %inc101.i.us.us.us.2.2
-  %add105.i.us.us.us.2.2 = add i32 %rk.addr.1.i.us.us.us.2.2, %269
+  %add105.i.us.us.us.2.2 = add nsw i32 %rk.addr.1.i.us.us.us.2.2, %269
   %rem108.i.us.us.us.2.2 = srem i32 %add105.i.us.us.us.2.2, %269
   %mul118.i.us.us.us.2.2 = mul i32 %rem108.i.us.us.us.2.2, %268
   %reass.add.i.us.us.us.2.2 = add i32 %mul118.i.us.us.us.2.2, %rem90.i.us.us.us.2.2
@@ -1576,20 +1576,20 @@ if.end58.i.us.us.us.2.2:                          ; preds = %if.end47.i.us.us.us
   %add119.i.us.us.us.2.2 = add i32 %reass.mul.i.us.us.us.2.2, %rem.i.us.us.us.2.2
   br label %calculate_neighboring_subdomain_rank.exit.us.us.us.2.2
 
-calculate_neighboring_subdomain_rank.exit.us.us.us.2.2: ; preds = %if.end58.i.us.us.us.2.2, %if.end47.i.us.us.us.2.2, %if.then39.i.us.us.us.2.2, %if.end25.i.us.us.us.2.2, %if.then17.i.us.us.us.2.2, %if.end.i1190.us.us.us.2.2, %if.then.i1189.us.us.us.2.2
-  %270 = phi i64 [ %253, %if.end58.i.us.us.us.2.2 ], [ %248, %if.then.i1189.us.us.us.2.2 ], [ %248, %if.end.i1190.us.us.us.2.2 ], [ %253, %if.then17.i.us.us.us.2.2 ], [ %253, %if.end25.i.us.us.us.2.2 ], [ %253, %if.then39.i.us.us.us.2.2 ], [ %253, %if.end47.i.us.us.us.2.2 ]
-  %271 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %251, %if.then.i1189.us.us.us.2.2 ], [ %251, %if.end.i1190.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %262, %if.then39.i.us.us.us.2.2 ], [ %262, %if.end47.i.us.us.us.2.2 ]
-  %272 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1189.us.us.us.2.2 ], [ %42, %if.end.i1190.us.us.us.2.2 ], [ %257, %if.then17.i.us.us.us.2.2 ], [ %257, %if.end25.i.us.us.us.2.2 ], [ %257, %if.then39.i.us.us.us.2.2 ], [ %257, %if.end47.i.us.us.us.2.2 ]
-  %273 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %250, %if.then.i1189.us.us.us.2.2 ], [ %250, %if.end.i1190.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %263, %if.then39.i.us.us.us.2.2 ], [ %263, %if.end47.i.us.us.us.2.2 ]
-  %274 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1189.us.us.us.2.2 ], [ %42, %if.end.i1190.us.us.us.2.2 ], [ %258, %if.then17.i.us.us.us.2.2 ], [ %258, %if.end25.i.us.us.us.2.2 ], [ %258, %if.then39.i.us.us.us.2.2 ], [ %258, %if.end47.i.us.us.us.2.2 ]
-  %275 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %249, %if.then.i1189.us.us.us.2.2 ], [ %249, %if.end.i1190.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %264, %if.then39.i.us.us.us.2.2 ], [ %264, %if.end47.i.us.us.us.2.2 ]
-  %276 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1189.us.us.us.2.2 ], [ %42, %if.end.i1190.us.us.us.2.2 ], [ %259, %if.then17.i.us.us.us.2.2 ], [ %259, %if.end25.i.us.us.us.2.2 ], [ %259, %if.then39.i.us.us.us.2.2 ], [ %259, %if.end47.i.us.us.us.2.2 ]
-  %retval.0.i.us.us.us.2.2 = phi i32 [ %add119.i.us.us.us.2.2, %if.end58.i.us.us.us.2.2 ], [ -1, %if.then.i1189.us.us.us.2.2 ], [ -1, %if.end.i1190.us.us.us.2.2 ], [ -1, %if.then17.i.us.us.us.2.2 ], [ -1, %if.end25.i.us.us.us.2.2 ], [ -1, %if.then39.i.us.us.us.2.2 ], [ -1, %if.end47.i.us.us.us.2.2 ]
+calculate_neighboring_subdomain_rank.exit.us.us.us.2.2: ; preds = %if.end58.i.us.us.us.2.2, %if.end47.i.us.us.us.2.2, %if.then39.i.us.us.us.2.2, %if.end25.i.us.us.us.2.2, %if.then17.i.us.us.us.2.2, %if.end.i1188.us.us.us.2.2, %if.then.i1187.us.us.us.2.2
+  %270 = phi i64 [ %253, %if.end58.i.us.us.us.2.2 ], [ %248, %if.then.i1187.us.us.us.2.2 ], [ %248, %if.end.i1188.us.us.us.2.2 ], [ %253, %if.then17.i.us.us.us.2.2 ], [ %253, %if.end25.i.us.us.us.2.2 ], [ %253, %if.then39.i.us.us.us.2.2 ], [ %253, %if.end47.i.us.us.us.2.2 ]
+  %271 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %251, %if.then.i1187.us.us.us.2.2 ], [ %251, %if.end.i1188.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %262, %if.then39.i.us.us.us.2.2 ], [ %262, %if.end47.i.us.us.us.2.2 ]
+  %272 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1187.us.us.us.2.2 ], [ %42, %if.end.i1188.us.us.us.2.2 ], [ %257, %if.then17.i.us.us.us.2.2 ], [ %257, %if.end25.i.us.us.us.2.2 ], [ %257, %if.then39.i.us.us.us.2.2 ], [ %257, %if.end47.i.us.us.us.2.2 ]
+  %273 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %250, %if.then.i1187.us.us.us.2.2 ], [ %250, %if.end.i1188.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %263, %if.then39.i.us.us.us.2.2 ], [ %263, %if.end47.i.us.us.us.2.2 ]
+  %274 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1187.us.us.us.2.2 ], [ %42, %if.end.i1188.us.us.us.2.2 ], [ %258, %if.then17.i.us.us.us.2.2 ], [ %258, %if.end25.i.us.us.us.2.2 ], [ %258, %if.then39.i.us.us.us.2.2 ], [ %258, %if.end47.i.us.us.us.2.2 ]
+  %275 = phi i32 [ %43, %if.end58.i.us.us.us.2.2 ], [ %249, %if.then.i1187.us.us.us.2.2 ], [ %249, %if.end.i1188.us.us.us.2.2 ], [ %43, %if.then17.i.us.us.us.2.2 ], [ %43, %if.end25.i.us.us.us.2.2 ], [ %264, %if.then39.i.us.us.us.2.2 ], [ %264, %if.end47.i.us.us.us.2.2 ]
+  %276 = phi i32 [ %42, %if.end58.i.us.us.us.2.2 ], [ %42, %if.then.i1187.us.us.us.2.2 ], [ %42, %if.end.i1188.us.us.us.2.2 ], [ %259, %if.then17.i.us.us.us.2.2 ], [ %259, %if.end25.i.us.us.us.2.2 ], [ %259, %if.then39.i.us.us.us.2.2 ], [ %259, %if.end47.i.us.us.us.2.2 ]
+  %retval.0.i.us.us.us.2.2 = phi i32 [ %add119.i.us.us.us.2.2, %if.end58.i.us.us.us.2.2 ], [ -1, %if.then.i1187.us.us.us.2.2 ], [ -1, %if.end.i1188.us.us.us.2.2 ], [ -1, %if.then17.i.us.us.us.2.2 ], [ -1, %if.end25.i.us.us.us.2.2 ], [ -1, %if.then39.i.us.us.us.2.2 ], [ -1, %if.end47.i.us.us.us.2.2 ]
   %arrayidx252.us.us.us.2.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %270
   store i32 %retval.0.i.us.us.us.2.2, ptr %arrayidx252.us.us.us.2.2, align 8, !tbaa !56
-  %add25.i1200.us.us.us.2.2 = add i32 %reass.mul.i1199.us.us.us.2, %rem.i1195.us.us.us.2
+  %add25.i1198.us.us.us.2.2 = add i32 %reass.mul.i1197.us.us.us.2, %rem.i1193.us.us.us.2
   %local_index.us.us.us.2.2 = getelementptr inbounds %struct.subdomain_type, ptr %41, i64 %idxprom224.us.us.us, i32 4, i64 %270, i32 1
-  store i32 %add25.i1200.us.us.us.2.2, ptr %local_index.us.us.us.2.2, align 4, !tbaa !58
+  store i32 %add25.i1198.us.us.us.2.2, ptr %local_index.us.us.us.2.2, align 4, !tbaa !58
   %indvars.iv.next1751 = add nsw i64 %indvars.iv1750, 1
   %exitcond1758.not = icmp eq i64 %indvars.iv.next1751, 2
   br i1 %exitcond1758.not, label %for.end269.us.us.us, label %for.cond233.preheader.us.us.us, !llvm.loop !59
@@ -1612,10 +1612,10 @@ for.cond233.preheader.us.us.us:                   ; preds = %calculate_neighbori
   %mul24.i.us.us.us = mul i32 %rem15.i.us.us.us, %43
   %add43.i.us.us.us = add nsw i32 %indvars1757, %23
   %287 = add nsw i64 %283, 10
-  %reass.add.i1198.us.us.us = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us
-  %reass.mul.i1199.us.us.us = mul i32 %reass.add.i1198.us.us.us, %42
+  %reass.add.i1196.us.us.us = add i32 %mul24.i.us.us.us, %rem9.i.us.us.us
+  %reass.mul.i1197.us.us.us = mul i32 %reass.add.i1196.us.us.us, %42
   %288 = add nsw i64 %283, 9
-  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us, label %if.then.i1189.us.us.us
+  br i1 %cmp.not.i.us.us.us, label %if.end14.i.us.us.us, label %if.then.i1187.us.us.us
 
 for.cond205.for.inc273_crit_edge.us.us.us:        ; preds = %for.end269.us.us.us
   %exitcond1780.not = icmp eq i64 %32, %wide.trip.count1779
@@ -1813,7 +1813,7 @@ for.cond284.preheader.us.us.preheader:            ; preds = %for.cond284.prehead
 
 for.cond284.preheader.lr.ph.split.us.split.us.split.us: ; preds = %for.cond284.preheader.lr.ph.split.us.split.us
   %320 = load i32, ptr %boundary_condition, align 8, !tbaa !29
-  %cmp.not.i1202.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %320, 0
+  %cmp.not.i1200.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %320, 0
   %321 = load i32, ptr %rank1, align 4, !tbaa !38
   %wide.trip.count1818 = zext i32 %319 to i64
   %wide.trip.count1807 = zext i32 %subdomains_per_rank_in_i to i64
@@ -1899,9 +1899,9 @@ for.cond311.preheader.us.us.us.us.us.us.us.us.us.us.us: ; preds = %for.cond311.f
   %k.11376.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ 0, %for.body291.us.us.us.us.us.us.us.us.us ], [ %inc717.us.us.us.us.us.us.us.us.us.us.us, %for.cond311.for.inc716_crit_edge.split.us.us.us.us.us.us.us.us.us.us.us.us ]
   %buffer.11375.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %buffer.01422.us.us.us.us.us.us.us.us.us, %for.body291.us.us.us.us.us.us.us.us.us ], [ %buffer.4.us.us.us.us.us.us.us.us.us.us.us.us, %for.cond311.for.inc716_crit_edge.split.us.us.us.us.us.us.us.us.us.us.us.us ]
   %mul322.us.us.us.us.us.us.us.us.us.us.us = mul i32 %k.11376.us.us.us.us.us.us.us.us.us.us.us, %subdomains_per_rank_in_j
-  %add43.i1232.us.us.us.us.us.us.us.us.us.us.us = add i32 %k.11376.us.us.us.us.us.us.us.us.us.us.us, %sub306.us.us.us.us.us.us.us.us.us
-  %add91.lobit.i1260.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %add43.i1232.us.us.us.us.us.us.us.us.us.us.us, 31
-  %rk.addr.0.i1261.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add91.lobit.i1260.us.us.us.us.us.us.us.us.us.us.us.us, %div
+  %add43.i1230.us.us.us.us.us.us.us.us.us.us.us = add i32 %k.11376.us.us.us.us.us.us.us.us.us.us.us, %sub306.us.us.us.us.us.us.us.us.us
+  %add91.lobit.i1258.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %add43.i1230.us.us.us.us.us.us.us.us.us.us.us, 31
+  %rk.addr.0.i1259.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add91.lobit.i1258.us.us.us.us.us.us.us.us.us.us.us.us, %div
   br label %for.cond315.preheader.us.us.us.us.us.us.us.us.us.us.us.us
 
 for.cond315.preheader.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %for.cond315.for.inc713_crit_edge.us.us.us.us.us.us.us.us.us.us.us.us, %for.cond311.preheader.us.us.us.us.us.us.us.us.us.us.us
@@ -1918,9 +1918,9 @@ for.cond315.preheader.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %for.cond31
   %buffer.21343.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %buffer.11375.us.us.us.us.us.us.us.us.us.us.us, %for.cond311.preheader.us.us.us.us.us.us.us.us.us.us.us ], [ %buffer.4.us.us.us.us.us.us.us.us.us.us.us.us, %for.cond315.for.inc713_crit_edge.us.us.us.us.us.us.us.us.us.us.us.us ]
   %reass.add.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %j.11344.us.us.us.us.us.us.us.us.us.us.us.us, %mul322.us.us.us.us.us.us.us.us.us.us.us
   %reass.mul.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %reass.add.us.us.us.us.us.us.us.us.us.us.us.us, %subdomains_per_rank_in_i
-  %add21.i1217.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %j.11344.us.us.us.us.us.us.us.us.us.us.us.us, %sub302.us.us.us.us.us.us.us.us.us
-  %add73.lobit.i1251.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %add21.i1217.us.us.us.us.us.us.us.us.us.us.us.us, 31
-  %rj.addr.0.i1252.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add73.lobit.i1251.us.us.us.us.us.us.us.us.us.us.us.us, %div28
+  %add21.i1215.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %j.11344.us.us.us.us.us.us.us.us.us.us.us.us, %sub302.us.us.us.us.us.us.us.us.us
+  %add73.lobit.i1249.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %add21.i1215.us.us.us.us.us.us.us.us.us.us.us.us, 31
+  %rj.addr.0.i1250.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add73.lobit.i1249.us.us.us.us.us.us.us.us.us.us.us.us, %div28
   br label %for.body318.us.us.us.us.us.us.us.us.us.us.us.us
 
 for.body318.us.us.us.us.us.us.us.us.us.us.us.us:  ; preds = %if.end709.us.us.us.us.us.us.us.us.us.us.us.us, %for.cond315.preheader.us.us.us.us.us.us.us.us.us.us.us.us
@@ -1937,107 +1937,107 @@ for.body318.us.us.us.us.us.us.us.us.us.us.us.us:  ; preds = %if.end709.us.us.us.
   %buffer.31321.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %buffer.4.us.us.us.us.us.us.us.us.us.us.us.us, %if.end709.us.us.us.us.us.us.us.us.us.us.us.us ], [ %buffer.21343.us.us.us.us.us.us.us.us.us.us.us.us, %for.cond315.preheader.us.us.us.us.us.us.us.us.us.us.us.us ]
   %324 = trunc i64 %indvars.iv1803 to i32
   %add323.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %reass.mul.us.us.us.us.us.us.us.us.us.us.us.us, %324
-  br i1 %cmp.not.i1202.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end14.i1214.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then.i1208.us.us.us.us.us.us.us.us.us.us.us.us
+  br i1 %cmp.not.i1200.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end14.i1212.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then.i1206.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.then.i1208.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %for.body318.us.us.us.us.us.us.us.us.us.us.us.us
+if.then.i1206.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %for.body318.us.us.us.us.us.us.us.us.us.us.us.us
   %325 = load i32, ptr %subdomains_per_rank_in, align 8, !tbaa !23
-  %mul.i1204.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %325, %sub33.recomposed
-  %add.i1205.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %sub298.us.us.us.us.us.us.us.us.us, %324
-  %add2.i1206.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add.i1205.us.us.us.us.us.us.us.us.us.us.us.us, %mul.i1204.us.us.us.us.us.us.us.us.us.us.us.us
-  %cmp3.i1207.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add2.i1206.us.us.us.us.us.us.us.us.us.us.us.us, 0
-  br i1 %cmp3.i1207.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end.i1211.us.us.us.us.us.us.us.us.us.us.us.us
+  %mul.i1202.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %325, %sub33.recomposed
+  %add.i1203.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %sub298.us.us.us.us.us.us.us.us.us, %324
+  %add2.i1204.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add.i1203.us.us.us.us.us.us.us.us.us.us.us.us, %mul.i1202.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp3.i1205.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add2.i1204.us.us.us.us.us.us.us.us.us.us.us.us, 0
+  br i1 %cmp3.i1205.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end.i1209.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end.i1211.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then.i1208.us.us.us.us.us.us.us.us.us.us.us.us
+if.end.i1209.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then.i1206.us.us.us.us.us.us.us.us.us.us.us.us
   %326 = load i32, ptr %subdomains_in, align 4, !tbaa !30
-  %cmp11.not.i1210.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add2.i1206.us.us.us.us.us.us.us.us.us.us.us.us, %326
-  br i1 %cmp11.not.i1210.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end14.i1214.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp11.not.i1208.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add2.i1204.us.us.us.us.us.us.us.us.us.us.us.us, %326
+  br i1 %cmp11.not.i1208.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end14.i1212.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end14.i1214.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end.i1211.us.us.us.us.us.us.us.us.us.us.us.us, %for.body318.us.us.us.us.us.us.us.us.us.us.us.us
+if.end14.i1212.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end.i1209.us.us.us.us.us.us.us.us.us.us.us.us, %for.body318.us.us.us.us.us.us.us.us.us.us.us.us
   %327 = load i32, ptr %j77, align 4, !tbaa !31
-  %cmp16.not.i1213.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %327, 0
-  br i1 %cmp16.not.i1213.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end36.i1228.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then17.i1220.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp16.not.i1211.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %327, 0
+  br i1 %cmp16.not.i1211.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end36.i1226.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then17.i1218.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.then17.i1220.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end14.i1214.us.us.us.us.us.us.us.us.us.us.us.us
+if.then17.i1218.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end14.i1212.us.us.us.us.us.us.us.us.us.us.us.us
   %328 = load i32, ptr %j41, align 4, !tbaa !27
-  %mul20.i1216.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %328, %div28
-  %add22.i1218.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add21.i1217.us.us.us.us.us.us.us.us.us.us.us.us, %mul20.i1216.us.us.us.us.us.us.us.us.us.us.us.us
-  %cmp23.i1219.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add22.i1218.us.us.us.us.us.us.us.us.us.us.us.us, 0
-  br i1 %cmp23.i1219.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end25.i1223.us.us.us.us.us.us.us.us.us.us.us.us
+  %mul20.i1214.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %328, %div28
+  %add22.i1216.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add21.i1215.us.us.us.us.us.us.us.us.us.us.us.us, %mul20.i1214.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp23.i1217.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add22.i1216.us.us.us.us.us.us.us.us.us.us.us.us, 0
+  br i1 %cmp23.i1217.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end25.i1221.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end25.i1223.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then17.i1220.us.us.us.us.us.us.us.us.us.us.us.us
+if.end25.i1221.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then17.i1218.us.us.us.us.us.us.us.us.us.us.us.us
   %329 = load i32, ptr %j48, align 4, !tbaa !32
-  %cmp33.not.i1222.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add22.i1218.us.us.us.us.us.us.us.us.us.us.us.us, %329
-  br i1 %cmp33.not.i1222.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end36.i1228.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp33.not.i1220.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add22.i1216.us.us.us.us.us.us.us.us.us.us.us.us, %329
+  br i1 %cmp33.not.i1220.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end36.i1226.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end36.i1228.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end25.i1223.us.us.us.us.us.us.us.us.us.us.us.us, %if.end14.i1214.us.us.us.us.us.us.us.us.us.us.us.us
+if.end36.i1226.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end25.i1221.us.us.us.us.us.us.us.us.us.us.us.us, %if.end14.i1212.us.us.us.us.us.us.us.us.us.us.us.us
   %330 = load i32, ptr %k80, align 8, !tbaa !33
-  %cmp38.not.i1225.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %330, 0
-  %.pre.i1227.us.us.us.us.us.us.us.us.us.us.us.us = load i32, ptr %k43, align 8, !tbaa !28
-  br i1 %cmp38.not.i1225.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end58.i1272.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then39.i1235.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp38.not.i1223.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %330, 0
+  %.pre.i1225.us.us.us.us.us.us.us.us.us.us.us.us = load i32, ptr %k43, align 8, !tbaa !28
+  br i1 %cmp38.not.i1223.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end58.i1270.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then39.i1233.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.then39.i1235.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end36.i1228.us.us.us.us.us.us.us.us.us.us.us.us
-  %mul42.i1231.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %.pre.i1227.us.us.us.us.us.us.us.us.us.us.us.us, %div
-  %add44.i1233.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul42.i1231.us.us.us.us.us.us.us.us.us.us.us.us, %add43.i1232.us.us.us.us.us.us.us.us.us.us.us
-  %cmp45.i1234.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add44.i1233.us.us.us.us.us.us.us.us.us.us.us.us, 0
-  br i1 %cmp45.i1234.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end47.i1238.us.us.us.us.us.us.us.us.us.us.us.us
+if.then39.i1233.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end36.i1226.us.us.us.us.us.us.us.us.us.us.us.us
+  %mul42.i1229.us.us.us.us.us.us.us.us.us.us.us.us = mul nsw i32 %.pre.i1225.us.us.us.us.us.us.us.us.us.us.us.us, %div
+  %add44.i1231.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul42.i1229.us.us.us.us.us.us.us.us.us.us.us.us, %add43.i1230.us.us.us.us.us.us.us.us.us.us.us
+  %cmp45.i1232.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add44.i1231.us.us.us.us.us.us.us.us.us.us.us.us, 0
+  br i1 %cmp45.i1232.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end47.i1236.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end47.i1238.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then39.i1235.us.us.us.us.us.us.us.us.us.us.us.us
+if.end47.i1236.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.then39.i1233.us.us.us.us.us.us.us.us.us.us.us.us
   %331 = load i32, ptr %k51, align 4, !tbaa !34
-  %cmp55.not.i1237.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add44.i1233.us.us.us.us.us.us.us.us.us.us.us.us, %331
-  br i1 %cmp55.not.i1237.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end58.i1272.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
+  %cmp55.not.i1235.us.us.us.us.us.us.us.us.us.us.us.us = icmp slt i32 %add44.i1231.us.us.us.us.us.us.us.us.us.us.us.us, %331
+  br i1 %cmp55.not.i1235.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end58.i1270.us.us.us.us.us.us.us.us.us.us.us.us, label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end58.i1272.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end36.i1228.us.us.us.us.us.us.us.us.us.us.us.us, %if.end47.i1238.us.us.us.us.us.us.us.us.us.us.us.us
+if.end58.i1270.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end36.i1226.us.us.us.us.us.us.us.us.us.us.us.us, %if.end47.i1236.us.us.us.us.us.us.us.us.us.us.us.us
   %332 = add nsw i64 %indvars.iv1803, %323
   %333 = trunc i64 %332 to i32
-  %add59.lobit.i1241.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %333, 31
-  %spec.select.i1242.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add59.lobit.i1241.us.us.us.us.us.us.us.us.us.us.us.us, %sub33.recomposed
+  %add59.lobit.i1239.us.us.us.us.us.us.us.us.us.us.us.us = ashr i32 %333, 31
+  %spec.select.i1240.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %add59.lobit.i1239.us.us.us.us.us.us.us.us.us.us.us.us, %sub33.recomposed
   %334 = load i32, ptr %subdomains_per_rank_in, align 8, !tbaa !23
   %335 = sext i32 %334 to i64
-  %cmp66.not.i1244.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i64 %332, %335
-  %inc.i1245.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp66.not.i1244.us.us.us.us.us.us.us.us.us.us.us.us to i32
+  %cmp66.not.i1242.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i64 %332, %335
+  %inc.i1243.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp66.not.i1242.us.us.us.us.us.us.us.us.us.us.us.us to i32
   %336 = load i32, ptr %ranks_in, align 4, !tbaa !35
-  %ri.addr.1.i1247.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %spec.select.i1242.us.us.us.us.us.us.us.us.us.us.us.us, %336
-  %add70.i1248.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %ri.addr.1.i1247.us.us.us.us.us.us.us.us.us.us.us.us, %inc.i1245.us.us.us.us.us.us.us.us.us.us.us.us
-  %rem.i1249.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add70.i1248.us.us.us.us.us.us.us.us.us.us.us.us, %336
+  %ri.addr.1.i1244.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %spec.select.i1240.us.us.us.us.us.us.us.us.us.us.us.us, %336
+  %add70.i1246.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %ri.addr.1.i1244.us.us.us.us.us.us.us.us.us.us.us.us, %inc.i1243.us.us.us.us.us.us.us.us.us.us.us.us
+  %rem.i1247.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add70.i1246.us.us.us.us.us.us.us.us.us.us.us.us, %336
   %337 = load i32, ptr %j41, align 4, !tbaa !27
-  %cmp81.not.i1254.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i32 %add21.i1217.us.us.us.us.us.us.us.us.us.us.us.us, %337
-  %inc83.i1255.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp81.not.i1254.us.us.us.us.us.us.us.us.us.us.us.us to i32
+  %cmp81.not.i1252.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i32 %add21.i1215.us.us.us.us.us.us.us.us.us.us.us.us, %337
+  %inc83.i1253.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp81.not.i1252.us.us.us.us.us.us.us.us.us.us.us.us to i32
   %338 = load i32, ptr %j36, align 4, !tbaa !36
-  %rj.addr.1.i1257.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rj.addr.0.i1252.us.us.us.us.us.us.us.us.us.us.us.us, %338
-  %add87.i1258.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rj.addr.1.i1257.us.us.us.us.us.us.us.us.us.us.us.us, %inc83.i1255.us.us.us.us.us.us.us.us.us.us.us.us
-  %rem90.i1259.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add87.i1258.us.us.us.us.us.us.us.us.us.us.us.us, %338
-  %cmp99.not.i1262.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i32 %add43.i1232.us.us.us.us.us.us.us.us.us.us.us, %.pre.i1227.us.us.us.us.us.us.us.us.us.us.us.us
-  %inc101.i1263.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp99.not.i1262.us.us.us.us.us.us.us.us.us.us.us.us to i32
+  %rj.addr.1.i1254.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rj.addr.0.i1250.us.us.us.us.us.us.us.us.us.us.us.us, %338
+  %add87.i1256.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rj.addr.1.i1254.us.us.us.us.us.us.us.us.us.us.us.us, %inc83.i1253.us.us.us.us.us.us.us.us.us.us.us.us
+  %rem90.i1257.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add87.i1256.us.us.us.us.us.us.us.us.us.us.us.us, %338
+  %cmp99.not.i1260.us.us.us.us.us.us.us.us.us.us.us.us = icmp sge i32 %add43.i1230.us.us.us.us.us.us.us.us.us.us.us, %.pre.i1225.us.us.us.us.us.us.us.us.us.us.us.us
+  %inc101.i1261.us.us.us.us.us.us.us.us.us.us.us.us = zext i1 %cmp99.not.i1260.us.us.us.us.us.us.us.us.us.us.us.us to i32
+  %rk.addr.1.i1262.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %rk.addr.0.i1259.us.us.us.us.us.us.us.us.us.us.us.us, %inc101.i1261.us.us.us.us.us.us.us.us.us.us.us.us
   %339 = load i32, ptr %k38, align 4, !tbaa !37
-  %rk.addr.1.i1265.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rk.addr.0.i1261.us.us.us.us.us.us.us.us.us.us.us.us, %inc101.i1263.us.us.us.us.us.us.us.us.us.us.us.us
-  %add105.i1266.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %rk.addr.1.i1265.us.us.us.us.us.us.us.us.us.us.us.us, %339
-  %rem108.i1267.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add105.i1266.us.us.us.us.us.us.us.us.us.us.us.us, %339
-  %mul118.i1268.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %rem108.i1267.us.us.us.us.us.us.us.us.us.us.us.us, %338
-  %reass.add.i1269.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul118.i1268.us.us.us.us.us.us.us.us.us.us.us.us, %rem90.i1259.us.us.us.us.us.us.us.us.us.us.us.us
-  %reass.mul.i1270.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %reass.add.i1269.us.us.us.us.us.us.us.us.us.us.us.us, %336
-  %add119.i1271.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %reass.mul.i1270.us.us.us.us.us.us.us.us.us.us.us.us, %rem.i1249.us.us.us.us.us.us.us.us.us.us.us.us
-  br label %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
+  %add105.i1264.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %rk.addr.1.i1262.us.us.us.us.us.us.us.us.us.us.us.us, %339
+  %rem108.i1265.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add105.i1264.us.us.us.us.us.us.us.us.us.us.us.us, %339
+  %mul118.i1266.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %rem108.i1265.us.us.us.us.us.us.us.us.us.us.us.us, %338
+  %reass.add.i1267.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul118.i1266.us.us.us.us.us.us.us.us.us.us.us.us, %rem90.i1257.us.us.us.us.us.us.us.us.us.us.us.us
+  %reass.mul.i1268.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %reass.add.i1267.us.us.us.us.us.us.us.us.us.us.us.us, %336
+  %add119.i1269.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %reass.mul.i1268.us.us.us.us.us.us.us.us.us.us.us.us, %rem.i1247.us.us.us.us.us.us.us.us.us.us.us.us
+  br label %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
 
-calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end58.i1272.us.us.us.us.us.us.us.us.us.us.us.us, %if.end47.i1238.us.us.us.us.us.us.us.us.us.us.us.us, %if.then39.i1235.us.us.us.us.us.us.us.us.us.us.us.us, %if.end25.i1223.us.us.us.us.us.us.us.us.us.us.us.us, %if.then17.i1220.us.us.us.us.us.us.us.us.us.us.us.us, %if.end.i1211.us.us.us.us.us.us.us.us.us.us.us.us, %if.then.i1208.us.us.us.us.us.us.us.us.us.us.us.us
-  %retval.0.i1273.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %add119.i1271.us.us.us.us.us.us.us.us.us.us.us.us, %if.end58.i1272.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then.i1208.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end.i1211.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then17.i1220.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end25.i1223.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then39.i1235.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end47.i1238.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %cmp326.not.not.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %retval.0.i1273.us.us.us.us.us.us.us.us.us.us.us.us, %321
+calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us: ; preds = %if.end58.i1270.us.us.us.us.us.us.us.us.us.us.us.us, %if.end47.i1236.us.us.us.us.us.us.us.us.us.us.us.us, %if.then39.i1233.us.us.us.us.us.us.us.us.us.us.us.us, %if.end25.i1221.us.us.us.us.us.us.us.us.us.us.us.us, %if.then17.i1218.us.us.us.us.us.us.us.us.us.us.us.us, %if.end.i1209.us.us.us.us.us.us.us.us.us.us.us.us, %if.then.i1206.us.us.us.us.us.us.us.us.us.us.us.us
+  %retval.0.i1271.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %add119.i1269.us.us.us.us.us.us.us.us.us.us.us.us, %if.end58.i1270.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then.i1206.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end.i1209.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then17.i1218.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end25.i1221.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.then39.i1233.us.us.us.us.us.us.us.us.us.us.us.us ], [ -1, %if.end47.i1236.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %cmp326.not.not.us.us.us.us.us.us.us.us.us.us.us.us = icmp eq i32 %retval.0.i1271.us.us.us.us.us.us.us.us.us.us.us.us, %321
   br i1 %cmp326.not.not.us.us.us.us.us.us.us.us.us.us.us.us, label %if.then330.us.us.us.us.us.us.us.us.us.us.us.us, label %if.end709.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.then330.us.us.us.us.us.us.us.us.us.us.us.us:   ; preds = %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
+if.then330.us.us.us.us.us.us.us.us.us.us.us.us:   ; preds = %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
   %340 = load i32, ptr %subdomains_per_rank_in, align 8, !tbaa !23
-  %add.i1276.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %sub298.us.us.us.us.us.us.us.us.us, %324
-  %add1.i1277.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add.i1276.us.us.us.us.us.us.us.us.us.us.us.us, %340
-  %rem.i1278.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add1.i1277.us.us.us.us.us.us.us.us.us.us.us.us, %340
+  %add.i1274.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %sub298.us.us.us.us.us.us.us.us.us, %324
+  %add1.i1275.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add.i1274.us.us.us.us.us.us.us.us.us.us.us.us, %340
+  %rem.i1276.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add1.i1275.us.us.us.us.us.us.us.us.us.us.us.us, %340
   %341 = load i32, ptr %j41, align 4, !tbaa !27
-  %add6.i1281.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add21.i1217.us.us.us.us.us.us.us.us.us.us.us.us, %341
-  %rem9.i1282.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add6.i1281.us.us.us.us.us.us.us.us.us.us.us.us, %341
+  %add6.i1279.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add21.i1215.us.us.us.us.us.us.us.us.us.us.us.us, %341
+  %rem9.i1280.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add6.i1279.us.us.us.us.us.us.us.us.us.us.us.us, %341
   %342 = load i32, ptr %k43, align 8, !tbaa !28
-  %add12.i1285.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add43.i1232.us.us.us.us.us.us.us.us.us.us.us, %342
-  %rem15.i1286.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add12.i1285.us.us.us.us.us.us.us.us.us.us.us.us, %342
-  %mul24.i1287.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %rem15.i1286.us.us.us.us.us.us.us.us.us.us.us.us, %341
-  %reass.add.i1288.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul24.i1287.us.us.us.us.us.us.us.us.us.us.us.us, %rem9.i1282.us.us.us.us.us.us.us.us.us.us.us.us
-  %reass.mul.i1289.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %reass.add.i1288.us.us.us.us.us.us.us.us.us.us.us.us, %340
-  %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %reass.mul.i1289.us.us.us.us.us.us.us.us.us.us.us.us, %rem.i1278.us.us.us.us.us.us.us.us.us.us.us.us
+  %add12.i1283.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %add43.i1230.us.us.us.us.us.us.us.us.us.us.us, %342
+  %rem15.i1284.us.us.us.us.us.us.us.us.us.us.us.us = srem i32 %add12.i1283.us.us.us.us.us.us.us.us.us.us.us.us, %342
+  %mul24.i1285.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %rem15.i1284.us.us.us.us.us.us.us.us.us.us.us.us, %341
+  %reass.add.i1286.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %mul24.i1285.us.us.us.us.us.us.us.us.us.us.us.us, %rem9.i1280.us.us.us.us.us.us.us.us.us.us.us.us
+  %reass.mul.i1287.us.us.us.us.us.us.us.us.us.us.us.us = mul i32 %reass.add.i1286.us.us.us.us.us.us.us.us.us.us.us.us, %340
+  %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us = add i32 %reass.mul.i1287.us.us.us.us.us.us.us.us.us.us.us.us, %rem.i1276.us.us.us.us.us.us.us.us.us.us.us.us
   switch i32 %rem297.us.us.us.us.us.us.us.us.us, label %sw.epilog.us.us.us.us.us.us.us.us.us.us.us.us [
     i32 0, label %sw.bb.us.us.us.us.us.us.us.us.us.us.us.us
     i32 1, label %sw.bb361.us.us.us.us.us.us.us.us.us.us.us.us
@@ -2064,7 +2064,7 @@ sw.bb361.us.us.us.us.us.us.us.us.us.us.us.us:     ; preds = %if.then330.us.us.us
   %349 = load i32, ptr %ghosts368.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
   %dim375.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %348, i64 %indvars.iv1815, i32 2
   %350 = load i32, ptr %dim375.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !65
-  %idxprom378.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom378.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels380.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %347, i64 %idxprom378.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %351 = load ptr, ptr %levels380.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts383.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %351, i64 %indvars.iv1815, i32 4
@@ -2078,7 +2078,7 @@ sw.bb.us.us.us.us.us.us.us.us.us.us.us.us:        ; preds = %if.then330.us.us.us
   %354 = load ptr, ptr %levels.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts337.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %354, i64 %indvars.iv1815, i32 4
   %355 = load i32, ptr %ghosts337.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
-  %idxprom346.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom346.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels348.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %353, i64 %idxprom346.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %356 = load ptr, ptr %levels348.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts351.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %356, i64 %indvars.iv1815, i32 4
@@ -2118,7 +2118,7 @@ sw.bb431.us.us.us.us.us.us.us.us.us.us.us.us:     ; preds = %sw.epilog.us.us.us.
   %365 = load i32, ptr %ghosts438.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
   %j446.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %364, i64 %indvars.iv1815, i32 2, i32 1
   %366 = load i32, ptr %j446.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !68
-  %idxprom448.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom448.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels450.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %363, i64 %idxprom448.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %367 = load ptr, ptr %levels450.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts453.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %367, i64 %indvars.iv1815, i32 4
@@ -2132,7 +2132,7 @@ sw.bb400.us.us.us.us.us.us.us.us.us.us.us.us:     ; preds = %sw.epilog.us.us.us.
   %370 = load ptr, ptr %levels404.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts407.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %370, i64 %indvars.iv1815, i32 4
   %371 = load i32, ptr %ghosts407.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
-  %idxprom416.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom416.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels418.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %369, i64 %idxprom416.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %372 = load ptr, ptr %levels418.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts421.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %372, i64 %indvars.iv1815, i32 4
@@ -2172,7 +2172,7 @@ sw.bb502.us.us.us.us.us.us.us.us.us.us.us.us:     ; preds = %sw.epilog470.us.us.
   %381 = load i32, ptr %ghosts509.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
   %k517.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %380, i64 %indvars.iv1815, i32 2, i32 2
   %382 = load i32, ptr %k517.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !69
-  %idxprom519.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom519.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels521.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %379, i64 %idxprom519.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %383 = load ptr, ptr %levels521.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts524.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %383, i64 %indvars.iv1815, i32 4
@@ -2186,7 +2186,7 @@ sw.bb471.us.us.us.us.us.us.us.us.us.us.us.us:     ; preds = %sw.epilog470.us.us.
   %386 = load ptr, ptr %levels475.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts478.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %386, i64 %indvars.iv1815, i32 4
   %387 = load i32, ptr %ghosts478.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !67
-  %idxprom487.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom487.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels489.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %385, i64 %idxprom487.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %388 = load ptr, ptr %levels489.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %ghosts492.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %388, i64 %indvars.iv1815, i32 4
@@ -2231,17 +2231,18 @@ if.then544.us.us.us.us.us.us.us.us.us.us.us.us:   ; preds = %sw.epilog541.us.us.
   %395 = load <2 x i32>, ptr %pencil.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !44
   store <2 x i32> %395, ptr %pencil610.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !44
   %write.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %392, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
-  store i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us, ptr %write.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !80
+  store i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us, ptr %write.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !80
   %ptr636.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %392, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 5, i32 6
   store ptr null, ptr %ptr636.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !81
   %396 = load ptr, ptr %arrayidx546.us.us.us, align 8, !tbaa !39
+  %arrayidx641.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us
   %i643.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 5, i32 1
   store i32 %recv_i.6.us.us.us.us.us.us.us.us.us.us.us.us, ptr %i643.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !82
   %j650.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 5, i32 2
   store i32 %recv_j.6.us.us.us.us.us.us.us.us.us.us.us.us, ptr %j650.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !83
   %k657.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 5, i32 3
   store i32 %recv_k.6.us.us.us.us.us.us.us.us.us.us.us.us, ptr %k657.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !84
-  %idxprom659.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1290.us.us.us.us.us.us.us.us.us.us.us.us to i64
+  %idxprom659.us.us.us.us.us.us.us.us.us.us.us.us = sext i32 %add25.i1288.us.us.us.us.us.us.us.us.us.us.us.us to i64
   %levels661.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.subdomain_type, ptr %393, i64 %idxprom659.us.us.us.us.us.us.us.us.us.us.us.us, i32 5
   %397 = load ptr, ptr %levels661.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !19
   %pencil664.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.box_type, ptr %397, i64 %indvars.iv1815, i32 5
@@ -2249,8 +2250,7 @@ if.then544.us.us.us.us.us.us.us.us.us.us.us.us:   ; preds = %sw.epilog541.us.us.
   %398 = load <2 x i32>, ptr %pencil664.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !44
   store <2 x i32> %398, ptr %pencil671.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !44
   %399 = load i32, ptr %arrayidx687.us.us.us.us.us.us.us.us.us, align 4, !tbaa !44
-  %arrayidx692.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us
-  store i32 %399, ptr %arrayidx692.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !85
+  store i32 %399, ptr %arrayidx641.us.us.us.us.us.us.us.us.us.us.us.us, align 8, !tbaa !85
   %400 = load i32, ptr %arrayidx694.us.us.us.us.us.us.us.us.us, align 4, !tbaa !44
   %isEdge.us.us.us.us.us.us.us.us.us.us.us.us = getelementptr inbounds %struct.bufferCopy_type, ptr %396, i64 %idxprom547.us.us.us.us.us.us.us.us.us.us.us.us, i32 1
   store i32 %400, ptr %isEdge.us.us.us.us.us.us.us.us.us.us.us.us, align 4, !tbaa !86
@@ -2263,17 +2263,17 @@ if.end707.us.us.us.us.us.us.us.us.us.us.us.us:    ; preds = %if.then544.us.us.us
   %inc708.us.us.us.us.us.us.us.us.us.us.us.us = add nsw i32 %buffer.31321.us.us.us.us.us.us.us.us.us.us.us.us, 1
   br label %if.end709.us.us.us.us.us.us.us.us.us.us.us.us
 
-if.end709.us.us.us.us.us.us.us.us.us.us.us.us:    ; preds = %if.end707.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us
-  %buffer.4.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %inc708.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %buffer.31321.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %send_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_i.51323.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %send_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_j.51324.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %send_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_k.51325.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %recv_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_i.51326.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %recv_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_j.51327.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %recv_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_k.51328.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %dim_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_i.51329.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %dim_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_j.51330.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
-  %dim_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_k.51331.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1274.us.us.us.us.us.us.us.us.us.us.us.us ]
+if.end709.us.us.us.us.us.us.us.us.us.us.us.us:    ; preds = %if.end707.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us
+  %buffer.4.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %inc708.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %buffer.31321.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %send_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_i.51323.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %send_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_j.51324.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %send_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %send_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %send_k.51325.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %recv_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_i.51326.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %recv_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_j.51327.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %recv_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %recv_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %recv_k.51328.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %dim_i.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_i.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_i.51329.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %dim_j.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_j.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_j.51330.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
+  %dim_k.7.us.us.us.us.us.us.us.us.us.us.us.us = phi i32 [ %dim_k.6.us.us.us.us.us.us.us.us.us.us.us.us, %if.end707.us.us.us.us.us.us.us.us.us.us.us.us ], [ %dim_k.51331.us.us.us.us.us.us.us.us.us.us.us.us, %calculate_neighboring_subdomain_rank.exit1272.us.us.us.us.us.us.us.us.us.us.us.us ]
   %indvars.iv.next1804 = add nuw nsw i64 %indvars.iv1803, 1
   %exitcond1808.not = icmp eq i64 %indvars.iv.next1804, %wide.trip.count1807
   br i1 %exitcond1808.not, label %for.cond315.for.inc713_crit_edge.us.us.us.us.us.us.us.us.us.us.us.us, label %for.body318.us.us.us.us.us.us.us.us.us.us.us.us, !llvm.loop !88

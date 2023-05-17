@@ -96,11 +96,11 @@ entry:
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %outfile) #11
   call void @_ZNSt14basic_ofstreamIcSt11char_traitsIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(248) %outfile)
   %_M_filebuf.i = getelementptr inbounds %"class.std::basic_ofstream", ptr %outfile, i64 0, i32 1
-  %call2.i56 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE4openEPKcSt13_Ios_Openmode(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i, ptr noundef %outputFile, i32 noundef 48)
+  %call2.i54 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE4openEPKcSt13_Ios_Openmode(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i, ptr noundef %outputFile, i32 noundef 48)
           to label %call2.i.noexc unwind label %lpad
 
 call2.i.noexc:                                    ; preds = %entry
-  %tobool.not.i = icmp eq ptr %call2.i56, null
+  %tobool.not.i = icmp eq ptr %call2.i54, null
   %vtable.i = load ptr, ptr %outfile, align 8, !tbaa !12
   %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
   %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
@@ -151,22 +151,22 @@ if.then.i4.i.i.us:                                ; preds = %_ZSt13__check_facet
 
 if.end.i.i.i.us:                                  ; preds = %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.us
   invoke void @_ZNKSt5ctypeIcE13_M_widen_initEv(ptr noundef nonnull align 8 dereferenceable(570) %11)
-          to label %.noexc73.us unwind label %lpad32.loopexit.split.us
+          to label %.noexc71.us unwind label %lpad32.loopexit.split.us
 
-.noexc73.us:                                      ; preds = %if.end.i.i.i.us
+.noexc71.us:                                      ; preds = %if.end.i.i.i.us
   %vtable.i.i.i.us = load ptr, ptr %11, align 8, !tbaa !12
   %vfn.i.i.i.us = getelementptr inbounds ptr, ptr %vtable.i.i.i.us, i64 6
   %5 = load ptr, ptr %vfn.i.i.i.us, align 8
-  %call.i.i.i74.us = invoke noundef signext i8 %5(ptr noundef nonnull align 8 dereferenceable(570) %11, i8 noundef signext 10)
+  %call.i.i.i72.us = invoke noundef signext i8 %5(ptr noundef nonnull align 8 dereferenceable(570) %11, i8 noundef signext 10)
           to label %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us unwind label %lpad32.loopexit.split.us
 
-_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us: ; preds = %.noexc73.us, %if.then.i4.i.i.us
-  %retval.0.i.i.i.us = phi i8 [ %4, %if.then.i4.i.i.us ], [ %call.i.i.i74.us, %.noexc73.us ]
-  %call1.i75.us = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %outfile, i8 noundef signext %retval.0.i.i.i.us)
+_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us: ; preds = %.noexc71.us, %if.then.i4.i.i.us
+  %retval.0.i.i.i.us = phi i8 [ %4, %if.then.i4.i.i.us ], [ %call.i.i.i72.us, %.noexc71.us ]
+  %call1.i73.us = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %outfile, i8 noundef signext %retval.0.i.i.i.us)
           to label %call1.i.noexc.us unwind label %lpad32.loopexit.split.us
 
 call1.i.noexc.us:                                 ; preds = %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us
-  %call.i.i7276.us = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i75.us)
+  %call.i.i7074.us = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i73.us)
           to label %for.inc35.us unwind label %lpad32.loopexit.split.us
 
 for.inc35.us:                                     ; preds = %call1.i.noexc.us
@@ -194,15 +194,15 @@ for.inc.us:                                       ; preds = %invoke.cont8.us.inv
   br i1 %exitcond86.not, label %for.cond2.for.cond.cleanup4_crit_edge.us, label %for.body5.us, !llvm.loop !28
 
 for.cond2.for.cond.cleanup4_crit_edge.us:         ; preds = %for.inc.us
-  %vtable.i68.us = load ptr, ptr %outfile, align 8, !tbaa !12
-  %vbase.offset.ptr.i69.us = getelementptr i8, ptr %vtable.i68.us, i64 -24
-  %vbase.offset.i70.us = load i64, ptr %vbase.offset.ptr.i69.us, align 8
-  %gep.us = getelementptr i8, ptr %invariant.gep, i64 %vbase.offset.i70.us
+  %vtable.i66.us = load ptr, ptr %outfile, align 8, !tbaa !12
+  %vbase.offset.ptr.i67.us = getelementptr i8, ptr %vtable.i66.us, i64 -24
+  %vbase.offset.i68.us = load i64, ptr %vbase.offset.ptr.i67.us, align 8
+  %gep.us = getelementptr i8, ptr %invariant.gep, i64 %vbase.offset.i68.us
   %11 = load ptr, ptr %gep.us, align 8, !tbaa !29
   %tobool.not.i.i.i.us = icmp eq ptr %11, null
   br i1 %tobool.not.i.i.i.us, label %if.then.i.i.i, label %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.us
 
-lpad32.loopexit.split.us:                         ; preds = %call1.i.noexc.us, %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us, %.noexc73.us, %if.end.i.i.i.us
+lpad32.loopexit.split.us:                         ; preds = %call1.i.noexc.us, %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i.us, %.noexc71.us, %if.end.i.i.i.us
   %lpad.loopexit.us = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup38
@@ -214,10 +214,10 @@ lpad7.split.us:                                   ; preds = %for.body5.us, %invo
 
 for.cond2.preheader:                              ; preds = %for.cond2.preheader.lr.ph, %for.inc35
   %i.080 = phi i32 [ %inc36, %for.inc35 ], [ 0, %for.cond2.preheader.lr.ph ]
-  %vtable.i68 = load ptr, ptr %outfile, align 8, !tbaa !12
-  %vbase.offset.ptr.i69 = getelementptr i8, ptr %vtable.i68, i64 -24
-  %vbase.offset.i70 = load i64, ptr %vbase.offset.ptr.i69, align 8
-  %gep = getelementptr i8, ptr %invariant.gep, i64 %vbase.offset.i70
+  %vtable.i66 = load ptr, ptr %outfile, align 8, !tbaa !12
+  %vbase.offset.ptr.i67 = getelementptr i8, ptr %vtable.i66, i64 -24
+  %vbase.offset.i68 = load i64, ptr %vbase.offset.ptr.i67, align 8
+  %gep = getelementptr i8, ptr %invariant.gep, i64 %vbase.offset.i68
   %13 = load ptr, ptr %gep, align 8, !tbaa !29
   %tobool.not.i.i.i = icmp eq ptr %13, null
   br i1 %tobool.not.i.i.i, label %if.then.i.i.i, label %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i
@@ -252,22 +252,22 @@ if.then.i4.i.i:                                   ; preds = %_ZSt13__check_facet
 
 if.end.i.i.i:                                     ; preds = %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i
   invoke void @_ZNKSt5ctypeIcE13_M_widen_initEv(ptr noundef nonnull align 8 dereferenceable(570) %13)
-          to label %.noexc73 unwind label %lpad32.loopexit.split
+          to label %.noexc71 unwind label %lpad32.loopexit.split
 
-.noexc73:                                         ; preds = %if.end.i.i.i
+.noexc71:                                         ; preds = %if.end.i.i.i
   %vtable.i.i.i = load ptr, ptr %13, align 8, !tbaa !12
   %vfn.i.i.i = getelementptr inbounds ptr, ptr %vtable.i.i.i, i64 6
   %17 = load ptr, ptr %vfn.i.i.i, align 8
-  %call.i.i.i74 = invoke noundef signext i8 %17(ptr noundef nonnull align 8 dereferenceable(570) %13, i8 noundef signext 10)
+  %call.i.i.i72 = invoke noundef signext i8 %17(ptr noundef nonnull align 8 dereferenceable(570) %13, i8 noundef signext 10)
           to label %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i unwind label %lpad32.loopexit.split
 
-_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i: ; preds = %.noexc73, %if.then.i4.i.i
-  %retval.0.i.i.i = phi i8 [ %16, %if.then.i4.i.i ], [ %call.i.i.i74, %.noexc73 ]
-  %call1.i75 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %outfile, i8 noundef signext %retval.0.i.i.i)
+_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i: ; preds = %.noexc71, %if.then.i4.i.i
+  %retval.0.i.i.i = phi i8 [ %16, %if.then.i4.i.i ], [ %call.i.i.i72, %.noexc71 ]
+  %call1.i73 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %outfile, i8 noundef signext %retval.0.i.i.i)
           to label %call1.i.noexc unwind label %lpad32.loopexit.split
 
 call1.i.noexc:                                    ; preds = %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i
-  %call.i.i7276 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i75)
+  %call.i.i7074 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i73)
           to label %for.inc35 unwind label %lpad32.loopexit.split
 
 for.inc35:                                        ; preds = %call1.i.noexc
@@ -275,7 +275,7 @@ for.inc35:                                        ; preds = %call1.i.noexc
   %exitcond.not = icmp eq i32 %inc36, %height
   br i1 %exitcond.not, label %for.cond.cleanup, label %for.cond2.preheader, !llvm.loop !27
 
-lpad32.loopexit.split:                            ; preds = %if.end.i.i.i, %.noexc73, %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i, %call1.i.noexc
+lpad32.loopexit.split:                            ; preds = %if.end.i.i.i, %.noexc71, %_ZNKSt9basic_iosIcSt11char_traitsIcEE5widenEc.exit.i, %call1.i.noexc
   %lpad.loopexit = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup38
@@ -363,7 +363,7 @@ for.cond.cleanup:                                 ; preds = %for.cond1.for.cond.
 
 ; Function Attrs: mustprogress uwtable
 define dso_local void @_Z15initializeImagePiPcii(ptr noundef %image, ptr noundef %inputFile, i32 noundef %height, i32 noundef %width) local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %inFile = alloca %"class.std::basic_ifstream", align 8
   call void @llvm.lifetime.start.p0(i64 520, ptr nonnull %inFile) #11
   call void @_ZNSt14basic_ifstreamIcSt11char_traitsIcEEC1EPKcSt13_Ios_Openmode(ptr noundef nonnull align 8 dereferenceable(256) %inFile, ptr noundef %inputFile, i32 noundef 4)
@@ -377,7 +377,7 @@ invoke.cont:
   %cmp.i.i.not = icmp eq i32 %and.i.i.i, 0
   br i1 %cmp.i.i.not, label %for.cond.preheader, label %if.then
 
-for.cond.preheader:                               ; preds = %invoke.cont
+for.cond.preheader:                               ; preds = %entry
   %cmp33 = icmp sgt i32 %height, 0
   %cmp831 = icmp sgt i32 %width, 0
   %or.cond = and i1 %cmp33, %cmp831
@@ -416,8 +416,8 @@ lpad11.split.us:                                  ; preds = %for.body10.us
           cleanup
   br label %ehcleanup
 
-if.then:                                          ; preds = %invoke.cont
-  %call1.i27 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.1, i64 noundef 17)
+if.then:                                          ; preds = %entry
+  %call1.i26 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.1, i64 noundef 17)
           to label %invoke.cont1 unwind label %lpad
 
 invoke.cont1:                                     ; preds = %if.then
@@ -425,7 +425,7 @@ invoke.cont1:                                     ; preds = %if.then
           to label %invoke.cont3 unwind label %lpad
 
 invoke.cont3:                                     ; preds = %invoke.cont1
-  %call.i28 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %call4)
+  %call.i27 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %call4)
           to label %invoke.cont5 unwind label %lpad
 
 invoke.cont5:                                     ; preds = %invoke.cont3
@@ -439,11 +439,11 @@ lpad:                                             ; preds = %if.then.i, %for.con
 
 for.cond.cleanup:                                 ; preds = %for.cond7.for.cond.cleanup9_crit_edge.us, %for.cond.preheader
   %_M_filebuf.i = getelementptr inbounds %"class.std::basic_ifstream", ptr %inFile, i64 0, i32 1
-  %call.i30 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
+  %call.i29 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
           to label %call.i.noexc unwind label %lpad
 
 call.i.noexc:                                     ; preds = %for.cond.cleanup
-  %tobool.not.i = icmp eq ptr %call.i30, null
+  %tobool.not.i = icmp eq ptr %call.i29, null
   br i1 %tobool.not.i, label %if.then.i, label %invoke.cont17
 
 if.then.i:                                        ; preds = %call.i.noexc
@@ -451,8 +451,8 @@ if.then.i:                                        ; preds = %call.i.noexc
   %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
   %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
   %add.ptr.i = getelementptr inbounds i8, ptr %inFile, i64 %vbase.offset.i
-  %_M_streambuf_state.i.i.i29 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
-  %6 = load i32, ptr %_M_streambuf_state.i.i.i29, align 8, !tbaa !14
+  %_M_streambuf_state.i.i.i28 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %6 = load i32, ptr %_M_streambuf_state.i.i.i28, align 8, !tbaa !14
   %or.i.i.i = or i32 %6, 4
   invoke void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
           to label %invoke.cont17 unwind label %lpad
@@ -482,7 +482,7 @@ declare void @_ZNSt14basic_ifstreamIcSt11char_traitsIcEED1Ev(ptr noundef nonnull
 
 ; Function Attrs: mustprogress uwtable
 define dso_local void @_Z22initializeColoredImagePiPcii(ptr noundef %image, ptr noundef %inputFile, i32 noundef %height, i32 noundef %width) local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %inFile = alloca %"class.std::basic_ifstream", align 8
   call void @llvm.lifetime.start.p0(i64 520, ptr nonnull %inFile) #11
   call void @_ZNSt14basic_ifstreamIcSt11char_traitsIcEEC1EPKcSt13_Ios_Openmode(ptr noundef nonnull align 8 dereferenceable(256) %inFile, ptr noundef %inputFile, i32 noundef 4)
@@ -496,7 +496,7 @@ invoke.cont:
   %cmp.i.i.not = icmp eq i32 %and.i.i.i, 0
   br i1 %cmp.i.i.not, label %for.cond.preheader, label %if.then
 
-for.cond.preheader:                               ; preds = %invoke.cont
+for.cond.preheader:                               ; preds = %entry
   %cmp56 = icmp sgt i32 %height, 0
   %cmp854 = icmp sgt i32 %width, 0
   %or.cond = and i1 %cmp56, %cmp854
@@ -547,8 +547,8 @@ lpad12.split.us:                                  ; preds = %invoke.cont20.us, %
           cleanup
   br label %ehcleanup
 
-if.then:                                          ; preds = %invoke.cont
-  %call1.i50 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.1, i64 noundef 17)
+if.then:                                          ; preds = %entry
+  %call1.i49 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.1, i64 noundef 17)
           to label %invoke.cont1 unwind label %lpad
 
 invoke.cont1:                                     ; preds = %if.then
@@ -556,7 +556,7 @@ invoke.cont1:                                     ; preds = %if.then
           to label %invoke.cont3 unwind label %lpad
 
 invoke.cont3:                                     ; preds = %invoke.cont1
-  %call.i51 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %call4)
+  %call.i50 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %call4)
           to label %invoke.cont5 unwind label %lpad
 
 invoke.cont5:                                     ; preds = %invoke.cont3
@@ -570,11 +570,11 @@ lpad:                                             ; preds = %if.then.i, %for.con
 
 for.cond.cleanup:                                 ; preds = %for.cond7.for.cond.cleanup9_crit_edge.us, %for.cond.preheader
   %_M_filebuf.i = getelementptr inbounds %"class.std::basic_ifstream", ptr %inFile, i64 0, i32 1
-  %call.i53 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
+  %call.i52 = invoke noundef ptr @_ZNSt13basic_filebufIcSt11char_traitsIcEE5closeEv(ptr noundef nonnull align 8 dereferenceable(240) %_M_filebuf.i)
           to label %call.i.noexc unwind label %lpad
 
 call.i.noexc:                                     ; preds = %for.cond.cleanup
-  %tobool.not.i = icmp eq ptr %call.i53, null
+  %tobool.not.i = icmp eq ptr %call.i52, null
   br i1 %tobool.not.i, label %if.then.i, label %invoke.cont32
 
 if.then.i:                                        ; preds = %call.i.noexc
@@ -582,8 +582,8 @@ if.then.i:                                        ; preds = %call.i.noexc
   %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
   %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
   %add.ptr.i = getelementptr inbounds i8, ptr %inFile, i64 %vbase.offset.i
-  %_M_streambuf_state.i.i.i52 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
-  %8 = load i32, ptr %_M_streambuf_state.i.i.i52, align 8, !tbaa !14
+  %_M_streambuf_state.i.i.i51 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %8 = load i32, ptr %_M_streambuf_state.i.i.i51, align 8, !tbaa !14
   %or.i.i.i = or i32 %8, 4
   invoke void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
           to label %invoke.cont32 unwind label %lpad

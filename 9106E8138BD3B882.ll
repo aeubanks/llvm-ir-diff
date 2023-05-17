@@ -926,44 +926,44 @@ entry:
   %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1050011, i32 noundef 8)
   %call261 = tail call i32 (...) @reset() #5
   %0 = load ptr, ptr @stdin, align 8, !tbaa !20
-  %call.i575862 = tail call i32 @getc(ptr noundef %0)
-  %cond5963 = icmp eq i32 %call.i575862, -1
+  %call.i565862 = tail call i32 @getc(ptr noundef %0)
+  %cond5963 = icmp eq i32 %call.i565862, -1
   br i1 %cond5963, label %for.end, label %while.body
 
 while.body:                                       ; preds = %entry, %while.body.backedge
-  %call.i5760 = phi i32 [ %call.i5760.be, %while.body.backedge ], [ %call.i575862, %entry ]
-  %1 = add i32 %call.i5760, -49
+  %call.i5660 = phi i32 [ %call.i5660.be, %while.body.backedge ], [ %call.i565862, %entry ]
+  %1 = add i32 %call.i5660, -49
   %or.cond = icmp ult i32 %1, 7
   br i1 %or.cond, label %if.end26.sink.split, label %if.else
 
 if.else:                                          ; preds = %while.body
-  %2 = add i32 %call.i5760, -65
+  %2 = add i32 %call.i5660, -65
   %or.cond42 = icmp ult i32 %2, 7
   br i1 %or.cond42, label %if.end26.sink.split, label %if.else13
 
 if.else13:                                        ; preds = %if.else
-  %3 = add i32 %call.i5760, -97
+  %3 = add i32 %call.i5660, -97
   %or.cond43 = icmp ult i32 %3, 7
   br i1 %or.cond43, label %if.end26.sink.split, label %if.else21
 
 if.else21:                                        ; preds = %if.else13
-  %cond56 = icmp eq i32 %call.i5760, 10
-  br i1 %cond56, label %if.end29, label %if.end26
+  %cond57 = icmp eq i32 %call.i5660, 10
+  br i1 %cond57, label %if.end29, label %if.end26
 
 if.end26.sink.split:                              ; preds = %if.else13, %if.else, %while.body
   %.sink = phi i32 [ -48, %while.body ], [ -64, %if.else ], [ -96, %if.else13 ]
-  %add = add nsw i32 %call.i5760, %.sink
+  %add = add nsw i32 %call.i5660, %.sink
   %call12 = tail call i32 (i32, ...) @makemove(i32 noundef %add) #5
   br label %if.end26
 
 if.end26:                                         ; preds = %if.end26.sink.split, %if.else21
   %4 = load ptr, ptr @stdin, align 8, !tbaa !20
-  %call.i57 = tail call i32 @getc(ptr noundef %4)
-  %cond = icmp eq i32 %call.i57, -1
+  %call.i56 = tail call i32 @getc(ptr noundef %4)
+  %cond = icmp eq i32 %call.i56, -1
   br i1 %cond, label %for.end, label %while.body.backedge
 
 while.body.backedge:                              ; preds = %if.end26, %if.end29
-  %call.i5760.be = phi i32 [ %call.i57, %if.end26 ], [ %call.i5758, %if.end29 ]
+  %call.i5660.be = phi i32 [ %call.i56, %if.end26 ], [ %call.i5658, %if.end29 ]
   br label %while.body, !llvm.loop !22
 
 if.end29:                                         ; preds = %if.else21
@@ -990,8 +990,8 @@ if.end29:                                         ; preds = %if.else21
   %call41 = tail call i32 (...) @htstat() #5
   %call2 = tail call i32 (...) @reset() #5
   %9 = load ptr, ptr @stdin, align 8, !tbaa !20
-  %call.i5758 = tail call i32 @getc(ptr noundef %9)
-  %cond59 = icmp eq i32 %call.i5758, -1
+  %call.i5658 = tail call i32 @getc(ptr noundef %9)
+  %cond59 = icmp eq i32 %call.i5658, -1
   br i1 %cond59, label %for.end, label %while.body.backedge
 
 for.end:                                          ; preds = %if.end29, %if.end26, %entry

@@ -68,10 +68,10 @@ if.end6:                                          ; preds = %if.end
 
 if.then9:                                         ; preds = %if.end6
   %call.i = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #13
-  %tobool.not.i = icmp eq ptr %call.i, null
-  br i1 %tobool.not.i, label %cleanup, label %if.end11
+  %cond = icmp eq ptr %call.i, null
+  br i1 %cond, label %cleanup, label %if.end.i
 
-if.end11:                                         ; preds = %if.then9
+if.end.i:                                         ; preds = %if.then9
   store i32 %length, ptr %call.i, align 8, !tbaa !5
   %count.i = getelementptr inbounds %struct.HistogramElementStruct, ptr %call.i, i64 0, i32 1
   store i32 1, ptr %count.i, align 4, !tbaa !11
@@ -91,13 +91,9 @@ if.then16:                                        ; preds = %for.inc, %entry
   %prev.0.lcssa = phi ptr [ %head, %entry ], [ %prev.1, %for.inc ]
   %call.i41 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #13
   %tobool.not.i42 = icmp eq ptr %call.i41, null
-  br i1 %tobool.not.i42, label %HistogramElement_new.exit46.thread, label %HistogramElement_new.exit46
+  br i1 %tobool.not.i42, label %if.then19.critedge, label %if.end.i45
 
-HistogramElement_new.exit46.thread:               ; preds = %if.then16
-  store ptr null, ptr %prev.0.lcssa, align 8, !tbaa !13
-  br label %cleanup
-
-HistogramElement_new.exit46:                      ; preds = %if.then16
+if.end.i45:                                       ; preds = %if.then16
   store i32 %length, ptr %call.i41, align 8, !tbaa !5
   %count.i43 = getelementptr inbounds %struct.HistogramElementStruct, ptr %call.i41, i64 0, i32 1
   store i32 1, ptr %count.i43, align 4, !tbaa !11
@@ -106,8 +102,12 @@ HistogramElement_new.exit46:                      ; preds = %if.then16
   store ptr %call.i41, ptr %prev.0.lcssa, align 8, !tbaa !13
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then9, %if.end11, %if.then5, %HistogramElement_new.exit46, %HistogramElement_new.exit46.thread
-  %retval.0 = phi i1 [ false, %HistogramElement_new.exit46.thread ], [ true, %HistogramElement_new.exit46 ], [ true, %if.then5 ], [ true, %if.end11 ], [ false, %if.then9 ]
+if.then19.critedge:                               ; preds = %if.then16
+  store ptr null, ptr %prev.0.lcssa, align 8, !tbaa !13
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.then5, %if.end.i, %if.end.i45, %if.then9, %if.then19.critedge
+  %retval.0 = phi i1 [ false, %if.then9 ], [ false, %if.then19.critedge ], [ true, %if.end.i45 ], [ true, %if.end.i ], [ true, %if.then5 ]
   ret i1 %retval.0
 }
 
@@ -910,11 +910,11 @@ for.end32:                                        ; preds = %for.body28, %Stats_
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #10
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -927,8 +927,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroe
 attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind allocsize(0,1) }

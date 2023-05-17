@@ -478,15 +478,15 @@ if.end148:                                        ; preds = %if.end148.sink.spli
   br i1 %cmp153.not427, label %for.end200.thread, label %for.body155
 
 for.end200.thread:                                ; preds = %if.end148
-  %conv201456 = sitofp i32 %87 to double
-  %div202457 = fdiv double 0.000000e+00, %conv201456
+  %conv201457 = sitofp i32 %87 to double
+  %div202458 = fdiv double 0.000000e+00, %conv201457
   br label %for.end262
 
 for.body155:                                      ; preds = %if.end148, %for.body155
-  %indvars.iv446 = phi i64 [ %indvars.iv.next447, %for.body155 ], [ 1, %if.end148 ]
+  %indvars.iv447 = phi i64 [ %indvars.iv.next448, %for.body155 ], [ 1, %if.end148 ]
   %aveCside.0429 = phi double [ %add197, %for.body155 ], [ 0.000000e+00, %if.end148 ]
   %88 = load ptr, ptr @cellarray, align 8, !tbaa !11
-  %arrayidx157 = getelementptr inbounds ptr, ptr %88, i64 %indvars.iv446
+  %arrayidx157 = getelementptr inbounds ptr, ptr %88, i64 %indvars.iv447
   %89 = load ptr, ptr %arrayidx157, align 8, !tbaa !11
   %orient = getelementptr inbounds %struct.cellbox, ptr %89, i64 0, i32 5
   %90 = load i32, ptr %orient, align 8, !tbaa !19
@@ -513,10 +513,10 @@ for.body155:                                      ; preds = %if.end148, %for.bod
   %conv195 = sitofp i32 %mul194 to double
   %call196 = tail call double @sqrt(double noundef %conv195) #14
   %add197 = fadd double %aveCside.0429, %call196
-  %indvars.iv.next447 = add nuw nsw i64 %indvars.iv446, 1
+  %indvars.iv.next448 = add nuw nsw i64 %indvars.iv447, 1
   %98 = load i32, ptr @numcells, align 4, !tbaa !5
   %99 = sext i32 %98 to i64
-  %cmp153.not.not = icmp slt i64 %indvars.iv446, %99
+  %cmp153.not.not = icmp slt i64 %indvars.iv447, %99
   br i1 %cmp153.not.not, label %for.body155, label %for.end200, !llvm.loop !25
 
 for.end200:                                       ; preds = %for.body155
@@ -526,10 +526,10 @@ for.end200:                                       ; preds = %for.body155
   br i1 %cmp204.not432, label %for.end262, label %for.body206
 
 for.body206:                                      ; preds = %for.end200, %for.body206
-  %indvars.iv449 = phi i64 [ %indvars.iv.next450, %for.body206 ], [ 1, %for.end200 ]
+  %indvars.iv450 = phi i64 [ %indvars.iv.next451, %for.body206 ], [ 1, %for.end200 ]
   %variance.0434 = phi double [ %110, %for.body206 ], [ 0.000000e+00, %for.end200 ]
   %100 = load ptr, ptr @cellarray, align 8, !tbaa !11
-  %arrayidx208 = getelementptr inbounds ptr, ptr %100, i64 %indvars.iv449
+  %arrayidx208 = getelementptr inbounds ptr, ptr %100, i64 %indvars.iv450
   %101 = load ptr, ptr %arrayidx208, align 8, !tbaa !11
   %orient212 = getelementptr inbounds %struct.cellbox, ptr %101, i64 0, i32 5
   %102 = load i32, ptr %orient212, align 8, !tbaa !19
@@ -559,10 +559,10 @@ for.body206:                                      ; preds = %for.end200, %for.bo
   %call257 = tail call double @sqrt(double noundef %conv252) #14
   %sub258 = fsub double %call257, %div202
   %110 = tail call double @llvm.fmuladd.f64(double %sub254, double %sub258, double %variance.0434)
-  %indvars.iv.next450 = add nuw nsw i64 %indvars.iv449, 1
+  %indvars.iv.next451 = add nuw nsw i64 %indvars.iv450, 1
   %111 = load i32, ptr @numcells, align 4, !tbaa !5
   %112 = sext i32 %111 to i64
-  %cmp204.not.not = icmp slt i64 %indvars.iv449, %112
+  %cmp204.not.not = icmp slt i64 %indvars.iv450, %112
   br i1 %cmp204.not.not, label %for.body206, label %for.end262.loopexit, !llvm.loop !26
 
 for.end262.loopexit:                              ; preds = %for.body206
@@ -570,16 +570,16 @@ for.end262.loopexit:                              ; preds = %for.body206
   br label %for.end262
 
 for.end262:                                       ; preds = %for.end200.thread, %for.end262.loopexit, %for.end200
-  %div202459 = phi double [ %div202, %for.end262.loopexit ], [ %div202, %for.end200 ], [ %div202457, %for.end200.thread ]
-  %conv263.pre-phi = phi double [ %.pre, %for.end262.loopexit ], [ %conv201, %for.end200 ], [ %conv201456, %for.end200.thread ]
+  %div202460 = phi double [ %div202, %for.end262.loopexit ], [ %div202, %for.end200 ], [ %div202458, %for.end200.thread ]
+  %conv263.pre-phi = phi double [ %.pre, %for.end262.loopexit ], [ %conv201, %for.end200 ], [ %conv201457, %for.end200.thread ]
   %variance.0.lcssa = phi double [ %110, %for.end262.loopexit ], [ 0.000000e+00, %for.end200 ], [ 0.000000e+00, %for.end200.thread ]
   %div264 = fdiv double %variance.0.lcssa, %conv263.pre-phi
   %call265 = tail call double @sqrt(double noundef %div264) #14
   %113 = load ptr, ptr @fpo, align 8, !tbaa !11
   %114 = tail call i64 @fwrite(ptr nonnull @.str.19, i64 50, i64 1, ptr %113)
   %115 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %call267 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %115, ptr noundef nonnull @.str.20, double noundef %div202459, double noundef %call265)
-  %116 = tail call double @llvm.fmuladd.f64(double %call265, double 2.000000e+00, double %div202459)
+  %call267 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %115, ptr noundef nonnull @.str.20, double noundef %div202460, double noundef %call265)
+  %116 = tail call double @llvm.fmuladd.f64(double %call265, double 2.000000e+00, double %div202460)
   %conv269 = fptosi double %116 to i32
   store i32 %conv269, ptr @rangeLimit, align 4, !tbaa !5
   %117 = load double, ptr @T, align 8, !tbaa !9
@@ -657,13 +657,13 @@ if.then306:                                       ; preds = %if.end303
   %138 = load i32, ptr @numcells, align 4, !tbaa !5
   %139 = load i32, ptr @numpads, align 4, !tbaa !5
   %add310 = add nsw i32 %139, %138
-  %cmp311.not.not437 = icmp sgt i32 %139, 0
-  br i1 %cmp311.not.not437, label %for.body313.lr.ph, label %for.end323.thread
+  %cmp311.not.not438 = icmp sgt i32 %139, 0
+  br i1 %cmp311.not.not438, label %for.body313.lr.ph, label %for.end323.thread
 
 for.end323.thread:                                ; preds = %if.then306
   %140 = load i32, ptr @attpercell, align 4, !tbaa !5
-  %mul325462 = mul nsw i32 %140, %138
-  store i32 %mul325462, ptr @attmax, align 4, !tbaa !5
+  %mul325463 = mul nsw i32 %140, %138
+  store i32 %mul325463, ptr @attmax, align 4, !tbaa !5
   br label %147
 
 for.body313.lr.ph:                                ; preds = %if.then306
@@ -673,35 +673,35 @@ for.body313.lr.ph:                                ; preds = %if.then306
   br label %for.body313
 
 for.body313:                                      ; preds = %for.body313.lr.ph, %for.body313
-  %indvars.iv452 = phi i64 [ %142, %for.body313.lr.ph ], [ %indvars.iv.next453, %for.body313 ]
-  %padflippers.0439 = phi i32 [ 0, %for.body313.lr.ph ], [ %spec.select416, %for.body313 ]
-  %indvars.iv.next453 = add nsw i64 %indvars.iv452, 1
-  %arrayidx315 = getelementptr inbounds ptr, ptr %141, i64 %indvars.iv.next453
+  %indvars.iv453 = phi i64 [ %142, %for.body313.lr.ph ], [ %indvars.iv.next454, %for.body313 ]
+  %padflippers.0439 = phi i32 [ 0, %for.body313.lr.ph ], [ %spec.select417, %for.body313 ]
+  %indvars.iv.next454 = add nsw i64 %indvars.iv453, 1
+  %arrayidx315 = getelementptr inbounds ptr, ptr %141, i64 %indvars.iv.next454
   %144 = load ptr, ptr %arrayidx315, align 8, !tbaa !11
   %class = getelementptr inbounds %struct.cellbox, ptr %144, i64 0, i32 1
   %145 = load i32, ptr %class, align 8, !tbaa !27
   %.fr = freeze i32 %145
   %cmp316 = icmp sgt i32 %.fr, 0
   %inc319 = zext i1 %cmp316 to i32
-  %spec.select416 = add i32 %padflippers.0439, %inc319
-  %cmp311.not.not = icmp slt i64 %indvars.iv.next453, %143
+  %spec.select417 = add i32 %padflippers.0439, %inc319
+  %cmp311.not.not = icmp slt i64 %indvars.iv.next454, %143
   br i1 %cmp311.not.not, label %for.body313, label %for.end323, !llvm.loop !28
 
 for.end323:                                       ; preds = %for.body313
   %146 = load i32, ptr @attpercell, align 4, !tbaa !5
-  %add324 = add nsw i32 %spec.select416, %138
+  %add324 = add nsw i32 %spec.select417, %138
   %mul325 = mul nsw i32 %146, %add324
   store i32 %mul325, ptr @attmax, align 4, !tbaa !5
-  %cmp326 = icmp ugt i32 %spec.select416, 1
-  %spec.select467 = select i1 %cmp326, i32 %add310, i32 %138
+  %cmp326 = icmp ugt i32 %spec.select417, 1
+  %spec.select468 = select i1 %cmp326, i32 %add310, i32 %138
   br label %147
 
 147:                                              ; preds = %for.end323, %for.end323.thread
-  %148 = phi i32 [ %138, %for.end323.thread ], [ %spec.select467, %for.end323 ]
-  %storemerge417 = mul nsw i32 %148, 11
-  store i32 %storemerge417, ptr @bigcell, align 4, !tbaa !5
+  %148 = phi i32 [ %138, %for.end323.thread ], [ %spec.select468, %for.end323 ]
+  %storemerge416 = mul nsw i32 %148, 11
+  store i32 %storemerge416, ptr @bigcell, align 4, !tbaa !5
   store i32 %148, ptr @choose, align 4, !tbaa !5
-  %add335 = add nsw i32 %storemerge417, 1
+  %add335 = add nsw i32 %storemerge416, 1
   store i32 %add335, ptr @toobig, align 4, !tbaa !5
   call void @prepSpots()
   call void @utemp() #14
@@ -1400,23 +1400,23 @@ declare i32 @wireestx(i32 noundef, i32 noundef, i32 noundef, double noundef) loc
 
 declare i32 @wireesty(i32 noundef, i32 noundef, i32 noundef, double noundef) local_unnamed_addr #6
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #11
+
 ; Function Attrs: nofree nounwind willreturn memory(argmem: readwrite)
-declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #11
+declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #13
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #11
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1429,9 +1429,9 @@ attributes #7 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #8 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #10 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nofree nounwind }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { nounwind willreturn memory(read) }

@@ -8549,9 +8549,9 @@ for.cond1.preheader.i1669:                        ; preds = %for.end69.5.i1667, 
   %sub.i = fsub double %conv.i, %conv10.i
   %3002 = call double @llvm.fabs.f64(double %sub.i)
   %cmp11.i = fcmp ule double %3002, 1.000000e-05
-  br i1 %cmp11.i, label %for.inc.i, label %check_FP.exit.thread
+  br i1 %cmp11.i, label %for.inc.i, label %if.then.i
 
-check_FP.exit.thread:                             ; preds = %for.cond1.preheader.i1669, %for.inc.i, %for.inc.1.i, %for.inc.2.i, %for.inc.3.i, %for.inc.4.i
+if.then.i:                                        ; preds = %for.inc.4.i, %for.inc.3.i, %for.inc.2.i, %for.inc.1.i, %for.inc.i, %for.cond1.preheader.i1669
   %j.037.lcssa.wide.i = phi i32 [ 0, %for.cond1.preheader.i1669 ], [ 1, %for.inc.i ], [ 2, %for.inc.1.i ], [ 3, %for.inc.2.i ], [ 4, %for.inc.3.i ], [ 5, %for.inc.4.i ]
   %conv.lcssa.i = phi double [ %conv.i, %for.cond1.preheader.i1669 ], [ %conv.1.i, %for.inc.i ], [ %conv.2.i, %for.inc.1.i ], [ %conv.3.i, %for.inc.2.i ], [ %conv.4.i, %for.inc.3.i ], [ %conv.5.i, %for.inc.4.i ]
   %conv10.lcssa.i = phi double [ %conv10.i, %for.cond1.preheader.i1669 ], [ %conv10.1.i, %for.inc.i ], [ %conv10.2.i, %for.inc.1.i ], [ %conv10.3.i, %for.inc.2.i ], [ %conv10.4.i, %for.inc.3.i ], [ %conv10.5.i, %for.inc.4.i ]
@@ -8570,7 +8570,7 @@ for.inc.i:                                        ; preds = %for.cond1.preheader
   %sub.1.i = fsub double %conv.1.i, %conv10.1.i
   %3007 = call double @llvm.fabs.f64(double %sub.1.i)
   %cmp11.1.i = fcmp ule double %3007, 1.000000e-05
-  br i1 %cmp11.1.i, label %for.inc.1.i, label %check_FP.exit.thread
+  br i1 %cmp11.1.i, label %for.inc.1.i, label %if.then.i
 
 for.inc.1.i:                                      ; preds = %for.inc.i
   %arrayidx5.2.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 2
@@ -8582,7 +8582,7 @@ for.inc.1.i:                                      ; preds = %for.inc.i
   %sub.2.i = fsub double %conv.2.i, %conv10.2.i
   %3010 = call double @llvm.fabs.f64(double %sub.2.i)
   %cmp11.2.i = fcmp ule double %3010, 1.000000e-05
-  br i1 %cmp11.2.i, label %for.inc.2.i, label %check_FP.exit.thread
+  br i1 %cmp11.2.i, label %for.inc.2.i, label %if.then.i
 
 for.inc.2.i:                                      ; preds = %for.inc.1.i
   %arrayidx5.3.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 3
@@ -8594,7 +8594,7 @@ for.inc.2.i:                                      ; preds = %for.inc.1.i
   %sub.3.i = fsub double %conv.3.i, %conv10.3.i
   %3013 = call double @llvm.fabs.f64(double %sub.3.i)
   %cmp11.3.i = fcmp ule double %3013, 1.000000e-05
-  br i1 %cmp11.3.i, label %for.inc.3.i, label %check_FP.exit.thread
+  br i1 %cmp11.3.i, label %for.inc.3.i, label %if.then.i
 
 for.inc.3.i:                                      ; preds = %for.inc.2.i
   %arrayidx5.4.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 4
@@ -8606,7 +8606,7 @@ for.inc.3.i:                                      ; preds = %for.inc.2.i
   %sub.4.i = fsub double %conv.4.i, %conv10.4.i
   %3016 = call double @llvm.fabs.f64(double %sub.4.i)
   %cmp11.4.i = fcmp ule double %3016, 1.000000e-05
-  br i1 %cmp11.4.i, label %for.inc.4.i, label %check_FP.exit.thread
+  br i1 %cmp11.4.i, label %for.inc.4.i, label %if.then.i
 
 for.inc.4.i:                                      ; preds = %for.inc.3.i
   %arrayidx5.5.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 5
@@ -8618,7 +8618,7 @@ for.inc.4.i:                                      ; preds = %for.inc.3.i
   %sub.5.i = fsub double %conv.5.i, %conv10.5.i
   %3019 = call double @llvm.fabs.f64(double %sub.5.i)
   %cmp11.5.i = fcmp ule double %3019, 1.000000e-05
-  br i1 %cmp11.5.i, label %for.inc.5.i, label %check_FP.exit.thread
+  br i1 %cmp11.5.i, label %for.inc.5.i, label %if.then.i
 
 for.inc.5.i:                                      ; preds = %for.inc.4.i
   %indvars.iv.next.i1670 = add nuw nsw i64 %indvars.iv.i1668, 1
@@ -8700,8 +8700,8 @@ print_array.exit:                                 ; preds = %for.inc.5.i1684
   call void @free(ptr noundef %15) #11
   br label %cleanup
 
-cleanup:                                          ; preds = %check_FP.exit.thread, %print_array.exit
-  %retval.0 = phi i32 [ 0, %print_array.exit ], [ 1, %check_FP.exit.thread ]
+cleanup:                                          ; preds = %print_array.exit, %if.then.i
+  %retval.0 = phi i32 [ 0, %print_array.exit ], [ 1, %if.then.i ]
   ret i32 %retval.0
 }
 

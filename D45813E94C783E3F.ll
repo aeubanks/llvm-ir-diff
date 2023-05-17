@@ -376,8 +376,8 @@ for.cond49.14:                                    ; preds = %for.cond49.13
   %cmp63.not = icmp ne i32 %shl.14, %conv55.14
   %cmp65 = icmp eq i32 %type, 0
   %or.cond = or i1 %cmp65, %cmp32474523
-  %or.cond560 = and i1 %cmp63.not, %or.cond
-  br i1 %or.cond560, label %cleanup, label %if.end70
+  %or.cond551 = and i1 %cmp63.not, %or.cond
+  br i1 %or.cond551, label %cleanup, label %if.end70
 
 if.end70:                                         ; preds = %for.cond49.14
   %arrayidx71 = getelementptr inbounds [16 x i16], ptr %offs, i64 0, i64 1
@@ -427,17 +427,17 @@ if.end70:                                         ; preds = %for.cond49.14
 
 for.body92.preheader:                             ; preds = %if.end70
   %wide.trip.count515 = zext i32 %codes to i64
-  %xtraiter573 = and i64 %wide.trip.count515, 1
+  %xtraiter564 = and i64 %wide.trip.count515, 1
   %56 = icmp eq i32 %codes, 1
   br i1 %56, label %for.end110.loopexit.unr-lcssa, label %for.body92.preheader.new
 
 for.body92.preheader.new:                         ; preds = %for.body92.preheader
-  %unroll_iter576 = and i64 %wide.trip.count515, 4294967294
+  %unroll_iter567 = and i64 %wide.trip.count515, 4294967294
   br label %for.body92
 
 for.body92:                                       ; preds = %for.inc108.1, %for.body92.preheader.new
   %indvars.iv512 = phi i64 [ 0, %for.body92.preheader.new ], [ %indvars.iv.next513.1, %for.inc108.1 ]
-  %niter577 = phi i64 [ 0, %for.body92.preheader.new ], [ %niter577.next.1, %for.inc108.1 ]
+  %niter568 = phi i64 [ 0, %for.body92.preheader.new ], [ %niter568.next.1, %for.inc108.1 ]
   %arrayidx94 = getelementptr inbounds i16, ptr %lens, i64 %indvars.iv512
   %57 = load i16, ptr %arrayidx94, align 2, !tbaa !5
   %cmp96.not = icmp eq i16 %57, 0
@@ -476,14 +476,14 @@ if.then98.1:                                      ; preds = %for.inc108
 
 for.inc108.1:                                     ; preds = %if.then98.1, %for.inc108
   %indvars.iv.next513.1 = add nuw nsw i64 %indvars.iv512, 2
-  %niter577.next.1 = add i64 %niter577, 2
-  %niter577.ncmp.1 = icmp eq i64 %niter577.next.1, %unroll_iter576
-  br i1 %niter577.ncmp.1, label %for.end110.loopexit.unr-lcssa, label %for.body92, !llvm.loop !22
+  %niter568.next.1 = add i64 %niter568, 2
+  %niter568.ncmp.1 = icmp eq i64 %niter568.next.1, %unroll_iter567
+  br i1 %niter568.ncmp.1, label %for.end110.loopexit.unr-lcssa, label %for.body92, !llvm.loop !22
 
 for.end110.loopexit.unr-lcssa:                    ; preds = %for.inc108.1, %for.body92.preheader
   %indvars.iv512.unr = phi i64 [ 0, %for.body92.preheader ], [ %indvars.iv.next513.1, %for.inc108.1 ]
-  %lcmp.mod575.not = icmp eq i64 %xtraiter573, 0
-  br i1 %lcmp.mod575.not, label %for.end110, label %for.body92.epil
+  %lcmp.mod566.not = icmp eq i64 %xtraiter564, 0
+  br i1 %lcmp.mod566.not, label %for.end110, label %for.body92.epil
 
 for.body92.epil:                                  ; preds = %for.end110.loopexit.unr-lcssa
   %arrayidx94.epil = getelementptr inbounds i16, ptr %lens, i64 %indvars.iv512.unr
@@ -514,19 +514,19 @@ sw.epilog:                                        ; preds = %for.end110
   br i1 %cmp117, label %cleanup, label %for.cond127.preheader
 
 lor.lhs.false119:                                 ; preds = %for.end110
-  %cmp117454 = icmp ugt i32 %spec.select443, 9
   %cmp120 = icmp eq i32 %type, 2
-  %or.cond300 = select i1 %cmp120, i1 %cmp117454, i1 false
+  %cmp123 = icmp ugt i32 %spec.select443, 9
+  %or.cond300 = select i1 %cmp120, i1 %cmp123, i1 false
   br i1 %or.cond300, label %cleanup, label %for.cond127.preheader
 
 for.cond127.preheader:                            ; preds = %sw.epilog, %for.end110, %lor.lhs.false119
   %cmp120544 = phi i1 [ %cmp120, %lor.lhs.false119 ], [ false, %for.end110 ], [ false, %sw.epilog ]
-  %base.0456541 = phi ptr [ @inflate_table.dbase, %lor.lhs.false119 ], [ %work, %for.end110 ], [ @inflate_table.lbase, %sw.epilog ]
-  %extra.0457540 = phi ptr [ @inflate_table.dext, %lor.lhs.false119 ], [ %work, %for.end110 ], [ @inflate_table.lext, %sw.epilog ]
-  %match.0458539 = phi i32 [ 0, %lor.lhs.false119 ], [ 20, %for.end110 ], [ 257, %sw.epilog ]
-  %cmp114461538 = phi i1 [ false, %lor.lhs.false119 ], [ false, %for.end110 ], [ true, %sw.epilog ]
-  %shl112459542 = shl nuw i32 1, %spec.select443
-  %sub113460543 = add i32 %shl112459542, -1
+  %base.0457541 = phi ptr [ @inflate_table.dbase, %lor.lhs.false119 ], [ %work, %for.end110 ], [ @inflate_table.lbase, %sw.epilog ]
+  %extra.0458540 = phi ptr [ @inflate_table.dext, %lor.lhs.false119 ], [ %work, %for.end110 ], [ @inflate_table.lext, %sw.epilog ]
+  %match.0459539 = phi i32 [ 0, %lor.lhs.false119 ], [ 20, %for.end110 ], [ 257, %sw.epilog ]
+  %cmp114462538 = phi i1 [ false, %lor.lhs.false119 ], [ false, %for.end110 ], [ true, %sw.epilog ]
+  %shl112460542 = shl nuw i32 1, %spec.select443
+  %sub113461543 = add i32 %shl112460542, -1
   %63 = load ptr, ptr %table, align 8, !tbaa !15
   %conv256 = trunc i32 %spec.select443 to i8
   br label %for.cond127.outer
@@ -536,7 +536,7 @@ for.cond127.outer:                                ; preds = %if.end250, %for.con
   %sym.2.ph = phi i32 [ %inc188, %if.end250 ], [ 0, %for.cond127.preheader ]
   %curr.0.ph = phi i32 [ %curr.1.lcssa, %if.end250 ], [ %spec.select443, %for.cond127.preheader ]
   %drop.0.ph = phi i32 [ %spec.select444, %if.end250 ], [ 0, %for.cond127.preheader ]
-  %used.0.ph = phi i32 [ %add237, %if.end250 ], [ %shl112459542, %for.cond127.preheader ]
+  %used.0.ph = phi i32 [ %add237, %if.end250 ], [ %shl112460542, %for.cond127.preheader ]
   %huff.0.ph = phi i32 [ %huff.1, %if.end250 ], [ 0, %for.cond127.preheader ]
   %low.0.ph = phi i32 [ %and209, %if.end250 ], [ -1, %for.cond127.preheader ]
   %next.0.ph = phi ptr [ %add.ptr, %if.end250 ], [ %63, %for.cond127.preheader ]
@@ -554,20 +554,20 @@ for.cond127:                                      ; preds = %for.cond127.backedg
   %64 = load i16, ptr %arrayidx132, align 2, !tbaa !5
   %conv133 = zext i16 %64 to i32
   %add134 = add nuw nsw i32 %conv133, 1
-  %cmp135 = icmp ult i32 %add134, %match.0458539
+  %cmp135 = icmp ult i32 %add134, %match.0459539
   br i1 %cmp135, label %if.end167, label %if.else
 
 if.else:                                          ; preds = %for.cond127
-  %cmp145.not = icmp ugt i32 %match.0458539, %conv133
+  %cmp145.not = icmp ugt i32 %match.0459539, %conv133
   br i1 %cmp145.not, label %if.end167, label %if.then147
 
 if.then147:                                       ; preds = %if.else
-  %sub151 = sub nsw i32 %conv133, %match.0458539
+  %sub151 = sub nsw i32 %conv133, %match.0459539
   %idxprom152 = zext i32 %sub151 to i64
-  %arrayidx153 = getelementptr inbounds i16, ptr %extra.0457540, i64 %idxprom152
+  %arrayidx153 = getelementptr inbounds i16, ptr %extra.0458540, i64 %idxprom152
   %65 = load i16, ptr %arrayidx153, align 2, !tbaa !5
   %conv154 = trunc i16 %65 to i8
-  %arrayidx161 = getelementptr inbounds i16, ptr %base.0456541, i64 %idxprom152
+  %arrayidx161 = getelementptr inbounds i16, ptr %base.0457541, i64 %idxprom152
   %66 = load i16, ptr %arrayidx161, align 2, !tbaa !5
   br label %if.end167
 
@@ -639,7 +639,7 @@ if.end205:                                        ; preds = %if.end199, %while.e
   br i1 %cmp206, label %land.lhs.true208, label %for.cond127.backedge
 
 land.lhs.true208:                                 ; preds = %if.end205
-  %and209 = and i32 %huff.1, %sub113460543
+  %and209 = and i32 %huff.1, %sub113461543
   %cmp210.not = icmp eq i32 %and209, %low.0.ph
   br i1 %cmp210.not, label %for.cond127.backedge, label %if.then212
 
@@ -689,7 +689,7 @@ while.end235:                                     ; preds = %while.end235.loopex
   %curr.1.lcssa = phi i32 [ %curr.1.lcssa.ph, %while.end235.loopexit ], [ %sub217, %if.then212 ]
   %add237 = add i32 %shl236.pre-phi, %used.0.ph
   %cmp241 = icmp ugt i32 %add237, 852
-  %or.cond301 = select i1 %cmp114461538, i1 %cmp241, i1 false
+  %or.cond301 = select i1 %cmp114462538, i1 %cmp241, i1 false
   %cmp247 = icmp ugt i32 %add237, 592
   %or.cond302 = select i1 %cmp120544, i1 %cmp247, i1 false
   %or.cond445 = select i1 %or.cond301, i1 true, i1 %or.cond302

@@ -38,7 +38,7 @@ $_ZTIN36btDiscreteCollisionDetectorInterface6ResultE = comdat any
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN16btManifoldResultC2EP17btCollisionObjectS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(176) %this, ptr noundef %body0, ptr noundef %body1) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont10:
+entry:
   store ptr getelementptr inbounds ({ [7 x ptr] }, ptr @_ZTV16btManifoldResult, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_manifoldPtr = getelementptr inbounds %class.btManifoldResult, ptr %this, i64 0, i32 1
   store ptr null, ptr %m_manifoldPtr, align 8, !tbaa !8
@@ -220,18 +220,18 @@ if.end23:                                         ; preds = %if.else, %if.then8
   %arrayidx.i29.i.i158.sink = phi ptr [ %arrayidx.i29.i.i158, %if.else ], [ %arrayidx.i29.i.i110, %if.then8 ]
   %arrayidx.i30.i.i159.sink = phi ptr [ %arrayidx.i30.i.i159, %if.else ], [ %arrayidx.i30.i.i111, %if.then8 ]
   %.pn.in = phi ptr [ %arrayidx7.i.i147, %if.else ], [ %arrayidx7.i.i99, %if.then8 ]
-  %.pn211.in = phi ptr [ %m_origin.i144, %if.else ], [ %m_origin.i96, %if.then8 ]
-  %.pn212.in = phi ptr [ %arrayidx13.i.i150, %if.else ], [ %arrayidx13.i.i102, %if.then8 ]
+  %.pn208.in = phi ptr [ %m_origin.i144, %if.else ], [ %m_origin.i96, %if.then8 ]
+  %.pn209.in = phi ptr [ %arrayidx13.i.i150, %if.else ], [ %arrayidx13.i.i102, %if.then8 ]
   %localA.sroa.5.0 = phi <2 x float> [ %retval.sroa.3.12.vec.insert.i8.i141, %if.else ], [ %retval.sroa.3.12.vec.insert.i8.i, %if.then8 ]
   %localA.sroa.0.0 = phi <2 x float> [ %53, %if.else ], [ %31, %if.then8 ]
-  %.pn212 = load float, ptr %.pn212.in, align 8, !tbaa !25
-  %sub14.i.i151.sink205 = fsub float %11, %.pn212
-  %.pn211 = load float, ptr %.pn211.in, align 8, !tbaa !25
+  %.pn209 = load float, ptr %.pn209.in, align 8, !tbaa !25
+  %sub14.i.i151.sink202 = fsub float %11, %.pn209
+  %.pn208 = load float, ptr %.pn208.in, align 8, !tbaa !25
   %56 = extractelement <2 x float> %9, i64 0
-  %sub.i.i145.sink208 = fsub float %56, %.pn211
+  %sub.i.i145.sink205 = fsub float %56, %.pn208
   %.pn = load float, ptr %.pn.in, align 4, !tbaa !25
   %57 = extractelement <2 x float> %9, i64 1
-  %sub8.i.i148.sink209 = fsub float %57, %.pn
+  %sub8.i.i148.sink206 = fsub float %57, %.pn
   %58 = load float, ptr %arrayidx.i28.i.i157.sink, align 8, !tbaa !25, !noalias !32
   %59 = load float, ptr %arrayidx.i29.i.i158.sink, align 8, !tbaa !25, !noalias !32
   %60 = load float, ptr %arrayidx.i30.i.i159.sink, align 8, !tbaa !25, !noalias !32
@@ -241,24 +241,24 @@ if.end23:                                         ; preds = %if.else, %if.then8
   %64 = load float, ptr %arrayidx.i.i.i154.sink, align 4, !tbaa !25, !noalias !32
   %65 = load float, ptr %arrayidx.i26.i.i155.sink, align 4, !tbaa !25, !noalias !32
   %66 = load float, ptr %arrayidx.i27.i.i156.sink, align 4, !tbaa !25, !noalias !32
-  %67 = insertelement <2 x float> poison, float %sub8.i.i148.sink209, i64 0
+  %67 = insertelement <2 x float> poison, float %sub8.i.i148.sink206, i64 0
   %68 = shufflevector <2 x float> %67, <2 x float> poison, <2 x i32> zeroinitializer
   %69 = insertelement <2 x float> poison, float %62, i64 0
   %70 = insertelement <2 x float> %69, float %65, i64 1
   %71 = fmul <2 x float> %68, %70
   %72 = insertelement <2 x float> poison, float %61, i64 0
   %73 = insertelement <2 x float> %72, float %64, i64 1
-  %74 = insertelement <2 x float> poison, float %sub.i.i145.sink208, i64 0
+  %74 = insertelement <2 x float> poison, float %sub.i.i145.sink205, i64 0
   %75 = shufflevector <2 x float> %74, <2 x float> poison, <2 x i32> zeroinitializer
   %76 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %73, <2 x float> %75, <2 x float> %71)
   %77 = insertelement <2 x float> poison, float %63, i64 0
   %78 = insertelement <2 x float> %77, float %66, i64 1
-  %79 = insertelement <2 x float> poison, float %sub14.i.i151.sink205, i64 0
+  %79 = insertelement <2 x float> poison, float %sub14.i.i151.sink202, i64 0
   %80 = shufflevector <2 x float> %79, <2 x float> poison, <2 x i32> zeroinitializer
   %81 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %78, <2 x float> %80, <2 x float> %76)
-  %mul8.i20.i.i162 = fmul float %sub8.i.i148.sink209, %59
-  %82 = tail call float @llvm.fmuladd.f32(float %58, float %sub.i.i145.sink208, float %mul8.i20.i.i162)
-  %83 = tail call float @llvm.fmuladd.f32(float %60, float %sub14.i.i151.sink205, float %82)
+  %mul8.i20.i.i162 = fmul float %sub8.i.i148.sink206, %59
+  %82 = tail call float @llvm.fmuladd.f32(float %58, float %sub.i.i145.sink205, float %mul8.i20.i.i162)
+  %83 = tail call float @llvm.fmuladd.f32(float %60, float %sub14.i.i151.sink202, float %82)
   %retval.sroa.3.12.vec.insert.i8.i165 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %83, i64 0
   call void @llvm.lifetime.start.p0(i64 176, ptr nonnull %newPt) #10
   store <2 x float> %localA.sroa.0.0, ptr %newPt, align 8, !tbaa.struct !19
@@ -328,20 +328,20 @@ if.else37:                                        ; preds = %if.end23
   br label %if.end46
 
 if.end46:                                         ; preds = %if.else37, %if.then32
-  %.sink188.in = phi ptr [ %m_partId038, %if.else37 ], [ %m_partId1, %if.then32 ]
-  %.sink187.in = phi ptr [ %m_partId140, %if.else37 ], [ %m_partId033, %if.then32 ]
-  %.sink186.in = phi ptr [ %m_index042, %if.else37 ], [ %m_index1, %if.then32 ]
+  %.sink186.in = phi ptr [ %m_partId038, %if.else37 ], [ %m_partId1, %if.then32 ]
+  %.sink185.in = phi ptr [ %m_partId140, %if.else37 ], [ %m_partId033, %if.then32 ]
+  %.sink184.in = phi ptr [ %m_index042, %if.else37 ], [ %m_index1, %if.then32 ]
   %.sink.in = phi ptr [ %m_index144, %if.else37 ], [ %m_index035, %if.then32 ]
   %.sink = load i32, ptr %.sink.in, align 4, !tbaa !46
+  %.sink184 = load i32, ptr %.sink184.in, align 4, !tbaa !46
+  %.sink185 = load i32, ptr %.sink185.in, align 4, !tbaa !46
   %.sink186 = load i32, ptr %.sink186.in, align 4, !tbaa !46
-  %.sink187 = load i32, ptr %.sink187.in, align 4, !tbaa !46
-  %.sink188 = load i32, ptr %.sink188.in, align 4, !tbaa !46
   %90 = getelementptr inbounds %class.btManifoldPoint, ptr %newPt, i64 0, i32 8
-  store i32 %.sink188, ptr %90, align 4
+  store i32 %.sink186, ptr %90, align 4
   %91 = getelementptr inbounds %class.btManifoldPoint, ptr %newPt, i64 0, i32 9
-  store i32 %.sink187, ptr %91, align 8
+  store i32 %.sink185, ptr %91, align 8
   %92 = getelementptr inbounds %class.btManifoldPoint, ptr %newPt, i64 0, i32 10
-  store i32 %.sink186, ptr %92, align 4
+  store i32 %.sink184, ptr %92, align 4
   %93 = getelementptr inbounds %class.btManifoldPoint, ptr %newPt, i64 0, i32 11
   store i32 %.sink, ptr %93, align 8
   %cmp47 = icmp sgt i32 %call25, -1
@@ -377,7 +377,7 @@ if.end53:                                         ; preds = %if.else50, %if.then
   br i1 %tobool54.not, label %if.end80, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %if.end53
-  %100 = load ptr, ptr %m_body0, align 8
+  %100 = load ptr, ptr %m_body0, align 8, !tbaa !17
   %m_collisionFlags.i = getelementptr inbounds %class.btCollisionObject, ptr %100, i64 0, i32 11
   %101 = load i32, ptr %m_collisionFlags.i, align 8, !tbaa !50
   %and = and i32 %101, 8

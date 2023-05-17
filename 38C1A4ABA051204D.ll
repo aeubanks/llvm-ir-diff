@@ -53,42 +53,42 @@ while.body.preheader:                             ; preds = %entry
   br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
 while.body.prol:                                  ; preds = %while.body.preheader, %while.body.prol
-  %p.012.prol = phi ptr [ %incdec.ptr.prol, %while.body.prol ], [ %call1, %while.body.preheader ]
-  %inc.i6911.prol = phi i32 [ %inc.i6.prol, %while.body.prol ], [ %inc.i, %while.body.preheader ]
+  %p.014.prol = phi ptr [ %incdec.ptr.prol, %while.body.prol ], [ %call1, %while.body.preheader ]
+  %inc.i61113.prol = phi i32 [ %inc.i6.prol, %while.body.prol ], [ %inc.i, %while.body.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.preheader ]
-  %incdec.ptr.prol = getelementptr inbounds %struct.data_record, ptr %p.012.prol, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.012.prol, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+  %incdec.ptr.prol = getelementptr inbounds %struct.data_record, ptr %p.014.prol, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.014.prol, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %inc.i6.prol = add i32 %inc.i6911.prol, 1
+  %inc.i6.prol = add i32 %inc.i61113.prol, 1
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
   br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !16
 
 while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
-  %p.012.unr = phi ptr [ %call1, %while.body.preheader ], [ %incdec.ptr.prol, %while.body.prol ]
-  %inc.i6911.unr = phi i32 [ %inc.i, %while.body.preheader ], [ %inc.i6.prol, %while.body.prol ]
+  %p.014.unr = phi ptr [ %call1, %while.body.preheader ], [ %incdec.ptr.prol, %while.body.prol ]
+  %inc.i61113.unr = phi i32 [ %inc.i, %while.body.preheader ], [ %inc.i6.prol, %while.body.prol ]
   %2 = add i32 %0, 2
   %3 = icmp ult i32 %2, 3
   br i1 %3, label %while.cond.while.end_crit_edge, label %while.body
 
 while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
-  %p.012 = phi ptr [ %incdec.ptr.3, %while.body ], [ %p.012.unr, %while.body.prol.loopexit ]
-  %inc.i6911 = phi i32 [ %inc.i6.3, %while.body ], [ %inc.i6911.unr, %while.body.prol.loopexit ]
-  %incdec.ptr = getelementptr inbounds %struct.data_record, ptr %p.012, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.012, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+  %p.014 = phi ptr [ %incdec.ptr.3, %while.body ], [ %p.014.unr, %while.body.prol.loopexit ]
+  %inc.i61113 = phi i32 [ %inc.i6.3, %while.body ], [ %inc.i61113.unr, %while.body.prol.loopexit ]
+  %incdec.ptr = getelementptr inbounds %struct.data_record, ptr %p.014, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.014, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.1 = getelementptr inbounds %struct.data_record, ptr %p.012, i64 2
+  %incdec.ptr.1 = getelementptr inbounds %struct.data_record, ptr %p.014, i64 2
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.2 = getelementptr inbounds %struct.data_record, ptr %p.012, i64 3
+  %incdec.ptr.2 = getelementptr inbounds %struct.data_record, ptr %p.014, i64 3
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr.1, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.3 = getelementptr inbounds %struct.data_record, ptr %p.012, i64 4
+  %incdec.ptr.3 = getelementptr inbounds %struct.data_record, ptr %p.014, i64 4
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr.2, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %inc.i6.3 = add i32 %inc.i6911, 4
+  %inc.i6.3 = add i32 %inc.i61113, 4
   %exitcond.not.3 = icmp eq i32 %inc.i6.3, 2
-  br i1 %exitcond.not.3, label %while.cond.while.end_crit_edge, label %while.body, !llvm.loop !18
+  br i1 %exitcond.not.3, label %while.cond.while.end_crit_edge, label %while.body
 
 while.cond.while.end_crit_edge:                   ; preds = %while.body, %while.body.prol.loopexit
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
@@ -125,20 +125,20 @@ while.body.i.preheader:                           ; preds = %entry
   br i1 %lcmp.mod.not, label %while.body.i.prol.loopexit, label %while.body.i.prol
 
 while.body.i.prol:                                ; preds = %while.body.i.preheader, %while.body.i.prol
-  %p.012.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %call1.i, %while.body.i.preheader ]
-  %inc.i6911.i.prol = phi i32 [ %inc.i6.i.prol, %while.body.i.prol ], [ %inc.i.i, %while.body.i.preheader ]
+  %p.014.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %call1.i, %while.body.i.preheader ]
+  %inc.i61113.i.prol = phi i32 [ %inc.i6.i.prol, %while.body.i.prol ], [ %inc.i.i, %while.body.i.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.i.prol ], [ 0, %while.body.i.preheader ]
-  %incdec.ptr.i.prol = getelementptr inbounds %struct.data_record, ptr %p.012.i.prol, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.012.i.prol, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+  %incdec.ptr.i.prol = getelementptr inbounds %struct.data_record, ptr %p.014.i.prol, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.014.i.prol, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %inc.i6.i.prol = add i32 %inc.i6911.i.prol, 1
+  %inc.i6.i.prol = add i32 %inc.i61113.i.prol, 1
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
-  br i1 %prol.iter.cmp.not, label %while.body.i.prol.loopexit, label %while.body.i.prol, !llvm.loop !20
+  br i1 %prol.iter.cmp.not, label %while.body.i.prol.loopexit, label %while.body.i.prol, !llvm.loop !18
 
 while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, %while.body.i.preheader
-  %p.012.i.unr = phi ptr [ %call1.i, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
-  %inc.i6911.i.unr = phi i32 [ %inc.i.i, %while.body.i.preheader ], [ %inc.i6.i.prol, %while.body.i.prol ]
+  %p.014.i.unr = phi ptr [ %call1.i, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
+  %inc.i61113.i.unr = phi i32 [ %inc.i.i, %while.body.i.preheader ], [ %inc.i6.i.prol, %while.body.i.prol ]
   %2 = add i32 %0, 2
   %3 = icmp ult i32 %2, 3
   br i1 %3, label %load_data.exit, label %while.body.i
@@ -148,27 +148,27 @@ load_data.exit.thread:                            ; preds = %entry
   br label %if.then
 
 while.body.i:                                     ; preds = %while.body.i.prol.loopexit, %while.body.i
-  %p.012.i = phi ptr [ %incdec.ptr.i.3, %while.body.i ], [ %p.012.i.unr, %while.body.i.prol.loopexit ]
-  %inc.i6911.i = phi i32 [ %inc.i6.i.3, %while.body.i ], [ %inc.i6911.i.unr, %while.body.i.prol.loopexit ]
-  %incdec.ptr.i = getelementptr inbounds %struct.data_record, ptr %p.012.i, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.012.i, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+  %p.014.i = phi ptr [ %incdec.ptr.i.3, %while.body.i ], [ %p.014.i.unr, %while.body.i.prol.loopexit ]
+  %inc.i61113.i = phi i32 [ %inc.i6.i.3, %while.body.i ], [ %inc.i61113.i.unr, %while.body.i.prol.loopexit ]
+  %incdec.ptr.i = getelementptr inbounds %struct.data_record, ptr %p.014.i, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %p.014.i, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.i.1 = getelementptr inbounds %struct.data_record, ptr %p.012.i, i64 2
+  %incdec.ptr.i.1 = getelementptr inbounds %struct.data_record, ptr %p.014.i, i64 2
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr.i, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.i.2 = getelementptr inbounds %struct.data_record, ptr %p.012.i, i64 3
+  %incdec.ptr.i.2 = getelementptr inbounds %struct.data_record, ptr %p.014.i, i64 3
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr.i.1, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %incdec.ptr.i.3 = getelementptr inbounds %struct.data_record, ptr %p.012.i, i64 4
+  %incdec.ptr.i.3 = getelementptr inbounds %struct.data_record, ptr %p.014.i, i64 4
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %incdec.ptr.i.2, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %inc.i6.i.3 = add i32 %inc.i6911.i, 4
+  %inc.i6.i.3 = add i32 %inc.i61113.i, 4
   %exitcond.not.i.3 = icmp eq i32 %inc.i6.i.3, 2
-  br i1 %exitcond.not.i.3, label %load_data.exit, label %while.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i.3, label %load_data.exit, label %while.body.i
 
 load_data.exit:                                   ; preds = %while.body.i, %while.body.i.prol.loopexit
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
-  %.pre = load i32, ptr %call1.i, align 4, !tbaa !21
+  %.pre = load i32, ptr %call1.i, align 4, !tbaa !19
   %4 = icmp eq i32 %.pre, 1431655765
   store i64 100, ptr @sqlca, align 8, !tbaa !9
   br i1 %4, label %if.end, label %if.then
@@ -220,8 +220,6 @@ attributes #9 = { noreturn nounwind }
 !15 = !{!7, !7, i64 0}
 !16 = distinct !{!16, !17}
 !17 = !{!"llvm.loop.unroll.disable"}
-!18 = distinct !{!18, !19}
-!19 = !{!"llvm.loop.mustprogress"}
-!20 = distinct !{!20, !17}
-!21 = !{!22, !6, i64 0}
-!22 = !{!"data_record", !6, i64 0, !7, i64 4}
+!18 = distinct !{!18, !17}
+!19 = !{!20, !6, i64 0}
+!20 = !{!"data_record", !6, i64 0, !7, i64 4}

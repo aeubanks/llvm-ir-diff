@@ -43,7 +43,7 @@ for.cond4.preheader.lr.ph:                        ; preds = %for.cond1.preheader
   br label %for.cond4.preheader
 
 for.cond17.preheader:                             ; preds = %for.inc14, %entry
-  %7 = load i32, ptr @numcells, align 4
+  %7 = load i32, ptr @numcells, align 4, !tbaa !5
   %8 = load i32, ptr @numpads, align 4, !tbaa !5
   %add18148 = add nsw i32 %8, %7
   %cmp20.not150 = icmp slt i32 %add18148, -3
@@ -199,7 +199,7 @@ if.end88:                                         ; preds = %if.end42, %if.then6
   %arrayidx92 = getelementptr inbounds i32, ptr %occuptr.0, i64 %idxprom91
   %52 = trunc i64 %indvars.iv161 to i32
   store i32 %52, ptr %arrayidx92, align 4, !tbaa !5
-  %.pre166 = load i32, ptr @numcells, align 4
+  %.pre166 = load i32, ptr @numcells, align 4, !tbaa !5
   %.pre167 = load i32, ptr @numpads, align 4, !tbaa !5
   br label %for.inc93
 

@@ -264,9 +264,17 @@ while.cond.preheader:                             ; preds = %entry
   %shr = lshr i32 %N, 1
   br label %while.cond
 
-while.cond:                                       ; preds = %while.cond.preheader, %if.then41
-  %r.0 = phi i32 [ %r.1, %if.then41 ], [ %sub, %while.cond.preheader ]
-  %l.0 = phi i32 [ %l.1, %if.then41 ], [ %shr, %while.cond.preheader ]
+while.cond.loopexit:                              ; preds = %if.end30, %lor.lhs.false
+  %idxprom42 = zext i32 %j.0 to i64
+  %arrayidx43 = getelementptr inbounds %struct.ht_bit_s, ptr %recs, i64 %idxprom42
+  store i16 %R.sroa.0.0, ptr %arrayidx43, align 2, !tbaa.struct !16
+  %R.sroa.6.0.arrayidx43.sroa_idx = getelementptr inbounds i8, ptr %arrayidx43, i64 2
+  store i16 %R.sroa.6.0, ptr %R.sroa.6.0.arrayidx43.sroa_idx, align 2, !tbaa.struct !17
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.cond.preheader, %while.cond.loopexit
+  %r.0 = phi i32 [ %r.1, %while.cond.loopexit ], [ %sub, %while.cond.preheader ]
+  %l.0 = phi i32 [ %l.1, %while.cond.loopexit ], [ %shr, %while.cond.preheader ]
   %cmp1.not = icmp eq i32 %l.0, 0
   br i1 %cmp1.not, label %if.else, label %if.then2
 
@@ -304,8 +312,8 @@ if.end13:                                         ; preds = %if.else, %if.then2
   %l.1 = phi i32 [ %dec, %if.then2 ], [ 0, %if.else ]
   br label %while.cond14
 
-while.cond14:                                     ; preds = %if.end44, %if.end13
-  %j.0 = phi i32 [ %l.1, %if.end13 ], [ %j.1, %if.end44 ]
+while.cond14:                                     ; preds = %cleanup, %if.end13
+  %j.0 = phi i32 [ %l.1, %if.end13 ], [ %j.1, %cleanup ]
   %add = shl i32 %j.0, 1
   %add16 = or i32 %add, 1
   %cmp17 = icmp ult i32 %add16, %r.1
@@ -326,24 +334,16 @@ if.then18:                                        ; preds = %while.cond14
 if.end30:                                         ; preds = %if.then18, %while.cond14
   %j.1 = phi i32 [ %add16, %while.cond14 ], [ %spec.select, %if.then18 ]
   %cmp31 = icmp ugt i32 %j.1, %r.1
-  br i1 %cmp31, label %if.then41, label %lor.lhs.false
+  br i1 %cmp31, label %while.cond.loopexit, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %if.end30
   %idxprom35 = zext i32 %j.1 to i64
   %mask37 = getelementptr inbounds %struct.ht_bit_s, ptr %recs, i64 %idxprom35, i32 1
   %3 = load i16, ptr %mask37, align 2, !tbaa !18
   %cmp39.not = icmp ult i16 %R.sroa.6.0, %3
-  br i1 %cmp39.not, label %if.end44, label %if.then41
+  br i1 %cmp39.not, label %cleanup, label %while.cond.loopexit
 
-if.then41:                                        ; preds = %lor.lhs.false, %if.end30
-  %idxprom42 = zext i32 %j.0 to i64
-  %arrayidx43 = getelementptr inbounds %struct.ht_bit_s, ptr %recs, i64 %idxprom42
-  store i16 %R.sroa.0.0, ptr %arrayidx43, align 2, !tbaa.struct !16
-  %R.sroa.6.0.arrayidx43.sroa_idx = getelementptr inbounds i8, ptr %arrayidx43, i64 2
-  store i16 %R.sroa.6.0, ptr %R.sroa.6.0.arrayidx43.sroa_idx, align 2, !tbaa.struct !17
-  br label %while.cond
-
-if.end44:                                         ; preds = %lor.lhs.false
+cleanup:                                          ; preds = %lor.lhs.false
   %arrayidx36 = getelementptr inbounds %struct.ht_bit_s, ptr %recs, i64 %idxprom35
   %idxprom45 = zext i32 %j.0 to i64
   %arrayidx46 = getelementptr inbounds %struct.ht_bit_s, ptr %recs, i64 %idxprom45

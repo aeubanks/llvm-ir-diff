@@ -25,7 +25,7 @@ return:                                           ; preds = %if.then2, %if.end9
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.end:
+entry:
   ret i32 0
 }
 

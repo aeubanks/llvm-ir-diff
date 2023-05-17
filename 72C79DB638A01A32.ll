@@ -19,7 +19,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %0 = load i32, ptr @g, align 4, !tbaa !5
   %tobool.not198.i.i = icmp eq i32 %0, 0
-  br i1 %tobool.not198.i.i, label %if.end, label %for.end.preheader.i.i
+  br i1 %tobool.not198.i.i, label %fn3.exit, label %for.end.preheader.i.i
 
 for.end.preheader.i.i:                            ; preds = %entry
   %t.promoted.i.i = load i32, ptr @t, align 4, !tbaa !5
@@ -37,9 +37,9 @@ for.end.i.i:                                      ; preds = %for.end.i.i, %for.e
 
 for.cond.return_crit_edge.i.i:                    ; preds = %for.end.i.i
   store i32 %inc180.i.i, ptr @t, align 4, !tbaa !5
-  br label %if.end
+  br label %fn3.exit
 
-if.end:                                           ; preds = %for.cond.return_crit_edge.i.i, %entry
+fn3.exit:                                         ; preds = %entry, %for.cond.return_crit_edge.i.i
   %4 = load volatile ptr, ptr @h, align 8, !tbaa !9
   store i32 0, ptr %4, align 4, !tbaa !5
   %5 = load volatile ptr, ptr @s, align 8, !tbaa !9

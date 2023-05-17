@@ -246,7 +246,7 @@ for.cond:                                         ; preds = %if.end, %entry
   %0 = load ptr, ptr %this, align 8, !tbaa !5
   %1 = load ptr, ptr %_bufferLimit.i.i, align 8, !tbaa !14
   %cmp.not.i.i = icmp ult ptr %0, %1
-  br i1 %cmp.not.i.i, label %invoke.cont, label %if.then.i.i
+  br i1 %cmp.not.i.i, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %for.cond
   %call.i.i78 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
@@ -257,7 +257,7 @@ call.i.i7.noexc:                                  ; preds = %if.then.i.i
 
 if.then.if.end3_crit_edge.i.i:                    ; preds = %call.i.i7.noexc
   %.pre.i.i = load ptr, ptr %this, align 8, !tbaa !5
-  br label %invoke.cont
+  br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
 
 if.then.i:                                        ; preds = %call.i.i7.noexc
   %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #9
@@ -268,7 +268,7 @@ if.then.i:                                        ; preds = %call.i.i7.noexc
 .noexc:                                           ; preds = %if.then.i
   unreachable
 
-invoke.cont:                                      ; preds = %if.then.if.end3_crit_edge.i.i, %for.cond
+_ZN8NArchive4NCab10CInArchive5Read8Ev.exit:       ; preds = %for.cond, %if.then.if.end3_crit_edge.i.i
   %2 = phi ptr [ %.pre.i.i, %if.then.if.end3_crit_edge.i.i ], [ %0, %for.cond ]
   %incdec.ptr.i.i = getelementptr inbounds i8, ptr %2, i64 1
   store ptr %incdec.ptr.i.i, ptr %this, align 8, !tbaa !5
@@ -299,11 +299,11 @@ delete.notnull.i:                                 ; preds = %lpad
 _ZN11CStringBaseIcED2Ev.exit:                     ; preds = %lpad, %delete.notnull.i
   resume { ptr, i32 } %lpad.phi
 
-if.end:                                           ; preds = %invoke.cont
+if.end:                                           ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
   %call3 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN11CStringBaseIcEpLEc(ptr noundef nonnull align 8 dereferenceable(16) %agg.result, i8 noundef signext %3)
           to label %for.cond unwind label %lpad.loopexit, !llvm.loop !22
 
-nrvo.skipdtor:                                    ; preds = %invoke.cont
+nrvo.skipdtor:                                    ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
   ret void
 }
 
@@ -518,11 +518,11 @@ if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i: ; preds = %if.end.i
 
 if.end.i.i:                                       ; preds = %if.end.i
   %conv.i.i = sext i32 %add.i.i to i64
-  %call.i.i9 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %conv.i.i) #11
+  %call.i.i8 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %conv.i.i) #11
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %if.end.i.i
-  %call.i.i958 = ptrtoint ptr %call.i.i9 to i64
+  %call.i.i858 = ptrtoint ptr %call.i.i8 to i64
   %cmp3.i.i = icmp sgt i32 %2, 0
   br i1 %cmp3.i.i, label %for.cond.preheader.i.i, label %if.end9.i.i
 
@@ -536,7 +536,7 @@ iter.check:                                       ; preds = %for.cond.preheader.
   %5 = ptrtoint ptr %4 to i64
   %wide.trip.count.i.i = zext i32 %3 to i64
   %min.iters.check = icmp ult i32 %3, 8
-  %6 = sub i64 %call.i.i958, %5
+  %6 = sub i64 %call.i.i858, %5
   %diff.check = icmp ult i64 %6, 32
   %or.cond = select i1 %min.iters.check, i1 true, i1 %diff.check
   br i1 %or.cond, label %for.body.i.i.preheader, label %vector.main.loop.iter.check
@@ -555,7 +555,7 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %wide.load = load <16 x i8>, ptr %7, align 1, !tbaa !18
   %8 = getelementptr inbounds i8, ptr %7, i64 16
   %wide.load60 = load <16 x i8>, ptr %8, align 1, !tbaa !18
-  %9 = getelementptr inbounds i8, ptr %call.i.i9, i64 %index
+  %9 = getelementptr inbounds i8, ptr %call.i.i8, i64 %index
   store <16 x i8> %wide.load, ptr %9, align 1, !tbaa !18
   %10 = getelementptr inbounds i8, ptr %9, i64 16
   store <16 x i8> %wide.load60, ptr %10, align 1, !tbaa !18
@@ -581,7 +581,7 @@ vec.epilog.vector.body:                           ; preds = %vec.epilog.vector.b
   %index64 = phi i64 [ %vec.epilog.resume.val, %vec.epilog.ph ], [ %index.next66, %vec.epilog.vector.body ]
   %12 = getelementptr inbounds i8, ptr %4, i64 %index64
   %wide.load65 = load <8 x i8>, ptr %12, align 1, !tbaa !18
-  %13 = getelementptr inbounds i8, ptr %call.i.i9, i64 %index64
+  %13 = getelementptr inbounds i8, ptr %call.i.i8, i64 %index64
   store <8 x i8> %wide.load65, ptr %13, align 1, !tbaa !18
   %index.next66 = add nuw i64 %index64, 8
   %14 = icmp eq i64 %index.next66, %n.vec62
@@ -604,7 +604,7 @@ for.body.i.i.prol:                                ; preds = %for.body.i.i.prehea
   %prol.iter = phi i64 [ %prol.iter.next, %for.body.i.i.prol ], [ 0, %for.body.i.i.preheader ]
   %arrayidx.i.i.prol = getelementptr inbounds i8, ptr %4, i64 %indvars.iv.i.i.prol
   %17 = load i8, ptr %arrayidx.i.i.prol, align 1, !tbaa !18
-  %arrayidx7.i.i.prol = getelementptr inbounds i8, ptr %call.i.i9, i64 %indvars.iv.i.i.prol
+  %arrayidx7.i.i.prol = getelementptr inbounds i8, ptr %call.i.i8, i64 %indvars.iv.i.i.prol
   store i8 %17, ptr %arrayidx7.i.i.prol, align 1, !tbaa !18
   %indvars.iv.next.i.i.prol = add nuw nsw i64 %indvars.iv.i.i.prol, 1
   %prol.iter.next = add i64 %prol.iter, 1
@@ -624,22 +624,22 @@ for.body.i.i:                                     ; preds = %for.body.i.i.prol.l
   %indvars.iv.i.i = phi i64 [ %indvars.iv.next.i.i.3, %for.body.i.i ], [ %indvars.iv.i.i.unr, %for.body.i.i.prol.loopexit ]
   %arrayidx.i.i = getelementptr inbounds i8, ptr %4, i64 %indvars.iv.i.i
   %19 = load i8, ptr %arrayidx.i.i, align 1, !tbaa !18
-  %arrayidx7.i.i = getelementptr inbounds i8, ptr %call.i.i9, i64 %indvars.iv.i.i
+  %arrayidx7.i.i = getelementptr inbounds i8, ptr %call.i.i8, i64 %indvars.iv.i.i
   store i8 %19, ptr %arrayidx7.i.i, align 1, !tbaa !18
   %indvars.iv.next.i.i = add nuw nsw i64 %indvars.iv.i.i, 1
   %arrayidx.i.i.1 = getelementptr inbounds i8, ptr %4, i64 %indvars.iv.next.i.i
   %20 = load i8, ptr %arrayidx.i.i.1, align 1, !tbaa !18
-  %arrayidx7.i.i.1 = getelementptr inbounds i8, ptr %call.i.i9, i64 %indvars.iv.next.i.i
+  %arrayidx7.i.i.1 = getelementptr inbounds i8, ptr %call.i.i8, i64 %indvars.iv.next.i.i
   store i8 %20, ptr %arrayidx7.i.i.1, align 1, !tbaa !18
   %indvars.iv.next.i.i.1 = add nuw nsw i64 %indvars.iv.i.i, 2
   %arrayidx.i.i.2 = getelementptr inbounds i8, ptr %4, i64 %indvars.iv.next.i.i.1
   %21 = load i8, ptr %arrayidx.i.i.2, align 1, !tbaa !18
-  %arrayidx7.i.i.2 = getelementptr inbounds i8, ptr %call.i.i9, i64 %indvars.iv.next.i.i.1
+  %arrayidx7.i.i.2 = getelementptr inbounds i8, ptr %call.i.i8, i64 %indvars.iv.next.i.i.1
   store i8 %21, ptr %arrayidx7.i.i.2, align 1, !tbaa !18
   %indvars.iv.next.i.i.2 = add nuw nsw i64 %indvars.iv.i.i, 3
   %arrayidx.i.i.3 = getelementptr inbounds i8, ptr %4, i64 %indvars.iv.next.i.i.2
   %22 = load i8, ptr %arrayidx.i.i.3, align 1, !tbaa !18
-  %arrayidx7.i.i.3 = getelementptr inbounds i8, ptr %call.i.i9, i64 %indvars.iv.next.i.i.2
+  %arrayidx7.i.i.3 = getelementptr inbounds i8, ptr %call.i.i8, i64 %indvars.iv.next.i.i.2
   store i8 %22, ptr %arrayidx7.i.i.3, align 1, !tbaa !18
   %indvars.iv.next.i.i.3 = add nuw nsw i64 %indvars.iv.i.i, 4
   %exitcond.not.i.i.3 = icmp eq i64 %indvars.iv.next.i.i.3, %wide.trip.count.i.i
@@ -650,16 +650,16 @@ delete.notnull.i.i:                               ; preds = %for.body.i.i.prol.l
   br label %if.end9.i.i
 
 if.end9.i.i:                                      ; preds = %delete.notnull.i.i, %for.cond.cleanup.i.i, %call.i.i.noexc
-  store ptr %call.i.i9, ptr %oa, align 8, !tbaa !19
+  store ptr %call.i.i8, ptr %oa, align 8, !tbaa !19
   %23 = load i32, ptr %_length.i.i, align 8, !tbaa !24
   %idxprom13.i.i = sext i32 %23 to i64
-  %arrayidx14.i.i = getelementptr inbounds i8, ptr %call.i.i9, i64 %idxprom13.i.i
+  %arrayidx14.i.i = getelementptr inbounds i8, ptr %call.i.i8, i64 %idxprom13.i.i
   store i8 0, ptr %arrayidx14.i.i, align 1, !tbaa !18
   store i32 %add.i.i, ptr %_capacity.i.i, align 4, !tbaa !21
   br label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i
 
 _ZN11CStringBaseIcE11SetCapacityEi.exit.i:        ; preds = %if.end9.i.i, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i
-  %24 = phi ptr [ %.pre.i, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i ], [ %call.i.i9, %if.end9.i.i ]
+  %24 = phi ptr [ %.pre.i, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i ], [ %call.i.i8, %if.end9.i.i ]
   %25 = load ptr, ptr %ref.tmp, align 8, !tbaa !19
   br label %while.cond.i.i
 
@@ -692,57 +692,57 @@ _ZN11CStringBaseIcED2Ev.exit:                     ; preds = %invoke.cont, %delet
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp2) #9
   call void @_ZN8NArchive4NCab10CInArchive12SafeReadNameEv(ptr nonnull sret(%class.CStringBase) align 8 %ref.tmp2, ptr noundef nonnull align 8 dereferenceable(48) %this)
   %DiskName = getelementptr inbounds %"struct.NArchive::NCab::COtherArchive", ptr %oa, i64 0, i32 1
-  %cmp.i10 = icmp eq ptr %ref.tmp2, %DiskName
-  br i1 %cmp.i10, label %invoke.cont4, label %if.end.i16
+  %cmp.i9 = icmp eq ptr %ref.tmp2, %DiskName
+  br i1 %cmp.i9, label %invoke.cont4, label %if.end.i15
 
-if.end.i16:                                       ; preds = %_ZN11CStringBaseIcED2Ev.exit
-  %_length.i.i11 = getelementptr inbounds %"struct.NArchive::NCab::COtherArchive", ptr %oa, i64 0, i32 1, i32 1
-  store i32 0, ptr %_length.i.i11, align 8, !tbaa !24
+if.end.i15:                                       ; preds = %_ZN11CStringBaseIcED2Ev.exit
+  %_length.i.i10 = getelementptr inbounds %"struct.NArchive::NCab::COtherArchive", ptr %oa, i64 0, i32 1, i32 1
+  store i32 0, ptr %_length.i.i10, align 8, !tbaa !24
   %29 = load ptr, ptr %DiskName, align 8, !tbaa !19
   store i8 0, ptr %29, align 1, !tbaa !18
-  %_length.i12 = getelementptr inbounds %class.CStringBase, ptr %ref.tmp2, i64 0, i32 1
-  %30 = load i32, ptr %_length.i12, align 8, !tbaa !24
-  %add.i.i13 = add nsw i32 %30, 1
-  %_capacity.i.i14 = getelementptr inbounds %"struct.NArchive::NCab::COtherArchive", ptr %oa, i64 0, i32 1, i32 2
-  %31 = load i32, ptr %_capacity.i.i14, align 4, !tbaa !21
-  %cmp.i.i15 = icmp eq i32 %add.i.i13, %31
-  br i1 %cmp.i.i15, label %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i18, label %if.end.i.i21
+  %_length.i11 = getelementptr inbounds %class.CStringBase, ptr %ref.tmp2, i64 0, i32 1
+  %30 = load i32, ptr %_length.i11, align 8, !tbaa !24
+  %add.i.i12 = add nsw i32 %30, 1
+  %_capacity.i.i13 = getelementptr inbounds %"struct.NArchive::NCab::COtherArchive", ptr %oa, i64 0, i32 1, i32 2
+  %31 = load i32, ptr %_capacity.i.i13, align 4, !tbaa !21
+  %cmp.i.i14 = icmp eq i32 %add.i.i12, %31
+  br i1 %cmp.i.i14, label %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i17, label %if.end.i.i20
 
-if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i18: ; preds = %if.end.i16
-  %.pre.i17 = load ptr, ptr %DiskName, align 8, !tbaa !19
-  br label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i38
+if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i17: ; preds = %if.end.i15
+  %.pre.i16 = load ptr, ptr %DiskName, align 8, !tbaa !19
+  br label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i37
 
-if.end.i.i21:                                     ; preds = %if.end.i16
-  %conv.i.i19 = sext i32 %add.i.i13 to i64
-  %call.i.i47 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %conv.i.i19) #11
-          to label %call.i.i.noexc46 unwind label %lpad3
+if.end.i.i20:                                     ; preds = %if.end.i15
+  %conv.i.i18 = sext i32 %add.i.i12 to i64
+  %call.i.i46 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %conv.i.i18) #11
+          to label %call.i.i.noexc45 unwind label %lpad3
 
-call.i.i.noexc46:                                 ; preds = %if.end.i.i21
-  %call.i.i4768 = ptrtoint ptr %call.i.i47 to i64
-  %cmp3.i.i20 = icmp sgt i32 %31, 0
-  br i1 %cmp3.i.i20, label %for.cond.preheader.i.i23, label %if.end9.i.i37
+call.i.i.noexc45:                                 ; preds = %if.end.i.i20
+  %call.i.i4668 = ptrtoint ptr %call.i.i46 to i64
+  %cmp3.i.i19 = icmp sgt i32 %31, 0
+  br i1 %cmp3.i.i19, label %for.cond.preheader.i.i22, label %if.end9.i.i36
 
-for.cond.preheader.i.i23:                         ; preds = %call.i.i.noexc46
-  %32 = load i32, ptr %_length.i.i11, align 8, !tbaa !24
-  %cmp522.i.i22 = icmp sgt i32 %32, 0
+for.cond.preheader.i.i22:                         ; preds = %call.i.i.noexc45
+  %32 = load i32, ptr %_length.i.i10, align 8, !tbaa !24
+  %cmp522.i.i21 = icmp sgt i32 %32, 0
   %33 = load ptr, ptr %DiskName, align 8, !tbaa !19
-  br i1 %cmp522.i.i22, label %iter.check73, label %for.cond.cleanup.i.i27
+  br i1 %cmp522.i.i21, label %iter.check73, label %for.cond.cleanup.i.i26
 
-iter.check73:                                     ; preds = %for.cond.preheader.i.i23
+iter.check73:                                     ; preds = %for.cond.preheader.i.i22
   %34 = ptrtoint ptr %33 to i64
-  %wide.trip.count.i.i24 = zext i32 %32 to i64
+  %wide.trip.count.i.i23 = zext i32 %32 to i64
   %min.iters.check71 = icmp ult i32 %32, 8
-  %35 = sub i64 %call.i.i4768, %34
+  %35 = sub i64 %call.i.i4668, %34
   %diff.check69 = icmp ult i64 %35, 32
   %or.cond100 = select i1 %min.iters.check71, i1 true, i1 %diff.check69
-  br i1 %or.cond100, label %for.body.i.i33.preheader, label %vector.main.loop.iter.check75
+  br i1 %or.cond100, label %for.body.i.i32.preheader, label %vector.main.loop.iter.check75
 
 vector.main.loop.iter.check75:                    ; preds = %iter.check73
   %min.iters.check74 = icmp ult i32 %32, 32
   br i1 %min.iters.check74, label %vec.epilog.ph88, label %vector.ph76
 
 vector.ph76:                                      ; preds = %vector.main.loop.iter.check75
-  %n.vec78 = and i64 %wide.trip.count.i.i24, 4294967264
+  %n.vec78 = and i64 %wide.trip.count.i.i23, 4294967264
   br label %vector.body80
 
 vector.body80:                                    ; preds = %vector.body80, %vector.ph76
@@ -751,7 +751,7 @@ vector.body80:                                    ; preds = %vector.body80, %vec
   %wide.load82 = load <16 x i8>, ptr %36, align 1, !tbaa !18
   %37 = getelementptr inbounds i8, ptr %36, i64 16
   %wide.load83 = load <16 x i8>, ptr %37, align 1, !tbaa !18
-  %38 = getelementptr inbounds i8, ptr %call.i.i47, i64 %index81
+  %38 = getelementptr inbounds i8, ptr %call.i.i46, i64 %index81
   store <16 x i8> %wide.load82, ptr %38, align 1, !tbaa !18
   %39 = getelementptr inbounds i8, ptr %38, i64 16
   store <16 x i8> %wide.load83, ptr %39, align 1, !tbaa !18
@@ -760,130 +760,130 @@ vector.body80:                                    ; preds = %vector.body80, %vec
   br i1 %40, label %middle.block70, label %vector.body80, !llvm.loop !37
 
 middle.block70:                                   ; preds = %vector.body80
-  %cmp.n79 = icmp eq i64 %n.vec78, %wide.trip.count.i.i24
-  br i1 %cmp.n79, label %delete.notnull.i.i34, label %vec.epilog.iter.check87
+  %cmp.n79 = icmp eq i64 %n.vec78, %wide.trip.count.i.i23
+  br i1 %cmp.n79, label %delete.notnull.i.i33, label %vec.epilog.iter.check87
 
 vec.epilog.iter.check87:                          ; preds = %middle.block70
-  %n.vec.remaining89 = and i64 %wide.trip.count.i.i24, 24
+  %n.vec.remaining89 = and i64 %wide.trip.count.i.i23, 24
   %min.epilog.iters.check90 = icmp eq i64 %n.vec.remaining89, 0
-  br i1 %min.epilog.iters.check90, label %for.body.i.i33.preheader, label %vec.epilog.ph88
+  br i1 %min.epilog.iters.check90, label %for.body.i.i32.preheader, label %vec.epilog.ph88
 
 vec.epilog.ph88:                                  ; preds = %vector.main.loop.iter.check75, %vec.epilog.iter.check87
   %vec.epilog.resume.val91 = phi i64 [ %n.vec78, %vec.epilog.iter.check87 ], [ 0, %vector.main.loop.iter.check75 ]
-  %n.vec93 = and i64 %wide.trip.count.i.i24, 4294967288
+  %n.vec93 = and i64 %wide.trip.count.i.i23, 4294967288
   br label %vec.epilog.vector.body96
 
 vec.epilog.vector.body96:                         ; preds = %vec.epilog.vector.body96, %vec.epilog.ph88
   %index97 = phi i64 [ %vec.epilog.resume.val91, %vec.epilog.ph88 ], [ %index.next99, %vec.epilog.vector.body96 ]
   %41 = getelementptr inbounds i8, ptr %33, i64 %index97
   %wide.load98 = load <8 x i8>, ptr %41, align 1, !tbaa !18
-  %42 = getelementptr inbounds i8, ptr %call.i.i47, i64 %index97
+  %42 = getelementptr inbounds i8, ptr %call.i.i46, i64 %index97
   store <8 x i8> %wide.load98, ptr %42, align 1, !tbaa !18
   %index.next99 = add nuw i64 %index97, 8
   %43 = icmp eq i64 %index.next99, %n.vec93
   br i1 %43, label %vec.epilog.middle.block85, label %vec.epilog.vector.body96, !llvm.loop !38
 
 vec.epilog.middle.block85:                        ; preds = %vec.epilog.vector.body96
-  %cmp.n95 = icmp eq i64 %n.vec93, %wide.trip.count.i.i24
-  br i1 %cmp.n95, label %delete.notnull.i.i34, label %for.body.i.i33.preheader
+  %cmp.n95 = icmp eq i64 %n.vec93, %wide.trip.count.i.i23
+  br i1 %cmp.n95, label %delete.notnull.i.i33, label %for.body.i.i32.preheader
 
-for.body.i.i33.preheader:                         ; preds = %iter.check73, %vec.epilog.iter.check87, %vec.epilog.middle.block85
-  %indvars.iv.i.i28.ph = phi i64 [ 0, %iter.check73 ], [ %n.vec78, %vec.epilog.iter.check87 ], [ %n.vec93, %vec.epilog.middle.block85 ]
-  %44 = xor i64 %indvars.iv.i.i28.ph, -1
-  %45 = add nsw i64 %44, %wide.trip.count.i.i24
-  %xtraiter101 = and i64 %wide.trip.count.i.i24, 3
+for.body.i.i32.preheader:                         ; preds = %iter.check73, %vec.epilog.iter.check87, %vec.epilog.middle.block85
+  %indvars.iv.i.i27.ph = phi i64 [ 0, %iter.check73 ], [ %n.vec78, %vec.epilog.iter.check87 ], [ %n.vec93, %vec.epilog.middle.block85 ]
+  %44 = xor i64 %indvars.iv.i.i27.ph, -1
+  %45 = add nsw i64 %44, %wide.trip.count.i.i23
+  %xtraiter101 = and i64 %wide.trip.count.i.i23, 3
   %lcmp.mod102.not = icmp eq i64 %xtraiter101, 0
-  br i1 %lcmp.mod102.not, label %for.body.i.i33.prol.loopexit, label %for.body.i.i33.prol
+  br i1 %lcmp.mod102.not, label %for.body.i.i32.prol.loopexit, label %for.body.i.i32.prol
 
-for.body.i.i33.prol:                              ; preds = %for.body.i.i33.preheader, %for.body.i.i33.prol
-  %indvars.iv.i.i28.prol = phi i64 [ %indvars.iv.next.i.i31.prol, %for.body.i.i33.prol ], [ %indvars.iv.i.i28.ph, %for.body.i.i33.preheader ]
-  %prol.iter103 = phi i64 [ %prol.iter103.next, %for.body.i.i33.prol ], [ 0, %for.body.i.i33.preheader ]
-  %arrayidx.i.i29.prol = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.i.i28.prol
-  %46 = load i8, ptr %arrayidx.i.i29.prol, align 1, !tbaa !18
-  %arrayidx7.i.i30.prol = getelementptr inbounds i8, ptr %call.i.i47, i64 %indvars.iv.i.i28.prol
-  store i8 %46, ptr %arrayidx7.i.i30.prol, align 1, !tbaa !18
-  %indvars.iv.next.i.i31.prol = add nuw nsw i64 %indvars.iv.i.i28.prol, 1
+for.body.i.i32.prol:                              ; preds = %for.body.i.i32.preheader, %for.body.i.i32.prol
+  %indvars.iv.i.i27.prol = phi i64 [ %indvars.iv.next.i.i30.prol, %for.body.i.i32.prol ], [ %indvars.iv.i.i27.ph, %for.body.i.i32.preheader ]
+  %prol.iter103 = phi i64 [ %prol.iter103.next, %for.body.i.i32.prol ], [ 0, %for.body.i.i32.preheader ]
+  %arrayidx.i.i28.prol = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.i.i27.prol
+  %46 = load i8, ptr %arrayidx.i.i28.prol, align 1, !tbaa !18
+  %arrayidx7.i.i29.prol = getelementptr inbounds i8, ptr %call.i.i46, i64 %indvars.iv.i.i27.prol
+  store i8 %46, ptr %arrayidx7.i.i29.prol, align 1, !tbaa !18
+  %indvars.iv.next.i.i30.prol = add nuw nsw i64 %indvars.iv.i.i27.prol, 1
   %prol.iter103.next = add i64 %prol.iter103, 1
   %prol.iter103.cmp.not = icmp eq i64 %prol.iter103.next, %xtraiter101
-  br i1 %prol.iter103.cmp.not, label %for.body.i.i33.prol.loopexit, label %for.body.i.i33.prol, !llvm.loop !39
+  br i1 %prol.iter103.cmp.not, label %for.body.i.i32.prol.loopexit, label %for.body.i.i32.prol, !llvm.loop !39
 
-for.body.i.i33.prol.loopexit:                     ; preds = %for.body.i.i33.prol, %for.body.i.i33.preheader
-  %indvars.iv.i.i28.unr = phi i64 [ %indvars.iv.i.i28.ph, %for.body.i.i33.preheader ], [ %indvars.iv.next.i.i31.prol, %for.body.i.i33.prol ]
+for.body.i.i32.prol.loopexit:                     ; preds = %for.body.i.i32.prol, %for.body.i.i32.preheader
+  %indvars.iv.i.i27.unr = phi i64 [ %indvars.iv.i.i27.ph, %for.body.i.i32.preheader ], [ %indvars.iv.next.i.i30.prol, %for.body.i.i32.prol ]
   %47 = icmp ult i64 %45, 3
-  br i1 %47, label %delete.notnull.i.i34, label %for.body.i.i33
+  br i1 %47, label %delete.notnull.i.i33, label %for.body.i.i32
 
-for.cond.cleanup.i.i27:                           ; preds = %for.cond.preheader.i.i23
-  %isnull.i.i26 = icmp eq ptr %33, null
-  br i1 %isnull.i.i26, label %if.end9.i.i37, label %delete.notnull.i.i34
+for.cond.cleanup.i.i26:                           ; preds = %for.cond.preheader.i.i22
+  %isnull.i.i25 = icmp eq ptr %33, null
+  br i1 %isnull.i.i25, label %if.end9.i.i36, label %delete.notnull.i.i33
 
-for.body.i.i33:                                   ; preds = %for.body.i.i33.prol.loopexit, %for.body.i.i33
-  %indvars.iv.i.i28 = phi i64 [ %indvars.iv.next.i.i31.3, %for.body.i.i33 ], [ %indvars.iv.i.i28.unr, %for.body.i.i33.prol.loopexit ]
-  %arrayidx.i.i29 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.i.i28
-  %48 = load i8, ptr %arrayidx.i.i29, align 1, !tbaa !18
-  %arrayidx7.i.i30 = getelementptr inbounds i8, ptr %call.i.i47, i64 %indvars.iv.i.i28
-  store i8 %48, ptr %arrayidx7.i.i30, align 1, !tbaa !18
-  %indvars.iv.next.i.i31 = add nuw nsw i64 %indvars.iv.i.i28, 1
-  %arrayidx.i.i29.1 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i31
-  %49 = load i8, ptr %arrayidx.i.i29.1, align 1, !tbaa !18
-  %arrayidx7.i.i30.1 = getelementptr inbounds i8, ptr %call.i.i47, i64 %indvars.iv.next.i.i31
-  store i8 %49, ptr %arrayidx7.i.i30.1, align 1, !tbaa !18
-  %indvars.iv.next.i.i31.1 = add nuw nsw i64 %indvars.iv.i.i28, 2
-  %arrayidx.i.i29.2 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i31.1
-  %50 = load i8, ptr %arrayidx.i.i29.2, align 1, !tbaa !18
-  %arrayidx7.i.i30.2 = getelementptr inbounds i8, ptr %call.i.i47, i64 %indvars.iv.next.i.i31.1
-  store i8 %50, ptr %arrayidx7.i.i30.2, align 1, !tbaa !18
-  %indvars.iv.next.i.i31.2 = add nuw nsw i64 %indvars.iv.i.i28, 3
-  %arrayidx.i.i29.3 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i31.2
-  %51 = load i8, ptr %arrayidx.i.i29.3, align 1, !tbaa !18
-  %arrayidx7.i.i30.3 = getelementptr inbounds i8, ptr %call.i.i47, i64 %indvars.iv.next.i.i31.2
-  store i8 %51, ptr %arrayidx7.i.i30.3, align 1, !tbaa !18
-  %indvars.iv.next.i.i31.3 = add nuw nsw i64 %indvars.iv.i.i28, 4
-  %exitcond.not.i.i32.3 = icmp eq i64 %indvars.iv.next.i.i31.3, %wide.trip.count.i.i24
-  br i1 %exitcond.not.i.i32.3, label %delete.notnull.i.i34, label %for.body.i.i33, !llvm.loop !40
+for.body.i.i32:                                   ; preds = %for.body.i.i32.prol.loopexit, %for.body.i.i32
+  %indvars.iv.i.i27 = phi i64 [ %indvars.iv.next.i.i30.3, %for.body.i.i32 ], [ %indvars.iv.i.i27.unr, %for.body.i.i32.prol.loopexit ]
+  %arrayidx.i.i28 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.i.i27
+  %48 = load i8, ptr %arrayidx.i.i28, align 1, !tbaa !18
+  %arrayidx7.i.i29 = getelementptr inbounds i8, ptr %call.i.i46, i64 %indvars.iv.i.i27
+  store i8 %48, ptr %arrayidx7.i.i29, align 1, !tbaa !18
+  %indvars.iv.next.i.i30 = add nuw nsw i64 %indvars.iv.i.i27, 1
+  %arrayidx.i.i28.1 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i30
+  %49 = load i8, ptr %arrayidx.i.i28.1, align 1, !tbaa !18
+  %arrayidx7.i.i29.1 = getelementptr inbounds i8, ptr %call.i.i46, i64 %indvars.iv.next.i.i30
+  store i8 %49, ptr %arrayidx7.i.i29.1, align 1, !tbaa !18
+  %indvars.iv.next.i.i30.1 = add nuw nsw i64 %indvars.iv.i.i27, 2
+  %arrayidx.i.i28.2 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i30.1
+  %50 = load i8, ptr %arrayidx.i.i28.2, align 1, !tbaa !18
+  %arrayidx7.i.i29.2 = getelementptr inbounds i8, ptr %call.i.i46, i64 %indvars.iv.next.i.i30.1
+  store i8 %50, ptr %arrayidx7.i.i29.2, align 1, !tbaa !18
+  %indvars.iv.next.i.i30.2 = add nuw nsw i64 %indvars.iv.i.i27, 3
+  %arrayidx.i.i28.3 = getelementptr inbounds i8, ptr %33, i64 %indvars.iv.next.i.i30.2
+  %51 = load i8, ptr %arrayidx.i.i28.3, align 1, !tbaa !18
+  %arrayidx7.i.i29.3 = getelementptr inbounds i8, ptr %call.i.i46, i64 %indvars.iv.next.i.i30.2
+  store i8 %51, ptr %arrayidx7.i.i29.3, align 1, !tbaa !18
+  %indvars.iv.next.i.i30.3 = add nuw nsw i64 %indvars.iv.i.i27, 4
+  %exitcond.not.i.i31.3 = icmp eq i64 %indvars.iv.next.i.i30.3, %wide.trip.count.i.i23
+  br i1 %exitcond.not.i.i31.3, label %delete.notnull.i.i33, label %for.body.i.i32, !llvm.loop !40
 
-delete.notnull.i.i34:                             ; preds = %for.body.i.i33.prol.loopexit, %for.body.i.i33, %middle.block70, %vec.epilog.middle.block85, %for.cond.cleanup.i.i27
+delete.notnull.i.i33:                             ; preds = %for.body.i.i32.prol.loopexit, %for.body.i.i32, %middle.block70, %vec.epilog.middle.block85, %for.cond.cleanup.i.i26
   call void @_ZdaPv(ptr noundef nonnull %33) #12
-  br label %if.end9.i.i37
+  br label %if.end9.i.i36
 
-if.end9.i.i37:                                    ; preds = %delete.notnull.i.i34, %for.cond.cleanup.i.i27, %call.i.i.noexc46
-  store ptr %call.i.i47, ptr %DiskName, align 8, !tbaa !19
-  %52 = load i32, ptr %_length.i.i11, align 8, !tbaa !24
-  %idxprom13.i.i35 = sext i32 %52 to i64
-  %arrayidx14.i.i36 = getelementptr inbounds i8, ptr %call.i.i47, i64 %idxprom13.i.i35
-  store i8 0, ptr %arrayidx14.i.i36, align 1, !tbaa !18
-  store i32 %add.i.i13, ptr %_capacity.i.i14, align 4, !tbaa !21
-  br label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i38
+if.end9.i.i36:                                    ; preds = %delete.notnull.i.i33, %for.cond.cleanup.i.i26, %call.i.i.noexc45
+  store ptr %call.i.i46, ptr %DiskName, align 8, !tbaa !19
+  %52 = load i32, ptr %_length.i.i10, align 8, !tbaa !24
+  %idxprom13.i.i34 = sext i32 %52 to i64
+  %arrayidx14.i.i35 = getelementptr inbounds i8, ptr %call.i.i46, i64 %idxprom13.i.i34
+  store i8 0, ptr %arrayidx14.i.i35, align 1, !tbaa !18
+  store i32 %add.i.i12, ptr %_capacity.i.i13, align 4, !tbaa !21
+  br label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i37
 
-_ZN11CStringBaseIcE11SetCapacityEi.exit.i38:      ; preds = %if.end9.i.i37, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i18
-  %53 = phi ptr [ %.pre.i17, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i18 ], [ %call.i.i47, %if.end9.i.i37 ]
+_ZN11CStringBaseIcE11SetCapacityEi.exit.i37:      ; preds = %if.end9.i.i36, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i17
+  %53 = phi ptr [ %.pre.i16, %if.end._ZN11CStringBaseIcE11SetCapacityEi.exit_crit_edge.i17 ], [ %call.i.i46, %if.end9.i.i36 ]
   %54 = load ptr, ptr %ref.tmp2, align 8, !tbaa !19
-  br label %while.cond.i.i44
+  br label %while.cond.i.i43
 
-while.cond.i.i44:                                 ; preds = %while.cond.i.i44, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i38
-  %src.addr.0.i.i39 = phi ptr [ %54, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i38 ], [ %incdec.ptr.i.i41, %while.cond.i.i44 ]
-  %dest.addr.0.i.i40 = phi ptr [ %53, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i38 ], [ %incdec.ptr1.i.i42, %while.cond.i.i44 ]
-  %incdec.ptr.i.i41 = getelementptr inbounds i8, ptr %src.addr.0.i.i39, i64 1
-  %55 = load i8, ptr %src.addr.0.i.i39, align 1, !tbaa !18
-  %incdec.ptr1.i.i42 = getelementptr inbounds i8, ptr %dest.addr.0.i.i40, i64 1
-  store i8 %55, ptr %dest.addr.0.i.i40, align 1, !tbaa !18
-  %cmp.not.i.i43 = icmp eq i8 %55, 0
-  br i1 %cmp.not.i.i43, label %_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i45, label %while.cond.i.i44, !llvm.loop !36
+while.cond.i.i43:                                 ; preds = %while.cond.i.i43, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i37
+  %src.addr.0.i.i38 = phi ptr [ %54, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i37 ], [ %incdec.ptr.i.i40, %while.cond.i.i43 ]
+  %dest.addr.0.i.i39 = phi ptr [ %53, %_ZN11CStringBaseIcE11SetCapacityEi.exit.i37 ], [ %incdec.ptr1.i.i41, %while.cond.i.i43 ]
+  %incdec.ptr.i.i40 = getelementptr inbounds i8, ptr %src.addr.0.i.i38, i64 1
+  %55 = load i8, ptr %src.addr.0.i.i38, align 1, !tbaa !18
+  %incdec.ptr1.i.i41 = getelementptr inbounds i8, ptr %dest.addr.0.i.i39, i64 1
+  store i8 %55, ptr %dest.addr.0.i.i39, align 1, !tbaa !18
+  %cmp.not.i.i42 = icmp eq i8 %55, 0
+  br i1 %cmp.not.i.i42, label %_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i44, label %while.cond.i.i43, !llvm.loop !36
 
-_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i45:          ; preds = %while.cond.i.i44
-  %56 = load i32, ptr %_length.i12, align 8, !tbaa !24
-  store i32 %56, ptr %_length.i.i11, align 8, !tbaa !24
+_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i44:          ; preds = %while.cond.i.i43
+  %56 = load i32, ptr %_length.i11, align 8, !tbaa !24
+  store i32 %56, ptr %_length.i.i10, align 8, !tbaa !24
   br label %invoke.cont4
 
-invoke.cont4:                                     ; preds = %_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i45, %_ZN11CStringBaseIcED2Ev.exit
+invoke.cont4:                                     ; preds = %_Z12MyStringCopyIcEPT_S1_PKS0_.exit.i44, %_ZN11CStringBaseIcED2Ev.exit
   %57 = load ptr, ptr %ref.tmp2, align 8, !tbaa !19
-  %isnull.i49 = icmp eq ptr %57, null
-  br i1 %isnull.i49, label %_ZN11CStringBaseIcED2Ev.exit51, label %delete.notnull.i50
+  %isnull.i48 = icmp eq ptr %57, null
+  br i1 %isnull.i48, label %_ZN11CStringBaseIcED2Ev.exit50, label %delete.notnull.i49
 
-delete.notnull.i50:                               ; preds = %invoke.cont4
+delete.notnull.i49:                               ; preds = %invoke.cont4
   call void @_ZdaPv(ptr noundef nonnull %57) #12
-  br label %_ZN11CStringBaseIcED2Ev.exit51
+  br label %_ZN11CStringBaseIcED2Ev.exit50
 
-_ZN11CStringBaseIcED2Ev.exit51:                   ; preds = %invoke.cont4, %delete.notnull.i50
+_ZN11CStringBaseIcED2Ev.exit50:                   ; preds = %invoke.cont4, %delete.notnull.i49
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp2) #9
   ret void
 
@@ -891,34 +891,34 @@ lpad:                                             ; preds = %if.end.i.i
   %58 = landingpad { ptr, i32 }
           cleanup
   %59 = load ptr, ptr %ref.tmp, align 8, !tbaa !19
-  %isnull.i52 = icmp eq ptr %59, null
-  br i1 %isnull.i52, label %_ZN11CStringBaseIcED2Ev.exit54, label %delete.notnull.i53
+  %isnull.i51 = icmp eq ptr %59, null
+  br i1 %isnull.i51, label %_ZN11CStringBaseIcED2Ev.exit53, label %delete.notnull.i52
 
-delete.notnull.i53:                               ; preds = %lpad
+delete.notnull.i52:                               ; preds = %lpad
   call void @_ZdaPv(ptr noundef nonnull %59) #12
-  br label %_ZN11CStringBaseIcED2Ev.exit54
+  br label %_ZN11CStringBaseIcED2Ev.exit53
 
-_ZN11CStringBaseIcED2Ev.exit54:                   ; preds = %lpad, %delete.notnull.i53
+_ZN11CStringBaseIcED2Ev.exit53:                   ; preds = %lpad, %delete.notnull.i52
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #9
   br label %eh.resume
 
-lpad3:                                            ; preds = %if.end.i.i21
+lpad3:                                            ; preds = %if.end.i.i20
   %60 = landingpad { ptr, i32 }
           cleanup
   %61 = load ptr, ptr %ref.tmp2, align 8, !tbaa !19
-  %isnull.i55 = icmp eq ptr %61, null
-  br i1 %isnull.i55, label %_ZN11CStringBaseIcED2Ev.exit57, label %delete.notnull.i56
+  %isnull.i54 = icmp eq ptr %61, null
+  br i1 %isnull.i54, label %_ZN11CStringBaseIcED2Ev.exit56, label %delete.notnull.i55
 
-delete.notnull.i56:                               ; preds = %lpad3
+delete.notnull.i55:                               ; preds = %lpad3
   call void @_ZdaPv(ptr noundef nonnull %61) #12
-  br label %_ZN11CStringBaseIcED2Ev.exit57
+  br label %_ZN11CStringBaseIcED2Ev.exit56
 
-_ZN11CStringBaseIcED2Ev.exit57:                   ; preds = %lpad3, %delete.notnull.i56
+_ZN11CStringBaseIcED2Ev.exit56:                   ; preds = %lpad3, %delete.notnull.i55
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp2) #9
   br label %eh.resume
 
-eh.resume:                                        ; preds = %_ZN11CStringBaseIcED2Ev.exit57, %_ZN11CStringBaseIcED2Ev.exit54
-  %.pn = phi { ptr, i32 } [ %60, %_ZN11CStringBaseIcED2Ev.exit57 ], [ %58, %_ZN11CStringBaseIcED2Ev.exit54 ]
+eh.resume:                                        ; preds = %_ZN11CStringBaseIcED2Ev.exit56, %_ZN11CStringBaseIcED2Ev.exit53
+  %.pn = phi { ptr, i32 } [ %60, %_ZN11CStringBaseIcED2Ev.exit56 ], [ %58, %_ZN11CStringBaseIcED2Ev.exit53 ]
   resume { ptr, i32 } %.pn
 }
 
@@ -1111,8 +1111,8 @@ return:                                           ; preds = %entry, %_Z12MyStrin
 ; Function Attrs: uwtable
 define dso_local void @_ZN8NArchive4NCab10CInArchive4SkipEj(ptr noundef nonnull align 8 dereferenceable(48) %this, i32 noundef %size) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  %cmp.not2 = icmp eq i32 %size, 0
-  br i1 %cmp.not2, label %while.end, label %while.body.lr.ph
+  %cmp.not3 = icmp eq i32 %size, 0
+  br i1 %cmp.not3, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %_bufferLimit.i.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
@@ -1121,8 +1121,8 @@ while.body.lr.ph:                                 ; preds = %entry
 
 while.body:                                       ; preds = %while.body.lr.ph, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
   %0 = phi ptr [ %.pre, %while.body.lr.ph ], [ %incdec.ptr.i.i, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit ]
-  %size.addr.03 = phi i32 [ %size, %while.body.lr.ph ], [ %dec, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit ]
-  %dec = add i32 %size.addr.03, -1
+  %dec4.in = phi i32 [ %size, %while.body.lr.ph ], [ %dec4, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit ]
+  %dec4 = add i32 %dec4.in, -1
   %1 = load ptr, ptr %_bufferLimit.i.i, align 8, !tbaa !14
   %cmp.not.i.i = icmp ult ptr %0, %1
   br i1 %cmp.not.i.i, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, label %if.then.i.i
@@ -1145,7 +1145,7 @@ _ZN8NArchive4NCab10CInArchive5Read8Ev.exit:       ; preds = %while.body, %if.the
   %2 = phi ptr [ %.pre.i.i, %if.then.if.end3_crit_edge.i.i ], [ %0, %while.body ]
   %incdec.ptr.i.i = getelementptr inbounds i8, ptr %2, i64 1
   store ptr %incdec.ptr.i.i, ptr %this, align 8, !tbaa !5
-  %cmp.not = icmp eq i32 %dec, 0
+  %cmp.not = icmp eq i32 %dec4, 0
   br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !45
 
 while.end:                                        ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, %entry
@@ -1260,8 +1260,8 @@ if.then50:                                        ; preds = %if.end46
 if.end56:                                         ; preds = %if.then50, %if.end46
   %7 = phi i16 [ %.pre, %if.then50 ], [ %4, %if.end46 ]
   %8 = and i16 %7, 1
-  %cmp.i209.not = icmp eq i16 %8, 0
-  br i1 %cmp.i209.not, label %if.end59, label %if.then58
+  %cmp.i204.not = icmp eq i16 %8, 0
+  br i1 %cmp.i204.not, label %if.end59, label %if.then58
 
 if.then58:                                        ; preds = %if.end56
   %PrevArc = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %db, i64 0, i32 1, i32 0, i32 10
@@ -1272,8 +1272,8 @@ if.then58:                                        ; preds = %if.end56
 if.end59:                                         ; preds = %if.then58, %if.end56
   %9 = phi i16 [ %.pre254, %if.then58 ], [ %7, %if.end56 ]
   %10 = and i16 %9, 2
-  %cmp.i211.not = icmp eq i16 %10, 0
-  br i1 %cmp.i211.not, label %if.end62, label %if.then61
+  %cmp.i206.not = icmp eq i16 %10, 0
+  br i1 %cmp.i206.not, label %if.end62, label %if.then61
 
 if.then61:                                        ; preds = %if.end59
   %NextArc = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %db, i64 0, i32 1, i32 0, i32 11
@@ -1341,18 +1341,18 @@ _ZN8NArchive4NCab10CInArchive6Read16Ev.exit:      ; preds = %_ZN8NArchive4NCab10
   %20 = load i8, ptr %18, align 1, !tbaa !18
   %conv2.1.i = zext i8 %20 to i64
   %cmp.not.i.i = icmp ult ptr %incdec.ptr.i.i.1.i, %17
-  br i1 %cmp.not.i.i, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, label %if.then.i.i212
+  br i1 %cmp.not.i.i, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, label %if.then.i.i207
 
-if.then.i.i212:                                   ; preds = %_ZN8NArchive4NCab10CInArchive6Read16Ev.exit
+if.then.i.i207:                                   ; preds = %_ZN8NArchive4NCab10CInArchive6Read16Ev.exit
   %call.i.i = tail call noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
   br i1 %call.i.i, label %if.then.if.end3_crit_edge.i.i, label %if.then.i
 
-if.then.if.end3_crit_edge.i.i:                    ; preds = %if.then.i.i212
+if.then.if.end3_crit_edge.i.i:                    ; preds = %if.then.i.i207
   %.pre.i.i = load ptr, ptr %this, align 8, !tbaa !5
   %.pre256 = load ptr, ptr %_bufferLimit.i.i.i, align 8, !tbaa !14
   br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
 
-if.then.i:                                        ; preds = %if.then.i.i212
+if.then.i:                                        ; preds = %if.then.i.i207
   %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #9
   store i32 2, ptr %exception.i, align 4, !tbaa !15
   tail call void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTIN8NArchive4NCab19CInArchiveExceptionE, ptr null) #10
@@ -1364,66 +1364,66 @@ _ZN8NArchive4NCab10CInArchive5Read8Ev.exit:       ; preds = %_ZN8NArchive4NCab10
   %incdec.ptr.i.i = getelementptr inbounds i8, ptr %22, i64 1
   store ptr %incdec.ptr.i.i, ptr %this, align 8, !tbaa !5
   %23 = load i8, ptr %22, align 1, !tbaa !18
-  %cmp.not.i.i214 = icmp ult ptr %incdec.ptr.i.i, %21
-  br i1 %cmp.not.i.i214, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit222, label %if.then.i.i216
+  %cmp.not.i.i209 = icmp ult ptr %incdec.ptr.i.i, %21
+  br i1 %cmp.not.i.i209, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit217, label %if.then.i.i211
 
-if.then.i.i216:                                   ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
-  %call.i.i215 = tail call noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
-  br i1 %call.i.i215, label %if.then.if.end3_crit_edge.i.i218, label %if.then.i220
+if.then.i.i211:                                   ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit
+  %call.i.i210 = tail call noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
+  br i1 %call.i.i210, label %if.then.if.end3_crit_edge.i.i213, label %if.then.i215
 
-if.then.if.end3_crit_edge.i.i218:                 ; preds = %if.then.i.i216
-  %.pre.i.i217 = load ptr, ptr %this, align 8, !tbaa !5
-  br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit222
+if.then.if.end3_crit_edge.i.i213:                 ; preds = %if.then.i.i211
+  %.pre.i.i212 = load ptr, ptr %this, align 8, !tbaa !5
+  br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit217
 
-if.then.i220:                                     ; preds = %if.then.i.i216
-  %exception.i219 = tail call ptr @__cxa_allocate_exception(i64 4) #9
-  store i32 2, ptr %exception.i219, align 4, !tbaa !15
-  tail call void @__cxa_throw(ptr nonnull %exception.i219, ptr nonnull @_ZTIN8NArchive4NCab19CInArchiveExceptionE, ptr null) #10
+if.then.i215:                                     ; preds = %if.then.i.i211
+  %exception.i214 = tail call ptr @__cxa_allocate_exception(i64 4) #9
+  store i32 2, ptr %exception.i214, align 4, !tbaa !15
+  tail call void @__cxa_throw(ptr nonnull %exception.i214, ptr nonnull @_ZTIN8NArchive4NCab19CInArchiveExceptionE, ptr null) #10
   unreachable
 
-_ZN8NArchive4NCab10CInArchive5Read8Ev.exit222:    ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, %if.then.if.end3_crit_edge.i.i218
-  %24 = phi ptr [ %.pre.i.i217, %if.then.if.end3_crit_edge.i.i218 ], [ %incdec.ptr.i.i, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit ]
-  %incdec.ptr.i.i221 = getelementptr inbounds i8, ptr %24, i64 1
-  store ptr %incdec.ptr.i.i221, ptr %this, align 8, !tbaa !5
+_ZN8NArchive4NCab10CInArchive5Read8Ev.exit217:    ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit, %if.then.if.end3_crit_edge.i.i213
+  %24 = phi ptr [ %.pre.i.i212, %if.then.if.end3_crit_edge.i.i213 ], [ %incdec.ptr.i.i, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit ]
+  %incdec.ptr.i.i216 = getelementptr inbounds i8, ptr %24, i64 1
+  store ptr %incdec.ptr.i.i216, ptr %this, align 8, !tbaa !5
   %25 = load i8, ptr %24, align 1, !tbaa !18
   %26 = load i8, ptr %PerFolderAreaSize.i.i, align 2, !tbaa !52
-  %cmp.not2.i = icmp eq i8 %26, 0
-  br i1 %cmp.not2.i, label %_ZN8NArchive4NCab10CInArchive4SkipEj.exit, label %while.body.i.preheader
+  %cmp.not3.i = icmp eq i8 %26, 0
+  br i1 %cmp.not3.i, label %_ZN8NArchive4NCab10CInArchive4SkipEj.exit, label %while.body.lr.ph.i
 
-while.body.i.preheader:                           ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit222
+while.body.lr.ph.i:                               ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit217
   %conv71 = zext i8 %26 to i32
   br label %while.body.i
 
-while.body.i:                                     ; preds = %while.body.i.preheader, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233
-  %27 = phi ptr [ %incdec.ptr.i.i.i232, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233 ], [ %incdec.ptr.i.i221, %while.body.i.preheader ]
-  %size.addr.03.i = phi i32 [ %dec.i, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233 ], [ %conv71, %while.body.i.preheader ]
-  %dec.i = add nsw i32 %size.addr.03.i, -1
+while.body.i:                                     ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228, %while.body.lr.ph.i
+  %27 = phi ptr [ %incdec.ptr.i.i216, %while.body.lr.ph.i ], [ %incdec.ptr.i.i.i227, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228 ]
+  %dec4.in.i = phi i32 [ %conv71, %while.body.lr.ph.i ], [ %dec4.i, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228 ]
+  %dec4.i = add nsw i32 %dec4.in.i, -1
   %28 = load ptr, ptr %_bufferLimit.i.i.i, align 8, !tbaa !14
-  %cmp.not.i.i.i225 = icmp ult ptr %27, %28
-  br i1 %cmp.not.i.i.i225, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233, label %if.then.i.i.i227
+  %cmp.not.i.i.i220 = icmp ult ptr %27, %28
+  br i1 %cmp.not.i.i.i220, label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228, label %if.then.i.i.i222
 
-if.then.i.i.i227:                                 ; preds = %while.body.i
-  %call.i.i.i226 = tail call noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
-  br i1 %call.i.i.i226, label %if.then.if.end3_crit_edge.i.i.i229, label %if.then.i.i231
+if.then.i.i.i222:                                 ; preds = %while.body.i
+  %call.i.i.i221 = tail call noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %this)
+  br i1 %call.i.i.i221, label %if.then.if.end3_crit_edge.i.i.i224, label %if.then.i.i226
 
-if.then.if.end3_crit_edge.i.i.i229:               ; preds = %if.then.i.i.i227
-  %.pre.i.i.i228 = load ptr, ptr %this, align 8, !tbaa !5
-  br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233
+if.then.if.end3_crit_edge.i.i.i224:               ; preds = %if.then.i.i.i222
+  %.pre.i.i.i223 = load ptr, ptr %this, align 8, !tbaa !5
+  br label %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228
 
-if.then.i.i231:                                   ; preds = %if.then.i.i.i227
-  %exception.i.i230 = tail call ptr @__cxa_allocate_exception(i64 4) #9
-  store i32 2, ptr %exception.i.i230, align 4, !tbaa !15
-  tail call void @__cxa_throw(ptr nonnull %exception.i.i230, ptr nonnull @_ZTIN8NArchive4NCab19CInArchiveExceptionE, ptr null) #10
+if.then.i.i226:                                   ; preds = %if.then.i.i.i222
+  %exception.i.i225 = tail call ptr @__cxa_allocate_exception(i64 4) #9
+  store i32 2, ptr %exception.i.i225, align 4, !tbaa !15
+  tail call void @__cxa_throw(ptr nonnull %exception.i.i225, ptr nonnull @_ZTIN8NArchive4NCab19CInArchiveExceptionE, ptr null) #10
   unreachable
 
-_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233:  ; preds = %if.then.if.end3_crit_edge.i.i.i229, %while.body.i
-  %29 = phi ptr [ %.pre.i.i.i228, %if.then.if.end3_crit_edge.i.i.i229 ], [ %27, %while.body.i ]
-  %incdec.ptr.i.i.i232 = getelementptr inbounds i8, ptr %29, i64 1
-  store ptr %incdec.ptr.i.i.i232, ptr %this, align 8, !tbaa !5
-  %cmp.not.i = icmp eq i32 %dec.i, 0
+_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228:  ; preds = %if.then.if.end3_crit_edge.i.i.i224, %while.body.i
+  %29 = phi ptr [ %.pre.i.i.i223, %if.then.if.end3_crit_edge.i.i.i224 ], [ %27, %while.body.i ]
+  %incdec.ptr.i.i.i227 = getelementptr inbounds i8, ptr %29, i64 1
+  store ptr %incdec.ptr.i.i.i227, ptr %this, align 8, !tbaa !5
+  %cmp.not.i = icmp eq i32 %dec4.i, 0
   br i1 %cmp.not.i, label %_ZN8NArchive4NCab10CInArchive4SkipEj.exit, label %while.body.i, !llvm.loop !45
 
-_ZN8NArchive4NCab10CInArchive4SkipEj.exit:        ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i233, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit222
+_ZN8NArchive4NCab10CInArchive4SkipEj.exit:        ; preds = %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit.i228, %_ZN8NArchive4NCab10CInArchive5Read8Ev.exit217
   %call.i = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #11
   %folder.sroa.6.0.insert.ext = zext i8 %25 to i64
   %folder.sroa.6.0.insert.shift = shl nuw i64 %folder.sroa.6.0.insert.ext, 56
@@ -1493,9 +1493,9 @@ for.body93:                                       ; preds = %for.body93.lr.ph, %
   %i.1251 = phi i32 [ 0, %for.body93.lr.ph ], [ %inc142, %for.cond89 ]
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %item) #9
   store i64 0, ptr %39, align 8
-  %call.i.i.i234 = call noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #11
-  store ptr %call.i.i.i234, ptr %item, align 8, !tbaa !19
-  store i8 0, ptr %call.i.i.i234, align 1, !tbaa !18
+  %call.i.i.i229 = call noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #11
+  store ptr %call.i.i.i229, ptr %item, align 8, !tbaa !19
+  store i8 0, ptr %call.i.i.i229, align 1, !tbaa !18
   store i32 4, ptr %_capacity.i.i, align 4, !tbaa !21
   %call94 = invoke noundef i32 @_ZN8NArchive4NCab10CInArchive6Read32Ev(ptr noundef nonnull align 8 dereferenceable(48) %this)
           to label %invoke.cont unwind label %lpad
@@ -1592,15 +1592,15 @@ lpad112:                                          ; preds = %invoke.cont111
   %49 = landingpad { ptr, i32 }
           cleanup
   %50 = load ptr, ptr %ref.tmp, align 8, !tbaa !19
-  %isnull.i236 = icmp eq ptr %50, null
-  br i1 %isnull.i236, label %ehcleanup, label %delete.notnull.i237
+  %isnull.i231 = icmp eq ptr %50, null
+  br i1 %isnull.i231, label %ehcleanup, label %delete.notnull.i232
 
-delete.notnull.i237:                              ; preds = %lpad112
+delete.notnull.i232:                              ; preds = %lpad112
   call void @_ZdaPv(ptr noundef nonnull %50) #12
   br label %ehcleanup
 
-ehcleanup:                                        ; preds = %delete.notnull.i237, %lpad112, %lpad110
-  %.pn = phi { ptr, i32 } [ %48, %lpad110 ], [ %49, %lpad112 ], [ %49, %delete.notnull.i237 ]
+ehcleanup:                                        ; preds = %delete.notnull.i232, %lpad112, %lpad110
+  %.pn = phi { ptr, i32 } [ %48, %lpad110 ], [ %49, %lpad112 ], [ %49, %delete.notnull.i232 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #9
   br label %ehcleanup136
 
@@ -1629,18 +1629,18 @@ _ZN8NArchive4NCab5CItemD2Ev.exit:                 ; preds = %cleanup129, %delete
   br i1 %cmp124.not244, label %for.cond89, label %cleanup148
 
 ehcleanup136:                                     ; preds = %lpad100, %lpad116, %ehcleanup, %lpad103, %lpad
-  %.pn203.pn.pn = phi { ptr, i32 } [ %45, %lpad ], [ %46, %lpad100 ], [ %51, %lpad116 ], [ %.pn, %ehcleanup ], [ %47, %lpad103 ]
+  %.pn237.pn.pn = phi { ptr, i32 } [ %45, %lpad ], [ %46, %lpad100 ], [ %51, %lpad116 ], [ %.pn, %ehcleanup ], [ %47, %lpad103 ]
   %53 = load ptr, ptr %item, align 8, !tbaa !19
-  %isnull.i.i239 = icmp eq ptr %53, null
-  br i1 %isnull.i.i239, label %_ZN8NArchive4NCab5CItemD2Ev.exit241, label %delete.notnull.i.i240
+  %isnull.i.i234 = icmp eq ptr %53, null
+  br i1 %isnull.i.i234, label %_ZN8NArchive4NCab5CItemD2Ev.exit236, label %delete.notnull.i.i235
 
-delete.notnull.i.i240:                            ; preds = %ehcleanup136
+delete.notnull.i.i235:                            ; preds = %ehcleanup136
   call void @_ZdaPv(ptr noundef nonnull %53) #12
-  br label %_ZN8NArchive4NCab5CItemD2Ev.exit241
+  br label %_ZN8NArchive4NCab5CItemD2Ev.exit236
 
-_ZN8NArchive4NCab5CItemD2Ev.exit241:              ; preds = %ehcleanup136, %delete.notnull.i.i240
+_ZN8NArchive4NCab5CItemD2Ev.exit236:              ; preds = %ehcleanup136, %delete.notnull.i.i235
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %item) #9
-  resume { ptr, i32 } %.pn203.pn.pn
+  resume { ptr, i32 } %.pn237.pn.pn
 
 cleanup148:                                       ; preds = %_ZN8NArchive4NCab5CItemD2Ev.exit, %for.cond89, %cleanup.cont86, %if.end25, %if.end32, %if.end37, %for.end, %cleanup.cont22, %cleanup.cont11, %cleanup.cont, %entry
   %retval.8 = phi i32 [ %call16, %cleanup.cont11 ], [ %call5, %cleanup.cont ], [ %call2, %entry ], [ -2147024882, %cleanup.cont22 ], [ 1, %if.end25 ], [ 1, %if.end32 ], [ 1, %if.end37 ], [ %call80, %for.end ], [ 0, %cleanup.cont86 ], [ %retval.5, %_ZN8NArchive4NCab5CItemD2Ev.exit ], [ 0, %for.cond89 ]
@@ -1664,14 +1664,14 @@ entry:
   %0 = load i32, ptr %_length2.i.i, align 8, !tbaa !24
   %add.i.i.i = add nsw i32 %0, 1
   %cmp.i.i.i = icmp eq i32 %add.i.i.i, 0
-  br i1 %cmp.i.i.i, label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i.i, label %if.end9.i.i.i
+  br i1 %cmp.i.i.i, label %_ZN11CStringBaseIcE11SetCapacityEi.exit.i.i, label %if.end.i.i.i
 
-if.end9.i.i.i:                                    ; preds = %entry
+if.end.i.i.i:                                     ; preds = %entry
   %conv.i.i.i = sext i32 %add.i.i.i to i64
   %call.i.i.i4 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %conv.i.i.i) #11
           to label %call.i.i.i.noexc unwind label %lpad
 
-call.i.i.i.noexc:                                 ; preds = %if.end9.i.i.i
+call.i.i.i.noexc:                                 ; preds = %if.end.i.i.i
   %_capacity.i.i = getelementptr inbounds %class.CStringBase, ptr %call, i64 0, i32 2
   store ptr %call.i.i.i4, ptr %call, align 8, !tbaa !19
   store i8 0, ptr %call.i.i.i4, align 1, !tbaa !18
@@ -1691,9 +1691,9 @@ while.cond.i.i.i:                                 ; preds = %while.cond.i.i.i, %
   %incdec.ptr1.i.i.i = getelementptr inbounds i8, ptr %dest.addr.0.i.i.i, i64 1
   store i8 %3, ptr %dest.addr.0.i.i.i, align 1, !tbaa !18
   %cmp.not.i.i.i = icmp eq i8 %3, 0
-  br i1 %cmp.not.i.i.i, label %invoke.cont, label %while.cond.i.i.i, !llvm.loop !36
+  br i1 %cmp.not.i.i.i, label %_ZN8NArchive4NCab5CItemC2ERKS1_.exit, label %while.cond.i.i.i, !llvm.loop !36
 
-invoke.cont:                                      ; preds = %while.cond.i.i.i
+_ZN8NArchive4NCab5CItemC2ERKS1_.exit:             ; preds = %while.cond.i.i.i
   %_length.i.i = getelementptr inbounds %class.CStringBase, ptr %call, i64 0, i32 1
   store i32 %0, ptr %_length.i.i, align 8, !tbaa !24
   %Offset.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %call, i64 0, i32 1
@@ -1711,7 +1711,7 @@ invoke.cont:                                      ; preds = %while.cond.i.i.i
   store i32 %inc.i, ptr %_size.i, align 4, !tbaa !74
   ret i32 %5
 
-lpad:                                             ; preds = %if.end9.i.i.i
+lpad:                                             ; preds = %if.end.i.i.i
   %6 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call) #12
@@ -1845,8 +1845,8 @@ entry:
   tail call void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %FolderStartFileIndex)
   %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
   %0 = load i32, ptr %_size.i, align 4, !tbaa !74
-  %cmp425 = icmp sgt i32 %0, 0
-  br i1 %cmp425, label %for.body.lr.ph, label %for.cond.cleanup
+  %cmp405 = icmp sgt i32 %0, 0
+  br i1 %cmp405, label %for.body.lr.ph, label %for.cond.cleanup
 
 for.body.lr.ph:                                   ; preds = %entry
   %_items.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
@@ -1868,8 +1868,8 @@ if.end.i:                                         ; preds = %for.cond.cleanup
   %add.ptr.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %2, i64 -1
   %3 = lshr i32 %1, 1
   %4 = zext i32 %3 to i64
-  %_items.i.i.i228 = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
-  %_items.i.i101.i330 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 2, i32 0, i32 3
+  %_items.i.i.i222 = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %_items.i.i100.i320 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 2, i32 0, i32 3
   br label %do.body.i
 
 do.body.i:                                        ; preds = %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit.i, %if.end.i
@@ -1886,8 +1886,8 @@ do.body.i:                                        ; preds = %_ZN13CRecordVectorI
 
 if.end.i.i.preheader:                             ; preds = %do.body.i
   %sext = shl i64 %5, 32
-  %idxprom.i.i.i229 = ashr exact i64 %sext, 32
-  %idxprom.i.i94.i235 = ashr i64 %5, 32
+  %idxprom.i.i.i223 = ashr exact i64 %sext, 32
+  %idxprom.i.i93.i229 = ashr i64 %5, 32
   br label %if.end.i.i
 
 if.end.i.i:                                       ; preds = %if.end.i.i.preheader, %cleanup.i.i
@@ -1897,7 +1897,7 @@ if.end.i.i:                                       ; preds = %if.end.i.i.preheade
   br i1 %cmp1.i.i, label %land.lhs.true.i.i, label %if.end.i.i.if.end7.i.i_crit_edge
 
 if.end.i.i.if.end7.i.i_crit_edge:                 ; preds = %if.end.i.i
-  %.pre = load ptr, ptr %_items.i.i.i228, align 8, !tbaa !73
+  %.pre = load ptr, ptr %_items.i.i.i222, align 8, !tbaa !73
   br label %if.end7.i.i
 
 land.lhs.true.i.i:                                ; preds = %if.end.i.i
@@ -1905,290 +1905,282 @@ land.lhs.true.i.i:                                ; preds = %if.end.i.i
   %add.ptr.i.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext.i.i
   %add.ptr2.i.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i.i, i64 1
   %7 = load i32, ptr %add.ptr2.i.i, align 4, !tbaa !84
-  %8 = load ptr, ptr %_items.i.i.i228, align 8, !tbaa !73
-  %idxprom.i.i.i311 = sext i32 %7 to i64
-  %arrayidx.i.i.i312 = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i.i311
-  %9 = load ptr, ptr %arrayidx.i.i.i312, align 8, !tbaa !75
+  %8 = load ptr, ptr %_items.i.i.i222, align 8, !tbaa !73
+  %idxprom.i.i.i301 = sext i32 %7 to i64
+  %arrayidx.i.i.i302 = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i.i301
+  %9 = load ptr, ptr %arrayidx.i.i.i302, align 8, !tbaa !75
   %10 = load i32, ptr %add.ptr.i.i, align 4, !tbaa !84
-  %idxprom.i.i91.i313 = sext i32 %10 to i64
-  %arrayidx.i.i92.i314 = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i91.i313
-  %11 = load ptr, ptr %arrayidx.i.i92.i314, align 8, !tbaa !75
-  %ItemIndex.i315 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i.i, i64 1, i32 1
-  %12 = load i32, ptr %ItemIndex.i315, align 4, !tbaa !86
-  %_items.i.i93.i316 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 3, i32 0, i32 0, i32 3
-  %13 = load ptr, ptr %_items.i.i93.i316, align 8, !tbaa !73
-  %idxprom.i.i94.i317 = sext i32 %12 to i64
-  %arrayidx.i.i95.i318 = getelementptr inbounds ptr, ptr %13, i64 %idxprom.i.i94.i317
-  %14 = load ptr, ptr %arrayidx.i.i95.i318, align 8, !tbaa !75
-  %ItemIndex6.i319 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext.i.i, i32 1
-  %15 = load i32, ptr %ItemIndex6.i319, align 4, !tbaa !86
-  %_items.i.i96.i320 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %11, i64 0, i32 3, i32 0, i32 0, i32 3
-  %16 = load ptr, ptr %_items.i.i96.i320, align 8, !tbaa !73
-  %idxprom.i.i97.i321 = sext i32 %15 to i64
-  %arrayidx.i.i98.i322 = getelementptr inbounds ptr, ptr %16, i64 %idxprom.i.i97.i321
-  %17 = load ptr, ptr %arrayidx.i.i98.i322, align 8, !tbaa !75
-  %Attributes.i.i323 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 6
-  %18 = load i16, ptr %Attributes.i.i323, align 8, !tbaa !83
+  %idxprom.i.i90.i303 = sext i32 %10 to i64
+  %arrayidx.i.i91.i304 = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i90.i303
+  %11 = load ptr, ptr %arrayidx.i.i91.i304, align 8, !tbaa !75
+  %ItemIndex.i305 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i.i, i64 1, i32 1
+  %12 = load i32, ptr %ItemIndex.i305, align 4, !tbaa !86
+  %_items.i.i92.i306 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 3, i32 0, i32 0, i32 3
+  %13 = load ptr, ptr %_items.i.i92.i306, align 8, !tbaa !73
+  %idxprom.i.i93.i307 = sext i32 %12 to i64
+  %arrayidx.i.i94.i308 = getelementptr inbounds ptr, ptr %13, i64 %idxprom.i.i93.i307
+  %14 = load ptr, ptr %arrayidx.i.i94.i308, align 8, !tbaa !75
+  %ItemIndex6.i309 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext.i.i, i32 1
+  %15 = load i32, ptr %ItemIndex6.i309, align 4, !tbaa !86
+  %_items.i.i95.i310 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %11, i64 0, i32 3, i32 0, i32 0, i32 3
+  %16 = load ptr, ptr %_items.i.i95.i310, align 8, !tbaa !73
+  %idxprom.i.i96.i311 = sext i32 %15 to i64
+  %arrayidx.i.i97.i312 = getelementptr inbounds ptr, ptr %16, i64 %idxprom.i.i96.i311
+  %17 = load ptr, ptr %arrayidx.i.i97.i312, align 8, !tbaa !75
+  %Attributes.i.i313 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 6
+  %18 = load i16, ptr %Attributes.i.i313, align 8, !tbaa !83
   %19 = and i16 %18, 16
-  %cmp.i.i324 = icmp ne i16 %19, 0
-  %Attributes.i99.i325 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 6
-  %20 = load i16, ptr %Attributes.i99.i325, align 8, !tbaa !83
+  %cmp.i.not.i314 = icmp ne i16 %19, 0
+  %Attributes.i98.i315 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 6
+  %20 = load i16, ptr %Attributes.i98.i315, align 8, !tbaa !83
   %21 = and i16 %20, 16
-  %cmp.i100.i326 = icmp eq i16 %21, 0
-  %brmerge.not.i327 = and i1 %cmp.i.i324, %cmp.i100.i326
-  br i1 %brmerge.not.i327, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391, label %if.end.i329
+  %cmp.i99.not.i316 = icmp eq i16 %21, 0
+  %brmerge.not.i317 = select i1 %cmp.i.not.i314, i1 %cmp.i99.not.i316, i1 false
+  br i1 %brmerge.not.i317, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377, label %if.end.i319
 
-if.end.i329:                                      ; preds = %land.lhs.true.i.i
-  %brmerge89.i328 = or i1 %cmp.i.i324, %cmp.i100.i326
-  br i1 %brmerge89.i328, label %if.end16.i335, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+if.end.i319:                                      ; preds = %land.lhs.true.i.i
+  %brmerge140.i318 = or i1 %cmp.i.not.i314, %cmp.i99.not.i316
+  br i1 %brmerge140.i318, label %if.end16.i325, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377
 
-if.end16.i335:                                    ; preds = %if.end.i329
-  %22 = load ptr, ptr %_items.i.i101.i330, align 8, !tbaa !73
-  %arrayidx.i.i102.i331 = getelementptr inbounds i32, ptr %22, i64 %idxprom.i.i.i311
-  %23 = load i32, ptr %arrayidx.i.i102.i331, align 4, !tbaa !87
-  %_size.i.i.i332 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 2, i32 0, i32 0, i32 2
-  %24 = load i32, ptr %_size.i.i.i332, align 4, !tbaa !74
-  %FolderIndex.i.i.i.i333 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 4
-  %25 = load i16, ptr %FolderIndex.i.i.i.i333, align 4, !tbaa !81
+if.end16.i325:                                    ; preds = %if.end.i319
+  %22 = load ptr, ptr %_items.i.i100.i320, align 8, !tbaa !73
+  %arrayidx.i.i101.i321 = getelementptr inbounds i32, ptr %22, i64 %idxprom.i.i.i301
+  %23 = load i32, ptr %arrayidx.i.i101.i321, align 4, !tbaa !87
+  %_size.i.i.i322 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 2, i32 0, i32 0, i32 2
+  %24 = load i32, ptr %_size.i.i.i322, align 4, !tbaa !74
+  %FolderIndex.i.i.i.i323 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 4
+  %25 = load i16, ptr %FolderIndex.i.i.i.i323, align 4, !tbaa !81
   %26 = and i16 %25, -3
-  %spec.select.i.i.i.i334 = icmp eq i16 %26, -3
-  br i1 %spec.select.i.i.i.i334, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348, label %if.end.i.i.i337
+  %spec.select.i.i.i.i324 = icmp eq i16 %26, -3
+  br i1 %spec.select.i.i.i.i324, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338, label %if.end.i.i.i327
 
-if.end.i.i.i337:                                  ; preds = %if.end16.i335
-  %spec.select.i6.i.i.i336 = icmp ugt i16 %25, -3
-  br i1 %spec.select.i6.i.i.i336, label %if.then3.i.i.i339, label %if.end4.i.i.i341
+if.end.i.i.i327:                                  ; preds = %if.end16.i325
+  %spec.select.i6.i.i.i326 = icmp ugt i16 %25, -3
+  br i1 %spec.select.i6.i.i.i326, label %if.then3.i.i.i329, label %if.end4.i.i.i331
 
-if.then3.i.i.i339:                                ; preds = %if.end.i.i.i337
-  %sub.i.i.i338 = add nsw i32 %24, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348
+if.then3.i.i.i329:                                ; preds = %if.end.i.i.i327
+  %sub.i.i.i328 = add nsw i32 %24, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338
 
-if.end4.i.i.i341:                                 ; preds = %if.end.i.i.i337
-  %conv.i.i.i340 = zext i16 %25 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348
+if.end4.i.i.i331:                                 ; preds = %if.end.i.i.i327
+  %conv.i.i.i330 = zext i16 %25 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348: ; preds = %if.end4.i.i.i341, %if.then3.i.i.i339, %if.end16.i335
-  %retval.0.i.i.i342 = phi i32 [ %sub.i.i.i338, %if.then3.i.i.i339 ], [ %conv.i.i.i340, %if.end4.i.i.i341 ], [ 0, %if.end16.i335 ]
-  %add.i.i343 = add nsw i32 %retval.0.i.i.i342, %23
-  %arrayidx.i.i107.i344 = getelementptr inbounds i32, ptr %22, i64 %idxprom.i.i91.i313
-  %27 = load i32, ptr %arrayidx.i.i107.i344, align 4, !tbaa !87
-  %_size.i.i112.i345 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %11, i64 0, i32 2, i32 0, i32 0, i32 2
-  %28 = load i32, ptr %_size.i.i112.i345, align 4, !tbaa !74
-  %FolderIndex.i.i.i113.i346 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 4
-  %29 = load i16, ptr %FolderIndex.i.i.i113.i346, align 4, !tbaa !81
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338: ; preds = %if.end4.i.i.i331, %if.then3.i.i.i329, %if.end16.i325
+  %retval.0.i.i.i332 = phi i32 [ %sub.i.i.i328, %if.then3.i.i.i329 ], [ %conv.i.i.i330, %if.end4.i.i.i331 ], [ 0, %if.end16.i325 ]
+  %add.i.i333 = add nsw i32 %retval.0.i.i.i332, %23
+  %arrayidx.i.i106.i334 = getelementptr inbounds i32, ptr %22, i64 %idxprom.i.i90.i303
+  %27 = load i32, ptr %arrayidx.i.i106.i334, align 4, !tbaa !87
+  %_size.i.i111.i335 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %11, i64 0, i32 2, i32 0, i32 0, i32 2
+  %28 = load i32, ptr %_size.i.i111.i335, align 4, !tbaa !74
+  %FolderIndex.i.i.i112.i336 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 4
+  %29 = load i16, ptr %FolderIndex.i.i.i112.i336, align 4, !tbaa !81
   %30 = and i16 %29, -3
-  %spec.select.i.i.i114.i347 = icmp eq i16 %30, -3
-  br i1 %spec.select.i.i.i114.i347, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362, label %if.end.i.i116.i350
+  %spec.select.i.i.i113.i337 = icmp eq i16 %30, -3
+  br i1 %spec.select.i.i.i113.i337, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351, label %if.end.i.i115.i340
 
-if.end.i.i116.i350:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348
-  %spec.select.i6.i.i115.i349 = icmp ugt i16 %29, -3
-  br i1 %spec.select.i6.i.i115.i349, label %if.then3.i.i118.i352, label %if.end4.i.i120.i354
+if.end.i.i115.i340:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338
+  %spec.select.i6.i.i114.i339 = icmp ugt i16 %29, -3
+  br i1 %spec.select.i6.i.i114.i339, label %if.then3.i.i117.i342, label %if.end4.i.i119.i344
 
-if.then3.i.i118.i352:                             ; preds = %if.end.i.i116.i350
-  %sub.i.i117.i351 = add nsw i32 %28, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362
+if.then3.i.i117.i342:                             ; preds = %if.end.i.i115.i340
+  %sub.i.i116.i341 = add nsw i32 %28, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351
 
-if.end4.i.i120.i354:                              ; preds = %if.end.i.i116.i350
-  %conv.i.i119.i353 = zext i16 %29 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362
+if.end4.i.i119.i344:                              ; preds = %if.end.i.i115.i340
+  %conv.i.i118.i343 = zext i16 %29 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362: ; preds = %if.end4.i.i120.i354, %if.then3.i.i118.i352, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348
-  %retval.0.i.i121.i355 = phi i32 [ %sub.i.i117.i351, %if.then3.i.i118.i352 ], [ %conv.i.i119.i353, %if.end4.i.i120.i354 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i348 ]
-  %add.i122.i356 = add nsw i32 %retval.0.i.i121.i355, %27
-  %cmp.i124.i357 = icmp slt i32 %add.i.i343, %add.i122.i356
-  %cmp1.i.i358 = icmp ne i32 %add.i.i343, %add.i122.i356
-  %cond.i.i359 = zext i1 %cmp1.i.i358 to i32
-  %cond2.i.i360 = select i1 %cmp.i124.i357, i32 -1, i32 %cond.i.i359
-  %cmp.not.i361 = icmp eq i32 %cond2.i.i360, 0
-  br i1 %cmp.not.i361, label %cleanup.cont.i370, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351: ; preds = %if.end4.i.i119.i344, %if.then3.i.i117.i342, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338
+  %retval.0.i.i120.i345 = phi i32 [ %sub.i.i116.i341, %if.then3.i.i117.i342 ], [ %conv.i.i118.i343, %if.end4.i.i119.i344 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i338 ]
+  %add.i121.i346 = add nsw i32 %retval.0.i.i120.i345, %27
+  %cmp.i123.i347 = icmp slt i32 %add.i.i333, %add.i121.i346
+  %cmp1.i.i348 = icmp ne i32 %add.i.i333, %add.i121.i346
+  %cond.i.i349 = zext i1 %cmp1.i.i348 to i32
+  %cond2.i.i350 = select i1 %cmp.i123.i347, i32 -1, i32 %cond.i.i349
+  br i1 %cmp1.i.i348, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377, label %cleanup.cont.i358
 
-cleanup.cont.i370:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362
-  %Offset.i363 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 1
-  %31 = load i32, ptr %Offset.i363, align 8, !tbaa !80
-  %Offset23.i364 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 1
-  %32 = load i32, ptr %Offset23.i364, align 8, !tbaa !80
-  %cmp.i125.i365 = icmp ult i32 %31, %32
-  %cmp1.i126.i366 = icmp ne i32 %31, %32
-  %cond.i127.i367 = zext i1 %cmp1.i126.i366 to i32
-  %cond2.i128.i368 = select i1 %cmp.i125.i365, i32 -1, i32 %cond.i127.i367
-  %cmp25.not.i369 = icmp eq i32 %cond2.i128.i368, 0
-  br i1 %cmp25.not.i369, label %cleanup.cont30.i378, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+cleanup.cont.i358:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351
+  %Offset.i352 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 1
+  %31 = load i32, ptr %Offset.i352, align 8, !tbaa !80
+  %Offset23.i353 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 1
+  %32 = load i32, ptr %Offset23.i353, align 8, !tbaa !80
+  %cmp1.i125.i354 = icmp ne i32 %31, %32
+  %cmp.i124.i355 = icmp ult i32 %31, %32
+  %cond.i126.i356 = zext i1 %cmp1.i125.i354 to i32
+  %cond2.i127.i357 = select i1 %cmp.i124.i355, i32 -1, i32 %cond.i126.i356
+  br i1 %cmp1.i125.i354, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377, label %cleanup.cont30.i365
 
-cleanup.cont30.i378:                              ; preds = %cleanup.cont.i370
-  %Size.i371 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 2
-  %33 = load i32, ptr %Size.i371, align 4, !tbaa !78
-  %Size32.i372 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 2
-  %34 = load i32, ptr %Size32.i372, align 4, !tbaa !78
-  %cmp.i129.i373 = icmp ult i32 %33, %34
-  %cmp1.i130.i374 = icmp ne i32 %33, %34
-  %cond.i131.i375 = zext i1 %cmp1.i130.i374 to i32
-  %cond2.i132.i376 = select i1 %cmp.i129.i373, i32 -1, i32 %cond.i131.i375
-  %cmp34.not.i377 = icmp eq i32 %cond2.i132.i376, 0
-  br i1 %cmp34.not.i377, label %cleanup.cont39.i384, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+cleanup.cont30.i365:                              ; preds = %cleanup.cont.i358
+  %Size.i359 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 2
+  %33 = load i32, ptr %Size.i359, align 4, !tbaa !78
+  %Size32.i360 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %17, i64 0, i32 2
+  %34 = load i32, ptr %Size32.i360, align 4, !tbaa !78
+  %cmp1.i129.i361 = icmp ne i32 %33, %34
+  %cmp.i128.i362 = icmp ult i32 %33, %34
+  %cond.i130.i363 = zext i1 %cmp1.i129.i361 to i32
+  %cond2.i131.i364 = select i1 %cmp.i128.i362, i32 -1, i32 %cond.i130.i363
+  br i1 %cmp1.i129.i361, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377, label %cleanup.cont39.i370
 
-cleanup.cont39.i384:                              ; preds = %cleanup.cont30.i378
-  %cmp.i133.i379 = icmp slt i32 %7, %10
-  %cmp1.i134.i380 = icmp ne i32 %7, %10
-  %cond.i135.i381 = zext i1 %cmp1.i134.i380 to i32
-  %cond2.i136.i382 = select i1 %cmp.i133.i379, i32 -1, i32 %cond.i135.i381
-  %cmp44.not.i383 = icmp eq i32 %cond2.i136.i382, 0
-  br i1 %cmp44.not.i383, label %cleanup.cont49.i389, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+cleanup.cont39.i370:                              ; preds = %cleanup.cont30.i365
+  %cmp1.i133.i366 = icmp ne i32 %7, %10
+  %cmp.i132.i367 = icmp slt i32 %7, %10
+  %cond.i134.i368 = zext i1 %cmp1.i133.i366 to i32
+  %cond2.i135.i369 = select i1 %cmp.i132.i367, i32 -1, i32 %cond.i134.i368
+  br i1 %cmp1.i133.i366, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377, label %cleanup.cont49.i375
 
-cleanup.cont49.i389:                              ; preds = %cleanup.cont39.i384
-  %cmp.i137.i385 = icmp slt i32 %12, %15
-  %cmp1.i138.i386 = icmp ne i32 %12, %15
-  %cond.i139.i387 = zext i1 %cmp1.i138.i386 to i32
-  %cond2.i140.i388 = select i1 %cmp.i137.i385, i32 -1, i32 %cond.i139.i387
-  br label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
+cleanup.cont49.i375:                              ; preds = %cleanup.cont39.i370
+  %cmp.i136.i371 = icmp slt i32 %12, %15
+  %cmp1.i137.i372 = icmp ne i32 %12, %15
+  %cond.i138.i373 = zext i1 %cmp1.i137.i372 to i32
+  %cond2.i139.i374 = select i1 %cmp.i136.i371, i32 -1, i32 %cond.i138.i373
+  br label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377
 
-_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391: ; preds = %land.lhs.true.i.i, %if.end.i329, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362, %cleanup.cont.i370, %cleanup.cont30.i378, %cleanup.cont39.i384, %cleanup.cont49.i389
-  %retval.5.i390 = phi i32 [ -1, %land.lhs.true.i.i ], [ 1, %if.end.i329 ], [ %cond2.i140.i388, %cleanup.cont49.i389 ], [ %cond2.i136.i382, %cleanup.cont39.i384 ], [ %cond2.i132.i376, %cleanup.cont30.i378 ], [ %cond2.i128.i368, %cleanup.cont.i370 ], [ %cond2.i.i360, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i362 ]
-  %cmp5.i.i = icmp sgt i32 %retval.5.i390, 0
+_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377: ; preds = %land.lhs.true.i.i, %if.end.i319, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351, %cleanup.cont.i358, %cleanup.cont30.i365, %cleanup.cont39.i370, %cleanup.cont49.i375
+  %retval.5.i376 = phi i32 [ -1, %land.lhs.true.i.i ], [ 1, %if.end.i319 ], [ %cond2.i139.i374, %cleanup.cont49.i375 ], [ %cond2.i135.i369, %cleanup.cont39.i370 ], [ %cond2.i131.i364, %cleanup.cont30.i365 ], [ %cond2.i127.i357, %cleanup.cont.i358 ], [ %cond2.i.i350, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i351 ]
+  %cmp5.i.i = icmp sgt i32 %retval.5.i376, 0
   %inc.i.i = zext i1 %cmp5.i.i to i32
   %spec.select.i.i = or i32 %shl46.i.i, %inc.i.i
   br label %if.end7.i.i
 
-if.end7.i.i:                                      ; preds = %if.end.i.i.if.end7.i.i_crit_edge, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391
-  %35 = phi ptr [ %.pre, %if.end.i.i.if.end7.i.i_crit_edge ], [ %8, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391 ]
-  %s.0.i.i = phi i32 [ %shl46.i.i, %if.end.i.i.if.end7.i.i_crit_edge ], [ %spec.select.i.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit391 ]
+if.end7.i.i:                                      ; preds = %if.end.i.i.if.end7.i.i_crit_edge, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377
+  %35 = phi ptr [ %.pre, %if.end.i.i.if.end7.i.i_crit_edge ], [ %8, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377 ]
+  %s.0.i.i = phi i32 [ %shl46.i.i, %if.end.i.i.if.end7.i.i_crit_edge ], [ %spec.select.i.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit377 ]
   %idx.ext8.i.i = sext i32 %s.0.i.i to i64
   %add.ptr9.i.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i.i
-  %arrayidx.i.i.i230 = getelementptr inbounds ptr, ptr %35, i64 %idxprom.i.i.i229
-  %36 = load ptr, ptr %arrayidx.i.i.i230, align 8, !tbaa !75
+  %arrayidx.i.i.i224 = getelementptr inbounds ptr, ptr %35, i64 %idxprom.i.i.i223
+  %36 = load ptr, ptr %arrayidx.i.i.i224, align 8, !tbaa !75
   %37 = load i32, ptr %add.ptr9.i.i, align 4, !tbaa !84
-  %idxprom.i.i91.i231 = sext i32 %37 to i64
-  %arrayidx.i.i92.i232 = getelementptr inbounds ptr, ptr %35, i64 %idxprom.i.i91.i231
-  %38 = load ptr, ptr %arrayidx.i.i92.i232, align 8, !tbaa !75
-  %_items.i.i93.i234 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %36, i64 0, i32 3, i32 0, i32 0, i32 3
-  %39 = load ptr, ptr %_items.i.i93.i234, align 8, !tbaa !73
-  %arrayidx.i.i95.i236 = getelementptr inbounds ptr, ptr %39, i64 %idxprom.i.i94.i235
-  %40 = load ptr, ptr %arrayidx.i.i95.i236, align 8, !tbaa !75
-  %ItemIndex6.i237 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i.i, i32 1
-  %41 = load i32, ptr %ItemIndex6.i237, align 4, !tbaa !86
-  %_items.i.i96.i238 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %38, i64 0, i32 3, i32 0, i32 0, i32 3
-  %42 = load ptr, ptr %_items.i.i96.i238, align 8, !tbaa !73
-  %idxprom.i.i97.i239 = sext i32 %41 to i64
-  %arrayidx.i.i98.i240 = getelementptr inbounds ptr, ptr %42, i64 %idxprom.i.i97.i239
-  %43 = load ptr, ptr %arrayidx.i.i98.i240, align 8, !tbaa !75
-  %Attributes.i.i241 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 6
-  %44 = load i16, ptr %Attributes.i.i241, align 8, !tbaa !83
+  %idxprom.i.i90.i225 = sext i32 %37 to i64
+  %arrayidx.i.i91.i226 = getelementptr inbounds ptr, ptr %35, i64 %idxprom.i.i90.i225
+  %38 = load ptr, ptr %arrayidx.i.i91.i226, align 8, !tbaa !75
+  %_items.i.i92.i228 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %36, i64 0, i32 3, i32 0, i32 0, i32 3
+  %39 = load ptr, ptr %_items.i.i92.i228, align 8, !tbaa !73
+  %arrayidx.i.i94.i230 = getelementptr inbounds ptr, ptr %39, i64 %idxprom.i.i93.i229
+  %40 = load ptr, ptr %arrayidx.i.i94.i230, align 8, !tbaa !75
+  %ItemIndex6.i231 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i.i, i32 1
+  %41 = load i32, ptr %ItemIndex6.i231, align 4, !tbaa !86
+  %_items.i.i95.i232 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %38, i64 0, i32 3, i32 0, i32 0, i32 3
+  %42 = load ptr, ptr %_items.i.i95.i232, align 8, !tbaa !73
+  %idxprom.i.i96.i233 = sext i32 %41 to i64
+  %arrayidx.i.i97.i234 = getelementptr inbounds ptr, ptr %42, i64 %idxprom.i.i96.i233
+  %43 = load ptr, ptr %arrayidx.i.i97.i234, align 8, !tbaa !75
+  %Attributes.i.i235 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 6
+  %44 = load i16, ptr %Attributes.i.i235, align 8, !tbaa !83
   %45 = and i16 %44, 16
-  %cmp.i.i242 = icmp ne i16 %45, 0
-  %Attributes.i99.i243 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 6
-  %46 = load i16, ptr %Attributes.i99.i243, align 8, !tbaa !83
+  %cmp.i.not.i236 = icmp ne i16 %45, 0
+  %Attributes.i98.i237 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 6
+  %46 = load i16, ptr %Attributes.i98.i237, align 8, !tbaa !83
   %47 = and i16 %46, 16
-  %cmp.i100.i244 = icmp eq i16 %47, 0
-  %brmerge.not.i245 = and i1 %cmp.i.i242, %cmp.i100.i244
-  br i1 %brmerge.not.i245, label %cleanup.i.i, label %if.end.i247
+  %cmp.i99.not.i238 = icmp eq i16 %47, 0
+  %brmerge.not.i239 = select i1 %cmp.i.not.i236, i1 %cmp.i99.not.i238, i1 false
+  br i1 %brmerge.not.i239, label %cleanup.i.i, label %if.end.i241
 
-if.end.i247:                                      ; preds = %if.end7.i.i
-  %brmerge89.i246 = or i1 %cmp.i.i242, %cmp.i100.i244
-  br i1 %brmerge89.i246, label %if.end16.i253, label %if.end7.for.end.loopexit_crit_edge.i.i
+if.end.i241:                                      ; preds = %if.end7.i.i
+  %brmerge140.i240 = or i1 %cmp.i.not.i236, %cmp.i99.not.i238
+  br i1 %brmerge140.i240, label %if.end16.i247, label %if.end7.for.end.loopexit_crit_edge.i.i
 
-if.end16.i253:                                    ; preds = %if.end.i247
-  %48 = load ptr, ptr %_items.i.i101.i330, align 8, !tbaa !73
-  %arrayidx.i.i102.i249 = getelementptr inbounds i32, ptr %48, i64 %idxprom.i.i.i229
-  %49 = load i32, ptr %arrayidx.i.i102.i249, align 4, !tbaa !87
-  %_size.i.i.i250 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %36, i64 0, i32 2, i32 0, i32 0, i32 2
-  %50 = load i32, ptr %_size.i.i.i250, align 4, !tbaa !74
-  %FolderIndex.i.i.i.i251 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 4
-  %51 = load i16, ptr %FolderIndex.i.i.i.i251, align 4, !tbaa !81
+if.end16.i247:                                    ; preds = %if.end.i241
+  %48 = load ptr, ptr %_items.i.i100.i320, align 8, !tbaa !73
+  %arrayidx.i.i101.i243 = getelementptr inbounds i32, ptr %48, i64 %idxprom.i.i.i223
+  %49 = load i32, ptr %arrayidx.i.i101.i243, align 4, !tbaa !87
+  %_size.i.i.i244 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %36, i64 0, i32 2, i32 0, i32 0, i32 2
+  %50 = load i32, ptr %_size.i.i.i244, align 4, !tbaa !74
+  %FolderIndex.i.i.i.i245 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 4
+  %51 = load i16, ptr %FolderIndex.i.i.i.i245, align 4, !tbaa !81
   %52 = and i16 %51, -3
-  %spec.select.i.i.i.i252 = icmp eq i16 %52, -3
-  br i1 %spec.select.i.i.i.i252, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266, label %if.end.i.i.i255
+  %spec.select.i.i.i.i246 = icmp eq i16 %52, -3
+  br i1 %spec.select.i.i.i.i246, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260, label %if.end.i.i.i249
 
-if.end.i.i.i255:                                  ; preds = %if.end16.i253
-  %spec.select.i6.i.i.i254 = icmp ugt i16 %51, -3
-  br i1 %spec.select.i6.i.i.i254, label %if.then3.i.i.i257, label %if.end4.i.i.i259
+if.end.i.i.i249:                                  ; preds = %if.end16.i247
+  %spec.select.i6.i.i.i248 = icmp ugt i16 %51, -3
+  br i1 %spec.select.i6.i.i.i248, label %if.then3.i.i.i251, label %if.end4.i.i.i253
 
-if.then3.i.i.i257:                                ; preds = %if.end.i.i.i255
-  %sub.i.i.i256 = add nsw i32 %50, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266
+if.then3.i.i.i251:                                ; preds = %if.end.i.i.i249
+  %sub.i.i.i250 = add nsw i32 %50, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260
 
-if.end4.i.i.i259:                                 ; preds = %if.end.i.i.i255
-  %conv.i.i.i258 = zext i16 %51 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266
+if.end4.i.i.i253:                                 ; preds = %if.end.i.i.i249
+  %conv.i.i.i252 = zext i16 %51 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266: ; preds = %if.end4.i.i.i259, %if.then3.i.i.i257, %if.end16.i253
-  %retval.0.i.i.i260 = phi i32 [ %sub.i.i.i256, %if.then3.i.i.i257 ], [ %conv.i.i.i258, %if.end4.i.i.i259 ], [ 0, %if.end16.i253 ]
-  %add.i.i261 = add nsw i32 %retval.0.i.i.i260, %49
-  %arrayidx.i.i107.i262 = getelementptr inbounds i32, ptr %48, i64 %idxprom.i.i91.i231
-  %53 = load i32, ptr %arrayidx.i.i107.i262, align 4, !tbaa !87
-  %_size.i.i112.i263 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %38, i64 0, i32 2, i32 0, i32 0, i32 2
-  %54 = load i32, ptr %_size.i.i112.i263, align 4, !tbaa !74
-  %FolderIndex.i.i.i113.i264 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 4
-  %55 = load i16, ptr %FolderIndex.i.i.i113.i264, align 4, !tbaa !81
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260: ; preds = %if.end4.i.i.i253, %if.then3.i.i.i251, %if.end16.i247
+  %retval.0.i.i.i254 = phi i32 [ %sub.i.i.i250, %if.then3.i.i.i251 ], [ %conv.i.i.i252, %if.end4.i.i.i253 ], [ 0, %if.end16.i247 ]
+  %add.i.i255 = add nsw i32 %retval.0.i.i.i254, %49
+  %arrayidx.i.i106.i256 = getelementptr inbounds i32, ptr %48, i64 %idxprom.i.i90.i225
+  %53 = load i32, ptr %arrayidx.i.i106.i256, align 4, !tbaa !87
+  %_size.i.i111.i257 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %38, i64 0, i32 2, i32 0, i32 0, i32 2
+  %54 = load i32, ptr %_size.i.i111.i257, align 4, !tbaa !74
+  %FolderIndex.i.i.i112.i258 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 4
+  %55 = load i16, ptr %FolderIndex.i.i.i112.i258, align 4, !tbaa !81
   %56 = and i16 %55, -3
-  %spec.select.i.i.i114.i265 = icmp eq i16 %56, -3
-  br i1 %spec.select.i.i.i114.i265, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280, label %if.end.i.i116.i268
+  %spec.select.i.i.i113.i259 = icmp eq i16 %56, -3
+  br i1 %spec.select.i.i.i113.i259, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273, label %if.end.i.i115.i262
 
-if.end.i.i116.i268:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266
-  %spec.select.i6.i.i115.i267 = icmp ugt i16 %55, -3
-  br i1 %spec.select.i6.i.i115.i267, label %if.then3.i.i118.i270, label %if.end4.i.i120.i272
+if.end.i.i115.i262:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260
+  %spec.select.i6.i.i114.i261 = icmp ugt i16 %55, -3
+  br i1 %spec.select.i6.i.i114.i261, label %if.then3.i.i117.i264, label %if.end4.i.i119.i266
 
-if.then3.i.i118.i270:                             ; preds = %if.end.i.i116.i268
-  %sub.i.i117.i269 = add nsw i32 %54, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280
+if.then3.i.i117.i264:                             ; preds = %if.end.i.i115.i262
+  %sub.i.i116.i263 = add nsw i32 %54, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273
 
-if.end4.i.i120.i272:                              ; preds = %if.end.i.i116.i268
-  %conv.i.i119.i271 = zext i16 %55 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280
+if.end4.i.i119.i266:                              ; preds = %if.end.i.i115.i262
+  %conv.i.i118.i265 = zext i16 %55 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280: ; preds = %if.end4.i.i120.i272, %if.then3.i.i118.i270, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266
-  %retval.0.i.i121.i273 = phi i32 [ %sub.i.i117.i269, %if.then3.i.i118.i270 ], [ %conv.i.i119.i271, %if.end4.i.i120.i272 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i266 ]
-  %add.i122.i274 = add nsw i32 %retval.0.i.i121.i273, %53
-  %cmp.i124.i275 = icmp slt i32 %add.i.i261, %add.i122.i274
-  %cmp1.i.i276 = icmp ne i32 %add.i.i261, %add.i122.i274
-  %cond.i.i277 = zext i1 %cmp1.i.i276 to i32
-  %cond2.i.i278 = select i1 %cmp.i124.i275, i32 -1, i32 %cond.i.i277
-  %cmp.not.i279 = icmp eq i32 %cond2.i.i278, 0
-  br i1 %cmp.not.i279, label %cleanup.cont.i288, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273: ; preds = %if.end4.i.i119.i266, %if.then3.i.i117.i264, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260
+  %retval.0.i.i120.i267 = phi i32 [ %sub.i.i116.i263, %if.then3.i.i117.i264 ], [ %conv.i.i118.i265, %if.end4.i.i119.i266 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i260 ]
+  %add.i121.i268 = add nsw i32 %retval.0.i.i120.i267, %53
+  %cmp.i123.i269 = icmp slt i32 %add.i.i255, %add.i121.i268
+  %cmp1.i.i270 = icmp ne i32 %add.i.i255, %add.i121.i268
+  %cond.i.i271 = zext i1 %cmp1.i.i270 to i32
+  %cond2.i.i272 = select i1 %cmp.i123.i269, i32 -1, i32 %cond.i.i271
+  br i1 %cmp1.i.i270, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299, label %cleanup.cont.i280
 
-cleanup.cont.i288:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280
-  %Offset.i281 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 1
-  %57 = load i32, ptr %Offset.i281, align 8, !tbaa !80
-  %Offset23.i282 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 1
-  %58 = load i32, ptr %Offset23.i282, align 8, !tbaa !80
-  %cmp.i125.i283 = icmp ult i32 %57, %58
-  %cmp1.i126.i284 = icmp ne i32 %57, %58
-  %cond.i127.i285 = zext i1 %cmp1.i126.i284 to i32
-  %cond2.i128.i286 = select i1 %cmp.i125.i283, i32 -1, i32 %cond.i127.i285
-  %cmp25.not.i287 = icmp eq i32 %cond2.i128.i286, 0
-  br i1 %cmp25.not.i287, label %cleanup.cont30.i296, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+cleanup.cont.i280:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273
+  %Offset.i274 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 1
+  %57 = load i32, ptr %Offset.i274, align 8, !tbaa !80
+  %Offset23.i275 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 1
+  %58 = load i32, ptr %Offset23.i275, align 8, !tbaa !80
+  %cmp1.i125.i276 = icmp ne i32 %57, %58
+  %cmp.i124.i277 = icmp ult i32 %57, %58
+  %cond.i126.i278 = zext i1 %cmp1.i125.i276 to i32
+  %cond2.i127.i279 = select i1 %cmp.i124.i277, i32 -1, i32 %cond.i126.i278
+  br i1 %cmp1.i125.i276, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299, label %cleanup.cont30.i287
 
-cleanup.cont30.i296:                              ; preds = %cleanup.cont.i288
-  %Size.i289 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 2
-  %59 = load i32, ptr %Size.i289, align 4, !tbaa !78
-  %Size32.i290 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 2
-  %60 = load i32, ptr %Size32.i290, align 4, !tbaa !78
-  %cmp.i129.i291 = icmp ult i32 %59, %60
-  %cmp1.i130.i292 = icmp ne i32 %59, %60
-  %cond.i131.i293 = zext i1 %cmp1.i130.i292 to i32
-  %cond2.i132.i294 = select i1 %cmp.i129.i291, i32 -1, i32 %cond.i131.i293
-  %cmp34.not.i295 = icmp eq i32 %cond2.i132.i294, 0
-  br i1 %cmp34.not.i295, label %cleanup.cont39.i302, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+cleanup.cont30.i287:                              ; preds = %cleanup.cont.i280
+  %Size.i281 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %40, i64 0, i32 2
+  %59 = load i32, ptr %Size.i281, align 4, !tbaa !78
+  %Size32.i282 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %43, i64 0, i32 2
+  %60 = load i32, ptr %Size32.i282, align 4, !tbaa !78
+  %cmp1.i129.i283 = icmp ne i32 %59, %60
+  %cmp.i128.i284 = icmp ult i32 %59, %60
+  %cond.i130.i285 = zext i1 %cmp1.i129.i283 to i32
+  %cond2.i131.i286 = select i1 %cmp.i128.i284, i32 -1, i32 %cond.i130.i285
+  br i1 %cmp1.i129.i283, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299, label %cleanup.cont39.i292
 
-cleanup.cont39.i302:                              ; preds = %cleanup.cont30.i296
-  %cmp.i133.i297 = icmp sgt i32 %37, %temp.i.i.sroa.0.0.extract.trunc
-  %cmp1.i134.i298 = icmp ne i32 %37, %temp.i.i.sroa.0.0.extract.trunc
-  %cond.i135.i299 = zext i1 %cmp1.i134.i298 to i32
-  %cond2.i136.i300 = select i1 %cmp.i133.i297, i32 -1, i32 %cond.i135.i299
-  %cmp44.not.i301 = icmp eq i32 %cond2.i136.i300, 0
-  br i1 %cmp44.not.i301, label %cleanup.cont49.i307, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+cleanup.cont39.i292:                              ; preds = %cleanup.cont30.i287
+  %cmp1.i133.i288 = icmp ne i32 %37, %temp.i.i.sroa.0.0.extract.trunc
+  %cmp.i132.i289 = icmp sgt i32 %37, %temp.i.i.sroa.0.0.extract.trunc
+  %cond.i134.i290 = zext i1 %cmp1.i133.i288 to i32
+  %cond2.i135.i291 = select i1 %cmp.i132.i289, i32 -1, i32 %cond.i134.i290
+  br i1 %cmp1.i133.i288, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299, label %cleanup.cont49.i297
 
-cleanup.cont49.i307:                              ; preds = %cleanup.cont39.i302
-  %cmp.i137.i303 = icmp sgt i32 %41, %temp.i.i.sroa.5.0.extract.trunc
-  br i1 %cmp.i137.i303, label %cleanup.i.i, label %if.end7.for.end.loopexit_crit_edge.i.i
+cleanup.cont49.i297:                              ; preds = %cleanup.cont39.i292
+  %cmp.i136.i293 = icmp sgt i32 %41, %temp.i.i.sroa.5.0.extract.trunc
+  br i1 %cmp.i136.i293, label %cleanup.i.i, label %if.end7.for.end.loopexit_crit_edge.i.i
 
-_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309: ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280, %cleanup.cont.i288, %cleanup.cont30.i296, %cleanup.cont39.i302
-  %retval.5.i308 = phi i32 [ %cond2.i136.i300, %cleanup.cont39.i302 ], [ %cond2.i132.i294, %cleanup.cont30.i296 ], [ %cond2.i128.i286, %cleanup.cont.i288 ], [ %cond2.i.i278, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i280 ]
-  %cmp11.i.i = icmp sgt i32 %retval.5.i308, -1
+_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299: ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273, %cleanup.cont.i280, %cleanup.cont30.i287, %cleanup.cont39.i292
+  %retval.5.i298 = phi i32 [ %cond2.i135.i291, %cleanup.cont39.i292 ], [ %cond2.i131.i286, %cleanup.cont30.i287 ], [ %cond2.i127.i279, %cleanup.cont.i280 ], [ %cond2.i.i272, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i273 ]
+  %cmp11.i.i = icmp sgt i32 %retval.5.i298, -1
   br i1 %cmp11.i.i, label %if.end7.for.end.loopexit_crit_edge.i.i, label %cleanup.i.i
 
-if.end7.for.end.loopexit_crit_edge.i.i:           ; preds = %cleanup.cont49.i307, %if.end.i247, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+if.end7.for.end.loopexit_crit_edge.i.i:           ; preds = %cleanup.cont49.i297, %if.end.i241, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299
   %.pre49.i.i = sext i32 %k.addr.045.i.i to i64
   br label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit.i
 
-cleanup.i.i:                                      ; preds = %cleanup.cont49.i307, %if.end7.i.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit309
+cleanup.i.i:                                      ; preds = %cleanup.cont49.i297, %if.end7.i.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit299
   %idxprom16.i.i = sext i32 %k.addr.045.i.i to i64
   %arrayidx17.i.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idxprom16.i.i
   %61 = load i64, ptr %add.ptr9.i.i, align 4
@@ -2212,348 +2204,340 @@ do.body3.preheader.i:                             ; preds = %_ZN13CRecordVectorI
   %64 = load i64, ptr %2, align 4
   store i64 %64, ptr %arrayidx69.i, align 4
   store i64 %63, ptr %2, align 4
-  %cmp44.i2971.i = icmp slt i32 %1, 3
-  br i1 %cmp44.i2971.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit, label %if.end.i33.preheader.i
+  %cmp44.i2871.i = icmp slt i32 %1, 3
+  br i1 %cmp44.i2871.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit, label %if.end.i32.preheader.i
 
-if.end.i33.preheader.i:                           ; preds = %do.body3.preheader.i, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i
-  %temp.i27.i.sroa.0.0.in = phi i64 [ %122, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i ], [ %63, %do.body3.preheader.i ]
-  %indvars.iv79.i = phi i64 [ %indvars.iv.next80.i, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i ], [ %idxprom68.i, %do.body3.preheader.i ]
-  %temp.i27.i.sroa.8.0.in = lshr i64 %temp.i27.i.sroa.0.0.in, 32
-  %temp.i27.i.sroa.8.0 = trunc i64 %temp.i27.i.sroa.8.0.in to i32
-  %temp.i27.i.sroa.0.0 = trunc i64 %temp.i27.i.sroa.0.0.in to i32
+if.end.i32.preheader.i:                           ; preds = %do.body3.preheader.i, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i
+  %temp.i26.i.sroa.0.0.in = phi i64 [ %122, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i ], [ %63, %do.body3.preheader.i ]
+  %indvars.iv79.i = phi i64 [ %indvars.iv.next80.i, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i ], [ %idxprom68.i, %do.body3.preheader.i ]
+  %temp.i26.i.sroa.8.0.in = lshr i64 %temp.i26.i.sroa.0.0.in, 32
+  %temp.i26.i.sroa.8.0 = trunc i64 %temp.i26.i.sroa.8.0.in to i32
+  %temp.i26.i.sroa.0.0 = trunc i64 %temp.i26.i.sroa.0.0.in to i32
   %indvars.iv.next80.i = add nsw i64 %indvars.iv79.i, -1
-  %sext412 = shl i64 %temp.i27.i.sroa.0.0.in, 32
-  %idxprom.i.i.i125 = ashr exact i64 %sext412, 32
-  %idxprom.i.i94.i = ashr i64 %temp.i27.i.sroa.0.0.in, 32
-  br label %if.end.i33.i
+  %sext382 = shl i64 %temp.i26.i.sroa.0.0.in, 32
+  %idxprom.i.i.i125 = ashr exact i64 %sext382, 32
+  %idxprom.i.i93.i = ashr i64 %temp.i26.i.sroa.0.0.in, 32
+  br label %if.end.i32.i
 
-if.end.i33.i:                                     ; preds = %cleanup.i54.i, %if.end.i33.preheader.i
-  %shl46.i30.i = phi i32 [ %shl.i52.i, %cleanup.i54.i ], [ 2, %if.end.i33.preheader.i ]
-  %k.addr.045.i31.i = phi i32 [ %s.0.i42.i, %cleanup.i54.i ], [ 1, %if.end.i33.preheader.i ]
-  %65 = sext i32 %shl46.i30.i to i64
-  %cmp1.i32.i = icmp sgt i64 %indvars.iv.next80.i, %65
-  br i1 %cmp1.i32.i, label %land.lhs.true.i41.i, label %if.end.i33.i.if.end7.i47.i_crit_edge
+if.end.i32.i:                                     ; preds = %cleanup.i53.i, %if.end.i32.preheader.i
+  %shl46.i29.i = phi i32 [ %shl.i51.i, %cleanup.i53.i ], [ 2, %if.end.i32.preheader.i ]
+  %k.addr.045.i30.i = phi i32 [ %s.0.i41.i, %cleanup.i53.i ], [ 1, %if.end.i32.preheader.i ]
+  %65 = sext i32 %shl46.i29.i to i64
+  %cmp1.i31.i = icmp sgt i64 %indvars.iv.next80.i, %65
+  br i1 %cmp1.i31.i, label %land.lhs.true.i40.i, label %if.end.i32.i.if.end7.i46.i_crit_edge
 
-if.end.i33.i.if.end7.i47.i_crit_edge:             ; preds = %if.end.i33.i
-  %.pre449 = load ptr, ptr %_items.i.i.i228, align 8, !tbaa !73
-  br label %if.end7.i47.i
+if.end.i32.i.if.end7.i46.i_crit_edge:             ; preds = %if.end.i32.i
+  %.pre428 = load ptr, ptr %_items.i.i.i222, align 8, !tbaa !73
+  br label %if.end7.i46.i
 
-land.lhs.true.i41.i:                              ; preds = %if.end.i33.i
-  %add.ptr.i35.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %65
-  %add.ptr2.i36.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i35.i, i64 1
-  %66 = load i32, ptr %add.ptr2.i36.i, align 4, !tbaa !84
-  %67 = load ptr, ptr %_items.i.i.i228, align 8, !tbaa !73
-  %idxprom.i.i.i147 = sext i32 %66 to i64
-  %arrayidx.i.i.i148 = getelementptr inbounds ptr, ptr %67, i64 %idxprom.i.i.i147
-  %68 = load ptr, ptr %arrayidx.i.i.i148, align 8, !tbaa !75
-  %69 = load i32, ptr %add.ptr.i35.i, align 4, !tbaa !84
-  %idxprom.i.i91.i149 = sext i32 %69 to i64
-  %arrayidx.i.i92.i150 = getelementptr inbounds ptr, ptr %67, i64 %idxprom.i.i91.i149
-  %70 = load ptr, ptr %arrayidx.i.i92.i150, align 8, !tbaa !75
-  %ItemIndex.i151 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i35.i, i64 1, i32 1
-  %71 = load i32, ptr %ItemIndex.i151, align 4, !tbaa !86
-  %_items.i.i93.i152 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %68, i64 0, i32 3, i32 0, i32 0, i32 3
-  %72 = load ptr, ptr %_items.i.i93.i152, align 8, !tbaa !73
-  %idxprom.i.i94.i153 = sext i32 %71 to i64
-  %arrayidx.i.i95.i154 = getelementptr inbounds ptr, ptr %72, i64 %idxprom.i.i94.i153
-  %73 = load ptr, ptr %arrayidx.i.i95.i154, align 8, !tbaa !75
-  %ItemIndex6.i155 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %65, i32 1
-  %74 = load i32, ptr %ItemIndex6.i155, align 4, !tbaa !86
-  %_items.i.i96.i156 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %70, i64 0, i32 3, i32 0, i32 0, i32 3
-  %75 = load ptr, ptr %_items.i.i96.i156, align 8, !tbaa !73
-  %idxprom.i.i97.i157 = sext i32 %74 to i64
-  %arrayidx.i.i98.i158 = getelementptr inbounds ptr, ptr %75, i64 %idxprom.i.i97.i157
-  %76 = load ptr, ptr %arrayidx.i.i98.i158, align 8, !tbaa !75
-  %Attributes.i.i159 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 6
-  %77 = load i16, ptr %Attributes.i.i159, align 8, !tbaa !83
+land.lhs.true.i40.i:                              ; preds = %if.end.i32.i
+  %add.ptr.i34.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %65
+  %add.ptr2.i35.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i34.i, i64 1
+  %66 = load i32, ptr %add.ptr2.i35.i, align 4, !tbaa !84
+  %67 = load ptr, ptr %_items.i.i.i222, align 8, !tbaa !73
+  %idxprom.i.i.i145 = sext i32 %66 to i64
+  %arrayidx.i.i.i146 = getelementptr inbounds ptr, ptr %67, i64 %idxprom.i.i.i145
+  %68 = load ptr, ptr %arrayidx.i.i.i146, align 8, !tbaa !75
+  %69 = load i32, ptr %add.ptr.i34.i, align 4, !tbaa !84
+  %idxprom.i.i90.i147 = sext i32 %69 to i64
+  %arrayidx.i.i91.i148 = getelementptr inbounds ptr, ptr %67, i64 %idxprom.i.i90.i147
+  %70 = load ptr, ptr %arrayidx.i.i91.i148, align 8, !tbaa !75
+  %ItemIndex.i149 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i34.i, i64 1, i32 1
+  %71 = load i32, ptr %ItemIndex.i149, align 4, !tbaa !86
+  %_items.i.i92.i150 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %68, i64 0, i32 3, i32 0, i32 0, i32 3
+  %72 = load ptr, ptr %_items.i.i92.i150, align 8, !tbaa !73
+  %idxprom.i.i93.i151 = sext i32 %71 to i64
+  %arrayidx.i.i94.i152 = getelementptr inbounds ptr, ptr %72, i64 %idxprom.i.i93.i151
+  %73 = load ptr, ptr %arrayidx.i.i94.i152, align 8, !tbaa !75
+  %ItemIndex6.i153 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %65, i32 1
+  %74 = load i32, ptr %ItemIndex6.i153, align 4, !tbaa !86
+  %_items.i.i95.i154 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %70, i64 0, i32 3, i32 0, i32 0, i32 3
+  %75 = load ptr, ptr %_items.i.i95.i154, align 8, !tbaa !73
+  %idxprom.i.i96.i155 = sext i32 %74 to i64
+  %arrayidx.i.i97.i156 = getelementptr inbounds ptr, ptr %75, i64 %idxprom.i.i96.i155
+  %76 = load ptr, ptr %arrayidx.i.i97.i156, align 8, !tbaa !75
+  %Attributes.i.i157 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 6
+  %77 = load i16, ptr %Attributes.i.i157, align 8, !tbaa !83
   %78 = and i16 %77, 16
-  %cmp.i.i160 = icmp ne i16 %78, 0
-  %Attributes.i99.i161 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 6
-  %79 = load i16, ptr %Attributes.i99.i161, align 8, !tbaa !83
+  %cmp.i.not.i158 = icmp ne i16 %78, 0
+  %Attributes.i98.i159 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 6
+  %79 = load i16, ptr %Attributes.i98.i159, align 8, !tbaa !83
   %80 = and i16 %79, 16
-  %cmp.i100.i162 = icmp eq i16 %80, 0
-  %brmerge.not.i163 = and i1 %cmp.i.i160, %cmp.i100.i162
-  br i1 %brmerge.not.i163, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227, label %if.end.i165
+  %cmp.i99.not.i160 = icmp eq i16 %80, 0
+  %brmerge.not.i161 = select i1 %cmp.i.not.i158, i1 %cmp.i99.not.i160, i1 false
+  br i1 %brmerge.not.i161, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221, label %if.end.i163
 
-if.end.i165:                                      ; preds = %land.lhs.true.i41.i
-  %brmerge89.i164 = or i1 %cmp.i.i160, %cmp.i100.i162
-  br i1 %brmerge89.i164, label %if.end16.i171, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+if.end.i163:                                      ; preds = %land.lhs.true.i40.i
+  %brmerge140.i162 = or i1 %cmp.i.not.i158, %cmp.i99.not.i160
+  br i1 %brmerge140.i162, label %if.end16.i169, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221
 
-if.end16.i171:                                    ; preds = %if.end.i165
-  %81 = load ptr, ptr %_items.i.i101.i330, align 8, !tbaa !73
-  %arrayidx.i.i102.i167 = getelementptr inbounds i32, ptr %81, i64 %idxprom.i.i.i147
-  %82 = load i32, ptr %arrayidx.i.i102.i167, align 4, !tbaa !87
-  %_size.i.i.i168 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %68, i64 0, i32 2, i32 0, i32 0, i32 2
-  %83 = load i32, ptr %_size.i.i.i168, align 4, !tbaa !74
-  %FolderIndex.i.i.i.i169 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 4
-  %84 = load i16, ptr %FolderIndex.i.i.i.i169, align 4, !tbaa !81
+if.end16.i169:                                    ; preds = %if.end.i163
+  %81 = load ptr, ptr %_items.i.i100.i320, align 8, !tbaa !73
+  %arrayidx.i.i101.i165 = getelementptr inbounds i32, ptr %81, i64 %idxprom.i.i.i145
+  %82 = load i32, ptr %arrayidx.i.i101.i165, align 4, !tbaa !87
+  %_size.i.i.i166 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %68, i64 0, i32 2, i32 0, i32 0, i32 2
+  %83 = load i32, ptr %_size.i.i.i166, align 4, !tbaa !74
+  %FolderIndex.i.i.i.i167 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 4
+  %84 = load i16, ptr %FolderIndex.i.i.i.i167, align 4, !tbaa !81
   %85 = and i16 %84, -3
-  %spec.select.i.i.i.i170 = icmp eq i16 %85, -3
-  br i1 %spec.select.i.i.i.i170, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184, label %if.end.i.i.i173
+  %spec.select.i.i.i.i168 = icmp eq i16 %85, -3
+  br i1 %spec.select.i.i.i.i168, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182, label %if.end.i.i.i171
 
-if.end.i.i.i173:                                  ; preds = %if.end16.i171
-  %spec.select.i6.i.i.i172 = icmp ugt i16 %84, -3
-  br i1 %spec.select.i6.i.i.i172, label %if.then3.i.i.i175, label %if.end4.i.i.i177
+if.end.i.i.i171:                                  ; preds = %if.end16.i169
+  %spec.select.i6.i.i.i170 = icmp ugt i16 %84, -3
+  br i1 %spec.select.i6.i.i.i170, label %if.then3.i.i.i173, label %if.end4.i.i.i175
 
-if.then3.i.i.i175:                                ; preds = %if.end.i.i.i173
-  %sub.i.i.i174 = add nsw i32 %83, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184
+if.then3.i.i.i173:                                ; preds = %if.end.i.i.i171
+  %sub.i.i.i172 = add nsw i32 %83, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182
 
-if.end4.i.i.i177:                                 ; preds = %if.end.i.i.i173
-  %conv.i.i.i176 = zext i16 %84 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184
+if.end4.i.i.i175:                                 ; preds = %if.end.i.i.i171
+  %conv.i.i.i174 = zext i16 %84 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184: ; preds = %if.end4.i.i.i177, %if.then3.i.i.i175, %if.end16.i171
-  %retval.0.i.i.i178 = phi i32 [ %sub.i.i.i174, %if.then3.i.i.i175 ], [ %conv.i.i.i176, %if.end4.i.i.i177 ], [ 0, %if.end16.i171 ]
-  %add.i.i179 = add nsw i32 %retval.0.i.i.i178, %82
-  %arrayidx.i.i107.i180 = getelementptr inbounds i32, ptr %81, i64 %idxprom.i.i91.i149
-  %86 = load i32, ptr %arrayidx.i.i107.i180, align 4, !tbaa !87
-  %_size.i.i112.i181 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %70, i64 0, i32 2, i32 0, i32 0, i32 2
-  %87 = load i32, ptr %_size.i.i112.i181, align 4, !tbaa !74
-  %FolderIndex.i.i.i113.i182 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 4
-  %88 = load i16, ptr %FolderIndex.i.i.i113.i182, align 4, !tbaa !81
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182: ; preds = %if.end4.i.i.i175, %if.then3.i.i.i173, %if.end16.i169
+  %retval.0.i.i.i176 = phi i32 [ %sub.i.i.i172, %if.then3.i.i.i173 ], [ %conv.i.i.i174, %if.end4.i.i.i175 ], [ 0, %if.end16.i169 ]
+  %add.i.i177 = add nsw i32 %retval.0.i.i.i176, %82
+  %arrayidx.i.i106.i178 = getelementptr inbounds i32, ptr %81, i64 %idxprom.i.i90.i147
+  %86 = load i32, ptr %arrayidx.i.i106.i178, align 4, !tbaa !87
+  %_size.i.i111.i179 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %70, i64 0, i32 2, i32 0, i32 0, i32 2
+  %87 = load i32, ptr %_size.i.i111.i179, align 4, !tbaa !74
+  %FolderIndex.i.i.i112.i180 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 4
+  %88 = load i16, ptr %FolderIndex.i.i.i112.i180, align 4, !tbaa !81
   %89 = and i16 %88, -3
-  %spec.select.i.i.i114.i183 = icmp eq i16 %89, -3
-  br i1 %spec.select.i.i.i114.i183, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198, label %if.end.i.i116.i186
+  %spec.select.i.i.i113.i181 = icmp eq i16 %89, -3
+  br i1 %spec.select.i.i.i113.i181, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195, label %if.end.i.i115.i184
 
-if.end.i.i116.i186:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184
-  %spec.select.i6.i.i115.i185 = icmp ugt i16 %88, -3
-  br i1 %spec.select.i6.i.i115.i185, label %if.then3.i.i118.i188, label %if.end4.i.i120.i190
+if.end.i.i115.i184:                               ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182
+  %spec.select.i6.i.i114.i183 = icmp ugt i16 %88, -3
+  br i1 %spec.select.i6.i.i114.i183, label %if.then3.i.i117.i186, label %if.end4.i.i119.i188
 
-if.then3.i.i118.i188:                             ; preds = %if.end.i.i116.i186
-  %sub.i.i117.i187 = add nsw i32 %87, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198
+if.then3.i.i117.i186:                             ; preds = %if.end.i.i115.i184
+  %sub.i.i116.i185 = add nsw i32 %87, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195
 
-if.end4.i.i120.i190:                              ; preds = %if.end.i.i116.i186
-  %conv.i.i119.i189 = zext i16 %88 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198
+if.end4.i.i119.i188:                              ; preds = %if.end.i.i115.i184
+  %conv.i.i118.i187 = zext i16 %88 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198: ; preds = %if.end4.i.i120.i190, %if.then3.i.i118.i188, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184
-  %retval.0.i.i121.i191 = phi i32 [ %sub.i.i117.i187, %if.then3.i.i118.i188 ], [ %conv.i.i119.i189, %if.end4.i.i120.i190 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i184 ]
-  %add.i122.i192 = add nsw i32 %retval.0.i.i121.i191, %86
-  %cmp.i124.i193 = icmp slt i32 %add.i.i179, %add.i122.i192
-  %cmp1.i.i194 = icmp ne i32 %add.i.i179, %add.i122.i192
-  %cond.i.i195 = zext i1 %cmp1.i.i194 to i32
-  %cond2.i.i196 = select i1 %cmp.i124.i193, i32 -1, i32 %cond.i.i195
-  %cmp.not.i197 = icmp eq i32 %cond2.i.i196, 0
-  br i1 %cmp.not.i197, label %cleanup.cont.i206, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195: ; preds = %if.end4.i.i119.i188, %if.then3.i.i117.i186, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182
+  %retval.0.i.i120.i189 = phi i32 [ %sub.i.i116.i185, %if.then3.i.i117.i186 ], [ %conv.i.i118.i187, %if.end4.i.i119.i188 ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i182 ]
+  %add.i121.i190 = add nsw i32 %retval.0.i.i120.i189, %86
+  %cmp.i123.i191 = icmp slt i32 %add.i.i177, %add.i121.i190
+  %cmp1.i.i192 = icmp ne i32 %add.i.i177, %add.i121.i190
+  %cond.i.i193 = zext i1 %cmp1.i.i192 to i32
+  %cond2.i.i194 = select i1 %cmp.i123.i191, i32 -1, i32 %cond.i.i193
+  br i1 %cmp1.i.i192, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221, label %cleanup.cont.i202
 
-cleanup.cont.i206:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198
-  %Offset.i199 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 1
-  %90 = load i32, ptr %Offset.i199, align 8, !tbaa !80
-  %Offset23.i200 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 1
-  %91 = load i32, ptr %Offset23.i200, align 8, !tbaa !80
-  %cmp.i125.i201 = icmp ult i32 %90, %91
-  %cmp1.i126.i202 = icmp ne i32 %90, %91
-  %cond.i127.i203 = zext i1 %cmp1.i126.i202 to i32
-  %cond2.i128.i204 = select i1 %cmp.i125.i201, i32 -1, i32 %cond.i127.i203
-  %cmp25.not.i205 = icmp eq i32 %cond2.i128.i204, 0
-  br i1 %cmp25.not.i205, label %cleanup.cont30.i214, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+cleanup.cont.i202:                                ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195
+  %Offset.i196 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 1
+  %90 = load i32, ptr %Offset.i196, align 8, !tbaa !80
+  %Offset23.i197 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 1
+  %91 = load i32, ptr %Offset23.i197, align 8, !tbaa !80
+  %cmp1.i125.i198 = icmp ne i32 %90, %91
+  %cmp.i124.i199 = icmp ult i32 %90, %91
+  %cond.i126.i200 = zext i1 %cmp1.i125.i198 to i32
+  %cond2.i127.i201 = select i1 %cmp.i124.i199, i32 -1, i32 %cond.i126.i200
+  br i1 %cmp1.i125.i198, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221, label %cleanup.cont30.i209
 
-cleanup.cont30.i214:                              ; preds = %cleanup.cont.i206
-  %Size.i207 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 2
-  %92 = load i32, ptr %Size.i207, align 4, !tbaa !78
-  %Size32.i208 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 2
-  %93 = load i32, ptr %Size32.i208, align 4, !tbaa !78
-  %cmp.i129.i209 = icmp ult i32 %92, %93
-  %cmp1.i130.i210 = icmp ne i32 %92, %93
-  %cond.i131.i211 = zext i1 %cmp1.i130.i210 to i32
-  %cond2.i132.i212 = select i1 %cmp.i129.i209, i32 -1, i32 %cond.i131.i211
-  %cmp34.not.i213 = icmp eq i32 %cond2.i132.i212, 0
-  br i1 %cmp34.not.i213, label %cleanup.cont39.i220, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+cleanup.cont30.i209:                              ; preds = %cleanup.cont.i202
+  %Size.i203 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %73, i64 0, i32 2
+  %92 = load i32, ptr %Size.i203, align 4, !tbaa !78
+  %Size32.i204 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %76, i64 0, i32 2
+  %93 = load i32, ptr %Size32.i204, align 4, !tbaa !78
+  %cmp1.i129.i205 = icmp ne i32 %92, %93
+  %cmp.i128.i206 = icmp ult i32 %92, %93
+  %cond.i130.i207 = zext i1 %cmp1.i129.i205 to i32
+  %cond2.i131.i208 = select i1 %cmp.i128.i206, i32 -1, i32 %cond.i130.i207
+  br i1 %cmp1.i129.i205, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221, label %cleanup.cont39.i214
 
-cleanup.cont39.i220:                              ; preds = %cleanup.cont30.i214
-  %cmp.i133.i215 = icmp slt i32 %66, %69
-  %cmp1.i134.i216 = icmp ne i32 %66, %69
-  %cond.i135.i217 = zext i1 %cmp1.i134.i216 to i32
-  %cond2.i136.i218 = select i1 %cmp.i133.i215, i32 -1, i32 %cond.i135.i217
-  %cmp44.not.i219 = icmp eq i32 %cond2.i136.i218, 0
-  br i1 %cmp44.not.i219, label %cleanup.cont49.i225, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+cleanup.cont39.i214:                              ; preds = %cleanup.cont30.i209
+  %cmp1.i133.i210 = icmp ne i32 %66, %69
+  %cmp.i132.i211 = icmp slt i32 %66, %69
+  %cond.i134.i212 = zext i1 %cmp1.i133.i210 to i32
+  %cond2.i135.i213 = select i1 %cmp.i132.i211, i32 -1, i32 %cond.i134.i212
+  br i1 %cmp1.i133.i210, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221, label %cleanup.cont49.i219
 
-cleanup.cont49.i225:                              ; preds = %cleanup.cont39.i220
-  %cmp.i137.i221 = icmp slt i32 %71, %74
-  %cmp1.i138.i222 = icmp ne i32 %71, %74
-  %cond.i139.i223 = zext i1 %cmp1.i138.i222 to i32
-  %cond2.i140.i224 = select i1 %cmp.i137.i221, i32 -1, i32 %cond.i139.i223
-  br label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
+cleanup.cont49.i219:                              ; preds = %cleanup.cont39.i214
+  %cmp.i136.i215 = icmp slt i32 %71, %74
+  %cmp1.i137.i216 = icmp ne i32 %71, %74
+  %cond.i138.i217 = zext i1 %cmp1.i137.i216 to i32
+  %cond2.i139.i218 = select i1 %cmp.i136.i215, i32 -1, i32 %cond.i138.i217
+  br label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221
 
-_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227: ; preds = %land.lhs.true.i41.i, %if.end.i165, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198, %cleanup.cont.i206, %cleanup.cont30.i214, %cleanup.cont39.i220, %cleanup.cont49.i225
-  %retval.5.i226 = phi i32 [ -1, %land.lhs.true.i41.i ], [ 1, %if.end.i165 ], [ %cond2.i140.i224, %cleanup.cont49.i225 ], [ %cond2.i136.i218, %cleanup.cont39.i220 ], [ %cond2.i132.i212, %cleanup.cont30.i214 ], [ %cond2.i128.i204, %cleanup.cont.i206 ], [ %cond2.i.i196, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i198 ]
-  %cmp5.i38.i = icmp sgt i32 %retval.5.i226, 0
-  %inc.i39.i = zext i1 %cmp5.i38.i to i32
-  %spec.select.i40.i = or i32 %shl46.i30.i, %inc.i39.i
-  %.pre.i = sext i32 %spec.select.i40.i to i64
-  br label %if.end7.i47.i
+_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221: ; preds = %land.lhs.true.i40.i, %if.end.i163, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195, %cleanup.cont.i202, %cleanup.cont30.i209, %cleanup.cont39.i214, %cleanup.cont49.i219
+  %retval.5.i220 = phi i32 [ -1, %land.lhs.true.i40.i ], [ 1, %if.end.i163 ], [ %cond2.i139.i218, %cleanup.cont49.i219 ], [ %cond2.i135.i213, %cleanup.cont39.i214 ], [ %cond2.i131.i208, %cleanup.cont30.i209 ], [ %cond2.i127.i201, %cleanup.cont.i202 ], [ %cond2.i.i194, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i195 ]
+  %cmp5.i37.i = icmp sgt i32 %retval.5.i220, 0
+  %inc.i38.i = zext i1 %cmp5.i37.i to i32
+  %spec.select.i39.i = or i32 %shl46.i29.i, %inc.i38.i
+  %.pre.i = sext i32 %spec.select.i39.i to i64
+  br label %if.end7.i46.i
 
-if.end7.i47.i:                                    ; preds = %if.end.i33.i.if.end7.i47.i_crit_edge, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227
-  %94 = phi ptr [ %67, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227 ], [ %.pre449, %if.end.i33.i.if.end7.i47.i_crit_edge ]
-  %idx.ext8.i43.pre-phi.i = phi i64 [ %.pre.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227 ], [ %65, %if.end.i33.i.if.end7.i47.i_crit_edge ]
-  %s.0.i42.i = phi i32 [ %spec.select.i40.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit227 ], [ %shl46.i30.i, %if.end.i33.i.if.end7.i47.i_crit_edge ]
-  %add.ptr9.i44.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i43.pre-phi.i
+if.end7.i46.i:                                    ; preds = %if.end.i32.i.if.end7.i46.i_crit_edge, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221
+  %94 = phi ptr [ %67, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221 ], [ %.pre428, %if.end.i32.i.if.end7.i46.i_crit_edge ]
+  %idx.ext8.i42.pre-phi.i = phi i64 [ %.pre.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221 ], [ %65, %if.end.i32.i.if.end7.i46.i_crit_edge ]
+  %s.0.i41.i = phi i32 [ %spec.select.i39.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit221 ], [ %shl46.i29.i, %if.end.i32.i.if.end7.i46.i_crit_edge ]
+  %add.ptr9.i43.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i42.pre-phi.i
   %arrayidx.i.i.i126 = getelementptr inbounds ptr, ptr %94, i64 %idxprom.i.i.i125
   %95 = load ptr, ptr %arrayidx.i.i.i126, align 8, !tbaa !75
-  %96 = load i32, ptr %add.ptr9.i44.i, align 4, !tbaa !84
-  %idxprom.i.i91.i = sext i32 %96 to i64
-  %arrayidx.i.i92.i = getelementptr inbounds ptr, ptr %94, i64 %idxprom.i.i91.i
-  %97 = load ptr, ptr %arrayidx.i.i92.i, align 8, !tbaa !75
-  %_items.i.i93.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %95, i64 0, i32 3, i32 0, i32 0, i32 3
-  %98 = load ptr, ptr %_items.i.i93.i, align 8, !tbaa !73
-  %arrayidx.i.i95.i = getelementptr inbounds ptr, ptr %98, i64 %idxprom.i.i94.i
-  %99 = load ptr, ptr %arrayidx.i.i95.i, align 8, !tbaa !75
-  %ItemIndex6.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i43.pre-phi.i, i32 1
+  %96 = load i32, ptr %add.ptr9.i43.i, align 4, !tbaa !84
+  %idxprom.i.i90.i = sext i32 %96 to i64
+  %arrayidx.i.i91.i = getelementptr inbounds ptr, ptr %94, i64 %idxprom.i.i90.i
+  %97 = load ptr, ptr %arrayidx.i.i91.i, align 8, !tbaa !75
+  %_items.i.i92.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %95, i64 0, i32 3, i32 0, i32 0, i32 3
+  %98 = load ptr, ptr %_items.i.i92.i, align 8, !tbaa !73
+  %arrayidx.i.i94.i = getelementptr inbounds ptr, ptr %98, i64 %idxprom.i.i93.i
+  %99 = load ptr, ptr %arrayidx.i.i94.i, align 8, !tbaa !75
+  %ItemIndex6.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idx.ext8.i42.pre-phi.i, i32 1
   %100 = load i32, ptr %ItemIndex6.i, align 4, !tbaa !86
-  %_items.i.i96.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %97, i64 0, i32 3, i32 0, i32 0, i32 3
-  %101 = load ptr, ptr %_items.i.i96.i, align 8, !tbaa !73
-  %idxprom.i.i97.i = sext i32 %100 to i64
-  %arrayidx.i.i98.i = getelementptr inbounds ptr, ptr %101, i64 %idxprom.i.i97.i
-  %102 = load ptr, ptr %arrayidx.i.i98.i, align 8, !tbaa !75
+  %_items.i.i95.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %97, i64 0, i32 3, i32 0, i32 0, i32 3
+  %101 = load ptr, ptr %_items.i.i95.i, align 8, !tbaa !73
+  %idxprom.i.i96.i = sext i32 %100 to i64
+  %arrayidx.i.i97.i = getelementptr inbounds ptr, ptr %101, i64 %idxprom.i.i96.i
+  %102 = load ptr, ptr %arrayidx.i.i97.i, align 8, !tbaa !75
   %Attributes.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 6
   %103 = load i16, ptr %Attributes.i.i, align 8, !tbaa !83
   %104 = and i16 %103, 16
-  %cmp.i.i128 = icmp ne i16 %104, 0
-  %Attributes.i99.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 6
-  %105 = load i16, ptr %Attributes.i99.i, align 8, !tbaa !83
+  %cmp.i.not.i = icmp ne i16 %104, 0
+  %Attributes.i98.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 6
+  %105 = load i16, ptr %Attributes.i98.i, align 8, !tbaa !83
   %106 = and i16 %105, 16
-  %cmp.i100.i = icmp eq i16 %106, 0
-  %brmerge.not.i = and i1 %cmp.i.i128, %cmp.i100.i
-  br i1 %brmerge.not.i, label %cleanup.i54.i, label %if.end.i129
+  %cmp.i99.not.i = icmp eq i16 %106, 0
+  %brmerge.not.i = select i1 %cmp.i.not.i, i1 %cmp.i99.not.i, i1 false
+  br i1 %brmerge.not.i, label %cleanup.i53.i, label %if.end.i128
 
-if.end.i129:                                      ; preds = %if.end7.i47.i
-  %brmerge89.i = or i1 %cmp.i.i128, %cmp.i100.i
-  br i1 %brmerge89.i, label %if.end16.i, label %if.end7.for.end.loopexit_crit_edge.i49.i
+if.end.i128:                                      ; preds = %if.end7.i46.i
+  %brmerge140.i = or i1 %cmp.i.not.i, %cmp.i99.not.i
+  br i1 %brmerge140.i, label %if.end16.i, label %if.end7.for.end.loopexit_crit_edge.i48.i
 
-if.end16.i:                                       ; preds = %if.end.i129
-  %107 = load ptr, ptr %_items.i.i101.i330, align 8, !tbaa !73
-  %arrayidx.i.i102.i = getelementptr inbounds i32, ptr %107, i64 %idxprom.i.i.i125
-  %108 = load i32, ptr %arrayidx.i.i102.i, align 4, !tbaa !87
-  %_size.i.i.i130 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %95, i64 0, i32 2, i32 0, i32 0, i32 2
-  %109 = load i32, ptr %_size.i.i.i130, align 4, !tbaa !74
-  %FolderIndex.i.i.i.i131 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 4
-  %110 = load i16, ptr %FolderIndex.i.i.i.i131, align 4, !tbaa !81
+if.end16.i:                                       ; preds = %if.end.i128
+  %107 = load ptr, ptr %_items.i.i100.i320, align 8, !tbaa !73
+  %arrayidx.i.i101.i = getelementptr inbounds i32, ptr %107, i64 %idxprom.i.i.i125
+  %108 = load i32, ptr %arrayidx.i.i101.i, align 4, !tbaa !87
+  %_size.i.i.i129 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %95, i64 0, i32 2, i32 0, i32 0, i32 2
+  %109 = load i32, ptr %_size.i.i.i129, align 4, !tbaa !74
+  %FolderIndex.i.i.i.i130 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 4
+  %110 = load i16, ptr %FolderIndex.i.i.i.i130, align 4, !tbaa !81
   %111 = and i16 %110, -3
-  %spec.select.i.i.i.i132 = icmp eq i16 %111, -3
-  br i1 %spec.select.i.i.i.i132, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141, label %if.end.i.i.i134
+  %spec.select.i.i.i.i131 = icmp eq i16 %111, -3
+  br i1 %spec.select.i.i.i.i131, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140, label %if.end.i.i.i133
 
-if.end.i.i.i134:                                  ; preds = %if.end16.i
-  %spec.select.i6.i.i.i133 = icmp ugt i16 %110, -3
-  br i1 %spec.select.i6.i.i.i133, label %if.then3.i.i.i136, label %if.end4.i.i.i138
+if.end.i.i.i133:                                  ; preds = %if.end16.i
+  %spec.select.i6.i.i.i132 = icmp ugt i16 %110, -3
+  br i1 %spec.select.i6.i.i.i132, label %if.then3.i.i.i135, label %if.end4.i.i.i137
 
-if.then3.i.i.i136:                                ; preds = %if.end.i.i.i134
-  %sub.i.i.i135 = add nsw i32 %109, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141
+if.then3.i.i.i135:                                ; preds = %if.end.i.i.i133
+  %sub.i.i.i134 = add nsw i32 %109, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140
 
-if.end4.i.i.i138:                                 ; preds = %if.end.i.i.i134
-  %conv.i.i.i137 = zext i16 %110 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141
+if.end4.i.i.i137:                                 ; preds = %if.end.i.i.i133
+  %conv.i.i.i136 = zext i16 %110 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141: ; preds = %if.end4.i.i.i138, %if.then3.i.i.i136, %if.end16.i
-  %retval.0.i.i.i139 = phi i32 [ %sub.i.i.i135, %if.then3.i.i.i136 ], [ %conv.i.i.i137, %if.end4.i.i.i138 ], [ 0, %if.end16.i ]
-  %add.i.i140 = add nsw i32 %retval.0.i.i.i139, %108
-  %arrayidx.i.i107.i = getelementptr inbounds i32, ptr %107, i64 %idxprom.i.i91.i
-  %112 = load i32, ptr %arrayidx.i.i107.i, align 4, !tbaa !87
-  %_size.i.i112.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %97, i64 0, i32 2, i32 0, i32 0, i32 2
-  %113 = load i32, ptr %_size.i.i112.i, align 4, !tbaa !74
-  %FolderIndex.i.i.i113.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 4
-  %114 = load i16, ptr %FolderIndex.i.i.i113.i, align 4, !tbaa !81
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140: ; preds = %if.end4.i.i.i137, %if.then3.i.i.i135, %if.end16.i
+  %retval.0.i.i.i138 = phi i32 [ %sub.i.i.i134, %if.then3.i.i.i135 ], [ %conv.i.i.i136, %if.end4.i.i.i137 ], [ 0, %if.end16.i ]
+  %add.i.i139 = add nsw i32 %retval.0.i.i.i138, %108
+  %arrayidx.i.i106.i = getelementptr inbounds i32, ptr %107, i64 %idxprom.i.i90.i
+  %112 = load i32, ptr %arrayidx.i.i106.i, align 4, !tbaa !87
+  %_size.i.i111.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %97, i64 0, i32 2, i32 0, i32 0, i32 2
+  %113 = load i32, ptr %_size.i.i111.i, align 4, !tbaa !74
+  %FolderIndex.i.i.i112.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 4
+  %114 = load i16, ptr %FolderIndex.i.i.i112.i, align 4, !tbaa !81
   %115 = and i16 %114, -3
-  %spec.select.i.i.i114.i = icmp eq i16 %115, -3
-  br i1 %spec.select.i.i.i114.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i, label %if.end.i.i116.i
+  %spec.select.i.i.i113.i = icmp eq i16 %115, -3
+  br i1 %spec.select.i.i.i113.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i, label %if.end.i.i115.i
 
-if.end.i.i116.i:                                  ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141
-  %spec.select.i6.i.i115.i = icmp ugt i16 %114, -3
-  br i1 %spec.select.i6.i.i115.i, label %if.then3.i.i118.i, label %if.end4.i.i120.i
+if.end.i.i115.i:                                  ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140
+  %spec.select.i6.i.i114.i = icmp ugt i16 %114, -3
+  br i1 %spec.select.i6.i.i114.i, label %if.then3.i.i117.i, label %if.end4.i.i119.i
 
-if.then3.i.i118.i:                                ; preds = %if.end.i.i116.i
-  %sub.i.i117.i = add nsw i32 %113, -1
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i
+if.then3.i.i117.i:                                ; preds = %if.end.i.i115.i
+  %sub.i.i116.i = add nsw i32 %113, -1
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i
 
-if.end4.i.i120.i:                                 ; preds = %if.end.i.i116.i
-  %conv.i.i119.i = zext i16 %114 to i32
-  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i
+if.end4.i.i119.i:                                 ; preds = %if.end.i.i115.i
+  %conv.i.i118.i = zext i16 %114 to i32
+  br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i
 
-_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i: ; preds = %if.end4.i.i120.i, %if.then3.i.i118.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141
-  %retval.0.i.i121.i = phi i32 [ %sub.i.i117.i, %if.then3.i.i118.i ], [ %conv.i.i119.i, %if.end4.i.i120.i ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i141 ]
-  %add.i122.i = add nsw i32 %retval.0.i.i121.i, %112
-  %cmp.i124.i = icmp slt i32 %add.i.i140, %add.i122.i
-  %cmp1.i.i142 = icmp ne i32 %add.i.i140, %add.i122.i
-  %cond.i.i = zext i1 %cmp1.i.i142 to i32
-  %cond2.i.i = select i1 %cmp.i124.i, i32 -1, i32 %cond.i.i
-  %cmp.not.i143 = icmp eq i32 %cond2.i.i, 0
-  br i1 %cmp.not.i143, label %cleanup.cont.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i: ; preds = %if.end4.i.i119.i, %if.then3.i.i117.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140
+  %retval.0.i.i120.i = phi i32 [ %sub.i.i116.i, %if.then3.i.i117.i ], [ %conv.i.i118.i, %if.end4.i.i119.i ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i140 ]
+  %add.i121.i = add nsw i32 %retval.0.i.i120.i, %112
+  %cmp.i123.i = icmp slt i32 %add.i.i139, %add.i121.i
+  %cmp1.i.i141 = icmp ne i32 %add.i.i139, %add.i121.i
+  %cond.i.i = zext i1 %cmp1.i.i141 to i32
+  %cond2.i.i = select i1 %cmp.i123.i, i32 -1, i32 %cond.i.i
+  br i1 %cmp1.i.i141, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit, label %cleanup.cont.i
 
-cleanup.cont.i:                                   ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i
-  %Offset.i144 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 1
-  %116 = load i32, ptr %Offset.i144, align 8, !tbaa !80
+cleanup.cont.i:                                   ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i
+  %Offset.i142 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 1
+  %116 = load i32, ptr %Offset.i142, align 8, !tbaa !80
   %Offset23.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 1
   %117 = load i32, ptr %Offset23.i, align 8, !tbaa !80
-  %cmp.i125.i = icmp ult i32 %116, %117
-  %cmp1.i126.i = icmp ne i32 %116, %117
-  %cond.i127.i = zext i1 %cmp1.i126.i to i32
-  %cond2.i128.i = select i1 %cmp.i125.i, i32 -1, i32 %cond.i127.i
-  %cmp25.not.i = icmp eq i32 %cond2.i128.i, 0
-  br i1 %cmp25.not.i, label %cleanup.cont30.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+  %cmp1.i125.i = icmp ne i32 %116, %117
+  %cmp.i124.i = icmp ult i32 %116, %117
+  %cond.i126.i = zext i1 %cmp1.i125.i to i32
+  %cond2.i127.i = select i1 %cmp.i124.i, i32 -1, i32 %cond.i126.i
+  br i1 %cmp1.i125.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit, label %cleanup.cont30.i
 
 cleanup.cont30.i:                                 ; preds = %cleanup.cont.i
-  %Size.i145 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 2
-  %118 = load i32, ptr %Size.i145, align 4, !tbaa !78
+  %Size.i143 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %99, i64 0, i32 2
+  %118 = load i32, ptr %Size.i143, align 4, !tbaa !78
   %Size32.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %102, i64 0, i32 2
   %119 = load i32, ptr %Size32.i, align 4, !tbaa !78
-  %cmp.i129.i = icmp ult i32 %118, %119
-  %cmp1.i130.i = icmp ne i32 %118, %119
-  %cond.i131.i = zext i1 %cmp1.i130.i to i32
-  %cond2.i132.i = select i1 %cmp.i129.i, i32 -1, i32 %cond.i131.i
-  %cmp34.not.i = icmp eq i32 %cond2.i132.i, 0
-  br i1 %cmp34.not.i, label %cleanup.cont39.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+  %cmp1.i129.i = icmp ne i32 %118, %119
+  %cmp.i128.i = icmp ult i32 %118, %119
+  %cond.i130.i = zext i1 %cmp1.i129.i to i32
+  %cond2.i131.i = select i1 %cmp.i128.i, i32 -1, i32 %cond.i130.i
+  br i1 %cmp1.i129.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit, label %cleanup.cont39.i
 
 cleanup.cont39.i:                                 ; preds = %cleanup.cont30.i
-  %cmp.i133.i = icmp sgt i32 %96, %temp.i27.i.sroa.0.0
-  %cmp1.i134.i = icmp ne i32 %96, %temp.i27.i.sroa.0.0
-  %cond.i135.i = zext i1 %cmp1.i134.i to i32
-  %cond2.i136.i = select i1 %cmp.i133.i, i32 -1, i32 %cond.i135.i
-  %cmp44.not.i = icmp eq i32 %cond2.i136.i, 0
-  br i1 %cmp44.not.i, label %cleanup.cont49.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+  %cmp1.i133.i = icmp ne i32 %96, %temp.i26.i.sroa.0.0
+  %cmp.i132.i = icmp sgt i32 %96, %temp.i26.i.sroa.0.0
+  %cond.i134.i = zext i1 %cmp1.i133.i to i32
+  %cond2.i135.i = select i1 %cmp.i132.i, i32 -1, i32 %cond.i134.i
+  br i1 %cmp1.i133.i, label %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit, label %cleanup.cont49.i
 
 cleanup.cont49.i:                                 ; preds = %cleanup.cont39.i
-  %cmp.i137.i = icmp sgt i32 %100, %temp.i27.i.sroa.8.0
-  br i1 %cmp.i137.i, label %cleanup.i54.i, label %if.end7.for.end.loopexit_crit_edge.i49.i
+  %cmp.i136.i = icmp sgt i32 %100, %temp.i26.i.sroa.8.0
+  br i1 %cmp.i136.i, label %cleanup.i53.i, label %if.end7.for.end.loopexit_crit_edge.i48.i
 
-_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit: ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i, %cleanup.cont.i, %cleanup.cont30.i, %cleanup.cont39.i
-  %retval.5.i = phi i32 [ %cond2.i136.i, %cleanup.cont39.i ], [ %cond2.i132.i, %cleanup.cont30.i ], [ %cond2.i128.i, %cleanup.cont.i ], [ %cond2.i.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit123.i ]
-  %cmp11.i46.i = icmp sgt i32 %retval.5.i, -1
-  br i1 %cmp11.i46.i, label %if.end7.for.end.loopexit_crit_edge.i49.i, label %cleanup.i54.i
+_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit: ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i, %cleanup.cont.i, %cleanup.cont30.i, %cleanup.cont39.i
+  %retval.5.i = phi i32 [ %cond2.i135.i, %cleanup.cont39.i ], [ %cond2.i131.i, %cleanup.cont30.i ], [ %cond2.i127.i, %cleanup.cont.i ], [ %cond2.i.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit122.i ]
+  %cmp11.i45.i = icmp sgt i32 %retval.5.i, -1
+  br i1 %cmp11.i45.i, label %if.end7.for.end.loopexit_crit_edge.i48.i, label %cleanup.i53.i
 
-if.end7.for.end.loopexit_crit_edge.i49.i:         ; preds = %cleanup.cont49.i, %if.end.i129, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
-  %.pre49.i48.i = sext i32 %k.addr.045.i31.i to i64
-  br label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i
+if.end7.for.end.loopexit_crit_edge.i48.i:         ; preds = %cleanup.cont49.i, %if.end.i128, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+  %.pre49.i47.i = sext i32 %k.addr.045.i30.i to i64
+  br label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i
 
-cleanup.i54.i:                                    ; preds = %cleanup.cont49.i, %if.end7.i47.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
-  %idxprom16.i50.i = sext i32 %k.addr.045.i31.i to i64
-  %arrayidx17.i51.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idxprom16.i50.i
-  %120 = load i64, ptr %add.ptr9.i44.i, align 4
-  store i64 %120, ptr %arrayidx17.i51.i, align 4
-  %shl.i52.i = shl i32 %s.0.i42.i, 1
-  %121 = sext i32 %shl.i52.i to i64
-  %cmp.i53.not.i = icmp sgt i64 %indvars.iv79.i, %121
-  br i1 %cmp.i53.not.i, label %if.end.i33.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i
+cleanup.i53.i:                                    ; preds = %cleanup.cont49.i, %if.end7.i46.i, %_ZN8NArchive4NCabL14CompareMvItemsEPKNS0_7CMvItemES3_Pv.exit
+  %idxprom16.i49.i = sext i32 %k.addr.045.i30.i to i64
+  %arrayidx17.i50.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %idxprom16.i49.i
+  %120 = load i64, ptr %add.ptr9.i43.i, align 4
+  store i64 %120, ptr %arrayidx17.i50.i, align 4
+  %shl.i51.i = shl i32 %s.0.i41.i, 1
+  %121 = sext i32 %shl.i51.i to i64
+  %cmp.i52.not.i = icmp sgt i64 %indvars.iv79.i, %121
+  br i1 %cmp.i52.not.i, label %if.end.i32.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i
 
-_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i: ; preds = %cleanup.i54.i, %if.end7.for.end.loopexit_crit_edge.i49.i
-  %.pre48.pre-phi.i55.i = phi i64 [ %.pre49.i48.i, %if.end7.for.end.loopexit_crit_edge.i49.i ], [ %idx.ext8.i43.pre-phi.i, %cleanup.i54.i ]
-  %arrayidx19.i59.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %.pre48.pre-phi.i55.i
-  store i64 %temp.i27.i.sroa.0.0.in, ptr %arrayidx19.i59.i, align 4
+_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i: ; preds = %cleanup.i53.i, %if.end7.for.end.loopexit_crit_edge.i48.i
+  %.pre48.pre-phi.i54.i = phi i64 [ %.pre49.i47.i, %if.end7.for.end.loopexit_crit_edge.i48.i ], [ %idx.ext8.i42.pre-phi.i, %cleanup.i53.i ]
+  %arrayidx19.i58.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %.pre48.pre-phi.i54.i
+  store i64 %temp.i26.i.sroa.0.0.in, ptr %arrayidx19.i58.i, align 4
   %arrayidx.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %add.ptr.i, i64 %indvars.iv.next80.i
   %122 = load i64, ptr %arrayidx.i, align 4
   %123 = load i64, ptr %2, align 4
   store i64 %123, ptr %arrayidx.i, align 4
   store i64 %122, ptr %2, align 4
-  %cmp44.i29.i = icmp slt i64 %indvars.iv79.i, 4
-  br i1 %cmp44.i29.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit, label %if.end.i33.preheader.i, !llvm.loop !89
+  %cmp44.i28.i = icmp slt i64 %indvars.iv79.i, 4
+  br i1 %cmp44.i28.i, label %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit, label %if.end.i32.preheader.i, !llvm.loop !89
 
-_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit: ; preds = %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i, %do.body3.preheader.i
-  %.lcssa.i = phi i64 [ %63, %do.body3.preheader.i ], [ %122, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit60.i ]
+_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit: ; preds = %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i, %do.body3.preheader.i
+  %.lcssa.i = phi i64 [ %63, %do.body3.preheader.i ], [ %122, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE11SortRefDownEPS2_iiPFiPKS2_S6_PvES7_.exit59.i ]
   store i64 %.lcssa.i, ptr %2, align 4
-  %.pre450 = load i32, ptr %_size.i74, align 4, !tbaa !74
-  %cmp24428 = icmp sgt i32 %.pre450, 1
-  br i1 %cmp24428, label %for.body25.lr.ph, label %for.end36
+  %.pre429 = load i32, ptr %_size.i74, align 4, !tbaa !74
+  %cmp24408 = icmp sgt i32 %.pre429, 1
+  br i1 %cmp24408, label %for.body25.lr.ph, label %for.end36
 
 for.body25.lr.ph:                                 ; preds = %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit
   %_items.i.i90 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 3
@@ -2562,280 +2546,250 @@ for.body25.lr.ph:                                 ; preds = %_ZN13CRecordVectorI
   br label %for.body25
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.cond.cleanup12
-  %indvars.iv439 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next440, %for.cond.cleanup12 ]
-  %offset.0427 = phi i32 [ 0, %for.body.lr.ph ], [ %add455, %for.cond.cleanup12 ]
+  %indvars.iv418 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next419, %for.cond.cleanup12 ]
+  %offset.0407 = phi i32 [ 0, %for.body.lr.ph ], [ %add434, %for.cond.cleanup12 ]
   %124 = load ptr, ptr %_items.i.i, align 8, !tbaa !73
-  %arrayidx.i.i75 = getelementptr inbounds ptr, ptr %124, i64 %indvars.iv439
+  %arrayidx.i.i75 = getelementptr inbounds ptr, ptr %124, i64 %indvars.iv418
   %125 = load ptr, ptr %arrayidx.i.i75, align 8, !tbaa !75
   %_size.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %125, i64 0, i32 3, i32 0, i32 0, i32 2
   %126 = load i32, ptr %_size.i.i, align 4, !tbaa !74
-  %cmp.not7.i = icmp sgt i32 %126, 0
-  br i1 %cmp.not7.i, label %for.body.lr.ph.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread
+  %cmp7.i = icmp sgt i32 %126, 0
+  br i1 %cmp7.i, label %for.body.lr.ph.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread
 
 for.body.lr.ph.i:                                 ; preds = %for.body
   %_items.i.i.i76 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %125, i64 0, i32 3, i32 0, i32 0, i32 3
   %127 = load ptr, ptr %_items.i.i.i76, align 8, !tbaa !73
-  %128 = zext i32 %126 to i64
-  %129 = load ptr, ptr %127, align 8, !tbaa !75
-  %FolderIndex.i.i419 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %129, i64 0, i32 4
-  %130 = load i16, ptr %FolderIndex.i.i419, align 4, !tbaa !81
-  %131 = and i16 %130, -3
-  %spec.select.i.i79420 = icmp eq i16 %131, -3
-  br i1 %spec.select.i.i79420, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit, label %for.cond.i
+  %wide.trip.count.i = zext i32 %126 to i64
+  br label %for.body.i
 
-for.cond.i:                                       ; preds = %for.body.lr.ph.i, %for.body.i
-  %indvars.iv.i78421 = phi i64 [ %indvars.iv.next.i77, %for.body.i ], [ 0, %for.body.lr.ph.i ]
-  %indvars.iv.next.i77 = add nuw nsw i64 %indvars.iv.i78421, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i77, %128
-  br i1 %exitcond.not.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.loopexit, label %for.body.i, !llvm.loop !90
+for.cond.i:                                       ; preds = %for.body.i
+  %indvars.iv.next.i77 = add nuw nsw i64 %indvars.iv.i78, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i77, %wide.trip.count.i
+  br i1 %exitcond.not.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread, label %for.body.i, !llvm.loop !90
 
-for.body.i:                                       ; preds = %for.cond.i
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %127, i64 %indvars.iv.next.i77
-  %132 = load ptr, ptr %arrayidx.i.i.i, align 8, !tbaa !75
-  %FolderIndex.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %132, i64 0, i32 4
-  %133 = load i16, ptr %FolderIndex.i.i, align 4, !tbaa !81
-  %134 = and i16 %133, -3
-  %spec.select.i.i79 = icmp eq i16 %134, -3
-  br i1 %spec.select.i.i79, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.loopexit, label %for.cond.i, !llvm.loop !90
+for.body.i:                                       ; preds = %for.cond.i, %for.body.lr.ph.i
+  %indvars.iv.i78 = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i77, %for.cond.i ]
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %127, i64 %indvars.iv.i78
+  %128 = load ptr, ptr %arrayidx.i.i.i, align 8, !tbaa !75
+  %FolderIndex.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %128, i64 0, i32 4
+  %129 = load i16, ptr %FolderIndex.i.i, align 4, !tbaa !81
+  %130 = and i16 %129, -3
+  %spec.select.i.i79 = icmp eq i16 %130, -3
+  br i1 %spec.select.i.i79, label %131, label %for.cond.i
 
-_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.loopexit: ; preds = %for.cond.i, %for.body.i
-  %cmp.not.i.le = icmp ult i64 %indvars.iv.next.i77, %128
-  br label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit
-
-_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit: ; preds = %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.loopexit, %for.body.lr.ph.i
-  %cmp.not.lcssa.i = phi i1 [ true, %for.body.lr.ph.i ], [ %cmp.not.i.le, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.loopexit ]
-  %cond.fr = freeze i1 %cmp.not.lcssa.i
-  %dec = sext i1 %cond.fr to i32
-  %spec.select = add nsw i32 %offset.0427, %dec
+131:                                              ; preds = %for.body.i
+  %dec = add nsw i32 %offset.0407, -1
   br label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread
 
-_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread: ; preds = %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit, %for.body
-  %135 = phi i32 [ %offset.0427, %for.body ], [ %spec.select, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit ]
+_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread: ; preds = %for.cond.i, %for.body, %131
+  %132 = phi i32 [ %dec, %131 ], [ %offset.0407, %for.body ], [ %offset.0407, %for.cond.i ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %StartFolderOfVol)
-  %136 = load ptr, ptr %_items.i, align 8, !tbaa !73
-  %137 = load i32, ptr %_size.i80, align 4, !tbaa !74
-  %idxprom.i = sext i32 %137 to i64
-  %arrayidx.i81 = getelementptr inbounds i32, ptr %136, i64 %idxprom.i
-  store i32 %135, ptr %arrayidx.i81, align 4, !tbaa !87
-  %138 = load i32, ptr %_size.i80, align 4, !tbaa !74
-  %inc.i = add nsw i32 %138, 1
+  %133 = load ptr, ptr %_items.i, align 8, !tbaa !73
+  %134 = load i32, ptr %_size.i80, align 4, !tbaa !74
+  %idxprom.i = sext i32 %134 to i64
+  %arrayidx.i81 = getelementptr inbounds i32, ptr %133, i64 %idxprom.i
+  store i32 %132, ptr %arrayidx.i81, align 4, !tbaa !87
+  %135 = load i32, ptr %_size.i80, align 4, !tbaa !74
+  %inc.i = add nsw i32 %135, 1
   store i32 %inc.i, ptr %_size.i80, align 4, !tbaa !74
   %_size.i.i82 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %125, i64 0, i32 2, i32 0, i32 0, i32 2
-  %139 = load i32, ptr %_size.i.i82, align 4, !tbaa !74
-  %140 = load i32, ptr %_size.i.i, align 4, !tbaa !74
-  %cmp.not7.i.i = icmp sgt i32 %140, 0
-  br i1 %cmp.not7.i.i, label %for.body.lr.ph.i.i, label %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread
-
-_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread: ; preds = %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread
-  %add454 = add nsw i32 %139, %offset.0427
-  br label %for.cond.cleanup12
+  %136 = load i32, ptr %_size.i.i82, align 4, !tbaa !74
+  %137 = load i32, ptr %_size.i.i, align 4, !tbaa !74
+  %cmp7.i.i = icmp sgt i32 %137, 0
+  br i1 %cmp7.i.i, label %for.body.lr.ph.i.i, label %for.cond.cleanup12
 
 for.body.lr.ph.i.i:                               ; preds = %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread
   %_items.i.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %125, i64 0, i32 3, i32 0, i32 0, i32 3
-  %141 = load ptr, ptr %_items.i.i.i.i, align 8, !tbaa !73
-  %142 = zext i32 %140 to i64
-  %143 = load ptr, ptr %141, align 8, !tbaa !75
-  %FolderIndex.i.i7.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %143, i64 0, i32 4
-  %144 = load i16, ptr %FolderIndex.i.i7.i, align 4, !tbaa !81
-  %145 = and i16 %144, -3
-  %spec.select.i.i8.i = icmp eq i16 %145, -3
-  br i1 %spec.select.i.i8.i, label %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread456, label %for.cond.i.i
+  %138 = load ptr, ptr %_items.i.i.i.i, align 8, !tbaa !73
+  %wide.trip.count.i.i = zext i32 %137 to i64
+  br label %for.body.i.i
 
-_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread456: ; preds = %for.body.lr.ph.i.i
-  %spec.select.i458 = add nsw i32 %139, -1
-  %add459 = add nsw i32 %spec.select.i458, %offset.0427
-  br label %for.body13.lr.ph
-
-for.cond.i.i:                                     ; preds = %for.body.lr.ph.i.i, %for.body.i.i
-  %indvars.iv.i9.i = phi i64 [ %indvars.iv.next.i.i, %for.body.i.i ], [ 0, %for.body.lr.ph.i.i ]
-  %indvars.iv.next.i.i = add nuw nsw i64 %indvars.iv.i9.i, 1
-  %exitcond.not.i.i = icmp eq i64 %indvars.iv.next.i.i, %142
+for.cond.i.i:                                     ; preds = %for.body.i.i
+  %indvars.iv.next.i.i = add nuw nsw i64 %indvars.iv.i.i, 1
+  %exitcond.not.i.i = icmp eq i64 %indvars.iv.next.i.i, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i, label %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit, label %for.body.i.i, !llvm.loop !90
 
-for.body.i.i:                                     ; preds = %for.cond.i.i
-  %arrayidx.i.i.i.i = getelementptr inbounds ptr, ptr %141, i64 %indvars.iv.next.i.i
-  %146 = load ptr, ptr %arrayidx.i.i.i.i, align 8, !tbaa !75
-  %FolderIndex.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %146, i64 0, i32 4
-  %147 = load i16, ptr %FolderIndex.i.i.i, align 4, !tbaa !81
-  %148 = and i16 %147, -3
-  %spec.select.i.i.i = icmp eq i16 %148, -3
-  br i1 %spec.select.i.i.i, label %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit, label %for.cond.i.i, !llvm.loop !90
+for.body.i.i:                                     ; preds = %for.cond.i.i, %for.body.lr.ph.i.i
+  %indvars.iv.i.i = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %indvars.iv.next.i.i, %for.cond.i.i ]
+  %arrayidx.i.i.i.i = getelementptr inbounds ptr, ptr %138, i64 %indvars.iv.i.i
+  %139 = load ptr, ptr %arrayidx.i.i.i.i, align 8, !tbaa !75
+  %FolderIndex.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %139, i64 0, i32 4
+  %140 = load i16, ptr %FolderIndex.i.i.i, align 4, !tbaa !81
+  %141 = and i16 %140, -3
+  %spec.select.i.i.i = icmp eq i16 %141, -3
+  br i1 %spec.select.i.i.i, label %142, label %for.cond.i.i
 
-_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit: ; preds = %for.cond.i.i, %for.body.i.i
-  %indvars.iv.next.i.i.lcssa = phi i64 [ %indvars.iv.next.i.i, %for.body.i.i ], [ %142, %for.cond.i.i ]
-  %cmp.not.i.le.i = icmp ult i64 %indvars.iv.next.i.i.lcssa, %142
-  %149 = freeze i1 %cmp.not.i.le.i
-  %150 = sext i1 %149 to i32
-  %spec.select.i = add nsw i32 %139, %150
-  %add = add nsw i32 %spec.select.i, %offset.0427
-  br i1 %cmp.not7.i.i, label %for.body13.lr.ph, label %for.cond.cleanup12
+142:                                              ; preds = %for.body.i.i
+  %dec.i = add nsw i32 %136, -1
+  br label %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit
 
-for.body13.lr.ph:                                 ; preds = %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread456, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit
-  %add460 = phi i32 [ %add459, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread456 ], [ %add, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit ]
-  br label %for.body13
+_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit: ; preds = %for.cond.i.i, %142
+  %143 = phi i32 [ %dec.i, %142 ], [ %136, %for.cond.i.i ]
+  br i1 %cmp7.i.i, label %for.body13, label %for.cond.cleanup12
 
-for.cond.cleanup12:                               ; preds = %for.body13, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit
-  %add455 = phi i32 [ %add454, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit.thread ], [ %add, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit ], [ %add460, %for.body13 ]
-  %indvars.iv.next440 = add nuw nsw i64 %indvars.iv439, 1
-  %151 = load i32, ptr %_size.i, align 4, !tbaa !74
-  %152 = sext i32 %151 to i64
-  %cmp = icmp slt i64 %indvars.iv.next440, %152
+for.cond.cleanup12:                               ; preds = %for.body13, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit
+  %.pn = phi i32 [ %143, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit ], [ %136, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit.thread ], [ %143, %for.body13 ]
+  %add434 = add nsw i32 %.pn, %offset.0407
+  %indvars.iv.next419 = add nuw nsw i64 %indvars.iv418, 1
+  %144 = load i32, ptr %_size.i, align 4, !tbaa !74
+  %145 = sext i32 %144 to i64
+  %cmp = icmp slt i64 %indvars.iv.next419, %145
   br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !91
 
-for.body13:                                       ; preds = %for.body13.lr.ph, %for.body13
-  %indvars.iv = phi i64 [ 0, %for.body13.lr.ph ], [ %indvars.iv.next, %for.body13 ]
+for.body13:                                       ; preds = %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit, %for.body13
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body13 ], [ 0, %_ZNK8NArchive4NCab9CDatabase21GetNumberOfNewFoldersEv.exit ]
   %mvItem.sroa.4.0.insert.shift = shl nuw nsw i64 %indvars.iv, 32
-  %mvItem.sroa.0.0.insert.insert = or i64 %mvItem.sroa.4.0.insert.shift, %indvars.iv439
+  %mvItem.sroa.0.0.insert.insert = or i64 %mvItem.sroa.4.0.insert.shift, %indvars.iv418
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %Items)
-  %153 = load ptr, ptr %_items.i84, align 8, !tbaa !73
-  %154 = load i32, ptr %_size.i85, align 4, !tbaa !74
-  %idxprom.i86 = sext i32 %154 to i64
-  %arrayidx.i87 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %153, i64 %idxprom.i86
+  %146 = load ptr, ptr %_items.i84, align 8, !tbaa !73
+  %147 = load i32, ptr %_size.i85, align 4, !tbaa !74
+  %idxprom.i86 = sext i32 %147 to i64
+  %arrayidx.i87 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %146, i64 %idxprom.i86
   store i64 %mvItem.sroa.0.0.insert.insert, ptr %arrayidx.i87, align 4, !tbaa.struct !92
-  %155 = load i32, ptr %_size.i85, align 4, !tbaa !74
-  %inc.i88 = add nsw i32 %155, 1
+  %148 = load i32, ptr %_size.i85, align 4, !tbaa !74
+  %inc.i88 = add nsw i32 %148, 1
   store i32 %inc.i88, ptr %_size.i85, align 4, !tbaa !74
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %156 = load i32, ptr %_size.i.i, align 4, !tbaa !74
-  %157 = sext i32 %156 to i64
-  %cmp11 = icmp slt i64 %indvars.iv.next, %157
+  %149 = load i32, ptr %_size.i.i, align 4, !tbaa !74
+  %150 = sext i32 %149 to i64
+  %cmp11 = icmp slt i64 %indvars.iv.next, %150
   br i1 %cmp11, label %for.body13, label %for.cond.cleanup12, !llvm.loop !93
 
 for.body25:                                       ; preds = %for.body25.lr.ph, %for.inc34
-  %indvars.iv442 = phi i64 [ 1, %for.body25.lr.ph ], [ %indvars.iv.next443, %for.inc34 ]
-  %j.0429 = phi i32 [ 1, %for.body25.lr.ph ], [ %j.1, %for.inc34 ]
-  %158 = add nsw i64 %indvars.iv442, -1
-  %159 = load ptr, ptr %_items.i.i90, align 8, !tbaa !73
-  %arrayidx.i.i92 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %159, i64 %indvars.iv442
-  %arrayidx.i32.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %159, i64 %158
-  %160 = load i32, ptr %arrayidx.i.i92, align 4, !tbaa !84
-  %161 = load ptr, ptr %_items.i.i.i93, align 8, !tbaa !73
-  %idxprom.i.i.i = sext i32 %160 to i64
-  %arrayidx.i.i.i94 = getelementptr inbounds ptr, ptr %161, i64 %idxprom.i.i.i
-  %162 = load ptr, ptr %arrayidx.i.i.i94, align 8, !tbaa !75
-  %163 = load i32, ptr %arrayidx.i32.i, align 4, !tbaa !84
-  %idxprom.i.i34.i = sext i32 %163 to i64
-  %arrayidx.i.i35.i = getelementptr inbounds ptr, ptr %161, i64 %idxprom.i.i34.i
-  %164 = load ptr, ptr %arrayidx.i.i35.i, align 8, !tbaa !75
-  %ItemIndex.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %159, i64 %indvars.iv442, i32 1
-  %165 = load i32, ptr %ItemIndex.i, align 4, !tbaa !86
-  %_items.i.i36.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %162, i64 0, i32 3, i32 0, i32 0, i32 3
-  %166 = load ptr, ptr %_items.i.i36.i, align 8, !tbaa !73
-  %idxprom.i.i37.i = sext i32 %165 to i64
-  %arrayidx.i.i38.i = getelementptr inbounds ptr, ptr %166, i64 %idxprom.i.i37.i
-  %167 = load ptr, ptr %arrayidx.i.i38.i, align 8, !tbaa !75
-  %ItemIndex11.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %159, i64 %158, i32 1
-  %168 = load i32, ptr %ItemIndex11.i, align 4, !tbaa !86
-  %_items.i.i39.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %164, i64 0, i32 3, i32 0, i32 0, i32 3
-  %169 = load ptr, ptr %_items.i.i39.i, align 8, !tbaa !73
-  %idxprom.i.i40.i = sext i32 %168 to i64
-  %arrayidx.i.i41.i = getelementptr inbounds ptr, ptr %169, i64 %idxprom.i.i40.i
-  %170 = load ptr, ptr %arrayidx.i.i41.i, align 8, !tbaa !75
-  %171 = load ptr, ptr %_items.i.i42.i, align 8, !tbaa !73
-  %arrayidx.i.i43.i = getelementptr inbounds i32, ptr %171, i64 %idxprom.i.i.i
-  %172 = load i32, ptr %arrayidx.i.i43.i, align 4, !tbaa !87
-  %_size.i.i.i95 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %162, i64 0, i32 2, i32 0, i32 0, i32 2
-  %173 = load i32, ptr %_size.i.i.i95, align 4, !tbaa !74
-  %FolderIndex.i.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %167, i64 0, i32 4
-  %174 = load i16, ptr %FolderIndex.i.i.i.i, align 4, !tbaa !81
-  %175 = and i16 %174, -3
-  %spec.select.i.i.i.i = icmp eq i16 %175, -3
+  %indvars.iv421 = phi i64 [ 1, %for.body25.lr.ph ], [ %indvars.iv.next422, %for.inc34 ]
+  %j.0409 = phi i32 [ 1, %for.body25.lr.ph ], [ %j.1, %for.inc34 ]
+  %151 = add nsw i64 %indvars.iv421, -1
+  %152 = load ptr, ptr %_items.i.i90, align 8, !tbaa !73
+  %arrayidx.i.i92 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %152, i64 %indvars.iv421
+  %arrayidx.i32.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %152, i64 %151
+  %153 = load i32, ptr %arrayidx.i.i92, align 4, !tbaa !84
+  %154 = load ptr, ptr %_items.i.i.i93, align 8, !tbaa !73
+  %idxprom.i.i.i = sext i32 %153 to i64
+  %arrayidx.i.i.i94 = getelementptr inbounds ptr, ptr %154, i64 %idxprom.i.i.i
+  %155 = load ptr, ptr %arrayidx.i.i.i94, align 8, !tbaa !75
+  %156 = load i32, ptr %arrayidx.i32.i, align 4, !tbaa !84
+  %idxprom.i.i34.i = sext i32 %156 to i64
+  %arrayidx.i.i35.i = getelementptr inbounds ptr, ptr %154, i64 %idxprom.i.i34.i
+  %157 = load ptr, ptr %arrayidx.i.i35.i, align 8, !tbaa !75
+  %ItemIndex.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %152, i64 %indvars.iv421, i32 1
+  %158 = load i32, ptr %ItemIndex.i, align 4, !tbaa !86
+  %_items.i.i36.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %155, i64 0, i32 3, i32 0, i32 0, i32 3
+  %159 = load ptr, ptr %_items.i.i36.i, align 8, !tbaa !73
+  %idxprom.i.i37.i = sext i32 %158 to i64
+  %arrayidx.i.i38.i = getelementptr inbounds ptr, ptr %159, i64 %idxprom.i.i37.i
+  %160 = load ptr, ptr %arrayidx.i.i38.i, align 8, !tbaa !75
+  %ItemIndex11.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %152, i64 %151, i32 1
+  %161 = load i32, ptr %ItemIndex11.i, align 4, !tbaa !86
+  %_items.i.i39.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %157, i64 0, i32 3, i32 0, i32 0, i32 3
+  %162 = load ptr, ptr %_items.i.i39.i, align 8, !tbaa !73
+  %idxprom.i.i40.i = sext i32 %161 to i64
+  %arrayidx.i.i41.i = getelementptr inbounds ptr, ptr %162, i64 %idxprom.i.i40.i
+  %163 = load ptr, ptr %arrayidx.i.i41.i, align 8, !tbaa !75
+  %164 = load ptr, ptr %_items.i.i42.i, align 8, !tbaa !73
+  %arrayidx.i.i43.i = getelementptr inbounds i32, ptr %164, i64 %idxprom.i.i.i
+  %165 = load i32, ptr %arrayidx.i.i43.i, align 4, !tbaa !87
+  %_size.i.i.i95 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %155, i64 0, i32 2, i32 0, i32 0, i32 2
+  %166 = load i32, ptr %_size.i.i.i95, align 4, !tbaa !74
+  %FolderIndex.i.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %160, i64 0, i32 4
+  %167 = load i16, ptr %FolderIndex.i.i.i.i, align 4, !tbaa !81
+  %168 = and i16 %167, -3
+  %spec.select.i.i.i.i = icmp eq i16 %168, -3
   br i1 %spec.select.i.i.i.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i, label %if.end.i.i.i
 
 if.end.i.i.i:                                     ; preds = %for.body25
-  %spec.select.i6.i.i.i = icmp ugt i16 %174, -3
+  %spec.select.i6.i.i.i = icmp ugt i16 %167, -3
   br i1 %spec.select.i6.i.i.i, label %if.then3.i.i.i, label %if.end4.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %if.end.i.i.i
-  %sub.i.i.i = add nsw i32 %173, -1
+  %sub.i.i.i = add nsw i32 %166, -1
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i
 
 if.end4.i.i.i:                                    ; preds = %if.end.i.i.i
-  %conv.i.i.i = zext i16 %174 to i32
+  %conv.i.i.i = zext i16 %167 to i32
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i
 
 _ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i: ; preds = %if.end4.i.i.i, %if.then3.i.i.i, %for.body25
   %retval.0.i.i.i = phi i32 [ %sub.i.i.i, %if.then3.i.i.i ], [ %conv.i.i.i, %if.end4.i.i.i ], [ 0, %for.body25 ]
-  %add.i.i = add nsw i32 %retval.0.i.i.i, %172
-  %arrayidx.i.i48.i = getelementptr inbounds i32, ptr %171, i64 %idxprom.i.i34.i
-  %176 = load i32, ptr %arrayidx.i.i48.i, align 4, !tbaa !87
-  %_size.i.i53.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %164, i64 0, i32 2, i32 0, i32 0, i32 2
-  %177 = load i32, ptr %_size.i.i53.i, align 4, !tbaa !74
-  %FolderIndex.i.i.i54.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %170, i64 0, i32 4
-  %178 = load i16, ptr %FolderIndex.i.i.i54.i, align 4, !tbaa !81
-  %179 = and i16 %178, -3
-  %spec.select.i.i.i55.i = icmp eq i16 %179, -3
+  %add.i.i = add nsw i32 %retval.0.i.i.i, %165
+  %arrayidx.i.i48.i = getelementptr inbounds i32, ptr %164, i64 %idxprom.i.i34.i
+  %169 = load i32, ptr %arrayidx.i.i48.i, align 4, !tbaa !87
+  %_size.i.i53.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %157, i64 0, i32 2, i32 0, i32 0, i32 2
+  %170 = load i32, ptr %_size.i.i53.i, align 4, !tbaa !74
+  %FolderIndex.i.i.i54.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %163, i64 0, i32 4
+  %171 = load i16, ptr %FolderIndex.i.i.i54.i, align 4, !tbaa !81
+  %172 = and i16 %171, -3
+  %spec.select.i.i.i55.i = icmp eq i16 %172, -3
   br i1 %spec.select.i.i.i55.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i, label %if.end.i.i57.i
 
 if.end.i.i57.i:                                   ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i
-  %spec.select.i6.i.i56.i = icmp ugt i16 %178, -3
+  %spec.select.i6.i.i56.i = icmp ugt i16 %171, -3
   br i1 %spec.select.i6.i.i56.i, label %if.then3.i.i59.i, label %if.end4.i.i61.i
 
 if.then3.i.i59.i:                                 ; preds = %if.end.i.i57.i
-  %sub.i.i58.i = add nsw i32 %177, -1
+  %sub.i.i58.i = add nsw i32 %170, -1
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i
 
 if.end4.i.i61.i:                                  ; preds = %if.end.i.i57.i
-  %conv.i.i60.i = zext i16 %178 to i32
+  %conv.i.i60.i = zext i16 %171 to i32
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i
 
 _ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i: ; preds = %if.end4.i.i61.i, %if.then3.i.i59.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i
   %retval.0.i.i62.i = phi i32 [ %sub.i.i58.i, %if.then3.i.i59.i ], [ %conv.i.i60.i, %if.end4.i.i61.i ], [ 0, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit.i ]
-  %add.i63.i = add nsw i32 %retval.0.i.i62.i, %176
+  %add.i63.i = add nsw i32 %retval.0.i.i62.i, %169
   %cmp.i96 = icmp eq i32 %add.i.i, %add.i63.i
   br i1 %cmp.i96, label %land.lhs.true.i, label %if.then27
 
 land.lhs.true.i:                                  ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i
-  %Offset.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %167, i64 0, i32 1
-  %180 = load i32, ptr %Offset.i, align 8, !tbaa !80
-  %Offset15.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %170, i64 0, i32 1
-  %181 = load i32, ptr %Offset15.i, align 8, !tbaa !80
-  %cmp16.i = icmp eq i32 %180, %181
+  %Offset.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %160, i64 0, i32 1
+  %173 = load i32, ptr %Offset.i, align 8, !tbaa !80
+  %Offset15.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %163, i64 0, i32 1
+  %174 = load i32, ptr %Offset15.i, align 8, !tbaa !80
+  %cmp16.i = icmp eq i32 %173, %174
   br i1 %cmp16.i, label %land.lhs.true17.i, label %if.then27
 
 land.lhs.true17.i:                                ; preds = %land.lhs.true.i
-  %Size.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %167, i64 0, i32 2
-  %182 = load i32, ptr %Size.i, align 4, !tbaa !78
-  %Size18.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %170, i64 0, i32 2
-  %183 = load i32, ptr %Size18.i, align 4, !tbaa !78
-  %cmp19.i = icmp eq i32 %182, %183
-  br i1 %cmp19.i, label %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit, label %if.then27
+  %Size.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %160, i64 0, i32 2
+  %175 = load i32, ptr %Size.i, align 4, !tbaa !78
+  %Size18.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %163, i64 0, i32 2
+  %176 = load i32, ptr %Size18.i, align 4, !tbaa !78
+  %cmp19.i = icmp eq i32 %175, %176
+  br i1 %cmp19.i, label %land.rhs.i, label %if.then27
 
-_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit: ; preds = %land.lhs.true17.i
-  %184 = load ptr, ptr %167, align 8, !tbaa !19
-  %185 = load ptr, ptr %170, align 8, !tbaa !19
-  %call.i.i.i = tail call noundef i32 @_Z15MyStringComparePKcS0_(ptr noundef %184, ptr noundef %185)
+land.rhs.i:                                       ; preds = %land.lhs.true17.i
+  %177 = load ptr, ptr %160, align 8, !tbaa !19
+  %178 = load ptr, ptr %163, align 8, !tbaa !19
+  %call.i.i.i = tail call noundef i32 @_Z15MyStringComparePKcS0_(ptr noundef %177, ptr noundef %178)
   %cmp.i.i97 = icmp eq i32 %call.i.i.i, 0
-  br i1 %cmp.i.i97, label %for.inc34, label %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit.if.then27_crit_edge
+  br i1 %cmp.i.i97, label %for.inc34, label %land.rhs.i.if.then27_crit_edge
 
-_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit.if.then27_crit_edge: ; preds = %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit
-  %.pre451 = load ptr, ptr %_items.i.i90, align 8, !tbaa !73
+land.rhs.i.if.then27_crit_edge:                   ; preds = %land.rhs.i
+  %.pre430 = load ptr, ptr %_items.i.i90, align 8, !tbaa !73
   br label %if.then27
 
-if.then27:                                        ; preds = %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit.if.then27_crit_edge, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i, %land.lhs.true.i, %land.lhs.true17.i
-  %186 = phi ptr [ %.pre451, %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit.if.then27_crit_edge ], [ %159, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i ], [ %159, %land.lhs.true.i ], [ %159, %land.lhs.true17.i ]
-  %arrayidx.i100 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %186, i64 %indvars.iv442
-  %inc31 = add nsw i32 %j.0429, 1
-  %idxprom.i102 = sext i32 %j.0429 to i64
-  %arrayidx.i103 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %186, i64 %idxprom.i102
-  %187 = load i64, ptr %arrayidx.i100, align 4
-  store i64 %187, ptr %arrayidx.i103, align 4
+if.then27:                                        ; preds = %land.rhs.i.if.then27_crit_edge, %land.lhs.true17.i, %land.lhs.true.i, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i
+  %179 = phi ptr [ %.pre430, %land.rhs.i.if.then27_crit_edge ], [ %152, %land.lhs.true17.i ], [ %152, %land.lhs.true.i ], [ %152, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit64.i ]
+  %arrayidx.i100 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %179, i64 %indvars.iv421
+  %inc31 = add nsw i32 %j.0409, 1
+  %idxprom.i102 = sext i32 %j.0409 to i64
+  %arrayidx.i103 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %179, i64 %idxprom.i102
+  %180 = load i64, ptr %arrayidx.i100, align 4
+  store i64 %180, ptr %arrayidx.i103, align 4
   br label %for.inc34
 
-for.inc34:                                        ; preds = %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit, %if.then27
-  %j.1 = phi i32 [ %j.0429, %_ZN8NArchive4NCab13CMvDatabaseEx13AreItemsEqualEii.exit ], [ %inc31, %if.then27 ]
-  %indvars.iv.next443 = add nuw nsw i64 %indvars.iv442, 1
-  %188 = load i32, ptr %_size.i74, align 4, !tbaa !74
-  %189 = sext i32 %188 to i64
-  %cmp24 = icmp slt i64 %indvars.iv.next443, %189
+for.inc34:                                        ; preds = %land.rhs.i, %if.then27
+  %j.1 = phi i32 [ %j.0409, %land.rhs.i ], [ %inc31, %if.then27 ]
+  %indvars.iv.next422 = add nuw nsw i64 %indvars.iv421, 1
+  %181 = load i32, ptr %_size.i74, align 4, !tbaa !74
+  %182 = sext i32 %181 to i64
+  %cmp24 = icmp slt i64 %indvars.iv.next422, %182
   br i1 %cmp24, label %for.body25, label %for.end36, !llvm.loop !94
 
 for.end36:                                        ; preds = %for.inc34, %for.cond.cleanup, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit
   %j.0.lcssa = phi i32 [ 1, %_ZN13CRecordVectorIN8NArchive4NCab7CMvItemEE4SortEPFiPKS2_S5_PvES6_.exit ], [ 1, %for.cond.cleanup ], [ %j.1, %for.inc34 ]
   tail call void @_ZN17CBaseRecordVector10DeleteFromEi(ptr noundef nonnull align 8 dereferenceable(32) %Items, i32 noundef %j.0.lcssa)
-  %190 = load i32, ptr %_size.i74, align 4, !tbaa !74
-  %cmp41432 = icmp sgt i32 %190, 0
-  br i1 %cmp41432, label %for.body42.lr.ph, label %for.end55
+  %183 = load i32, ptr %_size.i74, align 4, !tbaa !74
+  %cmp41411 = icmp sgt i32 %183, 0
+  br i1 %cmp41411, label %for.body42.lr.ph, label %for.end55
 
 for.body42.lr.ph:                                 ; preds = %for.end36
   %_items.i105 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 3
@@ -2846,71 +2800,71 @@ for.body42.lr.ph:                                 ; preds = %for.end36
   br label %for.body42
 
 for.body42:                                       ; preds = %for.body42.lr.ph, %if.end52
-  %191 = phi i32 [ %190, %for.body42.lr.ph ], [ %209, %if.end52 ]
-  %indvars.iv446 = phi i64 [ 0, %for.body42.lr.ph ], [ %indvars.iv.next447, %if.end52 ]
-  %192 = load ptr, ptr %_items.i105, align 8, !tbaa !73
-  %arrayidx.i107 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %192, i64 %indvars.iv446
-  %193 = load i32, ptr %arrayidx.i107, align 4, !tbaa !84
-  %194 = load ptr, ptr %_items.i.i.i108, align 8, !tbaa !73
-  %idxprom.i.i.i109 = sext i32 %193 to i64
-  %arrayidx.i.i.i110 = getelementptr inbounds ptr, ptr %194, i64 %idxprom.i.i.i109
-  %195 = load ptr, ptr %arrayidx.i.i.i110, align 8, !tbaa !75
-  %196 = load ptr, ptr %_items.i.i111, align 8, !tbaa !73
-  %arrayidx.i.i112 = getelementptr inbounds i32, ptr %196, i64 %idxprom.i.i.i109
-  %197 = load i32, ptr %arrayidx.i.i112, align 4, !tbaa !87
-  %ItemIndex.i113 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %192, i64 %indvars.iv446, i32 1
-  %198 = load i32, ptr %ItemIndex.i113, align 4, !tbaa !86
-  %_items.i.i10.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %195, i64 0, i32 3, i32 0, i32 0, i32 3
-  %199 = load ptr, ptr %_items.i.i10.i, align 8, !tbaa !73
-  %idxprom.i.i11.i = sext i32 %198 to i64
-  %arrayidx.i.i12.i = getelementptr inbounds ptr, ptr %199, i64 %idxprom.i.i11.i
-  %200 = load ptr, ptr %arrayidx.i.i12.i, align 8, !tbaa !75
-  %_size.i.i114 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %195, i64 0, i32 2, i32 0, i32 0, i32 2
-  %201 = load i32, ptr %_size.i.i114, align 4, !tbaa !74
-  %FolderIndex.i.i.i115 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %200, i64 0, i32 4
-  %202 = load i16, ptr %FolderIndex.i.i.i115, align 4, !tbaa !81
-  %203 = and i16 %202, -3
-  %spec.select.i.i.i116 = icmp eq i16 %203, -3
+  %184 = phi i32 [ %183, %for.body42.lr.ph ], [ %202, %if.end52 ]
+  %indvars.iv425 = phi i64 [ 0, %for.body42.lr.ph ], [ %indvars.iv.next426, %if.end52 ]
+  %185 = load ptr, ptr %_items.i105, align 8, !tbaa !73
+  %arrayidx.i107 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %185, i64 %indvars.iv425
+  %186 = load i32, ptr %arrayidx.i107, align 4, !tbaa !84
+  %187 = load ptr, ptr %_items.i.i.i108, align 8, !tbaa !73
+  %idxprom.i.i.i109 = sext i32 %186 to i64
+  %arrayidx.i.i.i110 = getelementptr inbounds ptr, ptr %187, i64 %idxprom.i.i.i109
+  %188 = load ptr, ptr %arrayidx.i.i.i110, align 8, !tbaa !75
+  %189 = load ptr, ptr %_items.i.i111, align 8, !tbaa !73
+  %arrayidx.i.i112 = getelementptr inbounds i32, ptr %189, i64 %idxprom.i.i.i109
+  %190 = load i32, ptr %arrayidx.i.i112, align 4, !tbaa !87
+  %ItemIndex.i113 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %185, i64 %indvars.iv425, i32 1
+  %191 = load i32, ptr %ItemIndex.i113, align 4, !tbaa !86
+  %_items.i.i10.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %188, i64 0, i32 3, i32 0, i32 0, i32 3
+  %192 = load ptr, ptr %_items.i.i10.i, align 8, !tbaa !73
+  %idxprom.i.i11.i = sext i32 %191 to i64
+  %arrayidx.i.i12.i = getelementptr inbounds ptr, ptr %192, i64 %idxprom.i.i11.i
+  %193 = load ptr, ptr %arrayidx.i.i12.i, align 8, !tbaa !75
+  %_size.i.i114 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %188, i64 0, i32 2, i32 0, i32 0, i32 2
+  %194 = load i32, ptr %_size.i.i114, align 4, !tbaa !74
+  %FolderIndex.i.i.i115 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %193, i64 0, i32 4
+  %195 = load i16, ptr %FolderIndex.i.i.i115, align 4, !tbaa !81
+  %196 = and i16 %195, -3
+  %spec.select.i.i.i116 = icmp eq i16 %196, -3
   br i1 %spec.select.i.i.i116, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit, label %if.end.i.i117
 
 if.end.i.i117:                                    ; preds = %for.body42
-  %spec.select.i6.i.i = icmp ugt i16 %202, -3
+  %spec.select.i6.i.i = icmp ugt i16 %195, -3
   br i1 %spec.select.i6.i.i, label %if.then3.i.i, label %if.end4.i.i
 
 if.then3.i.i:                                     ; preds = %if.end.i.i117
-  %sub.i.i = add nsw i32 %201, -1
+  %sub.i.i = add nsw i32 %194, -1
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
 
 if.end4.i.i:                                      ; preds = %if.end.i.i117
-  %conv.i.i = zext i16 %202 to i32
+  %conv.i.i = zext i16 %195 to i32
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
 
 _ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit: ; preds = %for.body42, %if.then3.i.i, %if.end4.i.i
   %retval.0.i.i = phi i32 [ %sub.i.i, %if.then3.i.i ], [ %conv.i.i, %if.end4.i.i ], [ 0, %for.body42 ]
-  %add.i = add nsw i32 %retval.0.i.i, %197
-  %204 = load i32, ptr %_size.i118, align 4, !tbaa !74
-  %cmp48.not = icmp slt i32 %add.i, %204
+  %add.i = add nsw i32 %retval.0.i.i, %190
+  %197 = load i32, ptr %_size.i118, align 4, !tbaa !74
+  %cmp48.not = icmp slt i32 %add.i, %197
   br i1 %cmp48.not, label %if.end52, label %if.then49
 
 if.then49:                                        ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %FolderStartFileIndex)
-  %205 = load ptr, ptr %_items.i119, align 8, !tbaa !73
-  %206 = load i32, ptr %_size.i118, align 4, !tbaa !74
-  %idxprom.i121 = sext i32 %206 to i64
-  %arrayidx.i122 = getelementptr inbounds i32, ptr %205, i64 %idxprom.i121
-  %207 = trunc i64 %indvars.iv446 to i32
-  store i32 %207, ptr %arrayidx.i122, align 4, !tbaa !87
-  %208 = load i32, ptr %_size.i118, align 4, !tbaa !74
-  %inc.i123 = add nsw i32 %208, 1
+  %198 = load ptr, ptr %_items.i119, align 8, !tbaa !73
+  %199 = load i32, ptr %_size.i118, align 4, !tbaa !74
+  %idxprom.i121 = sext i32 %199 to i64
+  %arrayidx.i122 = getelementptr inbounds i32, ptr %198, i64 %idxprom.i121
+  %200 = trunc i64 %indvars.iv425 to i32
+  store i32 %200, ptr %arrayidx.i122, align 4, !tbaa !87
+  %201 = load i32, ptr %_size.i118, align 4, !tbaa !74
+  %inc.i123 = add nsw i32 %201, 1
   store i32 %inc.i123, ptr %_size.i118, align 4, !tbaa !74
-  %.pre452 = load i32, ptr %_size.i74, align 4, !tbaa !74
+  %.pre431 = load i32, ptr %_size.i74, align 4, !tbaa !74
   br label %if.end52
 
 if.end52:                                         ; preds = %if.then49, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
-  %209 = phi i32 [ %.pre452, %if.then49 ], [ %191, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit ]
-  %indvars.iv.next447 = add nuw nsw i64 %indvars.iv446, 1
-  %210 = sext i32 %209 to i64
-  %cmp41 = icmp slt i64 %indvars.iv.next447, %210
+  %202 = phi i32 [ %.pre431, %if.then49 ], [ %184, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit ]
+  %indvars.iv.next426 = add nuw nsw i64 %indvars.iv425, 1
+  %203 = sext i32 %202 to i64
+  %cmp41 = icmp slt i64 %indvars.iv.next426, %203
   br i1 %cmp41, label %for.body42, label %for.end55, !llvm.loop !95
 
 for.end55:                                        ; preds = %if.end52, %for.end36
@@ -2929,8 +2883,8 @@ define dso_local noundef zeroext i1 @_ZN8NArchive4NCab13CMvDatabaseEx5CheckEv(pt
 entry:
   %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
   %0 = load i32, ptr %_size.i, align 4, !tbaa !74
-  %cmp175 = icmp sgt i32 %0, 1
-  br i1 %cmp175, label %for.body.lr.ph, label %for.cond33.preheader
+  %cmp169 = icmp sgt i32 %0, 1
+  br i1 %cmp169, label %for.body.lr.ph, label %cleanup31
 
 for.body.lr.ph:                                   ; preds = %entry
   %_items.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
@@ -2938,220 +2892,211 @@ for.body.lr.ph:                                   ; preds = %entry
   %wide.trip.count = zext i32 %0 to i64
   br label %for.body
 
-for.cond33.preheader:                             ; preds = %if.end27, %entry
-  %_size.i117 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 2
-  %2 = load i32, ptr %_size.i117, align 4, !tbaa !74
-  %cmp35.not.not177 = icmp sgt i32 %2, 0
-  br i1 %cmp35.not.not177, label %for.body37.lr.ph, label %return
-
-for.body37.lr.ph:                                 ; preds = %for.cond33.preheader
-  %_items.i = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 3
-  %3 = load ptr, ptr %_items.i, align 8, !tbaa !73
-  %_items.i.i.i118 = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
-  %4 = load ptr, ptr %_items.i.i.i118, align 8, !tbaa !73
-  %_items.i.i121 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 2, i32 0, i32 3
-  %5 = load ptr, ptr %_items.i.i121, align 8, !tbaa !73
-  %_size.i124 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 3, i32 0, i32 2
-  %6 = load i32, ptr %_size.i124, align 4, !tbaa !74
-  %wide.trip.count192 = zext i32 %2 to i64
-  br label %for.body37
-
 for.body:                                         ; preds = %for.body.lr.ph, %if.end27
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next, %if.end27 ]
   %arrayidx.i.i = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv
-  %7 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !75
-  %_size.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %7, i64 0, i32 3, i32 0, i32 0, i32 2
-  %8 = load i32, ptr %_size.i.i, align 4, !tbaa !74
-  %cmp.not7.i = icmp sgt i32 %8, 0
-  br i1 %cmp.not7.i, label %for.body.lr.ph.i, label %if.end27
+  %2 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !75
+  %_size.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %2, i64 0, i32 3, i32 0, i32 0, i32 2
+  %3 = load i32, ptr %_size.i.i, align 4, !tbaa !74
+  %cmp7.i = icmp sgt i32 %3, 0
+  br i1 %cmp7.i, label %for.body.lr.ph.i, label %if.end27
 
 for.body.lr.ph.i:                                 ; preds = %for.body
-  %_items.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %7, i64 0, i32 3, i32 0, i32 0, i32 3
-  %9 = load ptr, ptr %_items.i.i.i, align 8, !tbaa !73
-  %10 = zext i32 %8 to i64
-  %11 = load ptr, ptr %9, align 8, !tbaa !75
-  %FolderIndex.i.i171 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %11, i64 0, i32 4
-  %12 = load i16, ptr %FolderIndex.i.i171, align 4, !tbaa !81
-  %13 = and i16 %12, -3
-  %spec.select.i.i172 = icmp eq i16 %13, -3
-  br i1 %spec.select.i.i172, label %if.then, label %for.cond.i
+  %_items.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %2, i64 0, i32 3, i32 0, i32 0, i32 3
+  %4 = load ptr, ptr %_items.i.i.i, align 8, !tbaa !73
+  %wide.trip.count.i = zext i32 %3 to i64
+  br label %for.body.i
 
-for.cond.i:                                       ; preds = %for.body.lr.ph.i, %for.body.i
-  %indvars.iv.i173 = phi i64 [ %indvars.iv.next.i, %for.body.i ], [ 0, %for.body.lr.ph.i ]
-  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i173, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %10
-  br i1 %exitcond.not.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit, label %for.body.i, !llvm.loop !90
+for.cond.i:                                       ; preds = %for.body.i
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
+  br i1 %exitcond.not.i, label %if.end27, label %for.body.i, !llvm.loop !90
 
-for.body.i:                                       ; preds = %for.cond.i
-  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %9, i64 %indvars.iv.next.i
-  %14 = load ptr, ptr %arrayidx.i.i.i, align 8, !tbaa !75
-  %FolderIndex.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %14, i64 0, i32 4
-  %15 = load i16, ptr %FolderIndex.i.i, align 4, !tbaa !81
-  %16 = and i16 %15, -3
-  %spec.select.i.i = icmp eq i16 %16, -3
-  br i1 %spec.select.i.i, label %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit, label %for.cond.i, !llvm.loop !90
+for.body.i:                                       ; preds = %for.cond.i, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.cond.i ]
+  %arrayidx.i.i.i = getelementptr inbounds ptr, ptr %4, i64 %indvars.iv.i
+  %5 = load ptr, ptr %arrayidx.i.i.i, align 8, !tbaa !75
+  %FolderIndex.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %5, i64 0, i32 4
+  %6 = load i16, ptr %FolderIndex.i.i, align 4, !tbaa !81
+  %7 = and i16 %6, -3
+  %spec.select.i.i = icmp eq i16 %7, -3
+  br i1 %spec.select.i.i, label %if.then, label %for.cond.i
 
-_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit: ; preds = %for.body.i, %for.cond.i
-  %cmp.not.i.le = icmp ult i64 %indvars.iv.next.i, %10
-  br i1 %cmp.not.i.le, label %if.then, label %if.end27
-
-if.then:                                          ; preds = %for.body.lr.ph.i, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit
-  %17 = add nsw i64 %indvars.iv, -1
-  %arrayidx.i.i109 = getelementptr inbounds ptr, ptr %1, i64 %17
-  %18 = load ptr, ptr %arrayidx.i.i109, align 8, !tbaa !75
-  %_size.i110 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %18, i64 0, i32 2, i32 0, i32 0, i32 2
-  %19 = load i32, ptr %_size.i110, align 4, !tbaa !74
-  %cmp.i = icmp eq i32 %19, 0
+if.then:                                          ; preds = %for.body.i
+  %8 = add nsw i64 %indvars.iv, -1
+  %arrayidx.i.i109 = getelementptr inbounds ptr, ptr %1, i64 %8
+  %9 = load ptr, ptr %arrayidx.i.i109, align 8, !tbaa !75
+  %_size.i110 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 2, i32 0, i32 0, i32 2
+  %10 = load i32, ptr %_size.i110, align 4, !tbaa !74
+  %cmp.i = icmp eq i32 %10, 0
   br i1 %cmp.i, label %return, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %if.then
-  %_size.i111 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %7, i64 0, i32 2, i32 0, i32 0, i32 2
-  %20 = load i32, ptr %_size.i111, align 4, !tbaa !74
-  %cmp.i112 = icmp eq i32 %20, 0
+  %_size.i111 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %2, i64 0, i32 2, i32 0, i32 0, i32 2
+  %11 = load i32, ptr %_size.i111, align 4, !tbaa !74
+  %cmp.i112 = icmp eq i32 %11, 0
   br i1 %cmp.i112, label %return, label %if.end
 
 if.end:                                           ; preds = %lor.lhs.false
-  %sub.i = add nsw i32 %19, -1
-  %_items.i.i.i114 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %18, i64 0, i32 2, i32 0, i32 0, i32 3
-  %21 = load ptr, ptr %_items.i.i.i114, align 8, !tbaa !73
+  %sub.i = add nsw i32 %10, -1
+  %_items.i.i.i114 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %9, i64 0, i32 2, i32 0, i32 0, i32 3
+  %12 = load ptr, ptr %_items.i.i.i114, align 8, !tbaa !73
   %idxprom.i.i.i = sext i32 %sub.i to i64
-  %arrayidx.i.i.i115 = getelementptr inbounds ptr, ptr %21, i64 %idxprom.i.i.i
-  %22 = load ptr, ptr %arrayidx.i.i.i115, align 8, !tbaa !75
-  %_items.i.i.i116 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %7, i64 0, i32 2, i32 0, i32 0, i32 3
-  %23 = load ptr, ptr %_items.i.i.i116, align 8, !tbaa !73
-  %24 = load ptr, ptr %23, align 8, !tbaa !75
-  %CompressionTypeMajor = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %22, i64 0, i32 2
-  %25 = load i8, ptr %CompressionTypeMajor, align 2, !tbaa !96
-  %CompressionTypeMajor15 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %24, i64 0, i32 2
-  %26 = load i8, ptr %CompressionTypeMajor15, align 2, !tbaa !96
-  %cmp17.not = icmp eq i8 %25, %26
+  %arrayidx.i.i.i115 = getelementptr inbounds ptr, ptr %12, i64 %idxprom.i.i.i
+  %13 = load ptr, ptr %arrayidx.i.i.i115, align 8, !tbaa !75
+  %_items.i.i.i116 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %2, i64 0, i32 2, i32 0, i32 0, i32 3
+  %14 = load ptr, ptr %_items.i.i.i116, align 8, !tbaa !73
+  %15 = load ptr, ptr %14, align 8, !tbaa !75
+  %CompressionTypeMajor = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %13, i64 0, i32 2
+  %16 = load i8, ptr %CompressionTypeMajor, align 2, !tbaa !96
+  %CompressionTypeMajor15 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %15, i64 0, i32 2
+  %17 = load i8, ptr %CompressionTypeMajor15, align 2, !tbaa !96
+  %cmp17.not = icmp eq i8 %16, %17
   br i1 %cmp17.not, label %lor.lhs.false18, label %return
 
 lor.lhs.false18:                                  ; preds = %if.end
-  %CompressionTypeMinor = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %22, i64 0, i32 3
-  %27 = load i8, ptr %CompressionTypeMinor, align 1, !tbaa !98
-  %CompressionTypeMinor20 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %24, i64 0, i32 3
-  %28 = load i8, ptr %CompressionTypeMinor20, align 1, !tbaa !98
-  %cmp22.not = icmp eq i8 %27, %28
+  %CompressionTypeMinor = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %13, i64 0, i32 3
+  %18 = load i8, ptr %CompressionTypeMinor, align 1, !tbaa !98
+  %CompressionTypeMinor20 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %15, i64 0, i32 3
+  %19 = load i8, ptr %CompressionTypeMinor20, align 1, !tbaa !98
+  %cmp22.not = icmp eq i8 %18, %19
   br i1 %cmp22.not, label %if.end27, label %return
 
-if.end27:                                         ; preds = %for.body, %lor.lhs.false18, %_ZNK8NArchive4NCab9CDatabase17IsTherePrevFolderEv.exit
+if.end27:                                         ; preds = %for.cond.i, %lor.lhs.false18, %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %for.cond33.preheader, label %for.body, !llvm.loop !99
+  br i1 %exitcond.not, label %cleanup31, label %for.body, !llvm.loop !99
+
+cleanup31:                                        ; preds = %if.end27, %entry
+  %_size.i117 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 2
+  %20 = load i32, ptr %_size.i117, align 4, !tbaa !74
+  %cmp35.not171 = icmp slt i32 %20, 1
+  br i1 %cmp35.not171, label %return, label %for.body37.lr.ph
+
+for.body37.lr.ph:                                 ; preds = %cleanup31
+  %_items.i = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 1, i32 0, i32 3
+  %21 = load ptr, ptr %_items.i, align 8, !tbaa !73
+  %_items.i.i.i118 = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %22 = load ptr, ptr %_items.i.i.i118, align 8, !tbaa !73
+  %_items.i.i121 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 2, i32 0, i32 3
+  %23 = load ptr, ptr %_items.i.i121, align 8, !tbaa !73
+  %_size.i124 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %this, i64 0, i32 3, i32 0, i32 2
+  %24 = load i32, ptr %_size.i124, align 4, !tbaa !74
+  %wide.trip.count185 = zext i32 %20 to i64
+  br label %for.body37
 
 for.body37:                                       ; preds = %for.body37.lr.ph, %for.inc73
-  %indvars.iv189 = phi i64 [ 0, %for.body37.lr.ph ], [ %indvars.iv.next190, %for.inc73 ]
-  %beginPos.0181 = phi i32 [ 0, %for.body37.lr.ph ], [ %beginPos.3, %for.inc73 ]
-  %prevFolder.0179 = phi i32 [ -2, %for.body37.lr.ph ], [ %prevFolder.4, %for.inc73 ]
-  %endPos.0178 = phi i64 [ 0, %for.body37.lr.ph ], [ %endPos.3, %for.inc73 ]
-  %arrayidx.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %3, i64 %indvars.iv189
-  %29 = load i32, ptr %arrayidx.i, align 4, !tbaa !84
-  %idxprom.i.i.i119 = sext i32 %29 to i64
-  %arrayidx.i.i.i120 = getelementptr inbounds ptr, ptr %4, i64 %idxprom.i.i.i119
-  %30 = load ptr, ptr %arrayidx.i.i.i120, align 8, !tbaa !75
-  %arrayidx.i.i122 = getelementptr inbounds i32, ptr %5, i64 %idxprom.i.i.i119
-  %31 = load i32, ptr %arrayidx.i.i122, align 4, !tbaa !87
-  %ItemIndex.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %3, i64 %indvars.iv189, i32 1
-  %32 = load i32, ptr %ItemIndex.i, align 4, !tbaa !86
-  %_items.i.i10.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %30, i64 0, i32 3, i32 0, i32 0, i32 3
-  %33 = load ptr, ptr %_items.i.i10.i, align 8, !tbaa !73
-  %idxprom.i.i11.i = sext i32 %32 to i64
-  %arrayidx.i.i12.i = getelementptr inbounds ptr, ptr %33, i64 %idxprom.i.i11.i
-  %34 = load ptr, ptr %arrayidx.i.i12.i, align 8, !tbaa !75
-  %_size.i.i123 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %30, i64 0, i32 2, i32 0, i32 0, i32 2
-  %35 = load i32, ptr %_size.i.i123, align 4, !tbaa !74
-  %FolderIndex.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 4
-  %36 = load i16, ptr %FolderIndex.i.i.i, align 4, !tbaa !81
-  %37 = and i16 %36, -3
-  %spec.select.i.i.i = icmp eq i16 %37, -3
+  %indvars.iv182 = phi i64 [ 0, %for.body37.lr.ph ], [ %indvars.iv.next183, %for.inc73 ]
+  %beginPos.0175 = phi i32 [ 0, %for.body37.lr.ph ], [ %beginPos.3, %for.inc73 ]
+  %prevFolder.0173 = phi i32 [ -2, %for.body37.lr.ph ], [ %prevFolder.4, %for.inc73 ]
+  %endPos.0172 = phi i64 [ 0, %for.body37.lr.ph ], [ %endPos.3, %for.inc73 ]
+  %arrayidx.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %indvars.iv182
+  %25 = load i32, ptr %arrayidx.i, align 4, !tbaa !84
+  %idxprom.i.i.i119 = sext i32 %25 to i64
+  %arrayidx.i.i.i120 = getelementptr inbounds ptr, ptr %22, i64 %idxprom.i.i.i119
+  %26 = load ptr, ptr %arrayidx.i.i.i120, align 8, !tbaa !75
+  %arrayidx.i.i122 = getelementptr inbounds i32, ptr %23, i64 %idxprom.i.i.i119
+  %27 = load i32, ptr %arrayidx.i.i122, align 4, !tbaa !87
+  %ItemIndex.i = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %indvars.iv182, i32 1
+  %28 = load i32, ptr %ItemIndex.i, align 4, !tbaa !86
+  %_items.i.i10.i = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 3, i32 0, i32 0, i32 3
+  %29 = load ptr, ptr %_items.i.i10.i, align 8, !tbaa !73
+  %idxprom.i.i11.i = sext i32 %28 to i64
+  %arrayidx.i.i12.i = getelementptr inbounds ptr, ptr %29, i64 %idxprom.i.i11.i
+  %30 = load ptr, ptr %arrayidx.i.i12.i, align 8, !tbaa !75
+  %_size.i.i123 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 2, i32 0, i32 0, i32 2
+  %31 = load i32, ptr %_size.i.i123, align 4, !tbaa !74
+  %FolderIndex.i.i.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %30, i64 0, i32 4
+  %32 = load i16, ptr %FolderIndex.i.i.i, align 4, !tbaa !81
+  %33 = and i16 %32, -3
+  %spec.select.i.i.i = icmp eq i16 %33, -3
   br i1 %spec.select.i.i.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit, label %if.end.i.i
 
 if.end.i.i:                                       ; preds = %for.body37
-  %spec.select.i6.i.i = icmp ugt i16 %36, -3
+  %spec.select.i6.i.i = icmp ugt i16 %32, -3
   br i1 %spec.select.i6.i.i, label %if.then3.i.i, label %if.end4.i.i
 
 if.then3.i.i:                                     ; preds = %if.end.i.i
-  %sub.i.i = add nsw i32 %35, -1
+  %sub.i.i = add nsw i32 %31, -1
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
 
 if.end4.i.i:                                      ; preds = %if.end.i.i
-  %conv.i.i = zext i16 %36 to i32
+  %conv.i.i = zext i16 %32 to i32
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
 
 _ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit: ; preds = %for.body37, %if.then3.i.i, %if.end4.i.i
   %retval.0.i.i = phi i32 [ %sub.i.i, %if.then3.i.i ], [ %conv.i.i, %if.end4.i.i ], [ 0, %for.body37 ]
-  %add.i = add nsw i32 %retval.0.i.i, %31
-  %cmp42.not = icmp slt i32 %add.i, %6
+  %add.i = add nsw i32 %retval.0.i.i, %27
+  %cmp42.not = icmp slt i32 %add.i, %24
   br i1 %cmp42.not, label %if.end44, label %return
 
 if.end44:                                         ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit
-  %Attributes.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 6
-  %38 = load i16, ptr %Attributes.i, align 8, !tbaa !83
-  %39 = and i16 %38, 16
-  %cmp.i131.not = icmp eq i16 %39, 0
+  %Attributes.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %30, i64 0, i32 6
+  %34 = load i16, ptr %Attributes.i, align 8, !tbaa !83
+  %35 = and i16 %34, 16
+  %cmp.i131.not = icmp eq i16 %35, 0
   br i1 %cmp.i131.not, label %if.end51, label %for.inc73
 
 if.end51:                                         ; preds = %if.end44
   br i1 %spec.select.i.i.i, label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152, label %if.end.i.i145
 
 if.end.i.i145:                                    ; preds = %if.end51
-  %spec.select.i6.i.i144 = icmp ugt i16 %36, -3
+  %spec.select.i6.i.i144 = icmp ugt i16 %32, -3
   br i1 %spec.select.i6.i.i144, label %if.then3.i.i147, label %if.end4.i.i149
 
 if.then3.i.i147:                                  ; preds = %if.end.i.i145
-  %sub.i.i146 = add nsw i32 %35, -1
+  %sub.i.i146 = add nsw i32 %31, -1
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152
 
 if.end4.i.i149:                                   ; preds = %if.end.i.i145
-  %conv.i.i148 = zext i16 %36 to i32
+  %conv.i.i148 = zext i16 %32 to i32
   br label %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152
 
 _ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152: ; preds = %if.end51, %if.then3.i.i147, %if.end4.i.i149
   %retval.0.i.i150 = phi i32 [ %sub.i.i146, %if.then3.i.i147 ], [ %conv.i.i148, %if.end4.i.i149 ], [ 0, %if.end51 ]
-  %add.i151 = add nsw i32 %retval.0.i.i150, %31
-  %cmp53.not = icmp eq i32 %add.i151, %prevFolder.0179
-  %Offset = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 1
-  %40 = load i32, ptr %Offset, align 8, !tbaa !80
+  %add.i151 = add nsw i32 %retval.0.i.i150, %27
+  %cmp53.not = icmp eq i32 %add.i151, %prevFolder.0173
+  %Offset = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %30, i64 0, i32 1
+  %36 = load i32, ptr %Offset, align 8, !tbaa !80
   br i1 %cmp53.not, label %if.else, label %if.end64
 
 if.else:                                          ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152
-  %conv55 = zext i32 %40 to i64
-  %cmp56 = icmp ugt i64 %endPos.0178, %conv55
+  %conv55 = zext i32 %36 to i64
+  %cmp56 = icmp ugt i64 %endPos.0172, %conv55
   br i1 %cmp56, label %land.lhs.true, label %if.end64
 
 land.lhs.true:                                    ; preds = %if.else
-  %cmp58.not = icmp eq i32 %40, %beginPos.0181
+  %cmp58.not = icmp eq i32 %36, %beginPos.0175
   br i1 %cmp58.not, label %lor.lhs.false59, label %return
 
 lor.lhs.false59:                                  ; preds = %land.lhs.true
-  %Size.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 2
-  %41 = load i32, ptr %Size.i, align 4, !tbaa !78
-  %conv2.i = zext i32 %41 to i64
+  %Size.i = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %30, i64 0, i32 2
+  %37 = load i32, ptr %Size.i, align 4, !tbaa !78
+  %conv2.i = zext i32 %37 to i64
   %add.i153 = add nuw nsw i64 %conv2.i, %conv55
-  %cmp61.not = icmp eq i64 %add.i153, %endPos.0178
+  %cmp61.not = icmp eq i64 %add.i153, %endPos.0172
   br i1 %cmp61.not, label %if.end64, label %return
 
 if.end64:                                         ; preds = %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152, %if.else, %lor.lhs.false59
-  %42 = phi i32 [ %beginPos.0181, %lor.lhs.false59 ], [ %40, %if.else ], [ %40, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152 ]
-  %prevFolder.1 = phi i32 [ %prevFolder.0179, %lor.lhs.false59 ], [ %prevFolder.0179, %if.else ], [ %add.i151, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152 ]
-  %conv.i155 = zext i32 %42 to i64
-  %Size.i156 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 2
-  %43 = load i32, ptr %Size.i156, align 4, !tbaa !78
-  %conv2.i157 = zext i32 %43 to i64
+  %38 = phi i32 [ %beginPos.0175, %lor.lhs.false59 ], [ %36, %if.else ], [ %36, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152 ]
+  %prevFolder.1 = phi i32 [ %prevFolder.0173, %lor.lhs.false59 ], [ %prevFolder.0173, %if.else ], [ %add.i151, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit152 ]
+  %conv.i155 = zext i32 %38 to i64
+  %Size.i156 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %30, i64 0, i32 2
+  %39 = load i32, ptr %Size.i156, align 4, !tbaa !78
+  %conv2.i157 = zext i32 %39 to i64
   %add.i158 = add nuw nsw i64 %conv2.i157, %conv.i155
   br label %for.inc73
 
 for.inc73:                                        ; preds = %if.end64, %if.end44
-  %endPos.3 = phi i64 [ %endPos.0178, %if.end44 ], [ %add.i158, %if.end64 ]
-  %prevFolder.4 = phi i32 [ %prevFolder.0179, %if.end44 ], [ %prevFolder.1, %if.end64 ]
-  %beginPos.3 = phi i32 [ %beginPos.0181, %if.end44 ], [ %42, %if.end64 ]
-  %indvars.iv.next190 = add nuw nsw i64 %indvars.iv189, 1
-  %exitcond193.not = icmp eq i64 %indvars.iv.next190, %wide.trip.count192
-  br i1 %exitcond193.not, label %return, label %for.body37, !llvm.loop !100
+  %endPos.3 = phi i64 [ %endPos.0172, %if.end44 ], [ %add.i158, %if.end64 ]
+  %prevFolder.4 = phi i32 [ %prevFolder.0173, %if.end44 ], [ %prevFolder.1, %if.end64 ]
+  %beginPos.3 = phi i32 [ %beginPos.0175, %if.end44 ], [ %38, %if.end64 ]
+  %indvars.iv.next183 = add nuw nsw i64 %indvars.iv182, 1
+  %exitcond186.not = icmp eq i64 %indvars.iv.next183, %wide.trip.count185
+  br i1 %exitcond186.not, label %return, label %for.body37, !llvm.loop !100
 
-return:                                           ; preds = %lor.lhs.false, %if.then, %if.end, %lor.lhs.false18, %for.inc73, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit, %lor.lhs.false59, %land.lhs.true, %for.cond33.preheader
-  %retval.12 = phi i1 [ true, %for.cond33.preheader ], [ true, %for.inc73 ], [ false, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit ], [ false, %lor.lhs.false59 ], [ false, %land.lhs.true ], [ false, %lor.lhs.false18 ], [ false, %if.end ], [ false, %if.then ], [ false, %lor.lhs.false ]
+return:                                           ; preds = %lor.lhs.false, %if.then, %if.end, %lor.lhs.false18, %for.inc73, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit, %lor.lhs.false59, %land.lhs.true, %cleanup31
+  %retval.12 = phi i1 [ true, %cleanup31 ], [ true, %for.inc73 ], [ false, %_ZNK8NArchive4NCab13CMvDatabaseEx14GetFolderIndexEPKNS0_7CMvItemE.exit ], [ false, %lor.lhs.false59 ], [ false, %land.lhs.true ], [ false, %lor.lhs.false18 ], [ false, %if.end ], [ false, %if.then ], [ false, %lor.lhs.false ]
   ret i1 %retval.12
 }
 

@@ -83,9 +83,9 @@ if.end.i:                                         ; preds = %lor.lhs.false.i
   %path.val4.i = load i32, ptr %5, align 8, !tbaa !21, !noalias !16
   %add.i.i.i.i = add nsw i32 %path.val4.i, 1
   %cmp.i.i.i.i = icmp eq i32 %add.i.i.i.i, 0
-  br i1 %cmp.i.i.i.i, label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i, label %if.end9.i.i.i.i
+  br i1 %cmp.i.i.i.i, label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i, label %if.end.i.i.i.i
 
-if.end9.i.i.i.i:                                  ; preds = %if.end.i
+if.end.i.i.i.i:                                   ; preds = %if.end.i
   %conv.i.i.i.i = zext i32 %add.i.i.i.i to i64
   %6 = icmp slt i32 %path.val4.i, -1
   %7 = shl nuw nsw i64 %conv.i.i.i.i, 2
@@ -94,8 +94,8 @@ if.end9.i.i.i.i:                                  ; preds = %if.end.i
   store i32 0, ptr %call.i.i.i.i, align 4, !tbaa !19, !noalias !22
   br label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i
 
-_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i:    ; preds = %if.end9.i.i.i.i, %if.end.i
-  %ref.tmp.sroa.0.1 = phi ptr [ null, %if.end.i ], [ %call.i.i.i.i, %if.end9.i.i.i.i ]
+_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i:    ; preds = %if.end.i.i.i.i, %if.end.i
+  %ref.tmp.sroa.0.1 = phi ptr [ null, %if.end.i ], [ %call.i.i.i.i, %if.end.i.i.i.i ]
   br label %while.cond.i.i.i.i
 
 while.cond.i.i.i.i:                               ; preds = %while.cond.i.i.i.i, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i.i.i
@@ -632,7 +632,7 @@ if.then.i:                                        ; preds = %lor.lhs.false.i, %e
   store ptr %call.i.i7.i, ptr %agg.result, align 8, !tbaa !14, !alias.scope !42
   store i32 0, ptr %call.i.i7.i, align 4, !tbaa !19, !noalias !42
   store i32 4, ptr %_capacity.i.i, align 4, !tbaa !27, !alias.scope !42
-  br label %_ZL18GetCorrectFileNameRK11CStringBaseIwE.exit
+  br label %nrvo.skipdtor
 
 if.end.i:                                         ; preds = %lor.lhs.false.i
   %path.val.i = load ptr, ptr %path, align 8, !noalias !42
@@ -667,9 +667,9 @@ while.cond.i.i.i.i:                               ; preds = %if.end.i, %while.co
 _ZL21ReplaceIncorrectCharsRK11CStringBaseIwE.exit.i: ; preds = %while.cond.i.i.i.i
   %_length.i.i.i = getelementptr inbounds %class.CStringBase, ptr %agg.result, i64 0, i32 1
   store i32 %path.val4.i, ptr %_length.i.i.i, align 8, !tbaa !21, !alias.scope !48
-  br label %_ZL18GetCorrectFileNameRK11CStringBaseIwE.exit
+  br label %nrvo.skipdtor
 
-_ZL18GetCorrectFileNameRK11CStringBaseIwE.exit:   ; preds = %if.then.i, %_ZL21ReplaceIncorrectCharsRK11CStringBaseIwE.exit.i
+nrvo.skipdtor:                                    ; preds = %_ZL21ReplaceIncorrectCharsRK11CStringBaseIwE.exit.i, %if.then.i
   ret void
 }
 
@@ -691,13 +691,13 @@ for.cond.preheader:                               ; preds = %entry
   %0 = load i32, ptr %_size.i, align 4, !tbaa !5
   call void @llvm.experimental.noalias.scope.decl(metadata !50)
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %agg.result, i8 0, i64 16, i1 false), !alias.scope !50
-  %call.i.i.i13 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
+  %call.i.i.i12 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
           to label %call.i.i.i.noexc unwind label %lpad
 
 call.i.i.i.noexc:                                 ; preds = %for.cond.preheader
   %_capacity.i.i = getelementptr inbounds %class.CStringBase, ptr %agg.result, i64 0, i32 2
-  store ptr %call.i.i.i13, ptr %agg.result, align 8, !tbaa !14, !alias.scope !50
-  store i32 0, ptr %call.i.i.i13, align 4, !tbaa !19, !noalias !50
+  store ptr %call.i.i.i12, ptr %agg.result, align 8, !tbaa !14, !alias.scope !50
+  store i32 0, ptr %call.i.i.i12, align 4, !tbaa !19, !noalias !50
   store i32 4, ptr %_capacity.i.i, align 4, !tbaa !27, !alias.scope !50
   %cmp13.i = icmp sgt i32 %0, 0
   br i1 %cmp13.i, label %invoke.cont4.peel.i, label %invoke.cont6
@@ -776,10 +776,10 @@ _ZN13CObjectVectorI11CStringBaseIwEED2Ev.exit:    ; preds = %invoke.cont6
   ret void
 
 ehcleanup7:                                       ; preds = %lpad, %delete.notnull.i.i, %lpad.i
-  %.pn = phi { ptr, i32 } [ %7, %lpad ], [ %lpad.phi.i, %delete.notnull.i.i ], [ %lpad.phi.i, %lpad.i ]
+  %eh.lpad-body = phi { ptr, i32 } [ %7, %lpad ], [ %lpad.phi.i, %delete.notnull.i.i ], [ %lpad.phi.i, %lpad.i ]
   call void @_ZN13CObjectVectorI11CStringBaseIwEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %parts) #13
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %parts) #13
-  resume { ptr, i32 } %.pn
+  resume { ptr, i32 } %eh.lpad-body
 }
 
 declare void @_Z16SplitPathToPartsRK11CStringBaseIwER13CObjectVectorIS0_E(ptr noundef nonnull align 8 dereferenceable(16), ptr noundef nonnull align 8 dereferenceable(32)) local_unnamed_addr #3

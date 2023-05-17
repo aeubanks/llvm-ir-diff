@@ -45,9 +45,9 @@ if.then:                                          ; preds = %entry
   %position_valid.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
   %1 = load i8, ptr %position_valid.i, align 8, !tbaa !5
   %tobool.not.i = icmp eq i8 %1, 0
-  br i1 %tobool.not.i, label %return, label %if.end.i244
+  br i1 %tobool.not.i, label %return, label %if.end.i
 
-if.end.i244:                                      ; preds = %if.then
+if.end.i:                                         ; preds = %if.then
   %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
   %2 = load <2 x i64>, ptr %position.i, align 8, !tbaa !15
   store <2 x i64> %2, ptr %pbox, align 8, !tbaa !15
@@ -93,74 +93,74 @@ if.end19:                                         ; preds = %if.else
   %box.sroa.26.0.copyload = load i64, ptr %box.sroa.26.0.bbox18.sroa_idx, align 8, !tbaa.struct !27
   %next = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 1
   %9 = load ptr, ptr %next, align 8, !tbaa !28
-  %tobool.not248 = icmp eq ptr %9, null
-  br i1 %tobool.not248, label %while.end, label %while.body.preheader
+  %tobool.not247 = icmp eq ptr %9, null
+  br i1 %tobool.not247, label %while.end, label %while.body.preheader
 
 while.body.preheader:                             ; preds = %if.end19.thread, %if.end19
-  %pseg.1253.ph = phi ptr [ %9, %if.end19 ], [ %0, %if.end19.thread ]
-  %box.sroa.0.1252.ph = phi i64 [ %box.sroa.0.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
-  %box.sroa.12.1251.ph = phi i64 [ %box.sroa.12.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
-  %box.sroa.19.1250.ph = phi i64 [ %box.sroa.19.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
-  %box.sroa.26.1249.ph = phi i64 [ %box.sroa.26.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
+  %pseg.1252.ph = phi ptr [ %9, %if.end19 ], [ %0, %if.end19.thread ]
+  %box.sroa.0.1251.ph = phi i64 [ %box.sroa.0.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
+  %box.sroa.12.1250.ph = phi i64 [ %box.sroa.12.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
+  %box.sroa.19.1249.ph = phi i64 [ %box.sroa.19.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
+  %box.sroa.26.1248.ph = phi i64 [ %box.sroa.26.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %sw.default
-  %pseg.1253 = phi ptr [ %17, %sw.default ], [ %pseg.1253.ph, %while.body.preheader ]
-  %box.sroa.0.1252 = phi i64 [ %box.sroa.0.5, %sw.default ], [ %box.sroa.0.1252.ph, %while.body.preheader ]
-  %box.sroa.12.1251 = phi i64 [ %box.sroa.12.4, %sw.default ], [ %box.sroa.12.1251.ph, %while.body.preheader ]
-  %box.sroa.19.1250 = phi i64 [ %box.sroa.19.5, %sw.default ], [ %box.sroa.19.1250.ph, %while.body.preheader ]
-  %box.sroa.26.1249 = phi i64 [ %box.sroa.26.4, %sw.default ], [ %box.sroa.26.1249.ph, %while.body.preheader ]
-  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 2
+  %pseg.1252 = phi ptr [ %17, %sw.default ], [ %pseg.1252.ph, %while.body.preheader ]
+  %box.sroa.0.1251 = phi i64 [ %box.sroa.0.5, %sw.default ], [ %box.sroa.0.1251.ph, %while.body.preheader ]
+  %box.sroa.12.1250 = phi i64 [ %box.sroa.12.4, %sw.default ], [ %box.sroa.12.1250.ph, %while.body.preheader ]
+  %box.sroa.19.1249 = phi i64 [ %box.sroa.19.5, %sw.default ], [ %box.sroa.19.1249.ph, %while.body.preheader ]
+  %box.sroa.26.1248 = phi i64 [ %box.sroa.26.4, %sw.default ], [ %box.sroa.26.1248.ph, %while.body.preheader ]
+  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.1252, i64 0, i32 2
   %10 = load i32, ptr %type, align 8, !tbaa !29
   %cond = icmp eq i32 %10, 3
   br i1 %cond, label %sw.bb, label %sw.default
 
 sw.bb:                                            ; preds = %while.body
-  %p1 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 4
+  %p1 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1252, i64 0, i32 4
   %11 = load i64, ptr %p1, align 8, !tbaa !30
-  %cmp23 = icmp slt i64 %11, %box.sroa.0.1252
-  %spec.select = tail call i64 @llvm.smax.i64(i64 %11, i64 %box.sroa.19.1250)
-  %box.sroa.19.2 = select i1 %cmp23, i64 %box.sroa.19.1250, i64 %spec.select
-  %box.sroa.0.2 = tail call i64 @llvm.smin.i64(i64 %11, i64 %box.sroa.0.1252)
-  %y43 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 4, i32 1
+  %cmp23 = icmp slt i64 %11, %box.sroa.0.1251
+  %spec.select = tail call i64 @llvm.smax.i64(i64 %11, i64 %box.sroa.19.1249)
+  %box.sroa.19.2 = select i1 %cmp23, i64 %box.sroa.19.1249, i64 %spec.select
+  %box.sroa.0.2 = tail call i64 @llvm.smin.i64(i64 %11, i64 %box.sroa.0.1251)
+  %y43 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1252, i64 0, i32 4, i32 1
   %12 = load i64, ptr %y43, align 8, !tbaa !32
-  %cmp46 = icmp slt i64 %12, %box.sroa.12.1251
-  %spec.select234 = tail call i64 @llvm.smax.i64(i64 %12, i64 %box.sroa.26.1249)
-  %box.sroa.26.2 = select i1 %cmp46, i64 %box.sroa.26.1249, i64 %spec.select234
-  %box.sroa.12.2 = tail call i64 @llvm.smin.i64(i64 %12, i64 %box.sroa.12.1251)
-  %p2 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 5
+  %cmp46 = icmp slt i64 %12, %box.sroa.12.1250
+  %spec.select242 = tail call i64 @llvm.smax.i64(i64 %12, i64 %box.sroa.26.1248)
+  %box.sroa.26.2 = select i1 %cmp46, i64 %box.sroa.26.1248, i64 %spec.select242
+  %box.sroa.12.2 = tail call i64 @llvm.smin.i64(i64 %12, i64 %box.sroa.12.1250)
+  %p2 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1252, i64 0, i32 5
   %13 = load i64, ptr %p2, align 8, !tbaa !33
   %cmp68 = icmp slt i64 %13, %box.sroa.0.2
-  %spec.select235 = tail call i64 @llvm.smax.i64(i64 %13, i64 %box.sroa.19.2)
-  %box.sroa.19.3 = select i1 %cmp68, i64 %box.sroa.19.2, i64 %spec.select235
+  %spec.select243 = tail call i64 @llvm.smax.i64(i64 %13, i64 %box.sroa.19.2)
+  %box.sroa.19.3 = select i1 %cmp68, i64 %box.sroa.19.2, i64 %spec.select243
   %box.sroa.0.3 = tail call i64 @llvm.smin.i64(i64 %13, i64 %box.sroa.0.2)
-  %y88 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 5, i32 1
+  %y88 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1252, i64 0, i32 5, i32 1
   %14 = load i64, ptr %y88, align 8, !tbaa !34
   %cmp91 = icmp slt i64 %14, %box.sroa.12.2
   br i1 %cmp91, label %sw.default, label %if.else97
 
 if.else97:                                        ; preds = %sw.bb
-  %spec.select236 = tail call i64 @llvm.smax.i64(i64 %14, i64 %box.sroa.26.2)
+  %spec.select244 = tail call i64 @llvm.smax.i64(i64 %14, i64 %box.sroa.26.2)
   br label %sw.default
 
 sw.default:                                       ; preds = %if.else97, %sw.bb, %while.body
-  %box.sroa.26.3 = phi i64 [ %box.sroa.26.1249, %while.body ], [ %box.sroa.26.2, %sw.bb ], [ %spec.select236, %if.else97 ]
-  %box.sroa.19.4 = phi i64 [ %box.sroa.19.1250, %while.body ], [ %box.sroa.19.3, %sw.bb ], [ %box.sroa.19.3, %if.else97 ]
-  %box.sroa.12.3 = phi i64 [ %box.sroa.12.1251, %while.body ], [ %14, %sw.bb ], [ %box.sroa.12.2, %if.else97 ]
-  %box.sroa.0.4 = phi i64 [ %box.sroa.0.1252, %while.body ], [ %box.sroa.0.3, %sw.bb ], [ %box.sroa.0.3, %if.else97 ]
-  %pt110 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 3
+  %box.sroa.26.3 = phi i64 [ %box.sroa.26.1248, %while.body ], [ %box.sroa.26.2, %sw.bb ], [ %spec.select244, %if.else97 ]
+  %box.sroa.19.4 = phi i64 [ %box.sroa.19.1249, %while.body ], [ %box.sroa.19.3, %sw.bb ], [ %box.sroa.19.3, %if.else97 ]
+  %box.sroa.12.3 = phi i64 [ %box.sroa.12.1250, %while.body ], [ %14, %sw.bb ], [ %box.sroa.12.2, %if.else97 ]
+  %box.sroa.0.4 = phi i64 [ %box.sroa.0.1251, %while.body ], [ %box.sroa.0.3, %sw.bb ], [ %box.sroa.0.3, %if.else97 ]
+  %pt110 = getelementptr inbounds %struct.segment_s, ptr %pseg.1252, i64 0, i32 3
   %15 = load i64, ptr %pt110, align 8, !tbaa !22
   %cmp114 = icmp slt i64 %15, %box.sroa.0.4
-  %spec.select237 = tail call i64 @llvm.smax.i64(i64 %15, i64 %box.sroa.19.4)
-  %box.sroa.19.5 = select i1 %cmp114, i64 %box.sroa.19.4, i64 %spec.select237
+  %spec.select245 = tail call i64 @llvm.smax.i64(i64 %15, i64 %box.sroa.19.4)
+  %box.sroa.19.5 = select i1 %cmp114, i64 %box.sroa.19.4, i64 %spec.select245
   %box.sroa.0.5 = tail call i64 @llvm.smin.i64(i64 %15, i64 %box.sroa.0.4)
-  %y134 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 3, i32 1
+  %y134 = getelementptr inbounds %struct.segment_s, ptr %pseg.1252, i64 0, i32 3, i32 1
   %16 = load i64, ptr %y134, align 8, !tbaa !24
   %cmp137 = icmp slt i64 %16, %box.sroa.12.3
-  %spec.select238 = tail call i64 @llvm.smax.i64(i64 %16, i64 %box.sroa.26.3)
-  %box.sroa.26.4 = select i1 %cmp137, i64 %box.sroa.26.3, i64 %spec.select238
+  %spec.select246 = tail call i64 @llvm.smax.i64(i64 %16, i64 %box.sroa.26.3)
+  %box.sroa.26.4 = select i1 %cmp137, i64 %box.sroa.26.3, i64 %spec.select246
   %box.sroa.12.4 = tail call i64 @llvm.smin.i64(i64 %16, i64 %box.sroa.12.3)
-  %next156 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 1
+  %next156 = getelementptr inbounds %struct.segment_s, ptr %pseg.1252, i64 0, i32 1
   %17 = load ptr, ptr %next156, align 8, !tbaa !28
   %tobool.not = icmp eq ptr %17, null
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !35
@@ -189,8 +189,8 @@ while.end:                                        ; preds = %sw.default, %if.end
   store i64 %box.sroa.26.1.lcssa, ptr %box.sroa.26.0..sroa_idx, align 8, !tbaa.struct !27
   br label %return
 
-return:                                           ; preds = %if.then, %if.end.i244, %if.then3, %while.end
-  %retval.0 = phi i32 [ 0, %while.end ], [ 0, %if.then3 ], [ 0, %if.end.i244 ], [ -14, %if.then ]
+return:                                           ; preds = %if.then3, %while.end, %if.end.i, %if.then
+  %retval.0 = phi i32 [ 0, %if.end.i ], [ -14, %if.then ], [ 0, %while.end ], [ 0, %if.then3 ]
   ret i32 %retval.0
 }
 
@@ -855,13 +855,13 @@ declare i32 @gx_path_add_line(ptr noundef, i64 noundef, i64 noundef) local_unnam
 declare i32 @gx_path_close_subpath(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

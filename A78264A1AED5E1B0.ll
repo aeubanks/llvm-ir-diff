@@ -101,7 +101,7 @@ if.then13:                                        ; preds = %if.then10
   br label %cleanup
 
 if.else:                                          ; preds = %if.then10
-  %puts250 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts262 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @free(ptr noundef %call) #9
   br label %cleanup
 
@@ -115,7 +115,7 @@ if.end15:                                         ; preds = %while.end
   br i1 %cmp19.not, label %if.end23, label %if.then21
 
 if.then21:                                        ; preds = %if.end15
-  %puts249 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts261 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
@@ -124,7 +124,7 @@ if.end23:                                         ; preds = %if.end15
   br i1 %cmp24, label %if.then26, label %if.else28
 
 if.then26:                                        ; preds = %if.end23
-  %puts248 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts260 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
@@ -141,51 +141,52 @@ if.else28:                                        ; preds = %if.end23
   br i1 %or.cond, label %if.then40, label %if.end42
 
 if.then40:                                        ; preds = %if.else28
-  %puts247 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts259 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   tail call void @free(ptr noundef nonnull %call) #9
   br label %cleanup
 
 if.end42:                                         ; preds = %if.else28
   store i32 0, ptr @IsFirstByteStreamNALU, align 4, !tbaa !16
-  %sext291 = shl i64 %pos.1.in, 32
-  %6 = ashr exact i64 %sext291, 32
+  %sext293 = shl i64 %pos.1.in, 32
+  %6 = ashr exact i64 %sext293, 32
   br label %while.body45
 
 while.body45:                                     ; preds = %if.end42, %if.end100
-  %indvars.iv277 = phi i64 [ %6, %if.end42 ], [ %indvars.iv.next278, %if.end100 ]
+  %indvars.iv279 = phi i64 [ %6, %if.end42 ], [ %indvars.iv.next280, %if.end100 ]
   %7 = load ptr, ptr @bits, align 8, !tbaa !11
   %call46 = tail call i32 @feof(ptr noundef %7) #9
   %tobool47.not = icmp eq i32 %call46, 0
   br i1 %tobool47.not, label %if.end83, label %while.cond49.preheader
 
 while.cond49.preheader:                           ; preds = %while.body45
-  %8 = trunc i64 %indvars.iv277 to i32
-  %sub50 = add i64 %indvars.iv277, 4294967294
+  %8 = trunc i64 %indvars.iv279 to i32
+  %sub50 = add i64 %indvars.iv279, 4294967294
   br label %while.cond49
 
 while.cond49:                                     ; preds = %while.cond49, %while.cond49.preheader
-  %indvars.iv287 = phi i64 [ %indvars.iv.next288, %while.cond49 ], [ 0, %while.cond49.preheader ]
-  %sub51 = sub i64 %sub50, %indvars.iv287
-  %sext292 = shl i64 %sub51, 32
-  %idxprom52 = ashr exact i64 %sext292, 32
+  %indvars.iv289 = phi i64 [ %indvars.iv.next290, %while.cond49 ], [ 0, %while.cond49.preheader ]
+  %sub51 = sub i64 %sub50, %indvars.iv289
+  %sext294 = shl i64 %sub51, 32
+  %idxprom52 = ashr exact i64 %sext294, 32
   %arrayidx53 = getelementptr inbounds i8, ptr %call, i64 %idxprom52
   %9 = load i8, ptr %arrayidx53, align 1, !tbaa !12
   %cmp55 = icmp eq i8 %9, 0
-  %indvars.iv.next288 = add nuw i64 %indvars.iv287, 1
+  %indvars.iv.next290 = add nuw i64 %indvars.iv289, 1
   br i1 %cmp55, label %while.cond49, label %while.end59, !llvm.loop !17
 
 while.end59:                                      ; preds = %while.cond49
-  %10 = trunc i64 %indvars.iv287 to i32
+  %10 = trunc i64 %indvars.iv289 to i32
   %sub60 = add nsw i32 %8, -1
   %11 = load i32, ptr %nalu, align 8, !tbaa !15
-  %12 = add i32 %11, %LeadingZero8BitsCount.0
-  %13 = add i32 %12, %10
+  %12 = add i32 %LeadingZero8BitsCount.0, %10
+  %13 = add i32 %12, %11
   %sub64 = sub i32 %sub60, %13
   %len = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 1
   store i32 %sub64, ptr %len, align 4, !tbaa !18
   %buf = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 6
   %14 = load ptr, ptr %buf, align 8, !tbaa !19
-  %idxprom66 = sext i32 %12 to i64
+  %add = add nsw i32 %11, %LeadingZero8BitsCount.0
+  %idxprom66 = sext i32 %add to i64
   %arrayidx67 = getelementptr inbounds i8, ptr %call, i64 %idxprom66
   %conv69 = zext i32 %sub64 to i64
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %14, ptr align 1 %arrayidx67, i64 %conv69, i1 false)
@@ -213,63 +214,61 @@ if.end83:                                         ; preds = %while.body45
   %23 = load ptr, ptr @bits, align 8, !tbaa !11
   %call84 = tail call i32 @fgetc(ptr noundef %23)
   %conv85 = trunc i32 %call84 to i8
-  %arrayidx88 = getelementptr inbounds i8, ptr %call, i64 %indvars.iv277
+  %arrayidx88 = getelementptr inbounds i8, ptr %call, i64 %indvars.iv279
   store i8 %conv85, ptr %arrayidx88, align 1, !tbaa !12
-  %24 = add nsw i64 %indvars.iv277, -3
+  %24 = add nsw i64 %indvars.iv279, -3
   %arrayidx91 = getelementptr inbounds i8, ptr %call, i64 %24
   %25 = load i8, ptr %arrayidx91, align 1, !tbaa !12
-  %cmp1.not.i = icmp ne i8 %25, 0
+  %cmp1.not.i = icmp eq i8 %25, 0
   %arrayidx.i.1 = getelementptr inbounds i8, ptr %arrayidx91, i64 1
   %26 = load i8, ptr %arrayidx.i.1, align 1, !tbaa !12
   %cmp1.not.i.1 = icmp eq i8 %26, 0
   %arrayidx.i.2 = getelementptr inbounds i8, ptr %arrayidx91, i64 2
   %27 = load i8, ptr %arrayidx.i.2, align 1, !tbaa !12
   %cmp1.not.i.2 = icmp eq i8 %27, 0
-  %indvars.iv.next278 = add i64 %indvars.iv277, 1
+  %indvars.iv.next280 = add i64 %indvars.iv279, 1
   %cmp6.not.i = icmp eq i8 %conv85, 1
   %28 = select i1 %cmp6.not.i, i1 %cmp1.not.i.2, i1 false
   %29 = select i1 %28, i1 %cmp1.not.i.1, i1 false
-  %not. = xor i1 %29, true
-  %narrow = select i1 %not., i1 true, i1 %cmp1.not.i
-  br i1 %narrow, label %if.end100, label %while.cond109.preheader
+  %narrow = select i1 %29, i1 %cmp1.not.i, i1 false
+  br i1 %narrow, label %while.cond109.preheader, label %if.end100
 
 if.end100:                                        ; preds = %if.end83
   %30 = select i1 %cmp6.not.i, i1 %cmp1.not.i.2, i1 false
-  %narrow296 = select i1 %30, i1 %cmp1.not.i.1, i1 false
-  %cmp101 = xor i1 %narrow296, true
-  %.not = and i1 %narrow, %cmp101
-  br i1 %.not, label %while.body45, label %if.else124, !llvm.loop !23
+  %narrow297 = select i1 %30, i1 %cmp1.not.i.1, i1 false
+  %.not.not = or i1 %narrow297, %narrow
+  br i1 %.not.not, label %if.else124, label %while.body45, !llvm.loop !23
 
 while.cond109.preheader:                          ; preds = %if.end83
-  %sub110 = add i64 %indvars.iv277, 4294967292
+  %sub110 = add i64 %indvars.iv279, 4294967292
   br label %while.cond109
 
 while.cond109:                                    ; preds = %while.cond109, %while.cond109.preheader
-  %indvars.iv283 = phi i64 [ %indvars.iv.next284, %while.cond109 ], [ 0, %while.cond109.preheader ]
-  %sub111 = sub i64 %sub110, %indvars.iv283
-  %sext294 = shl i64 %sub111, 32
-  %idxprom112 = ashr exact i64 %sext294, 32
+  %indvars.iv285 = phi i64 [ %indvars.iv.next286, %while.cond109 ], [ 0, %while.cond109.preheader ]
+  %sub111 = sub i64 %sub110, %indvars.iv285
+  %sext298 = shl i64 %sub111, 32
+  %idxprom112 = ashr exact i64 %sext298, 32
   %arrayidx113 = getelementptr inbounds i8, ptr %call, i64 %idxprom112
   %31 = load i8, ptr %arrayidx113, align 1, !tbaa !12
   %cmp115 = icmp eq i8 %31, 0
-  %indvars.iv.next284 = add nuw i64 %indvars.iv283, 1
+  %indvars.iv.next286 = add nuw i64 %indvars.iv285, 1
   br i1 %cmp115, label %while.cond109, label %if.end120, !llvm.loop !24
 
 if.end120:                                        ; preds = %while.cond109
-  %32 = trunc i64 %indvars.iv283 to i32
+  %32 = trunc i64 %indvars.iv285 to i32
   br label %if.end131
 
 if.else124:                                       ; preds = %if.end100
-  br i1 %narrow296, label %if.end131, label %if.else128
+  br i1 %narrow297, label %if.end131, label %if.else128
 
 if.else128:                                       ; preds = %if.else124
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end131
 
 if.end131:                                        ; preds = %if.end120, %if.else124, %if.else128
-  %TrailingZero8Bits.2264 = phi i32 [ 0, %if.else128 ], [ %32, %if.end120 ], [ 0, %if.else124 ]
+  %TrailingZero8Bits.2265 = phi i32 [ 0, %if.else128 ], [ %32, %if.end120 ], [ 0, %if.else124 ]
   %rewind.0 = phi i32 [ 0, %if.else128 ], [ -4, %if.end120 ], [ -3, %if.else124 ]
-  %33 = trunc i64 %indvars.iv.next278 to i32
+  %33 = trunc i64 %indvars.iv.next280 to i32
   %34 = load ptr, ptr @bits, align 8, !tbaa !11
   %conv132 = sext i32 %rewind.0 to i64
   %call133 = tail call i32 @fseek(ptr noundef %34, i64 noundef %conv132, i32 noundef 1)
@@ -285,14 +284,15 @@ if.then136:                                       ; preds = %if.end131
 if.end138:                                        ; preds = %if.then136, %if.end131
   %add139 = add nsw i32 %rewind.0, %33
   %35 = load i32, ptr %nalu, align 8, !tbaa !15
-  %36 = add i32 %35, %LeadingZero8BitsCount.0
-  %37 = add i32 %TrailingZero8Bits.2264, %36
+  %36 = add i32 %TrailingZero8Bits.2265, %LeadingZero8BitsCount.0
+  %37 = add i32 %36, %35
   %sub143 = sub i32 %add139, %37
   %len144 = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 1
   store i32 %sub143, ptr %len144, align 4, !tbaa !18
   %buf145 = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 6
   %38 = load ptr, ptr %buf145, align 8, !tbaa !19
-  %idxprom148 = sext i32 %36 to i64
+  %add147 = add nsw i32 %35, %LeadingZero8BitsCount.0
+  %idxprom148 = sext i32 %add147 to i64
   %arrayidx149 = getelementptr inbounds i8, ptr %call, i64 %idxprom148
   %conv151 = zext i32 %sub143 to i64
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %38, ptr align 1 %arrayidx149, i64 %conv151, i1 false)
@@ -389,10 +389,10 @@ entry:
 
 if.end:                                           ; preds = %entry
   %2 = add i32 %0, -9
-  %switch = icmp ult i32 %2, -2
-  %.off52 = add i32 %0, -6
-  %switch53 = icmp ult i32 %.off52, 4
-  br i1 %switch53, label %if.then26, label %lor.lhs.false20
+  %or.cond51 = icmp ult i32 %2, -2
+  %.off = add i32 %0, -6
+  %switch = icmp ult i32 %.off, 4
+  br i1 %switch, label %if.then26, label %lor.lhs.false20
 
 lor.lhs.false20:                                  ; preds = %if.end
   %cmp22 = icmp sgt i32 %0, 12
@@ -420,7 +420,7 @@ if.end29:                                         ; preds = %if.then26, %if.then
   %inc = add nsw i32 %4, 1
   store i32 %inc, ptr @NALUCount, align 4, !tbaa !16
   %cmp30 = icmp ne i32 %4, 0
-  %narrow.not = and i1 %switch, %cmp30
+  %narrow.not = and i1 %cmp30, %or.cond51
   br i1 %narrow.not, label %cleanup, label %land.lhs.true34
 
 land.lhs.true34:                                  ; preds = %if.end29

@@ -145,7 +145,7 @@ for.cond:                                         ; preds = %for.inc26.6.i789
 for.body:                                         ; preds = %entry, %for.cond
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.cond ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr = getelementptr inbounds i8, ptr @u, i64 %indvars.iv
+  %add.ptr = getelementptr i8, ptr @u, i64 %indvars.iv
   store i8 0, ptr %add.ptr, align 1
   %cmp42.i.not = icmp eq i64 %indvars.iv, 0
   br i1 %cmp42.i.not, label %for.cond3.preheader.i, label %for.body.preheader.i
@@ -415,7 +415,7 @@ for.cond23:                                       ; preds = %for.inc26.6.i936
 for.body27:                                       ; preds = %for.cond, %for.cond23
   %indvars.iv2865 = phi i64 [ %indvars.iv.next2866, %for.cond23 ], [ 0, %for.cond ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr29 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2865
+  %add.ptr29 = getelementptr i8, ptr @u, i64 %indvars.iv2865
   store i16 0, ptr %add.ptr29, align 1
   %cmp42.i791.not = icmp eq i64 %indvars.iv2865, 0
   br i1 %cmp42.i791.not, label %for.cond3.preheader.i796, label %for.body.preheader.i794
@@ -703,7 +703,7 @@ for.cond56:                                       ; preds = %for.inc26.6.i1083
 for.body60:                                       ; preds = %for.cond23, %for.cond56
   %indvars.iv2869 = phi i64 [ %indvars.iv.next2870, %for.cond56 ], [ 0, %for.cond23 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr62 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2869
+  %add.ptr62 = getelementptr i8, ptr @u, i64 %indvars.iv2869
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %add.ptr62, i8 0, i64 3, i1 false)
   %cmp42.i938.not = icmp eq i64 %indvars.iv2869, 0
   br i1 %cmp42.i938.not, label %for.cond3.preheader.i943, label %for.body.preheader.i941
@@ -1009,7 +1009,7 @@ for.cond89:                                       ; preds = %for.inc26.6.i1230
 for.body93:                                       ; preds = %for.cond56, %for.cond89
   %indvars.iv2873 = phi i64 [ %indvars.iv.next2874, %for.cond89 ], [ 0, %for.cond56 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr95 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2873
+  %add.ptr95 = getelementptr i8, ptr @u, i64 %indvars.iv2873
   store i32 0, ptr %add.ptr95, align 1
   %cmp42.i1085.not = icmp eq i64 %indvars.iv2873, 0
   br i1 %cmp42.i1085.not, label %for.cond3.preheader.i1090, label %for.body.preheader.i1088
@@ -1337,7 +1337,7 @@ for.cond155.preheader:                            ; preds = %for.cond122
 for.body126:                                      ; preds = %for.cond89, %for.cond122
   %indvars.iv2877 = phi i64 [ %indvars.iv.next2878, %for.cond122 ], [ 0, %for.cond89 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr128 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2877
+  %add.ptr128 = getelementptr i8, ptr @u, i64 %indvars.iv2877
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(5) %add.ptr128, i8 0, i64 5, i1 false)
   %cmp42.i1232.not = icmp eq i64 %indvars.iv2877, 0
   br i1 %cmp42.i1232.not, label %for.cond3.preheader.i1237, label %for.body.preheader.i1235
@@ -1679,7 +1679,7 @@ for.cond155:                                      ; preds = %for.inc26.6.i1524
 for.body159:                                      ; preds = %for.cond155.preheader, %for.cond155
   %indvars.iv2881 = phi i64 [ 0, %for.cond155.preheader ], [ %indvars.iv.next2882, %for.cond155 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr161 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2881
+  %add.ptr161 = getelementptr i8, ptr @u, i64 %indvars.iv2881
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %add.ptr161, i8 0, i64 6, i1 false)
   %cmp42.i1379.not = icmp eq i64 %indvars.iv2881, 0
   br i1 %cmp42.i1379.not, label %for.cond3.preheader.i1384, label %for.body.preheader.i1382
@@ -2039,7 +2039,7 @@ for.cond188:                                      ; preds = %for.inc26.6.i1671
 for.body192:                                      ; preds = %for.cond155, %for.cond188
   %indvars.iv2885 = phi i64 [ %indvars.iv.next2886, %for.cond188 ], [ 0, %for.cond155 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr194 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2885
+  %add.ptr194 = getelementptr i8, ptr @u, i64 %indvars.iv2885
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(7) %add.ptr194, i8 0, i64 7, i1 false)
   %cmp42.i1526.not = icmp eq i64 %indvars.iv2885, 0
   br i1 %cmp42.i1526.not, label %for.cond3.preheader.i1531, label %for.body.preheader.i1529
@@ -2417,7 +2417,7 @@ for.cond221:                                      ; preds = %for.inc26.6.i1818
 for.body225:                                      ; preds = %for.cond188, %for.cond221
   %indvars.iv2889 = phi i64 [ %indvars.iv.next2890, %for.cond221 ], [ 0, %for.cond188 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr227 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2889
+  %add.ptr227 = getelementptr i8, ptr @u, i64 %indvars.iv2889
   store i64 0, ptr %add.ptr227, align 1
   %cmp42.i1673.not = icmp eq i64 %indvars.iv2889, 0
   br i1 %cmp42.i1673.not, label %for.cond3.preheader.i1678, label %for.body.preheader.i1676
@@ -2817,7 +2817,7 @@ for.cond287.preheader:                            ; preds = %for.cond254
 for.body258:                                      ; preds = %for.cond221, %for.cond254
   %indvars.iv2893 = phi i64 [ %indvars.iv.next2894, %for.cond254 ], [ 0, %for.cond221 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr260 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2893
+  %add.ptr260 = getelementptr i8, ptr @u, i64 %indvars.iv2893
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(9) %add.ptr260, i8 0, i64 9, i1 false)
   %cmp42.i1820.not = icmp eq i64 %indvars.iv2893, 0
   br i1 %cmp42.i1820.not, label %for.cond3.preheader.i1825, label %for.body.preheader.i1823
@@ -3231,7 +3231,7 @@ for.cond287:                                      ; preds = %for.inc26.6.i2112
 for.body291:                                      ; preds = %for.cond287.preheader, %for.cond287
   %indvars.iv2897 = phi i64 [ 0, %for.cond287.preheader ], [ %indvars.iv.next2898, %for.cond287 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr293 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2897
+  %add.ptr293 = getelementptr i8, ptr @u, i64 %indvars.iv2897
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(10) %add.ptr293, i8 0, i64 10, i1 false)
   %cmp42.i1967.not = icmp eq i64 %indvars.iv2897, 0
   br i1 %cmp42.i1967.not, label %for.cond3.preheader.i1972, label %for.body.preheader.i1970
@@ -3663,7 +3663,7 @@ for.cond320:                                      ; preds = %for.inc26.6.i2259
 for.body324:                                      ; preds = %for.cond287, %for.cond320
   %indvars.iv2901 = phi i64 [ %indvars.iv.next2902, %for.cond320 ], [ 0, %for.cond287 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr326 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2901
+  %add.ptr326 = getelementptr i8, ptr @u, i64 %indvars.iv2901
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(11) %add.ptr326, i8 0, i64 11, i1 false)
   %cmp42.i2114.not = icmp eq i64 %indvars.iv2901, 0
   br i1 %cmp42.i2114.not, label %for.cond3.preheader.i2119, label %for.body.preheader.i2117
@@ -4117,7 +4117,7 @@ for.cond386.preheader:                            ; preds = %for.cond353
 for.body357:                                      ; preds = %for.cond320, %for.cond353
   %indvars.iv2905 = phi i64 [ %indvars.iv.next2906, %for.cond353 ], [ 0, %for.cond320 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr359 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2905
+  %add.ptr359 = getelementptr i8, ptr @u, i64 %indvars.iv2905
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %add.ptr359, i8 0, i64 12, i1 false)
   %cmp42.i2261.not = icmp eq i64 %indvars.iv2905, 0
   br i1 %cmp42.i2261.not, label %for.cond3.preheader.i2266, label %for.body.preheader.i2264
@@ -4585,7 +4585,7 @@ for.cond386:                                      ; preds = %for.inc26.6.i2553
 for.body390:                                      ; preds = %for.cond386.preheader, %for.cond386
   %indvars.iv2909 = phi i64 [ 0, %for.cond386.preheader ], [ %indvars.iv.next2910, %for.cond386 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr392 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2909
+  %add.ptr392 = getelementptr i8, ptr @u, i64 %indvars.iv2909
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(13) %add.ptr392, i8 0, i64 13, i1 false)
   %cmp42.i2408.not = icmp eq i64 %indvars.iv2909, 0
   br i1 %cmp42.i2408.not, label %for.cond3.preheader.i2413, label %for.body.preheader.i2411
@@ -5071,7 +5071,7 @@ for.cond419:                                      ; preds = %for.inc26.6.i2700
 for.body423:                                      ; preds = %for.cond386, %for.cond419
   %indvars.iv2913 = phi i64 [ %indvars.iv.next2914, %for.cond419 ], [ 0, %for.cond386 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr425 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2913
+  %add.ptr425 = getelementptr i8, ptr @u, i64 %indvars.iv2913
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(14) %add.ptr425, i8 0, i64 14, i1 false)
   %cmp42.i2555.not = icmp eq i64 %indvars.iv2913, 0
   br i1 %cmp42.i2555.not, label %for.cond3.preheader.i2560, label %for.body.preheader.i2558
@@ -5575,7 +5575,7 @@ for.cond452:                                      ; preds = %for.inc26.6.i2847
 for.body456:                                      ; preds = %for.cond419, %for.cond452
   %indvars.iv2917 = phi i64 [ %indvars.iv.next2918, %for.cond452 ], [ 0, %for.cond419 ]
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(31) @u, i8 97, i64 31, i1 false), !tbaa !5
-  %add.ptr458 = getelementptr inbounds i8, ptr @u, i64 %indvars.iv2917
+  %add.ptr458 = getelementptr i8, ptr @u, i64 %indvars.iv2917
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(15) %add.ptr458, i8 0, i64 15, i1 false)
   %cmp42.i2702.not = icmp eq i64 %indvars.iv2917, 0
   br i1 %cmp42.i2702.not, label %for.cond3.preheader.i2707, label %for.body.preheader.i2705

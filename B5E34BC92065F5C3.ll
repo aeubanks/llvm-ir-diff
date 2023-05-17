@@ -66,10 +66,10 @@ for.body.us:                                      ; preds = %for.body.lr.ph, %fo
   %arrayidx53.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv158
   store i32 %add.us, ptr %arrayidx53.us, align 4, !tbaa !14
   %16 = load i32, ptr %arrayidx57, align 4, !tbaa !14
-  %arrayidx62.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv158, i32 0, i64 1
+  %arrayidx62.us = getelementptr inbounds [3 x i32], ptr %arrayidx53.us, i64 0, i64 1
   store i32 %16, ptr %arrayidx62.us, align 4, !tbaa !14
   %17 = load i32, ptr %arrayidx64, align 4, !tbaa !14
-  %arrayidx69.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv158, i32 0, i64 2
+  %arrayidx69.us = getelementptr inbounds [3 x i32], ptr %arrayidx53.us, i64 0, i64 2
   store i32 %17, ptr %arrayidx69.us, align 4, !tbaa !14
   %18 = load i32, ptr %imax70, align 4, !tbaa !14
   %imax75.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv158, i32 1
@@ -118,10 +118,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %arrayidx53 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv
   store i32 %sub, ptr %arrayidx53, align 4, !tbaa !14
   %35 = load i32, ptr %arrayidx57, align 4, !tbaa !14
-  %arrayidx62 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv, i32 0, i64 1
+  %arrayidx62 = getelementptr inbounds [3 x i32], ptr %arrayidx53, i64 0, i64 1
   store i32 %35, ptr %arrayidx62, align 4, !tbaa !14
   %36 = load i32, ptr %arrayidx64, align 4, !tbaa !14
-  %arrayidx69 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv, i32 0, i64 2
+  %arrayidx69 = getelementptr inbounds [3 x i32], ptr %arrayidx53, i64 0, i64 2
   store i32 %36, ptr %arrayidx69, align 4, !tbaa !14
   %37 = load i32, ptr %imax70, align 4, !tbaa !14
   %imax75 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv, i32 1

@@ -564,6 +564,7 @@ if.end167:                                        ; preds = %land.lhs.true107, %
   %eb.0 = phi i32 [ %cond122, %if.then112 ], [ %., %if.else128 ], [ %.509, %if.then143 ], [ %.511, %if.then156 ], [ -1000000, %if.else151 ], [ %24, %land.lhs.true107 ]
   %et.0 = phi i32 [ %cond117, %if.then112 ], [ %.508, %if.else128 ], [ %.510, %if.then143 ], [ %.512, %if.then156 ], [ 1000000, %if.else151 ], [ %23, %land.lhs.true107 ]
   %32 = load ptr, ptr @rectArray, align 8, !tbaa !5
+  %arrayidx169 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom7
   %t170 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom7, i32 7
   %33 = load i32, ptr %t170, align 4, !tbaa !27
   %cmp171 = icmp sgt i32 %et.0, %33
@@ -582,6 +583,7 @@ if.then176:                                       ; preds = %if.then172
   br label %if.end183
 
 if.end183:                                        ; preds = %if.then172, %if.then176, %if.end167
+  %arrayidx185 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom
   %b186 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom, i32 6
   %35 = load i32, ptr %b186, align 4, !tbaa !28
   %cmp187 = icmp slt i32 %eb.0, %35
@@ -600,8 +602,7 @@ if.then193:                                       ; preds = %if.then188
   br label %if.end201
 
 if.end201:                                        ; preds = %if.then188, %if.then193, %if.end183
-  %arrayidx203 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom
-  %37 = load i32, ptr %arrayidx203, align 4, !tbaa !22
+  %37 = load i32, ptr %arrayidx185, align 4, !tbaa !22
   %cmp204 = icmp slt i32 %37, %el.0.lcssa
   %cmp209 = icmp sgt i32 %37, %er.0518
   %or.cond = or i1 %cmp204, %cmp209
@@ -610,12 +611,11 @@ if.end201:                                        ; preds = %if.then188, %if.the
 if.then210:                                       ; preds = %if.end201
   %add = add nsw i32 %er.0518, %el.0.lcssa
   %div = sdiv i32 %add, 2
-  store i32 %div, ptr %arrayidx203, align 4, !tbaa !22
+  store i32 %div, ptr %arrayidx185, align 4, !tbaa !22
   br label %if.end214
 
 if.end214:                                        ; preds = %if.end201, %if.then210
-  %arrayidx216 = getelementptr inbounds %struct.rect, ptr %32, i64 %idxprom7
-  %38 = load i32, ptr %arrayidx216, align 4, !tbaa !22
+  %38 = load i32, ptr %arrayidx169, align 4, !tbaa !22
   %cmp218 = icmp slt i32 %38, %el.0.lcssa
   %cmp223 = icmp sgt i32 %38, %er.0518
   %or.cond513 = or i1 %cmp218, %cmp223
@@ -624,7 +624,7 @@ if.end214:                                        ; preds = %if.end201, %if.then
 if.then224:                                       ; preds = %if.end214
   %add225 = add nsw i32 %er.0518, %el.0.lcssa
   %div226 = sdiv i32 %add225, 2
-  store i32 %div226, ptr %arrayidx216, align 4, !tbaa !22
+  store i32 %div226, ptr %arrayidx169, align 4, !tbaa !22
   br label %if.end230
 
 if.end230:                                        ; preds = %if.end214, %if.then224
@@ -1286,22 +1286,22 @@ cleanup:                                          ; preds = %entry, %for.end79, 
 ; Function Attrs: mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite)
 declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef) local_unnamed_addr #4
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #5
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #6
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nofree nounwind }
-attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nofree nounwind }
 attributes #7 = { nounwind allocsize(0) }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind allocsize(1) }

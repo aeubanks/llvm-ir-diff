@@ -71,7 +71,7 @@ if.then8:                                         ; preds = %if.end
   %5 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call10 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str.7, ptr noundef nonnull %call, i32 noundef 0, i32 noundef 0) #12
   %6 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc55 = call i32 @fputc(i32 10, ptr %6)
+  %fputc57 = call i32 @fputc(i32 10, ptr %6)
   call void @exit(i32 noundef 1) #13
   unreachable
 
@@ -91,14 +91,14 @@ if.then21:                                        ; preds = %for.body
   %8 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call23 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.9, i32 noundef 0, i32 noundef 0, i32 noundef 0) #12
   %9 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc56 = call i32 @fputc(i32 10, ptr %9)
+  %fputc58 = call i32 @fputc(i32 10, ptr %9)
   call void @exit(i32 noundef 1) #13
   unreachable
 
 if.end25:                                         ; preds = %for.body
   %call26 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.8) #11
-  %call.i58 = call i64 @strtol(ptr nocapture noundef nonnull %call26, ptr noundef null, i32 noundef 10) #11
-  %sub28 = add nsw i64 %call.i58, -1
+  %call.i55 = call i64 @strtol(ptr nocapture noundef nonnull %call26, ptr noundef null, i32 noundef 10) #11
+  %sub28 = add nsw i64 %call.i55, -1
   %module = getelementptr inbounds %struct._Module, ptr %call19, i64 0, i32 1
   store i64 %sub28, ptr %module, align 8, !tbaa !11
   store ptr null, ptr %call19, align 8, !tbaa !13
@@ -119,13 +119,13 @@ if.then33:                                        ; preds = %while.body
   %11 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call35 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.9, i32 noundef 0, i32 noundef 0, i32 noundef 0) #12
   %12 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc57 = call i32 @fputc(i32 10, ptr %12)
+  %fputc59 = call i32 @fputc(i32 10, ptr %12)
   call void @exit(i32 noundef 1) #13
   unreachable
 
 if.end37:                                         ; preds = %while.body
-  %call.i59 = call i64 @strtol(ptr nocapture noundef nonnull %call2963, ptr noundef null, i32 noundef 10) #11
-  %sub39 = add nsw i64 %call.i59, -1
+  %call.i56 = call i64 @strtol(ptr nocapture noundef nonnull %call2963, ptr noundef null, i32 noundef 10) #11
+  %sub39 = add nsw i64 %call.i56, -1
   %module40 = getelementptr inbounds %struct._Module, ptr %call31, i64 0, i32 1
   store i64 %sub39, ptr %module40, align 8, !tbaa !11
   store ptr null, ptr %call31, align 8, !tbaa !13
@@ -288,19 +288,19 @@ entry:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) @groupB, i8 0, i64 16, i1 false)
   %0 = load i64, ptr @numModules, align 8, !tbaa !9
   %div47 = lshr i64 %0, 1
-  %cmp58.not = icmp ult i64 %0, 2
-  br i1 %cmp58.not, label %for.end, label %for.body.preheader
+  %cmp56.not = icmp ult i64 %0, 2
+  br i1 %cmp56.not, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %umax = tail call i64 @llvm.umax.i64(i64 %div47, i64 1)
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %if.end25
-  %p.063 = phi i64 [ %inc, %if.end25 ], [ 0, %for.body.preheader ]
-  %call5262 = phi ptr [ %call51, %if.end25 ], [ null, %for.body.preheader ]
-  %call5361 = phi ptr [ %call, %if.end25 ], [ null, %for.body.preheader ]
-  %call105560 = phi ptr [ %call1054, %if.end25 ], [ null, %for.body.preheader ]
-  %call105759 = phi ptr [ %call10, %if.end25 ], [ null, %for.body.preheader ]
+  %p.061 = phi i64 [ %inc, %if.end25 ], [ 0, %for.body.preheader ]
+  %call5060 = phi ptr [ %call49, %if.end25 ], [ null, %for.body.preheader ]
+  %call5159 = phi ptr [ %call, %if.end25 ], [ null, %for.body.preheader ]
+  %call105358 = phi ptr [ %call1052, %if.end25 ], [ null, %for.body.preheader ]
+  %call105557 = phi ptr [ %call10, %if.end25 ], [ null, %for.body.preheader ]
   %call = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
   %cmp1.not = icmp eq ptr %call, null
   br i1 %cmp1.not, label %if.then, label %if.end
@@ -317,8 +317,8 @@ if.then:                                          ; preds = %for.body
 
 if.end:                                           ; preds = %for.body
   %module = getelementptr inbounds %struct._ModuleRec, ptr %call, i64 0, i32 1
-  store i64 %p.063, ptr %module, align 8, !tbaa !28
-  %cmp5 = icmp eq ptr %call5262, null
+  store i64 %p.061, ptr %module, align 8, !tbaa !28
+  %cmp5 = icmp eq ptr %call5060, null
   br i1 %cmp5, label %if.then6, label %if.else
 
 if.then6:                                         ; preds = %if.end
@@ -328,13 +328,13 @@ if.then6:                                         ; preds = %if.end
 
 if.else:                                          ; preds = %if.end
   store ptr null, ptr %call, align 8, !tbaa !32
-  store ptr %call, ptr %call5361, align 8, !tbaa !32
+  store ptr %call, ptr %call5159, align 8, !tbaa !32
   br label %if.end9
 
 if.end9:                                          ; preds = %if.else, %if.then6
-  %call51 = phi ptr [ %call5262, %if.else ], [ %call, %if.then6 ]
+  %call49 = phi ptr [ %call5060, %if.else ], [ %call, %if.then6 ]
   store ptr %call, ptr getelementptr inbounds (%struct._ModuleList, ptr @groupA, i64 0, i32 1), align 8
-  %arrayidx = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %p.063
+  %arrayidx = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %p.061
   store i32 0, ptr %arrayidx, align 4, !tbaa !33
   %call10 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
   %cmp11.not = icmp eq ptr %call10, null
@@ -351,10 +351,10 @@ if.then12:                                        ; preds = %if.end9
   unreachable
 
 if.end16:                                         ; preds = %if.end9
-  %add = add nuw i64 %div47, %p.063
+  %add = add nuw i64 %div47, %p.061
   %module18 = getelementptr inbounds %struct._ModuleRec, ptr %call10, i64 0, i32 1
   store i64 %add, ptr %module18, align 8, !tbaa !28
-  %cmp19 = icmp eq ptr %call105560, null
+  %cmp19 = icmp eq ptr %call105358, null
   br i1 %cmp19, label %if.then20, label %if.else22
 
 if.then20:                                        ; preds = %if.end16
@@ -364,15 +364,15 @@ if.then20:                                        ; preds = %if.end16
 
 if.else22:                                        ; preds = %if.end16
   store ptr null, ptr %call10, align 8, !tbaa !32
-  store ptr %call10, ptr %call105759, align 8, !tbaa !32
+  store ptr %call10, ptr %call105557, align 8, !tbaa !32
   br label %if.end25
 
 if.end25:                                         ; preds = %if.else22, %if.then20
-  %call1054 = phi ptr [ %call105560, %if.else22 ], [ %call10, %if.then20 ]
+  %call1052 = phi ptr [ %call105358, %if.else22 ], [ %call10, %if.then20 ]
   store ptr %call10, ptr getelementptr inbounds (%struct._ModuleList, ptr @groupB, i64 0, i32 1), align 8
   %arrayidx28 = getelementptr inbounds [1024 x i32], ptr @moduleToGroup, i64 0, i64 %add
   store i32 1, ptr %arrayidx28, align 4, !tbaa !33
-  %inc = add nuw nsw i64 %p.063, 1
+  %inc = add nuw nsw i64 %p.061, 1
   %exitcond.not = icmp eq i64 %inc, %umax
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !34
 

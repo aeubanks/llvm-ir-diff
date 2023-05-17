@@ -97,15 +97,15 @@ if.end4:                                          ; preds = %if.then2, %if.end
 land.rhs.i:                                       ; preds = %if.end4, %while.body.i
   %vl.addr.0.i50 = phi ptr [ %5, %while.body.i ], [ %3, %if.end4 ]
   %4 = load i32, ptr %vl.addr.0.i50, align 8, !tbaa !18
-  %tobool.not.i = icmp eq i32 %4, 0
-  br i1 %tobool.not.i, label %while.body.i, label %if.end8
+  %tobool.i.not = icmp eq i32 %4, 0
+  br i1 %tobool.i.not, label %while.body.i, label %if.end8
 
 while.body.i:                                     ; preds = %land.rhs.i
   %next.i = getelementptr inbounds %struct.vlink, ptr %vl.addr.0.i50, i64 0, i32 20
   %5 = load ptr, ptr %next.i, align 8, !tbaa !9
   tail call void @vlfree(ptr noundef nonnull %vl.addr.0.i50)
-  %cmp.not.i = icmp eq ptr %5, null
-  br i1 %cmp.not.i, label %if.end8, label %land.rhs.i, !llvm.loop !21
+  %cmp.i.not = icmp eq ptr %5, null
+  br i1 %cmp.i.not, label %if.end8, label %land.rhs.i, !llvm.loop !21
 
 if.end8:                                          ; preds = %while.body.i, %land.rhs.i, %if.end4
   %hosttype = getelementptr inbounds %struct.vlink, ptr %vl, i64 0, i32 7

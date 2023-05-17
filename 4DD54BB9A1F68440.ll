@@ -469,8 +469,7 @@ lor.end51:                                        ; preds = %for.end, %lor.rhs49
   store i32 %lor.ext52, ptr %vui_parameters_present_flag, align 4, !tbaa !61
   %chroma_format_idc = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 8
   store i32 %31, ptr %chroma_format_idc, align 4, !tbaa !62
-  %add55 = shl i32 %sub35, 4
-  %mul60 = add i32 %add55, 16
+  %mul60 = shl nsw i32 %div, 4
   %32 = select i1 %narrow, i32 4, i32 5
   %mul61 = shl i32 %div40243, %32
   %call63 = tail call ptr @alloc_colocated(i32 noundef %mul60, i32 noundef %mul61, i32 noundef %conv44) #12
@@ -1213,17 +1212,17 @@ if.then53:                                        ; preds = %if.then51
   br label %for.body.us.i
 
 for.body.us.i:                                    ; preds = %for.cond.us.i, %if.then53
-  %indvars.iv75.i = phi i64 [ %indvars.iv.next76.i, %for.cond.us.i ], [ 0, %if.then53 ]
+  %indvars.iv76.i = phi i64 [ %indvars.iv.next77.i, %for.cond.us.i ], [ 0, %if.then53 ]
   %nextScale.072.us.i = phi i32 [ %nextScale.166.us.i, %for.cond.us.i ], [ 8, %if.then53 ]
   %lastScale.071.us.i = phi i32 [ %23, %for.cond.us.i ], [ 8, %if.then53 ]
-  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv75.i
+  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv76.i
   %cond.in.us.i = load i8, ptr %arrayidx.us.i, align 1, !tbaa !39
   %cmp5.not.us.i = icmp eq i32 %nextScale.072.us.i, 0
-  %.pre81.i = zext i8 %cond.in.us.i to i64
+  %.pre82.i = zext i8 %cond.in.us.i to i64
   br i1 %cmp5.not.us.i, label %if.end28.thread.us.i, label %if.end28.us.i
 
 if.end28.us.i:                                    ; preds = %for.body.us.i
-  %arrayidx8.us.i = getelementptr inbounds i16, ptr %arrayidx55, i64 %.pre81.i
+  %arrayidx8.us.i = getelementptr inbounds i16, ptr %arrayidx55, i64 %.pre82.i
   %19 = load i16, ptr %arrayidx8.us.i, align 2, !tbaa !127
   %conv9.us.i = sext i16 %19 to i32
   %sub.us.i = sub nsw i32 %conv9.us.i, %lastScale.071.us.i
@@ -1235,10 +1234,10 @@ if.end28.us.i:                                    ; preds = %for.body.us.i
   %delta_scale.0.us.i = select i1 %cmp10.us.i, i32 %sub13.us.i, i32 %spec.select.us.i
   %call.us.i = tail call i32 @se_v(ptr noundef nonnull @.str.4, i32 noundef %delta_scale.0.us.i, ptr noundef %call) #12
   %20 = load i16, ptr %arrayidx8.us.i, align 2, !tbaa !127
-  %.fr.us.i = freeze i16 %20
-  %conv21.us.i = sext i16 %.fr.us.i to i32
-  %cmp22.us.i = icmp eq i64 %indvars.iv75.i, 0
-  %cmp24.us.i = icmp eq i16 %.fr.us.i, 0
+  %.fr73.i = freeze i16 %20
+  %conv21.us.i = sext i16 %.fr73.i to i32
+  %cmp22.us.i = icmp eq i64 %indvars.iv76.i, 0
+  %cmp24.us.i = icmp eq i16 %.fr73.i, 0
   %21 = and i1 %cmp22.us.i, %cmp24.us.i
   %land.ext.us.i = zext i1 %21 to i16
   %22 = load i16, ptr %arrayidx60, align 2, !tbaa !127
@@ -1253,11 +1252,11 @@ for.cond.us.i:                                    ; preds = %if.end28.thread.us.
   %nextScale.166.us.i = phi i32 [ 0, %if.end28.thread.us.i ], [ %conv21.us.i, %if.end28.us.i ]
   %23 = phi i32 [ %lastScale.071.us.i, %if.end28.thread.us.i ], [ %conv21.us.i, %if.end28.us.i ]
   %conv35.us.i = trunc i32 %23 to i16
-  %arrayidx37.us.i = getelementptr inbounds i16, ptr %arrayidx57, i64 %.pre81.i
+  %arrayidx37.us.i = getelementptr inbounds i16, ptr %arrayidx57, i64 %.pre82.i
   store i16 %conv35.us.i, ptr %arrayidx37.us.i, align 2, !tbaa !127
-  %indvars.iv.next76.i = add nuw nsw i64 %indvars.iv75.i, 1
-  %exitcond79.not.i = icmp eq i64 %indvars.iv.next76.i, 16
-  br i1 %exitcond79.not.i, label %for.inc, label %for.body.us.i, !llvm.loop !128
+  %indvars.iv.next77.i = add nuw nsw i64 %indvars.iv76.i, 1
+  %exitcond80.not.i = icmp eq i64 %indvars.iv.next77.i, 16
+  br i1 %exitcond80.not.i, label %for.inc, label %for.body.us.i, !llvm.loop !128
 
 if.else:                                          ; preds = %if.then51
   %24 = add nuw i64 %indvars.iv, 4294967290
@@ -1723,17 +1722,17 @@ if.then164:                                       ; preds = %if.then161
   br label %for.body.us.i
 
 for.body.us.i:                                    ; preds = %for.cond.us.i, %if.then164
-  %indvars.iv75.i = phi i64 [ %indvars.iv.next76.i, %for.cond.us.i ], [ 0, %if.then164 ]
+  %indvars.iv76.i = phi i64 [ %indvars.iv.next77.i, %for.cond.us.i ], [ 0, %if.then164 ]
   %nextScale.072.us.i = phi i32 [ %nextScale.166.us.i, %for.cond.us.i ], [ 8, %if.then164 ]
   %lastScale.071.us.i = phi i32 [ %45, %for.cond.us.i ], [ 8, %if.then164 ]
-  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv75.i
+  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv76.i
   %cond.in.us.i = load i8, ptr %arrayidx.us.i, align 1, !tbaa !39
   %cmp5.not.us.i = icmp eq i32 %nextScale.072.us.i, 0
-  %.pre81.i = zext i8 %cond.in.us.i to i64
+  %.pre82.i = zext i8 %cond.in.us.i to i64
   br i1 %cmp5.not.us.i, label %if.end28.thread.us.i, label %if.end28.us.i
 
 if.end28.us.i:                                    ; preds = %for.body.us.i
-  %arrayidx8.us.i = getelementptr inbounds i16, ptr %arrayidx166, i64 %.pre81.i
+  %arrayidx8.us.i = getelementptr inbounds i16, ptr %arrayidx166, i64 %.pre82.i
   %41 = load i16, ptr %arrayidx8.us.i, align 2, !tbaa !127
   %conv9.us.i = sext i16 %41 to i32
   %sub.us.i = sub nsw i32 %conv9.us.i, %lastScale.071.us.i
@@ -1745,10 +1744,10 @@ if.end28.us.i:                                    ; preds = %for.body.us.i
   %delta_scale.0.us.i = select i1 %cmp10.us.i, i32 %sub13.us.i, i32 %spec.select.us.i
   %call.us.i = tail call i32 @se_v(ptr noundef nonnull @.str.4, i32 noundef %delta_scale.0.us.i, ptr noundef %call) #12
   %42 = load i16, ptr %arrayidx8.us.i, align 2, !tbaa !127
-  %.fr.us.i = freeze i16 %42
-  %conv21.us.i = sext i16 %.fr.us.i to i32
-  %cmp22.us.i = icmp eq i64 %indvars.iv75.i, 0
-  %cmp24.us.i = icmp eq i16 %.fr.us.i, 0
+  %.fr73.i = freeze i16 %42
+  %conv21.us.i = sext i16 %.fr73.i to i32
+  %cmp22.us.i = icmp eq i64 %indvars.iv76.i, 0
+  %cmp24.us.i = icmp eq i16 %.fr73.i, 0
   %43 = and i1 %cmp22.us.i, %cmp24.us.i
   %land.ext.us.i = zext i1 %43 to i16
   %44 = load i16, ptr %arrayidx171, align 2, !tbaa !127
@@ -1763,11 +1762,11 @@ for.cond.us.i:                                    ; preds = %if.end28.thread.us.
   %nextScale.166.us.i = phi i32 [ 0, %if.end28.thread.us.i ], [ %conv21.us.i, %if.end28.us.i ]
   %45 = phi i32 [ %lastScale.071.us.i, %if.end28.thread.us.i ], [ %conv21.us.i, %if.end28.us.i ]
   %conv35.us.i = trunc i32 %45 to i16
-  %arrayidx37.us.i = getelementptr inbounds i16, ptr %arrayidx168, i64 %.pre81.i
+  %arrayidx37.us.i = getelementptr inbounds i16, ptr %arrayidx168, i64 %.pre82.i
   store i16 %conv35.us.i, ptr %arrayidx37.us.i, align 2, !tbaa !127
-  %indvars.iv.next76.i = add nuw nsw i64 %indvars.iv75.i, 1
-  %exitcond79.not.i = icmp eq i64 %indvars.iv.next76.i, 16
-  br i1 %exitcond79.not.i, label %for.inc189, label %for.body.us.i, !llvm.loop !128
+  %indvars.iv.next77.i = add nuw nsw i64 %indvars.iv76.i, 1
+  %exitcond80.not.i = icmp eq i64 %indvars.iv.next77.i, 16
+  br i1 %exitcond80.not.i, label %for.inc189, label %for.body.us.i, !llvm.loop !128
 
 if.else174:                                       ; preds = %if.then161
   %46 = add nsw i64 %indvars.iv354, -6
@@ -1872,18 +1871,18 @@ for.body.preheader:                               ; preds = %for.body.lr.ph
   br label %for.body
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %for.cond.us
-  %indvars.iv75 = phi i64 [ %indvars.iv.next76, %for.cond.us ], [ 0, %for.body.lr.ph ]
+  %indvars.iv76 = phi i64 [ %indvars.iv.next77, %for.cond.us ], [ 0, %for.body.lr.ph ]
   %nextScale.072.us = phi i32 [ %nextScale.166.us, %for.cond.us ], [ 8, %for.body.lr.ph ]
   %lastScale.071.us = phi i32 [ %4, %for.cond.us ], [ 8, %for.body.lr.ph ]
   %len.070.us = phi i32 [ %len.164.us, %for.cond.us ], [ 0, %for.body.lr.ph ]
-  %arrayidx.us = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv75
+  %arrayidx.us = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv76
   %cond.in.us = load i8, ptr %arrayidx.us, align 1, !tbaa !39
   %cmp5.not.us = icmp eq i32 %nextScale.072.us, 0
-  %.pre81 = zext i8 %cond.in.us to i64
+  %.pre82 = zext i8 %cond.in.us to i64
   br i1 %cmp5.not.us, label %if.end28.thread.us, label %if.end28.us
 
 if.end28.us:                                      ; preds = %for.body.us
-  %arrayidx8.us = getelementptr inbounds i16, ptr %scalingListinput, i64 %.pre81
+  %arrayidx8.us = getelementptr inbounds i16, ptr %scalingListinput, i64 %.pre82
   %0 = load i16, ptr %arrayidx8.us, align 2, !tbaa !127
   %conv9.us = sext i16 %0 to i32
   %sub.us = sub nsw i32 %conv9.us, %lastScale.071.us
@@ -1896,10 +1895,10 @@ if.end28.us:                                      ; preds = %for.body.us
   %call.us = tail call i32 @se_v(ptr noundef nonnull @.str.4, i32 noundef %delta_scale.0.us, ptr noundef %bitstream) #12
   %add18.us = add nsw i32 %call.us, %len.070.us
   %1 = load i16, ptr %arrayidx8.us, align 2, !tbaa !127
-  %.fr.us = freeze i16 %1
-  %conv21.us = sext i16 %.fr.us to i32
-  %cmp22.us = icmp eq i64 %indvars.iv75, 0
-  %cmp24.us = icmp eq i16 %.fr.us, 0
+  %.fr73 = freeze i16 %1
+  %conv21.us = sext i16 %.fr73 to i32
+  %cmp22.us = icmp eq i64 %indvars.iv76, 0
+  %cmp24.us = icmp eq i16 %.fr73, 0
   %2 = and i1 %cmp22.us, %cmp24.us
   %land.ext.us = zext i1 %2 to i16
   %3 = load i16, ptr %UseDefaultScalingMatrix, align 2, !tbaa !127
@@ -1916,11 +1915,11 @@ for.cond.us:                                      ; preds = %if.end28.thread.us,
   %len.164.us = phi i32 [ %len.165.us, %if.end28.thread.us ], [ %add18.us, %if.end28.us ]
   %4 = phi i32 [ %lastScale.071.us, %if.end28.thread.us ], [ %conv21.us, %if.end28.us ]
   %conv35.us = trunc i32 %4 to i16
-  %arrayidx37.us = getelementptr inbounds i16, ptr %scalingList, i64 %.pre81
+  %arrayidx37.us = getelementptr inbounds i16, ptr %scalingList, i64 %.pre82
   store i16 %conv35.us, ptr %arrayidx37.us, align 2, !tbaa !127
-  %indvars.iv.next76 = add nuw nsw i64 %indvars.iv75, 1
-  %exitcond79.not = icmp eq i64 %indvars.iv.next76, 16
-  br i1 %exitcond79.not, label %for.end, label %for.body.us, !llvm.loop !128
+  %indvars.iv.next77 = add nuw nsw i64 %indvars.iv76, 1
+  %exitcond80.not = icmp eq i64 %indvars.iv.next77, 16
+  br i1 %exitcond80.not, label %for.end, label %for.body.us, !llvm.loop !128
 
 for.body:                                         ; preds = %for.body.preheader, %for.cond
   %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.cond ]
@@ -2108,11 +2107,11 @@ declare ptr @strncpy(ptr noalias noundef returned writeonly, ptr noalias nocaptu
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #11
@@ -2126,8 +2125,8 @@ attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nofree nounwind }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0,1) }

@@ -39,13 +39,13 @@ entry:
   store i32 6, ptr @j, align 4, !tbaa !5
   %0 = load i32, ptr @g, align 4, !tbaa !5
   %tobool.not.i = icmp eq i32 %0, 0
-  br i1 %tobool.not.i, label %if.end, label %for.body3.i.preheader
+  br i1 %tobool.not.i, label %foo.exit, label %for.body3.i.preheader
 
 for.body3.i.preheader:                            ; preds = %entry
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(9) @i, ptr noundef nonnull align 1 dereferenceable(9) @__const.foo.m, i64 9, i1 false), !tbaa.struct !9
-  br label %if.end
+  br label %foo.exit
 
-if.end:                                           ; preds = %entry, %for.body3.i.preheader
+foo.exit:                                         ; preds = %entry, %for.body3.i.preheader
   store i32 3, ptr @k, align 4, !tbaa !5
   ret i32 0
 }

@@ -255,34 +255,34 @@ if.then1.i.i.i:                                   ; preds = %if.then.i
 output_bit.exit.i.i:                              ; preds = %if.then1.i.i.i, %if.then.i
   %.pr.i.i = phi i64 [ %add.i10, %if.then.i ], [ %.pr.i.pre.i, %if.then1.i.i.i ]
   %bits_to_go.promoted.i.i = phi i32 [ %sub.i.i.i, %if.then.i ], [ 8, %if.then1.i.i.i ]
-  %cmp15.i.i = icmp sgt i64 %.pr.i.i, 0
-  br i1 %cmp15.i.i, label %while.body.us.i.i, label %done_encoding.exit
+  %cmp14.i.i = icmp sgt i64 %.pr.i.i, 0
+  br i1 %cmp14.i.i, label %while.body.us.i.i, label %done_encoding.exit
 
-while.body.us.i.i:                                ; preds = %output_bit.exit.i.i, %output_bit.exit13.us.i.i
-  %58 = phi i64 [ %sub.us.i.i, %output_bit.exit13.us.i.i ], [ %.pr.i.i, %output_bit.exit.i.i ]
-  %spec.select.i51416.us.i.i = phi i32 [ %or.i4.us.i.i, %output_bit.exit13.us.i.i ], [ %shr.i.i.i, %output_bit.exit.i.i ]
-  %59 = phi i32 [ %63, %output_bit.exit13.us.i.i ], [ %bits_to_go.promoted.i.i, %output_bit.exit.i.i ]
-  %shr.i2.us.i.i = lshr i32 %spec.select.i51416.us.i.i, 1
-  %or.i4.us.i.i = or i32 %shr.i2.us.i.i, 128
-  %sub.i6.us.i.i = add nsw i32 %59, -1
-  %cmp.i7.us.i.i = icmp eq i32 %sub.i6.us.i.i, 0
-  br i1 %cmp.i7.us.i.i, label %if.then1.i12.us.i.i, label %output_bit.exit13.us.i.i
+while.body.us.i.i:                                ; preds = %output_bit.exit.i.i, %output_bit.exit12.us.i.i
+  %58 = phi i64 [ %sub.us.i.i, %output_bit.exit12.us.i.i ], [ %.pr.i.i, %output_bit.exit.i.i ]
+  %spec.select.i41315.us.i.i = phi i32 [ %or.i3.us.i.i, %output_bit.exit12.us.i.i ], [ %shr.i.i.i, %output_bit.exit.i.i ]
+  %59 = phi i32 [ %63, %output_bit.exit12.us.i.i ], [ %bits_to_go.promoted.i.i, %output_bit.exit.i.i ]
+  %shr.i2.us.i.i = lshr i32 %spec.select.i41315.us.i.i, 1
+  %or.i3.us.i.i = or i32 %shr.i2.us.i.i, 128
+  %sub.i5.us.i.i = add nsw i32 %59, -1
+  %cmp.i6.us.i.i = icmp eq i32 %sub.i5.us.i.i, 0
+  br i1 %cmp.i6.us.i.i, label %if.then1.i11.us.i.i, label %output_bit.exit12.us.i.i
 
-if.then1.i12.us.i.i:                              ; preds = %while.body.us.i.i
-  %conv.i8.us.i.i = trunc i32 %or.i4.us.i.i to i8
+if.then1.i11.us.i.i:                              ; preds = %while.body.us.i.i
+  %conv.i7.us.i.i = trunc i32 %or.i3.us.i.i to i8
   %60 = load ptr, ptr @ari, align 8, !tbaa !17
   %61 = load i32, ptr @ari_pos, align 4, !tbaa !5
-  %inc.i9.us.i.i = add i32 %61, 1
-  store i32 %inc.i9.us.i.i, ptr @ari_pos, align 4, !tbaa !5
-  %idxprom.i10.us.i.i = zext i32 %61 to i64
-  %arrayidx.i11.us.i.i = getelementptr inbounds i8, ptr %60, i64 %idxprom.i10.us.i.i
-  store i8 %conv.i8.us.i.i, ptr %arrayidx.i11.us.i.i, align 1, !tbaa !9
-  %.pre21.i.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  br label %output_bit.exit13.us.i.i
+  %inc.i8.us.i.i = add i32 %61, 1
+  store i32 %inc.i8.us.i.i, ptr @ari_pos, align 4, !tbaa !5
+  %idxprom.i9.us.i.i = zext i32 %61 to i64
+  %arrayidx.i10.us.i.i = getelementptr inbounds i8, ptr %60, i64 %idxprom.i9.us.i.i
+  store i8 %conv.i7.us.i.i, ptr %arrayidx.i10.us.i.i, align 1, !tbaa !9
+  %.pre20.i.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
+  br label %output_bit.exit12.us.i.i
 
-output_bit.exit13.us.i.i:                         ; preds = %if.then1.i12.us.i.i, %while.body.us.i.i
-  %62 = phi i64 [ %58, %while.body.us.i.i ], [ %.pre21.i.i, %if.then1.i12.us.i.i ]
-  %63 = phi i32 [ %sub.i6.us.i.i, %while.body.us.i.i ], [ 8, %if.then1.i12.us.i.i ]
+output_bit.exit12.us.i.i:                         ; preds = %if.then1.i11.us.i.i, %while.body.us.i.i
+  %62 = phi i64 [ %58, %while.body.us.i.i ], [ %.pre20.i.i, %if.then1.i11.us.i.i ]
+  %63 = phi i32 [ %sub.i5.us.i.i, %while.body.us.i.i ], [ 8, %if.then1.i11.us.i.i ]
   %sub.us.i.i = add nsw i64 %62, -1
   store i64 %sub.us.i.i, ptr @bits_to_follow, align 8, !tbaa !15
   %cmp.us.i.i = icmp sgt i64 %62, 1
@@ -313,41 +313,41 @@ if.then1.i.i9.i:                                  ; preds = %if.else.i
 output_bit.exit.i13.i:                            ; preds = %if.then1.i.i9.i, %if.else.i
   %.pr.i11.i = phi i64 [ %add.i10, %if.else.i ], [ %.pr.i11.pre.i, %if.then1.i.i9.i ]
   %bits_to_go.promoted.i10.i = phi i32 [ %sub.i.i3.i, %if.else.i ], [ 8, %if.then1.i.i9.i ]
-  %cmp15.i12.i = icmp sgt i64 %.pr.i11.i, 0
-  br i1 %cmp15.i12.i, label %while.body.i.i, label %done_encoding.exit
+  %cmp14.i12.i = icmp sgt i64 %.pr.i11.i, 0
+  br i1 %cmp14.i12.i, label %while.body.i.i, label %done_encoding.exit
 
-while.body.i.i:                                   ; preds = %output_bit.exit.i13.i, %output_bit.exit13.i.i
-  %67 = phi i64 [ %sub.i.i, %output_bit.exit13.i.i ], [ %.pr.i11.i, %output_bit.exit.i13.i ]
-  %spec.select.i51416.i.i = phi i32 [ %shr.i2.i.i, %output_bit.exit13.i.i ], [ %or.i.i2.i, %output_bit.exit.i13.i ]
-  %68 = phi i32 [ %72, %output_bit.exit13.i.i ], [ %bits_to_go.promoted.i10.i, %output_bit.exit.i13.i ]
-  %shr.i2.i.i = lshr i32 %spec.select.i51416.i.i, 1
-  %sub.i6.i.i = add nsw i32 %68, -1
-  %cmp.i7.i.i = icmp eq i32 %sub.i6.i.i, 0
-  br i1 %cmp.i7.i.i, label %if.then1.i12.i.i, label %output_bit.exit13.i.i
+while.body.i.i:                                   ; preds = %output_bit.exit.i13.i, %output_bit.exit12.i.i
+  %67 = phi i64 [ %sub.i.i, %output_bit.exit12.i.i ], [ %.pr.i11.i, %output_bit.exit.i13.i ]
+  %spec.select.i41315.i.i = phi i32 [ %shr.i2.i.i, %output_bit.exit12.i.i ], [ %or.i.i2.i, %output_bit.exit.i13.i ]
+  %68 = phi i32 [ %72, %output_bit.exit12.i.i ], [ %bits_to_go.promoted.i10.i, %output_bit.exit.i13.i ]
+  %shr.i2.i.i = lshr i32 %spec.select.i41315.i.i, 1
+  %sub.i5.i.i = add nsw i32 %68, -1
+  %cmp.i6.i.i = icmp eq i32 %sub.i5.i.i, 0
+  br i1 %cmp.i6.i.i, label %if.then1.i11.i.i, label %output_bit.exit12.i.i
 
-if.then1.i12.i.i:                                 ; preds = %while.body.i.i
-  %conv.i8.i.i = trunc i32 %shr.i2.i.i to i8
+if.then1.i11.i.i:                                 ; preds = %while.body.i.i
+  %conv.i7.i.i = trunc i32 %shr.i2.i.i to i8
   %69 = load ptr, ptr @ari, align 8, !tbaa !17
   %70 = load i32, ptr @ari_pos, align 4, !tbaa !5
-  %inc.i9.i.i = add i32 %70, 1
-  store i32 %inc.i9.i.i, ptr @ari_pos, align 4, !tbaa !5
-  %idxprom.i10.i.i = zext i32 %70 to i64
-  %arrayidx.i11.i.i = getelementptr inbounds i8, ptr %69, i64 %idxprom.i10.i.i
-  store i8 %conv.i8.i.i, ptr %arrayidx.i11.i.i, align 1, !tbaa !9
+  %inc.i8.i.i = add i32 %70, 1
+  store i32 %inc.i8.i.i, ptr @ari_pos, align 4, !tbaa !5
+  %idxprom.i9.i.i = zext i32 %70 to i64
+  %arrayidx.i10.i.i = getelementptr inbounds i8, ptr %69, i64 %idxprom.i9.i.i
+  store i8 %conv.i7.i.i, ptr %arrayidx.i10.i.i, align 1, !tbaa !9
   %.pre.i.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  br label %output_bit.exit13.i.i
+  br label %output_bit.exit12.i.i
 
-output_bit.exit13.i.i:                            ; preds = %if.then1.i12.i.i, %while.body.i.i
-  %71 = phi i64 [ %67, %while.body.i.i ], [ %.pre.i.i, %if.then1.i12.i.i ]
-  %72 = phi i32 [ %sub.i6.i.i, %while.body.i.i ], [ 8, %if.then1.i12.i.i ]
+output_bit.exit12.i.i:                            ; preds = %if.then1.i11.i.i, %while.body.i.i
+  %71 = phi i64 [ %67, %while.body.i.i ], [ %.pre.i.i, %if.then1.i11.i.i ]
+  %72 = phi i32 [ %sub.i5.i.i, %while.body.i.i ], [ 8, %if.then1.i11.i.i ]
   %sub.i.i = add nsw i64 %71, -1
   store i64 %sub.i.i, ptr @bits_to_follow, align 8, !tbaa !15
   %cmp.i.i = icmp sgt i64 %71, 1
   br i1 %cmp.i.i, label %while.body.i.i, label %if.end.sink.split.i, !llvm.loop !23
 
-if.end.sink.split.i:                              ; preds = %output_bit.exit13.i.i, %output_bit.exit13.us.i.i
-  %shr.i2.i.lcssa.sink.i = phi i32 [ %or.i4.us.i.i, %output_bit.exit13.us.i.i ], [ %shr.i2.i.i, %output_bit.exit13.i.i ]
-  %.lcssa21.sink.i = phi i32 [ %63, %output_bit.exit13.us.i.i ], [ %72, %output_bit.exit13.i.i ]
+if.end.sink.split.i:                              ; preds = %output_bit.exit12.i.i, %output_bit.exit12.us.i.i
+  %shr.i2.i.lcssa.sink.i = phi i32 [ %or.i3.us.i.i, %output_bit.exit12.us.i.i ], [ %shr.i2.i.i, %output_bit.exit12.i.i ]
+  %.lcssa21.sink.i = phi i32 [ %63, %output_bit.exit12.us.i.i ], [ %72, %output_bit.exit12.i.i ]
   store i32 %shr.i2.i.lcssa.sink.i, ptr @buffer, align 4, !tbaa !5
   store i32 %.lcssa21.sink.i, ptr @bits_to_go, align 4, !tbaa !5
   br label %done_encoding.exit
@@ -430,41 +430,41 @@ if.then1.i.i:                                     ; preds = %if.then
 output_bit.exit.i:                                ; preds = %if.then1.i.i, %if.then
   %bits_to_go.promoted.i = phi i32 [ %sub.i.i, %if.then ], [ 8, %if.then1.i.i ]
   %.pr.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  %cmp15.i = icmp sgt i64 %.pr.i, 0
-  br i1 %cmp15.i, label %while.body.us.i, label %if.end31
+  %cmp14.i = icmp sgt i64 %.pr.i, 0
+  br i1 %cmp14.i, label %while.body.us.i, label %if.end31
 
-while.body.us.i:                                  ; preds = %output_bit.exit.i, %output_bit.exit13.us.i
-  %10 = phi i64 [ %sub.us.i, %output_bit.exit13.us.i ], [ %.pr.i, %output_bit.exit.i ]
-  %spec.select.i51416.us.i = phi i32 [ %or.i4.us.i, %output_bit.exit13.us.i ], [ %shr.i.i, %output_bit.exit.i ]
-  %11 = phi i32 [ %15, %output_bit.exit13.us.i ], [ %bits_to_go.promoted.i, %output_bit.exit.i ]
-  %shr.i2.us.i = lshr i32 %spec.select.i51416.us.i, 1
-  %or.i4.us.i = or i32 %shr.i2.us.i, 128
-  %sub.i6.us.i = add nsw i32 %11, -1
-  %cmp.i7.us.i = icmp eq i32 %sub.i6.us.i, 0
-  br i1 %cmp.i7.us.i, label %if.then1.i12.us.i, label %output_bit.exit13.us.i
+while.body.us.i:                                  ; preds = %output_bit.exit.i, %output_bit.exit12.us.i
+  %10 = phi i64 [ %sub.us.i, %output_bit.exit12.us.i ], [ %.pr.i, %output_bit.exit.i ]
+  %spec.select.i41315.us.i = phi i32 [ %or.i3.us.i, %output_bit.exit12.us.i ], [ %shr.i.i, %output_bit.exit.i ]
+  %11 = phi i32 [ %15, %output_bit.exit12.us.i ], [ %bits_to_go.promoted.i, %output_bit.exit.i ]
+  %shr.i2.us.i = lshr i32 %spec.select.i41315.us.i, 1
+  %or.i3.us.i = or i32 %shr.i2.us.i, 128
+  %sub.i5.us.i = add nsw i32 %11, -1
+  %cmp.i6.us.i = icmp eq i32 %sub.i5.us.i, 0
+  br i1 %cmp.i6.us.i, label %if.then1.i11.us.i, label %output_bit.exit12.us.i
 
-if.then1.i12.us.i:                                ; preds = %while.body.us.i
-  %conv.i8.us.i = trunc i32 %or.i4.us.i to i8
+if.then1.i11.us.i:                                ; preds = %while.body.us.i
+  %conv.i7.us.i = trunc i32 %or.i3.us.i to i8
   %12 = load ptr, ptr @ari, align 8, !tbaa !17
   %13 = load i32, ptr @ari_pos, align 4, !tbaa !5
-  %inc.i9.us.i = add i32 %13, 1
-  store i32 %inc.i9.us.i, ptr @ari_pos, align 4, !tbaa !5
-  %idxprom.i10.us.i = zext i32 %13 to i64
-  %arrayidx.i11.us.i = getelementptr inbounds i8, ptr %12, i64 %idxprom.i10.us.i
-  store i8 %conv.i8.us.i, ptr %arrayidx.i11.us.i, align 1, !tbaa !9
-  %.pre21.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  br label %output_bit.exit13.us.i
+  %inc.i8.us.i = add i32 %13, 1
+  store i32 %inc.i8.us.i, ptr @ari_pos, align 4, !tbaa !5
+  %idxprom.i9.us.i = zext i32 %13 to i64
+  %arrayidx.i10.us.i = getelementptr inbounds i8, ptr %12, i64 %idxprom.i9.us.i
+  store i8 %conv.i7.us.i, ptr %arrayidx.i10.us.i, align 1, !tbaa !9
+  %.pre20.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
+  br label %output_bit.exit12.us.i
 
-output_bit.exit13.us.i:                           ; preds = %if.then1.i12.us.i, %while.body.us.i
-  %14 = phi i64 [ %10, %while.body.us.i ], [ %.pre21.i, %if.then1.i12.us.i ]
-  %15 = phi i32 [ %sub.i6.us.i, %while.body.us.i ], [ 8, %if.then1.i12.us.i ]
+output_bit.exit12.us.i:                           ; preds = %if.then1.i11.us.i, %while.body.us.i
+  %14 = phi i64 [ %10, %while.body.us.i ], [ %.pre20.i, %if.then1.i11.us.i ]
+  %15 = phi i32 [ %sub.i5.us.i, %while.body.us.i ], [ 8, %if.then1.i11.us.i ]
   %sub.us.i = add nsw i64 %14, -1
   store i64 %sub.us.i, ptr @bits_to_follow, align 8, !tbaa !15
   %cmp.us.i = icmp sgt i64 %14, 1
   br i1 %cmp.us.i, label %while.body.us.i, label %while.cond.while.end_crit_edge.i, !llvm.loop !23
 
-while.cond.while.end_crit_edge.i:                 ; preds = %output_bit.exit13.us.i
-  store i32 %or.i4.us.i, ptr @buffer, align 4, !tbaa !5
+while.cond.while.end_crit_edge.i:                 ; preds = %output_bit.exit12.us.i
+  store i32 %or.i3.us.i, ptr @buffer, align 4, !tbaa !5
   store i32 %15, ptr @bits_to_go, align 4, !tbaa !5
   br label %if.end31
 
@@ -496,39 +496,39 @@ if.then1.i.i49:                                   ; preds = %if.then17
 output_bit.exit.i53:                              ; preds = %if.then1.i.i49, %if.then17
   %bits_to_go.promoted.i50 = phi i32 [ %sub.i.i43, %if.then17 ], [ 8, %if.then1.i.i49 ]
   %.pr.i51 = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  %cmp15.i52 = icmp sgt i64 %.pr.i51, 0
-  br i1 %cmp15.i52, label %while.body.i, label %bit_plus_follow.exit56
+  %cmp14.i52 = icmp sgt i64 %.pr.i51, 0
+  br i1 %cmp14.i52, label %while.body.i, label %bit_plus_follow.exit56
 
-while.body.i:                                     ; preds = %output_bit.exit.i53, %output_bit.exit13.i
-  %18 = phi i64 [ %sub.i, %output_bit.exit13.i ], [ %.pr.i51, %output_bit.exit.i53 ]
-  %spec.select.i51416.i = phi i32 [ %shr.i2.i, %output_bit.exit13.i ], [ %or.i.i42, %output_bit.exit.i53 ]
-  %19 = phi i32 [ %23, %output_bit.exit13.i ], [ %bits_to_go.promoted.i50, %output_bit.exit.i53 ]
-  %shr.i2.i = lshr i32 %spec.select.i51416.i, 1
-  %sub.i6.i = add nsw i32 %19, -1
-  %cmp.i7.i = icmp eq i32 %sub.i6.i, 0
-  br i1 %cmp.i7.i, label %if.then1.i12.i, label %output_bit.exit13.i
+while.body.i:                                     ; preds = %output_bit.exit.i53, %output_bit.exit12.i
+  %18 = phi i64 [ %sub.i, %output_bit.exit12.i ], [ %.pr.i51, %output_bit.exit.i53 ]
+  %spec.select.i41315.i = phi i32 [ %shr.i2.i, %output_bit.exit12.i ], [ %or.i.i42, %output_bit.exit.i53 ]
+  %19 = phi i32 [ %23, %output_bit.exit12.i ], [ %bits_to_go.promoted.i50, %output_bit.exit.i53 ]
+  %shr.i2.i = lshr i32 %spec.select.i41315.i, 1
+  %sub.i5.i = add nsw i32 %19, -1
+  %cmp.i6.i = icmp eq i32 %sub.i5.i, 0
+  br i1 %cmp.i6.i, label %if.then1.i11.i, label %output_bit.exit12.i
 
-if.then1.i12.i:                                   ; preds = %while.body.i
-  %conv.i8.i = trunc i32 %shr.i2.i to i8
+if.then1.i11.i:                                   ; preds = %while.body.i
+  %conv.i7.i = trunc i32 %shr.i2.i to i8
   %20 = load ptr, ptr @ari, align 8, !tbaa !17
   %21 = load i32, ptr @ari_pos, align 4, !tbaa !5
-  %inc.i9.i = add i32 %21, 1
-  store i32 %inc.i9.i, ptr @ari_pos, align 4, !tbaa !5
-  %idxprom.i10.i = zext i32 %21 to i64
-  %arrayidx.i11.i = getelementptr inbounds i8, ptr %20, i64 %idxprom.i10.i
-  store i8 %conv.i8.i, ptr %arrayidx.i11.i, align 1, !tbaa !9
+  %inc.i8.i = add i32 %21, 1
+  store i32 %inc.i8.i, ptr @ari_pos, align 4, !tbaa !5
+  %idxprom.i9.i = zext i32 %21 to i64
+  %arrayidx.i10.i = getelementptr inbounds i8, ptr %20, i64 %idxprom.i9.i
+  store i8 %conv.i7.i, ptr %arrayidx.i10.i, align 1, !tbaa !9
   %.pre.i = load i64, ptr @bits_to_follow, align 8, !tbaa !15
-  br label %output_bit.exit13.i
+  br label %output_bit.exit12.i
 
-output_bit.exit13.i:                              ; preds = %if.then1.i12.i, %while.body.i
-  %22 = phi i64 [ %18, %while.body.i ], [ %.pre.i, %if.then1.i12.i ]
-  %23 = phi i32 [ %sub.i6.i, %while.body.i ], [ 8, %if.then1.i12.i ]
+output_bit.exit12.i:                              ; preds = %if.then1.i11.i, %while.body.i
+  %22 = phi i64 [ %18, %while.body.i ], [ %.pre.i, %if.then1.i11.i ]
+  %23 = phi i32 [ %sub.i5.i, %while.body.i ], [ 8, %if.then1.i11.i ]
   %sub.i = add nsw i64 %22, -1
   store i64 %sub.i, ptr @bits_to_follow, align 8, !tbaa !15
   %cmp.i = icmp sgt i64 %22, 1
   br i1 %cmp.i, label %while.body.i, label %while.cond.while.end_crit_edge.i55, !llvm.loop !23
 
-while.cond.while.end_crit_edge.i55:               ; preds = %output_bit.exit13.i
+while.cond.while.end_crit_edge.i55:               ; preds = %output_bit.exit12.i
   store i32 %shr.i2.i, ptr @buffer, align 4, !tbaa !5
   store i32 %23, ptr @bits_to_go, align 4, !tbaa !5
   br label %bit_plus_follow.exit56
@@ -562,7 +562,7 @@ if.then25:                                        ; preds = %if.else20
 
 if.end31:                                         ; preds = %while.cond.while.end_crit_edge.i, %output_bit.exit.i, %bit_plus_follow.exit56, %if.then25
   %28 = phi i32 [ %15, %while.cond.while.end_crit_edge.i ], [ %bits_to_go.promoted.i, %output_bit.exit.i ], [ %24, %bit_plus_follow.exit56 ], [ %6, %if.then25 ]
-  %shr.i2.i.lcssa2 = phi i32 [ %or.i4.us.i, %while.cond.while.end_crit_edge.i ], [ %shr.i.i, %output_bit.exit.i ], [ %shr.i2.i.lcssa4, %bit_plus_follow.exit56 ], [ %shr.i2.i.lcssa3, %if.then25 ]
+  %shr.i2.i.lcssa2 = phi i32 [ %or.i3.us.i, %while.cond.while.end_crit_edge.i ], [ %shr.i.i, %output_bit.exit.i ], [ %shr.i2.i.lcssa4, %bit_plus_follow.exit56 ], [ %shr.i2.i.lcssa3, %if.then25 ]
   %29 = load i64, ptr @low, align 8, !tbaa !15
   %mul32 = shl nsw i64 %29, 1
   store i64 %mul32, ptr @low, align 8, !tbaa !15

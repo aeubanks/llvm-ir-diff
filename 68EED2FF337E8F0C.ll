@@ -261,12 +261,12 @@ sw.bb7.i:                                         ; preds = %if.then4.i
   br label %default_decompress_parms.exit
 
 sw.default.i:                                     ; preds = %if.then4.i
+  %conv.i = zext i8 %10 to i32
   %11 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 5
   store i32 110, ptr %msg_code.i, align 8, !tbaa !14
-  %conv10.i = zext i8 %10 to i32
   %msg_parm.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 6
-  store i32 %conv10.i, ptr %msg_parm.i, align 4, !tbaa !17
+  store i32 %conv.i, ptr %msg_parm.i, align 4, !tbaa !17
   %12 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %emit_message.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %12, i64 0, i32 1
   %13 = load ptr, ptr %emit_message.i, align 8, !tbaa !37
@@ -329,12 +329,12 @@ sw.bb64.i:                                        ; preds = %if.then59.i
   br label %default_decompress_parms.exit
 
 sw.default66.i:                                   ; preds = %if.then59.i
+  %conv61.i = zext i8 %21 to i32
   %22 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %msg_code68.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %22, i64 0, i32 5
   store i32 110, ptr %msg_code68.i, align 8, !tbaa !14
-  %conv70.i = zext i8 %21 to i32
   %msg_parm72.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %22, i64 0, i32 6
-  store i32 %conv70.i, ptr %msg_parm72.i, align 4, !tbaa !17
+  store i32 %conv61.i, ptr %msg_parm72.i, align 4, !tbaa !17
   %23 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %emit_message75.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %23, i64 0, i32 1
   %24 = load ptr, ptr %emit_message75.i, align 8, !tbaa !37
@@ -452,15 +452,18 @@ define dso_local i32 @jpeg_finish_decompress(ptr noundef %cinfo) local_unnamed_a
 entry:
   %global_state = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 4
   %0 = load i32, ptr %global_state, align 4, !tbaa !22
-  %.off = add i32 %0, -205
-  %switch = icmp ult i32 %.off, 2
-  br i1 %switch, label %land.lhs.true, label %if.else
+  switch i32 %0, label %if.then14 [
+    i32 205, label %land.lhs.true
+    i32 206, label %land.lhs.true
+    i32 207, label %if.then9
+    i32 210, label %if.end23
+  ]
 
-land.lhs.true:                                    ; preds = %entry
+land.lhs.true:                                    ; preds = %entry, %entry
   %buffered_image = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 14
   %1 = load i32, ptr %buffered_image, align 8, !tbaa !50
   %tobool.not = icmp eq i32 %1, 0
-  br i1 %tobool.not, label %if.then, label %if.else
+  br i1 %tobool.not, label %if.then, label %if.then14
 
 if.then:                                          ; preds = %land.lhs.true
   %output_scanline = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 33
@@ -487,17 +490,11 @@ if.end:                                           ; preds = %if.then4, %if.then
   store i32 210, ptr %global_state, align 4, !tbaa !22
   br label %if.end23
 
-if.else:                                          ; preds = %entry, %land.lhs.true
-  switch i32 %0, label %if.then14 [
-    i32 207, label %if.then9
-    i32 210, label %if.end23
-  ]
-
-if.then9:                                         ; preds = %if.else
+if.then9:                                         ; preds = %entry
   store i32 210, ptr %global_state, align 4, !tbaa !22
   br label %if.end23
 
-if.then14:                                        ; preds = %if.else
+if.then14:                                        ; preds = %land.lhs.true, %entry
   %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %msg_code16 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
   store i32 18, ptr %msg_code16, align 8, !tbaa !14
@@ -508,7 +505,7 @@ if.then14:                                        ; preds = %if.else
   tail call void %10(ptr noundef nonnull %cinfo) #3
   br label %if.end23
 
-if.end23:                                         ; preds = %if.else, %if.then9, %if.then14, %if.end
+if.end23:                                         ; preds = %entry, %if.then9, %if.then14, %if.end
   %inputctl = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 77
   br label %while.cond
 

@@ -592,10 +592,10 @@ if.end7:                                          ; preds = %if.end
 if.end12:                                         ; preds = %if.end7
   %conv13 = trunc i32 %conv to i16
   store i16 %conv13, ptr %size, align 2, !tbaa !19
-  %5 = or i16 %3, -32768
-  store i16 %5, ptr %type_attrs, align 8, !tbaa !5
-  %6 = load ptr, ptr %op, align 8, !tbaa !10
-  %call = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %6, ptr noundef nonnull @dstack, i32 noundef %conv) #7
+  %or = or i16 %3, -32768
+  store i16 %or, ptr %type_attrs, align 8, !tbaa !5
+  %5 = load ptr, ptr %op, align 8, !tbaa !10
+  %call = tail call i32 (ptr, ptr, i32, ...) @refcpy(ptr noundef %5, ptr noundef nonnull @dstack, i32 noundef %conv) #7
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end7, %if.end, %entry, %if.end12

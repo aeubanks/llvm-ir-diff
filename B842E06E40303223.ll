@@ -573,7 +573,7 @@ entry:
   %add17 = or i32 %mul16, 8
   %cmp = icmp slt i32 %add17, 16384
   %theByteSizeTableEntry.0 = select i1 %cmp, i64 2, i64 3
-  %mul22 = mul nuw nsw i64 %theByteSizeTableEntry.0, %add
+  %mul22 = mul nuw nsw i64 %add, %theByteSizeTableEntry.0
   %conv23 = trunc i64 %mul22 to i32
   store i32 %conv23, ptr %theMaxPacketTableSize, align 4, !tbaa !8
   ret i32 0

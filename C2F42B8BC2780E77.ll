@@ -90,7 +90,7 @@ if.end:                                           ; preds = %entry.if.end_crit_e
 
 if.end.if.end98_crit_edge:                        ; preds = %if.end
   %brate104.phi.trans.insert = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 11
-  %.pre1089 = load i32, ptr %brate104.phi.trans.insert, align 8, !tbaa !16
+  %.pre1081 = load i32, ptr %brate104.phi.trans.insert, align 8, !tbaa !16
   br label %if.end98
 
 if.then7:                                         ; preds = %if.end
@@ -190,7 +190,7 @@ if.else89:                                        ; preds = %if.else83
   br label %if.end98
 
 if.end98:                                         ; preds = %if.end.if.end98_crit_edge, %if.end38, %if.then63, %if.then75, %if.then87, %if.else89, %if.then81, %if.then69, %if.then40
-  %7 = phi i32 [ %4, %if.end38 ], [ %4, %if.then63 ], [ %4, %if.then75 ], [ %4, %if.then87 ], [ %4, %if.else89 ], [ %4, %if.then81 ], [ %4, %if.then69 ], [ %4, %if.then40 ], [ %.pre1089, %if.end.if.end98_crit_edge ]
+  %7 = phi i32 [ %4, %if.end38 ], [ %4, %if.then63 ], [ %4, %if.then75 ], [ %4, %if.then87 ], [ %4, %if.else89 ], [ %4, %if.then81 ], [ %4, %if.then69 ], [ %4, %if.then40 ], [ %.pre1081, %if.end.if.end98_crit_edge ]
   %8 = phi i32 [ %.sink, %if.end38 ], [ 16000, %if.then63 ], [ 24000, %if.then75 ], [ 44100, %if.then87 ], [ 48000, %if.else89 ], [ 32000, %if.then81 ], [ 22050, %if.then69 ], [ %.sink, %if.then40 ], [ %2, %if.end.if.end98_crit_edge ]
   %cmp100 = icmp sgt i32 %8, 24000
   %cond = select i1 %cmp100, i32 2, i32 1
@@ -243,7 +243,7 @@ if.end127:                                        ; preds = %if.then120, %if.end
   br i1 %cmp137, label %if.then139, label %if.end127.if.end141_crit_edge
 
 if.end127.if.end141_crit_edge:                    ; preds = %if.end127
-  %.pre1090 = load i32, ptr %VBR140, align 8, !tbaa !18
+  %.pre1082 = load i32, ptr %VBR140, align 8, !tbaa !18
   br label %if.end141
 
 if.then139:                                       ; preds = %if.end127
@@ -251,7 +251,7 @@ if.then139:                                       ; preds = %if.end127
   br label %if.end141
 
 if.end141:                                        ; preds = %if.end127.if.end141_crit_edge, %if.then139
-  %14 = phi i32 [ %.pre1090, %if.end127.if.end141_crit_edge ], [ 0, %if.then139 ]
+  %14 = phi i32 [ %.pre1082, %if.end127.if.end141_crit_edge ], [ 0, %if.then139 ]
   %mul143 = shl nsw i32 %8, 4
   %15 = zext i1 %cmp2 to i32
   %mul145 = shl i32 %mul143, %15
@@ -279,28 +279,31 @@ if.end161:                                        ; preds = %if.then157, %if.end
   %mode_fixed = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 9
   %17 = load i32, ptr %mode_fixed, align 8, !tbaa !26
   %tobool162.not = icmp eq i32 %17, 0
-  %cmp168 = fcmp olt float %compression_ratio.0, 9.000000e+00
-  %18 = select i1 %tobool162.not, i1 %cmp2, i1 false
-  %or.cond1107 = select i1 %18, i1 %cmp168, i1 false
-  br i1 %or.cond1107, label %if.then170, label %if.end173
+  br i1 %tobool162.not, label %land.lhs.true163, label %if.end173
 
-if.then170:                                       ; preds = %if.end161
+land.lhs.true163:                                 ; preds = %if.end161
+  %cmp165 = icmp ne i32 %1, 3
+  %cmp168 = fcmp olt float %compression_ratio.0, 9.000000e+00
+  %or.cond734 = select i1 %cmp165, i1 %cmp168, i1 false
+  br i1 %or.cond734, label %if.then170, label %if.end173
+
+if.then170:                                       ; preds = %land.lhs.true163
   store i32 0, ptr %mode1, align 4, !tbaa !14
   br label %if.end173
 
-if.end173:                                        ; preds = %if.then170, %if.end161
+if.end173:                                        ; preds = %if.then170, %land.lhs.true163, %if.end161
   %lowpassfreq = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 25
-  %19 = load i32, ptr %lowpassfreq, align 8, !tbaa !27
-  %cmp174 = icmp eq i32 %19, 0
+  %18 = load i32, ptr %lowpassfreq, align 8, !tbaa !27
+  %cmp174 = icmp eq i32 %18, 0
   br i1 %cmp174, label %if.then176, label %if.end192
 
 if.then176:                                       ; preds = %if.end173
   %conv177 = fpext float %compression_ratio.0 to double
   %div178 = fmul double %conv177, 6.250000e-02
   %call = tail call double @log(double noundef %div178) #18
-  %20 = tail call double @llvm.fmuladd.f64(double %call, double -1.800000e+01, double 1.450000e+01)
-  %21 = tail call double @llvm.floor.f64(double %20)
-  %add180 = fadd double %21, 1.000000e+00
+  %19 = tail call double @llvm.fmuladd.f64(double %call, double -1.800000e+01, double 1.450000e+01)
+  %20 = tail call double @llvm.floor.f64(double %19)
+  %add180 = fadd double %20, 1.000000e+00
   %conv181 = fptosi double %add180 to i32
   %cmp182 = icmp slt i32 %conv181, 31
   br i1 %cmp182, label %if.then184, label %if.end192
@@ -317,25 +320,25 @@ if.then184:                                       ; preds = %if.then176
 
 if.end192:                                        ; preds = %if.then176, %if.then184, %if.end173
   %highpassfreq = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 26
-  %22 = load i32, ptr %highpassfreq, align 4, !tbaa !30
-  %cmp193 = icmp sgt i32 %22, 0
+  %21 = load i32, ptr %highpassfreq, align 4, !tbaa !30
+  %cmp193 = icmp sgt i32 %21, 0
   br i1 %cmp193, label %if.then195, label %if.end240
 
 if.then195:                                       ; preds = %if.end192
-  %conv197 = sitofp i32 %22 to double
+  %conv197 = sitofp i32 %21 to double
   %mul198 = fmul double %conv197, 2.000000e+00
-  %23 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %conv200 = sitofp i32 %23 to double
+  %22 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %conv200 = sitofp i32 %22 to double
   %div201 = fdiv double %mul198, %conv200
   %conv202 = fptrunc double %div201 to float
   %highpass1 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 55
   %highpasswidth = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 28
-  %24 = load i32, ptr %highpasswidth, align 4, !tbaa !31
-  %cmp203 = icmp sgt i32 %24, -1
+  %23 = load i32, ptr %highpasswidth, align 4, !tbaa !31
+  %cmp203 = icmp sgt i32 %23, -1
   br i1 %cmp203, label %if.then205, label %if.end224
 
 if.then205:                                       ; preds = %if.then195
-  %add208 = add nuw nsw i32 %24, %22
+  %add208 = add nuw nsw i32 %23, %21
   %conv209 = sitofp i32 %add208 to double
   %mul210 = fmul double %conv209, 2.000000e+00
   %div213 = fdiv double %mul210, %conv200
@@ -344,32 +347,32 @@ if.then205:                                       ; preds = %if.then195
 
 if.end224:                                        ; preds = %if.then195, %if.then205
   %conv202.sink = phi float [ %conv214, %if.then205 ], [ %conv202, %if.then195 ]
-  %25 = insertelement <2 x float> poison, float %conv202, i64 0
-  %26 = insertelement <2 x float> %25, float %conv202.sink, i64 1
-  %27 = fcmp ogt <2 x float> %26, <float 1.000000e+00, float 1.000000e+00>
-  %28 = select <2 x i1> %27, <2 x float> <float 1.000000e+00, float 1.000000e+00>, <2 x float> %26
-  store <2 x float> %28, ptr %highpass1, align 8, !tbaa !32
+  %24 = insertelement <2 x float> poison, float %conv202, i64 0
+  %25 = insertelement <2 x float> %24, float %conv202.sink, i64 1
+  %26 = fcmp ogt <2 x float> %25, <float 1.000000e+00, float 1.000000e+00>
+  %27 = select <2 x i1> %26, <2 x float> <float 1.000000e+00, float 1.000000e+00>, <2 x float> %25
+  store <2 x float> %27, ptr %highpass1, align 8, !tbaa !32
   br label %if.end240
 
 if.end240:                                        ; preds = %if.end224, %if.end192
-  %29 = load i32, ptr %lowpassfreq, align 8, !tbaa !27
-  %cmp242 = icmp sgt i32 %29, 0
+  %28 = load i32, ptr %lowpassfreq, align 8, !tbaa !27
+  %cmp242 = icmp sgt i32 %28, 0
   br i1 %cmp242, label %if.then244, label %if.end299
 
 if.then244:                                       ; preds = %if.end240
-  %conv246 = sitofp i32 %29 to double
+  %conv246 = sitofp i32 %28 to double
   %mul247 = fmul double %conv246, 2.000000e+00
-  %30 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %conv249 = sitofp i32 %30 to double
+  %29 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %conv249 = sitofp i32 %29 to double
   %div250 = fdiv double %mul247, %conv249
   %conv251 = fptrunc double %div250 to float
   %lowpasswidth = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 27
-  %31 = load i32, ptr %lowpasswidth, align 8, !tbaa !33
-  %cmp253 = icmp sgt i32 %31, -1
+  %30 = load i32, ptr %lowpasswidth, align 8, !tbaa !33
+  %cmp253 = icmp sgt i32 %30, -1
   br i1 %cmp253, label %if.then255, label %if.end280
 
 if.then255:                                       ; preds = %if.then244
-  %sub = sub nsw i32 %29, %31
+  %sub = sub nsw i32 %28, %30
   %conv258 = sitofp i32 %sub to double
   %mul259 = fmul double %conv258, 2.000000e+00
   %div262 = fdiv double %mul259, %conv249
@@ -381,25 +384,25 @@ if.then268:                                       ; preds = %if.then255
   br label %if.end280
 
 if.end280:                                        ; preds = %if.then244, %if.then255, %if.then268
-  %32 = phi float [ %conv263, %if.then255 ], [ 0.000000e+00, %if.then268 ], [ %conv251, %if.then244 ]
+  %31 = phi float [ %conv263, %if.then255 ], [ 0.000000e+00, %if.then268 ], [ %conv251, %if.then244 ]
   %lowpass1281 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 53
-  %33 = insertelement <2 x float> poison, float %32, i64 0
-  %34 = insertelement <2 x float> %33, float %conv251, i64 1
-  %35 = fcmp ogt <2 x float> %34, <float 1.000000e+00, float 1.000000e+00>
-  %36 = select <2 x i1> %35, <2 x float> <float 1.000000e+00, float 1.000000e+00>, <2 x float> %34
-  store <2 x float> %36, ptr %lowpass1281, align 8, !tbaa !32
+  %32 = insertelement <2 x float> poison, float %31, i64 0
+  %33 = insertelement <2 x float> %32, float %conv251, i64 1
+  %34 = fcmp ogt <2 x float> %33, <float 1.000000e+00, float 1.000000e+00>
+  %35 = select <2 x i1> %34, <2 x float> <float 1.000000e+00, float 1.000000e+00>, <2 x float> %33
+  store <2 x float> %35, ptr %lowpass1281, align 8, !tbaa !32
   br label %if.end299
 
 if.end299:                                        ; preds = %if.end280, %if.end240
   %filter_type = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 59
-  %37 = load i32, ptr %filter_type, align 8, !tbaa !34
-  %cmp300 = icmp eq i32 %37, 0
+  %36 = load i32, ptr %filter_type, align 8, !tbaa !34
+  %cmp300 = icmp eq i32 %36, 0
   br i1 %cmp300, label %if.then302, label %if.end477
 
 if.then302:                                       ; preds = %if.end299
   %lowpass1304 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 53
-  %38 = load float, ptr %lowpass1304, align 8, !tbaa !28
-  %cmp305 = fcmp ogt float %38, 0.000000e+00
+  %37 = load float, ptr %lowpass1304, align 8, !tbaa !28
+  %cmp305 = fcmp ogt float %37, 0.000000e+00
   br i1 %cmp305, label %for.cond.preheader, label %if.end380
 
 for.cond.preheader:                               ; preds = %if.then302
@@ -408,83 +411,83 @@ for.cond.preheader:                               ; preds = %if.then302
   br label %for.body
 
 for.body:                                         ; preds = %for.cond.preheader, %for.inc
-  %minband.01078 = phi i32 [ 999, %for.cond.preheader ], [ %minband.1, %for.inc ]
-  %band303.01076 = phi i32 [ 0, %for.cond.preheader ], [ %inc, %for.inc ]
-  %conv310 = sitofp i32 %band303.01076 to double
+  %minband.01070 = phi i32 [ 999, %for.cond.preheader ], [ %minband.1, %for.inc ]
+  %band303.01068 = phi i32 [ 0, %for.cond.preheader ], [ %inc, %for.inc ]
+  %conv310 = sitofp i32 %band303.01068 to double
   %div311 = fdiv double %conv310, 3.100000e+01
-  %39 = load float, ptr %lowpass2312, align 4, !tbaa !29
-  %conv313 = fpext float %39 to double
+  %38 = load float, ptr %lowpass2312, align 4, !tbaa !29
+  %conv313 = fpext float %38 to double
   %cmp314 = fcmp ult double %div311, %conv313
   br i1 %cmp314, label %if.end325, label %if.then316
 
 if.then316:                                       ; preds = %for.body
-  %40 = load i32, ptr %lowpass_band, align 8, !tbaa !35
-  %.band303.0 = tail call i32 @llvm.smin.i32(i32 %40, i32 %band303.01076)
+  %39 = load i32, ptr %lowpass_band, align 8, !tbaa !35
+  %.band303.0 = tail call i32 @llvm.smin.i32(i32 %39, i32 %band303.01068)
   store i32 %.band303.0, ptr %lowpass_band, align 8, !tbaa !35
   br label %if.end325
 
 if.end325:                                        ; preds = %if.then316, %for.body
-  %41 = load float, ptr %lowpass1304, align 8, !tbaa !28
-  %conv327 = fpext float %41 to double
+  %40 = load float, ptr %lowpass1304, align 8, !tbaa !28
+  %conv327 = fpext float %40 to double
   %cmp328 = fcmp ogt double %div311, %conv327
   %cmp333 = fcmp olt double %div311, %conv313
-  %or.cond1073 = and i1 %cmp333, %cmp328
-  br i1 %or.cond1073, label %if.then335, label %for.inc
+  %or.cond1051 = and i1 %cmp333, %cmp328
+  br i1 %or.cond1051, label %if.then335, label %for.inc
 
 if.then335:                                       ; preds = %if.end325
-  %cond341 = tail call i32 @llvm.smin.i32(i32 %minband.01078, i32 %band303.01076)
+  %cond341 = tail call i32 @llvm.smin.i32(i32 %minband.01070, i32 %band303.01068)
   %sub350 = fsub double %conv327, %div311
   %mul351 = fmul double %sub350, 0x3FF921FB54442D18
-  %sub354 = fsub float %39, %41
+  %sub354 = fsub float %38, %40
   %conv355 = fpext float %sub354 to double
   %div356 = fdiv double %mul351, %conv355
-  %42 = tail call i1 @llvm.is.fpclass.f64(double %div356, i32 516)
-  br i1 %42, label %cdce.call, label %for.inc, !prof !36
+  %41 = tail call i1 @llvm.is.fpclass.f64(double %div356, i32 516)
+  br i1 %41, label %cdce.call, label %for.inc, !prof !36
 
 cdce.call:                                        ; preds = %if.then335
   %call357 = tail call double @cos(double noundef %div356) #18
   br label %for.inc
 
 for.inc:                                          ; preds = %cdce.call, %if.then335, %if.end325
-  %minband.1 = phi i32 [ %minband.01078, %if.end325 ], [ %cond341, %if.then335 ], [ %cond341, %cdce.call ]
-  %inc = add nuw nsw i32 %band303.01076, 1
+  %minband.1 = phi i32 [ %minband.01070, %if.end325 ], [ %cond341, %if.then335 ], [ %cond341, %cdce.call ]
+  %inc = add nuw nsw i32 %band303.01068, 1
   %exitcond.not = icmp eq i32 %inc, 32
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !37
 
 for.end:                                          ; preds = %for.inc
   %cmp359 = icmp eq i32 %minband.1, 999
-  %43 = load i32, ptr %lowpass_band, align 8, !tbaa !35
-  %.minband.1.lcssa = select i1 %cmp359, i32 %43, i32 %minband.1
+  %42 = load i32, ptr %lowpass_band, align 8, !tbaa !35
+  %.minband.1.lcssa = select i1 %cmp359, i32 %42, i32 %minband.1
   %storemerge.in.in.in = sitofp i32 %.minband.1.lcssa to double
   %storemerge.in.in = fadd double %storemerge.in.in.in, -7.500000e-01
-  %conv376 = sitofp i32 %43 to double
-  %44 = insertelement <2 x double> poison, double %storemerge.in.in, i64 0
-  %45 = insertelement <2 x double> %44, double %conv376, i64 1
-  %46 = fdiv <2 x double> %45, <double 3.100000e+01, double 3.100000e+01>
-  %47 = fptrunc <2 x double> %46 to <2 x float>
-  store <2 x float> %47, ptr %lowpass1304, align 8, !tbaa !32
+  %conv376 = sitofp i32 %42 to double
+  %43 = insertelement <2 x double> poison, double %storemerge.in.in, i64 0
+  %44 = insertelement <2 x double> %43, double %conv376, i64 1
+  %45 = fdiv <2 x double> %44, <double 3.100000e+01, double 3.100000e+01>
+  %46 = fptrunc <2 x double> %45 to <2 x float>
+  store <2 x float> %46, ptr %lowpass1304, align 8, !tbaa !32
   br label %if.end380
 
 if.end380:                                        ; preds = %for.end, %if.then302
   %highpass2381 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 56
-  %48 = load float, ptr %highpass2381, align 4, !tbaa !39
-  %cmp382 = fcmp ogt float %48, 0.000000e+00
-  %conv386 = fpext float %48 to double
+  %47 = load float, ptr %highpass2381, align 4, !tbaa !39
+  %cmp382 = fcmp ogt float %47, 0.000000e+00
+  %conv386 = fpext float %47 to double
   %cmp387 = fcmp olt double %conv386, 0x3F964BF964BF964C
-  %or.cond1051 = and i1 %cmp382, %cmp387
-  br i1 %or.cond1051, label %if.then389, label %if.end394
+  %or.cond1052 = and i1 %cmp382, %cmp387
+  br i1 %or.cond1052, label %if.then389, label %if.end394
 
 if.then389:                                       ; preds = %if.end380
   %highpass1390 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 55
   store <2 x float> zeroinitializer, ptr %highpass1390, align 8, !tbaa !32
-  %49 = load ptr, ptr @stderr, align 8, !tbaa !40
-  %50 = tail call i64 @fwrite(ptr nonnull @.str, i64 64, i64 1, ptr %49) #19
+  %48 = load ptr, ptr @stderr, align 8, !tbaa !40
+  %49 = tail call i64 @fwrite(ptr nonnull @.str, i64 64, i64 1, ptr %48) #19
   %.pr = load float, ptr %highpass2381, align 4, !tbaa !39
   br label %if.end394
 
 if.end394:                                        ; preds = %if.then389, %if.end380
-  %51 = phi float [ %.pr, %if.then389 ], [ %48, %if.end380 ]
-  %cmp396 = fcmp ogt float %51, 0.000000e+00
+  %50 = phi float [ %.pr, %if.then389 ], [ %47, %if.end380 ]
+  %cmp396 = fcmp ogt float %50, 0.000000e+00
   br i1 %cmp396, label %for.cond399.preheader, label %if.end477
 
 for.cond399.preheader:                            ; preds = %if.end394
@@ -493,18 +496,18 @@ for.cond399.preheader:                            ; preds = %if.end394
   br label %for.body402
 
 for.body402:                                      ; preds = %for.cond399.preheader, %for.inc452
-  %maxband.21080 = phi i32 [ -1, %for.cond399.preheader ], [ %maxband.3, %for.inc452 ]
-  %band303.11079 = phi i32 [ 0, %for.cond399.preheader ], [ %inc453, %for.inc452 ]
-  %conv403 = sitofp i32 %band303.11079 to double
+  %maxband.21072 = phi i32 [ -1, %for.cond399.preheader ], [ %maxband.3, %for.inc452 ]
+  %band303.11071 = phi i32 [ 0, %for.cond399.preheader ], [ %inc453, %for.inc452 ]
+  %conv403 = sitofp i32 %band303.11071 to double
   %div404 = fdiv double %conv403, 3.100000e+01
-  %52 = load float, ptr %highpass1405, align 8, !tbaa !41
-  %conv406 = fpext float %52 to double
+  %51 = load float, ptr %highpass1405, align 8, !tbaa !41
+  %conv406 = fpext float %51 to double
   %cmp407 = fcmp ugt double %div404, %conv406
   br i1 %cmp407, label %if.end418, label %if.then409
 
 if.then409:                                       ; preds = %for.body402
-  %53 = load i32, ptr %highpass_band, align 4, !tbaa !42
-  %.band303.1 = tail call i32 @llvm.smax.i32(i32 %53, i32 %band303.11079)
+  %52 = load i32, ptr %highpass_band, align 4, !tbaa !42
+  %.band303.1 = tail call i32 @llvm.smax.i32(i32 %52, i32 %band303.11071)
   store i32 %.band303.1, ptr %highpass_band, align 4, !tbaa !42
   br label %if.end418
 
@@ -513,54 +516,54 @@ if.end418:                                        ; preds = %if.then409, %for.bo
   br i1 %cmp421, label %land.lhs.true423, label %for.inc452
 
 land.lhs.true423:                                 ; preds = %if.end418
-  %54 = load float, ptr %highpass2381, align 4, !tbaa !39
-  %conv425 = fpext float %54 to double
+  %53 = load float, ptr %highpass2381, align 4, !tbaa !39
+  %conv425 = fpext float %53 to double
   %cmp426 = fcmp olt double %div404, %conv425
   br i1 %cmp426, label %if.then428, label %for.inc452
 
 if.then428:                                       ; preds = %land.lhs.true423
-  %cond440 = tail call i32 @llvm.smax.i32(i32 %maxband.21080, i32 %band303.11079)
+  %cond440 = tail call i32 @llvm.smax.i32(i32 %maxband.21072, i32 %band303.11071)
   %sub443 = fsub double %conv425, %div404
   %mul444 = fmul double %sub443, 0x3FF921FB54442D18
-  %sub447 = fsub float %54, %52
+  %sub447 = fsub float %53, %51
   %conv448 = fpext float %sub447 to double
   %div449 = fdiv double %mul444, %conv448
-  %55 = tail call i1 @llvm.is.fpclass.f64(double %div449, i32 516)
-  br i1 %55, label %cdce.call1074, label %for.inc452, !prof !36
+  %54 = tail call i1 @llvm.is.fpclass.f64(double %div449, i32 516)
+  br i1 %54, label %cdce.call1066, label %for.inc452, !prof !36
 
-cdce.call1074:                                    ; preds = %if.then428
+cdce.call1066:                                    ; preds = %if.then428
   %call450 = tail call double @cos(double noundef %div449) #18
   br label %for.inc452
 
-for.inc452:                                       ; preds = %cdce.call1074, %if.then428, %if.end418, %land.lhs.true423
-  %maxband.3 = phi i32 [ %maxband.21080, %land.lhs.true423 ], [ %maxband.21080, %if.end418 ], [ %cond440, %if.then428 ], [ %cond440, %cdce.call1074 ]
-  %inc453 = add nuw nsw i32 %band303.11079, 1
-  %exitcond1084.not = icmp eq i32 %inc453, 32
-  br i1 %exitcond1084.not, label %for.end454, label %for.body402, !llvm.loop !43
+for.inc452:                                       ; preds = %cdce.call1066, %if.then428, %if.end418, %land.lhs.true423
+  %maxband.3 = phi i32 [ %maxband.21072, %land.lhs.true423 ], [ %maxband.21072, %if.end418 ], [ %cond440, %if.then428 ], [ %cond440, %cdce.call1066 ]
+  %inc453 = add nuw nsw i32 %band303.11071, 1
+  %exitcond1076.not = icmp eq i32 %inc453, 32
+  br i1 %exitcond1076.not, label %for.end454, label %for.body402, !llvm.loop !43
 
 for.end454:                                       ; preds = %for.inc452
-  %56 = load i32, ptr %highpass_band, align 4, !tbaa !42
-  %conv456 = sitofp i32 %56 to double
+  %55 = load i32, ptr %highpass_band, align 4, !tbaa !42
+  %conv456 = sitofp i32 %55 to double
   %cmp460 = icmp eq i32 %maxband.3, -1
   %conv470 = sitofp i32 %maxband.3 to double
   %conv470.sink = select i1 %cmp460, double %conv456, double %conv470
   %add471 = fadd double %conv470.sink, 7.500000e-01
-  %57 = insertelement <2 x double> poison, double %conv456, i64 0
-  %58 = insertelement <2 x double> %57, double %add471, i64 1
-  %59 = fdiv <2 x double> %58, <double 3.100000e+01, double 3.100000e+01>
-  %60 = fptrunc <2 x double> %59 to <2 x float>
-  store <2 x float> %60, ptr %highpass1405, align 8, !tbaa !32
+  %56 = insertelement <2 x double> poison, double %conv456, i64 0
+  %57 = insertelement <2 x double> %56, double %add471, i64 1
+  %58 = fdiv <2 x double> %57, <double 3.100000e+01, double 3.100000e+01>
+  %59 = fptrunc <2 x double> %58 to <2 x float>
+  store <2 x float> %59, ptr %highpass1405, align 8, !tbaa !32
   br label %if.end477
 
 if.end477:                                        ; preds = %for.end454, %if.end394, %if.end299
   %mode_ext = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 52
   store i32 0, ptr %mode_ext, align 4, !tbaa !44
-  %61 = load i32, ptr %mode1, align 4, !tbaa !14
-  %cmp484 = icmp eq i32 %61, 3
+  %60 = load i32, ptr %mode1, align 4, !tbaa !14
+  %cmp484 = icmp eq i32 %60, 3
   %cond486 = select i1 %cmp484, i32 1, i32 2
   store i32 %cond486, ptr %stereo, align 4, !tbaa !45
-  %62 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %conv489 = sext i32 %62 to i64
+  %61 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %conv489 = sext i32 %61 to i64
   %version = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 43
   %call490 = tail call i32 @SmpFrqIndex(i64 noundef %conv489, ptr noundef nonnull %version) #18
   %samplerate_index = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 51
@@ -569,59 +572,56 @@ if.end477:                                        ; preds = %for.end454, %if.end
   br i1 %cmp492, label %if.then494, label %if.end495
 
 if.then494:                                       ; preds = %if.end477
-  %63 = load ptr, ptr @stderr, align 8, !tbaa !40
-  tail call void @display_bitrates(ptr noundef %63) #18
+  %62 = load ptr, ptr @stderr, align 8, !tbaa !40
+  tail call void @display_bitrates(ptr noundef %62) #18
   tail call void @exit(i32 noundef 1) #20
   unreachable
 
 if.end495:                                        ; preds = %if.end477
-  %64 = load i32, ptr %brate104, align 8, !tbaa !16
-  %65 = load i32, ptr %version, align 8, !tbaa !47
-  %66 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %call499 = tail call i32 @BitrateIndex(i32 noundef %64, i32 noundef %65, i32 noundef %66) #18
+  %63 = load i32, ptr %brate104, align 8, !tbaa !16
+  %64 = load i32, ptr %version, align 8, !tbaa !47
+  %65 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %call499 = tail call i32 @BitrateIndex(i32 noundef %63, i32 noundef %64, i32 noundef %65) #18
   %bitrate_index = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 50
   store i32 %call499, ptr %bitrate_index, align 4, !tbaa !48
   %cmp500 = icmp slt i32 %call499, 0
   br i1 %cmp500, label %if.then502, label %if.end503
 
 if.then502:                                       ; preds = %if.end495
-  %67 = load ptr, ptr @stderr, align 8, !tbaa !40
-  tail call void @display_bitrates(ptr noundef %67) #18
+  %66 = load ptr, ptr @stderr, align 8, !tbaa !40
+  tail call void @display_bitrates(ptr noundef %66) #18
   tail call void @exit(i32 noundef 1) #20
   unreachable
 
 if.end503:                                        ; preds = %if.end495
-  %68 = load i32, ptr %VBR152, align 8, !tbaa !18
-  %tobool505.not = icmp eq i32 %68, 0
+  %67 = load i32, ptr %VBR152, align 8, !tbaa !18
+  %tobool505.not = icmp eq i32 %67, 0
   br i1 %tobool505.not, label %if.end571, label %if.then506
 
 if.then506:                                       ; preds = %if.end503
   %VBR_max_bitrate_kbps = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 24
-  %69 = load i32, ptr %VBR_max_bitrate_kbps, align 4, !tbaa !49
-  %cmp507 = icmp eq i32 %69, 0
+  %68 = load i32, ptr %VBR_max_bitrate_kbps, align 4, !tbaa !49
+  %cmp507 = icmp eq i32 %68, 0
   br i1 %cmp507, label %if.then509, label %if.else533
 
 if.then509:                                       ; preds = %if.then506
   %VBR_max_bitrate = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 48
   %VBR_min_bitrate_kbps = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 23
-  %70 = load i32, ptr %VBR_min_bitrate_kbps, align 8, !tbaa !50
-  %cmp510 = icmp sgt i32 %70, 255
+  %69 = load i32, ptr %VBR_min_bitrate_kbps, align 8, !tbaa !50
+  %cmp510 = icmp sgt i32 %69, 255
+  %spec.store.select1053 = select i1 %cmp510, i32 14, i32 13
+  store i32 %spec.store.select1053, ptr %VBR_max_bitrate, align 4
   %VBR_q515 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 22
-  %71 = load i32, ptr %VBR_q515, align 4, !tbaa !25
-  %cmp516 = icmp eq i32 %71, 0
-  %72 = select i1 %cmp516, i1 true, i1 %cmp510
-  %spec.store.select1053 = select i1 %72, i32 14, i32 13
-  %cmp522 = icmp sgt i32 %71, 3
-  %spec.store.select1054 = select i1 %cmp522, i32 12, i32 %spec.store.select1053
-  %cmp528 = icmp sgt i32 %71, 7
-  %spec.store.select1055 = select i1 %cmp528, i32 9, i32 %spec.store.select1054
-  store i32 %spec.store.select1055, ptr %VBR_max_bitrate, align 4
-  br label %if.end543
+  %70 = load i32, ptr %VBR_q515, align 4, !tbaa !25
+  %cmp516.not = icmp eq i32 %70, 0
+  %cmp522 = icmp sgt i32 %70, 3
+  %.not.not = or i1 %cmp516.not, %cmp522
+  br i1 %.not.not, label %74, label %if.end543
 
 if.else533:                                       ; preds = %if.then506
-  %73 = load i32, ptr %version, align 8, !tbaa !47
-  %74 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %call537 = tail call i32 @BitrateIndex(i32 noundef %69, i32 noundef %73, i32 noundef %74) #18
+  %71 = load i32, ptr %version, align 8, !tbaa !47
+  %72 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %call537 = tail call i32 @BitrateIndex(i32 noundef %68, i32 noundef %71, i32 noundef %72) #18
   %VBR_max_bitrate538 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 48
   store i32 %call537, ptr %VBR_max_bitrate538, align 4, !tbaa !51
   %cmp539 = icmp slt i32 %call537, 0
@@ -629,18 +629,25 @@ if.else533:                                       ; preds = %if.then506
 
 if.else533.if.end543_crit_edge:                   ; preds = %if.else533
   %VBR_min_bitrate_kbps544.phi.trans.insert = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 23
-  %.pre1092 = load i32, ptr %VBR_min_bitrate_kbps544.phi.trans.insert, align 8, !tbaa !50
+  %.pre1084 = load i32, ptr %VBR_min_bitrate_kbps544.phi.trans.insert, align 8, !tbaa !50
   br label %if.end543
 
 if.then541:                                       ; preds = %if.else533
-  %75 = load ptr, ptr @stderr, align 8, !tbaa !40
-  tail call void @display_bitrates(ptr noundef %75) #18
+  %73 = load ptr, ptr @stderr, align 8, !tbaa !40
+  tail call void @display_bitrates(ptr noundef %73) #18
   tail call void @exit(i32 noundef 1) #20
   unreachable
 
-if.end543:                                        ; preds = %if.else533.if.end543_crit_edge, %if.then509
-  %76 = phi i32 [ %.pre1092, %if.else533.if.end543_crit_edge ], [ %70, %if.then509 ]
-  %cmp545 = icmp eq i32 %76, 0
+74:                                               ; preds = %if.then509
+  %cmp528 = icmp ugt i32 %70, 7
+  %spec.select = select i1 %cmp522, i32 12, i32 14
+  %spec.select1054 = select i1 %cmp528, i32 9, i32 %spec.select
+  store i32 %spec.select1054, ptr %VBR_max_bitrate, align 4, !tbaa !51
+  br label %if.end543
+
+if.end543:                                        ; preds = %if.else533.if.end543_crit_edge, %74, %if.then509
+  %75 = phi i32 [ %.pre1084, %if.else533.if.end543_crit_edge ], [ %69, %74 ], [ %69, %if.then509 ]
+  %cmp545 = icmp eq i32 %75, 0
   br i1 %cmp545, label %if.then547, label %if.else548
 
 if.then547:                                       ; preds = %if.end543
@@ -649,36 +656,36 @@ if.then547:                                       ; preds = %if.end543
   br label %if.end559
 
 if.else548:                                       ; preds = %if.end543
-  %77 = load i32, ptr %version, align 8, !tbaa !47
-  %78 = load i32, ptr %out_samplerate, align 8, !tbaa !15
-  %call552 = tail call i32 @BitrateIndex(i32 noundef %76, i32 noundef %77, i32 noundef %78) #18
+  %76 = load i32, ptr %version, align 8, !tbaa !47
+  %77 = load i32, ptr %out_samplerate, align 8, !tbaa !15
+  %call552 = tail call i32 @BitrateIndex(i32 noundef %75, i32 noundef %76, i32 noundef %77) #18
   %VBR_min_bitrate553 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 47
   store i32 %call552, ptr %VBR_min_bitrate553, align 8, !tbaa !52
   %cmp554 = icmp slt i32 %call552, 0
   br i1 %cmp554, label %if.then556, label %if.end559
 
 if.then556:                                       ; preds = %if.else548
-  %79 = load ptr, ptr @stderr, align 8, !tbaa !40
-  tail call void @display_bitrates(ptr noundef %79) #18
+  %78 = load ptr, ptr @stderr, align 8, !tbaa !40
+  tail call void @display_bitrates(ptr noundef %78) #18
   tail call void @exit(i32 noundef 1) #20
   unreachable
 
 if.end559:                                        ; preds = %if.then547, %if.else548
-  %.pr1056 = load i32, ptr %VBR152, align 8, !tbaa !18
-  %tobool561.not = icmp eq i32 %.pr1056, 0
+  %.pr1057 = load i32, ptr %VBR152, align 8, !tbaa !18
+  %tobool561.not = icmp eq i32 %.pr1057, 0
   br i1 %tobool561.not, label %if.end571, label %if.then562
 
 if.then562:                                       ; preds = %if.end559
   %quality = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 6
-  %80 = load i32, ptr %quality, align 4, !tbaa !53
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %80, i32 2)
-  store i32 %spec.select, ptr %quality, align 4, !tbaa !53
+  %79 = load i32, ptr %quality, align 4, !tbaa !53
+  %spec.select1055 = tail call i32 @llvm.smin.i32(i32 %79, i32 2)
+  store i32 %spec.select1055, ptr %quality, align 4, !tbaa !53
   br label %if.end571
 
 if.end571:                                        ; preds = %if.end503, %if.then562, %if.end559
-  %tobool561.not1058 = phi i1 [ false, %if.then562 ], [ true, %if.end559 ], [ true, %if.end503 ]
-  %81 = load i32, ptr %mode1, align 4, !tbaa !14
-  %cmp573 = icmp eq i32 %81, 3
+  %cmp578 = phi i1 [ true, %if.end503 ], [ false, %if.then562 ], [ true, %if.end559 ]
+  %80 = load i32, ptr %mode1, align 4, !tbaa !14
+  %cmp573 = icmp eq i32 %80, 3
   br i1 %cmp573, label %if.then575, label %if.end576
 
 if.then575:                                       ; preds = %if.end571
@@ -687,7 +694,7 @@ if.then575:                                       ; preds = %if.end571
   br label %if.end576
 
 if.end576:                                        ; preds = %if.then575, %if.end571
-  br i1 %tobool561.not1058, label %if.then580, label %if.end581
+  br i1 %cmp578, label %if.then580, label %if.end581
 
 if.then580:                                       ; preds = %if.end576
   %bWriteVbrTag = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 5
@@ -696,19 +703,19 @@ if.then580:                                       ; preds = %if.end576
 
 if.end581:                                        ; preds = %if.then580, %if.end576
   %outPath = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 32
-  %82 = load ptr, ptr %outPath, align 8, !tbaa !56
-  %cmp582.not = icmp eq ptr %82, null
-  br i1 %cmp582.not, label %if.then600, label %land.lhs.true584
+  %81 = load ptr, ptr %outPath, align 8, !tbaa !56
+  %cond1056 = icmp eq ptr %81, null
+  br i1 %cond1056, label %if.then600, label %land.lhs.true584
 
 land.lhs.true584:                                 ; preds = %if.end581
-  %83 = load i8, ptr %82, align 1, !tbaa !57
-  %cmp587 = icmp eq i8 %83, 45
+  %82 = load i8, ptr %81, align 1, !tbaa !57
+  %cmp587 = icmp eq i8 %82, 45
   br i1 %cmp587, label %lor.lhs.false, label %if.end601
 
 lor.lhs.false:                                    ; preds = %land.lhs.true584
   %bWriteVbrTag590 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 5
   store i32 0, ptr %bWriteVbrTag590, align 8, !tbaa !55
-  %.pr1059 = load i8, ptr %82, align 1, !tbaa !57
+  %.pr1059 = load i8, ptr %81, align 1, !tbaa !57
   %cmp598 = icmp eq i8 %.pr1059, 45
   br i1 %cmp598, label %if.then600, label %if.end601
 
@@ -718,8 +725,8 @@ if.then600:                                       ; preds = %if.end581, %lor.lhs
 
 if.end601:                                        ; preds = %land.lhs.true584, %if.then600, %lor.lhs.false
   %gtkflag = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 4
-  %84 = load i32, ptr %gtkflag, align 4, !tbaa !60
-  %tobool602.not = icmp eq i32 %84, 0
+  %83 = load i32, ptr %gtkflag, align 4, !tbaa !60
+  %tobool602.not = icmp eq i32 %83, 0
   br i1 %tobool602.not, label %if.end605, label %if.then603
 
 if.then603:                                       ; preds = %if.end601
@@ -730,59 +737,59 @@ if.then603:                                       ; preds = %if.end601
 if.end605:                                        ; preds = %if.then603, %if.end601
   tail call void @init_bit_stream_w(ptr noundef nonnull @bs) #18
   %quality606 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 6
-  %85 = load i32, ptr %quality606, align 4, !tbaa !53
-  switch i32 %85, label %for.body694.preheader [
-    i32 9, label %if.end617.thread1096
+  %84 = load i32, ptr %quality606, align 4, !tbaa !53
+  switch i32 %84, label %if.end690 [
+    i32 9, label %if.end617.thread1088
     i32 8, label %if.end617.thread
-    i32 7, label %if.end628.thread
+    i32 7, label %if.then621
     i32 6, label %if.end634.thread
-    i32 5, label %if.end645.thread
-    i32 4, label %if.end668.thread.sink.split
-    i32 3, label %if.end668.thread.sink.split
-    i32 2, label %if.end668.thread
+    i32 5, label %if.then638
+    i32 4, label %if.then661.sink.split
+    i32 3, label %if.then661.sink.split
+    i32 2, label %if.then661
     i32 1, label %if.then672
     i32 0, label %if.then683
   ]
 
-if.end617.thread1096:                             ; preds = %if.end605
+if.end617.thread1088:                             ; preds = %if.end605
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %filter_type, i8 0, i64 24, i1 false)
-  br label %for.body694.preheader
+  br label %if.end690
 
 if.end617.thread:                                 ; preds = %if.end605
   store i32 7, ptr %quality606, align 4, !tbaa !53
-  br label %if.end628.thread
+  br label %if.then621
 
-if.end628.thread:                                 ; preds = %if.end605, %if.end617.thread
+if.then621:                                       ; preds = %if.end605, %if.end617.thread
   %psymodel623 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 63
   store i32 1, ptr %psymodel623, align 8, !tbaa !61
   store <4 x i32> zeroinitializer, ptr %filter_type, align 8, !tbaa !62
   %use_best_huffman627 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 64
   store i32 0, ptr %use_best_huffman627, align 4, !tbaa !63
-  br label %for.body694.preheader
+  br label %if.end690
 
 if.end634.thread:                                 ; preds = %if.end605
   store i32 5, ptr %quality606, align 4, !tbaa !53
-  br label %if.end645.thread
+  br label %if.then638
 
-if.end645.thread:                                 ; preds = %if.end605, %if.end634.thread
+if.then638:                                       ; preds = %if.end605, %if.end634.thread
   %psymodel640 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 63
   store i32 1, ptr %psymodel640, align 8, !tbaa !61
   store <4 x i32> <i32 0, i32 0, i32 1, i32 0>, ptr %filter_type, align 8, !tbaa !62
   %use_best_huffman644 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 64
   store i32 0, ptr %use_best_huffman644, align 4, !tbaa !63
-  br label %for.body694.preheader
+  br label %if.end690
 
-if.end668.thread.sink.split:                      ; preds = %if.end605, %if.end605
+if.then661.sink.split:                            ; preds = %if.end605, %if.end605
   store i32 2, ptr %quality606, align 4, !tbaa !53
-  br label %if.end668.thread
+  br label %if.then661
 
-if.end668.thread:                                 ; preds = %if.end605, %if.end668.thread.sink.split
+if.then661:                                       ; preds = %if.then661.sink.split, %if.end605
   %psymodel663 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 63
   store i32 1, ptr %psymodel663, align 8, !tbaa !61
   store <4 x i32> <i32 0, i32 1, i32 1, i32 0>, ptr %filter_type, align 8, !tbaa !62
   %use_best_huffman667 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 64
   store i32 1, ptr %use_best_huffman667, align 4, !tbaa !63
-  br label %for.body694.preheader
+  br label %if.end690
 
 if.then672:                                       ; preds = %if.end605
   %psymodel674 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 63
@@ -790,53 +797,7 @@ if.then672:                                       ; preds = %if.end605
   store <4 x i32> <i32 0, i32 1, i32 1, i32 1>, ptr %filter_type, align 8, !tbaa !62
   %use_best_huffman678 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 64
   store i32 1, ptr %use_best_huffman678, align 4, !tbaa !63
-  br label %for.body694.preheader
-
-for.body694.preheader:                            ; preds = %if.end605, %if.end645.thread, %if.end617.thread1096, %if.end628.thread, %if.then672, %if.end668.thread
-  %86 = load i32, ptr %samplerate_index, align 8, !tbaa !46
-  %87 = load i32, ptr %version, align 8, !tbaa !47
-  %mul697 = mul nsw i32 %87, 3
-  %add698 = add nsw i32 %mul697, %86
-  %idxprom = sext i32 %add698 to i64
-  %arrayidx699 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom
-  %88 = load <4 x i32>, ptr %arrayidx699, align 4, !tbaa !62
-  store <4 x i32> %88, ptr @scalefac_band, align 4, !tbaa !62
-  %arrayidx701.4 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 4
-  %89 = load <4 x i32>, ptr %arrayidx701.4, align 4, !tbaa !62
-  store <4 x i32> %89, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 4), align 4, !tbaa !62
-  %arrayidx701.8 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 8
-  %90 = load <4 x i32>, ptr %arrayidx701.8, align 4, !tbaa !62
-  store <4 x i32> %90, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 8), align 4, !tbaa !62
-  %arrayidx701.12 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 12
-  %91 = load <4 x i32>, ptr %arrayidx701.12, align 4, !tbaa !62
-  store <4 x i32> %91, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 12), align 4, !tbaa !62
-  %arrayidx701.16 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 16
-  %92 = load <4 x i32>, ptr %arrayidx701.16, align 4, !tbaa !62
-  store <4 x i32> %92, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 16), align 4, !tbaa !62
-  %arrayidx701.20 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 20
-  %93 = load <4 x i32>, ptr %arrayidx701.20, align 4, !tbaa !62
-  store <4 x i32> %93, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 20), align 4, !tbaa !62
-  %arrayidx718.1 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom, i32 1, i64 1
-  %94 = load <4 x i32>, ptr %arrayidx718.1, align 4, !tbaa !62
-  store <4 x i32> %94, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 1), align 4, !tbaa !62
-  %arrayidx718.5 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom, i32 1, i64 5
-  %95 = load <4 x i32>, ptr %arrayidx718.5, align 4, !tbaa !62
-  store <4 x i32> %95, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 5), align 4, !tbaa !62
-  %96 = load i32, ptr %samplerate_index, align 8, !tbaa !46
-  %97 = load i32, ptr %version, align 8, !tbaa !47
-  %mul713.9 = mul nsw i32 %97, 3
-  %add714.9 = add nsw i32 %mul713.9, %96
-  %idxprom715.9 = sext i32 %add714.9 to i64
-  %arrayidx718.9 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom715.9, i32 1, i64 9
-  %98 = load <4 x i32>, ptr %arrayidx718.9, align 4, !tbaa !62
-  store <4 x i32> %98, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 9), align 4, !tbaa !62
-  %arrayidx718.13 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom715.9, i32 1, i64 13
-  %99 = load i32, ptr %arrayidx718.13, align 4, !tbaa !62
-  store i32 %99, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 13), align 4, !tbaa !62
-  %bWriteVbrTag724 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 5
-  %100 = load i32, ptr %bWriteVbrTag724, align 8, !tbaa !55
-  %tobool725.not = icmp eq i32 %100, 0
-  br i1 %tobool725.not, label %if.end732, label %if.then726
+  br label %if.end690
 
 if.then683:                                       ; preds = %if.end605
   %psymodel685 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 63
@@ -847,13 +808,59 @@ if.then683:                                       ; preds = %if.end605
   tail call void @exit(i32 noundef -99) #20
   unreachable
 
-if.then726:                                       ; preds = %for.body694.preheader
-  %sub728 = sub nsw i32 1, %97
-  %101 = load i32, ptr %mode1, align 4, !tbaa !14
-  %call731 = tail call i32 @InitVbrTag(ptr noundef nonnull @bs, i32 noundef %sub728, i32 noundef %101, i32 noundef %96) #18
+if.end690:                                        ; preds = %if.end605, %if.then621, %if.end617.thread1088, %if.then638, %if.then672, %if.then661
+  %85 = load i32, ptr %samplerate_index, align 8, !tbaa !46
+  %86 = load i32, ptr %version, align 8, !tbaa !47
+  %mul697 = mul nsw i32 %86, 3
+  %add698 = add nsw i32 %mul697, %85
+  %idxprom = sext i32 %add698 to i64
+  %arrayidx699 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom
+  %87 = load <4 x i32>, ptr %arrayidx699, align 4, !tbaa !62
+  store <4 x i32> %87, ptr @scalefac_band, align 4, !tbaa !62
+  %arrayidx701.4 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 4
+  %88 = load <4 x i32>, ptr %arrayidx701.4, align 4, !tbaa !62
+  store <4 x i32> %88, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 4), align 4, !tbaa !62
+  %arrayidx701.8 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 8
+  %89 = load <4 x i32>, ptr %arrayidx701.8, align 4, !tbaa !62
+  store <4 x i32> %89, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 8), align 4, !tbaa !62
+  %arrayidx701.12 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 12
+  %90 = load <4 x i32>, ptr %arrayidx701.12, align 4, !tbaa !62
+  store <4 x i32> %90, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 12), align 4, !tbaa !62
+  %arrayidx701.16 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 16
+  %91 = load <4 x i32>, ptr %arrayidx701.16, align 4, !tbaa !62
+  store <4 x i32> %91, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 16), align 4, !tbaa !62
+  %arrayidx701.20 = getelementptr inbounds [23 x i32], ptr %arrayidx699, i64 0, i64 20
+  %92 = load <4 x i32>, ptr %arrayidx701.20, align 4, !tbaa !62
+  store <4 x i32> %92, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 0, i64 20), align 4, !tbaa !62
+  %arrayidx718.1 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom, i32 1, i64 1
+  %93 = load <4 x i32>, ptr %arrayidx718.1, align 4, !tbaa !62
+  store <4 x i32> %93, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 1), align 4, !tbaa !62
+  %arrayidx718.5 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom, i32 1, i64 5
+  %94 = load <4 x i32>, ptr %arrayidx718.5, align 4, !tbaa !62
+  store <4 x i32> %94, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 5), align 4, !tbaa !62
+  %95 = load i32, ptr %samplerate_index, align 8, !tbaa !46
+  %96 = load i32, ptr %version, align 8, !tbaa !47
+  %mul713.9 = mul nsw i32 %96, 3
+  %add714.9 = add nsw i32 %mul713.9, %95
+  %idxprom715.9 = sext i32 %add714.9 to i64
+  %arrayidx718.9 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom715.9, i32 1, i64 9
+  %97 = load <4 x i32>, ptr %arrayidx718.9, align 4, !tbaa !62
+  store <4 x i32> %97, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 9), align 4, !tbaa !62
+  %arrayidx718.13 = getelementptr inbounds [6 x %struct.scalefac_struct], ptr @sfBandIndex, i64 0, i64 %idxprom715.9, i32 1, i64 13
+  %98 = load i32, ptr %arrayidx718.13, align 4, !tbaa !62
+  store i32 %98, ptr getelementptr inbounds (%struct.scalefac_struct, ptr @scalefac_band, i64 0, i32 1, i64 13), align 4, !tbaa !62
+  %bWriteVbrTag724 = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 5
+  %99 = load i32, ptr %bWriteVbrTag724, align 8, !tbaa !55
+  %tobool725.not = icmp eq i32 %99, 0
+  br i1 %tobool725.not, label %if.end732, label %if.then726
+
+if.then726:                                       ; preds = %if.end690
+  %sub728 = sub nsw i32 1, %96
+  %100 = load i32, ptr %mode1, align 4, !tbaa !14
+  %call731 = tail call i32 @InitVbrTag(ptr noundef nonnull @bs, i32 noundef %sub728, i32 noundef %100, i32 noundef %95) #18
   br label %if.end732
 
-if.end732:                                        ; preds = %if.then726, %for.body694.preheader
+if.end732:                                        ; preds = %if.then726, %if.end690
   ret void
 }
 
@@ -1688,36 +1695,33 @@ define dso_local i32 @fill_buffer_resample(ptr nocapture noundef readonly %gfp, 
 entry:
   %frameNum = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 39
   %0 = load i64, ptr %frameNum, align 8, !tbaa !5
-  %cmp = icmp eq i64 %0, 0
+  %cond = icmp eq i64 %0, 0
   %idxprom = sext i32 %ch to i64
-  br i1 %cmp, label %land.lhs.true, label %if.then9
+  %arrayidx = getelementptr inbounds [2 x i32], ptr @fill_buffer_resample.init, i64 0, i64 %idxprom
+  br i1 %cond, label %land.lhs.true, label %if.then9
 
 land.lhs.true:                                    ; preds = %entry
-  %arrayidx = getelementptr inbounds [2 x i32], ptr @fill_buffer_resample.init, i64 0, i64 %idxprom
   %1 = load i32, ptr %arrayidx, align 4, !tbaa !62
   %tobool.not = icmp eq i32 %1, 0
-  br i1 %tobool.not, label %if.end, label %if.end12
+  br i1 %tobool.not, label %if.then, label %if.end12
 
-if.end:                                           ; preds = %land.lhs.true
+if.then:                                          ; preds = %land.lhs.true
   store i32 1, ptr %arrayidx, align 4, !tbaa !62
   %arrayidx4 = getelementptr inbounds [2 x double], ptr @fill_buffer_resample.itime, i64 0, i64 %idxprom
   store double 0.000000e+00, ptr %arrayidx4, align 8, !tbaa !65
   %arrayidx6 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(10) %arrayidx6, i8 0, i64 10, i1 false)
-  %.pr.pre = load i64, ptr %frameNum, align 8, !tbaa !5
-  %2 = icmp eq i64 %.pr.pre, 0
-  br i1 %2, label %if.end12, label %if.then9
-
-if.then9:                                         ; preds = %entry, %if.end
-  %arrayidx11 = getelementptr inbounds [2 x i32], ptr @fill_buffer_resample.init, i64 0, i64 %idxprom
-  store i32 0, ptr %arrayidx11, align 4, !tbaa !62
   br label %if.end12
 
-if.end12:                                         ; preds = %land.lhs.true, %if.then9, %if.end
+if.then9:                                         ; preds = %entry
+  store i32 0, ptr %arrayidx, align 4, !tbaa !62
+  br label %if.end12
+
+if.end12:                                         ; preds = %land.lhs.true, %if.then, %if.then9
   %resample_ratio = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 49
-  %3 = load float, ptr %resample_ratio, align 8, !tbaa !22
-  %cmp17276 = icmp sgt i32 %desired_len, 0
-  br i1 %cmp17276, label %for.body.lr.ph, label %if.end12.for.end_crit_edge
+  %2 = load float, ptr %resample_ratio, align 8, !tbaa !22
+  %cmp17275 = icmp sgt i32 %desired_len, 0
+  br i1 %cmp17275, label %for.body.lr.ph, label %if.end12.for.end_crit_edge
 
 if.end12.for.end_crit_edge:                       ; preds = %if.end12
   %idxprom178.phi.trans.insert = sext i32 %ch to i64
@@ -1726,35 +1730,35 @@ if.end12.for.end_crit_edge:                       ; preds = %if.end12
   br label %for.end
 
 for.body.lr.ph:                                   ; preds = %if.end12
-  %conv = fpext float %3 to double
+  %conv = fpext float %2 to double
   %add = fadd double %conv, 5.000000e-01
-  %4 = tail call double @llvm.floor.f64(double %add)
-  %sub = fsub double %conv, %4
+  %3 = tail call double @llvm.floor.f64(double %add)
+  %sub = fsub double %conv, %3
   %sub.fr = freeze double %sub
-  %5 = tail call double @llvm.fabs.f64(double %sub.fr)
-  %cmp15 = fcmp olt double %5, 1.000000e-04
+  %4 = tail call double @llvm.fabs.f64(double %sub.fr)
+  %cmp15 = fcmp olt double %4, 1.000000e-04
   %idxprom22 = sext i32 %ch to i64
   %arrayidx23 = getelementptr inbounds [2 x double], ptr @fill_buffer_resample.itime, i64 0, i64 %idxprom22
-  %6 = load double, ptr %arrayidx23, align 8, !tbaa !65
-  %wide.trip.count291 = zext i32 %desired_len to i64
+  %5 = load double, ptr %arrayidx23, align 8, !tbaa !65
+  %wide.trip.count290 = zext i32 %desired_len to i64
   br i1 %cmp15, label %for.body.us, label %for.body
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %if.end30.us
-  %indvars.iv288 = phi i64 [ %indvars.iv.next289, %if.end30.us ], [ 0, %for.body.lr.ph ]
-  %7 = trunc i64 %indvars.iv288 to i32
-  %conv19.us = sitofp i32 %7 to float
-  %mul.us = fmul float %3, %conv19.us
+  %indvars.iv287 = phi i64 [ %indvars.iv.next288, %if.end30.us ], [ 0, %for.body.lr.ph ]
+  %6 = trunc i64 %indvars.iv287 to i32
+  %conv19.us = sitofp i32 %6 to float
+  %mul.us = fmul float %2, %conv19.us
   %conv21.us = fpext float %mul.us to double
-  %sub24.us = fsub double %conv21.us, %6
-  %8 = tail call double @llvm.floor.f64(double %sub24.us)
-  %conv25.us = fptosi double %8 to i32
+  %sub24.us = fsub double %conv21.us, %5
+  %7 = tail call double @llvm.floor.f64(double %sub24.us)
+  %conv25.us = fptosi double %7 to i32
   %add26.us = add nsw i32 %conv25.us, 2
   %cmp27.not.us = icmp slt i32 %add26.us, %len
   br i1 %cmp27.not.us, label %if.end30.us, label %for.end
 
 if.end30.us:                                      ; preds = %for.body.us
   %conv33.us = sitofp i32 %conv25.us to double
-  %add34.us = fadd double %6, %conv33.us
+  %add34.us = fadd double %5, %conv33.us
   %sub35.us = fsub double %conv21.us, %add34.us
   %sub36.us = fadd double %sub35.us, -1.000000e+00
   %cmp37.us = icmp slt i32 %conv25.us, 0
@@ -1776,34 +1780,34 @@ if.end30.us:                                      ; preds = %for.body.us
   %cond64.in.us = load i16, ptr %cond64.in.in.us, align 2, !tbaa !91
   %conv67.us = sitofp i16 %cond64.in.us to double
   %conv69.us = sitofp i16 %cond.in.us to double
-  %9 = fneg double %sub36.us
-  %neg.us = fmul double %9, %conv69.us
-  %10 = tail call double @llvm.fmuladd.f64(double %conv67.us, double %sub35.us, double %neg.us)
-  %add71.us = fadd double %10, 5.000000e-01
-  %11 = tail call double @llvm.floor.f64(double %add71.us)
-  %conv72.us = fptosi double %11 to i16
-  %arrayidx74.us = getelementptr inbounds i16, ptr %outbuf, i64 %indvars.iv288
+  %8 = fneg double %sub36.us
+  %neg.us = fmul double %8, %conv69.us
+  %9 = tail call double @llvm.fmuladd.f64(double %conv67.us, double %sub35.us, double %neg.us)
+  %add71.us = fadd double %9, 5.000000e-01
+  %10 = tail call double @llvm.floor.f64(double %add71.us)
+  %conv72.us = fptosi double %10 to i16
+  %arrayidx74.us = getelementptr inbounds i16, ptr %outbuf, i64 %indvars.iv287
   store i16 %conv72.us, ptr %arrayidx74.us, align 2, !tbaa !91
-  %indvars.iv.next289 = add nuw nsw i64 %indvars.iv288, 1
-  %exitcond292.not = icmp eq i64 %indvars.iv.next289, %wide.trip.count291
-  br i1 %exitcond292.not, label %for.end, label %for.body.us, !llvm.loop !93
+  %indvars.iv.next288 = add nuw nsw i64 %indvars.iv287, 1
+  %exitcond291.not = icmp eq i64 %indvars.iv.next288, %wide.trip.count290
+  br i1 %exitcond291.not, label %for.end, label %for.body.us, !llvm.loop !93
 
 for.body:                                         ; preds = %for.body.lr.ph, %if.end30
   %indvars.iv = phi i64 [ %indvars.iv.next, %if.end30 ], [ 0, %for.body.lr.ph ]
-  %12 = trunc i64 %indvars.iv to i32
-  %conv19 = sitofp i32 %12 to float
-  %mul = fmul float %3, %conv19
+  %11 = trunc i64 %indvars.iv to i32
+  %conv19 = sitofp i32 %11 to float
+  %mul = fmul float %2, %conv19
   %conv21 = fpext float %mul to double
-  %sub24 = fsub double %conv21, %6
-  %13 = tail call double @llvm.floor.f64(double %sub24)
-  %conv25 = fptosi double %13 to i32
+  %sub24 = fsub double %conv21, %5
+  %12 = tail call double @llvm.floor.f64(double %sub24)
+  %conv25 = fptosi double %12 to i32
   %add26 = add nsw i32 %conv25, 2
   %cmp27.not = icmp slt i32 %add26, %len
   br i1 %cmp27.not, label %if.end30, label %for.end
 
 if.end30:                                         ; preds = %for.body
   %conv33 = sitofp i32 %conv25 to double
-  %add34 = fadd double %6, %conv33
+  %add34 = fadd double %5, %conv33
   %sub35 = fsub double %conv21, %add34
   %sub36 = fadd double %sub35, -1.000000e+00
   %cmp37 = icmp slt i32 %conv25, 0
@@ -1868,21 +1872,21 @@ if.end30:                                         ; preds = %for.body
   %mul134 = fmul double %sub36, %mul133
   %div135 = fdiv double %mul134, 6.000000e+00
   %add136 = fadd double %div135, %sub130
-  %14 = tail call double @llvm.floor.f64(double %add136)
-  %conv137 = fptosi double %14 to i32
-  %spec.select302 = tail call i32 @llvm.smax.i32(i32 %conv137, i32 -32767)
-  %.sink303 = tail call i32 @llvm.smin.i32(i32 %spec.select302, i32 32767)
-  %.sink = trunc i32 %.sink303 to i16
+  %13 = tail call double @llvm.floor.f64(double %add136)
+  %conv137 = fptosi double %13 to i32
+  %spec.select298 = tail call i32 @llvm.smax.i32(i32 %conv137, i32 -32767)
+  %.sink299 = tail call i32 @llvm.smin.i32(i32 %spec.select298, i32 32767)
+  %.sink = trunc i32 %.sink299 to i16
   %arrayidx142 = getelementptr inbounds i16, ptr %outbuf, i64 %indvars.iv
   store i16 %.sink, ptr %arrayidx142, align 2, !tbaa !91
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count291
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count290
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !93
 
 for.end:                                          ; preds = %if.end30, %for.body, %if.end30.us, %for.body.us, %if.end12.for.end_crit_edge
   %idxprom178.pre-phi = phi i64 [ %idxprom178.phi.trans.insert, %if.end12.for.end_crit_edge ], [ %idxprom22, %for.body.us ], [ %idxprom22, %if.end30.us ], [ %idxprom22, %for.body ], [ %idxprom22, %if.end30 ]
-  %15 = phi double [ %.pre, %if.end12.for.end_crit_edge ], [ %6, %for.body.us ], [ %6, %if.end30.us ], [ %6, %for.body ], [ %6, %if.end30 ]
-  %k.0.lcssa = phi i32 [ 0, %if.end12.for.end_crit_edge ], [ %desired_len, %if.end30.us ], [ %7, %for.body.us ], [ %desired_len, %if.end30 ], [ %12, %for.body ]
+  %14 = phi double [ %.pre, %if.end12.for.end_crit_edge ], [ %5, %for.body.us ], [ %5, %if.end30.us ], [ %5, %for.body ], [ %5, %if.end30 ]
+  %k.0.lcssa = phi i32 [ 0, %if.end12.for.end_crit_edge ], [ %desired_len, %if.end30.us ], [ %6, %for.body.us ], [ %desired_len, %if.end30 ], [ %11, %for.body ]
   %j.1 = phi i32 [ 0, %if.end12.for.end_crit_edge ], [ %conv25.us, %for.body.us ], [ %conv25.us, %if.end30.us ], [ %conv25, %for.body ], [ %conv25, %if.end30 ]
   %add164 = add nsw i32 %j.1, 2
   %cond171 = tail call i32 @llvm.smin.i32(i32 %add164, i32 %len)
@@ -1890,41 +1894,41 @@ for.end:                                          ; preds = %if.end30, %for.body
   %conv172 = sitofp i32 %cond171 to float
   %conv173 = sitofp i32 %k.0.lcssa to float
   %neg176 = fneg float %conv173
-  %16 = tail call float @llvm.fmuladd.f32(float %neg176, float %3, float %conv172)
-  %conv177 = fpext float %16 to double
+  %15 = tail call float @llvm.fmuladd.f32(float %neg176, float %2, float %conv172)
+  %conv177 = fpext float %15 to double
   %arrayidx179 = getelementptr inbounds [2 x double], ptr @fill_buffer_resample.itime, i64 0, i64 %idxprom178.pre-phi
-  %add180 = fadd double %15, %conv177
+  %add180 = fadd double %14, %conv177
   store double %add180, ptr %arrayidx179, align 8, !tbaa !65
   %add185 = add i32 %cond171, -5
   %idxprom187 = sext i32 %add185 to i64
   %arrayidx188 = getelementptr inbounds i16, ptr %inbuf, i64 %idxprom187
-  %17 = load i16, ptr %arrayidx188, align 2, !tbaa !91
+  %16 = load i16, ptr %arrayidx188, align 2, !tbaa !91
   %arrayidx192 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom178.pre-phi, i64 0
-  store i16 %17, ptr %arrayidx192, align 2, !tbaa !91
+  store i16 %16, ptr %arrayidx192, align 2, !tbaa !91
   %sub186.1 = add i32 %cond171, -4
   %idxprom187.1 = sext i32 %sub186.1 to i64
   %arrayidx188.1 = getelementptr inbounds i16, ptr %inbuf, i64 %idxprom187.1
-  %18 = load i16, ptr %arrayidx188.1, align 2, !tbaa !91
+  %17 = load i16, ptr %arrayidx188.1, align 2, !tbaa !91
   %arrayidx192.1 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom178.pre-phi, i64 1
-  store i16 %18, ptr %arrayidx192.1, align 2, !tbaa !91
+  store i16 %17, ptr %arrayidx192.1, align 2, !tbaa !91
   %sub186.2 = add i32 %cond171, -3
   %idxprom187.2 = sext i32 %sub186.2 to i64
   %arrayidx188.2 = getelementptr inbounds i16, ptr %inbuf, i64 %idxprom187.2
-  %19 = load i16, ptr %arrayidx188.2, align 2, !tbaa !91
+  %18 = load i16, ptr %arrayidx188.2, align 2, !tbaa !91
   %arrayidx192.2 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom178.pre-phi, i64 2
-  store i16 %19, ptr %arrayidx192.2, align 2, !tbaa !91
+  store i16 %18, ptr %arrayidx192.2, align 2, !tbaa !91
   %sub186.3 = add i32 %cond171, -2
   %idxprom187.3 = sext i32 %sub186.3 to i64
   %arrayidx188.3 = getelementptr inbounds i16, ptr %inbuf, i64 %idxprom187.3
-  %20 = load i16, ptr %arrayidx188.3, align 2, !tbaa !91
+  %19 = load i16, ptr %arrayidx188.3, align 2, !tbaa !91
   %arrayidx192.3 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom178.pre-phi, i64 3
-  store i16 %20, ptr %arrayidx192.3, align 2, !tbaa !91
+  store i16 %19, ptr %arrayidx192.3, align 2, !tbaa !91
   %sub186.4 = add i32 %cond171, -1
   %idxprom187.4 = sext i32 %sub186.4 to i64
   %arrayidx188.4 = getelementptr inbounds i16, ptr %inbuf, i64 %idxprom187.4
-  %21 = load i16, ptr %arrayidx188.4, align 2, !tbaa !91
+  %20 = load i16, ptr %arrayidx188.4, align 2, !tbaa !91
   %arrayidx192.4 = getelementptr inbounds [2 x [5 x i16]], ptr @fill_buffer_resample.inbuf_old, i64 0, i64 %idxprom178.pre-phi, i64 4
-  store i16 %21, ptr %arrayidx192.4, align 2, !tbaa !91
+  store i16 %20, ptr %arrayidx192.4, align 2, !tbaa !91
   ret i32 %k.0.lcssa
 }
 
@@ -2988,11 +2992,11 @@ declare i32 @llvm.smax.i32(i32, i32) #16
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #17
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #17
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i1 @llvm.is.fpclass.f64(double, i32 immarg) #16
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #17
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

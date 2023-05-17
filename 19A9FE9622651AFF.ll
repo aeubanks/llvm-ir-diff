@@ -48,8 +48,8 @@ define dso_local void @test(ptr nocapture noundef readnone %x, ptr nocapture nou
 entry:
   store i32 5000, ptr @c, align 4, !tbaa !8
   %0 = load i32, ptr @b, align 4, !tbaa !8
-  %tobool.not.not = icmp eq i32 %0, 0
-  br i1 %tobool.not.not, label %if.then.i, label %if.end.i
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then.i, label %if.end.i
 
 if.then.i:                                        ; preds = %entry
   tail call void @abort() #3
@@ -67,8 +67,8 @@ entry:
   store ptr @a, ptr @d, align 16, !tbaa !13
   store i32 5000, ptr @c, align 4, !tbaa !8
   %0 = load i32, ptr @b, align 4, !tbaa !8
-  %tobool.not.not.i = icmp eq i32 %0, 0
-  br i1 %tobool.not.not.i, label %if.then.i.i, label %if.end.i.i
+  %tobool.not.i = icmp eq i32 %0, 0
+  br i1 %tobool.not.i, label %if.then.i.i, label %if.end.i.i
 
 if.then.i.i:                                      ; preds = %entry
   tail call void @abort() #3

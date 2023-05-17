@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [15 x i8] c"END Index_Map:\00", align 1
 @str.20 = private unnamed_addr constant [17 x i8] c"BEGIN Dimension:\00", align 1
 @str.21 = private unnamed_addr constant [14 x i8] c"END Dimension\00", align 1
-@str.22 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
-@str.23 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
-@str.24 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
-@str.25 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.22 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.23 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
+@str.24 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
+@str.25 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
 define dso_local void @addRelevant(ptr nocapture noundef %r, i32 noundef %nt) local_unnamed_addr #0 {
@@ -640,9 +640,9 @@ land.lhs.true.i.i:                                ; preds = %for.body.i.i
   br i1 %tobool5.not.i.i, label %if.end50.i.i, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %land.lhs.true.i.i
+  %arrayidx4.i.i = getelementptr inbounds %struct.item, ptr %82, i64 %idxprom.i.i
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %dc.i.i) #9
-  %arrayidx12.i.i = getelementptr inbounds %struct.item, ptr %82, i64 %idxprom.i.i
-  call void @ASSIGNCOST(ptr noundef nonnull %dc.i.i, ptr noundef %arrayidx12.i.i) #9
+  call void @ASSIGNCOST(ptr noundef nonnull %dc.i.i, ptr noundef %arrayidx4.i.i) #9
   call void @ADDCOST(ptr noundef nonnull %dc.i.i, ptr noundef nonnull %78) #9
   %86 = load ptr, ptr %virgin17.i.i, align 8, !tbaa !38
   %lhs.i.i = getelementptr inbounds %struct.rule, ptr %78, i64 0, i32 4
@@ -672,10 +672,10 @@ lor.lhs.false.if.then33_crit_edge.i.i:            ; preds = %lor.lhs.false.i.i
 if.then33.i.i:                                    ; preds = %lor.lhs.false.if.then33_crit_edge.i.i, %if.then.i.i
   %idxprom37.pre-phi.i.i = phi i64 [ %.pre91.i.i, %lor.lhs.false.if.then33_crit_edge.i.i ], [ %idxprom19.i.i, %if.then.i.i ]
   %90 = phi ptr [ %.pre.i.i, %lor.lhs.false.if.then33_crit_edge.i.i ], [ %86, %if.then.i.i ]
+  %arrayidx38.i.i = getelementptr inbounds %struct.item, ptr %90, i64 %idxprom37.pre-phi.i.i
   %rule39.i.i = getelementptr inbounds %struct.item, ptr %90, i64 %idxprom37.pre-phi.i.i, i32 1
   store ptr %78, ptr %rule39.i.i, align 8, !tbaa !39
-  %arrayidx44.i.i = getelementptr inbounds %struct.item, ptr %90, i64 %idxprom37.pre-phi.i.i
-  call void @ASSIGNCOST(ptr noundef %arrayidx44.i.i, ptr noundef nonnull %dc.i.i) #9
+  call void @ASSIGNCOST(ptr noundef %arrayidx38.i.i, ptr noundef nonnull %dc.i.i) #9
   %91 = load ptr, ptr %t, align 8, !tbaa !9
   store ptr %91, ptr %op49.i.i, align 8, !tbaa !53
   br label %if.end.i.i
@@ -862,10 +862,10 @@ lor.lhs.false.if.then77_crit_edge.i.i:            ; preds = %lor.lhs.false.i29.i
 if.then77.i.i:                                    ; preds = %lor.lhs.false.if.then77_crit_edge.i.i, %if.then.i28.i
   %idxprom81.pre-phi.i.i = phi i64 [ %.pre157.i.i, %lor.lhs.false.if.then77_crit_edge.i.i ], [ %idxprom63.i.i, %if.then.i28.i ]
   %140 = phi ptr [ %.pre.i30.i, %lor.lhs.false.if.then77_crit_edge.i.i ], [ %136, %if.then.i28.i ]
+  %arrayidx82.i.i = getelementptr inbounds %struct.item, ptr %140, i64 %idxprom81.pre-phi.i.i
   %rule83.i.i = getelementptr inbounds %struct.item, ptr %140, i64 %idxprom81.pre-phi.i.i, i32 1
   store ptr %108, ptr %rule83.i.i, align 8, !tbaa !39
-  %arrayidx88.i.i = getelementptr inbounds %struct.item, ptr %140, i64 %idxprom81.pre-phi.i.i
-  call void @ASSIGNCOST(ptr noundef %arrayidx88.i.i, ptr noundef nonnull %dc.i12.i) #9
+  call void @ASSIGNCOST(ptr noundef %arrayidx82.i.i, ptr noundef nonnull %dc.i12.i) #9
   %141 = load ptr, ptr %t, align 8, !tbaa !9
   store ptr %141, ptr %op93.i.i, align 8, !tbaa !53
   br label %if.end.i31.i
@@ -933,10 +933,10 @@ sw.bb4.i67:                                       ; preds = %sw.bb1.i57
   %count151.i41.i = getelementptr inbounds %struct.mapping, ptr %155, i64 0, i32 3
   %156 = load i32, ptr %count151.i41.i, align 8, !tbaa !54
   %cmp152.i42.i = icmp sgt i32 %156, 0
-  br i1 %cmp152.i42.i, label %for.body.i57.i, label %addHP_2_1.exit.i
+  br i1 %cmp152.i42.i, label %for.body.i58.i, label %addHP_2_1.exit.i
 
-for.body.i57.i:                                   ; preds = %sw.bb4.i67, %for.inc104.i130.i
-  %indvars.iv.i49.i = phi i64 [ %indvars.iv.next.i126.i, %for.inc104.i130.i ], [ 0, %sw.bb4.i67 ]
+for.body.i58.i:                                   ; preds = %sw.bb4.i67, %for.inc104.i131.i
+  %indvars.iv.i49.i = phi i64 [ %indvars.iv.next.i127.i, %for.inc104.i131.i ], [ 0, %sw.bb4.i67 ]
   %157 = load ptr, ptr %relevant.i43.i, align 8, !tbaa !35
   %call.i50.i = call ptr @newItem_Set(ptr noundef %157) #9
   %158 = load ptr, ptr %dimen.i15.i, align 8, !tbaa !19
@@ -944,184 +944,184 @@ for.body.i57.i:                                   ; preds = %sw.bb4.i67, %for.in
   %159 = load ptr, ptr %map3.i.i, align 8, !tbaa !30
   %set.i51.i = getelementptr inbounds %struct.mapping, ptr %159, i64 0, i32 4
   %160 = load ptr, ptr %set.i51.i, align 8, !tbaa !56
-  %arrayidx4.i.i = getelementptr inbounds ptr, ptr %160, i64 %indvars.iv.i49.i
-  %161 = load ptr, ptr %arrayidx4.i.i, align 8, !tbaa !19
-  %representative.i52.i = getelementptr inbounds %struct.item_set, ptr %161, i64 0, i32 4
-  %162 = load ptr, ptr %representative.i52.i, align 8, !tbaa !41
-  %kids.i53.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 3
-  store ptr %162, ptr %kids.i53.i, align 8, !tbaa !19
+  %arrayidx4.i52.i = getelementptr inbounds ptr, ptr %160, i64 %indvars.iv.i49.i
+  %161 = load ptr, ptr %arrayidx4.i52.i, align 8, !tbaa !19
+  %representative.i53.i = getelementptr inbounds %struct.item_set, ptr %161, i64 0, i32 4
+  %162 = load ptr, ptr %representative.i53.i, align 8, !tbaa !41
+  %kids.i54.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 3
+  store ptr %162, ptr %kids.i54.i, align 8, !tbaa !19
   %163 = load ptr, ptr %representative.i, align 8, !tbaa !41
-  %arrayidx8.i54.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 3, i64 1
-  store ptr %163, ptr %arrayidx8.i54.i, align 8, !tbaa !19
-  %pl.0147.i55.i = load ptr, ptr %rules.i45.i, align 8, !tbaa !19
-  %tobool.not148.i56.i = icmp eq ptr %pl.0147.i55.i, null
-  br i1 %tobool.not148.i56.i, label %for.end.i123.i, label %for.body10.lr.ph.i60.i
+  %arrayidx8.i55.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 3, i64 1
+  store ptr %163, ptr %arrayidx8.i55.i, align 8, !tbaa !19
+  %pl.0147.i56.i = load ptr, ptr %rules.i45.i, align 8, !tbaa !19
+  %tobool.not148.i57.i = icmp eq ptr %pl.0147.i56.i, null
+  br i1 %tobool.not148.i57.i, label %for.end.i124.i, label %for.body10.lr.ph.i61.i
 
-for.body10.lr.ph.i60.i:                           ; preds = %for.body.i57.i
-  %virgin61.i58.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 6
-  %op93.i59.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 2
-  br label %for.body10.i65.i
+for.body10.lr.ph.i61.i:                           ; preds = %for.body.i58.i
+  %virgin61.i59.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 6
+  %op93.i60.i = getelementptr inbounds %struct.item_set, ptr %call.i50.i, i64 0, i32 2
+  br label %for.body10.i66.i
 
-for.body10.i65.i:                                 ; preds = %if.end94.i115.i, %for.body10.lr.ph.i60.i
-  %pl.0149.i61.i = phi ptr [ %pl.0147.i55.i, %for.body10.lr.ph.i60.i ], [ %pl.0.i113.i, %if.end94.i115.i ]
-  %164 = load ptr, ptr %pl.0149.i61.i, align 8, !tbaa !20
+for.body10.i66.i:                                 ; preds = %if.end94.i116.i, %for.body10.lr.ph.i61.i
+  %pl.0149.i62.i = phi ptr [ %pl.0147.i56.i, %for.body10.lr.ph.i61.i ], [ %pl.0.i114.i, %if.end94.i116.i ]
+  %164 = load ptr, ptr %pl.0149.i62.i, align 8, !tbaa !20
   %165 = load ptr, ptr %t, align 8, !tbaa !9
-  %pat.i62.i = getelementptr inbounds %struct.rule, ptr %164, i64 0, i32 5
-  %166 = load ptr, ptr %pat.i62.i, align 8, !tbaa !22
-  %op11.i63.i = getelementptr inbounds %struct.pattern, ptr %166, i64 0, i32 1
-  %167 = load ptr, ptr %op11.i63.i, align 8, !tbaa !24
-  %cmp12.i64.i = icmp eq ptr %165, %167
-  br i1 %cmp12.i64.i, label %land.lhs.true.i70.i, label %if.end94.i115.i
+  %pat.i63.i = getelementptr inbounds %struct.rule, ptr %164, i64 0, i32 5
+  %166 = load ptr, ptr %pat.i63.i, align 8, !tbaa !22
+  %op11.i64.i = getelementptr inbounds %struct.pattern, ptr %166, i64 0, i32 1
+  %167 = load ptr, ptr %op11.i64.i, align 8, !tbaa !24
+  %cmp12.i65.i = icmp eq ptr %165, %167
+  br i1 %cmp12.i65.i, label %land.lhs.true.i71.i, label %if.end94.i116.i
 
-land.lhs.true.i70.i:                              ; preds = %for.body10.i65.i
+land.lhs.true.i71.i:                              ; preds = %for.body10.i66.i
   %168 = load ptr, ptr %virgin.i, align 8, !tbaa !38
   %arrayidx14.i.i = getelementptr inbounds %struct.pattern, ptr %166, i64 0, i32 2, i64 1
   %169 = load ptr, ptr %arrayidx14.i.i, align 8, !tbaa !19
-  %num.i66.i = getelementptr inbounds %struct.nonterminal, ptr %169, i64 0, i32 1
-  %170 = load i32, ptr %num.i66.i, align 8, !tbaa !26
-  %idxprom15.i67.i = sext i32 %170 to i64
-  %rule.i68.i = getelementptr inbounds %struct.item, ptr %168, i64 %idxprom15.i67.i, i32 1
-  %171 = load ptr, ptr %rule.i68.i, align 8, !tbaa !39
-  %tobool17.not.i69.i = icmp eq ptr %171, null
-  br i1 %tobool17.not.i69.i, label %if.end94.i115.i, label %land.lhs.true18.i80.i
+  %num.i67.i = getelementptr inbounds %struct.nonterminal, ptr %169, i64 0, i32 1
+  %170 = load i32, ptr %num.i67.i, align 8, !tbaa !26
+  %idxprom15.i68.i = sext i32 %170 to i64
+  %rule.i69.i = getelementptr inbounds %struct.item, ptr %168, i64 %idxprom15.i68.i, i32 1
+  %171 = load ptr, ptr %rule.i69.i, align 8, !tbaa !39
+  %tobool17.not.i70.i = icmp eq ptr %171, null
+  br i1 %tobool17.not.i70.i, label %if.end94.i116.i, label %land.lhs.true18.i81.i
 
-land.lhs.true18.i80.i:                            ; preds = %land.lhs.true.i70.i
-  %children.i71.i = getelementptr inbounds %struct.pattern, ptr %166, i64 0, i32 2
+land.lhs.true18.i81.i:                            ; preds = %land.lhs.true.i71.i
+  %children.i72.i = getelementptr inbounds %struct.pattern, ptr %166, i64 0, i32 2
   %172 = load ptr, ptr %dimen.i15.i, align 8, !tbaa !19
-  %map21.i72.i = getelementptr inbounds %struct.dimension, ptr %172, i64 0, i32 2
-  %173 = load ptr, ptr %map21.i72.i, align 8, !tbaa !30
-  %set22.i73.i = getelementptr inbounds %struct.mapping, ptr %173, i64 0, i32 4
-  %174 = load ptr, ptr %set22.i73.i, align 8, !tbaa !56
-  %arrayidx24.i74.i = getelementptr inbounds ptr, ptr %174, i64 %indvars.iv.i49.i
-  %175 = load ptr, ptr %arrayidx24.i74.i, align 8, !tbaa !19
-  %virgin25.i75.i = getelementptr inbounds %struct.item_set, ptr %175, i64 0, i32 6
-  %176 = load ptr, ptr %virgin25.i75.i, align 8, !tbaa !38
-  %177 = load ptr, ptr %children.i71.i, align 8, !tbaa !19
-  %num29.i76.i = getelementptr inbounds %struct.nonterminal, ptr %177, i64 0, i32 1
-  %178 = load i32, ptr %num29.i76.i, align 8, !tbaa !26
-  %idxprom30.i77.i = sext i32 %178 to i64
-  %rule32.i78.i = getelementptr inbounds %struct.item, ptr %176, i64 %idxprom30.i77.i, i32 1
-  %179 = load ptr, ptr %rule32.i78.i, align 8, !tbaa !39
-  %tobool33.not.i79.i = icmp eq ptr %179, null
-  br i1 %tobool33.not.i79.i, label %if.end94.i115.i, label %if.then.i96.i
+  %map21.i73.i = getelementptr inbounds %struct.dimension, ptr %172, i64 0, i32 2
+  %173 = load ptr, ptr %map21.i73.i, align 8, !tbaa !30
+  %set22.i74.i = getelementptr inbounds %struct.mapping, ptr %173, i64 0, i32 4
+  %174 = load ptr, ptr %set22.i74.i, align 8, !tbaa !56
+  %arrayidx24.i75.i = getelementptr inbounds ptr, ptr %174, i64 %indvars.iv.i49.i
+  %175 = load ptr, ptr %arrayidx24.i75.i, align 8, !tbaa !19
+  %virgin25.i76.i = getelementptr inbounds %struct.item_set, ptr %175, i64 0, i32 6
+  %176 = load ptr, ptr %virgin25.i76.i, align 8, !tbaa !38
+  %177 = load ptr, ptr %children.i72.i, align 8, !tbaa !19
+  %num29.i77.i = getelementptr inbounds %struct.nonterminal, ptr %177, i64 0, i32 1
+  %178 = load i32, ptr %num29.i77.i, align 8, !tbaa !26
+  %idxprom30.i78.i = sext i32 %178 to i64
+  %rule32.i79.i = getelementptr inbounds %struct.item, ptr %176, i64 %idxprom30.i78.i, i32 1
+  %179 = load ptr, ptr %rule32.i79.i, align 8, !tbaa !39
+  %tobool33.not.i80.i = icmp eq ptr %179, null
+  br i1 %tobool33.not.i80.i, label %if.end94.i116.i, label %if.then.i97.i
 
-if.then.i96.i:                                    ; preds = %land.lhs.true18.i80.i
+if.then.i97.i:                                    ; preds = %land.lhs.true18.i81.i
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %dc.i39.i) #9
   call void @ASSIGNCOST(ptr noundef nonnull %dc.i39.i, ptr noundef nonnull %164) #9
   %180 = load ptr, ptr %virgin.i, align 8, !tbaa !38
-  %181 = load ptr, ptr %pat.i62.i, align 8, !tbaa !22
+  %181 = load ptr, ptr %pat.i63.i, align 8, !tbaa !22
   %arrayidx39.i.i = getelementptr inbounds %struct.pattern, ptr %181, i64 0, i32 2, i64 1
   %182 = load ptr, ptr %arrayidx39.i.i, align 8, !tbaa !19
-  %num40.i81.i = getelementptr inbounds %struct.nonterminal, ptr %182, i64 0, i32 1
-  %183 = load i32, ptr %num40.i81.i, align 8, !tbaa !26
-  %idxprom41.i82.i = sext i32 %183 to i64
-  %arrayidx42.i83.i = getelementptr inbounds %struct.item, ptr %180, i64 %idxprom41.i82.i
-  call void @ADDCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx42.i83.i) #9
+  %num40.i82.i = getelementptr inbounds %struct.nonterminal, ptr %182, i64 0, i32 1
+  %183 = load i32, ptr %num40.i82.i, align 8, !tbaa !26
+  %idxprom41.i83.i = sext i32 %183 to i64
+  %arrayidx42.i84.i = getelementptr inbounds %struct.item, ptr %180, i64 %idxprom41.i83.i
+  call void @ADDCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx42.i84.i) #9
   %184 = load ptr, ptr %dimen.i15.i, align 8, !tbaa !19
-  %map48.i84.i = getelementptr inbounds %struct.dimension, ptr %184, i64 0, i32 2
-  %185 = load ptr, ptr %map48.i84.i, align 8, !tbaa !30
-  %set49.i85.i = getelementptr inbounds %struct.mapping, ptr %185, i64 0, i32 4
-  %186 = load ptr, ptr %set49.i85.i, align 8, !tbaa !56
-  %arrayidx51.i86.i = getelementptr inbounds ptr, ptr %186, i64 %indvars.iv.i49.i
-  %187 = load ptr, ptr %arrayidx51.i86.i, align 8, !tbaa !19
-  %virgin52.i87.i = getelementptr inbounds %struct.item_set, ptr %187, i64 0, i32 6
-  %188 = load ptr, ptr %virgin52.i87.i, align 8, !tbaa !38
-  %189 = load ptr, ptr %pat.i62.i, align 8, !tbaa !22
+  %map48.i85.i = getelementptr inbounds %struct.dimension, ptr %184, i64 0, i32 2
+  %185 = load ptr, ptr %map48.i85.i, align 8, !tbaa !30
+  %set49.i86.i = getelementptr inbounds %struct.mapping, ptr %185, i64 0, i32 4
+  %186 = load ptr, ptr %set49.i86.i, align 8, !tbaa !56
+  %arrayidx51.i87.i = getelementptr inbounds ptr, ptr %186, i64 %indvars.iv.i49.i
+  %187 = load ptr, ptr %arrayidx51.i87.i, align 8, !tbaa !19
+  %virgin52.i88.i = getelementptr inbounds %struct.item_set, ptr %187, i64 0, i32 6
+  %188 = load ptr, ptr %virgin52.i88.i, align 8, !tbaa !38
+  %189 = load ptr, ptr %pat.i63.i, align 8, !tbaa !22
   %children54.i.i = getelementptr inbounds %struct.pattern, ptr %189, i64 0, i32 2
   %190 = load ptr, ptr %children54.i.i, align 8, !tbaa !19
-  %num56.i88.i = getelementptr inbounds %struct.nonterminal, ptr %190, i64 0, i32 1
-  %191 = load i32, ptr %num56.i88.i, align 8, !tbaa !26
-  %idxprom57.i89.i = sext i32 %191 to i64
-  %arrayidx58.i90.i = getelementptr inbounds %struct.item, ptr %188, i64 %idxprom57.i89.i
-  call void @ADDCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx58.i90.i) #9
-  %192 = load ptr, ptr %virgin61.i58.i, align 8, !tbaa !38
-  %lhs.i91.i = getelementptr inbounds %struct.rule, ptr %164, i64 0, i32 4
-  %193 = load ptr, ptr %lhs.i91.i, align 8, !tbaa !52
-  %num62.i92.i = getelementptr inbounds %struct.nonterminal, ptr %193, i64 0, i32 1
-  %194 = load i32, ptr %num62.i92.i, align 8, !tbaa !26
-  %idxprom63.i93.i = sext i32 %194 to i64
-  %rule65.i94.i = getelementptr inbounds %struct.item, ptr %192, i64 %idxprom63.i93.i, i32 1
-  %195 = load ptr, ptr %rule65.i94.i, align 8, !tbaa !39
-  %tobool66.not.i95.i = icmp eq ptr %195, null
-  br i1 %tobool66.not.i95.i, label %if.then77.i110.i, label %lor.lhs.false.i100.i
+  %num56.i89.i = getelementptr inbounds %struct.nonterminal, ptr %190, i64 0, i32 1
+  %191 = load i32, ptr %num56.i89.i, align 8, !tbaa !26
+  %idxprom57.i90.i = sext i32 %191 to i64
+  %arrayidx58.i91.i = getelementptr inbounds %struct.item, ptr %188, i64 %idxprom57.i90.i
+  call void @ADDCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx58.i91.i) #9
+  %192 = load ptr, ptr %virgin61.i59.i, align 8, !tbaa !38
+  %lhs.i92.i = getelementptr inbounds %struct.rule, ptr %164, i64 0, i32 4
+  %193 = load ptr, ptr %lhs.i92.i, align 8, !tbaa !52
+  %num62.i93.i = getelementptr inbounds %struct.nonterminal, ptr %193, i64 0, i32 1
+  %194 = load i32, ptr %num62.i93.i, align 8, !tbaa !26
+  %idxprom63.i94.i = sext i32 %194 to i64
+  %rule65.i95.i = getelementptr inbounds %struct.item, ptr %192, i64 %idxprom63.i94.i, i32 1
+  %195 = load ptr, ptr %rule65.i95.i, align 8, !tbaa !39
+  %tobool66.not.i96.i = icmp eq ptr %195, null
+  br i1 %tobool66.not.i96.i, label %if.then77.i111.i, label %lor.lhs.false.i101.i
 
-lor.lhs.false.i100.i:                             ; preds = %if.then.i96.i
-  %arrayidx64.i97.i = getelementptr inbounds %struct.item, ptr %192, i64 %idxprom63.i93.i
-  %call75.i98.i = call i32 @LESSCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx64.i97.i) #9
-  %tobool76.not.i99.i = icmp eq i32 %call75.i98.i, 0
-  br i1 %tobool76.not.i99.i, label %if.end.i111.i, label %lor.lhs.false.if.then77_crit_edge.i106.i
+lor.lhs.false.i101.i:                             ; preds = %if.then.i97.i
+  %arrayidx64.i98.i = getelementptr inbounds %struct.item, ptr %192, i64 %idxprom63.i94.i
+  %call75.i99.i = call i32 @LESSCOST(ptr noundef nonnull %dc.i39.i, ptr noundef %arrayidx64.i98.i) #9
+  %tobool76.not.i100.i = icmp eq i32 %call75.i99.i, 0
+  br i1 %tobool76.not.i100.i, label %if.end.i112.i, label %lor.lhs.false.if.then77_crit_edge.i107.i
 
-lor.lhs.false.if.then77_crit_edge.i106.i:         ; preds = %lor.lhs.false.i100.i
-  %.pre.i101.i = load ptr, ptr %virgin61.i58.i, align 8, !tbaa !38
-  %.pre155.i102.i = load ptr, ptr %lhs.i91.i, align 8, !tbaa !52
-  %num80.phi.trans.insert.i103.i = getelementptr inbounds %struct.nonterminal, ptr %.pre155.i102.i, i64 0, i32 1
-  %.pre156.i104.i = load i32, ptr %num80.phi.trans.insert.i103.i, align 8, !tbaa !26
-  %.pre157.i105.i = sext i32 %.pre156.i104.i to i64
-  br label %if.then77.i110.i
+lor.lhs.false.if.then77_crit_edge.i107.i:         ; preds = %lor.lhs.false.i101.i
+  %.pre.i102.i = load ptr, ptr %virgin61.i59.i, align 8, !tbaa !38
+  %.pre155.i103.i = load ptr, ptr %lhs.i92.i, align 8, !tbaa !52
+  %num80.phi.trans.insert.i104.i = getelementptr inbounds %struct.nonterminal, ptr %.pre155.i103.i, i64 0, i32 1
+  %.pre156.i105.i = load i32, ptr %num80.phi.trans.insert.i104.i, align 8, !tbaa !26
+  %.pre157.i106.i = sext i32 %.pre156.i105.i to i64
+  br label %if.then77.i111.i
 
-if.then77.i110.i:                                 ; preds = %lor.lhs.false.if.then77_crit_edge.i106.i, %if.then.i96.i
-  %idxprom81.pre-phi.i107.i = phi i64 [ %.pre157.i105.i, %lor.lhs.false.if.then77_crit_edge.i106.i ], [ %idxprom63.i93.i, %if.then.i96.i ]
-  %196 = phi ptr [ %.pre.i101.i, %lor.lhs.false.if.then77_crit_edge.i106.i ], [ %192, %if.then.i96.i ]
-  %rule83.i108.i = getelementptr inbounds %struct.item, ptr %196, i64 %idxprom81.pre-phi.i107.i, i32 1
-  store ptr %164, ptr %rule83.i108.i, align 8, !tbaa !39
-  %arrayidx88.i109.i = getelementptr inbounds %struct.item, ptr %196, i64 %idxprom81.pre-phi.i107.i
-  call void @ASSIGNCOST(ptr noundef %arrayidx88.i109.i, ptr noundef nonnull %dc.i39.i) #9
+if.then77.i111.i:                                 ; preds = %lor.lhs.false.if.then77_crit_edge.i107.i, %if.then.i97.i
+  %idxprom81.pre-phi.i108.i = phi i64 [ %.pre157.i106.i, %lor.lhs.false.if.then77_crit_edge.i107.i ], [ %idxprom63.i94.i, %if.then.i97.i ]
+  %196 = phi ptr [ %.pre.i102.i, %lor.lhs.false.if.then77_crit_edge.i107.i ], [ %192, %if.then.i97.i ]
+  %arrayidx82.i109.i = getelementptr inbounds %struct.item, ptr %196, i64 %idxprom81.pre-phi.i108.i
+  %rule83.i110.i = getelementptr inbounds %struct.item, ptr %196, i64 %idxprom81.pre-phi.i108.i, i32 1
+  store ptr %164, ptr %rule83.i110.i, align 8, !tbaa !39
+  call void @ASSIGNCOST(ptr noundef %arrayidx82.i109.i, ptr noundef nonnull %dc.i39.i) #9
   %197 = load ptr, ptr %t, align 8, !tbaa !9
-  store ptr %197, ptr %op93.i59.i, align 8, !tbaa !53
-  br label %if.end.i111.i
+  store ptr %197, ptr %op93.i60.i, align 8, !tbaa !53
+  br label %if.end.i112.i
 
-if.end.i111.i:                                    ; preds = %if.then77.i110.i, %lor.lhs.false.i100.i
+if.end.i112.i:                                    ; preds = %if.then77.i111.i, %lor.lhs.false.i101.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %dc.i39.i) #9
-  br label %if.end94.i115.i
+  br label %if.end94.i116.i
 
-if.end94.i115.i:                                  ; preds = %if.end.i111.i, %land.lhs.true18.i80.i, %land.lhs.true.i70.i, %for.body10.i65.i
-  %next.i112.i = getelementptr inbounds %struct.list, ptr %pl.0149.i61.i, i64 0, i32 1
-  %pl.0.i113.i = load ptr, ptr %next.i112.i, align 8, !tbaa !19
-  %tobool.not.i114.i = icmp eq ptr %pl.0.i113.i, null
-  br i1 %tobool.not.i114.i, label %for.end.i123.i, label %for.body10.i65.i
+if.end94.i116.i:                                  ; preds = %if.end.i112.i, %land.lhs.true18.i81.i, %land.lhs.true.i71.i, %for.body10.i66.i
+  %next.i113.i = getelementptr inbounds %struct.list, ptr %pl.0149.i62.i, i64 0, i32 1
+  %pl.0.i114.i = load ptr, ptr %next.i113.i, align 8, !tbaa !19
+  %tobool.not.i115.i = icmp eq ptr %pl.0.i114.i, null
+  br i1 %tobool.not.i115.i, label %for.end.i124.i, label %for.body10.i66.i
 
-for.end.i123.i:                                   ; preds = %if.end94.i115.i, %for.body.i57.i
+for.end.i124.i:                                   ; preds = %if.end94.i116.i, %for.body.i58.i
   call void @trim(ptr noundef %call.i50.i) #9
   call void @zero(ptr noundef %call.i50.i) #9
   %198 = load ptr, ptr @globalMap, align 8, !tbaa !19
-  %call95.i116.i = call ptr @encode(ptr noundef %198, ptr noundef %call.i50.i, ptr noundef nonnull %new.i38.i) #9
+  %call95.i117.i = call ptr @encode(ptr noundef %198, ptr noundef %call.i50.i, ptr noundef nonnull %new.i38.i) #9
   %199 = load ptr, ptr %transition.i22.i, align 8, !tbaa !34
   %200 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !19
-  %max_size.i117.i = getelementptr inbounds %struct.dimension, ptr %200, i64 0, i32 3
-  %201 = load i32, ptr %max_size.i117.i, align 8, !tbaa !31
+  %max_size.i118.i = getelementptr inbounds %struct.dimension, ptr %200, i64 0, i32 3
+  %201 = load i32, ptr %max_size.i118.i, align 8, !tbaa !31
   %202 = trunc i64 %indvars.iv.i49.i to i32
-  %mul.i118.i = mul nsw i32 %201, %202
+  %mul.i119.i = mul nsw i32 %201, %202
   %203 = load i32, ptr %call.i, align 8, !tbaa !43
-  %add.i119.i = add nsw i32 %mul.i118.i, %203
-  %idxprom99.i120.i = sext i32 %add.i119.i to i64
-  %arrayidx100.i121.i = getelementptr inbounds ptr, ptr %199, i64 %idxprom99.i120.i
-  store ptr %call95.i116.i, ptr %arrayidx100.i121.i, align 8, !tbaa !19
+  %add.i120.i = add nsw i32 %mul.i119.i, %203
+  %idxprom99.i121.i = sext i32 %add.i120.i to i64
+  %arrayidx100.i122.i = getelementptr inbounds ptr, ptr %199, i64 %idxprom99.i121.i
+  store ptr %call95.i117.i, ptr %arrayidx100.i122.i, align 8, !tbaa !19
   %204 = load i32, ptr %new.i38.i, align 4, !tbaa !15
-  %tobool101.not.i122.i = icmp eq i32 %204, 0
-  br i1 %tobool101.not.i122.i, label %if.else.i125.i, label %if.then102.i124.i
+  %tobool101.not.i123.i = icmp eq i32 %204, 0
+  br i1 %tobool101.not.i123.i, label %if.else.i126.i, label %if.then102.i125.i
 
-if.then102.i124.i:                                ; preds = %for.end.i123.i
+if.then102.i125.i:                                ; preds = %for.end.i124.i
   call void @closure(ptr noundef %call.i50.i) #9
   %205 = load ptr, ptr @globalQ, align 8, !tbaa !19
-  call void @addQ(ptr noundef %205, ptr noundef %call95.i116.i) #9
-  br label %for.inc104.i130.i
+  call void @addQ(ptr noundef %205, ptr noundef %call95.i117.i) #9
+  br label %for.inc104.i131.i
 
-if.else.i125.i:                                   ; preds = %for.end.i123.i
+if.else.i126.i:                                   ; preds = %for.end.i124.i
   call void @freeItem_Set(ptr noundef %call.i50.i) #9
-  br label %for.inc104.i130.i
+  br label %for.inc104.i131.i
 
-for.inc104.i130.i:                                ; preds = %if.else.i125.i, %if.then102.i124.i
-  %indvars.iv.next.i126.i = add nuw nsw i64 %indvars.iv.i49.i, 1
+for.inc104.i131.i:                                ; preds = %if.else.i126.i, %if.then102.i125.i
+  %indvars.iv.next.i127.i = add nuw nsw i64 %indvars.iv.i49.i, 1
   %206 = load ptr, ptr %dimen.i15.i, align 8, !tbaa !19
-  %map.i127.i = getelementptr inbounds %struct.dimension, ptr %206, i64 0, i32 2
-  %207 = load ptr, ptr %map.i127.i, align 8, !tbaa !30
-  %count.i128.i = getelementptr inbounds %struct.mapping, ptr %207, i64 0, i32 3
-  %208 = load i32, ptr %count.i128.i, align 8, !tbaa !54
+  %map.i128.i = getelementptr inbounds %struct.dimension, ptr %206, i64 0, i32 2
+  %207 = load ptr, ptr %map.i128.i, align 8, !tbaa !30
+  %count.i129.i = getelementptr inbounds %struct.mapping, ptr %207, i64 0, i32 3
+  %208 = load i32, ptr %count.i129.i, align 8, !tbaa !54
   %209 = sext i32 %208 to i64
-  %cmp.i129.i = icmp slt i64 %indvars.iv.next.i126.i, %209
-  br i1 %cmp.i129.i, label %for.body.i57.i, label %addHP_2_1.exit.i
+  %cmp.i130.i = icmp slt i64 %indvars.iv.next.i127.i, %209
+  br i1 %cmp.i130.i, label %for.body.i58.i, label %addHP_2_1.exit.i
 
-addHP_2_1.exit.i:                                 ; preds = %for.inc104.i130.i, %sw.bb4.i67
+addHP_2_1.exit.i:                                 ; preds = %for.inc104.i131.i, %sw.bb4.i67
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %new.i38.i) #9
   br label %if.end29
 
@@ -1274,7 +1274,7 @@ dumpRelevant.exit:                                ; preds = %for.body.i, %entry
   %putchar = tail call i32 @putchar(i32 10)
   %index_map = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 1
   %4 = load i32, ptr %index_map, align 8, !tbaa !42
-  %call.i9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
+  %call.i8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
   %5 = load ptr, ptr @globalMap, align 8, !tbaa !19
   %count7.i = getelementptr inbounds %struct.mapping, ptr %5, i64 0, i32 3
   %6 = load i32, ptr %count7.i, align 8, !tbaa !54
@@ -1283,10 +1283,10 @@ dumpRelevant.exit:                                ; preds = %for.body.i, %entry
 
 for.body.lr.ph.i:                                 ; preds = %dumpRelevant.exit
   %class.i = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 1, i32 1
-  br label %for.body.i10
+  br label %for.body.i9
 
-for.body.i10:                                     ; preds = %for.body.i10, %for.body.lr.ph.i
-  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i10 ]
+for.body.i9:                                      ; preds = %for.body.i9, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i9 ]
   %7 = load ptr, ptr %class.i, align 8, !tbaa !44
   %arrayidx.i = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.i
   %8 = load ptr, ptr %arrayidx.i, align 8, !tbaa !19
@@ -1299,9 +1299,9 @@ for.body.i10:                                     ; preds = %for.body.i10, %for.
   %12 = load i32, ptr %count.i, align 8, !tbaa !54
   %13 = sext i32 %12 to i64
   %cmp.i = icmp slt i64 %indvars.iv.next.i, %13
-  br i1 %cmp.i, label %for.body.i10, label %dumpIndex_Map.exit
+  br i1 %cmp.i, label %for.body.i9, label %dumpIndex_Map.exit
 
-dumpIndex_Map.exit:                               ; preds = %for.body.i10, %dumpRelevant.exit
+dumpIndex_Map.exit:                               ; preds = %for.body.i9, %dumpRelevant.exit
   %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %map = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 2
   %14 = load ptr, ptr %map, align 8, !tbaa !30
@@ -1309,7 +1309,7 @@ dumpIndex_Map.exit:                               ; preds = %for.body.i10, %dump
   %max_size = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 3
   %15 = load i32, ptr %max_size, align 8, !tbaa !31
   %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %15)
-  %puts8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %puts10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   ret void
 }
 
@@ -1322,7 +1322,7 @@ entry:
   br i1 %tobool.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
-  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %tobool2.not = icmp eq i32 %full, 0
   br i1 %tobool2.not, label %if.end4, label %if.then3
 
@@ -1359,8 +1359,8 @@ for.end:                                          ; preds = %for.body, %if.end4
   br label %cleanup
 
 cleanup:                                          ; preds = %entry, %for.end
-  %str.24.sink = phi ptr [ @str.24, %for.end ], [ @str.22, %entry ]
-  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.24.sink)
+  %str.25.sink = phi ptr [ @str.25, %for.end ], [ @str.23, %entry ]
+  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.25.sink)
   ret void
 }
 
@@ -1519,8 +1519,8 @@ for.body32.peel.next:                             ; preds = %if.end37.peel
   br label %for.body32
 
 for.body32:                                       ; preds = %for.body32.peel.next, %if.end37
-  %indvars.iv = phi i64 [ 1, %for.body32.peel.next ], [ %indvars.iv.next, %if.end37 ]
   %35 = phi ptr [ %31, %for.body32.peel.next ], [ %44, %if.end37 ]
+  %indvars.iv = phi i64 [ 1, %for.body32.peel.next ], [ %indvars.iv.next, %if.end37 ]
   %36 = load ptr, ptr %t, align 8, !tbaa !9
   %arity.i = getelementptr inbounds %struct.operator, ptr %36, i64 0, i32 5
   %37 = load i32, ptr %arity.i, align 8, !tbaa !12
@@ -1578,7 +1578,7 @@ for.end42:                                        ; preds = %if.end37, %if.end37
   br i1 %cmp18, label %for.body19, label %for.end46
 
 for.end46:                                        ; preds = %for.end42, %sw.bb11
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %entry, %for.end46, %for.end, %sw.bb

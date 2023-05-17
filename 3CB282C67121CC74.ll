@@ -100,25 +100,25 @@ sw.bb18:                                          ; preds = %entry
   %minpc = getelementptr inbounds %struct.Exp, ptr %12, i64 0, i32 3
   %13 = load i32, ptr %minpc, align 8, !tbaa !20
   %14 = load i32, ptr @ch, align 4, !tbaa !5
-  %numrefs.i68 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 1
-  store i32 1, ptr %numrefs.i68, align 8, !tbaa !19
-  %pc.i69 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 2
-  store i32 %sub, ptr %pc.i69, align 4, !tbaa !21
-  %minpc.i70 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 3
-  store i32 %13, ptr %minpc.i70, align 8, !tbaa !20
-  %call.i71 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %invoke.cont24 unwind label %lpad23
+  %numrefs.i67 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 1
+  store i32 1, ptr %numrefs.i67, align 8, !tbaa !19
+  %pc.i68 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 2
+  store i32 %sub, ptr %pc.i68, align 4, !tbaa !21
+  %minpc.i69 = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 3
+  store i32 %13, ptr %minpc.i69, align 8, !tbaa !20
+  %call.i70 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit unwind label %lpad23
 
-invoke.cont24:                                    ; preds = %sw.bb18
+_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit:          ; preds = %sw.bb18
   %sub22 = add nsw i32 %14, -125
-  store i32 0, ptr %call.i71, align 8, !tbaa !22
-  %et.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i71, i64 0, i32 1
+  store i32 0, ptr %call.i70, align 8, !tbaa !22
+  %et.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i70, i64 0, i32 1
   store i32 4, ptr %et.i.i, align 4, !tbaa !23
-  %type.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i71, i64 0, i32 2
+  %type.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i70, i64 0, i32 2
   store i32 10, ptr %type.i.i, align 8, !tbaa !13
-  %op.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i71, i64 0, i32 3
+  %op.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i70, i64 0, i32 3
   store i32 %sub22, ptr %op.i.i, align 4, !tbaa !18
-  store ptr %call.i71, ptr %call20, align 8, !tbaa !11
+  store ptr %call.i70, ptr %call20, align 8, !tbaa !11
   %exp1.i = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 4
   store ptr %12, ptr %exp1.i, align 8, !tbaa !24
   %exp2.i = getelementptr inbounds %struct.Exp, ptr %call20, i64 0, i32 5
@@ -134,40 +134,40 @@ lpad23:                                           ; preds = %sw.bb18
 sw.bb25:                                          ; preds = %entry
   %16 = load ptr, ptr %incdec.ptr, align 8, !tbaa !9
   %call26 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %numrefs.i72 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 1
-  store i32 1, ptr %numrefs.i72, align 8, !tbaa !19
-  %minpc.i73 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 3
-  store i32 %sub, ptr %minpc.i73, align 8, !tbaa !20
-  %pc.i74 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 2
-  store i32 %sub, ptr %pc.i74, align 4, !tbaa !21
+  %numrefs.i71 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 1
+  store i32 1, ptr %numrefs.i71, align 8, !tbaa !19
+  %minpc.i72 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 3
+  store i32 %sub, ptr %minpc.i72, align 8, !tbaa !20
+  %pc.i73 = getelementptr inbounds %struct.Exp, ptr %call26, i64 0, i32 2
+  store i32 %sub, ptr %pc.i73, align 4, !tbaa !21
   store ptr @std_exps, ptr %call26, align 8, !tbaa !11
   %call29 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
   %minpc30 = getelementptr inbounds %struct.Exp, ptr %16, i64 0, i32 3
   %17 = load i32, ptr %minpc30, align 8, !tbaa !20
   %18 = load i32, ptr @ch, align 4, !tbaa !5
-  %numrefs.i75 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 1
-  store i32 1, ptr %numrefs.i75, align 8, !tbaa !19
-  %pc.i76 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 2
-  store i32 %sub, ptr %pc.i76, align 4, !tbaa !21
-  %minpc.i77 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 3
-  store i32 %17, ptr %minpc.i77, align 8, !tbaa !20
-  %call.i83 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %invoke.cont34 unwind label %lpad33
+  %numrefs.i74 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 1
+  store i32 1, ptr %numrefs.i74, align 8, !tbaa !19
+  %pc.i75 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 2
+  store i32 %sub, ptr %pc.i75, align 4, !tbaa !21
+  %minpc.i76 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 3
+  store i32 %17, ptr %minpc.i76, align 8, !tbaa !20
+  %call.i82 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit83 unwind label %lpad33
 
-invoke.cont34:                                    ; preds = %sw.bb25
+_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit83:        ; preds = %sw.bb25
   %sub32 = add nsw i32 %18, -170
-  store i32 0, ptr %call.i83, align 8, !tbaa !22
-  %et.i.i78 = getelementptr inbounds %struct.Exp_, ptr %call.i83, i64 0, i32 1
-  store i32 4, ptr %et.i.i78, align 4, !tbaa !23
-  %type.i.i79 = getelementptr inbounds %struct.Exp_, ptr %call.i83, i64 0, i32 2
-  store i32 10, ptr %type.i.i79, align 8, !tbaa !13
-  %op.i.i80 = getelementptr inbounds %struct.Exp_, ptr %call.i83, i64 0, i32 3
-  store i32 %sub32, ptr %op.i.i80, align 4, !tbaa !18
-  store ptr %call.i83, ptr %call29, align 8, !tbaa !11
-  %exp1.i81 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 4
-  store ptr %16, ptr %exp1.i81, align 8, !tbaa !24
-  %exp2.i82 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 5
-  store ptr %call26, ptr %exp2.i82, align 8, !tbaa !25
+  store i32 0, ptr %call.i82, align 8, !tbaa !22
+  %et.i.i77 = getelementptr inbounds %struct.Exp_, ptr %call.i82, i64 0, i32 1
+  store i32 4, ptr %et.i.i77, align 4, !tbaa !23
+  %type.i.i78 = getelementptr inbounds %struct.Exp_, ptr %call.i82, i64 0, i32 2
+  store i32 10, ptr %type.i.i78, align 8, !tbaa !13
+  %op.i.i79 = getelementptr inbounds %struct.Exp_, ptr %call.i82, i64 0, i32 3
+  store i32 %sub32, ptr %op.i.i79, align 4, !tbaa !18
+  store ptr %call.i82, ptr %call29, align 8, !tbaa !11
+  %exp1.i80 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 4
+  store ptr %16, ptr %exp1.i80, align 8, !tbaa !24
+  %exp2.i81 = getelementptr inbounds %struct.Exp, ptr %call29, i64 0, i32 5
+  store ptr %call26, ptr %exp2.i81, align 8, !tbaa !25
   store ptr %call29, ptr %e, align 8, !tbaa !9
   br label %sw.epilog
 
@@ -176,9 +176,9 @@ lpad33:                                           ; preds = %sw.bb25
           cleanup
   br label %ehcleanup
 
-sw.epilog:                                        ; preds = %if.then12.sw.epilog_crit_edge, %entry, %sw.bb10, %invoke.cont34, %invoke.cont24, %if.end
-  %20 = phi i32 [ %.pre89, %if.then12.sw.epilog_crit_edge ], [ %0, %entry ], [ %0, %sw.bb10 ], [ %0, %invoke.cont34 ], [ %0, %invoke.cont24 ], [ %0, %if.end ]
-  %21 = phi ptr [ %.pre, %if.then12.sw.epilog_crit_edge ], [ %2, %entry ], [ %2, %sw.bb10 ], [ %call29, %invoke.cont34 ], [ %call20, %invoke.cont24 ], [ %2, %if.end ]
+sw.epilog:                                        ; preds = %if.then12.sw.epilog_crit_edge, %entry, %sw.bb10, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit83, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit, %if.end
+  %20 = phi i32 [ %.pre89, %if.then12.sw.epilog_crit_edge ], [ %0, %entry ], [ %0, %sw.bb10 ], [ %0, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit83 ], [ %0, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit ], [ %0, %if.end ]
+  %21 = phi ptr [ %.pre, %if.then12.sw.epilog_crit_edge ], [ %2, %entry ], [ %2, %sw.bb10 ], [ %call29, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit83 ], [ %call20, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit ], [ %2, %if.end ]
   %call35 = call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
   %minpc36 = getelementptr inbounds %struct.Exp, ptr %21, i64 0, i32 3
   %22 = load i32, ptr %minpc36, align 8, !tbaa !20
@@ -199,15 +199,15 @@ sw.epilog:                                        ; preds = %if.then12.sw.epilog
   %add44 = or i16 %shl, %conv43
   %conv46 = sext i16 %add44 to i32
   %add47 = add i32 %sub, %conv46
-  %numrefs.i85 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 1
-  store i32 1, ptr %numrefs.i85, align 8, !tbaa !19
-  %pc.i86 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 2
-  store i32 %sub, ptr %pc.i86, align 4, !tbaa !21
-  %minpc.i87 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 3
-  store i32 %22, ptr %minpc.i87, align 8, !tbaa !20
+  %numrefs.i84 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 1
+  store i32 1, ptr %numrefs.i84, align 8, !tbaa !19
+  %pc.i85 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 2
+  store i32 %sub, ptr %pc.i85, align 4, !tbaa !21
+  %minpc.i86 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 3
+  store i32 %22, ptr %minpc.i86, align 8, !tbaa !20
   store ptr getelementptr inbounds ([0 x %struct.Exp_], ptr @std_exps, i64 0, i64 17), ptr %call35, align 8, !tbaa !11
-  %exp1.i88 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 4
-  store ptr %21, ptr %exp1.i88, align 8, !tbaa !24
+  %exp1.i87 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 4
+  store ptr %21, ptr %exp1.i87, align 8, !tbaa !24
   %27 = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 7
   store i32 %add47, ptr %27, align 8, !tbaa !26
   %28 = load ptr, ptr @donestkptr, align 8, !tbaa !9
@@ -271,9 +271,9 @@ entry:
   %minpc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 3
   store i32 %., ptr %minpc.i, align 8, !tbaa !20
   %call.i34 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit:          ; preds = %entry
   %sub5 = add nsw i32 %6, -159
   %rem = srem i32 %sub5, 6
   %add = add nsw i32 %rem, 28
@@ -355,9 +355,9 @@ entry:
   %minpc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 3
   store i32 %., ptr %minpc.i, align 8, !tbaa !20
   %call.i11 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit:          ; preds = %entry
   store <4 x i32> <i32 0, i32 4, i32 12, i32 26>, ptr %call.i11, align 8, !tbaa !26
   store ptr %call.i11, ptr %call, align 8, !tbaa !11
   %exp1.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 4
@@ -431,9 +431,9 @@ if.end15:                                         ; preds = %if.then9
   %minpc.i = getelementptr inbounds %struct.Exp, ptr %call17, i64 0, i32 3
   store i32 %17, ptr %minpc.i, align 8, !tbaa !20
   %call.i26 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %if.end15
+_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit:          ; preds = %if.end15
   store <4 x i32> <i32 0, i32 2, i32 10, i32 34>, ptr %call.i26, align 8, !tbaa !26
   store ptr %call.i26, ptr %call17, align 8, !tbaa !11
   %exp1.i = getelementptr inbounds %struct.Exp, ptr %call17, i64 0, i32 4
@@ -454,7 +454,7 @@ if.else:                                          ; preds = %if.end
   store i32 %xor, ptr %op, align 4, !tbaa !5
   br label %if.end22
 
-if.end22:                                         ; preds = %if.else, %invoke.cont
+if.end22:                                         ; preds = %if.else, %_ZN3ExpC2Eji7Exptype4Type2OpPS_S3_.exit
   %19 = load ptr, ptr @cond_e2, align 8, !tbaa !9
   %exp2 = getelementptr inbounds %struct.Exp, ptr %8, i64 0, i32 5
   store ptr %19, ptr %exp2, align 8, !tbaa !25

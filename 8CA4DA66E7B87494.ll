@@ -108,8 +108,8 @@ entry:
   %sub.i = add nsw i64 %div.i, -11644473600
   %cmp.i = icmp ugt i64 %sub.i, 4294967295
   %1 = and i64 %sub.i, 4294967295
-  %conv4 = select i1 %cmp.i, i64 0, i64 %1
-  store i64 %conv4, ptr %unixtime, align 8, !tbaa !25
+  %spec.select = select i1 %cmp.i, i64 0, i64 %1
+  store i64 %spec.select, ptr %unixtime, align 8, !tbaa !25
   %call5 = call ptr @gmtime(ptr noundef nonnull %unixtime) #8
   %tm_year = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 5
   %2 = load i32, ptr %tm_year, align 4, !tbaa !19
@@ -378,22 +378,25 @@ entry:
   %0 = load i16, ptr %syst, align 2, !tbaa !28
   %wMonth = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 1
   %1 = load i16, ptr %wMonth, align 2, !tbaa !30
-  %wHour = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 4
-  %2 = load <4 x i16>, ptr %wHour, align 2, !tbaa !26
-  %.fr = freeze <4 x i16> %2
-  %3 = icmp ugt <4 x i16> %.fr, <i16 23, i16 59, i16 59, i16 999>
-  %4 = add i16 %1, -13
-  %or.cond129.i = icmp ult i16 %4, -12
-  %5 = bitcast <4 x i1> %3 to i4
-  %6 = icmp ne i4 %5, 0
-  %op.rdx = select i1 %6, i1 true, i1 %or.cond129.i
-  br i1 %op.rdx, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %lor.lhs.false32.i
-
-lor.lhs.false32.i:                                ; preds = %entry
   %wDay = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 3
-  %7 = load i16, ptr %wDay, align 2, !tbaa !31
-  %conv33.i = sext i16 %7 to i32
-  %cmp34.i = icmp slt i16 %7, 1
+  %2 = load i16, ptr %wDay, align 2, !tbaa !31
+  %wHour = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 4
+  %3 = load <4 x i16>, ptr %wHour, align 2, !tbaa !26
+  %.fr = freeze <4 x i16> %3
+  %4 = icmp ugt <4 x i16> %.fr, <i16 23, i16 59, i16 59, i16 999>
+  %5 = bitcast <4 x i1> %4 to i4
+  %.not = icmp eq i4 %5, 0
+  br i1 %.not, label %lor.lhs.false25.i, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit
+
+lor.lhs.false25.i:                                ; preds = %entry
+  %conv26.i = sext i16 %1 to i32
+  %6 = add i16 %1, -13
+  %or.cond129.i = icmp ult i16 %6, -12
+  br i1 %or.cond129.i, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %lor.lhs.false32.i
+
+lor.lhs.false32.i:                                ; preds = %lor.lhs.false25.i
+  %conv33.i = sext i16 %2 to i32
+  %cmp34.i = icmp slt i16 %2, 1
   br i1 %cmp34.i, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %lor.lhs.false35.i
 
 lor.lhs.false35.i:                                ; preds = %lor.lhs.false32.i
@@ -401,29 +404,28 @@ lor.lhs.false35.i:                                ; preds = %lor.lhs.false32.i
   br i1 %cmp40.i, label %lor.end.i, label %lor.rhs.i
 
 lor.rhs.i:                                        ; preds = %lor.lhs.false35.i
-  %8 = and i16 %0, 3
-  %cmp.i.i = icmp eq i16 %8, 0
+  %7 = and i16 %0, 3
+  %cmp.i.i = icmp eq i16 %7, 0
   br i1 %cmp.i.i, label %land.rhs.i.i, label %lor.end.i
 
 land.rhs.i.i:                                     ; preds = %lor.rhs.i
-  %rem1.i132.i = srem i16 %0, 100
-  %cmp2.not.i.i = icmp eq i16 %rem1.i132.i, 0
+  %rem1.i130.i = srem i16 %0, 100
+  %cmp2.not.i.i = icmp eq i16 %rem1.i130.i, 0
   br i1 %cmp2.not.i.i, label %lor.rhs.i.i, label %lor.end.i
 
 lor.rhs.i.i:                                      ; preds = %land.rhs.i.i
-  %rem3.i133.i = srem i16 %0, 400
-  %cmp4.i.i = icmp eq i16 %rem3.i133.i, 0
-  %9 = zext i1 %cmp4.i.i to i64
+  %rem3.i131.i = srem i16 %0, 400
+  %cmp4.i.i = icmp eq i16 %rem3.i131.i, 0
+  %8 = zext i1 %cmp4.i.i to i64
   br label %lor.end.i
 
 lor.end.i:                                        ; preds = %lor.rhs.i.i, %land.rhs.i.i, %lor.rhs.i, %lor.lhs.false35.i
-  %idxprom.i = phi i64 [ 1, %lor.lhs.false35.i ], [ 0, %lor.rhs.i ], [ 1, %land.rhs.i.i ], [ %9, %lor.rhs.i.i ]
-  %conv43.i = zext i16 %1 to i64
-  %sub.i = add nuw nsw i64 %conv43.i, 4294967295
-  %idxprom44.i = and i64 %sub.i, 4294967295
+  %idxprom.i = phi i64 [ 1, %lor.lhs.false35.i ], [ 0, %lor.rhs.i ], [ 1, %land.rhs.i.i ], [ %8, %lor.rhs.i.i ]
+  %sub.i = add nsw i32 %conv26.i, -1
+  %idxprom44.i = sext i32 %sub.i to i64
   %arrayidx45.i = getelementptr inbounds [2 x [12 x i32]], ptr @_ZL12MonthLengths, i64 0, i64 %idxprom.i, i64 %idxprom44.i
-  %10 = load i32, ptr %arrayidx45.i, align 4, !tbaa !24
-  %cmp46.i = icmp slt i32 %10, %conv33.i
+  %9 = load i32, ptr %arrayidx45.i, align 4, !tbaa !24
+  %cmp46.i = icmp slt i32 %9, %conv33.i
   %cmp50.i = icmp slt i16 %0, 1601
   %or.cond14 = select i1 %cmp46.i, i1 true, i1 %cmp50.i
   br i1 %or.cond14, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %if.end.i
@@ -433,49 +435,48 @@ if.end.i:                                         ; preds = %lor.end.i
   %cmp53.i = icmp ult i16 %1, 3
   %sub59.i = sext i1 %cmp53.i to i32
   %year.0.i = add nsw i32 %sub59.i, %conv49.i
-  %month.0.v.i = select i1 %cmp53.i, i16 13, i16 1
-  %month.0.i = add nuw nsw i16 %month.0.v.i, %1
+  %month.0.v.i = select i1 %cmp53.i, i32 13, i32 1
+  %month.0.i = add nsw i32 %month.0.v.i, %conv26.i
   %div.lhs.trunc.i = trunc i32 %year.0.i to i16
-  %div136.i = udiv i16 %div.lhs.trunc.i, 100
-  %narrow.i = mul nuw nsw i16 %div136.i, 3
-  %narrow137.i = add nuw nsw i16 %narrow.i, 3
-  %11 = lshr i16 %narrow137.i, 2
-  %div67125.i = zext i16 %11 to i32
+  %div133.i = udiv i16 %div.lhs.trunc.i, 100
+  %narrow.i = mul nuw nsw i16 %div133.i, 3
+  %narrow134.i = add nuw nsw i16 %narrow.i, 3
+  %10 = lshr i16 %narrow134.i, 2
+  %div67125.i = zext i16 %10 to i32
   %mul68.i = mul nuw nsw i32 %year.0.i, 36525
   %div69.i = udiv i32 %mul68.i, 100
-  %mul71.i = mul nuw i16 %month.0.i, 1959
-  %div72130131134.i = lshr i16 %mul71.i, 6
-  %div72130.zext.i = zext i16 %div72130131134.i to i32
-  %sub70.i = add nsw i32 %div69.i, -584817
-  %add73.i = add nsw i32 %sub70.i, %div72130.zext.i
-  %add76.i = sub nsw i32 %add73.i, %div67125.i
-  %sub77.i = add nsw i32 %add76.i, %conv33.i
+  %mul71.i = mul nsw i32 %month.0.i, 1959
+  %div72.i = sdiv i32 %mul71.i, 64
+  %sub70.i = add nsw i32 %conv33.i, -584817
+  %add73.i = add nsw i32 %sub70.i, %div72.i
+  %add76.i = add nsw i32 %add73.i, %div69.i
+  %sub77.i = sub nsw i32 %add76.i, %div67125.i
   %conv78.i = sext i32 %sub77.i to i64
   %mul79.i = mul nsw i64 %conv78.i, 24
-  %12 = extractelement <4 x i16> %.fr, i64 0
-  %conv81.i = zext i16 %12 to i64
+  %11 = extractelement <4 x i16> %.fr, i64 0
+  %conv81.i = zext i16 %11 to i64
   %add82.i = add nsw i64 %mul79.i, %conv81.i
   %mul83.i = mul nsw i64 %add82.i, 60
-  %13 = extractelement <4 x i16> %.fr, i64 1
-  %conv85.i = zext i16 %13 to i64
+  %12 = extractelement <4 x i16> %.fr, i64 1
+  %conv85.i = zext i16 %12 to i64
   %add86.i = add nsw i64 %mul83.i, %conv85.i
   %mul87.i = mul nsw i64 %add86.i, 60
-  %14 = extractelement <4 x i16> %.fr, i64 2
-  %conv89.i = zext i16 %14 to i64
+  %13 = extractelement <4 x i16> %.fr, i64 2
+  %conv89.i = zext i16 %13 to i64
   %add90.i = add nsw i64 %mul87.i, %conv89.i
   %mul91.i = mul nsw i64 %add90.i, 1000
-  %15 = extractelement <4 x i16> %.fr, i64 3
-  %conv93.i = zext i16 %15 to i64
+  %14 = extractelement <4 x i16> %.fr, i64 3
+  %conv93.i = zext i16 %14 to i64
   %add94.i = add nsw i64 %mul91.i, %conv93.i
   %mul95.i = mul nsw i64 %add94.i, 10000
   br label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit
 
-_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit: ; preds = %entry, %lor.lhs.false32.i, %lor.end.i, %if.end.i
-  %t.sroa.0.0 = phi i64 [ undef, %entry ], [ undef, %lor.lhs.false32.i ], [ undef, %lor.end.i ], [ %mul95.i, %if.end.i ]
+_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit: ; preds = %entry, %lor.lhs.false25.i, %lor.lhs.false32.i, %lor.end.i, %if.end.i
+  %t.sroa.0.0 = phi i64 [ undef, %entry ], [ undef, %lor.lhs.false25.i ], [ undef, %lor.lhs.false32.i ], [ undef, %lor.end.i ], [ %mul95.i, %if.end.i ]
   %conv = trunc i64 %t.sroa.0.0 to i32
   store i32 %conv, ptr %ft, align 4, !tbaa !5
-  %16 = lshr i64 %t.sroa.0.0, 32
-  %conv2 = trunc i64 %16 to i32
+  %15 = lshr i64 %t.sroa.0.0, 32
+  %conv2 = trunc i64 %15 to i32
   %dwHighDateTime = getelementptr inbounds %struct._FILETIME, ptr %ft, i64 0, i32 1
   store i32 %conv2, ptr %dwHighDateTime, align 4, !tbaa !10
   ret i32 1

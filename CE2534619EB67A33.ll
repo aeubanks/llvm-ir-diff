@@ -790,7 +790,7 @@ sumAtoms.exit57:                                  ; preds = %for.body.i56.prol.l
   call void @timestampBarrier(ptr noundef nonnull @.str.3) #13
   %call.i58 = call i32 @printRank() #13
   %tobool.not.i59 = icmp eq i32 %call.i58, 0
-  br i1 %tobool.not.i59, label %if.end3.i, label %if.then.i72
+  br i1 %tobool.not.i59, label %validateResult.exit, label %if.then.i72
 
 if.then.i72:                                      ; preds = %sumAtoms.exit57
   %165 = load double, ptr %ePotential.i, align 8, !tbaa !57
@@ -823,7 +823,7 @@ if.then12.i:                                      ; preds = %if.then.i72
   %nGlobal14.i = getelementptr inbounds %struct.AtomsSt, ptr %177, i64 0, i32 1
   %178 = load i32, ptr %nGlobal14.i, align 4, !tbaa !41
   %call15.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %176, ptr noundef nonnull @.str.15, i32 noundef %178)
-  br label %if.end3.i
+  br label %validateResult.exit
 
 if.else.i:                                        ; preds = %if.then.i72
   %sub.i = sub nsw i32 %168, %117
@@ -833,23 +833,23 @@ if.else.i:                                        ; preds = %if.then.i72
   %call17.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %181, ptr noundef nonnull @.str.17, i32 noundef %sub.i)
   %182 = load ptr, ptr @stdout, align 8, !tbaa !9
   %183 = call i64 @fwrite(ptr nonnull @.str.16, i64 30, i64 1, ptr %182)
-  br label %if.end3.i
+  br label %validateResult.exit
 
-if.end3.i:                                        ; preds = %if.else.i, %if.then12.i, %sumAtoms.exit57
+validateResult.exit:                              ; preds = %sumAtoms.exit57, %if.then12.i, %if.else.i
   call void @profileStop(i32 noundef 0) #13
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pot.i73) #13
   %184 = load ptr, ptr %pot.i, align 8, !tbaa !18
   store ptr %184, ptr %pot.i73, align 8, !tbaa !9
   %tobool5.not.i = icmp eq ptr %184, null
-  br i1 %tobool5.not.i, label %destroySimulation.exit, label %if.then6.i
+  br i1 %tobool5.not.i, label %if.end7.i, label %if.then6.i
 
-if.then6.i:                                       ; preds = %if.end3.i
+if.then6.i:                                       ; preds = %validateResult.exit
   %destroy.i = getelementptr inbounds %struct.BasePotentialSt, ptr %184, i64 0, i32 8
   %185 = load ptr, ptr %destroy.i, align 8, !tbaa !73
   call void %185(ptr noundef nonnull %pot.i73) #13
-  br label %destroySimulation.exit
+  br label %if.end7.i
 
-destroySimulation.exit:                           ; preds = %if.end3.i, %if.then6.i
+if.end7.i:                                        ; preds = %if.then6.i, %validateResult.exit
   call void @destroyLinkCells(ptr noundef nonnull %boxes.i) #13
   %186 = load ptr, ptr %atoms.i, align 8, !tbaa !36
   call void @destroyAtoms(ptr noundef %186) #13
@@ -1004,14 +1004,14 @@ declare i32 @maxOccupancy(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #12

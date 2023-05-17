@@ -135,19 +135,19 @@ if.end5.i:                                        ; preds = %if.else4.i, %if.els
 
 if.then7.i:                                       ; preds = %if.end5.i
   %firstCase.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 10
-  %operCase.0104.i = load ptr, ptr %firstCase.i, align 8, !tbaa !11
-  %cmp8.not105.i = icmp eq ptr %operCase.0104.i, null
-  br i1 %cmp8.not105.i, label %if.end10.i, label %while.body.i
+  %operCase.0102.i = load ptr, ptr %firstCase.i, align 8, !tbaa !11
+  %cmp8.not103.i = icmp eq ptr %operCase.0102.i, null
+  br i1 %cmp8.not103.i, label %if.end10.i, label %while.body.i
 
 while.body.i:                                     ; preds = %if.then7.i, %while.body.i
-  %operCase.0107.i = phi ptr [ %operCase.0.i, %while.body.i ], [ %operCase.0104.i, %if.then7.i ]
-  %number.0106.i = phi i32 [ %inc.i, %while.body.i ], [ 1, %if.then7.i ]
+  %operCase.0105.i = phi ptr [ %operCase.0.i, %while.body.i ], [ %operCase.0102.i, %if.then7.i ]
+  %number.0104.i = phi i32 [ %inc.i, %while.body.i ], [ 1, %if.then7.i ]
   %7 = load ptr, ptr %genCaseFunc.i, align 8, !tbaa !20
-  call void %7(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %operCase.0107.i, i32 noundef %number.0106.i) #4
-  %inc.i = add nuw nsw i32 %number.0106.i, 1
-  %number9.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.0107.i, i64 0, i32 3
-  store i32 %number.0106.i, ptr %number9.i, align 8, !tbaa !21
-  %next.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.0107.i, i64 0, i32 8
+  call void %7(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %operCase.0105.i, i32 noundef %number.0104.i) #4
+  %inc.i = add nuw nsw i32 %number.0104.i, 1
+  %number9.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.0105.i, i64 0, i32 3
+  store i32 %number.0104.i, ptr %number9.i, align 8, !tbaa !21
+  %next.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.0105.i, i64 0, i32 8
   %operCase.0.i = load ptr, ptr %next.i, align 8, !tbaa !11
   %cmp8.not.i = icmp eq ptr %operCase.0.i, null
   br i1 %cmp8.not.i, label %if.end10.i, label %while.body.i, !llvm.loop !23
@@ -165,28 +165,28 @@ land.lhs.true.i:                                  ; preds = %if.end10.i
   br i1 %cmp14.not.i, label %if.end16.i, label %if.then15.i
 
 if.then15.i:                                      ; preds = %land.lhs.true.i
-  %params.i.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 4
-  %param.010.i.i = load ptr, ptr %params.i.i, align 8, !tbaa !11
-  %cmp.not11.i.i = icmp eq ptr %param.010.i.i, null
-  br i1 %cmp.not11.i.i, label %AssignTriggerPosns.exit.i.thread, label %while.body.i.i
+  %10 = getelementptr i8, ptr %oper.047, i64 32
+  %oper.val85.i = load ptr, ptr %10, align 8, !tbaa !26
+  %cmp.not1.i.i = icmp eq ptr %oper.val85.i, null
+  br i1 %cmp.not1.i.i, label %AssignTriggerPosns.exit.i.thread, label %while.body.i.i
 
 AssignTriggerPosns.exit.i.thread:                 ; preds = %if.then15.i
   %sortedCases.i39 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 12
-  %10 = load ptr, ptr %sortedCases.i39, align 8, !tbaa !26
+  %11 = load ptr, ptr %sortedCases.i39, align 8, !tbaa !27
   br label %while.end.i
 
 while.body.i.i:                                   ; preds = %if.then15.i, %if.end5.i.i
-  %param.012.i.i = phi ptr [ %param.0.i.i, %if.end5.i.i ], [ %param.010.i.i, %if.then15.i ]
-  %flags.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i.i, i64 0, i32 2
-  %11 = load i32, ptr %flags.i.i, align 8, !tbaa !27
-  %and.i.i = and i32 %11, 1
+  %param.02.i.i = phi ptr [ %14, %if.end5.i.i ], [ %oper.val85.i, %if.then15.i ]
+  %flags.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i.i, i64 0, i32 2
+  %12 = load i32, ptr %flags.i.i, align 8, !tbaa !28
+  %and.i.i = and i32 %12, 1
   %cmp1.not.i.i = icmp eq i32 %and.i.i, 0
   br i1 %cmp1.not.i.i, label %if.end5.i.i, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %while.body.i.i
-  %type2.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i.i, i64 0, i32 1
-  %12 = load ptr, ptr %type2.i.i, align 8, !tbaa !29
-  %call.i.i = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %12) #4
+  %type2.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i.i, i64 0, i32 1
+  %13 = load ptr, ptr %type2.i.i, align 8, !tbaa !30
+  %call.i.i = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %13) #4
   %tobool.not.i.i = icmp eq ptr %call.i.i, null
   br i1 %tobool.not.i.i, label %if.end5.i.i, label %if.then3.i.i
 
@@ -195,251 +195,246 @@ if.then3.i.i:                                     ; preds = %if.then.i.i
   br label %if.end5.i.i
 
 if.end5.i.i:                                      ; preds = %if.then3.i.i, %if.then.i.i, %while.body.i.i
-  %next.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i.i, i64 0, i32 4
-  %param.0.i.i = load ptr, ptr %next.i.i, align 8, !tbaa !11
-  %cmp.not.i.i = icmp eq ptr %param.0.i.i, null
-  br i1 %cmp.not.i.i, label %AssignTriggerPosns.exit.i, label %while.body.i.i, !llvm.loop !30
+  %next.i.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i.i, i64 0, i32 4
+  %14 = load ptr, ptr %next.i.i, align 8, !tbaa !31
+  %cmp.not.i.i = icmp eq ptr %14, null
+  br i1 %cmp.not.i.i, label %AssignTriggerPosns.exit.i, label %while.body.i.i, !llvm.loop !32
 
 AssignTriggerPosns.exit.i:                        ; preds = %if.end5.i.i
-  %.pre.i = load ptr, ptr %params.i.i, align 8, !tbaa !31
+  %.pre.i = load ptr, ptr %10, align 8, !tbaa !26
   %sortedCases.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 12
-  %13 = load ptr, ptr %sortedCases.i, align 8, !tbaa !26
+  %15 = load ptr, ptr %sortedCases.i, align 8, !tbaa !27
   %cmp.not81.i = icmp eq ptr %.pre.i, null
   br i1 %cmp.not81.i, label %while.end.i, label %land.rhs.i21
 
 land.rhs.i21:                                     ; preds = %AssignTriggerPosns.exit.i, %while.body.i24
-  %nextParam.addr.082.i = phi ptr [ %15, %while.body.i24 ], [ %.pre.i, %AssignTriggerPosns.exit.i ]
+  %nextParam.addr.082.i = phi ptr [ %17, %while.body.i24 ], [ %.pre.i, %AssignTriggerPosns.exit.i ]
   %flags.i18 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.082.i, i64 0, i32 2
-  %14 = load i32, ptr %flags.i18, align 8, !tbaa !27
-  %and.i19 = and i32 %14, 1
+  %16 = load i32, ptr %flags.i18, align 8, !tbaa !28
+  %and.i19 = and i32 %16, 1
   %cmp1.i20 = icmp eq i32 %and.i19, 0
   br i1 %cmp1.i20, label %while.body.i24, label %while.end.i
 
 while.body.i24:                                   ; preds = %land.rhs.i21
   %next.i22 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.082.i, i64 0, i32 4
-  %15 = load ptr, ptr %next.i22, align 8, !tbaa !32
-  %cmp.not.i23 = icmp eq ptr %15, null
+  %17 = load ptr, ptr %next.i22, align 8, !tbaa !31
+  %cmp.not.i23 = icmp eq ptr %17, null
   br i1 %cmp.not.i23, label %while.end.i, label %land.rhs.i21, !llvm.loop !33
 
 while.end.i:                                      ; preds = %while.body.i24, %land.rhs.i21, %AssignTriggerPosns.exit.i.thread, %AssignTriggerPosns.exit.i
-  %16 = phi ptr [ %13, %AssignTriggerPosns.exit.i ], [ %10, %AssignTriggerPosns.exit.i.thread ], [ %13, %land.rhs.i21 ], [ %13, %while.body.i24 ]
+  %18 = phi ptr [ %15, %AssignTriggerPosns.exit.i ], [ %11, %AssignTriggerPosns.exit.i.thread ], [ %15, %land.rhs.i21 ], [ %15, %while.body.i24 ]
   %nextParam.addr.0.lcssa.i = phi ptr [ null, %AssignTriggerPosns.exit.i ], [ null, %AssignTriggerPosns.exit.i.thread ], [ null, %while.body.i24 ], [ %nextParam.addr.082.i, %land.rhs.i21 ]
   %type2.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.0.lcssa.i, i64 0, i32 1
-  %17 = load ptr, ptr %type2.i, align 8, !tbaa !29
-  %call.i25 = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %17) #4
-  %18 = load i32, ptr %numTriggers.i, align 4, !tbaa !25
-  %cmp3.not.i = icmp eq i32 %18, 1
+  %19 = load ptr, ptr %type2.i, align 8, !tbaa !30
+  %call.i25 = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %19) #4
+  %20 = load i32, ptr %numTriggers.i, align 4, !tbaa !25
+  %cmp3.not.i = icmp eq i32 %20, 1
   br i1 %cmp3.not.i, label %if.end.i, label %if.then.i27
 
 if.then.i27:                                      ; preds = %while.end.i
-  call fastcc void @GenerateSplitMultiScanFunc(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %16, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %nextParam.addr.0.lcssa.i, i32 noundef 0, ptr noundef %call.i25) #5
+  call fastcc void @GenerateSplitMultiScanFunc(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %18, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %nextParam.addr.0.lcssa.i, i32 noundef 0, ptr noundef %call.i25) #5
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i27, %while.end.i
-  %19 = load ptr, ptr %genEntry.i28, align 8, !tbaa !34
-  call void %19(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
+  %21 = load ptr, ptr %genEntry.i28, align 8, !tbaa !34
+  call void %21(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
   %flags7.i = getelementptr inbounds %struct._tagTreeCCNode, ptr %call.i25, i64 0, i32 5
-  %20 = load i32, ptr %flags7.i, align 8, !tbaa !35
-  %and8.i = lshr i32 %20, 3
+  %22 = load i32, ptr %flags7.i, align 8, !tbaa !35
+  %and8.i = lshr i32 %22, 3
   %and8.lobit.i = and i32 %and8.i, 1
-  %21 = load ptr, ptr %nextParam.addr.0.lcssa.i, align 8, !tbaa !37
-  %tobool.not.i30 = icmp eq ptr %21, null
+  %23 = load ptr, ptr %nextParam.addr.0.lcssa.i, align 8, !tbaa !37
+  %tobool.not.i30 = icmp eq ptr %23, null
   br i1 %tobool.not.i30, label %if.else12.i, label %if.then10.i
 
 if.then10.i:                                      ; preds = %if.end.i
-  %22 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
-  call void %22(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %21, i32 noundef 0, i32 noundef %and8.lobit.i) #4
+  %24 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
+  call void %24(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %23, i32 noundef 0, i32 noundef %and8.lobit.i) #4
   br label %GenerateSplitMultiSwitch.exit
 
 if.else12.i:                                      ; preds = %if.end.i
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %paramName.i17) #4
-  %param.084.i = load ptr, ptr %params.i.i, align 8, !tbaa !11
+  %param.084.i = load ptr, ptr %10, align 8, !tbaa !11
   %cmp1485.i = icmp ne ptr %param.084.i, null
   %cmp1786.i = icmp ne ptr %param.084.i, %nextParam.addr.0.lcssa.i
-  %23 = and i1 %cmp1485.i, %cmp1786.i
-  br i1 %23, label %while.body20.i, label %while.end26.i
+  %25 = and i1 %cmp1485.i, %cmp1786.i
+  br i1 %25, label %while.body20.i, label %while.end26.i
 
 while.body20.i:                                   ; preds = %if.else12.i, %while.body20.i
   %param.088.i = phi ptr [ %param.0.i35, %while.body20.i ], [ %param.084.i, %if.else12.i ]
   %paramNum.087.i = phi i32 [ %spec.select.i34, %while.body20.i ], [ 0, %if.else12.i ]
-  %24 = load ptr, ptr %param.088.i, align 8, !tbaa !37
-  %tobool22.not.i = icmp eq ptr %24, null
+  %26 = load ptr, ptr %param.088.i, align 8, !tbaa !37
+  %tobool22.not.i = icmp eq ptr %26, null
   %inc.i33 = zext i1 %tobool22.not.i to i32
   %spec.select.i34 = add nuw nsw i32 %paramNum.087.i, %inc.i33
   %next25.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.088.i, i64 0, i32 4
   %param.0.i35 = load ptr, ptr %next25.i, align 8, !tbaa !11
   %cmp14.i = icmp ne ptr %param.0.i35, null
   %cmp17.i = icmp ne ptr %param.0.i35, %nextParam.addr.0.lcssa.i
-  %25 = and i1 %cmp14.i, %cmp17.i
-  br i1 %25, label %while.body20.i, label %while.end26.i, !llvm.loop !39
+  %27 = and i1 %cmp14.i, %cmp17.i
+  br i1 %27, label %while.body20.i, label %while.end26.i, !llvm.loop !39
 
 while.end26.i:                                    ; preds = %while.body20.i, %if.else12.i
   %paramNum.0.lcssa.i36 = phi i32 [ 0, %if.else12.i ], [ %spec.select.i34, %while.body20.i ]
   %call27.i = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %paramName.i17, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %paramNum.0.lcssa.i36) #4
-  %26 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
-  call void %26(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %paramName.i17, i32 noundef 0, i32 noundef %and8.lobit.i) #4
+  %28 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
+  call void %28(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %paramName.i17, i32 noundef 0, i32 noundef %and8.lobit.i) #4
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %paramName.i17) #4
   br label %GenerateSplitMultiSwitch.exit
 
 GenerateSplitMultiSwitch.exit:                    ; preds = %if.then10.i, %while.end26.i
-  call fastcc void @GenerateSplitMultiScan(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef %oper.047, ptr noundef %16, i32 noundef 0, i32 noundef 1, i32 noundef 0, ptr noundef %call.i25)
-  %27 = load ptr, ptr %genEndSwitch.i37, align 8, !tbaa !40
-  call void %27(ptr noundef %context, ptr noundef %stream.0.i, i32 noundef 0) #4
-  %28 = load ptr, ptr %genExit.i38, align 8, !tbaa !41
-  call void %28(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef %oper.047) #4
+  call fastcc void @GenerateSplitMultiScan(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %18, i32 noundef 0, i32 noundef 1, i32 noundef 0, ptr noundef %call.i25)
+  %29 = load ptr, ptr %genEndSwitch.i37, align 8, !tbaa !40
+  call void %29(ptr noundef %context, ptr noundef %stream.0.i, i32 noundef 0) #4
   br label %GenerateNonVirtual.exit
 
 if.end16.i:                                       ; preds = %land.lhs.true.i, %if.end10.i
-  %29 = load ptr, ptr %genEntry.i28, align 8, !tbaa !34
-  call void %29(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
-  %30 = load i32, ptr %numTriggers.i, align 4, !tbaa !25
-  %cmp18.i = icmp slt i32 %30, 2
+  %30 = load ptr, ptr %genEntry.i28, align 8, !tbaa !34
+  call void %30(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
+  %31 = load i32, ptr %numTriggers.i, align 4, !tbaa !25
+  %cmp18.i = icmp slt i32 %31, 2
   br i1 %cmp18.i, label %if.then19.i, label %if.else22.i
 
 if.then19.i:                                      ; preds = %if.end16.i
   %firstCase20.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 10
-  %31 = load ptr, ptr %firstCase20.i, align 8, !tbaa !42
-  %call21.i = call fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %31, i32 noundef 0)
-  br label %if.end25.i
+  %32 = load ptr, ptr %firstCase20.i, align 8, !tbaa !41
+  %call21.i = call fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %32, i32 noundef 0)
+  br label %GenerateNonVirtual.exit
 
 if.else22.i:                                      ; preds = %if.end16.i
-  %params.i85.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 4
-  %param.010.i86.i = load ptr, ptr %params.i85.i, align 8, !tbaa !11
-  %cmp.not11.i87.i = icmp eq ptr %param.010.i86.i, null
-  br i1 %cmp.not11.i87.i, label %AssignTriggerPosns.exit103.i.thread, label %while.body.i92.i
+  %33 = getelementptr i8, ptr %oper.047, i64 32
+  %oper.val.i = load ptr, ptr %33, align 8, !tbaa !26
+  %cmp.not1.i86.i = icmp eq ptr %oper.val.i, null
+  br i1 %cmp.not1.i86.i, label %AssignTriggerPosns.exit101.i.thread, label %while.body.i91.i
 
-AssignTriggerPosns.exit103.i.thread:              ; preds = %if.else22.i
+AssignTriggerPosns.exit101.i.thread:              ; preds = %if.else22.i
   %sortedCases23.i41 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 12
-  %32 = load ptr, ptr %sortedCases23.i41, align 8, !tbaa !26
+  %34 = load ptr, ptr %sortedCases23.i41, align 8, !tbaa !27
   br label %if.then.i13
 
-while.body.i92.i:                                 ; preds = %if.else22.i, %if.end5.i102.i
-  %param.012.i88.i = phi ptr [ %param.0.i100.i, %if.end5.i102.i ], [ %param.010.i86.i, %if.else22.i ]
-  %flags.i89.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i88.i, i64 0, i32 2
-  %33 = load i32, ptr %flags.i89.i, align 8, !tbaa !27
-  %and.i90.i = and i32 %33, 1
-  %cmp1.not.i91.i = icmp eq i32 %and.i90.i, 0
-  br i1 %cmp1.not.i91.i, label %if.end5.i102.i, label %if.then.i96.i
+while.body.i91.i:                                 ; preds = %if.else22.i, %if.end5.i100.i
+  %param.02.i87.i = phi ptr [ %37, %if.end5.i100.i ], [ %oper.val.i, %if.else22.i ]
+  %flags.i88.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i87.i, i64 0, i32 2
+  %35 = load i32, ptr %flags.i88.i, align 8, !tbaa !28
+  %and.i89.i = and i32 %35, 1
+  %cmp1.not.i90.i = icmp eq i32 %and.i89.i, 0
+  br i1 %cmp1.not.i90.i, label %if.end5.i100.i, label %if.then.i95.i
 
-if.then.i96.i:                                    ; preds = %while.body.i92.i
-  %type2.i93.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i88.i, i64 0, i32 1
-  %34 = load ptr, ptr %type2.i93.i, align 8, !tbaa !29
-  %call.i94.i = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %34) #4
-  %tobool.not.i95.i = icmp eq ptr %call.i94.i, null
-  br i1 %tobool.not.i95.i, label %if.end5.i102.i, label %if.then3.i98.i
+if.then.i95.i:                                    ; preds = %while.body.i91.i
+  %type2.i92.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i87.i, i64 0, i32 1
+  %36 = load ptr, ptr %type2.i92.i, align 8, !tbaa !30
+  %call.i93.i = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %36) #4
+  %tobool.not.i94.i = icmp eq ptr %call.i93.i, null
+  br i1 %tobool.not.i94.i, label %if.end5.i100.i, label %if.then3.i97.i
 
-if.then3.i98.i:                                   ; preds = %if.then.i96.i
-  %call4.i97.i = call i32 @TreeCCNodeAssignPositions(ptr noundef nonnull %call.i94.i) #4
-  br label %if.end5.i102.i
+if.then3.i97.i:                                   ; preds = %if.then.i95.i
+  %call4.i96.i = call i32 @TreeCCNodeAssignPositions(ptr noundef nonnull %call.i93.i) #4
+  br label %if.end5.i100.i
 
-if.end5.i102.i:                                   ; preds = %if.then3.i98.i, %if.then.i96.i, %while.body.i92.i
-  %next.i99.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.012.i88.i, i64 0, i32 4
-  %param.0.i100.i = load ptr, ptr %next.i99.i, align 8, !tbaa !11
-  %cmp.not.i101.i = icmp eq ptr %param.0.i100.i, null
-  br i1 %cmp.not.i101.i, label %AssignTriggerPosns.exit103.i, label %while.body.i92.i, !llvm.loop !30
+if.end5.i100.i:                                   ; preds = %if.then3.i97.i, %if.then.i95.i, %while.body.i91.i
+  %next.i98.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.02.i87.i, i64 0, i32 4
+  %37 = load ptr, ptr %next.i98.i, align 8, !tbaa !31
+  %cmp.not.i99.i = icmp eq ptr %37, null
+  br i1 %cmp.not.i99.i, label %AssignTriggerPosns.exit101.i, label %while.body.i91.i, !llvm.loop !32
 
-AssignTriggerPosns.exit103.i:                     ; preds = %if.end5.i102.i
-  %.pre108.i = load ptr, ptr %params.i85.i, align 8, !tbaa !31
+AssignTriggerPosns.exit101.i:                     ; preds = %if.end5.i100.i
+  %.pre106.i = load ptr, ptr %33, align 8, !tbaa !26
   %sortedCases23.i = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper.047, i64 0, i32 12
-  %35 = load ptr, ptr %sortedCases23.i, align 8, !tbaa !26
-  %cmp.not83.i = icmp eq ptr %.pre108.i, null
+  %38 = load ptr, ptr %sortedCases23.i, align 8, !tbaa !27
+  %cmp.not83.i = icmp eq ptr %.pre106.i, null
   br i1 %cmp.not83.i, label %if.then.i13, label %land.rhs.i
 
-land.rhs.i:                                       ; preds = %AssignTriggerPosns.exit103.i, %while.body.i12
-  %nextParam.addr.084.i = phi ptr [ %37, %while.body.i12 ], [ %.pre108.i, %AssignTriggerPosns.exit103.i ]
+land.rhs.i:                                       ; preds = %AssignTriggerPosns.exit101.i, %while.body.i12
+  %nextParam.addr.084.i = phi ptr [ %40, %while.body.i12 ], [ %.pre106.i, %AssignTriggerPosns.exit101.i ]
   %flags.i9 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084.i, i64 0, i32 2
-  %36 = load i32, ptr %flags.i9, align 8, !tbaa !27
-  %and.i10 = and i32 %36, 1
+  %39 = load i32, ptr %flags.i9, align 8, !tbaa !28
+  %and.i10 = and i32 %39, 1
   %cmp1.i = icmp eq i32 %and.i10, 0
   br i1 %cmp1.i, label %while.body.i12, label %if.end11.i
 
 while.body.i12:                                   ; preds = %land.rhs.i
   %next.i11 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084.i, i64 0, i32 4
-  %37 = load ptr, ptr %next.i11, align 8, !tbaa !32
-  %cmp.not.i = icmp eq ptr %37, null
-  br i1 %cmp.not.i, label %if.then.i13, label %land.rhs.i, !llvm.loop !43
+  %40 = load ptr, ptr %next.i11, align 8, !tbaa !31
+  %cmp.not.i = icmp eq ptr %40, null
+  br i1 %cmp.not.i, label %if.then.i13, label %land.rhs.i, !llvm.loop !42
 
-if.then.i13:                                      ; preds = %while.body.i12, %AssignTriggerPosns.exit103.i.thread, %AssignTriggerPosns.exit103.i
-  %38 = phi ptr [ %32, %AssignTriggerPosns.exit103.i.thread ], [ %35, %AssignTriggerPosns.exit103.i ], [ %35, %while.body.i12 ]
-  %39 = load i32, ptr %flags, align 8, !tbaa !12
-  %and3.i = and i32 %39, 2
+if.then.i13:                                      ; preds = %while.body.i12, %AssignTriggerPosns.exit101.i.thread, %AssignTriggerPosns.exit101.i
+  %41 = phi ptr [ %34, %AssignTriggerPosns.exit101.i.thread ], [ %38, %AssignTriggerPosns.exit101.i ], [ %38, %while.body.i12 ]
+  %42 = load i32, ptr %flags, align 8, !tbaa !12
+  %and3.i = and i32 %42, 2
   %cmp4.not.i = icmp eq i32 %and3.i, 0
-  %40 = load ptr, ptr %38, align 8, !tbaa !11
+  %43 = load ptr, ptr %41, align 8, !tbaa !11
   br i1 %cmp4.not.i, label %if.else.i14, label %if.then5.i
 
 if.then5.i:                                       ; preds = %if.then.i13
-  %41 = load ptr, ptr %genCaseInline.i, align 8, !tbaa !44
-  call void %41(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef %40, i32 noundef -1) #4
-  br label %if.end25.i
+  %44 = load ptr, ptr %genCaseInline.i, align 8, !tbaa !43
+  call void %44(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef %43, i32 noundef -1) #4
+  br label %GenerateNonVirtual.exit
 
 if.else.i14:                                      ; preds = %if.then.i13
-  %42 = load ptr, ptr %genCaseCall.i, align 8, !tbaa !45
-  %number.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %40, i64 0, i32 3
-  %43 = load i32, ptr %number.i, align 8, !tbaa !21
-  call void %42(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef %40, i32 noundef %43, i32 noundef -1) #4
-  br label %if.end25.i
+  %45 = load ptr, ptr %genCaseCall.i, align 8, !tbaa !44
+  %number.i = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %43, i64 0, i32 3
+  %46 = load i32, ptr %number.i, align 8, !tbaa !21
+  call void %45(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef %43, i32 noundef %46, i32 noundef -1) #4
+  br label %GenerateNonVirtual.exit
 
 if.end11.i:                                       ; preds = %land.rhs.i
   %type12.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084.i, i64 0, i32 1
-  %44 = load ptr, ptr %type12.i, align 8, !tbaa !29
-  %call.i15 = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %44) #4
+  %47 = load ptr, ptr %type12.i, align 8, !tbaa !30
+  %call.i15 = call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %47) #4
   %flags13.i = getelementptr inbounds %struct._tagTreeCCNode, ptr %call.i15, i64 0, i32 5
-  %45 = load i32, ptr %flags13.i, align 8, !tbaa !35
-  %and14.i = lshr i32 %45, 3
+  %48 = load i32, ptr %flags13.i, align 8, !tbaa !35
+  %and14.i = lshr i32 %48, 3
   %and14.lobit.i = and i32 %and14.i, 1
-  %46 = load ptr, ptr %nextParam.addr.084.i, align 8, !tbaa !37
-  %tobool16.not.i = icmp eq ptr %46, null
+  %49 = load ptr, ptr %nextParam.addr.084.i, align 8, !tbaa !37
+  %tobool16.not.i = icmp eq ptr %49, null
   br i1 %tobool16.not.i, label %if.else19.i, label %if.then17.i
 
 if.then17.i:                                      ; preds = %if.end11.i
-  %47 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
-  call void %47(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %46, i32 noundef 0, i32 noundef %and14.lobit.i) #4
+  %50 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
+  call void %50(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %49, i32 noundef 0, i32 noundef %and14.lobit.i) #4
   br label %if.end37.i
 
 if.else19.i:                                      ; preds = %if.end11.i
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %paramName.i) #4
-  %param.085.i = load ptr, ptr %params.i85.i, align 8, !tbaa !11
+  %param.085.i = load ptr, ptr %33, align 8, !tbaa !11
   %cmp2186.i = icmp ne ptr %param.085.i, null
   %cmp2487.i = icmp ne ptr %param.085.i, %nextParam.addr.084.i
-  %48 = and i1 %cmp2186.i, %cmp2487.i
-  br i1 %48, label %while.body27.i, label %while.end33.i
+  %51 = and i1 %cmp2186.i, %cmp2487.i
+  br i1 %51, label %while.body27.i, label %while.end33.i
 
 while.body27.i:                                   ; preds = %if.else19.i, %while.body27.i
   %param.089.i = phi ptr [ %param.0.i, %while.body27.i ], [ %param.085.i, %if.else19.i ]
   %paramNum.088.i = phi i32 [ %spec.select.i, %while.body27.i ], [ 0, %if.else19.i ]
-  %49 = load ptr, ptr %param.089.i, align 8, !tbaa !37
-  %tobool29.not.i = icmp eq ptr %49, null
+  %52 = load ptr, ptr %param.089.i, align 8, !tbaa !37
+  %tobool29.not.i = icmp eq ptr %52, null
   %inc.i16 = zext i1 %tobool29.not.i to i32
   %spec.select.i = add nuw nsw i32 %paramNum.088.i, %inc.i16
   %next32.i = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.089.i, i64 0, i32 4
   %param.0.i = load ptr, ptr %next32.i, align 8, !tbaa !11
   %cmp21.i = icmp ne ptr %param.0.i, null
   %cmp24.i = icmp ne ptr %param.0.i, %nextParam.addr.084.i
-  %50 = and i1 %cmp21.i, %cmp24.i
-  br i1 %50, label %while.body27.i, label %while.end33.i, !llvm.loop !46
+  %53 = and i1 %cmp21.i, %cmp24.i
+  br i1 %53, label %while.body27.i, label %while.end33.i, !llvm.loop !45
 
 while.end33.i:                                    ; preds = %while.body27.i, %if.else19.i
   %paramNum.0.lcssa.i = phi i32 [ 0, %if.else19.i ], [ %spec.select.i, %while.body27.i ]
   %call34.i = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %paramName.i, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %paramNum.0.lcssa.i) #4
-  %51 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
-  call void %51(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %paramName.i, i32 noundef 0, i32 noundef %and14.lobit.i) #4
+  %54 = load ptr, ptr %genSwitchHead.i31, align 8, !tbaa !38
+  call void %54(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %paramName.i, i32 noundef 0, i32 noundef %and14.lobit.i) #4
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %paramName.i) #4
   br label %if.end37.i
 
 if.end37.i:                                       ; preds = %while.end33.i, %if.then17.i
-  call fastcc void @GenerateMultiScan(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef %oper.047, ptr noundef %35, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %nextParam.addr.084.i, i32 noundef 0, ptr noundef %call.i15) #5
-  %52 = load ptr, ptr %genEndSwitch.i37, align 8, !tbaa !40
-  call void %52(ptr noundef %context, ptr noundef %stream.0.i, i32 noundef 0) #4
-  br label %if.end25.i
-
-if.end25.i:                                       ; preds = %if.end37.i, %if.else.i14, %if.then5.i, %if.then19.i
-  %53 = load ptr, ptr %genExit.i38, align 8, !tbaa !41
-  call void %53(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
+  call fastcc void @GenerateMultiScan(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %nonVirt, ptr noundef nonnull %oper.047, ptr noundef %38, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %nextParam.addr.084.i, i32 noundef 0, ptr noundef %call.i15) #5
+  %55 = load ptr, ptr %genEndSwitch.i37, align 8, !tbaa !40
+  call void %55(ptr noundef %context, ptr noundef %stream.0.i, i32 noundef 0) #4
   br label %GenerateNonVirtual.exit
 
-GenerateNonVirtual.exit:                          ; preds = %GenerateSplitMultiSwitch.exit, %if.end25.i
-  %54 = load ptr, ptr %genEnd26.i, align 8, !tbaa !47
-  call void %54(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
+GenerateNonVirtual.exit:                          ; preds = %if.then19.i, %if.then5.i, %if.else.i14, %if.end37.i, %GenerateSplitMultiSwitch.exit
+  %56 = load ptr, ptr %genExit.i38, align 8, !tbaa !46
+  call void %56(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
+  %57 = load ptr, ptr %genEnd26.i, align 8, !tbaa !47
+  call void %57(ptr noundef %context, ptr noundef %stream.0.i, ptr noundef nonnull %oper.047) #4
   br label %if.end
 
 if.end:                                           ; preds = %GenerateNonVirtual.exit, %while.body
@@ -475,21 +470,21 @@ entry:
 land.rhs:                                         ; preds = %entry, %while.body
   %nextParam.addr.082 = phi ptr [ %1, %while.body ], [ %nextParam, %entry ]
   %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.082, i64 0, i32 2
-  %0 = load i32, ptr %flags, align 8, !tbaa !27
+  %0 = load i32, ptr %flags, align 8, !tbaa !28
   %and = and i32 %0, 1
   %cmp1 = icmp eq i32 %and, 0
   br i1 %cmp1, label %while.body, label %while.end
 
 while.body:                                       ; preds = %land.rhs
   %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.082, i64 0, i32 4
-  %1 = load ptr, ptr %next, align 8, !tbaa !32
+  %1 = load ptr, ptr %next, align 8, !tbaa !31
   %cmp.not = icmp eq ptr %1, null
   br i1 %cmp.not, label %while.end, label %land.rhs, !llvm.loop !33
 
 while.end:                                        ; preds = %land.rhs, %while.body, %entry
   %nextParam.addr.0.lcssa = phi ptr [ null, %entry ], [ null, %while.body ], [ %nextParam.addr.082, %land.rhs ]
   %type2 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.0.lcssa, i64 0, i32 1
-  %2 = load ptr, ptr %type2, align 8, !tbaa !29
+  %2 = load ptr, ptr %type2, align 8, !tbaa !30
   %call = tail call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %2) #4
   %numTriggers = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper, i64 0, i32 6
   %3 = load i32, ptr %numTriggers, align 4, !tbaa !25
@@ -570,7 +565,7 @@ if.end30:                                         ; preds = %while.end26, %if.th
   %13 = load ptr, ptr %genEndSwitch, align 8, !tbaa !40
   call void %13(ptr noundef %context, ptr noundef %stream, i32 noundef 0) #4
   %genExit = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 12
-  %14 = load ptr, ptr %genExit, align 8, !tbaa !41
+  %14 = load ptr, ptr %genExit, align 8, !tbaa !46
   call void %14(ptr noundef %context, ptr noundef %stream, ptr noundef %oper) #4
   ret void
 }
@@ -580,35 +575,35 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %st
 entry:
   %paramName = alloca [64 x i8], align 16
   %params = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper, i64 0, i32 4
-  %param.0136 = load ptr, ptr %params, align 8, !tbaa !11
-  %cmp.not137 = icmp eq ptr %param.0136, null
-  br i1 %cmp.not137, label %if.then9, label %while.body
+  %param.0131 = load ptr, ptr %params, align 8, !tbaa !11
+  %cmp.not132 = icmp eq ptr %param.0131, null
+  br i1 %cmp.not132, label %if.then9, label %while.body
 
 while.body:                                       ; preds = %entry, %if.end4
-  %param.0140 = phi ptr [ %param.0, %if.end4 ], [ %param.0136, %entry ]
-  %paramNum.0139 = phi i32 [ %spec.select, %if.end4 ], [ 1, %entry ]
-  %num.0138 = phi i32 [ %num.1, %if.end4 ], [ 0, %entry ]
-  %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0140, i64 0, i32 2
-  %0 = load i32, ptr %flags, align 8, !tbaa !27
+  %param.0135 = phi ptr [ %param.0, %if.end4 ], [ %param.0131, %entry ]
+  %paramNum.0134 = phi i32 [ %spec.select, %if.end4 ], [ 1, %entry ]
+  %num.0133 = phi i32 [ %num.1, %if.end4 ], [ 0, %entry ]
+  %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0135, i64 0, i32 2
+  %0 = load i32, ptr %flags, align 8, !tbaa !28
   %and = and i32 %0, 1
   %cmp1.not = icmp eq i32 %and, 0
   br i1 %cmp1.not, label %if.end4, label %if.then
 
 if.then:                                          ; preds = %while.body
-  %cmp2 = icmp eq i32 %num.0138, %triggerNum
+  %cmp2 = icmp eq i32 %num.0133, %triggerNum
   br i1 %cmp2, label %if.end17, label %if.end
 
 if.end:                                           ; preds = %if.then
-  %inc = add nsw i32 %num.0138, 1
+  %inc = add nsw i32 %num.0133, 1
   br label %if.end4
 
 if.end4:                                          ; preds = %if.end, %while.body
-  %num.1 = phi i32 [ %inc, %if.end ], [ %num.0138, %while.body ]
-  %1 = load ptr, ptr %param.0140, align 8, !tbaa !37
+  %num.1 = phi i32 [ %inc, %if.end ], [ %num.0133, %while.body ]
+  %1 = load ptr, ptr %param.0135, align 8, !tbaa !37
   %tobool.not = icmp eq ptr %1, null
   %inc6 = zext i1 %tobool.not to i32
-  %spec.select = add nuw nsw i32 %paramNum.0139, %inc6
-  %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0140, i64 0, i32 4
+  %spec.select = add nuw nsw i32 %paramNum.0134, %inc6
+  %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0135, i64 0, i32 4
   %param.0 = load ptr, ptr %next, align 8, !tbaa !11
   %cmp.not = icmp eq ptr %param.0, null
   br i1 %cmp.not, label %if.then9, label %while.body, !llvm.loop !51
@@ -622,14 +617,14 @@ if.then9:                                         ; preds = %if.end4, %entry
 
 if.then13:                                        ; preds = %if.then9
   %genCaseInline = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 8
-  %3 = load ptr, ptr %genCaseInline, align 8, !tbaa !44
+  %3 = load ptr, ptr %genCaseInline, align 8, !tbaa !43
   %sub = add nsw i32 %triggerNum, -1
   tail call void %3(ptr noundef %context, ptr noundef %stream, ptr noundef %operCase, i32 noundef %sub) #4
   br label %if.end15
 
 if.else:                                          ; preds = %if.then9
   %genCaseCall = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 7
-  %4 = load ptr, ptr %genCaseCall, align 8, !tbaa !45
+  %4 = load ptr, ptr %genCaseCall, align 8, !tbaa !44
   %number = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase, i64 0, i32 3
   %5 = load i32, ptr %number, align 8, !tbaa !21
   %sub14 = add nsw i32 %triggerNum, -1
@@ -642,14 +637,14 @@ if.end15:                                         ; preds = %if.else, %if.then13
   br label %cleanup
 
 if.end17:                                         ; preds = %if.then
-  %type = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0140, i64 0, i32 1
-  %7 = load ptr, ptr %type, align 8, !tbaa !29
+  %type = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0135, i64 0, i32 1
+  %7 = load ptr, ptr %type, align 8, !tbaa !30
   %call = tail call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %7) #4
   %flags18 = getelementptr inbounds %struct._tagTreeCCNode, ptr %call, i64 0, i32 5
   %8 = load i32, ptr %flags18, align 8, !tbaa !35
   %and19 = lshr i32 %8, 3
   %and19.lobit = and i32 %and19, 1
-  %9 = load ptr, ptr %param.0140, align 8, !tbaa !37
+  %9 = load ptr, ptr %param.0135, align 8, !tbaa !37
   %tobool22.not = icmp eq ptr %9, null
   br i1 %tobool22.not, label %if.else25, label %if.then23
 
@@ -661,7 +656,7 @@ if.then23:                                        ; preds = %if.end17
 
 if.else25:                                        ; preds = %if.end17
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %paramName) #4
-  %call26 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %paramName, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %paramNum.0139) #4
+  %call26 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %paramName, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %paramNum.0134) #4
   %genSwitchHead27 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 3
   %11 = load ptr, ptr %genSwitchHead27, align 8, !tbaa !38
   call void %11(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %paramName, i32 noundef %triggerNum, i32 noundef %and19.lobit) #4
@@ -671,115 +666,91 @@ if.else25:                                        ; preds = %if.end17
 if.end29:                                         ; preds = %if.else25, %if.then23
   %shl = shl i32 256, %triggerNum
   call void @TreeCCNodeClearMarking(ptr noundef %context, i32 noundef %shl) #4
-  %cmp33143 = icmp sgt i32 %triggerNum, 0
+  %cmp33138 = icmp sgt i32 %triggerNum, 0
   %input = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 2
   %genEndSelectors = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 5
   %add = add nsw i32 %triggerNum, 1
   %genEndCase = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 10
-  br i1 %cmp33143, label %do.body, label %do.body.us
+  br label %do.body
 
-do.body.us:                                       ; preds = %if.end29, %if.end46.us
-  %operCase.addr.0.us = phi ptr [ %call47.us, %if.end46.us ], [ %operCase, %if.end29 ]
-  %trigger.0141.us = load ptr, ptr %operCase.addr.0.us, align 8, !tbaa !11
-  %cmp31142.us.not = icmp eq ptr %trigger.0141.us, null
-  br i1 %cmp31142.us.not, label %if.end46.us, label %if.then40.us
-
-if.then40.us:                                     ; preds = %do.body.us
-  %12 = load ptr, ptr %trigger.0141.us, align 8, !tbaa !53
-  %call42.us = call fastcc i32 @GenerateSelectors(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %nonVirt, ptr noundef %12, i32 noundef %shl, i32 noundef %triggerNum), !range !55
-  %tobool43.not.us = icmp eq i32 %call42.us, 0
-  br i1 %tobool43.not.us, label %if.then44.us, label %if.end46.us
-
-if.then44.us:                                     ; preds = %if.then40.us
-  %13 = load ptr, ptr %input, align 8, !tbaa !56
-  %filename.us = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.addr.0.us, i64 0, i32 4
-  %14 = load ptr, ptr %filename.us, align 8, !tbaa !57
-  %linenum.us = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.addr.0.us, i64 0, i32 5
-  %15 = load i64, ptr %linenum.us, align 8, !tbaa !58
-  call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %13, ptr noundef %14, i64 noundef %15, ptr noundef nonnull @.str.1) #4
-  br label %if.end46.us
-
-if.end46.us:                                      ; preds = %if.then44.us, %if.then40.us, %do.body.us
-  %16 = load ptr, ptr %genEndSelectors, align 8, !tbaa !59
-  call void %16(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
-  %call47.us = call fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %nonVirt, ptr noundef %oper, ptr noundef nonnull %operCase.addr.0.us, i32 noundef %add)
-  %17 = load ptr, ptr %genEndCase, align 8, !tbaa !60
-  call void %17(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
-  %cmp48.not.us = icmp eq ptr %call47.us, null
-  br i1 %cmp48.not.us, label %do.end, label %do.body.us
-
-do.body:                                          ; preds = %if.end29
-  %trigger.0141 = load ptr, ptr %operCase, align 8, !tbaa !11
-  %cmp31142.not = icmp eq ptr %trigger.0141, null
-  br i1 %cmp31142.not, label %if.end46, label %while.body35
+do.body:                                          ; preds = %land.rhs50, %if.end29
+  %operCase.addr.0 = phi ptr [ %operCase, %if.end29 ], [ %call47, %land.rhs50 ]
+  %trigger.0136 = load ptr, ptr %operCase.addr.0, align 8, !tbaa !11
+  %cmp31137 = icmp ne ptr %trigger.0136, null
+  %12 = and i1 %cmp31137, %cmp33138
+  br i1 %12, label %while.body35, label %while.end38
 
 while.body35:                                     ; preds = %do.body, %while.body35
-  %trigger.0145 = phi ptr [ %trigger.0, %while.body35 ], [ %trigger.0141, %do.body ]
-  %num.2144 = phi i32 [ %inc36, %while.body35 ], [ 0, %do.body ]
-  %inc36 = add nuw nsw i32 %num.2144, 1
-  %next37 = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger.0145, i64 0, i32 1
+  %trigger.0140 = phi ptr [ %trigger.0, %while.body35 ], [ %trigger.0136, %do.body ]
+  %num.2139 = phi i32 [ %inc36, %while.body35 ], [ 0, %do.body ]
+  %inc36 = add nuw nsw i32 %num.2139, 1
+  %next37 = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger.0140, i64 0, i32 1
   %trigger.0 = load ptr, ptr %next37, align 8, !tbaa !11
   %cmp31 = icmp ne ptr %trigger.0, null
   %cmp33 = icmp slt i32 %inc36, %triggerNum
-  %18 = select i1 %cmp31, i1 %cmp33, i1 false
-  br i1 %18, label %while.body35, label %while.end38, !llvm.loop !61
+  %13 = select i1 %cmp31, i1 %cmp33, i1 false
+  br i1 %13, label %while.body35, label %while.end38, !llvm.loop !53
 
-while.end38:                                      ; preds = %while.body35
-  br i1 %cmp31, label %if.then40, label %if.end46
+while.end38:                                      ; preds = %while.body35, %do.body
+  %trigger.0.lcssa = phi ptr [ %trigger.0136, %do.body ], [ %trigger.0, %while.body35 ]
+  %cmp31.lcssa = phi i1 [ %cmp31137, %do.body ], [ %cmp31, %while.body35 ]
+  br i1 %cmp31.lcssa, label %if.then40, label %if.end46
 
 if.then40:                                        ; preds = %while.end38
-  %19 = load ptr, ptr %trigger.0, align 8, !tbaa !53
-  %call42 = call fastcc i32 @GenerateSelectors(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %19, i32 noundef %shl, i32 noundef %triggerNum), !range !55
+  %14 = load ptr, ptr %trigger.0.lcssa, align 8, !tbaa !54
+  %call42 = call fastcc i32 @GenerateSelectors(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %14, i32 noundef %shl, i32 noundef %triggerNum), !range !56
   %tobool43.not = icmp eq i32 %call42, 0
   br i1 %tobool43.not, label %if.then44, label %if.end46
 
 if.then44:                                        ; preds = %if.then40
-  %20 = load ptr, ptr %input, align 8, !tbaa !56
-  %filename = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase, i64 0, i32 4
-  %21 = load ptr, ptr %filename, align 8, !tbaa !57
-  %linenum = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase, i64 0, i32 5
-  %22 = load i64, ptr %linenum, align 8, !tbaa !58
-  call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %20, ptr noundef %21, i64 noundef %22, ptr noundef nonnull @.str.1) #4
+  %15 = load ptr, ptr %input, align 8, !tbaa !57
+  %filename = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.addr.0, i64 0, i32 4
+  %16 = load ptr, ptr %filename, align 8, !tbaa !58
+  %linenum = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %operCase.addr.0, i64 0, i32 5
+  %17 = load i64, ptr %linenum, align 8, !tbaa !59
+  call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %15, ptr noundef %16, i64 noundef %17, ptr noundef nonnull @.str.1) #4
   br label %if.end46
 
-if.end46:                                         ; preds = %do.body, %if.then40, %if.then44, %while.end38
-  %23 = load ptr, ptr %genEndSelectors, align 8, !tbaa !59
-  call void %23(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
-  %call47 = call fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %oper, ptr noundef nonnull %operCase, i32 noundef %add)
-  %24 = load ptr, ptr %genEndCase, align 8, !tbaa !60
-  call void %24(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
+if.end46:                                         ; preds = %if.then40, %if.then44, %while.end38
+  %18 = load ptr, ptr %genEndSelectors, align 8, !tbaa !60
+  call void %18(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
+  %call47 = call fastcc ptr @GenerateSwitch(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %oper, ptr noundef nonnull %operCase.addr.0, i32 noundef %add)
+  %19 = load ptr, ptr %genEndCase, align 8, !tbaa !61
+  call void %19(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
   %cmp48.not = icmp eq ptr %call47, null
-  br i1 %cmp48.not, label %do.end, label %while.body.lr.ph.split.us.i
+  br i1 %cmp48.not, label %do.end, label %land.rhs50
 
-while.body.lr.ph.split.us.i:                      ; preds = %if.end46
-  %trigger1.09.i = load ptr, ptr %operCase, align 8, !tbaa !11
-  %trigger2.08.i = load ptr, ptr %call47, align 8, !tbaa !11
-  %25 = load ptr, ptr %trigger1.09.i, align 8, !tbaa !53
-  %26 = load ptr, ptr %trigger2.08.i, align 8, !tbaa !53
-  %cmp3.not.us13.i = icmp eq ptr %25, %26
-  br i1 %cmp3.not.us13.i, label %if.end.us.i, label %do.end
+land.rhs50:                                       ; preds = %if.end46
+  br i1 %cmp33138, label %while.body.lr.ph.split.us.i, label %do.body, !llvm.loop !62
+
+while.body.lr.ph.split.us.i:                      ; preds = %land.rhs50
+  %call47.val = load ptr, ptr %call47, align 8, !tbaa !63
+  %operCase.val = load ptr, ptr %operCase, align 8, !tbaa !63
+  %20 = load ptr, ptr %operCase.val, align 8, !tbaa !54
+  %21 = load ptr, ptr %call47.val, align 8, !tbaa !54
+  %cmp3.not.us4.i = icmp eq ptr %20, %21
+  br i1 %cmp3.not.us4.i, label %if.end.us.i, label %do.end
 
 if.end.us.i:                                      ; preds = %while.body.lr.ph.split.us.i, %if.end.us.i
-  %trigger2.010.us15.i = phi ptr [ %trigger2.0.us.i, %if.end.us.i ], [ %trigger2.08.i, %while.body.lr.ph.split.us.i ]
-  %trigger1.011.us14.i = phi ptr [ %trigger1.0.us.i, %if.end.us.i ], [ %trigger1.09.i, %while.body.lr.ph.split.us.i ]
-  %next.us.i = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger1.011.us14.i, i64 0, i32 1
-  %next4.us.i = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger2.010.us15.i, i64 0, i32 1
-  %trigger2.0.us.i = load ptr, ptr %next4.us.i, align 8, !tbaa !11
-  %trigger1.0.us.i = load ptr, ptr %next.us.i, align 8, !tbaa !11
-  %27 = load ptr, ptr %trigger1.0.us.i, align 8, !tbaa !53
-  %28 = load ptr, ptr %trigger2.0.us.i, align 8, !tbaa !53
-  %cmp3.not.us.i = icmp eq ptr %27, %28
+  %trigger1.01.us6.i = phi ptr [ %22, %if.end.us.i ], [ %operCase.val, %while.body.lr.ph.split.us.i ]
+  %trigger2.02.us5.i = phi ptr [ %23, %if.end.us.i ], [ %call47.val, %while.body.lr.ph.split.us.i ]
+  %next.us.i = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger1.01.us6.i, i64 0, i32 1
+  %22 = load ptr, ptr %next.us.i, align 8, !tbaa !64
+  %next4.us.i = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %trigger2.02.us5.i, i64 0, i32 1
+  %23 = load ptr, ptr %next4.us.i, align 8, !tbaa !64
+  %24 = load ptr, ptr %22, align 8, !tbaa !54
+  %25 = load ptr, ptr %23, align 8, !tbaa !54
+  %cmp3.not.us.i = icmp eq ptr %24, %25
   br i1 %cmp3.not.us.i, label %if.end.us.i, label %do.end
 
-do.end:                                           ; preds = %if.end46.us, %if.end.us.i, %if.end46, %while.body.lr.ph.split.us.i
-  %call47133 = phi ptr [ %call47, %while.body.lr.ph.split.us.i ], [ null, %if.end46 ], [ %call47, %if.end.us.i ], [ null, %if.end46.us ]
+do.end:                                           ; preds = %if.end46, %if.end.us.i, %while.body.lr.ph.split.us.i
   %genEndSwitch = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 11
-  %29 = load ptr, ptr %genEndSwitch, align 8, !tbaa !40
-  call void %29(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
+  %26 = load ptr, ptr %genEndSwitch, align 8, !tbaa !40
+  call void %26(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
   br label %cleanup
 
 cleanup:                                          ; preds = %do.end, %if.end15
-  %retval.0 = phi ptr [ %call47133, %do.end ], [ %6, %if.end15 ]
+  %retval.0 = phi ptr [ %call47, %do.end ], [ %6, %if.end15 ]
   ret ptr %retval.0
 }
 
@@ -793,16 +764,16 @@ entry:
 land.rhs:                                         ; preds = %entry, %while.body
   %nextParam.addr.084 = phi ptr [ %1, %while.body ], [ %nextParam, %entry ]
   %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084, i64 0, i32 2
-  %0 = load i32, ptr %flags, align 8, !tbaa !27
+  %0 = load i32, ptr %flags, align 8, !tbaa !28
   %and = and i32 %0, 1
   %cmp1 = icmp eq i32 %and, 0
   br i1 %cmp1, label %while.body, label %if.end11
 
 while.body:                                       ; preds = %land.rhs
   %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084, i64 0, i32 4
-  %1 = load ptr, ptr %next, align 8, !tbaa !32
+  %1 = load ptr, ptr %next, align 8, !tbaa !31
   %cmp.not = icmp eq ptr %1, null
-  br i1 %cmp.not, label %if.then, label %land.rhs, !llvm.loop !43
+  br i1 %cmp.not, label %if.then, label %land.rhs, !llvm.loop !42
 
 if.then:                                          ; preds = %while.body, %entry
   %flags2 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper, i64 0, i32 5
@@ -816,14 +787,14 @@ if.then:                                          ; preds = %while.body, %entry
 
 if.then5:                                         ; preds = %if.then
   %genCaseInline = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 8
-  %4 = load ptr, ptr %genCaseInline, align 8, !tbaa !44
+  %4 = load ptr, ptr %genCaseInline, align 8, !tbaa !43
   %sub = add nsw i32 %triggerNum, -1
   tail call void %4(ptr noundef %context, ptr noundef %stream, ptr noundef %3, i32 noundef %sub) #4
   br label %cleanup
 
 if.else:                                          ; preds = %if.then
   %genCaseCall = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 7
-  %5 = load ptr, ptr %genCaseCall, align 8, !tbaa !45
+  %5 = load ptr, ptr %genCaseCall, align 8, !tbaa !44
   %number = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %3, i64 0, i32 3
   %6 = load i32, ptr %number, align 8, !tbaa !21
   %sub10 = add nsw i32 %triggerNum, -1
@@ -832,7 +803,7 @@ if.else:                                          ; preds = %if.then
 
 if.end11:                                         ; preds = %land.rhs
   %type12 = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam.addr.084, i64 0, i32 1
-  %7 = load ptr, ptr %type12, align 8, !tbaa !29
+  %7 = load ptr, ptr %type12, align 8, !tbaa !30
   %call = tail call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %7) #4
   %flags13 = getelementptr inbounds %struct._tagTreeCCNode, ptr %call, i64 0, i32 5
   %8 = load i32, ptr %flags13, align 8, !tbaa !35
@@ -869,7 +840,7 @@ while.body27:                                     ; preds = %if.else19, %while.b
   %cmp21 = icmp ne ptr %param.0, null
   %cmp24 = icmp ne ptr %param.0, %nextParam.addr.084
   %13 = and i1 %cmp21, %cmp24
-  br i1 %13, label %while.body27, label %while.end33, !llvm.loop !46
+  br i1 %13, label %while.body27, label %while.end33, !llvm.loop !45
 
 while.end33:                                      ; preds = %while.body27, %if.else19
   %paramNum.0.lcssa = phi i32 [ 0, %if.else19 ], [ %spec.select, %while.body27 ]
@@ -906,14 +877,14 @@ entry:
 
 if.then:                                          ; preds = %entry
   %position = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 7
-  %1 = load i32, ptr %position, align 8, !tbaa !62
+  %1 = load i32, ptr %position, align 8, !tbaa !65
   %mul = mul nsw i32 %1, %multiplier
   %add = add nsw i32 %mul, %base
   %size = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam, i64 0, i32 3
-  %2 = load i32, ptr %size, align 4, !tbaa !63
+  %2 = load i32, ptr %size, align 4, !tbaa !66
   %mul1 = mul nsw i32 %2, %multiplier
   %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam, i64 0, i32 4
-  %3 = load ptr, ptr %next, align 8, !tbaa !32
+  %3 = load ptr, ptr %next, align 8, !tbaa !31
   %add2 = add nsw i32 %triggerNum, 1
   tail call fastcc void @GenerateSplitMultiSwitch(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %oper, ptr noundef %sortedCases, i32 noundef %add, i32 noundef %mul1, ptr noundef %3, i32 noundef %add2)
   br label %if.end
@@ -930,7 +901,7 @@ while.body:                                       ; preds = %if.end, %while.body
   %nextSibling = getelementptr inbounds %struct._tagTreeCCNode, ptr %node.addr.022, i64 0, i32 3
   %node.addr.0 = load ptr, ptr %nextSibling, align 8, !tbaa !11
   %cmp3.not = icmp eq ptr %node.addr.0, null
-  br i1 %cmp3.not, label %while.end, label %while.body, !llvm.loop !64
+  br i1 %cmp3.not, label %while.end, label %while.body, !llvm.loop !67
 
 while.end:                                        ; preds = %while.body, %if.end
   ret void
@@ -950,13 +921,13 @@ entry:
 
 if.then:                                          ; preds = %entry
   %genSelector = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 4
-  %1 = load ptr, ptr %genSelector, align 8, !tbaa !65
+  %1 = load ptr, ptr %genSelector, align 8, !tbaa !68
   tail call void %1(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %node, i32 noundef 0) #4
   %genEndSelectors = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 5
-  %2 = load ptr, ptr %genEndSelectors, align 8, !tbaa !59
+  %2 = load ptr, ptr %genEndSelectors, align 8, !tbaa !60
   tail call void %2(ptr noundef %context, ptr noundef %stream, i32 noundef 0) #4
   %position = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 7
-  %3 = load i32, ptr %position, align 8, !tbaa !62
+  %3 = load i32, ptr %position, align 8, !tbaa !65
   %mul = mul nsw i32 %3, %multiplier
   %add = add nsw i32 %mul, %base
   %numTriggers = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper, i64 0, i32 6
@@ -977,13 +948,13 @@ if.then2:                                         ; preds = %if.then
 
 if.then6:                                         ; preds = %if.then2
   %genCaseInline = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 8
-  %7 = load ptr, ptr %genCaseInline, align 8, !tbaa !44
+  %7 = load ptr, ptr %genCaseInline, align 8, !tbaa !43
   tail call void %7(ptr noundef %context, ptr noundef %stream, ptr noundef %6, i32 noundef 0) #4
   br label %if.end15
 
 if.else:                                          ; preds = %if.then2
   %genCaseCall = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 7
-  %8 = load ptr, ptr %genCaseCall, align 8, !tbaa !45
+  %8 = load ptr, ptr %genCaseCall, align 8, !tbaa !44
   %number11 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %6, i64 0, i32 3
   %9 = load i32, ptr %number11, align 8, !tbaa !21
   tail call void %8(ptr noundef %context, ptr noundef %stream, ptr noundef %6, i32 noundef %9, i32 noundef 0) #4
@@ -991,7 +962,7 @@ if.else:                                          ; preds = %if.then2
 
 if.else12:                                        ; preds = %if.then
   %genCaseSplit = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 9
-  %10 = load ptr, ptr %genCaseSplit, align 8, !tbaa !66
+  %10 = load ptr, ptr %genCaseSplit, align 8, !tbaa !69
   %idxprom13 = sext i32 %add to i64
   %arrayidx14 = getelementptr inbounds ptr, ptr %sortedCases, i64 %idxprom13
   %11 = load ptr, ptr %arrayidx14, align 8, !tbaa !11
@@ -1000,7 +971,7 @@ if.else12:                                        ; preds = %if.then
 
 if.end15:                                         ; preds = %if.then6, %if.else, %if.else12
   %genEndCase = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 10
-  %12 = load ptr, ptr %genEndCase, align 8, !tbaa !60
+  %12 = load ptr, ptr %genEndCase, align 8, !tbaa !61
   tail call void %12(ptr noundef %context, ptr noundef %stream, i32 noundef 0) #4
   br label %if.end16
 
@@ -1016,7 +987,7 @@ while.body:                                       ; preds = %if.end16, %while.bo
   %nextSibling = getelementptr inbounds %struct._tagTreeCCNode, ptr %node.addr.057, i64 0, i32 3
   %node.addr.0 = load ptr, ptr %nextSibling, align 8, !tbaa !11
   %cmp17.not = icmp eq ptr %node.addr.0, null
-  br i1 %cmp17.not, label %while.end, label %while.body, !llvm.loop !67
+  br i1 %cmp17.not, label %while.end, label %while.body, !llvm.loop !70
 
 while.end:                                        ; preds = %while.body, %if.end16
   ret void
@@ -1037,7 +1008,7 @@ if.end:                                           ; preds = %entry
   %or = or i32 %0, %markBit
   store i32 %or, ptr %flags, align 8, !tbaa !35
   %genSelector = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 4
-  %1 = load ptr, ptr %genSelector, align 8, !tbaa !65
+  %1 = load ptr, ptr %genSelector, align 8, !tbaa !68
   tail call void %1(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %node, i32 noundef %triggerNum) #4
   %firstChild = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 1
   %node.addr.015 = load ptr, ptr %firstChild, align 8, !tbaa !11
@@ -1046,11 +1017,11 @@ if.end:                                           ; preds = %entry
 
 while.body:                                       ; preds = %if.end, %while.body
   %node.addr.017 = phi ptr [ %node.addr.0, %while.body ], [ %node.addr.015, %if.end ]
-  %call = tail call fastcc i32 @GenerateSelectors(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef nonnull %node.addr.017, i32 noundef %markBit, i32 noundef %triggerNum), !range !55
+  %call = tail call fastcc i32 @GenerateSelectors(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef nonnull %node.addr.017, i32 noundef %markBit, i32 noundef %triggerNum), !range !56
   %nextSibling = getelementptr inbounds %struct._tagTreeCCNode, ptr %node.addr.017, i64 0, i32 3
   %node.addr.0 = load ptr, ptr %nextSibling, align 8, !tbaa !11
   %cmp2.not = icmp eq ptr %node.addr.0, null
-  br i1 %cmp2.not, label %return, label %while.body, !llvm.loop !68
+  br i1 %cmp2.not, label %return, label %while.body, !llvm.loop !71
 
 return:                                           ; preds = %while.body, %if.end, %entry
   %retval.0 = phi i32 [ 0, %entry ], [ 1, %if.end ], [ 1, %while.body ]
@@ -1070,24 +1041,24 @@ entry:
 
 if.then:                                          ; preds = %entry
   %genSelector = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 4
-  %1 = load ptr, ptr %genSelector, align 8, !tbaa !65
+  %1 = load ptr, ptr %genSelector, align 8, !tbaa !68
   tail call void %1(ptr noundef %context, ptr noundef %stream, ptr noundef nonnull %node, i32 noundef %triggerNum) #4
   %genEndSelectors = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 5
-  %2 = load ptr, ptr %genEndSelectors, align 8, !tbaa !59
+  %2 = load ptr, ptr %genEndSelectors, align 8, !tbaa !60
   tail call void %2(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
   %position = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 7
-  %3 = load i32, ptr %position, align 8, !tbaa !62
+  %3 = load i32, ptr %position, align 8, !tbaa !65
   %mul = mul nsw i32 %3, %multiplier
   %add = add nsw i32 %mul, %base
   %size = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam, i64 0, i32 3
-  %4 = load i32, ptr %size, align 4, !tbaa !63
+  %4 = load i32, ptr %size, align 4, !tbaa !66
   %mul1 = mul nsw i32 %4, %multiplier
   %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %nextParam, i64 0, i32 4
-  %5 = load ptr, ptr %next, align 8, !tbaa !32
+  %5 = load ptr, ptr %next, align 8, !tbaa !31
   %add2 = add nsw i32 %triggerNum, 1
   tail call fastcc void @GenerateMultiSwitch(ptr noundef %context, ptr noundef %stream, ptr noundef %nonVirt, ptr noundef %oper, ptr noundef %sortedCases, i32 noundef %add, i32 noundef %mul1, ptr noundef %5, i32 noundef %add2)
   %genEndCase = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %nonVirt, i64 0, i32 10
-  %6 = load ptr, ptr %genEndCase, align 8, !tbaa !60
+  %6 = load ptr, ptr %genEndCase, align 8, !tbaa !61
   tail call void %6(ptr noundef %context, ptr noundef %stream, i32 noundef %triggerNum) #4
   br label %if.end
 
@@ -1103,7 +1074,7 @@ while.body:                                       ; preds = %if.end, %while.body
   %nextSibling = getelementptr inbounds %struct._tagTreeCCNode, ptr %node.addr.035, i64 0, i32 3
   %node.addr.0 = load ptr, ptr %nextSibling, align 8, !tbaa !11
   %cmp3.not = icmp eq ptr %node.addr.0, null
-  br i1 %cmp3.not, label %while.end, label %while.body, !llvm.loop !69
+  br i1 %cmp3.not, label %while.end, label %while.body, !llvm.loop !72
 
 while.end:                                        ; preds = %while.body, %if.end
   ret void
@@ -1145,47 +1116,50 @@ attributes #5 = { "function-inline-cost-multiplier"="2" }
 !23 = distinct !{!23, !24}
 !24 = !{!"llvm.loop.mustprogress"}
 !25 = !{!13, !10, i64 44}
-!26 = !{!13, !9, i64 88}
-!27 = !{!28, !10, i64 16}
-!28 = !{!"_tagTreeCCParam", !9, i64 0, !9, i64 8, !10, i64 16, !10, i64 20, !9, i64 24}
-!29 = !{!28, !9, i64 8}
-!30 = distinct !{!30, !24}
-!31 = !{!13, !9, i64 32}
-!32 = !{!28, !9, i64 24}
+!26 = !{!13, !9, i64 32}
+!27 = !{!13, !9, i64 88}
+!28 = !{!29, !10, i64 16}
+!29 = !{!"_tagTreeCCParam", !9, i64 0, !9, i64 8, !10, i64 16, !10, i64 20, !9, i64 24}
+!30 = !{!29, !9, i64 8}
+!31 = !{!29, !9, i64 24}
+!32 = distinct !{!32, !24}
 !33 = distinct !{!33, !24}
 !34 = !{!19, !9, i64 8}
 !35 = !{!36, !10, i64 40}
 !36 = !{!"_tagTreeCCNode", !9, i64 0, !9, i64 8, !9, i64 16, !9, i64 24, !9, i64 32, !10, i64 40, !10, i64 44, !10, i64 48, !9, i64 56, !14, i64 64, !9, i64 72, !9, i64 80, !9, i64 88, !9, i64 96, !9, i64 104}
-!37 = !{!28, !9, i64 0}
+!37 = !{!29, !9, i64 0}
 !38 = !{!19, !9, i64 24}
 !39 = distinct !{!39, !24}
 !40 = !{!19, !9, i64 88}
-!41 = !{!19, !9, i64 96}
-!42 = !{!13, !9, i64 72}
-!43 = distinct !{!43, !24}
-!44 = !{!19, !9, i64 64}
-!45 = !{!19, !9, i64 56}
-!46 = distinct !{!46, !24}
+!41 = !{!13, !9, i64 72}
+!42 = distinct !{!42, !24}
+!43 = !{!19, !9, i64 64}
+!44 = !{!19, !9, i64 56}
+!45 = distinct !{!45, !24}
+!46 = !{!19, !9, i64 96}
 !47 = !{!19, !9, i64 104}
 !48 = distinct !{!48, !24}
 !49 = distinct !{!49, !24}
 !50 = !{!19, !9, i64 16}
 !51 = distinct !{!51, !24}
 !52 = !{!22, !9, i64 64}
-!53 = !{!54, !9, i64 0}
-!54 = !{!"_tagTreeCCTrigger", !9, i64 0, !9, i64 8}
-!55 = !{i32 0, i32 2}
-!56 = !{!6, !9, i64 8192}
-!57 = !{!22, !9, i64 32}
-!58 = !{!22, !14, i64 40}
-!59 = !{!19, !9, i64 40}
-!60 = !{!19, !9, i64 80}
-!61 = distinct !{!61, !24}
-!62 = !{!36, !10, i64 48}
-!63 = !{!28, !10, i64 20}
-!64 = distinct !{!64, !24}
-!65 = !{!19, !9, i64 32}
-!66 = !{!19, !9, i64 72}
+!53 = distinct !{!53, !24}
+!54 = !{!55, !9, i64 0}
+!55 = !{!"_tagTreeCCTrigger", !9, i64 0, !9, i64 8}
+!56 = !{i32 0, i32 2}
+!57 = !{!6, !9, i64 8192}
+!58 = !{!22, !9, i64 32}
+!59 = !{!22, !14, i64 40}
+!60 = !{!19, !9, i64 40}
+!61 = !{!19, !9, i64 80}
+!62 = distinct !{!62, !24}
+!63 = !{!22, !9, i64 0}
+!64 = !{!55, !9, i64 8}
+!65 = !{!36, !10, i64 48}
+!66 = !{!29, !10, i64 20}
 !67 = distinct !{!67, !24}
-!68 = distinct !{!68, !24}
-!69 = distinct !{!69, !24}
+!68 = !{!19, !9, i64 32}
+!69 = !{!19, !9, i64 72}
+!70 = distinct !{!70, !24}
+!71 = distinct !{!71, !24}
+!72 = distinct !{!72, !24}

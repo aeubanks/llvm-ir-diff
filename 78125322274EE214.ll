@@ -383,8 +383,8 @@ if.else18:                                        ; preds = %if.else10
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV5empty, i64 0, inrange i32 0, i64 2), ptr %call19, align 8, !tbaa !13
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then12, %if.else18, %if.then4, %if.then
-  %retval.0 = phi ptr [ %call, %if.then ], [ %call5, %if.then4 ], [ %call19, %if.else18 ], [ %call19, %if.then12 ]
+cleanup:                                          ; preds = %if.else18, %if.then12, %if.then4, %if.then
+  %retval.0 = phi ptr [ %call, %if.then ], [ %call5, %if.then4 ], [ %call19, %if.then12 ], [ %call19, %if.else18 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %sum) #8
   ret ptr %retval.0
 }
@@ -522,7 +522,7 @@ if.then:                                          ; preds = %for.body3
 if.else:                                          ; preds = %for.body3
   %cmp7 = icmp ult i64 %indvars.iv58, %indvars.iv
   %3 = trunc i64 %indvars.iv to i32
-  br i1 %cmp7, label %if.then8, label %invoke.cont19
+  br i1 %cmp7, label %if.then8, label %if.else16
 
 if.then8:                                         ; preds = %if.else
   %call9 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
@@ -537,7 +537,7 @@ if.then8:                                         ; preds = %if.else
   store ptr %call9, ptr %arrayidx15, align 8, !tbaa !11
   br label %for.inc
 
-invoke.cont19:                                    ; preds = %if.else
+if.else16:                                        ; preds = %if.else
   %call17 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #9
   %row.i.i53 = getelementptr inbounds %class.living, ptr %call17, i64 0, i32 1
   store i32 %0, ptr %row.i.i53, align 8, !tbaa !5
@@ -548,7 +548,7 @@ invoke.cont19:                                    ; preds = %if.else
   store ptr %call17, ptr %arrayidx23, align 8, !tbaa !11
   br label %for.inc
 
-for.inc:                                          ; preds = %if.then, %invoke.cont19, %if.then8
+for.inc:                                          ; preds = %if.then, %if.else16, %if.then8
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 40
   br i1 %exitcond.not, label %for.inc25, label %for.body3, !llvm.loop !27
@@ -622,7 +622,7 @@ if.then.i:                                        ; preds = %for.body3.i12
 if.else.i:                                        ; preds = %for.body3.i12
   %cmp7.i = icmp ult i64 %indvars.iv58.i, %indvars.iv.i11
   %3 = trunc i64 %indvars.iv.i11 to i32
-  br i1 %cmp7.i, label %if.then8.i, label %invoke.cont19.i
+  br i1 %cmp7.i, label %if.then8.i, label %if.else16.i
 
 if.then8.i:                                       ; preds = %if.else.i
   %call9.i = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
@@ -637,7 +637,7 @@ if.then8.i:                                       ; preds = %if.else.i
   store ptr %call9.i, ptr %arrayidx15.i, align 8, !tbaa !11
   br label %for.inc.i
 
-invoke.cont19.i:                                  ; preds = %if.else.i
+if.else16.i:                                      ; preds = %if.else.i
   %call17.i = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #9
   %row.i.i53.i = getelementptr inbounds %class.living, ptr %call17.i, i64 0, i32 1
   store i32 %2, ptr %row.i.i53.i, align 8, !tbaa !5
@@ -648,7 +648,7 @@ invoke.cont19.i:                                  ; preds = %if.else.i
   store ptr %call17.i, ptr %arrayidx23.i, align 8, !tbaa !11
   br label %for.inc.i
 
-for.inc.i:                                        ; preds = %invoke.cont19.i, %if.then8.i, %if.then.i
+for.inc.i:                                        ; preds = %if.else16.i, %if.then8.i, %if.then.i
   %indvars.iv.next.i16 = add nuw nsw i64 %indvars.iv.i11, 1
   %exitcond.not.i17 = icmp eq i64 %indvars.iv.next.i16, 40
   br i1 %exitcond.not.i17, label %for.inc25.i, label %for.body3.i12, !llvm.loop !27

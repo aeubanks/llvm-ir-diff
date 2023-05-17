@@ -48,16 +48,16 @@ if.end3:                                          ; preds = %if.end
   %direct = getelementptr inbounds %struct.gz_state, ptr %call, i64 0, i32 8
   store i32 0, ptr %direct, align 8, !tbaa !19
   %0 = load i8, ptr %mode, align 1, !tbaa !20
-  %tobool.not175 = icmp eq i8 %0, 0
-  br i1 %tobool.not175, label %if.then36, label %while.body
+  %tobool.not173 = icmp eq i8 %0, 0
+  br i1 %tobool.not173, label %if.then36, label %while.body
 
 while.body:                                       ; preds = %if.end3, %if.end32
   %1 = phi i32 [ %5, %if.end32 ], [ 0, %if.end3 ]
   %2 = phi i32 [ %6, %if.end32 ], [ 0, %if.end3 ]
   %3 = phi i8 [ %7, %if.end32 ], [ %0, %if.end3 ]
-  %exclusive.0178 = phi i32 [ %exclusive.1, %if.end32 ], [ 0, %if.end3 ]
-  %cloexec.0177 = phi i32 [ %cloexec.1, %if.end32 ], [ 0, %if.end3 ]
-  %mode.addr.0176 = phi ptr [ %incdec.ptr, %if.end32 ], [ %mode, %if.end3 ]
+  %exclusive.0176 = phi i32 [ %exclusive.1, %if.end32 ], [ 0, %if.end3 ]
+  %cloexec.0175 = phi i32 [ %cloexec.1, %if.end32 ], [ 0, %if.end3 ]
+  %mode.addr.0174 = phi ptr [ %incdec.ptr, %if.end32 ], [ %mode, %if.end3 ]
   %conv = sext i8 %3 to i32
   %4 = add i8 %3, -48
   %or.cond = icmp ult i8 %4, 10
@@ -128,24 +128,26 @@ sw.bb30:                                          ; preds = %if.else
 if.end32:                                         ; preds = %sw.bb, %sw.bb15, %sw.bb17, %sw.bb20, %sw.bb21, %sw.bb22, %sw.bb24, %sw.bb26, %sw.bb28, %sw.bb30, %if.else, %if.then10
   %5 = phi i32 [ %1, %if.then10 ], [ %1, %if.else ], [ %1, %sw.bb28 ], [ %1, %sw.bb26 ], [ %1, %sw.bb24 ], [ %1, %sw.bb22 ], [ %1, %sw.bb21 ], [ %1, %sw.bb20 ], [ 1, %sw.bb30 ], [ %1, %sw.bb17 ], [ %1, %sw.bb15 ], [ %1, %sw.bb ]
   %6 = phi i32 [ %2, %if.then10 ], [ %2, %if.else ], [ %2, %sw.bb28 ], [ %2, %sw.bb26 ], [ %2, %sw.bb24 ], [ %2, %sw.bb22 ], [ %2, %sw.bb21 ], [ %2, %sw.bb20 ], [ %2, %sw.bb30 ], [ 1, %sw.bb17 ], [ 31153, %sw.bb15 ], [ 7247, %sw.bb ]
-  %cloexec.1 = phi i32 [ %cloexec.0177, %if.then10 ], [ %cloexec.0177, %if.else ], [ %cloexec.0177, %sw.bb28 ], [ %cloexec.0177, %sw.bb26 ], [ %cloexec.0177, %sw.bb24 ], [ %cloexec.0177, %sw.bb22 ], [ %cloexec.0177, %sw.bb21 ], [ 1, %sw.bb20 ], [ %cloexec.0177, %sw.bb30 ], [ %cloexec.0177, %sw.bb17 ], [ %cloexec.0177, %sw.bb15 ], [ %cloexec.0177, %sw.bb ]
-  %exclusive.1 = phi i32 [ %exclusive.0178, %if.then10 ], [ %exclusive.0178, %if.else ], [ %exclusive.0178, %sw.bb28 ], [ %exclusive.0178, %sw.bb26 ], [ %exclusive.0178, %sw.bb24 ], [ %exclusive.0178, %sw.bb22 ], [ 1, %sw.bb21 ], [ %exclusive.0178, %sw.bb20 ], [ %exclusive.0178, %sw.bb30 ], [ %exclusive.0178, %sw.bb17 ], [ %exclusive.0178, %sw.bb15 ], [ %exclusive.0178, %sw.bb ]
-  %incdec.ptr = getelementptr inbounds i8, ptr %mode.addr.0176, i64 1
+  %cloexec.1 = phi i32 [ %cloexec.0175, %if.then10 ], [ %cloexec.0175, %if.else ], [ %cloexec.0175, %sw.bb28 ], [ %cloexec.0175, %sw.bb26 ], [ %cloexec.0175, %sw.bb24 ], [ %cloexec.0175, %sw.bb22 ], [ %cloexec.0175, %sw.bb21 ], [ 1, %sw.bb20 ], [ %cloexec.0175, %sw.bb30 ], [ %cloexec.0175, %sw.bb17 ], [ %cloexec.0175, %sw.bb15 ], [ %cloexec.0175, %sw.bb ]
+  %exclusive.1 = phi i32 [ %exclusive.0176, %if.then10 ], [ %exclusive.0176, %if.else ], [ %exclusive.0176, %sw.bb28 ], [ %exclusive.0176, %sw.bb26 ], [ %exclusive.0176, %sw.bb24 ], [ %exclusive.0176, %sw.bb22 ], [ 1, %sw.bb21 ], [ %exclusive.0176, %sw.bb20 ], [ %exclusive.0176, %sw.bb30 ], [ %exclusive.0176, %sw.bb17 ], [ %exclusive.0176, %sw.bb15 ], [ %exclusive.0176, %sw.bb ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %mode.addr.0174, i64 1
   %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !20
   %tobool.not = icmp eq i8 %7, 0
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !21
 
 while.end:                                        ; preds = %if.end32
-  switch i32 %6, label %if.end47 [
-    i32 0, label %if.then36
-    i32 7247, label %if.then41
-  ]
+  %cmp34 = icmp eq i32 %6, 0
+  br i1 %cmp34, label %if.then36, label %if.end37
 
 if.then36:                                        ; preds = %if.end3, %while.end
   tail call void @free(ptr noundef nonnull %call) #13
   br label %cleanup
 
-if.then41:                                        ; preds = %while.end
+if.end37:                                         ; preds = %while.end
+  %cmp39 = icmp eq i32 %6, 7247
+  br i1 %cmp39, label %if.then41, label %if.end47
+
+if.then41:                                        ; preds = %if.end37
   %tobool43.not = icmp eq i32 %5, 0
   br i1 %tobool43.not, label %if.end45, label %if.then44
 
@@ -157,7 +159,7 @@ if.end45:                                         ; preds = %if.then41
   store i32 1, ptr %direct, align 8, !tbaa !19
   br label %if.end47
 
-if.end47:                                         ; preds = %while.end, %if.end45
+if.end47:                                         ; preds = %if.end45, %if.end37
   %call48 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %path) #14
   %add = add i64 %call48, 1
   %call49 = tail call noalias ptr @malloc(i64 noundef %add) #12
@@ -174,8 +176,7 @@ if.end55:                                         ; preds = %if.end47
   %call58 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull %call49, i64 noundef %add, ptr noundef nonnull @.str.5, ptr noundef nonnull %path) #13
   %tobool59.not = icmp eq i32 %cloexec.1, 0
   %cond = select i1 %tobool59.not, i32 0, i32 524288
-  %cmp61 = icmp eq i32 %6, 7247
-  br i1 %cmp61, label %cond.end, label %cond.false
+  br i1 %cmp39, label %cond.end, label %cond.false
 
 cond.false:                                       ; preds = %if.end55
   %tobool63.not = icmp eq i32 %exclusive.1, 0
@@ -211,21 +212,18 @@ if.then83:                                        ; preds = %cond.end77
 if.end85:                                         ; preds = %cond.end77.thread, %cond.end77
   %cond78169 = phi i32 [ %fd, %cond.end77.thread ], [ %call76, %cond.end77 ]
   %cmp87 = icmp eq i32 %6, 1
-  br i1 %cmp87, label %if.end93.thread, label %if.end93
+  br i1 %cmp87, label %if.end106.thread183, label %if.end93
 
-if.end93.thread:                                  ; preds = %if.end85
+if.end106.thread183:                              ; preds = %if.end85
   %call91 = tail call i64 @lseek(i32 noundef %cond78169, i64 noundef 0, i32 noundef 2) #13
   store i32 31153, ptr %mode4, align 8, !tbaa !16
-  br label %if.end106.thread
-
-if.end93:                                         ; preds = %if.end85
-  br i1 %cmp61, label %if.then.i, label %if.end106.thread
-
-if.end106.thread:                                 ; preds = %if.end93.thread, %if.end93
   store i32 0, ptr %call, align 8, !tbaa !25
   br label %gz_reset.exit
 
-if.then.i:                                        ; preds = %if.end93
+if.end93:                                         ; preds = %if.end85
+  br i1 %cmp39, label %if.end106.thread, label %if.end106
+
+if.end106.thread:                                 ; preds = %if.end93
   %call99 = tail call i64 @lseek(i32 noundef %cond78169, i64 noundef 0, i32 noundef 1) #13
   %start = getelementptr inbounds %struct.gz_state, ptr %call, i64 0, i32 10
   %cmp101 = icmp eq i64 %call99, -1
@@ -240,7 +238,11 @@ if.then.i:                                        ; preds = %if.end93
   store i32 0, ptr %how.i, align 4, !tbaa !28
   br label %gz_reset.exit
 
-gz_reset.exit:                                    ; preds = %if.then.i, %if.end106.thread
+if.end106:                                        ; preds = %if.end93
+  store i32 0, ptr %call, align 8, !tbaa !25
+  br label %gz_reset.exit
+
+gz_reset.exit:                                    ; preds = %if.end106, %if.end106.thread, %if.end106.thread183
   %seek.i = getelementptr inbounds %struct.gz_state, ptr %call, i64 0, i32 16
   store i32 0, ptr %seek.i, align 8, !tbaa !29
   %err12.i.i = getelementptr inbounds %struct.gz_state, ptr %call, i64 0, i32 17
@@ -417,9 +419,10 @@ entry:
 if.end:                                           ; preds = %entry
   %mode = getelementptr inbounds %struct.gz_state, ptr %file, i64 0, i32 1
   %0 = load i32, ptr %mode, align 8, !tbaa !16
+  %cmp1.not = icmp eq i32 %0, 7247
   switch i32 %0, label %cleanup [
-    i32 7247, label %if.end5
     i32 31153, label %if.end5
+    i32 7247, label %if.end5
   ]
 
 if.end5:                                          ; preds = %if.end, %if.end
@@ -460,8 +463,7 @@ if.end21:                                         ; preds = %if.else, %if.then19
   %offset.addr.0 = phi i64 [ %sub, %if.then18 ], [ %add, %if.then19 ], [ %offset, %if.else ]
   %seek22 = getelementptr inbounds %struct.gz_state, ptr %file, i64 0, i32 16
   store i32 0, ptr %seek22, align 8, !tbaa !29
-  %cmp24 = icmp eq i32 %0, 7247
-  br i1 %cmp24, label %land.lhs.true25, label %if.end47.thread
+  br i1 %cmp1.not, label %land.lhs.true25, label %if.end47.thread
 
 land.lhs.true25:                                  ; preds = %if.end21
   %how = getelementptr inbounds %struct.gz_state, ptr %file, i64 0, i32 9
@@ -522,13 +524,16 @@ gz_error.exit:                                    ; preds = %if.end38, %if.end.i
 
 if.end47:                                         ; preds = %land.lhs.true27, %land.lhs.true25
   %cmp48 = icmp slt i64 %offset.addr.0, 0
-  br i1 %cmp48, label %if.end55, label %if.then72
+  br i1 %cmp48, label %if.then50, label %if.end68
 
 if.end47.thread:                                  ; preds = %if.end21
-  %cmp48154 = icmp slt i64 %offset.addr.0, 0
-  br i1 %cmp48154, label %cleanup, label %if.end91
+  %cmp48155 = icmp slt i64 %offset.addr.0, 0
+  br i1 %cmp48155, label %cleanup, label %if.end91
 
-if.end55:                                         ; preds = %if.end47
+if.then50:                                        ; preds = %if.end47
+  br i1 %cmp1.not, label %if.end55, label %cleanup
+
+if.end55:                                         ; preds = %if.then50
   %pos57 = getelementptr inbounds %struct.gzFile_s, ptr %file, i64 0, i32 2
   %12 = load i64, ptr %pos57, align 8, !tbaa !31
   %add58 = add nsw i64 %12, %offset.addr.0
@@ -538,19 +543,23 @@ if.end55:                                         ; preds = %if.end47
 if.end62:                                         ; preds = %if.end55
   %call63 = tail call i32 @gzrewind(ptr noundef nonnull %file), !range !35
   %cmp64 = icmp eq i32 %call63, -1
-  br i1 %cmp64, label %cleanup, label %if.end68
+  br i1 %cmp64, label %cleanup, label %if.end62.if.end68_crit_edge
 
-if.end68:                                         ; preds = %if.end62
+if.end62.if.end68_crit_edge:                      ; preds = %if.end62
   %.pre = load i32, ptr %mode, align 8, !tbaa !16
-  %13 = icmp eq i32 %.pre, 7247
-  br i1 %13, label %if.then72, label %if.end91
+  br label %if.end68
 
-if.then72:                                        ; preds = %if.end47, %if.end68
-  %offset.addr.1157 = phi i64 [ %add58, %if.end68 ], [ %offset.addr.0, %if.end47 ]
+if.end68:                                         ; preds = %if.end62.if.end68_crit_edge, %if.end47
+  %13 = phi i32 [ %.pre, %if.end62.if.end68_crit_edge ], [ %0, %if.end47 ]
+  %offset.addr.1 = phi i64 [ %add58, %if.end62.if.end68_crit_edge ], [ %offset.addr.0, %if.end47 ]
+  %cmp70 = icmp eq i32 %13, 7247
+  br i1 %cmp70, label %if.then72, label %if.end91
+
+if.then72:                                        ; preds = %if.end68
   %14 = load i32, ptr %file, align 8, !tbaa !25
   %conv75 = zext i32 %14 to i64
-  %cmp76 = icmp ult i64 %offset.addr.1157, %conv75
-  %conv78 = trunc i64 %offset.addr.1157 to i32
+  %cmp76 = icmp ult i64 %offset.addr.1, %conv75
+  %conv78 = trunc i64 %offset.addr.1 to i32
   %cond = select i1 %cmp76, i32 %conv78, i32 %14
   %sub83 = sub i32 %14, %cond
   store i32 %sub83, ptr %file, align 8, !tbaa !25
@@ -563,11 +572,11 @@ if.then72:                                        ; preds = %if.end47, %if.end68
   %16 = load i64, ptr %pos87, align 8, !tbaa !31
   %add88 = add nsw i64 %16, %idx.ext
   store i64 %add88, ptr %pos87, align 8, !tbaa !31
-  %sub90 = sub nsw i64 %offset.addr.1157, %idx.ext
+  %sub90 = sub nsw i64 %offset.addr.1, %idx.ext
   br label %if.end91
 
 if.end91:                                         ; preds = %if.end47.thread, %if.then72, %if.end68
-  %offset.addr.2 = phi i64 [ %sub90, %if.then72 ], [ %add58, %if.end68 ], [ %offset.addr.0, %if.end47.thread ]
+  %offset.addr.2 = phi i64 [ %sub90, %if.then72 ], [ %offset.addr.1, %if.end68 ], [ %offset.addr.0, %if.end47.thread ]
   %tobool92.not = icmp eq i64 %offset.addr.2, 0
   br i1 %tobool92.not, label %if.end96, label %if.then93
 
@@ -583,8 +592,8 @@ if.end96:                                         ; preds = %if.then93, %if.end9
   %add99 = add nsw i64 %17, %offset.addr.2
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end47.thread, %if.end62, %if.end55, %if.then32, %if.end11, %if.end5, %if.end, %entry, %if.end96, %gz_error.exit
-  %retval.0 = phi i64 [ %add44, %gz_error.exit ], [ %add99, %if.end96 ], [ -1, %entry ], [ -1, %if.end ], [ -1, %if.end5 ], [ -1, %if.end11 ], [ -1, %if.then32 ], [ -1, %if.end55 ], [ -1, %if.end62 ], [ -1, %if.end47.thread ]
+cleanup:                                          ; preds = %if.end47.thread, %if.end, %if.end62, %if.end55, %if.then50, %if.then32, %if.end11, %if.end5, %entry, %if.end96, %gz_error.exit
+  %retval.0 = phi i64 [ %add44, %gz_error.exit ], [ %add99, %if.end96 ], [ -1, %entry ], [ -1, %if.end ], [ -1, %if.end5 ], [ -1, %if.end11 ], [ -1, %if.then32 ], [ -1, %if.then50 ], [ -1, %if.end55 ], [ -1, %if.end62 ], [ -1, %if.end47.thread ]
   ret i64 %retval.0
 }
 

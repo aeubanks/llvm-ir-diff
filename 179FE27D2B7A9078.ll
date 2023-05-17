@@ -20,10 +20,11 @@ entry:
   %sub9 = add nsw i32 %1, -1
   %cmp8.inv = icmp sgt i32 %sub, 0
   %add = select i1 %cmp8.inv, i32 %sub9, i32 0
-  %sub.pn = add nsw i32 %add, %sub
-  %cmp1152 = icmp slt i32 %sub7, 0
-  %sub16 = select i1 %cmp1152, i32 %sub9, i32 0
-  %sub7.pn = sub nsw i32 %sub7, %sub16
+  %sub.pn = add nsw i32 %sub, %add
+  %reass.sub = sub i32 %sub7, %1
+  %sub16 = add i32 %reass.sub, 1
+  %cmp1155 = icmp slt i32 %sub7, 0
+  %sub7.pn = select i1 %cmp1155, i32 %sub16, i32 %sub7
   %sub.pn.fr = freeze i32 %sub.pn
   %4 = srem i32 %sub.pn.fr, %1
   %mul = sub i32 %0, %4
@@ -47,10 +48,11 @@ entry:
   %sub9.1 = add nsw i32 %7, -1
   %cmp8.inv.1 = icmp sgt i32 %sub.1, 0
   %add.1 = select i1 %cmp8.inv.1, i32 %sub9.1, i32 0
-  %sub.pn.1 = add nsw i32 %add.1, %sub.1
-  %cmp1152.1 = icmp slt i32 %sub7.1, 0
-  %sub16.1 = select i1 %cmp1152.1, i32 %sub9.1, i32 0
-  %sub7.pn.1 = sub nsw i32 %sub7.1, %sub16.1
+  %sub.pn.1 = add nsw i32 %sub.1, %add.1
+  %reass.sub.1 = sub i32 %sub7.1, %7
+  %sub16.1 = add i32 %reass.sub.1, 1
+  %cmp1155.1 = icmp slt i32 %sub7.1, 0
+  %sub7.pn.1 = select i1 %cmp1155.1, i32 %sub16.1, i32 %sub7.1
   %sub.pn.fr.1 = freeze i32 %sub.pn.1
   %10 = srem i32 %sub.pn.fr.1, %7
   %mul.1 = sub i32 %6, %10
@@ -74,10 +76,11 @@ entry:
   %sub9.2 = add nsw i32 %13, -1
   %cmp8.inv.2 = icmp sgt i32 %sub.2, 0
   %add.2 = select i1 %cmp8.inv.2, i32 %sub9.2, i32 0
-  %sub.pn.2 = add nsw i32 %add.2, %sub.2
-  %cmp1152.2 = icmp slt i32 %sub7.2, 0
-  %sub16.2 = select i1 %cmp1152.2, i32 %sub9.2, i32 0
-  %sub7.pn.2 = sub nsw i32 %sub7.2, %sub16.2
+  %sub.pn.2 = add nsw i32 %sub.2, %add.2
+  %reass.sub.2 = sub i32 %sub7.2, %13
+  %sub16.2 = add i32 %reass.sub.2, 1
+  %cmp1155.2 = icmp slt i32 %sub7.2, 0
+  %sub7.pn.2 = select i1 %cmp1155.2, i32 %sub16.2, i32 %sub7.2
   %sub.pn.fr.2 = freeze i32 %sub.pn.2
   %16 = srem i32 %sub.pn.fr.2, %13
   %mul.2 = sub i32 %12, %16
@@ -96,8 +99,8 @@ define dso_local i32 @hypre_ProjectBoxArray(ptr nocapture noundef readonly %box_
 entry:
   %size = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %box_array, i64 0, i32 1
   %0 = load i32, ptr %size, align 8, !tbaa !9
-  %cmp9 = icmp sgt i32 %0, 0
-  br i1 %cmp9, label %for.body.lr.ph, label %for.end
+  %cmp12 = icmp sgt i32 %0, 0
+  br i1 %cmp12, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr %box_array, align 8, !tbaa !12
@@ -121,9 +124,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %cmp8.inv.i = icmp sgt i32 %sub.i, 0
   %add.i = select i1 %cmp8.inv.i, i32 %sub9.i, i32 0
   %sub.pn.i = add nsw i32 %add.i, %sub.i
-  %cmp1152.i = icmp slt i32 %sub7.i, 0
-  %sub16.i = select i1 %cmp1152.i, i32 %sub9.i, i32 0
-  %sub7.pn.i = sub nsw i32 %sub7.i, %sub16.i
+  %reass.sub = sub i32 %sub7.i, %3
+  %sub16.i = add i32 %reass.sub, 1
+  %cmp1155.i = icmp slt i32 %sub7.i, 0
+  %sub7.pn.i = select i1 %cmp1155.i, i32 %sub16.i, i32 %sub7.i
   %sub.pn.fr.i = freeze i32 %sub.pn.i
   %6 = srem i32 %sub.pn.fr.i, %3
   %mul.i = sub i32 %2, %6
@@ -146,9 +150,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %cmp8.inv.1.i = icmp sgt i32 %sub.1.i, 0
   %add.1.i = select i1 %cmp8.inv.1.i, i32 %sub9.1.i, i32 0
   %sub.pn.1.i = add nsw i32 %add.1.i, %sub.1.i
-  %cmp1152.1.i = icmp slt i32 %sub7.1.i, 0
-  %sub16.1.i = select i1 %cmp1152.1.i, i32 %sub9.1.i, i32 0
-  %sub7.pn.1.i = sub nsw i32 %sub7.1.i, %sub16.1.i
+  %reass.sub14 = sub i32 %sub7.1.i, %9
+  %sub16.1.i = add i32 %reass.sub14, 1
+  %cmp1155.1.i = icmp slt i32 %sub7.1.i, 0
+  %sub7.pn.1.i = select i1 %cmp1155.1.i, i32 %sub16.1.i, i32 %sub7.1.i
   %sub.pn.fr.1.i = freeze i32 %sub.pn.1.i
   %12 = srem i32 %sub.pn.fr.1.i, %9
   %mul.1.i = sub i32 %8, %12
@@ -171,9 +176,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %cmp8.inv.2.i = icmp sgt i32 %sub.2.i, 0
   %add.2.i = select i1 %cmp8.inv.2.i, i32 %sub9.2.i, i32 0
   %sub.pn.2.i = add nsw i32 %add.2.i, %sub.2.i
-  %cmp1152.2.i = icmp slt i32 %sub7.2.i, 0
-  %sub16.2.i = select i1 %cmp1152.2.i, i32 %sub9.2.i, i32 0
-  %sub7.pn.2.i = sub nsw i32 %sub7.2.i, %sub16.2.i
+  %reass.sub15 = sub i32 %sub7.2.i, %15
+  %sub16.2.i = add i32 %reass.sub15, 1
+  %cmp1155.2.i = icmp slt i32 %sub7.2.i, 0
+  %sub7.pn.2.i = select i1 %cmp1155.2.i, i32 %sub16.2.i, i32 %sub7.2.i
   %sub.pn.fr.2.i = freeze i32 %sub.pn.2.i
   %18 = srem i32 %sub.pn.fr.2.i, %15
   %mul.2.i = sub i32 %14, %18
@@ -199,8 +205,8 @@ define dso_local i32 @hypre_ProjectBoxArrayArray(ptr nocapture noundef readonly 
 entry:
   %size = getelementptr inbounds %struct.hypre_BoxArrayArray_struct, ptr %box_array_array, i64 0, i32 1
   %0 = load i32, ptr %size, align 8, !tbaa !15
-  %cmp23 = icmp sgt i32 %0, 0
-  br i1 %cmp23, label %for.body.lr.ph, label %for.end9
+  %cmp26 = icmp sgt i32 %0, 0
+  br i1 %cmp26, label %for.body.lr.ph, label %for.end9
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr %box_array_array, align 8, !tbaa !17
@@ -212,13 +218,13 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc7
   %2 = phi i32 [ %0, %for.body.lr.ph ], [ %26, %for.inc7 ]
-  %indvars.iv26 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next27, %for.inc7 ]
-  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv26
+  %indvars.iv31 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next32, %for.inc7 ]
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv31
   %3 = load ptr, ptr %arrayidx, align 8, !tbaa !18
   %size2 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %3, i64 0, i32 1
   %4 = load i32, ptr %size2, align 8, !tbaa !9
-  %cmp321 = icmp sgt i32 %4, 0
-  br i1 %cmp321, label %for.body4.lr.ph, label %for.inc7
+  %cmp324 = icmp sgt i32 %4, 0
+  br i1 %cmp324, label %for.body4.lr.ph, label %for.inc7
 
 for.body4.lr.ph:                                  ; preds = %for.body
   %5 = load ptr, ptr %3, align 8, !tbaa !12
@@ -238,9 +244,10 @@ for.body4:                                        ; preds = %for.body4.lr.ph, %f
   %cmp8.inv.i = icmp sgt i32 %sub.i, 0
   %add.i = select i1 %cmp8.inv.i, i32 %sub9.i, i32 0
   %sub.pn.i = add nsw i32 %add.i, %sub.i
-  %cmp1152.i = icmp slt i32 %sub7.i, 0
-  %sub16.i = select i1 %cmp1152.i, i32 %sub9.i, i32 0
-  %sub7.pn.i = sub nsw i32 %sub7.i, %sub16.i
+  %reass.sub = sub i32 %sub7.i, %7
+  %sub16.i = add i32 %reass.sub, 1
+  %cmp1155.i = icmp slt i32 %sub7.i, 0
+  %sub7.pn.i = select i1 %cmp1155.i, i32 %sub16.i, i32 %sub7.i
   %sub.pn.fr.i = freeze i32 %sub.pn.i
   %10 = srem i32 %sub.pn.fr.i, %7
   %mul.i = sub i32 %6, %10
@@ -263,9 +270,10 @@ for.body4:                                        ; preds = %for.body4.lr.ph, %f
   %cmp8.inv.1.i = icmp sgt i32 %sub.1.i, 0
   %add.1.i = select i1 %cmp8.inv.1.i, i32 %sub9.1.i, i32 0
   %sub.pn.1.i = add nsw i32 %add.1.i, %sub.1.i
-  %cmp1152.1.i = icmp slt i32 %sub7.1.i, 0
-  %sub16.1.i = select i1 %cmp1152.1.i, i32 %sub9.1.i, i32 0
-  %sub7.pn.1.i = sub nsw i32 %sub7.1.i, %sub16.1.i
+  %reass.sub28 = sub i32 %sub7.1.i, %13
+  %sub16.1.i = add i32 %reass.sub28, 1
+  %cmp1155.1.i = icmp slt i32 %sub7.1.i, 0
+  %sub7.pn.1.i = select i1 %cmp1155.1.i, i32 %sub16.1.i, i32 %sub7.1.i
   %sub.pn.fr.1.i = freeze i32 %sub.pn.1.i
   %16 = srem i32 %sub.pn.fr.1.i, %13
   %mul.1.i = sub i32 %12, %16
@@ -288,9 +296,10 @@ for.body4:                                        ; preds = %for.body4.lr.ph, %f
   %cmp8.inv.2.i = icmp sgt i32 %sub.2.i, 0
   %add.2.i = select i1 %cmp8.inv.2.i, i32 %sub9.2.i, i32 0
   %sub.pn.2.i = add nsw i32 %add.2.i, %sub.2.i
-  %cmp1152.2.i = icmp slt i32 %sub7.2.i, 0
-  %sub16.2.i = select i1 %cmp1152.2.i, i32 %sub9.2.i, i32 0
-  %sub7.pn.2.i = sub nsw i32 %sub7.2.i, %sub16.2.i
+  %reass.sub29 = sub i32 %sub7.2.i, %19
+  %sub16.2.i = add i32 %reass.sub29, 1
+  %cmp1155.2.i = icmp slt i32 %sub7.2.i, 0
+  %sub7.pn.2.i = select i1 %cmp1155.2.i, i32 %sub16.2.i, i32 %sub7.2.i
   %sub.pn.fr.2.i = freeze i32 %sub.pn.2.i
   %22 = srem i32 %sub.pn.fr.2.i, %19
   %mul.2.i = sub i32 %18, %22
@@ -313,9 +322,9 @@ for.inc7.loopexit:                                ; preds = %for.body4
 
 for.inc7:                                         ; preds = %for.inc7.loopexit, %for.body
   %26 = phi i32 [ %.pre, %for.inc7.loopexit ], [ %2, %for.body ]
-  %indvars.iv.next27 = add nuw nsw i64 %indvars.iv26, 1
+  %indvars.iv.next32 = add nuw nsw i64 %indvars.iv31, 1
   %27 = sext i32 %26 to i64
-  %cmp = icmp slt i64 %indvars.iv.next27, %27
+  %cmp = icmp slt i64 %indvars.iv.next32, %27
   br i1 %cmp, label %for.body, label %for.end9, !llvm.loop !20
 
 for.end9:                                         ; preds = %for.inc7, %entry

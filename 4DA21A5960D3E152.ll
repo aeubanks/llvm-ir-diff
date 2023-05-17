@@ -94,9 +94,9 @@ do.body76:                                        ; preds = %if.else67
   br i1 %tobool81.not, label %if.else83, label %return
 
 if.else83:                                        ; preds = %do.body76
-  %sh_prom85 = zext i32 %7 to i64
-  %shl86 = shl nuw i64 1, %sh_prom85
-  %or87 = or i64 %shl86, 63
+  %sh_prom78 = zext i32 %7 to i64
+  %shl79 = shl nuw i64 1, %sh_prom78
+  %or87 = or i64 %shl79, 63
   store i64 %or87, ptr @x, align 8, !tbaa !5
   %cmp90.not = icmp eq i64 %or87, 127
   br i1 %cmp90.not, label %do.body93, label %if.then91
@@ -111,9 +111,9 @@ do.body93:                                        ; preds = %if.else83
   br i1 %tobool98.not, label %if.else100, label %return
 
 if.else100:                                       ; preds = %do.body93
-  %sh_prom102 = zext i32 %8 to i64
-  %shl103 = shl nuw i64 1, %sh_prom102
-  %or104 = or i64 %shl103, 127
+  %sh_prom95 = zext i32 %8 to i64
+  %shl96 = shl nuw i64 1, %sh_prom95
+  %or104 = or i64 %shl96, 127
   store i64 %or104, ptr @x, align 8, !tbaa !5
   %cmp107.not = icmp eq i64 %or104, 255
   br i1 %cmp107.not, label %do.body110, label %if.then108
@@ -128,9 +128,9 @@ do.body110:                                       ; preds = %if.else100
   br i1 %tobool115.not, label %if.else117, label %return
 
 if.else117:                                       ; preds = %do.body110
-  %sh_prom119 = zext i32 %9 to i64
-  %shl120 = shl nuw i64 1, %sh_prom119
-  %or121 = or i64 %shl120, 255
+  %sh_prom112 = zext i32 %9 to i64
+  %shl113 = shl nuw i64 1, %sh_prom112
+  %or121 = or i64 %shl113, 255
   store i64 %or121, ptr @x, align 8, !tbaa !5
   %10 = load i32, ptr getelementptr inbounds ([3 x %class.Two], ptr @xoo, i64 0, i64 1, i32 2), align 4, !tbaa !9
   %sh_prom126 = zext i32 %10 to i64
@@ -195,9 +195,9 @@ do.body197:                                       ; preds = %if.else187
   br i1 %tobool202.not, label %if.else204, label %return
 
 if.else204:                                       ; preds = %do.body197
-  %sh_prom206 = zext i32 %15 to i64
-  %shl207 = shl nuw i64 1, %sh_prom206
-  %or208 = or i64 %shl207, 16383
+  %sh_prom199 = zext i32 %15 to i64
+  %shl200 = shl nuw i64 1, %sh_prom199
+  %or208 = or i64 %shl200, 16383
   store i64 %or208, ptr @x, align 8, !tbaa !5
   %16 = load i32, ptr getelementptr inbounds ([3 x %class.Two], ptr @doo, i64 0, i64 1, i32 2), align 4, !tbaa !9
   %sh_prom213 = zext i32 %16 to i64

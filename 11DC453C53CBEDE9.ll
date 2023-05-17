@@ -376,116 +376,116 @@ jpeg_getc.exit:                                   ; preds = %entry, %if.then.i, 
   %conv.i = zext i8 %9 to i64
   %shl = shl nuw nsw i64 %conv.i, 8
   %10 = load ptr, ptr %src.i, align 8, !tbaa !35
-  %bytes_in_buffer.i62 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %10, i64 0, i32 1
-  %11 = load i64, ptr %bytes_in_buffer.i62, align 8, !tbaa !36
-  %cmp.i63 = icmp eq i64 %11, 0
-  br i1 %cmp.i63, label %if.then.i67, label %jpeg_getc.exit73
+  %bytes_in_buffer.i59 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %10, i64 0, i32 1
+  %11 = load i64, ptr %bytes_in_buffer.i59, align 8, !tbaa !36
+  %cmp.i60 = icmp eq i64 %11, 0
+  br i1 %cmp.i60, label %if.then.i64, label %jpeg_getc.exit70
 
-if.then.i67:                                      ; preds = %jpeg_getc.exit
-  %fill_input_buffer.i64 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %10, i64 0, i32 3
-  %12 = load ptr, ptr %fill_input_buffer.i64, align 8, !tbaa !38
-  %call.i65 = tail call i32 %12(ptr noundef nonnull %cinfo) #8
-  %tobool.not.i66 = icmp eq i32 %call.i65, 0
-  br i1 %tobool.not.i66, label %if.then1.i69, label %jpeg_getc.exit73
+if.then.i64:                                      ; preds = %jpeg_getc.exit
+  %fill_input_buffer.i61 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %10, i64 0, i32 3
+  %12 = load ptr, ptr %fill_input_buffer.i61, align 8, !tbaa !38
+  %call.i62 = tail call i32 %12(ptr noundef nonnull %cinfo) #8
+  %tobool.not.i63 = icmp eq i32 %call.i62, 0
+  br i1 %tobool.not.i63, label %if.then1.i66, label %jpeg_getc.exit70
 
-if.then1.i69:                                     ; preds = %if.then.i67
+if.then1.i66:                                     ; preds = %if.then.i64
   %13 = load ptr, ptr %cinfo, align 8, !tbaa !10
-  %msg_code.i68 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %13, i64 0, i32 5
-  store i32 22, ptr %msg_code.i68, align 8, !tbaa !20
+  %msg_code.i65 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %13, i64 0, i32 5
+  store i32 22, ptr %msg_code.i65, align 8, !tbaa !20
   %14 = load ptr, ptr %13, align 8, !tbaa !21
   tail call void %14(ptr noundef nonnull %cinfo) #8
-  br label %jpeg_getc.exit73
+  br label %jpeg_getc.exit70
 
-jpeg_getc.exit73:                                 ; preds = %jpeg_getc.exit, %if.then.i67, %if.then1.i69
-  %15 = load i64, ptr %bytes_in_buffer.i62, align 8, !tbaa !36
-  %dec.i70 = add i64 %15, -1
-  store i64 %dec.i70, ptr %bytes_in_buffer.i62, align 8, !tbaa !36
+jpeg_getc.exit70:                                 ; preds = %jpeg_getc.exit, %if.then.i64, %if.then1.i66
+  %15 = load i64, ptr %bytes_in_buffer.i59, align 8, !tbaa !36
+  %dec.i67 = add i64 %15, -1
+  store i64 %dec.i67, ptr %bytes_in_buffer.i59, align 8, !tbaa !36
   %16 = load ptr, ptr %10, align 8, !tbaa !39
-  %incdec.ptr.i71 = getelementptr inbounds i8, ptr %16, i64 1
-  store ptr %incdec.ptr.i71, ptr %10, align 8, !tbaa !39
+  %incdec.ptr.i68 = getelementptr inbounds i8, ptr %16, i64 1
+  store ptr %incdec.ptr.i68, ptr %10, align 8, !tbaa !39
   %17 = load i8, ptr %16, align 1, !tbaa !9
-  %conv.i72 = zext i8 %17 to i64
-  %add58 = or i64 %shl, %conv.i72
+  %conv3 = zext i8 %17 to i64
+  %add = or i64 %shl, %conv3
   br i1 %cmp, label %if.end, label %if.end.thread
 
-if.end:                                           ; preds = %jpeg_getc.exit73
-  %sub = add nsw i64 %add58, -2
+if.end:                                           ; preds = %jpeg_getc.exit70
+  %sub = add nsw i64 %add, -2
   %18 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call4 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %18, ptr noundef nonnull @.str.47, i64 noundef %sub) #9
-  %cmp588 = icmp ugt i64 %add58, 2
-  br i1 %cmp588, label %while.body.us.preheader, label %if.then41
+  %cmp587 = icmp ugt i64 %add, 2
+  br i1 %cmp587, label %while.body.us.preheader, label %if.then41
 
-if.end.thread:                                    ; preds = %jpeg_getc.exit73
-  %cmp58892 = icmp ugt i64 %add58, 2
-  br i1 %cmp58892, label %while.body.preheader, label %if.end43
+if.end.thread:                                    ; preds = %jpeg_getc.exit70
+  %cmp58791 = icmp ugt i64 %add, 2
+  br i1 %cmp58791, label %while.body.preheader, label %if.end43
 
 while.body.preheader:                             ; preds = %if.end.thread
-  %dec8793 = add nsw i64 %add58, -3
+  %dec8692 = add nsw i64 %add, -3
   br label %while.body
 
 while.body.us.preheader:                          ; preds = %if.end
-  %dec87 = add nsw i64 %add58, -3
+  %dec86 = add nsw i64 %add, -3
   br label %while.body.us
 
 while.body.us:                                    ; preds = %while.body.us.preheader, %if.end39.us
-  %dec90.us = phi i64 [ %dec.us, %if.end39.us ], [ %dec87, %while.body.us.preheader ]
-  %lastch.089.us = phi i32 [ %conv.i85.us, %if.end39.us ], [ 0, %while.body.us.preheader ]
+  %dec89.us = phi i64 [ %dec.us, %if.end39.us ], [ %dec86, %while.body.us.preheader ]
+  %lastch.088.us = phi i32 [ %conv.i82.us, %if.end39.us ], [ 0, %while.body.us.preheader ]
   %19 = load ptr, ptr %src.i, align 8, !tbaa !35
-  %bytes_in_buffer.i75.us = getelementptr inbounds %struct.jpeg_source_mgr, ptr %19, i64 0, i32 1
-  %20 = load i64, ptr %bytes_in_buffer.i75.us, align 8, !tbaa !36
-  %cmp.i76.us = icmp eq i64 %20, 0
-  br i1 %cmp.i76.us, label %if.then.i80.us, label %jpeg_getc.exit86.us
+  %bytes_in_buffer.i72.us = getelementptr inbounds %struct.jpeg_source_mgr, ptr %19, i64 0, i32 1
+  %20 = load i64, ptr %bytes_in_buffer.i72.us, align 8, !tbaa !36
+  %cmp.i73.us = icmp eq i64 %20, 0
+  br i1 %cmp.i73.us, label %if.then.i77.us, label %jpeg_getc.exit83.us
 
-if.then.i80.us:                                   ; preds = %while.body.us
-  %fill_input_buffer.i77.us = getelementptr inbounds %struct.jpeg_source_mgr, ptr %19, i64 0, i32 3
-  %21 = load ptr, ptr %fill_input_buffer.i77.us, align 8, !tbaa !38
-  %call.i78.us = tail call i32 %21(ptr noundef nonnull %cinfo) #8
-  %tobool.not.i79.us = icmp eq i32 %call.i78.us, 0
-  br i1 %tobool.not.i79.us, label %if.then1.i82.us, label %jpeg_getc.exit86.us
+if.then.i77.us:                                   ; preds = %while.body.us
+  %fill_input_buffer.i74.us = getelementptr inbounds %struct.jpeg_source_mgr, ptr %19, i64 0, i32 3
+  %21 = load ptr, ptr %fill_input_buffer.i74.us, align 8, !tbaa !38
+  %call.i75.us = tail call i32 %21(ptr noundef nonnull %cinfo) #8
+  %tobool.not.i76.us = icmp eq i32 %call.i75.us, 0
+  br i1 %tobool.not.i76.us, label %if.then1.i79.us, label %jpeg_getc.exit83.us
 
-if.then1.i82.us:                                  ; preds = %if.then.i80.us
+if.then1.i79.us:                                  ; preds = %if.then.i77.us
   %22 = load ptr, ptr %cinfo, align 8, !tbaa !10
-  %msg_code.i81.us = getelementptr inbounds %struct.jpeg_error_mgr, ptr %22, i64 0, i32 5
-  store i32 22, ptr %msg_code.i81.us, align 8, !tbaa !20
+  %msg_code.i78.us = getelementptr inbounds %struct.jpeg_error_mgr, ptr %22, i64 0, i32 5
+  store i32 22, ptr %msg_code.i78.us, align 8, !tbaa !20
   %23 = load ptr, ptr %22, align 8, !tbaa !21
   tail call void %23(ptr noundef nonnull %cinfo) #8
-  br label %jpeg_getc.exit86.us
+  br label %jpeg_getc.exit83.us
 
-jpeg_getc.exit86.us:                              ; preds = %if.then1.i82.us, %if.then.i80.us, %while.body.us
-  %24 = load i64, ptr %bytes_in_buffer.i75.us, align 8, !tbaa !36
-  %dec.i83.us = add i64 %24, -1
-  store i64 %dec.i83.us, ptr %bytes_in_buffer.i75.us, align 8, !tbaa !36
+jpeg_getc.exit83.us:                              ; preds = %if.then1.i79.us, %if.then.i77.us, %while.body.us
+  %24 = load i64, ptr %bytes_in_buffer.i72.us, align 8, !tbaa !36
+  %dec.i80.us = add i64 %24, -1
+  store i64 %dec.i80.us, ptr %bytes_in_buffer.i72.us, align 8, !tbaa !36
   %25 = load ptr, ptr %19, align 8, !tbaa !39
-  %incdec.ptr.i84.us = getelementptr inbounds i8, ptr %25, i64 1
-  store ptr %incdec.ptr.i84.us, ptr %19, align 8, !tbaa !39
+  %incdec.ptr.i81.us = getelementptr inbounds i8, ptr %25, i64 1
+  store ptr %incdec.ptr.i81.us, ptr %19, align 8, !tbaa !39
   %26 = load i8, ptr %25, align 1, !tbaa !9
-  %conv.i85.us = zext i8 %26 to i32
+  %conv.i82.us = zext i8 %26 to i32
   switch i8 %26, label %if.else27.us [
     i8 13, label %if.then12.us
     i8 10, label %if.then16.us
     i8 92, label %if.then25.us
   ]
 
-if.then25.us:                                     ; preds = %jpeg_getc.exit86.us
+if.then25.us:                                     ; preds = %jpeg_getc.exit83.us
   %27 = load ptr, ptr @stderr, align 8, !tbaa !5
   %28 = tail call i64 @fwrite(ptr nonnull @.str.49, i64 2, i64 1, ptr %27) #9
   br label %if.end39.us
 
-if.then16.us:                                     ; preds = %jpeg_getc.exit86.us
-  %cmp17.not.us = icmp eq i32 %lastch.089.us, 13
+if.then16.us:                                     ; preds = %jpeg_getc.exit83.us
+  %cmp17.not.us = icmp eq i32 %lastch.088.us, 13
   br i1 %cmp17.not.us, label %if.end39.us, label %if.then19.us
 
 if.then19.us:                                     ; preds = %if.then16.us
   %29 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc59.us = tail call i32 @fputc(i32 10, ptr %29)
+  %fputc84.us = tail call i32 @fputc(i32 10, ptr %29)
   br label %if.end39.us
 
-if.then12.us:                                     ; preds = %jpeg_getc.exit86.us
+if.then12.us:                                     ; preds = %jpeg_getc.exit83.us
   %30 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc60.us = tail call i32 @fputc(i32 10, ptr %30)
+  %fputc85.us = tail call i32 @fputc(i32 10, ptr %30)
   br label %if.end39.us
 
-if.else27.us:                                     ; preds = %jpeg_getc.exit86.us
+if.else27.us:                                     ; preds = %jpeg_getc.exit83.us
   %call28.us = tail call ptr @__ctype_b_loc() #11
   %31 = load ptr, ptr %call28.us, align 8, !tbaa !5
   %idxprom.us = zext i8 %26 to i64
@@ -497,53 +497,53 @@ if.else27.us:                                     ; preds = %jpeg_getc.exit86.us
   br i1 %tobool30.not.us, label %if.else33.us, label %if.then31.us
 
 if.then31.us:                                     ; preds = %if.else27.us
-  %call32.us = tail call i32 @putc(i32 noundef %conv.i85.us, ptr noundef %34)
+  %call32.us = tail call i32 @putc(i32 noundef %conv.i82.us, ptr noundef %34)
   br label %if.end39.us
 
 if.else33.us:                                     ; preds = %if.else27.us
-  %call34.us = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str.50, i32 noundef %conv.i85.us) #9
+  %call34.us = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str.50, i32 noundef %conv.i82.us) #9
   br label %if.end39.us
 
 if.end39.us:                                      ; preds = %if.else33.us, %if.then31.us, %if.then12.us, %if.then19.us, %if.then16.us, %if.then25.us
-  %dec.us = add nsw i64 %dec90.us, -1
-  %cmp5.us = icmp sgt i64 %dec90.us, 0
+  %dec.us = add nsw i64 %dec89.us, -1
+  %cmp5.us = icmp sgt i64 %dec89.us, 0
   br i1 %cmp5.us, label %while.body.us, label %while.end, !llvm.loop !41
 
-while.body:                                       ; preds = %while.body.preheader, %jpeg_getc.exit86
-  %dec90 = phi i64 [ %dec, %jpeg_getc.exit86 ], [ %dec8793, %while.body.preheader ]
+while.body:                                       ; preds = %while.body.preheader, %jpeg_getc.exit83
+  %dec89 = phi i64 [ %dec, %jpeg_getc.exit83 ], [ %dec8692, %while.body.preheader ]
   %35 = load ptr, ptr %src.i, align 8, !tbaa !35
-  %bytes_in_buffer.i75 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %35, i64 0, i32 1
-  %36 = load i64, ptr %bytes_in_buffer.i75, align 8, !tbaa !36
-  %cmp.i76 = icmp eq i64 %36, 0
-  br i1 %cmp.i76, label %if.then.i80, label %jpeg_getc.exit86
+  %bytes_in_buffer.i72 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %35, i64 0, i32 1
+  %36 = load i64, ptr %bytes_in_buffer.i72, align 8, !tbaa !36
+  %cmp.i73 = icmp eq i64 %36, 0
+  br i1 %cmp.i73, label %if.then.i77, label %jpeg_getc.exit83
 
-if.then.i80:                                      ; preds = %while.body
-  %fill_input_buffer.i77 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %35, i64 0, i32 3
-  %37 = load ptr, ptr %fill_input_buffer.i77, align 8, !tbaa !38
-  %call.i78 = tail call i32 %37(ptr noundef nonnull %cinfo) #8
-  %tobool.not.i79 = icmp eq i32 %call.i78, 0
-  br i1 %tobool.not.i79, label %if.then1.i82, label %jpeg_getc.exit86
+if.then.i77:                                      ; preds = %while.body
+  %fill_input_buffer.i74 = getelementptr inbounds %struct.jpeg_source_mgr, ptr %35, i64 0, i32 3
+  %37 = load ptr, ptr %fill_input_buffer.i74, align 8, !tbaa !38
+  %call.i75 = tail call i32 %37(ptr noundef nonnull %cinfo) #8
+  %tobool.not.i76 = icmp eq i32 %call.i75, 0
+  br i1 %tobool.not.i76, label %if.then1.i79, label %jpeg_getc.exit83
 
-if.then1.i82:                                     ; preds = %if.then.i80
+if.then1.i79:                                     ; preds = %if.then.i77
   %38 = load ptr, ptr %cinfo, align 8, !tbaa !10
-  %msg_code.i81 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %38, i64 0, i32 5
-  store i32 22, ptr %msg_code.i81, align 8, !tbaa !20
+  %msg_code.i78 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %38, i64 0, i32 5
+  store i32 22, ptr %msg_code.i78, align 8, !tbaa !20
   %39 = load ptr, ptr %38, align 8, !tbaa !21
   tail call void %39(ptr noundef nonnull %cinfo) #8
-  br label %jpeg_getc.exit86
+  br label %jpeg_getc.exit83
 
-jpeg_getc.exit86:                                 ; preds = %while.body, %if.then.i80, %if.then1.i82
-  %40 = load i64, ptr %bytes_in_buffer.i75, align 8, !tbaa !36
-  %dec.i83 = add i64 %40, -1
-  store i64 %dec.i83, ptr %bytes_in_buffer.i75, align 8, !tbaa !36
+jpeg_getc.exit83:                                 ; preds = %while.body, %if.then.i77, %if.then1.i79
+  %40 = load i64, ptr %bytes_in_buffer.i72, align 8, !tbaa !36
+  %dec.i80 = add i64 %40, -1
+  store i64 %dec.i80, ptr %bytes_in_buffer.i72, align 8, !tbaa !36
   %41 = load ptr, ptr %35, align 8, !tbaa !39
-  %incdec.ptr.i84 = getelementptr inbounds i8, ptr %41, i64 1
-  store ptr %incdec.ptr.i84, ptr %35, align 8, !tbaa !39
-  %dec = add nsw i64 %dec90, -1
-  %cmp5 = icmp sgt i64 %dec90, 0
+  %incdec.ptr.i81 = getelementptr inbounds i8, ptr %41, i64 1
+  store ptr %incdec.ptr.i81, ptr %35, align 8, !tbaa !39
+  %dec = add nsw i64 %dec89, -1
+  %cmp5 = icmp sgt i64 %dec89, 0
   br i1 %cmp5, label %while.body, label %while.end, !llvm.loop !41
 
-while.end:                                        ; preds = %jpeg_getc.exit86, %if.end39.us
+while.end:                                        ; preds = %jpeg_getc.exit83, %if.end39.us
   br i1 %cmp, label %if.then41, label %if.end43
 
 if.then41:                                        ; preds = %if.end, %while.end

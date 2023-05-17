@@ -42,6 +42,7 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local void @treeinit(ptr noundef %p, ptr noundef %LibDict) local_unnamed_addr #0 {
 entry:
+  %buf.i222 = alloca [8192 x i8], align 16
   %buf.i215 = alloca [8192 x i8], align 16
   %buf.i208 = alloca [8192 x i8], align 16
   %buf.i201 = alloca [8192 x i8], align 16
@@ -69,20 +70,20 @@ if.then6:                                         ; preds = %if.end4
   %call.i = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %LibDict) #17
   %call2.i = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
   %cmp3.i = icmp eq ptr %call2.i, null
-  br i1 %cmp3.i, label %if.then4.i, label %if.end.i
+  br i1 %cmp3.i, label %if.then4.i, label %trydict.exit
 
 if.then4.i:                                       ; preds = %if.then6
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %if.end.i
+  br label %trydict.exit
 
-if.end.i:                                         ; preds = %if.then6, %if.then4.i
+trydict.exit:                                     ; preds = %if.then6, %if.then4.i
   store ptr %call2.i, ptr @dictf, align 8, !tbaa !8
   %call1.i = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %seconddict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %call1, ptr noundef nonnull @.str.2, ptr noundef %LibDict) #17
   %call2.i144 = call noalias ptr @fopen(ptr noundef nonnull %seconddict, ptr noundef nonnull @.str.7)
   %cmp3.i145 = icmp eq ptr %call2.i144, null
   br i1 %cmp3.i145, label %trydict.exit147, label %if.end31
 
-trydict.exit147:                                  ; preds = %if.end.i
+trydict.exit147:                                  ; preds = %trydict.exit
   store i8 0, ptr %seconddict, align 16, !tbaa !5
   %0 = load ptr, ptr @dictf, align 8, !tbaa !8
   %cmp9 = icmp eq ptr %0, null
@@ -92,20 +93,20 @@ if.then11:                                        ; preds = %trydict.exit147
   %call.i148 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
   %call2.i150 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
   %cmp3.i151 = icmp eq ptr %call2.i150, null
-  br i1 %cmp3.i151, label %if.then4.i153, label %if.end.i162
+  br i1 %cmp3.i151, label %if.then4.i153, label %trydict.exit154
 
 if.then4.i153:                                    ; preds = %if.then11
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %if.end.i162
+  br label %trydict.exit154
 
-if.end.i162:                                      ; preds = %if.then11, %if.then4.i153
+trydict.exit154:                                  ; preds = %if.then11, %if.then4.i153
   store ptr %call2.i150, ptr @dictf, align 8, !tbaa !8
   %call1.i158 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %seconddict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %call1, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
   %call2.i160 = call noalias ptr @fopen(ptr noundef nonnull %seconddict, ptr noundef nonnull @.str.7)
   %cmp3.i161 = icmp eq ptr %call2.i160, null
   br i1 %cmp3.i161, label %if.end15, label %if.end31
 
-if.end15:                                         ; preds = %if.end.i162
+if.end15:                                         ; preds = %trydict.exit154
   store i8 0, ptr %seconddict, align 16, !tbaa !5
   %.pre = load ptr, ptr @dictf, align 8, !tbaa !8
   %cmp16 = icmp eq ptr %.pre, null
@@ -115,48 +116,48 @@ if.then19:                                        ; preds = %if.end15
   %call.i165 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %LibDict) #17
   %call2.i167 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
   %cmp3.i168 = icmp eq ptr %call2.i167, null
-  br i1 %cmp3.i168, label %if.then4.i170, label %if.end.i179
+  br i1 %cmp3.i168, label %if.then4.i170, label %trydict.exit171
 
 if.then4.i170:                                    ; preds = %if.then19
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %if.end.i179
+  br label %trydict.exit171
 
-if.end.i179:                                      ; preds = %if.then19, %if.then4.i170
+trydict.exit171:                                  ; preds = %if.then19, %if.then4.i170
   store ptr %call2.i167, ptr @dictf, align 8, !tbaa !8
   %call1.i175 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %seconddict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %call1, ptr noundef nonnull @.str.2, ptr noundef %LibDict) #17
   %call2.i177 = call noalias ptr @fopen(ptr noundef nonnull %seconddict, ptr noundef nonnull @.str.7)
   %cmp3.i178 = icmp eq ptr %call2.i177, null
   br i1 %cmp3.i178, label %if.end23, label %if.end31
 
-if.end23:                                         ; preds = %if.end.i179
+if.end23:                                         ; preds = %trydict.exit171
   store i8 0, ptr %seconddict, align 16, !tbaa !5
-  %.pre233 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %cmp24 = icmp eq ptr %.pre233, null
+  %.pre240 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %cmp24 = icmp eq ptr %.pre240, null
   br i1 %cmp24, label %if.then27, label %if.end31
 
 if.then27:                                        ; preds = %if.end23
   %call.i182 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
   %call2.i184 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
   %cmp3.i185 = icmp eq ptr %call2.i184, null
-  br i1 %cmp3.i185, label %if.then4.i187, label %if.end.i196
+  br i1 %cmp3.i185, label %if.then4.i187, label %trydict.exit188
 
 if.then4.i187:                                    ; preds = %if.then27
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %if.end.i196
+  br label %trydict.exit188
 
-if.end.i196:                                      ; preds = %if.then27, %if.then4.i187
+trydict.exit188:                                  ; preds = %if.then27, %if.then4.i187
   store ptr %call2.i184, ptr @dictf, align 8, !tbaa !8
   %call1.i192 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %seconddict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %call1, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
   %call2.i194 = call noalias ptr @fopen(ptr noundef nonnull %seconddict, ptr noundef nonnull @.str.7)
   %cmp3.i195 = icmp eq ptr %call2.i194, null
   br i1 %cmp3.i195, label %if.then4.i197, label %if.end31
 
-if.then4.i197:                                    ; preds = %if.end.i196
+if.then4.i197:                                    ; preds = %trydict.exit188
   store i8 0, ptr %seconddict, align 16, !tbaa !5
   br label %if.end31
 
-if.end31:                                         ; preds = %trydict.exit147, %if.end15, %if.end.i, %if.end.i162, %if.end.i179, %if.then4.i197, %if.end.i196, %if.end23
-  %secondf.2 = phi ptr [ null, %if.end23 ], [ %call2.i194, %if.end.i196 ], [ null, %if.then4.i197 ], [ %call2.i177, %if.end.i179 ], [ %call2.i160, %if.end.i162 ], [ %call2.i144, %if.end.i ], [ null, %if.end15 ], [ null, %trydict.exit147 ]
+if.end31:                                         ; preds = %trydict.exit147, %if.end15, %trydict.exit, %trydict.exit154, %trydict.exit171, %if.then4.i197, %trydict.exit188, %if.end23
+  %secondf.2 = phi ptr [ null, %if.end23 ], [ %call2.i194, %trydict.exit188 ], [ null, %if.then4.i197 ], [ %call2.i177, %trydict.exit171 ], [ %call2.i160, %trydict.exit154 ], [ %call2.i144, %trydict.exit ], [ null, %if.end15 ], [ null, %trydict.exit147 ]
   %1 = load i8, ptr @personaldict, align 16, !tbaa !5
   %cmp32 = icmp eq i8 %1, 0
   br i1 %cmp32, label %if.then34, label %if.end43
@@ -283,8 +284,6 @@ while.body.i220:                                  ; preds = %if.then77, %while.b
 treeload.exit221:                                 ; preds = %while.body.i220, %if.then77
   store i32 0, ptr @newwords, align 4, !tbaa !12
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %buf.i215) #17
-  %7 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %call78 = call i32 @fclose(ptr noundef %7)
   br label %if.end90
 
 if.then81:                                        ; preds = %if.else72
@@ -295,27 +294,40 @@ if.then81:                                        ; preds = %if.else72
   br i1 %cmp84.not, label %if.then93, label %if.then86
 
 if.then86:                                        ; preds = %if.then81
-  tail call fastcc void @treeload(ptr noundef nonnull %call83)
-  %8 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %call87 = tail call i32 @fclose(ptr noundef %8)
+  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %buf.i222) #17
+  %call2.i223 = call ptr @fgets(ptr noundef nonnull %buf.i222, i32 noundef 8192, ptr noundef nonnull %call83)
+  %cmp.not3.i224 = icmp eq ptr %call2.i223, null
+  br i1 %cmp.not3.i224, label %treeload.exit228, label %while.body.i227
+
+while.body.i227:                                  ; preds = %if.then86, %while.body.i227
+  call void @treeinsert(ptr noundef nonnull %buf.i222, i32 noundef 8192, i32 noundef 1)
+  %call.i225 = call ptr @fgets(ptr noundef nonnull %buf.i222, i32 noundef 8192, ptr noundef nonnull %call83)
+  %cmp.not.i226 = icmp eq ptr %call.i225, null
+  br i1 %cmp.not.i226, label %treeload.exit228, label %while.body.i227, !llvm.loop !10
+
+treeload.exit228:                                 ; preds = %while.body.i227, %if.then86
+  store i32 0, ptr @newwords, align 4, !tbaa !12
+  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %buf.i222) #17
   br label %if.end90
 
-if.end90:                                         ; preds = %if.then86, %treeload.exit221
+if.end90:                                         ; preds = %treeload.exit228, %treeload.exit221
+  %7 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %call87 = call i32 @fclose(ptr noundef %7)
   %.pr = load ptr, ptr @dictf, align 8, !tbaa !8
   %cmp91 = icmp eq ptr %.pr, null
   br i1 %cmp91, label %if.then93, label %if.end97
 
 if.then93:                                        ; preds = %if.then81, %if.end90
-  %9 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %call94 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.9, ptr noundef nonnull %p.addr.0) #19
+  %8 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %call94 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.9, ptr noundef nonnull %p.addr.0) #19
   call void @perror(ptr noundef nonnull @.str.10) #19
   br label %cleanup
 
 if.end97:                                         ; preds = %treeload.exit214, %if.then64, %if.end90, %if.end48, %treeload.exit207
-  %10 = load i32, ptr @lflag, align 4, !tbaa !12
-  %tobool98 = icmp ne i32 %10, 0
-  %11 = load i32, ptr @aflag, align 4
-  %tobool100 = icmp ne i32 %11, 0
+  %9 = load i32, ptr @lflag, align 4, !tbaa !12
+  %tobool98 = icmp ne i32 %9, 0
+  %10 = load i32, ptr @aflag, align 4
+  %tobool100 = icmp ne i32 %10, 0
   %or.cond118 = select i1 %tobool98, i1 true, i1 %tobool100
   br i1 %or.cond118, label %cleanup, label %land.lhs.true101
 
@@ -326,13 +338,13 @@ land.lhs.true101:                                 ; preds = %if.end97
 
 land.lhs.true105:                                 ; preds = %land.lhs.true101
   %call106 = tail call ptr @__errno_location() #20
-  %12 = load i32, ptr %call106, align 4, !tbaa !12
-  %cmp107.not = icmp eq i32 %12, 2
+  %11 = load i32, ptr %call106, align 4, !tbaa !12
+  %cmp107.not = icmp eq i32 %11, 2
   br i1 %cmp107.not, label %cleanup, label %if.then109
 
 if.then109:                                       ; preds = %land.lhs.true105
-  %13 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %call110 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %13, ptr noundef nonnull @.str.11, ptr noundef nonnull @personaldict) #19
+  %12 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %call110 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.11, ptr noundef nonnull @personaldict) #19
   %call111 = call i32 @sleep(i32 noundef 2) #17
   br label %cleanup
 
@@ -352,27 +364,6 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapture noundef readonly, ...) local_unnamed_addr #4
-
-; Function Attrs: nounwind uwtable
-define internal fastcc void @treeload(ptr nocapture noundef %loadfile) unnamed_addr #0 {
-entry:
-  %buf = alloca [8192 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %buf) #17
-  %call2 = call ptr @fgets(ptr noundef nonnull %buf, i32 noundef 8192, ptr noundef %loadfile)
-  %cmp.not3 = icmp eq ptr %call2, null
-  br i1 %cmp.not3, label %while.end, label %while.body
-
-while.body:                                       ; preds = %entry, %while.body
-  call void @treeinsert(ptr noundef nonnull %buf, i32 noundef 8192, i32 noundef 1)
-  %call = call ptr @fgets(ptr noundef nonnull %buf, i32 noundef 8192, ptr noundef %loadfile)
-  %cmp.not = icmp eq ptr %call, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !10
-
-while.end:                                        ; preds = %while.body, %entry
-  store i32 0, ptr @newwords, align 4, !tbaa !12
-  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %buf) #17
-  ret void
-}
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #4
@@ -589,8 +580,8 @@ define dso_local ptr @treelookup(ptr noundef %word) local_unnamed_addr #0 {
 entry:
   %chword = alloca [120 x i8], align 16
   call void @llvm.lifetime.start.p0(i64 120, ptr nonnull %chword) #17
-  %.b44 = load i1, ptr @pershsize, align 4
-  br i1 %.b44, label %if.end, label %cleanup
+  %.b43 = load i1, ptr @pershsize, align 4
+  br i1 %.b43, label %if.end, label %cleanup
 
 if.end:                                           ; preds = %entry
   %call = call i32 @ichartostr(ptr noundef nonnull %chword, ptr noundef %word, i32 noundef 120, i32 noundef 1) #17
@@ -598,8 +589,8 @@ if.end:                                           ; preds = %entry
   %0 = select i1 %.b, i32 53, i32 0
   %call1 = call i32 @hash(ptr noundef %word, i32 noundef %0) #17
   %1 = load ptr, ptr @pershtab, align 8, !tbaa !8
-  %cmp2.not39 = icmp eq ptr %1, null
-  br i1 %cmp2.not39, label %cleanup, label %land.rhs.preheader
+  %cmp2.not40 = icmp eq ptr %1, null
+  br i1 %cmp2.not40, label %cleanup, label %land.rhs.preheader
 
 land.rhs.preheader:                               ; preds = %if.end
   %idxprom = sext i32 %call1 to i64
@@ -607,28 +598,28 @@ land.rhs.preheader:                               ; preds = %if.end
   br label %land.rhs
 
 land.rhs:                                         ; preds = %land.rhs.preheader, %while.end
-  %hp.040 = phi ptr [ %6, %while.end ], [ %arrayidx, %land.rhs.preheader ]
-  %mask = getelementptr inbounds %struct.dent, ptr %hp.040, i64 0, i32 2
+  %hp.041 = phi ptr [ %6, %while.end ], [ %arrayidx, %land.rhs.preheader ]
+  %mask = getelementptr inbounds %struct.dent, ptr %hp.041, i64 0, i32 2
   %2 = load i64, ptr %mask, align 8, !tbaa !14
   %and = and i64 %2, 67108864
   %tobool.not = icmp eq i64 %and, 0
   br i1 %tobool.not, label %cleanup, label %while.body
 
 while.body:                                       ; preds = %land.rhs
-  %word5 = getelementptr inbounds %struct.dent, ptr %hp.040, i64 0, i32 1
+  %word5 = getelementptr inbounds %struct.dent, ptr %hp.041, i64 0, i32 1
   %3 = load ptr, ptr %word5, align 8, !tbaa !16
   %call6 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %chword, ptr noundef nonnull dereferenceable(1) %3) #18
   %cmp7 = icmp eq i32 %call6, 0
   br i1 %cmp7, label %cleanup, label %while.cond10.preheader
 
 while.cond10.preheader:                           ; preds = %while.body
-  %and1336 = and i64 %2, 1073741824
-  %tobool14.not37 = icmp eq i64 %and1336, 0
-  br i1 %tobool14.not37, label %while.end, label %while.body15
+  %and1337 = and i64 %2, 1073741824
+  %tobool14.not38 = icmp eq i64 %and1337, 0
+  br i1 %tobool14.not38, label %while.end, label %while.body15
 
 while.body15:                                     ; preds = %while.cond10.preheader, %while.body15
-  %hp.138 = phi ptr [ %4, %while.body15 ], [ %hp.040, %while.cond10.preheader ]
-  %4 = load ptr, ptr %hp.138, align 8, !tbaa !19
+  %hp.139 = phi ptr [ %4, %while.body15 ], [ %hp.041, %while.cond10.preheader ]
+  %4 = load ptr, ptr %hp.139, align 8, !tbaa !19
   %mask11 = getelementptr inbounds %struct.dent, ptr %4, i64 0, i32 2
   %5 = load i64, ptr %mask11, align 8, !tbaa !14
   %and13 = and i64 %5, 1073741824
@@ -636,13 +627,13 @@ while.body15:                                     ; preds = %while.cond10.prehea
   br i1 %tobool14.not, label %while.end, label %while.body15, !llvm.loop !21
 
 while.end:                                        ; preds = %while.body15, %while.cond10.preheader
-  %hp.1.lcssa = phi ptr [ %hp.040, %while.cond10.preheader ], [ %4, %while.body15 ]
+  %hp.1.lcssa = phi ptr [ %hp.041, %while.cond10.preheader ], [ %4, %while.body15 ]
   %6 = load ptr, ptr %hp.1.lcssa, align 8, !tbaa !19
   %cmp2.not = icmp eq ptr %6, null
   br i1 %cmp2.not, label %cleanup, label %land.rhs, !llvm.loop !22
 
-cleanup:                                          ; preds = %while.body, %while.end, %land.rhs, %if.end, %entry
-  %retval.0 = phi ptr [ null, %entry ], [ null, %if.end ], [ %hp.040, %while.body ], [ null, %while.end ], [ null, %land.rhs ]
+cleanup:                                          ; preds = %land.rhs, %while.end, %while.body, %if.end, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ null, %if.end ], [ null, %land.rhs ], [ null, %while.end ], [ %hp.041, %while.body ]
   call void @llvm.lifetime.end.p0(i64 120, ptr nonnull %chword) #17
   ret ptr %retval.0
 }

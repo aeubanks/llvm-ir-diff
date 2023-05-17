@@ -451,16 +451,16 @@ if.then47:                                        ; preds = %if.end43
 do.cond:                                          ; preds = %if.else, %cli_nsis_unpack.exit, %if.then47, %if.end43
   %ret.1 = phi i32 [ %ret.0, %if.end43 ], [ %ret.0, %if.then47 ], [ %cond.i, %cli_nsis_unpack.exit ], [ 0, %if.else ]
   %ret.1.fr = freeze i32 %ret.1
-  switch i32 %ret.1.fr, label %do.end.thread.loopexit105 [
+  switch i32 %ret.1.fr, label %.loopexit [
     i32 0, label %do.body
     i32 2, label %do.end.thread
   ]
 
-do.end.thread.loopexit105:                        ; preds = %do.cond
+.loopexit:                                        ; preds = %do.cond
   br label %do.end.thread
 
-do.end.thread:                                    ; preds = %if.else, %do.cond, %do.end.thread.loopexit105, %do.end.thread92
-  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr, %do.end.thread.loopexit105 ], [ 0, %do.cond ], [ 0, %if.else ]
+do.end.thread:                                    ; preds = %do.cond, %if.else, %.loopexit, %do.end.thread92
+  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr, %.loopexit ], [ 0, %if.else ], [ 0, %do.cond ]
   %freecomp.i.i = getelementptr inbounds %struct.nsis_st, ptr %nsist, i64 0, i32 14
   %48 = load i8, ptr %freecomp.i.i, align 2, !tbaa !41
   %tobool.not.i.i = icmp eq i8 %48, 0
@@ -700,8 +700,8 @@ land.lhs.true57:                                  ; preds = %if.end52
   %tobool59.not = icmp ne i64 %15, 0
   %conv = zext i32 %and to i64
   %cmp63 = icmp ult i64 %15, %conv
-  %or.cond544 = and i1 %tobool59.not, %cmp63
-  br i1 %or.cond544, label %if.then65, label %if.end77
+  %or.cond524 = and i1 %tobool59.not, %cmp63
+  br i1 %or.cond524, label %if.then65, label %if.end77
 
 if.then65:                                        ; preds = %land.lhs.true57
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %and, i64 noundef %15) #9
@@ -834,8 +834,8 @@ land.lhs.true147:                                 ; preds = %if.end139
   %34 = load i64, ptr %maxfilesize149, align 8, !tbaa !46
   %tobool150.not = icmp ne i64 %34, 0
   %cmp155 = icmp ult i64 %34, %conv132
-  %or.cond545 = and i1 %tobool150.not, %cmp155
-  br i1 %or.cond545, label %if.then157, label %while.cond.backedge
+  %or.cond525 = and i1 %tobool150.not, %cmp155
+  br i1 %or.cond525, label %if.then157, label %while.cond.backedge
 
 if.then157:                                       ; preds = %land.lhs.true147
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %31, i64 noundef %34) #9
@@ -1283,8 +1283,8 @@ land.lhs.true284:                                 ; preds = %if.end279
   %tobool287.not = icmp ne i64 %76, 0
   %conv289 = zext i32 %obuf.val to i64
   %cmp292 = icmp ult i64 %76, %conv289
-  %or.cond524 = select i1 %tobool287.not, i1 %cmp292, i1 false
-  br i1 %or.cond524, label %if.then294, label %if.end299
+  %or.cond526 = select i1 %tobool287.not, i1 %cmp292, i1 false
+  br i1 %or.cond526, label %if.then294, label %if.end299
 
 if.then294:                                       ; preds = %land.lhs.true284
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.29, i32 noundef %obuf.val, i64 noundef %76) #9

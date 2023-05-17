@@ -83,59 +83,67 @@ if.end:                                           ; preds = %if.end.loopexit, %i
   %arrayidx4 = getelementptr inbounds [0 x ptr], ptr @table, i64 0, i64 %idxprom3
   %7 = load ptr, ptr %arrayidx4, align 8, !tbaa !5
   store ptr %7, ptr @table, align 8, !tbaa !5
-  %storemerge27.in32 = load i32, ptr @nlin, align 4, !tbaa !11
-  %storemerge2733 = add nsw i32 %storemerge27.in32, -1
-  store i32 %storemerge2733, ptr @useln, align 4, !tbaa !11
-  %cmp634 = icmp sgt i32 %storemerge27.in32, 0
-  br i1 %cmp634, label %land.rhs7, label %if.then18
+  %8 = load i32, ptr @nlin, align 4, !tbaa !11
+  %storemerge2733 = add i32 %8, -1
+  %cmp634 = icmp sgt i32 %8, 0
+  br i1 %cmp634, label %land.rhs7.preheader, label %if.then18
 
-land.rhs7:                                        ; preds = %if.end, %for.inc15
-  %storemerge27.in36 = phi i32 [ %storemerge27, %for.inc15 ], [ %storemerge2733, %if.end ]
-  %idxprom8 = zext i32 %storemerge27.in36 to i64
-  %arrayidx9 = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %idxprom8
-  %8 = load i32, ptr %arrayidx9, align 4, !tbaa !11
-  %tobool.not = icmp eq i32 %8, 0
+land.rhs7.preheader:                              ; preds = %if.end
+  %9 = zext i32 %storemerge2733 to i64
+  br label %land.rhs7
+
+land.rhs7:                                        ; preds = %land.rhs7.preheader, %for.inc15
+  %indvars.iv40 = phi i64 [ %9, %land.rhs7.preheader ], [ %indvars.iv.next41, %for.inc15 ]
+  %arrayidx9 = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %indvars.iv40
+  %10 = load i32, ptr %arrayidx9, align 4, !tbaa !11
+  %tobool.not = icmp eq i32 %10, 0
   br i1 %tobool.not, label %lor.rhs, label %for.inc15
 
 lor.rhs:                                          ; preds = %land.rhs7
-  %arrayidx11 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %idxprom8
-  %9 = load ptr, ptr %arrayidx11, align 8, !tbaa !5
-  %tobool12.not = icmp eq ptr %9, null
-  br i1 %tobool12.not, label %if.end19, label %for.inc15
+  %arrayidx11 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv40
+  %11 = load ptr, ptr %arrayidx11, align 8, !tbaa !5
+  %tobool12.not = icmp eq ptr %11, null
+  br i1 %tobool12.not, label %if.end19.loopexit, label %for.inc15
 
 for.inc15:                                        ; preds = %land.rhs7, %lor.rhs
-  %storemerge27 = add nsw i32 %storemerge27.in36, -1
-  store i32 %storemerge27, ptr @useln, align 4, !tbaa !11
-  %cmp6 = icmp sgt i32 %storemerge27.in36, 0
+  %indvars.iv.next41 = add nsw i64 %indvars.iv40, -1
+  %cmp6 = icmp sgt i64 %indvars.iv40, 0
   br i1 %cmp6, label %land.rhs7, label %if.then18, !llvm.loop !13
 
 if.then18:                                        ; preds = %for.inc15, %if.end
+  %storemerge27.lcssa = phi i32 [ %storemerge2733, %if.end ], [ -1, %for.inc15 ]
+  store i32 %storemerge27.lcssa, ptr @useln, align 4, !tbaa !11
   tail call void @error(ptr noundef nonnull @.str.1) #4
   br label %if.end19
 
-if.end19:                                         ; preds = %lor.rhs, %if.then18
-  %10 = load i32, ptr @leftover, align 4, !tbaa !11
-  %conv = sext i32 %10 to i64
-  %11 = inttoptr i64 %conv to ptr
-  %call = tail call i32 @domore(ptr noundef %11), !range !14
+if.end19.loopexit:                                ; preds = %lor.rhs
+  %12 = trunc i64 %indvars.iv40 to i32
+  store i32 %12, ptr @useln, align 4, !tbaa !11
+  br label %if.end19
+
+if.end19:                                         ; preds = %if.end19.loopexit, %if.then18
+  %13 = load i32, ptr @leftover, align 4, !tbaa !11
+  %conv = sext i32 %13 to i64
+  %14 = inttoptr i64 %conv to ptr
+  %call = tail call i32 @domore(ptr noundef %14), !range !14
   br label %while.cond
 
 while.cond:                                       ; preds = %land.rhs22, %if.end19
-  %12 = load ptr, ptr @cspace, align 8, !tbaa !5
-  store ptr %12, ptr @cstore, align 8, !tbaa !5
-  %call20 = tail call ptr @gets1(ptr noundef %12) #4
+  %15 = load ptr, ptr @cspace, align 8, !tbaa !5
+  store ptr %15, ptr @cstore, align 8, !tbaa !5
+  %call20 = tail call ptr @gets1(ptr noundef %15) #4
   %tobool21.not = icmp eq ptr %call20, null
   br i1 %tobool21.not, label %while.end, label %land.rhs22
 
 land.rhs22:                                       ; preds = %while.cond
-  %13 = load ptr, ptr @cstore, align 8, !tbaa !5
-  %call23 = tail call i32 @domore(ptr noundef %13), !range !14
+  %16 = load ptr, ptr @cstore, align 8, !tbaa !5
+  %call23 = tail call i32 @domore(ptr noundef %16), !range !14
   %tobool24.not = icmp eq i32 %call23, 0
   br i1 %tobool24.not, label %while.end, label %while.cond, !llvm.loop !15
 
 while.end:                                        ; preds = %while.cond, %land.rhs22
-  %14 = load ptr, ptr @cstore, align 8, !tbaa !5
-  store ptr %14, ptr @last, align 8, !tbaa !5
+  %17 = load ptr, ptr @cstore, align 8, !tbaa !5
+  store ptr %17, ptr @last, align 8, !tbaa !5
   ret void
 }
 

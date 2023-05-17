@@ -240,11 +240,11 @@ for.body78.lr.ph:                                 ; preds = %for.cond75.preheade
 
 for.body55:                                       ; preds = %for.body55.lr.ph, %for.body55
   %indvars.iv = phi i64 [ 0, %for.body55.lr.ph ], [ %indvars.iv.next, %for.body55 ]
+  %arrayidx57 = getelementptr inbounds %struct.GOP_DATA, ptr %14, i64 %indvars.iv
   %display_no58 = getelementptr inbounds %struct.GOP_DATA, ptr %14, i64 %indvars.iv, i32 1
   %17 = trunc i64 %indvars.iv to i32
   store i32 %17, ptr %display_no58, align 4, !tbaa !16
-  %arrayidx60 = getelementptr inbounds %struct.GOP_DATA, ptr %14, i64 %indvars.iv
-  store i32 1, ptr %arrayidx60, align 4, !tbaa !14
+  store i32 1, ptr %arrayidx57, align 4, !tbaa !14
   %hierarchy_layer64 = getelementptr inbounds %struct.GOP_DATA, ptr %14, i64 %indvars.iv, i32 4
   store i32 0, ptr %hierarchy_layer64, align 4, !tbaa !17
   %reference_idc67 = getelementptr inbounds %struct.GOP_DATA, ptr %14, i64 %indvars.iv, i32 2
@@ -338,9 +338,9 @@ land.rhs:                                         ; preds = %while.cond118.prehe
 
 while.body130:                                    ; preds = %land.rhs
   %arrayidx126 = getelementptr inbounds %struct.GOP_DATA, ptr %27, i64 %idxprom125
+  %arrayidx122 = getelementptr inbounds %struct.GOP_DATA, ptr %27, i64 %idxprom121
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %tmp, ptr noundef nonnull align 4 dereferenceable(24) %arrayidx126, i64 24, i1 false), !tbaa.struct !33
-  %arrayidx138 = getelementptr inbounds %struct.GOP_DATA, ptr %27, i64 %idxprom121
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %arrayidx126, ptr noundef nonnull align 4 dereferenceable(24) %arrayidx138, i64 24, i1 false), !tbaa.struct !33
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %arrayidx126, ptr noundef nonnull align 4 dereferenceable(24) %arrayidx122, i64 24, i1 false), !tbaa.struct !33
   %30 = load ptr, ptr @gop_structure, align 8, !tbaa !5
   %arrayidx140 = getelementptr inbounds %struct.GOP_DATA, ptr %30, i64 %idxprom121
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %arrayidx140, ptr noundef nonnull align 4 dereferenceable(24) %tmp, i64 24, i1 false), !tbaa.struct !33
@@ -811,8 +811,8 @@ if.end14.thread:                                  ; preds = %land.lhs.true10
   %inc = add i32 %9, 1
   %10 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !34
   %add = add i32 %10, 4
-  %notmask319 = shl nsw i32 -1, %add
-  %11 = xor i32 %notmask319, -1
+  %notmask320 = shl nsw i32 -1, %add
+  %11 = xor i32 %notmask320, -1
   %rem = and i32 %inc, %11
   store i32 %rem, ptr %frame_num, align 4, !tbaa !48
   %nal_reference_idc336 = getelementptr inbounds %struct.ImageParameters, ptr %.pre335, i64 0, i32 122
@@ -860,8 +860,8 @@ if.then26:                                        ; preds = %for.body
   %inc28 = add i32 %19, 1
   %20 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !34
   %add29 = add i32 %20, 4
-  %notmask318 = shl nsw i32 -1, %add29
-  %21 = xor i32 %notmask318, -1
+  %notmask319 = shl nsw i32 -1, %add29
+  %21 = xor i32 %notmask319, -1
   %rem32 = and i32 %inc28, %21
   store i32 %rem32, ptr %frame_num27, align 4, !tbaa !48
   br label %if.end33
@@ -1022,8 +1022,8 @@ for.inc.thread:                                   ; preds = %if.end155
   %inc170 = add i32 %50, 1
   %51 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !34
   %add171 = add i32 %51, 4
-  %notmask317 = shl nsw i32 -1, %add171
-  %52 = xor i32 %notmask317, -1
+  %notmask318 = shl nsw i32 -1, %add171
+  %52 = xor i32 %notmask318, -1
   %rem174 = and i32 %inc170, %52
   store i32 %rem174, ptr %frame_num169, align 4, !tbaa !48
   %inc177341 = add nsw i32 %46, 1
@@ -1068,8 +1068,8 @@ if.then191:                                       ; preds = %for.body186
   %inc194 = add i32 %59, 1
   %60 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !34
   %add195 = add i32 %60, 4
-  %notmask316 = shl nsw i32 -1, %add195
-  %61 = xor i32 %notmask316, -1
+  %notmask317 = shl nsw i32 -1, %add195
+  %61 = xor i32 %notmask317, -1
   %rem198 = and i32 %inc194, %61
   store i32 %rem198, ptr %frame_num193, align 4, !tbaa !48
   br label %if.end199

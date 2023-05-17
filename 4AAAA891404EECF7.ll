@@ -96,12 +96,13 @@ if.end9:                                          ; preds = %if.end7
   %6 = load ptr, ptr @b, align 8, !tbaa !12
   %u2 = getelementptr inbounds %struct.U, ptr %6, i64 0, i32 1
   %7 = load i16, ptr %u2, align 2, !tbaa !14
-  %8 = and i16 %7, 2
-  %tobool10.not = icmp eq i16 %8, 0
+  %conv = zext i16 %7 to i32
+  %and = and i32 %conv, 2
+  %tobool10.not = icmp eq i32 %and, 0
   %conv11 = select i1 %tobool10.not, i32 4, i32 32
   %s212 = getelementptr inbounds %struct.S, ptr %c.addr.0, i64 0, i32 1
-  %9 = load i32, ptr %s212, align 4, !tbaa !11
-  %rem13 = and i32 %9, 8191
+  %8 = load i32, ptr %s212, align 4, !tbaa !11
+  %rem13 = and i32 %8, 8191
   %cmp14 = icmp eq i32 %rem13, 0
   br i1 %cmp14, label %if.then16, label %if.else18
 
@@ -116,49 +117,49 @@ if.else18:                                        ; preds = %if.end9
   br i1 %cmp19, label %if.then21, label %if.end25
 
 if.then21:                                        ; preds = %if.else18
-  %10 = load i32, ptr %c.addr.0, align 4, !tbaa !9
-  tail call void @foo(i32 noundef 2, ptr noundef null, i32 noundef %10, i32 noundef %9)
+  %9 = load i32, ptr %c.addr.0, align 4, !tbaa !9
+  tail call void @foo(i32 noundef 2, ptr noundef null, i32 noundef %9, i32 noundef %8)
   br label %cleanup
 
 if.end25:                                         ; preds = %if.else18, %if.then16
   %f.0 = phi i32 [ %conv11, %if.then16 ], [ %rem13, %if.else18 ]
-  %11 = and i16 %7, 1
-  %tobool29.not = icmp ne i16 %11, 0
+  %and28 = and i32 %conv, 1
+  %tobool29.not = icmp ne i32 %and28, 0
   %cmp30 = icmp eq i32 %f.0, %conv11
   %or.cond87 = select i1 %tobool29.not, i1 %cmp30, i1 false
   br i1 %or.cond87, label %if.then32, label %if.end35
 
 if.then32:                                        ; preds = %if.end25
-  %12 = load i64, ptr %c.addr.0, align 4
-  tail call void @bar(i64 %12)
-  %13 = load i32, ptr %c.addr.0, align 4, !tbaa !9
-  %14 = load i32, ptr %s212, align 4, !tbaa !11
-  tail call void @foo(i32 noundef 3, ptr noundef null, i32 noundef %13, i32 noundef %14)
+  %10 = load i64, ptr %c.addr.0, align 4
+  tail call void @bar(i64 %10)
+  %11 = load i32, ptr %c.addr.0, align 4, !tbaa !9
+  %12 = load i32, ptr %s212, align 4, !tbaa !11
+  tail call void @foo(i32 noundef 3, ptr noundef null, i32 noundef %11, i32 noundef %12)
   br label %cleanup
 
 if.end35:                                         ; preds = %if.end25
-  %15 = load i32, ptr %s212, align 4, !tbaa !11
-  %rem37 = and i32 %15, 8191
+  %13 = load i32, ptr %s212, align 4, !tbaa !11
+  %rem37 = and i32 %13, 8191
   %idx.ext = zext i32 %rem37 to i64
   %add.ptr = getelementptr inbounds i8, ptr %6, i64 %idx.ext
   %t2 = getelementptr inbounds %struct.T, ptr %add.ptr, i64 0, i32 1
-  %16 = load i32, ptr %t2, align 4, !tbaa !17
-  %17 = load i32, ptr %c.addr.0, align 4, !tbaa !9
-  %cmp40.not = icmp ult i32 %16, %17
+  %14 = load i32, ptr %t2, align 4, !tbaa !17
+  %15 = load i32, ptr %c.addr.0, align 4, !tbaa !9
+  %cmp40.not = icmp ult i32 %14, %15
   br i1 %cmp40.not, label %cleanup, label %land.lhs.true42
 
 land.lhs.true42:                                  ; preds = %if.end35
-  %cmp46.not = icmp eq i32 %16, %17
+  %cmp46.not = icmp eq i32 %14, %15
   br i1 %cmp46.not, label %lor.lhs.false48, label %if.then54
 
 lor.lhs.false48:                                  ; preds = %land.lhs.true42
   %s250 = getelementptr inbounds %struct.T, ptr %add.ptr, i64 0, i32 1, i32 1
-  %18 = load i32, ptr %s250, align 4, !tbaa !19
-  %cmp52.not = icmp ult i32 %18, %15
+  %16 = load i32, ptr %s250, align 4, !tbaa !19
+  %cmp52.not = icmp ult i32 %16, %13
   br i1 %cmp52.not, label %cleanup, label %if.then54
 
 if.then54:                                        ; preds = %lor.lhs.false48, %land.lhs.true42
-  tail call void @foo(i32 noundef 4, ptr noundef nonnull %add.ptr, i32 noundef %17, i32 noundef %15)
+  tail call void @foo(i32 noundef 4, ptr noundef nonnull %add.ptr, i32 noundef %15, i32 noundef %13)
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end35, %lor.lhs.false48, %if.then54, %if.end7, %if.then32, %if.then21

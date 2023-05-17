@@ -16,7 +16,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   %i = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i) #4
   store i32 5, ptr %i, align 4, !tbaa !9

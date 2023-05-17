@@ -48,7 +48,7 @@ declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: nofree norecurse nounwind uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #1 personality ptr @__gxx_personality_v0 {
-invoke.cont2:
+entry:
   %0 = load i32, ptr @_ZL1X, align 4, !tbaa !5
   %inc.i = add nsw i32 %0, 1
   store i32 %inc.i, ptr @_ZL1X, align 4, !tbaa !5
@@ -57,9 +57,9 @@ invoke.cont2:
   %inc.i.i = add nsw i32 %1, 1
   store i32 %inc.i.i, ptr @_ZL1X, align 4, !tbaa !5, !noalias !14
   %call.i.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %inc.i.i), !noalias !14
-  %call.i7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %inc.i, i32 noundef %inc.i.i)
+  %call.i6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %inc.i, i32 noundef %inc.i.i)
+  %call.i7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %inc.i.i)
   %call.i8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %inc.i.i)
-  %call.i9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %inc.i.i)
   ret i32 0
 }
 

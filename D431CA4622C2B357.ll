@@ -1214,22 +1214,22 @@ entry:
   %syms = alloca [1 x %struct.__va_list_tag], align 16
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %syms) #24
   %cmp = icmp eq ptr %l, null
-  br i1 %cmp, label %cleanup, label %cond.end
+  br i1 %cmp, label %cleanup, label %cond.false
 
-cond.end:                                         ; preds = %entry
+cond.false:                                       ; preds = %entry
   %type = getelementptr inbounds %struct.obj, ptr %l, i64 0, i32 1
   %0 = load i16, ptr %type, align 2, !tbaa !23
   %cmp2 = icmp eq i16 %0, 1
   br i1 %cmp2, label %cond.true4, label %cond.end7
 
-cond.true4:                                       ; preds = %cond.end
+cond.true4:                                       ; preds = %cond.false
   %call = tail call ptr @llength(ptr noundef nonnull %l) #24
   %call5 = tail call i64 @get_c_long(ptr noundef %call) #24
   %1 = trunc i64 %call5 to i32
   br label %cond.end7
 
-cond.end7:                                        ; preds = %cond.end, %cond.true4
-  %cond8 = phi i32 [ %1, %cond.true4 ], [ -1, %cond.end ]
+cond.end7:                                        ; preds = %cond.false, %cond.true4
+  %cond8 = phi i32 [ %1, %cond.true4 ], [ -1, %cond.false ]
   call void @llvm.va_start(ptr nonnull %syms)
   %overflow_arg_area_p = getelementptr inbounds %struct.__va_list_tag, ptr %syms, i64 0, i32 2
   %2 = getelementptr inbounds %struct.__va_list_tag, ptr %syms, i64 0, i32 3
@@ -4524,7 +4524,7 @@ land.lhs.true29:                                  ; preds = %land.lhs.true
   br i1 %cmp33.not, label %if.end37, label %if.then35
 
 if.then35:                                        ; preds = %land.lhs.true29
-  %puts185 = call i32 @puts(ptr nonnull dereferenceable(1) @str.232)
+  %puts186 = call i32 @puts(ptr nonnull dereferenceable(1) @str.232)
   br label %if.end37
 
 if.end37:                                         ; preds = %if.then35, %land.lhs.true29, %land.lhs.true, %if.end
@@ -4536,8 +4536,8 @@ if.end37:                                         ; preds = %if.then35, %land.lh
 
 if.then42:                                        ; preds = %if.end37
   %arrayidx44 = getelementptr inbounds i8, ptr %3, i64 2
-  %call.i186 = call i64 @strtol(ptr nocapture noundef nonnull %arrayidx44, ptr noundef null, i32 noundef 10) #24
-  %conv46 = trunc i64 %call.i186 to i32
+  %call.i185 = call i64 @strtol(ptr nocapture noundef nonnull %arrayidx44, ptr noundef null, i32 noundef 10) #24
+  %conv46 = trunc i64 %call.i185 to i32
   br label %if.end47
 
 if.else:                                          ; preds = %if.end37

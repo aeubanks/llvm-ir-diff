@@ -138,17 +138,17 @@ define dso_local i32 @zaload(ptr noundef %op) #1 {
 entry:
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %cleanup [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
 sw.epilog:                                        ; preds = %entry, %entry
-  %3 = and i16 %0, 512
-  %tobool.not.not = icmp eq i16 %3, 0
+  %not = and i32 %conv, 512
+  %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %sw.epilog
@@ -158,8 +158,8 @@ if.end:                                           ; preds = %sw.epilog
   %aref.sroa.9.0..sroa_idx = getelementptr inbounds i8, ptr %op, i64 12
   %aref.sroa.9.0.copyload = load i32, ptr %aref.sroa.9.0..sroa_idx, align 4, !tbaa.struct !25
   %conv4 = zext i16 %aref.sroa.523.0.copyload to i64
-  %4 = load ptr, ptr @ostop, align 8, !tbaa !22
-  %sub.ptr.lhs.cast = ptrtoint ptr %4 to i64
+  %1 = load ptr, ptr @ostop, align 8, !tbaa !22
+  %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %op to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
   %sub.ptr.div = ashr exact i64 %sub.ptr.sub, 4
@@ -171,8 +171,8 @@ if.end7:                                          ; preds = %if.end
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %op, ptr align 1 %aref.sroa.0.0.copyload, i64 %mul, i1 false)
   %add.ptr = getelementptr inbounds %struct.ref_s, ptr %op, i64 %conv4
   store ptr %add.ptr, ptr @osp, align 8, !tbaa !22
-  %5 = load ptr, ptr @ostop, align 8, !tbaa !22
-  %cmp12 = icmp ugt ptr %add.ptr, %5
+  %2 = load ptr, ptr @ostop, align 8, !tbaa !22
+  %cmp12 = icmp ugt ptr %add.ptr, %2
   br i1 %cmp12, label %if.then14, label %if.end19
 
 if.then14:                                        ; preds = %if.end7

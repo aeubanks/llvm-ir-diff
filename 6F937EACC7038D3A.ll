@@ -144,9 +144,9 @@ entry:
   %2 = load i64, ptr %add.ptr.i.i, align 8, !tbaa !13
   %conv4 = trunc i64 %2 to i32
   %sext = shl i64 %1, 32
+  %conv5 = ashr exact i64 %sext, 32
   %mul = ashr exact i64 %sext, 30
-  %conv6 = ashr exact i64 %sext, 32
-  %mul7 = mul i64 %mul, %conv6
+  %mul7 = mul i64 %mul, %conv5
   %call8 = tail call noalias ptr @malloc(i64 noundef %mul7) #15
   %cmp = icmp eq ptr %call8, null
   br i1 %cmp, label %if.then, label %if.end
@@ -163,15 +163,15 @@ if.end:                                           ; preds = %entry
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   br label %while.cond
 
-while.cond:                                       ; preds = %while.body, %if.end
+while.cond:                                       ; preds = %while.body.critedge, %if.end
   %4 = load i64, ptr %state, align 8, !tbaa !15
   %cmp.not.i.i = icmp eq i64 %4, 0
-  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body, !prof !29
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body.critedge, !prof !29
 
 if.end.i.i:                                       ; preds = %while.cond
   %5 = load i8, ptr %started_.i.i, align 8, !tbaa !30, !range !31, !noundef !32
   %tobool3.not.i.i = icmp eq i8 %5, 0
-  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %while.end
+  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %if.end12.i.i
 
 if.then4.i.i:                                     ; preds = %if.end.i.i
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -180,28 +180,28 @@ if.then4.i.i:                                     ; preds = %if.end.i.i
   %7 = load i64, ptr %state, align 8
   %cmp7.not.i.i = icmp eq i64 %7, 0
   %or.cond = select i1 %tobool5.not.i.i, i1 true, i1 %cmp7.not.i.i
-  br i1 %or.cond, label %while.end, label %while.body
+  br i1 %or.cond, label %if.end12.i.i, label %while.body.critedge
 
-while.body:                                       ; preds = %if.then4.i.i, %while.cond
+if.end12.i.i:                                     ; preds = %if.then4.i.i, %if.end.i.i
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %8 = load ptr, ptr %range_.i, align 8, !tbaa !11
+  %9 = load i64, ptr %8, align 8, !tbaa !13
+  %cmp12 = icmp eq i64 %9, 20
+  br i1 %cmp12, label %if.then13, label %if.end14
+
+while.body.critedge:                              ; preds = %if.then4.i.i, %while.cond
   %storemerge.in = phi i64 [ %4, %while.cond ], [ %7, %if.then4.i.i ]
   %storemerge = add i64 %storemerge.in, -1
   store i64 %storemerge, ptr %state, align 8, !tbaa !15
-  %8 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @bilateralFilterKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %8, ptr noundef nonnull %call8, i32 noundef %conv4)
+  %10 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @bilateralFilterKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %10, ptr noundef nonnull %call8, i32 noundef %conv4)
   br label %while.cond, !llvm.loop !34
 
-while.end:                                        ; preds = %if.then4.i.i, %if.end.i.i
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %9 = load ptr, ptr %range_.i, align 8, !tbaa !11
-  %10 = load i64, ptr %9, align 8, !tbaa !13
-  %cmp12 = icmp eq i64 %10, 20
-  br i1 %cmp12, label %if.then13, label %if.end14
-
-if.then13:                                        ; preds = %while.end
+if.then13:                                        ; preds = %if.end12.i.i
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call8, ptr noundef nonnull @.str.3, i32 noundef %conv, i32 noundef %conv)
   br label %if.end14
 
-if.end14:                                         ; preds = %if.then13, %while.end
+if.end14:                                         ; preds = %if.then13, %if.end12.i.i
   tail call void @free(ptr noundef %call8) #17
   ret void
 }

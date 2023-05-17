@@ -156,9 +156,9 @@ if.end:                                           ; preds = %entry
   %6 = load ptr, ptr %vfn, align 8
   %call3 = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes)
   %cmp.not = icmp eq i32 %call3, 0
-  br i1 %cmp.not, label %if.end5, label %invoke.cont
+  br i1 %cmp.not, label %if.end5, label %if.then4
 
-invoke.cont:                                      ; preds = %if.end
+if.then4:                                         ; preds = %if.end
   %exception = call ptr @__cxa_allocate_exception(i64 4) #8
   store i32 %call3, ptr %exception, align 4, !tbaa !24
   call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
@@ -220,15 +220,15 @@ if.end.i:                                         ; preds = %entry
   %6 = load ptr, ptr %vfn.i, align 8
   %call3.i = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes.i)
   %cmp.not.i = icmp eq i32 %call3.i, 0
-  br i1 %cmp.not.i, label %_ZN9CInBuffer9ReadBlockEv.exit, label %invoke.cont.i
+  br i1 %cmp.not.i, label %if.end5.i, label %if.then4.i
 
-invoke.cont.i:                                    ; preds = %if.end.i
+if.then4.i:                                       ; preds = %if.end.i
   %exception.i = call ptr @__cxa_allocate_exception(i64 4) #8
   store i32 %call3.i, ptr %exception.i, align 4, !tbaa !24
   call void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
   unreachable
 
-_ZN9CInBuffer9ReadBlockEv.exit:                   ; preds = %if.end.i
+if.end5.i:                                        ; preds = %if.end.i
   %7 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !14
   store ptr %7, ptr %this, align 8, !tbaa !19
   %8 = load i32, ptr %numProcessedBytes.i, align 4, !tbaa !26
@@ -242,14 +242,14 @@ _ZN9CInBuffer9ReadBlockEv.exit:                   ; preds = %if.end.i
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %numProcessedBytes.i) #8
   br i1 %cmp9.i, label %if.then, label %if.end
 
-if.then:                                          ; preds = %entry, %_ZN9CInBuffer9ReadBlockEv.exit
+if.then:                                          ; preds = %entry, %if.end5.i
   %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
   %9 = load i64, ptr %_processedSize, align 8, !tbaa !18
   %inc = add i64 %9, 1
   store i64 %inc, ptr %_processedSize, align 8, !tbaa !18
   br label %return
 
-if.end:                                           ; preds = %_ZN9CInBuffer9ReadBlockEv.exit
+if.end:                                           ; preds = %if.end5.i
   %incdec.ptr = getelementptr inbounds i8, ptr %7, i64 1
   store ptr %incdec.ptr, ptr %this, align 8, !tbaa !19
   %10 = load i8, ptr %7, align 1, !tbaa !27
@@ -260,11 +260,11 @@ return:                                           ; preds = %if.end, %if.then
   ret i8 %retval.0
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #6
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umax.i32(i32, i32) #7
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -272,8 +272,8 @@ attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #8 = { nounwind }
 attributes #9 = { noreturn }
 

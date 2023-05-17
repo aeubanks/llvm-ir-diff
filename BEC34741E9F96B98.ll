@@ -23,46 +23,38 @@ for.cond1.preheader:                              ; preds = %entry, %for.cond1.5
   %cmp.i29 = fcmp uno x86_fp80 %0, %1
   %conv.i = zext i1 %cmp.i29 to i32
   %cmp1.not.i = icmp eq i32 %2, %conv.i
-  br i1 %cmp1.not.i, label %for.cond1, label %if.then.i
+  br i1 %cmp1.not.i, label %if.end.i, label %if.then.i
 
-for.cond1:                                        ; preds = %for.cond1.preheader
-  %arrayidx9.1 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 1
-  %3 = load i32, ptr %arrayidx9.1, align 4, !tbaa !11
-  %cmp.i30 = fcmp olt x86_fp80 %0, %1
-  %conv.i.1 = zext i1 %cmp.i30 to i32
-  %cmp1.not.i.1 = icmp eq i32 %3, %conv.i.1
-  br i1 %cmp1.not.i.1, label %for.cond1.1, label %if.then.i
-
-for.cond1.1:                                      ; preds = %for.cond1
+for.cond1.1:                                      ; preds = %if.end.i
   %arrayidx9.2 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 2
-  %4 = load i32, ptr %arrayidx9.2, align 8, !tbaa !11
+  %3 = load i32, ptr %arrayidx9.2, align 8, !tbaa !11
   %cmp.i34 = fcmp ole x86_fp80 %0, %1
   %conv.i.2 = zext i1 %cmp.i34 to i32
-  %cmp1.not.i.2 = icmp eq i32 %4, %conv.i.2
+  %cmp1.not.i.2 = icmp eq i32 %3, %conv.i.2
   br i1 %cmp1.not.i.2, label %for.cond1.2, label %if.then.i
 
 for.cond1.2:                                      ; preds = %for.cond1.1
   %arrayidx9.3 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 3
-  %5 = load i32, ptr %arrayidx9.3, align 4, !tbaa !11
+  %4 = load i32, ptr %arrayidx9.3, align 4, !tbaa !11
   %cmp.i38 = fcmp ogt x86_fp80 %0, %1
   %conv.i.3 = zext i1 %cmp.i38 to i32
-  %cmp1.not.i.3 = icmp eq i32 %5, %conv.i.3
+  %cmp1.not.i.3 = icmp eq i32 %4, %conv.i.3
   br i1 %cmp1.not.i.3, label %for.cond1.3, label %if.then.i
 
 for.cond1.3:                                      ; preds = %for.cond1.2
   %arrayidx9.4 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 4
-  %6 = load i32, ptr %arrayidx9.4, align 16, !tbaa !11
+  %5 = load i32, ptr %arrayidx9.4, align 16, !tbaa !11
   %cmp.i42 = fcmp oge x86_fp80 %0, %1
   %conv.i.4 = zext i1 %cmp.i42 to i32
-  %cmp1.not.i.4 = icmp eq i32 %6, %conv.i.4
+  %cmp1.not.i.4 = icmp eq i32 %5, %conv.i.4
   br i1 %cmp1.not.i.4, label %for.cond1.4, label %if.then.i
 
 for.cond1.4:                                      ; preds = %for.cond1.3
   %arrayidx9.5 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 5
-  %7 = load i32, ptr %arrayidx9.5, align 4, !tbaa !11
+  %6 = load i32, ptr %arrayidx9.5, align 4, !tbaa !11
   %cmp.i46 = fcmp one x86_fp80 %0, %1
   %conv.i.5 = zext i1 %cmp.i46 to i32
-  %cmp1.not.i.5 = icmp eq i32 %7, %conv.i.5
+  %cmp1.not.i.5 = icmp eq i32 %6, %conv.i.5
   br i1 %cmp1.not.i.5, label %for.cond1.5, label %if.then.i
 
 for.cond1.5:                                      ; preds = %for.cond1.4
@@ -70,9 +62,17 @@ for.cond1.5:                                      ; preds = %for.cond1.4
   %exitcond.not = icmp eq i64 %indvars.iv.next, 14
   br i1 %exitcond.not, label %for.end16, label %for.cond1.preheader, !llvm.loop !13
 
-if.then.i:                                        ; preds = %for.cond1.4, %for.cond1.3, %for.cond1.2, %for.cond1.1, %for.cond1, %for.cond1.preheader
+if.then.i:                                        ; preds = %for.cond1.4, %for.cond1.3, %for.cond1.2, %for.cond1.1, %if.end.i, %for.cond1.preheader
   tail call void @abort() #2
   unreachable
+
+if.end.i:                                         ; preds = %for.cond1.preheader
+  %arrayidx9.1 = getelementptr inbounds [14 x %struct.try], ptr @main.data, i64 0, i64 %indvars.iv, i32 2, i64 1
+  %7 = load i32, ptr %arrayidx9.1, align 4, !tbaa !11
+  %cmp.i30 = fcmp olt x86_fp80 %0, %1
+  %conv.i.1 = zext i1 %cmp.i30 to i32
+  %cmp1.not.i.1 = icmp eq i32 %7, %conv.i.1
+  br i1 %cmp1.not.i.1, label %for.cond1.1, label %if.then.i
 
 for.end16:                                        ; preds = %for.cond1.5
   tail call void @exit(i32 noundef 0) #2

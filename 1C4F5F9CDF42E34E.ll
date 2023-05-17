@@ -192,21 +192,21 @@ if.then3:                                         ; preds = %if.end
   br label %if.end36.sink.split
 
 while.body:                                       ; preds = %if.end, %if.end21
-  %current.0107 = phi ptr [ %2, %if.end21 ], [ %0, %if.end ]
-  %p.addr.0106 = phi ptr [ %p.addr.1, %if.end21 ], [ %p, %if.end ]
-  %tobool11.not = icmp eq ptr %p.addr.0106, null
+  %current.0108 = phi ptr [ %2, %if.end21 ], [ %0, %if.end ]
+  %p.addr.0107 = phi ptr [ %p.addr.1, %if.end21 ], [ %p, %if.end ]
+  %tobool11.not = icmp eq ptr %p.addr.0107, null
   br i1 %tobool11.not, label %land.lhs.true, label %if.end15
 
 land.lhs.true:                                    ; preds = %while.body
-  %next12 = getelementptr inbounds %struct.vlink, ptr %current.0107, i64 0, i32 20
+  %next12 = getelementptr inbounds %struct.vlink, ptr %current.0108, i64 0, i32 20
   %1 = load ptr, ptr %next12, align 8, !tbaa !15
   %cmp13 = icmp eq ptr %1, null
-  %spec.select = select i1 %cmp13, ptr %current.0107, ptr null
+  %spec.select = select i1 %cmp13, ptr %current.0108, ptr null
   br label %if.end15
 
 if.end15:                                         ; preds = %land.lhs.true, %while.body
-  %p.addr.1 = phi ptr [ %p.addr.0106, %while.body ], [ %spec.select, %land.lhs.true ]
-  %call = tail call i32 @vl_comp(ptr noundef nonnull %current.0107, ptr noundef %ul) #13
+  %p.addr.1 = phi ptr [ %p.addr.0107, %while.body ], [ %spec.select, %land.lhs.true ]
+  %call = tail call i32 @vl_comp(ptr noundef nonnull %current.0108, ptr noundef %ul) #13
   %cmp16 = icmp eq i32 %call, 0
   br i1 %cmp16, label %if.then17, label %if.end18
 
@@ -215,8 +215,8 @@ if.then17:                                        ; preds = %if.end15
   br label %cleanup
 
 if.end18:                                         ; preds = %if.end15
-  %cmp19 = icmp eq ptr %current.0107, %p.addr.1
-  %next26 = getelementptr inbounds %struct.vlink, ptr %current.0107, i64 0, i32 20
+  %cmp19 = icmp eq ptr %current.0108, %p.addr.1
+  %next26 = getelementptr inbounds %struct.vlink, ptr %current.0108, i64 0, i32 20
   %2 = load ptr, ptr %next26, align 8, !tbaa !15
   br i1 %cmp19, label %if.end25, label %if.end21
 
@@ -225,12 +225,12 @@ if.end21:                                         ; preds = %if.end18
   br i1 %tobool.not, label %cleanup, label %while.body, !llvm.loop !18
 
 if.end25:                                         ; preds = %if.end18
-  %next26.le = getelementptr inbounds %struct.vlink, ptr %current.0107, i64 0, i32 20
+  %next26.le = getelementptr inbounds %struct.vlink, ptr %current.0108, i64 0, i32 20
   %next27 = getelementptr inbounds %struct.vlink, ptr %ul, i64 0, i32 20
   store ptr %2, ptr %next27, align 8, !tbaa !15
   store ptr %ul, ptr %next26.le, align 8, !tbaa !15
   %previous29 = getelementptr inbounds %struct.vlink, ptr %ul, i64 0, i32 19
-  store ptr %current.0107, ptr %previous29, align 8, !tbaa !17
+  store ptr %current.0108, ptr %previous29, align 8, !tbaa !17
   %3 = load ptr, ptr %next27, align 8, !tbaa !15
   %tobool31.not = icmp eq ptr %3, null
   br i1 %tobool31.not, label %while.cond38.preheader, label %if.end36.sink.split
@@ -1001,11 +1001,11 @@ cleanup:                                          ; preds = %entry, %while.end
   ret ptr %retval.0
 }
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #12
@@ -1020,8 +1020,8 @@ attributes #6 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapp
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #12 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
 attributes #13 = { nounwind }
 

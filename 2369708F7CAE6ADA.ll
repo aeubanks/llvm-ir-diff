@@ -432,7 +432,7 @@ for.cond138.for.inc150_crit_edge.us.i:            ; preds = %for.body141.us.i.ep
   %incdec.ptr.us.i.lcssa = phi ptr [ %incdec.ptr.us.i.lcssa.ph, %for.cond138.for.inc150_crit_edge.us.i.unr-lcssa ], [ %incdec.ptr.us.i.epil, %for.body141.us.i.epil ]
   %indvars.iv.next271.i = add nuw nsw i64 %indvars.iv270.i, 1
   %exitcond274.not.i = icmp eq i64 %indvars.iv.next271.i, %wide.trip.count273.i
-  br i1 %exitcond274.not.i, label %img2buf.exit.loopexit619, label %for.cond138.preheader.us.i, !llvm.loop !16
+  br i1 %exitcond274.not.i, label %img2buf.exit.loopexit635, label %for.cond138.preheader.us.i, !llvm.loop !16
 
 for.cond105.preheader.i:                          ; preds = %if.end.i, %if.end.thread.i
   %size.0287.i = phi i32 [ 2, %if.end.thread.i ], [ %div, %if.end.i ]
@@ -481,15 +481,15 @@ for.cond112.for.end129_crit_edge.us.i:            ; preds = %for.body116.us.i
   %cmp107.us.i = icmp slt i64 %indvars.iv.next279.i, %45
   br i1 %cmp107.us.i, label %for.body109.us.i, label %img2buf.exit, !llvm.loop !18
 
-img2buf.exit.loopexit619:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i
+img2buf.exit.loopexit635:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i
   %.pre = load i32, ptr %size_y_cr, align 4, !tbaa !42
-  %.pre626 = load i32, ptr %size_x_cr, align 8, !tbaa !41
-  %.pre636 = sub i32 %.pre626, %25
+  %.pre642 = load i32, ptr %size_x_cr, align 8, !tbaa !41
+  %.pre652 = sub i32 %.pre642, %25
   br label %img2buf.exit
 
-img2buf.exit:                                     ; preds = %for.cond112.for.end129_crit_edge.us.i, %img2buf.exit.loopexit619, %for.cond134.preheader.i, %for.cond105.preheader.i, %for.body109.lr.ph.i
-  %sub45.pre-phi = phi i32 [ %.pre636, %img2buf.exit.loopexit619 ], [ %sub1.i, %for.cond134.preheader.i ], [ %sub1.i, %for.cond105.preheader.i ], [ %sub1.i, %for.body109.lr.ph.i ], [ %sub1.i, %for.cond112.for.end129_crit_edge.us.i ]
-  %51 = phi i32 [ %.pre, %img2buf.exit.loopexit619 ], [ %24, %for.cond134.preheader.i ], [ %24, %for.cond105.preheader.i ], [ %24, %for.body109.lr.ph.i ], [ %24, %for.cond112.for.end129_crit_edge.us.i ]
+img2buf.exit:                                     ; preds = %for.cond112.for.end129_crit_edge.us.i, %img2buf.exit.loopexit635, %for.cond134.preheader.i, %for.cond105.preheader.i, %for.body109.lr.ph.i
+  %sub45.pre-phi = phi i32 [ %.pre652, %img2buf.exit.loopexit635 ], [ %sub1.i, %for.cond134.preheader.i ], [ %sub1.i, %for.cond105.preheader.i ], [ %sub1.i, %for.body109.lr.ph.i ], [ %sub1.i, %for.cond112.for.end129_crit_edge.us.i ]
+  %51 = phi i32 [ %.pre, %img2buf.exit.loopexit635 ], [ %24, %for.cond134.preheader.i ], [ %24, %for.cond105.preheader.i ], [ %24, %for.body109.lr.ph.i ], [ %24, %for.cond112.for.end129_crit_edge.us.i ]
   %52 = add i32 %mul38, %mul34
   %sub42 = sub i32 %51, %52
   %mul46 = mul i32 %sub42, %div
@@ -563,10 +563,10 @@ for.cond134.preheader.i374:                       ; preds = %if.end.i370
 for.cond138.preheader.us.preheader.i377:          ; preds = %for.cond134.preheader.i374
   %wide.trip.count273.i375 = zext i32 %64 to i64
   %wide.trip.count.i376 = zext i32 %63 to i64
-  %xtraiter644 = and i64 %wide.trip.count.i376, 3
+  %xtraiter660 = and i64 %wide.trip.count.i376, 3
   %71 = icmp ult i32 %63, 4
-  %unroll_iter648 = and i64 %wide.trip.count.i376, 4294967292
-  %lcmp.mod646.not = icmp eq i64 %xtraiter644, 0
+  %unroll_iter664 = and i64 %wide.trip.count.i376, 4294967292
+  %lcmp.mod662.not = icmp eq i64 %xtraiter660, 0
   br label %for.cond138.preheader.us.i381
 
 for.cond138.preheader.us.i381:                    ; preds = %for.cond138.for.inc150_crit_edge.us.i392, %for.cond138.preheader.us.preheader.i377
@@ -578,7 +578,7 @@ for.cond138.preheader.us.i381:                    ; preds = %for.cond138.for.inc
 for.body141.us.i389:                              ; preds = %for.cond138.preheader.us.i381, %for.body141.us.i389
   %indvars.iv.i382 = phi i64 [ %indvars.iv.next.i387.3, %for.body141.us.i389 ], [ 0, %for.cond138.preheader.us.i381 ]
   %buf.addr.1258.us.i383 = phi ptr [ %incdec.ptr.us.i386.3, %for.body141.us.i389 ], [ %buf.addr.0261.us.i379, %for.cond138.preheader.us.i381 ]
-  %niter649 = phi i64 [ %niter649.next.3, %for.body141.us.i389 ], [ 0, %for.cond138.preheader.us.i381 ]
+  %niter665 = phi i64 [ %niter665.next.3, %for.body141.us.i389 ], [ 0, %for.cond138.preheader.us.i381 ]
   %72 = load ptr, ptr %arrayidx143.us.i380, align 8, !tbaa !5
   %arrayidx145.us.i384 = getelementptr inbounds i16, ptr %72, i64 %indvars.iv.i382
   %73 = load i16, ptr %arrayidx145.us.i384, align 2, !tbaa !9
@@ -607,20 +607,20 @@ for.body141.us.i389:                              ; preds = %for.cond138.prehead
   %incdec.ptr.us.i386.3 = getelementptr inbounds i8, ptr %buf.addr.1258.us.i383, i64 4
   store i8 %conv146.us.i385.3, ptr %incdec.ptr.us.i386.2, align 1, !tbaa !11
   %indvars.iv.next.i387.3 = add nuw nsw i64 %indvars.iv.i382, 4
-  %niter649.next.3 = add i64 %niter649, 4
-  %niter649.ncmp.3 = icmp eq i64 %niter649.next.3, %unroll_iter648
-  br i1 %niter649.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa, label %for.body141.us.i389, !llvm.loop !12
+  %niter665.next.3 = add i64 %niter665, 4
+  %niter665.ncmp.3 = icmp eq i64 %niter665.next.3, %unroll_iter664
+  br i1 %niter665.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa, label %for.body141.us.i389, !llvm.loop !12
 
 for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa: ; preds = %for.body141.us.i389, %for.cond138.preheader.us.i381
   %incdec.ptr.us.i386.lcssa.ph = phi ptr [ undef, %for.cond138.preheader.us.i381 ], [ %incdec.ptr.us.i386.3, %for.body141.us.i389 ]
   %indvars.iv.i382.unr = phi i64 [ 0, %for.cond138.preheader.us.i381 ], [ %indvars.iv.next.i387.3, %for.body141.us.i389 ]
   %buf.addr.1258.us.i383.unr = phi ptr [ %buf.addr.0261.us.i379, %for.cond138.preheader.us.i381 ], [ %incdec.ptr.us.i386.3, %for.body141.us.i389 ]
-  br i1 %lcmp.mod646.not, label %for.cond138.for.inc150_crit_edge.us.i392, label %for.body141.us.i389.epil
+  br i1 %lcmp.mod662.not, label %for.cond138.for.inc150_crit_edge.us.i392, label %for.body141.us.i389.epil
 
 for.body141.us.i389.epil:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa, %for.body141.us.i389.epil
   %indvars.iv.i382.epil = phi i64 [ %indvars.iv.next.i387.epil, %for.body141.us.i389.epil ], [ %indvars.iv.i382.unr, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa ]
   %buf.addr.1258.us.i383.epil = phi ptr [ %incdec.ptr.us.i386.epil, %for.body141.us.i389.epil ], [ %buf.addr.1258.us.i383.unr, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa ]
-  %epil.iter645 = phi i64 [ %epil.iter645.next, %for.body141.us.i389.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa ]
+  %epil.iter661 = phi i64 [ %epil.iter661.next, %for.body141.us.i389.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa ]
   %80 = load ptr, ptr %arrayidx143.us.i380, align 8, !tbaa !5
   %arrayidx145.us.i384.epil = getelementptr inbounds i16, ptr %80, i64 %indvars.iv.i382.epil
   %81 = load i16, ptr %arrayidx145.us.i384.epil, align 2, !tbaa !9
@@ -628,15 +628,15 @@ for.body141.us.i389.epil:                         ; preds = %for.cond138.for.inc
   %incdec.ptr.us.i386.epil = getelementptr inbounds i8, ptr %buf.addr.1258.us.i383.epil, i64 1
   store i8 %conv146.us.i385.epil, ptr %buf.addr.1258.us.i383.epil, align 1, !tbaa !11
   %indvars.iv.next.i387.epil = add nuw nsw i64 %indvars.iv.i382.epil, 1
-  %epil.iter645.next = add i64 %epil.iter645, 1
-  %epil.iter645.cmp.not = icmp eq i64 %epil.iter645.next, %xtraiter644
-  br i1 %epil.iter645.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i392, label %for.body141.us.i389.epil, !llvm.loop !45
+  %epil.iter661.next = add i64 %epil.iter661, 1
+  %epil.iter661.cmp.not = icmp eq i64 %epil.iter661.next, %xtraiter660
+  br i1 %epil.iter661.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i392, label %for.body141.us.i389.epil, !llvm.loop !45
 
 for.cond138.for.inc150_crit_edge.us.i392:         ; preds = %for.body141.us.i389.epil, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa
   %incdec.ptr.us.i386.lcssa = phi ptr [ %incdec.ptr.us.i386.lcssa.ph, %for.cond138.for.inc150_crit_edge.us.i392.unr-lcssa ], [ %incdec.ptr.us.i386.epil, %for.body141.us.i389.epil ]
   %indvars.iv.next271.i390 = add nuw nsw i64 %indvars.iv270.i378, 1
   %exitcond274.not.i391 = icmp eq i64 %indvars.iv.next271.i390, %wide.trip.count273.i375
-  br i1 %exitcond274.not.i391, label %img2buf.exit418.loopexit618, label %for.cond138.preheader.us.i381, !llvm.loop !16
+  br i1 %exitcond274.not.i391, label %img2buf.exit418.loopexit634, label %for.cond138.preheader.us.i381, !llvm.loop !16
 
 for.cond105.preheader.i396:                       ; preds = %if.end.i370, %if.end.thread.i366
   %size.0287.i393 = phi i32 [ 2, %if.end.thread.i366 ], [ %div, %if.end.i370 ]
@@ -685,15 +685,15 @@ for.cond112.for.end129_crit_edge.us.i417:         ; preds = %for.body116.us.i414
   %cmp107.us.i416 = icmp slt i64 %indvars.iv.next279.i415, %85
   br i1 %cmp107.us.i416, label %for.body109.us.i405, label %img2buf.exit418, !llvm.loop !18
 
-img2buf.exit418.loopexit618:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i392
-  %.pre627 = load i32, ptr %size_y, align 4, !tbaa !39
-  %.pre628 = load i32, ptr %size_x, align 8, !tbaa !38
-  %.pre637 = sub i32 %.pre628, %65
+img2buf.exit418.loopexit634:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i392
+  %.pre643 = load i32, ptr %size_y, align 4, !tbaa !39
+  %.pre644 = load i32, ptr %size_x, align 8, !tbaa !38
+  %.pre653 = sub i32 %.pre644, %65
   br label %img2buf.exit418
 
-img2buf.exit418:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i417, %img2buf.exit418.loopexit618, %for.cond134.preheader.i374, %for.cond105.preheader.i396, %for.body109.lr.ph.i400
-  %sub89.pre-phi = phi i32 [ %.pre637, %img2buf.exit418.loopexit618 ], [ %sub1.i360, %for.cond134.preheader.i374 ], [ %sub1.i360, %for.cond105.preheader.i396 ], [ %sub1.i360, %for.body109.lr.ph.i400 ], [ %sub1.i360, %for.cond112.for.end129_crit_edge.us.i417 ]
-  %91 = phi i32 [ %.pre627, %img2buf.exit418.loopexit618 ], [ %64, %for.cond134.preheader.i374 ], [ %64, %for.cond105.preheader.i396 ], [ %64, %for.body109.lr.ph.i400 ], [ %64, %for.cond112.for.end129_crit_edge.us.i417 ]
+img2buf.exit418:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i417, %img2buf.exit418.loopexit634, %for.cond134.preheader.i374, %for.cond105.preheader.i396, %for.body109.lr.ph.i400
+  %sub89.pre-phi = phi i32 [ %.pre653, %img2buf.exit418.loopexit634 ], [ %sub1.i360, %for.cond134.preheader.i374 ], [ %sub1.i360, %for.cond105.preheader.i396 ], [ %sub1.i360, %for.body109.lr.ph.i400 ], [ %sub1.i360, %for.cond112.for.end129_crit_edge.us.i417 ]
+  %91 = phi i32 [ %.pre643, %img2buf.exit418.loopexit634 ], [ %64, %for.cond134.preheader.i374 ], [ %64, %for.cond105.preheader.i396 ], [ %64, %for.body109.lr.ph.i400 ], [ %64, %for.cond112.for.end129_crit_edge.us.i417 ]
   %92 = add i32 %crop_top.1, %crop_bottom.1
   %sub86 = sub i32 %91, %92
   %mul90 = mul i32 %sub86, %div
@@ -758,10 +758,10 @@ for.cond134.preheader.i433:                       ; preds = %if.end.i429
 for.cond138.preheader.us.preheader.i436:          ; preds = %for.cond134.preheader.i433
   %wide.trip.count273.i434 = zext i32 %102 to i64
   %wide.trip.count.i435 = zext i32 %101 to i64
-  %xtraiter650 = and i64 %wide.trip.count.i435, 3
+  %xtraiter666 = and i64 %wide.trip.count.i435, 3
   %109 = icmp ult i32 %101, 4
-  %unroll_iter654 = and i64 %wide.trip.count.i435, 4294967292
-  %lcmp.mod652.not = icmp eq i64 %xtraiter650, 0
+  %unroll_iter670 = and i64 %wide.trip.count.i435, 4294967292
+  %lcmp.mod668.not = icmp eq i64 %xtraiter666, 0
   br label %for.cond138.preheader.us.i440
 
 for.cond138.preheader.us.i440:                    ; preds = %for.cond138.for.inc150_crit_edge.us.i451, %for.cond138.preheader.us.preheader.i436
@@ -773,7 +773,7 @@ for.cond138.preheader.us.i440:                    ; preds = %for.cond138.for.inc
 for.body141.us.i448:                              ; preds = %for.cond138.preheader.us.i440, %for.body141.us.i448
   %indvars.iv.i441 = phi i64 [ %indvars.iv.next.i446.3, %for.body141.us.i448 ], [ 0, %for.cond138.preheader.us.i440 ]
   %buf.addr.1258.us.i442 = phi ptr [ %incdec.ptr.us.i445.3, %for.body141.us.i448 ], [ %buf.addr.0261.us.i438, %for.cond138.preheader.us.i440 ]
-  %niter655 = phi i64 [ %niter655.next.3, %for.body141.us.i448 ], [ 0, %for.cond138.preheader.us.i440 ]
+  %niter671 = phi i64 [ %niter671.next.3, %for.body141.us.i448 ], [ 0, %for.cond138.preheader.us.i440 ]
   %110 = load ptr, ptr %arrayidx143.us.i439, align 8, !tbaa !5
   %arrayidx145.us.i443 = getelementptr inbounds i16, ptr %110, i64 %indvars.iv.i441
   %111 = load i16, ptr %arrayidx145.us.i443, align 2, !tbaa !9
@@ -802,20 +802,20 @@ for.body141.us.i448:                              ; preds = %for.cond138.prehead
   %incdec.ptr.us.i445.3 = getelementptr inbounds i8, ptr %buf.addr.1258.us.i442, i64 4
   store i8 %conv146.us.i444.3, ptr %incdec.ptr.us.i445.2, align 1, !tbaa !11
   %indvars.iv.next.i446.3 = add nuw nsw i64 %indvars.iv.i441, 4
-  %niter655.next.3 = add i64 %niter655, 4
-  %niter655.ncmp.3 = icmp eq i64 %niter655.next.3, %unroll_iter654
-  br i1 %niter655.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa, label %for.body141.us.i448, !llvm.loop !12
+  %niter671.next.3 = add i64 %niter671, 4
+  %niter671.ncmp.3 = icmp eq i64 %niter671.next.3, %unroll_iter670
+  br i1 %niter671.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa, label %for.body141.us.i448, !llvm.loop !12
 
 for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa: ; preds = %for.body141.us.i448, %for.cond138.preheader.us.i440
   %incdec.ptr.us.i445.lcssa.ph = phi ptr [ undef, %for.cond138.preheader.us.i440 ], [ %incdec.ptr.us.i445.3, %for.body141.us.i448 ]
   %indvars.iv.i441.unr = phi i64 [ 0, %for.cond138.preheader.us.i440 ], [ %indvars.iv.next.i446.3, %for.body141.us.i448 ]
   %buf.addr.1258.us.i442.unr = phi ptr [ %buf.addr.0261.us.i438, %for.cond138.preheader.us.i440 ], [ %incdec.ptr.us.i445.3, %for.body141.us.i448 ]
-  br i1 %lcmp.mod652.not, label %for.cond138.for.inc150_crit_edge.us.i451, label %for.body141.us.i448.epil
+  br i1 %lcmp.mod668.not, label %for.cond138.for.inc150_crit_edge.us.i451, label %for.body141.us.i448.epil
 
 for.body141.us.i448.epil:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa, %for.body141.us.i448.epil
   %indvars.iv.i441.epil = phi i64 [ %indvars.iv.next.i446.epil, %for.body141.us.i448.epil ], [ %indvars.iv.i441.unr, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa ]
   %buf.addr.1258.us.i442.epil = phi ptr [ %incdec.ptr.us.i445.epil, %for.body141.us.i448.epil ], [ %buf.addr.1258.us.i442.unr, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa ]
-  %epil.iter651 = phi i64 [ %epil.iter651.next, %for.body141.us.i448.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa ]
+  %epil.iter667 = phi i64 [ %epil.iter667.next, %for.body141.us.i448.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa ]
   %118 = load ptr, ptr %arrayidx143.us.i439, align 8, !tbaa !5
   %arrayidx145.us.i443.epil = getelementptr inbounds i16, ptr %118, i64 %indvars.iv.i441.epil
   %119 = load i16, ptr %arrayidx145.us.i443.epil, align 2, !tbaa !9
@@ -823,15 +823,15 @@ for.body141.us.i448.epil:                         ; preds = %for.cond138.for.inc
   %incdec.ptr.us.i445.epil = getelementptr inbounds i8, ptr %buf.addr.1258.us.i442.epil, i64 1
   store i8 %conv146.us.i444.epil, ptr %buf.addr.1258.us.i442.epil, align 1, !tbaa !11
   %indvars.iv.next.i446.epil = add nuw nsw i64 %indvars.iv.i441.epil, 1
-  %epil.iter651.next = add i64 %epil.iter651, 1
-  %epil.iter651.cmp.not = icmp eq i64 %epil.iter651.next, %xtraiter650
-  br i1 %epil.iter651.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i451, label %for.body141.us.i448.epil, !llvm.loop !46
+  %epil.iter667.next = add i64 %epil.iter667, 1
+  %epil.iter667.cmp.not = icmp eq i64 %epil.iter667.next, %xtraiter666
+  br i1 %epil.iter667.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i451, label %for.body141.us.i448.epil, !llvm.loop !46
 
 for.cond138.for.inc150_crit_edge.us.i451:         ; preds = %for.body141.us.i448.epil, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa
   %incdec.ptr.us.i445.lcssa = phi ptr [ %incdec.ptr.us.i445.lcssa.ph, %for.cond138.for.inc150_crit_edge.us.i451.unr-lcssa ], [ %incdec.ptr.us.i445.epil, %for.body141.us.i448.epil ]
   %indvars.iv.next271.i449 = add nuw nsw i64 %indvars.iv270.i437, 1
   %exitcond274.not.i450 = icmp eq i64 %indvars.iv.next271.i449, %wide.trip.count273.i434
-  br i1 %exitcond274.not.i450, label %img2buf.exit477.loopexit617, label %for.cond138.preheader.us.i440, !llvm.loop !16
+  br i1 %exitcond274.not.i450, label %img2buf.exit477.loopexit633, label %for.cond138.preheader.us.i440, !llvm.loop !16
 
 for.cond105.preheader.i455:                       ; preds = %if.end.i429, %if.end.thread.i425
   %size.0287.i452 = phi i32 [ 2, %if.end.thread.i425 ], [ %div, %if.end.i429 ]
@@ -880,15 +880,15 @@ for.cond112.for.end129_crit_edge.us.i476:         ; preds = %for.body116.us.i473
   %cmp107.us.i475 = icmp slt i64 %indvars.iv.next279.i474, %123
   br i1 %cmp107.us.i475, label %for.body109.us.i464, label %img2buf.exit477, !llvm.loop !18
 
-img2buf.exit477.loopexit617:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i451
-  %.pre629 = load i32, ptr %size_y_cr111, align 4, !tbaa !42
-  %.pre630 = load i32, ptr %size_x_cr110, align 8, !tbaa !41
-  %.pre639 = sub i32 %.pre630, %103
+img2buf.exit477.loopexit633:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i451
+  %.pre645 = load i32, ptr %size_y_cr111, align 4, !tbaa !42
+  %.pre646 = load i32, ptr %size_x_cr110, align 8, !tbaa !41
+  %.pre655 = sub i32 %.pre646, %103
   br label %img2buf.exit477
 
-img2buf.exit477:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i476, %img2buf.exit477.loopexit617, %for.cond134.preheader.i433, %for.cond105.preheader.i455, %for.body109.lr.ph.i459
-  %sub117.pre-phi = phi i32 [ %.pre639, %img2buf.exit477.loopexit617 ], [ %sub1.i419, %for.cond134.preheader.i433 ], [ %sub1.i419, %for.cond105.preheader.i455 ], [ %sub1.i419, %for.body109.lr.ph.i459 ], [ %sub1.i419, %for.cond112.for.end129_crit_edge.us.i476 ]
-  %129 = phi i32 [ %.pre629, %img2buf.exit477.loopexit617 ], [ %102, %for.cond134.preheader.i433 ], [ %102, %for.cond105.preheader.i455 ], [ %102, %for.body109.lr.ph.i459 ], [ %102, %for.cond112.for.end129_crit_edge.us.i476 ]
+img2buf.exit477:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i476, %img2buf.exit477.loopexit633, %for.cond134.preheader.i433, %for.cond105.preheader.i455, %for.body109.lr.ph.i459
+  %sub117.pre-phi = phi i32 [ %.pre655, %img2buf.exit477.loopexit633 ], [ %sub1.i419, %for.cond134.preheader.i433 ], [ %sub1.i419, %for.cond105.preheader.i455 ], [ %sub1.i419, %for.body109.lr.ph.i459 ], [ %sub1.i419, %for.cond112.for.end129_crit_edge.us.i476 ]
+  %129 = phi i32 [ %.pre645, %img2buf.exit477.loopexit633 ], [ %102, %for.cond134.preheader.i433 ], [ %102, %for.cond105.preheader.i455 ], [ %102, %for.body109.lr.ph.i459 ], [ %102, %for.cond112.for.end129_crit_edge.us.i476 ]
   %130 = add i32 %mul107, %mul103
   %sub114 = sub i32 %129, %130
   %mul118 = mul i32 %sub114, %div
@@ -933,10 +933,10 @@ for.cond134.preheader.i492:                       ; preds = %if.end.i488
 for.cond138.preheader.us.preheader.i495:          ; preds = %for.cond134.preheader.i492
   %wide.trip.count273.i493 = zext i32 %134 to i64
   %wide.trip.count.i494 = zext i32 %133 to i64
-  %xtraiter656 = and i64 %wide.trip.count.i494, 3
+  %xtraiter672 = and i64 %wide.trip.count.i494, 3
   %139 = icmp ult i32 %133, 4
-  %unroll_iter660 = and i64 %wide.trip.count.i494, 4294967292
-  %lcmp.mod658.not = icmp eq i64 %xtraiter656, 0
+  %unroll_iter676 = and i64 %wide.trip.count.i494, 4294967292
+  %lcmp.mod674.not = icmp eq i64 %xtraiter672, 0
   br label %for.cond138.preheader.us.i499
 
 for.cond138.preheader.us.i499:                    ; preds = %for.cond138.for.inc150_crit_edge.us.i510, %for.cond138.preheader.us.preheader.i495
@@ -948,7 +948,7 @@ for.cond138.preheader.us.i499:                    ; preds = %for.cond138.for.inc
 for.body141.us.i507:                              ; preds = %for.cond138.preheader.us.i499, %for.body141.us.i507
   %indvars.iv.i500 = phi i64 [ %indvars.iv.next.i505.3, %for.body141.us.i507 ], [ 0, %for.cond138.preheader.us.i499 ]
   %buf.addr.1258.us.i501 = phi ptr [ %incdec.ptr.us.i504.3, %for.body141.us.i507 ], [ %buf.addr.0261.us.i497, %for.cond138.preheader.us.i499 ]
-  %niter661 = phi i64 [ %niter661.next.3, %for.body141.us.i507 ], [ 0, %for.cond138.preheader.us.i499 ]
+  %niter677 = phi i64 [ %niter677.next.3, %for.body141.us.i507 ], [ 0, %for.cond138.preheader.us.i499 ]
   %140 = load ptr, ptr %arrayidx143.us.i498, align 8, !tbaa !5
   %arrayidx145.us.i502 = getelementptr inbounds i16, ptr %140, i64 %indvars.iv.i500
   %141 = load i16, ptr %arrayidx145.us.i502, align 2, !tbaa !9
@@ -977,20 +977,20 @@ for.body141.us.i507:                              ; preds = %for.cond138.prehead
   %incdec.ptr.us.i504.3 = getelementptr inbounds i8, ptr %buf.addr.1258.us.i501, i64 4
   store i8 %conv146.us.i503.3, ptr %incdec.ptr.us.i504.2, align 1, !tbaa !11
   %indvars.iv.next.i505.3 = add nuw nsw i64 %indvars.iv.i500, 4
-  %niter661.next.3 = add i64 %niter661, 4
-  %niter661.ncmp.3 = icmp eq i64 %niter661.next.3, %unroll_iter660
-  br i1 %niter661.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa, label %for.body141.us.i507, !llvm.loop !12
+  %niter677.next.3 = add i64 %niter677, 4
+  %niter677.ncmp.3 = icmp eq i64 %niter677.next.3, %unroll_iter676
+  br i1 %niter677.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa, label %for.body141.us.i507, !llvm.loop !12
 
 for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa: ; preds = %for.body141.us.i507, %for.cond138.preheader.us.i499
   %incdec.ptr.us.i504.lcssa.ph = phi ptr [ undef, %for.cond138.preheader.us.i499 ], [ %incdec.ptr.us.i504.3, %for.body141.us.i507 ]
   %indvars.iv.i500.unr = phi i64 [ 0, %for.cond138.preheader.us.i499 ], [ %indvars.iv.next.i505.3, %for.body141.us.i507 ]
   %buf.addr.1258.us.i501.unr = phi ptr [ %buf.addr.0261.us.i497, %for.cond138.preheader.us.i499 ], [ %incdec.ptr.us.i504.3, %for.body141.us.i507 ]
-  br i1 %lcmp.mod658.not, label %for.cond138.for.inc150_crit_edge.us.i510, label %for.body141.us.i507.epil
+  br i1 %lcmp.mod674.not, label %for.cond138.for.inc150_crit_edge.us.i510, label %for.body141.us.i507.epil
 
 for.body141.us.i507.epil:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa, %for.body141.us.i507.epil
   %indvars.iv.i500.epil = phi i64 [ %indvars.iv.next.i505.epil, %for.body141.us.i507.epil ], [ %indvars.iv.i500.unr, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa ]
   %buf.addr.1258.us.i501.epil = phi ptr [ %incdec.ptr.us.i504.epil, %for.body141.us.i507.epil ], [ %buf.addr.1258.us.i501.unr, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa ]
-  %epil.iter657 = phi i64 [ %epil.iter657.next, %for.body141.us.i507.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa ]
+  %epil.iter673 = phi i64 [ %epil.iter673.next, %for.body141.us.i507.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa ]
   %148 = load ptr, ptr %arrayidx143.us.i498, align 8, !tbaa !5
   %arrayidx145.us.i502.epil = getelementptr inbounds i16, ptr %148, i64 %indvars.iv.i500.epil
   %149 = load i16, ptr %arrayidx145.us.i502.epil, align 2, !tbaa !9
@@ -998,15 +998,15 @@ for.body141.us.i507.epil:                         ; preds = %for.cond138.for.inc
   %incdec.ptr.us.i504.epil = getelementptr inbounds i8, ptr %buf.addr.1258.us.i501.epil, i64 1
   store i8 %conv146.us.i503.epil, ptr %buf.addr.1258.us.i501.epil, align 1, !tbaa !11
   %indvars.iv.next.i505.epil = add nuw nsw i64 %indvars.iv.i500.epil, 1
-  %epil.iter657.next = add i64 %epil.iter657, 1
-  %epil.iter657.cmp.not = icmp eq i64 %epil.iter657.next, %xtraiter656
-  br i1 %epil.iter657.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i510, label %for.body141.us.i507.epil, !llvm.loop !47
+  %epil.iter673.next = add i64 %epil.iter673, 1
+  %epil.iter673.cmp.not = icmp eq i64 %epil.iter673.next, %xtraiter672
+  br i1 %epil.iter673.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i510, label %for.body141.us.i507.epil, !llvm.loop !47
 
 for.cond138.for.inc150_crit_edge.us.i510:         ; preds = %for.body141.us.i507.epil, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa
   %incdec.ptr.us.i504.lcssa = phi ptr [ %incdec.ptr.us.i504.lcssa.ph, %for.cond138.for.inc150_crit_edge.us.i510.unr-lcssa ], [ %incdec.ptr.us.i504.epil, %for.body141.us.i507.epil ]
   %indvars.iv.next271.i508 = add nuw nsw i64 %indvars.iv270.i496, 1
   %exitcond274.not.i509 = icmp eq i64 %indvars.iv.next271.i508, %wide.trip.count273.i493
-  br i1 %exitcond274.not.i509, label %img2buf.exit536.loopexit616, label %for.cond138.preheader.us.i499, !llvm.loop !16
+  br i1 %exitcond274.not.i509, label %img2buf.exit536.loopexit632, label %for.cond138.preheader.us.i499, !llvm.loop !16
 
 for.cond105.preheader.i514:                       ; preds = %if.end.i488, %if.end.thread.i484
   %size.0287.i511 = phi i32 [ 2, %if.end.thread.i484 ], [ %div, %if.end.i488 ]
@@ -1055,15 +1055,15 @@ for.cond112.for.end129_crit_edge.us.i535:         ; preds = %for.body116.us.i532
   %cmp107.us.i534 = icmp slt i64 %indvars.iv.next279.i533, %153
   br i1 %cmp107.us.i534, label %for.body109.us.i523, label %img2buf.exit536, !llvm.loop !18
 
-img2buf.exit536.loopexit616:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i510
-  %.pre631 = load i32, ptr %size_y_cr111, align 4, !tbaa !42
-  %.pre632 = load i32, ptr %size_x_cr110, align 8, !tbaa !41
-  %.pre640 = sub i32 %.pre632, %103
+img2buf.exit536.loopexit632:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i510
+  %.pre647 = load i32, ptr %size_y_cr111, align 4, !tbaa !42
+  %.pre648 = load i32, ptr %size_x_cr110, align 8, !tbaa !41
+  %.pre656 = sub i32 %.pre648, %103
   br label %img2buf.exit536
 
-img2buf.exit536:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i535, %img2buf.exit536.loopexit616, %for.cond134.preheader.i492, %for.cond105.preheader.i514, %for.body109.lr.ph.i518
-  %sub133.pre-phi = phi i32 [ %.pre640, %img2buf.exit536.loopexit616 ], [ %sub1.i478, %for.cond134.preheader.i492 ], [ %sub1.i478, %for.cond105.preheader.i514 ], [ %sub1.i478, %for.body109.lr.ph.i518 ], [ %sub1.i478, %for.cond112.for.end129_crit_edge.us.i535 ]
-  %159 = phi i32 [ %.pre631, %img2buf.exit536.loopexit616 ], [ %134, %for.cond134.preheader.i492 ], [ %134, %for.cond105.preheader.i514 ], [ %134, %for.body109.lr.ph.i518 ], [ %134, %for.cond112.for.end129_crit_edge.us.i535 ]
+img2buf.exit536:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i535, %img2buf.exit536.loopexit632, %for.cond134.preheader.i492, %for.cond105.preheader.i514, %for.body109.lr.ph.i518
+  %sub133.pre-phi = phi i32 [ %.pre656, %img2buf.exit536.loopexit632 ], [ %sub1.i478, %for.cond134.preheader.i492 ], [ %sub1.i478, %for.cond105.preheader.i514 ], [ %sub1.i478, %for.body109.lr.ph.i518 ], [ %sub1.i478, %for.cond112.for.end129_crit_edge.us.i535 ]
+  %159 = phi i32 [ %.pre647, %img2buf.exit536.loopexit632 ], [ %134, %for.cond134.preheader.i492 ], [ %134, %for.cond105.preheader.i514 ], [ %134, %for.body109.lr.ph.i518 ], [ %134, %for.cond112.for.end129_crit_edge.us.i535 ]
   %sub130 = sub i32 %159, %130
   %mul134 = mul i32 %sub130, %div
   %mul135 = mul i32 %mul134, %sub133.pre-phi
@@ -1093,30 +1093,30 @@ if.then141:                                       ; preds = %if.else139
   %call149 = tail call i32 @get_mem3Dpel(ptr noundef nonnull %imgUV144, i32 noundef 1, i32 noundef %div146, i32 noundef %div148) #11
   %166 = load i32, ptr %size_y, align 4, !tbaa !39
   %div151 = sdiv i32 %166, 2
-  %cmp152610 = icmp sgt i32 %166, 1
+  %cmp152626 = icmp sgt i32 %166, 1
   %167 = load i32, ptr %size_x, align 8, !tbaa !38
   %div156 = sdiv i32 %167, 2
-  %cmp157608 = icmp sgt i32 %167, 1
-  %or.cond = select i1 %cmp152610, i1 %cmp157608, i1 false
+  %cmp157624 = icmp sgt i32 %167, 1
+  %or.cond = select i1 %cmp152626, i1 %cmp157624, i1 false
   br i1 %or.cond, label %for.cond154.preheader.lr.ph.split.us, label %for.end168
 
 for.cond154.preheader.lr.ph.split.us:             ; preds = %if.then141
   %168 = load ptr, ptr %imgUV144, align 8, !tbaa !40
   %169 = load ptr, ptr %168, align 8, !tbaa !5
-  %wide.trip.count624 = zext i32 %div151 to i64
+  %wide.trip.count640 = zext i32 %div151 to i64
   %wide.trip.count = zext i32 %div156 to i64
   %min.iters.check = icmp ult i32 %div156, 16
   %n.vec = and i64 %wide.trip.count, 4294967280
   %broadcast.splatinsert = insertelement <8 x i16> poison, i16 %conv143, i64 0
   %broadcast.splat = shufflevector <8 x i16> %broadcast.splatinsert, <8 x i16> poison, <8 x i32> zeroinitializer
-  %broadcast.splatinsert641 = insertelement <8 x i16> poison, i16 %conv143, i64 0
-  %broadcast.splat642 = shufflevector <8 x i16> %broadcast.splatinsert641, <8 x i16> poison, <8 x i32> zeroinitializer
+  %broadcast.splatinsert657 = insertelement <8 x i16> poison, i16 %conv143, i64 0
+  %broadcast.splat658 = shufflevector <8 x i16> %broadcast.splatinsert657, <8 x i16> poison, <8 x i32> zeroinitializer
   %cmp.n = icmp eq i64 %n.vec, %wide.trip.count
   br label %for.cond154.preheader.us
 
 for.cond154.preheader.us:                         ; preds = %for.cond154.for.inc166_crit_edge.us, %for.cond154.preheader.lr.ph.split.us
-  %indvars.iv621 = phi i64 [ %indvars.iv.next622, %for.cond154.for.inc166_crit_edge.us ], [ 0, %for.cond154.preheader.lr.ph.split.us ]
-  %arrayidx163.us = getelementptr inbounds ptr, ptr %169, i64 %indvars.iv621
+  %indvars.iv637 = phi i64 [ %indvars.iv.next638, %for.cond154.for.inc166_crit_edge.us ], [ 0, %for.cond154.preheader.lr.ph.split.us ]
+  %arrayidx163.us = getelementptr inbounds ptr, ptr %169, i64 %indvars.iv637
   %170 = load ptr, ptr %arrayidx163.us, align 8, !tbaa !5
   br i1 %min.iters.check, label %for.body159.us.preheader, label %vector.body
 
@@ -1125,7 +1125,7 @@ vector.body:                                      ; preds = %for.cond154.prehead
   %171 = getelementptr inbounds i16, ptr %170, i64 %index
   store <8 x i16> %broadcast.splat, ptr %171, align 2, !tbaa !9
   %172 = getelementptr inbounds i16, ptr %171, i64 8
-  store <8 x i16> %broadcast.splat642, ptr %172, align 2, !tbaa !9
+  store <8 x i16> %broadcast.splat658, ptr %172, align 2, !tbaa !9
   %index.next = add nuw i64 %index, 16
   %173 = icmp eq i64 %index.next, %n.vec
   br i1 %173, label %middle.block, label %vector.body, !llvm.loop !51
@@ -1146,9 +1146,9 @@ for.body159.us:                                   ; preds = %for.body159.us.preh
   br i1 %exitcond.not, label %for.cond154.for.inc166_crit_edge.us, label %for.body159.us, !llvm.loop !54
 
 for.cond154.for.inc166_crit_edge.us:              ; preds = %for.body159.us, %middle.block
-  %indvars.iv.next622 = add nuw nsw i64 %indvars.iv621, 1
-  %exitcond625.not = icmp eq i64 %indvars.iv.next622, %wide.trip.count624
-  br i1 %exitcond625.not, label %for.end168, label %for.cond154.preheader.us, !llvm.loop !55
+  %indvars.iv.next638 = add nuw nsw i64 %indvars.iv637, 1
+  %exitcond641.not = icmp eq i64 %indvars.iv.next638, %wide.trip.count640
+  br i1 %exitcond641.not, label %for.end168, label %for.cond154.preheader.us, !llvm.loop !55
 
 for.end168:                                       ; preds = %for.cond154.for.inc166_crit_edge.us, %if.then141
   %174 = load ptr, ptr %imgUV144, align 8, !tbaa !40
@@ -1182,17 +1182,17 @@ if.end.i547:                                      ; preds = %for.end168
 
 for.cond134.preheader.i551:                       ; preds = %if.end.i547
   %cmp139256.i549 = icmp sgt i32 %167, 1
-  %or.cond.i550 = and i1 %cmp152610, %cmp139256.i549
+  %or.cond.i550 = and i1 %cmp152626, %cmp139256.i549
   br i1 %or.cond.i550, label %for.cond138.preheader.us.preheader.i554, label %img2buf.exit595
 
 for.cond138.preheader.us.preheader.i554:          ; preds = %for.cond134.preheader.i551
   %wide.trip.count273.i552 = zext i32 %div151 to i64
   %wide.trip.count.i553 = zext i32 %div156 to i64
   %182 = add nsw i64 %wide.trip.count.i553, -1
-  %xtraiter662 = and i64 %wide.trip.count.i553, 3
+  %xtraiter678 = and i64 %wide.trip.count.i553, 3
   %183 = icmp ult i64 %182, 3
-  %unroll_iter666 = and i64 %wide.trip.count.i553, 4294967292
-  %lcmp.mod664.not = icmp eq i64 %xtraiter662, 0
+  %unroll_iter682 = and i64 %wide.trip.count.i553, 4294967292
+  %lcmp.mod680.not = icmp eq i64 %xtraiter678, 0
   br label %for.cond138.preheader.us.i558
 
 for.cond138.preheader.us.i558:                    ; preds = %for.cond138.for.inc150_crit_edge.us.i569, %for.cond138.preheader.us.preheader.i554
@@ -1204,7 +1204,7 @@ for.cond138.preheader.us.i558:                    ; preds = %for.cond138.for.inc
 for.body141.us.i566:                              ; preds = %for.cond138.preheader.us.i558, %for.body141.us.i566
   %indvars.iv.i559 = phi i64 [ %indvars.iv.next.i564.3, %for.body141.us.i566 ], [ 0, %for.cond138.preheader.us.i558 ]
   %buf.addr.1258.us.i560 = phi ptr [ %incdec.ptr.us.i563.3, %for.body141.us.i566 ], [ %buf.addr.0261.us.i556, %for.cond138.preheader.us.i558 ]
-  %niter667 = phi i64 [ %niter667.next.3, %for.body141.us.i566 ], [ 0, %for.cond138.preheader.us.i558 ]
+  %niter683 = phi i64 [ %niter683.next.3, %for.body141.us.i566 ], [ 0, %for.cond138.preheader.us.i558 ]
   %184 = load ptr, ptr %arrayidx143.us.i557, align 8, !tbaa !5
   %arrayidx145.us.i561 = getelementptr inbounds i16, ptr %184, i64 %indvars.iv.i559
   %185 = load i16, ptr %arrayidx145.us.i561, align 2, !tbaa !9
@@ -1233,20 +1233,20 @@ for.body141.us.i566:                              ; preds = %for.cond138.prehead
   %incdec.ptr.us.i563.3 = getelementptr inbounds i8, ptr %buf.addr.1258.us.i560, i64 4
   store i8 %conv146.us.i562.3, ptr %incdec.ptr.us.i563.2, align 1, !tbaa !11
   %indvars.iv.next.i564.3 = add nuw nsw i64 %indvars.iv.i559, 4
-  %niter667.next.3 = add i64 %niter667, 4
-  %niter667.ncmp.3 = icmp eq i64 %niter667.next.3, %unroll_iter666
-  br i1 %niter667.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa, label %for.body141.us.i566, !llvm.loop !12
+  %niter683.next.3 = add i64 %niter683, 4
+  %niter683.ncmp.3 = icmp eq i64 %niter683.next.3, %unroll_iter682
+  br i1 %niter683.ncmp.3, label %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa, label %for.body141.us.i566, !llvm.loop !12
 
 for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa: ; preds = %for.body141.us.i566, %for.cond138.preheader.us.i558
   %incdec.ptr.us.i563.lcssa.ph = phi ptr [ undef, %for.cond138.preheader.us.i558 ], [ %incdec.ptr.us.i563.3, %for.body141.us.i566 ]
   %indvars.iv.i559.unr = phi i64 [ 0, %for.cond138.preheader.us.i558 ], [ %indvars.iv.next.i564.3, %for.body141.us.i566 ]
   %buf.addr.1258.us.i560.unr = phi ptr [ %buf.addr.0261.us.i556, %for.cond138.preheader.us.i558 ], [ %incdec.ptr.us.i563.3, %for.body141.us.i566 ]
-  br i1 %lcmp.mod664.not, label %for.cond138.for.inc150_crit_edge.us.i569, label %for.body141.us.i566.epil
+  br i1 %lcmp.mod680.not, label %for.cond138.for.inc150_crit_edge.us.i569, label %for.body141.us.i566.epil
 
 for.body141.us.i566.epil:                         ; preds = %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa, %for.body141.us.i566.epil
   %indvars.iv.i559.epil = phi i64 [ %indvars.iv.next.i564.epil, %for.body141.us.i566.epil ], [ %indvars.iv.i559.unr, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa ]
   %buf.addr.1258.us.i560.epil = phi ptr [ %incdec.ptr.us.i563.epil, %for.body141.us.i566.epil ], [ %buf.addr.1258.us.i560.unr, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa ]
-  %epil.iter663 = phi i64 [ %epil.iter663.next, %for.body141.us.i566.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa ]
+  %epil.iter679 = phi i64 [ %epil.iter679.next, %for.body141.us.i566.epil ], [ 0, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa ]
   %192 = load ptr, ptr %arrayidx143.us.i557, align 8, !tbaa !5
   %arrayidx145.us.i561.epil = getelementptr inbounds i16, ptr %192, i64 %indvars.iv.i559.epil
   %193 = load i16, ptr %arrayidx145.us.i561.epil, align 2, !tbaa !9
@@ -1254,15 +1254,15 @@ for.body141.us.i566.epil:                         ; preds = %for.cond138.for.inc
   %incdec.ptr.us.i563.epil = getelementptr inbounds i8, ptr %buf.addr.1258.us.i560.epil, i64 1
   store i8 %conv146.us.i562.epil, ptr %buf.addr.1258.us.i560.epil, align 1, !tbaa !11
   %indvars.iv.next.i564.epil = add nuw nsw i64 %indvars.iv.i559.epil, 1
-  %epil.iter663.next = add i64 %epil.iter663, 1
-  %epil.iter663.cmp.not = icmp eq i64 %epil.iter663.next, %xtraiter662
-  br i1 %epil.iter663.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i569, label %for.body141.us.i566.epil, !llvm.loop !56
+  %epil.iter679.next = add i64 %epil.iter679, 1
+  %epil.iter679.cmp.not = icmp eq i64 %epil.iter679.next, %xtraiter678
+  br i1 %epil.iter679.cmp.not, label %for.cond138.for.inc150_crit_edge.us.i569, label %for.body141.us.i566.epil, !llvm.loop !56
 
 for.cond138.for.inc150_crit_edge.us.i569:         ; preds = %for.body141.us.i566.epil, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa
   %incdec.ptr.us.i563.lcssa = phi ptr [ %incdec.ptr.us.i563.lcssa.ph, %for.cond138.for.inc150_crit_edge.us.i569.unr-lcssa ], [ %incdec.ptr.us.i563.epil, %for.body141.us.i566.epil ]
   %indvars.iv.next271.i567 = add nuw nsw i64 %indvars.iv270.i555, 1
   %exitcond274.not.i568 = icmp eq i64 %indvars.iv.next271.i567, %wide.trip.count273.i552
-  br i1 %exitcond274.not.i568, label %img2buf.exit595.loopexit614, label %for.cond138.preheader.us.i558, !llvm.loop !16
+  br i1 %exitcond274.not.i568, label %img2buf.exit595.loopexit630, label %for.cond138.preheader.us.i558, !llvm.loop !16
 
 for.cond105.preheader.i573:                       ; preds = %if.end.i547, %if.end.thread.i543
   %size.0287.i570 = phi i32 [ 2, %if.end.thread.i543 ], [ %div, %if.end.i547 ]
@@ -1311,14 +1311,14 @@ for.cond112.for.end129_crit_edge.us.i594:         ; preds = %for.body116.us.i591
   %cmp107.us.i593 = icmp slt i64 %indvars.iv.next279.i592, %197
   br i1 %cmp107.us.i593, label %for.body109.us.i582, label %img2buf.exit595, !llvm.loop !18
 
-img2buf.exit595.loopexit614:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i569
-  %.pre634 = load i32, ptr %size_y, align 4, !tbaa !39
-  %.pre635 = load i32, ptr %size_x, align 8, !tbaa !38
+img2buf.exit595.loopexit630:                      ; preds = %for.cond138.for.inc150_crit_edge.us.i569
+  %.pre650 = load i32, ptr %size_y, align 4, !tbaa !39
+  %.pre651 = load i32, ptr %size_x, align 8, !tbaa !38
   br label %img2buf.exit595
 
-img2buf.exit595:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i594, %img2buf.exit595.loopexit614, %for.cond134.preheader.i551, %for.cond105.preheader.i573, %for.body109.lr.ph.i577
-  %203 = phi i32 [ %.pre635, %img2buf.exit595.loopexit614 ], [ %167, %for.cond134.preheader.i551 ], [ %167, %for.cond105.preheader.i573 ], [ %167, %for.body109.lr.ph.i577 ], [ %167, %for.cond112.for.end129_crit_edge.us.i594 ]
-  %204 = phi i32 [ %.pre634, %img2buf.exit595.loopexit614 ], [ %166, %for.cond134.preheader.i551 ], [ %166, %for.cond105.preheader.i573 ], [ %166, %for.body109.lr.ph.i577 ], [ %166, %for.cond112.for.end129_crit_edge.us.i594 ]
+img2buf.exit595:                                  ; preds = %for.cond112.for.end129_crit_edge.us.i594, %img2buf.exit595.loopexit630, %for.cond134.preheader.i551, %for.cond105.preheader.i573, %for.body109.lr.ph.i577
+  %203 = phi i32 [ %.pre651, %img2buf.exit595.loopexit630 ], [ %167, %for.cond134.preheader.i551 ], [ %167, %for.cond105.preheader.i573 ], [ %167, %for.body109.lr.ph.i577 ], [ %167, %for.cond112.for.end129_crit_edge.us.i594 ]
+  %204 = phi i32 [ %.pre650, %img2buf.exit595.loopexit630 ], [ %166, %for.cond134.preheader.i551 ], [ %166, %for.cond105.preheader.i573 ], [ %166, %for.body109.lr.ph.i577 ], [ %166, %for.cond112.for.end129_crit_edge.us.i594 ]
   %sub181 = sub i32 %204, %92
   %mul182 = mul nsw i32 %sub181, %div
   %div183 = sdiv i32 %mul182, 2

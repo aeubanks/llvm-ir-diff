@@ -127,7 +127,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2426 = icmp eq i64 %7, 0
   %cmp.not.i.not24 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2426
-  br i1 %cmp.not.i.not24, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not24, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -136,7 +136,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %9 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %9, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %10 = shl nuw nsw i64 %wide.trip.count.i.i, 3
@@ -274,9 +274,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pro
 "_Z6forallI9simd_execZL18BM_HYDRO_1D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us.prol.loopexit, %for.body.i.i.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.025.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_1D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_1D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -305,72 +305,71 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %3 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not2123 = icmp eq i64 %3, 0
-  %cmp.not.i.not21 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2123
-  br i1 %cmp.not.i.not21, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  %cmp.not.i.not2729 = icmp eq i64 %3, 0
+  %cmp.not.i.not27 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2729
+  br i1 %cmp.not.i.not27, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %4 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %5 = load i64, ptr %4, align 8, !tbaa !32
   %conv = trunc i64 %5 to i32
-  br label %for.body
+  %cmp3.i.i23 = icmp sgt i32 %conv, 1
+  br i1 %cmp3.i.i23, label %for.body.us, label %if.end.i
 
-for.cond.cleanup:                                 ; preds = %do.end, %entry
+for.body.us:                                      ; preds = %for.body.lr.ph, %do.body.do.end_crit_edge.us
+  %__begin1.sroa.0.028.us = phi i64 [ %dec.i.us, %do.body.do.end_crit_edge.us ], [ %3, %for.body.lr.ph ]
+  br label %for.body.lr.ph.i.i.us
+
+for.body.lr.ph.i.i.us:                            ; preds = %for.body.us, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us"
+  %div2026.us.in = phi i32 [ %conv, %for.body.us ], [ %div2026.us, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us" ]
+  %add25.us = phi i32 [ %conv, %for.body.us ], [ %add.us, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us" ]
+  %ipntp.024.us = phi i32 [ 0, %for.body.us ], [ %add25.us, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us" ]
+  %add7.us = add nsw i32 %ipntp.024.us, 1
+  %6 = sext i32 %add25.us to i64
+  %7 = sext i32 %add7.us to i64
+  br label %for.body.i.i.us
+
+for.body.i.i.us:                                  ; preds = %for.body.i.i.us, %for.body.lr.ph.i.i.us
+  %indvars.iv6.i.i.us = phi i64 [ %7, %for.body.lr.ph.i.i.us ], [ %indvars.iv.next7.i.i.us, %for.body.i.i.us ]
+  %indvars.iv.i.i.us = phi i64 [ %6, %for.body.lr.ph.i.i.us ], [ %indvars.iv.next.i.i.us, %for.body.i.i.us ]
+  %indvars.iv.next.i.i.us = add nsw i64 %indvars.iv.i.i.us, 1
+  %arrayidx.i.i.i.us = getelementptr inbounds double, ptr %0, i64 %indvars.iv6.i.i.us
+  %8 = load double, ptr %arrayidx.i.i.i.us, align 8, !tbaa !9
+  %arrayidx3.i.i.i.us = getelementptr inbounds double, ptr %1, i64 %indvars.iv6.i.i.us
+  %9 = load double, ptr %arrayidx3.i.i.i.us, align 8, !tbaa !9
+  %10 = add nsw i64 %indvars.iv6.i.i.us, -1
+  %arrayidx5.i.i.i.us = getelementptr inbounds double, ptr %0, i64 %10
+  %11 = load double, ptr %arrayidx5.i.i.i.us, align 8, !tbaa !9
+  %neg.i.i.i.us = fneg double %9
+  %12 = tail call double @llvm.fmuladd.f64(double %neg.i.i.i.us, double %11, double %8)
+  %13 = add nsw i64 %indvars.iv6.i.i.us, 1
+  %arrayidx7.i.i.i.us = getelementptr inbounds double, ptr %1, i64 %13
+  %14 = load double, ptr %arrayidx7.i.i.i.us, align 8, !tbaa !9
+  %arrayidx10.i.i.i.us = getelementptr inbounds double, ptr %0, i64 %13
+  %15 = load double, ptr %arrayidx10.i.i.i.us, align 8, !tbaa !9
+  %neg11.i.i.i.us = fneg double %14
+  %16 = tail call double @llvm.fmuladd.f64(double %neg11.i.i.i.us, double %15, double %12)
+  %arrayidx13.i.i.i.us = getelementptr inbounds double, ptr %0, i64 %indvars.iv.next.i.i.us
+  store double %16, ptr %arrayidx13.i.i.i.us, align 8, !tbaa !9
+  %indvars.iv.next7.i.i.us = add nsw i64 %indvars.iv6.i.i.us, 2
+  %cmp.i.i.us = icmp slt i64 %indvars.iv.next7.i.i.us, %6
+  br i1 %cmp.i.i.us, label %for.body.i.i.us, label %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us", !llvm.loop !46
+
+"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us": ; preds = %for.body.i.i.us
+  %div2026.us = lshr i32 %div2026.us.in, 1
+  %add.us = add nsw i32 %div2026.us, %add25.us
+  %cmp3.i.i.us = icmp ugt i32 %div2026.us.in, 3
+  br i1 %cmp3.i.i.us, label %for.body.lr.ph.i.i.us, label %do.body.do.end_crit_edge.us, !llvm.loop !47
+
+do.body.do.end_crit_edge.us:                      ; preds = %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.us"
+  %dec.i.us = add i64 %__begin1.sroa.0.028.us, -1
+  %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
+
+if.end.i:                                         ; preds = %do.body.do.end_crit_edge.us, %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
-
-for.body:                                         ; preds = %for.body.lr.ph, %do.end
-  %__begin1.sroa.0.022 = phi i64 [ %3, %for.body.lr.ph ], [ %dec.i, %do.end ]
-  br label %do.body
-
-do.body:                                          ; preds = %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit", %for.body
-  %ipntp.0 = phi i32 [ 0, %for.body ], [ %add, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit" ]
-  %ii.0 = phi i32 [ %conv, %for.body ], [ %div1920, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit" ]
-  %add = add nsw i32 %ii.0, %ipntp.0
-  %div1920 = lshr i32 %ii.0, 1
-  %cmp3.i.i = icmp sgt i32 %ii.0, 1
-  br i1 %cmp3.i.i, label %for.body.lr.ph.i.i, label %do.end
-
-for.body.lr.ph.i.i:                               ; preds = %do.body
-  %add7 = add nsw i32 %ipntp.0, 1
-  %6 = sext i32 %add to i64
-  %7 = sext i32 %add7 to i64
-  br label %for.body.i.i
-
-for.body.i.i:                                     ; preds = %for.body.i.i, %for.body.lr.ph.i.i
-  %indvars.iv6.i.i = phi i64 [ %7, %for.body.lr.ph.i.i ], [ %indvars.iv.next7.i.i, %for.body.i.i ]
-  %indvars.iv.i.i = phi i64 [ %6, %for.body.lr.ph.i.i ], [ %indvars.iv.next.i.i, %for.body.i.i ]
-  %indvars.iv.next.i.i = add nsw i64 %indvars.iv.i.i, 1
-  %arrayidx.i.i.i = getelementptr inbounds double, ptr %0, i64 %indvars.iv6.i.i
-  %8 = load double, ptr %arrayidx.i.i.i, align 8, !tbaa !9
-  %arrayidx3.i.i.i = getelementptr inbounds double, ptr %1, i64 %indvars.iv6.i.i
-  %9 = load double, ptr %arrayidx3.i.i.i, align 8, !tbaa !9
-  %10 = add nsw i64 %indvars.iv6.i.i, -1
-  %arrayidx5.i.i.i = getelementptr inbounds double, ptr %0, i64 %10
-  %11 = load double, ptr %arrayidx5.i.i.i, align 8, !tbaa !9
-  %neg.i.i.i = fneg double %9
-  %12 = tail call double @llvm.fmuladd.f64(double %neg.i.i.i, double %11, double %8)
-  %13 = add nsw i64 %indvars.iv6.i.i, 1
-  %arrayidx7.i.i.i = getelementptr inbounds double, ptr %1, i64 %13
-  %14 = load double, ptr %arrayidx7.i.i.i, align 8, !tbaa !9
-  %arrayidx10.i.i.i = getelementptr inbounds double, ptr %0, i64 %13
-  %15 = load double, ptr %arrayidx10.i.i.i, align 8, !tbaa !9
-  %neg11.i.i.i = fneg double %14
-  %16 = tail call double @llvm.fmuladd.f64(double %neg11.i.i.i, double %15, double %12)
-  %arrayidx13.i.i.i = getelementptr inbounds double, ptr %0, i64 %indvars.iv.next.i.i
-  store double %16, ptr %arrayidx13.i.i.i, align 8, !tbaa !9
-  %indvars.iv.next7.i.i = add nsw i64 %indvars.iv6.i.i, 2
-  %cmp.i.i = icmp slt i64 %indvars.iv.next7.i.i, %6
-  br i1 %cmp.i.i, label %for.body.i.i, label %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit", !llvm.loop !46
-
-"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit": ; preds = %for.body.i.i
-  br i1 %cmp3.i.i, label %do.body, label %do.end, !llvm.loop !47
-
-do.end:                                           ; preds = %do.body, %"_Z6forallI9simd_execZL14BM_ICCG_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit"
-  %dec.i = add i64 %__begin1.sroa.0.022, -1
-  %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -393,13 +392,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1315 = icmp eq i64 %3, 0
   %cmp.not.i.not13 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1315
-  br i1 %cmp.not.i.not13, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not13, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL20BM_INNER_PROD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL20BM_INNER_PROD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %q) #10
   ret void
@@ -434,7 +433,7 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
 "_Z6forallI9simd_execZL20BM_INNER_PROD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit": ; preds = %for.body.i.i, %for.body
   %dec.i = add i64 %__begin1.sroa.0.014, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -454,7 +453,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3234 = icmp eq i64 %3, 0
   %cmp.not.i.not32 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3234
-  br i1 %cmp.not.i.not32, label %for.cond.cleanup, label %for.cond6.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not32, label %if.end.i, label %for.cond6.preheader.lr.ph, !prof !30
 
 for.cond6.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -496,7 +495,7 @@ for.cond6.preheader.prol.loopexit:                ; preds = %for.cond6.preheader
   %.unr54 = phi double [ %.pre43, %for.cond6.preheader.preheader ], [ %mul.prol, %for.cond6.preheader.prol ]
   %__begin1.sroa.0.033.unr = phi i64 [ %3, %for.cond6.preheader.preheader ], [ %dec.i.prol, %for.cond6.preheader.prol ]
   %10 = icmp eq i64 %3, 1
-  br i1 %10, label %for.cond.cleanup, label %for.cond6.preheader
+  br i1 %10, label %if.end.i, label %for.cond6.preheader
 
 for.cond6.preheader.us.preheader:                 ; preds = %for.cond6.preheader.lr.ph
   %arrayidx10.us.us.2 = getelementptr inbounds double, ptr %0, i64 999
@@ -572,7 +571,7 @@ for.body.i.i.us.us.2:                             ; preds = %for.body.i.i.us.us.
   store double %mul.us.us.2, ptr %arrayidx10.us.us.2, align 8, !tbaa !9
   %dec.i.us = add i64 %__begin1.sroa.0.033.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond6.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond6.preheader.us, !prof !30
 
 for.cond6.preheader:                              ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader
   %29 = phi double [ %mul.2.1, %for.cond6.preheader ], [ %.unr, %for.cond6.preheader.prol.loopexit ]
@@ -599,9 +598,9 @@ for.cond6.preheader:                              ; preds = %for.cond6.preheader
   store double %mul.2.1, ptr %arrayidx10.2.phi.trans.insert, align 8, !tbaa !9
   %dec.i.1 = add i64 %__begin1.sroa.0.033, -2
   %cmp.not.i.not.1 = icmp eq i64 %dec.i.1, 0
-  br i1 %cmp.not.i.not.1, label %for.cond.cleanup, label %for.cond6.preheader, !prof !51
+  br i1 %cmp.not.i.not.1, label %if.end.i, label %for.cond6.preheader, !prof !51
 
-for.cond.cleanup:                                 ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader, %"_Z6forallI9simd_execZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.loopexit.us.us.2", %entry
+if.end.i:                                         ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader, %"_Z6forallI9simd_execZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateEE3$_0EviiiT0_.exit.loopexit.us.us.2", %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -625,7 +624,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1618 = icmp eq i64 %4, 0
   %cmp.not.i.not16 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1618
-  br i1 %cmp.not.i.not16, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not16, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -633,7 +632,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %6 = load i64, ptr %5, align 8, !tbaa !32
   %conv = trunc i64 %6 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 1
-  br i1 %cmp3.i.i, label %for.body.lr.ph.split.us, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.lr.ph.split.us, label %if.end.i
 
 for.body.lr.ph.split.us:                          ; preds = %for.body.lr.ph
   %wide.trip.count.i.i = and i64 %6, 4294967295
@@ -694,9 +693,9 @@ for.body.i.i.us.epil:                             ; preds = %"_Z6forallI9simd_ex
 "_Z6forallI9simd_execZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %"_Z6forallI9simd_execZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.unr-lcssa", %for.body.i.i.us.epil
   %dec.i.us = add i64 %__begin1.sroa.0.017.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -728,7 +727,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2729 = icmp eq i64 %8, 0
   %cmp.not.i.not27 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2729
-  br i1 %cmp.not.i.not27, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not27, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -737,7 +736,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %10 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %10, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %11 = shl nuw nsw i64 %wide.trip.count.i.i, 3
@@ -863,9 +862,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pre
 "_Z6forallI9simd_execZL13BM_EOS_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.028.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL13BM_EOS_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL13BM_EOS_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -913,9 +912,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %17 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not6163 = icmp eq i64 %17, 0
-  %cmp.not.i.not61 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6163
-  br i1 %cmp.not.i.not61, label %for.cond.cleanup, label %for.cond32.preheader.lr.ph, !prof !30
+  %cmp.not.i.not6264 = icmp eq i64 %17, 0
+  %cmp.not.i.not62 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6264
+  br i1 %cmp.not.i.not62, label %if.end.i, label %for.cond32.preheader.lr.ph, !prof !30
 
 for.cond32.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -924,7 +923,7 @@ for.cond32.preheader.lr.ph:                       ; preds = %entry
   %conv = trunc i64 %19 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 1
   %wide.trip.count.i.i = and i64 %19, 4294967295
-  br i1 %cmp3.i.i, label %for.cond32.preheader.lr.ph.split.us, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.cond32.preheader.lr.ph.split.us, label %if.end.i
 
 for.cond32.preheader.lr.ph.split.us:              ; preds = %for.cond32.preheader.lr.ph
   %arrayidx161.i.i.i = getelementptr inbounds ptr, ptr %5, i64 1
@@ -948,7 +947,7 @@ for.cond32.preheader.lr.ph.split.us:              ; preds = %for.cond32.preheade
   br label %for.cond32.preheader.us
 
 for.cond32.preheader.us:                          ; preds = %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1", %for.cond32.preheader.lr.ph.split.us
-  %__begin1.sroa.0.062.us = phi i64 [ %17, %for.cond32.preheader.lr.ph.split.us ], [ %dec.i.us, %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1" ]
+  %__begin1.sroa.0.063.us = phi i64 [ %17, %for.cond32.preheader.lr.ph.split.us ], [ %dec.i.us, %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1" ]
   br label %for.body.i.i.us.us
 
 for.body.i.i.us.us:                               ; preds = %for.body.i.i.us.us, %for.cond32.preheader.us
@@ -1139,11 +1138,11 @@ for.body.i.i.us.us.1:                             ; preds = %for.body.i.i.us.us,
   br i1 %exitcond.not.i.i.us.us.1, label %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1", label %for.body.i.i.us.us.1, !llvm.loop !65
 
 "_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1": ; preds = %for.body.i.i.us.us.1
-  %dec.i.us = add i64 %__begin1.sroa.0.062.us, -1
+  %dec.i.us = add i64 %__begin1.sroa.0.063.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond32.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond32.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1", %for.cond32.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL13BM_ADI_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.1", %for.cond32.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1179,7 +1178,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3335 = icmp eq i64 %10, 0
   %cmp.not.i.not33 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3335
-  br i1 %cmp.not.i.not33, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not33, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1188,7 +1187,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %12 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %12, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us, label %if.end.i
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %"_Z6forallI9simd_execZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
   %__begin1.sroa.0.034.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %10, %for.body.lr.ph ]
@@ -1236,9 +1235,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us, %f
 "_Z6forallI9simd_execZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us
   %dec.i.us = add i64 %__begin1.sroa.0.034.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1260,7 +1259,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1214 = icmp eq i64 %3, 0
   %cmp.not.i.not12 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1214
-  br i1 %cmp.not.i.not12, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not12, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1269,7 +1268,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %5 to i32
   %cmp4.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %5, 4294967295
-  br i1 %cmp4.i.i, label %for.body.us, label %for.cond.cleanup
+  br i1 %cmp4.i.i, label %for.body.us, label %if.end.i
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %"_Z6forallI9simd_execZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
   %__begin1.sroa.0.013.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %3, %for.body.lr.ph ]
@@ -1328,9 +1327,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us, %f
 "_Z6forallI9simd_execZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us
   %dec.i.us = add i64 %__begin1.sroa.0.013.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1352,7 +1351,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1416 = icmp eq i64 %3, 0
   %cmp.not.i.not14 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1416
-  br i1 %cmp.not.i.not14, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not14, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1381,7 +1380,7 @@ for.body.prol:                                    ; preds = %for.body.preheader,
 for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
   %__begin1.sroa.0.015.unr = phi i64 [ %3, %for.body.preheader ], [ %dec.i.prol, %for.body.prol ]
   %8 = icmp ult i64 %6, 7
-  br i1 %8, label %for.cond.cleanup, label %for.body
+  br i1 %8, label %if.end.i, label %for.body
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %wide.trip.count.i.i = and i64 %5, 4294967295
@@ -1453,9 +1452,9 @@ for.body.i.i.us.epil:                             ; preds = %"_Z6forallI9simd_ex
 "_Z6forallI9simd_execZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us.epil, %"_Z6forallI9simd_execZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.unr-lcssa"
   %dec.i.us = add i64 %__begin1.sroa.0.015.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.body.prol.loopexit, %for.body, %"_Z6forallI9simd_execZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %entry
+if.end.i:                                         ; preds = %for.body.prol.loopexit, %for.body, %"_Z6forallI9simd_execZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -1479,7 +1478,7 @@ for.body:                                         ; preds = %for.body.prol.loope
   store double %27, ptr %0, align 8, !tbaa !9
   %dec.i.7 = add i64 %__begin1.sroa.0.015, -8
   %cmp.not.i.not.7 = icmp eq i64 %dec.i.7, 0
-  br i1 %cmp.not.i.not.7, label %for.cond.cleanup, label %for.body, !prof !73
+  br i1 %cmp.not.i.not.7, label %if.end.i, label %for.body, !prof !73
 }
 
 ; Function Attrs: uwtable
@@ -1499,7 +1498,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1214 = icmp eq i64 %3, 0
   %cmp.not.i.not12 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1214
-  br i1 %cmp.not.i.not12, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not12, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1508,7 +1507,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %5 to i32
   %cmp4.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %5, 4294967295
-  br i1 %cmp4.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp4.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %6 = shl nuw nsw i64 %wide.trip.count.i.i, 3
@@ -1622,9 +1621,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pro
 "_Z6forallI9simd_execZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us.prol.loopexit, %for.body.i.i.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.013.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1658,7 +1657,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2830 = icmp eq i64 %9, 0
   %cmp.not.i.not28 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2830
-  br i1 %cmp.not.i.not28, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not28, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1667,7 +1666,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %11 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %11, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us, label %if.end.i
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %"_Z6forallI9simd_execZL16BM_PIC_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
   %__begin1.sroa.0.029.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL16BM_PIC_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %9, %for.body.lr.ph ]
@@ -1746,9 +1745,9 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us, %f
 "_Z6forallI9simd_execZL16BM_PIC_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us
   %dec.i.us = add i64 %__begin1.sroa.0.029.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL16BM_PIC_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL16BM_PIC_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1792,7 +1791,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not107109 = icmp eq i64 %14, 0
   %cmp.not.i.not107 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not107109
-  br i1 %cmp.not.i.not107, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not107, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1801,7 +1800,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %16 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %16, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us.preheader, label %if.end.i
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %17 = shl nuw nsw i64 %wide.trip.count.i.i, 3
@@ -2009,9 +2008,9 @@ for.body.i.i98.us:                                ; preds = %for.body.i.i98.us.p
 "_Z6forallI9simd_execZL16BM_PIC_1D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i98.us
   %dec.i.us = add i64 %__begin1.sroa.0.0108.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL16BM_PIC_1D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL16BM_PIC_1D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -2052,9 +2051,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %14 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not135137 = icmp eq i64 %14, 0
-  %cmp.not.i.not135 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not135137
-  br i1 %cmp.not.i.not135, label %for.cond.cleanup, label %for.cond25.preheader.lr.ph, !prof !30
+  %cmp.not.i.not136138 = icmp eq i64 %14, 0
+  %cmp.not.i.not136 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not136138
+  br i1 %cmp.not.i.not136, label %if.end.i, label %for.cond25.preheader.lr.ph, !prof !30
 
 for.cond25.preheader.lr.ph:                       ; preds = %entry
   %conv = trunc i64 %12 to i32
@@ -2096,36 +2095,36 @@ for.cond25.preheader.lr.ph:                       ; preds = %entry
   %arrayidx5.i.i.i.us.phi.trans.insert = getelementptr inbounds ptr, ptr %8, i64 1
   %arrayidx29.i.i.i.us.phi.trans.insert = getelementptr inbounds ptr, ptr %1, i64 1
   %arrayidx67.i.i.i.us.phi.trans.insert = getelementptr inbounds ptr, ptr %5, i64 1
-  %arrayidx.i.i.i103.us = getelementptr inbounds ptr, ptr %5, i64 1
-  %arrayidx5.i.i.i104.us = getelementptr inbounds ptr, ptr %6, i64 1
-  %arrayidx9.i.i.i105.us = getelementptr inbounds ptr, ptr %9, i64 1
+  %arrayidx.i.i.i101.us = getelementptr inbounds ptr, ptr %5, i64 1
+  %arrayidx5.i.i.i102.us = getelementptr inbounds ptr, ptr %6, i64 1
+  %arrayidx9.i.i.i103.us = getelementptr inbounds ptr, ptr %9, i64 1
   %arrayidx13.i.i.i.us = getelementptr inbounds ptr, ptr %8, i64 1
   %arrayidx17.i.i.i.us = getelementptr inbounds ptr, ptr %7, i64 1
-  %arrayidx21.i.i.i106.us = getelementptr inbounds ptr, ptr %10, i64 1
-  %arrayidx.i.i.i103.us.1 = getelementptr inbounds ptr, ptr %5, i64 2
-  %arrayidx5.i.i.i104.us.1 = getelementptr inbounds ptr, ptr %6, i64 2
-  %arrayidx9.i.i.i105.us.1 = getelementptr inbounds ptr, ptr %9, i64 2
+  %arrayidx21.i.i.i104.us = getelementptr inbounds ptr, ptr %10, i64 1
+  %arrayidx.i.i.i101.us.1 = getelementptr inbounds ptr, ptr %5, i64 2
+  %arrayidx5.i.i.i102.us.1 = getelementptr inbounds ptr, ptr %6, i64 2
+  %arrayidx9.i.i.i103.us.1 = getelementptr inbounds ptr, ptr %9, i64 2
   %arrayidx13.i.i.i.us.1 = getelementptr inbounds ptr, ptr %8, i64 2
   %arrayidx17.i.i.i.us.1 = getelementptr inbounds ptr, ptr %7, i64 2
-  %arrayidx21.i.i.i106.us.1 = getelementptr inbounds ptr, ptr %10, i64 2
-  %arrayidx.i.i.i103.us.2 = getelementptr inbounds ptr, ptr %5, i64 3
-  %arrayidx5.i.i.i104.us.2 = getelementptr inbounds ptr, ptr %6, i64 3
-  %arrayidx9.i.i.i105.us.2 = getelementptr inbounds ptr, ptr %9, i64 3
+  %arrayidx21.i.i.i104.us.1 = getelementptr inbounds ptr, ptr %10, i64 2
+  %arrayidx.i.i.i101.us.2 = getelementptr inbounds ptr, ptr %5, i64 3
+  %arrayidx5.i.i.i102.us.2 = getelementptr inbounds ptr, ptr %6, i64 3
+  %arrayidx9.i.i.i103.us.2 = getelementptr inbounds ptr, ptr %9, i64 3
   %arrayidx13.i.i.i.us.2 = getelementptr inbounds ptr, ptr %8, i64 3
   %arrayidx17.i.i.i.us.2 = getelementptr inbounds ptr, ptr %7, i64 3
-  %arrayidx21.i.i.i106.us.2 = getelementptr inbounds ptr, ptr %10, i64 3
-  %arrayidx.i.i.i103.us.3 = getelementptr inbounds ptr, ptr %5, i64 4
-  %arrayidx5.i.i.i104.us.3 = getelementptr inbounds ptr, ptr %6, i64 4
-  %arrayidx9.i.i.i105.us.3 = getelementptr inbounds ptr, ptr %9, i64 4
+  %arrayidx21.i.i.i104.us.2 = getelementptr inbounds ptr, ptr %10, i64 3
+  %arrayidx.i.i.i101.us.3 = getelementptr inbounds ptr, ptr %5, i64 4
+  %arrayidx5.i.i.i102.us.3 = getelementptr inbounds ptr, ptr %6, i64 4
+  %arrayidx9.i.i.i103.us.3 = getelementptr inbounds ptr, ptr %9, i64 4
   %arrayidx13.i.i.i.us.3 = getelementptr inbounds ptr, ptr %8, i64 4
   %arrayidx17.i.i.i.us.3 = getelementptr inbounds ptr, ptr %7, i64 4
-  %arrayidx21.i.i.i106.us.3 = getelementptr inbounds ptr, ptr %10, i64 4
-  %arrayidx.i.i.i103.us.4 = getelementptr inbounds ptr, ptr %5, i64 5
-  %arrayidx5.i.i.i104.us.4 = getelementptr inbounds ptr, ptr %6, i64 5
-  %arrayidx9.i.i.i105.us.4 = getelementptr inbounds ptr, ptr %9, i64 5
+  %arrayidx21.i.i.i104.us.3 = getelementptr inbounds ptr, ptr %10, i64 4
+  %arrayidx.i.i.i101.us.4 = getelementptr inbounds ptr, ptr %5, i64 5
+  %arrayidx5.i.i.i102.us.4 = getelementptr inbounds ptr, ptr %6, i64 5
+  %arrayidx9.i.i.i103.us.4 = getelementptr inbounds ptr, ptr %9, i64 5
   %arrayidx13.i.i.i.us.4 = getelementptr inbounds ptr, ptr %8, i64 5
   %arrayidx17.i.i.i.us.4 = getelementptr inbounds ptr, ptr %7, i64 5
-  %arrayidx21.i.i.i106.us.4 = getelementptr inbounds ptr, ptr %10, i64 5
+  %arrayidx21.i.i.i104.us.4 = getelementptr inbounds ptr, ptr %10, i64 5
   %15 = add nsw i64 %wide.trip.count.i.i, -1
   %16 = add nsw i64 %wide.trip.count.i.i, -1
   %17 = add nsw i64 %wide.trip.count.i.i, -1
@@ -2150,64 +2149,64 @@ for.cond25.preheader.lr.ph:                       ; preds = %entry
   %36 = shl nuw nsw i64 %wide.trip.count.i.i, 3
   %37 = add nsw i64 %36, -8
   %38 = add nsw i64 %wide.trip.count.i.i, -1
-  %min.iters.check996 = icmp ult i64 %38, 6
-  %n.vec999 = and i64 %38, -2
-  %ind.end1000 = or i64 %38, 1
-  %cmp.n1002 = icmp eq i64 %38, %n.vec999
-  %min.iters.check886 = icmp ult i64 %35, 6
-  %n.vec889 = and i64 %35, -2
-  %ind.end890 = or i64 %35, 1
-  %cmp.n892 = icmp eq i64 %35, %n.vec889
-  %min.iters.check776 = icmp ult i64 %32, 6
-  %n.vec779 = and i64 %32, -2
-  %ind.end780 = or i64 %32, 1
-  %cmp.n782 = icmp eq i64 %32, %n.vec779
-  %min.iters.check666 = icmp ult i64 %29, 6
-  %n.vec669 = and i64 %29, -2
-  %ind.end670 = or i64 %29, 1
-  %cmp.n672 = icmp eq i64 %29, %n.vec669
-  %min.iters.check556 = icmp ult i64 %26, 6
-  %n.vec559 = and i64 %26, -2
-  %ind.end560 = or i64 %26, 1
-  %cmp.n562 = icmp eq i64 %26, %n.vec559
-  %min.iters.check442 = icmp ult i64 %23, 14
-  %n.vec445 = and i64 %23, -2
-  %ind.end446 = or i64 %23, 1
-  %cmp.n448 = icmp eq i64 %23, %n.vec445
-  %min.iters.check294 = icmp ult i64 %19, 20
-  %n.vec297 = and i64 %19, -2
-  %ind.end298 = or i64 %19, 1
-  %cmp.n300 = icmp eq i64 %19, %n.vec297
+  %min.iters.check997 = icmp ult i64 %38, 6
+  %n.vec1000 = and i64 %38, -2
+  %ind.end1001 = or i64 %38, 1
+  %cmp.n1003 = icmp eq i64 %38, %n.vec1000
+  %min.iters.check887 = icmp ult i64 %35, 6
+  %n.vec890 = and i64 %35, -2
+  %ind.end891 = or i64 %35, 1
+  %cmp.n893 = icmp eq i64 %35, %n.vec890
+  %min.iters.check777 = icmp ult i64 %32, 6
+  %n.vec780 = and i64 %32, -2
+  %ind.end781 = or i64 %32, 1
+  %cmp.n783 = icmp eq i64 %32, %n.vec780
+  %min.iters.check667 = icmp ult i64 %29, 6
+  %n.vec670 = and i64 %29, -2
+  %ind.end671 = or i64 %29, 1
+  %cmp.n673 = icmp eq i64 %29, %n.vec670
+  %min.iters.check557 = icmp ult i64 %26, 6
+  %n.vec560 = and i64 %26, -2
+  %ind.end561 = or i64 %26, 1
+  %cmp.n563 = icmp eq i64 %26, %n.vec560
+  %min.iters.check443 = icmp ult i64 %23, 14
+  %n.vec446 = and i64 %23, -2
+  %ind.end447 = or i64 %23, 1
+  %cmp.n449 = icmp eq i64 %23, %n.vec446
+  %min.iters.check295 = icmp ult i64 %19, 20
+  %n.vec298 = and i64 %19, -2
+  %ind.end299 = or i64 %19, 1
+  %cmp.n301 = icmp eq i64 %19, %n.vec298
   %39 = and i64 %12, 1
   %lcmp.mod.not.not = icmp eq i64 %39, 0
-  %min.iters.check259 = icmp ult i64 %18, 20
-  %n.vec262 = and i64 %18, -2
-  %ind.end263 = or i64 %18, 1
-  %cmp.n265 = icmp eq i64 %18, %n.vec262
+  %min.iters.check260 = icmp ult i64 %18, 20
+  %n.vec263 = and i64 %18, -2
+  %ind.end264 = or i64 %18, 1
+  %cmp.n266 = icmp eq i64 %18, %n.vec263
   %40 = and i64 %12, 1
-  %lcmp.mod1084.not.not = icmp eq i64 %40, 0
-  %min.iters.check224 = icmp ult i64 %17, 20
-  %n.vec227 = and i64 %17, -2
-  %ind.end228 = or i64 %17, 1
-  %cmp.n230 = icmp eq i64 %17, %n.vec227
+  %lcmp.mod1085.not.not = icmp eq i64 %40, 0
+  %min.iters.check225 = icmp ult i64 %17, 20
+  %n.vec228 = and i64 %17, -2
+  %ind.end229 = or i64 %17, 1
+  %cmp.n231 = icmp eq i64 %17, %n.vec228
   %41 = and i64 %12, 1
-  %lcmp.mod1086.not.not = icmp eq i64 %41, 0
-  %min.iters.check189 = icmp ult i64 %16, 20
-  %n.vec192 = and i64 %16, -2
-  %ind.end193 = or i64 %16, 1
-  %cmp.n195 = icmp eq i64 %16, %n.vec192
+  %lcmp.mod1087.not.not = icmp eq i64 %41, 0
+  %min.iters.check190 = icmp ult i64 %16, 20
+  %n.vec193 = and i64 %16, -2
+  %ind.end194 = or i64 %16, 1
+  %cmp.n196 = icmp eq i64 %16, %n.vec193
   %42 = and i64 %12, 1
-  %lcmp.mod1088.not.not = icmp eq i64 %42, 0
+  %lcmp.mod1089.not.not = icmp eq i64 %42, 0
   %min.iters.check = icmp ult i64 %15, 20
   %n.vec = and i64 %15, -2
   %ind.end = or i64 %15, 1
   %cmp.n = icmp eq i64 %15, %n.vec
   %43 = and i64 %12, 1
-  %lcmp.mod1090.not.not = icmp eq i64 %43, 0
+  %lcmp.mod1091.not.not = icmp eq i64 %43, 0
   br label %for.cond25.preheader
 
 for.cond25.preheader:                             ; preds = %for.cond25.preheader.lr.ph, %for.end40
-  %__begin1.sroa.0.0136 = phi i64 [ %14, %for.cond25.preheader.lr.ph ], [ %dec.i, %for.end40 ]
+  %__begin1.sroa.0.0137 = phi i64 [ %14, %for.cond25.preheader.lr.ph ], [ %dec.i, %for.end40 ]
   br i1 %cmp3.i.i, label %for.body26.us.preheader, label %for.end40
 
 for.body26.us.preheader:                          ; preds = %for.cond25.preheader
@@ -2221,62 +2220,62 @@ for.body26.us.preheader:                          ; preds = %for.cond25.preheade
   %51 = load ptr, ptr %arrayidx46.i.i.i.us, align 8, !tbaa !5
   %52 = load ptr, ptr %5, align 8, !tbaa !5
   %53 = load ptr, ptr %arrayidx93.i.i.i.us, align 8, !tbaa !5
-  br i1 %min.iters.check996, label %for.body.i.i.us.preheader, label %vector.memcheck913
+  br i1 %min.iters.check997, label %for.body.i.i.us.preheader, label %vector.memcheck914
 
-vector.memcheck913:                               ; preds = %for.body26.us.preheader
-  %scevgep914 = getelementptr i8, ptr %51, i64 8
-  %scevgep915 = getelementptr i8, ptr %51, i64 %36
-  %scevgep916 = getelementptr i8, ptr %53, i64 8
-  %scevgep917 = getelementptr i8, ptr %53, i64 %36
-  %scevgep918 = getelementptr i8, ptr %44, i64 %37
-  %scevgep919 = getelementptr i8, ptr %45, i64 %37
-  %scevgep920 = getelementptr i8, ptr %46, i64 %36
-  %scevgep921 = getelementptr i8, ptr %47, i64 %36
-  %scevgep922 = getelementptr i8, ptr %48, i64 %36
-  %scevgep923 = getelementptr i8, ptr %49, i64 %36
-  %scevgep924 = getelementptr i8, ptr %50, i64 %37
-  %scevgep925 = getelementptr i8, ptr %52, i64 8
-  %scevgep926 = getelementptr i8, ptr %52, i64 %36
-  %bound0927 = icmp ult ptr %scevgep914, %scevgep917
-  %bound1928 = icmp ult ptr %scevgep916, %scevgep915
-  %found.conflict929 = and i1 %bound0927, %bound1928
-  %bound0930 = icmp ult ptr %scevgep914, %scevgep918
-  %bound1931 = icmp ult ptr %44, %scevgep915
-  %found.conflict932 = and i1 %bound0930, %bound1931
-  %bound0934 = icmp ult ptr %scevgep914, %scevgep919
-  %bound1935 = icmp ult ptr %45, %scevgep915
-  %found.conflict936 = and i1 %bound0934, %bound1935
-  %bound0938 = icmp ult ptr %scevgep914, %scevgep920
-  %bound1939 = icmp ult ptr %46, %scevgep915
-  %found.conflict940 = and i1 %bound0938, %bound1939
-  %54 = insertelement <4 x ptr> poison, ptr %scevgep914, i64 0
+vector.memcheck914:                               ; preds = %for.body26.us.preheader
+  %scevgep915 = getelementptr i8, ptr %51, i64 8
+  %scevgep916 = getelementptr i8, ptr %51, i64 %36
+  %scevgep917 = getelementptr i8, ptr %53, i64 8
+  %scevgep918 = getelementptr i8, ptr %53, i64 %36
+  %scevgep919 = getelementptr i8, ptr %44, i64 %37
+  %scevgep920 = getelementptr i8, ptr %45, i64 %37
+  %scevgep921 = getelementptr i8, ptr %46, i64 %36
+  %scevgep922 = getelementptr i8, ptr %47, i64 %36
+  %scevgep923 = getelementptr i8, ptr %48, i64 %36
+  %scevgep924 = getelementptr i8, ptr %49, i64 %36
+  %scevgep925 = getelementptr i8, ptr %50, i64 %37
+  %scevgep926 = getelementptr i8, ptr %52, i64 8
+  %scevgep927 = getelementptr i8, ptr %52, i64 %36
+  %bound0928 = icmp ult ptr %scevgep915, %scevgep918
+  %bound1929 = icmp ult ptr %scevgep917, %scevgep916
+  %found.conflict930 = and i1 %bound0928, %bound1929
+  %bound0931 = icmp ult ptr %scevgep915, %scevgep919
+  %bound1932 = icmp ult ptr %44, %scevgep916
+  %found.conflict933 = and i1 %bound0931, %bound1932
+  %bound0935 = icmp ult ptr %scevgep915, %scevgep920
+  %bound1936 = icmp ult ptr %45, %scevgep916
+  %found.conflict937 = and i1 %bound0935, %bound1936
+  %bound0939 = icmp ult ptr %scevgep915, %scevgep921
+  %bound1940 = icmp ult ptr %46, %scevgep916
+  %found.conflict941 = and i1 %bound0939, %bound1940
+  %54 = insertelement <4 x ptr> poison, ptr %scevgep915, i64 0
   %55 = shufflevector <4 x ptr> %54, <4 x ptr> poison, <4 x i32> zeroinitializer
-  %56 = insertelement <4 x ptr> poison, ptr %scevgep924, i64 0
-  %57 = insertelement <4 x ptr> %56, ptr %scevgep923, i64 1
-  %58 = insertelement <4 x ptr> %57, ptr %scevgep922, i64 2
-  %59 = insertelement <4 x ptr> %58, ptr %scevgep921, i64 3
+  %56 = insertelement <4 x ptr> poison, ptr %scevgep925, i64 0
+  %57 = insertelement <4 x ptr> %56, ptr %scevgep924, i64 1
+  %58 = insertelement <4 x ptr> %57, ptr %scevgep923, i64 2
+  %59 = insertelement <4 x ptr> %58, ptr %scevgep922, i64 3
   %60 = icmp ult <4 x ptr> %55, %59
   %61 = insertelement <4 x ptr> poison, ptr %50, i64 0
   %62 = insertelement <4 x ptr> %61, ptr %49, i64 1
   %63 = insertelement <4 x ptr> %62, ptr %48, i64 2
   %64 = insertelement <4 x ptr> %63, ptr %47, i64 3
-  %65 = insertelement <4 x ptr> poison, ptr %scevgep915, i64 0
+  %65 = insertelement <4 x ptr> poison, ptr %scevgep916, i64 0
   %66 = shufflevector <4 x ptr> %65, <4 x ptr> poison, <4 x i32> zeroinitializer
   %67 = icmp ult <4 x ptr> %64, %66
   %68 = and <4 x i1> %60, %67
-  %bound0958 = icmp ult ptr %scevgep914, %scevgep926
-  %bound1959 = icmp ult ptr %scevgep925, %scevgep915
-  %found.conflict960 = and i1 %bound0958, %bound1959
-  %69 = insertelement <8 x ptr> poison, ptr %scevgep916, i64 0
+  %bound0959 = icmp ult ptr %scevgep915, %scevgep927
+  %bound1960 = icmp ult ptr %scevgep926, %scevgep916
+  %found.conflict961 = and i1 %bound0959, %bound1960
+  %69 = insertelement <8 x ptr> poison, ptr %scevgep917, i64 0
   %70 = shufflevector <8 x ptr> %69, <8 x ptr> poison, <8 x i32> zeroinitializer
-  %71 = insertelement <8 x ptr> poison, ptr %scevgep918, i64 0
-  %72 = insertelement <8 x ptr> %71, ptr %scevgep919, i64 1
-  %73 = insertelement <8 x ptr> %72, ptr %scevgep920, i64 2
-  %74 = insertelement <8 x ptr> %73, ptr %scevgep921, i64 3
-  %75 = insertelement <8 x ptr> %74, ptr %scevgep922, i64 4
-  %76 = insertelement <8 x ptr> %75, ptr %scevgep923, i64 5
-  %77 = insertelement <8 x ptr> %76, ptr %scevgep924, i64 6
-  %78 = insertelement <8 x ptr> %77, ptr %scevgep926, i64 7
+  %71 = insertelement <8 x ptr> poison, ptr %scevgep919, i64 0
+  %72 = insertelement <8 x ptr> %71, ptr %scevgep920, i64 1
+  %73 = insertelement <8 x ptr> %72, ptr %scevgep921, i64 2
+  %74 = insertelement <8 x ptr> %73, ptr %scevgep922, i64 3
+  %75 = insertelement <8 x ptr> %74, ptr %scevgep923, i64 4
+  %76 = insertelement <8 x ptr> %75, ptr %scevgep924, i64 5
+  %77 = insertelement <8 x ptr> %76, ptr %scevgep925, i64 6
+  %78 = insertelement <8 x ptr> %77, ptr %scevgep927, i64 7
   %79 = icmp ult <8 x ptr> %70, %78
   %80 = insertelement <8 x ptr> poison, ptr %44, i64 0
   %81 = insertelement <8 x ptr> %80, ptr %45, i64 1
@@ -2285,8 +2284,8 @@ vector.memcheck913:                               ; preds = %for.body26.us.prehe
   %84 = insertelement <8 x ptr> %83, ptr %48, i64 4
   %85 = insertelement <8 x ptr> %84, ptr %49, i64 5
   %86 = insertelement <8 x ptr> %85, ptr %50, i64 6
-  %87 = insertelement <8 x ptr> %86, ptr %scevgep925, i64 7
-  %88 = insertelement <8 x ptr> poison, ptr %scevgep917, i64 0
+  %87 = insertelement <8 x ptr> %86, ptr %scevgep926, i64 7
+  %88 = insertelement <8 x ptr> poison, ptr %scevgep918, i64 0
   %89 = shufflevector <8 x ptr> %88, <8 x ptr> poison, <8 x i32> zeroinitializer
   %90 = icmp ult <8 x ptr> %87, %89
   %91 = and <8 x i1> %79, %90
@@ -2294,72 +2293,72 @@ vector.memcheck913:                               ; preds = %for.body26.us.prehe
   %93 = icmp ne i8 %92, 0
   %94 = bitcast <4 x i1> %68 to i4
   %95 = icmp ne i4 %94, 0
-  %op.rdx1067 = or i1 %95, %found.conflict960
-  %op.rdx1068 = or i1 %found.conflict940, %found.conflict936
-  %op.rdx1069 = or i1 %found.conflict929, %found.conflict932
-  %op.rdx1070 = or i1 %op.rdx1067, %op.rdx1068
-  %op.rdx1071 = or i1 %op.rdx1069, %93
-  %op.rdx1072 = or i1 %op.rdx1070, %op.rdx1071
-  br i1 %op.rdx1072, label %for.body.i.i.us.preheader, label %vector.body1003
+  %op.rdx1068 = or i1 %95, %found.conflict961
+  %op.rdx1069 = or i1 %found.conflict941, %found.conflict937
+  %op.rdx1070 = or i1 %found.conflict930, %found.conflict933
+  %op.rdx1071 = or i1 %op.rdx1068, %op.rdx1069
+  %op.rdx1072 = or i1 %op.rdx1070, %93
+  %op.rdx1073 = or i1 %op.rdx1071, %op.rdx1072
+  br i1 %op.rdx1073, label %for.body.i.i.us.preheader, label %vector.body1004
 
-vector.body1003:                                  ; preds = %vector.memcheck913, %vector.body1003
-  %index1004 = phi i64 [ %index.next1022, %vector.body1003 ], [ 0, %vector.memcheck913 ]
-  %offset.idx1005 = or i64 %index1004, 1
-  %96 = getelementptr inbounds double, ptr %44, i64 %index1004
-  %wide.load1006 = load <2 x double>, ptr %96, align 8, !tbaa !9, !alias.scope !104
-  %97 = getelementptr inbounds double, ptr %45, i64 %index1004
-  %wide.load1007 = load <2 x double>, ptr %97, align 8, !tbaa !9, !alias.scope !107
-  %98 = fadd <2 x double> %wide.load1006, %wide.load1007
-  %99 = getelementptr inbounds double, ptr %46, i64 %index1004
-  %wide.load1008 = load <2 x double>, ptr %99, align 8, !tbaa !9, !alias.scope !109
-  %100 = fsub <2 x double> %98, %wide.load1008
-  %101 = getelementptr inbounds double, ptr %47, i64 %index1004
-  %wide.load1009 = load <2 x double>, ptr %101, align 8, !tbaa !9, !alias.scope !111
-  %102 = fsub <2 x double> %100, %wide.load1009
-  %103 = getelementptr inbounds double, ptr %48, i64 %offset.idx1005
-  %wide.load1010 = load <2 x double>, ptr %103, align 8, !tbaa !9, !alias.scope !113
-  %104 = getelementptr inbounds double, ptr %48, i64 %index1004
-  %wide.load1011 = load <2 x double>, ptr %104, align 8, !tbaa !9, !alias.scope !113
-  %105 = fadd <2 x double> %wide.load1010, %wide.load1011
+vector.body1004:                                  ; preds = %vector.memcheck914, %vector.body1004
+  %index1005 = phi i64 [ %index.next1023, %vector.body1004 ], [ 0, %vector.memcheck914 ]
+  %offset.idx1006 = or i64 %index1005, 1
+  %96 = getelementptr inbounds double, ptr %44, i64 %index1005
+  %wide.load1007 = load <2 x double>, ptr %96, align 8, !tbaa !9, !alias.scope !104
+  %97 = getelementptr inbounds double, ptr %45, i64 %index1005
+  %wide.load1008 = load <2 x double>, ptr %97, align 8, !tbaa !9, !alias.scope !107
+  %98 = fadd <2 x double> %wide.load1007, %wide.load1008
+  %99 = getelementptr inbounds double, ptr %46, i64 %index1005
+  %wide.load1009 = load <2 x double>, ptr %99, align 8, !tbaa !9, !alias.scope !109
+  %100 = fsub <2 x double> %98, %wide.load1009
+  %101 = getelementptr inbounds double, ptr %47, i64 %index1005
+  %wide.load1010 = load <2 x double>, ptr %101, align 8, !tbaa !9, !alias.scope !111
+  %102 = fsub <2 x double> %100, %wide.load1010
+  %103 = getelementptr inbounds double, ptr %48, i64 %offset.idx1006
+  %wide.load1011 = load <2 x double>, ptr %103, align 8, !tbaa !9, !alias.scope !113
+  %104 = getelementptr inbounds double, ptr %48, i64 %index1005
+  %wide.load1012 = load <2 x double>, ptr %104, align 8, !tbaa !9, !alias.scope !113
+  %105 = fadd <2 x double> %wide.load1011, %wide.load1012
   %106 = fmul <2 x double> %102, %105
-  %107 = getelementptr inbounds double, ptr %49, i64 %index1004
-  %wide.load1012 = load <2 x double>, ptr %107, align 8, !tbaa !9, !alias.scope !115
-  %108 = getelementptr inbounds double, ptr %50, i64 %index1004
-  %wide.load1013 = load <2 x double>, ptr %108, align 8, !tbaa !9, !alias.scope !117
-  %109 = fadd <2 x double> %wide.load1012, %wide.load1013
+  %107 = getelementptr inbounds double, ptr %49, i64 %index1005
+  %wide.load1013 = load <2 x double>, ptr %107, align 8, !tbaa !9, !alias.scope !115
+  %108 = getelementptr inbounds double, ptr %50, i64 %index1005
+  %wide.load1014 = load <2 x double>, ptr %108, align 8, !tbaa !9, !alias.scope !117
+  %109 = fadd <2 x double> %wide.load1013, %wide.load1014
   %110 = fdiv <2 x double> %106, %109
-  %111 = getelementptr inbounds double, ptr %51, i64 %offset.idx1005
+  %111 = getelementptr inbounds double, ptr %51, i64 %offset.idx1006
   store <2 x double> %110, ptr %111, align 8, !tbaa !9, !alias.scope !119, !noalias !121
-  %wide.load1014 = load <2 x double>, ptr %99, align 8, !tbaa !9, !alias.scope !109
-  %wide.load1015 = load <2 x double>, ptr %101, align 8, !tbaa !9, !alias.scope !111
-  %112 = fadd <2 x double> %wide.load1014, %wide.load1015
-  %113 = getelementptr inbounds double, ptr %46, i64 %offset.idx1005
-  %wide.load1016 = load <2 x double>, ptr %113, align 8, !tbaa !9, !alias.scope !109
-  %114 = fsub <2 x double> %112, %wide.load1016
-  %115 = getelementptr inbounds double, ptr %47, i64 %offset.idx1005
-  %wide.load1017 = load <2 x double>, ptr %115, align 8, !tbaa !9, !alias.scope !111
-  %116 = fsub <2 x double> %114, %wide.load1017
-  %wide.load1018 = load <2 x double>, ptr %103, align 8, !tbaa !9, !alias.scope !113
-  %117 = getelementptr inbounds double, ptr %52, i64 %offset.idx1005
-  %wide.load1019 = load <2 x double>, ptr %117, align 8, !tbaa !9, !alias.scope !124
-  %118 = fadd <2 x double> %wide.load1018, %wide.load1019
+  %wide.load1015 = load <2 x double>, ptr %99, align 8, !tbaa !9, !alias.scope !109
+  %wide.load1016 = load <2 x double>, ptr %101, align 8, !tbaa !9, !alias.scope !111
+  %112 = fadd <2 x double> %wide.load1015, %wide.load1016
+  %113 = getelementptr inbounds double, ptr %46, i64 %offset.idx1006
+  %wide.load1017 = load <2 x double>, ptr %113, align 8, !tbaa !9, !alias.scope !109
+  %114 = fsub <2 x double> %112, %wide.load1017
+  %115 = getelementptr inbounds double, ptr %47, i64 %offset.idx1006
+  %wide.load1018 = load <2 x double>, ptr %115, align 8, !tbaa !9, !alias.scope !111
+  %116 = fsub <2 x double> %114, %wide.load1018
+  %wide.load1019 = load <2 x double>, ptr %103, align 8, !tbaa !9, !alias.scope !113
+  %117 = getelementptr inbounds double, ptr %52, i64 %offset.idx1006
+  %wide.load1020 = load <2 x double>, ptr %117, align 8, !tbaa !9, !alias.scope !124
+  %118 = fadd <2 x double> %wide.load1019, %wide.load1020
   %119 = fmul <2 x double> %116, %118
-  %120 = getelementptr inbounds double, ptr %49, i64 %offset.idx1005
-  %wide.load1020 = load <2 x double>, ptr %120, align 8, !tbaa !9, !alias.scope !115
-  %wide.load1021 = load <2 x double>, ptr %107, align 8, !tbaa !9, !alias.scope !115
-  %121 = fadd <2 x double> %wide.load1020, %wide.load1021
+  %120 = getelementptr inbounds double, ptr %49, i64 %offset.idx1006
+  %wide.load1021 = load <2 x double>, ptr %120, align 8, !tbaa !9, !alias.scope !115
+  %wide.load1022 = load <2 x double>, ptr %107, align 8, !tbaa !9, !alias.scope !115
+  %121 = fadd <2 x double> %wide.load1021, %wide.load1022
   %122 = fdiv <2 x double> %119, %121
-  %123 = getelementptr inbounds double, ptr %53, i64 %offset.idx1005
+  %123 = getelementptr inbounds double, ptr %53, i64 %offset.idx1006
   store <2 x double> %122, ptr %123, align 8, !tbaa !9, !alias.scope !125, !noalias !126
-  %index.next1022 = add nuw i64 %index1004, 2
-  %124 = icmp eq i64 %index.next1022, %n.vec999
-  br i1 %124, label %middle.block994, label %vector.body1003, !llvm.loop !127
+  %index.next1023 = add nuw i64 %index1005, 2
+  %124 = icmp eq i64 %index.next1023, %n.vec1000
+  br i1 %124, label %middle.block995, label %vector.body1004, !llvm.loop !127
 
-middle.block994:                                  ; preds = %vector.body1003
-  br i1 %cmp.n1002, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", label %for.body.i.i.us.preheader
+middle.block995:                                  ; preds = %vector.body1004
+  br i1 %cmp.n1003, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", label %for.body.i.i.us.preheader
 
-for.body.i.i.us.preheader:                        ; preds = %vector.memcheck913, %for.body26.us.preheader, %middle.block994
-  %indvars.iv.i.i.us.ph = phi i64 [ 1, %vector.memcheck913 ], [ 1, %for.body26.us.preheader ], [ %ind.end1000, %middle.block994 ]
+for.body.i.i.us.preheader:                        ; preds = %vector.memcheck914, %for.body26.us.preheader, %middle.block995
+  %indvars.iv.i.i.us.ph = phi i64 [ 1, %vector.memcheck914 ], [ 1, %for.body26.us.preheader ], [ %ind.end1001, %middle.block995 ]
   br label %for.body.i.i.us
 
 for.body.i.i.us:                                  ; preds = %for.body.i.i.us.preheader, %for.body.i.i.us
@@ -2415,66 +2414,66 @@ for.body.i.i.us:                                  ; preds = %for.body.i.i.us.pre
   %exitcond.not.i.i.us = icmp eq i64 %indvars.iv.next.i.i.us, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i.us, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", label %for.body.i.i.us, !llvm.loop !128
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us, %middle.block994
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i.us, %middle.block995
   %142 = load ptr, ptr %arrayidx.i.i.i.us.1, align 8, !tbaa !5
   %143 = load ptr, ptr %arrayidx6.i.i.i.us.1, align 8, !tbaa !5
   %144 = load ptr, ptr %arrayidx24.i.i.i.us.1, align 8, !tbaa !5
   %145 = load ptr, ptr %arrayidx40.i.i.i.us.1, align 8, !tbaa !5
   %146 = load ptr, ptr %arrayidx46.i.i.i.us.1, align 8, !tbaa !5
   %147 = load ptr, ptr %arrayidx93.i.i.i.us.1, align 8, !tbaa !5
-  br i1 %min.iters.check886, label %for.body.i.i.us.1.preheader, label %vector.memcheck803
+  br i1 %min.iters.check887, label %for.body.i.i.us.1.preheader, label %vector.memcheck804
 
-vector.memcheck803:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
-  %scevgep804 = getelementptr i8, ptr %146, i64 8
-  %scevgep805 = getelementptr i8, ptr %146, i64 %33
-  %scevgep806 = getelementptr i8, ptr %147, i64 8
-  %scevgep807 = getelementptr i8, ptr %147, i64 %33
-  %scevgep808 = getelementptr i8, ptr %142, i64 %34
-  %scevgep809 = getelementptr i8, ptr %143, i64 %34
-  %scevgep810 = getelementptr i8, ptr %44, i64 %33
-  %scevgep811 = getelementptr i8, ptr %45, i64 %33
-  %scevgep812 = getelementptr i8, ptr %144, i64 %33
-  %scevgep813 = getelementptr i8, ptr %50, i64 %33
-  %scevgep814 = getelementptr i8, ptr %145, i64 %34
-  %scevgep815 = getelementptr i8, ptr %48, i64 8
-  %scevgep816 = getelementptr i8, ptr %48, i64 %33
-  %bound0817 = icmp ult ptr %scevgep804, %scevgep807
-  %bound1818 = icmp ult ptr %scevgep806, %scevgep805
-  %found.conflict819 = and i1 %bound0817, %bound1818
-  %bound0820 = icmp ult ptr %scevgep804, %scevgep808
-  %bound1821 = icmp ult ptr %142, %scevgep805
-  %found.conflict822 = and i1 %bound0820, %bound1821
-  %bound0824 = icmp ult ptr %scevgep804, %scevgep809
-  %bound1825 = icmp ult ptr %143, %scevgep805
-  %found.conflict826 = and i1 %bound0824, %bound1825
-  %bound0828 = icmp ult ptr %scevgep804, %scevgep810
-  %bound1829 = icmp ult ptr %44, %scevgep805
-  %found.conflict830 = and i1 %bound0828, %bound1829
-  %bound0832 = icmp ult ptr %scevgep804, %scevgep811
-  %bound1833 = icmp ult ptr %45, %scevgep805
-  %found.conflict834 = and i1 %bound0832, %bound1833
-  %bound0836 = icmp ult ptr %scevgep804, %scevgep812
-  %bound1837 = icmp ult ptr %144, %scevgep805
-  %found.conflict838 = and i1 %bound0836, %bound1837
-  %bound0840 = icmp ult ptr %scevgep804, %scevgep813
-  %bound1841 = icmp ult ptr %50, %scevgep805
-  %found.conflict842 = and i1 %bound0840, %bound1841
-  %bound0844 = icmp ult ptr %scevgep804, %scevgep814
-  %bound1845 = icmp ult ptr %145, %scevgep805
-  %found.conflict846 = and i1 %bound0844, %bound1845
-  %bound0848 = icmp ult ptr %scevgep804, %scevgep816
-  %bound1849 = icmp ult ptr %scevgep815, %scevgep805
-  %found.conflict850 = and i1 %bound0848, %bound1849
-  %148 = insertelement <8 x ptr> poison, ptr %scevgep806, i64 0
+vector.memcheck804:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
+  %scevgep805 = getelementptr i8, ptr %146, i64 8
+  %scevgep806 = getelementptr i8, ptr %146, i64 %33
+  %scevgep807 = getelementptr i8, ptr %147, i64 8
+  %scevgep808 = getelementptr i8, ptr %147, i64 %33
+  %scevgep809 = getelementptr i8, ptr %142, i64 %34
+  %scevgep810 = getelementptr i8, ptr %143, i64 %34
+  %scevgep811 = getelementptr i8, ptr %44, i64 %33
+  %scevgep812 = getelementptr i8, ptr %45, i64 %33
+  %scevgep813 = getelementptr i8, ptr %144, i64 %33
+  %scevgep814 = getelementptr i8, ptr %50, i64 %33
+  %scevgep815 = getelementptr i8, ptr %145, i64 %34
+  %scevgep816 = getelementptr i8, ptr %48, i64 8
+  %scevgep817 = getelementptr i8, ptr %48, i64 %33
+  %bound0818 = icmp ult ptr %scevgep805, %scevgep808
+  %bound1819 = icmp ult ptr %scevgep807, %scevgep806
+  %found.conflict820 = and i1 %bound0818, %bound1819
+  %bound0821 = icmp ult ptr %scevgep805, %scevgep809
+  %bound1822 = icmp ult ptr %142, %scevgep806
+  %found.conflict823 = and i1 %bound0821, %bound1822
+  %bound0825 = icmp ult ptr %scevgep805, %scevgep810
+  %bound1826 = icmp ult ptr %143, %scevgep806
+  %found.conflict827 = and i1 %bound0825, %bound1826
+  %bound0829 = icmp ult ptr %scevgep805, %scevgep811
+  %bound1830 = icmp ult ptr %44, %scevgep806
+  %found.conflict831 = and i1 %bound0829, %bound1830
+  %bound0833 = icmp ult ptr %scevgep805, %scevgep812
+  %bound1834 = icmp ult ptr %45, %scevgep806
+  %found.conflict835 = and i1 %bound0833, %bound1834
+  %bound0837 = icmp ult ptr %scevgep805, %scevgep813
+  %bound1838 = icmp ult ptr %144, %scevgep806
+  %found.conflict839 = and i1 %bound0837, %bound1838
+  %bound0841 = icmp ult ptr %scevgep805, %scevgep814
+  %bound1842 = icmp ult ptr %50, %scevgep806
+  %found.conflict843 = and i1 %bound0841, %bound1842
+  %bound0845 = icmp ult ptr %scevgep805, %scevgep815
+  %bound1846 = icmp ult ptr %145, %scevgep806
+  %found.conflict847 = and i1 %bound0845, %bound1846
+  %bound0849 = icmp ult ptr %scevgep805, %scevgep817
+  %bound1850 = icmp ult ptr %scevgep816, %scevgep806
+  %found.conflict851 = and i1 %bound0849, %bound1850
+  %148 = insertelement <8 x ptr> poison, ptr %scevgep807, i64 0
   %149 = shufflevector <8 x ptr> %148, <8 x ptr> poison, <8 x i32> zeroinitializer
-  %150 = insertelement <8 x ptr> poison, ptr %scevgep808, i64 0
-  %151 = insertelement <8 x ptr> %150, ptr %scevgep809, i64 1
-  %152 = insertelement <8 x ptr> %151, ptr %scevgep810, i64 2
-  %153 = insertelement <8 x ptr> %152, ptr %scevgep811, i64 3
-  %154 = insertelement <8 x ptr> %153, ptr %scevgep812, i64 4
-  %155 = insertelement <8 x ptr> %154, ptr %scevgep813, i64 5
-  %156 = insertelement <8 x ptr> %155, ptr %scevgep814, i64 6
-  %157 = insertelement <8 x ptr> %156, ptr %scevgep816, i64 7
+  %150 = insertelement <8 x ptr> poison, ptr %scevgep809, i64 0
+  %151 = insertelement <8 x ptr> %150, ptr %scevgep810, i64 1
+  %152 = insertelement <8 x ptr> %151, ptr %scevgep811, i64 2
+  %153 = insertelement <8 x ptr> %152, ptr %scevgep812, i64 3
+  %154 = insertelement <8 x ptr> %153, ptr %scevgep813, i64 4
+  %155 = insertelement <8 x ptr> %154, ptr %scevgep814, i64 5
+  %156 = insertelement <8 x ptr> %155, ptr %scevgep815, i64 6
+  %157 = insertelement <8 x ptr> %156, ptr %scevgep817, i64 7
   %158 = icmp ult <8 x ptr> %149, %157
   %159 = insertelement <8 x ptr> poison, ptr %142, i64 0
   %160 = insertelement <8 x ptr> %159, ptr %143, i64 1
@@ -2483,82 +2482,82 @@ vector.memcheck803:                               ; preds = %"_Z6forallI9simd_ex
   %163 = insertelement <8 x ptr> %162, ptr %144, i64 4
   %164 = insertelement <8 x ptr> %163, ptr %50, i64 5
   %165 = insertelement <8 x ptr> %164, ptr %145, i64 6
-  %166 = insertelement <8 x ptr> %165, ptr %scevgep815, i64 7
-  %167 = insertelement <8 x ptr> poison, ptr %scevgep807, i64 0
+  %166 = insertelement <8 x ptr> %165, ptr %scevgep816, i64 7
+  %167 = insertelement <8 x ptr> poison, ptr %scevgep808, i64 0
   %168 = shufflevector <8 x ptr> %167, <8 x ptr> poison, <8 x i32> zeroinitializer
   %169 = icmp ult <8 x ptr> %166, %168
   %170 = and <8 x i1> %158, %169
   %171 = bitcast <8 x i1> %170 to i8
   %172 = icmp ne i8 %171, 0
-  %op.rdx1049 = or i1 %172, %found.conflict822
-  %op.rdx1050 = or i1 %found.conflict819, %found.conflict826
-  %op.rdx1051 = or i1 %found.conflict830, %found.conflict834
-  %op.rdx1052 = or i1 %found.conflict838, %found.conflict842
-  %op.rdx1053 = or i1 %found.conflict846, %found.conflict850
-  %op.rdx1054 = or i1 %op.rdx1049, %op.rdx1050
-  %op.rdx1055 = or i1 %op.rdx1051, %op.rdx1052
-  %op.rdx1056 = or i1 %op.rdx1054, %op.rdx1055
-  %op.rdx1057 = or i1 %op.rdx1056, %op.rdx1053
-  br i1 %op.rdx1057, label %for.body.i.i.us.1.preheader, label %vector.body893
+  %op.rdx1050 = or i1 %172, %found.conflict823
+  %op.rdx1051 = or i1 %found.conflict820, %found.conflict827
+  %op.rdx1052 = or i1 %found.conflict831, %found.conflict835
+  %op.rdx1053 = or i1 %found.conflict839, %found.conflict843
+  %op.rdx1054 = or i1 %found.conflict847, %found.conflict851
+  %op.rdx1055 = or i1 %op.rdx1050, %op.rdx1051
+  %op.rdx1056 = or i1 %op.rdx1052, %op.rdx1053
+  %op.rdx1057 = or i1 %op.rdx1055, %op.rdx1056
+  %op.rdx1058 = or i1 %op.rdx1057, %op.rdx1054
+  br i1 %op.rdx1058, label %for.body.i.i.us.1.preheader, label %vector.body894
 
-vector.body893:                                   ; preds = %vector.memcheck803, %vector.body893
-  %index894 = phi i64 [ %index.next912, %vector.body893 ], [ 0, %vector.memcheck803 ]
-  %offset.idx895 = or i64 %index894, 1
-  %173 = getelementptr inbounds double, ptr %142, i64 %index894
-  %wide.load896 = load <2 x double>, ptr %173, align 8, !tbaa !9, !alias.scope !129
-  %174 = getelementptr inbounds double, ptr %143, i64 %index894
-  %wide.load897 = load <2 x double>, ptr %174, align 8, !tbaa !9, !alias.scope !132
-  %175 = fadd <2 x double> %wide.load896, %wide.load897
-  %176 = getelementptr inbounds double, ptr %44, i64 %index894
-  %wide.load898 = load <2 x double>, ptr %176, align 8, !tbaa !9, !alias.scope !134
-  %177 = fsub <2 x double> %175, %wide.load898
-  %178 = getelementptr inbounds double, ptr %45, i64 %index894
-  %wide.load899 = load <2 x double>, ptr %178, align 8, !tbaa !9, !alias.scope !136
-  %179 = fsub <2 x double> %177, %wide.load899
-  %180 = getelementptr inbounds double, ptr %144, i64 %offset.idx895
-  %wide.load900 = load <2 x double>, ptr %180, align 8, !tbaa !9, !alias.scope !138
-  %181 = getelementptr inbounds double, ptr %144, i64 %index894
-  %wide.load901 = load <2 x double>, ptr %181, align 8, !tbaa !9, !alias.scope !138
-  %182 = fadd <2 x double> %wide.load900, %wide.load901
+vector.body894:                                   ; preds = %vector.memcheck804, %vector.body894
+  %index895 = phi i64 [ %index.next913, %vector.body894 ], [ 0, %vector.memcheck804 ]
+  %offset.idx896 = or i64 %index895, 1
+  %173 = getelementptr inbounds double, ptr %142, i64 %index895
+  %wide.load897 = load <2 x double>, ptr %173, align 8, !tbaa !9, !alias.scope !129
+  %174 = getelementptr inbounds double, ptr %143, i64 %index895
+  %wide.load898 = load <2 x double>, ptr %174, align 8, !tbaa !9, !alias.scope !132
+  %175 = fadd <2 x double> %wide.load897, %wide.load898
+  %176 = getelementptr inbounds double, ptr %44, i64 %index895
+  %wide.load899 = load <2 x double>, ptr %176, align 8, !tbaa !9, !alias.scope !134
+  %177 = fsub <2 x double> %175, %wide.load899
+  %178 = getelementptr inbounds double, ptr %45, i64 %index895
+  %wide.load900 = load <2 x double>, ptr %178, align 8, !tbaa !9, !alias.scope !136
+  %179 = fsub <2 x double> %177, %wide.load900
+  %180 = getelementptr inbounds double, ptr %144, i64 %offset.idx896
+  %wide.load901 = load <2 x double>, ptr %180, align 8, !tbaa !9, !alias.scope !138
+  %181 = getelementptr inbounds double, ptr %144, i64 %index895
+  %wide.load902 = load <2 x double>, ptr %181, align 8, !tbaa !9, !alias.scope !138
+  %182 = fadd <2 x double> %wide.load901, %wide.load902
   %183 = fmul <2 x double> %179, %182
-  %184 = getelementptr inbounds double, ptr %50, i64 %index894
-  %wide.load902 = load <2 x double>, ptr %184, align 8, !tbaa !9, !alias.scope !140
-  %185 = getelementptr inbounds double, ptr %145, i64 %index894
-  %wide.load903 = load <2 x double>, ptr %185, align 8, !tbaa !9, !alias.scope !142
-  %186 = fadd <2 x double> %wide.load902, %wide.load903
+  %184 = getelementptr inbounds double, ptr %50, i64 %index895
+  %wide.load903 = load <2 x double>, ptr %184, align 8, !tbaa !9, !alias.scope !140
+  %185 = getelementptr inbounds double, ptr %145, i64 %index895
+  %wide.load904 = load <2 x double>, ptr %185, align 8, !tbaa !9, !alias.scope !142
+  %186 = fadd <2 x double> %wide.load903, %wide.load904
   %187 = fdiv <2 x double> %183, %186
-  %188 = getelementptr inbounds double, ptr %146, i64 %offset.idx895
+  %188 = getelementptr inbounds double, ptr %146, i64 %offset.idx896
   store <2 x double> %187, ptr %188, align 8, !tbaa !9, !alias.scope !144, !noalias !146
-  %wide.load904 = load <2 x double>, ptr %176, align 8, !tbaa !9, !alias.scope !134
-  %wide.load905 = load <2 x double>, ptr %178, align 8, !tbaa !9, !alias.scope !136
-  %189 = fadd <2 x double> %wide.load904, %wide.load905
-  %190 = getelementptr inbounds double, ptr %44, i64 %offset.idx895
-  %wide.load906 = load <2 x double>, ptr %190, align 8, !tbaa !9, !alias.scope !134
-  %191 = fsub <2 x double> %189, %wide.load906
-  %192 = getelementptr inbounds double, ptr %45, i64 %offset.idx895
-  %wide.load907 = load <2 x double>, ptr %192, align 8, !tbaa !9, !alias.scope !136
-  %193 = fsub <2 x double> %191, %wide.load907
-  %wide.load908 = load <2 x double>, ptr %180, align 8, !tbaa !9, !alias.scope !138
-  %194 = getelementptr inbounds double, ptr %48, i64 %offset.idx895
-  %wide.load909 = load <2 x double>, ptr %194, align 8, !tbaa !9, !alias.scope !149
-  %195 = fadd <2 x double> %wide.load908, %wide.load909
+  %wide.load905 = load <2 x double>, ptr %176, align 8, !tbaa !9, !alias.scope !134
+  %wide.load906 = load <2 x double>, ptr %178, align 8, !tbaa !9, !alias.scope !136
+  %189 = fadd <2 x double> %wide.load905, %wide.load906
+  %190 = getelementptr inbounds double, ptr %44, i64 %offset.idx896
+  %wide.load907 = load <2 x double>, ptr %190, align 8, !tbaa !9, !alias.scope !134
+  %191 = fsub <2 x double> %189, %wide.load907
+  %192 = getelementptr inbounds double, ptr %45, i64 %offset.idx896
+  %wide.load908 = load <2 x double>, ptr %192, align 8, !tbaa !9, !alias.scope !136
+  %193 = fsub <2 x double> %191, %wide.load908
+  %wide.load909 = load <2 x double>, ptr %180, align 8, !tbaa !9, !alias.scope !138
+  %194 = getelementptr inbounds double, ptr %48, i64 %offset.idx896
+  %wide.load910 = load <2 x double>, ptr %194, align 8, !tbaa !9, !alias.scope !149
+  %195 = fadd <2 x double> %wide.load909, %wide.load910
   %196 = fmul <2 x double> %193, %195
-  %197 = getelementptr inbounds double, ptr %50, i64 %offset.idx895
-  %wide.load910 = load <2 x double>, ptr %197, align 8, !tbaa !9, !alias.scope !140
-  %wide.load911 = load <2 x double>, ptr %184, align 8, !tbaa !9, !alias.scope !140
-  %198 = fadd <2 x double> %wide.load910, %wide.load911
+  %197 = getelementptr inbounds double, ptr %50, i64 %offset.idx896
+  %wide.load911 = load <2 x double>, ptr %197, align 8, !tbaa !9, !alias.scope !140
+  %wide.load912 = load <2 x double>, ptr %184, align 8, !tbaa !9, !alias.scope !140
+  %198 = fadd <2 x double> %wide.load911, %wide.load912
   %199 = fdiv <2 x double> %196, %198
-  %200 = getelementptr inbounds double, ptr %147, i64 %offset.idx895
+  %200 = getelementptr inbounds double, ptr %147, i64 %offset.idx896
   store <2 x double> %199, ptr %200, align 8, !tbaa !9, !alias.scope !150, !noalias !151
-  %index.next912 = add nuw i64 %index894, 2
-  %201 = icmp eq i64 %index.next912, %n.vec889
-  br i1 %201, label %middle.block884, label %vector.body893, !llvm.loop !152
+  %index.next913 = add nuw i64 %index895, 2
+  %201 = icmp eq i64 %index.next913, %n.vec890
+  br i1 %201, label %middle.block885, label %vector.body894, !llvm.loop !152
 
-middle.block884:                                  ; preds = %vector.body893
-  br i1 %cmp.n892, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1", label %for.body.i.i.us.1.preheader
+middle.block885:                                  ; preds = %vector.body894
+  br i1 %cmp.n893, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1", label %for.body.i.i.us.1.preheader
 
-for.body.i.i.us.1.preheader:                      ; preds = %vector.memcheck803, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %middle.block884
-  %indvars.iv.i.i.us.1.ph = phi i64 [ 1, %vector.memcheck803 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %ind.end890, %middle.block884 ]
+for.body.i.i.us.1.preheader:                      ; preds = %vector.memcheck804, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %middle.block885
+  %indvars.iv.i.i.us.1.ph = phi i64 [ 1, %vector.memcheck804 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %ind.end891, %middle.block885 ]
   br label %for.body.i.i.us.1
 
 for.body.i.i.us.1:                                ; preds = %for.body.i.i.us.1.preheader, %for.body.i.i.us.1
@@ -2614,66 +2613,66 @@ for.body.i.i.us.1:                                ; preds = %for.body.i.i.us.1.p
   %exitcond.not.i.i.us.1 = icmp eq i64 %indvars.iv.next.i.i.us.1, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i.us.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1", label %for.body.i.i.us.1, !llvm.loop !153
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1": ; preds = %for.body.i.i.us.1, %middle.block884
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1": ; preds = %for.body.i.i.us.1, %middle.block885
   %219 = load ptr, ptr %arrayidx.i.i.i.us.2, align 8, !tbaa !5
   %220 = load ptr, ptr %arrayidx6.i.i.i.us.2, align 8, !tbaa !5
   %221 = load ptr, ptr %arrayidx24.i.i.i.us.2, align 8, !tbaa !5
   %222 = load ptr, ptr %arrayidx40.i.i.i.us.2, align 8, !tbaa !5
   %223 = load ptr, ptr %arrayidx46.i.i.i.us.2, align 8, !tbaa !5
   %224 = load ptr, ptr %arrayidx93.i.i.i.us.2, align 8, !tbaa !5
-  br i1 %min.iters.check776, label %for.body.i.i.us.2.preheader, label %vector.memcheck693
+  br i1 %min.iters.check777, label %for.body.i.i.us.2.preheader, label %vector.memcheck694
 
-vector.memcheck693:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1"
-  %scevgep694 = getelementptr i8, ptr %223, i64 8
-  %scevgep695 = getelementptr i8, ptr %223, i64 %30
-  %scevgep696 = getelementptr i8, ptr %224, i64 8
-  %scevgep697 = getelementptr i8, ptr %224, i64 %30
-  %scevgep698 = getelementptr i8, ptr %219, i64 %31
-  %scevgep699 = getelementptr i8, ptr %220, i64 %31
-  %scevgep700 = getelementptr i8, ptr %142, i64 %30
-  %scevgep701 = getelementptr i8, ptr %143, i64 %30
-  %scevgep702 = getelementptr i8, ptr %221, i64 %30
-  %scevgep703 = getelementptr i8, ptr %145, i64 %30
-  %scevgep704 = getelementptr i8, ptr %222, i64 %31
-  %scevgep705 = getelementptr i8, ptr %144, i64 8
-  %scevgep706 = getelementptr i8, ptr %144, i64 %30
-  %bound0707 = icmp ult ptr %scevgep694, %scevgep697
-  %bound1708 = icmp ult ptr %scevgep696, %scevgep695
-  %found.conflict709 = and i1 %bound0707, %bound1708
-  %bound0710 = icmp ult ptr %scevgep694, %scevgep698
-  %bound1711 = icmp ult ptr %219, %scevgep695
-  %found.conflict712 = and i1 %bound0710, %bound1711
-  %bound0714 = icmp ult ptr %scevgep694, %scevgep699
-  %bound1715 = icmp ult ptr %220, %scevgep695
-  %found.conflict716 = and i1 %bound0714, %bound1715
-  %bound0718 = icmp ult ptr %scevgep694, %scevgep700
-  %bound1719 = icmp ult ptr %142, %scevgep695
-  %found.conflict720 = and i1 %bound0718, %bound1719
-  %bound0722 = icmp ult ptr %scevgep694, %scevgep701
-  %bound1723 = icmp ult ptr %143, %scevgep695
-  %found.conflict724 = and i1 %bound0722, %bound1723
-  %bound0726 = icmp ult ptr %scevgep694, %scevgep702
-  %bound1727 = icmp ult ptr %221, %scevgep695
-  %found.conflict728 = and i1 %bound0726, %bound1727
-  %bound0730 = icmp ult ptr %scevgep694, %scevgep703
-  %bound1731 = icmp ult ptr %145, %scevgep695
-  %found.conflict732 = and i1 %bound0730, %bound1731
-  %bound0734 = icmp ult ptr %scevgep694, %scevgep704
-  %bound1735 = icmp ult ptr %222, %scevgep695
-  %found.conflict736 = and i1 %bound0734, %bound1735
-  %bound0738 = icmp ult ptr %scevgep694, %scevgep706
-  %bound1739 = icmp ult ptr %scevgep705, %scevgep695
-  %found.conflict740 = and i1 %bound0738, %bound1739
-  %225 = insertelement <8 x ptr> poison, ptr %scevgep696, i64 0
+vector.memcheck694:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1"
+  %scevgep695 = getelementptr i8, ptr %223, i64 8
+  %scevgep696 = getelementptr i8, ptr %223, i64 %30
+  %scevgep697 = getelementptr i8, ptr %224, i64 8
+  %scevgep698 = getelementptr i8, ptr %224, i64 %30
+  %scevgep699 = getelementptr i8, ptr %219, i64 %31
+  %scevgep700 = getelementptr i8, ptr %220, i64 %31
+  %scevgep701 = getelementptr i8, ptr %142, i64 %30
+  %scevgep702 = getelementptr i8, ptr %143, i64 %30
+  %scevgep703 = getelementptr i8, ptr %221, i64 %30
+  %scevgep704 = getelementptr i8, ptr %145, i64 %30
+  %scevgep705 = getelementptr i8, ptr %222, i64 %31
+  %scevgep706 = getelementptr i8, ptr %144, i64 8
+  %scevgep707 = getelementptr i8, ptr %144, i64 %30
+  %bound0708 = icmp ult ptr %scevgep695, %scevgep698
+  %bound1709 = icmp ult ptr %scevgep697, %scevgep696
+  %found.conflict710 = and i1 %bound0708, %bound1709
+  %bound0711 = icmp ult ptr %scevgep695, %scevgep699
+  %bound1712 = icmp ult ptr %219, %scevgep696
+  %found.conflict713 = and i1 %bound0711, %bound1712
+  %bound0715 = icmp ult ptr %scevgep695, %scevgep700
+  %bound1716 = icmp ult ptr %220, %scevgep696
+  %found.conflict717 = and i1 %bound0715, %bound1716
+  %bound0719 = icmp ult ptr %scevgep695, %scevgep701
+  %bound1720 = icmp ult ptr %142, %scevgep696
+  %found.conflict721 = and i1 %bound0719, %bound1720
+  %bound0723 = icmp ult ptr %scevgep695, %scevgep702
+  %bound1724 = icmp ult ptr %143, %scevgep696
+  %found.conflict725 = and i1 %bound0723, %bound1724
+  %bound0727 = icmp ult ptr %scevgep695, %scevgep703
+  %bound1728 = icmp ult ptr %221, %scevgep696
+  %found.conflict729 = and i1 %bound0727, %bound1728
+  %bound0731 = icmp ult ptr %scevgep695, %scevgep704
+  %bound1732 = icmp ult ptr %145, %scevgep696
+  %found.conflict733 = and i1 %bound0731, %bound1732
+  %bound0735 = icmp ult ptr %scevgep695, %scevgep705
+  %bound1736 = icmp ult ptr %222, %scevgep696
+  %found.conflict737 = and i1 %bound0735, %bound1736
+  %bound0739 = icmp ult ptr %scevgep695, %scevgep707
+  %bound1740 = icmp ult ptr %scevgep706, %scevgep696
+  %found.conflict741 = and i1 %bound0739, %bound1740
+  %225 = insertelement <8 x ptr> poison, ptr %scevgep697, i64 0
   %226 = shufflevector <8 x ptr> %225, <8 x ptr> poison, <8 x i32> zeroinitializer
-  %227 = insertelement <8 x ptr> poison, ptr %scevgep698, i64 0
-  %228 = insertelement <8 x ptr> %227, ptr %scevgep699, i64 1
-  %229 = insertelement <8 x ptr> %228, ptr %scevgep700, i64 2
-  %230 = insertelement <8 x ptr> %229, ptr %scevgep701, i64 3
-  %231 = insertelement <8 x ptr> %230, ptr %scevgep702, i64 4
-  %232 = insertelement <8 x ptr> %231, ptr %scevgep703, i64 5
-  %233 = insertelement <8 x ptr> %232, ptr %scevgep704, i64 6
-  %234 = insertelement <8 x ptr> %233, ptr %scevgep706, i64 7
+  %227 = insertelement <8 x ptr> poison, ptr %scevgep699, i64 0
+  %228 = insertelement <8 x ptr> %227, ptr %scevgep700, i64 1
+  %229 = insertelement <8 x ptr> %228, ptr %scevgep701, i64 2
+  %230 = insertelement <8 x ptr> %229, ptr %scevgep702, i64 3
+  %231 = insertelement <8 x ptr> %230, ptr %scevgep703, i64 4
+  %232 = insertelement <8 x ptr> %231, ptr %scevgep704, i64 5
+  %233 = insertelement <8 x ptr> %232, ptr %scevgep705, i64 6
+  %234 = insertelement <8 x ptr> %233, ptr %scevgep707, i64 7
   %235 = icmp ult <8 x ptr> %226, %234
   %236 = insertelement <8 x ptr> poison, ptr %219, i64 0
   %237 = insertelement <8 x ptr> %236, ptr %220, i64 1
@@ -2682,82 +2681,82 @@ vector.memcheck693:                               ; preds = %"_Z6forallI9simd_ex
   %240 = insertelement <8 x ptr> %239, ptr %221, i64 4
   %241 = insertelement <8 x ptr> %240, ptr %145, i64 5
   %242 = insertelement <8 x ptr> %241, ptr %222, i64 6
-  %243 = insertelement <8 x ptr> %242, ptr %scevgep705, i64 7
-  %244 = insertelement <8 x ptr> poison, ptr %scevgep697, i64 0
+  %243 = insertelement <8 x ptr> %242, ptr %scevgep706, i64 7
+  %244 = insertelement <8 x ptr> poison, ptr %scevgep698, i64 0
   %245 = shufflevector <8 x ptr> %244, <8 x ptr> poison, <8 x i32> zeroinitializer
   %246 = icmp ult <8 x ptr> %243, %245
   %247 = and <8 x i1> %235, %246
   %248 = bitcast <8 x i1> %247 to i8
   %249 = icmp ne i8 %248, 0
-  %op.rdx1040 = or i1 %249, %found.conflict712
-  %op.rdx1041 = or i1 %found.conflict709, %found.conflict716
-  %op.rdx1042 = or i1 %found.conflict720, %found.conflict724
-  %op.rdx1043 = or i1 %found.conflict728, %found.conflict732
-  %op.rdx1044 = or i1 %found.conflict736, %found.conflict740
-  %op.rdx1045 = or i1 %op.rdx1040, %op.rdx1041
-  %op.rdx1046 = or i1 %op.rdx1042, %op.rdx1043
-  %op.rdx1047 = or i1 %op.rdx1045, %op.rdx1046
-  %op.rdx1048 = or i1 %op.rdx1047, %op.rdx1044
-  br i1 %op.rdx1048, label %for.body.i.i.us.2.preheader, label %vector.body783
+  %op.rdx1041 = or i1 %249, %found.conflict713
+  %op.rdx1042 = or i1 %found.conflict710, %found.conflict717
+  %op.rdx1043 = or i1 %found.conflict721, %found.conflict725
+  %op.rdx1044 = or i1 %found.conflict729, %found.conflict733
+  %op.rdx1045 = or i1 %found.conflict737, %found.conflict741
+  %op.rdx1046 = or i1 %op.rdx1041, %op.rdx1042
+  %op.rdx1047 = or i1 %op.rdx1043, %op.rdx1044
+  %op.rdx1048 = or i1 %op.rdx1046, %op.rdx1047
+  %op.rdx1049 = or i1 %op.rdx1048, %op.rdx1045
+  br i1 %op.rdx1049, label %for.body.i.i.us.2.preheader, label %vector.body784
 
-vector.body783:                                   ; preds = %vector.memcheck693, %vector.body783
-  %index784 = phi i64 [ %index.next802, %vector.body783 ], [ 0, %vector.memcheck693 ]
-  %offset.idx785 = or i64 %index784, 1
-  %250 = getelementptr inbounds double, ptr %219, i64 %index784
-  %wide.load786 = load <2 x double>, ptr %250, align 8, !tbaa !9, !alias.scope !154
-  %251 = getelementptr inbounds double, ptr %220, i64 %index784
-  %wide.load787 = load <2 x double>, ptr %251, align 8, !tbaa !9, !alias.scope !157
-  %252 = fadd <2 x double> %wide.load786, %wide.load787
-  %253 = getelementptr inbounds double, ptr %142, i64 %index784
-  %wide.load788 = load <2 x double>, ptr %253, align 8, !tbaa !9, !alias.scope !159
-  %254 = fsub <2 x double> %252, %wide.load788
-  %255 = getelementptr inbounds double, ptr %143, i64 %index784
-  %wide.load789 = load <2 x double>, ptr %255, align 8, !tbaa !9, !alias.scope !161
-  %256 = fsub <2 x double> %254, %wide.load789
-  %257 = getelementptr inbounds double, ptr %221, i64 %offset.idx785
-  %wide.load790 = load <2 x double>, ptr %257, align 8, !tbaa !9, !alias.scope !163
-  %258 = getelementptr inbounds double, ptr %221, i64 %index784
-  %wide.load791 = load <2 x double>, ptr %258, align 8, !tbaa !9, !alias.scope !163
-  %259 = fadd <2 x double> %wide.load790, %wide.load791
+vector.body784:                                   ; preds = %vector.memcheck694, %vector.body784
+  %index785 = phi i64 [ %index.next803, %vector.body784 ], [ 0, %vector.memcheck694 ]
+  %offset.idx786 = or i64 %index785, 1
+  %250 = getelementptr inbounds double, ptr %219, i64 %index785
+  %wide.load787 = load <2 x double>, ptr %250, align 8, !tbaa !9, !alias.scope !154
+  %251 = getelementptr inbounds double, ptr %220, i64 %index785
+  %wide.load788 = load <2 x double>, ptr %251, align 8, !tbaa !9, !alias.scope !157
+  %252 = fadd <2 x double> %wide.load787, %wide.load788
+  %253 = getelementptr inbounds double, ptr %142, i64 %index785
+  %wide.load789 = load <2 x double>, ptr %253, align 8, !tbaa !9, !alias.scope !159
+  %254 = fsub <2 x double> %252, %wide.load789
+  %255 = getelementptr inbounds double, ptr %143, i64 %index785
+  %wide.load790 = load <2 x double>, ptr %255, align 8, !tbaa !9, !alias.scope !161
+  %256 = fsub <2 x double> %254, %wide.load790
+  %257 = getelementptr inbounds double, ptr %221, i64 %offset.idx786
+  %wide.load791 = load <2 x double>, ptr %257, align 8, !tbaa !9, !alias.scope !163
+  %258 = getelementptr inbounds double, ptr %221, i64 %index785
+  %wide.load792 = load <2 x double>, ptr %258, align 8, !tbaa !9, !alias.scope !163
+  %259 = fadd <2 x double> %wide.load791, %wide.load792
   %260 = fmul <2 x double> %256, %259
-  %261 = getelementptr inbounds double, ptr %145, i64 %index784
-  %wide.load792 = load <2 x double>, ptr %261, align 8, !tbaa !9, !alias.scope !165
-  %262 = getelementptr inbounds double, ptr %222, i64 %index784
-  %wide.load793 = load <2 x double>, ptr %262, align 8, !tbaa !9, !alias.scope !167
-  %263 = fadd <2 x double> %wide.load792, %wide.load793
+  %261 = getelementptr inbounds double, ptr %145, i64 %index785
+  %wide.load793 = load <2 x double>, ptr %261, align 8, !tbaa !9, !alias.scope !165
+  %262 = getelementptr inbounds double, ptr %222, i64 %index785
+  %wide.load794 = load <2 x double>, ptr %262, align 8, !tbaa !9, !alias.scope !167
+  %263 = fadd <2 x double> %wide.load793, %wide.load794
   %264 = fdiv <2 x double> %260, %263
-  %265 = getelementptr inbounds double, ptr %223, i64 %offset.idx785
+  %265 = getelementptr inbounds double, ptr %223, i64 %offset.idx786
   store <2 x double> %264, ptr %265, align 8, !tbaa !9, !alias.scope !169, !noalias !171
-  %wide.load794 = load <2 x double>, ptr %253, align 8, !tbaa !9, !alias.scope !159
-  %wide.load795 = load <2 x double>, ptr %255, align 8, !tbaa !9, !alias.scope !161
-  %266 = fadd <2 x double> %wide.load794, %wide.load795
-  %267 = getelementptr inbounds double, ptr %142, i64 %offset.idx785
-  %wide.load796 = load <2 x double>, ptr %267, align 8, !tbaa !9, !alias.scope !159
-  %268 = fsub <2 x double> %266, %wide.load796
-  %269 = getelementptr inbounds double, ptr %143, i64 %offset.idx785
-  %wide.load797 = load <2 x double>, ptr %269, align 8, !tbaa !9, !alias.scope !161
-  %270 = fsub <2 x double> %268, %wide.load797
-  %wide.load798 = load <2 x double>, ptr %257, align 8, !tbaa !9, !alias.scope !163
-  %271 = getelementptr inbounds double, ptr %144, i64 %offset.idx785
-  %wide.load799 = load <2 x double>, ptr %271, align 8, !tbaa !9, !alias.scope !174
-  %272 = fadd <2 x double> %wide.load798, %wide.load799
+  %wide.load795 = load <2 x double>, ptr %253, align 8, !tbaa !9, !alias.scope !159
+  %wide.load796 = load <2 x double>, ptr %255, align 8, !tbaa !9, !alias.scope !161
+  %266 = fadd <2 x double> %wide.load795, %wide.load796
+  %267 = getelementptr inbounds double, ptr %142, i64 %offset.idx786
+  %wide.load797 = load <2 x double>, ptr %267, align 8, !tbaa !9, !alias.scope !159
+  %268 = fsub <2 x double> %266, %wide.load797
+  %269 = getelementptr inbounds double, ptr %143, i64 %offset.idx786
+  %wide.load798 = load <2 x double>, ptr %269, align 8, !tbaa !9, !alias.scope !161
+  %270 = fsub <2 x double> %268, %wide.load798
+  %wide.load799 = load <2 x double>, ptr %257, align 8, !tbaa !9, !alias.scope !163
+  %271 = getelementptr inbounds double, ptr %144, i64 %offset.idx786
+  %wide.load800 = load <2 x double>, ptr %271, align 8, !tbaa !9, !alias.scope !174
+  %272 = fadd <2 x double> %wide.load799, %wide.load800
   %273 = fmul <2 x double> %270, %272
-  %274 = getelementptr inbounds double, ptr %145, i64 %offset.idx785
-  %wide.load800 = load <2 x double>, ptr %274, align 8, !tbaa !9, !alias.scope !165
-  %wide.load801 = load <2 x double>, ptr %261, align 8, !tbaa !9, !alias.scope !165
-  %275 = fadd <2 x double> %wide.load800, %wide.load801
+  %274 = getelementptr inbounds double, ptr %145, i64 %offset.idx786
+  %wide.load801 = load <2 x double>, ptr %274, align 8, !tbaa !9, !alias.scope !165
+  %wide.load802 = load <2 x double>, ptr %261, align 8, !tbaa !9, !alias.scope !165
+  %275 = fadd <2 x double> %wide.load801, %wide.load802
   %276 = fdiv <2 x double> %273, %275
-  %277 = getelementptr inbounds double, ptr %224, i64 %offset.idx785
+  %277 = getelementptr inbounds double, ptr %224, i64 %offset.idx786
   store <2 x double> %276, ptr %277, align 8, !tbaa !9, !alias.scope !175, !noalias !176
-  %index.next802 = add nuw i64 %index784, 2
-  %278 = icmp eq i64 %index.next802, %n.vec779
-  br i1 %278, label %middle.block774, label %vector.body783, !llvm.loop !177
+  %index.next803 = add nuw i64 %index785, 2
+  %278 = icmp eq i64 %index.next803, %n.vec780
+  br i1 %278, label %middle.block775, label %vector.body784, !llvm.loop !177
 
-middle.block774:                                  ; preds = %vector.body783
-  br i1 %cmp.n782, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2", label %for.body.i.i.us.2.preheader
+middle.block775:                                  ; preds = %vector.body784
+  br i1 %cmp.n783, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2", label %for.body.i.i.us.2.preheader
 
-for.body.i.i.us.2.preheader:                      ; preds = %vector.memcheck693, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1", %middle.block774
-  %indvars.iv.i.i.us.2.ph = phi i64 [ 1, %vector.memcheck693 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1" ], [ %ind.end780, %middle.block774 ]
+for.body.i.i.us.2.preheader:                      ; preds = %vector.memcheck694, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1", %middle.block775
+  %indvars.iv.i.i.us.2.ph = phi i64 [ 1, %vector.memcheck694 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.1" ], [ %ind.end781, %middle.block775 ]
   br label %for.body.i.i.us.2
 
 for.body.i.i.us.2:                                ; preds = %for.body.i.i.us.2.preheader, %for.body.i.i.us.2
@@ -2813,66 +2812,66 @@ for.body.i.i.us.2:                                ; preds = %for.body.i.i.us.2.p
   %exitcond.not.i.i.us.2 = icmp eq i64 %indvars.iv.next.i.i.us.2, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i.us.2, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2", label %for.body.i.i.us.2, !llvm.loop !178
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2": ; preds = %for.body.i.i.us.2, %middle.block774
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2": ; preds = %for.body.i.i.us.2, %middle.block775
   %296 = load ptr, ptr %arrayidx.i.i.i.us.3, align 8, !tbaa !5
   %297 = load ptr, ptr %arrayidx6.i.i.i.us.3, align 8, !tbaa !5
   %298 = load ptr, ptr %arrayidx24.i.i.i.us.3, align 8, !tbaa !5
   %299 = load ptr, ptr %arrayidx40.i.i.i.us.3, align 8, !tbaa !5
   %300 = load ptr, ptr %arrayidx46.i.i.i.us.3, align 8, !tbaa !5
   %301 = load ptr, ptr %arrayidx93.i.i.i.us.3, align 8, !tbaa !5
-  br i1 %min.iters.check666, label %for.body.i.i.us.3.preheader, label %vector.memcheck583
+  br i1 %min.iters.check667, label %for.body.i.i.us.3.preheader, label %vector.memcheck584
 
-vector.memcheck583:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2"
-  %scevgep584 = getelementptr i8, ptr %300, i64 8
-  %scevgep585 = getelementptr i8, ptr %300, i64 %27
-  %scevgep586 = getelementptr i8, ptr %301, i64 8
-  %scevgep587 = getelementptr i8, ptr %301, i64 %27
-  %scevgep588 = getelementptr i8, ptr %296, i64 %28
-  %scevgep589 = getelementptr i8, ptr %297, i64 %28
-  %scevgep590 = getelementptr i8, ptr %219, i64 %27
-  %scevgep591 = getelementptr i8, ptr %220, i64 %27
-  %scevgep592 = getelementptr i8, ptr %298, i64 %27
-  %scevgep593 = getelementptr i8, ptr %222, i64 %27
-  %scevgep594 = getelementptr i8, ptr %299, i64 %28
-  %scevgep595 = getelementptr i8, ptr %221, i64 8
-  %scevgep596 = getelementptr i8, ptr %221, i64 %27
-  %bound0597 = icmp ult ptr %scevgep584, %scevgep587
-  %bound1598 = icmp ult ptr %scevgep586, %scevgep585
-  %found.conflict599 = and i1 %bound0597, %bound1598
-  %bound0600 = icmp ult ptr %scevgep584, %scevgep588
-  %bound1601 = icmp ult ptr %296, %scevgep585
-  %found.conflict602 = and i1 %bound0600, %bound1601
-  %bound0604 = icmp ult ptr %scevgep584, %scevgep589
-  %bound1605 = icmp ult ptr %297, %scevgep585
-  %found.conflict606 = and i1 %bound0604, %bound1605
-  %bound0608 = icmp ult ptr %scevgep584, %scevgep590
-  %bound1609 = icmp ult ptr %219, %scevgep585
-  %found.conflict610 = and i1 %bound0608, %bound1609
-  %bound0612 = icmp ult ptr %scevgep584, %scevgep591
-  %bound1613 = icmp ult ptr %220, %scevgep585
-  %found.conflict614 = and i1 %bound0612, %bound1613
-  %bound0616 = icmp ult ptr %scevgep584, %scevgep592
-  %bound1617 = icmp ult ptr %298, %scevgep585
-  %found.conflict618 = and i1 %bound0616, %bound1617
-  %bound0620 = icmp ult ptr %scevgep584, %scevgep593
-  %bound1621 = icmp ult ptr %222, %scevgep585
-  %found.conflict622 = and i1 %bound0620, %bound1621
-  %bound0624 = icmp ult ptr %scevgep584, %scevgep594
-  %bound1625 = icmp ult ptr %299, %scevgep585
-  %found.conflict626 = and i1 %bound0624, %bound1625
-  %bound0628 = icmp ult ptr %scevgep584, %scevgep596
-  %bound1629 = icmp ult ptr %scevgep595, %scevgep585
-  %found.conflict630 = and i1 %bound0628, %bound1629
-  %302 = insertelement <8 x ptr> poison, ptr %scevgep586, i64 0
+vector.memcheck584:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2"
+  %scevgep585 = getelementptr i8, ptr %300, i64 8
+  %scevgep586 = getelementptr i8, ptr %300, i64 %27
+  %scevgep587 = getelementptr i8, ptr %301, i64 8
+  %scevgep588 = getelementptr i8, ptr %301, i64 %27
+  %scevgep589 = getelementptr i8, ptr %296, i64 %28
+  %scevgep590 = getelementptr i8, ptr %297, i64 %28
+  %scevgep591 = getelementptr i8, ptr %219, i64 %27
+  %scevgep592 = getelementptr i8, ptr %220, i64 %27
+  %scevgep593 = getelementptr i8, ptr %298, i64 %27
+  %scevgep594 = getelementptr i8, ptr %222, i64 %27
+  %scevgep595 = getelementptr i8, ptr %299, i64 %28
+  %scevgep596 = getelementptr i8, ptr %221, i64 8
+  %scevgep597 = getelementptr i8, ptr %221, i64 %27
+  %bound0598 = icmp ult ptr %scevgep585, %scevgep588
+  %bound1599 = icmp ult ptr %scevgep587, %scevgep586
+  %found.conflict600 = and i1 %bound0598, %bound1599
+  %bound0601 = icmp ult ptr %scevgep585, %scevgep589
+  %bound1602 = icmp ult ptr %296, %scevgep586
+  %found.conflict603 = and i1 %bound0601, %bound1602
+  %bound0605 = icmp ult ptr %scevgep585, %scevgep590
+  %bound1606 = icmp ult ptr %297, %scevgep586
+  %found.conflict607 = and i1 %bound0605, %bound1606
+  %bound0609 = icmp ult ptr %scevgep585, %scevgep591
+  %bound1610 = icmp ult ptr %219, %scevgep586
+  %found.conflict611 = and i1 %bound0609, %bound1610
+  %bound0613 = icmp ult ptr %scevgep585, %scevgep592
+  %bound1614 = icmp ult ptr %220, %scevgep586
+  %found.conflict615 = and i1 %bound0613, %bound1614
+  %bound0617 = icmp ult ptr %scevgep585, %scevgep593
+  %bound1618 = icmp ult ptr %298, %scevgep586
+  %found.conflict619 = and i1 %bound0617, %bound1618
+  %bound0621 = icmp ult ptr %scevgep585, %scevgep594
+  %bound1622 = icmp ult ptr %222, %scevgep586
+  %found.conflict623 = and i1 %bound0621, %bound1622
+  %bound0625 = icmp ult ptr %scevgep585, %scevgep595
+  %bound1626 = icmp ult ptr %299, %scevgep586
+  %found.conflict627 = and i1 %bound0625, %bound1626
+  %bound0629 = icmp ult ptr %scevgep585, %scevgep597
+  %bound1630 = icmp ult ptr %scevgep596, %scevgep586
+  %found.conflict631 = and i1 %bound0629, %bound1630
+  %302 = insertelement <8 x ptr> poison, ptr %scevgep587, i64 0
   %303 = shufflevector <8 x ptr> %302, <8 x ptr> poison, <8 x i32> zeroinitializer
-  %304 = insertelement <8 x ptr> poison, ptr %scevgep588, i64 0
-  %305 = insertelement <8 x ptr> %304, ptr %scevgep589, i64 1
-  %306 = insertelement <8 x ptr> %305, ptr %scevgep590, i64 2
-  %307 = insertelement <8 x ptr> %306, ptr %scevgep591, i64 3
-  %308 = insertelement <8 x ptr> %307, ptr %scevgep592, i64 4
-  %309 = insertelement <8 x ptr> %308, ptr %scevgep593, i64 5
-  %310 = insertelement <8 x ptr> %309, ptr %scevgep594, i64 6
-  %311 = insertelement <8 x ptr> %310, ptr %scevgep596, i64 7
+  %304 = insertelement <8 x ptr> poison, ptr %scevgep589, i64 0
+  %305 = insertelement <8 x ptr> %304, ptr %scevgep590, i64 1
+  %306 = insertelement <8 x ptr> %305, ptr %scevgep591, i64 2
+  %307 = insertelement <8 x ptr> %306, ptr %scevgep592, i64 3
+  %308 = insertelement <8 x ptr> %307, ptr %scevgep593, i64 4
+  %309 = insertelement <8 x ptr> %308, ptr %scevgep594, i64 5
+  %310 = insertelement <8 x ptr> %309, ptr %scevgep595, i64 6
+  %311 = insertelement <8 x ptr> %310, ptr %scevgep597, i64 7
   %312 = icmp ult <8 x ptr> %303, %311
   %313 = insertelement <8 x ptr> poison, ptr %296, i64 0
   %314 = insertelement <8 x ptr> %313, ptr %297, i64 1
@@ -2881,82 +2880,82 @@ vector.memcheck583:                               ; preds = %"_Z6forallI9simd_ex
   %317 = insertelement <8 x ptr> %316, ptr %298, i64 4
   %318 = insertelement <8 x ptr> %317, ptr %222, i64 5
   %319 = insertelement <8 x ptr> %318, ptr %299, i64 6
-  %320 = insertelement <8 x ptr> %319, ptr %scevgep595, i64 7
-  %321 = insertelement <8 x ptr> poison, ptr %scevgep587, i64 0
+  %320 = insertelement <8 x ptr> %319, ptr %scevgep596, i64 7
+  %321 = insertelement <8 x ptr> poison, ptr %scevgep588, i64 0
   %322 = shufflevector <8 x ptr> %321, <8 x ptr> poison, <8 x i32> zeroinitializer
   %323 = icmp ult <8 x ptr> %320, %322
   %324 = and <8 x i1> %312, %323
   %325 = bitcast <8 x i1> %324 to i8
   %326 = icmp ne i8 %325, 0
-  %op.rdx1031 = or i1 %326, %found.conflict602
-  %op.rdx1032 = or i1 %found.conflict599, %found.conflict606
-  %op.rdx1033 = or i1 %found.conflict610, %found.conflict614
-  %op.rdx1034 = or i1 %found.conflict618, %found.conflict622
-  %op.rdx1035 = or i1 %found.conflict626, %found.conflict630
-  %op.rdx1036 = or i1 %op.rdx1031, %op.rdx1032
-  %op.rdx1037 = or i1 %op.rdx1033, %op.rdx1034
-  %op.rdx1038 = or i1 %op.rdx1036, %op.rdx1037
-  %op.rdx1039 = or i1 %op.rdx1038, %op.rdx1035
-  br i1 %op.rdx1039, label %for.body.i.i.us.3.preheader, label %vector.body673
+  %op.rdx1032 = or i1 %326, %found.conflict603
+  %op.rdx1033 = or i1 %found.conflict600, %found.conflict607
+  %op.rdx1034 = or i1 %found.conflict611, %found.conflict615
+  %op.rdx1035 = or i1 %found.conflict619, %found.conflict623
+  %op.rdx1036 = or i1 %found.conflict627, %found.conflict631
+  %op.rdx1037 = or i1 %op.rdx1032, %op.rdx1033
+  %op.rdx1038 = or i1 %op.rdx1034, %op.rdx1035
+  %op.rdx1039 = or i1 %op.rdx1037, %op.rdx1038
+  %op.rdx1040 = or i1 %op.rdx1039, %op.rdx1036
+  br i1 %op.rdx1040, label %for.body.i.i.us.3.preheader, label %vector.body674
 
-vector.body673:                                   ; preds = %vector.memcheck583, %vector.body673
-  %index674 = phi i64 [ %index.next692, %vector.body673 ], [ 0, %vector.memcheck583 ]
-  %offset.idx675 = or i64 %index674, 1
-  %327 = getelementptr inbounds double, ptr %296, i64 %index674
-  %wide.load676 = load <2 x double>, ptr %327, align 8, !tbaa !9, !alias.scope !179
-  %328 = getelementptr inbounds double, ptr %297, i64 %index674
-  %wide.load677 = load <2 x double>, ptr %328, align 8, !tbaa !9, !alias.scope !182
-  %329 = fadd <2 x double> %wide.load676, %wide.load677
-  %330 = getelementptr inbounds double, ptr %219, i64 %index674
-  %wide.load678 = load <2 x double>, ptr %330, align 8, !tbaa !9, !alias.scope !184
-  %331 = fsub <2 x double> %329, %wide.load678
-  %332 = getelementptr inbounds double, ptr %220, i64 %index674
-  %wide.load679 = load <2 x double>, ptr %332, align 8, !tbaa !9, !alias.scope !186
-  %333 = fsub <2 x double> %331, %wide.load679
-  %334 = getelementptr inbounds double, ptr %298, i64 %offset.idx675
-  %wide.load680 = load <2 x double>, ptr %334, align 8, !tbaa !9, !alias.scope !188
-  %335 = getelementptr inbounds double, ptr %298, i64 %index674
-  %wide.load681 = load <2 x double>, ptr %335, align 8, !tbaa !9, !alias.scope !188
-  %336 = fadd <2 x double> %wide.load680, %wide.load681
+vector.body674:                                   ; preds = %vector.memcheck584, %vector.body674
+  %index675 = phi i64 [ %index.next693, %vector.body674 ], [ 0, %vector.memcheck584 ]
+  %offset.idx676 = or i64 %index675, 1
+  %327 = getelementptr inbounds double, ptr %296, i64 %index675
+  %wide.load677 = load <2 x double>, ptr %327, align 8, !tbaa !9, !alias.scope !179
+  %328 = getelementptr inbounds double, ptr %297, i64 %index675
+  %wide.load678 = load <2 x double>, ptr %328, align 8, !tbaa !9, !alias.scope !182
+  %329 = fadd <2 x double> %wide.load677, %wide.load678
+  %330 = getelementptr inbounds double, ptr %219, i64 %index675
+  %wide.load679 = load <2 x double>, ptr %330, align 8, !tbaa !9, !alias.scope !184
+  %331 = fsub <2 x double> %329, %wide.load679
+  %332 = getelementptr inbounds double, ptr %220, i64 %index675
+  %wide.load680 = load <2 x double>, ptr %332, align 8, !tbaa !9, !alias.scope !186
+  %333 = fsub <2 x double> %331, %wide.load680
+  %334 = getelementptr inbounds double, ptr %298, i64 %offset.idx676
+  %wide.load681 = load <2 x double>, ptr %334, align 8, !tbaa !9, !alias.scope !188
+  %335 = getelementptr inbounds double, ptr %298, i64 %index675
+  %wide.load682 = load <2 x double>, ptr %335, align 8, !tbaa !9, !alias.scope !188
+  %336 = fadd <2 x double> %wide.load681, %wide.load682
   %337 = fmul <2 x double> %333, %336
-  %338 = getelementptr inbounds double, ptr %222, i64 %index674
-  %wide.load682 = load <2 x double>, ptr %338, align 8, !tbaa !9, !alias.scope !190
-  %339 = getelementptr inbounds double, ptr %299, i64 %index674
-  %wide.load683 = load <2 x double>, ptr %339, align 8, !tbaa !9, !alias.scope !192
-  %340 = fadd <2 x double> %wide.load682, %wide.load683
+  %338 = getelementptr inbounds double, ptr %222, i64 %index675
+  %wide.load683 = load <2 x double>, ptr %338, align 8, !tbaa !9, !alias.scope !190
+  %339 = getelementptr inbounds double, ptr %299, i64 %index675
+  %wide.load684 = load <2 x double>, ptr %339, align 8, !tbaa !9, !alias.scope !192
+  %340 = fadd <2 x double> %wide.load683, %wide.load684
   %341 = fdiv <2 x double> %337, %340
-  %342 = getelementptr inbounds double, ptr %300, i64 %offset.idx675
+  %342 = getelementptr inbounds double, ptr %300, i64 %offset.idx676
   store <2 x double> %341, ptr %342, align 8, !tbaa !9, !alias.scope !194, !noalias !196
-  %wide.load684 = load <2 x double>, ptr %330, align 8, !tbaa !9, !alias.scope !184
-  %wide.load685 = load <2 x double>, ptr %332, align 8, !tbaa !9, !alias.scope !186
-  %343 = fadd <2 x double> %wide.load684, %wide.load685
-  %344 = getelementptr inbounds double, ptr %219, i64 %offset.idx675
-  %wide.load686 = load <2 x double>, ptr %344, align 8, !tbaa !9, !alias.scope !184
-  %345 = fsub <2 x double> %343, %wide.load686
-  %346 = getelementptr inbounds double, ptr %220, i64 %offset.idx675
-  %wide.load687 = load <2 x double>, ptr %346, align 8, !tbaa !9, !alias.scope !186
-  %347 = fsub <2 x double> %345, %wide.load687
-  %wide.load688 = load <2 x double>, ptr %334, align 8, !tbaa !9, !alias.scope !188
-  %348 = getelementptr inbounds double, ptr %221, i64 %offset.idx675
-  %wide.load689 = load <2 x double>, ptr %348, align 8, !tbaa !9, !alias.scope !199
-  %349 = fadd <2 x double> %wide.load688, %wide.load689
+  %wide.load685 = load <2 x double>, ptr %330, align 8, !tbaa !9, !alias.scope !184
+  %wide.load686 = load <2 x double>, ptr %332, align 8, !tbaa !9, !alias.scope !186
+  %343 = fadd <2 x double> %wide.load685, %wide.load686
+  %344 = getelementptr inbounds double, ptr %219, i64 %offset.idx676
+  %wide.load687 = load <2 x double>, ptr %344, align 8, !tbaa !9, !alias.scope !184
+  %345 = fsub <2 x double> %343, %wide.load687
+  %346 = getelementptr inbounds double, ptr %220, i64 %offset.idx676
+  %wide.load688 = load <2 x double>, ptr %346, align 8, !tbaa !9, !alias.scope !186
+  %347 = fsub <2 x double> %345, %wide.load688
+  %wide.load689 = load <2 x double>, ptr %334, align 8, !tbaa !9, !alias.scope !188
+  %348 = getelementptr inbounds double, ptr %221, i64 %offset.idx676
+  %wide.load690 = load <2 x double>, ptr %348, align 8, !tbaa !9, !alias.scope !199
+  %349 = fadd <2 x double> %wide.load689, %wide.load690
   %350 = fmul <2 x double> %347, %349
-  %351 = getelementptr inbounds double, ptr %222, i64 %offset.idx675
-  %wide.load690 = load <2 x double>, ptr %351, align 8, !tbaa !9, !alias.scope !190
-  %wide.load691 = load <2 x double>, ptr %338, align 8, !tbaa !9, !alias.scope !190
-  %352 = fadd <2 x double> %wide.load690, %wide.load691
+  %351 = getelementptr inbounds double, ptr %222, i64 %offset.idx676
+  %wide.load691 = load <2 x double>, ptr %351, align 8, !tbaa !9, !alias.scope !190
+  %wide.load692 = load <2 x double>, ptr %338, align 8, !tbaa !9, !alias.scope !190
+  %352 = fadd <2 x double> %wide.load691, %wide.load692
   %353 = fdiv <2 x double> %350, %352
-  %354 = getelementptr inbounds double, ptr %301, i64 %offset.idx675
+  %354 = getelementptr inbounds double, ptr %301, i64 %offset.idx676
   store <2 x double> %353, ptr %354, align 8, !tbaa !9, !alias.scope !200, !noalias !201
-  %index.next692 = add nuw i64 %index674, 2
-  %355 = icmp eq i64 %index.next692, %n.vec669
-  br i1 %355, label %middle.block664, label %vector.body673, !llvm.loop !202
+  %index.next693 = add nuw i64 %index675, 2
+  %355 = icmp eq i64 %index.next693, %n.vec670
+  br i1 %355, label %middle.block665, label %vector.body674, !llvm.loop !202
 
-middle.block664:                                  ; preds = %vector.body673
-  br i1 %cmp.n672, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3", label %for.body.i.i.us.3.preheader
+middle.block665:                                  ; preds = %vector.body674
+  br i1 %cmp.n673, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3", label %for.body.i.i.us.3.preheader
 
-for.body.i.i.us.3.preheader:                      ; preds = %vector.memcheck583, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2", %middle.block664
-  %indvars.iv.i.i.us.3.ph = phi i64 [ 1, %vector.memcheck583 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2" ], [ %ind.end670, %middle.block664 ]
+for.body.i.i.us.3.preheader:                      ; preds = %vector.memcheck584, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2", %middle.block665
+  %indvars.iv.i.i.us.3.ph = phi i64 [ 1, %vector.memcheck584 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.2" ], [ %ind.end671, %middle.block665 ]
   br label %for.body.i.i.us.3
 
 for.body.i.i.us.3:                                ; preds = %for.body.i.i.us.3.preheader, %for.body.i.i.us.3
@@ -3012,66 +3011,66 @@ for.body.i.i.us.3:                                ; preds = %for.body.i.i.us.3.p
   %exitcond.not.i.i.us.3 = icmp eq i64 %indvars.iv.next.i.i.us.3, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i.us.3, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3", label %for.body.i.i.us.3, !llvm.loop !203
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3": ; preds = %for.body.i.i.us.3, %middle.block664
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3": ; preds = %for.body.i.i.us.3, %middle.block665
   %373 = load ptr, ptr %arrayidx.i.i.i.us.4, align 8, !tbaa !5
   %374 = load ptr, ptr %arrayidx6.i.i.i.us.4, align 8, !tbaa !5
   %375 = load ptr, ptr %arrayidx24.i.i.i.us.4, align 8, !tbaa !5
   %376 = load ptr, ptr %arrayidx40.i.i.i.us.4, align 8, !tbaa !5
   %377 = load ptr, ptr %arrayidx46.i.i.i.us.4, align 8, !tbaa !5
   %378 = load ptr, ptr %arrayidx93.i.i.i.us.4, align 8, !tbaa !5
-  br i1 %min.iters.check556, label %for.body.i.i.us.4.preheader, label %vector.memcheck473
+  br i1 %min.iters.check557, label %for.body.i.i.us.4.preheader, label %vector.memcheck474
 
-vector.memcheck473:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3"
-  %scevgep474 = getelementptr i8, ptr %377, i64 8
-  %scevgep475 = getelementptr i8, ptr %377, i64 %24
-  %scevgep476 = getelementptr i8, ptr %378, i64 8
-  %scevgep477 = getelementptr i8, ptr %378, i64 %24
-  %scevgep478 = getelementptr i8, ptr %373, i64 %25
-  %scevgep479 = getelementptr i8, ptr %374, i64 %25
-  %scevgep480 = getelementptr i8, ptr %296, i64 %24
-  %scevgep481 = getelementptr i8, ptr %297, i64 %24
-  %scevgep482 = getelementptr i8, ptr %375, i64 %24
-  %scevgep483 = getelementptr i8, ptr %299, i64 %24
-  %scevgep484 = getelementptr i8, ptr %376, i64 %25
-  %scevgep485 = getelementptr i8, ptr %298, i64 8
-  %scevgep486 = getelementptr i8, ptr %298, i64 %24
-  %bound0487 = icmp ult ptr %scevgep474, %scevgep477
-  %bound1488 = icmp ult ptr %scevgep476, %scevgep475
-  %found.conflict489 = and i1 %bound0487, %bound1488
-  %bound0490 = icmp ult ptr %scevgep474, %scevgep478
-  %bound1491 = icmp ult ptr %373, %scevgep475
-  %found.conflict492 = and i1 %bound0490, %bound1491
-  %bound0494 = icmp ult ptr %scevgep474, %scevgep479
-  %bound1495 = icmp ult ptr %374, %scevgep475
-  %found.conflict496 = and i1 %bound0494, %bound1495
-  %bound0498 = icmp ult ptr %scevgep474, %scevgep480
-  %bound1499 = icmp ult ptr %296, %scevgep475
-  %found.conflict500 = and i1 %bound0498, %bound1499
-  %bound0502 = icmp ult ptr %scevgep474, %scevgep481
-  %bound1503 = icmp ult ptr %297, %scevgep475
-  %found.conflict504 = and i1 %bound0502, %bound1503
-  %bound0506 = icmp ult ptr %scevgep474, %scevgep482
-  %bound1507 = icmp ult ptr %375, %scevgep475
-  %found.conflict508 = and i1 %bound0506, %bound1507
-  %bound0510 = icmp ult ptr %scevgep474, %scevgep483
-  %bound1511 = icmp ult ptr %299, %scevgep475
-  %found.conflict512 = and i1 %bound0510, %bound1511
-  %bound0514 = icmp ult ptr %scevgep474, %scevgep484
-  %bound1515 = icmp ult ptr %376, %scevgep475
-  %found.conflict516 = and i1 %bound0514, %bound1515
-  %bound0518 = icmp ult ptr %scevgep474, %scevgep486
-  %bound1519 = icmp ult ptr %scevgep485, %scevgep475
-  %found.conflict520 = and i1 %bound0518, %bound1519
-  %379 = insertelement <8 x ptr> poison, ptr %scevgep476, i64 0
+vector.memcheck474:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3"
+  %scevgep475 = getelementptr i8, ptr %377, i64 8
+  %scevgep476 = getelementptr i8, ptr %377, i64 %24
+  %scevgep477 = getelementptr i8, ptr %378, i64 8
+  %scevgep478 = getelementptr i8, ptr %378, i64 %24
+  %scevgep479 = getelementptr i8, ptr %373, i64 %25
+  %scevgep480 = getelementptr i8, ptr %374, i64 %25
+  %scevgep481 = getelementptr i8, ptr %296, i64 %24
+  %scevgep482 = getelementptr i8, ptr %297, i64 %24
+  %scevgep483 = getelementptr i8, ptr %375, i64 %24
+  %scevgep484 = getelementptr i8, ptr %299, i64 %24
+  %scevgep485 = getelementptr i8, ptr %376, i64 %25
+  %scevgep486 = getelementptr i8, ptr %298, i64 8
+  %scevgep487 = getelementptr i8, ptr %298, i64 %24
+  %bound0488 = icmp ult ptr %scevgep475, %scevgep478
+  %bound1489 = icmp ult ptr %scevgep477, %scevgep476
+  %found.conflict490 = and i1 %bound0488, %bound1489
+  %bound0491 = icmp ult ptr %scevgep475, %scevgep479
+  %bound1492 = icmp ult ptr %373, %scevgep476
+  %found.conflict493 = and i1 %bound0491, %bound1492
+  %bound0495 = icmp ult ptr %scevgep475, %scevgep480
+  %bound1496 = icmp ult ptr %374, %scevgep476
+  %found.conflict497 = and i1 %bound0495, %bound1496
+  %bound0499 = icmp ult ptr %scevgep475, %scevgep481
+  %bound1500 = icmp ult ptr %296, %scevgep476
+  %found.conflict501 = and i1 %bound0499, %bound1500
+  %bound0503 = icmp ult ptr %scevgep475, %scevgep482
+  %bound1504 = icmp ult ptr %297, %scevgep476
+  %found.conflict505 = and i1 %bound0503, %bound1504
+  %bound0507 = icmp ult ptr %scevgep475, %scevgep483
+  %bound1508 = icmp ult ptr %375, %scevgep476
+  %found.conflict509 = and i1 %bound0507, %bound1508
+  %bound0511 = icmp ult ptr %scevgep475, %scevgep484
+  %bound1512 = icmp ult ptr %299, %scevgep476
+  %found.conflict513 = and i1 %bound0511, %bound1512
+  %bound0515 = icmp ult ptr %scevgep475, %scevgep485
+  %bound1516 = icmp ult ptr %376, %scevgep476
+  %found.conflict517 = and i1 %bound0515, %bound1516
+  %bound0519 = icmp ult ptr %scevgep475, %scevgep487
+  %bound1520 = icmp ult ptr %scevgep486, %scevgep476
+  %found.conflict521 = and i1 %bound0519, %bound1520
+  %379 = insertelement <8 x ptr> poison, ptr %scevgep477, i64 0
   %380 = shufflevector <8 x ptr> %379, <8 x ptr> poison, <8 x i32> zeroinitializer
-  %381 = insertelement <8 x ptr> poison, ptr %scevgep478, i64 0
-  %382 = insertelement <8 x ptr> %381, ptr %scevgep479, i64 1
-  %383 = insertelement <8 x ptr> %382, ptr %scevgep480, i64 2
-  %384 = insertelement <8 x ptr> %383, ptr %scevgep481, i64 3
-  %385 = insertelement <8 x ptr> %384, ptr %scevgep482, i64 4
-  %386 = insertelement <8 x ptr> %385, ptr %scevgep483, i64 5
-  %387 = insertelement <8 x ptr> %386, ptr %scevgep484, i64 6
-  %388 = insertelement <8 x ptr> %387, ptr %scevgep486, i64 7
+  %381 = insertelement <8 x ptr> poison, ptr %scevgep479, i64 0
+  %382 = insertelement <8 x ptr> %381, ptr %scevgep480, i64 1
+  %383 = insertelement <8 x ptr> %382, ptr %scevgep481, i64 2
+  %384 = insertelement <8 x ptr> %383, ptr %scevgep482, i64 3
+  %385 = insertelement <8 x ptr> %384, ptr %scevgep483, i64 4
+  %386 = insertelement <8 x ptr> %385, ptr %scevgep484, i64 5
+  %387 = insertelement <8 x ptr> %386, ptr %scevgep485, i64 6
+  %388 = insertelement <8 x ptr> %387, ptr %scevgep487, i64 7
   %389 = icmp ult <8 x ptr> %380, %388
   %390 = insertelement <8 x ptr> poison, ptr %373, i64 0
   %391 = insertelement <8 x ptr> %390, ptr %374, i64 1
@@ -3080,82 +3079,82 @@ vector.memcheck473:                               ; preds = %"_Z6forallI9simd_ex
   %394 = insertelement <8 x ptr> %393, ptr %375, i64 4
   %395 = insertelement <8 x ptr> %394, ptr %299, i64 5
   %396 = insertelement <8 x ptr> %395, ptr %376, i64 6
-  %397 = insertelement <8 x ptr> %396, ptr %scevgep485, i64 7
-  %398 = insertelement <8 x ptr> poison, ptr %scevgep477, i64 0
+  %397 = insertelement <8 x ptr> %396, ptr %scevgep486, i64 7
+  %398 = insertelement <8 x ptr> poison, ptr %scevgep478, i64 0
   %399 = shufflevector <8 x ptr> %398, <8 x ptr> poison, <8 x i32> zeroinitializer
   %400 = icmp ult <8 x ptr> %397, %399
   %401 = and <8 x i1> %389, %400
   %402 = bitcast <8 x i1> %401 to i8
   %403 = icmp ne i8 %402, 0
-  %op.rdx = or i1 %403, %found.conflict492
-  %op.rdx1023 = or i1 %found.conflict489, %found.conflict496
-  %op.rdx1024 = or i1 %found.conflict500, %found.conflict504
-  %op.rdx1025 = or i1 %found.conflict508, %found.conflict512
-  %op.rdx1026 = or i1 %found.conflict516, %found.conflict520
-  %op.rdx1027 = or i1 %op.rdx, %op.rdx1023
-  %op.rdx1028 = or i1 %op.rdx1024, %op.rdx1025
-  %op.rdx1029 = or i1 %op.rdx1027, %op.rdx1028
-  %op.rdx1030 = or i1 %op.rdx1029, %op.rdx1026
-  br i1 %op.rdx1030, label %for.body.i.i.us.4.preheader, label %vector.body563
+  %op.rdx = or i1 %403, %found.conflict493
+  %op.rdx1024 = or i1 %found.conflict490, %found.conflict497
+  %op.rdx1025 = or i1 %found.conflict501, %found.conflict505
+  %op.rdx1026 = or i1 %found.conflict509, %found.conflict513
+  %op.rdx1027 = or i1 %found.conflict517, %found.conflict521
+  %op.rdx1028 = or i1 %op.rdx, %op.rdx1024
+  %op.rdx1029 = or i1 %op.rdx1025, %op.rdx1026
+  %op.rdx1030 = or i1 %op.rdx1028, %op.rdx1029
+  %op.rdx1031 = or i1 %op.rdx1030, %op.rdx1027
+  br i1 %op.rdx1031, label %for.body.i.i.us.4.preheader, label %vector.body564
 
-vector.body563:                                   ; preds = %vector.memcheck473, %vector.body563
-  %index564 = phi i64 [ %index.next582, %vector.body563 ], [ 0, %vector.memcheck473 ]
-  %offset.idx565 = or i64 %index564, 1
-  %404 = getelementptr inbounds double, ptr %373, i64 %index564
-  %wide.load566 = load <2 x double>, ptr %404, align 8, !tbaa !9, !alias.scope !204
-  %405 = getelementptr inbounds double, ptr %374, i64 %index564
-  %wide.load567 = load <2 x double>, ptr %405, align 8, !tbaa !9, !alias.scope !207
-  %406 = fadd <2 x double> %wide.load566, %wide.load567
-  %407 = getelementptr inbounds double, ptr %296, i64 %index564
-  %wide.load568 = load <2 x double>, ptr %407, align 8, !tbaa !9, !alias.scope !209
-  %408 = fsub <2 x double> %406, %wide.load568
-  %409 = getelementptr inbounds double, ptr %297, i64 %index564
-  %wide.load569 = load <2 x double>, ptr %409, align 8, !tbaa !9, !alias.scope !211
-  %410 = fsub <2 x double> %408, %wide.load569
-  %411 = getelementptr inbounds double, ptr %375, i64 %offset.idx565
-  %wide.load570 = load <2 x double>, ptr %411, align 8, !tbaa !9, !alias.scope !213
-  %412 = getelementptr inbounds double, ptr %375, i64 %index564
-  %wide.load571 = load <2 x double>, ptr %412, align 8, !tbaa !9, !alias.scope !213
-  %413 = fadd <2 x double> %wide.load570, %wide.load571
+vector.body564:                                   ; preds = %vector.memcheck474, %vector.body564
+  %index565 = phi i64 [ %index.next583, %vector.body564 ], [ 0, %vector.memcheck474 ]
+  %offset.idx566 = or i64 %index565, 1
+  %404 = getelementptr inbounds double, ptr %373, i64 %index565
+  %wide.load567 = load <2 x double>, ptr %404, align 8, !tbaa !9, !alias.scope !204
+  %405 = getelementptr inbounds double, ptr %374, i64 %index565
+  %wide.load568 = load <2 x double>, ptr %405, align 8, !tbaa !9, !alias.scope !207
+  %406 = fadd <2 x double> %wide.load567, %wide.load568
+  %407 = getelementptr inbounds double, ptr %296, i64 %index565
+  %wide.load569 = load <2 x double>, ptr %407, align 8, !tbaa !9, !alias.scope !209
+  %408 = fsub <2 x double> %406, %wide.load569
+  %409 = getelementptr inbounds double, ptr %297, i64 %index565
+  %wide.load570 = load <2 x double>, ptr %409, align 8, !tbaa !9, !alias.scope !211
+  %410 = fsub <2 x double> %408, %wide.load570
+  %411 = getelementptr inbounds double, ptr %375, i64 %offset.idx566
+  %wide.load571 = load <2 x double>, ptr %411, align 8, !tbaa !9, !alias.scope !213
+  %412 = getelementptr inbounds double, ptr %375, i64 %index565
+  %wide.load572 = load <2 x double>, ptr %412, align 8, !tbaa !9, !alias.scope !213
+  %413 = fadd <2 x double> %wide.load571, %wide.load572
   %414 = fmul <2 x double> %410, %413
-  %415 = getelementptr inbounds double, ptr %299, i64 %index564
-  %wide.load572 = load <2 x double>, ptr %415, align 8, !tbaa !9, !alias.scope !215
-  %416 = getelementptr inbounds double, ptr %376, i64 %index564
-  %wide.load573 = load <2 x double>, ptr %416, align 8, !tbaa !9, !alias.scope !217
-  %417 = fadd <2 x double> %wide.load572, %wide.load573
+  %415 = getelementptr inbounds double, ptr %299, i64 %index565
+  %wide.load573 = load <2 x double>, ptr %415, align 8, !tbaa !9, !alias.scope !215
+  %416 = getelementptr inbounds double, ptr %376, i64 %index565
+  %wide.load574 = load <2 x double>, ptr %416, align 8, !tbaa !9, !alias.scope !217
+  %417 = fadd <2 x double> %wide.load573, %wide.load574
   %418 = fdiv <2 x double> %414, %417
-  %419 = getelementptr inbounds double, ptr %377, i64 %offset.idx565
+  %419 = getelementptr inbounds double, ptr %377, i64 %offset.idx566
   store <2 x double> %418, ptr %419, align 8, !tbaa !9, !alias.scope !219, !noalias !221
-  %wide.load574 = load <2 x double>, ptr %407, align 8, !tbaa !9, !alias.scope !209
-  %wide.load575 = load <2 x double>, ptr %409, align 8, !tbaa !9, !alias.scope !211
-  %420 = fadd <2 x double> %wide.load574, %wide.load575
-  %421 = getelementptr inbounds double, ptr %296, i64 %offset.idx565
-  %wide.load576 = load <2 x double>, ptr %421, align 8, !tbaa !9, !alias.scope !209
-  %422 = fsub <2 x double> %420, %wide.load576
-  %423 = getelementptr inbounds double, ptr %297, i64 %offset.idx565
-  %wide.load577 = load <2 x double>, ptr %423, align 8, !tbaa !9, !alias.scope !211
-  %424 = fsub <2 x double> %422, %wide.load577
-  %wide.load578 = load <2 x double>, ptr %411, align 8, !tbaa !9, !alias.scope !213
-  %425 = getelementptr inbounds double, ptr %298, i64 %offset.idx565
-  %wide.load579 = load <2 x double>, ptr %425, align 8, !tbaa !9, !alias.scope !224
-  %426 = fadd <2 x double> %wide.load578, %wide.load579
+  %wide.load575 = load <2 x double>, ptr %407, align 8, !tbaa !9, !alias.scope !209
+  %wide.load576 = load <2 x double>, ptr %409, align 8, !tbaa !9, !alias.scope !211
+  %420 = fadd <2 x double> %wide.load575, %wide.load576
+  %421 = getelementptr inbounds double, ptr %296, i64 %offset.idx566
+  %wide.load577 = load <2 x double>, ptr %421, align 8, !tbaa !9, !alias.scope !209
+  %422 = fsub <2 x double> %420, %wide.load577
+  %423 = getelementptr inbounds double, ptr %297, i64 %offset.idx566
+  %wide.load578 = load <2 x double>, ptr %423, align 8, !tbaa !9, !alias.scope !211
+  %424 = fsub <2 x double> %422, %wide.load578
+  %wide.load579 = load <2 x double>, ptr %411, align 8, !tbaa !9, !alias.scope !213
+  %425 = getelementptr inbounds double, ptr %298, i64 %offset.idx566
+  %wide.load580 = load <2 x double>, ptr %425, align 8, !tbaa !9, !alias.scope !224
+  %426 = fadd <2 x double> %wide.load579, %wide.load580
   %427 = fmul <2 x double> %424, %426
-  %428 = getelementptr inbounds double, ptr %299, i64 %offset.idx565
-  %wide.load580 = load <2 x double>, ptr %428, align 8, !tbaa !9, !alias.scope !215
-  %wide.load581 = load <2 x double>, ptr %415, align 8, !tbaa !9, !alias.scope !215
-  %429 = fadd <2 x double> %wide.load580, %wide.load581
+  %428 = getelementptr inbounds double, ptr %299, i64 %offset.idx566
+  %wide.load581 = load <2 x double>, ptr %428, align 8, !tbaa !9, !alias.scope !215
+  %wide.load582 = load <2 x double>, ptr %415, align 8, !tbaa !9, !alias.scope !215
+  %429 = fadd <2 x double> %wide.load581, %wide.load582
   %430 = fdiv <2 x double> %427, %429
-  %431 = getelementptr inbounds double, ptr %378, i64 %offset.idx565
+  %431 = getelementptr inbounds double, ptr %378, i64 %offset.idx566
   store <2 x double> %430, ptr %431, align 8, !tbaa !9, !alias.scope !225, !noalias !226
-  %index.next582 = add nuw i64 %index564, 2
-  %432 = icmp eq i64 %index.next582, %n.vec559
-  br i1 %432, label %middle.block554, label %vector.body563, !llvm.loop !227
+  %index.next583 = add nuw i64 %index565, 2
+  %432 = icmp eq i64 %index.next583, %n.vec560
+  br i1 %432, label %middle.block555, label %vector.body564, !llvm.loop !227
 
-middle.block554:                                  ; preds = %vector.body563
-  br i1 %cmp.n562, label %for.cond27.preheader, label %for.body.i.i.us.4.preheader
+middle.block555:                                  ; preds = %vector.body564
+  br i1 %cmp.n563, label %for.cond27.preheader, label %for.body.i.i.us.4.preheader
 
-for.body.i.i.us.4.preheader:                      ; preds = %vector.memcheck473, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3", %middle.block554
-  %indvars.iv.i.i.us.4.ph = phi i64 [ 1, %vector.memcheck473 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3" ], [ %ind.end560, %middle.block554 ]
+for.body.i.i.us.4.preheader:                      ; preds = %vector.memcheck474, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3", %middle.block555
+  %indvars.iv.i.i.us.4.ph = phi i64 [ 1, %vector.memcheck474 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.3" ], [ %ind.end561, %middle.block555 ]
   br label %for.body.i.i.us.4
 
 for.body.i.i.us.4:                                ; preds = %for.body.i.i.us.4.preheader, %for.body.i.i.us.4
@@ -3211,26 +3210,26 @@ for.body.i.i.us.4:                                ; preds = %for.body.i.i.us.4.p
   %exitcond.not.i.i.us.4 = icmp eq i64 %indvars.iv.next.i.i.us.4, %wide.trip.count.i.i
   br i1 %exitcond.not.i.i.us.4, label %for.cond27.preheader, label %for.body.i.i.us.4, !llvm.loop !228
 
-for.cond.cleanup:                                 ; preds = %for.end40, %entry
+if.end.i:                                         ; preds = %for.end40, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.cond27.preheader:                             ; preds = %for.body.i.i.us.4, %middle.block554
+for.cond27.preheader:                             ; preds = %for.body.i.i.us.4, %middle.block555
   br i1 %cmp3.i.i, label %for.body29.us.preheader, label %for.end40
 
 for.body29.us.preheader:                          ; preds = %for.cond27.preheader
   %.pre = load ptr, ptr %arrayidx5.i.i.i.us.phi.trans.insert, align 8, !tbaa !5
-  %.pre149 = load ptr, ptr %arrayidx29.i.i.i.us.phi.trans.insert, align 8, !tbaa !5
-  %.pre150 = load ptr, ptr %arrayidx67.i.i.i.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre150 = load ptr, ptr %arrayidx29.i.i.i.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre151 = load ptr, ptr %arrayidx67.i.i.i.us.phi.trans.insert, align 8, !tbaa !5
   br label %for.body29.us
 
 for.body29.us:                                    ; preds = %for.body29.us.preheader, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us"
-  %450 = phi ptr [ %.pre150, %for.body29.us.preheader ], [ %460, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
-  %451 = phi ptr [ %.pre149, %for.body29.us.preheader ], [ %456, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
+  %450 = phi ptr [ %.pre151, %for.body29.us.preheader ], [ %460, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
+  %451 = phi ptr [ %.pre150, %for.body29.us.preheader ], [ %456, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
   %452 = phi ptr [ %.pre, %for.body29.us.preheader ], [ %457, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
   %indvars.iv = phi i64 [ 1, %for.body29.us.preheader ], [ %indvars.iv.next, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us" ]
-  %arrayidx.i.i.i77.us = getelementptr inbounds ptr, ptr %0, i64 %indvars.iv
-  %453 = load ptr, ptr %arrayidx.i.i.i77.us, align 8, !tbaa !5
+  %arrayidx.i.i.i75.us = getelementptr inbounds ptr, ptr %0, i64 %indvars.iv
+  %453 = load ptr, ptr %arrayidx.i.i.i75.us, align 8, !tbaa !5
   %454 = add nsw i64 %indvars.iv, -1
   %arrayidx38.i.i.i.us = getelementptr inbounds ptr, ptr %8, i64 %454
   %455 = load ptr, ptr %arrayidx38.i.i.i.us, align 8, !tbaa !5
@@ -3247,231 +3246,231 @@ for.body29.us:                                    ; preds = %for.body29.us.prehe
   %460 = load ptr, ptr %arrayidx119.i.i.i.us, align 8, !tbaa !5
   %arrayidx124.i.i.i.us = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv
   %461 = load ptr, ptr %arrayidx124.i.i.i.us, align 8, !tbaa !5
-  br i1 %min.iters.check442, label %for.body.i.i86.us.preheader, label %vector.memcheck309
+  br i1 %min.iters.check443, label %for.body.i.i84.us.preheader, label %vector.memcheck310
 
-vector.memcheck309:                               ; preds = %for.body29.us
+vector.memcheck310:                               ; preds = %for.body29.us
   %scevgep = getelementptr i8, ptr %458, i64 8
-  %scevgep310 = getelementptr i8, ptr %458, i64 %20
-  %scevgep311 = getelementptr i8, ptr %461, i64 8
-  %scevgep312 = getelementptr i8, ptr %461, i64 %20
-  %scevgep313 = getelementptr i8, ptr %453, i64 %20
-  %scevgep314 = getelementptr i8, ptr %452, i64 8
-  %scevgep315 = getelementptr i8, ptr %452, i64 %20
-  %scevgep316 = getelementptr i8, ptr %452, i64 16
-  %scevgep317 = getelementptr i8, ptr %452, i64 %21
-  %scevgep318 = getelementptr i8, ptr %452, i64 %22
-  %scevgep319 = getelementptr i8, ptr %451, i64 8
-  %scevgep320 = getelementptr i8, ptr %451, i64 %20
-  %scevgep321 = getelementptr i8, ptr %455, i64 8
-  %scevgep322 = getelementptr i8, ptr %455, i64 %20
-  %scevgep323 = getelementptr i8, ptr %456, i64 8
-  %scevgep324 = getelementptr i8, ptr %456, i64 %20
-  %scevgep325 = getelementptr i8, ptr %457, i64 8
-  %scevgep326 = getelementptr i8, ptr %457, i64 %20
-  %scevgep327 = getelementptr i8, ptr %450, i64 8
-  %scevgep328 = getelementptr i8, ptr %450, i64 %20
-  %scevgep329 = getelementptr i8, ptr %450, i64 16
-  %scevgep330 = getelementptr i8, ptr %450, i64 %21
-  %scevgep331 = getelementptr i8, ptr %450, i64 %22
-  %scevgep332 = getelementptr i8, ptr %459, i64 8
-  %scevgep333 = getelementptr i8, ptr %459, i64 %20
-  %scevgep334 = getelementptr i8, ptr %460, i64 8
-  %scevgep335 = getelementptr i8, ptr %460, i64 %20
-  %bound0 = icmp ult ptr %scevgep, %scevgep312
-  %bound1 = icmp ult ptr %scevgep311, %scevgep310
+  %scevgep311 = getelementptr i8, ptr %458, i64 %20
+  %scevgep312 = getelementptr i8, ptr %461, i64 8
+  %scevgep313 = getelementptr i8, ptr %461, i64 %20
+  %scevgep314 = getelementptr i8, ptr %453, i64 %20
+  %scevgep315 = getelementptr i8, ptr %452, i64 8
+  %scevgep316 = getelementptr i8, ptr %452, i64 %20
+  %scevgep317 = getelementptr i8, ptr %452, i64 16
+  %scevgep318 = getelementptr i8, ptr %452, i64 %21
+  %scevgep319 = getelementptr i8, ptr %452, i64 %22
+  %scevgep320 = getelementptr i8, ptr %451, i64 8
+  %scevgep321 = getelementptr i8, ptr %451, i64 %20
+  %scevgep322 = getelementptr i8, ptr %455, i64 8
+  %scevgep323 = getelementptr i8, ptr %455, i64 %20
+  %scevgep324 = getelementptr i8, ptr %456, i64 8
+  %scevgep325 = getelementptr i8, ptr %456, i64 %20
+  %scevgep326 = getelementptr i8, ptr %457, i64 8
+  %scevgep327 = getelementptr i8, ptr %457, i64 %20
+  %scevgep328 = getelementptr i8, ptr %450, i64 8
+  %scevgep329 = getelementptr i8, ptr %450, i64 %20
+  %scevgep330 = getelementptr i8, ptr %450, i64 16
+  %scevgep331 = getelementptr i8, ptr %450, i64 %21
+  %scevgep332 = getelementptr i8, ptr %450, i64 %22
+  %scevgep333 = getelementptr i8, ptr %459, i64 8
+  %scevgep334 = getelementptr i8, ptr %459, i64 %20
+  %scevgep335 = getelementptr i8, ptr %460, i64 8
+  %scevgep336 = getelementptr i8, ptr %460, i64 %20
+  %bound0 = icmp ult ptr %scevgep, %scevgep313
+  %bound1 = icmp ult ptr %scevgep312, %scevgep311
   %found.conflict = and i1 %bound0, %bound1
-  %bound0336 = icmp ult ptr %scevgep, %scevgep313
-  %bound1337 = icmp ult ptr %453, %scevgep310
-  %found.conflict338 = and i1 %bound0336, %bound1337
-  %conflict.rdx339 = or i1 %found.conflict, %found.conflict338
-  %bound0340 = icmp ult ptr %scevgep, %scevgep315
-  %bound1341 = icmp ult ptr %scevgep314, %scevgep310
-  %found.conflict342 = and i1 %bound0340, %bound1341
-  %conflict.rdx343 = or i1 %conflict.rdx339, %found.conflict342
-  %bound0344 = icmp ult ptr %scevgep, %scevgep317
-  %bound1345 = icmp ult ptr %scevgep316, %scevgep310
-  %found.conflict346 = and i1 %bound0344, %bound1345
-  %conflict.rdx347 = or i1 %conflict.rdx343, %found.conflict346
-  %bound0348 = icmp ult ptr %scevgep, %scevgep318
-  %bound1349 = icmp ult ptr %452, %scevgep310
-  %found.conflict350 = and i1 %bound0348, %bound1349
-  %conflict.rdx351 = or i1 %conflict.rdx347, %found.conflict350
-  %bound0352 = icmp ult ptr %scevgep, %scevgep320
-  %bound1353 = icmp ult ptr %scevgep319, %scevgep310
-  %found.conflict354 = and i1 %bound0352, %bound1353
-  %conflict.rdx355 = or i1 %conflict.rdx351, %found.conflict354
-  %bound0356 = icmp ult ptr %scevgep, %scevgep322
-  %bound1357 = icmp ult ptr %scevgep321, %scevgep310
-  %found.conflict358 = and i1 %bound0356, %bound1357
-  %conflict.rdx359 = or i1 %conflict.rdx355, %found.conflict358
-  %bound0360 = icmp ult ptr %scevgep, %scevgep324
-  %bound1361 = icmp ult ptr %scevgep323, %scevgep310
-  %found.conflict362 = and i1 %bound0360, %bound1361
-  %conflict.rdx363 = or i1 %conflict.rdx359, %found.conflict362
-  %bound0364 = icmp ult ptr %scevgep, %scevgep326
-  %bound1365 = icmp ult ptr %scevgep325, %scevgep310
-  %found.conflict366 = and i1 %bound0364, %bound1365
-  %conflict.rdx367 = or i1 %conflict.rdx363, %found.conflict366
-  %bound0368 = icmp ult ptr %scevgep, %scevgep328
-  %bound1369 = icmp ult ptr %scevgep327, %scevgep310
-  %found.conflict370 = and i1 %bound0368, %bound1369
-  %conflict.rdx371 = or i1 %conflict.rdx367, %found.conflict370
-  %bound0372 = icmp ult ptr %scevgep, %scevgep330
-  %bound1373 = icmp ult ptr %scevgep329, %scevgep310
-  %found.conflict374 = and i1 %bound0372, %bound1373
-  %conflict.rdx375 = or i1 %conflict.rdx371, %found.conflict374
-  %bound0376 = icmp ult ptr %scevgep, %scevgep331
-  %bound1377 = icmp ult ptr %450, %scevgep310
-  %found.conflict378 = and i1 %bound0376, %bound1377
-  %conflict.rdx379 = or i1 %conflict.rdx375, %found.conflict378
-  %bound0380 = icmp ult ptr %scevgep, %scevgep333
-  %bound1381 = icmp ult ptr %scevgep332, %scevgep310
-  %found.conflict382 = and i1 %bound0380, %bound1381
-  %conflict.rdx383 = or i1 %conflict.rdx379, %found.conflict382
-  %bound0384 = icmp ult ptr %scevgep, %scevgep335
-  %bound1385 = icmp ult ptr %scevgep334, %scevgep310
-  %found.conflict386 = and i1 %bound0384, %bound1385
-  %conflict.rdx387 = or i1 %conflict.rdx383, %found.conflict386
-  %bound0388 = icmp ult ptr %scevgep311, %scevgep313
-  %bound1389 = icmp ult ptr %453, %scevgep312
-  %found.conflict390 = and i1 %bound0388, %bound1389
-  %conflict.rdx391 = or i1 %conflict.rdx387, %found.conflict390
-  %bound0392 = icmp ult ptr %scevgep311, %scevgep315
-  %bound1393 = icmp ult ptr %scevgep314, %scevgep312
-  %found.conflict394 = and i1 %bound0392, %bound1393
-  %conflict.rdx395 = or i1 %conflict.rdx391, %found.conflict394
-  %bound0396 = icmp ult ptr %scevgep311, %scevgep317
-  %bound1397 = icmp ult ptr %scevgep316, %scevgep312
-  %found.conflict398 = and i1 %bound0396, %bound1397
-  %conflict.rdx399 = or i1 %conflict.rdx395, %found.conflict398
-  %bound0400 = icmp ult ptr %scevgep311, %scevgep318
-  %bound1401 = icmp ult ptr %452, %scevgep312
-  %found.conflict402 = and i1 %bound0400, %bound1401
-  %conflict.rdx403 = or i1 %conflict.rdx399, %found.conflict402
-  %bound0404 = icmp ult ptr %scevgep311, %scevgep320
-  %bound1405 = icmp ult ptr %scevgep319, %scevgep312
-  %found.conflict406 = and i1 %bound0404, %bound1405
-  %conflict.rdx407 = or i1 %conflict.rdx403, %found.conflict406
-  %bound0408 = icmp ult ptr %scevgep311, %scevgep322
-  %bound1409 = icmp ult ptr %scevgep321, %scevgep312
-  %found.conflict410 = and i1 %bound0408, %bound1409
-  %conflict.rdx411 = or i1 %conflict.rdx407, %found.conflict410
-  %bound0412 = icmp ult ptr %scevgep311, %scevgep324
-  %bound1413 = icmp ult ptr %scevgep323, %scevgep312
-  %found.conflict414 = and i1 %bound0412, %bound1413
-  %conflict.rdx415 = or i1 %conflict.rdx411, %found.conflict414
-  %bound0416 = icmp ult ptr %scevgep311, %scevgep326
-  %bound1417 = icmp ult ptr %scevgep325, %scevgep312
-  %found.conflict418 = and i1 %bound0416, %bound1417
-  %conflict.rdx419 = or i1 %conflict.rdx415, %found.conflict418
-  %bound0420 = icmp ult ptr %scevgep311, %scevgep328
-  %bound1421 = icmp ult ptr %scevgep327, %scevgep312
-  %found.conflict422 = and i1 %bound0420, %bound1421
-  %conflict.rdx423 = or i1 %conflict.rdx419, %found.conflict422
-  %bound0424 = icmp ult ptr %scevgep311, %scevgep330
-  %bound1425 = icmp ult ptr %scevgep329, %scevgep312
-  %found.conflict426 = and i1 %bound0424, %bound1425
-  %conflict.rdx427 = or i1 %conflict.rdx423, %found.conflict426
-  %bound0428 = icmp ult ptr %scevgep311, %scevgep331
-  %bound1429 = icmp ult ptr %450, %scevgep312
-  %found.conflict430 = and i1 %bound0428, %bound1429
-  %conflict.rdx431 = or i1 %conflict.rdx427, %found.conflict430
-  %bound0432 = icmp ult ptr %scevgep311, %scevgep333
-  %bound1433 = icmp ult ptr %scevgep332, %scevgep312
-  %found.conflict434 = and i1 %bound0432, %bound1433
-  %conflict.rdx435 = or i1 %conflict.rdx431, %found.conflict434
-  %bound0436 = icmp ult ptr %scevgep311, %scevgep335
-  %bound1437 = icmp ult ptr %scevgep334, %scevgep312
-  %found.conflict438 = and i1 %bound0436, %bound1437
-  %conflict.rdx439 = or i1 %conflict.rdx435, %found.conflict438
-  br i1 %conflict.rdx439, label %for.body.i.i86.us.preheader, label %vector.body449
+  %bound0337 = icmp ult ptr %scevgep, %scevgep314
+  %bound1338 = icmp ult ptr %453, %scevgep311
+  %found.conflict339 = and i1 %bound0337, %bound1338
+  %conflict.rdx340 = or i1 %found.conflict, %found.conflict339
+  %bound0341 = icmp ult ptr %scevgep, %scevgep316
+  %bound1342 = icmp ult ptr %scevgep315, %scevgep311
+  %found.conflict343 = and i1 %bound0341, %bound1342
+  %conflict.rdx344 = or i1 %conflict.rdx340, %found.conflict343
+  %bound0345 = icmp ult ptr %scevgep, %scevgep318
+  %bound1346 = icmp ult ptr %scevgep317, %scevgep311
+  %found.conflict347 = and i1 %bound0345, %bound1346
+  %conflict.rdx348 = or i1 %conflict.rdx344, %found.conflict347
+  %bound0349 = icmp ult ptr %scevgep, %scevgep319
+  %bound1350 = icmp ult ptr %452, %scevgep311
+  %found.conflict351 = and i1 %bound0349, %bound1350
+  %conflict.rdx352 = or i1 %conflict.rdx348, %found.conflict351
+  %bound0353 = icmp ult ptr %scevgep, %scevgep321
+  %bound1354 = icmp ult ptr %scevgep320, %scevgep311
+  %found.conflict355 = and i1 %bound0353, %bound1354
+  %conflict.rdx356 = or i1 %conflict.rdx352, %found.conflict355
+  %bound0357 = icmp ult ptr %scevgep, %scevgep323
+  %bound1358 = icmp ult ptr %scevgep322, %scevgep311
+  %found.conflict359 = and i1 %bound0357, %bound1358
+  %conflict.rdx360 = or i1 %conflict.rdx356, %found.conflict359
+  %bound0361 = icmp ult ptr %scevgep, %scevgep325
+  %bound1362 = icmp ult ptr %scevgep324, %scevgep311
+  %found.conflict363 = and i1 %bound0361, %bound1362
+  %conflict.rdx364 = or i1 %conflict.rdx360, %found.conflict363
+  %bound0365 = icmp ult ptr %scevgep, %scevgep327
+  %bound1366 = icmp ult ptr %scevgep326, %scevgep311
+  %found.conflict367 = and i1 %bound0365, %bound1366
+  %conflict.rdx368 = or i1 %conflict.rdx364, %found.conflict367
+  %bound0369 = icmp ult ptr %scevgep, %scevgep329
+  %bound1370 = icmp ult ptr %scevgep328, %scevgep311
+  %found.conflict371 = and i1 %bound0369, %bound1370
+  %conflict.rdx372 = or i1 %conflict.rdx368, %found.conflict371
+  %bound0373 = icmp ult ptr %scevgep, %scevgep331
+  %bound1374 = icmp ult ptr %scevgep330, %scevgep311
+  %found.conflict375 = and i1 %bound0373, %bound1374
+  %conflict.rdx376 = or i1 %conflict.rdx372, %found.conflict375
+  %bound0377 = icmp ult ptr %scevgep, %scevgep332
+  %bound1378 = icmp ult ptr %450, %scevgep311
+  %found.conflict379 = and i1 %bound0377, %bound1378
+  %conflict.rdx380 = or i1 %conflict.rdx376, %found.conflict379
+  %bound0381 = icmp ult ptr %scevgep, %scevgep334
+  %bound1382 = icmp ult ptr %scevgep333, %scevgep311
+  %found.conflict383 = and i1 %bound0381, %bound1382
+  %conflict.rdx384 = or i1 %conflict.rdx380, %found.conflict383
+  %bound0385 = icmp ult ptr %scevgep, %scevgep336
+  %bound1386 = icmp ult ptr %scevgep335, %scevgep311
+  %found.conflict387 = and i1 %bound0385, %bound1386
+  %conflict.rdx388 = or i1 %conflict.rdx384, %found.conflict387
+  %bound0389 = icmp ult ptr %scevgep312, %scevgep314
+  %bound1390 = icmp ult ptr %453, %scevgep313
+  %found.conflict391 = and i1 %bound0389, %bound1390
+  %conflict.rdx392 = or i1 %conflict.rdx388, %found.conflict391
+  %bound0393 = icmp ult ptr %scevgep312, %scevgep316
+  %bound1394 = icmp ult ptr %scevgep315, %scevgep313
+  %found.conflict395 = and i1 %bound0393, %bound1394
+  %conflict.rdx396 = or i1 %conflict.rdx392, %found.conflict395
+  %bound0397 = icmp ult ptr %scevgep312, %scevgep318
+  %bound1398 = icmp ult ptr %scevgep317, %scevgep313
+  %found.conflict399 = and i1 %bound0397, %bound1398
+  %conflict.rdx400 = or i1 %conflict.rdx396, %found.conflict399
+  %bound0401 = icmp ult ptr %scevgep312, %scevgep319
+  %bound1402 = icmp ult ptr %452, %scevgep313
+  %found.conflict403 = and i1 %bound0401, %bound1402
+  %conflict.rdx404 = or i1 %conflict.rdx400, %found.conflict403
+  %bound0405 = icmp ult ptr %scevgep312, %scevgep321
+  %bound1406 = icmp ult ptr %scevgep320, %scevgep313
+  %found.conflict407 = and i1 %bound0405, %bound1406
+  %conflict.rdx408 = or i1 %conflict.rdx404, %found.conflict407
+  %bound0409 = icmp ult ptr %scevgep312, %scevgep323
+  %bound1410 = icmp ult ptr %scevgep322, %scevgep313
+  %found.conflict411 = and i1 %bound0409, %bound1410
+  %conflict.rdx412 = or i1 %conflict.rdx408, %found.conflict411
+  %bound0413 = icmp ult ptr %scevgep312, %scevgep325
+  %bound1414 = icmp ult ptr %scevgep324, %scevgep313
+  %found.conflict415 = and i1 %bound0413, %bound1414
+  %conflict.rdx416 = or i1 %conflict.rdx412, %found.conflict415
+  %bound0417 = icmp ult ptr %scevgep312, %scevgep327
+  %bound1418 = icmp ult ptr %scevgep326, %scevgep313
+  %found.conflict419 = and i1 %bound0417, %bound1418
+  %conflict.rdx420 = or i1 %conflict.rdx416, %found.conflict419
+  %bound0421 = icmp ult ptr %scevgep312, %scevgep329
+  %bound1422 = icmp ult ptr %scevgep328, %scevgep313
+  %found.conflict423 = and i1 %bound0421, %bound1422
+  %conflict.rdx424 = or i1 %conflict.rdx420, %found.conflict423
+  %bound0425 = icmp ult ptr %scevgep312, %scevgep331
+  %bound1426 = icmp ult ptr %scevgep330, %scevgep313
+  %found.conflict427 = and i1 %bound0425, %bound1426
+  %conflict.rdx428 = or i1 %conflict.rdx424, %found.conflict427
+  %bound0429 = icmp ult ptr %scevgep312, %scevgep332
+  %bound1430 = icmp ult ptr %450, %scevgep313
+  %found.conflict431 = and i1 %bound0429, %bound1430
+  %conflict.rdx432 = or i1 %conflict.rdx428, %found.conflict431
+  %bound0433 = icmp ult ptr %scevgep312, %scevgep334
+  %bound1434 = icmp ult ptr %scevgep333, %scevgep313
+  %found.conflict435 = and i1 %bound0433, %bound1434
+  %conflict.rdx436 = or i1 %conflict.rdx432, %found.conflict435
+  %bound0437 = icmp ult ptr %scevgep312, %scevgep336
+  %bound1438 = icmp ult ptr %scevgep335, %scevgep313
+  %found.conflict439 = and i1 %bound0437, %bound1438
+  %conflict.rdx440 = or i1 %conflict.rdx436, %found.conflict439
+  br i1 %conflict.rdx440, label %for.body.i.i84.us.preheader, label %vector.body450
 
-vector.body449:                                   ; preds = %vector.memcheck309, %vector.body449
-  %index450 = phi i64 [ %index.next472, %vector.body449 ], [ 0, %vector.memcheck309 ]
-  %offset.idx451 = or i64 %index450, 1
-  %462 = getelementptr inbounds double, ptr %453, i64 %offset.idx451
-  %wide.load452 = load <2 x double>, ptr %462, align 8, !tbaa !9, !alias.scope !229
-  %463 = getelementptr inbounds double, ptr %452, i64 %offset.idx451
-  %wide.load453 = load <2 x double>, ptr %463, align 8, !tbaa !9, !alias.scope !232
-  %464 = add i64 %index450, 2
+vector.body450:                                   ; preds = %vector.memcheck310, %vector.body450
+  %index451 = phi i64 [ %index.next473, %vector.body450 ], [ 0, %vector.memcheck310 ]
+  %offset.idx452 = or i64 %index451, 1
+  %462 = getelementptr inbounds double, ptr %453, i64 %offset.idx452
+  %wide.load453 = load <2 x double>, ptr %462, align 8, !tbaa !9, !alias.scope !229
+  %463 = getelementptr inbounds double, ptr %452, i64 %offset.idx452
+  %wide.load454 = load <2 x double>, ptr %463, align 8, !tbaa !9, !alias.scope !232
+  %464 = add i64 %index451, 2
   %465 = getelementptr inbounds double, ptr %452, i64 %464
-  %wide.load454 = load <2 x double>, ptr %465, align 8, !tbaa !9, !alias.scope !234
-  %466 = fsub <2 x double> %wide.load453, %wide.load454
-  %467 = getelementptr inbounds double, ptr %453, i64 %index450
-  %wide.load455 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !229
-  %468 = getelementptr inbounds double, ptr %452, i64 %index450
-  %wide.load456 = load <2 x double>, ptr %468, align 8, !tbaa !9, !alias.scope !236
-  %469 = fsub <2 x double> %wide.load453, %wide.load456
-  %470 = fneg <2 x double> %wide.load455
+  %wide.load455 = load <2 x double>, ptr %465, align 8, !tbaa !9, !alias.scope !234
+  %466 = fsub <2 x double> %wide.load454, %wide.load455
+  %467 = getelementptr inbounds double, ptr %453, i64 %index451
+  %wide.load456 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !229
+  %468 = getelementptr inbounds double, ptr %452, i64 %index451
+  %wide.load457 = load <2 x double>, ptr %468, align 8, !tbaa !9, !alias.scope !236
+  %469 = fsub <2 x double> %wide.load454, %wide.load457
+  %470 = fneg <2 x double> %wide.load456
   %471 = fmul <2 x double> %469, %470
-  %472 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load452, <2 x double> %466, <2 x double> %471)
-  %473 = getelementptr inbounds double, ptr %451, i64 %offset.idx451
-  %wide.load457 = load <2 x double>, ptr %473, align 8, !tbaa !9, !alias.scope !238
-  %474 = getelementptr inbounds double, ptr %455, i64 %offset.idx451
-  %wide.load458 = load <2 x double>, ptr %474, align 8, !tbaa !9, !alias.scope !240
-  %475 = fsub <2 x double> %wide.load453, %wide.load458
-  %476 = fneg <2 x double> %wide.load457
+  %472 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load453, <2 x double> %466, <2 x double> %471)
+  %473 = getelementptr inbounds double, ptr %451, i64 %offset.idx452
+  %wide.load458 = load <2 x double>, ptr %473, align 8, !tbaa !9, !alias.scope !238
+  %474 = getelementptr inbounds double, ptr %455, i64 %offset.idx452
+  %wide.load459 = load <2 x double>, ptr %474, align 8, !tbaa !9, !alias.scope !240
+  %475 = fsub <2 x double> %wide.load454, %wide.load459
+  %476 = fneg <2 x double> %wide.load458
   %477 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %476, <2 x double> %475, <2 x double> %472)
-  %478 = getelementptr inbounds double, ptr %456, i64 %offset.idx451
-  %wide.load459 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !242
-  %479 = getelementptr inbounds double, ptr %457, i64 %offset.idx451
-  %wide.load460 = load <2 x double>, ptr %479, align 8, !tbaa !9, !alias.scope !244
-  %480 = fsub <2 x double> %wide.load453, %wide.load460
-  %481 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load459, <2 x double> %480, <2 x double> %477)
-  %482 = getelementptr inbounds double, ptr %458, i64 %offset.idx451
-  %wide.load461 = load <2 x double>, ptr %482, align 8, !tbaa !9, !alias.scope !246, !noalias !248
-  %483 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %481, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %wide.load461)
+  %478 = getelementptr inbounds double, ptr %456, i64 %offset.idx452
+  %wide.load460 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !242
+  %479 = getelementptr inbounds double, ptr %457, i64 %offset.idx452
+  %wide.load461 = load <2 x double>, ptr %479, align 8, !tbaa !9, !alias.scope !244
+  %480 = fsub <2 x double> %wide.load454, %wide.load461
+  %481 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load460, <2 x double> %480, <2 x double> %477)
+  %482 = getelementptr inbounds double, ptr %458, i64 %offset.idx452
+  %wide.load462 = load <2 x double>, ptr %482, align 8, !tbaa !9, !alias.scope !246, !noalias !248
+  %483 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %481, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %wide.load462)
   store <2 x double> %483, ptr %482, align 8, !tbaa !9, !alias.scope !246, !noalias !248
-  %wide.load462 = load <2 x double>, ptr %462, align 8, !tbaa !9, !alias.scope !229
-  %484 = getelementptr inbounds double, ptr %450, i64 %offset.idx451
-  %wide.load463 = load <2 x double>, ptr %484, align 8, !tbaa !9, !alias.scope !255
+  %wide.load463 = load <2 x double>, ptr %462, align 8, !tbaa !9, !alias.scope !229
+  %484 = getelementptr inbounds double, ptr %450, i64 %offset.idx452
+  %wide.load464 = load <2 x double>, ptr %484, align 8, !tbaa !9, !alias.scope !255
   %485 = getelementptr inbounds double, ptr %450, i64 %464
-  %wide.load464 = load <2 x double>, ptr %485, align 8, !tbaa !9, !alias.scope !256
-  %486 = fsub <2 x double> %wide.load463, %wide.load464
-  %wide.load465 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !229
-  %487 = getelementptr inbounds double, ptr %450, i64 %index450
-  %wide.load466 = load <2 x double>, ptr %487, align 8, !tbaa !9, !alias.scope !257
-  %488 = fsub <2 x double> %wide.load463, %wide.load466
-  %489 = fneg <2 x double> %wide.load465
+  %wide.load465 = load <2 x double>, ptr %485, align 8, !tbaa !9, !alias.scope !256
+  %486 = fsub <2 x double> %wide.load464, %wide.load465
+  %wide.load466 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !229
+  %487 = getelementptr inbounds double, ptr %450, i64 %index451
+  %wide.load467 = load <2 x double>, ptr %487, align 8, !tbaa !9, !alias.scope !257
+  %488 = fsub <2 x double> %wide.load464, %wide.load467
+  %489 = fneg <2 x double> %wide.load466
   %490 = fmul <2 x double> %488, %489
-  %491 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load462, <2 x double> %486, <2 x double> %490)
-  %wide.load467 = load <2 x double>, ptr %473, align 8, !tbaa !9, !alias.scope !238
-  %492 = getelementptr inbounds double, ptr %459, i64 %offset.idx451
-  %wide.load468 = load <2 x double>, ptr %492, align 8, !tbaa !9, !alias.scope !258
-  %493 = fsub <2 x double> %wide.load463, %wide.load468
-  %494 = fneg <2 x double> %wide.load467
+  %491 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load463, <2 x double> %486, <2 x double> %490)
+  %wide.load468 = load <2 x double>, ptr %473, align 8, !tbaa !9, !alias.scope !238
+  %492 = getelementptr inbounds double, ptr %459, i64 %offset.idx452
+  %wide.load469 = load <2 x double>, ptr %492, align 8, !tbaa !9, !alias.scope !258
+  %493 = fsub <2 x double> %wide.load464, %wide.load469
+  %494 = fneg <2 x double> %wide.load468
   %495 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %494, <2 x double> %493, <2 x double> %491)
-  %wide.load469 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !242
-  %496 = getelementptr inbounds double, ptr %460, i64 %offset.idx451
-  %wide.load470 = load <2 x double>, ptr %496, align 8, !tbaa !9, !alias.scope !259
-  %497 = fsub <2 x double> %wide.load463, %wide.load470
-  %498 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load469, <2 x double> %497, <2 x double> %495)
-  %499 = getelementptr inbounds double, ptr %461, i64 %offset.idx451
-  %wide.load471 = load <2 x double>, ptr %499, align 8, !tbaa !9, !alias.scope !260, !noalias !261
-  %500 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %498, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %wide.load471)
+  %wide.load470 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !242
+  %496 = getelementptr inbounds double, ptr %460, i64 %offset.idx452
+  %wide.load471 = load <2 x double>, ptr %496, align 8, !tbaa !9, !alias.scope !259
+  %497 = fsub <2 x double> %wide.load464, %wide.load471
+  %498 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load470, <2 x double> %497, <2 x double> %495)
+  %499 = getelementptr inbounds double, ptr %461, i64 %offset.idx452
+  %wide.load472 = load <2 x double>, ptr %499, align 8, !tbaa !9, !alias.scope !260, !noalias !261
+  %500 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %498, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %wide.load472)
   store <2 x double> %500, ptr %499, align 8, !tbaa !9, !alias.scope !260, !noalias !261
-  %index.next472 = add nuw i64 %index450, 2
-  %501 = icmp eq i64 %index.next472, %n.vec445
-  br i1 %501, label %middle.block440, label %vector.body449, !llvm.loop !262
+  %index.next473 = add nuw i64 %index451, 2
+  %501 = icmp eq i64 %index.next473, %n.vec446
+  br i1 %501, label %middle.block441, label %vector.body450, !llvm.loop !262
 
-middle.block440:                                  ; preds = %vector.body449
-  br i1 %cmp.n448, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us", label %for.body.i.i86.us.preheader
+middle.block441:                                  ; preds = %vector.body450
+  br i1 %cmp.n449, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us", label %for.body.i.i84.us.preheader
 
-for.body.i.i86.us.preheader:                      ; preds = %vector.memcheck309, %for.body29.us, %middle.block440
-  %indvars.iv.i.i80.us.ph = phi i64 [ 1, %vector.memcheck309 ], [ 1, %for.body29.us ], [ %ind.end446, %middle.block440 ]
-  br label %for.body.i.i86.us
+for.body.i.i84.us.preheader:                      ; preds = %vector.memcheck310, %for.body29.us, %middle.block441
+  %indvars.iv.i.i78.us.ph = phi i64 [ 1, %vector.memcheck310 ], [ 1, %for.body29.us ], [ %ind.end447, %middle.block441 ]
+  br label %for.body.i.i84.us
 
-for.body.i.i86.us:                                ; preds = %for.body.i.i86.us.preheader, %for.body.i.i86.us
-  %indvars.iv.i.i80.us = phi i64 [ %indvars.iv.next.i.i82.us, %for.body.i.i86.us ], [ %indvars.iv.i.i80.us.ph, %for.body.i.i86.us.preheader ]
-  %arrayidx3.i.i.i81.us = getelementptr inbounds double, ptr %453, i64 %indvars.iv.i.i80.us
-  %502 = load double, ptr %arrayidx3.i.i.i81.us, align 8, !tbaa !9
-  %arrayidx7.i.i.i.us = getelementptr inbounds double, ptr %452, i64 %indvars.iv.i.i80.us
+for.body.i.i84.us:                                ; preds = %for.body.i.i84.us.preheader, %for.body.i.i84.us
+  %indvars.iv.i.i78.us = phi i64 [ %indvars.iv.next.i.i80.us, %for.body.i.i84.us ], [ %indvars.iv.i.i78.us.ph, %for.body.i.i84.us.preheader ]
+  %arrayidx3.i.i.i79.us = getelementptr inbounds double, ptr %453, i64 %indvars.iv.i.i78.us
+  %502 = load double, ptr %arrayidx3.i.i.i79.us, align 8, !tbaa !9
+  %arrayidx7.i.i.i.us = getelementptr inbounds double, ptr %452, i64 %indvars.iv.i.i78.us
   %503 = load double, ptr %arrayidx7.i.i.i.us, align 8, !tbaa !9
-  %indvars.iv.next.i.i82.us = add nuw nsw i64 %indvars.iv.i.i80.us, 1
-  %arrayidx11.i.i.i.us = getelementptr inbounds double, ptr %452, i64 %indvars.iv.next.i.i82.us
+  %indvars.iv.next.i.i80.us = add nuw nsw i64 %indvars.iv.i.i78.us, 1
+  %arrayidx11.i.i.i.us = getelementptr inbounds double, ptr %452, i64 %indvars.iv.next.i.i80.us
   %504 = load double, ptr %arrayidx11.i.i.i.us, align 8, !tbaa !9
   %sub.i.i.i.us = fsub double %503, %504
-  %505 = add nsw i64 %indvars.iv.i.i80.us, -1
+  %505 = add nsw i64 %indvars.iv.i.i78.us, -1
   %arrayidx16.i.i.i.us = getelementptr inbounds double, ptr %453, i64 %505
   %506 = load double, ptr %arrayidx16.i.i.i.us, align 8, !tbaa !9
   %arrayidx25.i.i.i.us = getelementptr inbounds double, ptr %452, i64 %505
@@ -3480,27 +3479,27 @@ for.body.i.i86.us:                                ; preds = %for.body.i.i86.us.p
   %508 = fneg double %506
   %neg.i.i.i.us = fmul double %sub26.i.i.i.us, %508
   %509 = tail call double @llvm.fmuladd.f64(double %502, double %sub.i.i.i.us, double %neg.i.i.i.us)
-  %arrayidx31.i.i.i83.us = getelementptr inbounds double, ptr %451, i64 %indvars.iv.i.i80.us
-  %510 = load double, ptr %arrayidx31.i.i.i83.us, align 8, !tbaa !9
-  %arrayidx40.i.i.i84.us = getelementptr inbounds double, ptr %455, i64 %indvars.iv.i.i80.us
-  %511 = load double, ptr %arrayidx40.i.i.i84.us, align 8, !tbaa !9
+  %arrayidx31.i.i.i81.us = getelementptr inbounds double, ptr %451, i64 %indvars.iv.i.i78.us
+  %510 = load double, ptr %arrayidx31.i.i.i81.us, align 8, !tbaa !9
+  %arrayidx40.i.i.i82.us = getelementptr inbounds double, ptr %455, i64 %indvars.iv.i.i78.us
+  %511 = load double, ptr %arrayidx40.i.i.i82.us, align 8, !tbaa !9
   %sub41.i.i.i.us = fsub double %503, %511
   %neg42.i.i.i.us = fneg double %510
   %512 = tail call double @llvm.fmuladd.f64(double %neg42.i.i.i.us, double %sub41.i.i.i.us, double %509)
-  %arrayidx47.i.i.i.us = getelementptr inbounds double, ptr %456, i64 %indvars.iv.i.i80.us
+  %arrayidx47.i.i.i.us = getelementptr inbounds double, ptr %456, i64 %indvars.iv.i.i78.us
   %513 = load double, ptr %arrayidx47.i.i.i.us, align 8, !tbaa !9
-  %arrayidx56.i.i.i.us = getelementptr inbounds double, ptr %457, i64 %indvars.iv.i.i80.us
+  %arrayidx56.i.i.i.us = getelementptr inbounds double, ptr %457, i64 %indvars.iv.i.i78.us
   %514 = load double, ptr %arrayidx56.i.i.i.us, align 8, !tbaa !9
   %sub57.i.i.i.us = fsub double %503, %514
   %515 = tail call double @llvm.fmuladd.f64(double %513, double %sub57.i.i.i.us, double %512)
-  %arrayidx61.i.i.i.us = getelementptr inbounds double, ptr %458, i64 %indvars.iv.i.i80.us
+  %arrayidx61.i.i.i.us = getelementptr inbounds double, ptr %458, i64 %indvars.iv.i.i78.us
   %516 = load double, ptr %arrayidx61.i.i.i.us, align 8, !tbaa !9
   %517 = tail call double @llvm.fmuladd.f64(double %515, double 4.100000e-03, double %516)
   store double %517, ptr %arrayidx61.i.i.i.us, align 8, !tbaa !9
-  %518 = load double, ptr %arrayidx3.i.i.i81.us, align 8, !tbaa !9
-  %arrayidx69.i.i.i.us = getelementptr inbounds double, ptr %450, i64 %indvars.iv.i.i80.us
+  %518 = load double, ptr %arrayidx3.i.i.i79.us, align 8, !tbaa !9
+  %arrayidx69.i.i.i.us = getelementptr inbounds double, ptr %450, i64 %indvars.iv.i.i78.us
   %519 = load double, ptr %arrayidx69.i.i.i.us, align 8, !tbaa !9
-  %arrayidx74.i.i.i.us = getelementptr inbounds double, ptr %450, i64 %indvars.iv.next.i.i82.us
+  %arrayidx74.i.i.i.us = getelementptr inbounds double, ptr %450, i64 %indvars.iv.next.i.i80.us
   %520 = load double, ptr %arrayidx74.i.i.i.us, align 8, !tbaa !9
   %sub75.i.i.i.us = fsub double %519, %520
   %521 = load double, ptr %arrayidx16.i.i.i.us, align 8, !tbaa !9
@@ -3510,25 +3509,25 @@ for.body.i.i86.us:                                ; preds = %for.body.i.i86.us.p
   %523 = fneg double %521
   %neg92.i.i.i.us = fmul double %sub90.i.i.i.us, %523
   %524 = tail call double @llvm.fmuladd.f64(double %518, double %sub75.i.i.i.us, double %neg92.i.i.i.us)
-  %525 = load double, ptr %arrayidx31.i.i.i83.us, align 8, !tbaa !9
-  %arrayidx105.i.i.i.us = getelementptr inbounds double, ptr %459, i64 %indvars.iv.i.i80.us
+  %525 = load double, ptr %arrayidx31.i.i.i81.us, align 8, !tbaa !9
+  %arrayidx105.i.i.i.us = getelementptr inbounds double, ptr %459, i64 %indvars.iv.i.i78.us
   %526 = load double, ptr %arrayidx105.i.i.i.us, align 8, !tbaa !9
   %sub106.i.i.i.us = fsub double %519, %526
   %neg107.i.i.i.us = fneg double %525
   %527 = tail call double @llvm.fmuladd.f64(double %neg107.i.i.i.us, double %sub106.i.i.i.us, double %524)
   %528 = load double, ptr %arrayidx47.i.i.i.us, align 8, !tbaa !9
-  %arrayidx121.i.i.i.us = getelementptr inbounds double, ptr %460, i64 %indvars.iv.i.i80.us
+  %arrayidx121.i.i.i.us = getelementptr inbounds double, ptr %460, i64 %indvars.iv.i.i78.us
   %529 = load double, ptr %arrayidx121.i.i.i.us, align 8, !tbaa !9
   %sub122.i.i.i.us = fsub double %519, %529
   %530 = tail call double @llvm.fmuladd.f64(double %528, double %sub122.i.i.i.us, double %527)
-  %arrayidx126.i.i.i.us = getelementptr inbounds double, ptr %461, i64 %indvars.iv.i.i80.us
+  %arrayidx126.i.i.i.us = getelementptr inbounds double, ptr %461, i64 %indvars.iv.i.i78.us
   %531 = load double, ptr %arrayidx126.i.i.i.us, align 8, !tbaa !9
   %532 = tail call double @llvm.fmuladd.f64(double %530, double 4.100000e-03, double %531)
   store double %532, ptr %arrayidx126.i.i.i.us, align 8, !tbaa !9
-  %exitcond.not.i.i85.us = icmp eq i64 %indvars.iv.next.i.i82.us, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i85.us, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us", label %for.body.i.i86.us, !llvm.loop !263
+  %exitcond.not.i.i83.us = icmp eq i64 %indvars.iv.next.i.i80.us, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i83.us, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us", label %for.body.i.i84.us, !llvm.loop !263
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i86.us, %middle.block440
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i84.us, %middle.block441
   %exitcond.not = icmp eq i64 %indvars.iv.next, 6
   br i1 %exitcond.not, label %for.cond34.preheader, label %for.body29.us, !llvm.loop !264
 
@@ -3536,15 +3535,15 @@ for.cond34.preheader:                             ; preds = %"_Z6forallI9simd_ex
   br i1 %cmp3.i.i, label %for.body36.us.preheader, label %for.end40
 
 for.body36.us.preheader:                          ; preds = %for.cond34.preheader
-  %533 = load ptr, ptr %arrayidx.i.i.i103.us, align 8, !tbaa !5
-  %534 = load ptr, ptr %arrayidx5.i.i.i104.us, align 8, !tbaa !5
-  %535 = load ptr, ptr %arrayidx9.i.i.i105.us, align 8, !tbaa !5
+  %533 = load ptr, ptr %arrayidx.i.i.i101.us, align 8, !tbaa !5
+  %534 = load ptr, ptr %arrayidx5.i.i.i102.us, align 8, !tbaa !5
+  %535 = load ptr, ptr %arrayidx9.i.i.i103.us, align 8, !tbaa !5
   %536 = load ptr, ptr %arrayidx13.i.i.i.us, align 8, !tbaa !5
   %537 = load ptr, ptr %arrayidx17.i.i.i.us, align 8, !tbaa !5
-  %538 = load ptr, ptr %arrayidx21.i.i.i106.us, align 8, !tbaa !5
-  br i1 %min.iters.check294, label %for.body.i.i116.us.preheader, label %vector.memcheck274
+  %538 = load ptr, ptr %arrayidx21.i.i.i104.us, align 8, !tbaa !5
+  br i1 %min.iters.check295, label %for.body.i.i114.us.preheader, label %vector.memcheck275
 
-vector.memcheck274:                               ; preds = %for.body36.us.preheader
+vector.memcheck275:                               ; preds = %for.body36.us.preheader
   %539 = ptrtoint ptr %538 to i64
   %540 = ptrtoint ptr %537 to i64
   %541 = ptrtoint ptr %536 to i64
@@ -3554,134 +3553,134 @@ vector.memcheck274:                               ; preds = %for.body36.us.prehe
   %545 = add nuw i64 %539, 8
   %546 = add nuw i64 %542, 8
   %547 = sub i64 %545, %546
-  %diff.check275 = icmp ult i64 %547, 16
+  %diff.check276 = icmp ult i64 %547, 16
   %548 = add nuw i64 %544, 8
   %549 = sub i64 %546, %548
-  %diff.check276 = icmp ult i64 %549, 16
-  %conflict.rdx277 = or i1 %diff.check275, %diff.check276
+  %diff.check277 = icmp ult i64 %549, 16
+  %conflict.rdx278 = or i1 %diff.check276, %diff.check277
   %550 = add nuw i64 %543, 8
   %551 = sub i64 %546, %550
-  %diff.check278 = icmp ult i64 %551, 16
-  %conflict.rdx279 = or i1 %conflict.rdx277, %diff.check278
+  %diff.check279 = icmp ult i64 %551, 16
+  %conflict.rdx280 = or i1 %conflict.rdx278, %diff.check279
   %552 = add nuw i64 %541, 8
   %553 = sub i64 %552, %546
-  %diff.check280 = icmp ult i64 %553, 16
-  %conflict.rdx281 = or i1 %conflict.rdx279, %diff.check280
+  %diff.check281 = icmp ult i64 %553, 16
+  %conflict.rdx282 = or i1 %conflict.rdx280, %diff.check281
   %554 = add nuw i64 %540, 8
   %555 = sub i64 %554, %546
-  %diff.check282 = icmp ult i64 %555, 16
-  %conflict.rdx283 = or i1 %conflict.rdx281, %diff.check282
+  %diff.check283 = icmp ult i64 %555, 16
+  %conflict.rdx284 = or i1 %conflict.rdx282, %diff.check283
   %556 = sub i64 %545, %548
-  %diff.check284 = icmp ult i64 %556, 16
-  %conflict.rdx285 = or i1 %conflict.rdx283, %diff.check284
+  %diff.check285 = icmp ult i64 %556, 16
+  %conflict.rdx286 = or i1 %conflict.rdx284, %diff.check285
   %557 = sub i64 %545, %550
-  %diff.check286 = icmp ult i64 %557, 16
-  %conflict.rdx287 = or i1 %conflict.rdx285, %diff.check286
+  %diff.check287 = icmp ult i64 %557, 16
+  %conflict.rdx288 = or i1 %conflict.rdx286, %diff.check287
   %558 = sub i64 %545, %552
-  %diff.check288 = icmp ult i64 %558, 16
-  %conflict.rdx289 = or i1 %conflict.rdx287, %diff.check288
+  %diff.check289 = icmp ult i64 %558, 16
+  %conflict.rdx290 = or i1 %conflict.rdx288, %diff.check289
   %559 = sub i64 %545, %554
-  %diff.check290 = icmp ult i64 %559, 16
-  %conflict.rdx291 = or i1 %conflict.rdx289, %diff.check290
-  br i1 %conflict.rdx291, label %for.body.i.i116.us.preheader, label %vector.body301
+  %diff.check291 = icmp ult i64 %559, 16
+  %conflict.rdx292 = or i1 %conflict.rdx290, %diff.check291
+  br i1 %conflict.rdx292, label %for.body.i.i114.us.preheader, label %vector.body302
 
-vector.body301:                                   ; preds = %vector.memcheck274, %vector.body301
-  %index302 = phi i64 [ %index.next308, %vector.body301 ], [ 0, %vector.memcheck274 ]
-  %offset.idx303 = or i64 %index302, 1
-  %560 = getelementptr inbounds double, ptr %533, i64 %offset.idx303
-  %wide.load304 = load <2 x double>, ptr %560, align 8, !tbaa !9
-  %561 = getelementptr inbounds double, ptr %534, i64 %offset.idx303
-  %wide.load305 = load <2 x double>, ptr %561, align 8, !tbaa !9
-  %562 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load305, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load304)
-  %563 = getelementptr inbounds double, ptr %535, i64 %offset.idx303
+vector.body302:                                   ; preds = %vector.memcheck275, %vector.body302
+  %index303 = phi i64 [ %index.next309, %vector.body302 ], [ 0, %vector.memcheck275 ]
+  %offset.idx304 = or i64 %index303, 1
+  %560 = getelementptr inbounds double, ptr %533, i64 %offset.idx304
+  %wide.load305 = load <2 x double>, ptr %560, align 8, !tbaa !9
+  %561 = getelementptr inbounds double, ptr %534, i64 %offset.idx304
+  %wide.load306 = load <2 x double>, ptr %561, align 8, !tbaa !9
+  %562 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load306, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load305)
+  %563 = getelementptr inbounds double, ptr %535, i64 %offset.idx304
   store <2 x double> %562, ptr %563, align 8, !tbaa !9
-  %564 = getelementptr inbounds double, ptr %536, i64 %offset.idx303
-  %wide.load306 = load <2 x double>, ptr %564, align 8, !tbaa !9
-  %565 = getelementptr inbounds double, ptr %537, i64 %offset.idx303
-  %wide.load307 = load <2 x double>, ptr %565, align 8, !tbaa !9
-  %566 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load307, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load306)
-  %567 = getelementptr inbounds double, ptr %538, i64 %offset.idx303
+  %564 = getelementptr inbounds double, ptr %536, i64 %offset.idx304
+  %wide.load307 = load <2 x double>, ptr %564, align 8, !tbaa !9
+  %565 = getelementptr inbounds double, ptr %537, i64 %offset.idx304
+  %wide.load308 = load <2 x double>, ptr %565, align 8, !tbaa !9
+  %566 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load308, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load307)
+  %567 = getelementptr inbounds double, ptr %538, i64 %offset.idx304
   store <2 x double> %566, ptr %567, align 8, !tbaa !9
-  %index.next308 = add nuw i64 %index302, 2
-  %568 = icmp eq i64 %index.next308, %n.vec297
-  br i1 %568, label %middle.block292, label %vector.body301, !llvm.loop !265
+  %index.next309 = add nuw i64 %index303, 2
+  %568 = icmp eq i64 %index.next309, %n.vec298
+  br i1 %568, label %middle.block293, label %vector.body302, !llvm.loop !265
 
-middle.block292:                                  ; preds = %vector.body301
-  br i1 %cmp.n300, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i116.us.preheader
+middle.block293:                                  ; preds = %vector.body302
+  br i1 %cmp.n301, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i114.us.preheader
 
-for.body.i.i116.us.preheader:                     ; preds = %vector.memcheck274, %for.body36.us.preheader, %middle.block292
-  %indvars.iv.i.i109.us.ph = phi i64 [ 1, %vector.memcheck274 ], [ 1, %for.body36.us.preheader ], [ %ind.end298, %middle.block292 ]
-  %.neg = add nsw i64 %indvars.iv.i.i109.us.ph, 1
-  br i1 %lcmp.mod.not.not, label %for.body.i.i116.us.prol, label %for.body.i.i116.us.prol.loopexit
+for.body.i.i114.us.preheader:                     ; preds = %vector.memcheck275, %for.body36.us.preheader, %middle.block293
+  %indvars.iv.i.i107.us.ph = phi i64 [ 1, %vector.memcheck275 ], [ 1, %for.body36.us.preheader ], [ %ind.end299, %middle.block293 ]
+  %.neg = add nsw i64 %indvars.iv.i.i107.us.ph, 1
+  br i1 %lcmp.mod.not.not, label %for.body.i.i114.us.prol, label %for.body.i.i114.us.prol.loopexit
 
-for.body.i.i116.us.prol:                          ; preds = %for.body.i.i116.us.preheader
-  %arrayidx3.i.i.i110.us.prol = getelementptr inbounds double, ptr %533, i64 %indvars.iv.i.i109.us.ph
-  %569 = load double, ptr %arrayidx3.i.i.i110.us.prol, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.prol = getelementptr inbounds double, ptr %534, i64 %indvars.iv.i.i109.us.ph
-  %570 = load double, ptr %arrayidx7.i.i.i111.us.prol, align 8, !tbaa !9
+for.body.i.i114.us.prol:                          ; preds = %for.body.i.i114.us.preheader
+  %arrayidx3.i.i.i108.us.prol = getelementptr inbounds double, ptr %533, i64 %indvars.iv.i.i107.us.ph
+  %569 = load double, ptr %arrayidx3.i.i.i108.us.prol, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.prol = getelementptr inbounds double, ptr %534, i64 %indvars.iv.i.i107.us.ph
+  %570 = load double, ptr %arrayidx7.i.i.i109.us.prol, align 8, !tbaa !9
   %571 = tail call double @llvm.fmuladd.f64(double %570, double 3.700000e-03, double %569)
-  %arrayidx11.i.i.i112.us.prol = getelementptr inbounds double, ptr %535, i64 %indvars.iv.i.i109.us.ph
-  store double %571, ptr %arrayidx11.i.i.i112.us.prol, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.prol = getelementptr inbounds double, ptr %536, i64 %indvars.iv.i.i109.us.ph
-  %572 = load double, ptr %arrayidx15.i.i.i113.us.prol, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.prol = getelementptr inbounds double, ptr %537, i64 %indvars.iv.i.i109.us.ph
+  %arrayidx11.i.i.i110.us.prol = getelementptr inbounds double, ptr %535, i64 %indvars.iv.i.i107.us.ph
+  store double %571, ptr %arrayidx11.i.i.i110.us.prol, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.prol = getelementptr inbounds double, ptr %536, i64 %indvars.iv.i.i107.us.ph
+  %572 = load double, ptr %arrayidx15.i.i.i111.us.prol, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.prol = getelementptr inbounds double, ptr %537, i64 %indvars.iv.i.i107.us.ph
   %573 = load double, ptr %arrayidx19.i.i.i.us.prol, align 8, !tbaa !9
   %574 = tail call double @llvm.fmuladd.f64(double %573, double 3.700000e-03, double %572)
-  %arrayidx23.i.i.i.us.prol = getelementptr inbounds double, ptr %538, i64 %indvars.iv.i.i109.us.ph
+  %arrayidx23.i.i.i.us.prol = getelementptr inbounds double, ptr %538, i64 %indvars.iv.i.i107.us.ph
   store double %574, ptr %arrayidx23.i.i.i.us.prol, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.prol = add nuw nsw i64 %indvars.iv.i.i109.us.ph, 1
-  br label %for.body.i.i116.us.prol.loopexit
+  %indvars.iv.next.i.i112.us.prol = add nuw nsw i64 %indvars.iv.i.i107.us.ph, 1
+  br label %for.body.i.i114.us.prol.loopexit
 
-for.body.i.i116.us.prol.loopexit:                 ; preds = %for.body.i.i116.us.prol, %for.body.i.i116.us.preheader
-  %indvars.iv.i.i109.us.unr = phi i64 [ %indvars.iv.i.i109.us.ph, %for.body.i.i116.us.preheader ], [ %indvars.iv.next.i.i114.us.prol, %for.body.i.i116.us.prol ]
+for.body.i.i114.us.prol.loopexit:                 ; preds = %for.body.i.i114.us.prol, %for.body.i.i114.us.preheader
+  %indvars.iv.i.i107.us.unr = phi i64 [ %indvars.iv.i.i107.us.ph, %for.body.i.i114.us.preheader ], [ %indvars.iv.next.i.i112.us.prol, %for.body.i.i114.us.prol ]
   %575 = icmp eq i64 %wide.trip.count.i.i, %.neg
-  br i1 %575, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i116.us
+  br i1 %575, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i114.us
 
-for.body.i.i116.us:                               ; preds = %for.body.i.i116.us.prol.loopexit, %for.body.i.i116.us
-  %indvars.iv.i.i109.us = phi i64 [ %indvars.iv.next.i.i114.us.11080, %for.body.i.i116.us ], [ %indvars.iv.i.i109.us.unr, %for.body.i.i116.us.prol.loopexit ]
-  %arrayidx3.i.i.i110.us = getelementptr inbounds double, ptr %533, i64 %indvars.iv.i.i109.us
-  %576 = load double, ptr %arrayidx3.i.i.i110.us, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us = getelementptr inbounds double, ptr %534, i64 %indvars.iv.i.i109.us
-  %577 = load double, ptr %arrayidx7.i.i.i111.us, align 8, !tbaa !9
+for.body.i.i114.us:                               ; preds = %for.body.i.i114.us.prol.loopexit, %for.body.i.i114.us
+  %indvars.iv.i.i107.us = phi i64 [ %indvars.iv.next.i.i112.us.11081, %for.body.i.i114.us ], [ %indvars.iv.i.i107.us.unr, %for.body.i.i114.us.prol.loopexit ]
+  %arrayidx3.i.i.i108.us = getelementptr inbounds double, ptr %533, i64 %indvars.iv.i.i107.us
+  %576 = load double, ptr %arrayidx3.i.i.i108.us, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us = getelementptr inbounds double, ptr %534, i64 %indvars.iv.i.i107.us
+  %577 = load double, ptr %arrayidx7.i.i.i109.us, align 8, !tbaa !9
   %578 = tail call double @llvm.fmuladd.f64(double %577, double 3.700000e-03, double %576)
-  %arrayidx11.i.i.i112.us = getelementptr inbounds double, ptr %535, i64 %indvars.iv.i.i109.us
-  store double %578, ptr %arrayidx11.i.i.i112.us, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us = getelementptr inbounds double, ptr %536, i64 %indvars.iv.i.i109.us
-  %579 = load double, ptr %arrayidx15.i.i.i113.us, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us = getelementptr inbounds double, ptr %537, i64 %indvars.iv.i.i109.us
+  %arrayidx11.i.i.i110.us = getelementptr inbounds double, ptr %535, i64 %indvars.iv.i.i107.us
+  store double %578, ptr %arrayidx11.i.i.i110.us, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us = getelementptr inbounds double, ptr %536, i64 %indvars.iv.i.i107.us
+  %579 = load double, ptr %arrayidx15.i.i.i111.us, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us = getelementptr inbounds double, ptr %537, i64 %indvars.iv.i.i107.us
   %580 = load double, ptr %arrayidx19.i.i.i.us, align 8, !tbaa !9
   %581 = tail call double @llvm.fmuladd.f64(double %580, double 3.700000e-03, double %579)
-  %arrayidx23.i.i.i.us = getelementptr inbounds double, ptr %538, i64 %indvars.iv.i.i109.us
+  %arrayidx23.i.i.i.us = getelementptr inbounds double, ptr %538, i64 %indvars.iv.i.i107.us
   store double %581, ptr %arrayidx23.i.i.i.us, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us = add nuw nsw i64 %indvars.iv.i.i109.us, 1
-  %arrayidx3.i.i.i110.us.11074 = getelementptr inbounds double, ptr %533, i64 %indvars.iv.next.i.i114.us
-  %582 = load double, ptr %arrayidx3.i.i.i110.us.11074, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.11075 = getelementptr inbounds double, ptr %534, i64 %indvars.iv.next.i.i114.us
-  %583 = load double, ptr %arrayidx7.i.i.i111.us.11075, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us = add nuw nsw i64 %indvars.iv.i.i107.us, 1
+  %arrayidx3.i.i.i108.us.11075 = getelementptr inbounds double, ptr %533, i64 %indvars.iv.next.i.i112.us
+  %582 = load double, ptr %arrayidx3.i.i.i108.us.11075, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.11076 = getelementptr inbounds double, ptr %534, i64 %indvars.iv.next.i.i112.us
+  %583 = load double, ptr %arrayidx7.i.i.i109.us.11076, align 8, !tbaa !9
   %584 = tail call double @llvm.fmuladd.f64(double %583, double 3.700000e-03, double %582)
-  %arrayidx11.i.i.i112.us.11076 = getelementptr inbounds double, ptr %535, i64 %indvars.iv.next.i.i114.us
-  store double %584, ptr %arrayidx11.i.i.i112.us.11076, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.11077 = getelementptr inbounds double, ptr %536, i64 %indvars.iv.next.i.i114.us
-  %585 = load double, ptr %arrayidx15.i.i.i113.us.11077, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.11078 = getelementptr inbounds double, ptr %537, i64 %indvars.iv.next.i.i114.us
-  %586 = load double, ptr %arrayidx19.i.i.i.us.11078, align 8, !tbaa !9
+  %arrayidx11.i.i.i110.us.11077 = getelementptr inbounds double, ptr %535, i64 %indvars.iv.next.i.i112.us
+  store double %584, ptr %arrayidx11.i.i.i110.us.11077, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.11078 = getelementptr inbounds double, ptr %536, i64 %indvars.iv.next.i.i112.us
+  %585 = load double, ptr %arrayidx15.i.i.i111.us.11078, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.11079 = getelementptr inbounds double, ptr %537, i64 %indvars.iv.next.i.i112.us
+  %586 = load double, ptr %arrayidx19.i.i.i.us.11079, align 8, !tbaa !9
   %587 = tail call double @llvm.fmuladd.f64(double %586, double 3.700000e-03, double %585)
-  %arrayidx23.i.i.i.us.11079 = getelementptr inbounds double, ptr %538, i64 %indvars.iv.next.i.i114.us
-  store double %587, ptr %arrayidx23.i.i.i.us.11079, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.11080 = add nuw nsw i64 %indvars.iv.i.i109.us, 2
-  %exitcond.not.i.i115.us.11081 = icmp eq i64 %indvars.iv.next.i.i114.us.11080, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i115.us.11081, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i116.us, !llvm.loop !266
+  %arrayidx23.i.i.i.us.11080 = getelementptr inbounds double, ptr %538, i64 %indvars.iv.next.i.i112.us
+  store double %587, ptr %arrayidx23.i.i.i.us.11080, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us.11081 = add nuw nsw i64 %indvars.iv.i.i107.us, 2
+  %exitcond.not.i.i113.us.11082 = icmp eq i64 %indvars.iv.next.i.i112.us.11081, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i113.us.11082, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", label %for.body.i.i114.us, !llvm.loop !266
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i116.us.prol.loopexit, %for.body.i.i116.us, %middle.block292
-  %588 = load ptr, ptr %arrayidx.i.i.i103.us.1, align 8, !tbaa !5
-  %589 = load ptr, ptr %arrayidx5.i.i.i104.us.1, align 8, !tbaa !5
-  %590 = load ptr, ptr %arrayidx9.i.i.i105.us.1, align 8, !tbaa !5
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us": ; preds = %for.body.i.i114.us.prol.loopexit, %for.body.i.i114.us, %middle.block293
+  %588 = load ptr, ptr %arrayidx.i.i.i101.us.1, align 8, !tbaa !5
+  %589 = load ptr, ptr %arrayidx5.i.i.i102.us.1, align 8, !tbaa !5
+  %590 = load ptr, ptr %arrayidx9.i.i.i103.us.1, align 8, !tbaa !5
   %591 = load ptr, ptr %arrayidx13.i.i.i.us.1, align 8, !tbaa !5
   %592 = load ptr, ptr %arrayidx17.i.i.i.us.1, align 8, !tbaa !5
-  %593 = load ptr, ptr %arrayidx21.i.i.i106.us.1, align 8, !tbaa !5
-  br i1 %min.iters.check259, label %for.body.i.i116.us.1.preheader, label %vector.memcheck239
+  %593 = load ptr, ptr %arrayidx21.i.i.i104.us.1, align 8, !tbaa !5
+  br i1 %min.iters.check260, label %for.body.i.i114.us.1.preheader, label %vector.memcheck240
 
-vector.memcheck239:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us"
+vector.memcheck240:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us"
   %594 = ptrtoint ptr %593 to i64
   %595 = ptrtoint ptr %592 to i64
   %596 = ptrtoint ptr %591 to i64
@@ -3691,134 +3690,134 @@ vector.memcheck239:                               ; preds = %"_Z6forallI9simd_ex
   %600 = add nuw i64 %594, 8
   %601 = add nuw i64 %597, 8
   %602 = sub i64 %600, %601
-  %diff.check240 = icmp ult i64 %602, 16
+  %diff.check241 = icmp ult i64 %602, 16
   %603 = add nuw i64 %599, 8
   %604 = sub i64 %601, %603
-  %diff.check241 = icmp ult i64 %604, 16
-  %conflict.rdx242 = or i1 %diff.check240, %diff.check241
+  %diff.check242 = icmp ult i64 %604, 16
+  %conflict.rdx243 = or i1 %diff.check241, %diff.check242
   %605 = add nuw i64 %598, 8
   %606 = sub i64 %601, %605
-  %diff.check243 = icmp ult i64 %606, 16
-  %conflict.rdx244 = or i1 %conflict.rdx242, %diff.check243
+  %diff.check244 = icmp ult i64 %606, 16
+  %conflict.rdx245 = or i1 %conflict.rdx243, %diff.check244
   %607 = add nuw i64 %596, 8
   %608 = sub i64 %607, %601
-  %diff.check245 = icmp ult i64 %608, 16
-  %conflict.rdx246 = or i1 %conflict.rdx244, %diff.check245
+  %diff.check246 = icmp ult i64 %608, 16
+  %conflict.rdx247 = or i1 %conflict.rdx245, %diff.check246
   %609 = add nuw i64 %595, 8
   %610 = sub i64 %609, %601
-  %diff.check247 = icmp ult i64 %610, 16
-  %conflict.rdx248 = or i1 %conflict.rdx246, %diff.check247
+  %diff.check248 = icmp ult i64 %610, 16
+  %conflict.rdx249 = or i1 %conflict.rdx247, %diff.check248
   %611 = sub i64 %600, %603
-  %diff.check249 = icmp ult i64 %611, 16
-  %conflict.rdx250 = or i1 %conflict.rdx248, %diff.check249
+  %diff.check250 = icmp ult i64 %611, 16
+  %conflict.rdx251 = or i1 %conflict.rdx249, %diff.check250
   %612 = sub i64 %600, %605
-  %diff.check251 = icmp ult i64 %612, 16
-  %conflict.rdx252 = or i1 %conflict.rdx250, %diff.check251
+  %diff.check252 = icmp ult i64 %612, 16
+  %conflict.rdx253 = or i1 %conflict.rdx251, %diff.check252
   %613 = sub i64 %600, %607
-  %diff.check253 = icmp ult i64 %613, 16
-  %conflict.rdx254 = or i1 %conflict.rdx252, %diff.check253
+  %diff.check254 = icmp ult i64 %613, 16
+  %conflict.rdx255 = or i1 %conflict.rdx253, %diff.check254
   %614 = sub i64 %600, %609
-  %diff.check255 = icmp ult i64 %614, 16
-  %conflict.rdx256 = or i1 %conflict.rdx254, %diff.check255
-  br i1 %conflict.rdx256, label %for.body.i.i116.us.1.preheader, label %vector.body266
+  %diff.check256 = icmp ult i64 %614, 16
+  %conflict.rdx257 = or i1 %conflict.rdx255, %diff.check256
+  br i1 %conflict.rdx257, label %for.body.i.i114.us.1.preheader, label %vector.body267
 
-vector.body266:                                   ; preds = %vector.memcheck239, %vector.body266
-  %index267 = phi i64 [ %index.next273, %vector.body266 ], [ 0, %vector.memcheck239 ]
-  %offset.idx268 = or i64 %index267, 1
-  %615 = getelementptr inbounds double, ptr %588, i64 %offset.idx268
-  %wide.load269 = load <2 x double>, ptr %615, align 8, !tbaa !9
-  %616 = getelementptr inbounds double, ptr %589, i64 %offset.idx268
-  %wide.load270 = load <2 x double>, ptr %616, align 8, !tbaa !9
-  %617 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load270, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load269)
-  %618 = getelementptr inbounds double, ptr %590, i64 %offset.idx268
+vector.body267:                                   ; preds = %vector.memcheck240, %vector.body267
+  %index268 = phi i64 [ %index.next274, %vector.body267 ], [ 0, %vector.memcheck240 ]
+  %offset.idx269 = or i64 %index268, 1
+  %615 = getelementptr inbounds double, ptr %588, i64 %offset.idx269
+  %wide.load270 = load <2 x double>, ptr %615, align 8, !tbaa !9
+  %616 = getelementptr inbounds double, ptr %589, i64 %offset.idx269
+  %wide.load271 = load <2 x double>, ptr %616, align 8, !tbaa !9
+  %617 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load271, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load270)
+  %618 = getelementptr inbounds double, ptr %590, i64 %offset.idx269
   store <2 x double> %617, ptr %618, align 8, !tbaa !9
-  %619 = getelementptr inbounds double, ptr %591, i64 %offset.idx268
-  %wide.load271 = load <2 x double>, ptr %619, align 8, !tbaa !9
-  %620 = getelementptr inbounds double, ptr %592, i64 %offset.idx268
-  %wide.load272 = load <2 x double>, ptr %620, align 8, !tbaa !9
-  %621 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load272, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load271)
-  %622 = getelementptr inbounds double, ptr %593, i64 %offset.idx268
+  %619 = getelementptr inbounds double, ptr %591, i64 %offset.idx269
+  %wide.load272 = load <2 x double>, ptr %619, align 8, !tbaa !9
+  %620 = getelementptr inbounds double, ptr %592, i64 %offset.idx269
+  %wide.load273 = load <2 x double>, ptr %620, align 8, !tbaa !9
+  %621 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load273, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load272)
+  %622 = getelementptr inbounds double, ptr %593, i64 %offset.idx269
   store <2 x double> %621, ptr %622, align 8, !tbaa !9
-  %index.next273 = add nuw i64 %index267, 2
-  %623 = icmp eq i64 %index.next273, %n.vec262
-  br i1 %623, label %middle.block257, label %vector.body266, !llvm.loop !267
+  %index.next274 = add nuw i64 %index268, 2
+  %623 = icmp eq i64 %index.next274, %n.vec263
+  br i1 %623, label %middle.block258, label %vector.body267, !llvm.loop !267
 
-middle.block257:                                  ; preds = %vector.body266
-  br i1 %cmp.n265, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i116.us.1.preheader
+middle.block258:                                  ; preds = %vector.body267
+  br i1 %cmp.n266, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i114.us.1.preheader
 
-for.body.i.i116.us.1.preheader:                   ; preds = %vector.memcheck239, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", %middle.block257
-  %indvars.iv.i.i109.us.1.ph = phi i64 [ 1, %vector.memcheck239 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us" ], [ %ind.end263, %middle.block257 ]
-  %.neg1091 = add nsw i64 %indvars.iv.i.i109.us.1.ph, 1
-  br i1 %lcmp.mod1084.not.not, label %for.body.i.i116.us.1.prol, label %for.body.i.i116.us.1.prol.loopexit
+for.body.i.i114.us.1.preheader:                   ; preds = %vector.memcheck240, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us", %middle.block258
+  %indvars.iv.i.i107.us.1.ph = phi i64 [ 1, %vector.memcheck240 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us" ], [ %ind.end264, %middle.block258 ]
+  %.neg1092 = add nsw i64 %indvars.iv.i.i107.us.1.ph, 1
+  br i1 %lcmp.mod1085.not.not, label %for.body.i.i114.us.1.prol, label %for.body.i.i114.us.1.prol.loopexit
 
-for.body.i.i116.us.1.prol:                        ; preds = %for.body.i.i116.us.1.preheader
-  %arrayidx3.i.i.i110.us.1.prol = getelementptr inbounds double, ptr %588, i64 %indvars.iv.i.i109.us.1.ph
-  %624 = load double, ptr %arrayidx3.i.i.i110.us.1.prol, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.1.prol = getelementptr inbounds double, ptr %589, i64 %indvars.iv.i.i109.us.1.ph
-  %625 = load double, ptr %arrayidx7.i.i.i111.us.1.prol, align 8, !tbaa !9
+for.body.i.i114.us.1.prol:                        ; preds = %for.body.i.i114.us.1.preheader
+  %arrayidx3.i.i.i108.us.1.prol = getelementptr inbounds double, ptr %588, i64 %indvars.iv.i.i107.us.1.ph
+  %624 = load double, ptr %arrayidx3.i.i.i108.us.1.prol, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.1.prol = getelementptr inbounds double, ptr %589, i64 %indvars.iv.i.i107.us.1.ph
+  %625 = load double, ptr %arrayidx7.i.i.i109.us.1.prol, align 8, !tbaa !9
   %626 = tail call double @llvm.fmuladd.f64(double %625, double 3.700000e-03, double %624)
-  %arrayidx11.i.i.i112.us.1.prol = getelementptr inbounds double, ptr %590, i64 %indvars.iv.i.i109.us.1.ph
-  store double %626, ptr %arrayidx11.i.i.i112.us.1.prol, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.1.prol = getelementptr inbounds double, ptr %591, i64 %indvars.iv.i.i109.us.1.ph
-  %627 = load double, ptr %arrayidx15.i.i.i113.us.1.prol, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.1.prol = getelementptr inbounds double, ptr %592, i64 %indvars.iv.i.i109.us.1.ph
+  %arrayidx11.i.i.i110.us.1.prol = getelementptr inbounds double, ptr %590, i64 %indvars.iv.i.i107.us.1.ph
+  store double %626, ptr %arrayidx11.i.i.i110.us.1.prol, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.1.prol = getelementptr inbounds double, ptr %591, i64 %indvars.iv.i.i107.us.1.ph
+  %627 = load double, ptr %arrayidx15.i.i.i111.us.1.prol, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.1.prol = getelementptr inbounds double, ptr %592, i64 %indvars.iv.i.i107.us.1.ph
   %628 = load double, ptr %arrayidx19.i.i.i.us.1.prol, align 8, !tbaa !9
   %629 = tail call double @llvm.fmuladd.f64(double %628, double 3.700000e-03, double %627)
-  %arrayidx23.i.i.i.us.1.prol = getelementptr inbounds double, ptr %593, i64 %indvars.iv.i.i109.us.1.ph
+  %arrayidx23.i.i.i.us.1.prol = getelementptr inbounds double, ptr %593, i64 %indvars.iv.i.i107.us.1.ph
   store double %629, ptr %arrayidx23.i.i.i.us.1.prol, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.1.prol = add nuw nsw i64 %indvars.iv.i.i109.us.1.ph, 1
-  br label %for.body.i.i116.us.1.prol.loopexit
+  %indvars.iv.next.i.i112.us.1.prol = add nuw nsw i64 %indvars.iv.i.i107.us.1.ph, 1
+  br label %for.body.i.i114.us.1.prol.loopexit
 
-for.body.i.i116.us.1.prol.loopexit:               ; preds = %for.body.i.i116.us.1.prol, %for.body.i.i116.us.1.preheader
-  %indvars.iv.i.i109.us.1.unr = phi i64 [ %indvars.iv.i.i109.us.1.ph, %for.body.i.i116.us.1.preheader ], [ %indvars.iv.next.i.i114.us.1.prol, %for.body.i.i116.us.1.prol ]
-  %630 = icmp eq i64 %wide.trip.count.i.i, %.neg1091
-  br i1 %630, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i116.us.1
+for.body.i.i114.us.1.prol.loopexit:               ; preds = %for.body.i.i114.us.1.prol, %for.body.i.i114.us.1.preheader
+  %indvars.iv.i.i107.us.1.unr = phi i64 [ %indvars.iv.i.i107.us.1.ph, %for.body.i.i114.us.1.preheader ], [ %indvars.iv.next.i.i112.us.1.prol, %for.body.i.i114.us.1.prol ]
+  %630 = icmp eq i64 %wide.trip.count.i.i, %.neg1092
+  br i1 %630, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i114.us.1
 
-for.body.i.i116.us.1:                             ; preds = %for.body.i.i116.us.1.prol.loopexit, %for.body.i.i116.us.1
-  %indvars.iv.i.i109.us.1 = phi i64 [ %indvars.iv.next.i.i114.us.1.1, %for.body.i.i116.us.1 ], [ %indvars.iv.i.i109.us.1.unr, %for.body.i.i116.us.1.prol.loopexit ]
-  %arrayidx3.i.i.i110.us.1 = getelementptr inbounds double, ptr %588, i64 %indvars.iv.i.i109.us.1
-  %631 = load double, ptr %arrayidx3.i.i.i110.us.1, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.1 = getelementptr inbounds double, ptr %589, i64 %indvars.iv.i.i109.us.1
-  %632 = load double, ptr %arrayidx7.i.i.i111.us.1, align 8, !tbaa !9
+for.body.i.i114.us.1:                             ; preds = %for.body.i.i114.us.1.prol.loopexit, %for.body.i.i114.us.1
+  %indvars.iv.i.i107.us.1 = phi i64 [ %indvars.iv.next.i.i112.us.1.1, %for.body.i.i114.us.1 ], [ %indvars.iv.i.i107.us.1.unr, %for.body.i.i114.us.1.prol.loopexit ]
+  %arrayidx3.i.i.i108.us.1 = getelementptr inbounds double, ptr %588, i64 %indvars.iv.i.i107.us.1
+  %631 = load double, ptr %arrayidx3.i.i.i108.us.1, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.1 = getelementptr inbounds double, ptr %589, i64 %indvars.iv.i.i107.us.1
+  %632 = load double, ptr %arrayidx7.i.i.i109.us.1, align 8, !tbaa !9
   %633 = tail call double @llvm.fmuladd.f64(double %632, double 3.700000e-03, double %631)
-  %arrayidx11.i.i.i112.us.1 = getelementptr inbounds double, ptr %590, i64 %indvars.iv.i.i109.us.1
-  store double %633, ptr %arrayidx11.i.i.i112.us.1, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.1 = getelementptr inbounds double, ptr %591, i64 %indvars.iv.i.i109.us.1
-  %634 = load double, ptr %arrayidx15.i.i.i113.us.1, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.1 = getelementptr inbounds double, ptr %592, i64 %indvars.iv.i.i109.us.1
+  %arrayidx11.i.i.i110.us.1 = getelementptr inbounds double, ptr %590, i64 %indvars.iv.i.i107.us.1
+  store double %633, ptr %arrayidx11.i.i.i110.us.1, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.1 = getelementptr inbounds double, ptr %591, i64 %indvars.iv.i.i107.us.1
+  %634 = load double, ptr %arrayidx15.i.i.i111.us.1, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.1 = getelementptr inbounds double, ptr %592, i64 %indvars.iv.i.i107.us.1
   %635 = load double, ptr %arrayidx19.i.i.i.us.1, align 8, !tbaa !9
   %636 = tail call double @llvm.fmuladd.f64(double %635, double 3.700000e-03, double %634)
-  %arrayidx23.i.i.i.us.1 = getelementptr inbounds double, ptr %593, i64 %indvars.iv.i.i109.us.1
+  %arrayidx23.i.i.i.us.1 = getelementptr inbounds double, ptr %593, i64 %indvars.iv.i.i107.us.1
   store double %636, ptr %arrayidx23.i.i.i.us.1, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.1 = add nuw nsw i64 %indvars.iv.i.i109.us.1, 1
-  %arrayidx3.i.i.i110.us.1.1 = getelementptr inbounds double, ptr %588, i64 %indvars.iv.next.i.i114.us.1
-  %637 = load double, ptr %arrayidx3.i.i.i110.us.1.1, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.1.1 = getelementptr inbounds double, ptr %589, i64 %indvars.iv.next.i.i114.us.1
-  %638 = load double, ptr %arrayidx7.i.i.i111.us.1.1, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us.1 = add nuw nsw i64 %indvars.iv.i.i107.us.1, 1
+  %arrayidx3.i.i.i108.us.1.1 = getelementptr inbounds double, ptr %588, i64 %indvars.iv.next.i.i112.us.1
+  %637 = load double, ptr %arrayidx3.i.i.i108.us.1.1, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.1.1 = getelementptr inbounds double, ptr %589, i64 %indvars.iv.next.i.i112.us.1
+  %638 = load double, ptr %arrayidx7.i.i.i109.us.1.1, align 8, !tbaa !9
   %639 = tail call double @llvm.fmuladd.f64(double %638, double 3.700000e-03, double %637)
-  %arrayidx11.i.i.i112.us.1.1 = getelementptr inbounds double, ptr %590, i64 %indvars.iv.next.i.i114.us.1
-  store double %639, ptr %arrayidx11.i.i.i112.us.1.1, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.1.1 = getelementptr inbounds double, ptr %591, i64 %indvars.iv.next.i.i114.us.1
-  %640 = load double, ptr %arrayidx15.i.i.i113.us.1.1, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.1.1 = getelementptr inbounds double, ptr %592, i64 %indvars.iv.next.i.i114.us.1
+  %arrayidx11.i.i.i110.us.1.1 = getelementptr inbounds double, ptr %590, i64 %indvars.iv.next.i.i112.us.1
+  store double %639, ptr %arrayidx11.i.i.i110.us.1.1, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.1.1 = getelementptr inbounds double, ptr %591, i64 %indvars.iv.next.i.i112.us.1
+  %640 = load double, ptr %arrayidx15.i.i.i111.us.1.1, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.1.1 = getelementptr inbounds double, ptr %592, i64 %indvars.iv.next.i.i112.us.1
   %641 = load double, ptr %arrayidx19.i.i.i.us.1.1, align 8, !tbaa !9
   %642 = tail call double @llvm.fmuladd.f64(double %641, double 3.700000e-03, double %640)
-  %arrayidx23.i.i.i.us.1.1 = getelementptr inbounds double, ptr %593, i64 %indvars.iv.next.i.i114.us.1
+  %arrayidx23.i.i.i.us.1.1 = getelementptr inbounds double, ptr %593, i64 %indvars.iv.next.i.i112.us.1
   store double %642, ptr %arrayidx23.i.i.i.us.1.1, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.1.1 = add nuw nsw i64 %indvars.iv.i.i109.us.1, 2
-  %exitcond.not.i.i115.us.1.1 = icmp eq i64 %indvars.iv.next.i.i114.us.1.1, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i115.us.1.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i116.us.1, !llvm.loop !268
+  %indvars.iv.next.i.i112.us.1.1 = add nuw nsw i64 %indvars.iv.i.i107.us.1, 2
+  %exitcond.not.i.i113.us.1.1 = icmp eq i64 %indvars.iv.next.i.i112.us.1.1, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i113.us.1.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", label %for.body.i.i114.us.1, !llvm.loop !268
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1": ; preds = %for.body.i.i116.us.1.prol.loopexit, %for.body.i.i116.us.1, %middle.block257
-  %643 = load ptr, ptr %arrayidx.i.i.i103.us.2, align 8, !tbaa !5
-  %644 = load ptr, ptr %arrayidx5.i.i.i104.us.2, align 8, !tbaa !5
-  %645 = load ptr, ptr %arrayidx9.i.i.i105.us.2, align 8, !tbaa !5
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1": ; preds = %for.body.i.i114.us.1.prol.loopexit, %for.body.i.i114.us.1, %middle.block258
+  %643 = load ptr, ptr %arrayidx.i.i.i101.us.2, align 8, !tbaa !5
+  %644 = load ptr, ptr %arrayidx5.i.i.i102.us.2, align 8, !tbaa !5
+  %645 = load ptr, ptr %arrayidx9.i.i.i103.us.2, align 8, !tbaa !5
   %646 = load ptr, ptr %arrayidx13.i.i.i.us.2, align 8, !tbaa !5
   %647 = load ptr, ptr %arrayidx17.i.i.i.us.2, align 8, !tbaa !5
-  %648 = load ptr, ptr %arrayidx21.i.i.i106.us.2, align 8, !tbaa !5
-  br i1 %min.iters.check224, label %for.body.i.i116.us.2.preheader, label %vector.memcheck204
+  %648 = load ptr, ptr %arrayidx21.i.i.i104.us.2, align 8, !tbaa !5
+  br i1 %min.iters.check225, label %for.body.i.i114.us.2.preheader, label %vector.memcheck205
 
-vector.memcheck204:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1"
+vector.memcheck205:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1"
   %649 = ptrtoint ptr %648 to i64
   %650 = ptrtoint ptr %647 to i64
   %651 = ptrtoint ptr %646 to i64
@@ -3828,134 +3827,134 @@ vector.memcheck204:                               ; preds = %"_Z6forallI9simd_ex
   %655 = add nuw i64 %649, 8
   %656 = add nuw i64 %652, 8
   %657 = sub i64 %655, %656
-  %diff.check205 = icmp ult i64 %657, 16
+  %diff.check206 = icmp ult i64 %657, 16
   %658 = add nuw i64 %654, 8
   %659 = sub i64 %656, %658
-  %diff.check206 = icmp ult i64 %659, 16
-  %conflict.rdx207 = or i1 %diff.check205, %diff.check206
+  %diff.check207 = icmp ult i64 %659, 16
+  %conflict.rdx208 = or i1 %diff.check206, %diff.check207
   %660 = add nuw i64 %653, 8
   %661 = sub i64 %656, %660
-  %diff.check208 = icmp ult i64 %661, 16
-  %conflict.rdx209 = or i1 %conflict.rdx207, %diff.check208
+  %diff.check209 = icmp ult i64 %661, 16
+  %conflict.rdx210 = or i1 %conflict.rdx208, %diff.check209
   %662 = add nuw i64 %651, 8
   %663 = sub i64 %662, %656
-  %diff.check210 = icmp ult i64 %663, 16
-  %conflict.rdx211 = or i1 %conflict.rdx209, %diff.check210
+  %diff.check211 = icmp ult i64 %663, 16
+  %conflict.rdx212 = or i1 %conflict.rdx210, %diff.check211
   %664 = add nuw i64 %650, 8
   %665 = sub i64 %664, %656
-  %diff.check212 = icmp ult i64 %665, 16
-  %conflict.rdx213 = or i1 %conflict.rdx211, %diff.check212
+  %diff.check213 = icmp ult i64 %665, 16
+  %conflict.rdx214 = or i1 %conflict.rdx212, %diff.check213
   %666 = sub i64 %655, %658
-  %diff.check214 = icmp ult i64 %666, 16
-  %conflict.rdx215 = or i1 %conflict.rdx213, %diff.check214
+  %diff.check215 = icmp ult i64 %666, 16
+  %conflict.rdx216 = or i1 %conflict.rdx214, %diff.check215
   %667 = sub i64 %655, %660
-  %diff.check216 = icmp ult i64 %667, 16
-  %conflict.rdx217 = or i1 %conflict.rdx215, %diff.check216
+  %diff.check217 = icmp ult i64 %667, 16
+  %conflict.rdx218 = or i1 %conflict.rdx216, %diff.check217
   %668 = sub i64 %655, %662
-  %diff.check218 = icmp ult i64 %668, 16
-  %conflict.rdx219 = or i1 %conflict.rdx217, %diff.check218
+  %diff.check219 = icmp ult i64 %668, 16
+  %conflict.rdx220 = or i1 %conflict.rdx218, %diff.check219
   %669 = sub i64 %655, %664
-  %diff.check220 = icmp ult i64 %669, 16
-  %conflict.rdx221 = or i1 %conflict.rdx219, %diff.check220
-  br i1 %conflict.rdx221, label %for.body.i.i116.us.2.preheader, label %vector.body231
+  %diff.check221 = icmp ult i64 %669, 16
+  %conflict.rdx222 = or i1 %conflict.rdx220, %diff.check221
+  br i1 %conflict.rdx222, label %for.body.i.i114.us.2.preheader, label %vector.body232
 
-vector.body231:                                   ; preds = %vector.memcheck204, %vector.body231
-  %index232 = phi i64 [ %index.next238, %vector.body231 ], [ 0, %vector.memcheck204 ]
-  %offset.idx233 = or i64 %index232, 1
-  %670 = getelementptr inbounds double, ptr %643, i64 %offset.idx233
-  %wide.load234 = load <2 x double>, ptr %670, align 8, !tbaa !9
-  %671 = getelementptr inbounds double, ptr %644, i64 %offset.idx233
-  %wide.load235 = load <2 x double>, ptr %671, align 8, !tbaa !9
-  %672 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load235, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load234)
-  %673 = getelementptr inbounds double, ptr %645, i64 %offset.idx233
+vector.body232:                                   ; preds = %vector.memcheck205, %vector.body232
+  %index233 = phi i64 [ %index.next239, %vector.body232 ], [ 0, %vector.memcheck205 ]
+  %offset.idx234 = or i64 %index233, 1
+  %670 = getelementptr inbounds double, ptr %643, i64 %offset.idx234
+  %wide.load235 = load <2 x double>, ptr %670, align 8, !tbaa !9
+  %671 = getelementptr inbounds double, ptr %644, i64 %offset.idx234
+  %wide.load236 = load <2 x double>, ptr %671, align 8, !tbaa !9
+  %672 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load236, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load235)
+  %673 = getelementptr inbounds double, ptr %645, i64 %offset.idx234
   store <2 x double> %672, ptr %673, align 8, !tbaa !9
-  %674 = getelementptr inbounds double, ptr %646, i64 %offset.idx233
-  %wide.load236 = load <2 x double>, ptr %674, align 8, !tbaa !9
-  %675 = getelementptr inbounds double, ptr %647, i64 %offset.idx233
-  %wide.load237 = load <2 x double>, ptr %675, align 8, !tbaa !9
-  %676 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load237, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load236)
-  %677 = getelementptr inbounds double, ptr %648, i64 %offset.idx233
+  %674 = getelementptr inbounds double, ptr %646, i64 %offset.idx234
+  %wide.load237 = load <2 x double>, ptr %674, align 8, !tbaa !9
+  %675 = getelementptr inbounds double, ptr %647, i64 %offset.idx234
+  %wide.load238 = load <2 x double>, ptr %675, align 8, !tbaa !9
+  %676 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load238, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load237)
+  %677 = getelementptr inbounds double, ptr %648, i64 %offset.idx234
   store <2 x double> %676, ptr %677, align 8, !tbaa !9
-  %index.next238 = add nuw i64 %index232, 2
-  %678 = icmp eq i64 %index.next238, %n.vec227
-  br i1 %678, label %middle.block222, label %vector.body231, !llvm.loop !269
+  %index.next239 = add nuw i64 %index233, 2
+  %678 = icmp eq i64 %index.next239, %n.vec228
+  br i1 %678, label %middle.block223, label %vector.body232, !llvm.loop !269
 
-middle.block222:                                  ; preds = %vector.body231
-  br i1 %cmp.n230, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i116.us.2.preheader
+middle.block223:                                  ; preds = %vector.body232
+  br i1 %cmp.n231, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i114.us.2.preheader
 
-for.body.i.i116.us.2.preheader:                   ; preds = %vector.memcheck204, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", %middle.block222
-  %indvars.iv.i.i109.us.2.ph = phi i64 [ 1, %vector.memcheck204 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1" ], [ %ind.end228, %middle.block222 ]
-  %.neg1092 = add nsw i64 %indvars.iv.i.i109.us.2.ph, 1
-  br i1 %lcmp.mod1086.not.not, label %for.body.i.i116.us.2.prol, label %for.body.i.i116.us.2.prol.loopexit
+for.body.i.i114.us.2.preheader:                   ; preds = %vector.memcheck205, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1", %middle.block223
+  %indvars.iv.i.i107.us.2.ph = phi i64 [ 1, %vector.memcheck205 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.1" ], [ %ind.end229, %middle.block223 ]
+  %.neg1093 = add nsw i64 %indvars.iv.i.i107.us.2.ph, 1
+  br i1 %lcmp.mod1087.not.not, label %for.body.i.i114.us.2.prol, label %for.body.i.i114.us.2.prol.loopexit
 
-for.body.i.i116.us.2.prol:                        ; preds = %for.body.i.i116.us.2.preheader
-  %arrayidx3.i.i.i110.us.2.prol = getelementptr inbounds double, ptr %643, i64 %indvars.iv.i.i109.us.2.ph
-  %679 = load double, ptr %arrayidx3.i.i.i110.us.2.prol, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.2.prol = getelementptr inbounds double, ptr %644, i64 %indvars.iv.i.i109.us.2.ph
-  %680 = load double, ptr %arrayidx7.i.i.i111.us.2.prol, align 8, !tbaa !9
+for.body.i.i114.us.2.prol:                        ; preds = %for.body.i.i114.us.2.preheader
+  %arrayidx3.i.i.i108.us.2.prol = getelementptr inbounds double, ptr %643, i64 %indvars.iv.i.i107.us.2.ph
+  %679 = load double, ptr %arrayidx3.i.i.i108.us.2.prol, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.2.prol = getelementptr inbounds double, ptr %644, i64 %indvars.iv.i.i107.us.2.ph
+  %680 = load double, ptr %arrayidx7.i.i.i109.us.2.prol, align 8, !tbaa !9
   %681 = tail call double @llvm.fmuladd.f64(double %680, double 3.700000e-03, double %679)
-  %arrayidx11.i.i.i112.us.2.prol = getelementptr inbounds double, ptr %645, i64 %indvars.iv.i.i109.us.2.ph
-  store double %681, ptr %arrayidx11.i.i.i112.us.2.prol, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.2.prol = getelementptr inbounds double, ptr %646, i64 %indvars.iv.i.i109.us.2.ph
-  %682 = load double, ptr %arrayidx15.i.i.i113.us.2.prol, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.2.prol = getelementptr inbounds double, ptr %647, i64 %indvars.iv.i.i109.us.2.ph
+  %arrayidx11.i.i.i110.us.2.prol = getelementptr inbounds double, ptr %645, i64 %indvars.iv.i.i107.us.2.ph
+  store double %681, ptr %arrayidx11.i.i.i110.us.2.prol, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.2.prol = getelementptr inbounds double, ptr %646, i64 %indvars.iv.i.i107.us.2.ph
+  %682 = load double, ptr %arrayidx15.i.i.i111.us.2.prol, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.2.prol = getelementptr inbounds double, ptr %647, i64 %indvars.iv.i.i107.us.2.ph
   %683 = load double, ptr %arrayidx19.i.i.i.us.2.prol, align 8, !tbaa !9
   %684 = tail call double @llvm.fmuladd.f64(double %683, double 3.700000e-03, double %682)
-  %arrayidx23.i.i.i.us.2.prol = getelementptr inbounds double, ptr %648, i64 %indvars.iv.i.i109.us.2.ph
+  %arrayidx23.i.i.i.us.2.prol = getelementptr inbounds double, ptr %648, i64 %indvars.iv.i.i107.us.2.ph
   store double %684, ptr %arrayidx23.i.i.i.us.2.prol, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.2.prol = add nuw nsw i64 %indvars.iv.i.i109.us.2.ph, 1
-  br label %for.body.i.i116.us.2.prol.loopexit
+  %indvars.iv.next.i.i112.us.2.prol = add nuw nsw i64 %indvars.iv.i.i107.us.2.ph, 1
+  br label %for.body.i.i114.us.2.prol.loopexit
 
-for.body.i.i116.us.2.prol.loopexit:               ; preds = %for.body.i.i116.us.2.prol, %for.body.i.i116.us.2.preheader
-  %indvars.iv.i.i109.us.2.unr = phi i64 [ %indvars.iv.i.i109.us.2.ph, %for.body.i.i116.us.2.preheader ], [ %indvars.iv.next.i.i114.us.2.prol, %for.body.i.i116.us.2.prol ]
-  %685 = icmp eq i64 %wide.trip.count.i.i, %.neg1092
-  br i1 %685, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i116.us.2
+for.body.i.i114.us.2.prol.loopexit:               ; preds = %for.body.i.i114.us.2.prol, %for.body.i.i114.us.2.preheader
+  %indvars.iv.i.i107.us.2.unr = phi i64 [ %indvars.iv.i.i107.us.2.ph, %for.body.i.i114.us.2.preheader ], [ %indvars.iv.next.i.i112.us.2.prol, %for.body.i.i114.us.2.prol ]
+  %685 = icmp eq i64 %wide.trip.count.i.i, %.neg1093
+  br i1 %685, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i114.us.2
 
-for.body.i.i116.us.2:                             ; preds = %for.body.i.i116.us.2.prol.loopexit, %for.body.i.i116.us.2
-  %indvars.iv.i.i109.us.2 = phi i64 [ %indvars.iv.next.i.i114.us.2.1, %for.body.i.i116.us.2 ], [ %indvars.iv.i.i109.us.2.unr, %for.body.i.i116.us.2.prol.loopexit ]
-  %arrayidx3.i.i.i110.us.2 = getelementptr inbounds double, ptr %643, i64 %indvars.iv.i.i109.us.2
-  %686 = load double, ptr %arrayidx3.i.i.i110.us.2, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.2 = getelementptr inbounds double, ptr %644, i64 %indvars.iv.i.i109.us.2
-  %687 = load double, ptr %arrayidx7.i.i.i111.us.2, align 8, !tbaa !9
+for.body.i.i114.us.2:                             ; preds = %for.body.i.i114.us.2.prol.loopexit, %for.body.i.i114.us.2
+  %indvars.iv.i.i107.us.2 = phi i64 [ %indvars.iv.next.i.i112.us.2.1, %for.body.i.i114.us.2 ], [ %indvars.iv.i.i107.us.2.unr, %for.body.i.i114.us.2.prol.loopexit ]
+  %arrayidx3.i.i.i108.us.2 = getelementptr inbounds double, ptr %643, i64 %indvars.iv.i.i107.us.2
+  %686 = load double, ptr %arrayidx3.i.i.i108.us.2, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.2 = getelementptr inbounds double, ptr %644, i64 %indvars.iv.i.i107.us.2
+  %687 = load double, ptr %arrayidx7.i.i.i109.us.2, align 8, !tbaa !9
   %688 = tail call double @llvm.fmuladd.f64(double %687, double 3.700000e-03, double %686)
-  %arrayidx11.i.i.i112.us.2 = getelementptr inbounds double, ptr %645, i64 %indvars.iv.i.i109.us.2
-  store double %688, ptr %arrayidx11.i.i.i112.us.2, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.2 = getelementptr inbounds double, ptr %646, i64 %indvars.iv.i.i109.us.2
-  %689 = load double, ptr %arrayidx15.i.i.i113.us.2, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.2 = getelementptr inbounds double, ptr %647, i64 %indvars.iv.i.i109.us.2
+  %arrayidx11.i.i.i110.us.2 = getelementptr inbounds double, ptr %645, i64 %indvars.iv.i.i107.us.2
+  store double %688, ptr %arrayidx11.i.i.i110.us.2, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.2 = getelementptr inbounds double, ptr %646, i64 %indvars.iv.i.i107.us.2
+  %689 = load double, ptr %arrayidx15.i.i.i111.us.2, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.2 = getelementptr inbounds double, ptr %647, i64 %indvars.iv.i.i107.us.2
   %690 = load double, ptr %arrayidx19.i.i.i.us.2, align 8, !tbaa !9
   %691 = tail call double @llvm.fmuladd.f64(double %690, double 3.700000e-03, double %689)
-  %arrayidx23.i.i.i.us.2 = getelementptr inbounds double, ptr %648, i64 %indvars.iv.i.i109.us.2
+  %arrayidx23.i.i.i.us.2 = getelementptr inbounds double, ptr %648, i64 %indvars.iv.i.i107.us.2
   store double %691, ptr %arrayidx23.i.i.i.us.2, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.2 = add nuw nsw i64 %indvars.iv.i.i109.us.2, 1
-  %arrayidx3.i.i.i110.us.2.1 = getelementptr inbounds double, ptr %643, i64 %indvars.iv.next.i.i114.us.2
-  %692 = load double, ptr %arrayidx3.i.i.i110.us.2.1, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.2.1 = getelementptr inbounds double, ptr %644, i64 %indvars.iv.next.i.i114.us.2
-  %693 = load double, ptr %arrayidx7.i.i.i111.us.2.1, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us.2 = add nuw nsw i64 %indvars.iv.i.i107.us.2, 1
+  %arrayidx3.i.i.i108.us.2.1 = getelementptr inbounds double, ptr %643, i64 %indvars.iv.next.i.i112.us.2
+  %692 = load double, ptr %arrayidx3.i.i.i108.us.2.1, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.2.1 = getelementptr inbounds double, ptr %644, i64 %indvars.iv.next.i.i112.us.2
+  %693 = load double, ptr %arrayidx7.i.i.i109.us.2.1, align 8, !tbaa !9
   %694 = tail call double @llvm.fmuladd.f64(double %693, double 3.700000e-03, double %692)
-  %arrayidx11.i.i.i112.us.2.1 = getelementptr inbounds double, ptr %645, i64 %indvars.iv.next.i.i114.us.2
-  store double %694, ptr %arrayidx11.i.i.i112.us.2.1, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.2.1 = getelementptr inbounds double, ptr %646, i64 %indvars.iv.next.i.i114.us.2
-  %695 = load double, ptr %arrayidx15.i.i.i113.us.2.1, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.2.1 = getelementptr inbounds double, ptr %647, i64 %indvars.iv.next.i.i114.us.2
+  %arrayidx11.i.i.i110.us.2.1 = getelementptr inbounds double, ptr %645, i64 %indvars.iv.next.i.i112.us.2
+  store double %694, ptr %arrayidx11.i.i.i110.us.2.1, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.2.1 = getelementptr inbounds double, ptr %646, i64 %indvars.iv.next.i.i112.us.2
+  %695 = load double, ptr %arrayidx15.i.i.i111.us.2.1, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.2.1 = getelementptr inbounds double, ptr %647, i64 %indvars.iv.next.i.i112.us.2
   %696 = load double, ptr %arrayidx19.i.i.i.us.2.1, align 8, !tbaa !9
   %697 = tail call double @llvm.fmuladd.f64(double %696, double 3.700000e-03, double %695)
-  %arrayidx23.i.i.i.us.2.1 = getelementptr inbounds double, ptr %648, i64 %indvars.iv.next.i.i114.us.2
+  %arrayidx23.i.i.i.us.2.1 = getelementptr inbounds double, ptr %648, i64 %indvars.iv.next.i.i112.us.2
   store double %697, ptr %arrayidx23.i.i.i.us.2.1, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.2.1 = add nuw nsw i64 %indvars.iv.i.i109.us.2, 2
-  %exitcond.not.i.i115.us.2.1 = icmp eq i64 %indvars.iv.next.i.i114.us.2.1, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i115.us.2.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i116.us.2, !llvm.loop !270
+  %indvars.iv.next.i.i112.us.2.1 = add nuw nsw i64 %indvars.iv.i.i107.us.2, 2
+  %exitcond.not.i.i113.us.2.1 = icmp eq i64 %indvars.iv.next.i.i112.us.2.1, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i113.us.2.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", label %for.body.i.i114.us.2, !llvm.loop !270
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2": ; preds = %for.body.i.i116.us.2.prol.loopexit, %for.body.i.i116.us.2, %middle.block222
-  %698 = load ptr, ptr %arrayidx.i.i.i103.us.3, align 8, !tbaa !5
-  %699 = load ptr, ptr %arrayidx5.i.i.i104.us.3, align 8, !tbaa !5
-  %700 = load ptr, ptr %arrayidx9.i.i.i105.us.3, align 8, !tbaa !5
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2": ; preds = %for.body.i.i114.us.2.prol.loopexit, %for.body.i.i114.us.2, %middle.block223
+  %698 = load ptr, ptr %arrayidx.i.i.i101.us.3, align 8, !tbaa !5
+  %699 = load ptr, ptr %arrayidx5.i.i.i102.us.3, align 8, !tbaa !5
+  %700 = load ptr, ptr %arrayidx9.i.i.i103.us.3, align 8, !tbaa !5
   %701 = load ptr, ptr %arrayidx13.i.i.i.us.3, align 8, !tbaa !5
   %702 = load ptr, ptr %arrayidx17.i.i.i.us.3, align 8, !tbaa !5
-  %703 = load ptr, ptr %arrayidx21.i.i.i106.us.3, align 8, !tbaa !5
-  br i1 %min.iters.check189, label %for.body.i.i116.us.3.preheader, label %vector.memcheck169
+  %703 = load ptr, ptr %arrayidx21.i.i.i104.us.3, align 8, !tbaa !5
+  br i1 %min.iters.check190, label %for.body.i.i114.us.3.preheader, label %vector.memcheck170
 
-vector.memcheck169:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2"
+vector.memcheck170:                               ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2"
   %704 = ptrtoint ptr %703 to i64
   %705 = ptrtoint ptr %702 to i64
   %706 = ptrtoint ptr %701 to i64
@@ -3965,132 +3964,132 @@ vector.memcheck169:                               ; preds = %"_Z6forallI9simd_ex
   %710 = add nuw i64 %704, 8
   %711 = add nuw i64 %707, 8
   %712 = sub i64 %710, %711
-  %diff.check170 = icmp ult i64 %712, 16
+  %diff.check171 = icmp ult i64 %712, 16
   %713 = add nuw i64 %709, 8
   %714 = sub i64 %711, %713
-  %diff.check171 = icmp ult i64 %714, 16
-  %conflict.rdx172 = or i1 %diff.check170, %diff.check171
+  %diff.check172 = icmp ult i64 %714, 16
+  %conflict.rdx173 = or i1 %diff.check171, %diff.check172
   %715 = add nuw i64 %708, 8
   %716 = sub i64 %711, %715
-  %diff.check173 = icmp ult i64 %716, 16
-  %conflict.rdx174 = or i1 %conflict.rdx172, %diff.check173
+  %diff.check174 = icmp ult i64 %716, 16
+  %conflict.rdx175 = or i1 %conflict.rdx173, %diff.check174
   %717 = add nuw i64 %706, 8
   %718 = sub i64 %717, %711
-  %diff.check175 = icmp ult i64 %718, 16
-  %conflict.rdx176 = or i1 %conflict.rdx174, %diff.check175
+  %diff.check176 = icmp ult i64 %718, 16
+  %conflict.rdx177 = or i1 %conflict.rdx175, %diff.check176
   %719 = add nuw i64 %705, 8
   %720 = sub i64 %719, %711
-  %diff.check177 = icmp ult i64 %720, 16
-  %conflict.rdx178 = or i1 %conflict.rdx176, %diff.check177
+  %diff.check178 = icmp ult i64 %720, 16
+  %conflict.rdx179 = or i1 %conflict.rdx177, %diff.check178
   %721 = sub i64 %710, %713
-  %diff.check179 = icmp ult i64 %721, 16
-  %conflict.rdx180 = or i1 %conflict.rdx178, %diff.check179
+  %diff.check180 = icmp ult i64 %721, 16
+  %conflict.rdx181 = or i1 %conflict.rdx179, %diff.check180
   %722 = sub i64 %710, %715
-  %diff.check181 = icmp ult i64 %722, 16
-  %conflict.rdx182 = or i1 %conflict.rdx180, %diff.check181
+  %diff.check182 = icmp ult i64 %722, 16
+  %conflict.rdx183 = or i1 %conflict.rdx181, %diff.check182
   %723 = sub i64 %710, %717
-  %diff.check183 = icmp ult i64 %723, 16
-  %conflict.rdx184 = or i1 %conflict.rdx182, %diff.check183
+  %diff.check184 = icmp ult i64 %723, 16
+  %conflict.rdx185 = or i1 %conflict.rdx183, %diff.check184
   %724 = sub i64 %710, %719
-  %diff.check185 = icmp ult i64 %724, 16
-  %conflict.rdx186 = or i1 %conflict.rdx184, %diff.check185
-  br i1 %conflict.rdx186, label %for.body.i.i116.us.3.preheader, label %vector.body196
+  %diff.check186 = icmp ult i64 %724, 16
+  %conflict.rdx187 = or i1 %conflict.rdx185, %diff.check186
+  br i1 %conflict.rdx187, label %for.body.i.i114.us.3.preheader, label %vector.body197
 
-vector.body196:                                   ; preds = %vector.memcheck169, %vector.body196
-  %index197 = phi i64 [ %index.next203, %vector.body196 ], [ 0, %vector.memcheck169 ]
-  %offset.idx198 = or i64 %index197, 1
-  %725 = getelementptr inbounds double, ptr %698, i64 %offset.idx198
-  %wide.load199 = load <2 x double>, ptr %725, align 8, !tbaa !9
-  %726 = getelementptr inbounds double, ptr %699, i64 %offset.idx198
-  %wide.load200 = load <2 x double>, ptr %726, align 8, !tbaa !9
-  %727 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load200, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load199)
-  %728 = getelementptr inbounds double, ptr %700, i64 %offset.idx198
+vector.body197:                                   ; preds = %vector.memcheck170, %vector.body197
+  %index198 = phi i64 [ %index.next204, %vector.body197 ], [ 0, %vector.memcheck170 ]
+  %offset.idx199 = or i64 %index198, 1
+  %725 = getelementptr inbounds double, ptr %698, i64 %offset.idx199
+  %wide.load200 = load <2 x double>, ptr %725, align 8, !tbaa !9
+  %726 = getelementptr inbounds double, ptr %699, i64 %offset.idx199
+  %wide.load201 = load <2 x double>, ptr %726, align 8, !tbaa !9
+  %727 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load201, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load200)
+  %728 = getelementptr inbounds double, ptr %700, i64 %offset.idx199
   store <2 x double> %727, ptr %728, align 8, !tbaa !9
-  %729 = getelementptr inbounds double, ptr %701, i64 %offset.idx198
-  %wide.load201 = load <2 x double>, ptr %729, align 8, !tbaa !9
-  %730 = getelementptr inbounds double, ptr %702, i64 %offset.idx198
-  %wide.load202 = load <2 x double>, ptr %730, align 8, !tbaa !9
-  %731 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load202, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load201)
-  %732 = getelementptr inbounds double, ptr %703, i64 %offset.idx198
+  %729 = getelementptr inbounds double, ptr %701, i64 %offset.idx199
+  %wide.load202 = load <2 x double>, ptr %729, align 8, !tbaa !9
+  %730 = getelementptr inbounds double, ptr %702, i64 %offset.idx199
+  %wide.load203 = load <2 x double>, ptr %730, align 8, !tbaa !9
+  %731 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load203, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load202)
+  %732 = getelementptr inbounds double, ptr %703, i64 %offset.idx199
   store <2 x double> %731, ptr %732, align 8, !tbaa !9
-  %index.next203 = add nuw i64 %index197, 2
-  %733 = icmp eq i64 %index.next203, %n.vec192
-  br i1 %733, label %middle.block187, label %vector.body196, !llvm.loop !271
+  %index.next204 = add nuw i64 %index198, 2
+  %733 = icmp eq i64 %index.next204, %n.vec193
+  br i1 %733, label %middle.block188, label %vector.body197, !llvm.loop !271
 
-middle.block187:                                  ; preds = %vector.body196
-  br i1 %cmp.n195, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i116.us.3.preheader
+middle.block188:                                  ; preds = %vector.body197
+  br i1 %cmp.n196, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i114.us.3.preheader
 
-for.body.i.i116.us.3.preheader:                   ; preds = %vector.memcheck169, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", %middle.block187
-  %indvars.iv.i.i109.us.3.ph = phi i64 [ 1, %vector.memcheck169 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2" ], [ %ind.end193, %middle.block187 ]
-  %.neg1093 = add nsw i64 %indvars.iv.i.i109.us.3.ph, 1
-  br i1 %lcmp.mod1088.not.not, label %for.body.i.i116.us.3.prol, label %for.body.i.i116.us.3.prol.loopexit
+for.body.i.i114.us.3.preheader:                   ; preds = %vector.memcheck170, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2", %middle.block188
+  %indvars.iv.i.i107.us.3.ph = phi i64 [ 1, %vector.memcheck170 ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.2" ], [ %ind.end194, %middle.block188 ]
+  %.neg1094 = add nsw i64 %indvars.iv.i.i107.us.3.ph, 1
+  br i1 %lcmp.mod1089.not.not, label %for.body.i.i114.us.3.prol, label %for.body.i.i114.us.3.prol.loopexit
 
-for.body.i.i116.us.3.prol:                        ; preds = %for.body.i.i116.us.3.preheader
-  %arrayidx3.i.i.i110.us.3.prol = getelementptr inbounds double, ptr %698, i64 %indvars.iv.i.i109.us.3.ph
-  %734 = load double, ptr %arrayidx3.i.i.i110.us.3.prol, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.3.prol = getelementptr inbounds double, ptr %699, i64 %indvars.iv.i.i109.us.3.ph
-  %735 = load double, ptr %arrayidx7.i.i.i111.us.3.prol, align 8, !tbaa !9
+for.body.i.i114.us.3.prol:                        ; preds = %for.body.i.i114.us.3.preheader
+  %arrayidx3.i.i.i108.us.3.prol = getelementptr inbounds double, ptr %698, i64 %indvars.iv.i.i107.us.3.ph
+  %734 = load double, ptr %arrayidx3.i.i.i108.us.3.prol, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.3.prol = getelementptr inbounds double, ptr %699, i64 %indvars.iv.i.i107.us.3.ph
+  %735 = load double, ptr %arrayidx7.i.i.i109.us.3.prol, align 8, !tbaa !9
   %736 = tail call double @llvm.fmuladd.f64(double %735, double 3.700000e-03, double %734)
-  %arrayidx11.i.i.i112.us.3.prol = getelementptr inbounds double, ptr %700, i64 %indvars.iv.i.i109.us.3.ph
-  store double %736, ptr %arrayidx11.i.i.i112.us.3.prol, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.3.prol = getelementptr inbounds double, ptr %701, i64 %indvars.iv.i.i109.us.3.ph
-  %737 = load double, ptr %arrayidx15.i.i.i113.us.3.prol, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.3.prol = getelementptr inbounds double, ptr %702, i64 %indvars.iv.i.i109.us.3.ph
+  %arrayidx11.i.i.i110.us.3.prol = getelementptr inbounds double, ptr %700, i64 %indvars.iv.i.i107.us.3.ph
+  store double %736, ptr %arrayidx11.i.i.i110.us.3.prol, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.3.prol = getelementptr inbounds double, ptr %701, i64 %indvars.iv.i.i107.us.3.ph
+  %737 = load double, ptr %arrayidx15.i.i.i111.us.3.prol, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.3.prol = getelementptr inbounds double, ptr %702, i64 %indvars.iv.i.i107.us.3.ph
   %738 = load double, ptr %arrayidx19.i.i.i.us.3.prol, align 8, !tbaa !9
   %739 = tail call double @llvm.fmuladd.f64(double %738, double 3.700000e-03, double %737)
-  %arrayidx23.i.i.i.us.3.prol = getelementptr inbounds double, ptr %703, i64 %indvars.iv.i.i109.us.3.ph
+  %arrayidx23.i.i.i.us.3.prol = getelementptr inbounds double, ptr %703, i64 %indvars.iv.i.i107.us.3.ph
   store double %739, ptr %arrayidx23.i.i.i.us.3.prol, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.3.prol = add nuw nsw i64 %indvars.iv.i.i109.us.3.ph, 1
-  br label %for.body.i.i116.us.3.prol.loopexit
+  %indvars.iv.next.i.i112.us.3.prol = add nuw nsw i64 %indvars.iv.i.i107.us.3.ph, 1
+  br label %for.body.i.i114.us.3.prol.loopexit
 
-for.body.i.i116.us.3.prol.loopexit:               ; preds = %for.body.i.i116.us.3.prol, %for.body.i.i116.us.3.preheader
-  %indvars.iv.i.i109.us.3.unr = phi i64 [ %indvars.iv.i.i109.us.3.ph, %for.body.i.i116.us.3.preheader ], [ %indvars.iv.next.i.i114.us.3.prol, %for.body.i.i116.us.3.prol ]
-  %740 = icmp eq i64 %wide.trip.count.i.i, %.neg1093
-  br i1 %740, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i116.us.3
+for.body.i.i114.us.3.prol.loopexit:               ; preds = %for.body.i.i114.us.3.prol, %for.body.i.i114.us.3.preheader
+  %indvars.iv.i.i107.us.3.unr = phi i64 [ %indvars.iv.i.i107.us.3.ph, %for.body.i.i114.us.3.preheader ], [ %indvars.iv.next.i.i112.us.3.prol, %for.body.i.i114.us.3.prol ]
+  %740 = icmp eq i64 %wide.trip.count.i.i, %.neg1094
+  br i1 %740, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i114.us.3
 
-for.body.i.i116.us.3:                             ; preds = %for.body.i.i116.us.3.prol.loopexit, %for.body.i.i116.us.3
-  %indvars.iv.i.i109.us.3 = phi i64 [ %indvars.iv.next.i.i114.us.3.1, %for.body.i.i116.us.3 ], [ %indvars.iv.i.i109.us.3.unr, %for.body.i.i116.us.3.prol.loopexit ]
-  %arrayidx3.i.i.i110.us.3 = getelementptr inbounds double, ptr %698, i64 %indvars.iv.i.i109.us.3
-  %741 = load double, ptr %arrayidx3.i.i.i110.us.3, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.3 = getelementptr inbounds double, ptr %699, i64 %indvars.iv.i.i109.us.3
-  %742 = load double, ptr %arrayidx7.i.i.i111.us.3, align 8, !tbaa !9
+for.body.i.i114.us.3:                             ; preds = %for.body.i.i114.us.3.prol.loopexit, %for.body.i.i114.us.3
+  %indvars.iv.i.i107.us.3 = phi i64 [ %indvars.iv.next.i.i112.us.3.1, %for.body.i.i114.us.3 ], [ %indvars.iv.i.i107.us.3.unr, %for.body.i.i114.us.3.prol.loopexit ]
+  %arrayidx3.i.i.i108.us.3 = getelementptr inbounds double, ptr %698, i64 %indvars.iv.i.i107.us.3
+  %741 = load double, ptr %arrayidx3.i.i.i108.us.3, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.3 = getelementptr inbounds double, ptr %699, i64 %indvars.iv.i.i107.us.3
+  %742 = load double, ptr %arrayidx7.i.i.i109.us.3, align 8, !tbaa !9
   %743 = tail call double @llvm.fmuladd.f64(double %742, double 3.700000e-03, double %741)
-  %arrayidx11.i.i.i112.us.3 = getelementptr inbounds double, ptr %700, i64 %indvars.iv.i.i109.us.3
-  store double %743, ptr %arrayidx11.i.i.i112.us.3, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.3 = getelementptr inbounds double, ptr %701, i64 %indvars.iv.i.i109.us.3
-  %744 = load double, ptr %arrayidx15.i.i.i113.us.3, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.3 = getelementptr inbounds double, ptr %702, i64 %indvars.iv.i.i109.us.3
+  %arrayidx11.i.i.i110.us.3 = getelementptr inbounds double, ptr %700, i64 %indvars.iv.i.i107.us.3
+  store double %743, ptr %arrayidx11.i.i.i110.us.3, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.3 = getelementptr inbounds double, ptr %701, i64 %indvars.iv.i.i107.us.3
+  %744 = load double, ptr %arrayidx15.i.i.i111.us.3, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.3 = getelementptr inbounds double, ptr %702, i64 %indvars.iv.i.i107.us.3
   %745 = load double, ptr %arrayidx19.i.i.i.us.3, align 8, !tbaa !9
   %746 = tail call double @llvm.fmuladd.f64(double %745, double 3.700000e-03, double %744)
-  %arrayidx23.i.i.i.us.3 = getelementptr inbounds double, ptr %703, i64 %indvars.iv.i.i109.us.3
+  %arrayidx23.i.i.i.us.3 = getelementptr inbounds double, ptr %703, i64 %indvars.iv.i.i107.us.3
   store double %746, ptr %arrayidx23.i.i.i.us.3, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.3 = add nuw nsw i64 %indvars.iv.i.i109.us.3, 1
-  %arrayidx3.i.i.i110.us.3.1 = getelementptr inbounds double, ptr %698, i64 %indvars.iv.next.i.i114.us.3
-  %747 = load double, ptr %arrayidx3.i.i.i110.us.3.1, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.3.1 = getelementptr inbounds double, ptr %699, i64 %indvars.iv.next.i.i114.us.3
-  %748 = load double, ptr %arrayidx7.i.i.i111.us.3.1, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us.3 = add nuw nsw i64 %indvars.iv.i.i107.us.3, 1
+  %arrayidx3.i.i.i108.us.3.1 = getelementptr inbounds double, ptr %698, i64 %indvars.iv.next.i.i112.us.3
+  %747 = load double, ptr %arrayidx3.i.i.i108.us.3.1, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.3.1 = getelementptr inbounds double, ptr %699, i64 %indvars.iv.next.i.i112.us.3
+  %748 = load double, ptr %arrayidx7.i.i.i109.us.3.1, align 8, !tbaa !9
   %749 = tail call double @llvm.fmuladd.f64(double %748, double 3.700000e-03, double %747)
-  %arrayidx11.i.i.i112.us.3.1 = getelementptr inbounds double, ptr %700, i64 %indvars.iv.next.i.i114.us.3
-  store double %749, ptr %arrayidx11.i.i.i112.us.3.1, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.3.1 = getelementptr inbounds double, ptr %701, i64 %indvars.iv.next.i.i114.us.3
-  %750 = load double, ptr %arrayidx15.i.i.i113.us.3.1, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.3.1 = getelementptr inbounds double, ptr %702, i64 %indvars.iv.next.i.i114.us.3
+  %arrayidx11.i.i.i110.us.3.1 = getelementptr inbounds double, ptr %700, i64 %indvars.iv.next.i.i112.us.3
+  store double %749, ptr %arrayidx11.i.i.i110.us.3.1, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.3.1 = getelementptr inbounds double, ptr %701, i64 %indvars.iv.next.i.i112.us.3
+  %750 = load double, ptr %arrayidx15.i.i.i111.us.3.1, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.3.1 = getelementptr inbounds double, ptr %702, i64 %indvars.iv.next.i.i112.us.3
   %751 = load double, ptr %arrayidx19.i.i.i.us.3.1, align 8, !tbaa !9
   %752 = tail call double @llvm.fmuladd.f64(double %751, double 3.700000e-03, double %750)
-  %arrayidx23.i.i.i.us.3.1 = getelementptr inbounds double, ptr %703, i64 %indvars.iv.next.i.i114.us.3
+  %arrayidx23.i.i.i.us.3.1 = getelementptr inbounds double, ptr %703, i64 %indvars.iv.next.i.i112.us.3
   store double %752, ptr %arrayidx23.i.i.i.us.3.1, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.3.1 = add nuw nsw i64 %indvars.iv.i.i109.us.3, 2
-  %exitcond.not.i.i115.us.3.1 = icmp eq i64 %indvars.iv.next.i.i114.us.3.1, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i115.us.3.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i116.us.3, !llvm.loop !272
+  %indvars.iv.next.i.i112.us.3.1 = add nuw nsw i64 %indvars.iv.i.i107.us.3, 2
+  %exitcond.not.i.i113.us.3.1 = icmp eq i64 %indvars.iv.next.i.i112.us.3.1, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i113.us.3.1, label %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", label %for.body.i.i114.us.3, !llvm.loop !272
 
-"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3": ; preds = %for.body.i.i116.us.3.prol.loopexit, %for.body.i.i116.us.3, %middle.block187
-  %753 = load ptr, ptr %arrayidx.i.i.i103.us.4, align 8, !tbaa !5
-  %754 = load ptr, ptr %arrayidx5.i.i.i104.us.4, align 8, !tbaa !5
-  %755 = load ptr, ptr %arrayidx9.i.i.i105.us.4, align 8, !tbaa !5
+"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3": ; preds = %for.body.i.i114.us.3.prol.loopexit, %for.body.i.i114.us.3, %middle.block188
+  %753 = load ptr, ptr %arrayidx.i.i.i101.us.4, align 8, !tbaa !5
+  %754 = load ptr, ptr %arrayidx5.i.i.i102.us.4, align 8, !tbaa !5
+  %755 = load ptr, ptr %arrayidx9.i.i.i103.us.4, align 8, !tbaa !5
   %756 = load ptr, ptr %arrayidx13.i.i.i.us.4, align 8, !tbaa !5
   %757 = load ptr, ptr %arrayidx17.i.i.i.us.4, align 8, !tbaa !5
-  %758 = load ptr, ptr %arrayidx21.i.i.i106.us.4, align 8, !tbaa !5
-  br i1 %min.iters.check, label %for.body.i.i116.us.4.preheader, label %vector.memcheck
+  %758 = load ptr, ptr %arrayidx21.i.i.i104.us.4, align 8, !tbaa !5
+  br i1 %min.iters.check, label %for.body.i.i114.us.4.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3"
   %759 = ptrtoint ptr %758 to i64
@@ -4105,33 +4104,33 @@ vector.memcheck:                                  ; preds = %"_Z6forallI9simd_ex
   %diff.check = icmp ult i64 %767, 16
   %768 = add nuw i64 %764, 8
   %769 = sub i64 %766, %768
-  %diff.check151 = icmp ult i64 %769, 16
-  %conflict.rdx = or i1 %diff.check, %diff.check151
+  %diff.check152 = icmp ult i64 %769, 16
+  %conflict.rdx = or i1 %diff.check, %diff.check152
   %770 = add nuw i64 %763, 8
   %771 = sub i64 %766, %770
-  %diff.check152 = icmp ult i64 %771, 16
-  %conflict.rdx153 = or i1 %conflict.rdx, %diff.check152
+  %diff.check153 = icmp ult i64 %771, 16
+  %conflict.rdx154 = or i1 %conflict.rdx, %diff.check153
   %772 = add nuw i64 %761, 8
   %773 = sub i64 %772, %766
-  %diff.check154 = icmp ult i64 %773, 16
-  %conflict.rdx155 = or i1 %conflict.rdx153, %diff.check154
+  %diff.check155 = icmp ult i64 %773, 16
+  %conflict.rdx156 = or i1 %conflict.rdx154, %diff.check155
   %774 = add nuw i64 %760, 8
   %775 = sub i64 %774, %766
-  %diff.check156 = icmp ult i64 %775, 16
-  %conflict.rdx157 = or i1 %conflict.rdx155, %diff.check156
+  %diff.check157 = icmp ult i64 %775, 16
+  %conflict.rdx158 = or i1 %conflict.rdx156, %diff.check157
   %776 = sub i64 %765, %768
-  %diff.check158 = icmp ult i64 %776, 16
-  %conflict.rdx159 = or i1 %conflict.rdx157, %diff.check158
+  %diff.check159 = icmp ult i64 %776, 16
+  %conflict.rdx160 = or i1 %conflict.rdx158, %diff.check159
   %777 = sub i64 %765, %770
-  %diff.check160 = icmp ult i64 %777, 16
-  %conflict.rdx161 = or i1 %conflict.rdx159, %diff.check160
+  %diff.check161 = icmp ult i64 %777, 16
+  %conflict.rdx162 = or i1 %conflict.rdx160, %diff.check161
   %778 = sub i64 %765, %772
-  %diff.check162 = icmp ult i64 %778, 16
-  %conflict.rdx163 = or i1 %conflict.rdx161, %diff.check162
+  %diff.check163 = icmp ult i64 %778, 16
+  %conflict.rdx164 = or i1 %conflict.rdx162, %diff.check163
   %779 = sub i64 %765, %774
-  %diff.check164 = icmp ult i64 %779, 16
-  %conflict.rdx165 = or i1 %conflict.rdx163, %diff.check164
-  br i1 %conflict.rdx165, label %for.body.i.i116.us.4.preheader, label %vector.body
+  %diff.check165 = icmp ult i64 %779, 16
+  %conflict.rdx166 = or i1 %conflict.rdx164, %diff.check165
+  br i1 %conflict.rdx166, label %for.body.i.i114.us.4.preheader, label %vector.body
 
 vector.body:                                      ; preds = %vector.memcheck, %vector.body
   %index = phi i64 [ %index.next, %vector.body ], [ 0, %vector.memcheck ]
@@ -4139,15 +4138,15 @@ vector.body:                                      ; preds = %vector.memcheck, %v
   %780 = getelementptr inbounds double, ptr %753, i64 %offset.idx
   %wide.load = load <2 x double>, ptr %780, align 8, !tbaa !9
   %781 = getelementptr inbounds double, ptr %754, i64 %offset.idx
-  %wide.load166 = load <2 x double>, ptr %781, align 8, !tbaa !9
-  %782 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load166, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load)
+  %wide.load167 = load <2 x double>, ptr %781, align 8, !tbaa !9
+  %782 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load167, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load)
   %783 = getelementptr inbounds double, ptr %755, i64 %offset.idx
   store <2 x double> %782, ptr %783, align 8, !tbaa !9
   %784 = getelementptr inbounds double, ptr %756, i64 %offset.idx
-  %wide.load167 = load <2 x double>, ptr %784, align 8, !tbaa !9
+  %wide.load168 = load <2 x double>, ptr %784, align 8, !tbaa !9
   %785 = getelementptr inbounds double, ptr %757, i64 %offset.idx
-  %wide.load168 = load <2 x double>, ptr %785, align 8, !tbaa !9
-  %786 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load168, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load167)
+  %wide.load169 = load <2 x double>, ptr %785, align 8, !tbaa !9
+  %786 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %wide.load169, <2 x double> <double 3.700000e-03, double 3.700000e-03>, <2 x double> %wide.load168)
   %787 = getelementptr inbounds double, ptr %758, i64 %offset.idx
   store <2 x double> %786, ptr %787, align 8, !tbaa !9
   %index.next = add nuw i64 %index, 2
@@ -4155,75 +4154,75 @@ vector.body:                                      ; preds = %vector.memcheck, %v
   br i1 %788, label %middle.block, label %vector.body, !llvm.loop !273
 
 middle.block:                                     ; preds = %vector.body
-  br i1 %cmp.n, label %for.end40, label %for.body.i.i116.us.4.preheader
+  br i1 %cmp.n, label %for.end40, label %for.body.i.i114.us.4.preheader
 
-for.body.i.i116.us.4.preheader:                   ; preds = %vector.memcheck, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", %middle.block
-  %indvars.iv.i.i109.us.4.ph = phi i64 [ 1, %vector.memcheck ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3" ], [ %ind.end, %middle.block ]
-  %.neg1094 = add nsw i64 %indvars.iv.i.i109.us.4.ph, 1
-  br i1 %lcmp.mod1090.not.not, label %for.body.i.i116.us.4.prol, label %for.body.i.i116.us.4.prol.loopexit
+for.body.i.i114.us.4.preheader:                   ; preds = %vector.memcheck, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3", %middle.block
+  %indvars.iv.i.i107.us.4.ph = phi i64 [ 1, %vector.memcheck ], [ 1, %"_Z6forallI9simd_execZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_2EviiT0_.exit.loopexit.us.3" ], [ %ind.end, %middle.block ]
+  %.neg1095 = add nsw i64 %indvars.iv.i.i107.us.4.ph, 1
+  br i1 %lcmp.mod1091.not.not, label %for.body.i.i114.us.4.prol, label %for.body.i.i114.us.4.prol.loopexit
 
-for.body.i.i116.us.4.prol:                        ; preds = %for.body.i.i116.us.4.preheader
-  %arrayidx3.i.i.i110.us.4.prol = getelementptr inbounds double, ptr %753, i64 %indvars.iv.i.i109.us.4.ph
-  %789 = load double, ptr %arrayidx3.i.i.i110.us.4.prol, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.4.prol = getelementptr inbounds double, ptr %754, i64 %indvars.iv.i.i109.us.4.ph
-  %790 = load double, ptr %arrayidx7.i.i.i111.us.4.prol, align 8, !tbaa !9
+for.body.i.i114.us.4.prol:                        ; preds = %for.body.i.i114.us.4.preheader
+  %arrayidx3.i.i.i108.us.4.prol = getelementptr inbounds double, ptr %753, i64 %indvars.iv.i.i107.us.4.ph
+  %789 = load double, ptr %arrayidx3.i.i.i108.us.4.prol, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.4.prol = getelementptr inbounds double, ptr %754, i64 %indvars.iv.i.i107.us.4.ph
+  %790 = load double, ptr %arrayidx7.i.i.i109.us.4.prol, align 8, !tbaa !9
   %791 = tail call double @llvm.fmuladd.f64(double %790, double 3.700000e-03, double %789)
-  %arrayidx11.i.i.i112.us.4.prol = getelementptr inbounds double, ptr %755, i64 %indvars.iv.i.i109.us.4.ph
-  store double %791, ptr %arrayidx11.i.i.i112.us.4.prol, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.4.prol = getelementptr inbounds double, ptr %756, i64 %indvars.iv.i.i109.us.4.ph
-  %792 = load double, ptr %arrayidx15.i.i.i113.us.4.prol, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.4.prol = getelementptr inbounds double, ptr %757, i64 %indvars.iv.i.i109.us.4.ph
+  %arrayidx11.i.i.i110.us.4.prol = getelementptr inbounds double, ptr %755, i64 %indvars.iv.i.i107.us.4.ph
+  store double %791, ptr %arrayidx11.i.i.i110.us.4.prol, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.4.prol = getelementptr inbounds double, ptr %756, i64 %indvars.iv.i.i107.us.4.ph
+  %792 = load double, ptr %arrayidx15.i.i.i111.us.4.prol, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.4.prol = getelementptr inbounds double, ptr %757, i64 %indvars.iv.i.i107.us.4.ph
   %793 = load double, ptr %arrayidx19.i.i.i.us.4.prol, align 8, !tbaa !9
   %794 = tail call double @llvm.fmuladd.f64(double %793, double 3.700000e-03, double %792)
-  %arrayidx23.i.i.i.us.4.prol = getelementptr inbounds double, ptr %758, i64 %indvars.iv.i.i109.us.4.ph
+  %arrayidx23.i.i.i.us.4.prol = getelementptr inbounds double, ptr %758, i64 %indvars.iv.i.i107.us.4.ph
   store double %794, ptr %arrayidx23.i.i.i.us.4.prol, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.4.prol = add nuw nsw i64 %indvars.iv.i.i109.us.4.ph, 1
-  br label %for.body.i.i116.us.4.prol.loopexit
+  %indvars.iv.next.i.i112.us.4.prol = add nuw nsw i64 %indvars.iv.i.i107.us.4.ph, 1
+  br label %for.body.i.i114.us.4.prol.loopexit
 
-for.body.i.i116.us.4.prol.loopexit:               ; preds = %for.body.i.i116.us.4.prol, %for.body.i.i116.us.4.preheader
-  %indvars.iv.i.i109.us.4.unr = phi i64 [ %indvars.iv.i.i109.us.4.ph, %for.body.i.i116.us.4.preheader ], [ %indvars.iv.next.i.i114.us.4.prol, %for.body.i.i116.us.4.prol ]
-  %795 = icmp eq i64 %wide.trip.count.i.i, %.neg1094
-  br i1 %795, label %for.end40, label %for.body.i.i116.us.4
+for.body.i.i114.us.4.prol.loopexit:               ; preds = %for.body.i.i114.us.4.prol, %for.body.i.i114.us.4.preheader
+  %indvars.iv.i.i107.us.4.unr = phi i64 [ %indvars.iv.i.i107.us.4.ph, %for.body.i.i114.us.4.preheader ], [ %indvars.iv.next.i.i112.us.4.prol, %for.body.i.i114.us.4.prol ]
+  %795 = icmp eq i64 %wide.trip.count.i.i, %.neg1095
+  br i1 %795, label %for.end40, label %for.body.i.i114.us.4
 
-for.body.i.i116.us.4:                             ; preds = %for.body.i.i116.us.4.prol.loopexit, %for.body.i.i116.us.4
-  %indvars.iv.i.i109.us.4 = phi i64 [ %indvars.iv.next.i.i114.us.4.1, %for.body.i.i116.us.4 ], [ %indvars.iv.i.i109.us.4.unr, %for.body.i.i116.us.4.prol.loopexit ]
-  %arrayidx3.i.i.i110.us.4 = getelementptr inbounds double, ptr %753, i64 %indvars.iv.i.i109.us.4
-  %796 = load double, ptr %arrayidx3.i.i.i110.us.4, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.4 = getelementptr inbounds double, ptr %754, i64 %indvars.iv.i.i109.us.4
-  %797 = load double, ptr %arrayidx7.i.i.i111.us.4, align 8, !tbaa !9
+for.body.i.i114.us.4:                             ; preds = %for.body.i.i114.us.4.prol.loopexit, %for.body.i.i114.us.4
+  %indvars.iv.i.i107.us.4 = phi i64 [ %indvars.iv.next.i.i112.us.4.1, %for.body.i.i114.us.4 ], [ %indvars.iv.i.i107.us.4.unr, %for.body.i.i114.us.4.prol.loopexit ]
+  %arrayidx3.i.i.i108.us.4 = getelementptr inbounds double, ptr %753, i64 %indvars.iv.i.i107.us.4
+  %796 = load double, ptr %arrayidx3.i.i.i108.us.4, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.4 = getelementptr inbounds double, ptr %754, i64 %indvars.iv.i.i107.us.4
+  %797 = load double, ptr %arrayidx7.i.i.i109.us.4, align 8, !tbaa !9
   %798 = tail call double @llvm.fmuladd.f64(double %797, double 3.700000e-03, double %796)
-  %arrayidx11.i.i.i112.us.4 = getelementptr inbounds double, ptr %755, i64 %indvars.iv.i.i109.us.4
-  store double %798, ptr %arrayidx11.i.i.i112.us.4, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.4 = getelementptr inbounds double, ptr %756, i64 %indvars.iv.i.i109.us.4
-  %799 = load double, ptr %arrayidx15.i.i.i113.us.4, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.4 = getelementptr inbounds double, ptr %757, i64 %indvars.iv.i.i109.us.4
+  %arrayidx11.i.i.i110.us.4 = getelementptr inbounds double, ptr %755, i64 %indvars.iv.i.i107.us.4
+  store double %798, ptr %arrayidx11.i.i.i110.us.4, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.4 = getelementptr inbounds double, ptr %756, i64 %indvars.iv.i.i107.us.4
+  %799 = load double, ptr %arrayidx15.i.i.i111.us.4, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.4 = getelementptr inbounds double, ptr %757, i64 %indvars.iv.i.i107.us.4
   %800 = load double, ptr %arrayidx19.i.i.i.us.4, align 8, !tbaa !9
   %801 = tail call double @llvm.fmuladd.f64(double %800, double 3.700000e-03, double %799)
-  %arrayidx23.i.i.i.us.4 = getelementptr inbounds double, ptr %758, i64 %indvars.iv.i.i109.us.4
+  %arrayidx23.i.i.i.us.4 = getelementptr inbounds double, ptr %758, i64 %indvars.iv.i.i107.us.4
   store double %801, ptr %arrayidx23.i.i.i.us.4, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.4 = add nuw nsw i64 %indvars.iv.i.i109.us.4, 1
-  %arrayidx3.i.i.i110.us.4.1 = getelementptr inbounds double, ptr %753, i64 %indvars.iv.next.i.i114.us.4
-  %802 = load double, ptr %arrayidx3.i.i.i110.us.4.1, align 8, !tbaa !9
-  %arrayidx7.i.i.i111.us.4.1 = getelementptr inbounds double, ptr %754, i64 %indvars.iv.next.i.i114.us.4
-  %803 = load double, ptr %arrayidx7.i.i.i111.us.4.1, align 8, !tbaa !9
+  %indvars.iv.next.i.i112.us.4 = add nuw nsw i64 %indvars.iv.i.i107.us.4, 1
+  %arrayidx3.i.i.i108.us.4.1 = getelementptr inbounds double, ptr %753, i64 %indvars.iv.next.i.i112.us.4
+  %802 = load double, ptr %arrayidx3.i.i.i108.us.4.1, align 8, !tbaa !9
+  %arrayidx7.i.i.i109.us.4.1 = getelementptr inbounds double, ptr %754, i64 %indvars.iv.next.i.i112.us.4
+  %803 = load double, ptr %arrayidx7.i.i.i109.us.4.1, align 8, !tbaa !9
   %804 = tail call double @llvm.fmuladd.f64(double %803, double 3.700000e-03, double %802)
-  %arrayidx11.i.i.i112.us.4.1 = getelementptr inbounds double, ptr %755, i64 %indvars.iv.next.i.i114.us.4
-  store double %804, ptr %arrayidx11.i.i.i112.us.4.1, align 8, !tbaa !9
-  %arrayidx15.i.i.i113.us.4.1 = getelementptr inbounds double, ptr %756, i64 %indvars.iv.next.i.i114.us.4
-  %805 = load double, ptr %arrayidx15.i.i.i113.us.4.1, align 8, !tbaa !9
-  %arrayidx19.i.i.i.us.4.1 = getelementptr inbounds double, ptr %757, i64 %indvars.iv.next.i.i114.us.4
+  %arrayidx11.i.i.i110.us.4.1 = getelementptr inbounds double, ptr %755, i64 %indvars.iv.next.i.i112.us.4
+  store double %804, ptr %arrayidx11.i.i.i110.us.4.1, align 8, !tbaa !9
+  %arrayidx15.i.i.i111.us.4.1 = getelementptr inbounds double, ptr %756, i64 %indvars.iv.next.i.i112.us.4
+  %805 = load double, ptr %arrayidx15.i.i.i111.us.4.1, align 8, !tbaa !9
+  %arrayidx19.i.i.i.us.4.1 = getelementptr inbounds double, ptr %757, i64 %indvars.iv.next.i.i112.us.4
   %806 = load double, ptr %arrayidx19.i.i.i.us.4.1, align 8, !tbaa !9
   %807 = tail call double @llvm.fmuladd.f64(double %806, double 3.700000e-03, double %805)
-  %arrayidx23.i.i.i.us.4.1 = getelementptr inbounds double, ptr %758, i64 %indvars.iv.next.i.i114.us.4
+  %arrayidx23.i.i.i.us.4.1 = getelementptr inbounds double, ptr %758, i64 %indvars.iv.next.i.i112.us.4
   store double %807, ptr %arrayidx23.i.i.i.us.4.1, align 8, !tbaa !9
-  %indvars.iv.next.i.i114.us.4.1 = add nuw nsw i64 %indvars.iv.i.i109.us.4, 2
-  %exitcond.not.i.i115.us.4.1 = icmp eq i64 %indvars.iv.next.i.i114.us.4.1, %wide.trip.count.i.i
-  br i1 %exitcond.not.i.i115.us.4.1, label %for.end40, label %for.body.i.i116.us.4, !llvm.loop !274
+  %indvars.iv.next.i.i112.us.4.1 = add nuw nsw i64 %indvars.iv.i.i107.us.4, 2
+  %exitcond.not.i.i113.us.4.1 = icmp eq i64 %indvars.iv.next.i.i112.us.4.1, %wide.trip.count.i.i
+  br i1 %exitcond.not.i.i113.us.4.1, label %for.end40, label %for.body.i.i114.us.4, !llvm.loop !274
 
-for.end40:                                        ; preds = %for.body.i.i116.us.4.prol.loopexit, %for.body.i.i116.us.4, %middle.block, %for.cond25.preheader, %for.cond27.preheader, %for.cond34.preheader
-  %dec.i = add i64 %__begin1.sroa.0.0136, -1
+for.end40:                                        ; preds = %for.body.i.i114.us.4.prol.loopexit, %for.body.i.i114.us.4, %middle.block, %for.cond25.preheader, %for.cond27.preheader, %for.cond34.preheader
+  %dec.i = add i64 %__begin1.sroa.0.0137, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond25.preheader, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond25.preheader, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -4245,61 +4244,50 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %5 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not5154 = icmp eq i64 %5, 0
-  %cmp.not.i.not51 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not5154
-  br i1 %cmp.not.i.not51, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  %cmp.not.i.not4869 = icmp eq i64 %5, 0
+  %cmp.not.i.not48 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4869
+  br i1 %cmp.not.i.not48, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %6 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %7 = load i64, ptr %6, align 8, !tbaa !32
   %conv = trunc i64 %7 to i32
-  %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %7, 4294967295
   %conv11 = add i32 %conv, 1
-  %wide.trip.count.i.i34 = zext i32 %conv11 to i64
-  br i1 %cmp3.i.i, label %for.body.lr.ph.split.us, label %for.cond.cleanup
-
-for.body.lr.ph.split.us:                          ; preds = %for.body.lr.ph
   %cmp3.i.i26 = icmp sgt i32 %conv11, 1
-  br i1 %cmp3.i.i26, label %for.body.us.us.preheader, label %for.body.us.preheader
+  br i1 %cmp3.i.i26, label %for.body.us.us.preheader, label %for.body.lr.ph.split
 
-for.body.us.preheader:                            ; preds = %for.body.lr.ph.split.us
-  %xtraiter = and i64 %7, 1
-  %8 = icmp eq i64 %wide.trip.count.i.i, 1
-  %unroll_iter = sub nsw i64 %wide.trip.count.i.i, %xtraiter
-  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br label %for.body.us
-
-for.body.us.us.preheader:                         ; preds = %for.body.lr.ph.split.us
-  %9 = add nsw i64 %wide.trip.count.i.i34, -1
-  %xtraiter61 = and i64 %7, 1
-  %10 = icmp eq i64 %wide.trip.count.i.i, 1
-  %unroll_iter64 = sub nsw i64 %wide.trip.count.i.i, %xtraiter61
-  %lcmp.mod62.not = icmp eq i64 %xtraiter61, 0
-  %xtraiter66 = and i64 %9, 1
-  %11 = icmp eq i32 %conv11, 2
-  %unroll_iter69 = and i64 %9, -2
-  %lcmp.mod67.not = icmp eq i64 %xtraiter66, 0
+for.body.us.us.preheader:                         ; preds = %for.body.lr.ph
+  %wide.trip.count.i.i34 = zext i32 %conv11 to i64
+  %8 = add nsw i64 %wide.trip.count.i.i34, -1
+  %xtraiter77 = and i64 %7, 1
+  %9 = icmp eq i64 %wide.trip.count.i.i, 1
+  %unroll_iter81 = sub nsw i64 %wide.trip.count.i.i, %xtraiter77
+  %lcmp.mod79.not = icmp eq i64 %xtraiter77, 0
+  %xtraiter83 = and i64 %8, 1
+  %10 = icmp eq i32 %conv11, 2
+  %unroll_iter87 = and i64 %8, -2
+  %lcmp.mod85.not = icmp eq i64 %xtraiter83, 0
   br label %for.body.us.us
 
 for.body.us.us:                                   ; preds = %for.body.us.us.preheader, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us"
-  %__begin1.sroa.0.053.us.us = phi i64 [ %dec.i.us.us, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us" ], [ %5, %for.body.us.us.preheader ]
-  %stb5.052.us.us = phi double [ %sub10.i.i.i.us.us.lcssa, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us" ], [ %3, %for.body.us.us.preheader ]
-  br i1 %10, label %for.body.i.i41.us.us.preheader.unr-lcssa, label %for.body.i.i.us.us
+  %__begin1.sroa.0.050.us.us = phi i64 [ %dec.i.us.us, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us" ], [ %5, %for.body.us.us.preheader ]
+  %stb5.049.us.us = phi double [ %sub10.i.i.i.us.us.lcssa, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us" ], [ %3, %for.body.us.us.preheader ]
+  br i1 %9, label %for.body.i.i41.us.us.preheader.unr-lcssa, label %for.body.i.i.us.us
 
 for.body.i.i.us.us:                               ; preds = %for.body.us.us, %for.body.i.i.us.us
-  %stb5.1.us.us = phi double [ %sub.i.i.i.us.us.1, %for.body.i.i.us.us ], [ %stb5.052.us.us, %for.body.us.us ]
+  %11 = phi double [ %sub.i.i.i.us.us.1, %for.body.i.i.us.us ], [ %stb5.049.us.us, %for.body.us.us ]
   %indvars.iv.i.i.us.us = phi i64 [ %indvars.iv.next.i.i.us.us.1, %for.body.i.i.us.us ], [ 0, %for.body.us.us ]
-  %niter65 = phi i64 [ %niter65.next.1, %for.body.i.i.us.us ], [ 0, %for.body.us.us ]
+  %niter82 = phi i64 [ %niter82.next.1, %for.body.i.i.us.us ], [ 0, %for.body.us.us ]
   %arrayidx.i.i.i.us.us = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us.us
   %12 = load double, ptr %arrayidx.i.i.i.us.us, align 8, !tbaa !9
   %arrayidx3.i.i.i.us.us = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us.us
   %13 = load double, ptr %arrayidx3.i.i.i.us.us, align 8, !tbaa !9
-  %14 = tail call double @llvm.fmuladd.f64(double %stb5.1.us.us, double %13, double %12)
+  %14 = tail call double @llvm.fmuladd.f64(double %11, double %13, double %12)
   %arrayidx5.i.i.i.us.us = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us.us
   store double %14, ptr %arrayidx5.i.i.i.us.us, align 8, !tbaa !9
-  %sub.i.i.i.us.us = fsub double %14, %stb5.1.us.us
+  %sub.i.i.i.us.us = fsub double %14, %11
   %indvars.iv.next.i.i.us.us = or i64 %indvars.iv.i.i.us.us, 1
   %arrayidx.i.i.i.us.us.1 = getelementptr inbounds double, ptr %1, i64 %indvars.iv.next.i.i.us.us
   %15 = load double, ptr %arrayidx.i.i.i.us.us.1, align 8, !tbaa !9
@@ -4310,144 +4298,155 @@ for.body.i.i.us.us:                               ; preds = %for.body.us.us, %fo
   store double %17, ptr %arrayidx5.i.i.i.us.us.1, align 8, !tbaa !9
   %sub.i.i.i.us.us.1 = fsub double %17, %sub.i.i.i.us.us
   %indvars.iv.next.i.i.us.us.1 = add nuw nsw i64 %indvars.iv.i.i.us.us, 2
-  %niter65.next.1 = add i64 %niter65, 2
-  %niter65.ncmp.1 = icmp eq i64 %niter65.next.1, %unroll_iter64
-  br i1 %niter65.ncmp.1, label %for.body.i.i41.us.us.preheader.unr-lcssa, label %for.body.i.i.us.us, !llvm.loop !275
+  %niter82.next.1 = add i64 %niter82, 2
+  %niter82.ncmp.1 = icmp eq i64 %niter82.next.1, %unroll_iter81
+  br i1 %niter82.ncmp.1, label %for.body.i.i41.us.us.preheader.unr-lcssa, label %for.body.i.i.us.us, !llvm.loop !275
 
 for.body.i.i41.us.us.preheader.unr-lcssa:         ; preds = %for.body.i.i.us.us, %for.body.us.us
   %sub.i.i.i.us.us.lcssa.ph = phi double [ undef, %for.body.us.us ], [ %sub.i.i.i.us.us.1, %for.body.i.i.us.us ]
-  %stb5.1.us.us.unr = phi double [ %stb5.052.us.us, %for.body.us.us ], [ %sub.i.i.i.us.us.1, %for.body.i.i.us.us ]
+  %.unr78 = phi double [ %stb5.049.us.us, %for.body.us.us ], [ %sub.i.i.i.us.us.1, %for.body.i.i.us.us ]
   %indvars.iv.i.i.us.us.unr = phi i64 [ 0, %for.body.us.us ], [ %indvars.iv.next.i.i.us.us.1, %for.body.i.i.us.us ]
-  br i1 %lcmp.mod62.not, label %for.body.i.i41.us.us.preheader, label %for.body.i.i.us.us.epil
+  br i1 %lcmp.mod79.not, label %for.body.i.i41.us.us.preheader, label %for.body.i.i.us.us.epil
 
 for.body.i.i.us.us.epil:                          ; preds = %for.body.i.i41.us.us.preheader.unr-lcssa
   %arrayidx.i.i.i.us.us.epil = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us.us.unr
   %18 = load double, ptr %arrayidx.i.i.i.us.us.epil, align 8, !tbaa !9
   %arrayidx3.i.i.i.us.us.epil = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us.us.unr
   %19 = load double, ptr %arrayidx3.i.i.i.us.us.epil, align 8, !tbaa !9
-  %20 = tail call double @llvm.fmuladd.f64(double %stb5.1.us.us.unr, double %19, double %18)
+  %20 = tail call double @llvm.fmuladd.f64(double %.unr78, double %19, double %18)
   %arrayidx5.i.i.i.us.us.epil = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us.us.unr
   store double %20, ptr %arrayidx5.i.i.i.us.us.epil, align 8, !tbaa !9
-  %sub.i.i.i.us.us.epil = fsub double %20, %stb5.1.us.us.unr
+  %sub.i.i.i.us.us.epil = fsub double %20, %.unr78
   br label %for.body.i.i41.us.us.preheader
 
 for.body.i.i41.us.us.preheader:                   ; preds = %for.body.i.i41.us.us.preheader.unr-lcssa, %for.body.i.i.us.us.epil
   %sub.i.i.i.us.us.lcssa = phi double [ %sub.i.i.i.us.us.lcssa.ph, %for.body.i.i41.us.us.preheader.unr-lcssa ], [ %sub.i.i.i.us.us.epil, %for.body.i.i.us.us.epil ]
-  br i1 %11, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa", label %for.body.i.i41.us.us
+  br i1 %10, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa", label %for.body.i.i41.us.us
 
 for.body.i.i41.us.us:                             ; preds = %for.body.i.i41.us.us.preheader, %for.body.i.i41.us.us
-  %stb5.3.us.us = phi double [ %sub10.i.i.i.us.us.1, %for.body.i.i41.us.us ], [ %sub.i.i.i.us.us.lcssa, %for.body.i.i41.us.us.preheader ]
+  %21 = phi double [ %sub10.i.i.i.us.us.1, %for.body.i.i41.us.us ], [ %sub.i.i.i.us.us.lcssa, %for.body.i.i41.us.us.preheader ]
   %indvars.iv.i.i37.us.us = phi i64 [ %indvars.iv.next.i.i39.us.us.1, %for.body.i.i41.us.us ], [ 1, %for.body.i.i41.us.us.preheader ]
-  %niter70 = phi i64 [ %niter70.next.1, %for.body.i.i41.us.us ], [ 0, %for.body.i.i41.us.us.preheader ]
+  %niter88 = phi i64 [ %niter88.next.1, %for.body.i.i41.us.us ], [ 0, %for.body.i.i41.us.us.preheader ]
   %conv2.i.i.i.us.us = sub i64 %7, %indvars.iv.i.i37.us.us
   %sext.us.us = shl i64 %conv2.i.i.i.us.us, 32
   %idxprom.i.i.i.us.us = ashr exact i64 %sext.us.us, 32
   %arrayidx.i.i.i38.us.us = getelementptr inbounds double, ptr %1, i64 %idxprom.i.i.i.us.us
-  %21 = load double, ptr %arrayidx.i.i.i38.us.us, align 8, !tbaa !9
+  %22 = load double, ptr %arrayidx.i.i.i38.us.us, align 8, !tbaa !9
   %arrayidx4.i.i.i.us.us = getelementptr inbounds double, ptr %2, i64 %idxprom.i.i.i.us.us
-  %22 = load double, ptr %arrayidx4.i.i.i.us.us, align 8, !tbaa !9
-  %23 = tail call double @llvm.fmuladd.f64(double %stb5.3.us.us, double %22, double %21)
+  %23 = load double, ptr %arrayidx4.i.i.i.us.us, align 8, !tbaa !9
+  %24 = tail call double @llvm.fmuladd.f64(double %21, double %23, double %22)
   %arrayidx6.i.i.i.us.us = getelementptr inbounds double, ptr %0, i64 %idxprom.i.i.i.us.us
-  store double %23, ptr %arrayidx6.i.i.i.us.us, align 8, !tbaa !9
-  %sub10.i.i.i.us.us = fsub double %23, %stb5.3.us.us
+  store double %24, ptr %arrayidx6.i.i.i.us.us, align 8, !tbaa !9
+  %sub10.i.i.i.us.us = fsub double %24, %21
   %indvars.iv.next.i.i39.us.us.neg = xor i64 %indvars.iv.i.i37.us.us, -1
   %conv2.i.i.i.us.us.1 = add i64 %7, %indvars.iv.next.i.i39.us.us.neg
   %sext.us.us.1 = shl i64 %conv2.i.i.i.us.us.1, 32
   %idxprom.i.i.i.us.us.1 = ashr exact i64 %sext.us.us.1, 32
   %arrayidx.i.i.i38.us.us.1 = getelementptr inbounds double, ptr %1, i64 %idxprom.i.i.i.us.us.1
-  %24 = load double, ptr %arrayidx.i.i.i38.us.us.1, align 8, !tbaa !9
+  %25 = load double, ptr %arrayidx.i.i.i38.us.us.1, align 8, !tbaa !9
   %arrayidx4.i.i.i.us.us.1 = getelementptr inbounds double, ptr %2, i64 %idxprom.i.i.i.us.us.1
-  %25 = load double, ptr %arrayidx4.i.i.i.us.us.1, align 8, !tbaa !9
-  %26 = tail call double @llvm.fmuladd.f64(double %sub10.i.i.i.us.us, double %25, double %24)
+  %26 = load double, ptr %arrayidx4.i.i.i.us.us.1, align 8, !tbaa !9
+  %27 = tail call double @llvm.fmuladd.f64(double %sub10.i.i.i.us.us, double %26, double %25)
   %arrayidx6.i.i.i.us.us.1 = getelementptr inbounds double, ptr %0, i64 %idxprom.i.i.i.us.us.1
-  store double %26, ptr %arrayidx6.i.i.i.us.us.1, align 8, !tbaa !9
-  %sub10.i.i.i.us.us.1 = fsub double %26, %sub10.i.i.i.us.us
+  store double %27, ptr %arrayidx6.i.i.i.us.us.1, align 8, !tbaa !9
+  %sub10.i.i.i.us.us.1 = fsub double %27, %sub10.i.i.i.us.us
   %indvars.iv.next.i.i39.us.us.1 = add nuw nsw i64 %indvars.iv.i.i37.us.us, 2
-  %niter70.next.1 = add nuw i64 %niter70, 2
-  %niter70.ncmp.1 = icmp eq i64 %niter70.next.1, %unroll_iter69
-  br i1 %niter70.ncmp.1, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa", label %for.body.i.i41.us.us, !llvm.loop !276
+  %niter88.next.1 = add nuw i64 %niter88, 2
+  %niter88.ncmp.1 = icmp eq i64 %niter88.next.1, %unroll_iter87
+  br i1 %niter88.ncmp.1, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa", label %for.body.i.i41.us.us, !llvm.loop !276
 
 "_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa": ; preds = %for.body.i.i41.us.us, %for.body.i.i41.us.us.preheader
   %sub10.i.i.i.us.us.lcssa.ph = phi double [ undef, %for.body.i.i41.us.us.preheader ], [ %sub10.i.i.i.us.us.1, %for.body.i.i41.us.us ]
-  %stb5.3.us.us.unr = phi double [ %sub.i.i.i.us.us.lcssa, %for.body.i.i41.us.us.preheader ], [ %sub10.i.i.i.us.us.1, %for.body.i.i41.us.us ]
+  %.unr84 = phi double [ %sub.i.i.i.us.us.lcssa, %for.body.i.i41.us.us.preheader ], [ %sub10.i.i.i.us.us.1, %for.body.i.i41.us.us ]
   %indvars.iv.i.i37.us.us.unr = phi i64 [ 1, %for.body.i.i41.us.us.preheader ], [ %indvars.iv.next.i.i39.us.us.1, %for.body.i.i41.us.us ]
-  br i1 %lcmp.mod67.not, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us", label %for.body.i.i41.us.us.epil
+  br i1 %lcmp.mod85.not, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us", label %for.body.i.i41.us.us.epil
 
 for.body.i.i41.us.us.epil:                        ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa"
   %conv2.i.i.i.us.us.epil = sub i64 %7, %indvars.iv.i.i37.us.us.unr
   %sext.us.us.epil = shl i64 %conv2.i.i.i.us.us.epil, 32
   %idxprom.i.i.i.us.us.epil = ashr exact i64 %sext.us.us.epil, 32
   %arrayidx.i.i.i38.us.us.epil = getelementptr inbounds double, ptr %1, i64 %idxprom.i.i.i.us.us.epil
-  %27 = load double, ptr %arrayidx.i.i.i38.us.us.epil, align 8, !tbaa !9
+  %28 = load double, ptr %arrayidx.i.i.i38.us.us.epil, align 8, !tbaa !9
   %arrayidx4.i.i.i.us.us.epil = getelementptr inbounds double, ptr %2, i64 %idxprom.i.i.i.us.us.epil
-  %28 = load double, ptr %arrayidx4.i.i.i.us.us.epil, align 8, !tbaa !9
-  %29 = tail call double @llvm.fmuladd.f64(double %stb5.3.us.us.unr, double %28, double %27)
+  %29 = load double, ptr %arrayidx4.i.i.i.us.us.epil, align 8, !tbaa !9
+  %30 = tail call double @llvm.fmuladd.f64(double %.unr84, double %29, double %28)
   %arrayidx6.i.i.i.us.us.epil = getelementptr inbounds double, ptr %0, i64 %idxprom.i.i.i.us.us.epil
-  store double %29, ptr %arrayidx6.i.i.i.us.us.epil, align 8, !tbaa !9
-  %sub10.i.i.i.us.us.epil = fsub double %29, %stb5.3.us.us.unr
+  store double %30, ptr %arrayidx6.i.i.i.us.us.epil, align 8, !tbaa !9
+  %sub10.i.i.i.us.us.epil = fsub double %30, %.unr84
   br label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us"
 
 "_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us": ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa", %for.body.i.i41.us.us.epil
   %sub10.i.i.i.us.us.lcssa = phi double [ %sub10.i.i.i.us.us.lcssa.ph, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us.unr-lcssa" ], [ %sub10.i.i.i.us.us.epil, %for.body.i.i41.us.us.epil ]
-  %dec.i.us.us = add i64 %__begin1.sroa.0.053.us.us, -1
+  %dec.i.us.us = add i64 %__begin1.sroa.0.050.us.us, -1
   %cmp.not.i.not.us.us = icmp eq i64 %dec.i.us.us, 0
-  br i1 %cmp.not.i.not.us.us, label %for.cond.cleanup, label %for.body.us.us, !prof !30
+  br i1 %cmp.not.i.not.us.us, label %if.end.i, label %for.body.us.us, !prof !30
 
-for.body.us:                                      ; preds = %for.body.us.preheader, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us"
-  %__begin1.sroa.0.053.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us" ], [ %5, %for.body.us.preheader ]
-  %stb5.052.us = phi double [ %sub.i.i.i.us.lcssa, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us" ], [ %3, %for.body.us.preheader ]
-  br i1 %8, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa", label %for.body.i.i.us
+for.body.lr.ph.split:                             ; preds = %for.body.lr.ph
+  %cmp3.i.i = icmp sgt i32 %conv, 0
+  br i1 %cmp3.i.i, label %for.body.us51.preheader, label %if.end.i
 
-for.body.i.i.us:                                  ; preds = %for.body.us, %for.body.i.i.us
-  %stb5.1.us = phi double [ %sub.i.i.i.us.1, %for.body.i.i.us ], [ %stb5.052.us, %for.body.us ]
-  %indvars.iv.i.i.us = phi i64 [ %indvars.iv.next.i.i.us.1, %for.body.i.i.us ], [ 0, %for.body.us ]
-  %niter = phi i64 [ %niter.next.1, %for.body.i.i.us ], [ 0, %for.body.us ]
-  %arrayidx.i.i.i.us = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us
-  %30 = load double, ptr %arrayidx.i.i.i.us, align 8, !tbaa !9
-  %arrayidx3.i.i.i.us = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us
-  %31 = load double, ptr %arrayidx3.i.i.i.us, align 8, !tbaa !9
-  %32 = tail call double @llvm.fmuladd.f64(double %stb5.1.us, double %31, double %30)
-  %arrayidx5.i.i.i.us = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us
-  store double %32, ptr %arrayidx5.i.i.i.us, align 8, !tbaa !9
-  %sub.i.i.i.us = fsub double %32, %stb5.1.us
-  %indvars.iv.next.i.i.us = or i64 %indvars.iv.i.i.us, 1
-  %arrayidx.i.i.i.us.1 = getelementptr inbounds double, ptr %1, i64 %indvars.iv.next.i.i.us
-  %33 = load double, ptr %arrayidx.i.i.i.us.1, align 8, !tbaa !9
-  %arrayidx3.i.i.i.us.1 = getelementptr inbounds double, ptr %2, i64 %indvars.iv.next.i.i.us
-  %34 = load double, ptr %arrayidx3.i.i.i.us.1, align 8, !tbaa !9
-  %35 = tail call double @llvm.fmuladd.f64(double %sub.i.i.i.us, double %34, double %33)
-  %arrayidx5.i.i.i.us.1 = getelementptr inbounds double, ptr %0, i64 %indvars.iv.next.i.i.us
-  store double %35, ptr %arrayidx5.i.i.i.us.1, align 8, !tbaa !9
-  %sub.i.i.i.us.1 = fsub double %35, %sub.i.i.i.us
-  %indvars.iv.next.i.i.us.1 = add nuw nsw i64 %indvars.iv.i.i.us, 2
+for.body.us51.preheader:                          ; preds = %for.body.lr.ph.split
+  %xtraiter = and i64 %7, 1
+  %31 = icmp eq i64 %wide.trip.count.i.i, 1
+  %unroll_iter = sub nsw i64 %wide.trip.count.i.i, %xtraiter
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br label %for.body.us51
+
+for.body.us51:                                    ; preds = %for.body.us51.preheader, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67"
+  %__begin1.sroa.0.050.us52 = phi i64 [ %dec.i.us65, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67" ], [ %5, %for.body.us51.preheader ]
+  %stb5.049.us53 = phi double [ %sub.i.i.i.us60.lcssa, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67" ], [ %3, %for.body.us51.preheader ]
+  br i1 %31, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa", label %for.body.i.i.us55
+
+for.body.i.i.us55:                                ; preds = %for.body.us51, %for.body.i.i.us55
+  %32 = phi double [ %sub.i.i.i.us60.1, %for.body.i.i.us55 ], [ %stb5.049.us53, %for.body.us51 ]
+  %indvars.iv.i.i.us56 = phi i64 [ %indvars.iv.next.i.i.us61.1, %for.body.i.i.us55 ], [ 0, %for.body.us51 ]
+  %niter = phi i64 [ %niter.next.1, %for.body.i.i.us55 ], [ 0, %for.body.us51 ]
+  %arrayidx.i.i.i.us57 = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us56
+  %33 = load double, ptr %arrayidx.i.i.i.us57, align 8, !tbaa !9
+  %arrayidx3.i.i.i.us58 = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us56
+  %34 = load double, ptr %arrayidx3.i.i.i.us58, align 8, !tbaa !9
+  %35 = tail call double @llvm.fmuladd.f64(double %32, double %34, double %33)
+  %arrayidx5.i.i.i.us59 = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us56
+  store double %35, ptr %arrayidx5.i.i.i.us59, align 8, !tbaa !9
+  %sub.i.i.i.us60 = fsub double %35, %32
+  %indvars.iv.next.i.i.us61 = or i64 %indvars.iv.i.i.us56, 1
+  %arrayidx.i.i.i.us57.1 = getelementptr inbounds double, ptr %1, i64 %indvars.iv.next.i.i.us61
+  %36 = load double, ptr %arrayidx.i.i.i.us57.1, align 8, !tbaa !9
+  %arrayidx3.i.i.i.us58.1 = getelementptr inbounds double, ptr %2, i64 %indvars.iv.next.i.i.us61
+  %37 = load double, ptr %arrayidx3.i.i.i.us58.1, align 8, !tbaa !9
+  %38 = tail call double @llvm.fmuladd.f64(double %sub.i.i.i.us60, double %37, double %36)
+  %arrayidx5.i.i.i.us59.1 = getelementptr inbounds double, ptr %0, i64 %indvars.iv.next.i.i.us61
+  store double %38, ptr %arrayidx5.i.i.i.us59.1, align 8, !tbaa !9
+  %sub.i.i.i.us60.1 = fsub double %38, %sub.i.i.i.us60
+  %indvars.iv.next.i.i.us61.1 = add nuw nsw i64 %indvars.iv.i.i.us56, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
-  br i1 %niter.ncmp.1, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa", label %for.body.i.i.us, !llvm.loop !275
+  br i1 %niter.ncmp.1, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa", label %for.body.i.i.us55, !llvm.loop !275
 
-"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa": ; preds = %for.body.i.i.us, %for.body.us
-  %sub.i.i.i.us.lcssa.ph = phi double [ undef, %for.body.us ], [ %sub.i.i.i.us.1, %for.body.i.i.us ]
-  %stb5.1.us.unr = phi double [ %stb5.052.us, %for.body.us ], [ %sub.i.i.i.us.1, %for.body.i.i.us ]
-  %indvars.iv.i.i.us.unr = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next.i.i.us.1, %for.body.i.i.us ]
-  br i1 %lcmp.mod.not, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us", label %for.body.i.i.us.epil
+"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa": ; preds = %for.body.i.i.us55, %for.body.us51
+  %sub.i.i.i.us60.lcssa.ph = phi double [ undef, %for.body.us51 ], [ %sub.i.i.i.us60.1, %for.body.i.i.us55 ]
+  %.unr = phi double [ %stb5.049.us53, %for.body.us51 ], [ %sub.i.i.i.us60.1, %for.body.i.i.us55 ]
+  %indvars.iv.i.i.us56.unr = phi i64 [ 0, %for.body.us51 ], [ %indvars.iv.next.i.i.us61.1, %for.body.i.i.us55 ]
+  br i1 %lcmp.mod.not, label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67", label %for.body.i.i.us55.epil
 
-for.body.i.i.us.epil:                             ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa"
-  %arrayidx.i.i.i.us.epil = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us.unr
-  %36 = load double, ptr %arrayidx.i.i.i.us.epil, align 8, !tbaa !9
-  %arrayidx3.i.i.i.us.epil = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us.unr
-  %37 = load double, ptr %arrayidx3.i.i.i.us.epil, align 8, !tbaa !9
-  %38 = tail call double @llvm.fmuladd.f64(double %stb5.1.us.unr, double %37, double %36)
-  %arrayidx5.i.i.i.us.epil = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us.unr
-  store double %38, ptr %arrayidx5.i.i.i.us.epil, align 8, !tbaa !9
-  %sub.i.i.i.us.epil = fsub double %38, %stb5.1.us.unr
-  br label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us"
+for.body.i.i.us55.epil:                           ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa"
+  %arrayidx.i.i.i.us57.epil = getelementptr inbounds double, ptr %1, i64 %indvars.iv.i.i.us56.unr
+  %39 = load double, ptr %arrayidx.i.i.i.us57.epil, align 8, !tbaa !9
+  %arrayidx3.i.i.i.us58.epil = getelementptr inbounds double, ptr %2, i64 %indvars.iv.i.i.us56.unr
+  %40 = load double, ptr %arrayidx3.i.i.i.us58.epil, align 8, !tbaa !9
+  %41 = tail call double @llvm.fmuladd.f64(double %.unr, double %40, double %39)
+  %arrayidx5.i.i.i.us59.epil = getelementptr inbounds double, ptr %0, i64 %indvars.iv.i.i.us56.unr
+  store double %41, ptr %arrayidx5.i.i.i.us59.epil, align 8, !tbaa !9
+  %sub.i.i.i.us60.epil = fsub double %41, %.unr
+  br label %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67"
 
-"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us": ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa", %for.body.i.i.us.epil
-  %sub.i.i.i.us.lcssa = phi double [ %sub.i.i.i.us.lcssa.ph, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us.unr-lcssa" ], [ %sub.i.i.i.us.epil, %for.body.i.i.us.epil ]
-  %dec.i.us = add i64 %__begin1.sroa.0.053.us, -1
-  %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67": ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa", %for.body.i.i.us55.epil
+  %sub.i.i.i.us60.lcssa = phi double [ %sub.i.i.i.us60.lcssa.ph, %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67.unr-lcssa" ], [ %sub.i.i.i.us60.epil, %for.body.i.i.us55.epil ]
+  %dec.i.us65 = add i64 %__begin1.sroa.0.050.us52, -1
+  %cmp.not.i.not.us66 = icmp eq i64 %dec.i.us65, 0
+  br i1 %cmp.not.i.not.us66, label %if.end.i, label %for.body.us51, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.us", %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us67", %"_Z6forallI9simd_execZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateEE3$_1EviiT0_.exit.loopexit.us.us", %for.body.lr.ph.split, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4489,7 +4488,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not4244 = icmp eq i64 %13, 0
   %cmp.not.i.not42 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4244
-  br i1 %cmp.not.i.not42, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not42, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -4498,7 +4497,7 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %15 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %15, 4294967295
-  br i1 %cmp3.i.i, label %for.body.us, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.body.us, label %if.end.i
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %"_Z6forallI9simd_execZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us"
   %__begin1.sroa.0.043.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us" ], [ %13, %for.body.lr.ph ]
@@ -4559,9 +4558,9 @@ if.then11.i.i.i.us:                               ; preds = %if.then.i.i.i.us
 "_Z6forallI9simd_execZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us": ; preds = %"_ZZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEENK3$_0clEi.exit.i.i.us"
   %dec.i.us = add i64 %__begin1.sroa.0.043.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL18BM_DISC_ORD_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us", %for.body.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4583,9 +4582,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %4 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not3032 = icmp eq i64 %4, 0
-  %cmp.not.i.not30 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3032
-  br i1 %cmp.not.i.not30, label %for.cond.cleanup, label %for.cond7.preheader.lr.ph, !prof !30
+  %cmp.not.i.not3133 = icmp eq i64 %4, 0
+  %cmp.not.i.not31 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3133
+  br i1 %cmp.not.i.not31, label %if.end.i, label %for.cond7.preheader.lr.ph, !prof !30
 
 for.cond7.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -4594,7 +4593,7 @@ for.cond7.preheader.lr.ph:                        ; preds = %entry
   %conv = trunc i64 %6 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 0
   %wide.trip.count.i.i = and i64 %6, 4294967295
-  br i1 %cmp3.i.i, label %for.cond7.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.cond7.preheader.us.preheader, label %if.end.i
 
 for.cond7.preheader.us.preheader:                 ; preds = %for.cond7.preheader.lr.ph
   %xtraiter = and i64 %6, 1
@@ -4604,12 +4603,12 @@ for.cond7.preheader.us.preheader:                 ; preds = %for.cond7.preheader
   br label %for.cond7.preheader.us
 
 for.cond7.preheader.us:                           ; preds = %for.cond7.preheader.us.preheader, %for.end15.split.us.us
-  %__begin1.sroa.0.031.us = phi i64 [ %dec.i.us, %for.end15.split.us.us ], [ %4, %for.cond7.preheader.us.preheader ]
+  %__begin1.sroa.0.032.us = phi i64 [ %dec.i.us, %for.end15.split.us.us ], [ %4, %for.cond7.preheader.us.preheader ]
   br label %for.cond9.preheader.us.us
 
 for.cond9.preheader.us.us:                        ; preds = %for.inc13.split.us.us.us, %for.cond7.preheader.us
-  %indvars.iv35 = phi i64 [ %indvars.iv.next36, %for.inc13.split.us.us.us ], [ 0, %for.cond7.preheader.us ]
-  %arrayidx.i.i.i.us.us = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv35
+  %indvars.iv36 = phi i64 [ %indvars.iv.next37, %for.inc13.split.us.us.us ], [ 0, %for.cond7.preheader.us ]
+  %arrayidx.i.i.i.us.us = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv36
   %8 = load ptr, ptr %arrayidx.i.i.i.us.us, align 8, !tbaa !5
   br label %for.body11.us.us.us
 
@@ -4624,7 +4623,7 @@ for.body.i.i.us.us.us:                            ; preds = %for.body11.us.us.us
   %9 = load double, ptr %arrayidx3.i.i.i.us.us.us, align 8, !tbaa !9
   %arrayidx5.i.i.i.us.us.us = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.i.i.us.us.us
   %10 = load ptr, ptr %arrayidx5.i.i.i.us.us.us, align 8, !tbaa !5
-  %arrayidx7.i.i.i.us.us.us = getelementptr inbounds double, ptr %10, i64 %indvars.iv35
+  %arrayidx7.i.i.i.us.us.us = getelementptr inbounds double, ptr %10, i64 %indvars.iv36
   %11 = load double, ptr %arrayidx7.i.i.i.us.us.us, align 8, !tbaa !9
   %arrayidx9.i.i.i.us.us.us = getelementptr inbounds ptr, ptr %0, i64 %indvars.iv.i.i.us.us.us
   %12 = load ptr, ptr %arrayidx9.i.i.i.us.us.us, align 8, !tbaa !5
@@ -4636,7 +4635,7 @@ for.body.i.i.us.us.us:                            ; preds = %for.body11.us.us.us
   %15 = load double, ptr %arrayidx3.i.i.i.us.us.us, align 8, !tbaa !9
   %arrayidx5.i.i.i.us.us.us.1 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next.i.i.us.us.us
   %16 = load ptr, ptr %arrayidx5.i.i.i.us.us.us.1, align 8, !tbaa !5
-  %arrayidx7.i.i.i.us.us.us.1 = getelementptr inbounds double, ptr %16, i64 %indvars.iv35
+  %arrayidx7.i.i.i.us.us.us.1 = getelementptr inbounds double, ptr %16, i64 %indvars.iv36
   %17 = load double, ptr %arrayidx7.i.i.i.us.us.us.1, align 8, !tbaa !9
   %arrayidx9.i.i.i.us.us.us.1 = getelementptr inbounds ptr, ptr %0, i64 %indvars.iv.next.i.i.us.us.us
   %18 = load ptr, ptr %arrayidx9.i.i.i.us.us.us.1, align 8, !tbaa !5
@@ -4657,7 +4656,7 @@ for.body.i.i.us.us.us.epil:                       ; preds = %"_Z6forallI9simd_ex
   %21 = load double, ptr %arrayidx3.i.i.i.us.us.us, align 8, !tbaa !9
   %arrayidx5.i.i.i.us.us.us.epil = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.i.i.us.us.us.unr
   %22 = load ptr, ptr %arrayidx5.i.i.i.us.us.us.epil, align 8, !tbaa !5
-  %arrayidx7.i.i.i.us.us.us.epil = getelementptr inbounds double, ptr %22, i64 %indvars.iv35
+  %arrayidx7.i.i.i.us.us.us.epil = getelementptr inbounds double, ptr %22, i64 %indvars.iv36
   %23 = load double, ptr %arrayidx7.i.i.i.us.us.us.epil, align 8, !tbaa !9
   %arrayidx9.i.i.i.us.us.us.epil = getelementptr inbounds ptr, ptr %0, i64 %indvars.iv.i.i.us.us.us.unr
   %24 = load ptr, ptr %arrayidx9.i.i.i.us.us.us.epil, align 8, !tbaa !5
@@ -4673,16 +4672,16 @@ for.body.i.i.us.us.us.epil:                       ; preds = %"_Z6forallI9simd_ex
   br i1 %exitcond.not, label %for.inc13.split.us.us.us, label %for.body11.us.us.us, !llvm.loop !279
 
 for.inc13.split.us.us.us:                         ; preds = %"_Z6forallI9simd_execZL19BM_MAT_X_MAT_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.us"
-  %indvars.iv.next36 = add nuw nsw i64 %indvars.iv35, 1
-  %exitcond38.not = icmp eq i64 %indvars.iv.next36, 25
-  br i1 %exitcond38.not, label %for.end15.split.us.us, label %for.cond9.preheader.us.us, !llvm.loop !280
+  %indvars.iv.next37 = add nuw nsw i64 %indvars.iv36, 1
+  %exitcond39.not = icmp eq i64 %indvars.iv.next37, 25
+  br i1 %exitcond39.not, label %for.end15.split.us.us, label %for.cond9.preheader.us.us, !llvm.loop !280
 
 for.end15.split.us.us:                            ; preds = %for.inc13.split.us.us.us
-  %dec.i.us = add i64 %__begin1.sroa.0.031.us, -1
+  %dec.i.us = add i64 %__begin1.sroa.0.032.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond7.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond7.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.end15.split.us.us, %for.cond7.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.end15.split.us.us, %for.cond7.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4717,16 +4716,16 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %9 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not3335 = icmp eq i64 %9, 0
-  %cmp.not.i.not33 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3335
-  br i1 %cmp.not.i.not33, label %for.cond.cleanup, label %for.body, !prof !30
+  %cmp.not.i.not3436 = icmp eq i64 %9, 0
+  %cmp.not.i.not34 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3436
+  br i1 %cmp.not.i.not34, label %if.end.i, label %for.body, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
 for.body:                                         ; preds = %entry, %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit"
-  %__begin1.sroa.0.034 = phi i64 [ %dec.i, %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ], [ %9, %entry ]
+  %__begin1.sroa.0.035 = phi i64 [ %dec.i, %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit" ], [ %9, %entry ]
   %10 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %11 = load i64, ptr %10, align 8, !tbaa !32
   %conv = trunc i64 %11 to i32
@@ -4758,9 +4757,9 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
   br i1 %exitcond.not.i.i, label %"_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", label %for.body.i.i, !llvm.loop !281
 
 "_Z6forallI9simd_execZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit": ; preds = %for.body.i.i, %for.body
-  %dec.i = add i64 %__begin1.sroa.0.034, -1
+  %dec.i = add i64 %__begin1.sroa.0.035, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -4786,9 +4785,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %7 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not3133 = icmp eq i64 %7, 0
-  %cmp.not.i.not31 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3133
-  br i1 %cmp.not.i.not31, label %for.cond.cleanup, label %for.cond14.preheader.lr.ph, !prof !30
+  %cmp.not.i.not3234 = icmp eq i64 %7, 0
+  %cmp.not.i.not32 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3234
+  br i1 %cmp.not.i.not32, label %if.end.i, label %for.cond14.preheader.lr.ph, !prof !30
 
 for.cond14.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -4797,25 +4796,25 @@ for.cond14.preheader.lr.ph:                       ; preds = %entry
   %conv = trunc i64 %9 to i32
   %cmp3.i.i = icmp sgt i32 %conv, 1
   %wide.trip.count.i.i = and i64 %9, 4294967295
-  br i1 %cmp3.i.i, label %for.cond14.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp3.i.i, label %for.cond14.preheader.us.preheader, label %if.end.i
 
 for.cond14.preheader.us.preheader:                ; preds = %for.cond14.preheader.lr.ph
   %arrayidx.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %0, i64 2
   %.pre = load ptr, ptr %arrayidx.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
   %arrayidx5.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %2, i64 1
-  %.pre37 = load ptr, ptr %arrayidx5.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
-  %.pre38 = load ptr, ptr %0, align 8, !tbaa !5
+  %.pre38 = load ptr, ptr %arrayidx5.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre39 = load ptr, ptr %0, align 8, !tbaa !5
   %arrayidx13.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %1, i64 1
-  %.pre39 = load ptr, ptr %arrayidx13.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre40 = load ptr, ptr %arrayidx13.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
   %arrayidx18.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %0, i64 1
-  %.pre40 = load ptr, ptr %arrayidx18.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre41 = load ptr, ptr %arrayidx18.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
   %arrayidx23.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %3, i64 1
-  %.pre41 = load ptr, ptr %arrayidx23.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre42 = load ptr, ptr %arrayidx23.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
   %arrayidx32.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %4, i64 1
-  %.pre42 = load ptr, ptr %arrayidx32.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %.pre43 = load ptr, ptr %arrayidx32.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
   %arrayidx36.i.i.i.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %5, i64 1
-  %.pre43 = load ptr, ptr %arrayidx36.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
-  %arrayidx43.i.phi.trans.insert.i.i.us.us = getelementptr inbounds double, ptr %.pre40, i64 1
+  %.pre44 = load ptr, ptr %arrayidx36.i.i.i.us.us.phi.trans.insert, align 8, !tbaa !5
+  %arrayidx43.i.phi.trans.insert.i.i.us.us = getelementptr inbounds double, ptr %.pre41, i64 1
   %arrayidx.i.i.i.us.us.1 = getelementptr inbounds ptr, ptr %0, i64 3
   %10 = load ptr, ptr %arrayidx.i.i.i.us.us.1, align 8, !tbaa !5
   %arrayidx5.i.i.i.us.us.1 = getelementptr inbounds ptr, ptr %2, i64 2
@@ -4871,8 +4870,8 @@ for.cond14.preheader.us.preheader:                ; preds = %for.cond14.preheade
   br label %for.cond14.preheader.us
 
 for.cond14.preheader.us:                          ; preds = %for.cond14.preheader.us.preheader, %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4"
-  %__begin1.sroa.0.032.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4" ], [ %7, %for.cond14.preheader.us.preheader ]
-  %.pre.i.i.us.us = load double, ptr %.pre40, align 8, !tbaa !9
+  %__begin1.sroa.0.033.us = phi i64 [ %dec.i.us, %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4" ], [ %7, %for.cond14.preheader.us.preheader ]
+  %.pre.i.i.us.us = load double, ptr %.pre41, align 8, !tbaa !9
   %.pre7.i.i.us.us = load double, ptr %arrayidx43.i.phi.trans.insert.i.i.us.us, align 8, !tbaa !9
   br label %for.body.i.i.us.us
 
@@ -4882,27 +4881,27 @@ for.body.i.i.us.us:                               ; preds = %for.body.i.i.us.us,
   %indvars.iv.i.i.us.us = phi i64 [ 1, %for.cond14.preheader.us ], [ %indvars.iv.next.i.i.us.us, %for.body.i.i.us.us ]
   %arrayidx3.i.i.i.us.us = getelementptr inbounds double, ptr %.pre, i64 %indvars.iv.i.i.us.us
   %36 = load double, ptr %arrayidx3.i.i.i.us.us, align 8, !tbaa !9
-  %arrayidx7.i.i.i.us.us = getelementptr inbounds double, ptr %.pre37, i64 %indvars.iv.i.i.us.us
+  %arrayidx7.i.i.i.us.us = getelementptr inbounds double, ptr %.pre38, i64 %indvars.iv.i.i.us.us
   %37 = load double, ptr %arrayidx7.i.i.i.us.us, align 8, !tbaa !9
-  %arrayidx11.i.i.i.us.us = getelementptr inbounds double, ptr %.pre38, i64 %indvars.iv.i.i.us.us
+  %arrayidx11.i.i.i.us.us = getelementptr inbounds double, ptr %.pre39, i64 %indvars.iv.i.i.us.us
   %38 = load double, ptr %arrayidx11.i.i.i.us.us, align 8, !tbaa !9
-  %arrayidx15.i.i.i.us.us = getelementptr inbounds double, ptr %.pre39, i64 %indvars.iv.i.i.us.us
+  %arrayidx15.i.i.i.us.us = getelementptr inbounds double, ptr %.pre40, i64 %indvars.iv.i.i.us.us
   %39 = load double, ptr %arrayidx15.i.i.i.us.us, align 8, !tbaa !9
   %mul16.i.i.i.us.us = fmul double %38, %39
   %40 = tail call double @llvm.fmuladd.f64(double %36, double %37, double %mul16.i.i.i.us.us)
   %indvars.iv.next.i.i.us.us = add nuw nsw i64 %indvars.iv.i.i.us.us, 1
-  %arrayidx21.i.i.i.us.us = getelementptr inbounds double, ptr %.pre40, i64 %indvars.iv.next.i.i.us.us
+  %arrayidx21.i.i.i.us.us = getelementptr inbounds double, ptr %.pre41, i64 %indvars.iv.next.i.i.us.us
   %41 = load double, ptr %arrayidx21.i.i.i.us.us, align 8, !tbaa !9
-  %arrayidx25.i.i.i.us.us = getelementptr inbounds double, ptr %.pre41, i64 %indvars.iv.i.i.us.us
+  %arrayidx25.i.i.i.us.us = getelementptr inbounds double, ptr %.pre42, i64 %indvars.iv.i.i.us.us
   %42 = load double, ptr %arrayidx25.i.i.i.us.us, align 8, !tbaa !9
   %43 = tail call double @llvm.fmuladd.f64(double %41, double %42, double %40)
-  %arrayidx34.i.i.i.us.us = getelementptr inbounds double, ptr %.pre42, i64 %indvars.iv.i.i.us.us
+  %arrayidx34.i.i.i.us.us = getelementptr inbounds double, ptr %.pre43, i64 %indvars.iv.i.i.us.us
   %44 = load double, ptr %arrayidx34.i.i.i.us.us, align 8, !tbaa !9
   %45 = tail call double @llvm.fmuladd.f64(double %35, double %44, double %43)
-  %arrayidx38.i.i.i.us.us = getelementptr inbounds double, ptr %.pre43, i64 %indvars.iv.i.i.us.us
+  %arrayidx38.i.i.i.us.us = getelementptr inbounds double, ptr %.pre44, i64 %indvars.iv.i.i.us.us
   %46 = load double, ptr %arrayidx38.i.i.i.us.us, align 8, !tbaa !9
   %add39.i.i.i.us.us = fadd double %45, %46
-  %arrayidx43.i.i.i.us.us = getelementptr inbounds double, ptr %.pre40, i64 %indvars.iv.i.i.us.us
+  %arrayidx43.i.i.i.us.us = getelementptr inbounds double, ptr %.pre41, i64 %indvars.iv.i.i.us.us
   %sub44.i.i.i.us.us = fsub double %add39.i.i.i.us.us, %34
   %47 = tail call double @llvm.fmuladd.f64(double %sub44.i.i.i.us.us, double 1.750000e-01, double %34)
   store double %47, ptr %arrayidx43.i.i.i.us.us, align 8, !tbaa !9
@@ -4922,7 +4921,7 @@ for.body.i.i.us.us.1:                             ; preds = %for.body.i.i.us.us.
   %50 = load double, ptr %arrayidx3.i.i.i.us.us.1, align 8, !tbaa !9
   %arrayidx7.i.i.i.us.us.1 = getelementptr inbounds double, ptr %11, i64 %indvars.iv.i.i.us.us.1
   %51 = load double, ptr %arrayidx7.i.i.i.us.us.1, align 8, !tbaa !9
-  %arrayidx11.i.i.i.us.us.1 = getelementptr inbounds double, ptr %.pre40, i64 %indvars.iv.i.i.us.us.1
+  %arrayidx11.i.i.i.us.us.1 = getelementptr inbounds double, ptr %.pre41, i64 %indvars.iv.i.i.us.us.1
   %52 = load double, ptr %arrayidx11.i.i.i.us.us.1, align 8, !tbaa !9
   %arrayidx15.i.i.i.us.us.1 = getelementptr inbounds double, ptr %12, i64 %indvars.iv.i.i.us.us.1
   %53 = load double, ptr %arrayidx15.i.i.i.us.us.1, align 8, !tbaa !9
@@ -5062,11 +5061,11 @@ for.body.i.i.us.us.4:                             ; preds = %for.body.i.i.us.us.
   br i1 %exitcond.not.i.i.us.us.4, label %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4", label %for.body.i.i.us.us.4, !llvm.loop !282
 
 "_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4": ; preds = %for.body.i.i.us.us.4
-  %dec.i.us = add i64 %__begin1.sroa.0.032.us, -1
+  %dec.i.us = add i64 %__begin1.sroa.0.033.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond14.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond14.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4", %for.cond14.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit.loopexit.us.us.4", %for.cond14.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -5089,13 +5088,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %2, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %"_Z6forallI9simd_execZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
+if.end.i:                                         ; preds = %"_Z6forallI9simd_execZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit", %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %m) #10
   ret void
@@ -5138,7 +5137,7 @@ if.then.i.i.i:                                    ; preds = %for.body.i.i
 "_Z6forallI9simd_execZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateEE3$_0EviiT0_.exit": ; preds = %"_ZZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateEENK3$_0clEi.exit.i.i", %for.body
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

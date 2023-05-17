@@ -59,26 +59,23 @@ if.then.lr.ph:                                    ; preds = %entry
   %.fr = freeze ptr %0
   %tobool60.not = icmp eq ptr %.fr, null
   %or.cond77 = or i1 %tobool58.not, %tobool60.not
-  br i1 %cmp14, label %if.then.lr.ph.split.us, label %if.then.lr.ph.split
+  br i1 %cmp14, label %if.then.us.preheader, label %if.then.lr.ph.split
 
-if.then.lr.ph.split.us:                           ; preds = %if.then.lr.ph
+if.then.us.preheader:                             ; preds = %if.then.lr.ph
   %1 = add i64 %b, 1
-  br i1 %tobool27.not, label %if.then.us.us.preheader, label %while.end
+  %2 = and i32 %c, 13850
+  %brmerge219 = icmp ne i32 %2, 16
+  %brmerge220 = or i1 %brmerge219, %or.cond77
+  br label %if.then.us
 
-if.then.us.us.preheader:                          ; preds = %if.then.lr.ph.split.us
-  %2 = and i32 %c, 13848
-  %brmerge = icmp ne i32 %2, 16
-  %brmerge225 = or i1 %brmerge, %or.cond77
-  br label %if.then.us.us
+if.then.us:                                       ; preds = %if.then.us.preheader, %while.cond.backedge.us
+  %inc.i86.us = phi i64 [ %inc.i.us, %while.cond.backedge.us ], [ %inc.i83, %if.then.us.preheader ]
+  br i1 %brmerge220, label %while.cond.backedge.us, label %for.body
 
-if.then.us.us:                                    ; preds = %if.then.us.us.preheader, %while.cond.backedge.us.us
-  %inc.i86.us.us = phi i64 [ %inc.i.us.us, %while.cond.backedge.us.us ], [ %inc.i83, %if.then.us.us.preheader ]
-  br i1 %brmerge225, label %while.cond.backedge.us.us, label %for.body
-
-while.cond.backedge.us.us:                        ; preds = %if.then.us.us
-  %inc.i.us.us = add i64 %inc.i86.us.us, 1
-  %exitcond.not = icmp eq i64 %inc.i86.us.us, %b
-  br i1 %exitcond.not, label %while.end, label %if.then.us.us, !llvm.loop !9
+while.cond.backedge.us:                           ; preds = %if.then.us
+  %inc.i.us = add i64 %inc.i86.us, 1
+  %exitcond.not = icmp eq i64 %inc.i86.us, %b
+  br i1 %exitcond.not, label %while.end, label %if.then.us, !llvm.loop !9
 
 if.then.lr.ph.split:                              ; preds = %if.then.lr.ph
   %3 = and i32 %c, 13832
@@ -96,16 +93,16 @@ if.then.us88.us.us.us.preheader:                  ; preds = %if.then.lr.ph.split
   br label %while.end
 
 if.then.lr.ph.split.split.us.split.us.split:      ; preds = %if.then.lr.ph.split.split.us.split.us
-  br i1 %tobool22.not, label %if.then.us88.us.us194.preheader, label %if.then.lr.ph.split.split.us.split.us.split.split
+  br i1 %tobool22.not, label %if.then.us88.us.us201.preheader, label %if.then.lr.ph.split.split.us.split.us.split.split
 
-if.then.us88.us.us194.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split
+if.then.us88.us.us201.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split
   %5 = add i64 %b, 1
   br label %while.end
 
 if.then.lr.ph.split.split.us.split.us.split.split: ; preds = %if.then.lr.ph.split.split.us.split.us.split
-  br i1 %or.cond77, label %if.then.us88.us.us201.preheader, label %for.body
+  br i1 %or.cond77, label %if.then.us88.us.us208.preheader, label %for.body
 
-if.then.us88.us.us201.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split.split
+if.then.us88.us.us208.preheader:                  ; preds = %if.then.lr.ph.split.split.us.split.us.split.split
   %6 = add i64 %b, 1
   br label %while.end
 
@@ -113,14 +110,14 @@ if.then.lr.ph.split.split.split.us:               ; preds = %if.then.lr.ph.split
   %7 = add i64 %b, 1
   br label %while.end
 
-for.body:                                         ; preds = %if.then.us.us, %if.then.lr.ph.split.split.us.split.us.split.split, %if.then.lr.ph.split.split.us.split.us.split.us
-  %.us-phi = phi i64 [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.us ], [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.split ], [ %inc.i86.us.us, %if.then.us.us ]
+for.body:                                         ; preds = %if.then.us, %if.then.lr.ph.split.split.us.split.us.split.split, %if.then.lr.ph.split.split.us.split.us.split.us
+  %.us-phi = phi i64 [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.us ], [ %inc.i83, %if.then.lr.ph.split.split.us.split.us.split.split ], [ %inc.i86.us, %if.then.us ]
   store i64 %.us-phi, ptr @baz1.l, align 8, !tbaa !5
   tail call void @abort() #6
   unreachable
 
-while.end:                                        ; preds = %while.cond.backedge.us.us, %if.then.lr.ph.split.split.split.us, %if.then.lr.ph.split.us, %if.then.us88.us.us201.preheader, %if.then.us88.us.us194.preheader, %if.then.us88.us.us.us.preheader, %entry
-  %inc.i.lcssa = phi i64 [ %inc.i83, %entry ], [ %4, %if.then.us88.us.us.us.preheader ], [ %5, %if.then.us88.us.us194.preheader ], [ %6, %if.then.us88.us.us201.preheader ], [ %1, %if.then.lr.ph.split.us ], [ %7, %if.then.lr.ph.split.split.split.us ], [ %1, %while.cond.backedge.us.us ]
+while.end:                                        ; preds = %while.cond.backedge.us, %if.then.lr.ph.split.split.split.us, %if.then.us88.us.us208.preheader, %if.then.us88.us.us201.preheader, %if.then.us88.us.us.us.preheader, %entry
+  %inc.i.lcssa = phi i64 [ %inc.i83, %entry ], [ %4, %if.then.us88.us.us.us.preheader ], [ %5, %if.then.us88.us.us201.preheader ], [ %6, %if.then.us88.us.us208.preheader ], [ %7, %if.then.lr.ph.split.split.split.us ], [ %1, %while.cond.backedge.us ]
   store i64 %inc.i.lcssa, ptr @baz1.l, align 8, !tbaa !5
   ret i32 0
 }

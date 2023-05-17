@@ -31,7 +31,7 @@ if.end:                                           ; preds = %if.then, %entry
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-d.exit:
+entry:
   store volatile i32 0, ptr @c, align 4, !tbaa !5
   %bf.load = load i72, ptr @b, align 8
   %bf.clear = and i72 %bf.load, -1180591585533039214593

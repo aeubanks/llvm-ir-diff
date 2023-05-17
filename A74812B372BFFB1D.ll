@@ -47,8 +47,8 @@ while.cond:                                       ; preds = %while.cond, %entry
 
 for.cond.preheader:                               ; preds = %while.cond
   %2 = trunc i64 %indvars.iv.next to i32
-  %cmp235 = icmp sgt i32 %lwid, 0
-  br i1 %cmp235, label %for.body.lr.ph, label %for.end
+  %cmp236 = icmp sgt i32 %lwid, 0
+  br i1 %cmp236, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %arrayidx7 = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %indvars.iv.next
@@ -61,20 +61,20 @@ for.body.lr.ph:                                   ; preds = %for.cond.preheader
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %vm.0240 = phi i32 [ 118, %for.body.lr.ph ], [ %vm.1, %for.inc ]
-  %ln.0239 = phi i32 [ 0, %for.body.lr.ph ], [ %inc164, %for.inc ]
-  %tp.0238 = phi i32 [ 0, %for.body.lr.ph ], [ %add, %for.inc ]
-  %ext.0237 = phi ptr [ null, %for.body.lr.ph ], [ %ext.1, %for.inc ]
-  %exb.0236 = phi ptr [ null, %for.body.lr.ph ], [ %exb.1, %for.inc ]
-  %mul = shl nuw nsw i32 %ln.0239, 1
+  %vm.0241 = phi i32 [ 118, %for.body.lr.ph ], [ %vm.1, %for.inc ]
+  %ln.0240 = phi i32 [ 0, %for.body.lr.ph ], [ %inc164, %for.inc ]
+  %tp.0239 = phi i32 [ 0, %for.body.lr.ph ], [ %add, %for.inc ]
+  %ext.0238 = phi ptr [ null, %for.body.lr.ph ], [ %ext.1, %for.inc ]
+  %exb.0237 = phi ptr [ null, %for.body.lr.ph ], [ %exb.1, %for.inc ]
+  %mul = shl nuw nsw i32 %ln.0240, 1
   %sub = sub nsw i32 %mul, %lwid
   %add = add nsw i32 %sub, 1
-  %cmp2.not = icmp eq i32 %add, %tp.0238
+  %cmp2.not = icmp eq i32 %add, %tp.0239
   br i1 %cmp2.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %for.body
   %4 = load ptr, ptr @tabout, align 8, !tbaa !5
-  %sub3 = sub nsw i32 %add, %tp.0238
+  %sub3 = sub nsw i32 %add, %tp.0239
   %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str, i32 noundef %sub3)
   br label %if.end
 
@@ -112,7 +112,7 @@ sw.bb16:                                          ; preds = %if.else
   br label %if.end18
 
 if.end18:                                         ; preds = %if.then5, %land.lhs.true, %if.else, %sw.bb16, %sw.bb, %if.end
-  %exb.1 = phi ptr [ %exb.0236, %if.else ], [ @.str.1, %sw.bb16 ], [ @.str.1, %sw.bb ], [ %exb.0236, %if.end ], [ %exb.0236, %land.lhs.true ], [ %exb.0236, %if.then5 ]
+  %exb.1 = phi ptr [ %exb.0237, %if.else ], [ @.str.1, %sw.bb16 ], [ @.str.1, %sw.bb ], [ %exb.0237, %if.end ], [ %exb.0237, %land.lhs.true ], [ %exb.0237, %if.then5 ]
   %epb.0 = phi i32 [ 0, %if.else ], [ 1, %sw.bb16 ], [ 0, %sw.bb ], [ 0, %if.end ], [ 2, %land.lhs.true ], [ 2, %if.then5 ]
   %call35 = tail call i32 @interh(i32 noundef %2, i32 noundef %c) #4
   br i1 %cmp19.not, label %if.then34, label %if.then20
@@ -129,13 +129,13 @@ sw.bb22:                                          ; preds = %if.then20
   br label %if.end41
 
 sw.bb24:                                          ; preds = %if.then20
-  %cmp25 = icmp eq i32 %ln.0239, 0
+  %cmp25 = icmp eq i32 %ln.0240, 0
   %cond = select i1 %cmp25, i32 1, i32 -1
   %add26 = add nsw i32 %epb.0, %cond
   br label %if.end41
 
 sw.bb27:                                          ; preds = %if.then20
-  %cmp28 = icmp eq i32 %ln.0239, 1
+  %cmp28 = icmp eq i32 %ln.0240, 1
   %cond29 = select i1 %cmp28, i32 1, i32 -1
   %add30 = add nsw i32 %epb.0, %cond29
   br label %if.end41
@@ -160,20 +160,20 @@ if.end41:                                         ; preds = %if.then20, %sw.bb27
   br i1 %cmp42, label %while.cond45, label %if.else71
 
 while.cond45:                                     ; preds = %if.end41, %land.rhs
-  %indvars.iv242 = phi i64 [ %indvars.iv.next243, %land.rhs ], [ %3, %if.end41 ]
-  %cmp46 = icmp sgt i64 %indvars.iv242, 0
-  br i1 %cmp46, label %land.rhs, label %if.end78
+  %indvars.iv244 = phi i64 [ %indvars.iv.next245, %land.rhs ], [ %3, %if.end41 ]
+  %cmp46 = icmp slt i64 %indvars.iv244, 1
+  br i1 %cmp46, label %if.end78, label %land.rhs
 
 land.rhs:                                         ; preds = %while.cond45
-  %indvars.iv.next243 = add nsw i64 %indvars.iv242, -1
-  %idxprom47 = and i64 %indvars.iv.next243, 4294967295
+  %indvars.iv.next245 = add nsw i64 %indvars.iv244, -1
+  %idxprom47 = and i64 %indvars.iv.next245, 4294967295
   %arrayidx48 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %idxprom47
   %8 = load ptr, ptr %arrayidx48, align 8, !tbaa !5
   %tobool49.not = icmp eq ptr %8, null
   br i1 %tobool49.not, label %land.lhs.true53, label %while.cond45, !llvm.loop !14
 
 land.lhs.true53:                                  ; preds = %land.rhs
-  %indvars.le = trunc i64 %indvars.iv.next243 to i32
+  %indvars.le = trunc i64 %indvars.iv.next245 to i32
   %arrayidx55 = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %idxprom47
   %9 = load i32, ptr %arrayidx55, align 4, !tbaa !11
   %tobool56.not = icmp eq i32 %9, 0
@@ -203,13 +203,13 @@ if.else71:                                        ; preds = %if.end41
 land.lhs.true73:                                  ; preds = %if.else71
   %call74 = tail call i32 @allh(i32 noundef 0) #4
   %tobool75.not = icmp eq i32 %call74, 0
-  %spec.select = select i1 %tobool75.not, i32 %vm.0240, i32 109
+  %spec.select = select i1 %tobool75.not, i32 %vm.0241, i32 109
   br label %if.end78
 
 if.end78:                                         ; preds = %while.cond45, %land.lhs.true73, %lor.lhs.false57, %if.then63, %land.lhs.true53, %if.else71, %sw.bb66, %sw.default
-  %ext.1 = phi ptr [ %ext.0237, %sw.default ], [ @.str.2, %sw.bb66 ], [ %ext.0237, %if.else71 ], [ %ext.0237, %lor.lhs.false57 ], [ %ext.0237, %land.lhs.true53 ], [ @.str.2, %if.then63 ], [ %ext.0237, %land.lhs.true73 ], [ %ext.0237, %while.cond45 ]
+  %ext.1 = phi ptr [ %ext.0238, %sw.default ], [ @.str.2, %sw.bb66 ], [ %ext.0238, %if.else71 ], [ %ext.0238, %lor.lhs.false57 ], [ %ext.0238, %land.lhs.true53 ], [ @.str.2, %if.then63 ], [ %ext.0238, %land.lhs.true73 ], [ %ext.0238, %while.cond45 ]
   %ept.0 = phi i32 [ 0, %sw.default ], [ -1, %sw.bb66 ], [ 0, %if.else71 ], [ 0, %lor.lhs.false57 ], [ 0, %land.lhs.true53 ], [ 0, %if.then63 ], [ 0, %land.lhs.true73 ], [ -4, %while.cond45 ]
-  %vm.1 = phi i32 [ 109, %sw.default ], [ %vm.0240, %sw.bb66 ], [ %vm.0240, %if.else71 ], [ %vm.0240, %lor.lhs.false57 ], [ %vm.0240, %land.lhs.true53 ], [ %vm.0240, %if.then63 ], [ %spec.select, %land.lhs.true73 ], [ %vm.0240, %while.cond45 ]
+  %vm.1 = phi i32 [ 109, %sw.default ], [ %vm.0241, %sw.bb66 ], [ %vm.0241, %if.else71 ], [ %vm.0241, %lor.lhs.false57 ], [ %vm.0241, %land.lhs.true53 ], [ %vm.0241, %if.then63 ], [ %spec.select, %land.lhs.true73 ], [ %vm.0241, %while.cond45 ]
   %call96 = tail call i32 @interh(i32 noundef %start, i32 noundef %c) #4
   br i1 %cmp19.not, label %if.then95, label %if.then80
 
@@ -225,13 +225,13 @@ sw.bb82:                                          ; preds = %if.then80
   br label %if.end103
 
 sw.bb84:                                          ; preds = %if.then80
-  %cmp85 = icmp eq i32 %ln.0239, 0
+  %cmp85 = icmp eq i32 %ln.0240, 0
   %cond86 = select i1 %cmp85, i32 1, i32 -1
   %add87 = add nsw i32 %ept.0, %cond86
   br label %if.end103
 
 sw.bb88:                                          ; preds = %if.then80
-  %cmp89 = icmp eq i32 %ln.0239, 1
+  %cmp89 = icmp eq i32 %ln.0240, 1
   %cond90 = select i1 %cmp89, i32 1, i32 -1
   %add91 = add nsw i32 %ept.0, %cond90
   br label %if.end103
@@ -356,7 +356,7 @@ if.then161:                                       ; preds = %if.end158
   br label %for.inc
 
 for.inc:                                          ; preds = %if.end158, %if.then161
-  %inc164 = add nuw nsw i32 %ln.0239, 1
+  %inc164 = add nuw nsw i32 %ln.0240, 1
   %exitcond.not = icmp eq i32 %inc164, %lwid
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !15
 
@@ -415,14 +415,15 @@ if.end2.i.i:                                      ; preds = %if.end.i.i
 
 if.end12.i.i:                                     ; preds = %if.end2.i.i
   %7 = load i8, ptr %spec.select.i.i, align 1, !tbaa !19
-  %switch.selectcmp.i.i = icmp eq i8 %7, 61
-  %switch.select.i.i = select i1 %switch.selectcmp.i.i, i32 61, i32 0
-  %switch.selectcmp21.i.i = icmp eq i8 %7, 95
-  %switch.select22.i.i = select i1 %switch.selectcmp21.i.i, i32 45, i32 %switch.select.i.i
+  %.fr.i = freeze i8 %7
+  %switch.selectcmp.i = icmp eq i8 %.fr.i, 61
+  %switch.select.i = select i1 %switch.selectcmp.i, i32 61, i32 0
+  %switch.selectcmp21.i = icmp eq i8 %.fr.i, 95
+  %switch.select22.i = select i1 %switch.selectcmp21.i, i32 45, i32 %switch.select.i
   br label %midbcol.exit
 
 midbcol.exit:                                     ; preds = %if.end2.i.i, %if.end12.i.i
-  %retval.0.i = phi i32 [ 0, %if.end2.i.i ], [ %switch.select22.i.i, %if.end12.i.i ]
+  %retval.0.i = phi i32 [ %switch.select22.i, %if.end12.i.i ], [ 0, %if.end2.i.i ]
   %cmp = icmp eq i32 %retval.0.i, 0
   %cmp1 = icmp sgt i32 %c, 0
   %or.cond = and i1 %cmp1, %cmp
@@ -463,18 +464,19 @@ if.end2.i.i28:                                    ; preds = %if.end.i.i22
   %arrayidx7.i.i26 = getelementptr inbounds i8, ptr %spec.select.i.i25, i64 1
   %14 = load i8, ptr %arrayidx7.i.i26, align 1, !tbaa !19
   %cmp9.not.i.i27 = icmp eq i8 %14, 0
-  br i1 %cmp9.not.i.i27, label %if.end12.i.i33, label %if.end
+  br i1 %cmp9.not.i.i27, label %if.end12.i.i34, label %if.end
 
-if.end12.i.i33:                                   ; preds = %if.end2.i.i28
+if.end12.i.i34:                                   ; preds = %if.end2.i.i28
   %15 = load i8, ptr %spec.select.i.i25, align 1, !tbaa !19
-  %switch.selectcmp.i.i29 = icmp eq i8 %15, 61
-  %switch.select.i.i30 = select i1 %switch.selectcmp.i.i29, i32 61, i32 0
-  %switch.selectcmp21.i.i31 = icmp eq i8 %15, 95
-  %switch.select22.i.i32 = select i1 %switch.selectcmp21.i.i31, i32 45, i32 %switch.select.i.i30
+  %.fr.i29 = freeze i8 %15
+  %switch.selectcmp.i30 = icmp eq i8 %.fr.i29, 61
+  %switch.select.i31 = select i1 %switch.selectcmp.i30, i32 61, i32 0
+  %switch.selectcmp21.i32 = icmp eq i8 %.fr.i29, 95
+  %switch.select22.i33 = select i1 %switch.selectcmp21.i32, i32 45, i32 %switch.select.i31
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i.i, %if.end.i, %while.end.i, %if.end12.i.i33, %if.end2.i.i28, %if.end.i.i22, %if.end.i19, %while.end.i13, %midbcol.exit
-  %k.0 = phi i32 [ %retval.0.i, %midbcol.exit ], [ %call.i8, %while.end.i13 ], [ 1, %if.end.i19 ], [ 1, %if.end.i.i22 ], [ 0, %if.end2.i.i28 ], [ %switch.select22.i.i32, %if.end12.i.i33 ], [ 1, %if.end.i.i ], [ 1, %if.end.i ], [ %call.i, %while.end.i ]
+if.end:                                           ; preds = %if.end.i, %if.end.i.i, %while.end.i, %if.end12.i.i34, %if.end2.i.i28, %if.end.i.i22, %if.end.i19, %while.end.i13, %midbcol.exit
+  %k.0 = phi i32 [ %retval.0.i, %midbcol.exit ], [ %call.i8, %while.end.i13 ], [ 1, %if.end.i.i22 ], [ 1, %if.end.i19 ], [ %switch.select22.i33, %if.end12.i.i34 ], [ 0, %if.end2.i.i28 ], [ 1, %if.end.i ], [ 1, %if.end.i.i ], [ %call.i, %while.end.i ]
   ret i32 %k.0
 }
 
@@ -526,14 +528,15 @@ if.end2.i:                                        ; preds = %if.end.i
 
 if.end12.i:                                       ; preds = %if.end2.i
   %7 = load i8, ptr %spec.select.i, align 1, !tbaa !19
-  %switch.selectcmp.i = icmp eq i8 %7, 61
-  %switch.select.i = select i1 %switch.selectcmp.i, i32 61, i32 0
-  %switch.selectcmp21.i = icmp eq i8 %7, 95
-  %switch.select22.i = select i1 %switch.selectcmp21.i, i32 45, i32 %switch.select.i
+  %.fr = freeze i8 %7
+  %switch.selectcmp = icmp eq i8 %.fr, 61
+  %switch.select = select i1 %switch.selectcmp, i32 61, i32 0
+  %switch.selectcmp21 = icmp eq i8 %.fr, 95
+  %switch.select22 = select i1 %switch.selectcmp21, i32 45, i32 %switch.select
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end12.i, %if.end2.i, %if.end.i, %if.end, %while.end
-  %retval.0 = phi i32 [ %call, %while.end ], [ 1, %if.end ], [ 1, %if.end.i ], [ 0, %if.end2.i ], [ %switch.select22.i, %if.end12.i ]
+cleanup:                                          ; preds = %if.end2.i, %if.end12.i, %if.end.i, %if.end, %while.end
+  %retval.0 = phi i32 [ %call, %while.end ], [ 1, %if.end.i ], [ 1, %if.end ], [ %switch.select22, %if.end12.i ], [ 0, %if.end2.i ]
   ret i32 %retval.0
 }
 

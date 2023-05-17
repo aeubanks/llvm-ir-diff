@@ -141,11 +141,12 @@ if.then3:                                         ; preds = %if.then
   br label %cleanup5
 
 cleanup:                                          ; preds = %entry, %cleanup
-  %2 = phi i32 [ %4, %cleanup ], [ %1, %entry ]
+  %2 = phi i32 [ %3, %cleanup ], [ %0, %entry ]
   %result.019 = phi i64 [ %add, %cleanup ], [ 0, %entry ]
   %s.addr.018 = phi ptr [ %incdec.ptr, %cleanup ], [ %s, %entry ]
   %mul = mul i64 %result.019, 10
-  %conv = zext i32 %2 to i64
+  %sub = add nsw i32 %2, -48
+  %conv = zext i32 %sub to i64
   %add = add i64 %mul, %conv
   %incdec.ptr = getelementptr inbounds i32, ptr %s.addr.018, i64 1
   %3 = load i32, ptr %incdec.ptr, align 4, !tbaa !14

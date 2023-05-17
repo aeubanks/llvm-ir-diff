@@ -1214,7 +1214,7 @@ if.then12:                                        ; preds = %if.then
   %8 = load ptr, ptr %m_manifoldPtr, align 8, !tbaa !68
   %m_manifoldPtr.i = getelementptr inbounds %class.btManifoldResult, ptr %resultOut, i64 0, i32 1
   store ptr %8, ptr %m_manifoldPtr.i, align 8, !tbaa !69
-  tail call void @_ZN24btConvexTriangleCallback22setTimeStepAndCountersEfRK16btDispatcherInfoP16btManifoldResult(ptr noundef nonnull align 8 dereferenceable(96) %m_btConvexTriangleCallback, float noundef %call13, ptr noundef nonnull align 8 dereferenceable(56) %dispatchInfo, ptr noundef nonnull %resultOut)
+  tail call void @_ZN24btConvexTriangleCallback22setTimeStepAndCountersEfRK16btDispatcherInfoP16btManifoldResult(ptr noundef nonnull align 8 dereferenceable(96) %m_btConvexTriangleCallback, float noundef %call13, ptr noundef nonnull align 8 dereferenceable(56) %dispatchInfo, ptr noundef %resultOut)
   %9 = load ptr, ptr %m_manifoldPtr, align 8, !tbaa !68
   %m_body0.i = getelementptr inbounds %class.btPersistentManifold, ptr %9, i64 0, i32 3
   store ptr %cond, ptr %m_body0.i, align 8, !tbaa !72
@@ -1252,7 +1252,7 @@ if.else.i:                                        ; preds = %if.end.i
   tail call void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %11, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransA8.i, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransB9.i)
   br label %if.end24
 
-if.end24:                                         ; preds = %if.else.i, %if.then5.i, %if.then12, %if.then, %entry
+if.end24:                                         ; preds = %if.then, %if.then12, %if.then5.i, %if.else.i, %entry
   ret void
 }
 
@@ -1438,7 +1438,7 @@ if.end:                                           ; preds = %entry
   %shift = shufflevector <2 x float> %118, <2 x float> poison, <2 x i32> <i32 1, i32 poison>
   %120 = fadd <2 x float> %118, %shift
   %add17.i.i135 = extractelement <2 x float> %120, i64 0
-  %retval.sroa.3.12.vec.insert.i.i138229 = insertelement <2 x float> %120, float 0.000000e+00, i64 1
+  %retval.sroa.3.12.vec.insert.i.i138228 = insertelement <2 x float> %120, float 0.000000e+00, i64 1
   %m_collisionShape.i = getelementptr inbounds %class.btCollisionObject, ptr %cond7, i64 0, i32 9
   %121 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !40
   %m_shapeType.i.i = getelementptr inbounds %class.btCollisionShape, ptr %121, i64 0, i32 1
@@ -1543,7 +1543,7 @@ _Z8btSetMinIfEvRT_RKS0_.exit19.i:                 ; preds = %if.then.i18.i, %_Z8
   %m_origin.i10.i = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %raycastCallback, i64 0, i32 2, i32 1
   store <2 x float> %109, ptr %m_origin.i10.i, align 8, !tbaa.struct !46
   %convexToLocal.sroa.24.48.m_origin.i10.i.sroa_idx = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %raycastCallback, i64 0, i32 2, i32 1, i32 0, i64 2
-  store <2 x float> %retval.sroa.3.12.vec.insert.i.i138229, ptr %convexToLocal.sroa.24.48.m_origin.i10.i.sroa_idx, align 8, !tbaa.struct !65
+  store <2 x float> %retval.sroa.3.12.vec.insert.i.i138228, ptr %convexToLocal.sroa.24.48.m_origin.i10.i.sroa_idx, align 8, !tbaa.struct !65
   %m_ccdSphereRadius.i = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %raycastCallback, i64 0, i32 4
   store float %134, ptr %m_ccdSphereRadius.i, align 8, !tbaa !97
   %m_hitFraction.i = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %raycastCallback, i64 0, i32 5
@@ -1564,18 +1564,11 @@ lpad31:                                           ; preds = %_Z8btSetMinIfEvRT_R
 
 if.end37:                                         ; preds = %_Z8btSetMinIfEvRT_RKS0_.exit19.i
   %.pre = load float, ptr %m_hitFraction.i, align 4, !tbaa !100
-  %.pre228 = load float, ptr %m_hitFraction.i191, align 4, !tbaa !99
-  %cmp41 = fcmp uge float %.pre, %.pre228
-  br i1 %cmp41, label %cleanup.thread, label %cleanup
+  %.pre227 = load float, ptr %m_hitFraction.i191, align 4, !tbaa !99
+  %cmp41 = fcmp uge float %.pre, %.pre227
+  br i1 %cmp41, label %if.end60.critedge, label %if.then42
 
-cleanup.thread:                                   ; preds = %if.end37
-  call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(208) %raycastCallback)
-  call void @llvm.lifetime.end.p0(i64 208, ptr nonnull %raycastCallback) #13
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %rayAabbMax) #13
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %rayAabbMin) #13
-  br label %cleanup67
-
-cleanup:                                          ; preds = %if.end37
+if.then42:                                        ; preds = %if.end37
   store float %.pre, ptr %m_hitFraction.i191, align 4, !tbaa !99
   call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(208) %raycastCallback)
   call void @llvm.lifetime.end.p0(i64 208, ptr nonnull %raycastCallback) #13
@@ -1589,8 +1582,15 @@ invoke.cont49:                                    ; preds = %lpad31
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %rayAabbMin) #13
   resume { ptr, i32 } %144
 
-cleanup67:                                        ; preds = %cleanup, %cleanup.thread, %if.end, %entry
-  %retval.2 = phi float [ 1.000000e+00, %entry ], [ %.pre, %cleanup ], [ 1.000000e+00, %cleanup.thread ], [ 1.000000e+00, %if.end ]
+if.end60.critedge:                                ; preds = %if.end37
+  call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(208) %raycastCallback)
+  call void @llvm.lifetime.end.p0(i64 208, ptr nonnull %raycastCallback) #13
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %rayAabbMax) #13
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %rayAabbMin) #13
+  br label %cleanup67
+
+cleanup67:                                        ; preds = %if.end, %if.end60.critedge, %if.then42, %entry
+  %retval.2 = phi float [ 1.000000e+00, %entry ], [ %.pre, %if.then42 ], [ 1.000000e+00, %if.end60.critedge ], [ 1.000000e+00, %if.end ]
   ret float %retval.2
 
 terminate.lpad:                                   ; preds = %lpad31
@@ -2322,15 +2322,15 @@ entry:
   store float %1, ptr %m_collisionMargin.i, align 8, !tbaa !49
   call void @llvm.lifetime.start.p0(i64 112, ptr nonnull %triShape) #13
   invoke void @_ZN23btPolyhedralConvexShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(64) %triShape)
-          to label %invoke.cont7 unwind label %lpad4
+          to label %_ZN15btTriangleShapeC2ERK9btVector3S2_S2_.exit unwind label %lpad4
 
-invoke.cont7:                                     ; preds = %entry
+_ZN15btTriangleShapeC2ERK9btVector3S2_S2_.exit:   ; preds = %entry
   %arrayidx3 = getelementptr inbounds %class.btVector3, ptr %triangle, i64 2
   %arrayidx2 = getelementptr inbounds %class.btVector3, ptr %triangle, i64 1
   store ptr getelementptr inbounds ({ [28 x ptr] }, ptr @_ZTV15btTriangleShape, i64 0, inrange i32 0, i64 2), ptr %triShape, align 8, !tbaa !5
   %m_vertices1.i = getelementptr inbounds %class.btTriangleShape, ptr %triShape, i64 0, i32 1
-  %m_shapeType.i42 = getelementptr inbounds %class.btCollisionShape, ptr %triShape, i64 0, i32 1
-  store i32 1, ptr %m_shapeType.i42, align 8, !tbaa !44
+  %m_shapeType.i36 = getelementptr inbounds %class.btCollisionShape, ptr %triShape, i64 0, i32 1
+  store i32 1, ptr %m_shapeType.i36, align 8, !tbaa !44
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_vertices1.i, ptr noundef nonnull align 4 dereferenceable(16) %triangle, i64 16, i1 false), !tbaa.struct !46
   %arrayidx4.i = getelementptr inbounds %class.btTriangleShape, ptr %triShape, i64 0, i32 1, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx4.i, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx2, i64 16, i1 false), !tbaa.struct !46
@@ -2343,7 +2343,7 @@ invoke.cont7:                                     ; preds = %entry
   invoke void @_ZN22btSubsimplexConvexCastC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolver(ptr noundef nonnull align 8 dereferenceable(32) %convexCaster, ptr noundef nonnull %pointShape, ptr noundef nonnull %triShape, ptr noundef nonnull %simplexSolver)
           to label %invoke.cont9 unwind label %lpad8
 
-invoke.cont9:                                     ; preds = %invoke.cont7
+invoke.cont9:                                     ; preds = %_ZN15btTriangleShapeC2ERK9btVector3S2_S2_.exit
   %m_ccdSphereFromTrans = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %this, i64 0, i32 1
   %m_ccdSphereToTrans = getelementptr inbounds %struct.LocalTriangleSphereCastCallback, ptr %this, i64 0, i32 2
   %call = invoke noundef zeroext i1 @_ZN22btSubsimplexConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %convexCaster, ptr noundef nonnull align 4 dereferenceable(64) %m_ccdSphereFromTrans, ptr noundef nonnull align 4 dereferenceable(64) %m_ccdSphereToTrans, ptr noundef nonnull align 4 dereferenceable(64) %ident, ptr noundef nonnull align 4 dereferenceable(64) %ident, ptr noundef nonnull align 8 dereferenceable(188) %castResult)
@@ -2367,7 +2367,7 @@ lpad4:                                            ; preds = %entry, %invoke.cont
           cleanup
   br label %ehcleanup24
 
-lpad8:                                            ; preds = %if.end17, %invoke.cont7
+lpad8:                                            ; preds = %if.end17, %_ZN15btTriangleShapeC2ERK9btVector3S2_S2_.exit
   %5 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
@@ -2404,7 +2404,7 @@ ehcleanup:                                        ; preds = %lpad10, %lpad8
           to label %ehcleanup24 unwind label %terminate.lpad
 
 ehcleanup24:                                      ; preds = %ehcleanup, %lpad4
-  %.pn36 = phi { ptr, i32 } [ %4, %lpad4 ], [ %.pn, %ehcleanup ]
+  %.pn38 = phi { ptr, i32 } [ %4, %lpad4 ], [ %.pn, %ehcleanup ]
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %triShape) #13
   invoke void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %pointShape)
           to label %ehcleanup28 unwind label %terminate.lpad
@@ -2413,7 +2413,7 @@ ehcleanup28:                                      ; preds = %ehcleanup24
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %pointShape) #13
   call void @llvm.lifetime.end.p0(i64 192, ptr nonnull %castResult) #13
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %ident) #13
-  resume { ptr, i32 } %.pn36
+  resume { ptr, i32 } %.pn38
 
 terminate.lpad:                                   ; preds = %ehcleanup24, %ehcleanup, %lpad10
   %7 = landingpad { ptr, i32 }

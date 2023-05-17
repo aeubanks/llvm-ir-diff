@@ -161,10 +161,10 @@ lnext1.i:                                         ; preds = %do.end.i, %for.end.
 
 rm_contain.exit:                                  ; preds = %lnext1.i, %sf_sort.exit, %rm_equal.exit
   %pdest.0.lcssa.i21 = phi ptr [ %call.i, %rm_equal.exit ], [ %call.i, %sf_sort.exit ], [ %pdest.1.i19, %lnext1.i ]
-  %sub.ptr.rhs.cast.i40 = ptrtoint ptr %call.i to i64
+  %sub.ptr.rhs.cast.i37 = ptrtoint ptr %call.i to i64
   store ptr null, ptr %pdest.0.lcssa.i21, align 8, !tbaa !14
   %sub.ptr.lhs.cast.i22 = ptrtoint ptr %pdest.0.lcssa.i21 to i64
-  %sub.ptr.sub.i24 = sub i64 %sub.ptr.lhs.cast.i22, %sub.ptr.rhs.cast.i40
+  %sub.ptr.sub.i24 = sub i64 %sub.ptr.lhs.cast.i22, %sub.ptr.rhs.cast.i37
   %19 = lshr exact i64 %sub.ptr.sub.i24, 3
   %conv.i25 = trunc i64 %19 to i32
   %sf_size = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 1
@@ -193,11 +193,11 @@ for.body.i29:                                     ; preds = %do.end.i34, %for.bo
   br i1 %min.iters.check, label %do.body.i30.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %for.body.i29
-  %pr.017.i41 = ptrtoint ptr %pr.017.i to i64
+  %pr.017.i38 = ptrtoint ptr %pr.017.i to i64
   %28 = ptrtoint ptr %23 to i64
   %29 = shl nuw nsw i64 %26, 2
   %30 = add i64 %29, %28
-  %31 = add i64 %29, %pr.017.i41
+  %31 = add i64 %29, %pr.017.i38
   %32 = sub i64 %30, %31
   %diff.check = icmp ult i64 %32, 32
   br i1 %diff.check, label %do.body.i30.preheader, label %vector.ph
@@ -214,12 +214,12 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %34 = getelementptr inbounds i32, ptr %33, i64 -3
   %wide.load = load <4 x i32>, ptr %34, align 4, !tbaa !13
   %35 = getelementptr inbounds i32, ptr %33, i64 -7
-  %wide.load42 = load <4 x i32>, ptr %35, align 4, !tbaa !13
+  %wide.load39 = load <4 x i32>, ptr %35, align 4, !tbaa !13
   %36 = getelementptr inbounds i32, ptr %pr.017.i, i64 %offset.idx
   %37 = getelementptr inbounds i32, ptr %36, i64 -3
   store <4 x i32> %wide.load, ptr %37, align 4, !tbaa !13
   %38 = getelementptr inbounds i32, ptr %36, i64 -7
-  store <4 x i32> %wide.load42, ptr %38, align 4, !tbaa !13
+  store <4 x i32> %wide.load39, ptr %38, align 4, !tbaa !13
   %index.next = add nuw i64 %index, 8
   %39 = icmp eq i64 %index.next, %n.vec
   br i1 %39, label %middle.block, label %vector.body, !llvm.loop !16
@@ -450,10 +450,10 @@ lnext1.i:                                         ; preds = %do.end.i, %for.end.
 
 rm_rev_contain.exit:                              ; preds = %lnext1.i, %sf_sort.exit, %rm_equal.exit
   %pdest.0.lcssa.i21 = phi ptr [ %call.i, %rm_equal.exit ], [ %call.i, %sf_sort.exit ], [ %pdest.1.i19, %lnext1.i ]
-  %sub.ptr.rhs.cast.i40 = ptrtoint ptr %call.i to i64
+  %sub.ptr.rhs.cast.i37 = ptrtoint ptr %call.i to i64
   store ptr null, ptr %pdest.0.lcssa.i21, align 8, !tbaa !14
   %sub.ptr.lhs.cast.i22 = ptrtoint ptr %pdest.0.lcssa.i21 to i64
-  %sub.ptr.sub.i24 = sub i64 %sub.ptr.lhs.cast.i22, %sub.ptr.rhs.cast.i40
+  %sub.ptr.sub.i24 = sub i64 %sub.ptr.lhs.cast.i22, %sub.ptr.rhs.cast.i37
   %20 = lshr exact i64 %sub.ptr.sub.i24, 3
   %conv.i25 = trunc i64 %20 to i32
   %sf_size = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 1
@@ -482,11 +482,11 @@ for.body.i29:                                     ; preds = %do.end.i34, %for.bo
   br i1 %min.iters.check, label %do.body.i30.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %for.body.i29
-  %pr.017.i41 = ptrtoint ptr %pr.017.i to i64
+  %pr.017.i38 = ptrtoint ptr %pr.017.i to i64
   %29 = ptrtoint ptr %24 to i64
   %30 = shl nuw nsw i64 %27, 2
   %31 = add i64 %30, %29
-  %32 = add i64 %30, %pr.017.i41
+  %32 = add i64 %30, %pr.017.i38
   %33 = sub i64 %31, %32
   %diff.check = icmp ult i64 %33, 32
   br i1 %diff.check, label %do.body.i30.preheader, label %vector.ph
@@ -503,12 +503,12 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %35 = getelementptr inbounds i32, ptr %34, i64 -3
   %wide.load = load <4 x i32>, ptr %35, align 4, !tbaa !13
   %36 = getelementptr inbounds i32, ptr %34, i64 -7
-  %wide.load42 = load <4 x i32>, ptr %36, align 4, !tbaa !13
+  %wide.load39 = load <4 x i32>, ptr %36, align 4, !tbaa !13
   %37 = getelementptr inbounds i32, ptr %pr.017.i, i64 %offset.idx
   %38 = getelementptr inbounds i32, ptr %37, i64 -3
   store <4 x i32> %wide.load, ptr %38, align 4, !tbaa !13
   %39 = getelementptr inbounds i32, ptr %37, i64 -7
-  store <4 x i32> %wide.load42, ptr %39, align 4, !tbaa !13
+  store <4 x i32> %wide.load39, ptr %39, align 4, !tbaa !13
   %index.next = add nuw i64 %index, 8
   %40 = icmp eq i64 %index.next, %n.vec
   br i1 %40, label %middle.block, label %vector.body, !llvm.loop !22
@@ -736,10 +736,10 @@ lnext1.i:                                         ; preds = %do.end.i, %for.end.
 
 rm_contain.exit:                                  ; preds = %lnext1.i, %sf_sort.exit, %rm_equal.exit
   %pdest.0.lcssa.i22 = phi ptr [ %call.i, %rm_equal.exit ], [ %call.i, %sf_sort.exit ], [ %pdest.1.i20, %lnext1.i ]
-  %sub.ptr.rhs.cast.i48 = ptrtoint ptr %call.i to i64
+  %sub.ptr.rhs.cast.i45 = ptrtoint ptr %call.i to i64
   store ptr null, ptr %pdest.0.lcssa.i22, align 8, !tbaa !14
   %sub.ptr.lhs.cast.i23 = ptrtoint ptr %pdest.0.lcssa.i22 to i64
-  %sub.ptr.sub.i25 = sub i64 %sub.ptr.lhs.cast.i23, %sub.ptr.rhs.cast.i48
+  %sub.ptr.sub.i25 = sub i64 %sub.ptr.lhs.cast.i23, %sub.ptr.rhs.cast.i45
   %19 = lshr exact i64 %sub.ptr.sub.i25, 3
   %conv.i26 = trunc i64 %19 to i32
   %sf_size = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 1
@@ -785,11 +785,11 @@ for.body.i33:                                     ; preds = %do.end.i41, %for.bo
   br i1 %min.iters.check, label %do.body.i34.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %for.body.i33
-  %pr.052.i49 = ptrtoint ptr %pr.052.i to i64
+  %pr.052.i46 = ptrtoint ptr %pr.052.i to i64
   %32 = ptrtoint ptr %27 to i64
   %33 = shl nuw nsw i64 %30, 2
   %34 = add i64 %33, %32
-  %35 = add i64 %33, %pr.052.i49
+  %35 = add i64 %33, %pr.052.i46
   %36 = sub i64 %34, %35
   %diff.check = icmp ult i64 %36, 32
   br i1 %diff.check, label %do.body.i34.preheader, label %vector.ph
@@ -806,12 +806,12 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %38 = getelementptr inbounds i32, ptr %37, i64 -3
   %wide.load = load <4 x i32>, ptr %38, align 4, !tbaa !13
   %39 = getelementptr inbounds i32, ptr %37, i64 -7
-  %wide.load50 = load <4 x i32>, ptr %39, align 4, !tbaa !13
+  %wide.load47 = load <4 x i32>, ptr %39, align 4, !tbaa !13
   %40 = getelementptr inbounds i32, ptr %pr.052.i, i64 %offset.idx
   %41 = getelementptr inbounds i32, ptr %40, i64 -3
   store <4 x i32> %wide.load, ptr %41, align 4, !tbaa !13
   %42 = getelementptr inbounds i32, ptr %40, i64 -7
-  store <4 x i32> %wide.load50, ptr %42, align 4, !tbaa !13
+  store <4 x i32> %wide.load47, ptr %42, align 4, !tbaa !13
   %index.next = add nuw i64 %index, 8
   %43 = icmp eq i64 %index.next, %n.vec
   br i1 %43, label %middle.block, label %vector.body, !llvm.loop !25

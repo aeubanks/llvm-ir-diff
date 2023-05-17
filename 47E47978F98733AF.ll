@@ -60,77 +60,125 @@ land.lhs.true4:                                   ; preds = %land.lhs.true2
   %3 = load i32, ptr %2, align 4, !tbaa !15
   %and = and i32 %3, 262144
   %tobool6.not = icmp eq i32 %and, 0
-  br i1 %tobool6.not, label %if.then7, label %land.lhs.true17
+  br i1 %tobool6.not, label %if.then7, label %land.lhs.true14
 
 if.then7:                                         ; preds = %land.lhs.true4
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true17:                                  ; preds = %land.lhs.true4
-  %and20 = and i32 %3, 131072
+land.lhs.true14:                                  ; preds = %land.lhs.true4
+  %.pr = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool16.not = icmp eq ptr %.pr, null
+  br i1 %tobool16.not, label %if.end137, label %land.lhs.true17
+
+land.lhs.true17:                                  ; preds = %land.lhs.true14
+  %4 = load i32, ptr %.pr, align 4, !tbaa !15
+  %and20 = and i32 %4, 131072
   %tobool21.not = icmp eq i32 %and20, 0
-  br i1 %tobool21.not, label %if.then22, label %land.lhs.true33
+  br i1 %tobool21.not, label %if.then22, label %land.lhs.true30
 
 if.then22:                                        ; preds = %land.lhs.true17
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true33:                                  ; preds = %land.lhs.true17
-  %and36 = and i32 %3, 65536
+land.lhs.true30:                                  ; preds = %land.lhs.true17
+  %.pr2 = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool32.not = icmp eq ptr %.pr2, null
+  br i1 %tobool32.not, label %if.end137, label %land.lhs.true33
+
+land.lhs.true33:                                  ; preds = %land.lhs.true30
+  %5 = load i32, ptr %.pr2, align 4, !tbaa !15
+  %and36 = and i32 %5, 65536
   %tobool37.not = icmp eq i32 %and36, 0
-  br i1 %tobool37.not, label %if.then38, label %land.lhs.true49
+  br i1 %tobool37.not, label %if.then38, label %land.lhs.true46
 
 if.then38:                                        ; preds = %land.lhs.true33
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true49:                                  ; preds = %land.lhs.true33
-  %and52 = and i32 %3, 32768
+land.lhs.true46:                                  ; preds = %land.lhs.true33
+  %.pr4.pr = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool48.not = icmp eq ptr %.pr4.pr, null
+  br i1 %tobool48.not, label %if.end137, label %land.lhs.true49
+
+land.lhs.true49:                                  ; preds = %land.lhs.true46
+  %6 = load i32, ptr %.pr4.pr, align 4, !tbaa !15
+  %and52 = and i32 %6, 32768
   %tobool53.not = icmp eq i32 %and52, 0
-  br i1 %tobool53.not, label %if.then54, label %land.lhs.true65
+  br i1 %tobool53.not, label %if.then54, label %land.lhs.true62
 
 if.then54:                                        ; preds = %land.lhs.true49
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true65:                                  ; preds = %land.lhs.true49
-  %and68 = and i32 %3, 16384
+land.lhs.true62:                                  ; preds = %land.lhs.true49
+  %.pr6 = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool64.not = icmp eq ptr %.pr6, null
+  br i1 %tobool64.not, label %if.end137, label %land.lhs.true65
+
+land.lhs.true65:                                  ; preds = %land.lhs.true62
+  %7 = load i32, ptr %.pr6, align 4, !tbaa !15
+  %and68 = and i32 %7, 16384
   %tobool69.not = icmp eq i32 %and68, 0
-  br i1 %tobool69.not, label %if.then70, label %land.lhs.true81
+  br i1 %tobool69.not, label %if.then70, label %land.lhs.true78
 
 if.then70:                                        ; preds = %land.lhs.true65
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true81:                                  ; preds = %land.lhs.true65
-  %and84 = and i32 %3, 8192
+land.lhs.true78:                                  ; preds = %land.lhs.true65
+  %.pr8.pr.pr = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool80.not = icmp eq ptr %.pr8.pr.pr, null
+  br i1 %tobool80.not, label %if.end137, label %land.lhs.true81
+
+land.lhs.true81:                                  ; preds = %land.lhs.true78
+  %8 = load i32, ptr %.pr8.pr.pr, align 4, !tbaa !15
+  %and84 = and i32 %8, 8192
   %tobool85.not = icmp eq i32 %and84, 0
-  br i1 %tobool85.not, label %if.then86, label %land.lhs.true97
+  br i1 %tobool85.not, label %if.then86, label %land.lhs.true94
 
 if.then86:                                        ; preds = %land.lhs.true81
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true97:                                  ; preds = %land.lhs.true81
-  %and100 = and i32 %3, 4096
+land.lhs.true94:                                  ; preds = %land.lhs.true81
+  %.pr10 = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool96.not = icmp eq ptr %.pr10, null
+  br i1 %tobool96.not, label %if.end137, label %land.lhs.true97
+
+land.lhs.true97:                                  ; preds = %land.lhs.true94
+  %9 = load i32, ptr %.pr10, align 4, !tbaa !15
+  %and100 = and i32 %9, 4096
   %tobool101.not = icmp eq i32 %and100, 0
-  br i1 %tobool101.not, label %if.then102, label %land.lhs.true113
+  br i1 %tobool101.not, label %if.then102, label %land.lhs.true110
 
 if.then102:                                       ; preds = %land.lhs.true97
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true113:                                 ; preds = %land.lhs.true97
-  %and116 = and i32 %3, 2048
+land.lhs.true110:                                 ; preds = %land.lhs.true97
+  %.pr12.pr.pr = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool112.not = icmp eq ptr %.pr12.pr.pr, null
+  br i1 %tobool112.not, label %if.end137, label %land.lhs.true113
+
+land.lhs.true113:                                 ; preds = %land.lhs.true110
+  %10 = load i32, ptr %.pr12.pr.pr, align 4, !tbaa !15
+  %and116 = and i32 %10, 2048
   %tobool117.not = icmp eq i32 %and116, 0
-  br i1 %tobool117.not, label %if.then118, label %land.lhs.true129
+  br i1 %tobool117.not, label %if.then118, label %land.lhs.true126
 
 if.then118:                                       ; preds = %land.lhs.true113
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-land.lhs.true129:                                 ; preds = %land.lhs.true113
-  %and132 = and i32 %3, 1024
+land.lhs.true126:                                 ; preds = %land.lhs.true113
+  %.pr14 = load ptr, ptr %c, align 8, !tbaa !14
+  %tobool128.not = icmp eq ptr %.pr14, null
+  br i1 %tobool128.not, label %if.end137, label %land.lhs.true129
+
+land.lhs.true129:                                 ; preds = %land.lhs.true126
+  %11 = load i32, ptr %.pr14, align 4, !tbaa !15
+  %and132 = and i32 %11, 1024
   %tobool133.not = icmp eq i32 %and132, 0
   br i1 %tobool133.not, label %if.then134, label %if.end137
 
@@ -138,7 +186,7 @@ if.then134:                                       ; preds = %land.lhs.true129
   tail call void @never_ever(i32 poison, ptr nonnull poison)
   unreachable
 
-if.end137:                                        ; preds = %land.lhs.true2, %land.lhs.true, %entry, %land.lhs.true129
+if.end137:                                        ; preds = %land.lhs.true30, %land.lhs.true46, %land.lhs.true2, %land.lhs.true14, %land.lhs.true78, %land.lhs.true62, %land.lhs.true94, %land.lhs.true110, %land.lhs.true, %entry, %land.lhs.true129, %land.lhs.true126
   ret void
 }
 

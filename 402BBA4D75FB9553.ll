@@ -21,7 +21,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end44:
+entry:
   store i64 -4294967296, ptr @hpart, align 8, !tbaa !5
   store i64 4294967294, ptr @lpart, align 8, !tbaa !5
   store i64 -2, ptr @back, align 8, !tbaa !5

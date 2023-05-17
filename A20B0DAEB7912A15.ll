@@ -471,10 +471,10 @@ if.end40.for.inc74_crit_edge:                     ; preds = %if.end40
 
 if.then59:                                        ; preds = %if.end40
   %21 = load ptr, ptr %virgin34, align 8, !tbaa !25
+  %arrayidx62 = getelementptr inbounds %struct.item, ptr %21, i64 %idxprom24
   %rule63 = getelementptr inbounds %struct.item, ptr %21, i64 %idxprom24, i32 1
   store ptr null, ptr %rule63, align 8, !tbaa !27
-  %arrayidx66 = getelementptr inbounds %struct.item, ptr %21, i64 %idxprom24
-  call void @ZEROCOST(ptr noundef %arrayidx66) #6
+  call void @ZEROCOST(ptr noundef %arrayidx62) #6
   %22 = load i32, ptr @debugTrim, align 4, !tbaa !5
   %tobool69.not = icmp eq i32 %22, 0
   br i1 %tobool69.not, label %cleanup, label %if.then70
@@ -1071,10 +1071,10 @@ if.end115:                                        ; preds = %if.end108
 
 if.then136:                                       ; preds = %if.end115
   %138 = load ptr, ptr %virgin34, align 8, !tbaa !25
+  %arrayidx139 = getelementptr inbounds %struct.item, ptr %138, i64 %idxprom24
   %rule140 = getelementptr inbounds %struct.item, ptr %138, i64 %idxprom24, i32 1
   store ptr null, ptr %rule140, align 8, !tbaa !27
-  %arrayidx143 = getelementptr inbounds %struct.item, ptr %138, i64 %idxprom24
-  call void @ZEROCOST(ptr noundef %arrayidx143) #6
+  call void @ZEROCOST(ptr noundef %arrayidx139) #6
   br label %cleanup
 
 for.inc147:                                       ; preds = %if.end115, %if.end108, %if.end94, %for.body87

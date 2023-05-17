@@ -11,7 +11,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @Second_Field = external local_unnamed_addr global i32, align 4
 @backward_reference_frame = external global [3 x ptr], align 16
 @chroma_format = external local_unnamed_addr global i32, align 4
-@str.2 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
+@str.3 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @form_predictions(i32 noundef %bx, i32 noundef %by, i32 noundef %macroblock_type, i32 noundef %motion_type, ptr nocapture noundef readonly %PMV, ptr nocapture noundef readonly %motion_vertical_field_select, ptr noundef %dmvector, i32 noundef %stwtype) local_unnamed_addr #0 {
@@ -150,7 +150,7 @@ if.then87:                                        ; preds = %if.end85
   br label %if.end219
 
 if.else106:                                       ; preds = %if.else
-  %puts462 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %puts462 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %if.end219
 
 if.else110:                                       ; preds = %if.then
@@ -238,8 +238,7 @@ if.end171:                                        ; preds = %land.lhs.true164, %
   br label %if.end219
 
 if.then186:                                       ; preds = %if.else143
-  %tobool187.not = icmp eq i32 %30, 0
-  %forward_reference_frame.backward_reference_frame = select i1 %tobool187.not, ptr @forward_reference_frame, ptr @backward_reference_frame
+  %backward_reference_frame.forward_reference_frame = select i1 %tobool114, ptr @backward_reference_frame, ptr @forward_reference_frame
   %47 = load i32, ptr %PMV, align 4, !tbaa !5
   %arrayidx197 = getelementptr inbounds [2 x i32], ptr %PMV, i64 0, i64 1
   %48 = load i32, ptr %arrayidx197, align 4, !tbaa !5
@@ -256,11 +255,11 @@ if.then186:                                       ; preds = %if.else143
   %53 = load i32, ptr %DMV, align 16, !tbaa !5
   %arrayidx212 = getelementptr inbounds [2 x i32], ptr %DMV, i64 0, i64 1
   %54 = load i32, ptr %arrayidx212, align 4, !tbaa !5
-  call fastcc void @form_prediction(ptr noundef nonnull %forward_reference_frame.backward_reference_frame, i32 noundef %lnot.ext, i32 noundef 0, i32 noundef %shl207, i32 noundef %shl207, i32 noundef 16, i32 noundef %bx, i32 noundef %by, i32 noundef %53, i32 noundef %54, i32 noundef 1)
+  call fastcc void @form_prediction(ptr noundef nonnull %backward_reference_frame.forward_reference_frame, i32 noundef %lnot.ext, i32 noundef 0, i32 noundef %shl207, i32 noundef %shl207, i32 noundef 16, i32 noundef %bx, i32 noundef %by, i32 noundef %53, i32 noundef %54, i32 noundef 1)
   br label %if.end219
 
 if.else213:                                       ; preds = %if.else143
-  %puts461 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %puts461 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %if.end219
 
 if.end219:                                        ; preds = %if.then42, %if.end40, %if.end85, %if.then87, %if.else106, %if.end, %if.then16, %if.end171, %if.then146, %if.else213, %if.then186, %if.then128, %if.then131, %entry
@@ -383,7 +382,7 @@ if.then302:                                       ; preds = %if.else285
   br label %if.end329
 
 if.else324:                                       ; preds = %if.else285
-  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %if.end329
 
 if.end329:                                        ; preds = %if.end267, %if.then270, %if.end239, %if.then242, %if.then302, %if.else324, %if.then288, %if.end219

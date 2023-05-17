@@ -209,7 +209,7 @@ middle.block:                                     ; preds = %vector.body
 
 for.body75.us.preheader:                          ; preds = %vector.memcheck, %if.end63.us, %middle.block
   %mik.1177.us.ph = phi ptr [ %add.ptr25, %vector.memcheck ], [ %add.ptr25, %if.end63.us ], [ %ind.end, %middle.block ]
-  %add.ptr69.pn176.us.ph = phi ptr [ %add.ptr39.us, %vector.memcheck ], [ %add.ptr39.us, %if.end63.us ], [ %ind.end212, %middle.block ]
+  %add.ptr39.pn176.us.ph = phi ptr [ %add.ptr39.us, %vector.memcheck ], [ %add.ptr39.us, %if.end63.us ], [ %ind.end212, %middle.block ]
   %i.1175.us.ph = phi i32 [ %26, %vector.memcheck ], [ %26, %if.end63.us ], [ %ind.end214, %middle.block ]
   %51 = sub i32 %0, %i.1175.us.ph
   %52 = xor i32 %i.1175.us.ph, -1
@@ -220,10 +220,10 @@ for.body75.us.preheader:                          ; preds = %vector.memcheck, %i
 
 for.body75.us.prol:                               ; preds = %for.body75.us.preheader, %for.body75.us.prol
   %mik.1177.us.prol = phi ptr [ %incdec.ptr80.us.prol, %for.body75.us.prol ], [ %mik.1177.us.ph, %for.body75.us.preheader ]
-  %add.ptr69.pn176.us.prol = phi ptr [ %aij.0.us.prol, %for.body75.us.prol ], [ %add.ptr69.pn176.us.ph, %for.body75.us.preheader ]
+  %add.ptr39.pn176.us.prol = phi ptr [ %aij.0.us.prol, %for.body75.us.prol ], [ %add.ptr39.pn176.us.ph, %for.body75.us.preheader ]
   %i.1175.us.prol = phi i32 [ %inc78.us.prol, %for.body75.us.prol ], [ %i.1175.us.ph, %for.body75.us.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %for.body75.us.prol ], [ 0, %for.body75.us.preheader ]
-  %aij.0.us.prol = getelementptr inbounds float, ptr %add.ptr69.pn176.us.prol, i64 1
+  %aij.0.us.prol = getelementptr inbounds float, ptr %add.ptr39.pn176.us.prol, i64 1
   %54 = load float, ptr %mik.1177.us.prol, align 4, !tbaa !14
   %55 = load float, ptr %aij.0.us.prol, align 4, !tbaa !14
   %56 = tail call float @llvm.fmuladd.f32(float %t.0.us, float %54, float %55)
@@ -236,34 +236,34 @@ for.body75.us.prol:                               ; preds = %for.body75.us.prehe
 
 for.body75.us.prol.loopexit:                      ; preds = %for.body75.us.prol, %for.body75.us.preheader
   %mik.1177.us.unr = phi ptr [ %mik.1177.us.ph, %for.body75.us.preheader ], [ %incdec.ptr80.us.prol, %for.body75.us.prol ]
-  %add.ptr69.pn176.us.unr = phi ptr [ %add.ptr69.pn176.us.ph, %for.body75.us.preheader ], [ %aij.0.us.prol, %for.body75.us.prol ]
+  %add.ptr39.pn176.us.unr = phi ptr [ %add.ptr39.pn176.us.ph, %for.body75.us.preheader ], [ %aij.0.us.prol, %for.body75.us.prol ]
   %i.1175.us.unr = phi i32 [ %i.1175.us.ph, %for.body75.us.preheader ], [ %inc78.us.prol, %for.body75.us.prol ]
   %57 = icmp ult i32 %53, 3
   br i1 %57, label %for.cond72.for.inc82_crit_edge.us, label %for.body75.us
 
 for.body75.us:                                    ; preds = %for.body75.us.prol.loopexit, %for.body75.us
   %mik.1177.us = phi ptr [ %incdec.ptr80.us.3, %for.body75.us ], [ %mik.1177.us.unr, %for.body75.us.prol.loopexit ]
-  %add.ptr69.pn176.us = phi ptr [ %aij.0.us.3, %for.body75.us ], [ %add.ptr69.pn176.us.unr, %for.body75.us.prol.loopexit ]
+  %add.ptr39.pn176.us = phi ptr [ %aij.0.us.3, %for.body75.us ], [ %add.ptr39.pn176.us.unr, %for.body75.us.prol.loopexit ]
   %i.1175.us = phi i32 [ %inc78.us.3, %for.body75.us ], [ %i.1175.us.unr, %for.body75.us.prol.loopexit ]
-  %aij.0.us = getelementptr inbounds float, ptr %add.ptr69.pn176.us, i64 1
+  %aij.0.us = getelementptr inbounds float, ptr %add.ptr39.pn176.us, i64 1
   %58 = load float, ptr %mik.1177.us, align 4, !tbaa !14
   %59 = load float, ptr %aij.0.us, align 4, !tbaa !14
   %60 = tail call float @llvm.fmuladd.f32(float %t.0.us, float %58, float %59)
   store float %60, ptr %aij.0.us, align 4, !tbaa !14
   %incdec.ptr80.us = getelementptr inbounds float, ptr %mik.1177.us, i64 1
-  %aij.0.us.1 = getelementptr inbounds float, ptr %add.ptr69.pn176.us, i64 2
+  %aij.0.us.1 = getelementptr inbounds float, ptr %add.ptr39.pn176.us, i64 2
   %61 = load float, ptr %incdec.ptr80.us, align 4, !tbaa !14
   %62 = load float, ptr %aij.0.us.1, align 4, !tbaa !14
   %63 = tail call float @llvm.fmuladd.f32(float %t.0.us, float %61, float %62)
   store float %63, ptr %aij.0.us.1, align 4, !tbaa !14
   %incdec.ptr80.us.1 = getelementptr inbounds float, ptr %mik.1177.us, i64 2
-  %aij.0.us.2 = getelementptr inbounds float, ptr %add.ptr69.pn176.us, i64 3
+  %aij.0.us.2 = getelementptr inbounds float, ptr %add.ptr39.pn176.us, i64 3
   %64 = load float, ptr %incdec.ptr80.us.1, align 4, !tbaa !14
   %65 = load float, ptr %aij.0.us.2, align 4, !tbaa !14
   %66 = tail call float @llvm.fmuladd.f32(float %t.0.us, float %64, float %65)
   store float %66, ptr %aij.0.us.2, align 4, !tbaa !14
   %incdec.ptr80.us.2 = getelementptr inbounds float, ptr %mik.1177.us, i64 3
-  %aij.0.us.3 = getelementptr inbounds float, ptr %add.ptr69.pn176.us, i64 4
+  %aij.0.us.3 = getelementptr inbounds float, ptr %add.ptr39.pn176.us, i64 4
   %67 = load float, ptr %incdec.ptr80.us.2, align 4, !tbaa !14
   %68 = load float, ptr %aij.0.us.3, align 4, !tbaa !14
   %69 = tail call float @llvm.fmuladd.f32(float %t.0.us, float %67, float %68)

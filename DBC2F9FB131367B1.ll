@@ -315,6 +315,7 @@ land.lhs.true:                                    ; preds = %for.body91
   br i1 %cmp131, label %if.then, label %for.inc820
 
 if.then:                                          ; preds = %land.lhs.true
+  %arrayidx150 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom97, i64 %idxprom104
   %points_for151 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom97, i64 %idxprom104, i32 3
   %6 = load i32, ptr %points_for151, align 4, !tbaa !12
   %add = add nsw i32 %6, %4
@@ -335,6 +336,7 @@ if.then:                                          ; preds = %land.lhs.true
   br i1 %cmp225, label %if.then226, label %if.else
 
 if.then226:                                       ; preds = %if.then
+  %arrayidx191 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom104, i64 %idxprom97
   %loses234 = getelementptr inbounds [29 x %struct.info], ptr @team_info, i64 0, i64 %idxprom97, i32 1
   %10 = load i32, ptr %loses234, align 4, !tbaa !15
   %inc235 = add nsw i32 %10, 1
@@ -347,10 +349,9 @@ if.then226:                                       ; preds = %if.then
   %12 = load i32, ptr %loses259, align 4, !tbaa !15
   %inc260 = add nsw i32 %12, 1
   store i32 %inc260, ptr %loses259, align 4, !tbaa !15
-  %arrayidx274 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom104, i64 %idxprom97
-  %13 = load i32, ptr %arrayidx274, align 4, !tbaa !16
+  %13 = load i32, ptr %arrayidx191, align 4, !tbaa !16
   %inc276 = add nsw i32 %13, 1
-  store i32 %inc276, ptr %arrayidx274, align 4, !tbaa !16
+  store i32 %inc276, ptr %arrayidx191, align 4, !tbaa !16
   %arrayidx283 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom97
   %14 = load i32, ptr %arrayidx283, align 8, !tbaa !5
   %arrayidx291 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom104
@@ -384,8 +385,6 @@ if.then330:                                       ; preds = %if.then294
 
 if.else:                                          ; preds = %if.then
   %cmp360 = icmp ugt i32 %4, %5
-  %arrayidx418 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom97
-  %arrayidx426 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom104
   br i1 %cmp360, label %if.then361, label %if.else486
 
 if.then361:                                       ; preds = %if.else
@@ -397,15 +396,16 @@ if.then361:                                       ; preds = %if.else
   %22 = load i32, ptr %loses378, align 4, !tbaa !15
   %inc379 = add nsw i32 %22, 1
   store i32 %inc379, ptr %loses378, align 4, !tbaa !15
-  %arrayidx393 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom97, i64 %idxprom104
-  %23 = load i32, ptr %arrayidx393, align 4, !tbaa !16
+  %23 = load i32, ptr %arrayidx150, align 4, !tbaa !16
   %inc395 = add nsw i32 %23, 1
-  store i32 %inc395, ptr %arrayidx393, align 4, !tbaa !16
+  store i32 %inc395, ptr %arrayidx150, align 4, !tbaa !16
   %loses410 = getelementptr inbounds [29 x [29 x %struct.info]], ptr @h_to_h_stats, i64 0, i64 %idxprom104, i64 %idxprom97, i32 1
   %24 = load i32, ptr %loses410, align 4, !tbaa !15
   %inc411 = add nsw i32 %24, 1
   store i32 %inc411, ptr %loses410, align 4, !tbaa !15
+  %arrayidx418 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom97
   %25 = load i32, ptr %arrayidx418, align 8, !tbaa !5
+  %arrayidx426 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom104
   %26 = load i32, ptr %arrayidx426, align 8, !tbaa !5
   %cmp428 = icmp eq i32 %25, %26
   br i1 %cmp428, label %if.then429, label %if.end612
@@ -451,8 +451,10 @@ if.else486:                                       ; preds = %if.else
   %35 = load i32, ptr %ties535, align 4, !tbaa !17
   %inc536 = add nsw i32 %35, 1
   store i32 %inc536, ptr %ties535, align 4, !tbaa !17
-  %36 = load i32, ptr %arrayidx418, align 8, !tbaa !5
-  %37 = load i32, ptr %arrayidx426, align 8, !tbaa !5
+  %arrayidx543 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom97
+  %36 = load i32, ptr %arrayidx543, align 8, !tbaa !5
+  %arrayidx551 = getelementptr inbounds [29 x [2 x i32]], ptr @divisions, i64 0, i64 %idxprom104
+  %37 = load i32, ptr %arrayidx551, align 8, !tbaa !5
   %cmp553 = icmp eq i32 %36, %37
   br i1 %cmp553, label %if.then554, label %if.end612
 
@@ -1562,20 +1564,20 @@ declare void @sort_all() local_unnamed_addr #4
 
 declare void @display_main_menu(ptr noundef, ptr noundef) local_unnamed_addr #4
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i64 @strlen(ptr nocapture) local_unnamed_addr #12
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+declare i64 @strlen(ptr nocapture) local_unnamed_addr #13
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1587,10 +1589,10 @@ attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #7 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { cold }

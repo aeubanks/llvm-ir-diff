@@ -603,7 +603,7 @@ while.body.i.i:                                   ; preds = %sw.epilog.i.i, %whi
   %indvars.iv.i.i = phi i64 [ %indvars.iv.next.i.i, %sw.epilog.i.i ], [ 1, %while.body.lr.ph.i.i ]
   %7 = shl nuw nsw i64 %indvars.iv.i.i, 1
   %cmp1.not.i.i = icmp ugt i64 %7, %6
-  br i1 %cmp1.not.i.i, label %for.body.i108.i.i.preheader, label %for.body.i.i.i.preheader
+  br i1 %cmp1.not.i.i, label %for.body.i107.i.i.preheader, label %for.body.i.i.i.preheader
 
 for.body.i.i.i.preheader:                         ; preds = %while.body.i.i
   %xtraiter = and i64 %indvars.iv.i.i, 1
@@ -614,14 +614,14 @@ for.body.i.i.i.preheader.new:                     ; preds = %for.body.i.i.i.preh
   %unroll_iter = and i64 %indvars.iv.i.i, 9223372036854775806
   br label %for.body.i.i.i
 
-for.body.i108.i.i.preheader:                      ; preds = %while.body.i.i
+for.body.i107.i.i.preheader:                      ; preds = %while.body.i.i
   %xtraiter17 = and i64 %indvars.iv.i.i, 3
   %9 = icmp ult i64 %indvar, 3
-  br i1 %9, label %if.end.i.i.loopexit.unr-lcssa, label %for.body.i108.i.i.preheader.new
+  br i1 %9, label %if.end.i.i.loopexit.unr-lcssa, label %for.body.i107.i.i.preheader.new
 
-for.body.i108.i.i.preheader.new:                  ; preds = %for.body.i108.i.i.preheader
+for.body.i107.i.i.preheader.new:                  ; preds = %for.body.i107.i.i.preheader
   %unroll_iter20 = and i64 %indvars.iv.i.i, 9223372036854775804
-  br label %for.body.i108.i.i
+  br label %for.body.i107.i.i
 
 for.body.i.i.i:                                   ; preds = %for.inc.i.i.i.1, %for.body.i.i.i.preheader.new
   %which.014.i.i.i = phi ptr [ null, %for.body.i.i.i.preheader.new ], [ %which.1.i.i.i.1, %for.inc.i.i.i.1 ]
@@ -666,61 +666,61 @@ for.inc.i.i.i.1:                                  ; preds = %land.lhs.true.i.i.i
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
   br i1 %niter.ncmp.1, label %if.end.i.i.loopexit14.unr-lcssa, label %for.body.i.i.i, !llvm.loop !58
 
-for.body.i108.i.i:                                ; preds = %for.body.i108.i.i, %for.body.i108.i.i.preheader.new
-  %which.012.i.i.i = phi ptr [ null, %for.body.i108.i.i.preheader.new ], [ %spec.select7.i.i.i.3, %for.body.i108.i.i ]
-  %maxv.011.i.i.i = phi i64 [ 0, %for.body.i108.i.i.preheader.new ], [ %spec.select.i104.i.i.3, %for.body.i108.i.i ]
-  %boxp.09.i.i.i = phi ptr [ %call.i, %for.body.i108.i.i.preheader.new ], [ %incdec.ptr.i106.i.i.3, %for.body.i108.i.i ]
-  %niter21 = phi i64 [ 0, %for.body.i108.i.i.preheader.new ], [ %niter21.next.3, %for.body.i108.i.i ]
-  %volume.i102.i.i = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 0, i32 6
-  %14 = load i64, ptr %volume.i102.i.i, align 8, !tbaa !57
-  %cmp1.i103.i.i = icmp sgt i64 %14, %maxv.011.i.i.i
-  %spec.select.i104.i.i = tail call i64 @llvm.smax.i64(i64 %14, i64 %maxv.011.i.i.i)
-  %spec.select7.i.i.i = select i1 %cmp1.i103.i.i, ptr %boxp.09.i.i.i, ptr %which.012.i.i.i
-  %incdec.ptr.i106.i.i = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 1
-  %volume.i102.i.i.1 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 1, i32 6
-  %15 = load i64, ptr %volume.i102.i.i.1, align 8, !tbaa !57
-  %cmp1.i103.i.i.1 = icmp sgt i64 %15, %spec.select.i104.i.i
-  %spec.select.i104.i.i.1 = tail call i64 @llvm.smax.i64(i64 %15, i64 %spec.select.i104.i.i)
-  %spec.select7.i.i.i.1 = select i1 %cmp1.i103.i.i.1, ptr %incdec.ptr.i106.i.i, ptr %spec.select7.i.i.i
-  %incdec.ptr.i106.i.i.1 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 2
-  %volume.i102.i.i.2 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 2, i32 6
-  %16 = load i64, ptr %volume.i102.i.i.2, align 8, !tbaa !57
-  %cmp1.i103.i.i.2 = icmp sgt i64 %16, %spec.select.i104.i.i.1
-  %spec.select.i104.i.i.2 = tail call i64 @llvm.smax.i64(i64 %16, i64 %spec.select.i104.i.i.1)
-  %spec.select7.i.i.i.2 = select i1 %cmp1.i103.i.i.2, ptr %incdec.ptr.i106.i.i.1, ptr %spec.select7.i.i.i.1
-  %incdec.ptr.i106.i.i.2 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 3
-  %volume.i102.i.i.3 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 3, i32 6
-  %17 = load i64, ptr %volume.i102.i.i.3, align 8, !tbaa !57
-  %cmp1.i103.i.i.3 = icmp sgt i64 %17, %spec.select.i104.i.i.2
-  %spec.select.i104.i.i.3 = tail call i64 @llvm.smax.i64(i64 %17, i64 %spec.select.i104.i.i.2)
-  %spec.select7.i.i.i.3 = select i1 %cmp1.i103.i.i.3, ptr %incdec.ptr.i106.i.i.2, ptr %spec.select7.i.i.i.2
-  %incdec.ptr.i106.i.i.3 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 4
+for.body.i107.i.i:                                ; preds = %for.body.i107.i.i, %for.body.i107.i.i.preheader.new
+  %which.012.i.i.i = phi ptr [ null, %for.body.i107.i.i.preheader.new ], [ %spec.select7.i.i.i.3, %for.body.i107.i.i ]
+  %maxv.011.i.i.i = phi i64 [ 0, %for.body.i107.i.i.preheader.new ], [ %spec.select.i103.i.i.3, %for.body.i107.i.i ]
+  %boxp.09.i.i.i = phi ptr [ %call.i, %for.body.i107.i.i.preheader.new ], [ %incdec.ptr.i105.i.i.3, %for.body.i107.i.i ]
+  %niter21 = phi i64 [ 0, %for.body.i107.i.i.preheader.new ], [ %niter21.next.3, %for.body.i107.i.i ]
+  %volume.i101.i.i = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 0, i32 6
+  %14 = load i64, ptr %volume.i101.i.i, align 8, !tbaa !57
+  %cmp1.i102.i.i = icmp sgt i64 %14, %maxv.011.i.i.i
+  %spec.select.i103.i.i = tail call i64 @llvm.smax.i64(i64 %14, i64 %maxv.011.i.i.i)
+  %spec.select7.i.i.i = select i1 %cmp1.i102.i.i, ptr %boxp.09.i.i.i, ptr %which.012.i.i.i
+  %incdec.ptr.i105.i.i = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 1
+  %volume.i101.i.i.1 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 1, i32 6
+  %15 = load i64, ptr %volume.i101.i.i.1, align 8, !tbaa !57
+  %cmp1.i102.i.i.1 = icmp sgt i64 %15, %spec.select.i103.i.i
+  %spec.select.i103.i.i.1 = tail call i64 @llvm.smax.i64(i64 %15, i64 %spec.select.i103.i.i)
+  %spec.select7.i.i.i.1 = select i1 %cmp1.i102.i.i.1, ptr %incdec.ptr.i105.i.i, ptr %spec.select7.i.i.i
+  %incdec.ptr.i105.i.i.1 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 2
+  %volume.i101.i.i.2 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 2, i32 6
+  %16 = load i64, ptr %volume.i101.i.i.2, align 8, !tbaa !57
+  %cmp1.i102.i.i.2 = icmp sgt i64 %16, %spec.select.i103.i.i.1
+  %spec.select.i103.i.i.2 = tail call i64 @llvm.smax.i64(i64 %16, i64 %spec.select.i103.i.i.1)
+  %spec.select7.i.i.i.2 = select i1 %cmp1.i102.i.i.2, ptr %incdec.ptr.i105.i.i.1, ptr %spec.select7.i.i.i.1
+  %incdec.ptr.i105.i.i.2 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 3
+  %volume.i101.i.i.3 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 3, i32 6
+  %17 = load i64, ptr %volume.i101.i.i.3, align 8, !tbaa !57
+  %cmp1.i102.i.i.3 = icmp sgt i64 %17, %spec.select.i103.i.i.2
+  %spec.select.i103.i.i.3 = tail call i64 @llvm.smax.i64(i64 %17, i64 %spec.select.i103.i.i.2)
+  %spec.select7.i.i.i.3 = select i1 %cmp1.i102.i.i.3, ptr %incdec.ptr.i105.i.i.2, ptr %spec.select7.i.i.i.2
+  %incdec.ptr.i105.i.i.3 = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i, i64 4
   %niter21.next.3 = add i64 %niter21, 4
   %niter21.ncmp.3 = icmp eq i64 %niter21.next.3, %unroll_iter20
-  br i1 %niter21.ncmp.3, label %if.end.i.i.loopexit.unr-lcssa, label %for.body.i108.i.i, !llvm.loop !59
+  br i1 %niter21.ncmp.3, label %if.end.i.i.loopexit.unr-lcssa, label %for.body.i107.i.i, !llvm.loop !59
 
-if.end.i.i.loopexit.unr-lcssa:                    ; preds = %for.body.i108.i.i, %for.body.i108.i.i.preheader
-  %spec.select7.i.i.i.lcssa.ph = phi ptr [ undef, %for.body.i108.i.i.preheader ], [ %spec.select7.i.i.i.3, %for.body.i108.i.i ]
-  %which.012.i.i.i.unr = phi ptr [ null, %for.body.i108.i.i.preheader ], [ %spec.select7.i.i.i.3, %for.body.i108.i.i ]
-  %maxv.011.i.i.i.unr = phi i64 [ 0, %for.body.i108.i.i.preheader ], [ %spec.select.i104.i.i.3, %for.body.i108.i.i ]
-  %boxp.09.i.i.i.unr = phi ptr [ %call.i, %for.body.i108.i.i.preheader ], [ %incdec.ptr.i106.i.i.3, %for.body.i108.i.i ]
+if.end.i.i.loopexit.unr-lcssa:                    ; preds = %for.body.i107.i.i, %for.body.i107.i.i.preheader
+  %spec.select7.i.i.i.lcssa.ph = phi ptr [ undef, %for.body.i107.i.i.preheader ], [ %spec.select7.i.i.i.3, %for.body.i107.i.i ]
+  %which.012.i.i.i.unr = phi ptr [ null, %for.body.i107.i.i.preheader ], [ %spec.select7.i.i.i.3, %for.body.i107.i.i ]
+  %maxv.011.i.i.i.unr = phi i64 [ 0, %for.body.i107.i.i.preheader ], [ %spec.select.i103.i.i.3, %for.body.i107.i.i ]
+  %boxp.09.i.i.i.unr = phi ptr [ %call.i, %for.body.i107.i.i.preheader ], [ %incdec.ptr.i105.i.i.3, %for.body.i107.i.i ]
   %lcmp.mod18.not = icmp eq i64 %xtraiter17, 0
-  br i1 %lcmp.mod18.not, label %if.end.i.i, label %for.body.i108.i.i.epil
+  br i1 %lcmp.mod18.not, label %if.end.i.i, label %for.body.i107.i.i.epil
 
-for.body.i108.i.i.epil:                           ; preds = %if.end.i.i.loopexit.unr-lcssa, %for.body.i108.i.i.epil
-  %which.012.i.i.i.epil = phi ptr [ %spec.select7.i.i.i.epil, %for.body.i108.i.i.epil ], [ %which.012.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
-  %maxv.011.i.i.i.epil = phi i64 [ %spec.select.i104.i.i.epil, %for.body.i108.i.i.epil ], [ %maxv.011.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
-  %boxp.09.i.i.i.epil = phi ptr [ %incdec.ptr.i106.i.i.epil, %for.body.i108.i.i.epil ], [ %boxp.09.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
-  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i108.i.i.epil ], [ 0, %if.end.i.i.loopexit.unr-lcssa ]
-  %volume.i102.i.i.epil = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i.epil, i64 0, i32 6
-  %18 = load i64, ptr %volume.i102.i.i.epil, align 8, !tbaa !57
-  %cmp1.i103.i.i.epil = icmp sgt i64 %18, %maxv.011.i.i.i.epil
-  %spec.select.i104.i.i.epil = tail call i64 @llvm.smax.i64(i64 %18, i64 %maxv.011.i.i.i.epil)
-  %spec.select7.i.i.i.epil = select i1 %cmp1.i103.i.i.epil, ptr %boxp.09.i.i.i.epil, ptr %which.012.i.i.i.epil
-  %incdec.ptr.i106.i.i.epil = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i.epil, i64 1
+for.body.i107.i.i.epil:                           ; preds = %if.end.i.i.loopexit.unr-lcssa, %for.body.i107.i.i.epil
+  %which.012.i.i.i.epil = phi ptr [ %spec.select7.i.i.i.epil, %for.body.i107.i.i.epil ], [ %which.012.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
+  %maxv.011.i.i.i.epil = phi i64 [ %spec.select.i103.i.i.epil, %for.body.i107.i.i.epil ], [ %maxv.011.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
+  %boxp.09.i.i.i.epil = phi ptr [ %incdec.ptr.i105.i.i.epil, %for.body.i107.i.i.epil ], [ %boxp.09.i.i.i.unr, %if.end.i.i.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i107.i.i.epil ], [ 0, %if.end.i.i.loopexit.unr-lcssa ]
+  %volume.i101.i.i.epil = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i.epil, i64 0, i32 6
+  %18 = load i64, ptr %volume.i101.i.i.epil, align 8, !tbaa !57
+  %cmp1.i102.i.i.epil = icmp sgt i64 %18, %maxv.011.i.i.i.epil
+  %spec.select.i103.i.i.epil = tail call i64 @llvm.smax.i64(i64 %18, i64 %maxv.011.i.i.i.epil)
+  %spec.select7.i.i.i.epil = select i1 %cmp1.i102.i.i.epil, ptr %boxp.09.i.i.i.epil, ptr %which.012.i.i.i.epil
+  %incdec.ptr.i105.i.i.epil = getelementptr inbounds %struct.box, ptr %boxp.09.i.i.i.epil, i64 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter17
-  br i1 %epil.iter.cmp.not, label %if.end.i.i, label %for.body.i108.i.i.epil, !llvm.loop !60
+  br i1 %epil.iter.cmp.not, label %if.end.i.i, label %for.body.i107.i.i.epil, !llvm.loop !60
 
 if.end.i.i.loopexit14.unr-lcssa:                  ; preds = %for.inc.i.i.i.1, %for.body.i.i.i.preheader
   %which.1.i.i.i.lcssa.ph = phi ptr [ undef, %for.body.i.i.i.preheader ], [ %which.1.i.i.i.1, %for.inc.i.i.i.1 ]
@@ -743,8 +743,8 @@ land.lhs.true.i.i.i.epil:                         ; preds = %for.body.i.i.i.epil
   %spec.select9.i.i.i.epil = select i1 %cmp2.i.i.i.epil, ptr %boxp.011.i.i.i.unr, ptr %which.014.i.i.i.unr
   br label %if.end.i.i
 
-if.end.i.i:                                       ; preds = %if.end.i.i.loopexit14.unr-lcssa, %land.lhs.true.i.i.i.epil, %for.body.i.i.i.epil, %if.end.i.i.loopexit.unr-lcssa, %for.body.i108.i.i.epil
-  %b1.0.i.i = phi ptr [ %spec.select7.i.i.i.lcssa.ph, %if.end.i.i.loopexit.unr-lcssa ], [ %spec.select7.i.i.i.epil, %for.body.i108.i.i.epil ], [ %which.1.i.i.i.lcssa.ph, %if.end.i.i.loopexit14.unr-lcssa ], [ %which.014.i.i.i.unr, %for.body.i.i.i.epil ], [ %spec.select9.i.i.i.epil, %land.lhs.true.i.i.i.epil ]
+if.end.i.i:                                       ; preds = %if.end.i.i.loopexit14.unr-lcssa, %land.lhs.true.i.i.i.epil, %for.body.i.i.i.epil, %if.end.i.i.loopexit.unr-lcssa, %for.body.i107.i.i.epil
+  %b1.0.i.i = phi ptr [ %spec.select7.i.i.i.lcssa.ph, %if.end.i.i.loopexit.unr-lcssa ], [ %spec.select7.i.i.i.epil, %for.body.i107.i.i.epil ], [ %which.1.i.i.i.lcssa.ph, %if.end.i.i.loopexit14.unr-lcssa ], [ %which.014.i.i.i.unr, %for.body.i.i.i.epil ], [ %spec.select9.i.i.i.epil, %land.lhs.true.i.i.i.epil ]
   %cmp3.i.i = icmp eq ptr %b1.0.i.i, null
   br i1 %cmp3.i.i, label %while.end.loopexit.split.loop.exit.i.i, label %if.end5.i.i
 
@@ -777,8 +777,8 @@ if.end5.i.i:                                      ; preds = %if.end.i.i
   %shl23.i.i = shl i32 %sub22.i.i, 3
   %cmp25.i.i = icmp sle i32 %mul14.i.i, %mul19.i.i
   %spec.select.i.i = zext i1 %cmp25.i.i to i32
-  %spec.select100.i.i = tail call i32 @llvm.smax.i32(i32 %mul14.i.i, i32 %mul19.i.i)
-  %cmp28.i.i = icmp sgt i32 %shl23.i.i, %spec.select100.i.i
+  %spec.select108.i.i = tail call i32 @llvm.smax.i32(i32 %mul14.i.i, i32 %mul19.i.i)
+  %cmp28.i.i = icmp sgt i32 %shl23.i.i, %spec.select108.i.i
   %n.1.i.i = select i1 %cmp28.i.i, i32 2, i32 %spec.select.i.i
   switch i32 %n.1.i.i, label %sw.epilog.i.i [
     i32 0, label %sw.bb.i.i
@@ -813,10 +813,10 @@ sw.epilog.sink.split.i.i:                         ; preds = %sw.bb44.i.i, %sw.bb
   br label %sw.epilog.i.i
 
 sw.epilog.i.i:                                    ; preds = %sw.epilog.sink.split.i.i, %if.end5.i.i
-  %cinfo.val101.i.i = load ptr, ptr %cquantize1, align 8, !tbaa !16
-  %30 = getelementptr i8, ptr %cinfo.val101.i.i, i64 48
-  %cinfo.val101.val.i.i = load ptr, ptr %30, align 8, !tbaa !28
-  tail call fastcc void @update_box(ptr %cinfo.val101.val.i.i, ptr noundef nonnull %b1.0.i.i)
+  %cinfo.val100.i.i = load ptr, ptr %cquantize1, align 8, !tbaa !16
+  %30 = getelementptr i8, ptr %cinfo.val100.i.i, i64 48
+  %cinfo.val100.val.i.i = load ptr, ptr %30, align 8, !tbaa !28
+  tail call fastcc void @update_box(ptr %cinfo.val100.val.i.i, ptr noundef nonnull %b1.0.i.i)
   %cinfo.val.i.i = load ptr, ptr %cquantize1, align 8, !tbaa !16
   %31 = getelementptr i8, ptr %cinfo.val.i.i, i64 48
   %cinfo.val.val.i.i = load ptr, ptr %31, align 8, !tbaa !28

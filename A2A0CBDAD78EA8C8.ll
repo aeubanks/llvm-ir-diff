@@ -26,17 +26,16 @@ entry:
   %count_lo = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 1
   %0 = load i32, ptr %count_lo, align 4, !tbaa !9
   %shl = shl i32 %count, 3
-  %1 = xor i32 %0, -1
-  %cmp = icmp ugt i32 %shl, %1
+  %add = add i32 %0, %shl
+  %cmp = icmp ult i32 %add, %0
   %count_hi = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 2
-  %2 = load i32, ptr %count_hi, align 4, !tbaa !11
+  %1 = load i32, ptr %count_hi, align 4, !tbaa !11
   %inc = zext i1 %cmp to i32
-  %3 = add i32 %2, %inc
-  %add4 = add i32 %0, %shl
-  store i32 %add4, ptr %count_lo, align 4, !tbaa !9
+  %2 = add i32 %1, %inc
+  store i32 %add, ptr %count_lo, align 4, !tbaa !9
   %shr = lshr i32 %count, 29
   %count_hi5 = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 2
-  %add6 = add i32 %3, %shr
+  %add6 = add i32 %2, %shr
   store i32 %add6, ptr %count_hi5, align 4, !tbaa !11
   %cmp727 = icmp sgt i32 %count, 63
   br i1 %cmp727, label %while.body.lr.ph, label %while.end
@@ -1105,15 +1104,14 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %conv23 = phi i32 [ %conv21, %while.body.lr.ph ], [ %conv, %sha_update.exit ]
   %0 = load i32, ptr %count_lo.i, align 4, !tbaa !9
   %shl.i = shl i32 %conv23, 3
-  %1 = xor i32 %0, -1
-  %cmp.i = icmp ugt i32 %shl.i, %1
-  %2 = load i32, ptr %count_hi.i, align 4, !tbaa !11
+  %add.i = add i32 %0, %shl.i
+  %cmp.i = icmp ult i32 %add.i, %0
+  %1 = load i32, ptr %count_hi.i, align 4, !tbaa !11
   %inc.i = zext i1 %cmp.i to i32
-  %add4.i = add i32 %0, %shl.i
-  store i32 %add4.i, ptr %count_lo.i, align 4, !tbaa !9
+  store i32 %add.i, ptr %count_lo.i, align 4, !tbaa !9
   %shr.i = lshr i32 %conv23, 29
-  %3 = add i32 %2, %shr.i
-  %add6.i = add i32 %3, %inc.i
+  %2 = add i32 %1, %shr.i
+  %add6.i = add i32 %2, %inc.i
   store i32 %add6.i, ptr %count_hi.i, align 4, !tbaa !11
   %cmp727.i = icmp ugt i32 %conv23, 63
   br i1 %cmp727.i, label %while.body.i, label %sha_update.exit
@@ -1122,18 +1120,18 @@ while.body.i:                                     ; preds = %while.body, %while.
   %count.addr.029.i = phi i32 [ %sub.i, %while.body.i ], [ %conv23, %while.body ]
   %buffer.addr.028.i = phi ptr [ %add.ptr.i, %while.body.i ], [ %data, %while.body ]
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %data.i, ptr noundef nonnull align 1 dereferenceable(64) %buffer.addr.028.i, i64 64, i1 false)
-  %4 = load <16 x i8>, ptr %data.i, align 1, !tbaa !14
-  %5 = shufflevector <16 x i8> %4, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
-  store <16 x i8> %5, ptr %data.i, align 1, !tbaa !14
-  %6 = load <16 x i8>, ptr %add.ptr.3.i, align 1, !tbaa !14
-  %7 = shufflevector <16 x i8> %6, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
-  store <16 x i8> %7, ptr %add.ptr.3.i, align 1, !tbaa !14
-  %8 = load <16 x i8>, ptr %add.ptr.7.i, align 1, !tbaa !14
-  %9 = shufflevector <16 x i8> %8, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
-  store <16 x i8> %9, ptr %add.ptr.7.i, align 1, !tbaa !14
-  %10 = load <16 x i8>, ptr %add.ptr.11.i, align 1, !tbaa !14
-  %11 = shufflevector <16 x i8> %10, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
-  store <16 x i8> %11, ptr %add.ptr.11.i, align 1, !tbaa !14
+  %3 = load <16 x i8>, ptr %data.i, align 1, !tbaa !14
+  %4 = shufflevector <16 x i8> %3, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
+  store <16 x i8> %4, ptr %data.i, align 1, !tbaa !14
+  %5 = load <16 x i8>, ptr %add.ptr.3.i, align 1, !tbaa !14
+  %6 = shufflevector <16 x i8> %5, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
+  store <16 x i8> %6, ptr %add.ptr.3.i, align 1, !tbaa !14
+  %7 = load <16 x i8>, ptr %add.ptr.7.i, align 1, !tbaa !14
+  %8 = shufflevector <16 x i8> %7, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
+  store <16 x i8> %8, ptr %add.ptr.7.i, align 1, !tbaa !14
+  %9 = load <16 x i8>, ptr %add.ptr.11.i, align 1, !tbaa !14
+  %10 = shufflevector <16 x i8> %9, <16 x i8> poison, <16 x i32> <i32 3, i32 2, i32 1, i32 0, i32 7, i32 6, i32 5, i32 4, i32 11, i32 10, i32 9, i32 8, i32 15, i32 14, i32 13, i32 12>
+  store <16 x i8> %10, ptr %add.ptr.11.i, align 1, !tbaa !14
   tail call fastcc void @sha_transform(ptr noundef nonnull %sha_info)
   %add.ptr.i = getelementptr inbounds i8, ptr %buffer.addr.028.i, i64 64
   %sub.i = add nsw i32 %count.addr.029.i, -64
@@ -1151,9 +1149,9 @@ sha_update.exit:                                  ; preds = %while.body.i, %whil
   br i1 %cmp, label %while.body, label %while.end, !llvm.loop !16
 
 while.end:                                        ; preds = %sha_update.exit, %entry
-  %12 = load i32, ptr %count_lo.i, align 4, !tbaa !9
-  %13 = load i32, ptr %count_hi.i, align 4, !tbaa !11
-  %shr.i9 = lshr i32 %12, 3
+  %11 = load i32, ptr %count_lo.i, align 4, !tbaa !9
+  %12 = load i32, ptr %count_hi.i, align 4, !tbaa !11
+  %shr.i9 = lshr i32 %11, 3
   %and.i = and i32 %shr.i9, 63
   %data.i10 = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 3
   %inc.i11 = add nuw nsw i32 %and.i, 1
@@ -1183,9 +1181,9 @@ if.else.i:                                        ; preds = %while.end
 sha_final.exit:                                   ; preds = %if.then.i, %if.else.i
   tail call fastcc void @byte_reverse(ptr noundef nonnull %data.i10)
   %arrayidx13.i = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 3, i64 14
-  store i32 %13, ptr %arrayidx13.i, align 4, !tbaa !5
+  store i32 %12, ptr %arrayidx13.i, align 4, !tbaa !5
   %arrayidx15.i = getelementptr inbounds %struct.SHA_INFO, ptr %sha_info, i64 0, i32 3, i64 15
-  store i32 %12, ptr %arrayidx15.i, align 4, !tbaa !5
+  store i32 %11, ptr %arrayidx15.i, align 4, !tbaa !5
   tail call fastcc void @sha_transform(ptr noundef nonnull %sha_info)
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %data) #10
   ret void

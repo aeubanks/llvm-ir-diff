@@ -20,8 +20,8 @@ entry:
   %0 = load i32, ptr @n, align 4, !tbaa !5
   %inc.i = add nsw i32 %0, 1
   store i32 %inc.i, ptr @n, align 4, !tbaa !5
-  %cmp.not = icmp eq i32 %0, 0
-  br i1 %cmp.not, label %if.end, label %if.then
+  %cmp4.not = icmp eq i32 %0, 0
+  br i1 %cmp4.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3

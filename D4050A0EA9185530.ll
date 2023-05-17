@@ -42,21 +42,21 @@ sw.epilog:                                        ; preds = %entry, %entry
   br label %while.cond2.preheader
 
 while.cond2.preheader:                            ; preds = %sw.epilog, %while.end
-  %bsp.087 = phi ptr [ %incdec.ptr, %sw.epilog ], [ %incdec.ptr62, %while.end ]
-  %size83 = getelementptr inbounds %struct.ref_s, ptr %bsp.087, i64 0, i32 2
-  %3 = load i16, ptr %size83, align 2, !tbaa !18
-  %tobool.not84 = icmp eq i16 %3, 0
-  br i1 %tobool.not84, label %while.end, label %while.body3
+  %bsp.086 = phi ptr [ %incdec.ptr, %sw.epilog ], [ %incdec.ptr62, %while.end ]
+  %size82 = getelementptr inbounds %struct.ref_s, ptr %bsp.086, i64 0, i32 2
+  %3 = load i16, ptr %size82, align 2, !tbaa !18
+  %tobool.not83 = icmp eq i16 %3, 0
+  br i1 %tobool.not83, label %while.end, label %while.body3
 
 while.body3:                                      ; preds = %while.cond2.preheader, %sw.epilog61
-  %4 = phi i16 [ %15, %sw.epilog61 ], [ %3, %while.cond2.preheader ]
-  %size86 = phi ptr [ %size, %sw.epilog61 ], [ %size83, %while.cond2.preheader ]
-  %bsp.185 = phi ptr [ %bsp.2, %sw.epilog61 ], [ %bsp.087, %while.cond2.preheader ]
-  %5 = load ptr, ptr %bsp.185, align 8, !tbaa !19
+  %4 = phi i16 [ %12, %sw.epilog61 ], [ %3, %while.cond2.preheader ]
+  %size85 = phi ptr [ %size, %sw.epilog61 ], [ %size82, %while.cond2.preheader ]
+  %bsp.184 = phi ptr [ %bsp.2, %sw.epilog61 ], [ %bsp.086, %while.cond2.preheader ]
+  %5 = load ptr, ptr %bsp.184, align 8, !tbaa !19
   %incdec.ptr4 = getelementptr inbounds %struct.ref_s, ptr %5, i64 1
-  store ptr %incdec.ptr4, ptr %bsp.185, align 8, !tbaa !19
+  store ptr %incdec.ptr4, ptr %bsp.184, align 8, !tbaa !19
   %dec = add i16 %4, -1
-  store i16 %dec, ptr %size86, align 2, !tbaa !18
+  store i16 %dec, ptr %size85, align 2, !tbaa !18
   %type_attrs6 = getelementptr inbounds %struct.ref_s, ptr %5, i64 0, i32 1
   %6 = load i16, ptr %type_attrs6, align 8, !tbaa !5
   %conv7 = zext i16 %6 to i32
@@ -84,15 +84,16 @@ land.lhs.true:                                    ; preds = %if.then
   %8 = load ptr, ptr %pvalue, align 8, !tbaa !16
   %type_attrs17 = getelementptr inbounds %struct.ref_s, ptr %8, i64 0, i32 1
   %9 = load i16, ptr %type_attrs17, align 8, !tbaa !5
-  %10 = lshr i16 %9, 2
-  %11 = and i16 %10, 63
-  %cmp21 = icmp ult i16 %11, 16
-  %cmp2782 = icmp ne i16 %11, 9
-  %cmp27 = and i1 %cmp21, %cmp2782
-  %12 = and i16 %9, 1
-  %tobool34.not.not = icmp eq i16 %12, 0
-  %or.cond81 = or i1 %tobool34.not.not, %cmp27
-  br i1 %or.cond81, label %if.end, label %if.then35
+  %conv18 = zext i16 %9 to i32
+  %and19 = lshr i32 %conv18, 2
+  %shr20 = and i32 %and19, 63
+  %cmp21 = icmp ult i32 %shr20, 16
+  %cmp2787 = icmp ne i32 %shr20, 9
+  %cmp27 = and i1 %cmp21, %cmp2787
+  %not32 = and i32 %conv18, 1
+  %tobool34.not.not = icmp eq i32 %not32, 0
+  %or.cond = or i1 %tobool34.not.not, %cmp27
+  br i1 %or.cond, label %if.end, label %if.then35
 
 if.then35:                                        ; preds = %land.lhs.true
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull align 8 dereferenceable(16) %8, i64 16, i1 false), !tbaa.struct !10
@@ -103,34 +104,36 @@ if.end:                                           ; preds = %if.then35, %land.lh
   br label %sw.epilog61
 
 sw.bb37:                                          ; preds = %while.body3
-  %not40 = and i32 %conv7, 256
-  %tobool42.not.not = icmp eq i32 %not40, 0
-  br i1 %tobool42.not.not, label %sw.epilog61, label %sw.bb45
+  %10 = and i32 %conv7, 257
+  %or.cond81.not = icmp eq i32 %10, 257
+  br i1 %or.cond81.not, label %land.lhs.true51, label %sw.epilog61
 
-sw.bb45:                                          ; preds = %sw.bb37, %while.body3
-  %13 = and i16 %6, 1
-  %tobool50.not.not = icmp ne i16 %13, 0
-  %14 = load ptr, ptr @ostop, align 8
-  %cmp52 = icmp ult ptr %bsp.185, %14
-  %or.cond = select i1 %tobool50.not.not, i1 %cmp52, i1 false
-  br i1 %or.cond, label %if.then54, label %sw.epilog61
+sw.bb45:                                          ; preds = %while.body3
+  %not48.old = and i32 %conv7, 1
+  %tobool50.not.not.old = icmp eq i32 %not48.old, 0
+  br i1 %tobool50.not.not.old, label %sw.epilog61, label %land.lhs.true51
 
-if.then54:                                        ; preds = %sw.bb45
+land.lhs.true51:                                  ; preds = %sw.bb37, %sw.bb45
+  %11 = load ptr, ptr @ostop, align 8, !tbaa !16
+  %cmp52 = icmp ult ptr %bsp.184, %11
+  br i1 %cmp52, label %if.then54, label %sw.epilog61
+
+if.then54:                                        ; preds = %land.lhs.true51
   %and57 = and i16 %6, -257
   store i16 %and57, ptr %type_attrs6, align 8, !tbaa !5
-  %incdec.ptr59 = getelementptr inbounds %struct.ref_s, ptr %bsp.185, i64 1
+  %incdec.ptr59 = getelementptr inbounds %struct.ref_s, ptr %bsp.184, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr59, ptr noundef nonnull align 8 dereferenceable(16) %5, i64 16, i1 false), !tbaa.struct !10
   br label %sw.epilog61
 
-sw.epilog61:                                      ; preds = %sw.bb45, %if.then54, %sw.bb37, %sw.bb10, %if.end, %while.body3
-  %bsp.2 = phi ptr [ %bsp.185, %while.body3 ], [ %bsp.185, %sw.bb45 ], [ %incdec.ptr59, %if.then54 ], [ %bsp.185, %sw.bb37 ], [ %bsp.185, %sw.bb10 ], [ %bsp.185, %if.end ]
+sw.epilog61:                                      ; preds = %sw.bb45, %land.lhs.true51, %if.then54, %sw.bb37, %sw.bb10, %if.end, %while.body3
+  %bsp.2 = phi ptr [ %bsp.184, %while.body3 ], [ %bsp.184, %sw.bb45 ], [ %incdec.ptr59, %if.then54 ], [ %bsp.184, %land.lhs.true51 ], [ %bsp.184, %sw.bb37 ], [ %bsp.184, %sw.bb10 ], [ %bsp.184, %if.end ]
   %size = getelementptr inbounds %struct.ref_s, ptr %bsp.2, i64 0, i32 2
-  %15 = load i16, ptr %size, align 2, !tbaa !18
-  %tobool.not = icmp eq i16 %15, 0
+  %12 = load i16, ptr %size, align 2, !tbaa !18
+  %tobool.not = icmp eq i16 %12, 0
   br i1 %tobool.not, label %while.end, label %while.body3, !llvm.loop !20
 
 while.end:                                        ; preds = %sw.epilog61, %while.cond2.preheader
-  %bsp.1.lcssa = phi ptr [ %bsp.087, %while.cond2.preheader ], [ %bsp.2, %sw.epilog61 ]
+  %bsp.1.lcssa = phi ptr [ %bsp.086, %while.cond2.preheader ], [ %bsp.2, %sw.epilog61 ]
   %incdec.ptr62 = getelementptr inbounds %struct.ref_s, ptr %bsp.1.lcssa, i64 -1
   %cmp = icmp ugt ptr %incdec.ptr62, %op
   br i1 %cmp, label %while.cond2.preheader, label %cleanup, !llvm.loop !22

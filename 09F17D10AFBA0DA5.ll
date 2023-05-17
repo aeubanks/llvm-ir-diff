@@ -80,7 +80,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @_ZN19btContactConstraintD0Ev(ptr noundef nonnull align 8 dereferenceable(840) %this) unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   tail call void @_ZdlPv(ptr noundef nonnull %this) #10
   ret void
 }

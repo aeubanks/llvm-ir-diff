@@ -629,15 +629,15 @@ if.end:                                           ; preds = %if.then.i, %if.then
   %cond.i = tail call i32 @llvm.smin.i32(i32 %15, i32 %16)
   %add = add nsw i32 %cond.i, 2
   %m_Qc15 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %cond.i622 = tail call i32 @llvm.smax.i32(i32 %15, i32 %16)
-  %cond.i623 = tail call i32 @llvm.smax.i32(i32 %add, i32 %cond.i622)
+  %cond.i620 = tail call i32 @llvm.smax.i32(i32 %15, i32 %16)
+  %cond.i621 = tail call i32 @llvm.smax.i32(i32 %add, i32 %cond.i620)
   %add24 = add nsw i32 %16, 1
-  %cond.i624 = tail call i32 @llvm.smax.i32(i32 %cond.i623, i32 %add24)
+  %cond.i622 = tail call i32 @llvm.smax.i32(i32 %cond.i621, i32 %add24)
   %RC_MIN_QUANT = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 10
   %17 = load i32, ptr %RC_MIN_QUANT, align 4, !tbaa !35
   %RC_MAX_QUANT = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %18 = load i32, ptr %RC_MAX_QUANT, align 8, !tbaa !33
-  %cond.i.i = tail call i32 @llvm.smax.i32(i32 %cond.i624, i32 %17)
+  %cond.i.i = tail call i32 @llvm.smax.i32(i32 %cond.i622, i32 %17)
   %cond.i4.i = tail call i32 @llvm.smin.i32(i32 %cond.i.i, i32 %18)
   store i32 %cond.i4.i, ptr %m_Qc15, align 8, !tbaa !28
   br label %cleanup
@@ -666,27 +666,27 @@ lor.lhs.false41:                                  ; preds = %if.then38
 
 if.then44:                                        ; preds = %lor.lhs.false41, %if.then38
   %22 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %FieldControl.i625 = getelementptr inbounds %struct.rc_generic, ptr %22, i64 0, i32 1
-  %23 = load i32, ptr %FieldControl.i625, align 4, !tbaa !70
-  %cmp.i626 = icmp eq i32 %23, 0
-  br i1 %cmp.i626, label %if.then.i631, label %if.end46
+  %FieldControl.i623 = getelementptr inbounds %struct.rc_generic, ptr %22, i64 0, i32 1
+  %23 = load i32, ptr %FieldControl.i623, align 4, !tbaa !70
+  %cmp.i624 = icmp eq i32 %23, 0
+  br i1 %cmp.i624, label %if.then.i629, label %if.end46
 
-if.then.i631:                                     ; preds = %if.then44
-  %FieldFrame.i627 = getelementptr inbounds %struct.rc_generic, ptr %22, i64 0, i32 2
-  %24 = load i32, ptr %FieldFrame.i627, align 8, !tbaa !78
-  %cmp1.i628 = icmp eq i32 %24, 1
-  %CurrLastQP.i629 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %25 = load i32, ptr %CurrLastQP.i629, align 4, !tbaa !79
-  %PrevLastQP.i630 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %25, ptr %PrevLastQP.i630, align 8, !tbaa !80
-  %FrameQPBuffer.i632 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  %FieldQPBuffer.i634 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
-  %.sink.in.i636 = select i1 %cmp1.i628, ptr %FrameQPBuffer.i632, ptr %FieldQPBuffer.i634
-  %.sink.i637 = load i32, ptr %.sink.in.i636, align 4, !tbaa !81
-  store i32 %.sink.i637, ptr %CurrLastQP.i629, align 4, !tbaa !79
+if.then.i629:                                     ; preds = %if.then44
+  %FieldFrame.i625 = getelementptr inbounds %struct.rc_generic, ptr %22, i64 0, i32 2
+  %24 = load i32, ptr %FieldFrame.i625, align 8, !tbaa !78
+  %cmp1.i626 = icmp eq i32 %24, 1
+  %CurrLastQP.i627 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %25 = load i32, ptr %CurrLastQP.i627, align 4, !tbaa !79
+  %PrevLastQP.i628 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %25, ptr %PrevLastQP.i628, align 8, !tbaa !80
+  %FrameQPBuffer.i630 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  %FieldQPBuffer.i632 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
+  %.sink.in.i634 = select i1 %cmp1.i626, ptr %FrameQPBuffer.i630, ptr %FieldQPBuffer.i632
+  %.sink.i635 = load i32, ptr %.sink.in.i634, align 4, !tbaa !81
+  store i32 %.sink.i635, ptr %CurrLastQP.i627, align 4, !tbaa !79
   br label %if.end46
 
-if.end46:                                         ; preds = %if.then.i631, %if.then44, %lor.lhs.false41, %if.else30
+if.end46:                                         ; preds = %if.then.i629, %if.then44, %lor.lhs.false41, %if.else30
   %CurrLastQP47 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
   %26 = load i32, ptr %CurrLastQP47, align 4, !tbaa !79
   %PrevLastQP48 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
@@ -727,16 +727,16 @@ if.end93:                                         ; preds = %if.else79, %if.else
   %mul105 = mul nsw i32 %sub, %sub97
   %sub107 = add nsw i32 %8, -1
   %div = sdiv i32 %mul105, %sub107
-  %cond.i.i640 = tail call i32 @llvm.smax.i32(i32 %div, i32 %mul98)
-  %cond.i4.i641 = tail call i32 @llvm.smin.i32(i32 %cond.i.i640, i32 %mul100)
-  %add110 = add nsw i32 %add95, %cond.i4.i641
+  %cond.i.i638 = tail call i32 @llvm.smax.i32(i32 %div, i32 %mul98)
+  %cond.i4.i639 = tail call i32 @llvm.smin.i32(i32 %cond.i.i638, i32 %mul100)
+  %add110 = add nsw i32 %add95, %cond.i4.i639
   %RC_MIN_QUANT111 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 10
   %28 = load i32, ptr %RC_MIN_QUANT111, align 4, !tbaa !35
   %RC_MAX_QUANT112 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %29 = load i32, ptr %RC_MAX_QUANT112, align 8, !tbaa !33
-  %cond.i.i642 = tail call i32 @llvm.smax.i32(i32 %add110, i32 %28)
-  %cond.i4.i643 = tail call i32 @llvm.smin.i32(i32 %cond.i.i642, i32 %29)
-  store i32 %cond.i4.i643, ptr %m_Qc96, align 8, !tbaa !28
+  %cond.i.i640 = tail call i32 @llvm.smax.i32(i32 %add110, i32 %28)
+  %cond.i4.i641 = tail call i32 @llvm.smin.i32(i32 %cond.i.i640, i32 %29)
+  store i32 %cond.i4.i641, ptr %m_Qc96, align 8, !tbaa !28
   br label %cleanup
 
 land.lhs.true:                                    ; preds = %if.then2
@@ -767,25 +767,25 @@ if.then130:                                       ; preds = %if.then125
   %frame_mbs_only_flag.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %36, i64 0, i32 25
   %37 = load i32, ptr %frame_mbs_only_flag.i, align 4, !tbaa !85
   %tobool.not.i = icmp eq i32 %37, 0
-  br i1 %tobool.not.i, label %if.else.i648, label %if.then.i646
+  br i1 %tobool.not.i, label %if.else.i646, label %if.then.i644
 
-if.then.i646:                                     ; preds = %if.then130
+if.then.i644:                                     ; preds = %if.then130
   %TotalQpforPPicture.i = getelementptr inbounds %struct.rc_generic, ptr %30, i64 0, i32 11
   %38 = load i32, ptr %TotalQpforPPicture.i, align 4, !tbaa !89
   %add.i = add nsw i32 %38, %34
   store i32 %add.i, ptr %TotalQpforPPicture.i, align 4, !tbaa !89
-  %CurrLastQP.i644 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %39 = load i32, ptr %CurrLastQP.i644, align 4, !tbaa !79
-  %PrevLastQP.i645 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %39, ptr %PrevLastQP.i645, align 8, !tbaa !80
-  store i32 %34, ptr %CurrLastQP.i644, align 4, !tbaa !79
+  %CurrLastQP.i642 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %39 = load i32, ptr %CurrLastQP.i642, align 4, !tbaa !79
+  %PrevLastQP.i643 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %39, ptr %PrevLastQP.i643, align 8, !tbaa !80
+  store i32 %34, ptr %CurrLastQP.i642, align 4, !tbaa !79
   %Pm_Qp.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
   store i32 %34, ptr %Pm_Qp.i, align 8, !tbaa !90
   br label %cleanup
 
-if.else.i648:                                     ; preds = %if.then130
-  %FrameQPBuffer.i647 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  store i32 %34, ptr %FrameQPBuffer.i647, align 4, !tbaa !30
+if.else.i646:                                     ; preds = %if.then130
+  %FrameQPBuffer.i645 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  store i32 %34, ptr %FrameQPBuffer.i645, align 4, !tbaa !30
   br label %cleanup
 
 if.else133:                                       ; preds = %if.then2, %land.lhs.true122, %land.lhs.true
@@ -809,17 +809,17 @@ land.lhs.true139:                                 ; preds = %lor.lhs.false136, %
   br i1 %cmp141, label %if.then142, label %if.end143
 
 if.then142:                                       ; preds = %land.lhs.true139
-  %FieldFrame.i649 = getelementptr inbounds %struct.rc_generic, ptr %43, i64 0, i32 2
-  %45 = load i32, ptr %FieldFrame.i649, align 8, !tbaa !78
-  %cmp.i650 = icmp eq i32 %45, 1
-  %TotalQpforPPicture.i651 = getelementptr inbounds %struct.rc_generic, ptr %43, i64 0, i32 11
-  %46 = load i32, ptr %TotalQpforPPicture.i651, align 4, !tbaa !89
-  %FieldQPBuffer.i654 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
-  %FrameQPBuffer.i652 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  %.sink11.in.i = select i1 %cmp.i650, ptr %FrameQPBuffer.i652, ptr %FieldQPBuffer.i654
+  %FieldFrame.i647 = getelementptr inbounds %struct.rc_generic, ptr %43, i64 0, i32 2
+  %45 = load i32, ptr %FieldFrame.i647, align 8, !tbaa !78
+  %cmp.i648 = icmp eq i32 %45, 1
+  %TotalQpforPPicture.i649 = getelementptr inbounds %struct.rc_generic, ptr %43, i64 0, i32 11
+  %46 = load i32, ptr %TotalQpforPPicture.i649, align 4, !tbaa !89
+  %FieldQPBuffer.i652 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
+  %FrameQPBuffer.i650 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  %.sink11.in.i = select i1 %cmp.i648, ptr %FrameQPBuffer.i650, ptr %FieldQPBuffer.i652
   %.sink11.i = load i32, ptr %.sink11.in.i, align 4, !tbaa !81
   %add3.i = add nsw i32 %.sink11.i, %46
-  store i32 %add3.i, ptr %TotalQpforPPicture.i651, align 4, !tbaa !89
+  store i32 %add3.i, ptr %TotalQpforPPicture.i649, align 4, !tbaa !89
   %47 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
   store i32 %.sink11.i, ptr %47, align 8
   br label %if.end143
@@ -861,9 +861,9 @@ if.then149:                                       ; preds = %if.end143
   %58 = load i32, ptr %RC_MIN_QUANT152, align 4, !tbaa !35
   %RC_MAX_QUANT153 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %59 = load i32, ptr %RC_MAX_QUANT153, align 8, !tbaa !33
-  %cond.i.i656 = tail call i32 @llvm.smax.i32(i32 %add150, i32 %58)
-  %cond.i4.i657 = tail call i32 @llvm.smin.i32(i32 %cond.i.i656, i32 %59)
-  store i32 %cond.i4.i657, ptr %m_Qc151, align 8, !tbaa !28
+  %cond.i.i654 = tail call i32 @llvm.smax.i32(i32 %add150, i32 %58)
+  %cond.i4.i655 = tail call i32 @llvm.smin.i32(i32 %cond.i.i654, i32 %59)
+  store i32 %cond.i4.i655, ptr %m_Qc151, align 8, !tbaa !28
   br label %if.end173
 
 if.else157:                                       ; preds = %if.end143
@@ -874,20 +874,20 @@ if.else157:                                       ; preds = %if.end143
   %mul160 = fmul float %61, 4.000000e+00
   %div161 = fdiv float %60, %mul160
   %conv = fptosi float %div161 to i32
-  %cond.i658 = tail call i32 @llvm.smax.i32(i32 %sub159, i32 %conv)
+  %cond.i656 = tail call i32 @llvm.smax.i32(i32 %sub159, i32 %conv)
   %62 = extractelement <2 x double> %48, i64 0
-  %mul.i = fmul double %62, %56
+  %mul.i = fmul double %56, %62
   %mul2.i = fmul double %56, %mul.i
   %63 = extractelement <2 x double> %48, i64 1
   %mul5.i = fmul double %63, 4.000000e+00
-  %mul7.i = fmul double %mul5.i, %56
-  %conv.i = sitofp i32 %cond.i658 to double
+  %mul7.i = fmul double %56, %mul5.i
+  %conv.i = sitofp i32 %cond.i656 to double
   %mul8.i = fmul double %mul7.i, %conv.i
   %64 = tail call double @llvm.fmuladd.f64(double %mul2.i, double %62, double %mul8.i)
-  %cmp.i659 = fcmp oeq double %63, 0.000000e+00
+  %cmp.i657 = fcmp oeq double %63, 0.000000e+00
   %cmp11.i = fcmp olt double %64, 0.000000e+00
-  %or.cond.i = select i1 %cmp.i659, i1 true, i1 %cmp11.i
-  br i1 %or.cond.i, label %if.then.i660, label %lor.lhs.false13.i
+  %or.cond.i = select i1 %cmp.i657, i1 true, i1 %cmp11.i
+  br i1 %or.cond.i, label %if.then.i658, label %lor.lhs.false13.i
 
 lor.lhs.false13.i:                                ; preds = %if.else157
   %call.i = tail call double @sqrt(double noundef %64) #22
@@ -896,18 +896,18 @@ lor.lhs.false13.i:                                ; preds = %if.else157
   %neg.i = fneg double %65
   %67 = tail call double @llvm.fmuladd.f64(double %neg.i, double %66, double %call.i)
   %cmp17.i = fcmp ugt double %67, 0.000000e+00
-  br i1 %cmp17.i, label %if.else.i661, label %lor.lhs.false13.if.then_crit_edge.i
+  br i1 %cmp17.i, label %if.else.i659, label %lor.lhs.false13.if.then_crit_edge.i
 
 lor.lhs.false13.if.then_crit_edge.i:              ; preds = %lor.lhs.false13.i
   %.pre.i = fmul double %65, %66
-  br label %if.then.i660
+  br label %if.then.i658
 
-if.then.i660:                                     ; preds = %lor.lhs.false13.if.then_crit_edge.i, %if.else157
+if.then.i658:                                     ; preds = %lor.lhs.false13.if.then_crit_edge.i, %if.else157
   %mul21.pre-phi.i = phi double [ %.pre.i, %lor.lhs.false13.if.then_crit_edge.i ], [ %mul.i, %if.else157 ]
   %div.i = fdiv double %mul21.pre-phi.i, %conv.i
   br label %updateModelQPFrame.exit
 
-if.else.i661:                                     ; preds = %lor.lhs.false13.i
+if.else.i659:                                     ; preds = %lor.lhs.false13.i
   %68 = load double, ptr %m_X2, align 8, !tbaa !94
   %mul26.i = fmul double %68, 2.000000e+00
   %mul28.i = fmul double %66, %mul26.i
@@ -919,8 +919,8 @@ if.else.i661:                                     ; preds = %lor.lhs.false13.i
   %div34.i = fdiv double %mul28.i, %71
   br label %updateModelQPFrame.exit
 
-updateModelQPFrame.exit:                          ; preds = %if.then.i660, %if.else.i661
-  %m_Qstep.0.in.in.i = phi double [ %div.i, %if.then.i660 ], [ %div34.i, %if.else.i661 ]
+updateModelQPFrame.exit:                          ; preds = %if.then.i658, %if.else.i659
+  %m_Qstep.0.in.in.i = phi double [ %div.i, %if.then.i658 ], [ %div34.i, %if.else.i659 ]
   %m_Qstep.0.in.i = fptrunc double %m_Qstep.0.in.in.i to float
   %m_Qstep.0.i = fpext float %m_Qstep.0.in.i to double
   %call37.i = tail call i32 @Qstep2QP(double noundef %m_Qstep.0.i) #22
@@ -929,17 +929,17 @@ updateModelQPFrame.exit:                          ; preds = %if.then.i660, %if.e
   %72 = load i32, ptr %RC_MIN_QUANT163, align 4, !tbaa !35
   %RC_MAX_QUANT164 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %73 = load i32, ptr %RC_MAX_QUANT164, align 8, !tbaa !33
-  %cond.i.i662 = tail call i32 @llvm.smax.i32(i32 %call37.i, i32 %72)
-  %cond.i4.i663 = tail call i32 @llvm.smin.i32(i32 %cond.i.i662, i32 %73)
+  %cond.i.i660 = tail call i32 @llvm.smax.i32(i32 %call37.i, i32 %72)
+  %cond.i4.i661 = tail call i32 @llvm.smin.i32(i32 %cond.i.i660, i32 %73)
   %sub168 = sub nsw i32 %52, %51
   %add169 = add nsw i32 %52, %51
-  %cond.i.i664 = tail call i32 @llvm.smax.i32(i32 %cond.i4.i663, i32 %sub168)
-  %cond.i4.i665 = tail call i32 @llvm.smin.i32(i32 %cond.i.i664, i32 %add169)
-  store i32 %cond.i4.i665, ptr %m_Qc.i, align 8, !tbaa !28
+  %cond.i.i662 = tail call i32 @llvm.smax.i32(i32 %cond.i4.i661, i32 %sub168)
+  %cond.i4.i663 = tail call i32 @llvm.smin.i32(i32 %cond.i.i662, i32 %add169)
+  store i32 %cond.i4.i663, ptr %m_Qc.i, align 8, !tbaa !28
   br label %if.end173
 
 if.end173:                                        ; preds = %updateModelQPFrame.exit, %if.then149
-  %74 = phi i32 [ %cond.i4.i665, %updateModelQPFrame.exit ], [ %cond.i4.i657, %if.then149 ]
+  %74 = phi i32 [ %cond.i4.i663, %updateModelQPFrame.exit ], [ %cond.i4.i655, %if.then149 ]
   %75 = load ptr, ptr @generic_RC, align 8, !tbaa !5
   %FieldControl174 = getelementptr inbounds %struct.rc_generic, ptr %75, i64 0, i32 1
   %76 = load i32, ptr %FieldControl174, align 4, !tbaa !70
@@ -948,27 +948,27 @@ if.end173:                                        ; preds = %updateModelQPFrame.
 
 if.then177:                                       ; preds = %if.end173
   %77 = load ptr, ptr @active_sps, align 8, !tbaa !5
-  %frame_mbs_only_flag.i666 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %77, i64 0, i32 25
-  %78 = load i32, ptr %frame_mbs_only_flag.i666, align 4, !tbaa !85
-  %tobool.not.i667 = icmp eq i32 %78, 0
-  br i1 %tobool.not.i667, label %if.else.i676, label %if.then.i674
+  %frame_mbs_only_flag.i664 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %77, i64 0, i32 25
+  %78 = load i32, ptr %frame_mbs_only_flag.i664, align 4, !tbaa !85
+  %tobool.not.i665 = icmp eq i32 %78, 0
+  br i1 %tobool.not.i665, label %if.else.i674, label %if.then.i672
 
-if.then.i674:                                     ; preds = %if.then177
-  %TotalQpforPPicture.i669 = getelementptr inbounds %struct.rc_generic, ptr %75, i64 0, i32 11
-  %79 = load i32, ptr %TotalQpforPPicture.i669, align 4, !tbaa !89
-  %add.i670 = add nsw i32 %79, %74
-  store i32 %add.i670, ptr %TotalQpforPPicture.i669, align 4, !tbaa !89
-  %CurrLastQP.i671 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %80 = load i32, ptr %CurrLastQP.i671, align 4, !tbaa !79
-  %PrevLastQP.i672 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %80, ptr %PrevLastQP.i672, align 8, !tbaa !80
-  store i32 %74, ptr %CurrLastQP.i671, align 4, !tbaa !79
+if.then.i672:                                     ; preds = %if.then177
+  %TotalQpforPPicture.i667 = getelementptr inbounds %struct.rc_generic, ptr %75, i64 0, i32 11
+  %79 = load i32, ptr %TotalQpforPPicture.i667, align 4, !tbaa !89
+  %add.i668 = add nsw i32 %79, %74
+  store i32 %add.i668, ptr %TotalQpforPPicture.i667, align 4, !tbaa !89
+  %CurrLastQP.i669 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %80 = load i32, ptr %CurrLastQP.i669, align 4, !tbaa !79
+  %PrevLastQP.i670 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %80, ptr %PrevLastQP.i670, align 8, !tbaa !80
+  store i32 %74, ptr %CurrLastQP.i669, align 4, !tbaa !79
   store i32 %74, ptr %Pm_Qp, align 8, !tbaa !90
   br label %cleanup
 
-if.else.i676:                                     ; preds = %if.then177
-  %FrameQPBuffer.i675 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  store i32 %74, ptr %FrameQPBuffer.i675, align 4, !tbaa !30
+if.else.i674:                                     ; preds = %if.then177
+  %FrameQPBuffer.i673 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  store i32 %74, ptr %FrameQPBuffer.i673, align 4, !tbaa !30
   br label %cleanup
 
 if.else180:                                       ; preds = %lor.lhs.false
@@ -993,31 +993,31 @@ if.then191:                                       ; preds = %land.lhs.true187
   %85 = load ptr, ptr @input, align 8, !tbaa !5
   %PicInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %85, i64 0, i32 121
   %86 = load i32, ptr %PicInterlace.i, align 8, !tbaa !76
-  %cmp.i678 = icmp eq i32 %86, 1
-  %m_Qc.i679 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %87 = load i32, ptr %m_Qc.i679, align 8, !tbaa !28
-  br i1 %cmp.i678, label %if.then.i685, label %if.else.i687
+  %cmp.i676 = icmp eq i32 %86, 1
+  %m_Qc.i677 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
+  %87 = load i32, ptr %m_Qc.i677, align 8, !tbaa !28
+  br i1 %cmp.i676, label %if.then.i683, label %if.else.i685
 
-if.then.i685:                                     ; preds = %if.then191
-  %TotalQpforPPicture.i680 = getelementptr inbounds %struct.rc_generic, ptr %3, i64 0, i32 11
-  %88 = load i32, ptr %TotalQpforPPicture.i680, align 4, !tbaa !89
-  %add.i681 = add nsw i32 %88, %87
-  store i32 %add.i681, ptr %TotalQpforPPicture.i680, align 4, !tbaa !89
-  %CurrLastQP.i682 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %89 = load i32, ptr %CurrLastQP.i682, align 4, !tbaa !79
+if.then.i683:                                     ; preds = %if.then191
+  %TotalQpforPPicture.i678 = getelementptr inbounds %struct.rc_generic, ptr %3, i64 0, i32 11
+  %88 = load i32, ptr %TotalQpforPPicture.i678, align 4, !tbaa !89
+  %add.i679 = add nsw i32 %88, %87
+  store i32 %add.i679, ptr %TotalQpforPPicture.i678, align 4, !tbaa !89
+  %CurrLastQP.i680 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %89 = load i32, ptr %CurrLastQP.i680, align 4, !tbaa !79
   %add1.i = add nsw i32 %89, 1
-  %PrevLastQP.i683 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %add1.i, ptr %PrevLastQP.i683, align 8, !tbaa !80
-  store i32 %87, ptr %CurrLastQP.i682, align 4, !tbaa !79
-  %Pm_Qp.i684 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
+  %PrevLastQP.i681 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %add1.i, ptr %PrevLastQP.i681, align 8, !tbaa !80
+  store i32 %87, ptr %CurrLastQP.i680, align 4, !tbaa !79
+  %Pm_Qp.i682 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
   br label %updateBottomField.exit
 
-if.else.i687:                                     ; preds = %if.then191
-  %FieldQPBuffer.i686 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
+if.else.i685:                                     ; preds = %if.then191
+  %FieldQPBuffer.i684 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
   br label %updateBottomField.exit
 
-updateBottomField.exit:                           ; preds = %if.then.i685, %if.else.i687
-  %FieldQPBuffer.sink.i = phi ptr [ %FieldQPBuffer.i686, %if.else.i687 ], [ %Pm_Qp.i684, %if.then.i685 ]
+updateBottomField.exit:                           ; preds = %if.then.i683, %if.else.i685
+  %FieldQPBuffer.sink.i = phi ptr [ %FieldQPBuffer.i684, %if.else.i685 ], [ %Pm_Qp.i682, %if.then.i683 ]
   store i32 %87, ptr %FieldQPBuffer.sink.i, align 8, !tbaa !81
   br label %if.end192
 
@@ -1083,27 +1083,27 @@ lor.lhs.false224:                                 ; preds = %if.then220
 
 if.then227:                                       ; preds = %lor.lhs.false224, %if.then220
   %101 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %FieldControl.i688 = getelementptr inbounds %struct.rc_generic, ptr %101, i64 0, i32 1
-  %102 = load i32, ptr %FieldControl.i688, align 4, !tbaa !70
-  %cmp.i689 = icmp eq i32 %102, 0
-  br i1 %cmp.i689, label %if.then.i694, label %if.end228
+  %FieldControl.i686 = getelementptr inbounds %struct.rc_generic, ptr %101, i64 0, i32 1
+  %102 = load i32, ptr %FieldControl.i686, align 4, !tbaa !70
+  %cmp.i687 = icmp eq i32 %102, 0
+  br i1 %cmp.i687, label %if.then.i692, label %if.end228
 
-if.then.i694:                                     ; preds = %if.then227
-  %FieldFrame.i690 = getelementptr inbounds %struct.rc_generic, ptr %101, i64 0, i32 2
-  %103 = load i32, ptr %FieldFrame.i690, align 8, !tbaa !78
-  %cmp1.i691 = icmp eq i32 %103, 1
-  %CurrLastQP.i692 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %104 = load i32, ptr %CurrLastQP.i692, align 4, !tbaa !79
-  %PrevLastQP.i693 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %104, ptr %PrevLastQP.i693, align 8, !tbaa !80
-  %FrameQPBuffer.i695 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  %FieldQPBuffer.i697 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
-  %.sink.in.i699 = select i1 %cmp1.i691, ptr %FrameQPBuffer.i695, ptr %FieldQPBuffer.i697
-  %.sink.i700 = load i32, ptr %.sink.in.i699, align 4, !tbaa !81
-  store i32 %.sink.i700, ptr %CurrLastQP.i692, align 4, !tbaa !79
+if.then.i692:                                     ; preds = %if.then227
+  %FieldFrame.i688 = getelementptr inbounds %struct.rc_generic, ptr %101, i64 0, i32 2
+  %103 = load i32, ptr %FieldFrame.i688, align 8, !tbaa !78
+  %cmp1.i689 = icmp eq i32 %103, 1
+  %CurrLastQP.i690 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %104 = load i32, ptr %CurrLastQP.i690, align 4, !tbaa !79
+  %PrevLastQP.i691 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %104, ptr %PrevLastQP.i691, align 8, !tbaa !80
+  %FrameQPBuffer.i693 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  %FieldQPBuffer.i695 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
+  %.sink.in.i697 = select i1 %cmp1.i689, ptr %FrameQPBuffer.i693, ptr %FieldQPBuffer.i695
+  %.sink.i698 = load i32, ptr %.sink.in.i697, align 4, !tbaa !81
+  store i32 %.sink.i698, ptr %CurrLastQP.i690, align 4, !tbaa !79
   br label %if.end228
 
-if.end228:                                        ; preds = %if.then.i694, %if.then227, %lor.lhs.false224
+if.end228:                                        ; preds = %if.then.i692, %if.then227, %lor.lhs.false224
   %PrevLastQP229 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
   %105 = load i32, ptr %PrevLastQP229, align 8, !tbaa !80
   %CurrLastQP230 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
@@ -1128,9 +1128,9 @@ if.end244:                                        ; preds = %if.else237, %if.the
   %108 = load i32, ptr %RC_MIN_QUANT245, align 4, !tbaa !35
   %RC_MAX_QUANT246 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %109 = load i32, ptr %RC_MAX_QUANT246, align 8, !tbaa !33
-  %cond.i.i703 = tail call i32 @llvm.smax.i32(i32 %add242.sink, i32 %108)
-  %cond.i4.i704 = tail call i32 @llvm.smin.i32(i32 %cond.i.i703, i32 %109)
-  store i32 %cond.i4.i704, ptr %107, align 8, !tbaa !28
+  %cond.i.i701 = tail call i32 @llvm.smax.i32(i32 %add242.sink, i32 %108)
+  %cond.i4.i702 = tail call i32 @llvm.smin.i32(i32 %cond.i.i701, i32 %109)
+  store i32 %cond.i4.i702, ptr %107, align 8, !tbaa !28
   br label %cleanup
 
 if.else250:                                       ; preds = %if.then216
@@ -1139,8 +1139,8 @@ if.else250:                                       ; preds = %if.then216
   %add252 = add nsw i32 %110, 1
   %rem254 = srem i32 %add252, %98
   %cmp255 = icmp eq i32 %rem254, 0
-  %spec.select620 = select i1 %cmp255, i32 %98, i32 %rem254
-  %cmp260 = icmp eq i32 %spec.select620, 1
+  %spec.select722 = select i1 %cmp255, i32 %98, i32 %rem254
+  %cmp260 = icmp eq i32 %spec.select722, 1
   br i1 %cmp260, label %if.then262, label %if.end271
 
 if.then262:                                       ; preds = %if.else250
@@ -1157,27 +1157,27 @@ lor.lhs.false266:                                 ; preds = %if.then262
 
 if.then269:                                       ; preds = %lor.lhs.false266, %if.then262
   %113 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %FieldControl.i705 = getelementptr inbounds %struct.rc_generic, ptr %113, i64 0, i32 1
-  %114 = load i32, ptr %FieldControl.i705, align 4, !tbaa !70
-  %cmp.i706 = icmp eq i32 %114, 0
-  br i1 %cmp.i706, label %if.then.i711, label %if.end271
+  %FieldControl.i703 = getelementptr inbounds %struct.rc_generic, ptr %113, i64 0, i32 1
+  %114 = load i32, ptr %FieldControl.i703, align 4, !tbaa !70
+  %cmp.i704 = icmp eq i32 %114, 0
+  br i1 %cmp.i704, label %if.then.i709, label %if.end271
 
-if.then.i711:                                     ; preds = %if.then269
-  %FieldFrame.i707 = getelementptr inbounds %struct.rc_generic, ptr %113, i64 0, i32 2
-  %115 = load i32, ptr %FieldFrame.i707, align 8, !tbaa !78
-  %cmp1.i708 = icmp eq i32 %115, 1
-  %CurrLastQP.i709 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
-  %116 = load i32, ptr %CurrLastQP.i709, align 4, !tbaa !79
-  %PrevLastQP.i710 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
-  store i32 %116, ptr %PrevLastQP.i710, align 8, !tbaa !80
-  %FrameQPBuffer.i712 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  %FieldQPBuffer.i714 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
-  %.sink.in.i716 = select i1 %cmp1.i708, ptr %FrameQPBuffer.i712, ptr %FieldQPBuffer.i714
-  %.sink.i717 = load i32, ptr %.sink.in.i716, align 4, !tbaa !81
-  store i32 %.sink.i717, ptr %CurrLastQP.i709, align 4, !tbaa !79
+if.then.i709:                                     ; preds = %if.then269
+  %FieldFrame.i705 = getelementptr inbounds %struct.rc_generic, ptr %113, i64 0, i32 2
+  %115 = load i32, ptr %FieldFrame.i705, align 8, !tbaa !78
+  %cmp1.i706 = icmp eq i32 %115, 1
+  %CurrLastQP.i707 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
+  %116 = load i32, ptr %CurrLastQP.i707, align 4, !tbaa !79
+  %PrevLastQP.i708 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
+  store i32 %116, ptr %PrevLastQP.i708, align 8, !tbaa !80
+  %FrameQPBuffer.i710 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
+  %FieldQPBuffer.i712 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
+  %.sink.in.i714 = select i1 %cmp1.i706, ptr %FrameQPBuffer.i710, ptr %FieldQPBuffer.i712
+  %.sink.i715 = load i32, ptr %.sink.in.i714, align 4, !tbaa !81
+  store i32 %.sink.i715, ptr %CurrLastQP.i707, align 4, !tbaa !79
   br label %if.end271
 
-if.end271:                                        ; preds = %if.then.i711, %if.then269, %lor.lhs.false266, %if.else250
+if.end271:                                        ; preds = %if.then.i709, %if.then269, %lor.lhs.false266, %if.else250
   %CurrLastQP272 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
   %117 = load i32, ptr %CurrLastQP272, align 4, !tbaa !79
   %PrevLastQP273 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
@@ -1205,29 +1205,29 @@ if.else301:                                       ; preds = %if.else291
 if.else310:                                       ; preds = %if.else301
   %add316 = or i32 %mul276, 1
   %cmp317 = icmp eq i32 %sub274, %add316
-  %.621 = select i1 %cmp317, i32 1, i32 2
+  %.723 = select i1 %cmp317, i32 1, i32 2
   br label %if.end325
 
 if.end325:                                        ; preds = %if.else310, %if.else301, %if.else291, %if.else281, %if.end271
-  %StepSize.1 = phi i32 [ -3, %if.end271 ], [ -2, %if.else281 ], [ -1, %if.else291 ], [ 0, %if.else301 ], [ %.621, %if.else310 ]
+  %StepSize.1 = phi i32 [ -3, %if.end271 ], [ -2, %if.else281 ], [ -1, %if.else291 ], [ 0, %if.else301 ], [ %.723, %if.else310 ]
   %add327 = add nsw i32 %StepSize.1, %118
   %m_Qc328 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %sub329 = add nsw i32 %spec.select620, -1
+  %sub329 = add nsw i32 %spec.select722, -1
   %mul330 = mul nsw i32 %sub329, -2
   %mul332 = shl nsw i32 %sub329, 1
   %mul337 = mul nsw i32 %sub274, %sub329
   %sub339 = add nsw i32 %98, -1
   %div340 = sdiv i32 %mul337, %sub339
-  %cond.i.i720 = tail call i32 @llvm.smax.i32(i32 %div340, i32 %mul330)
-  %cond.i4.i721 = tail call i32 @llvm.smin.i32(i32 %cond.i.i720, i32 %mul332)
-  %add343 = add nsw i32 %add327, %cond.i4.i721
+  %cond.i.i718 = tail call i32 @llvm.smax.i32(i32 %div340, i32 %mul330)
+  %cond.i4.i719 = tail call i32 @llvm.smin.i32(i32 %cond.i.i718, i32 %mul332)
+  %add343 = add nsw i32 %add327, %cond.i4.i719
   %RC_MIN_QUANT344 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 10
   %119 = load i32, ptr %RC_MIN_QUANT344, align 4, !tbaa !35
   %RC_MAX_QUANT345 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %120 = load i32, ptr %RC_MAX_QUANT345, align 8, !tbaa !33
-  %cond.i.i722 = tail call i32 @llvm.smax.i32(i32 %add343, i32 %119)
-  %cond.i4.i723 = tail call i32 @llvm.smin.i32(i32 %cond.i.i722, i32 %120)
-  store i32 %cond.i4.i723, ptr %m_Qc328, align 8, !tbaa !28
+  %cond.i.i720 = tail call i32 @llvm.smax.i32(i32 %add343, i32 %119)
+  %cond.i4.i721 = tail call i32 @llvm.smin.i32(i32 %cond.i.i720, i32 %120)
+  store i32 %cond.i4.i721, ptr %m_Qc328, align 8, !tbaa !28
   br label %cleanup
 
 if.else351:                                       ; preds = %lor.lhs.false212
@@ -1351,8 +1351,8 @@ if.end435:                                        ; preds = %if.then364, %if.els
   %144 = load i32, ptr %m_Qc436, align 8, !tbaa !28
   br label %cleanup
 
-cleanup:                                          ; preds = %if.else411, %land.lhs.true420, %land.lhs.true424, %if.then428, %if.end244, %if.end325, %if.end173, %if.then.i674, %if.else.i676, %if.end, %if.end93, %if.then125, %if.then.i646, %if.else.i648, %if.end435, %if.then409, %if.then398, %if.then376, %if.else351, %if.then202, %if.end192, %if.then4
-  %retval.0 = phi i32 [ %6, %if.then4 ], [ %90, %if.end192 ], [ %94, %if.then202 ], [ %121, %if.else351 ], [ %call377, %if.then376 ], [ %144, %if.end435 ], [ %call399, %if.then398 ], [ %call410, %if.then409 ], [ %34, %if.else.i648 ], [ %34, %if.then.i646 ], [ %34, %if.then125 ], [ %cond.i4.i643, %if.end93 ], [ %cond.i4.i, %if.end ], [ %74, %if.else.i676 ], [ %74, %if.then.i674 ], [ %74, %if.end173 ], [ %cond.i4.i723, %if.end325 ], [ %cond.i4.i704, %if.end244 ], [ %.pre, %if.then428 ], [ %137, %land.lhs.true424 ], [ %137, %land.lhs.true420 ], [ %137, %if.else411 ]
+cleanup:                                          ; preds = %if.else411, %land.lhs.true420, %land.lhs.true424, %if.then428, %if.end244, %if.end325, %if.end173, %if.then.i672, %if.else.i674, %if.end, %if.end93, %if.then125, %if.then.i644, %if.else.i646, %if.end435, %if.then409, %if.then398, %if.then376, %if.else351, %if.then202, %if.end192, %if.then4
+  %retval.0 = phi i32 [ %6, %if.then4 ], [ %90, %if.end192 ], [ %94, %if.then202 ], [ %121, %if.else351 ], [ %call377, %if.then376 ], [ %144, %if.end435 ], [ %call399, %if.then398 ], [ %call410, %if.then409 ], [ %34, %if.else.i646 ], [ %34, %if.then.i644 ], [ %34, %if.then125 ], [ %cond.i4.i641, %if.end93 ], [ %cond.i4.i, %if.end ], [ %74, %if.else.i674 ], [ %74, %if.then.i672 ], [ %74, %if.end173 ], [ %cond.i4.i721, %if.end325 ], [ %cond.i4.i702, %if.end244 ], [ %.pre, %if.then428 ], [ %137, %land.lhs.true424 ], [ %137, %land.lhs.true420 ], [ %137, %if.else411 ]
   ret i32 %retval.0
 }
 
@@ -1521,11 +1521,11 @@ if.else34:                                        ; preds = %if.end25
   %conv = fptosi float %div to i32
   %cond.i = tail call i32 @llvm.smax.i32(i32 %sub36, i32 %conv)
   %37 = extractelement <2 x double> %23, i64 0
-  %mul.i = fmul double %37, %31
+  %mul.i = fmul double %31, %37
   %mul2.i = fmul double %31, %mul.i
   %38 = extractelement <2 x double> %23, i64 1
   %mul5.i = fmul double %38, 4.000000e+00
-  %mul7.i = fmul double %mul5.i, %31
+  %mul7.i = fmul double %31, %mul5.i
   %conv.i = sitofp i32 %cond.i to double
   %mul8.i = fmul double %mul7.i, %conv.i
   %39 = tail call double @llvm.fmuladd.f64(double %mul2.i, double %37, double %mul8.i)
@@ -1808,8 +1808,8 @@ if.else95:                                        ; preds = %land.lhs.true76, %i
   %FieldControl105 = getelementptr inbounds %struct.rc_generic, ptr %68, i64 0, i32 1
   %89 = load i32, ptr %FieldControl105, align 4, !tbaa !70
   %cmp106 = icmp ne i32 %89, 0
-  %TotalNumberofBasicUnit110 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
-  %90 = load i32, ptr %TotalNumberofBasicUnit110, align 4, !tbaa !50
+  %TotalNumberofBasicUnit = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
+  %90 = load i32, ptr %TotalNumberofBasicUnit, align 4, !tbaa !50
   %shr = zext i1 %cmp106 to i32
   %SumofBasicUnit.0 = ashr i32 %90, %shr
   %NumberofBasicUnit = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 39
@@ -1828,7 +1828,7 @@ lor.lhs.false.i290:                               ; preds = %if.then114
   %MbInterlace.i288 = getelementptr inbounds %struct.InputParameters, ptr %92, i64 0, i32 122
   %94 = load i32, ptr %MbInterlace.i288, align 4, !tbaa !77
   %tobool.not.i289 = icmp eq i32 %94, 0
-  %brmerge = or i1 %cmp106, %tobool.not.i289
+  %brmerge = or i1 %tobool.not.i289, %cmp106
   br i1 %brmerge, label %if.end17.i, label %if.then.i293
 
 land.lhs.true.i:                                  ; preds = %if.then114
@@ -1961,7 +1961,7 @@ lor.lhs.false.i312:                               ; preds = %if.else127
   %113 = load i32, ptr %MbInterlace.i310, align 4, !tbaa !77
   %tobool.not.i311 = icmp ne i32 %113, 0
   %cmp1.i314 = icmp eq i32 %89, 1
-  %or.cond = and i1 %cmp1.i314, %tobool.not.i311
+  %or.cond = and i1 %tobool.not.i311, %cmp1.i314
   br i1 %or.cond, label %if.then.i318, label %if.else.i319
 
 land.lhs.true.i315:                               ; preds = %if.else127
@@ -2372,11 +2372,11 @@ if.else86:                                        ; preds = %if.end72
   %conv = fptosi float %div to i32
   %cond.i448 = tail call i32 @llvm.smax.i32(i32 %sub88, i32 %conv)
   %64 = extractelement <2 x double> %50, i64 0
-  %mul.i = fmul double %64, %58
+  %mul.i = fmul double %58, %64
   %mul2.i = fmul double %58, %mul.i
   %65 = extractelement <2 x double> %50, i64 1
   %mul5.i = fmul double %65, 4.000000e+00
-  %mul7.i = fmul double %mul5.i, %58
+  %mul7.i = fmul double %58, %mul5.i
   %conv.i = sitofp i32 %cond.i448 to double
   %mul8.i = fmul double %mul7.i, %conv.i
   %66 = tail call double @llvm.fmuladd.f64(double %mul2.i, double %64, double %mul8.i)
@@ -2716,8 +2716,8 @@ if.else224:                                       ; preds = %land.lhs.true205, %
   %FieldControl234 = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 1
   %131 = load i32, ptr %FieldControl234, align 4, !tbaa !70
   %cmp235 = icmp ne i32 %131, 0
-  %TotalNumberofBasicUnit239 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
-  %132 = load i32, ptr %TotalNumberofBasicUnit239, align 4, !tbaa !50
+  %TotalNumberofBasicUnit = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
+  %132 = load i32, ptr %TotalNumberofBasicUnit, align 4, !tbaa !50
   %shr = zext i1 %cmp235 to i32
   %SumofBasicUnit.0 = ashr i32 %132, %shr
   %NumberofBasicUnit = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 39
@@ -2726,127 +2726,18 @@ if.else224:                                       ; preds = %land.lhs.true205, %
   br i1 %cmp241, label %if.then243, label %if.else245
 
 if.then243:                                       ; preds = %if.else224
-  %134 = load ptr, ptr @input, align 8, !tbaa !5
-  %PicInterlace.i511 = getelementptr inbounds %struct.InputParameters, ptr %134, i64 0, i32 121
-  %135 = load i32, ptr %PicInterlace.i511, align 8, !tbaa !76
-  %cmp.i512 = icmp eq i32 %135, 2
-  br i1 %cmp.i512, label %land.lhs.true.i, label %lor.lhs.false.i
-
-lor.lhs.false.i:                                  ; preds = %if.then243
-  %MbInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %134, i64 0, i32 122
-  %136 = load i32, ptr %MbInterlace.i, align 4, !tbaa !77
-  %tobool.not.i513 = icmp eq i32 %136, 0
-  %brmerge = or i1 %cmp235, %tobool.not.i513
-  br i1 %brmerge, label %if.end17.i, label %if.then.i517
-
-land.lhs.true.i:                                  ; preds = %if.then243
-  br i1 %cmp235, label %if.end17.i, label %if.then.i517
-
-if.then.i517:                                     ; preds = %lor.lhs.false.i, %land.lhs.true.i
-  %FieldFrame.i516 = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 2
-  %137 = load i32, ptr %FieldFrame.i516, align 8, !tbaa !78
-  %cmp2.i = icmp eq i32 %137, 1
-  %NumberofPPicture.i = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 12
-  %138 = load i32, ptr %NumberofPPicture.i, align 8, !tbaa !83
-  %cmp4.i = icmp sgt i32 %138, 0
-  br i1 %cmp2.i, label %if.then3.i, label %if.else.i522
-
-if.then3.i:                                       ; preds = %if.then.i517
-  %FrameQPBuffer.i518 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 56
-  %139 = load i32, ptr %FrameQPBuffer.i518, align 4, !tbaa !30
-  br i1 %cmp4.i, label %if.then5.i, label %if.end.i
-
-if.then5.i:                                       ; preds = %if.then3.i
-  %TotalQpforPPicture.i519 = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 11
-  %140 = load i32, ptr %TotalQpforPPicture.i519, align 4, !tbaa !89
-  %add.i520 = add nsw i32 %140, %139
-  store i32 %add.i520, ptr %TotalQpforPPicture.i519, align 4, !tbaa !89
-  br label %if.end.i
-
-if.end.i:                                         ; preds = %if.then5.i, %if.then3.i
-  %PAveFrameQP.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 43
-  store i32 %139, ptr %PAveFrameQP.i, align 8, !tbaa !27
-  %FrameAveHeaderBits.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 57
-  br label %if.end17.sink.split.i
-
-if.else.i522:                                     ; preds = %if.then.i517
-  %FieldQPBuffer.i521 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 55
-  %141 = load i32, ptr %FieldQPBuffer.i521, align 8, !tbaa !29
-  br i1 %cmp4.i, label %if.then9.i, label %if.end12.i
-
-if.then9.i:                                       ; preds = %if.else.i522
-  %TotalQpforPPicture10.i = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 11
-  %142 = load i32, ptr %TotalQpforPPicture10.i, align 4, !tbaa !89
-  %add11.i = add nsw i32 %142, %141
-  store i32 %add11.i, ptr %TotalQpforPPicture10.i, align 4, !tbaa !89
-  br label %if.end12.i
-
-if.end12.i:                                       ; preds = %if.then9.i, %if.else.i522
-  %PAveFrameQP14.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 43
-  store i32 %141, ptr %PAveFrameQP14.i, align 8, !tbaa !27
-  %FieldAveHeaderBits.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 58
-  br label %if.end17.sink.split.i
-
-if.end17.sink.split.i:                            ; preds = %if.end12.i, %if.end.i
-  %.sink.in.i523 = phi ptr [ %FrameAveHeaderBits.i, %if.end.i ], [ %FieldAveHeaderBits.i, %if.end12.i ]
-  %.sink.i524 = load i32, ptr %.sink.in.i523, align 4, !tbaa !81
-  %PAveHeaderBits3.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 42
-  store i32 %.sink.i524, ptr %PAveHeaderBits3.i, align 4, !tbaa !66
-  br label %if.end17.i
-
-if.end17.i:                                       ; preds = %lor.lhs.false.i, %if.end17.sink.split.i, %land.lhs.true.i
-  %Target.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 68
-  %143 = load i32, ptr %Target.i, align 8, !tbaa !21
-  %cmp18.i = icmp slt i32 %143, 1
-  %PAveFrameQP20.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 43
-  %144 = load i32, ptr %PAveFrameQP20.i, align 8, !tbaa !27
-  br i1 %cmp18.i, label %if.then19.i, label %if.else34.i
-
-if.then19.i:                                      ; preds = %if.end17.i
-  %add21.i = add nsw i32 %144, 2
-  %m_Qc.i525 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %RC_MAX_QUANT.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
-  %145 = load i32, ptr %RC_MAX_QUANT.i, align 8, !tbaa !33
-  %spec.store.select.i = tail call i32 @llvm.smin.i32(i32 %add21.i, i32 %145)
-  store i32 %spec.store.select.i, ptr %m_Qc.i525, align 8
-  %tobool28.not.i = icmp eq i32 %topfield, 0
-  br i1 %tobool28.not.i, label %lor.lhs.false29.i, label %if.then32.i
-
-lor.lhs.false29.i:                                ; preds = %if.then19.i
-  %146 = load i32, ptr %FieldControl234, align 4, !tbaa !70
-  %cmp31.i = icmp eq i32 %146, 0
-  br i1 %cmp31.i, label %if.then32.i, label %updateFirstBU.exit
-
-if.then32.i:                                      ; preds = %lor.lhs.false29.i, %if.then19.i
-  %GOPOverdue.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 63
-  store i32 1, ptr %GOPOverdue.i, align 8, !tbaa !103
-  br label %updateFirstBU.exit
-
-if.else34.i:                                      ; preds = %if.end17.i
-  %m_Qc36.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  store i32 %144, ptr %m_Qc36.i, align 8, !tbaa !28
-  br label %updateFirstBU.exit
-
-updateFirstBU.exit:                               ; preds = %lor.lhs.false29.i, %if.then32.i, %if.else34.i
-  %147 = phi i32 [ %spec.store.select.i, %lor.lhs.false29.i ], [ %spec.store.select.i, %if.then32.i ], [ %144, %if.else34.i ]
-  %TotalFrameQP.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 38
-  %148 = load i32, ptr %TotalFrameQP.i, align 4, !tbaa !99
-  %add39.i = add nsw i32 %148, %147
-  store i32 %add39.i, ptr %TotalFrameQP.i, align 4, !tbaa !99
-  %dec.i = add nsw i32 %SumofBasicUnit.0, -1
-  store i32 %dec.i, ptr %NumberofBasicUnit, align 8, !tbaa !96
-  store i32 %144, ptr %Pm_Qp233, align 8, !tbaa !90
+  %call244 = tail call i32 @updateFirstBU(ptr noundef nonnull %prc, i32 noundef %topfield)
   br label %cleanup
 
 if.else245:                                       ; preds = %if.else224
   %NumberofBasicUnitHeaderBits = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 6
-  %149 = load i32, ptr %NumberofBasicUnitHeaderBits, align 8, !tbaa !97
+  %134 = load i32, ptr %NumberofBasicUnitHeaderBits, align 8, !tbaa !97
   %NumberofBasicUnitTextureBits = getelementptr inbounds %struct.rc_generic, ptr %123, i64 0, i32 7
-  %150 = load i32, ptr %NumberofBasicUnitTextureBits, align 4, !tbaa !98
+  %135 = load i32, ptr %NumberofBasicUnitTextureBits, align 4, !tbaa !98
   %Target247 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 68
-  %151 = load i32, ptr %Target247, align 8, !tbaa !21
-  %152 = add i32 %150, %149
-  %sub248 = sub i32 %151, %152
+  %136 = load i32, ptr %Target247, align 8, !tbaa !21
+  %137 = add i32 %135, %134
+  %sub248 = sub i32 %136, %137
   store i32 %sub248, ptr %Target247, align 8, !tbaa !21
   store i32 0, ptr %NumberofBasicUnitHeaderBits, align 8, !tbaa !97
   store i32 0, ptr %NumberofBasicUnitTextureBits, align 4, !tbaa !98
@@ -2861,29 +2752,29 @@ if.else256:                                       ; preds = %if.else245
   tail call void @predictCurrPicMAD(ptr noundef nonnull %prc)
   tail call void @updateModelQPBU(ptr noundef nonnull %prc, i32 poison, i32 noundef %130)
   %m_Qc257 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %153 = load i32, ptr %m_Qc257, align 8, !tbaa !28
+  %138 = load i32, ptr %m_Qc257, align 8, !tbaa !28
   %TotalFrameQP = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 38
-  %154 = load i32, ptr %TotalFrameQP, align 4, !tbaa !99
-  %add258 = add nsw i32 %154, %153
+  %139 = load i32, ptr %TotalFrameQP, align 4, !tbaa !99
+  %add258 = add nsw i32 %139, %138
   store i32 %add258, ptr %TotalFrameQP, align 4, !tbaa !99
-  store i32 %153, ptr %Pm_Qp233, align 8, !tbaa !90
-  %155 = load i32, ptr %NumberofBasicUnit, align 8, !tbaa !96
-  %dec = add nsw i32 %155, -1
+  store i32 %138, ptr %Pm_Qp233, align 8, !tbaa !90
+  %140 = load i32, ptr %NumberofBasicUnit, align 8, !tbaa !96
+  %dec = add nsw i32 %140, -1
   store i32 %dec, ptr %NumberofBasicUnit, align 8, !tbaa !96
   %cmp263 = icmp eq i32 %dec, 0
   br i1 %cmp263, label %land.lhs.true265, label %cleanup
 
 land.lhs.true265:                                 ; preds = %if.else256
-  %156 = load ptr, ptr @img, align 8, !tbaa !5
-  %type266 = getelementptr inbounds %struct.ImageParameters, ptr %156, i64 0, i32 5
-  %157 = load i32, ptr %type266, align 4, !tbaa !75
-  %cmp267 = icmp eq i32 %157, 0
+  %141 = load ptr, ptr @img, align 8, !tbaa !5
+  %type266 = getelementptr inbounds %struct.ImageParameters, ptr %141, i64 0, i32 5
+  %142 = load i32, ptr %type266, align 4, !tbaa !75
+  %cmp267 = icmp eq i32 %142, 0
   br i1 %cmp267, label %land.lhs.true269, label %cleanup
 
 land.lhs.true269:                                 ; preds = %land.lhs.true265
-  %158 = load i32, ptr %156, align 8, !tbaa !84
-  %159 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
-  %tobool272.not = icmp eq i32 %158, %159
+  %143 = load i32, ptr %141, align 8, !tbaa !84
+  %144 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
+  %tobool272.not = icmp eq i32 %143, %144
   br i1 %tobool272.not, label %cleanup, label %if.then273
 
 if.then273:                                       ; preds = %land.lhs.true269
@@ -2893,11 +2784,11 @@ if.then273:                                       ; preds = %land.lhs.true269
 
 if.end281:                                        ; preds = %if.then209, %if.else129, %land.lhs.true217
   %m_Qc282 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
-  %160 = load i32, ptr %m_Qc282, align 8, !tbaa !28
+  %145 = load i32, ptr %m_Qc282, align 8, !tbaa !28
   br label %cleanup
 
-cleanup:                                          ; preds = %if.else256, %land.lhs.true265, %land.lhs.true269, %if.then273, %if.end100, %if.then.i464, %if.else.i466, %if.then54, %if.then.i436, %if.else.i438, %if.end281, %if.then254, %updateFirstBU.exit, %if.then221, %if.end191, %if.end141, %if.then125, %if.end119, %if.end41, %if.end, %if.then4
-  %retval.0 = phi i32 [ %16, %if.end ], [ %cond.i4.i, %if.end41 ], [ %7, %if.then4 ], [ %92, %if.end119 ], [ %104, %if.end141 ], [ %cond.i4.i510, %if.end191 ], [ %call222, %if.then221 ], [ %160, %if.end281 ], [ %147, %updateFirstBU.exit ], [ %call255, %if.then254 ], [ %95, %if.then125 ], [ %36, %if.else.i438 ], [ %36, %if.then.i436 ], [ %36, %if.then54 ], [ %76, %if.else.i466 ], [ %76, %if.then.i464 ], [ %76, %if.end100 ], [ %.pre, %if.then273 ], [ %153, %land.lhs.true269 ], [ %153, %land.lhs.true265 ], [ %153, %if.else256 ]
+cleanup:                                          ; preds = %if.else256, %land.lhs.true265, %land.lhs.true269, %if.then273, %if.end100, %if.then.i464, %if.else.i466, %if.then54, %if.then.i436, %if.else.i438, %if.end281, %if.then254, %if.then243, %if.then221, %if.end191, %if.end141, %if.then125, %if.end119, %if.end41, %if.end, %if.then4
+  %retval.0 = phi i32 [ %16, %if.end ], [ %cond.i4.i, %if.end41 ], [ %7, %if.then4 ], [ %92, %if.end119 ], [ %104, %if.end141 ], [ %cond.i4.i510, %if.end191 ], [ %call222, %if.then221 ], [ %145, %if.end281 ], [ %call244, %if.then243 ], [ %call255, %if.then254 ], [ %95, %if.then125 ], [ %36, %if.else.i438 ], [ %36, %if.then.i436 ], [ %36, %if.then54 ], [ %76, %if.else.i466 ], [ %76, %if.then.i464 ], [ %76, %if.end100 ], [ %.pre, %if.then273 ], [ %138, %land.lhs.true269 ], [ %138, %land.lhs.true265 ], [ %138, %if.else256 ]
   ret i32 %retval.0
 }
 
@@ -3024,13 +2915,13 @@ if.then32:                                        ; preds = %land.lhs.true29
   store i32 %add3.i, ptr %TotalQpforPPicture.i348, align 4, !tbaa !89
   %24 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
   store i32 %.sink11.i, ptr %24, align 8
-  %.pre414 = load i32, ptr %BasicUnit, align 4, !tbaa !74
-  %.pre415 = load i32, ptr %FrameSizeInMbs, align 8, !tbaa !9
+  %.pre413 = load i32, ptr %BasicUnit, align 4, !tbaa !74
+  %.pre414 = load i32, ptr %FrameSizeInMbs, align 8, !tbaa !9
   br label %if.end33
 
 if.end33:                                         ; preds = %if.else, %if.then32, %land.lhs.true29, %lor.lhs.false27
-  %25 = phi i32 [ %2, %if.else ], [ %.pre415, %if.then32 ], [ %2, %land.lhs.true29 ], [ %2, %lor.lhs.false27 ]
-  %26 = phi i32 [ %1, %if.else ], [ %.pre414, %if.then32 ], [ %1, %land.lhs.true29 ], [ %1, %lor.lhs.false27 ]
+  %25 = phi i32 [ %2, %if.else ], [ %.pre414, %if.then32 ], [ %2, %land.lhs.true29 ], [ %2, %lor.lhs.false27 ]
+  %26 = phi i32 [ %1, %if.else ], [ %.pre413, %if.then32 ], [ %1, %land.lhs.true29 ], [ %1, %lor.lhs.false27 ]
   %Pm_X1 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 27
   %m_X1 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 25
   %m_X2 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 26
@@ -3083,12 +2974,12 @@ if.end42:                                         ; preds = %if.end33, %if.then4
   %40 = extractelement <2 x double> %28, i64 0
   %41 = extractelement <2 x double> %28, i64 1
   %42 = tail call double @llvm.fmuladd.f64(double %40, double %29, double %41)
-  %CurrentFrameMAD419 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 46
-  store double %42, ptr %CurrentFrameMAD419, align 8, !tbaa !20
-  %Target420 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 68
-  %43 = load i32, ptr %Target420, align 8, !tbaa !21
-  %cmp50421 = icmp slt i32 %43, 0
-  br i1 %cmp50421, label %if.then51, label %if.else69
+  %CurrentFrameMAD418 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 46
+  store double %42, ptr %CurrentFrameMAD418, align 8, !tbaa !20
+  %Target419 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 68
+  %43 = load i32, ptr %Target419, align 8, !tbaa !21
+  %cmp50420 = icmp slt i32 %43, 0
+  br i1 %cmp50420, label %if.then51, label %if.else69
 
 if.then51:                                        ; preds = %.thread, %if.end42
   %44 = phi i32 [ 0, %.thread ], [ %.fr, %if.end42 ]
@@ -3120,7 +3011,7 @@ if.then62:                                        ; preds = %if.then58
 if.else69:                                        ; preds = %.thread, %if.else55
   %48 = phi i32 [ %spec.select, %if.else55 ], [ %32, %.thread ]
   %49 = phi double [ %38, %if.else55 ], [ %42, %.thread ]
-  %CurrentFrameMAD422426 = phi ptr [ %CurrentFrameMAD, %if.else55 ], [ %CurrentFrameMAD419, %.thread ]
+  %CurrentFrameMAD421425 = phi ptr [ %CurrentFrameMAD, %if.else55 ], [ %CurrentFrameMAD418, %.thread ]
   %50 = phi i32 [ %39, %if.else55 ], [ %43, %.thread ]
   %sub71 = sub nsw i32 %50, %48
   %51 = load float, ptr %prc, align 8, !tbaa !44
@@ -3134,14 +3025,14 @@ if.else69:                                        ; preds = %.thread, %if.else55
 
 if.end74:                                         ; preds = %if.then58, %if.then62, %if.else69
   %53 = phi double [ %38, %if.then62 ], [ %49, %if.else69 ], [ %38, %if.then58 ]
-  %CurrentFrameMAD422425 = phi ptr [ %CurrentFrameMAD, %if.then62 ], [ %CurrentFrameMAD422426, %if.else69 ], [ %CurrentFrameMAD, %if.then58 ]
+  %CurrentFrameMAD421424 = phi ptr [ %CurrentFrameMAD, %if.then62 ], [ %CurrentFrameMAD421425, %if.else69 ], [ %CurrentFrameMAD, %if.then58 ]
   %m_Bits.0 = phi i32 [ %div, %if.then62 ], [ %cond.i, %if.else69 ], [ %sub64, %if.then58 ]
   %54 = extractelement <2 x double> %27, i64 0
-  %mul.i = fmul double %54, %53
+  %mul.i = fmul double %53, %54
   %mul2.i = fmul double %53, %mul.i
   %55 = extractelement <2 x double> %27, i64 1
   %mul5.i = fmul double %55, 4.000000e+00
-  %mul7.i = fmul double %mul5.i, %53
+  %mul7.i = fmul double %53, %mul5.i
   %conv.i = sitofp i32 %m_Bits.0 to double
   %mul8.i = fmul double %mul7.i, %conv.i
   %56 = tail call double @llvm.fmuladd.f64(double %mul2.i, double %54, double %mul8.i)
@@ -3153,7 +3044,7 @@ if.end74:                                         ; preds = %if.then58, %if.then
 lor.lhs.false13.i:                                ; preds = %if.end74
   %call.i = tail call double @sqrt(double noundef %56) #22
   %57 = load double, ptr %m_X1, align 8, !tbaa !93
-  %58 = load double, ptr %CurrentFrameMAD422425, align 8, !tbaa !20
+  %58 = load double, ptr %CurrentFrameMAD421424, align 8, !tbaa !20
   %neg.i = fneg double %57
   %59 = tail call double @llvm.fmuladd.f64(double %neg.i, double %58, double %call.i)
   %cmp17.i = fcmp ugt double %59, 0.000000e+00
@@ -3174,7 +3065,7 @@ if.else.i354:                                     ; preds = %lor.lhs.false13.i
   %mul28.i = fmul double %58, %mul26.i
   %call29.i = tail call double @sqrt(double noundef %56) #22
   %61 = load double, ptr %m_X1, align 8, !tbaa !93
-  %62 = load double, ptr %CurrentFrameMAD422425, align 8, !tbaa !20
+  %62 = load double, ptr %CurrentFrameMAD421424, align 8, !tbaa !20
   %neg33.i = fneg double %61
   %63 = tail call double @llvm.fmuladd.f64(double %neg33.i, double %62, double %call29.i)
   %div34.i = fdiv double %mul28.i, %63
@@ -3406,8 +3297,8 @@ if.else178:                                       ; preds = %land.lhs.true159, %
   %FieldControl188 = getelementptr inbounds %struct.rc_generic, ptr %101, i64 0, i32 1
   %109 = load i32, ptr %FieldControl188, align 4, !tbaa !70
   %cmp189 = icmp ne i32 %109, 0
-  %TotalNumberofBasicUnit194 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
-  %110 = load i32, ptr %TotalNumberofBasicUnit194, align 4, !tbaa !50
+  %TotalNumberofBasicUnit192 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 44
+  %110 = load i32, ptr %TotalNumberofBasicUnit192, align 4, !tbaa !50
   %shr195 = zext i1 %cmp189 to i32
   %SumofBasicUnit.0 = ashr i32 %110, %shr195
   %NumberofBasicUnit = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 39
@@ -3426,7 +3317,7 @@ lor.lhs.false.i:                                  ; preds = %if.then199
   %MbInterlace.i = getelementptr inbounds %struct.InputParameters, ptr %112, i64 0, i32 122
   %114 = load i32, ptr %MbInterlace.i, align 4, !tbaa !77
   %tobool.not.i387 = icmp eq i32 %114, 0
-  %brmerge = or i1 %cmp189, %tobool.not.i387
+  %brmerge = or i1 %tobool.not.i387, %cmp189
   br i1 %brmerge, label %if.end17.i, label %if.then.i389
 
 land.lhs.true.i:                                  ; preds = %if.then199
@@ -3559,7 +3450,7 @@ lor.lhs.false.i401:                               ; preds = %if.else212
   %133 = load i32, ptr %MbInterlace.i399, align 4, !tbaa !77
   %tobool.not.i400 = icmp ne i32 %133, 0
   %cmp1.i403 = icmp eq i32 %109, 1
-  %or.cond = and i1 %cmp1.i403, %tobool.not.i400
+  %or.cond = and i1 %tobool.not.i400, %cmp1.i403
   br i1 %or.cond, label %if.then.i407, label %if.else.i408
 
 land.lhs.true.i404:                               ; preds = %if.else212
@@ -3674,8 +3565,8 @@ if.end235:                                        ; preds = %if.then163, %land.l
   %159 = load i32, ptr %m_Qc236, align 8, !tbaa !28
   br label %cleanup
 
-cleanup:                                          ; preds = %predictCurrPicMAD.exit, %land.lhs.true221, %land.lhs.true225, %if.then229, %if.end115, %if.else.i369, %if.then.i367, %land.lhs.true94, %if.end90, %if.then15, %if.then.i, %if.else.i, %if.end235, %if.then210, %updateFirstBU.exit, %if.then175, %if.then148, %if.end142, %if.then6
-  %retval.0 = phi i32 [ %8, %if.then6 ], [ %97, %if.end142 ], [ %call176, %if.then175 ], [ %159, %if.end235 ], [ %125, %updateFirstBU.exit ], [ %call211, %if.then210 ], [ %100, %if.then148 ], [ %12, %if.else.i ], [ %12, %if.then.i ], [ %12, %if.then15 ], [ %70, %if.end90 ], [ %73, %land.lhs.true94 ], [ %73, %if.then.i367 ], [ %73, %if.else.i369 ], [ %cond.i4.i374, %if.end115 ], [ %.pre, %if.then229 ], [ %152, %land.lhs.true225 ], [ %152, %land.lhs.true221 ], [ %152, %predictCurrPicMAD.exit ]
+cleanup:                                          ; preds = %predictCurrPicMAD.exit, %land.lhs.true221, %land.lhs.true225, %if.then229, %if.end115, %if.end90, %if.else.i369, %if.then.i367, %land.lhs.true94, %if.then15, %if.then.i, %if.else.i, %if.end235, %if.then210, %updateFirstBU.exit, %if.then175, %if.then148, %if.end142, %if.then6
+  %retval.0 = phi i32 [ %8, %if.then6 ], [ %97, %if.end142 ], [ %call176, %if.then175 ], [ %159, %if.end235 ], [ %125, %updateFirstBU.exit ], [ %call211, %if.then210 ], [ %100, %if.then148 ], [ %12, %if.else.i ], [ %12, %if.then.i ], [ %12, %if.then15 ], [ %73, %land.lhs.true94 ], [ %73, %if.then.i367 ], [ %73, %if.else.i369 ], [ %70, %if.end90 ], [ %cond.i4.i374, %if.end115 ], [ %.pre, %if.then229 ], [ %152, %land.lhs.true225 ], [ %152, %land.lhs.true221 ], [ %152, %predictCurrPicMAD.exit ]
   ret i32 %retval.0
 }
 
@@ -3762,8 +3653,8 @@ if.end38:                                         ; preds = %if.then2, %if.else2
   store i32 %.sink, ptr %temporal_levels37, align 8, !tbaa !117
   %intra_period = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 30
   %8 = load i32, ptr %intra_period, align 8, !tbaa !118
-  %spec.select353 = tail call i32 @llvm.umax.i32(i32 %8, i32 1)
-  %mul = mul nsw i32 %spec.select353, %add
+  %spec.select355 = tail call i32 @llvm.umax.i32(i32 %8, i32 1)
+  %mul = mul nsw i32 %spec.select355, %add
   %conv = sitofp i32 %mul to double
   %bit_rate = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 158
   %9 = load i32, ptr %bit_rate, align 8, !tbaa !43
@@ -4134,21 +4025,21 @@ if.end202:                                        ; preds = %lor.lhs.false.if.en
   %58 = load i32, ptr %RC_MIN_QUANT, align 4, !tbaa !35
   %RC_MAX_QUANT = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %59 = load i32, ptr %RC_MAX_QUANT, align 8, !tbaa !33
-  %cond.i.i354 = tail call i32 @llvm.smax.i32(i32 %cond.i4.i, i32 %58)
-  %cond.i4.i355 = tail call i32 @llvm.smin.i32(i32 %cond.i.i354, i32 %59)
-  store i32 %cond.i4.i355, ptr %PAverageQp210, align 4, !tbaa !31
+  %cond.i.i353 = tail call i32 @llvm.smax.i32(i32 %cond.i4.i, i32 %58)
+  %cond.i4.i354 = tail call i32 @llvm.smin.i32(i32 %cond.i.i353, i32 %59)
+  store i32 %cond.i4.i354, ptr %PAverageQp210, align 4, !tbaa !31
   %MyInitialQp243 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 11
-  store i32 %cond.i4.i355, ptr %MyInitialQp243, align 8, !tbaa !32
+  store i32 %cond.i4.i354, ptr %MyInitialQp243, align 8, !tbaa !32
   %Pm_Qp = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 29
-  store i32 %cond.i4.i355, ptr %Pm_Qp, align 8, !tbaa !90
+  store i32 %cond.i4.i354, ptr %Pm_Qp, align 8, !tbaa !90
   %PAveFrameQP246 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 43
-  store i32 %cond.i4.i355, ptr %PAveFrameQP246, align 8, !tbaa !27
-  store i32 %cond.i4.i355, ptr %QPLastGOP232, align 4, !tbaa !134
+  store i32 %cond.i4.i354, ptr %PAveFrameQP246, align 8, !tbaa !27
+  store i32 %cond.i4.i354, ptr %QPLastGOP232, align 4, !tbaa !134
   %CurrLastQP249 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 36
   %60 = load i32, ptr %CurrLastQP249, align 4, !tbaa !79
   %PrevLastQP = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 35
   store i32 %60, ptr %PrevLastQP, align 8, !tbaa !80
-  %sub251 = add nsw i32 %cond.i4.i355, -1
+  %sub251 = add nsw i32 %cond.i4.i354, -1
   store i32 %sub251, ptr %CurrLastQP249, align 4, !tbaa !79
   br label %if.end253
 
@@ -4459,9 +4350,9 @@ if.end159:                                        ; preds = %if.else114, %if.the
   %NumberofCodedPFrame160 = getelementptr inbounds %struct.rc_generic, ptr %51, i64 0, i32 9
   %52 = load i32, ptr %NumberofCodedPFrame160, align 4, !tbaa !57
   %cmp161 = icmp eq i32 %52, 1
-  br i1 %cmp161, label %if.end164.thread, label %if.end164
+  br i1 %cmp161, label %if.else183.thread, label %if.end164
 
-if.end164.thread:                                 ; preds = %if.end159
+if.else183.thread:                                ; preds = %if.end159
   %Wp = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 76
   %53 = load double, ptr %Wp, align 8, !tbaa !140
   %AveWp = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 7
@@ -4470,8 +4361,8 @@ if.end164.thread:                                 ; preds = %if.end159
 
 if.end164:                                        ; preds = %if.end159
   %54 = add i32 %52, -2
-  %or.cond762 = icmp ult i32 %54, 6
-  br i1 %or.cond762, label %if.then172, label %if.else183
+  %or.cond764 = icmp ult i32 %54, 6
+  br i1 %or.cond764, label %if.then172, label %if.else183
 
 if.then172:                                       ; preds = %if.end164
   %AveWp173 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 7
@@ -4487,8 +4378,8 @@ if.then172:                                       ; preds = %if.end164
   br label %if.end194
 
 if.else183:                                       ; preds = %if.end164
-  %cmp170 = icmp sgt i32 %52, 1
-  br i1 %cmp170, label %if.then187, label %if.end194
+  %cmp185 = icmp sgt i32 %52, 1
+  br i1 %cmp185, label %if.then187, label %if.end194
 
 if.then187:                                       ; preds = %if.else183
   %Wp188 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 76
@@ -4500,7 +4391,7 @@ if.then187:                                       ; preds = %if.else183
   store double %div191, ptr %AveWp189, align 8, !tbaa !141
   br label %if.end194
 
-if.end194:                                        ; preds = %if.end164.thread, %if.else183, %if.then187, %if.then172
+if.end194:                                        ; preds = %if.else183.thread, %if.else183, %if.then187, %if.then172
   %61 = load ptr, ptr @input, align 8, !tbaa !5
   %successive_Bframe = getelementptr inbounds %struct.InputParameters, ptr %61, i64 0, i32 40
   %62 = load i32, ptr %successive_Bframe, align 8, !tbaa !46
@@ -4673,10 +4564,8 @@ if.then316:                                       ; preds = %if.then312
   br i1 %cmp318, label %if.then320, label %if.else408
 
 if.then320:                                       ; preds = %if.then316
-  switch i32 %96, label %cond.false340 [
-    i32 1, label %land.lhs.true324
-    i32 0, label %cond.true339
-  ]
+  %cmp322 = icmp eq i32 %96, 1
+  br i1 %cmp322, label %land.lhs.true324, label %cond.false335
 
 land.lhs.true324:                                 ; preds = %if.then320
   %HierarchicalCoding = getelementptr inbounds %struct.InputParameters, ptr %94, i64 0, i32 69
@@ -4699,16 +4588,19 @@ cond.true:                                        ; preds = %land.lhs.true324
   %112 = sext i32 %sub328 to i64
   br label %cond.true332
 
-cond.true332:                                     ; preds = %cond.true, %land.lhs.true324
-  %cond770 = phi i64 [ 0, %land.lhs.true324 ], [ %112, %cond.true ]
-  %arrayidx334 = getelementptr inbounds %struct.rc_generic, ptr %103, i64 0, i32 19, i64 %cond770
+cond.true332:                                     ; preds = %land.lhs.true324, %cond.true
+  %cond.ph = phi i64 [ 0, %land.lhs.true324 ], [ %112, %cond.true ]
+  %arrayidx334 = getelementptr inbounds %struct.rc_generic, ptr %103, i64 0, i32 19, i64 %cond.ph
   br label %cond.end343
 
-cond.true339:                                     ; preds = %if.then320
+cond.false335:                                    ; preds = %if.then320
+  br i1 %cmp289, label %cond.true339, label %cond.false340
+
+cond.true339:                                     ; preds = %cond.false335
   %RCPSliceBits = getelementptr inbounds %struct.rc_generic, ptr %103, i64 0, i32 17
   br label %cond.end343
 
-cond.false340:                                    ; preds = %if.then320
+cond.false340:                                    ; preds = %cond.false335
   %RCISliceBits = getelementptr inbounds %struct.rc_generic, ptr %103, i64 0, i32 18
   br label %cond.end343
 
@@ -4875,12 +4767,12 @@ if.else408:                                       ; preds = %if.then316
   %add436 = fadd double %150, 5.000000e-01
   %151 = tail call double @llvm.floor.f64(double %add436)
   %conv437 = fptosi double %151 to i32
-  %cond.i763 = tail call i32 @llvm.smax.i32(i32 %conv437, i32 0)
+  %cond.i762 = tail call i32 @llvm.smax.i32(i32 %conv437, i32 0)
   %BETAP = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 4
   %152 = load double, ptr %BETAP, align 8, !tbaa !150
-  %sub440 = sub nsw i32 %conv423, %cond.i763
+  %sub440 = sub nsw i32 %conv423, %cond.i762
   %conv441 = sitofp i32 %sub440 to double
-  %conv443 = sitofp i32 %cond.i763 to double
+  %conv443 = sitofp i32 %cond.i762 to double
   %153 = tail call double @llvm.fmuladd.f64(double %152, double %conv441, double %conv443)
   br label %if.end502.sink.split
 
@@ -4898,8 +4790,8 @@ land.lhs.true453:                                 ; preds = %if.else449
   br i1 %cmp455, label %if.then461, label %if.end502
 
 lor.lhs.false457:                                 ; preds = %if.else449
-  %cmp459 = icmp sgt i32 %155, 1
-  br i1 %cmp459, label %if.then461, label %if.end502
+  %cmp459.old = icmp sgt i32 %155, 1
+  br i1 %cmp459.old, label %if.then461, label %if.end502
 
 if.then461:                                       ; preds = %lor.lhs.false457, %land.lhs.true453
   %Wp462 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 76
@@ -4941,12 +4833,12 @@ if.then461:                                       ; preds = %lor.lhs.false457, %
   %add489 = fadd double %169, 5.000000e-01
   %170 = tail call double @llvm.floor.f64(double %add489)
   %conv490 = fptosi double %170 to i32
-  %cond.i764 = tail call i32 @llvm.smax.i32(i32 %conv490, i32 0)
+  %cond.i763 = tail call i32 @llvm.smax.i32(i32 %conv490, i32 0)
   %BETAP492 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 4
   %171 = load double, ptr %BETAP492, align 8, !tbaa !150
-  %sub494 = sub nsw i32 %conv476, %cond.i764
+  %sub494 = sub nsw i32 %conv476, %cond.i763
   %conv495 = sitofp i32 %sub494 to double
-  %conv497 = sitofp i32 %cond.i764 to double
+  %conv497 = sitofp i32 %cond.i763 to double
   %172 = tail call double @llvm.fmuladd.f64(double %171, double %conv495, double %conv497)
   br label %if.end502.sink.split
 
@@ -4976,8 +4868,8 @@ if.end502:                                        ; preds = %if.end502.sink.spli
   %conv514 = fptosi double %mul513 to i32
   store i32 %conv514, ptr %Target503, align 8, !tbaa !21
   %cmp517.not = icmp ne i32 %174, 3
-  %brmerge772 = or i1 %cmp289, %cmp517.not
-  br i1 %brmerge772, label %if.then523, label %if.end527
+  %brmerge766 = or i1 %cmp289, %cmp517.not
+  br i1 %brmerge766, label %if.then523, label %if.end527
 
 if.then523:                                       ; preds = %if.end502
   %LowerBound = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 75
@@ -5325,7 +5217,7 @@ if.else.i:                                        ; preds = %land.end
   %6 = load i32, ptr %2, align 8, !tbaa !84
   %7 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
   %tobool.not = icmp eq i32 %6, %7
-  br i1 %tobool.not, label %sw.epilog, label %if.then2.i
+  br i1 %tobool.not, label %updateComplexity.exit.land.lhs.true_crit_edge, label %if.then2.i
 
 if.then2.i:                                       ; preds = %if.else.i
   %8 = load ptr, ptr @generic_RC, align 8, !tbaa !5
@@ -5356,9 +5248,9 @@ if.then10.i:                                      ; preds = %if.then2.i
 
 if.else16.i:                                      ; preds = %land.end.thread
   %cmp17.i = icmp eq i32 %3, 1
-  br i1 %cmp17.i, label %if.else10.thread241, label %sw.epilog
+  br i1 %cmp17.i, label %if.else10.thread, label %sw.epilog
 
-if.else10.thread241:                              ; preds = %if.else16.i
+if.else10.thread:                                 ; preds = %if.else16.i
   %m_Qc20.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
   %15 = load i32, ptr %m_Qc20.i, align 8, !tbaa !28
   %mul21.i = mul nsw i32 %15, %nbits
@@ -5378,15 +5270,16 @@ updateComplexity.exit:                            ; preds = %land.end, %land.end
   %conv1.i = fptosi double %18 to i32
   br i1 %cmp, label %updateComplexity.exit.land.lhs.true_crit_edge, label %if.else10
 
-updateComplexity.exit.land.lhs.true_crit_edge:    ; preds = %updateComplexity.exit
-  %.pre267 = load i32, ptr %2, align 8, !tbaa !84
-  %.pre268 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
+updateComplexity.exit.land.lhs.true_crit_edge:    ; preds = %if.else.i, %updateComplexity.exit
+  %retval.0.i246 = phi i32 [ %conv1.i, %updateComplexity.exit ], [ 0, %if.else.i ]
+  %.pre239 = load i32, ptr %2, align 8, !tbaa !84
+  %.pre240 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
   br label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %updateComplexity.exit.land.lhs.true_crit_edge, %if.then10.i, %if.then2.i
-  %19 = phi i32 [ %.pre268, %updateComplexity.exit.land.lhs.true_crit_edge ], [ %7, %if.then2.i ], [ %7, %if.then10.i ]
-  %20 = phi i32 [ %.pre267, %updateComplexity.exit.land.lhs.true_crit_edge ], [ %6, %if.then2.i ], [ %6, %if.then10.i ]
-  %retval.0.i218 = phi i32 [ %conv1.i, %updateComplexity.exit.land.lhs.true_crit_edge ], [ 0, %if.then2.i ], [ %conv15.i, %if.then10.i ]
+  %19 = phi i32 [ %.pre240, %updateComplexity.exit.land.lhs.true_crit_edge ], [ %7, %if.then2.i ], [ %7, %if.then10.i ]
+  %20 = phi i32 [ %.pre239, %updateComplexity.exit.land.lhs.true_crit_edge ], [ %6, %if.then2.i ], [ %6, %if.then10.i ]
+  %retval.0.i217 = phi i32 [ %retval.0.i246, %updateComplexity.exit.land.lhs.true_crit_edge ], [ 0, %if.then2.i ], [ %conv15.i, %if.then10.i ]
   %tobool5.not = icmp eq i32 %20, %19
   br i1 %tobool5.not, label %sw.epilog, label %if.then
 
@@ -5405,12 +5298,12 @@ lor.lhs.false:                                    ; preds = %if.then
 
 if.then8:                                         ; preds = %lor.lhs.false, %if.then
   %Xp.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 66
-  store i32 %retval.0.i218, ptr %Xp.i, align 8, !tbaa !41
+  store i32 %retval.0.i217, ptr %Xp.i, align 8, !tbaa !41
   %Np.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 70
   %24 = load i32, ptr %Np.i, align 8, !tbaa !131
   %dec.i = add nsw i32 %24, -1
   store i32 %dec.i, ptr %Np.i, align 8, !tbaa !131
-  %conv.i95 = sitofp i32 %retval.0.i218 to double
+  %conv.i95 = sitofp i32 %retval.0.i217 to double
   %Wp.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 76
   store double %conv.i95, ptr %Wp.i, align 8, !tbaa !140
   %NumberofHeaderBits.i = getelementptr inbounds %struct.rc_generic, ptr %21, i64 0, i32 4
@@ -5435,15 +5328,15 @@ if.else10:                                        ; preds = %updateComplexity.ex
   %cmp12 = icmp eq i32 %3, 1
   br i1 %cmp12, label %if.then13, label %sw.epilog
 
-if.then13:                                        ; preds = %if.else10.thread241, %if.else10
-  %retval.0.i219244 = phi i32 [ %conv24.i, %if.else10.thread241 ], [ %conv1.i, %if.else10 ]
+if.then13:                                        ; preds = %if.else10.thread, %if.else10
+  %retval.0.i243253 = phi i32 [ %conv24.i, %if.else10.thread ], [ %conv1.i, %if.else10 ]
   %Xb.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 67
-  store i32 %retval.0.i219244, ptr %Xb.i, align 4, !tbaa !42
+  store i32 %retval.0.i243253, ptr %Xb.i, align 4, !tbaa !42
   %Nb.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 71
   %28 = load i32, ptr %Nb.i, align 4, !tbaa !132
   %dec.i96 = add nsw i32 %28, -1
   store i32 %dec.i96, ptr %Nb.i, align 4, !tbaa !132
-  %conv.i97 = sitofp i32 %retval.0.i219244 to float
+  %conv.i97 = sitofp i32 %retval.0.i243253 to float
   %div.i98 = fdiv float %conv.i97, 0x3FF5D14E40000000
   %conv2.i = fpext float %div.i98 to double
   %Wb.i = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 77
@@ -5595,7 +5488,7 @@ if.else.i159:                                     ; preds = %land.end41
   %60 = load i32, ptr %56, align 8, !tbaa !84
   %61 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
   %tobool40.not = icmp eq i32 %60, %61
-  br i1 %tobool40.not, label %sw.epilog, label %if.then2.i167
+  br i1 %tobool40.not, label %if.end51.land.lhs.true54_crit_edge, label %if.then2.i167
 
 if.then2.i167:                                    ; preds = %if.else.i159
   %62 = load ptr, ptr @generic_RC, align 8, !tbaa !5
@@ -5626,11 +5519,11 @@ if.then10.i175:                                   ; preds = %if.then2.i167
 
 if.else16.i178:                                   ; preds = %land.end41.thread
   switch i32 %57, label %sw.epilog [
-    i32 1, label %if.else69.thread259
+    i32 1, label %if.else69.thread
     i32 2, label %land.lhs.true46
   ]
 
-if.else69.thread259:                              ; preds = %if.else16.i178
+if.else69.thread:                                 ; preds = %if.else16.i178
   %m_Qc20.i179 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 33
   %69 = load i32, ptr %m_Qc20.i179, align 8, !tbaa !28
   %mul21.i180 = mul nsw i32 %69, %nbits
@@ -5668,15 +5561,16 @@ if.then50:                                        ; preds = %land.lhs.true46
 if.end51:                                         ; preds = %updateComplexity.exit186
   br i1 %cmp36, label %if.end51.land.lhs.true54_crit_edge, label %if.else69
 
-if.end51.land.lhs.true54_crit_edge:               ; preds = %if.end51
+if.end51.land.lhs.true54_crit_edge:               ; preds = %if.else.i159, %if.end51
+  %retval.0.i185250258 = phi i32 [ %conv1.i156, %if.end51 ], [ 0, %if.else.i159 ]
   %.pre = load i32, ptr %56, align 8, !tbaa !84
-  %.pre266 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
+  %.pre238 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
   br label %land.lhs.true54
 
 land.lhs.true54:                                  ; preds = %if.end51.land.lhs.true54_crit_edge, %if.then2.i167, %if.then10.i175
-  %77 = phi i32 [ %.pre266, %if.end51.land.lhs.true54_crit_edge ], [ %61, %if.then10.i175 ], [ %61, %if.then2.i167 ]
-  %78 = phi i32 [ %.pre, %if.end51.land.lhs.true54_crit_edge ], [ %60, %if.then10.i175 ], [ %60, %if.then2.i167 ]
-  %retval.0.i185236251 = phi i32 [ %conv1.i156, %if.end51.land.lhs.true54_crit_edge ], [ %conv15.i174, %if.then10.i175 ], [ 0, %if.then2.i167 ]
+  %77 = phi i32 [ %.pre238, %if.end51.land.lhs.true54_crit_edge ], [ %61, %if.then2.i167 ], [ %61, %if.then10.i175 ]
+  %78 = phi i32 [ %.pre, %if.end51.land.lhs.true54_crit_edge ], [ %60, %if.then2.i167 ], [ %60, %if.then10.i175 ]
+  %retval.0.i185230235 = phi i32 [ %retval.0.i185250258, %if.end51.land.lhs.true54_crit_edge ], [ 0, %if.then2.i167 ], [ %conv15.i174, %if.then10.i175 ]
   %tobool57.not = icmp eq i32 %78, %77
   br i1 %tobool57.not, label %sw.epilog, label %if.then58
 
@@ -5695,12 +5589,12 @@ lor.lhs.false61:                                  ; preds = %if.then58
 
 if.then64:                                        ; preds = %lor.lhs.false61, %if.then58
   %Xp.i187 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 66
-  store i32 %retval.0.i185236251, ptr %Xp.i187, align 8, !tbaa !41
+  store i32 %retval.0.i185230235, ptr %Xp.i187, align 8, !tbaa !41
   %Np.i188 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 70
   %82 = load i32, ptr %Np.i188, align 8, !tbaa !131
   %dec.i189 = add nsw i32 %82, -1
   store i32 %dec.i189, ptr %Np.i188, align 8, !tbaa !131
-  %conv.i190 = sitofp i32 %retval.0.i185236251 to double
+  %conv.i190 = sitofp i32 %retval.0.i185230235 to double
   %Wp.i191 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 76
   store double %conv.i190, ptr %Wp.i191, align 8, !tbaa !140
   %NumberofHeaderBits.i192 = getelementptr inbounds %struct.rc_generic, ptr %79, i64 0, i32 4
@@ -5729,15 +5623,15 @@ if.else69:                                        ; preds = %if.end51
   %cmp71 = icmp eq i32 %57, 1
   br i1 %cmp71, label %if.then72, label %sw.epilog
 
-if.then72:                                        ; preds = %if.else69.thread259, %if.else69
-  %retval.0.i185236238262 = phi i32 [ %conv24.i183, %if.else69.thread259 ], [ %conv1.i156, %if.else69 ]
+if.then72:                                        ; preds = %if.else69.thread, %if.else69
+  %retval.0.i185250261269 = phi i32 [ %conv24.i183, %if.else69.thread ], [ %conv1.i156, %if.else69 ]
   %Xb.i198 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 67
-  store i32 %retval.0.i185236238262, ptr %Xb.i198, align 4, !tbaa !42
+  store i32 %retval.0.i185250261269, ptr %Xb.i198, align 4, !tbaa !42
   %Nb.i199 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 71
   %87 = load i32, ptr %Nb.i199, align 4, !tbaa !132
   %dec.i200 = add nsw i32 %87, -1
   store i32 %dec.i200, ptr %Nb.i199, align 4, !tbaa !132
-  %conv.i201 = sitofp i32 %retval.0.i185236238262 to float
+  %conv.i201 = sitofp i32 %retval.0.i185250261269 to float
   %div.i202 = fdiv float %conv.i201, 0x3FF5D14E40000000
   %conv2.i203 = fpext float %div.i202 to double
   %Wb.i204 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 77
@@ -5779,55 +5673,55 @@ cond.end:                                         ; preds = %if.then72, %cond.tr
   store i32 %dec79, ptr %arrayidx78, align 4, !tbaa !81
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %if.else.i159, %if.else.i, %if.else16.i178, %if.else16.i, %land.lhs.true46, %if.then50, %land.lhs.true54, %land.lhs.true, %if.else66, %if.then64, %cond.end, %if.else69, %updateComplexity.exit137, %if.else30, %if.then29, %if.else, %if.then8, %if.then13, %if.else10
+sw.epilog:                                        ; preds = %if.else16.i178, %if.else16.i, %land.lhs.true46, %if.then50, %land.lhs.true54, %land.lhs.true, %if.else66, %if.then64, %cond.end, %if.else69, %updateComplexity.exit137, %if.else30, %if.then29, %if.else, %if.then8, %if.then13, %if.else10
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @updateRCModel(ptr noundef %prc) local_unnamed_addr #0 {
 entry:
-  %0 = load ptr, ptr @img, align 8, !tbaa !5
-  %type = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 5
-  %1 = load i32, ptr %type, align 4, !tbaa !75
-  %cmp = icmp eq i32 %1, 0
+  %0 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  %1 = load ptr, ptr @img, align 8, !tbaa !5
+  %type = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 5
+  %2 = load i32, ptr %type, align 4, !tbaa !75
+  %cmp = icmp eq i32 %2, 0
   br i1 %cmp, label %land.lhs.true, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %entry
-  %2 = load ptr, ptr @input, align 8, !tbaa !5
-  %RCUpdateMode = getelementptr inbounds %struct.InputParameters, ptr %2, i64 0, i32 162
-  %3 = load i32, ptr %RCUpdateMode, align 8, !tbaa !40
-  %cmp1 = icmp eq i32 %3, 1
+  %3 = load ptr, ptr @input, align 8, !tbaa !5
+  %RCUpdateMode = getelementptr inbounds %struct.InputParameters, ptr %3, i64 0, i32 162
+  %4 = load i32, ptr %RCUpdateMode, align 8, !tbaa !40
+  %cmp1 = icmp eq i32 %4, 1
   br i1 %cmp1, label %land.lhs.true, label %if.end244
 
 land.lhs.true:                                    ; preds = %lor.lhs.false, %entry
-  %4 = load i32, ptr %0, align 8, !tbaa !84
-  %5 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
-  %tobool.not = icmp eq i32 %4, %5
+  %5 = load i32, ptr %1, align 8, !tbaa !84
+  %6 = load i32, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !81
+  %tobool.not = icmp eq i32 %5, %6
   br i1 %tobool.not, label %if.end244, label %if.then
 
 if.then:                                          ; preds = %land.lhs.true
-  %BasicUnit = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 132
-  %6 = load i32, ptr %BasicUnit, align 4, !tbaa !74
-  %FrameSizeInMbs = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 120
-  %7 = load i32, ptr %FrameSizeInMbs, align 8, !tbaa !9
-  %cmp2 = icmp eq i32 %6, %7
+  %BasicUnit = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 132
+  %7 = load i32, ptr %BasicUnit, align 4, !tbaa !74
+  %FrameSizeInMbs = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 120
+  %8 = load i32, ptr %FrameSizeInMbs, align 8, !tbaa !9
+  %cmp2 = icmp eq i32 %7, %8
   br i1 %cmp2, label %if.then3, label %if.else
 
 if.then3:                                         ; preds = %if.then
   %call = tail call double @ComputeFrameMAD() #22
   %CurrentFrameMAD = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 46
   store double %call, ptr %CurrentFrameMAD, align 8, !tbaa !20
-  %8 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %NumberofCodedPFrame4 = getelementptr inbounds %struct.rc_generic, ptr %8, i64 0, i32 9
-  %9 = load i32, ptr %NumberofCodedPFrame4, align 4, !tbaa !57
+  %9 = load ptr, ptr @generic_RC, align 8, !tbaa !5
+  %NumberofCodedPFrame4 = getelementptr inbounds %struct.rc_generic, ptr %9, i64 0, i32 9
+  %10 = load i32, ptr %NumberofCodedPFrame4, align 4, !tbaa !57
   br label %if.end82
 
 if.else:                                          ; preds = %if.then
-  %10 = load ptr, ptr @generic_RC, align 8, !tbaa !5
-  %TotalMADBasicUnit = getelementptr inbounds %struct.rc_generic, ptr %10, i64 0, i32 13
+  %TotalMADBasicUnit = getelementptr inbounds %struct.rc_generic, ptr %0, i64 0, i32 13
   %11 = load i64, ptr %TotalMADBasicUnit, align 8, !tbaa !153
   %shr = ashr i64 %11, 8
-  %conv = zext i32 %6 to i64
+  %conv = zext i32 %7 to i64
   %div = sdiv i64 %shr, %conv
   %conv6 = sitofp i64 %div to double
   %CurrentFrameMAD7 = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 46
@@ -5848,7 +5742,7 @@ if.then13:                                        ; preds = %if.else
   %14 = load i32, ptr %PAveHeaderBits1, align 4, !tbaa !65
   %sub15 = add nsw i32 %sub9, -1
   %mul = mul nsw i32 %14, %sub15
-  %NumberofBasicUnitHeaderBits = getelementptr inbounds %struct.rc_generic, ptr %10, i64 0, i32 6
+  %NumberofBasicUnitHeaderBits = getelementptr inbounds %struct.rc_generic, ptr %0, i64 0, i32 6
   %15 = load i32, ptr %NumberofBasicUnitHeaderBits, align 8, !tbaa !97
   %add = add nsw i32 %mul, %15
   %conv16 = sitofp i32 %add to double
@@ -5893,7 +5787,7 @@ lor.lhs.false45:                                  ; preds = %if.end42
   br i1 %tobool46.not, label %if.else56, label %land.lhs.true47
 
 land.lhs.true47:                                  ; preds = %lor.lhs.false45, %if.end42
-  %FieldControl = getelementptr inbounds %struct.rc_generic, ptr %10, i64 0, i32 1
+  %FieldControl = getelementptr inbounds %struct.rc_generic, ptr %0, i64 0, i32 1
   %20 = load i32, ptr %FieldControl, align 4, !tbaa !70
   %cmp48 = icmp eq i32 %20, 1
   br i1 %cmp48, label %if.then50, label %if.else56
@@ -5915,7 +5809,7 @@ if.end64:                                         ; preds = %if.else56, %if.then
   %arrayidx63 = getelementptr inbounds double, ptr %21, i64 %idxprom62
   store double %conv6, ptr %arrayidx63, align 8, !tbaa !91
   %cmp66.not = icmp eq i32 %13, 0
-  %NumberofCodedPFrame75 = getelementptr inbounds %struct.rc_generic, ptr %10, i64 0, i32 9
+  %NumberofCodedPFrame75 = getelementptr inbounds %struct.rc_generic, ptr %0, i64 0, i32 9
   %23 = load i32, ptr %NumberofCodedPFrame75, align 4, !tbaa !57
   br i1 %cmp66.not, label %if.else74, label %if.then68
 
@@ -5931,8 +5825,8 @@ if.else74:                                        ; preds = %if.end64
   br label %if.end82
 
 if.end82:                                         ; preds = %if.then68, %if.else74, %if.then3
-  %24 = phi ptr [ %8, %if.then3 ], [ %10, %if.then68 ], [ %10, %if.else74 ]
-  %m_Nc.0 = phi i32 [ %9, %if.then3 ], [ %add73, %if.then68 ], [ %add80, %if.else74 ]
+  %24 = phi ptr [ %9, %if.then3 ], [ %0, %if.then68 ], [ %0, %if.else74 ]
+  %m_Nc.0 = phi i32 [ %10, %if.then3 ], [ %add73, %if.then68 ], [ %add80, %if.else74 ]
   %NumberofHeaderBits = getelementptr inbounds %struct.rc_generic, ptr %24, i64 0, i32 4
   %25 = load i32, ptr %NumberofHeaderBits, align 8, !tbaa !151
   %PPreHeader = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 34
@@ -8251,7 +8145,7 @@ if.end:                                           ; preds = %if.else, %if.then
   %DDquant = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 51
   %19 = load i32, ptr %DDquant, align 8, !tbaa !67
   %add = add nsw i32 %19, %m_Qp
-  %cond.i147 = tail call i32 @llvm.smin.i32(i32 %add, i32 %call50)
+  %cond.i146 = tail call i32 @llvm.smin.i32(i32 %add, i32 %call50)
   %20 = load ptr, ptr @input, align 8, !tbaa !5
   %basicunit = getelementptr inbounds %struct.InputParameters, ptr %20, i64 0, i32 160
   %21 = load i32, ptr %basicunit, align 8, !tbaa !15
@@ -8262,19 +8156,19 @@ if.end:                                           ; preds = %if.else, %if.then
   %23 = load i32, ptr %PAveFrameQP62, align 8, !tbaa !27
   %. = select i1 %cmp54.not, i32 3, i32 6
   %add63 = add nsw i32 %23, %.
-  %cond.i149 = tail call i32 @llvm.smin.i32(i32 %add63, i32 %cond.i147)
+  %cond.i148 = tail call i32 @llvm.smin.i32(i32 %add63, i32 %cond.i146)
   %sub69 = sub nsw i32 %m_Qp, %19
   %RC_MAX_QUANT = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 9
   %24 = load i32, ptr %RC_MAX_QUANT, align 8, !tbaa !33
-  %cond.i.i = tail call i32 @llvm.smax.i32(i32 %cond.i149, i32 %sub69)
+  %cond.i.i = tail call i32 @llvm.smax.i32(i32 %cond.i148, i32 %sub69)
   %cond.i4.i = tail call i32 @llvm.smin.i32(i32 %cond.i.i, i32 %24)
   %.sink153 = select i1 %cmp54.not, i32 -3, i32 -6
   %sub85 = add nsw i32 %23, %.sink153
-  %cond.i151 = tail call i32 @llvm.smax.i32(i32 %sub85, i32 %cond.i4.i)
+  %cond.i150 = tail call i32 @llvm.smax.i32(i32 %sub85, i32 %cond.i4.i)
   %RC_MIN_QUANT = getelementptr inbounds %struct.rc_quadratic, ptr %prc, i64 0, i32 10
   %25 = load i32, ptr %RC_MIN_QUANT, align 4, !tbaa !35
-  %cond.i152 = tail call i32 @llvm.smax.i32(i32 %25, i32 %cond.i151)
-  store i32 %cond.i152, ptr %m_Qc, align 8, !tbaa !28
+  %cond.i151 = tail call i32 @llvm.smax.i32(i32 %25, i32 %cond.i150)
+  store i32 %cond.i151, ptr %m_Qc, align 8, !tbaa !28
   ret void
 }
 
@@ -8395,6 +8289,9 @@ if.end42:                                         ; preds = %if.end, %if.then21,
 declare i32 @Qstep2QP(double noundef) local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #19
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -8402,9 +8299,6 @@ declare float @llvm.floor.f32(float) #19
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #20
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #19

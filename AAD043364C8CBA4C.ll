@@ -29,14 +29,14 @@ if.then:                                          ; preds = %entry
 
 if.else:                                          ; preds = %entry
   %cmp1 = icmp sgt i32 %argc, 1
-  br i1 %cmp1, label %if.end, label %if.then34
+  br i1 %cmp1, label %if.end, label %while.end
 
 if.end:                                           ; preds = %if.else
   %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
   %0 = load ptr, ptr %arrayidx, align 8, !tbaa !9
   %1 = load i8, ptr %0, align 1, !tbaa !11
   %cmp4 = icmp eq i8 %1, 45
-  br i1 %cmp4, label %while.body.preheader, label %if.end36
+  br i1 %cmp4, label %while.body.preheader, label %while.end
 
 while.body.preheader:                             ; preds = %if.end
   %2 = zext i32 %argc to i64
@@ -59,53 +59,52 @@ if.then20:                                        ; preds = %if.else13, %while.b
   %DEBUG_MODE.1 = phi i32 [ %DEBUG_MODE.079, %if.else13 ], [ 0, %while.body ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %cmp22 = icmp ult i64 %indvars.iv.next, %2
-  br i1 %cmp22, label %if.end31, label %while.end
+  br i1 %cmp22, label %if.end31, label %while.end.loopexit
 
 if.end31:                                         ; preds = %if.then20
   %arrayidx26 = getelementptr inbounds ptr, ptr %argv, i64 %indvars.iv.next
   %4 = load ptr, ptr %arrayidx26, align 8, !tbaa !9
   %5 = load i8, ptr %4, align 1, !tbaa !11
   %cmp29 = icmp eq i8 %5, 45
-  br i1 %cmp29, label %while.body, label %while.end.thread101, !llvm.loop !12
+  br i1 %cmp29, label %while.body, label %while.end.loopexit, !llvm.loop !12
 
-while.end.thread101:                              ; preds = %if.end31
-  %6 = and i64 %indvars.iv.next, 4294967295
-  br label %if.end36
+while.end.loopexit:                               ; preds = %if.then20, %if.end31
+  %6 = trunc i64 %indvars.iv.next to i32
+  br label %while.end
 
-while.end:                                        ; preds = %if.then20
-  %7 = and i64 %indvars.iv.next, 4294967295
-  br label %if.then34
+while.end:                                        ; preds = %if.else, %while.end.loopexit, %if.end
+  %DEBUG_MODE.0.lcssa = phi i32 [ 1, %if.end ], [ %DEBUG_MODE.1, %while.end.loopexit ], [ 1, %if.else ]
+  %ARGUMENT.0.lcssa = phi i32 [ 1, %if.end ], [ %6, %while.end.loopexit ], [ 1, %if.else ]
+  %cmp32.not = icmp slt i32 %ARGUMENT.0.lcssa, %argc
+  br i1 %cmp32.not, label %if.end36, label %if.then34
 
-if.then34:                                        ; preds = %if.else, %while.end
-  %ARGUMENT.0.lcssa100 = phi i64 [ %7, %while.end ], [ 1, %if.else ]
-  %DEBUG_MODE.0.lcssa99 = phi i32 [ %DEBUG_MODE.1, %while.end ], [ 1, %if.else ]
+if.then34:                                        ; preds = %while.end
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end36
 
-if.end36:                                         ; preds = %if.end, %while.end.thread101, %if.then34
-  %ARGUMENT.0.lcssa94 = phi i64 [ %ARGUMENT.0.lcssa100, %if.then34 ], [ %6, %while.end.thread101 ], [ 1, %if.end ]
-  %DEBUG_MODE.0.lcssa93 = phi i32 [ %DEBUG_MODE.0.lcssa99, %if.then34 ], [ %DEBUG_MODE.1, %while.end.thread101 ], [ 1, %if.end ]
+if.end36:                                         ; preds = %if.then34, %while.end
   tail call void (ptr, ...) @INIT_SYM_TAB(ptr noundef nonnull @SYM_TAB) #6
   tail call void (ptr, ...) @CREATE_MEMORY(ptr noundef nonnull @MEMORY) #6
-  %arrayidx38 = getelementptr inbounds ptr, ptr %argv, i64 %ARGUMENT.0.lcssa94
-  %8 = load ptr, ptr %arrayidx38, align 8, !tbaa !9
-  %call39 = tail call noalias ptr @fopen(ptr noundef %8, ptr noundef nonnull @.str.4)
+  %idxprom37 = zext i32 %ARGUMENT.0.lcssa to i64
+  %arrayidx38 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom37
+  %7 = load ptr, ptr %arrayidx38, align 8, !tbaa !9
+  %call39 = tail call noalias ptr @fopen(ptr noundef %7, ptr noundef nonnull @.str.4)
   %cmp40 = icmp eq ptr %call39, null
   br i1 %cmp40, label %if.then42, label %if.else46
 
 if.then42:                                        ; preds = %if.end36
-  %9 = load ptr, ptr %arrayidx38, align 8, !tbaa !9
-  %call45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %9)
+  %8 = load ptr, ptr %arrayidx38, align 8, !tbaa !9
+  %call45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %8)
   br label %if.end52
 
 if.else46:                                        ; preds = %if.end36
-  call void (i32, ptr, ptr, ...) @LOAD(i32 noundef %DEBUG_MODE.0.lcssa93, ptr noundef nonnull %ERROR, ptr noundef nonnull %call39) #6
-  %10 = load i32, ptr %ERROR, align 4, !tbaa !5
-  %tobool47.not = icmp eq i32 %10, 0
+  call void (i32, ptr, ptr, ...) @LOAD(i32 noundef %DEBUG_MODE.0.lcssa, ptr noundef nonnull %ERROR, ptr noundef nonnull %call39) #6
+  %9 = load i32, ptr %ERROR, align 4, !tbaa !5
+  %tobool47.not = icmp eq i32 %9, 0
   br i1 %tobool47.not, label %if.then48, label %if.end49
 
 if.then48:                                        ; preds = %if.else46
-  call void (i32, ...) @DEBUGGER(i32 noundef %DEBUG_MODE.0.lcssa93) #6
+  call void (i32, ...) @DEBUGGER(i32 noundef %DEBUG_MODE.0.lcssa) #6
   br label %if.end49
 
 if.end49:                                         ; preds = %if.then48, %if.else46

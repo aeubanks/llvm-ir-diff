@@ -118,7 +118,7 @@ entry:
   %add38 = add nsw i32 %add36, %call37
   %call39 = tail call i32 @usoftnet(ptr noundef %7) #3
   %add40 = add nsw i32 %add38, %call39
-  %add41 = add nsw i32 %add40, %add28
+  %add41 = add i32 %add40, %add28
   %40 = load i32, ptr @funccost, align 4, !tbaa !17
   %41 = load i32, ptr @penalty, align 4, !tbaa !17
   %add42 = add nsw i32 %41, %40
@@ -183,15 +183,15 @@ if.end:                                           ; preds = %for.end, %if.then
   br i1 %cmp68.not, label %if.end90, label %for.cond71
 
 for.cond71:                                       ; preds = %if.end, %for.cond71
-  %indvars.iv175 = phi i64 [ %indvars.iv.next176, %for.cond71 ], [ 1, %if.end ]
-  %arrayidx73 = getelementptr inbounds i32, ptr %50, i64 %indvars.iv175
+  %indvars.iv176 = phi i64 [ %indvars.iv.next177, %for.cond71 ], [ 1, %if.end ]
+  %arrayidx73 = getelementptr inbounds i32, ptr %50, i64 %indvars.iv176
   %52 = load i32, ptr %arrayidx73, align 4, !tbaa !17
   %cmp74.not = icmp eq i32 %52, %b
-  %indvars.iv.next176 = add nuw i64 %indvars.iv175, 1
+  %indvars.iv.next177 = add nuw i64 %indvars.iv176, 1
   br i1 %cmp74.not, label %for.end79, label %for.cond71, !llvm.loop !21
 
 for.end79:                                        ; preds = %for.cond71
-  %arrayidx73.le = getelementptr inbounds i32, ptr %50, i64 %indvars.iv175
+  %arrayidx73.le = getelementptr inbounds i32, ptr %50, i64 %indvars.iv176
   %53 = load i32, ptr %50, align 4, !tbaa !17
   %dec81 = add nsw i32 %53, -1
   store i32 %dec81, ptr %50, align 4, !tbaa !17

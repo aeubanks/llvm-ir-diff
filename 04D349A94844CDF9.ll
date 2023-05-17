@@ -846,6 +846,7 @@ for.body86.i:                                     ; preds = %for.body86.i, %for.
   %87 = or i64 %indvars.iv.i32, 1
   %arrayidx95.i = getelementptr inbounds double, ptr %a, i64 %87
   %88 = load double, ptr %arrayidx95.i, align 8, !tbaa !5
+  %fneg96.i = fneg double %88
   %add97.i = shl i64 %84, 32
   %sext.i = ashr exact i64 %add97.i, 32
   %idxprom98.i = or i64 %sext.i, 1
@@ -854,8 +855,7 @@ for.body86.i:                                     ; preds = %for.body86.i, %for.
   %add100.i = fsub double %89, %88
   %add105.i = fadd double %85, %86
   store double %add105.i, ptr %arrayidx89.i, align 8, !tbaa !5
-  %fneg109.i = fneg double %88
-  %sub113.i = fsub double %fneg109.i, %89
+  %sub113.i = fsub double %fneg96.i, %89
   store double %sub113.i, ptr %arrayidx95.i, align 8, !tbaa !5
   store double %sub92.i, ptr %arrayidx91.i, align 8, !tbaa !5
   store double %add100.i, ptr %arrayidx99.i33, align 8, !tbaa !5

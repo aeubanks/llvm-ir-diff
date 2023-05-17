@@ -107,8 +107,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %Subst.addr.015 = phi ptr [ %Subst.addr.0.val, %for.inc ], [ %Subst, %entry ]
   %0 = getelementptr i8, ptr %Subst.addr.015, i64 8
   %Subst.addr.0.val10 = load i32, ptr %0, align 8
-  %cmp.i11.not = icmp eq i32 %Subst.addr.0.val10, %Symbol
-  br i1 %cmp.i11.not, label %if.then, label %for.inc
+  %cmp.i11 = icmp eq i32 %Subst.addr.0.val10, %Symbol
+  br i1 %cmp.i11, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
   %1 = getelementptr i8, ptr %Subst.addr.015, i64 16
@@ -128,8 +128,8 @@ return:                                           ; preds = %for.inc, %entry, %i
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @subst_Apply(ptr noundef %Subst, ptr noundef returned %Term) local_unnamed_addr #0 {
 entry:
-  %cmp.i.not = icmp eq ptr %Subst, null
-  br i1 %cmp.i.not, label %return, label %if.end
+  %cmp.i = icmp eq ptr %Subst, null
+  br i1 %cmp.i, label %return, label %if.end
 
 if.end:                                           ; preds = %entry
   %call1 = tail call fastcc ptr @subst_ApplyIntern(ptr noundef nonnull %Subst, ptr noundef %Term)
@@ -152,8 +152,8 @@ for.body.i:                                       ; preds = %entry, %for.inc.i
   %Subst.addr.015.i = phi ptr [ %Subst.addr.0.val.i, %for.inc.i ], [ %Subst, %entry ]
   %0 = getelementptr i8, ptr %Subst.addr.015.i, i64 8
   %Subst.addr.0.val10.i = load i32, ptr %0, align 8
-  %cmp.i11.not.i = icmp eq i32 %Subst.addr.0.val10.i, %Term.val
-  br i1 %cmp.i11.not.i, label %subst_Term.exit, label %for.inc.i
+  %cmp.i11.i = icmp eq i32 %Subst.addr.0.val10.i, %Term.val
+  br i1 %cmp.i11.i, label %subst_Term.exit, label %for.inc.i
 
 for.inc.i:                                        ; preds = %for.body.i
   %Subst.addr.0.val.i = load ptr, ptr %Subst.addr.015.i, align 8
@@ -263,45 +263,45 @@ declare ptr @term_Copy(ptr noundef) #1
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @subst_Compose(ptr noundef readonly %Outer, ptr noundef %Inner) local_unnamed_addr #0 {
 entry:
-  %cmp.i.not45 = icmp eq ptr %Outer, null
-  br i1 %cmp.i.not45, label %subst_NUnion.exit, label %for.cond2.preheader.lr.ph
+  %cmp.i.not43 = icmp eq ptr %Outer, null
+  br i1 %cmp.i.not43, label %subst_NUnion.exit, label %for.cond2.preheader.lr.ph
 
 for.cond2.preheader.lr.ph:                        ; preds = %entry
-  %cmp.i3967 = icmp eq ptr %Inner, null
-  br i1 %cmp.i3967, label %for.cond2.preheader.us.us, label %for.cond2.preheader
+  %cmp.i3965 = icmp eq ptr %Inner, null
+  br i1 %cmp.i3965, label %for.cond2.preheader.us.us, label %for.cond2.preheader
 
 for.cond2.preheader.us.us:                        ; preds = %for.cond2.preheader.lr.ph, %for.cond2.preheader.us.us
-  %New.047.us.us = phi ptr [ %call.i.i.us.us, %for.cond2.preheader.us.us ], [ null, %for.cond2.preheader.lr.ph ]
-  %Scan1.046.us.us = phi ptr [ %Scan1.0.val.us.us, %for.cond2.preheader.us.us ], [ %Outer, %for.cond2.preheader.lr.ph ]
-  %0 = getelementptr i8, ptr %Scan1.046.us.us, i64 8
+  %New.045.us.us = phi ptr [ %call.i.i.us.us, %for.cond2.preheader.us.us ], [ null, %for.cond2.preheader.lr.ph ]
+  %Scan1.044.us.us = phi ptr [ %Scan1.0.val.us.us, %for.cond2.preheader.us.us ], [ %Outer, %for.cond2.preheader.lr.ph ]
+  %0 = getelementptr i8, ptr %Scan1.044.us.us, i64 8
   %Scan1.0.val35.us.us = load i32, ptr %0, align 8
-  %1 = getelementptr i8, ptr %Scan1.046.us.us, i64 16
+  %1 = getelementptr i8, ptr %Scan1.044.us.us, i64 16
   %Scan1.0.val32.us.us = load ptr, ptr %1, align 8
   %call15.us.us = tail call ptr @term_Copy(ptr noundef %Scan1.0.val32.us.us) #7
   %call.i.i.us.us = tail call ptr @memory_Malloc(i32 noundef 24) #7
-  store ptr %New.047.us.us, ptr %call.i.i.us.us, align 8
+  store ptr %New.045.us.us, ptr %call.i.i.us.us, align 8
   %dom.i.us.us = getelementptr inbounds %struct.subst, ptr %call.i.i.us.us, i64 0, i32 1
   store i32 %Scan1.0.val35.us.us, ptr %dom.i.us.us, align 8
   %codomain.i.us.us = getelementptr inbounds %struct.subst, ptr %call.i.i.us.us, i64 0, i32 2
   store ptr %call15.us.us, ptr %codomain.i.us.us, align 8
-  %Scan1.0.val.us.us = load ptr, ptr %Scan1.046.us.us, align 8
+  %Scan1.0.val.us.us = load ptr, ptr %Scan1.044.us.us, align 8
   %cmp.i.not.us.us = icmp eq ptr %Scan1.0.val.us.us, null
   br i1 %cmp.i.not.us.us, label %for.end19, label %for.cond2.preheader.us.us, !llvm.loop !12
 
 for.cond2.preheader:                              ; preds = %for.cond2.preheader.lr.ph, %for.inc17
-  %New.047 = phi ptr [ %New.1, %for.inc17 ], [ null, %for.cond2.preheader.lr.ph ]
-  %Scan1.046 = phi ptr [ %Scan1.0.val, %for.inc17 ], [ %Outer, %for.cond2.preheader.lr.ph ]
-  %2 = getelementptr i8, ptr %Scan1.046, i64 8
-  %3 = getelementptr i8, ptr %Scan1.046, i64 16
+  %New.045 = phi ptr [ %New.1, %for.inc17 ], [ null, %for.cond2.preheader.lr.ph ]
+  %Scan1.044 = phi ptr [ %Scan1.0.val, %for.inc17 ], [ %Outer, %for.cond2.preheader.lr.ph ]
+  %2 = getelementptr i8, ptr %Scan1.044, i64 8
+  %3 = getelementptr i8, ptr %Scan1.044, i64 16
   br label %for.body5
 
 for.body5:                                        ; preds = %for.cond2.preheader, %for.body5
-  %Scan2.044 = phi ptr [ %Inner, %for.cond2.preheader ], [ %Scan2.0.val, %for.body5 ]
+  %Scan2.042 = phi ptr [ %Inner, %for.cond2.preheader ], [ %Scan2.0.val, %for.body5 ]
   %Scan1.0.val36 = load i32, ptr %2, align 8
   %Scan1.0.val33 = load ptr, ptr %3, align 8
-  %codomain = getelementptr inbounds %struct.subst, ptr %Scan2.044, i64 0, i32 2
+  %codomain = getelementptr inbounds %struct.subst, ptr %Scan2.042, i64 0, i32 2
   %call8 = tail call i32 @term_SubstituteVariable(i32 noundef %Scan1.0.val36, ptr noundef %Scan1.0.val33, ptr noundef nonnull %codomain) #7
-  %Scan2.0.val = load ptr, ptr %Scan2.044, align 8
+  %Scan2.0.val = load ptr, ptr %Scan2.042, align 8
   %cmp.i37.not = icmp eq ptr %Scan2.0.val, null
   br i1 %cmp.i37.not, label %for.cond2.for.end_crit_edge, label %for.body5, !llvm.loop !13
 
@@ -313,28 +313,28 @@ for.body.i:                                       ; preds = %for.cond2.for.end_c
   %Scan.011.i = phi ptr [ %Scan.0.val.i, %for.inc.i ], [ %Inner, %for.cond2.for.end_crit_edge ]
   %4 = getelementptr i8, ptr %Scan.011.i, i64 8
   %Scan.0.val7.i = load i32, ptr %4, align 8
-  %cmp.i8.not.i = icmp eq i32 %Scan.0.val7.i, %Scan1.0.val35
-  br i1 %cmp.i8.not.i, label %for.inc17, label %for.inc.i
+  %cmp.i8.i = icmp eq i32 %Scan.0.val7.i, %Scan1.0.val35
+  br i1 %cmp.i8.i, label %for.inc17, label %for.inc.i
 
 for.inc.i:                                        ; preds = %for.body.i
   %Scan.0.val.i = load ptr, ptr %Scan.011.i, align 8
   %cmp.i.not.i = icmp eq ptr %Scan.0.val.i, null
-  br i1 %cmp.i.not.i, label %if.then.loopexit, label %for.body.i, !llvm.loop !14
+  br i1 %cmp.i.not.i, label %if.then.critedge.loopexit, label %for.body.i, !llvm.loop !14
 
-if.then.loopexit:                                 ; preds = %for.inc.i
+if.then.critedge.loopexit:                        ; preds = %for.inc.i
   %Scan1.0.val32 = load ptr, ptr %3, align 8
   %call15 = tail call ptr @term_Copy(ptr noundef %Scan1.0.val32) #7
   %call.i.i = tail call ptr @memory_Malloc(i32 noundef 24) #7
-  store ptr %New.047, ptr %call.i.i, align 8
+  store ptr %New.045, ptr %call.i.i, align 8
   %dom.i = getelementptr inbounds %struct.subst, ptr %call.i.i, i64 0, i32 1
   store i32 %Scan1.0.val35, ptr %dom.i, align 8
   %codomain.i = getelementptr inbounds %struct.subst, ptr %call.i.i, i64 0, i32 2
   store ptr %call15, ptr %codomain.i, align 8
   br label %for.inc17
 
-for.inc17:                                        ; preds = %for.body.i, %if.then.loopexit
-  %New.1 = phi ptr [ %call.i.i, %if.then.loopexit ], [ %New.047, %for.body.i ]
-  %Scan1.0.val = load ptr, ptr %Scan1.046, align 8
+for.inc17:                                        ; preds = %for.body.i, %if.then.critedge.loopexit
+  %New.1 = phi ptr [ %call.i.i, %if.then.critedge.loopexit ], [ %New.045, %for.body.i ]
+  %Scan1.0.val = load ptr, ptr %Scan1.044, align 8
   %cmp.i.not = icmp eq ptr %Scan1.0.val, null
   br i1 %cmp.i.not, label %for.end19, label %for.cond2.preheader, !llvm.loop !12
 
@@ -372,8 +372,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %Scan.011 = phi ptr [ %Scan.0.val, %for.inc ], [ %Subst, %entry ]
   %0 = getelementptr i8, ptr %Scan.011, i64 8
   %Scan.0.val7 = load i32, ptr %0, align 8
-  %cmp.i8.not = icmp eq i32 %Scan.0.val7, %Var
-  br i1 %cmp.i8.not, label %cleanup, label %for.inc
+  %cmp.i8 = icmp eq i32 %Scan.0.val7, %Var
+  br i1 %cmp.i8, label %cleanup, label %for.inc
 
 for.inc:                                          ; preds = %for.body
   %Scan.0.val = load ptr, ptr %Scan.011, align 8
@@ -445,8 +445,8 @@ land.lhs.true:                                    ; preds = %for.body
   %Subst.addr.0.val15 = load ptr, ptr %2, align 8
   %call5.val = load i32, ptr %1, align 8
   %call6.val = load i32, ptr %Subst.addr.0.val15, align 8
-  %cmp.i.i.not = icmp eq i32 %call5.val, %call6.val
-  br i1 %cmp.i.i.not, label %return, label %for.inc
+  %cmp.i.i = icmp eq i32 %call5.val, %call6.val
+  br i1 %cmp.i.i, label %return, label %for.inc
 
 for.inc:                                          ; preds = %for.body, %land.lhs.true
   %Subst.addr.0.val = load ptr, ptr %Subst.addr.021, align 8
@@ -533,8 +533,8 @@ for.body:                                         ; preds = %entry, %if.end19
   %0 = getelementptr i8, ptr %SubstScan.047, i64 16
   %SubstScan.0.val36 = load ptr, ptr %0, align 8
   %call1.val39 = load i32, ptr %SubstScan.0.val36, align 8
-  %cmp.i.i = icmp slt i32 %call1.val39, 1
-  br i1 %cmp.i.i, label %land.lhs.true, label %if.end19
+  %cmp.i.i = icmp sgt i32 %call1.val39, 0
+  br i1 %cmp.i.i, label %if.end19, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %for.body
   %call3 = tail call i32 @term_IsGround(ptr noundef nonnull %SubstScan.0.val36) #7
@@ -552,8 +552,8 @@ for.body9:                                        ; preds = %if.then, %for.inc
   %2 = getelementptr i8, ptr %Scan.045, i64 8
   %Scan.0.val37 = load ptr, ptr %2, align 8
   %call10.val = load i32, ptr %Scan.0.val37, align 8
-  %cmp.i.i40 = icmp slt i32 %call10.val, 1
-  br i1 %cmp.i.i40, label %land.lhs.true13, label %for.inc
+  %cmp.i.i40 = icmp sgt i32 %call10.val, 0
+  br i1 %cmp.i.i40, label %for.inc, label %land.lhs.true13
 
 land.lhs.true13:                                  ; preds = %for.body9
   %call15 = tail call i32 @term_IsGround(ptr noundef nonnull %Scan.0.val37) #7
@@ -629,9 +629,9 @@ while.body:                                       ; preds = %entry, %if.end22
   br i1 %cmp.i43.not, label %if.then, label %if.else12
 
 if.then:                                          ; preds = %while.body
-  %2 = add i32 %Subst.addr.0.val42, -3001
-  %3 = icmp ult i32 %2, -1000
-  br i1 %3, label %return, label %if.then7
+  %2 = add i32 %Subst.addr.0.val42, -2001
+  %3 = icmp ult i32 %2, 1000
+  br i1 %3, label %if.then7, label %return
 
 if.then7:                                         ; preds = %if.then
   %4 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -764,8 +764,8 @@ if.else16:                                        ; preds = %if.else
   %call18.val = load i32, ptr %4, align 8
   %Subst.addr.0.val83 = load ptr, ptr %2, align 8
   %call20.val = load i32, ptr %Subst.addr.0.val83, align 8
-  %cmp.i103.not = icmp eq i32 %call18.val, %call20.val
-  br i1 %cmp.i103.not, label %if.else34, label %if.then24
+  %cmp.i103 = icmp eq i32 %call18.val, %call20.val
+  br i1 %cmp.i103, label %if.else34, label %if.then24
 
 if.then24:                                        ; preds = %if.else16
   %call27 = tail call ptr @term_Copy(ptr noundef nonnull %Subst.addr.0.val83) #7
@@ -906,8 +906,8 @@ while.body:                                       ; preds = %entry, %if.end20
   %Scan.0.val41 = load i32, ptr %Scan.054, align 8
   %idxprom.i.i = sext i32 %Scan.0.val41 to i64
   %arrayidx.i.i = getelementptr inbounds %struct.binding, ptr %CL, i64 %idxprom.i.i
-  %cmp.i.not = icmp eq ptr %arrayidx.i.i, %Scan.054
-  br i1 %cmp.i.not, label %if.then, label %if.else
+  %cmp.i = icmp eq ptr %arrayidx.i.i, %Scan.054
+  br i1 %cmp.i, label %if.then, label %if.else
 
 if.then:                                          ; preds = %while.body
   %0 = getelementptr i8, ptr %Scan.054, i64 16
@@ -927,8 +927,8 @@ if.then:                                          ; preds = %while.body
 
 if.else:                                          ; preds = %while.body
   %arrayidx.i.i46 = getelementptr inbounds %struct.binding, ptr %CR, i64 %idxprom.i.i
-  %cmp.i47.not = icmp eq ptr %arrayidx.i.i46, %Scan.054
-  br i1 %cmp.i47.not, label %if.then14, label %if.end20
+  %cmp.i47 = icmp eq ptr %arrayidx.i.i46, %Scan.054
+  br i1 %cmp.i47, label %if.then14, label %if.end20
 
 if.then14:                                        ; preds = %if.else
   %3 = getelementptr i8, ptr %Scan.054, i64 16
@@ -1073,19 +1073,19 @@ declare ptr @list_CopyWithElement(ptr noundef, ptr noundef) local_unnamed_addr #
 
 declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_addr #1
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nofree nounwind }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nofree nounwind }
 attributes #7 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

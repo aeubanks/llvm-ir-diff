@@ -351,7 +351,7 @@ if.end14.i:                                       ; preds = %if.then9.i, %if.end
   ]
 
 for.cond26.preheader.i:                           ; preds = %if.end14.i
-  %brmerge = or i1 %cmp.i, %cmp4.i15
+  %brmerge = or i1 %cmp4.i15, %cmp.i
   br i1 %brmerge, label %sw.epilog, label %for.cond29.preheader.us.i
 
 for.cond29.preheader.us.i:                        ; preds = %for.cond26.preheader.i, %for.cond29.for.inc49_crit_edge.us.i
@@ -498,8 +498,8 @@ for.cond29.for.inc49_crit_edge.us.i:              ; preds = %add_map_entry.exit2
   br i1 %exitcond242.not.i, label %sw.epilog, label %for.cond29.preheader.us.i, !llvm.loop !28
 
 for.cond.preheader.i:                             ; preds = %if.end14.i
-  %brmerge23 = or i1 %cmp.i, %cmp4.i15
-  br i1 %brmerge23, label %sw.epilog, label %for.cond16.preheader.us.i
+  %brmerge56 = or i1 %cmp4.i15, %cmp.i
+  br i1 %brmerge56, label %sw.epilog, label %for.cond16.preheader.us.i
 
 for.cond16.preheader.us.i:                        ; preds = %for.cond.preheader.i, %for.cond16.for.inc22_crit_edge.us.i
   %row.0229.us.i = phi i32 [ %inc23.us.i, %for.cond16.for.inc22_crit_edge.us.i ], [ 0, %for.cond.preheader.i ]

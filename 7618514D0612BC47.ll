@@ -223,43 +223,43 @@ for.inc66.i:                                      ; preds = %for.body8.i
 for.inc69.i:                                      ; preds = %for.inc66.i
   %inc70.i = add nuw nsw i32 %t.0107.i, 1
   %exitcond115.not.i = icmp eq i32 %inc70.i, 20
-  br i1 %exitcond115.not.i, label %vector.ph126, label %for.cond1.preheader.i32, !llvm.loop !18
+  br i1 %exitcond115.not.i, label %vector.ph124, label %for.cond1.preheader.i32, !llvm.loop !18
 
-vector.ph126:                                     ; preds = %for.inc69.i, %for.inc9.i51
+vector.ph124:                                     ; preds = %for.inc69.i, %for.inc9.i51
   %indvars.iv24.i37 = phi i64 [ %indvars.iv.next25.i49, %for.inc9.i51 ], [ 0, %for.inc69.i ]
   %30 = trunc i64 %indvars.iv24.i37 to i32
   %conv.i38 = sitofp i32 %30 to double
-  %broadcast.splatinsert133 = insertelement <2 x double> poison, double %conv.i38, i64 0
-  %broadcast.splat134 = shufflevector <2 x double> %broadcast.splatinsert133, <2 x double> poison, <2 x i32> zeroinitializer
-  br label %vector.body129
+  %broadcast.splatinsert131 = insertelement <2 x double> poison, double %conv.i38, i64 0
+  %broadcast.splat132 = shufflevector <2 x double> %broadcast.splatinsert131, <2 x double> poison, <2 x i32> zeroinitializer
+  br label %vector.body127
 
-vector.body129:                                   ; preds = %vector.body129, %vector.ph126
-  %index130 = phi i64 [ 0, %vector.ph126 ], [ %index.next135.1, %vector.body129 ]
-  %vec.ind131 = phi <2 x i32> [ <i32 0, i32 1>, %vector.ph126 ], [ %vec.ind.next132.1, %vector.body129 ]
-  %31 = add <2 x i32> %vec.ind131, <i32 2, i32 2>
+vector.body127:                                   ; preds = %vector.body127, %vector.ph124
+  %index128 = phi i64 [ 0, %vector.ph124 ], [ %index.next133.1, %vector.body127 ]
+  %vec.ind129 = phi <2 x i32> [ <i32 0, i32 1>, %vector.ph124 ], [ %vec.ind.next130.1, %vector.body127 ]
+  %31 = add <2 x i32> %vec.ind129, <i32 2, i32 2>
   %32 = sitofp <2 x i32> %31 to <2 x double>
-  %33 = fmul <2 x double> %broadcast.splat134, %32
+  %33 = fmul <2 x double> %broadcast.splat132, %32
   %34 = fadd <2 x double> %33, <double 2.000000e+00, double 2.000000e+00>
   %35 = fdiv <2 x double> %34, <double 1.000000e+03, double 1.000000e+03>
-  %36 = getelementptr inbounds [1000 x double], ptr %3, i64 %indvars.iv24.i37, i64 %index130
+  %36 = getelementptr inbounds [1000 x double], ptr %3, i64 %indvars.iv24.i37, i64 %index128
   store <2 x double> %35, ptr %36, align 8, !tbaa !5
-  %index.next135 = or i64 %index130, 2
-  %37 = add <2 x i32> %vec.ind131, <i32 4, i32 4>
+  %index.next133 = or i64 %index128, 2
+  %37 = add <2 x i32> %vec.ind129, <i32 4, i32 4>
   %38 = sitofp <2 x i32> %37 to <2 x double>
-  %39 = fmul <2 x double> %broadcast.splat134, %38
+  %39 = fmul <2 x double> %broadcast.splat132, %38
   %40 = fadd <2 x double> %39, <double 2.000000e+00, double 2.000000e+00>
   %41 = fdiv <2 x double> %40, <double 1.000000e+03, double 1.000000e+03>
-  %42 = getelementptr inbounds [1000 x double], ptr %3, i64 %indvars.iv24.i37, i64 %index.next135
+  %42 = getelementptr inbounds [1000 x double], ptr %3, i64 %indvars.iv24.i37, i64 %index.next133
   store <2 x double> %41, ptr %42, align 8, !tbaa !5
-  %index.next135.1 = add nuw nsw i64 %index130, 4
-  %vec.ind.next132.1 = add <2 x i32> %vec.ind131, <i32 4, i32 4>
-  %43 = icmp eq i64 %index.next135.1, 1000
-  br i1 %43, label %for.inc9.i51, label %vector.body129, !llvm.loop !19
+  %index.next133.1 = add nuw nsw i64 %index128, 4
+  %vec.ind.next130.1 = add <2 x i32> %vec.ind129, <i32 4, i32 4>
+  %43 = icmp eq i64 %index.next133.1, 1000
+  br i1 %43, label %for.inc9.i51, label %vector.body127, !llvm.loop !19
 
-for.inc9.i51:                                     ; preds = %vector.body129
+for.inc9.i51:                                     ; preds = %vector.body127
   %indvars.iv.next25.i49 = add nuw nsw i64 %indvars.iv24.i37, 1
   %exitcond27.not.i50 = icmp eq i64 %indvars.iv.next25.i49, 1000
-  br i1 %exitcond27.not.i50, label %for.cond1.preheader.i55, label %vector.ph126, !llvm.loop !15
+  br i1 %exitcond27.not.i50, label %for.cond1.preheader.i55, label %vector.ph124, !llvm.loop !15
 
 for.cond1.preheader.i55:                          ; preds = %for.inc9.i51, %for.inc69.i91
   %t.0107.i53 = phi i32 [ %inc70.i89, %for.inc69.i91 ], [ 0, %for.inc9.i51 ]
@@ -333,17 +333,17 @@ for.body3.i95:                                    ; preds = %for.inc.i.1, %for.c
   %55 = load double, ptr %arrayidx9.i, align 8, !tbaa !5
   %sub.i = fsub double %54, %55
   %56 = call double @llvm.fabs.f64(double %sub.i)
-  %cmp10.i = fcmp ule double %56, 1.000000e-05
-  br i1 %cmp10.i, label %for.inc.i, label %check_FP.exit.thread
+  %cmp10.i = fcmp ogt double %56, 1.000000e-05
+  br i1 %cmp10.i, label %check_FP.exit.thread, label %for.inc.i
 
 check_FP.exit.thread:                             ; preds = %for.inc.i, %for.body3.i95
   %indvars.iv.i94.lcssa = phi i64 [ %indvars.iv.i94, %for.body3.i95 ], [ %indvars.iv.next.i96, %for.inc.i ]
-  %.lcssa137 = phi double [ %54, %for.body3.i95 ], [ %60, %for.inc.i ]
+  %.lcssa135 = phi double [ %54, %for.body3.i95 ], [ %60, %for.inc.i ]
   %.lcssa = phi double [ %55, %for.body3.i95 ], [ %61, %for.inc.i ]
   %57 = trunc i64 %indvars.iv44.i to i32
   %58 = trunc i64 %indvars.iv.i94.lcssa to i32
   %59 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %59, ptr noundef nonnull @.str.2, i32 noundef %57, i32 noundef %58, double noundef %.lcssa137, i32 noundef %57, i32 noundef %58, double noundef %.lcssa, double noundef 1.000000e-05) #12
+  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %59, ptr noundef nonnull @.str.2, i32 noundef %57, i32 noundef %58, double noundef %.lcssa135, i32 noundef %57, i32 noundef %58, double noundef %.lcssa, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i:                                        ; preds = %for.body3.i95
@@ -354,8 +354,8 @@ for.inc.i:                                        ; preds = %for.body3.i95
   %61 = load double, ptr %arrayidx9.i.1, align 8, !tbaa !5
   %sub.i.1 = fsub double %60, %61
   %62 = call double @llvm.fabs.f64(double %sub.i.1)
-  %cmp10.i.1 = fcmp ule double %62, 1.000000e-05
-  br i1 %cmp10.i.1, label %for.inc.i.1, label %check_FP.exit.thread
+  %cmp10.i.1 = fcmp ogt double %62, 1.000000e-05
+  br i1 %cmp10.i.1, label %check_FP.exit.thread, label %for.inc.i.1
 
 for.inc.i.1:                                      ; preds = %for.inc.i
   %indvars.iv.next.i96.1 = add nuw nsw i64 %indvars.iv.i94, 2

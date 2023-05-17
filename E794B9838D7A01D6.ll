@@ -42,9 +42,9 @@ entry:
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %block) #10
   %call279 = call i32 @cli_readn(i32 noundef %desc, ptr noundef nonnull %block, i32 noundef 512) #10
   %cmp280 = icmp eq i32 %call279, 0
-  br i1 %cmp280, label %for.end.thread325, label %if.end.lr.ph
+  br i1 %cmp280, label %for.end.thread326, label %if.end.lr.ph
 
-for.end.thread325:                                ; preds = %entry
+for.end.thread326:                                ; preds = %entry
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %block) #10
   br label %cleanup182
 
@@ -62,12 +62,12 @@ if.end.lr.ph:                                     ; preds = %entry
   br label %if.end
 
 if.end:                                           ; preds = %if.end.lr.ph, %for.cond.backedge
-  %tobool1286 = phi i1 [ true, %if.end.lr.ph ], [ %tobool1, %for.cond.backedge ]
-  %call285 = phi i32 [ %call279, %if.end.lr.ph ], [ %call, %for.cond.backedge ]
-  %size.0283 = phi i32 [ 0, %if.end.lr.ph ], [ %size.4305, %for.cond.backedge ]
+  %call286 = phi i32 [ %call279, %if.end.lr.ph ], [ %call, %for.cond.backedge ]
+  %size.0284 = phi i32 [ 0, %if.end.lr.ph ], [ %size.4306, %for.cond.backedge ]
+  %in_block.0283 = phi i32 [ 0, %if.end.lr.ph ], [ %in_block.4305, %for.cond.backedge ]
   %files.0282 = phi i32 [ 0, %if.end.lr.ph ], [ %files.4303, %for.cond.backedge ]
   %outfile.0281 = phi ptr [ null, %if.end.lr.ph ], [ %outfile.4302, %for.cond.backedge ]
-  %cmp2 = icmp slt i32 %call285, 0
+  %cmp2 = icmp slt i32 %call286, 0
   br i1 %cmp2, label %if.then3, label %if.end8
 
 if.then3:                                         ; preds = %if.end
@@ -83,7 +83,8 @@ if.end7:                                          ; preds = %if.then5, %if.then3
   br label %cleanup174.thread
 
 if.end8:                                          ; preds = %if.end
-  br i1 %tobool1286, label %if.then10, label %if.else144
+  %tobool9.not = icmp eq i32 %in_block.0283, 0
+  br i1 %tobool9.not, label %if.then10, label %if.else144
 
 if.then10:                                        ; preds = %if.end8
   call void @llvm.lifetime.start.p0(i64 7, ptr nonnull %magic) #10
@@ -141,13 +142,13 @@ if.end46:                                         ; preds = %if.then34, %if.end3
     i32 0, label %sw.bb
     i32 55, label %sw.bb
     i32 77, label %sw.bb
-    i32 49, label %cleanup174.thread316
-    i32 53, label %cleanup174.thread316
-    i32 50, label %cleanup174.thread316
-    i32 51, label %cleanup174.thread316
-    i32 52, label %cleanup174.thread316
-    i32 54, label %cleanup174.thread316
-    i32 86, label %cleanup174.thread316
+    i32 49, label %cleanup174.thread317
+    i32 53, label %cleanup174.thread317
+    i32 50, label %cleanup174.thread317
+    i32 51, label %cleanup174.thread317
+    i32 52, label %cleanup174.thread317
+    i32 54, label %cleanup174.thread317
+    i32 86, label %cleanup174.thread317
     i32 75, label %if.end54
     i32 76, label %if.end54
     i32 78, label %if.end54
@@ -215,7 +216,7 @@ if.then82:                                        ; preds = %if.end80.thread, %i
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.11) #10
   %conv90 = zext i32 %cond89 to i64
   %call91 = call i64 @lseek(i32 noundef %desc, i64 noundef %conv90, i32 noundef 1) #10
-  br label %cleanup174.thread316
+  br label %cleanup174.thread317
 
 if.end92:                                         ; preds = %if.end80
   %call95 = call ptr @strncpy(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(1) %block, i64 noundef 100) #10
@@ -270,7 +271,7 @@ cleanup:                                          ; preds = %if.end127
   br label %cleanup174.thread295
 
 if.else144:                                       ; preds = %if.end8
-  %cond150 = call i32 @llvm.smin.i32(i32 %size.0283, i32 512)
+  %cond150 = call i32 @llvm.smin.i32(i32 %size.0284, i32 512)
   %conv152 = sext i32 %cond150 to i64
   %call153 = call i64 @fwrite(ptr noundef nonnull %block, i64 noundef 1, i64 noundef %conv152, ptr noundef %outfile.0281)
   %conv154 = trunc i64 %call153 to i32
@@ -287,7 +288,7 @@ if.then160:                                       ; preds = %if.then157
   br label %cleanup174.thread
 
 cleanup165:                                       ; preds = %if.else144
-  %sub164 = sub nsw i32 %size.0283, %cond150
+  %sub164 = sub nsw i32 %size.0284, %cond150
   br label %cleanup174.thread295
 
 cleanup174.thread295:                             ; preds = %cleanup, %cleanup165
@@ -303,23 +304,23 @@ cleanup174.thread:                                ; preds = %if.end7, %if.then15
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %block) #10
   br label %cleanup182
 
-cleanup174.thread316:                             ; preds = %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.then82
+cleanup174.thread317:                             ; preds = %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.end46, %if.then82
   %files.2.ph.ph = phi i32 [ %files.1.ph, %if.then82 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ], [ %files.0282, %if.end46 ]
-  %size.1.ph.ph = phi i32 [ %4, %if.then82 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ], [ %size.0283, %if.end46 ]
+  %size.1.ph.ph = phi i32 [ %4, %if.then82 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ], [ %size.0284, %if.end46 ]
   call void @llvm.lifetime.end.p0(i64 13, ptr nonnull %osize) #10
   call void @llvm.lifetime.end.p0(i64 101, ptr nonnull %name) #10
   call void @llvm.lifetime.end.p0(i64 7, ptr nonnull %magic) #10
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %block) #10
   br label %for.cond.backedge
 
-for.cond.backedge:                                ; preds = %cleanup174.thread316, %cleanup174.thread295
-  %size.4305 = phi i32 [ %size.3, %cleanup174.thread295 ], [ %size.1.ph.ph, %cleanup174.thread316 ]
-  %in_block.4304 = phi i32 [ %spec.select242, %cleanup174.thread295 ], [ 0, %cleanup174.thread316 ]
-  %files.4303 = phi i32 [ %files.3, %cleanup174.thread295 ], [ %files.2.ph.ph, %cleanup174.thread316 ]
-  %outfile.4302 = phi ptr [ %outfile.3, %cleanup174.thread295 ], [ null, %cleanup174.thread316 ]
+for.cond.backedge:                                ; preds = %cleanup174.thread317, %cleanup174.thread295
+  %size.4306 = phi i32 [ %size.3, %cleanup174.thread295 ], [ %size.1.ph.ph, %cleanup174.thread317 ]
+  %in_block.4305 = phi i32 [ %spec.select242, %cleanup174.thread295 ], [ 0, %cleanup174.thread317 ]
+  %files.4303 = phi i32 [ %files.3, %cleanup174.thread295 ], [ %files.2.ph.ph, %cleanup174.thread317 ]
+  %outfile.4302 = phi ptr [ %outfile.3, %cleanup174.thread295 ], [ null, %cleanup174.thread317 ]
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %block) #10
   %call = call i32 @cli_readn(i32 noundef %desc, ptr noundef nonnull %block, i32 noundef 512) #10
-  %tobool1 = icmp eq i32 %in_block.4304, 0
+  %tobool1 = icmp eq i32 %in_block.4305, 0
   %cmp = icmp eq i32 %call, 0
   %or.cond = select i1 %tobool1, i1 %cmp, i1 false
   br i1 %or.cond, label %for.end, label %if.end
@@ -348,8 +349,8 @@ cleanup182.loopexit:                              ; preds = %if.then15, %if.then
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %block) #10
   br label %cleanup182
 
-cleanup182:                                       ; preds = %for.end.thread325, %for.end.thread, %cleanup182.loopexit, %cleanup174.thread, %for.end, %if.then179
-  %retval.5 = phi i32 [ %call180, %if.then179 ], [ 0, %for.end ], [ -123, %cleanup174.thread ], [ %retval.1.ph.ph, %cleanup182.loopexit ], [ 0, %for.end.thread ], [ 0, %for.end.thread325 ]
+cleanup182:                                       ; preds = %for.end.thread326, %for.end.thread, %cleanup182.loopexit, %cleanup174.thread, %for.end, %if.then179
+  %retval.5 = phi i32 [ %call180, %if.then179 ], [ 0, %for.end ], [ -123, %cleanup174.thread ], [ %retval.1.ph.ph, %cleanup182.loopexit ], [ 0, %for.end.thread ], [ 0, %for.end.thread326 ]
   call void @llvm.lifetime.end.p0(i64 257, ptr nonnull %fullname) #10
   ret i32 %retval.5
 }

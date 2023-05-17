@@ -85,7 +85,7 @@ i.for.end_crit_edge:                              ; preds = %entry
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-g.exit:
+entry:
   store i32 0, ptr @d, align 4, !tbaa !9
   store i32 -6, ptr @c, align 4, !tbaa !9
   store i32 16777101, ptr @a, align 4, !tbaa !9

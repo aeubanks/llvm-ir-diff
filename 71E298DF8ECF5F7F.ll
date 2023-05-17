@@ -249,53 +249,53 @@ for.end:                                          ; preds = %for.body, %middle.b
   br label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %for.end, %for.end140
-  %indvars.iv308 = phi i64 [ 1, %for.end ], [ %indvars.iv.next309, %for.end140 ]
-  %stack_ptr.0.ph285 = phi i32 [ 3, %for.end ], [ %inc119, %for.end140 ]
-  %6 = sext i32 %stack_ptr.0.ph285 to i64
+  %indvars.iv307 = phi i64 [ 1, %for.end ], [ %indvars.iv.next308, %for.end140 ]
+  %stack_ptr.0.ph283 = phi i32 [ 3, %for.end ], [ %inc119, %for.end140 ]
+  %6 = sext i32 %stack_ptr.0.ph283 to i64
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.then46
-  %indvars.iv302 = phi i64 [ %6, %while.body.lr.ph ], [ %indvars.iv.next303, %if.then46 ]
-  %7 = add nsw i64 %indvars.iv302, -1
+  %indvars.iv301 = phi i64 [ %6, %while.body.lr.ph ], [ %indvars.iv.next302, %if.then46 ]
+  %7 = add nsw i64 %indvars.iv301, -1
   %arrayidx36 = getelementptr inbounds i32, ptr %call13, i64 %7
   %8 = load i32, ptr %arrayidx36, align 4, !tbaa !23
-  %9 = add nsw i64 %indvars.iv302, -2
+  %9 = add nsw i64 %indvars.iv301, -2
   %arrayidx39 = getelementptr inbounds i32, ptr %call13, i64 %9
   %10 = load i32, ptr %arrayidx39, align 4, !tbaa !23
-  %indvars.iv.next303 = add nsw i64 %indvars.iv302, -3
-  %arrayidx42 = getelementptr inbounds i32, ptr %call13, i64 %indvars.iv.next303
+  %indvars.iv.next302 = add nsw i64 %indvars.iv301, -3
+  %arrayidx42 = getelementptr inbounds i32, ptr %call13, i64 %indvars.iv.next302
   %11 = load i32, ptr %arrayidx42, align 4, !tbaa !23
-  %cmp44 = icmp eq i32 %8, %10
+  %sub43 = sub nsw i32 %8, %10
+  %cmp44 = icmp eq i32 %sub43, 0
   br i1 %cmp44, label %if.then46, label %for.cond61.preheader
 
 for.cond61.preheader:                             ; preds = %while.body
   %arrayidx36.le = getelementptr inbounds i32, ptr %call13, i64 %7
-  %arrayidx42.le = getelementptr inbounds i32, ptr %call13, i64 %indvars.iv.next303
-  %12 = trunc i64 %indvars.iv302 to i32
+  %arrayidx42.le = getelementptr inbounds i32, ptr %call13, i64 %indvars.iv.next302
   %idxprom66 = sext i32 %11 to i64
-  %13 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
-  %arrayidx67 = getelementptr inbounds %struct.TBounds, ptr %13, i64 %idxprom66
+  %12 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
+  %arrayidx67 = getelementptr inbounds %struct.TBounds, ptr %12, i64 %idxprom66
   %call68 = tail call double @Bounds_WidthAxis(ptr noundef %arrayidx67, i32 noundef 0) #9
   %cmp69 = fcmp ule double %call68, -1.000000e+64
   %cut_direction.1 = sext i1 %cmp69 to i32
   %max_width.1 = select i1 %cmp69, double -1.000000e+64, double %call68
-  %14 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
-  %arrayidx67.1 = getelementptr inbounds %struct.TBounds, ptr %14, i64 %idxprom66
+  %13 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
+  %arrayidx67.1 = getelementptr inbounds %struct.TBounds, ptr %13, i64 %idxprom66
   %call68.1 = tail call double @Bounds_WidthAxis(ptr noundef %arrayidx67.1, i32 noundef 1) #9
   %cmp69.1 = fcmp ogt double %call68.1, %max_width.1
   %cut_direction.1.1 = select i1 %cmp69.1, i32 1, i32 %cut_direction.1
-  %sub43.le = sub nsw i32 %8, %10
+  %14 = trunc i64 %indvars.iv301 to i32
   %add = add nsw i32 %10, %8
   %div = sdiv i32 %add, 2
   %sub76 = sub nsw i32 %div, %10
   %idxprom79 = sext i32 %10 to i64
   %arrayidx80 = getelementptr inbounds i32, ptr %call17, i64 %idxprom79
-  %cmp282.i = icmp sgt i32 %sub43.le, 1
+  %cmp282.i = icmp sgt i32 %sub43, 1
   br i1 %cmp282.i, label %for.body.i, label %for.end142.i
 
 if.then46:                                        ; preds = %while.body
   %15 = load ptr, ptr %elements, align 8, !tbaa !16
-  %idxprom47 = sext i32 %8 to i64
+  %idxprom47 = sext i32 %10 to i64
   %arrayidx48 = getelementptr inbounds i32, ptr %call17, i64 %idxprom47
   %16 = load i32, ptr %arrayidx48, align 4, !tbaa !23
   %idxprom49 = sext i32 %16 to i64
@@ -308,7 +308,7 @@ if.then46:                                        ; preds = %while.body
   %18 = load ptr, ptr %tree_link, align 8, !tbaa !20
   %arrayidx59 = getelementptr inbounds i32, ptr %18, i64 %idxprom52
   store i32 %sub56, ptr %arrayidx59, align 4, !tbaa !23
-  %19 = icmp eq i64 %indvars.iv.next303, 0
+  %19 = icmp eq i64 %indvars.iv.next302, 0
   br i1 %19, label %if.then143.thread, label %while.body, !llvm.loop !29
 
 if.then143.thread:                                ; preds = %if.then46
@@ -317,7 +317,7 @@ if.then143.thread:                                ; preds = %if.then46
 
 for.body.i:                                       ; preds = %for.cond61.preheader, %while.end.i
   %left.0284.i = phi i32 [ %left.1.i, %while.end.i ], [ 0, %for.cond61.preheader ]
-  %right.0283.i = phi i32 [ %spec.select.i, %while.end.i ], [ %sub43.le, %for.cond61.preheader ]
+  %right.0283.i = phi i32 [ %spec.select.i, %while.end.i ], [ %sub43, %for.cond61.preheader ]
   %add.i = add nsw i32 %right.0283.i, %left.0284.i
   %div.i = sdiv i32 %add.i, 2
   %idxprom.i = sext i32 %div.i to i64
@@ -464,9 +464,9 @@ for.end142.loopexit.i:                            ; preds = %while.end.i
   br label %for.end142.i
 
 for.end142.i:                                     ; preds = %for.end142.loopexit.i, %for.cond61.preheader
-  %right.0.lcssa.i = phi i32 [ %sub43.le, %for.cond61.preheader ], [ %spec.select.i, %for.end142.loopexit.i ]
+  %right.0.lcssa.i = phi i32 [ %sub43, %for.cond61.preheader ], [ %spec.select.i, %for.end142.loopexit.i ]
   %left.0.lcssa.i = phi i64 [ 0, %for.cond61.preheader ], [ %45, %for.end142.loopexit.i ]
-  %sub1.lcssa.i = phi i32 [ %sub43.le, %for.cond61.preheader ], [ %sub1.i, %for.end142.loopexit.i ]
+  %sub1.lcssa.i = phi i32 [ %sub43, %for.cond61.preheader ], [ %sub1.i, %for.end142.loopexit.i ]
   %cmp144.i = icmp eq i32 %sub1.lcssa.i, 1
   br i1 %cmp144.i, label %land.lhs.true.i, label %median_sort.exit
 
@@ -495,76 +495,76 @@ if.then158.i:                                     ; preds = %land.lhs.true.i
 median_sort.exit:                                 ; preds = %for.end142.i, %land.lhs.true.i, %if.then158.i
   %50 = load ptr, ptr %tree_link, align 8, !tbaa !20
   %arrayidx83 = getelementptr inbounds i32, ptr %50, i64 %idxprom66
-  %51 = trunc i64 %indvars.iv308 to i32
+  %51 = trunc i64 %indvars.iv307 to i32
   store i32 %51, ptr %arrayidx83, align 4, !tbaa !23
   store i32 %51, ptr %arrayidx42.le, align 4, !tbaa !23
   store i32 %div, ptr %arrayidx36.le, align 4, !tbaa !23
   %52 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
-  %arrayidx95 = getelementptr inbounds %struct.TBounds, ptr %52, i64 %indvars.iv308
+  %arrayidx95 = getelementptr inbounds %struct.TBounds, ptr %52, i64 %indvars.iv307
   tail call void @Bounds_Infinite(ptr noundef nonnull %arrayidx95) #9
-  %cmp97.not280 = icmp slt i32 %div, %10
-  br i1 %cmp97.not280, label %for.end110, label %for.body99
+  %cmp97.not278 = icmp slt i32 %div, %10
+  br i1 %cmp97.not278, label %for.end110, label %for.body99
 
 for.body99:                                       ; preds = %median_sort.exit, %for.body99
-  %i.2281 = phi i32 [ %inc109, %for.body99 ], [ %10, %median_sort.exit ]
+  %i.2279 = phi i32 [ %inc109, %for.body99 ], [ %10, %median_sort.exit ]
   %53 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
-  %arrayidx102 = getelementptr inbounds %struct.TBounds, ptr %53, i64 %indvars.iv308
+  %arrayidx102 = getelementptr inbounds %struct.TBounds, ptr %53, i64 %indvars.iv307
   %54 = load ptr, ptr %elements, align 8, !tbaa !16
-  %idxprom104 = zext i32 %i.2281 to i64
+  %idxprom104 = zext i32 %i.2279 to i64
   %arrayidx105 = getelementptr inbounds i32, ptr %call17, i64 %idxprom104
   %55 = load i32, ptr %arrayidx105, align 4, !tbaa !23
   %idxprom106 = sext i32 %55 to i64
   %arrayidx107 = getelementptr inbounds %struct.TBounds, ptr %54, i64 %idxprom106
   tail call void @Bounds_AddBounds(ptr noundef nonnull %arrayidx102, ptr noundef %arrayidx107) #9
-  %inc109 = add i32 %i.2281, 1
-  %exitcond307.not = icmp eq i32 %i.2281, %div
-  br i1 %exitcond307.not, label %for.end110, label %for.body99, !llvm.loop !33
+  %inc109 = add i32 %i.2279, 1
+  %exitcond306.not = icmp eq i32 %i.2279, %div
+  br i1 %exitcond306.not, label %for.end110, label %for.body99, !llvm.loop !33
 
 for.end110:                                       ; preds = %for.body99, %median_sort.exit
   %add115.pre-phi = add nsw i32 %div, 1
-  %56 = add nuw nsw i64 %indvars.iv308, 1
-  %sext = shl i64 %indvars.iv302, 32
+  %56 = add nuw nsw i64 %indvars.iv307, 1
+  %sext = shl i64 %indvars.iv301, 32
   %idxprom113 = ashr exact i64 %sext, 32
   %arrayidx114 = getelementptr inbounds i32, ptr %call13, i64 %idxprom113
   %57 = trunc i64 %56 to i32
   store i32 %57, ptr %arrayidx114, align 4, !tbaa !23
-  %inc112 = shl i64 %indvars.iv302, 32
-  %sext312 = add i64 %inc112, 4294967296
-  %idxprom117 = ashr exact i64 %sext312, 32
+  %inc112 = shl i64 %indvars.iv301, 32
+  %sext311 = add i64 %inc112, 4294967296
+  %idxprom117 = ashr exact i64 %sext311, 32
   %arrayidx118 = getelementptr inbounds i32, ptr %call13, i64 %idxprom117
   store i32 %add115.pre-phi, ptr %arrayidx118, align 4, !tbaa !23
-  %inc119 = add nsw i32 %12, 3
-  %inc116 = shl i64 %indvars.iv302, 32
-  %sext313 = add i64 %inc116, 8589934592
-  %idxprom120 = ashr exact i64 %sext313, 32
+  %inc119 = add nsw i32 %14, 3
+  %inc116 = shl i64 %indvars.iv301, 32
+  %sext312 = add i64 %inc116, 8589934592
+  %idxprom120 = ashr exact i64 %sext312, 32
   %arrayidx121 = getelementptr inbounds i32, ptr %call13, i64 %idxprom120
   store i32 %8, ptr %arrayidx121, align 4, !tbaa !23
   %58 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
   %arrayidx124 = getelementptr inbounds %struct.TBounds, ptr %58, i64 %56
   tail call void @Bounds_Infinite(ptr noundef nonnull %arrayidx124) #9
-  %i.3282 = add i32 %10, 1
-  %cmp127.not283 = icmp sgt i32 %i.3282, %8
-  br i1 %cmp127.not283, label %for.end140, label %for.body129
+  %i.3280 = add i32 %10, 1
+  %cmp127.not281 = icmp sgt i32 %i.3280, %8
+  br i1 %cmp127.not281, label %for.end140, label %for.body129
 
 for.body129:                                      ; preds = %for.end110, %for.body129
-  %i.3284 = phi i32 [ %i.3, %for.body129 ], [ %i.3282, %for.end110 ]
+  %i.3282 = phi i32 [ %i.3, %for.body129 ], [ %i.3280, %for.end110 ]
   %59 = load ptr, ptr %tree_safety_boxes, align 8, !tbaa !19
   %arrayidx132 = getelementptr inbounds %struct.TBounds, ptr %59, i64 %56
   %60 = load ptr, ptr %elements, align 8, !tbaa !16
-  %idxprom134 = zext i32 %i.3284 to i64
+  %idxprom134 = zext i32 %i.3282 to i64
   %arrayidx135 = getelementptr inbounds i32, ptr %call17, i64 %idxprom134
   %61 = load i32, ptr %arrayidx135, align 4, !tbaa !23
   %idxprom136 = sext i32 %61 to i64
   %arrayidx137 = getelementptr inbounds %struct.TBounds, ptr %60, i64 %idxprom136
   tail call void @Bounds_AddBounds(ptr noundef nonnull %arrayidx132, ptr noundef %arrayidx137) #9
-  %i.3 = add i32 %i.3284, 1
+  %i.3 = add i32 %i.3282, 1
   %cmp127.not = icmp sgt i32 %i.3, %8
   br i1 %cmp127.not, label %for.end140, label %for.body129, !llvm.loop !34
 
 for.end140:                                       ; preds = %for.body129, %for.end110
-  %indvars.iv.next309 = add nuw i64 %indvars.iv308, 2
-  %tobool34.not273 = icmp eq i32 %inc119, 0
-  br i1 %tobool34.not273, label %if.then143, label %while.body.lr.ph, !llvm.loop !29
+  %indvars.iv.next308 = add nuw i64 %indvars.iv307, 2
+  %tobool34.not271 = icmp eq i32 %inc119, 0
+  br i1 %tobool34.not271, label %if.then143, label %while.body.lr.ph, !llvm.loop !29
 
 if.then143:                                       ; preds = %for.end140
   tail call void @free(ptr noundef %call13) #9
@@ -701,8 +701,8 @@ if.end:                                           ; preds = %if.then, %entry
   call void @KDTree_QueryBoxIntersect(ptr noundef nonnull %t, ptr noundef nonnull %nez, ptr noundef %call, ptr noundef nonnull %box)
   store i32 0, ptr %result_num, align 4, !tbaa !23
   %1 = load i32, ptr %nez, align 4, !tbaa !23
-  %cmp216 = icmp sgt i32 %1, 0
-  br i1 %cmp216, label %for.body.preheader, label %for.cond.cleanup
+  %cmp215 = icmp sgt i32 %1, 0
+  br i1 %cmp215, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %if.end
   %wide.trip.count = zext i32 %1 to i64
@@ -774,10 +774,10 @@ lor.lhs.false89:                                  ; preds = %if.else83
   br i1 %or.cond210, label %for.inc.sink.split, label %if.else101
 
 if.else101:                                       ; preds = %lor.lhs.false89
-  %brmerge.demorgan = and i1 %cmp56, %cmp93
-  %brmerge211.demorgan = and i1 %cmp52, %cmp87
-  %or.cond215 = or i1 %brmerge.demorgan, %brmerge211.demorgan
-  br i1 %or.cond215, label %for.inc.sink.split, label %for.inc
+  %brmerge.not = and i1 %cmp93, %cmp56
+  %brmerge211.not = and i1 %cmp87, %cmp52
+  %or.cond218 = or i1 %brmerge.not, %brmerge211.not
+  br i1 %or.cond218, label %for.inc.sink.split, label %for.inc
 
 for.inc.sink.split:                               ; preds = %if.else101, %if.else83, %lor.lhs.false89, %if.else, %lor.lhs.false71, %for.body, %lor.lhs.false
   %idxprom80 = sext i32 %2 to i64
@@ -826,8 +826,8 @@ if.end:                                           ; preds = %if.then, %entry
   call void @KDTree_QueryBoxIntersect(ptr noundef nonnull %t, ptr noundef nonnull %nez, ptr noundef %call, ptr noundef nonnull %box)
   store i32 0, ptr %result_num, align 4, !tbaa !23
   %1 = load i32, ptr %nez, align 4, !tbaa !23
-  %cmp224 = icmp sgt i32 %1, 0
-  br i1 %cmp224, label %for.body.preheader, label %for.cond.cleanup
+  %cmp223 = icmp sgt i32 %1, 0
+  br i1 %cmp223, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %if.end
   %wide.trip.count = zext i32 %1 to i64
@@ -905,10 +905,10 @@ lor.lhs.false97:                                  ; preds = %if.else91
   br i1 %or.cond218, label %for.inc.sink.split, label %if.else109
 
 if.else109:                                       ; preds = %lor.lhs.false97
-  %brmerge.demorgan = and i1 %cmp64, %cmp101
-  %brmerge219.demorgan = and i1 %cmp60, %cmp95
-  %or.cond223 = or i1 %brmerge.demorgan, %brmerge219.demorgan
-  br i1 %or.cond223, label %for.inc.sink.split, label %for.inc
+  %brmerge.not = and i1 %cmp101, %cmp64
+  %brmerge219.not = and i1 %cmp95, %cmp60
+  %or.cond226 = or i1 %brmerge.not, %brmerge219.not
+  br i1 %or.cond226, label %for.inc.sink.split, label %for.inc
 
 for.inc.sink.split:                               ; preds = %if.else109, %if.else91, %lor.lhs.false97, %if.else, %lor.lhs.false79, %for.body, %lor.lhs.false
   %idxprom88 = sext i32 %2 to i64
@@ -957,8 +957,8 @@ if.end:                                           ; preds = %if.then, %entry
   call void @KDTree_QueryBoxIntersect(ptr noundef nonnull %t, ptr noundef nonnull %nez, ptr noundef %call, ptr noundef nonnull %box)
   store i32 0, ptr %result_num, align 4, !tbaa !23
   %1 = load i32, ptr %nez, align 4, !tbaa !23
-  %cmp313 = icmp sgt i32 %1, 0
-  br i1 %cmp313, label %for.body.preheader, label %for.cond.cleanup
+  %cmp309 = icmp sgt i32 %1, 0
+  br i1 %cmp309, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %if.end
   %wide.trip.count = zext i32 %1 to i64
@@ -1030,18 +1030,20 @@ if.end62:                                         ; preds = %if.then61, %lor.lhs
   %or.cond301 = select i1 %29, i1 %cmp66, i1 false
   %30 = extractelement <2 x i1> %27, i64 1
   %or.cond302 = select i1 %cmp54, i1 %30, i1 false
-  %or.cond306 = select i1 %or.cond301, i1 true, i1 %or.cond302
+  %or.cond312 = select i1 %or.cond301, i1 true, i1 %or.cond302
+  %cmp76 = fcmp ogt double %28, %circ_radius
   %31 = fcmp olt <2 x double> %24, %3
   %32 = extractelement <2 x i1> %31, i64 1
-  %or.cond303 = select i1 %30, i1 %32, i1 false
+  %or.cond303 = select i1 %cmp76, i1 %32, i1 false
   %33 = extractelement <2 x double> %24, i64 1
   %cmp85 = fcmp ogt double %33, %circ_radius
   %or.cond304 = select i1 %cmp66, i1 %cmp85, i1 false
-  %or.cond307 = select i1 %or.cond303, i1 true, i1 %or.cond304
+  %or.cond313 = select i1 %or.cond303, i1 true, i1 %or.cond304
+  %cmp89 = fcmp ogt double %33, %circ_radius
   %34 = extractelement <2 x i1> %31, i64 0
-  %or.cond305 = and i1 %cmp85, %34
-  %brmerge.demorgan = and i1 %cmp52, %32
-  %or.cond312 = or i1 %or.cond305, %brmerge.demorgan
+  %or.cond305 = and i1 %cmp89, %34
+  %brmerge.not = and i1 %32, %cmp52
+  %or.cond314 = or i1 %or.cond305, %brmerge.not
   %mul106 = fmul double %12, 5.000000e-01
   %add107 = fadd double %10, %mul106
   %cmp108 = fcmp ogt double %add107, 0.000000e+00
@@ -1098,9 +1100,9 @@ if.end172:                                        ; preds = %if.else154, %if.the
   %idxprom140 = sext i32 %.sink to i64
   %arrayidx141 = getelementptr inbounds double, ptr %weight, i64 %idxprom140
   store double %div139.sink, ptr %arrayidx141, align 8, !tbaa !40
-  %or.cond190 = or i1 %or.cond307, %tobool173
-  %or.cond191 = or i1 %or.cond312, %or.cond190
-  %or.cond192 = or i1 %or.cond306, %or.cond191
+  %or.cond190 = or i1 %tobool173, %or.cond313
+  %or.cond191 = or i1 %or.cond190, %or.cond314
+  %or.cond192 = or i1 %or.cond312, %or.cond191
   br i1 %or.cond192, label %if.then180, label %for.inc
 
 if.then180:                                       ; preds = %if.end172
@@ -1154,8 +1156,8 @@ if.end:                                           ; preds = %if.then, %entry
   call void @KDTree_QueryBoxIntersect(ptr noundef nonnull %t, ptr noundef nonnull %nez, ptr noundef %call, ptr noundef nonnull %box)
   store i32 0, ptr %result_num, align 4, !tbaa !23
   %1 = load i32, ptr %nez, align 4, !tbaa !23
-  %cmp325 = icmp sgt i32 %1, 0
-  br i1 %cmp325, label %for.body.preheader, label %for.cond.cleanup
+  %cmp321 = icmp sgt i32 %1, 0
+  br i1 %cmp321, label %for.body.preheader, label %for.cond.cleanup
 
 for.body.preheader:                               ; preds = %if.end
   %wide.trip.count = zext i32 %1 to i64
@@ -1231,18 +1233,20 @@ if.end70:                                         ; preds = %if.then69, %lor.lhs
   %or.cond313 = select i1 %32, i1 %cmp74, i1 false
   %33 = extractelement <2 x i1> %30, i64 1
   %or.cond314 = select i1 %cmp62, i1 %33, i1 false
-  %or.cond318 = select i1 %or.cond313, i1 true, i1 %or.cond314
+  %or.cond324 = select i1 %or.cond313, i1 true, i1 %or.cond314
+  %cmp84 = fcmp ogt double %31, %circ_radius
   %34 = fcmp olt <2 x double> %27, %3
   %35 = extractelement <2 x i1> %34, i64 1
-  %or.cond315 = select i1 %33, i1 %35, i1 false
+  %or.cond315 = select i1 %cmp84, i1 %35, i1 false
   %36 = extractelement <2 x double> %27, i64 1
   %cmp93 = fcmp ogt double %36, %circ_radius
   %or.cond316 = select i1 %cmp74, i1 %cmp93, i1 false
-  %or.cond319 = select i1 %or.cond315, i1 true, i1 %or.cond316
+  %or.cond325 = select i1 %or.cond315, i1 true, i1 %or.cond316
+  %cmp97 = fcmp ogt double %36, %circ_radius
   %37 = extractelement <2 x i1> %34, i64 0
-  %or.cond317 = and i1 %cmp93, %37
-  %brmerge.demorgan = and i1 %cmp60, %35
-  %or.cond324 = or i1 %or.cond317, %brmerge.demorgan
+  %or.cond317 = and i1 %cmp97, %37
+  %brmerge.not = and i1 %35, %cmp60
+  %or.cond326 = or i1 %or.cond317, %brmerge.not
   %38 = insertelement <2 x float> poison, float %16, i64 0
   %39 = insertelement <2 x float> %38, float %17, i64 1
   %40 = fpext <2 x float> %39 to <2 x double>
@@ -1301,9 +1305,9 @@ if.end184:                                        ; preds = %if.else166, %if.the
   %idxprom152 = sext i32 %.sink to i64
   %arrayidx153 = getelementptr inbounds double, ptr %weight, i64 %idxprom152
   store double %div151.sink, ptr %arrayidx153, align 8, !tbaa !40
-  %or.cond202 = or i1 %or.cond319, %tobool185
-  %or.cond203 = or i1 %or.cond324, %or.cond202
-  %or.cond204 = or i1 %or.cond318, %or.cond203
+  %or.cond202 = or i1 %tobool185, %or.cond325
+  %or.cond203 = or i1 %or.cond202, %or.cond326
+  %or.cond204 = or i1 %or.cond324, %or.cond203
   br i1 %or.cond204, label %if.then192, label %for.inc
 
 if.then192:                                       ; preds = %if.end184

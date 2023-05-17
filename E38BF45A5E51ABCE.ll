@@ -990,12 +990,12 @@ if.end10.thread:                                  ; preds = %_ZN9NCompress8NQuan
   %Code.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 2
   store i32 %or.i.i, ptr %Code.i, align 8, !tbaa !93
   store i32 0, ptr %_remainLen, align 8, !tbaa !83
-  %cmp11210 = icmp eq i32 %curSize, 0
-  br i1 %cmp11210, label %return, label %while.body24.lr.ph
+  %cmp11209 = icmp eq i32 %curSize, 0
+  br i1 %cmp11209, label %return, label %while.body24.lr.ph
 
 while.cond.preheader:                             ; preds = %if.end10
-  %cmp15204 = icmp sgt i32 %0, 0
-  br i1 %cmp15204, label %while.body.lr.ph, label %while.body24.lr.ph
+  %cmp15203 = icmp sgt i32 %0, 0
+  br i1 %cmp15203, label %while.body.lr.ph, label %while.body24.lr.ph
 
 while.body.lr.ph:                                 ; preds = %while.cond.preheader
   %_outWindowStream18 = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 5
@@ -1006,11 +1006,11 @@ while.body.lr.ph:                                 ; preds = %while.cond.preheade
   br label %while.body
 
 while.cond22.preheader:                           ; preds = %_ZN12CLzOutWindow7PutByteEh.exit
-  %cmp23.not207 = icmp eq i32 %dec21, 0
-  br i1 %cmp23.not207, label %while.end98, label %while.body24.lr.ph
+  %cmp23.not206 = icmp eq i32 %dec21, 0
+  br i1 %cmp23.not206, label %while.end98, label %while.body24.lr.ph
 
 while.body24.lr.ph:                               ; preds = %if.end10.thread, %while.cond.preheader, %while.cond22.preheader
-  %curSize.addr.0.lcssa214 = phi i32 [ %dec21, %while.cond22.preheader ], [ %curSize, %while.cond.preheader ], [ %curSize, %if.end10.thread ]
+  %curSize.addr.0.lcssa213 = phi i32 [ %dec21, %while.cond22.preheader ], [ %curSize, %while.cond.preheader ], [ %curSize, %if.end10.thread ]
   %_rangeDecoder25 = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6
   %Stream = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4
   %_wasFinished.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2, i32 6
@@ -1027,7 +1027,7 @@ while.body24.lr.ph:                               ; preds = %if.end10.thread, %w
 
 while.body:                                       ; preds = %while.body.lr.ph, %_ZN12CLzOutWindow7PutByteEh.exit
   %8 = phi i32 [ %0, %while.body.lr.ph ], [ %17, %_ZN12CLzOutWindow7PutByteEh.exit ]
-  %curSize.addr.0206 = phi i32 [ %curSize, %while.body.lr.ph ], [ %dec21, %_ZN12CLzOutWindow7PutByteEh.exit ]
+  %curSize.addr.0205 = phi i32 [ %curSize, %while.body.lr.ph ], [ %dec21, %_ZN12CLzOutWindow7PutByteEh.exit ]
   %dec = add nsw i32 %8, -1
   store i32 %dec, ptr %_remainLen, align 8, !tbaa !83
   %9 = load i32, ptr %_rep0, align 4, !tbaa !94
@@ -1057,7 +1057,7 @@ if.then.i:                                        ; preds = %while.body
   br label %_ZN12CLzOutWindow7PutByteEh.exit
 
 _ZN12CLzOutWindow7PutByteEh.exit:                 ; preds = %while.body, %if.then.i
-  %dec21 = add i32 %curSize.addr.0206, -1
+  %dec21 = add i32 %curSize.addr.0205, -1
   %17 = load i32, ptr %_remainLen, align 8, !tbaa !83
   %cmp15 = icmp sgt i32 %17, 0
   %cmp16 = icmp ne i32 %dec21, 0
@@ -1065,7 +1065,7 @@ _ZN12CLzOutWindow7PutByteEh.exit:                 ; preds = %while.body, %if.the
   br i1 %18, label %while.body, label %while.cond22.preheader, !llvm.loop !99
 
 while.body24:                                     ; preds = %while.body24.lr.ph, %cleanup95
-  %curSize.addr.1208 = phi i32 [ %curSize.addr.0.lcssa214, %while.body24.lr.ph ], [ %curSize.addr.4, %cleanup95 ]
+  %curSize.addr.1207 = phi i32 [ %curSize.addr.0.lcssa213, %while.body24.lr.ph ], [ %curSize.addr.4, %cleanup95 ]
   %19 = load i8, ptr %_wasFinished.i.i, align 4, !tbaa !100, !range !85, !noundef !86
   %tobool.i.i.not = icmp eq i8 %19, 0
   br i1 %tobool.i.i.not, label %if.end28, label %return
@@ -1099,7 +1099,7 @@ if.then.i147:                                     ; preds = %if.then32
   br label %_ZN12CLzOutWindow7PutByteEh.exit148
 
 _ZN12CLzOutWindow7PutByteEh.exit148:              ; preds = %if.then32, %if.then.i147
-  %dec38 = add i32 %curSize.addr.1208, -1
+  %dec38 = add i32 %curSize.addr.1207, -1
   br label %cleanup95
 
 if.else:                                          ; preds = %if.end28
@@ -1241,7 +1241,7 @@ _ZN9NCompress8NQuantum17CStreamBitDecoder8ReadBitsEi.exit179: ; preds = %_ZN9NCo
 
 if.end77:                                         ; preds = %_ZN9NCompress8NQuantum17CStreamBitDecoder8ReadBitsEi.exit179, %if.end60
   %rep0.0 = phi i32 [ %add76, %_ZN9NCompress8NQuantum17CStreamBitDecoder8ReadBitsEi.exit179 ], [ %call64, %if.end60 ]
-  %spec.select = tail call i32 @llvm.umin.i32(i32 %len.2, i32 %curSize.addr.1208)
+  %spec.select = tail call i32 @llvm.umin.i32(i32 %len.2, i32 %curSize.addr.1207)
   %34 = load i32, ptr %_pos.i180, align 8, !tbaa !95
   %35 = xor i32 %rep0.0, -1
   %sub2.i181 = add i32 %34, %35
@@ -1301,8 +1301,8 @@ vector.memcheck:                                  ; preds = %iter.check
   br i1 %diff.check, label %do.body.i188.preheader, label %vector.main.loop.iter.check
 
 vector.main.loop.iter.check:                      ; preds = %vector.memcheck
-  %min.iters.check217 = icmp ult i32 %41, 31
-  br i1 %min.iters.check217, label %vec.epilog.ph, label %vector.ph
+  %min.iters.check216 = icmp ult i32 %41, 31
+  br i1 %min.iters.check216, label %vec.epilog.ph, label %vector.ph
 
 vector.ph:                                        ; preds = %vector.main.loop.iter.check
   %n.vec = and i64 %43, -32
@@ -1311,13 +1311,13 @@ vector.ph:                                        ; preds = %vector.main.loop.it
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
   %next.gep = getelementptr i8, ptr %add.ptr.i, i64 %index
-  %next.gep219 = getelementptr i8, ptr %add.ptr18.i, i64 %index
+  %next.gep218 = getelementptr i8, ptr %add.ptr18.i, i64 %index
   %wide.load = load <16 x i8>, ptr %next.gep, align 1, !tbaa !11
   %48 = getelementptr i8, ptr %next.gep, i64 16
-  %wide.load221 = load <16 x i8>, ptr %48, align 1, !tbaa !11
-  store <16 x i8> %wide.load, ptr %next.gep219, align 1, !tbaa !11
-  %49 = getelementptr i8, ptr %next.gep219, i64 16
-  store <16 x i8> %wide.load221, ptr %49, align 1, !tbaa !11
+  %wide.load220 = load <16 x i8>, ptr %48, align 1, !tbaa !11
+  store <16 x i8> %wide.load, ptr %next.gep218, align 1, !tbaa !11
+  %49 = getelementptr i8, ptr %next.gep218, i64 16
+  store <16 x i8> %wide.load220, ptr %49, align 1, !tbaa !11
   %index.next = add nuw i64 %index, 32
   %50 = icmp eq i64 %index.next, %n.vec
   br i1 %50, label %middle.block, label %vector.body, !llvm.loop !102
@@ -1327,41 +1327,41 @@ middle.block:                                     ; preds = %vector.body
   br i1 %cmp.n, label %if.end84, label %vec.epilog.iter.check
 
 vec.epilog.iter.check:                            ; preds = %middle.block
-  %ind.end234 = getelementptr i8, ptr %add.ptr18.i, i64 %n.vec
-  %ind.end231 = getelementptr i8, ptr %add.ptr.i, i64 %n.vec
-  %.cast227 = trunc i64 %n.vec to i32
-  %ind.end228 = sub i32 %spec.select, %.cast227
+  %ind.end233 = getelementptr i8, ptr %add.ptr18.i, i64 %n.vec
+  %ind.end230 = getelementptr i8, ptr %add.ptr.i, i64 %n.vec
+  %.cast226 = trunc i64 %n.vec to i32
+  %ind.end227 = sub i32 %spec.select, %.cast226
   %n.vec.remaining = and i64 %43, 24
   %min.epilog.iters.check = icmp eq i64 %n.vec.remaining, 0
   br i1 %min.epilog.iters.check, label %do.body.i188.preheader, label %vec.epilog.ph
 
 vec.epilog.ph:                                    ; preds = %vector.main.loop.iter.check, %vec.epilog.iter.check
   %vec.epilog.resume.val = phi i64 [ %n.vec, %vec.epilog.iter.check ], [ 0, %vector.main.loop.iter.check ]
-  %n.vec225 = and i64 %43, -8
-  %.cast = trunc i64 %n.vec225 to i32
-  %ind.end226 = sub i32 %spec.select, %.cast
-  %ind.end230 = getelementptr i8, ptr %add.ptr.i, i64 %n.vec225
-  %ind.end233 = getelementptr i8, ptr %add.ptr18.i, i64 %n.vec225
+  %n.vec224 = and i64 %43, -8
+  %.cast = trunc i64 %n.vec224 to i32
+  %ind.end225 = sub i32 %spec.select, %.cast
+  %ind.end229 = getelementptr i8, ptr %add.ptr.i, i64 %n.vec224
+  %ind.end232 = getelementptr i8, ptr %add.ptr18.i, i64 %n.vec224
   br label %vec.epilog.vector.body
 
 vec.epilog.vector.body:                           ; preds = %vec.epilog.vector.body, %vec.epilog.ph
-  %index237 = phi i64 [ %vec.epilog.resume.val, %vec.epilog.ph ], [ %index.next241, %vec.epilog.vector.body ]
-  %next.gep238 = getelementptr i8, ptr %add.ptr.i, i64 %index237
-  %next.gep239 = getelementptr i8, ptr %add.ptr18.i, i64 %index237
-  %wide.load240 = load <8 x i8>, ptr %next.gep238, align 1, !tbaa !11
-  store <8 x i8> %wide.load240, ptr %next.gep239, align 1, !tbaa !11
-  %index.next241 = add nuw i64 %index237, 8
-  %51 = icmp eq i64 %index.next241, %n.vec225
+  %index236 = phi i64 [ %vec.epilog.resume.val, %vec.epilog.ph ], [ %index.next240, %vec.epilog.vector.body ]
+  %next.gep237 = getelementptr i8, ptr %add.ptr.i, i64 %index236
+  %next.gep238 = getelementptr i8, ptr %add.ptr18.i, i64 %index236
+  %wide.load239 = load <8 x i8>, ptr %next.gep237, align 1, !tbaa !11
+  store <8 x i8> %wide.load239, ptr %next.gep238, align 1, !tbaa !11
+  %index.next240 = add nuw i64 %index236, 8
+  %51 = icmp eq i64 %index.next240, %n.vec224
   br i1 %51, label %vec.epilog.middle.block, label %vec.epilog.vector.body, !llvm.loop !103
 
 vec.epilog.middle.block:                          ; preds = %vec.epilog.vector.body
-  %cmp.n236 = icmp eq i64 %43, %n.vec225
-  br i1 %cmp.n236, label %if.end84, label %do.body.i188.preheader
+  %cmp.n235 = icmp eq i64 %43, %n.vec224
+  br i1 %cmp.n235, label %if.end84, label %do.body.i188.preheader
 
 do.body.i188.preheader:                           ; preds = %vector.memcheck, %iter.check, %vec.epilog.iter.check, %vec.epilog.middle.block
-  %len.addr.0.i.ph = phi i32 [ %spec.select, %iter.check ], [ %spec.select, %vector.memcheck ], [ %ind.end228, %vec.epilog.iter.check ], [ %ind.end226, %vec.epilog.middle.block ]
-  %src.0.i.ph = phi ptr [ %add.ptr.i, %iter.check ], [ %add.ptr.i, %vector.memcheck ], [ %ind.end231, %vec.epilog.iter.check ], [ %ind.end230, %vec.epilog.middle.block ]
-  %dest.0.i.ph = phi ptr [ %add.ptr18.i, %iter.check ], [ %add.ptr18.i, %vector.memcheck ], [ %ind.end234, %vec.epilog.iter.check ], [ %ind.end233, %vec.epilog.middle.block ]
+  %len.addr.0.i.ph = phi i32 [ %spec.select, %iter.check ], [ %spec.select, %vector.memcheck ], [ %ind.end227, %vec.epilog.iter.check ], [ %ind.end225, %vec.epilog.middle.block ]
+  %src.0.i.ph = phi ptr [ %add.ptr.i, %iter.check ], [ %add.ptr.i, %vector.memcheck ], [ %ind.end230, %vec.epilog.iter.check ], [ %ind.end229, %vec.epilog.middle.block ]
+  %dest.0.i.ph = phi ptr [ %add.ptr18.i, %iter.check ], [ %add.ptr18.i, %vector.memcheck ], [ %ind.end233, %vec.epilog.iter.check ], [ %ind.end232, %vec.epilog.middle.block ]
   %52 = add i32 %len.addr.0.i.ph, -1
   %xtraiter = and i32 %len.addr.0.i.ph, 7
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
@@ -1460,11 +1460,11 @@ do.cond39.i:                                      ; preds = %if.then37.i, %do.bo
   br i1 %cmp41.not.i, label %if.end84, label %do.body23.i, !llvm.loop !106
 
 if.end84:                                         ; preds = %do.cond39.i, %do.body.i188.prol.loopexit, %do.body.i188, %middle.block, %vec.epilog.middle.block
-  %sub85 = sub i32 %curSize.addr.1208, %spec.select
-  %cmp87.not.not = icmp ugt i32 %len.2, %curSize.addr.1208
-  br i1 %cmp87.not.not, label %cleanup95.thread200, label %cleanup95
+  %sub85 = sub i32 %curSize.addr.1207, %spec.select
+  %cmp87.not.not = icmp ugt i32 %len.2, %curSize.addr.1207
+  br i1 %cmp87.not.not, label %cleanup95.thread199, label %cleanup95
 
-cleanup95.thread200:                              ; preds = %if.end84
+cleanup95.thread199:                              ; preds = %if.end84
   %sub86 = sub i32 %len.2, %spec.select
   store i32 %sub86, ptr %_remainLen, align 8, !tbaa !83
   %_rep090 = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 9
@@ -1476,7 +1476,7 @@ cleanup95:                                        ; preds = %_ZN12CLzOutWindow7P
   %cmp23.not = icmp eq i32 %curSize.addr.4, 0
   br i1 %cmp23.not, label %while.end98, label %while.body24
 
-while.end98:                                      ; preds = %cleanup95, %while.cond22.preheader, %cleanup95.thread200
+while.end98:                                      ; preds = %cleanup95, %while.cond22.preheader, %cleanup95.thread199
   %_wasFinished.i.i192 = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2, i32 6
   %69 = load i8, ptr %_wasFinished.i.i192, align 4, !tbaa !100, !range !85, !noundef !86
   %cond = zext i8 %69 to i32
@@ -1907,10 +1907,9 @@ if.end:                                           ; preds = %entry
           to label %for.cond.preheader unwind label %lpad
 
 for.cond.preheader:                               ; preds = %if.end
-  %sub.neg = add i64 %call6, %1
   %cmp25.not = icmp eq ptr %progress, null
-  %Stream.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2
   %_processedSize.i.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2, i32 4
+  %Stream.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2
   %_bufferBase.i.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 6, i32 4, i32 2, i32 2
   br i1 %cmp25.not, label %for.cond.us, label %for.cond
 
@@ -1919,9 +1918,10 @@ for.cond.us:                                      ; preds = %for.cond.preheader,
           to label %invoke.cont9.us unwind label %lpad8.split.us
 
 invoke.cont9.us:                                  ; preds = %for.cond.us
-  %sub11.us = sub i64 %sub.neg, %call10.us
-  %spec.select96.us = tail call i64 @llvm.umin.i64(i64 %sub11.us, i64 262144)
-  %spec.select.us = trunc i64 %spec.select96.us to i32
+  %sub.neg.us = sub i64 %call6, %call10.us
+  %sub11.us = add i64 %sub.neg.us, %1
+  %spec.select.us98 = tail call i64 @llvm.umin.i64(i64 %sub11.us, i64 262144)
+  %spec.select.us = trunc i64 %spec.select.us98 to i32
   %cmp16.us = icmp eq i32 %spec.select.us, 0
   br i1 %cmp16.us, label %for.end, label %if.end18.us
 
@@ -1948,9 +1948,10 @@ for.cond:                                         ; preds = %for.cond.preheader,
           to label %invoke.cont9 unwind label %lpad8.split
 
 invoke.cont9:                                     ; preds = %for.cond
-  %sub11 = sub i64 %sub.neg, %call10
-  %spec.select96 = call i64 @llvm.umin.i64(i64 %sub11, i64 262144)
-  %spec.select = trunc i64 %spec.select96 to i32
+  %sub.neg = sub i64 %call6, %call10
+  %sub11 = add i64 %sub.neg, %1
+  %spec.select97 = call i64 @llvm.umin.i64(i64 %sub11, i64 262144)
+  %spec.select = trunc i64 %spec.select97 to i32
   %cmp16 = icmp eq i32 %spec.select, 0
   br i1 %cmp16, label %for.end, label %if.end18
 
@@ -1981,10 +1982,10 @@ cleanup.cont:                                     ; preds = %invoke.cont20
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %inSize) #11
   %9 = load i64, ptr %_processedSize.i.i.i, align 8, !tbaa !128
   %10 = load ptr, ptr %Stream.i.i, align 8, !tbaa !90
-  %11 = load ptr, ptr %_bufferBase.i.i.i, align 8, !tbaa !129
   %sub.ptr.lhs.cast.i.i.i = ptrtoint ptr %10 to i64
-  %sub.ptr.rhs.cast.i.i.i = ptrtoint ptr %11 to i64
   %sub.ptr.sub.i.i.i = add i64 %9, %sub.ptr.lhs.cast.i.i.i
+  %11 = load ptr, ptr %_bufferBase.i.i.i, align 8, !tbaa !129
+  %sub.ptr.rhs.cast.i.i.i = ptrtoint ptr %11 to i64
   %add.i.i.i = sub i64 %sub.ptr.sub.i.i.i, %sub.ptr.rhs.cast.i.i.i
   store i64 %add.i.i.i, ptr %inSize, align 8, !tbaa !122
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %nowPos64) #11
@@ -2024,7 +2025,7 @@ ehcleanup:                                        ; preds = %lpad38, %lpad31
 
 for.end:                                          ; preds = %invoke.cont9, %invoke.cont9.us
   store i8 0, ptr %NeedFlush.i, align 8, !tbaa !127
-  %call.i89 = invoke noundef i32 @_ZN10COutBuffer5FlushEv(ptr noundef nonnull align 8 dereferenceable(49) %_outWindowStream)
+  %call.i84 = invoke noundef i32 @_ZN10COutBuffer5FlushEv(ptr noundef nonnull align 8 dereferenceable(49) %_outWindowStream)
           to label %if.end.i unwind label %lpad
 
 if.then.i:                                        ; preds = %invoke.cont20, %invoke.cont39, %invoke.cont20.us
@@ -2033,7 +2034,7 @@ if.then.i:                                        ; preds = %invoke.cont20, %inv
           to label %if.end.i unwind label %terminate.lpad.i
 
 if.end.i:                                         ; preds = %for.end, %if.then.i
-  %retval.5105 = phi i32 [ %retval.5.ph, %if.then.i ], [ %call.i89, %for.end ]
+  %retval.5105 = phi i32 [ %retval.5.ph, %if.then.i ], [ %call.i84, %for.end ]
   %_stream.i.i.i = getelementptr inbounds %"class.NCompress::NQuantum::CDecoder", ptr %this, i64 0, i32 5, i32 0, i32 5
   %15 = load ptr, ptr %_stream.i.i.i, align 8, !tbaa !130
   %tobool.not.i.i.i.i = icmp eq ptr %15, null
@@ -2069,10 +2070,10 @@ _ZN9NCompress8NQuantum8CDecoder15CDecoderFlusherD2Ev.exit: ; preds = %_ZN10COutB
   br label %return
 
 ehcleanup62:                                      ; preds = %lpad19.split, %lpad19.split.us, %lpad8.split, %lpad8.split.us, %ehcleanup, %lpad
-  %.pn84 = phi { ptr, i32 } [ %6, %lpad ], [ %.pn, %ehcleanup ], [ %7, %lpad8.split ], [ %4, %lpad8.split.us ], [ %8, %lpad19.split ], [ %5, %lpad19.split.us ]
+  %.pn87 = phi { ptr, i32 } [ %6, %lpad ], [ %.pn, %ehcleanup ], [ %7, %lpad8.split ], [ %4, %lpad8.split.us ], [ %8, %lpad19.split ], [ %5, %lpad19.split.us ]
   call void @_ZN9NCompress8NQuantum8CDecoder15CDecoderFlusherD2Ev(ptr noundef nonnull align 8 dereferenceable(9) %flusher) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %flusher) #11
-  resume { ptr, i32 } %.pn84
+  resume { ptr, i32 } %.pn87
 
 return:                                           ; preds = %entry, %_ZN9NCompress8NQuantum8CDecoder15CDecoderFlusherD2Ev.exit
   %retval.6 = phi i32 [ %retval.5105, %_ZN9NCompress8NQuantum8CDecoder15CDecoderFlusherD2Ev.exit ], [ -2147024809, %entry ]
@@ -2498,16 +2499,16 @@ for.cond.13.i65:                                  ; preds = %for.cond.12.i62
   %59 = load i8, ptr %arrayidx.14.i63, align 2, !tbaa !11
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 6), align 2, !tbaa !11
   %cmp4.not.14.i64 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i64, label %_ZeqRK4GUIDS1_.exit71, label %if.end10
+  br i1 %cmp4.not.14.i64, label %for.cond.14.i69, label %if.end10
 
-_ZeqRK4GUIDS1_.exit71:                            ; preds = %for.cond.13.i65
+for.cond.14.i69:                                  ; preds = %for.cond.13.i65
   %arrayidx.15.i66 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i66, align 1, !tbaa !11
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 7), align 1, !tbaa !11
   %cmp4.not.15.i67.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i67.not, label %return.sink.split, label %if.end10
 
-if.end10:                                         ; preds = %for.cond.13.i65, %for.cond.12.i62, %for.cond.11.i59, %for.cond.10.i56, %for.cond.9.i53, %for.cond.8.i50, %for.cond.7.i47, %for.cond.6.i44, %for.cond.5.i41, %for.cond.4.i38, %for.cond.3.i35, %for.cond.2.i32, %for.cond.1.i29, %for.cond.i26, %if.end, %_ZeqRK4GUIDS1_.exit71
+if.end10:                                         ; preds = %if.end, %for.cond.i26, %for.cond.1.i29, %for.cond.2.i32, %for.cond.3.i35, %for.cond.4.i38, %for.cond.5.i41, %for.cond.6.i44, %for.cond.7.i47, %for.cond.8.i50, %for.cond.9.i53, %for.cond.10.i56, %for.cond.11.i59, %for.cond.12.i62, %for.cond.13.i65, %for.cond.14.i69
   %63 = load i8, ptr @IID_ICompressSetOutStreamSize, align 4, !tbaa !11
   %cmp4.not.i72 = icmp eq i8 %0, %63
   br i1 %cmp4.not.i72, label %for.cond.i75, label %return
@@ -2608,17 +2609,17 @@ for.cond.13.i114:                                 ; preds = %for.cond.12.i111
   %90 = load i8, ptr %arrayidx.14.i112, align 2, !tbaa !11
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 6), align 2, !tbaa !11
   %cmp4.not.14.i113 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i113, label %_ZeqRK4GUIDS1_.exit120, label %return
+  br i1 %cmp4.not.14.i113, label %for.cond.14.i118, label %return
 
-_ZeqRK4GUIDS1_.exit120:                           ; preds = %for.cond.13.i114
+for.cond.14.i118:                                 ; preds = %for.cond.13.i114
   %arrayidx.15.i115 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i115, align 1, !tbaa !11
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 7), align 1, !tbaa !11
   %cmp4.not.15.i116.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i116.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit120, %_ZeqRK4GUIDS1_.exit71, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit71 ], [ 16, %_ZeqRK4GUIDS1_.exit120 ]
+return.sink.split:                                ; preds = %for.cond.14.i118, %for.cond.14.i69, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %for.cond.14.i69 ], [ 16, %for.cond.14.i118 ]
   %add.ptr14 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr14, ptr %outObject, align 8, !tbaa !134
   %vtable15 = load ptr, ptr %this, align 8, !tbaa !123
@@ -2627,8 +2628,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call17 = tail call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(2020) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10, %_ZeqRK4GUIDS1_.exit120
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit120 ], [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i118, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10
+  %retval.0 = phi i32 [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ -2147467262, %for.cond.14.i118 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

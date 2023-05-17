@@ -46,7 +46,7 @@ $_ZN15btTransformUtil22calculateDiffAxisAngleERK11btTransformS2_R9btVector3Rf = 
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN11btRigidBodyC2ERKNS_27btRigidBodyConstructionInfoE(ptr noundef nonnull align 8 dereferenceable(564) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(148) %constructionInfo) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont11:
+entry:
   tail call void @_ZN17btCollisionObjectC2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV11btRigidBody, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_ownsMemory.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 6
@@ -60,10 +60,10 @@ invoke.cont11:
   invoke void @_ZN11btRigidBody14setupRigidBodyERKNS_27btRigidBodyConstructionInfoE(ptr noundef nonnull align 8 dereferenceable(564) %this, ptr noundef nonnull align 8 dereferenceable(148) %constructionInfo)
           to label %invoke.cont13 unwind label %lpad12
 
-invoke.cont13:                                    ; preds = %invoke.cont11
+invoke.cont13:                                    ; preds = %entry
   ret void
 
-lpad12:                                           ; preds = %invoke.cont11
+lpad12:                                           ; preds = %entry
   %0 = landingpad { ptr, i32 }
           cleanup
   %m_constraintRefs = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23
@@ -350,7 +350,7 @@ declare void @_ZN17btCollisionObjectD2Ev(ptr noundef nonnull align 8 dereference
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN11btRigidBodyC2EfP13btMotionStateP16btCollisionShapeRK9btVector3(ptr noundef nonnull align 8 dereferenceable(564) %this, float noundef %mass, ptr noundef %motionState, ptr noundef %collisionShape, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %localInertia) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont13:
+entry:
   %cinfo = alloca %"struct.btRigidBody::btRigidBodyConstructionInfo", align 8
   tail call void @_ZN17btCollisionObjectC2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV11btRigidBody, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
@@ -393,11 +393,11 @@ invoke.cont13:
   invoke void @_ZN11btRigidBody14setupRigidBodyERKNS_27btRigidBodyConstructionInfoE(ptr noundef nonnull align 8 dereferenceable(564) %this, ptr noundef nonnull align 8 dereferenceable(148) %cinfo)
           to label %invoke.cont14 unwind label %lpad12
 
-invoke.cont14:                                    ; preds = %invoke.cont13
+invoke.cont14:                                    ; preds = %entry
   call void @llvm.lifetime.end.p0(i64 152, ptr nonnull %cinfo) #21
   ret void
 
-lpad12:                                           ; preds = %invoke.cont13
+lpad12:                                           ; preds = %entry
   %0 = landingpad { ptr, i32 }
           cleanup
   %m_constraintRefs = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23
@@ -1052,7 +1052,7 @@ if.else54:                                        ; preds = %if.then42
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %m_angularVelocity, i8 0, i64 16, i1 false)
   br label %if.end61
 
-if.end61:                                         ; preds = %if.then44, %if.else54, %if.end37, %entry
+if.end61:                                         ; preds = %if.end37, %if.else54, %if.then44, %entry
   ret void
 }
 
@@ -1487,15 +1487,15 @@ entry:
   %m_internalType.i.i = getelementptr inbounds %class.btCollisionObject, ptr %co, i64 0, i32 19
   %0 = load i32, ptr %m_internalType.i.i, align 8, !tbaa !18
   %cmp.i = icmp ne i32 %0, 2
-  %tobool.not26 = icmp eq ptr %co, null
-  %tobool.not = or i1 %cmp.i, %tobool.not26
+  %tobool.not21 = icmp eq ptr %co, null
+  %tobool.not = or i1 %tobool.not21, %cmp.i
   br i1 %tobool.not, label %cleanup13, label %for.cond.preheader
 
 for.cond.preheader:                               ; preds = %entry
   %m_size.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 2
   %1 = load i32, ptr %m_size.i, align 4, !tbaa !16
-  %cmp.not21 = icmp slt i32 %1, 1
-  br i1 %cmp.not21, label %cleanup13, label %for.body.lr.ph
+  %cmp.not22 = icmp sgt i32 %1, 0
+  br i1 %cmp.not22, label %for.body.lr.ph, label %cleanup11
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %m_data.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 5
@@ -1506,13 +1506,13 @@ for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %m_rbA.i27 = getelementptr inbounds %class.btTypedConstraint, ptr %4, i64 0, i32 5
   %5 = load ptr, ptr %m_rbA.i27, align 8, !tbaa !57
   %cmp628 = icmp eq ptr %5, %co
-  br i1 %cmp628, label %cleanup13, label %lor.lhs.false
+  br i1 %cmp628, label %cleanup11, label %lor.lhs.false
 
 for.cond:                                         ; preds = %lor.lhs.false
   %indvars.iv.next = add nuw nsw i64 %indvars.iv29, 1
-  %cmp.not = icmp uge i64 %indvars.iv.next, %3
-  %exitcond = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond, label %cleanup13, label %for.body
+  %cmp.not = icmp ult i64 %indvars.iv.next, %3
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %cleanup11, label %for.body
 
 for.body:                                         ; preds = %for.cond
   %arrayidx.i = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv.next
@@ -1520,19 +1520,24 @@ for.body:                                         ; preds = %for.cond
   %m_rbA.i = getelementptr inbounds %class.btTypedConstraint, ptr %6, i64 0, i32 5
   %7 = load ptr, ptr %m_rbA.i, align 8, !tbaa !57
   %cmp6 = icmp eq ptr %7, %co
-  br i1 %cmp6, label %cleanup13, label %lor.lhs.false
+  br i1 %cmp6, label %cleanup11, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %for.body.lr.ph, %for.body
   %8 = phi ptr [ %6, %for.body ], [ %4, %for.body.lr.ph ]
-  %cmp.not2330 = phi i1 [ %cmp.not, %for.body ], [ false, %for.body.lr.ph ]
+  %cmp.not2430 = phi i1 [ %cmp.not, %for.body ], [ true, %for.body.lr.ph ]
   %indvars.iv29 = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %for.body.lr.ph ]
   %m_rbB.i = getelementptr inbounds %class.btTypedConstraint, ptr %8, i64 0, i32 6
   %9 = load ptr, ptr %m_rbB.i, align 8, !tbaa !60
   %cmp8 = icmp eq ptr %9, %co
-  br i1 %cmp8, label %cleanup13, label %for.cond
+  br i1 %cmp8, label %cleanup11, label %for.cond
 
-cleanup13:                                        ; preds = %for.cond, %for.body, %lor.lhs.false, %for.body.lr.ph, %for.cond.preheader, %entry
-  %retval.3 = phi i1 [ true, %entry ], [ true, %for.cond.preheader ], [ false, %for.body.lr.ph ], [ %cmp.not2330, %lor.lhs.false ], [ %cmp.not, %for.body ], [ %cmp.not, %for.cond ]
+cleanup11:                                        ; preds = %lor.lhs.false, %for.body, %for.cond, %for.body.lr.ph, %for.cond.preheader
+  %cmp.not.lcssa = phi i1 [ false, %for.cond.preheader ], [ true, %for.body.lr.ph ], [ %cmp.not, %for.cond ], [ %cmp.not, %for.body ], [ %cmp.not2430, %lor.lhs.false ]
+  %not.cmp.not.lcssa = xor i1 %cmp.not.lcssa, true
+  br label %cleanup13
+
+cleanup13:                                        ; preds = %cleanup11, %entry
+  %retval.3 = phi i1 [ true, %entry ], [ %not.cmp.not.lcssa, %cleanup11 ]
   ret i1 %retval.3
 }
 
@@ -1763,13 +1768,13 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !33
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %invoke.cont, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %invoke.cont unwind label %lpad
+          to label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit unwind label %lpad
 
-invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i
+_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit: ; preds = %if.then3.i.i.i, %entry
   %m_size.i.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !15
@@ -1807,13 +1812,13 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8, !range !33
   %tobool2.not.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i = select i1 %tobool.not.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i
-  br i1 %or.cond.i.i.i, label %invoke.cont.i, label %if.then3.i.i.i.i
+  br i1 %or.cond.i.i.i, label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit.i, label %if.then3.i.i.i.i
 
 if.then3.i.i.i.i:                                 ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %invoke.cont.i unwind label %lpad.i
+          to label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit.i unwind label %lpad.i
 
-invoke.cont.i:                                    ; preds = %if.then3.i.i.i.i, %entry
+_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit.i: ; preds = %if.then3.i.i.i.i, %entry
   %m_size.i.i.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !15
@@ -1836,11 +1841,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %4) #20
   unreachable
 
-invoke.cont:                                      ; preds = %invoke.cont.i
+invoke.cont:                                      ; preds = %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit.i
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %this)
   ret void
 
-lpad:                                             ; preds = %invoke.cont.i
+lpad:                                             ; preds = %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit.i
   %5 = landingpad { ptr, i32 }
           cleanup
   br label %lpad.body

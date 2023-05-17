@@ -121,10 +121,10 @@ for.body:                                         ; preds = %entry, %calc.exit
   %shr = lshr i32 %0, 9
   %shr1 = lshr i32 %0, 8
   %and2 = and i32 %shr1, 1
-  %and = lshr i32 %0, 3
-  %shr.i = and i32 %and, 31
+  %shr.i = lshr i32 %0, 3
+  %and.i = and i32 %shr.i, 31
   %shl.i = shl nuw nsw i32 %and2, 5
-  %or.i = or i32 %shl.i, %shr.i
+  %or.i = or i32 %shl.i, %and.i
   %and1.i = and i32 %0, 7
   %shl2.i = shl nuw nsw i32 %and2, 3
   %or3.i = or i32 %shl2.i, %and1.i
@@ -155,10 +155,10 @@ if.else.i:                                        ; preds = %for.body
   br label %if.end22.i
 
 if.end22.i:                                       ; preds = %if.else.i, %if.then.i
-  %xor19.sink.i = phi i32 [ %shr, %if.then.i ], [ %spec.select.i, %if.else.i ]
+  %5 = phi i32 [ %shr, %if.then.i ], [ %spec.select.i, %if.else.i ]
   %result.1.i = phi i32 [ %and8.i, %if.then.i ], [ %result.0.i, %if.else.i ]
-  %5 = and i32 %2, 65536
-  %tobool25.not.i = icmp eq i32 %5, 0
+  %6 = and i32 %2, 65536
+  %tobool25.not.i = icmp eq i32 %6, 0
   br i1 %tobool25.not.i, label %if.else29.i, label %if.then26.i
 
 if.then26.i:                                      ; preds = %if.end22.i
@@ -168,17 +168,17 @@ if.then26.i:                                      ; preds = %if.end22.i
 if.else29.i:                                      ; preds = %if.end22.i
   %shr30.i = lshr i32 %2, 18
   %and31.i = and i32 %shr30.i, 1
-  %cmp32.i = icmp eq i32 %xor19.sink.i, %and31.i
+  %cmp32.i = icmp eq i32 %5, %and31.i
   %and34.i = and i32 %2, 29
   %xor38.i = xor i32 %and34.i, 29
   %and34.pn.i = select i1 %cmp32.i, i32 %and34.i, i32 %xor38.i
-  %6 = lshr i32 %2, 19
-  %.lobit.i = and i32 %6, 1
-  %spec.select65.i = xor i32 %xor19.sink.i, %.lobit.i
+  %7 = lshr i32 %2, 19
+  %.lobit.i = and i32 %7, 1
+  %spec.select65.i = xor i32 %5, %.lobit.i
   br label %calc.exit
 
 calc.exit:                                        ; preds = %if.then26.i, %if.else29.i
-  %xor45.sink.i = phi i32 [ %xor19.sink.i, %if.then26.i ], [ %spec.select65.i, %if.else29.i ]
+  %xor45.sink.i = phi i32 [ %5, %if.then26.i ], [ %spec.select65.i, %if.else29.i ]
   %and27.pn.i = phi i32 [ %and27.i, %if.then26.i ], [ %and34.pn.i, %if.else29.i ]
   %result.3.i = or i32 %and27.pn.i, %result.1.i
   %shl = shl nuw nsw i32 %xor45.sink.i, 16
@@ -190,7 +190,7 @@ calc.exit:                                        ; preds = %if.then26.i, %if.el
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !9
 
 for.end:                                          ; preds = %calc.exit
-  store i32 %xor19.sink.i, ptr @disparity1, align 4, !tbaa !5
+  store i32 %5, ptr @disparity1, align 4, !tbaa !5
   store i32 0, ptr @disparity0, align 4, !tbaa !5
   ret void
 }

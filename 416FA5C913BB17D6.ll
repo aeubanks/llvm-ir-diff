@@ -35,9 +35,9 @@ entry:
   %3 = load ptr, ptr %nodeList, align 8, !tbaa !13
   store ptr null, ptr %rootx, align 8, !tbaa !9
   %4 = load i32, ptr @pnodeAlength, align 4, !tbaa !11
-  %add144 = add nsw i32 %4, %2
-  %cmp.not145 = icmp slt i32 %add144, 1
-  br i1 %cmp.not145, label %for.cond13.preheader, label %for.body.lr.ph
+  %add145 = add nsw i32 %4, %2
+  %cmp.not146 = icmp slt i32 %add145, 1
+  br i1 %cmp.not146, label %for.cond13.preheader, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %idxprom6 = sext i16 %0 to i64
@@ -49,8 +49,8 @@ for.body.lr.ph:                                   ; preds = %entry
 for.cond13.preheader:                             ; preds = %for.inc, %entry
   call void @tpop(ptr noundef nonnull %rootx, ptr noundef nonnull %dumnode, ptr noundef nonnull %D, ptr noundef nonnull %nextnode) #3
   %6 = load ptr, ptr %dumnode, align 8, !tbaa !9
-  %cmp14150 = icmp eq ptr %6, null
-  br i1 %cmp14150, label %cleanup, label %if.end17
+  %cmp14151 = icmp eq ptr %6, null
+  br i1 %cmp14151, label %cleanup, label %if.end17
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
@@ -94,88 +94,88 @@ for.cond21:                                       ; preds = %if.end17, %for.cond
   %cmp22 = icmp eq ptr %12, null
   br i1 %cmp22, label %for.cond68.preheader, label %for.cond21
 
-for.cond68.preheader:                             ; preds = %for.cond21
-  %cmp69151 = icmp sgt i32 %p, 1
-  br i1 %cmp69151, label %for.body71.lr.ph, label %cleanup
-
-for.body71.lr.ph:                                 ; preds = %for.cond68.preheader
-  %13 = load ptr, ptr @gnodeArray, align 8, !tbaa !9
-  %wide.trip.count = zext i32 %p to i64
-  %arrayidx73.phi.trans.insert = getelementptr inbounds i16, ptr %ptr, i64 1
-  %.pre = load i16, ptr %arrayidx73.phi.trans.insert, align 2, !tbaa !5
-  %14 = add nsw i64 %wide.trip.count, -1
-  %xtraiter = and i64 %14, 1
-  %15 = icmp eq i32 %p, 2
-  br i1 %15, label %cleanup.loopexit.unr-lcssa, label %for.body71.lr.ph.new
-
-for.body71.lr.ph.new:                             ; preds = %for.body71.lr.ph
-  %unroll_iter = and i64 %14, -2
-  br label %for.body71
-
 if.end27:                                         ; preds = %if.end17
-  %16 = load ptr, ptr @gnodeArray, align 8, !tbaa !9
+  %13 = load ptr, ptr @gnodeArray, align 8, !tbaa !9
   %idxprom28 = sext i32 %11 to i64
-  %arrayidx29 = getelementptr inbounds ptr, ptr %16, i64 %idxprom28
-  %gptr.0147 = load ptr, ptr %arrayidx29, align 8, !tbaa !9
-  %cmp31.not148 = icmp eq ptr %gptr.0147, null
-  br i1 %cmp31.not148, label %for.cond13.loopexit, label %for.body33
+  %arrayidx29 = getelementptr inbounds ptr, ptr %13, i64 %idxprom28
+  %gptr.0148 = load ptr, ptr %arrayidx29, align 8, !tbaa !9
+  %cmp31.not149 = icmp eq ptr %gptr.0148, null
+  br i1 %cmp31.not149, label %for.cond13.loopexit, label %for.body33
 
 for.body33:                                       ; preds = %if.end27, %for.inc61
-  %gptr.0149 = phi ptr [ %gptr.0, %for.inc61 ], [ %gptr.0147, %if.end27 ]
-  %inactive = getelementptr inbounds %struct.gnode, ptr %gptr.0149, i64 0, i32 5
-  %17 = load i32, ptr %inactive, align 4, !tbaa !20
-  %cmp34 = icmp eq i32 %17, 1
+  %gptr.0150 = phi ptr [ %gptr.0, %for.inc61 ], [ %gptr.0148, %if.end27 ]
+  %inactive = getelementptr inbounds %struct.gnode, ptr %gptr.0150, i64 0, i32 5
+  %14 = load i32, ptr %inactive, align 4, !tbaa !20
+  %cmp34 = icmp eq i32 %14, 1
   br i1 %cmp34, label %for.inc61, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %for.body33
-  %einactive = getelementptr inbounds %struct.gnode, ptr %gptr.0149, i64 0, i32 6
-  %18 = load i32, ptr %einactive, align 8, !tbaa !22
-  %cmp36 = icmp eq i32 %18, 1
+  %einactive = getelementptr inbounds %struct.gnode, ptr %gptr.0150, i64 0, i32 6
+  %15 = load i32, ptr %einactive, align 8, !tbaa !22
+  %cmp36 = icmp eq i32 %15, 1
   br i1 %cmp36, label %for.inc61, label %if.end39
 
 if.end39:                                         ; preds = %lor.lhs.false
-  %cost = getelementptr inbounds %struct.gnode, ptr %gptr.0149, i64 0, i32 3
-  %19 = load i32, ptr %cost, align 4, !tbaa !23
-  %20 = load i32, ptr %gptr.0149, align 8, !tbaa !24
-  %idxprom41 = sext i32 %20 to i64
+  %cost = getelementptr inbounds %struct.gnode, ptr %gptr.0150, i64 0, i32 3
+  %16 = load i32, ptr %cost, align 4, !tbaa !23
+  %17 = load i32, ptr %gptr.0150, align 8, !tbaa !24
+  %idxprom41 = sext i32 %17 to i64
   %arrayidx42 = getelementptr inbounds %struct.nnode, ptr %3, i64 %idxprom41
-  %21 = load i32, ptr %arrayidx42, align 4, !tbaa !15
-  %22 = load i32, ptr %D, align 4, !tbaa !11
-  %add44 = add nsw i32 %22, %19
-  %cmp45 = icmp sgt i32 %21, %add44
+  %18 = load i32, ptr %arrayidx42, align 4, !tbaa !15
+  %19 = load i32, ptr %D, align 4, !tbaa !11
+  %add44 = add nsw i32 %19, %16
+  %cmp45 = icmp sgt i32 %18, %add44
   br i1 %cmp45, label %if.then47, label %for.inc61
 
 if.then47:                                        ; preds = %if.end39
-  call void @tdelete(ptr noundef nonnull %rootx, i32 noundef %21, i32 noundef %20) #3
-  %23 = load i32, ptr %D, align 4, !tbaa !11
-  %add51 = add nsw i32 %23, %19
-  call void @tinsert(ptr noundef nonnull %rootx, i32 noundef %add51, i32 noundef %20) #3
-  %24 = load i32, ptr %D, align 4, !tbaa !11
-  %add52 = add nsw i32 %24, %19
+  call void @tdelete(ptr noundef nonnull %rootx, i32 noundef %18, i32 noundef %17) #3
+  %20 = load i32, ptr %D, align 4, !tbaa !11
+  %add51 = add nsw i32 %20, %16
+  call void @tinsert(ptr noundef nonnull %rootx, i32 noundef %add51, i32 noundef %17) #3
+  %21 = load i32, ptr %D, align 4, !tbaa !11
+  %add52 = add nsw i32 %21, %16
   store i32 %add52, ptr %arrayidx42, align 4, !tbaa !15
-  %25 = load i32, ptr %nextnode, align 4, !tbaa !11
-  %conv56 = trunc i32 %25 to i16
+  %22 = load i32, ptr %nextnode, align 4, !tbaa !11
+  %conv56 = trunc i32 %22 to i16
   %from259 = getelementptr inbounds %struct.nnode, ptr %3, i64 %idxprom41, i32 3
   store i16 %conv56, ptr %from259, align 2, !tbaa !17
   br label %for.inc61
 
 for.inc61:                                        ; preds = %if.end39, %if.then47, %for.body33, %lor.lhs.false
-  %next = getelementptr inbounds %struct.gnode, ptr %gptr.0149, i64 0, i32 7
+  %next = getelementptr inbounds %struct.gnode, ptr %gptr.0150, i64 0, i32 7
   %gptr.0 = load ptr, ptr %next, align 8, !tbaa !9
   %cmp31.not = icmp eq ptr %gptr.0, null
   br i1 %cmp31.not, label %for.cond13.loopexit, label %for.body33, !llvm.loop !25
 
+for.cond68.preheader:                             ; preds = %for.cond21
+  %cmp69153 = icmp sgt i32 %p, 1
+  br i1 %cmp69153, label %for.body71.lr.ph, label %cleanup
+
+for.body71.lr.ph:                                 ; preds = %for.cond68.preheader
+  %23 = load ptr, ptr @gnodeArray, align 8, !tbaa !9
+  %wide.trip.count = zext i32 %p to i64
+  %arrayidx73.phi.trans.insert = getelementptr inbounds i16, ptr %ptr, i64 1
+  %.pre = load i16, ptr %arrayidx73.phi.trans.insert, align 2, !tbaa !5
+  %24 = add nsw i64 %wide.trip.count, -1
+  %xtraiter = and i64 %24, 1
+  %25 = icmp eq i32 %p, 2
+  br i1 %25, label %cleanup.loopexit.unr-lcssa, label %for.body71.lr.ph.new
+
+for.body71.lr.ph.new:                             ; preds = %for.body71.lr.ph
+  %unroll_iter = and i64 %24, -2
+  br label %for.body71
+
 for.body71:                                       ; preds = %if.then85.1, %for.body71.lr.ph.new
   %26 = phi i16 [ %.pre, %for.body71.lr.ph.new ], [ %30, %if.then85.1 ]
-  %indvars.iv156 = phi i64 [ 1, %for.body71.lr.ph.new ], [ %indvars.iv.next157.1, %if.then85.1 ]
-  %extraD.0153 = phi i32 [ 0, %for.body71.lr.ph.new ], [ %add87.1, %if.then85.1 ]
+  %indvars.iv159 = phi i64 [ 1, %for.body71.lr.ph.new ], [ %indvars.iv.next160.1, %if.then85.1 ]
+  %extraD.0155 = phi i32 [ 0, %for.body71.lr.ph.new ], [ %add87.1, %if.then85.1 ]
   %niter = phi i64 [ 0, %for.body71.lr.ph.new ], [ %niter.next.1, %if.then85.1 ]
-  %indvars.iv.next157 = add nuw nsw i64 %indvars.iv156, 1
-  %arrayidx77 = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv.next157
+  %indvars.iv.next160 = add nuw nsw i64 %indvars.iv159, 1
+  %arrayidx77 = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv.next160
   %27 = load i16, ptr %arrayidx77, align 2, !tbaa !5
   %conv78 = sext i16 %27 to i32
   %idxprom79 = sext i16 %26 to i64
-  %arrayidx80 = getelementptr inbounds ptr, ptr %13, i64 %idxprom79
+  %arrayidx80 = getelementptr inbounds ptr, ptr %23, i64 %idxprom79
   br label %for.cond81
 
 for.cond81:                                       ; preds = %for.cond81, %for.body71
@@ -189,13 +189,13 @@ for.cond81:                                       ; preds = %for.cond81, %for.bo
 if.then85:                                        ; preds = %for.cond81
   %cost86 = getelementptr inbounds %struct.gnode, ptr %gptr1.0, i64 0, i32 3
   %29 = load i32, ptr %cost86, align 4, !tbaa !23
-  %add87 = add nsw i32 %29, %extraD.0153
-  %indvars.iv.next157.1 = add nuw nsw i64 %indvars.iv156, 2
-  %arrayidx77.1 = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv.next157.1
+  %add87 = add nsw i32 %29, %extraD.0155
+  %indvars.iv.next160.1 = add nuw nsw i64 %indvars.iv159, 2
+  %arrayidx77.1 = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv.next160.1
   %30 = load i16, ptr %arrayidx77.1, align 2, !tbaa !5
   %conv78.1 = sext i16 %30 to i32
   %idxprom79.1 = sext i16 %27 to i64
-  %arrayidx80.1 = getelementptr inbounds ptr, ptr %13, i64 %idxprom79.1
+  %arrayidx80.1 = getelementptr inbounds ptr, ptr %23, i64 %idxprom79.1
   br label %for.cond81.1
 
 for.cond81.1:                                     ; preds = %for.cond81.1, %if.then85
@@ -215,23 +215,23 @@ if.then85.1:                                      ; preds = %for.cond81.1
   br i1 %niter.ncmp.1, label %cleanup.loopexit.unr-lcssa.loopexit, label %for.body71, !llvm.loop !26
 
 cleanup.loopexit.unr-lcssa.loopexit:              ; preds = %if.then85.1
-  %33 = add nuw nsw i64 %indvars.iv156, 3
+  %33 = add nuw nsw i64 %indvars.iv159, 3
   br label %cleanup.loopexit.unr-lcssa
 
 cleanup.loopexit.unr-lcssa:                       ; preds = %cleanup.loopexit.unr-lcssa.loopexit, %for.body71.lr.ph
   %add87.lcssa.ph = phi i32 [ undef, %for.body71.lr.ph ], [ %add87.1, %cleanup.loopexit.unr-lcssa.loopexit ]
   %.unr = phi i16 [ %.pre, %for.body71.lr.ph ], [ %30, %cleanup.loopexit.unr-lcssa.loopexit ]
-  %indvars.iv156.unr = phi i64 [ 2, %for.body71.lr.ph ], [ %33, %cleanup.loopexit.unr-lcssa.loopexit ]
-  %extraD.0153.unr = phi i32 [ 0, %for.body71.lr.ph ], [ %add87.1, %cleanup.loopexit.unr-lcssa.loopexit ]
+  %indvars.iv159.unr = phi i64 [ 2, %for.body71.lr.ph ], [ %33, %cleanup.loopexit.unr-lcssa.loopexit ]
+  %extraD.0155.unr = phi i32 [ 0, %for.body71.lr.ph ], [ %add87.1, %cleanup.loopexit.unr-lcssa.loopexit ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %cleanup, label %for.body71.epil
 
 for.body71.epil:                                  ; preds = %cleanup.loopexit.unr-lcssa
-  %arrayidx77.epil = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv156.unr
+  %arrayidx77.epil = getelementptr inbounds i16, ptr %ptr, i64 %indvars.iv159.unr
   %34 = load i16, ptr %arrayidx77.epil, align 2, !tbaa !5
   %conv78.epil = sext i16 %34 to i32
   %idxprom79.epil = sext i16 %.unr to i64
-  %arrayidx80.epil = getelementptr inbounds ptr, ptr %13, i64 %idxprom79.epil
+  %arrayidx80.epil = getelementptr inbounds ptr, ptr %23, i64 %idxprom79.epil
   br label %for.cond81.epil
 
 for.cond81.epil:                                  ; preds = %for.cond81.epil, %for.body71.epil
@@ -245,7 +245,7 @@ for.cond81.epil:                                  ; preds = %for.cond81.epil, %f
 if.then85.epil:                                   ; preds = %for.cond81.epil
   %cost86.epil = getelementptr inbounds %struct.gnode, ptr %gptr1.0.epil, i64 0, i32 3
   %36 = load i32, ptr %cost86.epil, align 4, !tbaa !23
-  %add87.epil = add nsw i32 %36, %extraD.0153.unr
+  %add87.epil = add nsw i32 %36, %extraD.0155.unr
   br label %cleanup
 
 cleanup:                                          ; preds = %for.cond13.loopexit, %if.then85.epil, %cleanup.loopexit.unr-lcssa, %for.cond13.preheader, %for.cond68.preheader

@@ -31,8 +31,7 @@ do.body:                                          ; preds = %do.body, %entry
 do.end:                                           ; preds = %do.body
   %arrayidx.le = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv
   %1 = trunc i64 %indvars.iv.next to i32
-  %and5 = and i8 %0, 127
-  store i8 %and5, ptr %arrayidx.le, align 1, !tbaa !5
+  store i8 %0, ptr %arrayidx.le, align 1, !tbaa !5
   ret i32 %1
 }
 

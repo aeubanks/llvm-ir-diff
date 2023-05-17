@@ -151,10 +151,10 @@ if.then:                                          ; preds = %for.body
   %num = getelementptr inbounds %struct.nonterminal, ptr %6, i64 0, i32 1
   %7 = load i32, ptr %num, align 8, !tbaa !27
   %idxprom = sext i32 %7 to i64
+  %arrayidx = getelementptr inbounds %struct.item, ptr %5, i64 %idxprom
   %rule = getelementptr inbounds %struct.item, ptr %5, i64 %idxprom, i32 1
   %8 = load ptr, ptr %rule, align 8, !tbaa !29
   %tobool1.not = icmp eq ptr %8, null
-  %arrayidx = getelementptr inbounds %struct.item, ptr %5, i64 %idxprom
   %cmp9 = icmp ult ptr %2, %arrayidx
   %or.cond = select i1 %tobool1.not, i1 true, i1 %cmp9
   br i1 %or.cond, label %if.then10, label %if.end27

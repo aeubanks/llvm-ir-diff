@@ -329,7 +329,7 @@ minterms.exit:                                    ; preds = %11, %for.end15.loop
 
 for.body7.preheader:                              ; preds = %minterms.exit, %for.inc77
   %outnum.0118 = phi i32 [ %inc78, %for.inc77 ], [ 0, %minterms.exit ]
-  %mul105 = shl i32 %outnum.0118, %20
+  %mul110 = shl i32 %outnum.0118, %20
   %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %outnum.0118)
   br label %for.body7
 
@@ -352,7 +352,7 @@ for.body14:                                       ; preds = %for.cond12.preheade
   br i1 %cmp19, label %if.then, label %if.end
 
 if.then:                                          ; preds = %for.body14
-  %add20 = add nsw i32 %add, %mul105
+  %add20 = add nsw i32 %add, %mul110
   %shr = ashr i32 %add20, 5
   %add21 = add nsw i32 %shr, 1
   %idxprom22 = sext i32 %add21 to i64
@@ -364,7 +364,7 @@ if.then:                                          ; preds = %for.body14
   %tobool.not = icmp eq i32 %and26, 0
   %conv28 = select i1 %tobool.not, i32 46, i32 49
   %26 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i106 = tail call i32 @putc(i32 noundef %conv28, ptr noundef %26)
+  %call.i105 = tail call i32 @putc(i32 noundef %conv28, ptr noundef %26)
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %for.body14
@@ -377,7 +377,7 @@ if.end:                                           ; preds = %if.then, %for.body1
 
 if.then33:                                        ; preds = %if.end
   %28 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i107 = tail call i32 @putc(i32 noundef 32, ptr noundef %28)
+  %call.i106 = tail call i32 @putc(i32 noundef 32, ptr noundef %28)
   br label %if.end35
 
 if.end35:                                         ; preds = %if.then33, %if.end
@@ -399,7 +399,7 @@ for.end:                                          ; preds = %for.inc
 
 if.then44:                                        ; preds = %for.end
   %29 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i108 = tail call i32 @putc(i32 noundef 10, ptr noundef %29)
+  %call.i107 = tail call i32 @putc(i32 noundef 10, ptr noundef %29)
   br label %if.end46
 
 if.end46:                                         ; preds = %if.then44, %for.end
@@ -421,7 +421,7 @@ land.lhs.true:                                    ; preds = %if.then51
 
 if.end61:                                         ; preds = %land.lhs.true, %if.then51
   %32 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i109 = tail call i32 @putc(i32 noundef 10, ptr noundef %32)
+  %call.i108 = tail call i32 @putc(i32 noundef 10, ptr noundef %32)
   br label %if.end63
 
 if.end63:                                         ; preds = %if.end61, %if.end46
@@ -431,7 +431,7 @@ if.end63:                                         ; preds = %if.end61, %if.end46
 
 if.then68:                                        ; preds = %if.end63
   %33 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i110 = tail call i32 @putc(i32 noundef 10, ptr noundef %33)
+  %call.i109 = tail call i32 @putc(i32 noundef 10, ptr noundef %33)
   br label %for.inc71
 
 for.inc71:                                        ; preds = %if.end63, %if.then68

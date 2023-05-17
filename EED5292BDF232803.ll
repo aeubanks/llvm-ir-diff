@@ -23,8 +23,8 @@ entry:
   %0 = load ptr, ptr %device, align 8, !tbaa !5
   %is_gray = getelementptr inbounds %struct.gs_color_s, ptr %pcolor, i64 0, i32 4
   %1 = load i8, ptr %is_gray, align 2, !tbaa !16
-  %tobool.not = icmp ne i8 %1, 0
-  br i1 %tobool.not, label %if.then, label %if.end12
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.end12, label %if.then
 
 if.then:                                          ; preds = %entry
   %luminance = getelementptr inbounds %struct.gs_color_s, ptr %pcolor, i64 0, i32 3
@@ -101,9 +101,9 @@ if.end30:                                         ; preds = %if.end12
   %conv31 = zext i32 %13 to i64
   %has_color = getelementptr inbounds %struct.gx_device_s, ptr %5, i64 0, i32 7
   %14 = load i32, ptr %has_color, align 8, !tbaa !39
-  %tobool32.not = icmp eq i32 %14, 0
-  %brmerge = or i1 %tobool.not, %tobool32.not
-  br i1 %brmerge, label %if.then36, label %if.end68
+  %tobool32.not = icmp ne i32 %14, 0
+  %or.cond = and i1 %tobool.not, %tobool32.not
+  br i1 %or.cond, label %if.end68, label %if.then36
 
 if.then36:                                        ; preds = %if.end30
   %mul37 = mul nuw nsw i64 %conv31, %conv13
@@ -347,15 +347,15 @@ if.else251:                                       ; preds = %if.end244
   %and = and i32 %diagc.1, 1
   %tobool252.not = icmp eq i32 %and, 0
   %add255 = select i1 %tobool252.not, i16 0, i16 %adjust_r.0
-  %spec.select = add i16 %add255, %r78.0
+  %spec.select = add i16 %r78.0, %add255
   %and258 = and i32 %diagc.1, 2
   %tobool259.not = icmp eq i32 %and258, 0
   %add262 = select i1 %tobool259.not, i16 0, i16 %adjust_g.0
-  %g81.1 = add i16 %add262, %g81.0
+  %g81.1 = add i16 %g81.0, %add262
   %and265 = and i32 %diagc.1, 4
   %tobool266.not = icmp eq i32 %and265, 0
   %add269 = select i1 %tobool266.not, i16 0, i16 %adjust_b.0
-  %b84.1 = add i16 %add269, %b84.0
+  %b84.1 = add i16 %b84.0, %add269
   %idxprom = zext i32 %diagc.1 to i64
   %arrayidx = getelementptr inbounds [8 x i16], ptr @lum, i64 0, i64 %idxprom
   %29 = load i16, ptr %arrayidx, align 2, !tbaa !41

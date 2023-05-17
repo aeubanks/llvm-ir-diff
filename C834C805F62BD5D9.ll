@@ -81,8 +81,8 @@ define dso_local noundef i32 @_ZN5Table6SearchER6Object(ptr noundef nonnull alig
 entry:
   %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
   %0 = load i32, ptr %nelem, align 8, !tbaa !5
-  %cmp.not8 = icmp sgt i32 %0, 0
-  br i1 %cmp.not8, label %for.body, label %cleanup
+  %cmp8 = icmp sgt i32 %0, 0
+  br i1 %cmp8, label %for.body, label %cleanup
 
 for.body:                                         ; preds = %entry, %for.inc
   %i.09 = phi i32 [ %inc, %for.inc ], [ 0, %entry ]
@@ -100,12 +100,12 @@ for.body:                                         ; preds = %entry, %for.inc
 for.inc:                                          ; preds = %for.body
   %inc = add nuw nsw i32 %i.09, 1
   %3 = load i32, ptr %nelem, align 8, !tbaa !5
-  %cmp.not = icmp slt i32 %inc, %3
-  br i1 %cmp.not, label %for.body, label %cleanup, !llvm.loop !14
+  %cmp = icmp slt i32 %inc, %3
+  br i1 %cmp, label %for.body, label %cleanup, !llvm.loop !14
 
 cleanup:                                          ; preds = %for.inc, %for.body, %entry
-  %spec.select = phi i32 [ -1, %entry ], [ %i.09, %for.body ], [ -1, %for.inc ]
-  ret i32 %spec.select
+  %switch = phi i32 [ -1, %entry ], [ %i.09, %for.body ], [ -1, %for.inc ]
+  ret i32 %switch
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -129,14 +129,14 @@ entry:
   br i1 %cmp, label %for.cond.preheader, label %cleanup26
 
 for.cond.preheader:                               ; preds = %entry
-  %cmp11.not34 = icmp slt i32 %call8, 1
-  br i1 %cmp11.not34, label %cleanup26, label %for.body
+  %cmp11.not34 = icmp sgt i32 %call8, 0
+  br i1 %cmp11.not34, label %for.body, label %cleanup26
 
 for.cond:                                         ; preds = %for.body
   %inc = add nuw nsw i32 %i.035, 1
   %4 = load i32, ptr %nelem, align 8, !tbaa !5
-  %cmp11.not.not = icmp slt i32 %inc, %4
-  br i1 %cmp11.not.not, label %for.body, label %cleanup.loopexit, !llvm.loop !16
+  %cmp11.not = icmp slt i32 %inc, %4
+  br i1 %cmp11.not, label %for.body, label %cleanup26, !llvm.loop !16
 
 for.body:                                         ; preds = %for.cond.preheader, %for.cond
   %i.035 = phi i32 [ %inc, %for.cond ], [ 0, %for.cond.preheader ]
@@ -152,15 +152,11 @@ for.body:                                         ; preds = %for.cond.preheader,
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
   %7 = load ptr, ptr %vfn.i, align 8
   %call.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %call14, ptr noundef nonnull align 8 dereferenceable(8) %call17)
-  %tobool.not.i.not = icmp ne i32 %call.i, 0
-  br i1 %tobool.not.i.not, label %for.cond, label %cleanup.loopexit
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  br i1 %tobool.not.i, label %cleanup26, label %for.cond
 
-cleanup.loopexit:                                 ; preds = %for.body, %for.cond
-  %8 = zext i1 %tobool.not.i.not to i32
-  br label %cleanup26
-
-cleanup26:                                        ; preds = %for.cond.preheader, %cleanup.loopexit, %entry
-  %retval.1 = phi i32 [ 0, %entry ], [ 1, %for.cond.preheader ], [ %8, %cleanup.loopexit ]
+cleanup26:                                        ; preds = %for.body, %for.cond, %for.cond.preheader, %entry
+  %retval.1 = phi i32 [ 0, %entry ], [ 1, %for.cond.preheader ], [ 0, %for.body ], [ 1, %for.cond ]
   ret i32 %retval.1
 }
 
@@ -393,16 +389,16 @@ entry:
   %0 = load i32, ptr %nelem, align 8, !tbaa !5
   %cmp = icmp sge i32 %0, %pos
   %cmp2 = icmp sgt i32 %pos, -1
-  %or.cond.not23 = and i1 %cmp2, %cmp
+  %or.cond.not25 = and i1 %cmp2, %cmp
   %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
   %1 = load i32, ptr %size, align 8
   %cmp5.not = icmp slt i32 %0, %1
-  %or.cond22 = select i1 %or.cond.not23, i1 %cmp5.not, i1 false
+  %or.cond22 = select i1 %or.cond.not25, i1 %cmp5.not, i1 false
   br i1 %or.cond22, label %for.cond.preheader, label %return
 
 for.cond.preheader:                               ; preds = %entry
-  %cmp724 = icmp sgt i32 %0, %pos
-  br i1 %cmp724, label %for.body.lr.ph, label %for.cond.cleanup
+  %cmp723 = icmp sgt i32 %0, %pos
+  br i1 %cmp723, label %for.body.lr.ph, label %for.cond.cleanup
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
@@ -414,14 +410,14 @@ for.body.lr.ph:                                   ; preds = %for.cond.preheader
   br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
 for.body.prol:                                    ; preds = %for.body.lr.ph, %for.body.prol
-  %i.025.prol = phi i32 [ %sub.prol, %for.body.prol ], [ %0, %for.body.lr.ph ]
+  %i.024.prol = phi i32 [ %sub.prol, %for.body.prol ], [ %0, %for.body.lr.ph ]
   %prol.iter = phi i32 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.lr.ph ]
   %5 = load ptr, ptr %array, align 8, !tbaa !19
-  %sub.prol = add nsw i32 %i.025.prol, -1
+  %sub.prol = add nsw i32 %i.024.prol, -1
   %idxprom.prol = zext i32 %sub.prol to i64
   %arrayidx.prol = getelementptr inbounds ptr, ptr %5, i64 %idxprom.prol
   %6 = load ptr, ptr %arrayidx.prol, align 8, !tbaa !23
-  %idxprom9.prol = zext i32 %i.025.prol to i64
+  %idxprom9.prol = zext i32 %i.024.prol to i64
   %arrayidx10.prol = getelementptr inbounds ptr, ptr %5, i64 %idxprom9.prol
   store ptr %6, ptr %arrayidx10.prol, align 8, !tbaa !23
   %prol.iter.next = add i32 %prol.iter, 1
@@ -429,7 +425,7 @@ for.body.prol:                                    ; preds = %for.body.lr.ph, %fo
   br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !28
 
 for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.lr.ph
-  %i.025.unr = phi i32 [ %0, %for.body.lr.ph ], [ %sub.prol, %for.body.prol ]
+  %i.024.unr = phi i32 [ %0, %for.body.lr.ph ], [ %sub.prol, %for.body.prol ]
   %7 = icmp ult i32 %4, 3
   br i1 %7, label %for.cond.cleanup, label %for.body
 
@@ -446,17 +442,17 @@ for.cond.cleanup:                                 ; preds = %for.body.prol.loope
   br label %return
 
 for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
-  %i.025 = phi i32 [ %sub.3, %for.body ], [ %i.025.unr, %for.body.prol.loopexit ]
+  %i.024 = phi i32 [ %sub.3, %for.body ], [ %i.024.unr, %for.body.prol.loopexit ]
   %9 = load ptr, ptr %array, align 8, !tbaa !19
-  %sub = add nsw i32 %i.025, -1
+  %sub = add nsw i32 %i.024, -1
   %idxprom = zext i32 %sub to i64
   %arrayidx = getelementptr inbounds ptr, ptr %9, i64 %idxprom
   %10 = load ptr, ptr %arrayidx, align 8, !tbaa !23
-  %idxprom9 = zext i32 %i.025 to i64
+  %idxprom9 = zext i32 %i.024 to i64
   %arrayidx10 = getelementptr inbounds ptr, ptr %9, i64 %idxprom9
   store ptr %10, ptr %arrayidx10, align 8, !tbaa !23
   %11 = load ptr, ptr %array, align 8, !tbaa !19
-  %sub.1 = add nsw i32 %i.025, -2
+  %sub.1 = add nsw i32 %i.024, -2
   %idxprom.1 = zext i32 %sub.1 to i64
   %arrayidx.1 = getelementptr inbounds ptr, ptr %11, i64 %idxprom.1
   %12 = load ptr, ptr %arrayidx.1, align 8, !tbaa !23
@@ -464,7 +460,7 @@ for.body:                                         ; preds = %for.body.prol.loope
   %arrayidx10.1 = getelementptr inbounds ptr, ptr %11, i64 %idxprom9.1
   store ptr %12, ptr %arrayidx10.1, align 8, !tbaa !23
   %13 = load ptr, ptr %array, align 8, !tbaa !19
-  %sub.2 = add nsw i32 %i.025, -3
+  %sub.2 = add nsw i32 %i.024, -3
   %idxprom.2 = zext i32 %sub.2 to i64
   %arrayidx.2 = getelementptr inbounds ptr, ptr %13, i64 %idxprom.2
   %14 = load ptr, ptr %arrayidx.2, align 8, !tbaa !23
@@ -472,7 +468,7 @@ for.body:                                         ; preds = %for.body.prol.loope
   %arrayidx10.2 = getelementptr inbounds ptr, ptr %13, i64 %idxprom9.2
   store ptr %14, ptr %arrayidx10.2, align 8, !tbaa !23
   %15 = load ptr, ptr %array, align 8, !tbaa !19
-  %sub.3 = add nsw i32 %i.025, -4
+  %sub.3 = add nsw i32 %i.024, -4
   %idxprom.3 = zext i32 %sub.3 to i64
   %arrayidx.3 = getelementptr inbounds ptr, ptr %15, i64 %idxprom.3
   %16 = load ptr, ptr %arrayidx.3, align 8, !tbaa !23
@@ -708,8 +704,8 @@ define dso_local noundef i32 @_ZN7SpArray6SearchER6Object(ptr nocapture noundef 
 entry:
   %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
   %0 = load i32, ptr %size, align 8, !tbaa !22
-  %cmp.not15 = icmp sgt i32 %0, 0
-  br i1 %cmp.not15, label %for.body.lr.ph, label %cleanup5
+  %cmp15 = icmp sgt i32 %0, 0
+  br i1 %cmp15, label %for.body.lr.ph, label %cleanup5
 
 for.body.lr.ph:                                   ; preds = %entry
   %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
@@ -740,16 +736,16 @@ for.inc:                                          ; preds = %if.then.for.inc_cri
   %5 = phi i32 [ %.pre, %if.then.for.inc_crit_edge ], [ %1, %for.body ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %6 = sext i32 %5 to i64
-  %cmp.not = icmp slt i64 %indvars.iv.next, %6
-  br i1 %cmp.not, label %for.body, label %cleanup5, !llvm.loop !31
+  %cmp = icmp slt i64 %indvars.iv.next, %6
+  br i1 %cmp, label %for.body, label %cleanup5, !llvm.loop !31
 
 cleanup5.loopexit.split.loop.exit:                ; preds = %if.then
   %7 = trunc i64 %indvars.iv to i32
   br label %cleanup5
 
 cleanup5:                                         ; preds = %for.inc, %cleanup5.loopexit.split.loop.exit, %entry
-  %spec.select = phi i32 [ -1, %entry ], [ %7, %cleanup5.loopexit.split.loop.exit ], [ -1, %for.inc ]
-  ret i32 %spec.select
+  %switch = phi i32 [ -1, %entry ], [ %7, %cleanup5.loopexit.split.loop.exit ], [ -1, %for.inc ]
+  ret i32 %switch
 }
 
 ; Function Attrs: nounwind uwtable
@@ -890,8 +886,8 @@ define dso_local noundef i32 @main() local_unnamed_addr #10 personality ptr @__g
 entry:
   %call1 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #14
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV1A, i64 0, inrange i32 0, i64 2), ptr %call1, align 8, !tbaa !12
-  %i.i27 = getelementptr inbounds %class.A, ptr %call1, i64 0, i32 1
-  store i32 2, ptr %i.i27, align 8, !tbaa !33
+  %i.i26 = getelementptr inbounds %class.A, ptr %call1, i64 0, i32 1
+  store i32 2, ptr %i.i26, align 8, !tbaa !33
   %call19 = tail call noundef ptr @_ZN1A4TypeEv(ptr noundef nonnull align 8 dereferenceable(12) %call1)
   ret i32 0
 }

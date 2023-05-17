@@ -748,7 +748,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %retval.sroa.3.12.vec.insert.i103 = insertelement <2 x float> %retval.sroa.3.8.vec.insert.i102, float %91, i64 1
   store <2 x float> %81, ptr %ref.tmp26, align 8
   store <2 x float> %retval.sroa.3.12.vec.insert.i103, ptr %32, align 8
-  call void @_ZN31btConvexPlaneCollisionAlgorithm20collideSingleContactERK12btQuaternionP17btCollisionObjectS4_RK16btDispatcherInfoP16btManifoldResult(ptr noundef nonnull align 8 dereferenceable(44) %this, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp26, ptr noundef %body0, ptr noundef %body1, ptr nonnull align 8 poison, ptr noundef nonnull %resultOut)
+  call void @_ZN31btConvexPlaneCollisionAlgorithm20collideSingleContactERK12btQuaternionP17btCollisionObjectS4_RK16btDispatcherInfoP16btManifoldResult(ptr noundef nonnull align 8 dereferenceable(44) %this, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp26, ptr noundef %body0, ptr noundef %body1, ptr nonnull align 8 poison, ptr noundef %resultOut)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp26) #10
   %inc = add nuw nsw i32 %i.0119, 1
   %92 = load i32, ptr %m_numPerturbationIterations, align 4, !tbaa !17
@@ -795,7 +795,7 @@ if.else.i108:                                     ; preds = %if.end.i
   tail call void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %96, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransA8.i, ptr noundef nonnull align 4 dereferenceable(64) %m_rootTransB9.i)
   br label %return
 
-return:                                           ; preds = %if.else.i108, %if.then5.i, %if.then43, %if.end37, %if.then39, %entry
+return:                                           ; preds = %if.end37, %if.then39, %if.then43, %if.then5.i, %if.else.i108, %entry
   ret void
 }
 

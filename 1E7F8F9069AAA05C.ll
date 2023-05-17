@@ -296,7 +296,7 @@ for.body56.us:                                    ; preds = %for.body46.us, %for
   %28 = load double, ptr %arrayidx83.us, align 8, !tbaa !7
   %sub84.us = fsub double %28, %26
   store double %sub84.us, ptr %arrayidx68.us, align 8, !tbaa !7
-  %add90.us = fadd double %27, %25
+  %add90.us = fadd double %25, %27
   store double %add90.us, ptr %arrayidx77.us, align 8, !tbaa !7
   %add94.us = fadd double %26, %28
   store double %add94.us, ptr %arrayidx83.us, align 8, !tbaa !7

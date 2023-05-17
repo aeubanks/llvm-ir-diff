@@ -51,10 +51,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %arrayidx = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv668
   %4 = load i32, ptr %arrayidx, align 4, !tbaa !16
   store i32 %4, ptr %call, align 4, !tbaa !16
-  %arrayidx10 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv668, i32 0, i64 1
+  %arrayidx10 = getelementptr inbounds [3 x i32], ptr %arrayidx, i64 0, i64 1
   %5 = load i32, ptr %arrayidx10, align 4, !tbaa !16
   store i32 %5, ptr %arrayidx12, align 4, !tbaa !16
-  %arrayidx17 = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv668, i32 0, i64 2
+  %arrayidx17 = getelementptr inbounds [3 x i32], ptr %arrayidx, i64 0, i64 2
   %6 = load i32, ptr %arrayidx17, align 4, !tbaa !16
   store i32 %6, ptr %arrayidx19, align 4, !tbaa !16
   %imax = getelementptr inbounds %struct.hypre_Box_struct, ptr %3, i64 %indvars.iv668, i32 1

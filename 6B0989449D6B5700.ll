@@ -186,7 +186,7 @@ land.lhs.true26:                                  ; preds = %land.lhs.true
   %12 = load i32, ptr %type, align 4, !tbaa !23
   %cmp27.not = icmp ne i32 %12, 1
   %cmp30 = icmp eq i16 %ref, 0
-  %spec.select = and i1 %cmp30, %cmp27.not
+  %spec.select = and i1 %cmp27.not, %cmp30
   br label %land.end
 
 land.end:                                         ; preds = %land.lhs.true26, %land.lhs.true, %entry
@@ -317,8 +317,8 @@ land.lhs.true102:                                 ; preds = %if.end99
   br i1 %or.cond, label %land.lhs.true111, label %if.else
 
 land.lhs.true111:                                 ; preds = %land.lhs.true102
-  %sext252 = shl i32 %23, 16
-  %conv112 = ashr exact i32 %sext252, 16
+  %sext248 = shl i32 %23, 16
+  %conv112 = ashr exact i32 %sext248, 16
   %sub114 = sub i32 %48, %7
   %sub115 = add i32 %sub114, %conv112
   %cmp116 = icmp slt i32 %add24, %sub115
@@ -373,10 +373,10 @@ for.body:                                         ; preds = %if.end119, %for.inc
   %mul139 = mul nsw i32 %add138, %lambda_factor
   %shr = ashr i32 %mul139, 16
   %cmp142 = icmp eq i32 %shl126, %pic_pix_x
-  %or.cond248 = and i1 %13, %cmp142
+  %or.cond249 = and i1 %13, %cmp142
   %cmp145 = icmp eq i32 %shl131, %pic_pix_y
-  %or.cond249 = and i1 %or.cond248, %cmp145
-  %sub150 = select i1 %or.cond249, i32 %shr149, i32 0
+  %or.cond250 = and i1 %or.cond249, %cmp145
+  %sub150 = select i1 %or.cond250, i32 %shr149, i32 0
   %mcost.0 = sub nsw i32 %shr, %sub150
   %cmp152.not = icmp sgt i32 %min_mcost.addr.0256, %mcost.0
   br i1 %cmp152.not, label %if.end155, label %for.inc
@@ -390,8 +390,8 @@ if.end155:                                        ; preds = %for.body
   %add161 = add nsw i32 %call, %mcost.0
   %cmp162 = icmp slt i32 %add161, %min_mcost.addr.0256
   %57 = trunc i64 %indvars.iv to i32
-  %spec.select250 = select i1 %cmp162, i32 %57, i32 %best_pos.0254
-  %spec.select251 = tail call i32 @llvm.smin.i32(i32 %add161, i32 %min_mcost.addr.0256)
+  %spec.select251 = select i1 %cmp162, i32 %57, i32 %best_pos.0254
+  %spec.select252 = tail call i32 @llvm.smin.i32(i32 %add161, i32 %min_mcost.addr.0256)
   %.pre = load ptr, ptr @spiral_search_x, align 8, !tbaa !5
   %.pre259 = load ptr, ptr @spiral_search_y, align 8, !tbaa !5
   %.pre261 = load ptr, ptr @mvbits, align 8, !tbaa !5
@@ -401,8 +401,8 @@ for.inc:                                          ; preds = %if.end155, %for.bod
   %58 = phi ptr [ %49, %for.body ], [ %.pre261, %if.end155 ]
   %59 = phi ptr [ %50, %for.body ], [ %.pre259, %if.end155 ]
   %60 = phi ptr [ %51, %for.body ], [ %.pre, %if.end155 ]
-  %best_pos.1 = phi i32 [ %best_pos.0254, %for.body ], [ %spec.select250, %if.end155 ]
-  %min_mcost.addr.1 = phi i32 [ %min_mcost.addr.0256, %for.body ], [ %spec.select251, %if.end155 ]
+  %best_pos.1 = phi i32 [ %best_pos.0254, %for.body ], [ %spec.select251, %if.end155 ]
+  %min_mcost.addr.1 = phi i32 [ %min_mcost.addr.0256, %for.body ], [ %spec.select252, %if.end155 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !39
@@ -516,7 +516,7 @@ cond.false67:                                     ; preds = %cond.true
 
 cond.end76:                                       ; preds = %entry.cond.end76_crit_edge, %cond.true60, %cond.false67
   %idxprom82.pre-phi = phi i64 [ %.pre609, %entry.cond.end76_crit_edge ], [ %idxprom42, %cond.true60 ], [ %idxprom49, %cond.false67 ]
-  %cond53561 = phi i32 [ 0, %entry.cond.end76_crit_edge ], [ %18, %cond.true60 ], [ %24, %cond.false67 ]
+  %cond53565 = phi i32 [ 0, %entry.cond.end76_crit_edge ], [ %18, %cond.true60 ], [ %24, %cond.false67 ]
   %cond77 = phi i32 [ 0, %entry.cond.end76_crit_edge ], [ %21, %cond.true60 ], [ %27, %cond.false67 ]
   %add79 = add nsw i32 %3, %list
   %idxprom80 = sext i32 %add79 to i64
@@ -596,10 +596,10 @@ cond.end129:                                      ; preds = %cond.false122, %con
   %cond130 = load i32, ptr %cond130.in, align 4, !tbaa !19
   %conv131 = trunc i32 %cond130 to i16
   store i16 %conv131, ptr @weight2, align 2, !tbaa !20
-  %sext = shl i32 %cond53561, 16
-  %conv132 = ashr exact i32 %sext, 16
-  %sext557 = shl i32 %cond77, 16
-  %conv133 = ashr exact i32 %sext557, 16
+  %sext560 = shl i32 %cond53565, 16
+  %conv132 = ashr exact i32 %sext560, 16
+  %sext561 = shl i32 %cond77, 16
+  %conv133 = ashr exact i32 %sext561, 16
   %add134 = add nsw i32 %conv132, 1
   %add135 = add nsw i32 %add134, %conv133
   %47 = lshr i32 %add135, 1
@@ -658,9 +658,9 @@ cond.true267:                                     ; preds = %if.then151
   %59 = load ptr, ptr %arrayidx156, align 8, !tbaa !5
   %arrayidx158 = getelementptr inbounds ptr, ptr %59, i64 %idxprom82.pre-phi
   %60 = load ptr, ptr %arrayidx158, align 8, !tbaa !5
-  %.pn570 = load ptr, ptr %60, align 8, !tbaa !5
-  %cond170.in571 = getelementptr inbounds i32, ptr %.pn570, i64 1
-  %61 = load <2 x i32>, ptr %cond170.in571, align 4, !tbaa !19
+  %.pn574 = load ptr, ptr %60, align 8, !tbaa !5
+  %cond170.in575 = getelementptr inbounds i32, ptr %.pn574, i64 1
+  %61 = load <2 x i32>, ptr %cond170.in575, align 4, !tbaa !19
   %62 = trunc <2 x i32> %61 to <2 x i16>
   store <2 x i16> %62, ptr @weight1_cr, align 2, !tbaa !20
   %add195 = add nsw i32 %3, 1
@@ -705,7 +705,7 @@ cond.false282:                                    ; preds = %if.then151
 cond.end295:                                      ; preds = %cond.false282, %cond.true267
   %.sink = phi ptr [ %76, %cond.false282 ], [ %arrayidx244, %cond.true267 ]
   %.sink613.in = phi ptr [ %75, %cond.false282 ], [ %arrayidx238, %cond.true267 ]
-  %.pn555580.pn.in = phi ptr [ %arrayidx207, %cond.false282 ], [ %64, %cond.true267 ]
+  %.pn558584.pn.in = phi ptr [ %arrayidx207, %cond.false282 ], [ %64, %cond.true267 ]
   %.sink613 = load ptr, ptr %.sink613.in, align 8, !tbaa !5
   %.sink615.in = getelementptr inbounds i32, ptr %.sink613, i64 1
   %.sink615 = load i32, ptr %.sink615.in, align 4, !tbaa !19
@@ -719,10 +719,10 @@ cond.end295:                                      ; preds = %cond.false282, %con
   %arrayidx291 = getelementptr inbounds i32, ptr %77, i64 2
   %80 = load i32, ptr %arrayidx291, align 4, !tbaa !19
   %add292 = add nsw i32 %80, %79
-  %.pn555580.pn = load ptr, ptr %.pn555580.pn.in, align 8, !tbaa !5
+  %.pn558584.pn = load ptr, ptr %.pn558584.pn.in, align 8, !tbaa !5
   %conv264.sink.in = lshr i32 %cond263.in, 1
   %conv264.sink = trunc i32 %conv264.sink.in to i16
-  %conv211.sink.in.in = getelementptr inbounds i32, ptr %.pn555580.pn, i64 1
+  %conv211.sink.in.in = getelementptr inbounds i32, ptr %.pn558584.pn, i64 1
   %81 = load <2 x i32>, ptr %conv211.sink.in.in, align 4, !tbaa !19
   %82 = trunc <2 x i32> %81 to <2 x i16>
   store <2 x i16> %82, ptr @weight2_cr, align 2
@@ -754,8 +754,8 @@ if.end308:                                        ; preds = %if.end308.sink.spli
   br i1 %cmp310, label %land.lhs.true, label %if.else331
 
 land.lhs.true:                                    ; preds = %if.end308
-  %sext594 = shl i32 %34, 16
-  %conv313 = ashr exact i32 %sext594, 16
+  %sext555 = shl i32 %34, 16
+  %conv313 = ashr exact i32 %sext555, 16
   %85 = xor i32 %search_range, -1
   %sub314 = sub i32 %85, %6
   %sub315 = add i32 %sub314, %conv313
@@ -768,8 +768,8 @@ land.lhs.true318:                                 ; preds = %land.lhs.true
   br i1 %cmp320, label %land.lhs.true322, label %if.else331
 
 land.lhs.true322:                                 ; preds = %land.lhs.true318
-  %sext595 = shl i32 %35, 16
-  %conv324 = ashr exact i32 %sext595, 16
+  %sext556 = shl i32 %35, 16
+  %conv324 = ashr exact i32 %sext556, 16
   %sub326 = sub i32 %85, %5
   %sub327 = add i32 %sub326, %conv324
   %cmp328 = icmp sgt i32 %sub327, %conv319
@@ -786,8 +786,8 @@ if.end332:                                        ; preds = %land.lhs.true322, %
   br i1 %cmp334, label %land.lhs.true336, label %if.else357
 
 land.lhs.true336:                                 ; preds = %if.end332
-  %sext592 = shl i32 %34, 16
-  %conv338 = ashr exact i32 %sext592, 16
+  %sext = shl i32 %34, 16
+  %conv338 = ashr exact i32 %sext, 16
   %86 = xor i32 %search_range, -1
   %sub340 = sub i32 %86, %6
   %sub341 = add i32 %sub340, %conv338
@@ -800,8 +800,8 @@ land.lhs.true344:                                 ; preds = %land.lhs.true336
   br i1 %cmp346, label %land.lhs.true348, label %if.else357
 
 land.lhs.true348:                                 ; preds = %land.lhs.true344
-  %sext593 = shl i32 %35, 16
-  %conv350 = ashr exact i32 %sext593, 16
+  %sext554 = shl i32 %35, 16
+  %conv350 = ashr exact i32 %sext554, 16
   %sub352 = sub i32 %86, %5
   %sub353 = add i32 %sub352, %conv350
   %cmp354 = icmp sgt i32 %sub353, %conv345
@@ -884,7 +884,7 @@ if.end399:                                        ; preds = %for.body
   %cmp410 = icmp slt i32 %add409, %min_mcost.addr.0599
   %97 = trunc i64 %indvars.iv to i32
   %spec.select = select i1 %cmp410, i32 %97, i32 %best_pos.0597
-  %spec.select558 = tail call i32 @llvm.smin.i32(i32 %add409, i32 %min_mcost.addr.0599)
+  %spec.select562 = tail call i32 @llvm.smin.i32(i32 %add409, i32 %min_mcost.addr.0599)
   %.pre = load ptr, ptr @spiral_search_x, align 8, !tbaa !5
   %.pre604 = load ptr, ptr @spiral_search_y, align 8, !tbaa !5
   %.pre606 = load ptr, ptr @mvbits, align 8, !tbaa !5
@@ -895,7 +895,7 @@ for.inc:                                          ; preds = %if.end399, %for.bod
   %99 = phi ptr [ %88, %for.body ], [ %.pre604, %if.end399 ]
   %100 = phi ptr [ %89, %for.body ], [ %.pre, %if.end399 ]
   %best_pos.1 = phi i32 [ %best_pos.0597, %for.body ], [ %spec.select, %if.end399 ]
-  %min_mcost.addr.1 = phi i32 [ %min_mcost.addr.0599, %for.body ], [ %spec.select558, %if.end399 ]
+  %min_mcost.addr.1 = phi i32 [ %min_mcost.addr.0599, %for.body ], [ %spec.select562, %if.end399 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !41
@@ -1178,11 +1178,11 @@ if.end149:                                        ; preds = %for.body
   %63 = load ptr, ptr %arrayidx153, align 8, !tbaa !5
   %sub154 = sub nsw i32 %min_mcost.addr.0398, %shr
   %call155 = tail call i32 %63(ptr noundef %orig_pic, i32 noundef %8, i32 noundef %7, i32 noundef %sub154, i32 noundef %add150, i32 noundef %add151) #2
+  %add156 = add nsw i32 %call155, %shr
   %64 = icmp eq i64 %indvars.iv, 0
   %or.cond272 = select i1 %64, i1 %6, i1 false
   %sub164 = select i1 %or.cond272, i32 %shr163, i32 0
-  %add156 = sub nsw i32 %shr, %sub164
-  %mcost.0 = add i32 %add156, %call155
+  %mcost.0 = sub nsw i32 %add156, %sub164
   %cmp166 = icmp slt i32 %mcost.0, %min_mcost.addr.0398
   %65 = trunc i64 %indvars.iv to i32
   %spec.select391 = select i1 %cmp166, i32 %65, i32 %best_pos.0396
@@ -1966,13 +1966,13 @@ if.end502:                                        ; preds = %if.end442, %if.then
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #1
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #1
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #1
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }

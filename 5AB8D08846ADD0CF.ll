@@ -13,43 +13,43 @@ entry:
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 0, i32 noundef 0)
   %.old = load i32, ptr @a, align 4
   %tobool.not.old = icmp eq i32 %.old, 0
-  br i1 %tobool.not.old, label %for.inc, label %land.rhsthread-pre-split
+  br i1 %tobool.not.old, label %for.inc, label %for.inc.loopexit
 
-land.rhsthread-pre-split:                         ; preds = %entry
+for.inc.loopexit:                                 ; preds = %entry
   store i32 1, ptr @c, align 4, !tbaa !5
   br label %for.inc
 
-for.inc:                                          ; preds = %land.rhsthread-pre-split, %entry
+for.inc:                                          ; preds = %for.inc.loopexit, %entry
   %call.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 1, i32 noundef 0)
   %.old.1 = load i32, ptr @a, align 4
   %tobool.not.old.1 = icmp eq i32 %.old.1, 0
-  br i1 %tobool.not.old.1, label %for.inc.1, label %land.rhsthread-pre-split.1
+  br i1 %tobool.not.old.1, label %for.inc.1, label %for.inc.loopexit.1
 
-land.rhsthread-pre-split.1:                       ; preds = %for.inc
+for.inc.loopexit.1:                               ; preds = %for.inc
   store i32 1, ptr @c, align 4, !tbaa !5
   br label %for.inc.1
 
-for.inc.1:                                        ; preds = %land.rhsthread-pre-split.1, %for.inc
+for.inc.1:                                        ; preds = %for.inc.loopexit.1, %for.inc
   %call.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 2, i32 noundef 0)
   %.old.2 = load i32, ptr @a, align 4
   %tobool.not.old.2 = icmp eq i32 %.old.2, 0
-  br i1 %tobool.not.old.2, label %for.inc.2, label %land.rhsthread-pre-split.2
+  br i1 %tobool.not.old.2, label %for.inc.2, label %for.inc.loopexit.2
 
-land.rhsthread-pre-split.2:                       ; preds = %for.inc.1
+for.inc.loopexit.2:                               ; preds = %for.inc.1
   store i32 1, ptr @c, align 4, !tbaa !5
   br label %for.inc.2
 
-for.inc.2:                                        ; preds = %land.rhsthread-pre-split.2, %for.inc.1
+for.inc.2:                                        ; preds = %for.inc.loopexit.2, %for.inc.1
   %call.3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 3, i32 noundef 0)
   %.old.3 = load i32, ptr @a, align 4
   %tobool.not.old.3 = icmp eq i32 %.old.3, 0
-  br i1 %tobool.not.old.3, label %for.inc.3, label %land.rhsthread-pre-split.3
+  br i1 %tobool.not.old.3, label %for.inc.3, label %for.inc.loopexit.3
 
-land.rhsthread-pre-split.3:                       ; preds = %for.inc.2
+for.inc.loopexit.3:                               ; preds = %for.inc.2
   store i32 1, ptr @c, align 4, !tbaa !5
   br label %for.inc.3
 
-for.inc.3:                                        ; preds = %land.rhsthread-pre-split.3, %for.inc.2
+for.inc.3:                                        ; preds = %for.inc.loopexit.3, %for.inc.2
   ret i32 0
 }
 

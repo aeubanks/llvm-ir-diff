@@ -363,44 +363,36 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %10 = phi float [ 0xC7EFFFFFE0000000, %for.body.lr.ph ], [ %cond69.i, %for.body ]
   %11 = phi float [ 0x47EFFFFFE0000000, %for.body.lr.ph ], [ %cond50.i, %for.body ]
   %12 = phi float [ 0x47EFFFFFE0000000, %for.body.lr.ph ], [ %cond30.i, %for.body ]
-  %13 = phi float [ 0x47EFFFFFE0000000, %for.body.lr.ph ], [ %cond.i, %for.body ]
+  %13 = phi float [ 0x47EFFFFFE0000000, %for.body.lr.ph ], [ %..i, %for.body ]
   %arrayidx.i90 = getelementptr inbounds %struct.GIM_AABB_DATA, ptr %6, i64 %indvars.iv
-  %14 = load float, ptr %arrayidx.i90, align 4
+  %14 = load float, ptr %arrayidx.i90, align 4, !tbaa !11
   %cmp.i = fcmp ogt float %13, %14
-  %cond.i = select i1 %cmp.i, float %14, float %13
-  store float %cond.i, ptr %arrayidx.i, align 4, !tbaa !11
+  %..i = select i1 %cmp.i, float %14, float %13
+  store float %..i, ptr %arrayidx.i, align 4, !tbaa !11
   %arrayidx19.i = getelementptr inbounds float, ptr %arrayidx.i90, i64 1
   %15 = load float, ptr %arrayidx19.i, align 4, !tbaa !11
   %cmp20.i = fcmp ogt float %12, %15
-  %call23.pn.i = select i1 %cmp20.i, ptr %arrayidx.i90, ptr %arrayidx.i
-  %cond30.in.i = getelementptr inbounds float, ptr %call23.pn.i, i64 1
-  %cond30.i = load float, ptr %cond30.in.i, align 4, !tbaa !11
+  %cond30.i = select i1 %cmp20.i, float %15, float %12
   store float %cond30.i, ptr %arrayidx4.i, align 4, !tbaa !11
   %arrayidx39.i = getelementptr inbounds float, ptr %arrayidx.i90, i64 2
   %16 = load float, ptr %arrayidx39.i, align 4, !tbaa !11
   %cmp40.i = fcmp ogt float %11, %16
-  %call43.pn.i = select i1 %cmp40.i, ptr %arrayidx.i90, ptr %arrayidx.i
-  %cond50.in.i = getelementptr inbounds float, ptr %call43.pn.i, i64 2
-  %cond50.i = load float, ptr %cond50.in.i, align 4, !tbaa !11
+  %cond50.i = select i1 %cmp40.i, float %16, float %11
   store float %cond50.i, ptr %arrayidx7.i, align 4, !tbaa !11
   %m_max56.i = getelementptr inbounds %class.GIM_AABB, ptr %arrayidx.i90, i64 0, i32 1
-  %17 = load float, ptr %m_max56.i, align 4
+  %17 = load float, ptr %m_max56.i, align 4, !tbaa !11
   %cmp59.i = fcmp olt float %10, %17
   %cond69.i = select i1 %cmp59.i, float %17, float %10
   store float %cond69.i, ptr %m_max.i, align 4, !tbaa !11
   %arrayidx78.i = getelementptr inbounds %class.GIM_AABB, ptr %arrayidx.i90, i64 0, i32 1, i32 0, i64 1
   %18 = load float, ptr %arrayidx78.i, align 4, !tbaa !11
   %cmp79.i = fcmp olt float %9, %18
-  %call82.pn.i = select i1 %cmp79.i, ptr %m_max56.i, ptr %m_max.i
-  %cond89.in.i = getelementptr inbounds float, ptr %call82.pn.i, i64 1
-  %cond89.i = load float, ptr %cond89.in.i, align 4, !tbaa !11
+  %cond89.i = select i1 %cmp79.i, float %18, float %9
   store float %cond89.i, ptr %arrayidx12.i, align 4, !tbaa !11
   %arrayidx98.i = getelementptr inbounds %class.GIM_AABB, ptr %arrayidx.i90, i64 0, i32 1, i32 0, i64 2
   %19 = load float, ptr %arrayidx98.i, align 4, !tbaa !11
   %cmp99.i = fcmp olt float %8, %19
-  %call102.pn.i = select i1 %cmp99.i, ptr %m_max56.i, ptr %m_max.i
-  %cond109.in.i = getelementptr inbounds float, ptr %call102.pn.i, i64 2
-  %cond109.i = load float, ptr %cond109.in.i, align 4, !tbaa !11
+  %cond109.i = select i1 %cmp99.i, float %19, float %8
   store float %cond109.i, ptr %arrayidx15.i, align 4, !tbaa !11
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
@@ -439,7 +431,7 @@ for.body.i.prol.loopexit:                         ; preds = %for.body.i.prol, %f
   %splitValue.078.i.unr = phi float [ 0.000000e+00, %for.body.lr.ph.i ], [ %26, %for.body.i.prol ]
   %27 = sub nsw i64 0, %wide.trip.count
   %28 = icmp eq i64 %23, %27
-  br i1 %28, label %for.body12.lr.ph.i, label %for.body.i
+  br i1 %28, label %for.end.i, label %for.body.i
 
 for.body.i:                                       ; preds = %for.body.i.prol.loopexit, %for.body.i
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i.1, %for.body.i ], [ %indvars.iv.i.unr, %for.body.i.prol.loopexit ]
@@ -463,19 +455,19 @@ for.body.i:                                       ; preds = %for.body.i.prol.loo
   %34 = tail call float @llvm.fmuladd.f32(float %add.i.1, float 5.000000e-01, float %31)
   %indvars.iv.next.i.1 = add nuw nsw i64 %indvars.iv.i, 2
   %exitcond.not.i.1 = icmp eq i64 %indvars.iv.next.i.1, %wide.trip.count.i
-  br i1 %exitcond.not.i.1, label %for.body12.lr.ph.i, label %for.body.i
+  br i1 %exitcond.not.i.1, label %for.end.i, label %for.body.i
 
-for.body12.lr.ph.i:                               ; preds = %for.body.i, %for.body.i.prol.loopexit
+for.end.i:                                        ; preds = %for.body.i, %for.body.i.prol.loopexit
   %.lcssa = phi float [ %.lcssa.unr, %for.body.i.prol.loopexit ], [ %34, %for.body.i ]
   %conv9.i = uitofp i32 %sub to float
   %div.i = fdiv float %.lcssa, %conv9.i
   %_e_tmp_.sroa.0.16.sroa_idx.i.i.i = getelementptr inbounds i8, ptr %_e_tmp_.sroa.0.i.i.i, i64 16
   br label %for.body12.i
 
-for.body12.i:                                     ; preds = %if.end.i, %for.body12.lr.ph.i
-  %35 = phi ptr [ %20, %for.body12.lr.ph.i ], [ %39, %if.end.i ]
-  %indvars.iv85.i = phi i64 [ %21, %for.body12.lr.ph.i ], [ %indvars.iv.next86.i, %if.end.i ]
-  %splitIndex.081.i = phi i32 [ %startIndex, %for.body12.lr.ph.i ], [ %splitIndex.1.i, %if.end.i ]
+for.body12.i:                                     ; preds = %if.end.i, %for.end.i
+  %35 = phi ptr [ %20, %for.end.i ], [ %39, %if.end.i ]
+  %indvars.iv85.i = phi i64 [ %21, %for.end.i ], [ %indvars.iv.next86.i, %if.end.i ]
+  %splitIndex.081.i = phi i32 [ %startIndex, %for.end.i ], [ %splitIndex.1.i, %if.end.i ]
   %arrayidx.i75.i = getelementptr inbounds %struct.GIM_AABB_DATA, ptr %35, i64 %indvars.iv85.i
   %m_max16.i = getelementptr inbounds %class.GIM_AABB, ptr %arrayidx.i75.i, i64 0, i32 1
   %arrayidx19.i94 = getelementptr inbounds float, ptr %m_max16.i, i64 %idxprom.i
@@ -580,23 +572,23 @@ if.then3.i.i.i:                                   ; preds = %if.end.i.i.i
   %conv5.i.i.i = zext i32 %mul to i64
   %mul6.i.i.i = mul nuw nsw i64 %conv5.i.i.i, 48
   %call.i.i.i = tail call noundef ptr @_Z11gim_reallocPvmm(ptr noundef %3, i64 noundef %mul.i.i.i, i64 noundef %mul6.i.i.i)
-  br label %_ZN9gim_arrayI17GIM_BOX_TREE_NODEE10resizeDataEj.exit.i.i
+  br label %if.end12.i.i.i
 
 if.else.i.i.i:                                    ; preds = %if.end.i.i.i
   %conv8.i.i.i = zext i32 %mul to i64
   %mul9.i.i.i = mul nuw nsw i64 %conv8.i.i.i, 48
   %call10.i.i.i = tail call noundef ptr @_Z9gim_allocm(i64 noundef %mul9.i.i.i)
-  br label %_ZN9gim_arrayI17GIM_BOX_TREE_NODEE10resizeDataEj.exit.i.i
+  br label %if.end12.i.i.i
 
-_ZN9gim_arrayI17GIM_BOX_TREE_NODEE10resizeDataEj.exit.i.i: ; preds = %if.else.i.i.i, %if.then3.i.i.i
+if.end12.i.i.i:                                   ; preds = %if.else.i.i.i, %if.then3.i.i.i
   %storemerge.i.i.i = phi ptr [ %call10.i.i.i, %if.else.i.i.i ], [ %call.i.i.i, %if.then3.i.i.i ]
   store ptr %storemerge.i.i.i, ptr %m_node_array, align 8, !tbaa !25
   store i32 %mul, ptr %m_allocated_size.i.i, align 4, !tbaa !34
   %.pre = load i32, ptr %m_size.i5, align 8, !tbaa !33
   br label %_ZN9gim_arrayI17GIM_BOX_TREE_NODEE7reserveEj.exit.i
 
-_ZN9gim_arrayI17GIM_BOX_TREE_NODEE7reserveEj.exit.i: ; preds = %_ZN9gim_arrayI17GIM_BOX_TREE_NODEE10resizeDataEj.exit.i.i, %if.then.i
-  %4 = phi i32 [ %.pre, %_ZN9gim_arrayI17GIM_BOX_TREE_NODEE10resizeDataEj.exit.i.i ], [ %1, %if.then.i ]
+_ZN9gim_arrayI17GIM_BOX_TREE_NODEE7reserveEj.exit.i: ; preds = %if.end12.i.i.i, %if.then.i
+  %4 = phi i32 [ %.pre, %if.end12.i.i.i ], [ %1, %if.then.i ]
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %obj.i)
   %obj.i.32.sroa_idx = getelementptr inbounds i8, ptr %obj.i, i64 32
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %obj.i.32.sroa_idx, i8 0, i64 16, i1 false)

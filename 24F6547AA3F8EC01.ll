@@ -55,33 +55,34 @@ if.else6:                                         ; preds = %if.else
   %call13 = call noalias ptr @malloc(i64 noundef %conv12) #11
   %call15 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call13, ptr noundef nonnull dereferenceable(1) %2) #9
   %call17 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #10
-  %conv18 = trunc i64 %call17 to i32
-  %cmp1987 = icmp sgt i32 %conv18, -1
-  br i1 %cmp1987, label %land.rhs, label %if.then27
+  %call17.fr = freeze i64 %call17
+  %conv18 = trunc i64 %call17.fr to i32
+  %cmp1985 = icmp sgt i32 %conv18, -1
+  br i1 %cmp1985, label %land.rhs, label %for.end.thread
 
 land.rhs:                                         ; preds = %if.else6, %for.inc
-  %LOOP_COUNTER.088 = phi i32 [ %dec, %for.inc ], [ %conv18, %if.else6 ]
-  %idxprom = zext i32 %LOOP_COUNTER.088 to i64
+  %LOOP_COUNTER.086 = phi i32 [ %dec, %for.inc ], [ %conv18, %if.else6 ]
+  %idxprom = zext i32 %LOOP_COUNTER.086 to i64
   %arrayidx21 = getelementptr inbounds i8, ptr %call13, i64 %idxprom
   %3 = load i8, ptr %arrayidx21, align 1, !tbaa !11
   %cmp23.not = icmp eq i8 %3, 46
   br i1 %cmp23.not, label %for.end, label %for.inc
 
 for.inc:                                          ; preds = %land.rhs
-  %dec = add nsw i32 %LOOP_COUNTER.088, -1
-  %cmp19 = icmp sgt i32 %LOOP_COUNTER.088, 0
-  br i1 %cmp19, label %land.rhs, label %if.then27, !llvm.loop !12
+  %dec = add i32 %LOOP_COUNTER.086, -1
+  %cmp19 = icmp sgt i32 %LOOP_COUNTER.086, 0
+  br i1 %cmp19, label %land.rhs, label %for.end.thread, !llvm.loop !12
 
 for.end:                                          ; preds = %land.rhs
-  %cmp25 = icmp eq i32 %LOOP_COUNTER.088, 0
-  br i1 %cmp25, label %if.then27, label %if.end
+  %cmp25 = icmp eq i32 %LOOP_COUNTER.086, 0
+  br i1 %cmp25, label %for.end.thread, label %4
 
-if.then27:                                        ; preds = %for.inc, %if.else6, %for.end
-  br label %if.end
+for.end.thread:                                   ; preds = %for.inc, %if.else6, %for.end
+  br label %4
 
-if.end:                                           ; preds = %if.then27, %for.end
-  %LOOP_COUNTER.1 = phi i32 [ %conv18, %if.then27 ], [ %LOOP_COUNTER.088, %for.end ]
-  %idxprom31 = sext i32 %LOOP_COUNTER.1 to i64
+4:                                                ; preds = %for.end, %for.end.thread
+  %5 = phi i32 [ %conv18, %for.end.thread ], [ %LOOP_COUNTER.086, %for.end ]
+  %idxprom31 = sext i32 %5 to i64
   %arrayidx32 = getelementptr inbounds i8, ptr %call13, i64 %idxprom31
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(5) %arrayidx32, ptr noundef nonnull align 1 dereferenceable(5) @.str.5, i64 5, i1 false) #9
   %call35 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #10
@@ -99,16 +100,16 @@ if.end:                                           ; preds = %if.then27, %for.end
   %call49 = call i32 @fclose(ptr noundef %call46)
   %call50 = call i32 @fclose(ptr noundef %call45)
   %call51 = call i32 @remove(ptr noundef nonnull @.str) #9
-  %4 = load i32, ptr %ERROR, align 4, !tbaa !5
-  %tobool.not = icmp eq i32 %4, 0
+  %6 = load i32, ptr %ERROR, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
   br i1 %tobool.not, label %if.end57, label %if.then52
 
-if.then52:                                        ; preds = %if.end
+if.then52:                                        ; preds = %4
   %call53 = call i32 @remove(ptr noundef nonnull %call39) #9
   %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end57
 
-if.end57:                                         ; preds = %if.end, %if.then52, %if.then3, %if.then
+if.end57:                                         ; preds = %4, %if.then52, %if.then3, %if.then
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %ERROR) #9
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %SYM_TAB) #9
   ret i32 0

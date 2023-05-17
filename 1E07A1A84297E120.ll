@@ -346,7 +346,7 @@ if.end102:                                        ; preds = %if.else, %cond.end9
   %sub103 = sub i32 8, %19
   %shift105 = getelementptr inbounds %struct.gs_type1_state_s, ptr %pis, i64 0, i32 5, i32 5
   store i32 %sub103, ptr %shift105, align 4, !tbaa !26
-  %cmp106 = icmp slt i32 %19, 8
+  %cmp106 = icmp sgt i32 %sub103, 0
   %sub109 = sub i32 7, %19
   %sh_prom = zext i32 %sub109 to i64
   %shl110 = shl nuw i64 1, %sh_prom

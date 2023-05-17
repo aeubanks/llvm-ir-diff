@@ -48,8 +48,8 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @config2() local_unnamed_addr #0 {
 entry:
   %0 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp.not326 = icmp slt i32 %0, 1
-  br i1 %cmp.not326, label %for.end24, label %for.body.lr.ph
+  %cmp.not322 = icmp slt i32 %0, 1
+  br i1 %cmp.not322, label %for.end24, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr @cellarray, align 8, !tbaa !9
@@ -59,7 +59,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc23
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc23 ]
-  %totalArea.0328 = phi double [ 0.000000e+00, %for.body.lr.ph ], [ %totalArea.2, %for.inc23 ]
+  %totalArea.0324 = phi double [ 0.000000e+00, %for.body.lr.ph ], [ %totalArea.2, %for.inc23 ]
   %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx, align 8, !tbaa !9
   %numtiles = getelementptr inbounds %struct.cellbox, ptr %3, i64 0, i32 6
@@ -85,36 +85,36 @@ if.then:                                          ; preds = %for.body
   %sub4 = sub nsw i32 %10, %9
   %mul = mul nsw i32 %sub4, %sub
   %conv = sitofp i32 %mul to double
-  %add = fadd double %totalArea.0328, %conv
+  %add = fadd double %totalArea.0324, %conv
   br label %for.inc23
 
 if.else:                                          ; preds = %for.body
-  %tileptr.0322 = load ptr, ptr %6, align 8, !tbaa !20
-  %cmp10.not323 = icmp eq ptr %tileptr.0322, null
-  br i1 %cmp10.not323, label %for.inc23, label %for.body12
+  %tileptr.0318 = load ptr, ptr %6, align 8, !tbaa !20
+  %cmp10.not319 = icmp eq ptr %tileptr.0318, null
+  br i1 %cmp10.not319, label %for.inc23, label %for.body12
 
 for.body12:                                       ; preds = %if.else, %for.body12
-  %tileptr.0325 = phi ptr [ %tileptr.0, %for.body12 ], [ %tileptr.0322, %if.else ]
-  %totalArea.1324 = phi double [ %add21, %for.body12 ], [ %totalArea.0328, %if.else ]
-  %left13 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0325, i64 0, i32 9
+  %tileptr.0321 = phi ptr [ %tileptr.0, %for.body12 ], [ %tileptr.0318, %if.else ]
+  %totalArea.1320 = phi double [ %add21, %for.body12 ], [ %totalArea.0324, %if.else ]
+  %left13 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0321, i64 0, i32 9
   %11 = load i32, ptr %left13, align 8, !tbaa !15
-  %right14 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0325, i64 0, i32 10
+  %right14 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0321, i64 0, i32 10
   %12 = load i32, ptr %right14, align 4, !tbaa !17
-  %bottom15 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0325, i64 0, i32 11
+  %bottom15 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0321, i64 0, i32 11
   %13 = load i32, ptr %bottom15, align 8, !tbaa !18
-  %top16 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0325, i64 0, i32 12
+  %top16 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0321, i64 0, i32 12
   %14 = load i32, ptr %top16, align 4, !tbaa !19
   %sub17 = sub nsw i32 %12, %11
   %sub18 = sub nsw i32 %14, %13
   %mul19 = mul nsw i32 %sub18, %sub17
   %conv20 = sitofp i32 %mul19 to double
-  %add21 = fadd double %totalArea.1324, %conv20
-  %tileptr.0 = load ptr, ptr %tileptr.0325, align 8, !tbaa !20
+  %add21 = fadd double %totalArea.1320, %conv20
+  %tileptr.0 = load ptr, ptr %tileptr.0321, align 8, !tbaa !20
   %cmp10.not = icmp eq ptr %tileptr.0, null
   br i1 %cmp10.not, label %for.inc23, label %for.body12, !llvm.loop !21
 
 for.inc23:                                        ; preds = %for.body12, %if.else, %if.then
-  %totalArea.2 = phi double [ %add, %if.then ], [ %totalArea.0328, %if.else ], [ %add21, %for.body12 ]
+  %totalArea.2 = phi double [ %add, %if.then ], [ %totalArea.0324, %if.else ], [ %add21, %for.body12 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end24, label %for.body, !llvm.loop !23
@@ -178,8 +178,8 @@ if.end47.if.end200_crit_edge:                     ; preds = %if.end47
 
 for.cond66.preheader:                             ; preds = %if.end47
   %27 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp67.not335 = icmp slt i32 %27, 1
-  br i1 %cmp67.not335, label %if.then146, label %for.body69.lr.ph
+  %cmp67.not331 = icmp slt i32 %27, 1
+  br i1 %cmp67.not331, label %if.then146, label %for.body69.lr.ph
 
 for.body69.lr.ph:                                 ; preds = %for.cond66.preheader
   %28 = load ptr, ptr @cellarray, align 8, !tbaa !9
@@ -188,13 +188,13 @@ for.body69.lr.ph:                                 ; preds = %for.cond66.preheade
   %30 = load i32, ptr @aveChanWid, align 4
   %mul126 = mul nsw i32 %mul125, %30
   %31 = add nuw i32 %27, 1
-  %wide.trip.count344 = zext i32 %31 to i64
+  %wide.trip.count340 = zext i32 %31 to i64
   br label %for.body69
 
 for.body69:                                       ; preds = %for.body69.lr.ph, %for.inc141
-  %indvars.iv341 = phi i64 [ 1, %for.body69.lr.ph ], [ %indvars.iv.next342, %for.inc141 ]
-  %totNewArea.0337 = phi double [ 0.000000e+00, %for.body69.lr.ph ], [ %totNewArea.1, %for.inc141 ]
-  %arrayidx71 = getelementptr inbounds ptr, ptr %28, i64 %indvars.iv341
+  %indvars.iv337 = phi i64 [ 1, %for.body69.lr.ph ], [ %indvars.iv.next338, %for.inc141 ]
+  %totNewArea.0333 = phi double [ 0.000000e+00, %for.body69.lr.ph ], [ %totNewArea.1, %for.inc141 ]
+  %arrayidx71 = getelementptr inbounds ptr, ptr %28, i64 %indvars.iv337
   %32 = load ptr, ptr %arrayidx71, align 8, !tbaa !9
   %numtiles72 = getelementptr inbounds %struct.cellbox, ptr %32, i64 0, i32 6
   %33 = load i32, ptr %numtiles72, align 4, !tbaa !11
@@ -223,26 +223,26 @@ if.then75:                                        ; preds = %for.body69
   br label %for.inc141
 
 if.else95:                                        ; preds = %for.body69
-  %tileptr.1330 = load ptr, ptr %35, align 8, !tbaa !20
-  %cmp102.not331 = icmp eq ptr %tileptr.1330, null
-  br i1 %cmp102.not331, label %for.end115, label %for.body104
+  %tileptr.1326 = load ptr, ptr %35, align 8, !tbaa !20
+  %cmp102.not327 = icmp eq ptr %tileptr.1326, null
+  br i1 %cmp102.not327, label %for.end115, label %for.body104
 
 for.body104:                                      ; preds = %if.else95, %for.body104
-  %tileptr.1333 = phi ptr [ %tileptr.1, %for.body104 ], [ %tileptr.1330, %if.else95 ]
-  %sum.0332 = phi i32 [ %add112, %for.body104 ], [ 0, %if.else95 ]
-  %left105 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1333, i64 0, i32 9
+  %tileptr.1329 = phi ptr [ %tileptr.1, %for.body104 ], [ %tileptr.1326, %if.else95 ]
+  %sum.0328 = phi i32 [ %add112, %for.body104 ], [ 0, %if.else95 ]
+  %left105 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1329, i64 0, i32 9
   %40 = load i32, ptr %left105, align 8, !tbaa !15
-  %right106 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1333, i64 0, i32 10
+  %right106 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1329, i64 0, i32 10
   %41 = load i32, ptr %right106, align 4, !tbaa !17
-  %bottom107 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1333, i64 0, i32 11
+  %bottom107 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1329, i64 0, i32 11
   %42 = load i32, ptr %bottom107, align 8, !tbaa !18
-  %top108 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1333, i64 0, i32 12
+  %top108 = getelementptr inbounds %struct.tilebox, ptr %tileptr.1329, i64 0, i32 12
   %43 = load i32, ptr %top108, align 4, !tbaa !19
   %sub109 = sub nsw i32 %41, %40
   %sub110 = sub nsw i32 %43, %42
   %mul111 = mul nsw i32 %sub110, %sub109
-  %add112 = add nsw i32 %mul111, %sum.0332
-  %tileptr.1 = load ptr, ptr %tileptr.1333, align 8, !tbaa !20
+  %add112 = add nsw i32 %mul111, %sum.0328
+  %tileptr.1 = load ptr, ptr %tileptr.1329, align 8, !tbaa !20
   %cmp102.not = icmp eq ptr %tileptr.1, null
   br i1 %cmp102.not, label %for.end115, label %for.body104, !llvm.loop !24
 
@@ -269,10 +269,10 @@ for.end115:                                       ; preds = %for.body104, %if.el
 for.inc141:                                       ; preds = %if.then75, %for.end115
   %conv93.pn.in = phi i32 [ %mul92, %if.then75 ], [ %add137, %for.end115 ]
   %conv93.pn = sitofp i32 %conv93.pn.in to double
-  %totNewArea.1 = fadd double %totNewArea.0337, %conv93.pn
-  %indvars.iv.next342 = add nuw nsw i64 %indvars.iv341, 1
-  %exitcond345.not = icmp eq i64 %indvars.iv.next342, %wide.trip.count344
-  br i1 %exitcond345.not, label %for.end143, label %for.body69, !llvm.loop !25
+  %totNewArea.1 = fadd double %totNewArea.0333, %conv93.pn
+  %indvars.iv.next338 = add nuw nsw i64 %indvars.iv337, 1
+  %exitcond341.not = icmp eq i64 %indvars.iv.next338, %wide.trip.count340
+  br i1 %exitcond341.not, label %for.end143, label %for.body69, !llvm.loop !25
 
 for.end143:                                       ; preds = %for.inc141
   store double 1.050000e+00, ptr @expandExtra, align 8, !tbaa !26
@@ -280,7 +280,7 @@ for.end143:                                       ; preds = %for.inc141
   br i1 %cmp144, label %if.then146, label %if.end154
 
 if.then146:                                       ; preds = %for.cond66.preheader, %for.end143
-  %totNewArea.0.lcssa349 = phi double [ %totNewArea.1, %for.end143 ], [ 0.000000e+00, %for.cond66.preheader ]
+  %totNewArea.0.lcssa345 = phi double [ %totNewArea.1, %for.end143 ], [ 0.000000e+00, %for.cond66.preheader ]
   %sub147 = sub nsw i32 10, %27
   %conv148 = sitofp i32 %sub147 to double
   %48 = tail call double @llvm.fmuladd.f64(double %conv148, double 1.000000e-02, double 1.050000e+00)
@@ -293,9 +293,9 @@ if.then152:                                       ; preds = %if.then146
   br label %if.end154
 
 if.end154:                                        ; preds = %if.then146, %if.then152, %for.end143
-  %totNewArea.0.lcssa348 = phi double [ %totNewArea.0.lcssa349, %if.then146 ], [ %totNewArea.0.lcssa349, %if.then152 ], [ %totNewArea.1, %for.end143 ]
+  %totNewArea.0.lcssa344 = phi double [ %totNewArea.0.lcssa345, %if.then146 ], [ %totNewArea.0.lcssa345, %if.then152 ], [ %totNewArea.1, %for.end143 ]
   %49 = phi double [ %48, %if.then146 ], [ 1.100000e+00, %if.then152 ], [ 1.050000e+00, %for.end143 ]
-  %call155 = tail call double @sqrt(double noundef %totNewArea.0.lcssa348) #5
+  %call155 = tail call double @sqrt(double noundef %totNewArea.0.lcssa344) #5
   %mul156 = fmul double %49, %call155
   %conv157 = fptosi double %mul156 to i32
   %add158 = add nsw i32 %conv157, 1
@@ -325,7 +325,7 @@ if.then167:                                       ; preds = %if.end154
   %cmp171 = fcmp ogt double %add170, 1.100000e+00
   %storemerge316 = select i1 %cmp171, double 1.100000e+00, double %add170
   store double %storemerge316, ptr @expandExtra, align 8, !tbaa !26
-  %call175 = tail call double @sqrt(double noundef %totNewArea.0.lcssa348) #5
+  %call175 = tail call double @sqrt(double noundef %totNewArea.0.lcssa344) #5
   %mul176 = fmul double %call175, %storemerge316
   %conv177 = fptosi double %mul176 to i32
   %add178 = add nsw i32 %conv177, 1
@@ -345,7 +345,7 @@ if.end180:                                        ; preds = %if.then167, %if.end
 if.then182:                                       ; preds = %if.end180
   %60 = load double, ptr @core_expansion, align 8, !tbaa !26
   store double %60, ptr @expandExtra, align 8, !tbaa !26
-  %call183 = tail call double @sqrt(double noundef %totNewArea.0.lcssa348) #5
+  %call183 = tail call double @sqrt(double noundef %totNewArea.0.lcssa344) #5
   %mul184 = fmul double %60, %call183
   %conv185 = fptosi double %mul184 to i32
   %add186 = add nsw i32 %conv185, 1
@@ -408,10 +408,9 @@ if.end200:                                        ; preds = %if.end47.if.end200_
   %75 = load i32, ptr @numBinsX, align 4, !tbaa !5
   %div217 = sdiv i32 %sub216, %75
   %mul219 = mul nsw i32 %div217, %75
-  %76 = add i32 %72, %mul219
-  %sub220 = sub i32 %71, %76
+  %sub220.recomposed = srem i32 %sub216, %75
   %div221 = sdiv i32 %75, 2
-  %cmp222.not = icmp sge i32 %sub220, %div221
+  %cmp222.not = icmp sge i32 %sub220.recomposed, %div221
   %inc225 = zext i1 %cmp222.not to i32
   %spec.select = add nsw i32 %div217, %inc225
   store i32 %spec.select, ptr @binWidthX, align 4, !tbaa !5
@@ -419,13 +418,12 @@ if.end200:                                        ; preds = %if.end47.if.end200_
   %sub228 = sub i32 %add227, %spec.select
   store i32 %sub228, ptr @binOffsetX, align 4, !tbaa !5
   %sub229 = sub nsw i32 %73, %74
-  %77 = load i32, ptr @numBinsY, align 4, !tbaa !5
-  %div230 = sdiv i32 %sub229, %77
-  %mul232 = mul nsw i32 %div230, %77
-  %78 = add i32 %74, %mul232
-  %sub233 = sub i32 %73, %78
-  %div234 = sdiv i32 %77, 2
-  %cmp235.not = icmp sge i32 %sub233, %div234
+  %76 = load i32, ptr @numBinsY, align 4, !tbaa !5
+  %div230 = sdiv i32 %sub229, %76
+  %mul232 = mul nsw i32 %div230, %76
+  %sub233.recomposed = srem i32 %sub229, %76
+  %div234 = sdiv i32 %76, 2
+  %cmp235.not = icmp sge i32 %sub233.recomposed, %div234
   %inc238 = zext i1 %cmp235.not to i32
   %storemerge = add nsw i32 %div230, %inc238
   store i32 %storemerge, ptr @binWidthY, align 4, !tbaa !5

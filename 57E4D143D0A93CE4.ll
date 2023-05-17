@@ -96,22 +96,22 @@ entry:
   store i64 4, ptr %_itemSize.i.i, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %_srcInToDestOutMap, align 8, !tbaa !12
   %_srcOutToDestInMap = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3
-  %_capacity.i.i117 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 1
-  %_itemSize.i.i118 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i117, i8 0, i64 16, i1 false)
-  store i64 4, ptr %_itemSize.i.i118, align 8, !tbaa !5
+  %_capacity.i.i116 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 1
+  %_itemSize.i.i117 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i116, i8 0, i64 16, i1 false)
+  store i64 4, ptr %_itemSize.i.i117, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %_srcOutToDestInMap, align 8, !tbaa !12
   %_destInToSrcOutMap = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4
-  %_capacity.i.i119 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 1
-  %_itemSize.i.i120 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i119, i8 0, i64 16, i1 false)
-  store i64 4, ptr %_itemSize.i.i120, align 8, !tbaa !5
+  %_capacity.i.i118 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 1
+  %_itemSize.i.i119 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i118, i8 0, i64 16, i1 false)
+  store i64 4, ptr %_itemSize.i.i119, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %_destInToSrcOutMap, align 8, !tbaa !12
   %DestOutToSrcInMap = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6
-  %_capacity.i.i121 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 1
-  %_itemSize.i.i122 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i121, i8 0, i64 16, i1 false)
-  store i64 4, ptr %_itemSize.i.i122, align 8, !tbaa !5
+  %_capacity.i.i120 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 1
+  %_itemSize.i.i121 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i120, i8 0, i64 16, i1 false)
+  store i64 4, ptr %_itemSize.i.i121, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %DestOutToSrcInMap, align 8, !tbaa !12
   %NumSrcInStreams = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 5
   store i32 0, ptr %NumSrcInStreams, align 8, !tbaa !14
@@ -142,41 +142,41 @@ for.body.i:                                       ; preds = %for.body.i, %for.bo
   %6 = load i32, ptr %_size.i.i, align 4, !tbaa !15
   %7 = sext i32 %6 to i64
   %cmp.i = icmp slt i64 %indvars.iv.next.i, %7
-  br i1 %cmp.i, label %for.body.i, label %_ZNK11NCoderMixer9CBindInfo13GetNumStreamsERjS1_.exit, !llvm.loop !20
+  br i1 %cmp.i, label %for.body.i, label %invoke.cont9, !llvm.loop !20
 
-_ZNK11NCoderMixer9CBindInfo13GetNumStreamsERjS1_.exit: ; preds = %for.body.i
+invoke.cont9:                                     ; preds = %for.body.i
   %8 = icmp eq i32 %add.i, 0
   br i1 %8, label %for.cond17.preheader, label %for.body.lr.ph
 
-for.body.lr.ph:                                   ; preds = %_ZNK11NCoderMixer9CBindInfo13GetNumStreamsERjS1_.exit
+for.body.lr.ph:                                   ; preds = %invoke.cont9
   %_items.i = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 2, i32 0, i32 3
   %_size.i = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 2, i32 0, i32 2
-  %_items.i123 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 3
-  %_size.i124 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 2
+  %_items.i122 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 3
+  %_size.i123 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 2
   br label %for.body
 
-for.cond17.preheader.loopexit:                    ; preds = %for.inc
+for.cond17.preheader.loopexit:                    ; preds = %_ZN13CRecordVectorIjE3AddEj.exit127
   %.pre = load i32, ptr %this, align 8, !tbaa !22
   br label %for.cond17.preheader
 
-for.cond17.preheader:                             ; preds = %for.cond17.preheader.loopexit, %_ZNK11NCoderMixer9CBindInfo13GetNumStreamsERjS1_.exit
-  %9 = phi i32 [ %.pre, %for.cond17.preheader.loopexit ], [ %add4.i, %_ZNK11NCoderMixer9CBindInfo13GetNumStreamsERjS1_.exit ]
-  %cmp19160.not = icmp eq i32 %9, 0
-  br i1 %cmp19160.not, label %for.end29, label %for.body20.lr.ph
+for.cond17.preheader:                             ; preds = %for.cond17.preheader.loopexit, %invoke.cont9
+  %9 = phi i32 [ %.pre, %for.cond17.preheader.loopexit ], [ %add4.i, %invoke.cont9 ]
+  %cmp19159.not = icmp eq i32 %9, 0
+  br i1 %cmp19159.not, label %for.end29, label %for.body20.lr.ph
 
 for.body20.lr.ph:                                 ; preds = %for.cond17.preheader
-  %_items.i129 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 3
-  %_size.i130 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 2
-  %_items.i135 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 3
-  %_size.i136 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 2
+  %_items.i128 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 3
+  %_size.i129 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 2
+  %_items.i134 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 3
+  %_size.i135 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 2
   br label %for.body20
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %j.0159 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN13CRecordVectorIjE3AddEj.exit127
+  %j.0158 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %_ZN13CRecordVectorIjE3AddEj.exit127 ]
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_srcInToDestOutMap)
-          to label %invoke.cont13 unwind label %lpad12.loopexit.split-lp
+          to label %_ZN13CRecordVectorIjE3AddEj.exit unwind label %lpad12.loopexit.split-lp
 
-invoke.cont13:                                    ; preds = %for.body
+_ZN13CRecordVectorIjE3AddEj.exit:                 ; preds = %for.body
   %10 = load ptr, ptr %_items.i, align 8, !tbaa !16
   %11 = load i32, ptr %_size.i, align 4, !tbaa !15
   %idxprom.i = sext i32 %11 to i64
@@ -186,28 +186,28 @@ invoke.cont13:                                    ; preds = %for.body
   %inc.i = add nsw i32 %12, 1
   store i32 %inc.i, ptr %_size.i, align 4, !tbaa !15
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %DestOutToSrcInMap)
-          to label %for.inc unwind label %lpad12.loopexit.split-lp
+          to label %_ZN13CRecordVectorIjE3AddEj.exit127 unwind label %lpad12.loopexit.split-lp
 
-for.inc:                                          ; preds = %invoke.cont13
-  %13 = load ptr, ptr %_items.i123, align 8, !tbaa !16
-  %14 = load i32, ptr %_size.i124, align 4, !tbaa !15
-  %idxprom.i125 = sext i32 %14 to i64
-  %arrayidx.i126 = getelementptr inbounds i32, ptr %13, i64 %idxprom.i125
-  store i32 0, ptr %arrayidx.i126, align 4, !tbaa !14
-  %15 = load i32, ptr %_size.i124, align 4, !tbaa !15
-  %inc.i127 = add nsw i32 %15, 1
-  store i32 %inc.i127, ptr %_size.i124, align 4, !tbaa !15
-  %inc = add nuw i32 %j.0159, 1
+_ZN13CRecordVectorIjE3AddEj.exit127:              ; preds = %_ZN13CRecordVectorIjE3AddEj.exit
+  %13 = load ptr, ptr %_items.i122, align 8, !tbaa !16
+  %14 = load i32, ptr %_size.i123, align 4, !tbaa !15
+  %idxprom.i124 = sext i32 %14 to i64
+  %arrayidx.i125 = getelementptr inbounds i32, ptr %13, i64 %idxprom.i124
+  store i32 0, ptr %arrayidx.i125, align 4, !tbaa !14
+  %15 = load i32, ptr %_size.i123, align 4, !tbaa !15
+  %inc.i126 = add nsw i32 %15, 1
+  store i32 %inc.i126, ptr %_size.i123, align 4, !tbaa !15
+  %inc = add nuw i32 %j.0158, 1
   %16 = load i32, ptr %NumSrcInStreams, align 8, !tbaa !28
   %cmp = icmp ult i32 %inc, %16
   br i1 %cmp, label %for.body, label %for.cond17.preheader.loopexit, !llvm.loop !29
 
-lpad12.loopexit:                                  ; preds = %for.body20, %invoke.cont22
+lpad12.loopexit:                                  ; preds = %for.body20, %_ZN13CRecordVectorIjE3AddEj.exit133
   %lpad.loopexit = landingpad { ptr, i32 }
           cleanup
   br label %lpad12
 
-lpad12.loopexit.split-lp:                         ; preds = %for.body, %invoke.cont13
+lpad12.loopexit.split-lp:                         ; preds = %for.body, %_ZN13CRecordVectorIjE3AddEj.exit
   %lpad.loopexit.split-lp = landingpad { ptr, i32 }
           cleanup
   br label %lpad12
@@ -221,60 +221,60 @@ lpad12:                                           ; preds = %lpad12.loopexit.spl
   tail call void @_ZN11NCoderMixer9CBindInfoD2Ev(ptr noundef nonnull align 8 dereferenceable(128) %_srcBindInfo) #9
   resume { ptr, i32 } %lpad.phi
 
-for.body20:                                       ; preds = %for.body20.lr.ph, %for.inc27
-  %j.1161 = phi i32 [ 0, %for.body20.lr.ph ], [ %inc28, %for.inc27 ]
+for.body20:                                       ; preds = %for.body20.lr.ph, %_ZN13CRecordVectorIjE3AddEj.exit139
+  %j.1160 = phi i32 [ 0, %for.body20.lr.ph ], [ %inc28, %_ZN13CRecordVectorIjE3AddEj.exit139 ]
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_srcOutToDestInMap)
-          to label %invoke.cont22 unwind label %lpad12.loopexit
+          to label %_ZN13CRecordVectorIjE3AddEj.exit133 unwind label %lpad12.loopexit
 
-invoke.cont22:                                    ; preds = %for.body20
-  %17 = load ptr, ptr %_items.i129, align 8, !tbaa !16
-  %18 = load i32, ptr %_size.i130, align 4, !tbaa !15
-  %idxprom.i131 = sext i32 %18 to i64
-  %arrayidx.i132 = getelementptr inbounds i32, ptr %17, i64 %idxprom.i131
-  store i32 0, ptr %arrayidx.i132, align 4, !tbaa !14
-  %19 = load i32, ptr %_size.i130, align 4, !tbaa !15
-  %inc.i133 = add nsw i32 %19, 1
-  store i32 %inc.i133, ptr %_size.i130, align 4, !tbaa !15
+_ZN13CRecordVectorIjE3AddEj.exit133:              ; preds = %for.body20
+  %17 = load ptr, ptr %_items.i128, align 8, !tbaa !16
+  %18 = load i32, ptr %_size.i129, align 4, !tbaa !15
+  %idxprom.i130 = sext i32 %18 to i64
+  %arrayidx.i131 = getelementptr inbounds i32, ptr %17, i64 %idxprom.i130
+  store i32 0, ptr %arrayidx.i131, align 4, !tbaa !14
+  %19 = load i32, ptr %_size.i129, align 4, !tbaa !15
+  %inc.i132 = add nsw i32 %19, 1
+  store i32 %inc.i132, ptr %_size.i129, align 4, !tbaa !15
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_destInToSrcOutMap)
-          to label %for.inc27 unwind label %lpad12.loopexit
+          to label %_ZN13CRecordVectorIjE3AddEj.exit139 unwind label %lpad12.loopexit
 
-for.inc27:                                        ; preds = %invoke.cont22
-  %20 = load ptr, ptr %_items.i135, align 8, !tbaa !16
-  %21 = load i32, ptr %_size.i136, align 4, !tbaa !15
-  %idxprom.i137 = sext i32 %21 to i64
-  %arrayidx.i138 = getelementptr inbounds i32, ptr %20, i64 %idxprom.i137
-  store i32 0, ptr %arrayidx.i138, align 4, !tbaa !14
-  %22 = load i32, ptr %_size.i136, align 4, !tbaa !15
-  %inc.i139 = add nsw i32 %22, 1
-  store i32 %inc.i139, ptr %_size.i136, align 4, !tbaa !15
-  %inc28 = add nuw i32 %j.1161, 1
+_ZN13CRecordVectorIjE3AddEj.exit139:              ; preds = %_ZN13CRecordVectorIjE3AddEj.exit133
+  %20 = load ptr, ptr %_items.i134, align 8, !tbaa !16
+  %21 = load i32, ptr %_size.i135, align 4, !tbaa !15
+  %idxprom.i136 = sext i32 %21 to i64
+  %arrayidx.i137 = getelementptr inbounds i32, ptr %20, i64 %idxprom.i136
+  store i32 0, ptr %arrayidx.i137, align 4, !tbaa !14
+  %22 = load i32, ptr %_size.i135, align 4, !tbaa !15
+  %inc.i138 = add nsw i32 %22, 1
+  store i32 %inc.i138, ptr %_size.i135, align 4, !tbaa !15
+  %inc28 = add nuw i32 %j.1160, 1
   %23 = load i32, ptr %this, align 8, !tbaa !22
   %cmp19 = icmp ult i32 %inc28, %23
   br i1 %cmp19, label %for.body20, label %for.end29, !llvm.loop !30
 
-for.end29:                                        ; preds = %for.inc27, %for.cond17.preheader
-  %.lcssa.ph = phi i32 [ 0, %for.cond17.preheader ], [ %23, %for.inc27 ]
+for.end29:                                        ; preds = %_ZN13CRecordVectorIjE3AddEj.exit139, %for.cond17.preheader
+  %.lcssa.ph = phi i32 [ 0, %for.cond17.preheader ], [ %23, %_ZN13CRecordVectorIjE3AddEj.exit139 ]
   %.pr = load i32, ptr %_size.i.i, align 4, !tbaa !15
-  %cmp36171 = icmp sgt i32 %.pr, 0
-  br i1 %cmp36171, label %for.body37.lr.ph, label %for.cond.cleanup
+  %cmp36170 = icmp sgt i32 %.pr, 0
+  br i1 %cmp36170, label %for.body37.lr.ph, label %for.cond.cleanup
 
 for.body37.lr.ph:                                 ; preds = %for.end29
   %24 = load i32, ptr %NumSrcInStreams, align 8, !tbaa !28
-  %_items.i142 = getelementptr inbounds %class.CBaseRecordVector, ptr %srcBindInfo, i64 0, i32 3
-  %25 = load ptr, ptr %_items.i142, align 8, !tbaa !16
-  %_items.i145 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 2, i32 0, i32 3
-  %26 = load ptr, ptr %_items.i145, align 8
-  %_items.i148 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 3
-  %27 = load ptr, ptr %_items.i148, align 8
-  %_items.i151 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 3
-  %28 = load ptr, ptr %_items.i151, align 8
-  %_items.i154 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 3
-  %29 = load ptr, ptr %_items.i154, align 8
+  %_items.i141 = getelementptr inbounds %class.CBaseRecordVector, ptr %srcBindInfo, i64 0, i32 3
+  %25 = load ptr, ptr %_items.i141, align 8, !tbaa !16
+  %_items.i144 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 2, i32 0, i32 3
+  %26 = load ptr, ptr %_items.i144, align 8
+  %_items.i147 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 6, i32 0, i32 3
+  %27 = load ptr, ptr %_items.i147, align 8
+  %_items.i150 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 3, i32 0, i32 3
+  %28 = load ptr, ptr %_items.i150, align 8
+  %_items.i153 = getelementptr inbounds %"class.NCoderMixer::CBindReverseConverter", ptr %this, i64 0, i32 4, i32 0, i32 3
+  %29 = load ptr, ptr %_items.i153, align 8
   %30 = zext i32 %.pr to i64
   br label %for.body37
 
 for.cond35.loopexit:                              ; preds = %for.body63, %for.cond60.preheader
-  %destInOffset.1.lcssa = phi i32 [ %destInOffset.0172, %for.cond60.preheader ], [ %inc75, %for.body63 ]
+  %destInOffset.1.lcssa = phi i32 [ %destInOffset.0171, %for.cond60.preheader ], [ %inc75, %for.body63 ]
   %cmp36 = icmp sgt i64 %indvars.iv, 1
   br i1 %cmp36, label %for.body37, label %for.cond.cleanup, !llvm.loop !31
 
@@ -283,59 +283,59 @@ for.cond.cleanup:                                 ; preds = %for.cond35.loopexit
 
 for.body37:                                       ; preds = %for.body37.lr.ph, %for.cond35.loopexit
   %indvars.iv = phi i64 [ %30, %for.body37.lr.ph ], [ %indvars.iv.next, %for.cond35.loopexit ]
-  %srcOutOffset.0175 = phi i32 [ %.lcssa.ph, %for.body37.lr.ph ], [ %sub43, %for.cond35.loopexit ]
-  %srcInOffset.0174 = phi i32 [ %24, %for.body37.lr.ph ], [ %sub42, %for.cond35.loopexit ]
-  %destOutOffset.0173 = phi i32 [ 0, %for.body37.lr.ph ], [ %destOutOffset.1.lcssa, %for.cond35.loopexit ]
-  %destInOffset.0172 = phi i32 [ 0, %for.body37.lr.ph ], [ %destInOffset.1.lcssa, %for.cond35.loopexit ]
+  %srcOutOffset.0174 = phi i32 [ %.lcssa.ph, %for.body37.lr.ph ], [ %sub43, %for.cond35.loopexit ]
+  %srcInOffset.0173 = phi i32 [ %24, %for.body37.lr.ph ], [ %sub42, %for.cond35.loopexit ]
+  %destOutOffset.0172 = phi i32 [ 0, %for.body37.lr.ph ], [ %destOutOffset.1.lcssa, %for.cond35.loopexit ]
+  %destInOffset.0171 = phi i32 [ 0, %for.body37.lr.ph ], [ %destInOffset.1.lcssa, %for.cond35.loopexit ]
   %indvars.iv.next = add nsw i64 %indvars.iv, -1
-  %idxprom.i143 = and i64 %indvars.iv.next, 4294967295
-  %arrayidx.i144 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %25, i64 %idxprom.i143
-  %31 = load i32, ptr %arrayidx.i144, align 4, !tbaa !17
-  %sub42 = sub i32 %srcInOffset.0174, %31
-  %NumOutStreams = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %25, i64 %idxprom.i143, i32 1
+  %idxprom.i142 = and i64 %indvars.iv.next, 4294967295
+  %arrayidx.i143 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %25, i64 %idxprom.i142
+  %31 = load i32, ptr %arrayidx.i143, align 4, !tbaa !17
+  %sub42 = sub i32 %srcInOffset.0173, %31
+  %NumOutStreams = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %25, i64 %idxprom.i142, i32 1
   %32 = load i32, ptr %NumOutStreams, align 4, !tbaa !19
-  %sub43 = sub i32 %srcOutOffset.0175, %32
-  %cmp47162.not = icmp eq i32 %31, 0
-  br i1 %cmp47162.not, label %for.cond60.preheader, label %for.body48
+  %sub43 = sub i32 %srcOutOffset.0174, %32
+  %cmp47161.not = icmp eq i32 %31, 0
+  br i1 %cmp47161.not, label %for.cond60.preheader, label %for.body48
 
 for.cond60.preheader.loopexit:                    ; preds = %for.body48
-  %.pre179 = load i32, ptr %NumOutStreams, align 4, !tbaa !19
+  %.pre178 = load i32, ptr %NumOutStreams, align 4, !tbaa !19
   br label %for.cond60.preheader
 
 for.cond60.preheader:                             ; preds = %for.cond60.preheader.loopexit, %for.body37
-  %33 = phi i32 [ %32, %for.body37 ], [ %.pre179, %for.cond60.preheader.loopexit ]
-  %destOutOffset.1.lcssa = phi i32 [ %destOutOffset.0173, %for.body37 ], [ %inc58, %for.cond60.preheader.loopexit ]
-  %cmp62166.not = icmp eq i32 %33, 0
-  br i1 %cmp62166.not, label %for.cond35.loopexit, label %for.body63
+  %33 = phi i32 [ %32, %for.body37 ], [ %.pre178, %for.cond60.preheader.loopexit ]
+  %destOutOffset.1.lcssa = phi i32 [ %destOutOffset.0172, %for.body37 ], [ %inc58, %for.cond60.preheader.loopexit ]
+  %cmp62165.not = icmp eq i32 %33, 0
+  br i1 %cmp62165.not, label %for.cond35.loopexit, label %for.body63
 
 for.body48:                                       ; preds = %for.body37, %for.body48
-  %j44.0164 = phi i32 [ %inc57, %for.body48 ], [ 0, %for.body37 ]
-  %destOutOffset.1163 = phi i32 [ %inc58, %for.body48 ], [ %destOutOffset.0173, %for.body37 ]
-  %add = add i32 %j44.0164, %sub42
-  %idxprom.i146 = sext i32 %add to i64
-  %arrayidx.i147 = getelementptr inbounds i32, ptr %26, i64 %idxprom.i146
-  store i32 %destOutOffset.1163, ptr %arrayidx.i147, align 4, !tbaa !14
-  %idxprom.i149 = sext i32 %destOutOffset.1163 to i64
-  %arrayidx.i150 = getelementptr inbounds i32, ptr %27, i64 %idxprom.i149
-  store i32 %add, ptr %arrayidx.i150, align 4, !tbaa !14
-  %inc57 = add nuw i32 %j44.0164, 1
-  %inc58 = add i32 %destOutOffset.1163, 1
-  %34 = load i32, ptr %arrayidx.i144, align 4, !tbaa !17
+  %j44.0163 = phi i32 [ %inc57, %for.body48 ], [ 0, %for.body37 ]
+  %destOutOffset.1162 = phi i32 [ %inc58, %for.body48 ], [ %destOutOffset.0172, %for.body37 ]
+  %add = add i32 %j44.0163, %sub42
+  %idxprom.i145 = sext i32 %add to i64
+  %arrayidx.i146 = getelementptr inbounds i32, ptr %26, i64 %idxprom.i145
+  store i32 %destOutOffset.1162, ptr %arrayidx.i146, align 4, !tbaa !14
+  %idxprom.i148 = sext i32 %destOutOffset.1162 to i64
+  %arrayidx.i149 = getelementptr inbounds i32, ptr %27, i64 %idxprom.i148
+  store i32 %add, ptr %arrayidx.i149, align 4, !tbaa !14
+  %inc57 = add nuw i32 %j44.0163, 1
+  %inc58 = add i32 %destOutOffset.1162, 1
+  %34 = load i32, ptr %arrayidx.i143, align 4, !tbaa !17
   %cmp47 = icmp ult i32 %inc57, %34
   br i1 %cmp47, label %for.body48, label %for.cond60.preheader.loopexit, !llvm.loop !32
 
 for.body63:                                       ; preds = %for.cond60.preheader, %for.body63
-  %j44.1168 = phi i32 [ %inc74, %for.body63 ], [ 0, %for.cond60.preheader ]
-  %destInOffset.1167 = phi i32 [ %inc75, %for.body63 ], [ %destInOffset.0172, %for.cond60.preheader ]
-  %add65 = add i32 %j44.1168, %sub43
-  %idxprom.i152 = sext i32 %add65 to i64
-  %arrayidx.i153 = getelementptr inbounds i32, ptr %28, i64 %idxprom.i152
-  store i32 %destInOffset.1167, ptr %arrayidx.i153, align 4, !tbaa !14
-  %idxprom.i155 = sext i32 %destInOffset.1167 to i64
-  %arrayidx.i156 = getelementptr inbounds i32, ptr %29, i64 %idxprom.i155
-  store i32 %add65, ptr %arrayidx.i156, align 4, !tbaa !14
-  %inc74 = add nuw i32 %j44.1168, 1
-  %inc75 = add i32 %destInOffset.1167, 1
+  %j44.1167 = phi i32 [ %inc74, %for.body63 ], [ 0, %for.cond60.preheader ]
+  %destInOffset.1166 = phi i32 [ %inc75, %for.body63 ], [ %destInOffset.0171, %for.cond60.preheader ]
+  %add65 = add i32 %j44.1167, %sub43
+  %idxprom.i151 = sext i32 %add65 to i64
+  %arrayidx.i152 = getelementptr inbounds i32, ptr %28, i64 %idxprom.i151
+  store i32 %destInOffset.1166, ptr %arrayidx.i152, align 4, !tbaa !14
+  %idxprom.i154 = sext i32 %destInOffset.1166 to i64
+  %arrayidx.i155 = getelementptr inbounds i32, ptr %29, i64 %idxprom.i154
+  store i32 %add65, ptr %arrayidx.i155, align 4, !tbaa !14
+  %inc74 = add nuw i32 %j44.1167, 1
+  %inc75 = add i32 %destInOffset.1166, 1
   %35 = load i32, ptr %NumOutStreams, align 4, !tbaa !19
   %cmp62 = icmp ult i32 %inc74, %35
   br i1 %cmp62, label %for.body63, label %for.cond35.loopexit, !llvm.loop !33
@@ -403,205 +403,205 @@ lpad.loopexit.split-lp.i:                         ; preds = %.noexc.i, %entry
   br label %common.resume
 
 common.resume:                                    ; preds = %lpad.loopexit.i, %lpad.loopexit.split-lp.i, %ehcleanup10
-  %common.resume.op = phi { ptr, i32 } [ %.pn.pn, %ehcleanup10 ], [ %lpad.loopexit5.i, %lpad.loopexit.i ], [ %lpad.loopexit.split-lp6.i, %lpad.loopexit.split-lp.i ]
+  %common.resume.op = phi { ptr, i32 } [ %eh.lpad-body98.pn.pn, %ehcleanup10 ], [ %lpad.loopexit5.i, %lpad.loopexit.i ], [ %lpad.loopexit.split-lp6.i, %lpad.loopexit.split-lp.i ]
   tail call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) #9
   resume { ptr, i32 } %common.resume.op
 
 _ZN13CRecordVectorIN11NCoderMixer17CCoderStreamsInfoEEC2ERKS2_.exit: ; preds = %.noexc4.i, %.noexc3.i
   %BindPairs = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1
-  %_capacity.i.i17 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 1
-  %_itemSize.i.i18 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i17, i8 0, i64 16, i1 false)
-  store i64 8, ptr %_itemSize.i.i18, align 8, !tbaa !5
+  %_capacity.i.i15 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 1
+  %_itemSize.i.i16 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i15, i8 0, i64 16, i1 false)
+  store i64 8, ptr %_itemSize.i.i16, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIN11NCoderMixer9CBindPairEE, i64 0, inrange i32 0, i64 2), ptr %BindPairs, align 8, !tbaa !12
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %BindPairs)
-          to label %.noexc.i22 unwind label %lpad.loopexit.split-lp.i42
+          to label %.noexc.i20 unwind label %lpad.loopexit.split-lp.i40
 
-.noexc.i22:                                       ; preds = %_ZN13CRecordVectorIN11NCoderMixer17CCoderStreamsInfoEEC2ERKS2_.exit
-  %_size.i.i.i.i19 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 1, i32 0, i32 2
-  %7 = load i32, ptr %_size.i.i.i.i19, align 4, !tbaa !15
-  %_size.i9.i.i.i20 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 2
-  %8 = load i32, ptr %_size.i9.i.i.i20, align 4, !tbaa !15
-  %add.i.i.i21 = add nsw i32 %8, %7
-  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %BindPairs, i32 noundef %add.i.i.i21)
-          to label %.noexc3.i24 unwind label %lpad.loopexit.split-lp.i42
+.noexc.i20:                                       ; preds = %_ZN13CRecordVectorIN11NCoderMixer17CCoderStreamsInfoEEC2ERKS2_.exit
+  %_size.i.i.i.i17 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 1, i32 0, i32 2
+  %7 = load i32, ptr %_size.i.i.i.i17, align 4, !tbaa !15
+  %_size.i9.i.i.i18 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 2
+  %8 = load i32, ptr %_size.i9.i.i.i18, align 4, !tbaa !15
+  %add.i.i.i19 = add nsw i32 %8, %7
+  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %BindPairs, i32 noundef %add.i.i.i19)
+          to label %.noexc3.i22 unwind label %lpad.loopexit.split-lp.i40
 
-.noexc3.i24:                                      ; preds = %.noexc.i22
-  %cmp14.i.i.i23 = icmp sgt i32 %7, 0
-  br i1 %cmp14.i.i.i23, label %for.body.lr.ph.i.i.i28, label %invoke.cont
+.noexc3.i22:                                      ; preds = %.noexc.i20
+  %cmp14.i.i.i21 = icmp sgt i32 %7, 0
+  br i1 %cmp14.i.i.i21, label %for.body.lr.ph.i.i.i26, label %invoke.cont
 
-for.body.lr.ph.i.i.i28:                           ; preds = %.noexc3.i24
-  %_items.i.i.i.i25 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 1, i32 0, i32 3
-  %_items.i10.i.i.i26 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 3
-  %wide.trip.count.i.i.i27 = zext i32 %7 to i64
-  br label %for.body.i.i.i32
+for.body.lr.ph.i.i.i26:                           ; preds = %.noexc3.i22
+  %_items.i.i.i.i23 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 1, i32 0, i32 3
+  %_items.i10.i.i.i24 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 1, i32 0, i32 3
+  %wide.trip.count.i.i.i25 = zext i32 %7 to i64
+  br label %for.body.i.i.i30
 
-for.body.i.i.i32:                                 ; preds = %.noexc4.i38, %for.body.lr.ph.i.i.i28
-  %indvars.iv.i.i.i29 = phi i64 [ 0, %for.body.lr.ph.i.i.i28 ], [ %indvars.iv.next.i.i.i36, %.noexc4.i38 ]
-  %9 = load ptr, ptr %_items.i.i.i.i25, align 8, !tbaa !16
-  %arrayidx.i.i.i.i30 = getelementptr inbounds %"struct.NCoderMixer::CBindPair", ptr %9, i64 %indvars.iv.i.i.i29
-  %agg.tmp.sroa.0.0.copyload.i.i.i31 = load i64, ptr %arrayidx.i.i.i.i30, align 4, !tbaa.struct !34
+for.body.i.i.i30:                                 ; preds = %.noexc4.i36, %for.body.lr.ph.i.i.i26
+  %indvars.iv.i.i.i27 = phi i64 [ 0, %for.body.lr.ph.i.i.i26 ], [ %indvars.iv.next.i.i.i34, %.noexc4.i36 ]
+  %9 = load ptr, ptr %_items.i.i.i.i23, align 8, !tbaa !16
+  %arrayidx.i.i.i.i28 = getelementptr inbounds %"struct.NCoderMixer::CBindPair", ptr %9, i64 %indvars.iv.i.i.i27
+  %agg.tmp.sroa.0.0.copyload.i.i.i29 = load i64, ptr %arrayidx.i.i.i.i28, align 4, !tbaa.struct !34
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %BindPairs)
-          to label %.noexc4.i38 unwind label %lpad.loopexit.i40
+          to label %.noexc4.i36 unwind label %lpad.loopexit.i38
 
-.noexc4.i38:                                      ; preds = %for.body.i.i.i32
-  %10 = load ptr, ptr %_items.i10.i.i.i26, align 8, !tbaa !16
-  %11 = load i32, ptr %_size.i9.i.i.i20, align 4, !tbaa !15
-  %idxprom.i12.i.i.i33 = sext i32 %11 to i64
-  %arrayidx.i13.i.i.i34 = getelementptr inbounds %"struct.NCoderMixer::CBindPair", ptr %10, i64 %idxprom.i12.i.i.i33
-  store i64 %agg.tmp.sroa.0.0.copyload.i.i.i31, ptr %arrayidx.i13.i.i.i34, align 4, !tbaa.struct !34
-  %12 = load i32, ptr %_size.i9.i.i.i20, align 4, !tbaa !15
-  %inc.i.i.i.i35 = add nsw i32 %12, 1
-  store i32 %inc.i.i.i.i35, ptr %_size.i9.i.i.i20, align 4, !tbaa !15
-  %indvars.iv.next.i.i.i36 = add nuw nsw i64 %indvars.iv.i.i.i29, 1
-  %exitcond.not.i.i.i37 = icmp eq i64 %indvars.iv.next.i.i.i36, %wide.trip.count.i.i.i27
-  br i1 %exitcond.not.i.i.i37, label %invoke.cont, label %for.body.i.i.i32, !llvm.loop !36
+.noexc4.i36:                                      ; preds = %for.body.i.i.i30
+  %10 = load ptr, ptr %_items.i10.i.i.i24, align 8, !tbaa !16
+  %11 = load i32, ptr %_size.i9.i.i.i18, align 4, !tbaa !15
+  %idxprom.i12.i.i.i31 = sext i32 %11 to i64
+  %arrayidx.i13.i.i.i32 = getelementptr inbounds %"struct.NCoderMixer::CBindPair", ptr %10, i64 %idxprom.i12.i.i.i31
+  store i64 %agg.tmp.sroa.0.0.copyload.i.i.i29, ptr %arrayidx.i13.i.i.i32, align 4, !tbaa.struct !34
+  %12 = load i32, ptr %_size.i9.i.i.i18, align 4, !tbaa !15
+  %inc.i.i.i.i33 = add nsw i32 %12, 1
+  store i32 %inc.i.i.i.i33, ptr %_size.i9.i.i.i18, align 4, !tbaa !15
+  %indvars.iv.next.i.i.i34 = add nuw nsw i64 %indvars.iv.i.i.i27, 1
+  %exitcond.not.i.i.i35 = icmp eq i64 %indvars.iv.next.i.i.i34, %wide.trip.count.i.i.i25
+  br i1 %exitcond.not.i.i.i35, label %invoke.cont, label %for.body.i.i.i30, !llvm.loop !36
 
-lpad.loopexit.i40:                                ; preds = %for.body.i.i.i32
-  %lpad.loopexit5.i39 = landingpad { ptr, i32 }
+lpad.loopexit.i38:                                ; preds = %for.body.i.i.i30
+  %lpad.loopexit5.i37 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup10
 
-lpad.loopexit.split-lp.i42:                       ; preds = %.noexc.i22, %_ZN13CRecordVectorIN11NCoderMixer17CCoderStreamsInfoEEC2ERKS2_.exit
-  %lpad.loopexit.split-lp6.i41 = landingpad { ptr, i32 }
+lpad.loopexit.split-lp.i40:                       ; preds = %.noexc.i20, %_ZN13CRecordVectorIN11NCoderMixer17CCoderStreamsInfoEEC2ERKS2_.exit
+  %lpad.loopexit.split-lp6.i39 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup10
 
-invoke.cont:                                      ; preds = %.noexc4.i38, %.noexc3.i24
+invoke.cont:                                      ; preds = %.noexc4.i36, %.noexc3.i22
   %InStreams = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2
-  %_capacity.i.i45 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 1
-  %_itemSize.i.i46 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i45, i8 0, i64 16, i1 false)
-  store i64 4, ptr %_itemSize.i.i46, align 8, !tbaa !5
+  %_capacity.i.i43 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 1
+  %_itemSize.i.i44 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i43, i8 0, i64 16, i1 false)
+  store i64 4, ptr %_itemSize.i.i44, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %InStreams, align 8, !tbaa !12
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %InStreams)
-          to label %.noexc.i50 unwind label %lpad.loopexit.split-lp.i69
+          to label %.noexc.i48 unwind label %lpad.loopexit.split-lp.i67
 
-.noexc.i50:                                       ; preds = %invoke.cont
-  %_size.i.i.i.i47 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 2, i32 0, i32 2
-  %13 = load i32, ptr %_size.i.i.i.i47, align 4, !tbaa !15
-  %_size.i9.i.i.i48 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 2
-  %14 = load i32, ptr %_size.i9.i.i.i48, align 4, !tbaa !15
-  %add.i.i.i49 = add nsw i32 %14, %13
-  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %InStreams, i32 noundef %add.i.i.i49)
-          to label %.noexc3.i52 unwind label %lpad.loopexit.split-lp.i69
+.noexc.i48:                                       ; preds = %invoke.cont
+  %_size.i.i.i.i45 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 2, i32 0, i32 2
+  %13 = load i32, ptr %_size.i.i.i.i45, align 4, !tbaa !15
+  %_size.i9.i.i.i46 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 2
+  %14 = load i32, ptr %_size.i9.i.i.i46, align 4, !tbaa !15
+  %add.i.i.i47 = add nsw i32 %14, %13
+  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %InStreams, i32 noundef %add.i.i.i47)
+          to label %.noexc3.i50 unwind label %lpad.loopexit.split-lp.i67
 
-.noexc3.i52:                                      ; preds = %.noexc.i50
-  %cmp14.i.i.i51 = icmp sgt i32 %13, 0
-  br i1 %cmp14.i.i.i51, label %for.body.lr.ph.i.i.i56, label %invoke.cont6
+.noexc3.i50:                                      ; preds = %.noexc.i48
+  %cmp14.i.i.i49 = icmp sgt i32 %13, 0
+  br i1 %cmp14.i.i.i49, label %for.body.lr.ph.i.i.i54, label %invoke.cont6
 
-for.body.lr.ph.i.i.i56:                           ; preds = %.noexc3.i52
-  %_items.i.i.i.i53 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 2, i32 0, i32 3
-  %_items.i10.i.i.i54 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 3
-  %wide.trip.count.i.i.i55 = zext i32 %13 to i64
-  br label %for.body.i.i.i59
+for.body.lr.ph.i.i.i54:                           ; preds = %.noexc3.i50
+  %_items.i.i.i.i51 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 2, i32 0, i32 3
+  %_items.i10.i.i.i52 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 2, i32 0, i32 3
+  %wide.trip.count.i.i.i53 = zext i32 %13 to i64
+  br label %for.body.i.i.i57
 
-for.body.i.i.i59:                                 ; preds = %.noexc4.i65, %for.body.lr.ph.i.i.i56
-  %indvars.iv.i.i.i57 = phi i64 [ 0, %for.body.lr.ph.i.i.i56 ], [ %indvars.iv.next.i.i.i63, %.noexc4.i65 ]
-  %15 = load ptr, ptr %_items.i.i.i.i53, align 8, !tbaa !16
-  %arrayidx.i.i.i.i58 = getelementptr inbounds i32, ptr %15, i64 %indvars.iv.i.i.i57
-  %16 = load i32, ptr %arrayidx.i.i.i.i58, align 4, !tbaa !14
+for.body.i.i.i57:                                 ; preds = %.noexc4.i63, %for.body.lr.ph.i.i.i54
+  %indvars.iv.i.i.i55 = phi i64 [ 0, %for.body.lr.ph.i.i.i54 ], [ %indvars.iv.next.i.i.i61, %.noexc4.i63 ]
+  %15 = load ptr, ptr %_items.i.i.i.i51, align 8, !tbaa !16
+  %arrayidx.i.i.i.i56 = getelementptr inbounds i32, ptr %15, i64 %indvars.iv.i.i.i55
+  %16 = load i32, ptr %arrayidx.i.i.i.i56, align 4, !tbaa !14
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %InStreams)
-          to label %.noexc4.i65 unwind label %lpad.loopexit.i67
+          to label %.noexc4.i63 unwind label %lpad.loopexit.i65
 
-.noexc4.i65:                                      ; preds = %for.body.i.i.i59
-  %17 = load ptr, ptr %_items.i10.i.i.i54, align 8, !tbaa !16
-  %18 = load i32, ptr %_size.i9.i.i.i48, align 4, !tbaa !15
-  %idxprom.i12.i.i.i60 = sext i32 %18 to i64
-  %arrayidx.i13.i.i.i61 = getelementptr inbounds i32, ptr %17, i64 %idxprom.i12.i.i.i60
-  store i32 %16, ptr %arrayidx.i13.i.i.i61, align 4, !tbaa !14
-  %19 = load i32, ptr %_size.i9.i.i.i48, align 4, !tbaa !15
-  %inc.i.i.i.i62 = add nsw i32 %19, 1
-  store i32 %inc.i.i.i.i62, ptr %_size.i9.i.i.i48, align 4, !tbaa !15
-  %indvars.iv.next.i.i.i63 = add nuw nsw i64 %indvars.iv.i.i.i57, 1
-  %exitcond.not.i.i.i64 = icmp eq i64 %indvars.iv.next.i.i.i63, %wide.trip.count.i.i.i55
-  br i1 %exitcond.not.i.i.i64, label %invoke.cont6, label %for.body.i.i.i59, !llvm.loop !37
+.noexc4.i63:                                      ; preds = %for.body.i.i.i57
+  %17 = load ptr, ptr %_items.i10.i.i.i52, align 8, !tbaa !16
+  %18 = load i32, ptr %_size.i9.i.i.i46, align 4, !tbaa !15
+  %idxprom.i12.i.i.i58 = sext i32 %18 to i64
+  %arrayidx.i13.i.i.i59 = getelementptr inbounds i32, ptr %17, i64 %idxprom.i12.i.i.i58
+  store i32 %16, ptr %arrayidx.i13.i.i.i59, align 4, !tbaa !14
+  %19 = load i32, ptr %_size.i9.i.i.i46, align 4, !tbaa !15
+  %inc.i.i.i.i60 = add nsw i32 %19, 1
+  store i32 %inc.i.i.i.i60, ptr %_size.i9.i.i.i46, align 4, !tbaa !15
+  %indvars.iv.next.i.i.i61 = add nuw nsw i64 %indvars.iv.i.i.i55, 1
+  %exitcond.not.i.i.i62 = icmp eq i64 %indvars.iv.next.i.i.i61, %wide.trip.count.i.i.i53
+  br i1 %exitcond.not.i.i.i62, label %invoke.cont6, label %for.body.i.i.i57, !llvm.loop !37
 
-lpad.loopexit.i67:                                ; preds = %for.body.i.i.i59
-  %lpad.loopexit5.i66 = landingpad { ptr, i32 }
+lpad.loopexit.i65:                                ; preds = %for.body.i.i.i57
+  %lpad.loopexit5.i64 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
 
-lpad.loopexit.split-lp.i69:                       ; preds = %.noexc.i50, %invoke.cont
-  %lpad.loopexit.split-lp6.i68 = landingpad { ptr, i32 }
+lpad.loopexit.split-lp.i67:                       ; preds = %.noexc.i48, %invoke.cont
+  %lpad.loopexit.split-lp6.i66 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
 
-invoke.cont6:                                     ; preds = %.noexc4.i65, %.noexc3.i52
+invoke.cont6:                                     ; preds = %.noexc4.i63, %.noexc3.i50
   %OutStreams = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3
-  %_capacity.i.i73 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 1
-  %_itemSize.i.i74 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i73, i8 0, i64 16, i1 false)
-  store i64 4, ptr %_itemSize.i.i74, align 8, !tbaa !5
+  %_capacity.i.i71 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 1
+  %_itemSize.i.i72 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i.i71, i8 0, i64 16, i1 false)
+  store i64 4, ptr %_itemSize.i.i72, align 8, !tbaa !5
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13CRecordVectorIjE, i64 0, inrange i32 0, i64 2), ptr %OutStreams, align 8, !tbaa !12
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %OutStreams)
-          to label %.noexc.i78 unwind label %lpad.loopexit.split-lp.i97
+          to label %.noexc.i76 unwind label %lpad.loopexit.split-lp.i95
 
-.noexc.i78:                                       ; preds = %invoke.cont6
-  %_size.i.i.i.i75 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 3, i32 0, i32 2
-  %20 = load i32, ptr %_size.i.i.i.i75, align 4, !tbaa !15
-  %_size.i9.i.i.i76 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 2
-  %21 = load i32, ptr %_size.i9.i.i.i76, align 4, !tbaa !15
-  %add.i.i.i77 = add nsw i32 %21, %20
-  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %OutStreams, i32 noundef %add.i.i.i77)
-          to label %.noexc3.i80 unwind label %lpad.loopexit.split-lp.i97
+.noexc.i76:                                       ; preds = %invoke.cont6
+  %_size.i.i.i.i73 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 3, i32 0, i32 2
+  %20 = load i32, ptr %_size.i.i.i.i73, align 4, !tbaa !15
+  %_size.i9.i.i.i74 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 2
+  %21 = load i32, ptr %_size.i9.i.i.i74, align 4, !tbaa !15
+  %add.i.i.i75 = add nsw i32 %21, %20
+  invoke void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %OutStreams, i32 noundef %add.i.i.i75)
+          to label %.noexc3.i78 unwind label %lpad.loopexit.split-lp.i95
 
-.noexc3.i80:                                      ; preds = %.noexc.i78
-  %cmp14.i.i.i79 = icmp sgt i32 %20, 0
-  br i1 %cmp14.i.i.i79, label %for.body.lr.ph.i.i.i84, label %invoke.cont9
+.noexc3.i78:                                      ; preds = %.noexc.i76
+  %cmp14.i.i.i77 = icmp sgt i32 %20, 0
+  br i1 %cmp14.i.i.i77, label %for.body.lr.ph.i.i.i82, label %invoke.cont9
 
-for.body.lr.ph.i.i.i84:                           ; preds = %.noexc3.i80
-  %_items.i.i.i.i81 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 3, i32 0, i32 3
-  %_items.i10.i.i.i82 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 3
-  %wide.trip.count.i.i.i83 = zext i32 %20 to i64
-  br label %for.body.i.i.i87
+for.body.lr.ph.i.i.i82:                           ; preds = %.noexc3.i78
+  %_items.i.i.i.i79 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %0, i64 0, i32 3, i32 0, i32 3
+  %_items.i10.i.i.i80 = getelementptr inbounds %"struct.NCoderMixer::CBindInfo", ptr %this, i64 0, i32 3, i32 0, i32 3
+  %wide.trip.count.i.i.i81 = zext i32 %20 to i64
+  br label %for.body.i.i.i85
 
-for.body.i.i.i87:                                 ; preds = %.noexc4.i93, %for.body.lr.ph.i.i.i84
-  %indvars.iv.i.i.i85 = phi i64 [ 0, %for.body.lr.ph.i.i.i84 ], [ %indvars.iv.next.i.i.i91, %.noexc4.i93 ]
-  %22 = load ptr, ptr %_items.i.i.i.i81, align 8, !tbaa !16
-  %arrayidx.i.i.i.i86 = getelementptr inbounds i32, ptr %22, i64 %indvars.iv.i.i.i85
-  %23 = load i32, ptr %arrayidx.i.i.i.i86, align 4, !tbaa !14
+for.body.i.i.i85:                                 ; preds = %.noexc4.i91, %for.body.lr.ph.i.i.i82
+  %indvars.iv.i.i.i83 = phi i64 [ 0, %for.body.lr.ph.i.i.i82 ], [ %indvars.iv.next.i.i.i89, %.noexc4.i91 ]
+  %22 = load ptr, ptr %_items.i.i.i.i79, align 8, !tbaa !16
+  %arrayidx.i.i.i.i84 = getelementptr inbounds i32, ptr %22, i64 %indvars.iv.i.i.i83
+  %23 = load i32, ptr %arrayidx.i.i.i.i84, align 4, !tbaa !14
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %OutStreams)
-          to label %.noexc4.i93 unwind label %lpad.loopexit.i95
+          to label %.noexc4.i91 unwind label %lpad.loopexit.i93
 
-.noexc4.i93:                                      ; preds = %for.body.i.i.i87
-  %24 = load ptr, ptr %_items.i10.i.i.i82, align 8, !tbaa !16
-  %25 = load i32, ptr %_size.i9.i.i.i76, align 4, !tbaa !15
-  %idxprom.i12.i.i.i88 = sext i32 %25 to i64
-  %arrayidx.i13.i.i.i89 = getelementptr inbounds i32, ptr %24, i64 %idxprom.i12.i.i.i88
-  store i32 %23, ptr %arrayidx.i13.i.i.i89, align 4, !tbaa !14
-  %26 = load i32, ptr %_size.i9.i.i.i76, align 4, !tbaa !15
-  %inc.i.i.i.i90 = add nsw i32 %26, 1
-  store i32 %inc.i.i.i.i90, ptr %_size.i9.i.i.i76, align 4, !tbaa !15
-  %indvars.iv.next.i.i.i91 = add nuw nsw i64 %indvars.iv.i.i.i85, 1
-  %exitcond.not.i.i.i92 = icmp eq i64 %indvars.iv.next.i.i.i91, %wide.trip.count.i.i.i83
-  br i1 %exitcond.not.i.i.i92, label %invoke.cont9, label %for.body.i.i.i87, !llvm.loop !37
+.noexc4.i91:                                      ; preds = %for.body.i.i.i85
+  %24 = load ptr, ptr %_items.i10.i.i.i80, align 8, !tbaa !16
+  %25 = load i32, ptr %_size.i9.i.i.i74, align 4, !tbaa !15
+  %idxprom.i12.i.i.i86 = sext i32 %25 to i64
+  %arrayidx.i13.i.i.i87 = getelementptr inbounds i32, ptr %24, i64 %idxprom.i12.i.i.i86
+  store i32 %23, ptr %arrayidx.i13.i.i.i87, align 4, !tbaa !14
+  %26 = load i32, ptr %_size.i9.i.i.i74, align 4, !tbaa !15
+  %inc.i.i.i.i88 = add nsw i32 %26, 1
+  store i32 %inc.i.i.i.i88, ptr %_size.i9.i.i.i74, align 4, !tbaa !15
+  %indvars.iv.next.i.i.i89 = add nuw nsw i64 %indvars.iv.i.i.i83, 1
+  %exitcond.not.i.i.i90 = icmp eq i64 %indvars.iv.next.i.i.i89, %wide.trip.count.i.i.i81
+  br i1 %exitcond.not.i.i.i90, label %invoke.cont9, label %for.body.i.i.i85, !llvm.loop !37
 
-lpad.loopexit.i95:                                ; preds = %for.body.i.i.i87
-  %lpad.loopexit5.i94 = landingpad { ptr, i32 }
+lpad.loopexit.i93:                                ; preds = %for.body.i.i.i85
+  %lpad.loopexit5.i92 = landingpad { ptr, i32 }
           cleanup
-  br label %lpad.i99
+  br label %lpad.i97
 
-lpad.loopexit.split-lp.i97:                       ; preds = %.noexc.i78, %invoke.cont6
-  %lpad.loopexit.split-lp6.i96 = landingpad { ptr, i32 }
+lpad.loopexit.split-lp.i95:                       ; preds = %.noexc.i76, %invoke.cont6
+  %lpad.loopexit.split-lp6.i94 = landingpad { ptr, i32 }
           cleanup
-  br label %lpad.i99
+  br label %lpad.i97
 
-lpad.i99:                                         ; preds = %lpad.loopexit.split-lp.i97, %lpad.loopexit.i95
-  %lpad.phi.i98 = phi { ptr, i32 } [ %lpad.loopexit5.i94, %lpad.loopexit.i95 ], [ %lpad.loopexit.split-lp6.i96, %lpad.loopexit.split-lp.i97 ]
+lpad.i97:                                         ; preds = %lpad.loopexit.split-lp.i95, %lpad.loopexit.i93
+  %lpad.phi.i96 = phi { ptr, i32 } [ %lpad.loopexit5.i92, %lpad.loopexit.i93 ], [ %lpad.loopexit.split-lp6.i94, %lpad.loopexit.split-lp.i95 ]
   tail call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %OutStreams) #9
   br label %ehcleanup
 
-invoke.cont9:                                     ; preds = %.noexc4.i93, %.noexc3.i80
+invoke.cont9:                                     ; preds = %.noexc4.i91, %.noexc3.i78
   ret void
 
-ehcleanup:                                        ; preds = %lpad.loopexit.i67, %lpad.loopexit.split-lp.i69, %lpad.i99
-  %.pn = phi { ptr, i32 } [ %lpad.phi.i98, %lpad.i99 ], [ %lpad.loopexit5.i66, %lpad.loopexit.i67 ], [ %lpad.loopexit.split-lp6.i68, %lpad.loopexit.split-lp.i69 ]
+ehcleanup:                                        ; preds = %lpad.loopexit.i65, %lpad.loopexit.split-lp.i67, %lpad.i97
+  %eh.lpad-body98.pn = phi { ptr, i32 } [ %lpad.phi.i96, %lpad.i97 ], [ %lpad.loopexit5.i64, %lpad.loopexit.i65 ], [ %lpad.loopexit.split-lp6.i66, %lpad.loopexit.split-lp.i67 ]
   tail call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %InStreams) #9
   br label %ehcleanup10
 
-ehcleanup10:                                      ; preds = %lpad.loopexit.i40, %lpad.loopexit.split-lp.i42, %ehcleanup
-  %.pn.pn = phi { ptr, i32 } [ %.pn, %ehcleanup ], [ %lpad.loopexit5.i39, %lpad.loopexit.i40 ], [ %lpad.loopexit.split-lp6.i41, %lpad.loopexit.split-lp.i42 ]
+ehcleanup10:                                      ; preds = %lpad.loopexit.i38, %lpad.loopexit.split-lp.i40, %ehcleanup
+  %eh.lpad-body98.pn.pn = phi { ptr, i32 } [ %eh.lpad-body98.pn, %ehcleanup ], [ %lpad.loopexit5.i37, %lpad.loopexit.i38 ], [ %lpad.loopexit.split-lp6.i39, %lpad.loopexit.split-lp.i40 ]
   tail call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %BindPairs) #9
   br label %common.resume
 }

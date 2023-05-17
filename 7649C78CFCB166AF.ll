@@ -205,16 +205,16 @@ cond.end.thread:                                  ; preds = %if.end71
   br label %cond.end182
 
 cond.false158:                                    ; preds = %if.end71
+  %arrayidx128 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1
   store ptr %10, ptr @zz_res, align 8, !tbaa !13
-  %arrayidx135 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1
-  %11 = load ptr, ptr %arrayidx135, align 8, !tbaa !5
+  %11 = load ptr, ptr %arrayidx128, align 8, !tbaa !5
   %arrayidx137 = getelementptr inbounds [2 x %struct.LIST], ptr %10, i64 0, i64 1
   store ptr %11, ptr %arrayidx137, align 8, !tbaa !5
-  %12 = load ptr, ptr %arrayidx135, align 8, !tbaa !5
+  %12 = load ptr, ptr %arrayidx128, align 8, !tbaa !5
   %osucc144 = getelementptr inbounds [2 x %struct.LIST], ptr %12, i64 0, i64 1, i32 1
   store ptr %10, ptr %osucc144, align 8, !tbaa !5
   store ptr %x, ptr %osucc, align 8, !tbaa !5
-  store ptr %x, ptr %arrayidx135, align 8, !tbaa !5
+  store ptr %x, ptr %arrayidx128, align 8, !tbaa !5
   store ptr %10, ptr @xx_tmp, align 8, !tbaa !13
   %13 = load ptr, ptr %arrayidx137, align 8, !tbaa !5
   store ptr %13, ptr @zz_tmp, align 8, !tbaa !13

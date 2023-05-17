@@ -43,11 +43,11 @@ for.end:                                          ; preds = %land.rhs, %for.inc,
   %arrayidx14 = getelementptr inbounds ptr, ptr %call, i64 %idxprom
   store ptr null, ptr %arrayidx14, align 8, !tbaa !11
   %cmp15 = icmp eq i32 %row.0.lcssa, %m
-  %add18 = add nsw i32 %div, 1
-  %sub = add nsw i32 %div, -1
-  %cond = select i1 %cmp15, i32 %add18, i32 %sub
+  %cond.v = select i1 %cmp15, i32 1, i32 -1
+  %cond = add nsw i32 %div, %cond.v
   %cmp20 = icmp eq i32 %row.0.lcssa, %n
-  %cond29 = select i1 %cmp20, i32 %sub, i32 %add18
+  %cond29.v = select i1 %cmp20, i32 -1, i32 1
+  %cond29 = add nsw i32 %div, %cond29.v
   %cmp30 = and i1 %cmp15, %cmp20
   br i1 %cmp30, label %cleanup, label %for.cond32.preheader
 

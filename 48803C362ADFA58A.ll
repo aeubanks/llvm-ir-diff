@@ -55,12 +55,12 @@ entry:
   store i32 0, ptr %offset, align 4, !tbaa !5
   store ptr @.str.8, ptr @progname, align 8, !tbaa !9
   %call = tail call ptr (ptr, ...) @getenv(ptr noundef nonnull @.str.9) #7
-  %cmp1274 = icmp sgt i32 %argc, 1
-  br i1 %cmp1274, label %land.rhs.preheader, label %if.then133
+  %cmp1268 = icmp sgt i32 %argc, 1
+  br i1 %cmp1268, label %land.rhs.preheader, label %if.then133
 
 land.rhs.preheader:                               ; preds = %entry
-  %argc.addr.0273 = add nsw i32 %argc, -1
-  %argv.addr.0272 = getelementptr inbounds ptr, ptr %argv, i64 1
+  %argc.addr.0267 = add nsw i32 %argc, -1
+  %argv.addr.0266 = getelementptr inbounds ptr, ptr %argv, i64 1
   %cmp.not = icmp eq ptr %call, null
   %spec.select = select i1 %cmp.not, ptr @.str, ptr %call
   br label %land.rhs
@@ -72,16 +72,16 @@ while.cond.loopexit:                              ; preds = %sw.epilog
   br i1 %cmp1, label %land.rhs, label %scandone, !llvm.loop !11
 
 land.rhs:                                         ; preds = %land.rhs.preheader, %while.cond.loopexit
-  %argc.addr.0283 = phi i32 [ %argc.addr.0, %while.cond.loopexit ], [ %argc.addr.0273, %land.rhs.preheader ]
-  %argv.addr.0282 = phi ptr [ %argv.addr.0, %while.cond.loopexit ], [ %argv.addr.0272, %land.rhs.preheader ]
-  %argc.addr.0.in281 = phi i32 [ %argc.addr.4, %while.cond.loopexit ], [ %argc, %land.rhs.preheader ]
-  %host.1280 = phi ptr [ %host.3, %while.cond.loopexit ], [ %spec.select, %land.rhs.preheader ]
-  %exitflag.0279 = phi i32 [ %exitflag.2, %while.cond.loopexit ], [ 0, %land.rhs.preheader ]
-  %eflag.0278 = phi i32 [ %eflag.2, %while.cond.loopexit ], [ 0, %land.rhs.preheader ]
-  %etype.0277 = phi i8 [ %etype.2, %while.cond.loopexit ], [ 61, %land.rhs.preheader ]
-  %qtype.0276 = phi i8 [ %qtype.2, %while.cond.loopexit ], [ 61, %land.rhs.preheader ]
-  %argv.pn275 = phi ptr [ %argv.addr.4, %while.cond.loopexit ], [ %argv, %land.rhs.preheader ]
-  %0 = load ptr, ptr %argv.addr.0282, align 8, !tbaa !9
+  %argc.addr.0277 = phi i32 [ %argc.addr.0, %while.cond.loopexit ], [ %argc.addr.0267, %land.rhs.preheader ]
+  %argv.addr.0276 = phi ptr [ %argv.addr.0, %while.cond.loopexit ], [ %argv.addr.0266, %land.rhs.preheader ]
+  %argc.addr.0.in275 = phi i32 [ %argc.addr.4, %while.cond.loopexit ], [ %argc, %land.rhs.preheader ]
+  %host.1274 = phi ptr [ %host.3, %while.cond.loopexit ], [ %spec.select, %land.rhs.preheader ]
+  %exitflag.0273 = phi i32 [ %exitflag.2, %while.cond.loopexit ], [ 0, %land.rhs.preheader ]
+  %eflag.0272 = phi i32 [ %eflag.2, %while.cond.loopexit ], [ 0, %land.rhs.preheader ]
+  %etype.0271 = phi i8 [ %etype.2, %while.cond.loopexit ], [ 61, %land.rhs.preheader ]
+  %qtype.0270 = phi i8 [ %qtype.2, %while.cond.loopexit ], [ 61, %land.rhs.preheader ]
+  %argv.pn269 = phi ptr [ %argv.addr.4, %while.cond.loopexit ], [ %argv, %land.rhs.preheader ]
+  %0 = load ptr, ptr %argv.addr.0276, align 8, !tbaa !9
   %1 = load i8, ptr %0, align 1, !tbaa !13
   %cmp2 = icmp eq i8 %1, 45
   br i1 %cmp2, label %while.body, label %scandone
@@ -104,21 +104,21 @@ while.body15.preheader:                           ; preds = %while.body, %land.l
   br label %while.body15
 
 if.then9:                                         ; preds = %while.body, %land.lhs.true
-  %dec10 = add nsw i32 %argc.addr.0.in281, -2
-  %incdec.ptr11 = getelementptr inbounds ptr, ptr %argv.pn275, i64 2
+  %dec10 = add nsw i32 %argc.addr.0.in275, -2
+  %incdec.ptr11 = getelementptr inbounds ptr, ptr %argv.pn269, i64 2
   br label %scandone
 
 while.body15:                                     ; preds = %while.body15.preheader, %sw.epilog
   %4 = phi i8 [ %23, %sw.epilog ], [ %2, %while.body15.preheader ]
-  %argc.addr.1265 = phi i32 [ %argc.addr.4, %sw.epilog ], [ %argc.addr.0283, %while.body15.preheader ]
-  %host.2264 = phi ptr [ %host.3, %sw.epilog ], [ %host.1280, %while.body15.preheader ]
-  %exitflag.1263 = phi i32 [ %exitflag.2, %sw.epilog ], [ %exitflag.0279, %while.body15.preheader ]
-  %eflag.1262 = phi i32 [ %eflag.2, %sw.epilog ], [ %eflag.0278, %while.body15.preheader ]
-  %etype.1261 = phi i8 [ %etype.2, %sw.epilog ], [ %etype.0277, %while.body15.preheader ]
-  %qtype.1260 = phi i8 [ %qtype.2, %sw.epilog ], [ %qtype.0276, %while.body15.preheader ]
-  %cur_arg.0259 = phi ptr [ %cur_arg.4, %sw.epilog ], [ %add.ptr, %while.body15.preheader ]
-  %argv.addr.1258 = phi ptr [ %argv.addr.4, %sw.epilog ], [ %argv.addr.0282, %while.body15.preheader ]
-  %incdec.ptr16 = getelementptr inbounds i8, ptr %cur_arg.0259, i64 1
+  %argc.addr.1259 = phi i32 [ %argc.addr.4, %sw.epilog ], [ %argc.addr.0277, %while.body15.preheader ]
+  %host.2258 = phi ptr [ %host.3, %sw.epilog ], [ %host.1274, %while.body15.preheader ]
+  %exitflag.1257 = phi i32 [ %exitflag.2, %sw.epilog ], [ %exitflag.0273, %while.body15.preheader ]
+  %eflag.1256 = phi i32 [ %eflag.2, %sw.epilog ], [ %eflag.0272, %while.body15.preheader ]
+  %etype.1255 = phi i8 [ %etype.2, %sw.epilog ], [ %etype.0271, %while.body15.preheader ]
+  %qtype.1254 = phi i8 [ %qtype.2, %sw.epilog ], [ %qtype.0270, %while.body15.preheader ]
+  %cur_arg.0253 = phi ptr [ %cur_arg.4, %sw.epilog ], [ %add.ptr, %while.body15.preheader ]
+  %argv.addr.1252 = phi ptr [ %argv.addr.4, %sw.epilog ], [ %argv.addr.0276, %while.body15.preheader ]
+  %incdec.ptr16 = getelementptr inbounds i8, ptr %cur_arg.0253, i64 1
   %conv17 = sext i8 %4 to i32
   switch i32 %conv17, label %sw.default [
     i32 76, label %sw.bb
@@ -180,23 +180,23 @@ if.then32:                                        ; preds = %land.lhs.true28
   br label %if.end48
 
 if.else:                                          ; preds = %land.lhs.true28, %sw.bb25
-  %cmp36 = icmp sgt i32 %argc.addr.1265, 2
+  %cmp36 = icmp sgt i32 %argc.addr.1259, 2
   br i1 %cmp36, label %if.then38, label %if.end48
 
 if.then38:                                        ; preds = %if.else
-  %arrayidx39 = getelementptr inbounds ptr, ptr %argv.addr.1258, i64 1
+  %arrayidx39 = getelementptr inbounds ptr, ptr %argv.addr.1252, i64 1
   %8 = load ptr, ptr %arrayidx39, align 8, !tbaa !9
   %call40 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %8, ptr noundef nonnull @.str.15, ptr noundef nonnull @rdgram_priority) #7
   %cmp41 = icmp eq i32 %call40, 1
-  %spec.select204 = select i1 %cmp41, ptr %arrayidx39, ptr %argv.addr.1258
+  %spec.select369 = select i1 %cmp41, ptr %arrayidx39, ptr %argv.addr.1252
   %dec44 = sext i1 %cmp41 to i32
-  %spec.select205 = add nsw i32 %argc.addr.1265, %dec44
+  %spec.select370 = add nsw i32 %argc.addr.1259, %dec44
   br label %if.end48
 
 if.end48:                                         ; preds = %if.then38, %if.else, %if.then32
-  %argv.addr.2 = phi ptr [ %argv.addr.1258, %if.then32 ], [ %argv.addr.1258, %if.else ], [ %spec.select204, %if.then38 ]
+  %argv.addr.2 = phi ptr [ %argv.addr.1252, %if.then32 ], [ %argv.addr.1252, %if.else ], [ %spec.select369, %if.then38 ]
   %cur_arg.1 = phi ptr [ %add.ptr35, %if.then32 ], [ %incdec.ptr16, %if.else ], [ %incdec.ptr16, %if.then38 ]
-  %argc.addr.2 = phi i32 [ %argc.addr.1265, %if.then32 ], [ %argc.addr.1265, %if.else ], [ %spec.select205, %if.then38 ]
+  %argc.addr.2 = phi i32 [ %argc.addr.1259, %if.then32 ], [ %argc.addr.1259, %if.else ], [ %spec.select370, %if.then38 ]
   %9 = load i32, ptr @rdgram_priority, align 4, !tbaa !5
   %cmp49 = icmp sgt i32 %9, 32767
   br i1 %cmp49, label %if.end52.thread, label %if.end52
@@ -214,13 +214,13 @@ if.then55:                                        ; preds = %if.end52
   br label %sw.epilog
 
 sw.bb58:                                          ; preds = %while.body15
-  %inc59 = add nsw i32 %eflag.1262, 1
+  %inc59 = add nsw i32 %eflag.1256, 1
   br label %sw.epilog
 
 sw.bb60:                                          ; preds = %while.body15
-  %arrayidx61 = getelementptr inbounds ptr, ptr %argv.addr.1258, i64 1
+  %arrayidx61 = getelementptr inbounds ptr, ptr %argv.addr.1252, i64 1
   %10 = load ptr, ptr %arrayidx61, align 8, !tbaa !9
-  %dec62 = add nsw i32 %argc.addr.1265, -1
+  %dec62 = add nsw i32 %argc.addr.1259, -1
   br label %sw.epilog
 
 sw.bb64:                                          ; preds = %while.body15
@@ -233,7 +233,7 @@ sw.bb66:                                          ; preds = %while.body15, %whil
   br label %sw.bb68
 
 sw.bb68:                                          ; preds = %while.body15, %sw.bb66
-  %cur_arg.2 = phi ptr [ %incdec.ptr16, %while.body15 ], [ %cur_arg.0259, %sw.bb66 ]
+  %cur_arg.2 = phi ptr [ %incdec.ptr16, %while.body15 ], [ %cur_arg.0253, %sw.bb66 ]
   store i32 -1, ptr %max_hits, align 4, !tbaa !5
   %12 = load i8, ptr %cur_arg.2, align 1, !tbaa !13
   %tobool70.not = icmp eq i8 %12, 0
@@ -255,23 +255,23 @@ if.then75:                                        ; preds = %land.lhs.true71
   br label %if.end92
 
 if.else79:                                        ; preds = %land.lhs.true71, %sw.bb68
-  %cmp80 = icmp sgt i32 %argc.addr.1265, 1
+  %cmp80 = icmp sgt i32 %argc.addr.1259, 1
   br i1 %cmp80, label %if.then82, label %if.end92
 
 if.then82:                                        ; preds = %if.else79
-  %arrayidx83 = getelementptr inbounds ptr, ptr %argv.addr.1258, i64 1
+  %arrayidx83 = getelementptr inbounds ptr, ptr %argv.addr.1252, i64 1
   %15 = load ptr, ptr %arrayidx83, align 8, !tbaa !9
   %call84 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %15, ptr noundef nonnull @.str.15, ptr noundef nonnull %max_hits) #7
   %cmp85 = icmp eq i32 %call84, 1
-  %spec.select206 = select i1 %cmp85, ptr %arrayidx83, ptr %argv.addr.1258
+  %spec.select371 = select i1 %cmp85, ptr %arrayidx83, ptr %argv.addr.1252
   %dec88 = sext i1 %cmp85 to i32
-  %spec.select207 = add nsw i32 %argc.addr.1265, %dec88
+  %spec.select372 = add nsw i32 %argc.addr.1259, %dec88
   br label %if.end92
 
 if.end92:                                         ; preds = %if.then82, %if.else79, %if.then75
-  %argv.addr.3 = phi ptr [ %argv.addr.1258, %if.then75 ], [ %argv.addr.1258, %if.else79 ], [ %spec.select206, %if.then82 ]
+  %argv.addr.3 = phi ptr [ %argv.addr.1252, %if.then75 ], [ %argv.addr.1252, %if.else79 ], [ %spec.select371, %if.then82 ]
   %cur_arg.3 = phi ptr [ %add.ptr78, %if.then75 ], [ %cur_arg.2, %if.else79 ], [ %cur_arg.2, %if.then82 ]
-  %argc.addr.3 = phi i32 [ %argc.addr.1265, %if.then75 ], [ %argc.addr.1265, %if.else79 ], [ %spec.select207, %if.then82 ]
+  %argc.addr.3 = phi i32 [ %argc.addr.1259, %if.then75 ], [ %argc.addr.1259, %if.else79 ], [ %spec.select372, %if.then82 ]
   %16 = load i32, ptr %max_hits, align 4, !tbaa !5
   %cmp93 = icmp slt i32 %16, 1
   br i1 %cmp93, label %if.then95, label %sw.epilog
@@ -284,17 +284,17 @@ if.then95:                                        ; preds = %if.end92
   unreachable
 
 sw.bb98:                                          ; preds = %while.body15
-  %cmp99 = icmp sgt i32 %argc.addr.1265, 1
+  %cmp99 = icmp sgt i32 %argc.addr.1259, 1
   br i1 %cmp99, label %if.then101, label %sw.epilog
 
 if.then101:                                       ; preds = %sw.bb98
-  %arrayidx102 = getelementptr inbounds ptr, ptr %argv.addr.1258, i64 1
+  %arrayidx102 = getelementptr inbounds ptr, ptr %argv.addr.1252, i64 1
   %19 = load ptr, ptr %arrayidx102, align 8, !tbaa !9
   %call103 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %19, ptr noundef nonnull @.str.15, ptr noundef nonnull %offset) #7
   %cmp104.not = icmp eq i32 %call103, 1
-  %dec108 = add nsw i32 %argc.addr.1265, -1
-  %spec.select208 = select i1 %cmp104.not, ptr %arrayidx102, ptr %argv.addr.1258
-  %spec.select209 = select i1 %cmp104.not, i32 %dec108, i32 -1
+  %dec108 = add nsw i32 %argc.addr.1259, -1
+  %spec.select373 = select i1 %cmp104.not, ptr %arrayidx102, ptr %argv.addr.1252
+  %spec.select374 = select i1 %cmp104.not, i32 %dec108, i32 -1
   br label %sw.epilog
 
 sw.bb112:                                         ; preds = %while.body15
@@ -310,7 +310,7 @@ sw.bb114:                                         ; preds = %while.body15
 sw.bb115:                                         ; preds = %while.body15
   %20 = load ptr, ptr @stderr, align 8, !tbaa !9
   %call116 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %20, ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.19, ptr noundef nonnull @.str.20) #9
-  %inc117 = add nsw i32 %exitflag.1263, 1
+  %inc117 = add nsw i32 %exitflag.1257, 1
   br label %sw.epilog
 
 sw.default:                                       ; preds = %while.body15
@@ -321,28 +321,28 @@ sw.default:                                       ; preds = %while.body15
   unreachable
 
 sw.epilog:                                        ; preds = %if.then101, %if.end52.thread, %while.body15, %sw.bb98, %if.end92, %if.end52, %if.then55, %sw.bb115, %sw.bb114, %sw.bb113, %sw.bb112, %sw.bb64, %sw.bb60, %sw.bb58, %sw.bb
-  %argv.addr.4 = phi ptr [ %argv.addr.1258, %sw.bb115 ], [ %argv.addr.1258, %sw.bb114 ], [ %argv.addr.1258, %sw.bb113 ], [ %argv.addr.1258, %sw.bb112 ], [ %argv.addr.1258, %sw.bb98 ], [ %argv.addr.3, %if.end92 ], [ %argv.addr.1258, %sw.bb64 ], [ %arrayidx61, %sw.bb60 ], [ %argv.addr.1258, %sw.bb58 ], [ %argv.addr.2, %if.then55 ], [ %argv.addr.2, %if.end52 ], [ %argv.addr.1258, %sw.bb ], [ %argv.addr.1258, %while.body15 ], [ %argv.addr.2, %if.end52.thread ], [ %spec.select208, %if.then101 ]
+  %argv.addr.4 = phi ptr [ %argv.addr.1252, %sw.bb115 ], [ %argv.addr.1252, %sw.bb114 ], [ %argv.addr.1252, %sw.bb113 ], [ %argv.addr.1252, %sw.bb112 ], [ %argv.addr.1252, %sw.bb98 ], [ %argv.addr.3, %if.end92 ], [ %argv.addr.1252, %sw.bb64 ], [ %arrayidx61, %sw.bb60 ], [ %argv.addr.1252, %sw.bb58 ], [ %argv.addr.2, %if.then55 ], [ %argv.addr.2, %if.end52 ], [ %argv.addr.1252, %sw.bb ], [ %argv.addr.1252, %while.body15 ], [ %argv.addr.2, %if.end52.thread ], [ %spec.select373, %if.then101 ]
   %cur_arg.4 = phi ptr [ %incdec.ptr16, %sw.bb115 ], [ %incdec.ptr16, %sw.bb114 ], [ %incdec.ptr16, %sw.bb113 ], [ %incdec.ptr16, %sw.bb112 ], [ %incdec.ptr16, %sw.bb98 ], [ %cur_arg.3, %if.end92 ], [ %incdec.ptr16, %sw.bb64 ], [ %incdec.ptr16, %sw.bb60 ], [ %incdec.ptr16, %sw.bb58 ], [ %cur_arg.1, %if.then55 ], [ %cur_arg.1, %if.end52 ], [ %incdec.ptr16, %sw.bb ], [ %incdec.ptr16, %while.body15 ], [ %cur_arg.1, %if.end52.thread ], [ %incdec.ptr16, %if.then101 ]
-  %qtype.2 = phi i8 [ %qtype.1260, %sw.bb115 ], [ %qtype.1260, %sw.bb114 ], [ 83, %sw.bb113 ], [ 82, %sw.bb112 ], [ %qtype.1260, %sw.bb98 ], [ %qtype.1260, %if.end92 ], [ %qtype.1260, %sw.bb64 ], [ %qtype.1260, %sw.bb60 ], [ %qtype.1260, %sw.bb58 ], [ %qtype.1260, %if.then55 ], [ %qtype.1260, %if.end52 ], [ %qtype.1260, %sw.bb ], [ 67, %while.body15 ], [ %qtype.1260, %if.end52.thread ], [ %qtype.1260, %if.then101 ]
-  %etype.2 = phi i8 [ %etype.1261, %sw.bb115 ], [ %etype.1261, %sw.bb114 ], [ 115, %sw.bb113 ], [ 114, %sw.bb112 ], [ %etype.1261, %sw.bb98 ], [ %etype.1261, %if.end92 ], [ %etype.1261, %sw.bb64 ], [ %etype.1261, %sw.bb60 ], [ %etype.1261, %sw.bb58 ], [ %etype.1261, %if.then55 ], [ %etype.1261, %if.end52 ], [ %etype.1261, %sw.bb ], [ 99, %while.body15 ], [ %etype.1261, %if.end52.thread ], [ %etype.1261, %if.then101 ]
-  %eflag.2 = phi i32 [ %eflag.1262, %sw.bb115 ], [ %eflag.1262, %sw.bb114 ], [ %eflag.1262, %sw.bb113 ], [ %eflag.1262, %sw.bb112 ], [ %eflag.1262, %sw.bb98 ], [ %eflag.1262, %if.end92 ], [ %eflag.1262, %sw.bb64 ], [ %eflag.1262, %sw.bb60 ], [ %inc59, %sw.bb58 ], [ %eflag.1262, %if.then55 ], [ %eflag.1262, %if.end52 ], [ %eflag.1262, %sw.bb ], [ %eflag.1262, %while.body15 ], [ %eflag.1262, %if.end52.thread ], [ %eflag.1262, %if.then101 ]
-  %exitflag.2 = phi i32 [ %inc117, %sw.bb115 ], [ %exitflag.1263, %sw.bb114 ], [ %exitflag.1263, %sw.bb113 ], [ %exitflag.1263, %sw.bb112 ], [ %exitflag.1263, %sw.bb98 ], [ %exitflag.1263, %if.end92 ], [ %exitflag.1263, %sw.bb64 ], [ %exitflag.1263, %sw.bb60 ], [ %exitflag.1263, %sw.bb58 ], [ %exitflag.1263, %if.then55 ], [ %exitflag.1263, %if.end52 ], [ 1, %sw.bb ], [ %exitflag.1263, %while.body15 ], [ %exitflag.1263, %if.end52.thread ], [ %exitflag.1263, %if.then101 ]
-  %host.3 = phi ptr [ %host.2264, %sw.bb115 ], [ %host.2264, %sw.bb114 ], [ %host.2264, %sw.bb113 ], [ %host.2264, %sw.bb112 ], [ %host.2264, %sw.bb98 ], [ %host.2264, %if.end92 ], [ %host.2264, %sw.bb64 ], [ %10, %sw.bb60 ], [ %host.2264, %sw.bb58 ], [ %host.2264, %if.then55 ], [ %host.2264, %if.end52 ], [ %host.2264, %sw.bb ], [ %host.2264, %while.body15 ], [ %host.2264, %if.end52.thread ], [ %host.2264, %if.then101 ]
-  %argc.addr.4 = phi i32 [ %argc.addr.1265, %sw.bb115 ], [ %argc.addr.1265, %sw.bb114 ], [ %argc.addr.1265, %sw.bb113 ], [ %argc.addr.1265, %sw.bb112 ], [ %argc.addr.1265, %sw.bb98 ], [ %argc.addr.3, %if.end92 ], [ %argc.addr.1265, %sw.bb64 ], [ %dec62, %sw.bb60 ], [ %argc.addr.1265, %sw.bb58 ], [ %argc.addr.2, %if.then55 ], [ %argc.addr.2, %if.end52 ], [ %argc.addr.1265, %sw.bb ], [ %argc.addr.1265, %while.body15 ], [ %argc.addr.2, %if.end52.thread ], [ %spec.select209, %if.then101 ]
+  %qtype.2 = phi i8 [ %qtype.1254, %sw.bb115 ], [ %qtype.1254, %sw.bb114 ], [ 83, %sw.bb113 ], [ 82, %sw.bb112 ], [ %qtype.1254, %sw.bb98 ], [ %qtype.1254, %if.end92 ], [ %qtype.1254, %sw.bb64 ], [ %qtype.1254, %sw.bb60 ], [ %qtype.1254, %sw.bb58 ], [ %qtype.1254, %if.then55 ], [ %qtype.1254, %if.end52 ], [ %qtype.1254, %sw.bb ], [ 67, %while.body15 ], [ %qtype.1254, %if.end52.thread ], [ %qtype.1254, %if.then101 ]
+  %etype.2 = phi i8 [ %etype.1255, %sw.bb115 ], [ %etype.1255, %sw.bb114 ], [ 115, %sw.bb113 ], [ 114, %sw.bb112 ], [ %etype.1255, %sw.bb98 ], [ %etype.1255, %if.end92 ], [ %etype.1255, %sw.bb64 ], [ %etype.1255, %sw.bb60 ], [ %etype.1255, %sw.bb58 ], [ %etype.1255, %if.then55 ], [ %etype.1255, %if.end52 ], [ %etype.1255, %sw.bb ], [ 99, %while.body15 ], [ %etype.1255, %if.end52.thread ], [ %etype.1255, %if.then101 ]
+  %eflag.2 = phi i32 [ %eflag.1256, %sw.bb115 ], [ %eflag.1256, %sw.bb114 ], [ %eflag.1256, %sw.bb113 ], [ %eflag.1256, %sw.bb112 ], [ %eflag.1256, %sw.bb98 ], [ %eflag.1256, %if.end92 ], [ %eflag.1256, %sw.bb64 ], [ %eflag.1256, %sw.bb60 ], [ %inc59, %sw.bb58 ], [ %eflag.1256, %if.then55 ], [ %eflag.1256, %if.end52 ], [ %eflag.1256, %sw.bb ], [ %eflag.1256, %while.body15 ], [ %eflag.1256, %if.end52.thread ], [ %eflag.1256, %if.then101 ]
+  %exitflag.2 = phi i32 [ %inc117, %sw.bb115 ], [ %exitflag.1257, %sw.bb114 ], [ %exitflag.1257, %sw.bb113 ], [ %exitflag.1257, %sw.bb112 ], [ %exitflag.1257, %sw.bb98 ], [ %exitflag.1257, %if.end92 ], [ %exitflag.1257, %sw.bb64 ], [ %exitflag.1257, %sw.bb60 ], [ %exitflag.1257, %sw.bb58 ], [ %exitflag.1257, %if.then55 ], [ %exitflag.1257, %if.end52 ], [ 1, %sw.bb ], [ %exitflag.1257, %while.body15 ], [ %exitflag.1257, %if.end52.thread ], [ %exitflag.1257, %if.then101 ]
+  %host.3 = phi ptr [ %host.2258, %sw.bb115 ], [ %host.2258, %sw.bb114 ], [ %host.2258, %sw.bb113 ], [ %host.2258, %sw.bb112 ], [ %host.2258, %sw.bb98 ], [ %host.2258, %if.end92 ], [ %host.2258, %sw.bb64 ], [ %10, %sw.bb60 ], [ %host.2258, %sw.bb58 ], [ %host.2258, %if.then55 ], [ %host.2258, %if.end52 ], [ %host.2258, %sw.bb ], [ %host.2258, %while.body15 ], [ %host.2258, %if.end52.thread ], [ %host.2258, %if.then101 ]
+  %argc.addr.4 = phi i32 [ %argc.addr.1259, %sw.bb115 ], [ %argc.addr.1259, %sw.bb114 ], [ %argc.addr.1259, %sw.bb113 ], [ %argc.addr.1259, %sw.bb112 ], [ %argc.addr.1259, %sw.bb98 ], [ %argc.addr.3, %if.end92 ], [ %argc.addr.1259, %sw.bb64 ], [ %dec62, %sw.bb60 ], [ %argc.addr.1259, %sw.bb58 ], [ %argc.addr.2, %if.then55 ], [ %argc.addr.2, %if.end52 ], [ %argc.addr.1259, %sw.bb ], [ %argc.addr.1259, %while.body15 ], [ %argc.addr.2, %if.end52.thread ], [ %spec.select374, %if.then101 ]
   %23 = load i8, ptr %cur_arg.4, align 1, !tbaa !13
   %tobool14.not = icmp eq i8 %23, 0
   br i1 %tobool14.not, label %while.cond.loopexit, label %while.body15, !llvm.loop !14
 
 scandone:                                         ; preds = %while.cond.loopexit, %land.rhs, %if.then9
-  %qtype.0252 = phi i8 [ %qtype.0276, %if.then9 ], [ %qtype.2, %while.cond.loopexit ], [ %qtype.0276, %land.rhs ]
-  %etype.0248 = phi i8 [ %etype.0277, %if.then9 ], [ %etype.2, %while.cond.loopexit ], [ %etype.0277, %land.rhs ]
-  %eflag.0244 = phi i32 [ %eflag.0278, %if.then9 ], [ %eflag.2, %while.cond.loopexit ], [ %eflag.0278, %land.rhs ]
-  %exitflag.0240 = phi i32 [ %exitflag.0279, %if.then9 ], [ %exitflag.2, %while.cond.loopexit ], [ %exitflag.0279, %land.rhs ]
-  %host.1236 = phi ptr [ %host.1280, %if.then9 ], [ %host.3, %while.cond.loopexit ], [ %host.1280, %land.rhs ]
-  %argv.addr.5 = phi ptr [ %incdec.ptr11, %if.then9 ], [ %argv.addr.0, %while.cond.loopexit ], [ %argv.addr.0282, %land.rhs ]
-  %argc.addr.5 = phi i32 [ %dec10, %if.then9 ], [ %argc.addr.0, %while.cond.loopexit ], [ %argc.addr.0283, %land.rhs ]
+  %qtype.0246 = phi i8 [ %qtype.0270, %if.then9 ], [ %qtype.2, %while.cond.loopexit ], [ %qtype.0270, %land.rhs ]
+  %etype.0242 = phi i8 [ %etype.0271, %if.then9 ], [ %etype.2, %while.cond.loopexit ], [ %etype.0271, %land.rhs ]
+  %eflag.0238 = phi i32 [ %eflag.0272, %if.then9 ], [ %eflag.2, %while.cond.loopexit ], [ %eflag.0272, %land.rhs ]
+  %exitflag.0234 = phi i32 [ %exitflag.0273, %if.then9 ], [ %exitflag.2, %while.cond.loopexit ], [ %exitflag.0273, %land.rhs ]
+  %host.1230 = phi ptr [ %host.1274, %if.then9 ], [ %host.3, %while.cond.loopexit ], [ %host.1274, %land.rhs ]
+  %argv.addr.5 = phi ptr [ %incdec.ptr11, %if.then9 ], [ %argv.addr.0, %while.cond.loopexit ], [ %argv.addr.0276, %land.rhs ]
+  %argc.addr.5 = phi i32 [ %dec10, %if.then9 ], [ %argc.addr.0, %while.cond.loopexit ], [ %argc.addr.0277, %land.rhs ]
   %cmp125 = icmp ne i32 %argc.addr.5, 1
-  %tobool128 = icmp ne i32 %exitflag.0240, 0
+  %tobool128 = icmp ne i32 %exitflag.0234, 0
   %or.cond = select i1 %cmp125, i1 %tobool128, i1 false
   br i1 %or.cond, label %if.then129, label %if.end130
 
@@ -382,15 +382,15 @@ if.then133:                                       ; preds = %entry, %if.end130
   unreachable
 
 if.end145:                                        ; preds = %if.end130
-  %eflag.0244.fr = freeze i32 %eflag.0244
-  %tobool122.not = icmp eq i32 %eflag.0244.fr, 0
-  %spec.select375 = select i1 %tobool122.not, i8 %qtype.0252, i8 %etype.0248
+  %eflag.0238.fr = freeze i32 %eflag.0238
+  %tobool122.not = icmp eq i32 %eflag.0238.fr, 0
+  %spec.select375 = select i1 %tobool122.not, i8 %qtype.0246, i8 %etype.0242
   %44 = load ptr, ptr %argv.addr.5, align 8, !tbaa !9
   %45 = load i32, ptr %max_hits, align 4, !tbaa !5
   %46 = load i32, ptr %offset, align 4, !tbaa !5
   %47 = load i32, ptr @sortflag, align 4, !tbaa !5
   %48 = load i32, ptr @listflag, align 4, !tbaa !5
-  call void @procquery(ptr noundef %host.1236, ptr noundef %44, i32 noundef %45, i32 noundef %46, i8 noundef signext %spec.select375, i32 noundef %47, i32 noundef %48) #7
+  call void @procquery(ptr noundef %host.1230, ptr noundef %44, i32 noundef %45, i32 noundef %46, i8 noundef signext %spec.select375, i32 noundef %47, i32 noundef %48) #7
   call void @exit(i32 noundef 0) #10
   unreachable
 }

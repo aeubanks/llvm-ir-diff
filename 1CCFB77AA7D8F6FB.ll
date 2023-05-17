@@ -42,30 +42,34 @@ entry:
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %buf) #12
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %st) #12
   %horz = getelementptr inbounds %struct.alias_node, ptr %addrstk, i64 0, i32 1
+  store ptr null, ptr %horz, align 8, !tbaa !5
   store ptr null, ptr %fliststk.sroa.2, align 8, !tbaa !5
   %0 = load i32, ptr %pargc, align 4, !tbaa !10
   %cmp377 = icmp sgt i32 %0, 0
-  br i1 %cmp377, label %for.body.preheader, label %while.cond.preheader
+  br i1 %cmp377, label %for.body.lr.ph, label %while.cond.preheader
 
-for.body.preheader:                               ; preds = %entry
+for.body.lr.ph:                                   ; preds = %entry
   %wide.trip.count = zext i32 %0 to i64
   br label %for.body
 
-while.cond.preheader:                             ; preds = %add_horz.exit, %entry
-  %.lcssa376 = phi ptr [ null, %entry ], [ %4, %add_horz.exit ]
-  store ptr %.lcssa376, ptr %horz, align 8, !tbaa !5
+for.cond.while.cond.preheader_crit_edge:          ; preds = %add_horz.exit
+  store ptr %call.i379, ptr %horz, align 8, !tbaa !5
+  br label %while.cond.preheader
+
+while.cond.preheader:                             ; preds = %for.cond.while.cond.preheader_crit_edge, %entry
   %1 = load i32, ptr @nargc, align 4, !tbaa !10
   %cmp2404 = icmp slt i32 %1, 500
   br i1 %cmp2404, label %land.rhs.lr.ph, label %while.end193
 
 land.rhs.lr.ph:                                   ; preds = %while.cond.preheader
   %st_mode114 = getelementptr inbounds %struct.stat, ptr %st, i64 0, i32 3
-  %cmp1.not.i436 = icmp eq ptr %.lcssa376, null
-  br i1 %cmp1.not.i436, label %while.end193, label %while.body
+  %2 = load ptr, ptr %horz, align 8, !tbaa !5
+  %cmp1.not.i432 = icmp eq ptr %2, null
+  br i1 %cmp1.not.i432, label %while.end193, label %while.body
 
-for.body:                                         ; preds = %for.body.preheader, %add_horz.exit
-  %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %add_horz.exit ]
-  %2 = phi ptr [ null, %for.body.preheader ], [ %4, %add_horz.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %add_horz.exit
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %add_horz.exit ]
+  %call.i380 = phi ptr [ null, %for.body.lr.ph ], [ %call.i379, %add_horz.exit ]
   %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx, align 8, !tbaa !12
   %call.i = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #13
@@ -88,33 +92,33 @@ if.then6.i:                                       ; preds = %if.then.i
 if.else.i:                                        ; preds = %if.then.i
   %call8.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call3.i, ptr noundef nonnull dereferenceable(1) %3) #12
   %horz9.i = getelementptr inbounds %struct.alias_node, ptr %call.i, i64 0, i32 1
-  store ptr %2, ptr %horz9.i, align 8, !tbaa !5
+  store ptr %call.i380, ptr %horz9.i, align 8, !tbaa !5
   %vert.i = getelementptr inbounds %struct.alias_node, ptr %call.i, i64 0, i32 2
   store ptr null, ptr %vert.i, align 8, !tbaa !14
   br label %add_horz.exit
 
 add_horz.exit:                                    ; preds = %for.body, %if.then6.i, %if.else.i
-  %4 = phi ptr [ %2, %for.body ], [ %2, %if.then6.i ], [ %call.i, %if.else.i ]
+  %call.i379 = phi ptr [ %call.i380, %for.body ], [ %call.i380, %if.then6.i ], [ %call.i, %if.else.i ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %while.cond.preheader, label %for.body, !llvm.loop !15
+  br i1 %exitcond.not, label %for.cond.while.cond.preheader_crit_edge, label %for.body, !llvm.loop !15
 
 while.body:                                       ; preds = %land.rhs.lr.ph, %while.cond.backedge
-  %call.i322403405437 = phi ptr [ %call.i322397, %while.cond.backedge ], [ null, %land.rhs.lr.ph ]
-  %5 = phi ptr [ %.pr, %while.cond.backedge ], [ %.lcssa376, %land.rhs.lr.ph ]
-  %horz3.i = getelementptr inbounds %struct.alias_node, ptr %5, i64 0, i32 1
-  %6 = load ptr, ptr %horz3.i, align 8, !tbaa !5
-  store ptr %6, ptr %horz, align 8, !tbaa !5
-  %7 = load ptr, ptr %5, align 8, !tbaa !13
-  %call4 = call i32 (ptr, ptr, i32, ...) @strncmpic(ptr noundef %7, ptr noundef nonnull @.str, i32 noundef 9) #12
+  %4 = phi ptr [ %12, %while.cond.backedge ], [ %2, %land.rhs.lr.ph ]
+  %call.i322403405433 = phi ptr [ %call.i322397, %while.cond.backedge ], [ null, %land.rhs.lr.ph ]
+  %horz3.i = getelementptr inbounds %struct.alias_node, ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %horz3.i, align 8, !tbaa !5
+  store ptr %5, ptr %horz, align 8, !tbaa !5
+  %6 = load ptr, ptr %4, align 8, !tbaa !13
+  %call4 = call i32 (ptr, ptr, i32, ...) @strncmpic(ptr noundef %6, ptr noundef nonnull @.str, i32 noundef 9) #12
   %cmp5 = icmp eq i32 %call4, 0
-  %8 = load ptr, ptr %5, align 8, !tbaa !13
+  %7 = load ptr, ptr %4, align 8, !tbaa !13
   br i1 %cmp5, label %if.then, label %if.end32
 
 if.then:                                          ; preds = %while.body
-  %add.ptr = getelementptr inbounds i8, ptr %8, i64 9
-  %9 = load i8, ptr %add.ptr, align 1, !tbaa !17
-  %cmp7 = icmp eq i8 %9, 47
+  %add.ptr = getelementptr inbounds i8, ptr %7, i64 9
+  %8 = load i8, ptr %add.ptr, align 1, !tbaa !17
+  %cmp7 = icmp eq i8 %8, 47
   br i1 %cmp7, label %for.cond.i, label %while.cond.backedgethread-pre-split
 
 for.cond.i:                                       ; preds = %if.then, %for.body.i
@@ -125,8 +129,8 @@ for.cond.i:                                       ; preds = %if.then, %for.body.
 
 for.body.i:                                       ; preds = %for.cond.i
   %a.0.i.sroa.gep = getelementptr inbounds %struct.alias_node, ptr %a.0.i, i64 0, i32 1
-  %10 = load ptr, ptr %a.0.i, align 8, !tbaa !13
-  %call.i263 = call i32 (ptr, ptr, ...) @strcmpic(ptr noundef %10, ptr noundef nonnull %add.ptr) #12
+  %9 = load ptr, ptr %a.0.i, align 8, !tbaa !13
+  %call.i263 = call i32 (ptr, ptr, ...) @strcmpic(ptr noundef %9, ptr noundef nonnull %add.ptr) #12
   %cmp1.i = icmp eq i32 %call.i263, 0
   br i1 %cmp1.i, label %while.cond.backedgethread-pre-split, label %for.cond.i, !llvm.loop !18
 
@@ -151,21 +155,21 @@ if.then6.i272:                                    ; preds = %if.then.i271
 if.else.i277:                                     ; preds = %if.then.i271
   %call8.i273 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call3.i269, ptr noundef nonnull dereferenceable(1) %add.ptr) #12
   %horz9.i275 = getelementptr inbounds %struct.alias_node, ptr %call.i264, i64 0, i32 1
-  store ptr %call.i322403405437, ptr %horz9.i275, align 8, !tbaa !5
+  store ptr %call.i322403405433, ptr %horz9.i275, align 8, !tbaa !5
   %vert.i276 = getelementptr inbounds %struct.alias_node, ptr %call.i264, i64 0, i32 2
   store ptr null, ptr %vert.i276, align 8, !tbaa !14
   store ptr %call.i264, ptr %fliststk.sroa.2, align 8, !tbaa !5
   br label %add_horz.exit278
 
 add_horz.exit278:                                 ; preds = %if.then12, %if.then6.i272, %if.else.i277
-  %call.i322402 = phi ptr [ %call.i322403405437, %if.then12 ], [ %call.i322403405437, %if.then6.i272 ], [ %call.i264, %if.else.i277 ]
+  %call.i322402 = phi ptr [ %call.i322403405433, %if.then12 ], [ %call.i322403405433, %if.then6.i272 ], [ %call.i264, %if.else.i277 ]
   %call13 = call i32 @stat(ptr noundef nonnull %add.ptr, ptr noundef nonnull %st) #12
   %cmp14 = icmp sgt i32 %call13, -1
   br i1 %cmp14, label %land.lhs.true16, label %while.cond.backedgethread-pre-split
 
 land.lhs.true16:                                  ; preds = %add_horz.exit278
-  %11 = load i32, ptr %st_mode114, align 8, !tbaa !19
-  %and = and i32 %11, 61440
+  %10 = load i32, ptr %st_mode114, align 8, !tbaa !19
+  %and = and i32 %10, 61440
   %cmp17 = icmp eq i32 %and, 32768
   br i1 %cmp17, label %land.lhs.true19, label %while.cond.backedgethread-pre-split
 
@@ -190,21 +194,21 @@ while.end:                                        ; preds = %while.body27, %whil
   br label %while.cond.backedgethread-pre-split
 
 while.cond.backedgethread-pre-split:              ; preds = %for.body.i320, %for.body.i, %for.end87.thread, %for.end87, %while.end136, %add_horz.exit278, %land.lhs.true16, %land.lhs.true19, %while.end, %if.then, %if.else.i365, %if.then6.i360, %if.then155, %if.else.i350, %if.then6.i345, %if.then150, %for.end185
-  %call.i322397.ph = phi ptr [ %call.i322400, %for.end185 ], [ %call.i322399, %if.then150 ], [ %call.i322399, %if.then6.i345 ], [ %call.i322399, %if.else.i350 ], [ %call.i322399, %if.then155 ], [ %call.i322399, %if.then6.i360 ], [ %call.i322399, %if.else.i365 ], [ %call.i322403405437, %if.then ], [ %call.i322402, %while.end ], [ %call.i322402, %land.lhs.true19 ], [ %call.i322402, %land.lhs.true16 ], [ %call.i322402, %add_horz.exit278 ], [ %call.i322403405437, %for.end87 ], [ %call.i322398, %while.end136 ], [ %call.i322403405437, %for.end87.thread ], [ %call.i322403405437, %for.body.i ], [ %call.i322403405437, %for.body.i320 ]
-  %.pr417 = load i32, ptr @nargc, align 4, !tbaa !10
+  %call.i322397.ph = phi ptr [ %call.i322400, %for.end185 ], [ %call.i322399, %if.then150 ], [ %call.i322399, %if.then6.i345 ], [ %call.i322399, %if.else.i350 ], [ %call.i322399, %if.then155 ], [ %call.i322399, %if.then6.i360 ], [ %call.i322399, %if.else.i365 ], [ %call.i322403405433, %if.then ], [ %call.i322402, %while.end ], [ %call.i322402, %land.lhs.true19 ], [ %call.i322402, %land.lhs.true16 ], [ %call.i322402, %add_horz.exit278 ], [ %call.i322403405433, %for.end87 ], [ %call.i322398, %while.end136 ], [ %call.i322403405433, %for.end87.thread ], [ %call.i322403405433, %for.body.i ], [ %call.i322403405433, %for.body.i320 ]
+  %.pr = load i32, ptr @nargc, align 4, !tbaa !10
   br label %while.cond.backedge
 
 while.cond.backedge:                              ; preds = %while.cond.backedgethread-pre-split, %if.then188
-  %12 = phi i32 [ %.pr417, %while.cond.backedgethread-pre-split ], [ %inc189, %if.then188 ]
+  %11 = phi i32 [ %.pr, %while.cond.backedgethread-pre-split ], [ %inc189, %if.then188 ]
   %call.i322397 = phi ptr [ %call.i322397.ph, %while.cond.backedgethread-pre-split ], [ %call.i322400, %if.then188 ]
-  %cmp2 = icmp sgt i32 %12, 499
-  %.pr = load ptr, ptr %horz, align 8
-  %cmp1.not.i = icmp eq ptr %.pr, null
-  %or.cond439 = select i1 %cmp2, i1 true, i1 %cmp1.not.i
-  br i1 %or.cond439, label %while.end193, label %while.body, !llvm.loop !25
+  %cmp2 = icmp sgt i32 %11, 499
+  %12 = load ptr, ptr %horz, align 8
+  %cmp1.not.i = icmp eq ptr %12, null
+  %or.cond435 = select i1 %cmp2, i1 true, i1 %cmp1.not.i
+  br i1 %or.cond435, label %while.end193, label %while.body, !llvm.loop !25
 
 if.end32:                                         ; preds = %while.body
-  %call36 = call i32 (ptr, ptr, ptr, ...) @islocal(ptr noundef %8, ptr noundef nonnull %domain, ptr noundef nonnull %ubuf) #12
+  %call36 = call i32 (ptr, ptr, ptr, ...) @islocal(ptr noundef %7, ptr noundef nonnull %domain, ptr noundef nonnull %ubuf) #12
   %cmp37 = icmp eq i32 %call36, 0
   br i1 %cmp37, label %aliasing_complete, label %if.end40
 
@@ -213,7 +217,7 @@ if.end40:                                         ; preds = %if.end32
   %cmp43.not = icmp eq i8 %13, 92
   %cond.idx = zext i1 %cmp43.not to i64
   %cond = getelementptr i8, ptr %ubuf, i64 %cond.idx
-  %14 = load ptr, ptr %5, align 8, !tbaa !13
+  %14 = load ptr, ptr %4, align 8, !tbaa !13
   %call49 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) %cond) #12
   %.b.i = load i1, ptr @v_search.loaded, align 4
   br i1 %.b.i, label %if.end.i, label %if.then.i279
@@ -225,19 +229,19 @@ if.then.i279:                                     ; preds = %if.end40
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i279, %if.end40
-  %a.015.i = load ptr, ptr getelementptr inbounds (%struct.alias_node, ptr @aliases, i64 0, i32 2), align 8, !tbaa !14
-  %cond16.i = icmp eq ptr %a.015.i, null
-  br i1 %cond16.i, label %if.end97, label %for.body.i281
+  %a.016.i = load ptr, ptr getelementptr inbounds (%struct.alias_node, ptr @aliases, i64 0, i32 2), align 8, !tbaa !14
+  %cond18.i = icmp eq ptr %a.016.i, null
+  br i1 %cond18.i, label %if.end97, label %for.body.i281
 
 for.body.i281:                                    ; preds = %if.end.i, %for.inc.i
-  %a.017.i = phi ptr [ %a.0.i282, %for.inc.i ], [ %a.015.i, %if.end.i ]
-  %16 = load ptr, ptr %a.017.i, align 8, !tbaa !13
+  %a.019.i = phi ptr [ %a.0.i282, %for.inc.i ], [ %a.016.i, %if.end.i ]
+  %16 = load ptr, ptr %a.019.i, align 8, !tbaa !13
   %call.i280 = call i32 (ptr, ptr, ...) @strcmpic(ptr noundef %16, ptr noundef %cond) #12
   %cmp2.i = icmp eq i32 %call.i280, 0
   br i1 %cmp2.i, label %if.then53, label %for.inc.i
 
 for.inc.i:                                        ; preds = %for.body.i281
-  %vert5.i = getelementptr inbounds %struct.alias_node, ptr %a.017.i, i64 0, i32 2
+  %vert5.i = getelementptr inbounds %struct.alias_node, ptr %a.019.i, i64 0, i32 2
   %a.0.i282 = load ptr, ptr %vert5.i, align 8, !tbaa !14
   %cond.i = icmp eq ptr %a.0.i282, null
   br i1 %cond.i, label %if.end97, label %for.body.i281, !llvm.loop !26
@@ -245,23 +249,23 @@ for.inc.i:                                        ; preds = %for.body.i281
 if.then53:                                        ; preds = %for.body.i281
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %dtmpb) #12
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %utmpb) #12
-  %horz54 = getelementptr inbounds %struct.alias_node, ptr %a.017.i, i64 0, i32 1
-  %a.0381 = load ptr, ptr %horz54, align 8, !tbaa !5
-  %cmp56.not382 = icmp eq ptr %a.0381, null
-  br i1 %cmp56.not382, label %for.end87.thread, label %for.body58
+  %horz54 = getelementptr inbounds %struct.alias_node, ptr %a.019.i, i64 0, i32 1
+  %a.0382 = load ptr, ptr %horz54, align 8, !tbaa !5
+  %cmp56.not383 = icmp eq ptr %a.0382, null
+  br i1 %cmp56.not383, label %for.end87.thread, label %for.body58
 
 for.end87.thread:                                 ; preds = %if.then53
-  store ptr %6, ptr %horz, align 8, !tbaa !5
+  store ptr %5, ptr %horz, align 8, !tbaa !5
   store ptr null, ptr %horz54, align 8, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %utmpb) #12
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %dtmpb) #12
   br label %while.cond.backedgethread-pre-split
 
 for.body58:                                       ; preds = %if.then53, %for.inc85
-  %a.0384 = phi ptr [ %a.0, %for.inc85 ], [ %a.0381, %if.then53 ]
-  %user_inalias.0383 = phi i32 [ %user_inalias.1, %for.inc85 ], [ 0, %if.then53 ]
-  %17 = phi ptr [ %22, %for.inc85 ], [ %6, %if.then53 ]
-  %18 = load ptr, ptr %a.0384, align 8, !tbaa !13
+  %a.0385 = phi ptr [ %a.0, %for.inc85 ], [ %a.0382, %if.then53 ]
+  %user_inalias.0384 = phi i32 [ %user_inalias.1, %for.inc85 ], [ 0, %if.then53 ]
+  %17 = phi ptr [ %22, %for.inc85 ], [ %5, %if.then53 ]
+  %18 = load ptr, ptr %a.0385, align 8, !tbaa !13
   %call62 = call i32 (ptr, ptr, ptr, ...) @islocal(ptr noundef %18, ptr noundef nonnull %dtmpb, ptr noundef nonnull %utmpb) #12
   %tobool63.not = icmp eq i32 %call62, 0
   br i1 %tobool63.not, label %if.else82, label %if.then64
@@ -276,7 +280,7 @@ if.then64:                                        ; preds = %for.body58
   br i1 %cmp77, label %for.inc85, label %if.else
 
 if.else:                                          ; preds = %if.then64
-  %20 = load ptr, ptr %a.0384, align 8, !tbaa !13
+  %20 = load ptr, ptr %a.0385, align 8, !tbaa !13
   %call.i283 = call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #13
   %cmp.not.i284 = icmp eq ptr %call.i283, null
   br i1 %cmp.not.i284, label %for.inc85, label %if.then.i290
@@ -303,7 +307,7 @@ if.else.i296:                                     ; preds = %if.then.i290
   br label %for.inc85
 
 if.else82:                                        ; preds = %for.body58
-  %21 = load ptr, ptr %a.0384, align 8, !tbaa !13
+  %21 = load ptr, ptr %a.0385, align 8, !tbaa !13
   %call.i298 = call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #13
   %cmp.not.i299 = icmp eq ptr %call.i298, null
   br i1 %cmp.not.i299, label %for.inc85, label %if.then.i305
@@ -331,8 +335,8 @@ if.else.i311:                                     ; preds = %if.then.i305
 
 for.inc85:                                        ; preds = %if.else.i311, %if.then6.i306, %if.else82, %if.else.i296, %if.then6.i291, %if.else, %if.then64
   %22 = phi ptr [ %17, %if.then64 ], [ %17, %if.else ], [ %17, %if.then6.i291 ], [ %call.i283, %if.else.i296 ], [ %17, %if.else82 ], [ %17, %if.then6.i306 ], [ %call.i298, %if.else.i311 ]
-  %user_inalias.1 = phi i32 [ 1, %if.then64 ], [ %user_inalias.0383, %if.else ], [ %user_inalias.0383, %if.then6.i291 ], [ %user_inalias.0383, %if.else.i296 ], [ %user_inalias.0383, %if.else82 ], [ %user_inalias.0383, %if.then6.i306 ], [ %user_inalias.0383, %if.else.i311 ]
-  %horz86 = getelementptr inbounds %struct.alias_node, ptr %a.0384, i64 0, i32 1
+  %user_inalias.1 = phi i32 [ 1, %if.then64 ], [ %user_inalias.0384, %if.else ], [ %user_inalias.0384, %if.then6.i291 ], [ %user_inalias.0384, %if.else.i296 ], [ %user_inalias.0384, %if.else82 ], [ %user_inalias.0384, %if.then6.i306 ], [ %user_inalias.0384, %if.else.i311 ]
+  %horz86 = getelementptr inbounds %struct.alias_node, ptr %a.0385, i64 0, i32 1
   %a.0 = load ptr, ptr %horz86, align 8, !tbaa !5
   %cmp56.not = icmp eq ptr %a.0, null
   br i1 %cmp56.not, label %for.end87, label %for.body58, !llvm.loop !27
@@ -353,8 +357,8 @@ if.end97:                                         ; preds = %for.inc.i, %if.end.
 for.cond.i317:                                    ; preds = %if.end97, %for.body.i320
   %head.pn.i313.sroa.phi = phi ptr [ %a.0.i315.sroa.gep, %for.body.i320 ], [ %fliststk.sroa.2, %if.end97 ]
   %a.0.i315 = load ptr, ptr %head.pn.i313.sroa.phi, align 8, !tbaa !5
-  %cmp.not.i316 = icmp eq ptr %a.0.i315, null
-  br i1 %cmp.not.i316, label %if.end106, label %for.body.i320
+  %cond369 = icmp eq ptr %a.0.i315, null
+  br i1 %cond369, label %if.end106, label %for.body.i320
 
 for.body.i320:                                    ; preds = %for.cond.i317
   %a.0.i315.sroa.gep = getelementptr inbounds %struct.alias_node, ptr %a.0.i315, i64 0, i32 1
@@ -384,14 +388,14 @@ if.then6.i330:                                    ; preds = %if.then.i329
 if.else.i335:                                     ; preds = %if.then.i329
   %call8.i331 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call3.i327, ptr noundef nonnull dereferenceable(1) %call98) #12
   %horz9.i333 = getelementptr inbounds %struct.alias_node, ptr %call.i322, i64 0, i32 1
-  store ptr %call.i322403405437, ptr %horz9.i333, align 8, !tbaa !5
+  store ptr %call.i322403405433, ptr %horz9.i333, align 8, !tbaa !5
   %vert.i334 = getelementptr inbounds %struct.alias_node, ptr %call.i322, i64 0, i32 2
   store ptr null, ptr %vert.i334, align 8, !tbaa !14
   store ptr %call.i322, ptr %fliststk.sroa.2, align 8, !tbaa !5
   br label %add_horz.exit336
 
 add_horz.exit336:                                 ; preds = %if.end106, %if.then6.i330, %if.else.i335
-  %call.i322398 = phi ptr [ %call.i322403405437, %if.end106 ], [ %call.i322403405437, %if.then6.i330 ], [ %call.i322, %if.else.i335 ]
+  %call.i322398 = phi ptr [ %call.i322403405433, %if.end106 ], [ %call.i322403405433, %if.then6.i330 ], [ %call.i322, %if.else.i335 ]
   %call108 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.2, ptr noundef nonnull %call98, ptr noundef nonnull @.str.3) #12
   %call110 = call i32 @stat(ptr noundef nonnull %buf, ptr noundef nonnull %st) #12
   %cmp111 = icmp sgt i32 %call110, -1
@@ -414,7 +418,7 @@ while.cond129.preheader:                          ; preds = %land.lhs.true123
   br i1 %tobool132.not388, label %while.end136.thread, label %while.body133
 
 while.end136.thread:                              ; preds = %while.cond129.preheader
-  %call137422 = call i32 @fclose(ptr noundef nonnull %call125)
+  %call137420 = call i32 @fclose(ptr noundef nonnull %call125)
   br label %if.end142
 
 while.body133:                                    ; preds = %while.cond129.preheader, %while.body133
@@ -431,7 +435,7 @@ while.end136:                                     ; preds = %while.body133
   br i1 %tobool138.not, label %if.end142, label %while.cond.backedgethread-pre-split
 
 if.end142:                                        ; preds = %while.end136.thread, %add_horz.exit336, %land.lhs.true113, %land.lhs.true123, %while.end136, %if.end97
-  %call.i322399 = phi ptr [ %call.i322398, %add_horz.exit336 ], [ %call.i322398, %land.lhs.true113 ], [ %call.i322398, %land.lhs.true123 ], [ %call.i322398, %while.end136 ], [ %call.i322403405437, %if.end97 ], [ %call.i322398, %while.end136.thread ]
+  %call.i322399 = phi ptr [ %call.i322398, %add_horz.exit336 ], [ %call.i322398, %land.lhs.true113 ], [ %call.i322398, %land.lhs.true123 ], [ %call.i322398, %while.end136 ], [ %call.i322403405433, %if.end97 ], [ %call.i322398, %while.end136.thread ]
   %call143 = call ptr (ptr, ...) @res_fname(ptr noundef %cond) #12
   %cmp144.not = icmp eq ptr %call143, null
   br i1 %cmp144.not, label %aliasing_complete, label %if.then146
@@ -503,8 +507,8 @@ if.else.i365:                                     ; preds = %if.then.i359
   br label %while.cond.backedgethread-pre-split, !llvm.loop !25
 
 aliasing_complete:                                ; preds = %if.end142, %if.end151, %if.end32
-  %call.i322400 = phi ptr [ %call.i322399, %if.end142 ], [ %call.i322399, %if.end151 ], [ %call.i322403405437, %if.end32 ]
-  %28 = load ptr, ptr %5, align 8, !tbaa !13
+  %call.i322400 = phi ptr [ %call.i322399, %if.end142 ], [ %call.i322399, %if.end151 ], [ %call.i322403405433, %if.end32 ]
+  %28 = load ptr, ptr %4, align 8, !tbaa !13
   %29 = load i8, ptr %28, align 1, !tbaa !17
   %cmp163.not = icmp eq i8 %29, 92
   %cond171.idx = zext i1 %cmp163.not to i64
@@ -514,8 +518,8 @@ aliasing_complete:                                ; preds = %if.end142, %if.end1
   br i1 %cmp173391, label %for.body175, label %for.end185
 
 for.body175:                                      ; preds = %aliasing_complete, %for.inc183
-  %indvars.iv413 = phi i64 [ %indvars.iv.next414, %for.inc183 ], [ 0, %aliasing_complete ]
-  %arrayidx177 = getelementptr inbounds [500 x ptr], ptr @nargv, i64 0, i64 %indvars.iv413
+  %indvars.iv412 = phi i64 [ %indvars.iv.next413, %for.inc183 ], [ 0, %aliasing_complete ]
+  %arrayidx177 = getelementptr inbounds [500 x ptr], ptr @nargv, i64 0, i64 %indvars.iv412
   %31 = load ptr, ptr %arrayidx177, align 8, !tbaa !12
   %call178 = call i32 (ptr, ptr, ...) @strcmpic(ptr noundef %31, ptr noundef nonnull %cond171) #12
   %cmp179 = icmp eq i32 %call178, 0
@@ -526,15 +530,15 @@ for.body175.for.end185.loopexit_crit_edge:        ; preds = %for.body175
   br label %for.end185.loopexit
 
 for.inc183:                                       ; preds = %for.body175
-  %indvars.iv.next414 = add nuw nsw i64 %indvars.iv413, 1
+  %indvars.iv.next413 = add nuw nsw i64 %indvars.iv412, 1
   %32 = load i32, ptr @nargc, align 4, !tbaa !10
   %33 = sext i32 %32 to i64
-  %cmp173 = icmp slt i64 %indvars.iv.next414, %33
+  %cmp173 = icmp slt i64 %indvars.iv.next413, %33
   br i1 %cmp173, label %for.body175, label %for.end185.loopexit, !llvm.loop !29
 
 for.end185.loopexit:                              ; preds = %for.inc183, %for.body175.for.end185.loopexit_crit_edge
   %.pre = phi i32 [ %.pre.pre, %for.body175.for.end185.loopexit_crit_edge ], [ %32, %for.inc183 ]
-  %i.1.lcssa.ph.in = phi i64 [ %indvars.iv413, %for.body175.for.end185.loopexit_crit_edge ], [ %indvars.iv.next414, %for.inc183 ]
+  %i.1.lcssa.ph.in = phi i64 [ %indvars.iv412, %for.body175.for.end185.loopexit_crit_edge ], [ %indvars.iv.next413, %for.inc183 ]
   %i.1.lcssa.ph = trunc i64 %i.1.lcssa.ph.in to i32
   br label %for.end185
 
@@ -553,7 +557,7 @@ if.then188:                                       ; preds = %for.end185
   br label %while.cond.backedge
 
 while.end193:                                     ; preds = %while.cond.backedge, %land.rhs.lr.ph, %while.cond.preheader
-  %.lcssa = phi i32 [ %1, %while.cond.preheader ], [ %1, %land.rhs.lr.ph ], [ %12, %while.cond.backedge ]
+  %.lcssa = phi i32 [ %1, %while.cond.preheader ], [ %1, %land.rhs.lr.ph ], [ %11, %while.cond.backedge ]
   store i32 %.lcssa, ptr %pargc, align 4, !tbaa !10
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %st) #12
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %buf) #12
@@ -614,25 +618,25 @@ if.then:                                          ; preds = %entry
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %entry
-  %a.015 = load ptr, ptr getelementptr inbounds (%struct.alias_node, ptr @aliases, i64 0, i32 2), align 8, !tbaa !14
-  %cond16 = icmp eq ptr %a.015, null
-  br i1 %cond16, label %cleanup, label %for.body
+  %a.016 = load ptr, ptr getelementptr inbounds (%struct.alias_node, ptr @aliases, i64 0, i32 2), align 8, !tbaa !14
+  %cond18 = icmp eq ptr %a.016, null
+  br i1 %cond18, label %cleanup, label %for.body
 
 for.body:                                         ; preds = %if.end, %for.inc
-  %a.017 = phi ptr [ %a.0, %for.inc ], [ %a.015, %if.end ]
-  %1 = load ptr, ptr %a.017, align 8, !tbaa !13
+  %a.019 = phi ptr [ %a.0, %for.inc ], [ %a.016, %if.end ]
+  %1 = load ptr, ptr %a.019, align 8, !tbaa !13
   %call = tail call i32 (ptr, ptr, ...) @strcmpic(ptr noundef %1, ptr noundef %user) #12
   %cmp2 = icmp eq i32 %call, 0
   br i1 %cmp2, label %cleanup, label %for.inc
 
 for.inc:                                          ; preds = %for.body
-  %vert5 = getelementptr inbounds %struct.alias_node, ptr %a.017, i64 0, i32 2
+  %vert5 = getelementptr inbounds %struct.alias_node, ptr %a.019, i64 0, i32 2
   %a.0 = load ptr, ptr %vert5, align 8, !tbaa !14
   %cond = icmp eq ptr %a.0, null
   br i1 %cond, label %cleanup, label %for.body, !llvm.loop !26
 
 cleanup:                                          ; preds = %for.inc, %for.body, %if.end
-  %retval.0 = phi ptr [ null, %if.end ], [ %a.017, %for.body ], [ null, %for.inc ]
+  %retval.0 = phi ptr [ null, %if.end ], [ null, %for.inc ], [ %a.019, %for.body ]
   ret ptr %retval.0
 }
 

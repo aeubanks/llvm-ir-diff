@@ -381,6 +381,7 @@ for.body:                                         ; preds = %entry, %if.end48
 land.lhs.true:                                    ; preds = %for.body
   %nreds = getelementptr inbounds %struct.reductions, ptr %5, i64 0, i32 2
   %8 = load i16, ptr %nreds, align 2, !tbaa !27
+  %conv13 = sext i16 %8 to i32
   %cmp14 = icmp sgt i16 %8, 1
   br i1 %cmp14, label %if.then, label %lor.lhs.false
 
@@ -401,8 +402,7 @@ land.lhs.true17:                                  ; preds = %lor.lhs.false
   br i1 %cmp22.not, label %if.then, label %if.else
 
 if.then:                                          ; preds = %land.lhs.true17, %land.lhs.true
-  %conv25 = sext i16 %8 to i32
-  %add26 = add nsw i32 %count.0129, %conv25
+  %add26 = add nsw i32 %count.0129, %conv13
   br label %if.end
 
 if.else:                                          ; preds = %land.lhs.true17, %lor.lhs.false, %for.body
@@ -1370,15 +1370,15 @@ while.end.i:                                      ; preds = %while.body.i
   br i1 %cmp8.i, label %if.then12.i, label %add_lookback_edge.exit
 
 if.then12.i:                                      ; preds = %while.end.i, %if.then59
-  %i.0.lcssa35.i = phi i32 [ %i.1.i, %while.end.i ], [ %conv.i, %if.then59 ]
+  %i.0.lcssa34.i = phi i32 [ %i.1.i, %while.end.i ], [ %conv.i, %if.then59 ]
   tail call void @berror(ptr noundef nonnull @.str.2) #7
   br label %add_lookback_edge.exit
 
 add_lookback_edge.exit:                           ; preds = %while.end.i, %if.then12.i
-  %i.0.lcssa34.i = phi i32 [ %i.0.lcssa35.i, %if.then12.i ], [ %i.1.i, %while.end.i ]
+  %i.0.lcssa33.i = phi i32 [ %i.0.lcssa34.i, %if.then12.i ], [ %i.1.i, %while.end.i ]
   %call.i = tail call ptr (i32, ...) @mallocate(i32 noundef 16) #7
   %37 = load ptr, ptr @lookback, align 8, !tbaa !9
-  %idxprom14.i = sext i32 %i.0.lcssa34.i to i64
+  %idxprom14.i = sext i32 %i.0.lcssa33.i to i64
   %arrayidx15.i = getelementptr inbounds ptr, ptr %37, i64 %idxprom14.i
   %38 = load ptr, ptr %arrayidx15.i, align 8, !tbaa !9
   store ptr %38, ptr %call.i, align 8, !tbaa !57
@@ -2051,15 +2051,15 @@ while.end:                                        ; preds = %while.body
   br i1 %cmp8, label %if.then12, label %if.end13
 
 if.then12:                                        ; preds = %entry, %while.end
-  %i.0.lcssa35 = phi i32 [ %i.1, %while.end ], [ %conv, %entry ]
+  %i.0.lcssa34 = phi i32 [ %i.1, %while.end ], [ %conv, %entry ]
   tail call void @berror(ptr noundef nonnull @.str.2) #7
   br label %if.end13
 
 if.end13:                                         ; preds = %if.then12, %while.end
-  %i.0.lcssa34 = phi i32 [ %i.0.lcssa35, %if.then12 ], [ %i.1, %while.end ]
+  %i.0.lcssa33 = phi i32 [ %i.0.lcssa34, %if.then12 ], [ %i.1, %while.end ]
   %call = tail call ptr (i32, ...) @mallocate(i32 noundef 16) #7
   %6 = load ptr, ptr @lookback, align 8, !tbaa !9
-  %idxprom14 = sext i32 %i.0.lcssa34 to i64
+  %idxprom14 = sext i32 %i.0.lcssa33 to i64
   %arrayidx15 = getelementptr inbounds ptr, ptr %6, i64 %idxprom14
   %7 = load ptr, ptr %arrayidx15, align 8, !tbaa !9
   store ptr %7, ptr %call, align 8, !tbaa !57

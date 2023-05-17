@@ -73,24 +73,24 @@ entry:
   store i32 1, ptr %m_upAxis, align 8, !tbaa !8
   %m_collisionMargin.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 3
   %0 = load float, ptr %m_collisionMargin.i, align 8, !tbaa !18
-  %m_localScaling = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %arrayidx11.i = getelementptr inbounds [4 x float], ptr %halfExtents, i64 0, i64 2
   %1 = load float, ptr %arrayidx11.i, align 4, !tbaa !19
   %arrayidx13.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1, i32 0, i64 2
   %2 = load float, ptr %arrayidx13.i, align 8, !tbaa !19
   %mul14.i = fmul float %1, %2
+  %sub14.i = fsub float %mul14.i, %0
+  %retval.sroa.3.12.vec.insert.i38 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i, i64 0
+  %m_localScaling = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %3 = load <2 x float>, ptr %halfExtents, align 4, !tbaa !19
   %4 = load <2 x float>, ptr %m_localScaling, align 8, !tbaa !19
   %5 = fmul <2 x float> %3, %4
   %6 = insertelement <2 x float> poison, float %0, i64 0
   %7 = shufflevector <2 x float> %6, <2 x float> poison, <2 x i32> zeroinitializer
   %8 = fsub <2 x float> %5, %7
-  %sub14.i = fsub float %mul14.i, %0
-  %retval.sroa.3.12.vec.insert.i42 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i, i64 0
   %m_implicitShapeDimensions = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2
   store <2 x float> %8, ptr %m_implicitShapeDimensions, align 8, !tbaa.struct !20
   %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2, i32 0, i64 2
-  store <2 x float> %retval.sroa.3.12.vec.insert.i42, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx, align 8, !tbaa.struct !22
+  store <2 x float> %retval.sroa.3.12.vec.insert.i38, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx, align 8, !tbaa.struct !22
   %m_shapeType = getelementptr inbounds %class.btCollisionShape, ptr %this, i64 0, i32 1
   store i32 13, ptr %m_shapeType, align 8, !tbaa !23
   ret void
@@ -118,24 +118,24 @@ entry:
   %m_upAxis.i = getelementptr inbounds %class.btCylinderShape, ptr %this, i64 0, i32 1
   %m_collisionMargin.i.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 3
   %0 = load float, ptr %m_collisionMargin.i.i, align 8, !tbaa !18
-  %m_localScaling.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %arrayidx11.i.i = getelementptr inbounds [4 x float], ptr %halfExtents, i64 0, i64 2
   %1 = load float, ptr %arrayidx11.i.i, align 4, !tbaa !19
   %arrayidx13.i.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1, i32 0, i64 2
   %2 = load float, ptr %arrayidx13.i.i, align 8, !tbaa !19
   %mul14.i.i = fmul float %1, %2
+  %sub14.i.i = fsub float %mul14.i.i, %0
+  %retval.sroa.3.12.vec.insert.i38.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i.i, i64 0
+  %m_localScaling.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %3 = load <2 x float>, ptr %halfExtents, align 4, !tbaa !19
   %4 = load <2 x float>, ptr %m_localScaling.i, align 8, !tbaa !19
   %5 = fmul <2 x float> %3, %4
   %6 = insertelement <2 x float> poison, float %0, i64 0
   %7 = shufflevector <2 x float> %6, <2 x float> poison, <2 x i32> zeroinitializer
   %8 = fsub <2 x float> %5, %7
-  %sub14.i.i = fsub float %mul14.i.i, %0
-  %retval.sroa.3.12.vec.insert.i42.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i.i, i64 0
   %m_implicitShapeDimensions.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2
   store <2 x float> %8, ptr %m_implicitShapeDimensions.i, align 8, !tbaa.struct !20
   %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2, i32 0, i64 2
-  store <2 x float> %retval.sroa.3.12.vec.insert.i42.i, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i, align 8, !tbaa.struct !22
+  store <2 x float> %retval.sroa.3.12.vec.insert.i38.i, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i, align 8, !tbaa.struct !22
   %m_shapeType.i = getelementptr inbounds %class.btCollisionShape, ptr %this, i64 0, i32 1
   store i32 13, ptr %m_shapeType.i, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [21 x ptr] }, ptr @_ZTV16btCylinderShapeX, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
@@ -150,24 +150,24 @@ entry:
   %m_upAxis.i = getelementptr inbounds %class.btCylinderShape, ptr %this, i64 0, i32 1
   %m_collisionMargin.i.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 3
   %0 = load float, ptr %m_collisionMargin.i.i, align 8, !tbaa !18
-  %m_localScaling.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %arrayidx11.i.i = getelementptr inbounds [4 x float], ptr %halfExtents, i64 0, i64 2
   %1 = load float, ptr %arrayidx11.i.i, align 4, !tbaa !19
   %arrayidx13.i.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1, i32 0, i64 2
   %2 = load float, ptr %arrayidx13.i.i, align 8, !tbaa !19
   %mul14.i.i = fmul float %1, %2
+  %sub14.i.i = fsub float %mul14.i.i, %0
+  %retval.sroa.3.12.vec.insert.i38.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i.i, i64 0
+  %m_localScaling.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
   %3 = load <2 x float>, ptr %halfExtents, align 4, !tbaa !19
   %4 = load <2 x float>, ptr %m_localScaling.i, align 8, !tbaa !19
   %5 = fmul <2 x float> %3, %4
   %6 = insertelement <2 x float> poison, float %0, i64 0
   %7 = shufflevector <2 x float> %6, <2 x float> poison, <2 x i32> zeroinitializer
   %8 = fsub <2 x float> %5, %7
-  %sub14.i.i = fsub float %mul14.i.i, %0
-  %retval.sroa.3.12.vec.insert.i42.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i.i, i64 0
   %m_implicitShapeDimensions.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2
   store <2 x float> %8, ptr %m_implicitShapeDimensions.i, align 8, !tbaa.struct !20
   %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2, i32 0, i64 2
-  store <2 x float> %retval.sroa.3.12.vec.insert.i42.i, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i, align 8, !tbaa.struct !22
+  store <2 x float> %retval.sroa.3.12.vec.insert.i38.i, ptr %ref.tmp16.sroa.5.0.m_implicitShapeDimensions.sroa_idx.i, align 8, !tbaa.struct !22
   %m_shapeType.i = getelementptr inbounds %class.btCollisionShape, ptr %this, i64 0, i32 1
   store i32 13, ptr %m_shapeType.i, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [22 x ptr] }, ptr @_ZTV16btCylinderShapeZ, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5

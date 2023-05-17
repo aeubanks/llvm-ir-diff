@@ -173,8 +173,8 @@ if.else17:                                        ; preds = %for.end
   %3 = load ptr, ptr %explain, align 8, !tbaa !17
   br label %if.end19
 
-if.end19:                                         ; preds = %if.end5.i, %for.cond.14.i, %if.then9, %if.else12, %if.else17
-  %s.0 = phi ptr [ %3, %if.else17 ], [ %convbuf, %if.else12 ], [ %convbuf, %if.then9 ], [ %convbuf, %if.end5.i ], [ @.str.35, %for.cond.14.i ]
+if.end19:                                         ; preds = %if.then9, %if.else12, %if.end5.i, %for.cond.14.i, %if.else17
+  %s.0 = phi ptr [ %3, %if.else17 ], [ %convbuf, %if.end5.i ], [ @.str.35, %for.cond.14.i ], [ %convbuf, %if.else12 ], [ %convbuf, %if.then9 ]
   %call20 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.0) #6
   %cmp21.not = icmp eq i64 %errbuf_size, 0
   br i1 %cmp21.not, label %if.end24, label %if.then22

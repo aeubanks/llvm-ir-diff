@@ -20,7 +20,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
+for.body:
   %0 = load volatile i32, ptr @a, align 4, !tbaa !5
   %1 = load volatile i32, ptr @b, align 4, !tbaa !5
   tail call void @foo()

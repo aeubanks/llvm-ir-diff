@@ -75,17 +75,17 @@ entry:
   %4 = load i32, ptr %num_local5, align 4, !tbaa !19
   %size = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %0, i64 0, i32 1
   %5 = load i32, ptr %size, align 8, !tbaa !21
-  %cmp299 = icmp sgt i32 %5, 0
-  br i1 %cmp299, label %for.cond7.preheader.lr.ph, label %if.end196
+  %cmp300 = icmp sgt i32 %5, 0
+  br i1 %cmp300, label %for.cond7.preheader.lr.ph, label %if.end196
 
 for.cond7.preheader.lr.ph:                        ; preds = %entry
   %num_periodic6 = getelementptr inbounds %struct.hypre_BoxNeighbors_struct, ptr %neighbors, i64 0, i32 5
   %6 = load i32, ptr %num_periodic6, align 8, !tbaa !20
   %add = add nsw i32 %6, %4
-  %cmp8296 = icmp sgt i32 %add, 0
+  %cmp8297 = icmp sgt i32 %add, 0
   %rank_links = getelementptr inbounds %struct.hypre_BoxNeighbors_struct, ptr %neighbors, i64 0, i32 6
   %tobool.not = icmp eq i32 %prune, 0
-  br i1 %cmp8296, label %for.cond7.preheader.us.preheader, label %for.cond7.preheader.lr.ph.split
+  br i1 %cmp8297, label %for.cond7.preheader.us.preheader, label %for.cond7.preheader.lr.ph.split
 
 for.cond7.preheader.us.preheader:                 ; preds = %for.cond7.preheader.lr.ph
   %7 = sext i32 %3 to i64
@@ -94,9 +94,9 @@ for.cond7.preheader.us.preheader:                 ; preds = %for.cond7.preheader
   br label %for.cond7.preheader.us
 
 for.cond7.preheader.us:                           ; preds = %for.cond7.preheader.us.preheader, %for.inc105.us
-  %indvars.iv326 = phi i64 [ 0, %for.cond7.preheader.us.preheader ], [ %indvars.iv.next327, %for.inc105.us ]
-  %inew.0302.us = phi i32 [ 0, %for.cond7.preheader.us.preheader ], [ %inew.1.us, %for.inc105.us ]
-  %num_boxes.0300.us = phi i32 [ 0, %for.cond7.preheader.us.preheader ], [ %num_boxes.1.us, %for.inc105.us ]
+  %indvars.iv327 = phi i64 [ 0, %for.cond7.preheader.us.preheader ], [ %indvars.iv.next328, %for.inc105.us ]
+  %inew.0303.us = phi i32 [ 0, %for.cond7.preheader.us.preheader ], [ %inew.1.us, %for.inc105.us ]
+  %num_boxes.0301.us = phi i32 [ 0, %for.cond7.preheader.us.preheader ], [ %num_boxes.1.us, %for.inc105.us ]
   br label %for.body9.us
 
 if.then86.us:                                     ; preds = %for.cond7.for.end85_crit_edge.us
@@ -104,64 +104,64 @@ if.then86.us:                                     ; preds = %for.cond7.for.end85
   br i1 %tobool87.not.us, label %for.inc105.us, label %if.then88.us
 
 if.then88.us:                                     ; preds = %if.then86.us
-  %arrayidx90.us = getelementptr inbounds i32, ptr %1, i64 %indvars.iv326
+  %arrayidx90.us = getelementptr inbounds i32, ptr %1, i64 %indvars.iv327
   %9 = load i32, ptr %arrayidx90.us, align 4, !tbaa !23
   %sub91.us = sub nsw i32 0, %9
   store i32 %sub91.us, ptr %arrayidx90.us, align 4, !tbaa !23
-  %10 = sext i32 %inew.0302.us to i64
-  %cmp94.us = icmp sgt i64 %indvars.iv326, %10
+  %10 = sext i32 %inew.0303.us to i64
+  %cmp94.us = icmp sgt i64 %indvars.iv327, %10
   br i1 %cmp94.us, label %if.then95.us, label %if.end98.us
 
 if.then95.us:                                     ; preds = %if.then88.us
   %arrayidx97.us = getelementptr inbounds i32, ptr %1, i64 %10
-  %11 = trunc i64 %indvars.iv326 to i32
+  %11 = trunc i64 %indvars.iv327 to i32
   store i32 %11, ptr %arrayidx97.us, align 4, !tbaa !23
   br label %if.end98.us
 
 if.end98.us:                                      ; preds = %if.then95.us, %if.then88.us
-  %inc100.us = add nsw i32 %num_boxes.0300.us, 1
-  %12 = trunc i64 %indvars.iv326 to i32
+  %inc100.us = add nsw i32 %num_boxes.0301.us, 1
+  %12 = trunc i64 %indvars.iv327 to i32
   %13 = add i32 %12, 1
   br label %for.inc105.us
 
 if.else102.us:                                    ; preds = %for.cond7.for.end85_crit_edge.us
-  %inc103.us = add nsw i32 %num_boxes.0300.us, 1
+  %inc103.us = add nsw i32 %num_boxes.0301.us, 1
   br label %for.inc105.us
 
 for.inc105.us:                                    ; preds = %if.else102.us, %if.end98.us, %if.then86.us
-  %num_boxes.1.us = phi i32 [ %inc100.us, %if.end98.us ], [ %num_boxes.0300.us, %if.then86.us ], [ %inc103.us, %if.else102.us ]
-  %inew.1.us = phi i32 [ %13, %if.end98.us ], [ %inew.0302.us, %if.then86.us ], [ %inew.0302.us, %if.else102.us ]
-  %indvars.iv.next327 = add nuw nsw i64 %indvars.iv326, 1
+  %num_boxes.1.us = phi i32 [ %inc100.us, %if.end98.us ], [ %num_boxes.0301.us, %if.then86.us ], [ %inc103.us, %if.else102.us ]
+  %inew.1.us = phi i32 [ %13, %if.end98.us ], [ %inew.0303.us, %if.then86.us ], [ %inew.0303.us, %if.else102.us ]
+  %indvars.iv.next328 = add nuw nsw i64 %indvars.iv327, 1
   %14 = load i32, ptr %size, align 8, !tbaa !21
   %15 = sext i32 %14 to i64
-  %cmp.us = icmp slt i64 %indvars.iv.next327, %15
+  %cmp.us = icmp slt i64 %indvars.iv.next328, %15
   br i1 %cmp.us, label %for.cond7.preheader.us, label %for.end107, !llvm.loop !24
 
 for.body9.us:                                     ; preds = %for.cond7.preheader.us, %for.inc83.us
   %indvars.iv = phi i64 [ 0, %for.cond7.preheader.us ], [ %indvars.iv.next, %for.inc83.us ]
-  %keep_box.0298.us = phi i32 [ 0, %for.cond7.preheader.us ], [ %keep_box.1.us, %for.inc83.us ]
+  %keep_box.0299.us = phi i32 [ 0, %for.cond7.preheader.us ], [ %keep_box.1.us, %for.inc83.us ]
   %16 = add nsw i64 %indvars.iv, %7
-  %17 = icmp eq i64 %16, %indvars.iv326
+  %17 = icmp eq i64 %16, %indvars.iv327
   br i1 %17, label %for.inc83.us, label %if.then.us
 
 if.then.us:                                       ; preds = %for.body9.us
   %18 = load ptr, ptr %0, align 8, !tbaa !26
   %arrayidx.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %16
-  %arrayidx15.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv326
+  %arrayidx15.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv327
   %19 = load i32, ptr %arrayidx15.us, align 4, !tbaa !23
   %arrayidx24.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %16, i32 1, i64 0
   %20 = load i32, ptr %arrayidx24.us, align 4, !tbaa !23
   %sub.us = sub nsw i32 %19, %20
   %cmp25.us = icmp sgt i32 %sub.us, 0
-  %spec.select341 = tail call i32 @llvm.smax.i32(i32 %sub.us, i32 0)
+  %spec.select342 = tail call i32 @llvm.smax.i32(i32 %sub.us, i32 0)
   %21 = load i32, ptr %arrayidx.us, align 4, !tbaa !23
-  %arrayidx35.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv326, i32 1, i64 0
+  %arrayidx35.us = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv327, i32 1, i64 0
   %22 = load i32, ptr %arrayidx35.us, align 4, !tbaa !23
   %sub36.us = sub nsw i32 %21, %22
   %cmp37.us = icmp sgt i32 %sub36.us, 0
-  %cond45.us = tail call i32 @llvm.smax.i32(i32 %spec.select341, i32 %sub36.us)
+  %cond45.us = tail call i32 @llvm.smax.i32(i32 %spec.select342, i32 %sub36.us)
   %23 = select i1 %cmp25.us, i64 2, i64 1
-  %distance.2.us = select i1 %cmp37.us, i32 %cond45.us, i32 %spec.select341
+  %distance.2.us = select i1 %cmp37.us, i32 %cond45.us, i32 %spec.select342
   %arrayidx22.us.1 = getelementptr inbounds [3 x i32], ptr %arrayidx15.us, i64 0, i64 1
   %24 = load i32, ptr %arrayidx22.us.1, align 4, !tbaa !23
   %arrayidx24.us.1 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %16, i32 1, i64 1
@@ -172,7 +172,7 @@ if.then.us:                                       ; preds = %for.body9.us
   %distance.1.us.1 = select i1 %cmp25.us.1, i32 %cond.us.1, i32 %distance.2.us
   %arrayidx32.us.1 = getelementptr inbounds [3 x i32], ptr %arrayidx.us, i64 0, i64 1
   %26 = load i32, ptr %arrayidx32.us.1, align 4, !tbaa !23
-  %arrayidx35.us.1 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv326, i32 1, i64 1
+  %arrayidx35.us.1 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv327, i32 1, i64 1
   %27 = load i32, ptr %arrayidx35.us.1, align 4, !tbaa !23
   %sub36.us.1 = sub nsw i32 %26, %27
   %cmp37.us.1 = icmp sgt i32 %sub36.us.1, 0
@@ -189,7 +189,7 @@ if.then.us:                                       ; preds = %for.body9.us
   %distance.1.us.2 = select i1 %cmp25.us.2, i32 %cond.us.2, i32 %distance.2.us.1
   %arrayidx32.us.2 = getelementptr inbounds [3 x i32], ptr %arrayidx.us, i64 0, i64 2
   %31 = load i32, ptr %arrayidx32.us.2, align 4, !tbaa !23
-  %arrayidx35.us.2 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv326, i32 1, i64 2
+  %arrayidx35.us.2 = getelementptr inbounds %struct.hypre_Box_struct, ptr %18, i64 %indvars.iv327, i32 1, i64 2
   %32 = load i32, ptr %arrayidx35.us.2, align 4, !tbaa !23
   %sub36.us.2 = sub nsw i32 %31, %32
   %cmp37.us.2 = icmp sgt i32 %sub36.us.2, 0
@@ -205,7 +205,7 @@ if.then48.us:                                     ; preds = %if.then.us
 
 if.then50.us:                                     ; preds = %if.then48.us
   %call.i.us = tail call ptr @hypre_MAlloc(i32 noundef 16) #3
-  store i32 %num_boxes.0300.us, ptr %call.i.us, align 8, !tbaa !5
+  store i32 %num_boxes.0301.us, ptr %call.i.us, align 8, !tbaa !5
   %next.i.us = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %call.i.us, i64 0, i32 1
   store ptr null, ptr %next.i.us, align 8, !tbaa !11
   %34 = load ptr, ptr %rank_links, align 8, !tbaa !13
@@ -219,7 +219,7 @@ if.then50.us:                                     ; preds = %if.then48.us
   br label %for.inc83.us
 
 for.inc83.us:                                     ; preds = %if.then50.us, %if.then48.us, %if.then.us, %for.body9.us
-  %keep_box.1.us = phi i32 [ 1, %if.then50.us ], [ 1, %if.then48.us ], [ %keep_box.0298.us, %if.then.us ], [ 1, %for.body9.us ]
+  %keep_box.1.us = phi i32 [ 1, %if.then50.us ], [ 1, %if.then48.us ], [ %keep_box.0299.us, %if.then.us ], [ 1, %for.body9.us ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond7.for.end85_crit_edge.us, label %for.body9.us, !llvm.loop !27
@@ -228,59 +228,59 @@ for.cond7.for.end85_crit_edge.us:                 ; preds = %for.inc83.us
   br i1 %tobool.not, label %if.else102.us, label %if.then86.us
 
 for.cond7.preheader.lr.ph.split:                  ; preds = %for.cond7.preheader.lr.ph
-  %spec.select342 = select i1 %tobool.not, i32 %5, i32 0
+  %spec.select343 = select i1 %tobool.not, i32 %5, i32 0
   br label %if.end196
 
 for.end107:                                       ; preds = %for.inc105.us
   %tobool108.not = icmp ne i32 %prune, 0
-  %cmp111317 = icmp sgt i32 %num_boxes.1.us, 0
-  %or.cond = select i1 %tobool108.not, i1 %cmp111317, i1 false
+  %cmp111318 = icmp sgt i32 %num_boxes.1.us, 0
+  %or.cond = select i1 %tobool108.not, i1 %cmp111318, i1 false
   br i1 %or.cond, label %for.body112.lr.ph, label %if.end196
 
 for.body112.lr.ph:                                ; preds = %for.end107
   %36 = load ptr, ptr %0, align 8, !tbaa !26
-  %wide.trip.count333 = zext i32 %num_boxes.1.us to i64
+  %wide.trip.count334 = zext i32 %num_boxes.1.us to i64
   br label %for.body112
 
 for.body112:                                      ; preds = %for.body112.lr.ph, %for.body112
-  %indvars.iv330 = phi i64 [ 0, %for.body112.lr.ph ], [ %indvars.iv.next331, %for.body112 ]
-  %first_local.0320 = phi i32 [ %3, %for.body112.lr.ph ], [ %first_local.1, %for.body112 ]
-  %i.1318 = phi i32 [ 0, %for.body112.lr.ph ], [ %inc192, %for.body112 ]
-  %idxprom113 = sext i32 %i.1318 to i64
+  %indvars.iv331 = phi i64 [ 0, %for.body112.lr.ph ], [ %indvars.iv.next332, %for.body112 ]
+  %first_local.0321 = phi i32 [ %3, %for.body112.lr.ph ], [ %first_local.1, %for.body112 ]
+  %i.1319 = phi i32 [ 0, %for.body112.lr.ph ], [ %inc192, %for.body112 ]
+  %idxprom113 = sext i32 %i.1319 to i64
   %arrayidx114 = getelementptr inbounds i32, ptr %1, i64 %idxprom113
   %37 = load i32, ptr %arrayidx114, align 4, !tbaa !23
   %cmp115 = icmp sgt i32 %37, 0
-  %spec.select = select i1 %cmp115, i32 %37, i32 %i.1318
+  %spec.select = select i1 %cmp115, i32 %37, i32 %i.1319
   %idxprom121 = sext i32 %spec.select to i64
   %arrayidx122 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %idxprom121
-  %arrayidx127 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %indvars.iv330
+  %arrayidx127 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %indvars.iv331
   %38 = load <4 x i32>, ptr %arrayidx122, align 4, !tbaa !23
   store <4 x i32> %38, ptr %arrayidx127, align 4, !tbaa !23
   %arrayidx164 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %idxprom121, i32 1, i64 1
-  %arrayidx169 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %indvars.iv330, i32 1, i64 1
+  %arrayidx169 = getelementptr inbounds %struct.hypre_Box_struct, ptr %36, i64 %indvars.iv331, i32 1, i64 1
   %39 = load <2 x i32>, ptr %arrayidx164, align 4, !tbaa !23
   store <2 x i32> %39, ptr %arrayidx169, align 4, !tbaa !23
   %arrayidx181 = getelementptr inbounds i32, ptr %1, i64 %idxprom121
   %40 = load i32, ptr %arrayidx181, align 4, !tbaa !23
   %sub182 = sub nsw i32 0, %40
-  %arrayidx184 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv330
+  %arrayidx184 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv331
   store i32 %sub182, ptr %arrayidx184, align 4, !tbaa !23
   %arrayidx186 = getelementptr inbounds i32, ptr %2, i64 %idxprom121
   %41 = load i32, ptr %arrayidx186, align 4, !tbaa !23
-  %arrayidx188 = getelementptr inbounds i32, ptr %2, i64 %indvars.iv330
+  %arrayidx188 = getelementptr inbounds i32, ptr %2, i64 %indvars.iv331
   store i32 %41, ptr %arrayidx188, align 4, !tbaa !23
-  %cmp189 = icmp eq i32 %spec.select, %first_local.0320
-  %42 = trunc i64 %indvars.iv330 to i32
-  %first_local.1 = select i1 %cmp189, i32 %42, i32 %first_local.0320
+  %cmp189 = icmp eq i32 %spec.select, %first_local.0321
+  %42 = trunc i64 %indvars.iv331 to i32
+  %first_local.1 = select i1 %cmp189, i32 %42, i32 %first_local.0321
   %inc192 = add nsw i32 %spec.select, 1
-  %indvars.iv.next331 = add nuw nsw i64 %indvars.iv330, 1
-  %exitcond334.not = icmp eq i64 %indvars.iv.next331, %wide.trip.count333
-  br i1 %exitcond334.not, label %if.end196, label %for.body112, !llvm.loop !28
+  %indvars.iv.next332 = add nuw nsw i64 %indvars.iv331, 1
+  %exitcond335.not = icmp eq i64 %indvars.iv.next332, %wide.trip.count334
+  br i1 %exitcond335.not, label %if.end196, label %for.body112, !llvm.loop !28
 
 if.end196:                                        ; preds = %for.body112, %for.cond7.preheader.lr.ph.split, %entry, %for.end107
-  %num_boxes.0.lcssa339 = phi i32 [ %num_boxes.1.us, %for.end107 ], [ 0, %entry ], [ %spec.select342, %for.cond7.preheader.lr.ph.split ], [ %num_boxes.1.us, %for.body112 ]
+  %num_boxes.0.lcssa340 = phi i32 [ %num_boxes.1.us, %for.end107 ], [ 0, %entry ], [ %spec.select343, %for.cond7.preheader.lr.ph.split ], [ %num_boxes.1.us, %for.body112 ]
   %first_local.2 = phi i32 [ %3, %for.end107 ], [ %3, %entry ], [ %3, %for.cond7.preheader.lr.ph.split ], [ %first_local.1, %for.body112 ]
-  %call197 = tail call i32 @hypre_BoxArraySetSize(ptr noundef nonnull %0, i32 noundef %num_boxes.0.lcssa339) #3
+  %call197 = tail call i32 @hypre_BoxArraySetSize(ptr noundef nonnull %0, i32 noundef %num_boxes.0.lcssa340) #3
   store i32 %first_local.2, ptr %first_local4, align 8, !tbaa !18
   ret i32 0
 }
@@ -314,9 +314,9 @@ for.cond4.preheader:                              ; preds = %for.cond1.preheader
   %arrayidx17 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %1, i64 %indvars.iv81, i64 0, i64 0, i64 %indvars.iv.next
   %2 = load ptr, ptr %arrayidx17, align 8, !tbaa !12
   %tobool18.not53 = icmp eq ptr %2, null
-  br i1 %tobool18.not53, label %for.cond7.loopexit, label %hypre_RankLinkDestroy.exit
+  br i1 %tobool18.not53, label %for.cond7.loopexit, label %while.body
 
-for.cond7.loopexit.loopexit:                      ; preds = %hypre_RankLinkDestroy.exit
+for.cond7.loopexit.loopexit:                      ; preds = %while.body
   %.pre = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit
 
@@ -325,17 +325,17 @@ for.cond7.loopexit:                               ; preds = %for.cond7.loopexit.
   %arrayidx17.1 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %3, i64 %indvars.iv81, i64 1, i64 0, i64 %indvars.iv.next
   %4 = load ptr, ptr %arrayidx17.1, align 8, !tbaa !12
   %tobool18.not53.1 = icmp eq ptr %4, null
-  br i1 %tobool18.not53.1, label %for.cond7.loopexit.1, label %hypre_RankLinkDestroy.exit.1
+  br i1 %tobool18.not53.1, label %for.cond7.loopexit.1, label %while.body.1
 
-hypre_RankLinkDestroy.exit.1:                     ; preds = %for.cond7.loopexit, %hypre_RankLinkDestroy.exit.1
-  %rank_link.054.1 = phi ptr [ %5, %hypre_RankLinkDestroy.exit.1 ], [ %4, %for.cond7.loopexit ]
+while.body.1:                                     ; preds = %for.cond7.loopexit, %while.body.1
+  %rank_link.054.1 = phi ptr [ %5, %while.body.1 ], [ %4, %for.cond7.loopexit ]
   %next.1 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.1, i64 0, i32 1
   %5 = load ptr, ptr %next.1, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.1) #3
   %tobool18.not.1 = icmp eq ptr %5, null
-  br i1 %tobool18.not.1, label %for.cond7.loopexit.loopexit.1, label %hypre_RankLinkDestroy.exit.1, !llvm.loop !29
+  br i1 %tobool18.not.1, label %for.cond7.loopexit.loopexit.1, label %while.body.1, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.1:                    ; preds = %hypre_RankLinkDestroy.exit.1
+for.cond7.loopexit.loopexit.1:                    ; preds = %while.body.1
   %.pre84 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.1
 
@@ -344,17 +344,17 @@ for.cond7.loopexit.1:                             ; preds = %for.cond7.loopexit.
   %arrayidx17.2 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %6, i64 %indvars.iv81, i64 2, i64 0, i64 %indvars.iv.next
   %7 = load ptr, ptr %arrayidx17.2, align 8, !tbaa !12
   %tobool18.not53.2 = icmp eq ptr %7, null
-  br i1 %tobool18.not53.2, label %for.cond7.loopexit.2, label %hypre_RankLinkDestroy.exit.2
+  br i1 %tobool18.not53.2, label %for.cond7.loopexit.2, label %while.body.2
 
-hypre_RankLinkDestroy.exit.2:                     ; preds = %for.cond7.loopexit.1, %hypre_RankLinkDestroy.exit.2
-  %rank_link.054.2 = phi ptr [ %8, %hypre_RankLinkDestroy.exit.2 ], [ %7, %for.cond7.loopexit.1 ]
+while.body.2:                                     ; preds = %for.cond7.loopexit.1, %while.body.2
+  %rank_link.054.2 = phi ptr [ %8, %while.body.2 ], [ %7, %for.cond7.loopexit.1 ]
   %next.2 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.2, i64 0, i32 1
   %8 = load ptr, ptr %next.2, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.2) #3
   %tobool18.not.2 = icmp eq ptr %8, null
-  br i1 %tobool18.not.2, label %for.cond7.loopexit.loopexit.2, label %hypre_RankLinkDestroy.exit.2, !llvm.loop !29
+  br i1 %tobool18.not.2, label %for.cond7.loopexit.loopexit.2, label %while.body.2, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.2:                    ; preds = %hypre_RankLinkDestroy.exit.2
+for.cond7.loopexit.loopexit.2:                    ; preds = %while.body.2
   %.pre85 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.2
 
@@ -363,17 +363,17 @@ for.cond7.loopexit.2:                             ; preds = %for.cond7.loopexit.
   %arrayidx17.162 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %9, i64 %indvars.iv81, i64 0, i64 1, i64 %indvars.iv.next
   %10 = load ptr, ptr %arrayidx17.162, align 8, !tbaa !12
   %tobool18.not53.163 = icmp eq ptr %10, null
-  br i1 %tobool18.not53.163, label %for.cond7.loopexit.170, label %hypre_RankLinkDestroy.exit.168
+  br i1 %tobool18.not53.163, label %for.cond7.loopexit.170, label %while.body.168
 
-hypre_RankLinkDestroy.exit.168:                   ; preds = %for.cond7.loopexit.2, %hypre_RankLinkDestroy.exit.168
-  %rank_link.054.165 = phi ptr [ %11, %hypre_RankLinkDestroy.exit.168 ], [ %10, %for.cond7.loopexit.2 ]
+while.body.168:                                   ; preds = %for.cond7.loopexit.2, %while.body.168
+  %rank_link.054.165 = phi ptr [ %11, %while.body.168 ], [ %10, %for.cond7.loopexit.2 ]
   %next.166 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.165, i64 0, i32 1
   %11 = load ptr, ptr %next.166, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.165) #3
   %tobool18.not.167 = icmp eq ptr %11, null
-  br i1 %tobool18.not.167, label %for.cond7.loopexit.loopexit.169, label %hypre_RankLinkDestroy.exit.168, !llvm.loop !29
+  br i1 %tobool18.not.167, label %for.cond7.loopexit.loopexit.169, label %while.body.168, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.169:                  ; preds = %hypre_RankLinkDestroy.exit.168
+for.cond7.loopexit.loopexit.169:                  ; preds = %while.body.168
   %.pre86 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.170
 
@@ -382,17 +382,17 @@ for.cond7.loopexit.170:                           ; preds = %for.cond7.loopexit.
   %arrayidx17.1.1 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %12, i64 %indvars.iv81, i64 1, i64 1, i64 %indvars.iv.next
   %13 = load ptr, ptr %arrayidx17.1.1, align 8, !tbaa !12
   %tobool18.not53.1.1 = icmp eq ptr %13, null
-  br i1 %tobool18.not53.1.1, label %for.cond7.loopexit.1.1, label %hypre_RankLinkDestroy.exit.1.1
+  br i1 %tobool18.not53.1.1, label %for.cond7.loopexit.1.1, label %while.body.1.1
 
-hypre_RankLinkDestroy.exit.1.1:                   ; preds = %for.cond7.loopexit.170, %hypre_RankLinkDestroy.exit.1.1
-  %rank_link.054.1.1 = phi ptr [ %14, %hypre_RankLinkDestroy.exit.1.1 ], [ %13, %for.cond7.loopexit.170 ]
+while.body.1.1:                                   ; preds = %for.cond7.loopexit.170, %while.body.1.1
+  %rank_link.054.1.1 = phi ptr [ %14, %while.body.1.1 ], [ %13, %for.cond7.loopexit.170 ]
   %next.1.1 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.1.1, i64 0, i32 1
   %14 = load ptr, ptr %next.1.1, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.1.1) #3
   %tobool18.not.1.1 = icmp eq ptr %14, null
-  br i1 %tobool18.not.1.1, label %for.cond7.loopexit.loopexit.1.1, label %hypre_RankLinkDestroy.exit.1.1, !llvm.loop !29
+  br i1 %tobool18.not.1.1, label %for.cond7.loopexit.loopexit.1.1, label %while.body.1.1, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.1.1:                  ; preds = %hypre_RankLinkDestroy.exit.1.1
+for.cond7.loopexit.loopexit.1.1:                  ; preds = %while.body.1.1
   %.pre87 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.1.1
 
@@ -401,17 +401,17 @@ for.cond7.loopexit.1.1:                           ; preds = %for.cond7.loopexit.
   %arrayidx17.2.1 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %15, i64 %indvars.iv81, i64 2, i64 1, i64 %indvars.iv.next
   %16 = load ptr, ptr %arrayidx17.2.1, align 8, !tbaa !12
   %tobool18.not53.2.1 = icmp eq ptr %16, null
-  br i1 %tobool18.not53.2.1, label %for.cond7.loopexit.2.1, label %hypre_RankLinkDestroy.exit.2.1
+  br i1 %tobool18.not53.2.1, label %for.cond7.loopexit.2.1, label %while.body.2.1
 
-hypre_RankLinkDestroy.exit.2.1:                   ; preds = %for.cond7.loopexit.1.1, %hypre_RankLinkDestroy.exit.2.1
-  %rank_link.054.2.1 = phi ptr [ %17, %hypre_RankLinkDestroy.exit.2.1 ], [ %16, %for.cond7.loopexit.1.1 ]
+while.body.2.1:                                   ; preds = %for.cond7.loopexit.1.1, %while.body.2.1
+  %rank_link.054.2.1 = phi ptr [ %17, %while.body.2.1 ], [ %16, %for.cond7.loopexit.1.1 ]
   %next.2.1 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.2.1, i64 0, i32 1
   %17 = load ptr, ptr %next.2.1, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.2.1) #3
   %tobool18.not.2.1 = icmp eq ptr %17, null
-  br i1 %tobool18.not.2.1, label %for.cond7.loopexit.loopexit.2.1, label %hypre_RankLinkDestroy.exit.2.1, !llvm.loop !29
+  br i1 %tobool18.not.2.1, label %for.cond7.loopexit.loopexit.2.1, label %while.body.2.1, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.2.1:                  ; preds = %hypre_RankLinkDestroy.exit.2.1
+for.cond7.loopexit.loopexit.2.1:                  ; preds = %while.body.2.1
   %.pre88 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.2.1
 
@@ -420,17 +420,17 @@ for.cond7.loopexit.2.1:                           ; preds = %for.cond7.loopexit.
   %arrayidx17.271 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %18, i64 %indvars.iv81, i64 0, i64 2, i64 %indvars.iv.next
   %19 = load ptr, ptr %arrayidx17.271, align 8, !tbaa !12
   %tobool18.not53.272 = icmp eq ptr %19, null
-  br i1 %tobool18.not53.272, label %for.cond7.loopexit.279, label %hypre_RankLinkDestroy.exit.277
+  br i1 %tobool18.not53.272, label %for.cond7.loopexit.279, label %while.body.277
 
-hypre_RankLinkDestroy.exit.277:                   ; preds = %for.cond7.loopexit.2.1, %hypre_RankLinkDestroy.exit.277
-  %rank_link.054.274 = phi ptr [ %20, %hypre_RankLinkDestroy.exit.277 ], [ %19, %for.cond7.loopexit.2.1 ]
+while.body.277:                                   ; preds = %for.cond7.loopexit.2.1, %while.body.277
+  %rank_link.054.274 = phi ptr [ %20, %while.body.277 ], [ %19, %for.cond7.loopexit.2.1 ]
   %next.275 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.274, i64 0, i32 1
   %20 = load ptr, ptr %next.275, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.274) #3
   %tobool18.not.276 = icmp eq ptr %20, null
-  br i1 %tobool18.not.276, label %for.cond7.loopexit.loopexit.278, label %hypre_RankLinkDestroy.exit.277, !llvm.loop !29
+  br i1 %tobool18.not.276, label %for.cond7.loopexit.loopexit.278, label %while.body.277, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.278:                  ; preds = %hypre_RankLinkDestroy.exit.277
+for.cond7.loopexit.loopexit.278:                  ; preds = %while.body.277
   %.pre89 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.279
 
@@ -439,17 +439,17 @@ for.cond7.loopexit.279:                           ; preds = %for.cond7.loopexit.
   %arrayidx17.1.2 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %21, i64 %indvars.iv81, i64 1, i64 2, i64 %indvars.iv.next
   %22 = load ptr, ptr %arrayidx17.1.2, align 8, !tbaa !12
   %tobool18.not53.1.2 = icmp eq ptr %22, null
-  br i1 %tobool18.not53.1.2, label %for.cond7.loopexit.1.2, label %hypre_RankLinkDestroy.exit.1.2
+  br i1 %tobool18.not53.1.2, label %for.cond7.loopexit.1.2, label %while.body.1.2
 
-hypre_RankLinkDestroy.exit.1.2:                   ; preds = %for.cond7.loopexit.279, %hypre_RankLinkDestroy.exit.1.2
-  %rank_link.054.1.2 = phi ptr [ %23, %hypre_RankLinkDestroy.exit.1.2 ], [ %22, %for.cond7.loopexit.279 ]
+while.body.1.2:                                   ; preds = %for.cond7.loopexit.279, %while.body.1.2
+  %rank_link.054.1.2 = phi ptr [ %23, %while.body.1.2 ], [ %22, %for.cond7.loopexit.279 ]
   %next.1.2 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.1.2, i64 0, i32 1
   %23 = load ptr, ptr %next.1.2, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.1.2) #3
   %tobool18.not.1.2 = icmp eq ptr %23, null
-  br i1 %tobool18.not.1.2, label %for.cond7.loopexit.loopexit.1.2, label %hypre_RankLinkDestroy.exit.1.2, !llvm.loop !29
+  br i1 %tobool18.not.1.2, label %for.cond7.loopexit.loopexit.1.2, label %while.body.1.2, !llvm.loop !29
 
-for.cond7.loopexit.loopexit.1.2:                  ; preds = %hypre_RankLinkDestroy.exit.1.2
+for.cond7.loopexit.loopexit.1.2:                  ; preds = %while.body.1.2
   %.pre90 = load ptr, ptr %rank_links, align 8, !tbaa !13
   br label %for.cond7.loopexit.1.2
 
@@ -458,27 +458,27 @@ for.cond7.loopexit.1.2:                           ; preds = %for.cond7.loopexit.
   %arrayidx17.2.2 = getelementptr inbounds [3 x [3 x [3 x ptr]]], ptr %24, i64 %indvars.iv81, i64 2, i64 2, i64 %indvars.iv.next
   %25 = load ptr, ptr %arrayidx17.2.2, align 8, !tbaa !12
   %tobool18.not53.2.2 = icmp eq ptr %25, null
-  br i1 %tobool18.not53.2.2, label %for.cond7.loopexit.2.2, label %hypre_RankLinkDestroy.exit.2.2
+  br i1 %tobool18.not53.2.2, label %for.cond7.loopexit.2.2, label %while.body.2.2
 
-hypre_RankLinkDestroy.exit.2.2:                   ; preds = %for.cond7.loopexit.1.2, %hypre_RankLinkDestroy.exit.2.2
-  %rank_link.054.2.2 = phi ptr [ %26, %hypre_RankLinkDestroy.exit.2.2 ], [ %25, %for.cond7.loopexit.1.2 ]
+while.body.2.2:                                   ; preds = %for.cond7.loopexit.1.2, %while.body.2.2
+  %rank_link.054.2.2 = phi ptr [ %26, %while.body.2.2 ], [ %25, %for.cond7.loopexit.1.2 ]
   %next.2.2 = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054.2.2, i64 0, i32 1
   %26 = load ptr, ptr %next.2.2, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054.2.2) #3
   %tobool18.not.2.2 = icmp eq ptr %26, null
-  br i1 %tobool18.not.2.2, label %for.cond7.loopexit.2.2, label %hypre_RankLinkDestroy.exit.2.2, !llvm.loop !29
+  br i1 %tobool18.not.2.2, label %for.cond7.loopexit.2.2, label %while.body.2.2, !llvm.loop !29
 
-for.cond7.loopexit.2.2:                           ; preds = %hypre_RankLinkDestroy.exit.2.2, %for.cond7.loopexit.1.2
+for.cond7.loopexit.2.2:                           ; preds = %while.body.2.2, %for.cond7.loopexit.1.2
   %exitcond.not = icmp eq i64 %indvars.iv.next, 2
   br i1 %exitcond.not, label %for.inc25, label %for.cond4.preheader, !llvm.loop !30
 
-hypre_RankLinkDestroy.exit:                       ; preds = %for.cond4.preheader, %hypre_RankLinkDestroy.exit
-  %rank_link.054 = phi ptr [ %27, %hypre_RankLinkDestroy.exit ], [ %2, %for.cond4.preheader ]
+while.body:                                       ; preds = %for.cond4.preheader, %while.body
+  %rank_link.054 = phi ptr [ %27, %while.body ], [ %2, %for.cond4.preheader ]
   %next = getelementptr inbounds %struct.hypre_RankLink_struct, ptr %rank_link.054, i64 0, i32 1
   %27 = load ptr, ptr %next, align 8, !tbaa !11
   tail call void @hypre_Free(ptr noundef nonnull %rank_link.054) #3
   %tobool18.not = icmp eq ptr %27, null
-  br i1 %tobool18.not, label %for.cond7.loopexit.loopexit, label %hypre_RankLinkDestroy.exit, !llvm.loop !29
+  br i1 %tobool18.not, label %for.cond7.loopexit.loopexit, label %while.body, !llvm.loop !29
 
 for.inc25:                                        ; preds = %for.cond7.loopexit.2.2
   %indvars.iv.next82 = add nuw nsw i64 %indvars.iv81, 1

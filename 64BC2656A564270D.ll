@@ -58,8 +58,8 @@ if.end4:                                          ; preds = %if.else, %entry
   store i32 %add8, ptr %area_count.i, align 8, !tbaa !23
   %call.i = call ptr @gs_malloc(i32 noundef %add8, i32 noundef 88, ptr noundef nonnull @.str) #11
   store ptr %call.i, ptr %lst, align 8, !tbaa !27
-  %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.end111, label %if.then11
+  %cmp.i.not = icmp eq ptr %call.i, null
+  br i1 %cmp.i.not, label %if.end111, label %if.then11
 
 if.then11:                                        ; preds = %if.end4
   %next.i = getelementptr inbounds %struct.line_list_s, ptr %lst, i64 0, i32 3
@@ -167,18 +167,18 @@ if.end110:                                        ; preds = %if.end109, %if.then
   call void @add_y_list(ptr noundef nonnull %pfpath.0, i16 noundef signext 0, ptr noundef nonnull %lst, ptr noundef nonnull %ibox)
   call void @fill_loop(ptr noundef %pdevc, i32 noundef %rule, ptr noundef nonnull %lst, ptr noundef nonnull %ibox, ptr noundef nonnull %pgs, i64 noundef %trim)
   %.pre = load ptr, ptr %lst, align 8, !tbaa !27
-  %.pre154 = load i32, ptr %area_count.i, align 8, !tbaa !23
+  %.pre152 = load i32, ptr %area_count.i, align 8, !tbaa !23
   br label %skip
 
 skip:                                             ; preds = %if.end95, %if.end110
-  %26 = phi i32 [ %add8, %if.end95 ], [ %.pre154, %if.end110 ]
+  %26 = phi i32 [ %add8, %if.end95 ], [ %.pre152, %if.end110 ]
   %27 = phi ptr [ %call.i, %if.end95 ], [ %.pre, %if.end110 ]
   call void @gs_free(ptr noundef %27, i32 noundef %26, i32 noundef 88, ptr noundef nonnull @.str) #11
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ibox) #11
   br label %if.end111
 
 if.end111:                                        ; preds = %if.end4, %skip
-  %retval.0.i152 = phi i32 [ 0, %skip ], [ -25, %if.end4 ]
+  %retval.0.i151 = phi i32 [ 0, %skip ], [ -25, %if.end4 ]
   %cmp112.not = icmp eq ptr %pfpath.0, %ppath
   br i1 %cmp112.not, label %cleanup, label %if.then114
 
@@ -187,7 +187,7 @@ if.then114:                                       ; preds = %if.end111
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end111, %if.then114, %if.else
-  %retval.0 = phi i32 [ %call1, %if.else ], [ %retval.0.i152, %if.then114 ], [ %retval.0.i152, %if.end111 ]
+  %retval.0 = phi i32 [ %call1, %if.else ], [ %retval.0.i151, %if.then114 ], [ %retval.0.i151, %if.end111 ]
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %lst) #11
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %ffpath) #11
   ret i32 %retval.0
@@ -286,8 +286,8 @@ cond.false:                                       ; preds = %land.lhs.true, %sw.
 cond.true15:                                      ; preds = %cond.false
   %cmp16 = icmp sgt i64 %6, %1
   %cmp17 = icmp slt i64 %7, %3
-  %.not165 = select i1 %cmp16, i1 %cmp17, i1 false
-  %cond = zext i1 %.not165 to i32
+  %.not399 = select i1 %cmp16, i1 %cmp17, i1 false
+  %cond = zext i1 %.not399 to i32
   br label %cond.end30
 
 cond.false18:                                     ; preds = %cond.false
@@ -297,8 +297,8 @@ cond.false18:                                     ; preds = %cond.false
 cond.true20:                                      ; preds = %cond.false18
   %cmp21 = icmp sgt i64 %7, %1
   %cmp23 = icmp slt i64 %6, %3
-  %.not164 = select i1 %cmp21, i1 %cmp23, i1 false
-  %cond25 = sext i1 %.not164 to i32
+  %.not398 = select i1 %cmp21, i1 %cmp23, i1 false
+  %cond25 = sext i1 %.not398 to i32
   br label %cond.end30
 
 cond.end30:                                       ; preds = %cond.true15, %cond.false18, %cond.true20, %land.lhs.true
@@ -427,116 +427,116 @@ if.end:                                           ; preds = %add_y_line.exit, %i
 
 if.then37:                                        ; preds = %if.end
   %25 = load ptr, ptr %next.i, align 8, !tbaa !28
-  %incdec.ptr.i167 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 1
-  store ptr %incdec.ptr.i167, ptr %next.i, align 8, !tbaa !28
+  %incdec.ptr.i164 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 1
+  store ptr %incdec.ptr.i164, ptr %next.i, align 8, !tbaa !28
   %26 = load i64, ptr %pt7, align 8, !tbaa !49
   %27 = load i64, ptr %y8, align 8, !tbaa !48
   %28 = load i16, ptr %tag5, align 4, !tbaa !43
-  %tag10.i173 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 7
-  store i16 %28, ptr %tag10.i173, align 4, !tbaa !51
-  %direction.i174 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 6
-  store i32 1, ptr %direction.i174, align 8, !tbaa !52
+  %tag10.i170 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 7
+  store i16 %28, ptr %tag10.i170, align 4, !tbaa !51
+  %direction.i171 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 6
+  store i32 1, ptr %direction.i171, align 8, !tbaa !52
   %29 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 2
   %30 = getelementptr inbounds i8, ptr %25, i64 8
   %31 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 1
   %32 = load <2 x i64>, ptr %pt, align 8, !tbaa !53
   %33 = extractelement <2 x i64> %32, i64 0
-  %sub19.i175 = sub nsw i64 %26, %33
-  %cond.i176 = tail call i64 @llvm.abs.i64(i64 %sub19.i175, i1 true)
-  %or.i177 = or i64 %cond.i176, 1
-  %div.i178 = udiv i64 2147483647, %or.i177
-  %add38.i179 = add nsw i64 %div.i178, %27
-  store i64 %add38.i179, ptr %29, align 8
+  %sub19.i172 = sub nsw i64 %26, %33
+  %cond.i173 = tail call i64 @llvm.abs.i64(i64 %sub19.i172, i1 true)
+  %or.i174 = or i64 %cond.i173, 1
+  %div.i175 = udiv i64 2147483647, %or.i174
+  %add38.i176 = add nsw i64 %div.i175, %27
+  store i64 %add38.i176, ptr %29, align 8
   store i64 %26, ptr %25, align 8
   store i64 %27, ptr %30, align 8
   store <2 x i64> %32, ptr %31, align 8
   %34 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 5
   store ptr %pseg.0465, ptr %34, align 8
   %35 = load ptr, ptr %y_line.i, align 8, !tbaa !54
-  %cmp43.i181 = icmp eq ptr %35, null
-  br i1 %cmp43.i181, label %if.then44.i184, label %if.else47.i187
+  %cmp43.i178 = icmp eq ptr %35, null
+  br i1 %cmp43.i178, label %if.then44.i181, label %if.else47.i184
 
-if.then44.i184:                                   ; preds = %if.then37
-  %prev45.i182 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i182, i8 0, i64 16, i1 false)
-  br label %add_y_line.exit222
+if.then44.i181:                                   ; preds = %if.then37
+  %prev45.i179 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i179, i8 0, i64 16, i1 false)
+  br label %add_y_line.exit219
 
-if.else47.i187:                                   ; preds = %if.then37
-  %y49.i185 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %35, i64 0, i32 1
-  %36 = load i64, ptr %y49.i185, align 8, !tbaa !55
-  %cmp50.not.i186 = icmp slt i64 %27, %36
-  br i1 %cmp50.not.i186, label %while.cond64.i203, label %while.cond.i191
+if.else47.i184:                                   ; preds = %if.then37
+  %y49.i182 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %35, i64 0, i32 1
+  %36 = load i64, ptr %y49.i182, align 8, !tbaa !55
+  %cmp50.not.i183 = icmp slt i64 %27, %36
+  br i1 %cmp50.not.i183, label %while.cond64.i200, label %while.cond.i188
 
-while.cond.i191:                                  ; preds = %if.else47.i187, %land.rhs.i194
-  %yp.0.i188 = phi ptr [ %37, %land.rhs.i194 ], [ %35, %if.else47.i187 ]
-  %next52.i189 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i188, i64 0, i32 10
-  %37 = load ptr, ptr %next52.i189, align 8, !tbaa !56
-  %cmp53.not.i190 = icmp eq ptr %37, null
-  br i1 %cmp53.not.i190, label %if.end84.critedge.i220, label %land.rhs.i194
+while.cond.i188:                                  ; preds = %if.else47.i184, %land.rhs.i191
+  %yp.0.i185 = phi ptr [ %37, %land.rhs.i191 ], [ %35, %if.else47.i184 ]
+  %next52.i186 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i185, i64 0, i32 10
+  %37 = load ptr, ptr %next52.i186, align 8, !tbaa !56
+  %cmp53.not.i187 = icmp eq ptr %37, null
+  br i1 %cmp53.not.i187, label %if.end84.critedge.i217, label %land.rhs.i191
 
-land.rhs.i194:                                    ; preds = %while.cond.i191
-  %y55.i192 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %37, i64 0, i32 1
-  %38 = load i64, ptr %y55.i192, align 8, !tbaa !55
-  %cmp56.i193 = icmp sgt i64 %27, %38
-  br i1 %cmp56.i193, label %while.cond.i191, label %if.then60.i199, !llvm.loop !57
+land.rhs.i191:                                    ; preds = %while.cond.i188
+  %y55.i189 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %37, i64 0, i32 1
+  %38 = load i64, ptr %y55.i189, align 8, !tbaa !55
+  %cmp56.i190 = icmp sgt i64 %27, %38
+  br i1 %cmp56.i190, label %while.cond.i188, label %if.then60.i196, !llvm.loop !57
 
-if.then60.i199:                                   ; preds = %land.rhs.i194
-  %next52.i189.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i188, i64 0, i32 10
-  %next57.i196 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
-  store ptr %37, ptr %next57.i196, align 8, !tbaa !56
-  %prev58.i197 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
-  store ptr %yp.0.i188, ptr %prev58.i197, align 8, !tbaa !59
-  store ptr %25, ptr %next52.i189.le, align 8, !tbaa !56
-  %prev61.i198 = getelementptr inbounds %struct.active_line_s, ptr %37, i64 0, i32 9
-  br label %add_y_line.exit222
+if.then60.i196:                                   ; preds = %land.rhs.i191
+  %next52.i186.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i185, i64 0, i32 10
+  %next57.i193 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
+  store ptr %37, ptr %next57.i193, align 8, !tbaa !56
+  %prev58.i194 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
+  store ptr %yp.0.i185, ptr %prev58.i194, align 8, !tbaa !59
+  store ptr %25, ptr %next52.i186.le, align 8, !tbaa !56
+  %prev61.i195 = getelementptr inbounds %struct.active_line_s, ptr %37, i64 0, i32 9
+  br label %add_y_line.exit219
 
-while.cond64.i203:                                ; preds = %if.else47.i187, %land.rhs67.i206
-  %yp.1.i200 = phi ptr [ %39, %land.rhs67.i206 ], [ %35, %if.else47.i187 ]
-  %prev65.i201 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i200, i64 0, i32 9
-  %39 = load ptr, ptr %prev65.i201, align 8, !tbaa !59
-  %cmp66.not.i202 = icmp eq ptr %39, null
-  br i1 %cmp66.not.i202, label %if.else80.i216, label %land.rhs67.i206
+while.cond64.i200:                                ; preds = %if.else47.i184, %land.rhs67.i203
+  %yp.1.i197 = phi ptr [ %39, %land.rhs67.i203 ], [ %35, %if.else47.i184 ]
+  %prev65.i198 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i197, i64 0, i32 9
+  %39 = load ptr, ptr %prev65.i198, align 8, !tbaa !59
+  %cmp66.not.i199 = icmp eq ptr %39, null
+  br i1 %cmp66.not.i199, label %if.else80.i213, label %land.rhs67.i203
 
-land.rhs67.i206:                                  ; preds = %while.cond64.i203
-  %y69.i204 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %39, i64 0, i32 1
-  %40 = load i64, ptr %y69.i204, align 8, !tbaa !55
-  %cmp70.i205 = icmp slt i64 %27, %40
-  br i1 %cmp70.i205, label %while.cond64.i203, label %if.then78.i211, !llvm.loop !60
+land.rhs67.i203:                                  ; preds = %while.cond64.i200
+  %y69.i201 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %39, i64 0, i32 1
+  %40 = load i64, ptr %y69.i201, align 8, !tbaa !55
+  %cmp70.i202 = icmp slt i64 %27, %40
+  br i1 %cmp70.i202, label %while.cond64.i200, label %if.then78.i208, !llvm.loop !60
 
-if.then78.i211:                                   ; preds = %land.rhs67.i206
-  %prev65.i201.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i200, i64 0, i32 9
-  %prev74.i208 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
-  store ptr %39, ptr %prev74.i208, align 8, !tbaa !59
-  %next75.i209 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
-  store ptr %yp.1.i200, ptr %next75.i209, align 8, !tbaa !56
-  store ptr %25, ptr %prev65.i201.le, align 8, !tbaa !59
-  %next79.i210 = getelementptr inbounds %struct.active_line_s, ptr %39, i64 0, i32 10
-  br label %add_y_line.exit222
+if.then78.i208:                                   ; preds = %land.rhs67.i203
+  %prev65.i198.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i197, i64 0, i32 9
+  %prev74.i205 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
+  store ptr %39, ptr %prev74.i205, align 8, !tbaa !59
+  %next75.i206 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
+  store ptr %yp.1.i197, ptr %next75.i206, align 8, !tbaa !56
+  store ptr %25, ptr %prev65.i198.le, align 8, !tbaa !59
+  %next79.i207 = getelementptr inbounds %struct.active_line_s, ptr %39, i64 0, i32 10
+  br label %add_y_line.exit219
 
-if.else80.i216:                                   ; preds = %while.cond64.i203
-  %prev65.i201.le526 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i200, i64 0, i32 9
-  %prev74.c.i213 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
-  store ptr null, ptr %prev74.c.i213, align 8, !tbaa !59
-  %next75.c.i214 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
-  store ptr %yp.1.i200, ptr %next75.c.i214, align 8, !tbaa !56
-  store ptr %25, ptr %prev65.i201.le526, align 8, !tbaa !59
-  br label %add_y_line.exit222
+if.else80.i213:                                   ; preds = %while.cond64.i200
+  %prev65.i198.le526 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i197, i64 0, i32 9
+  %prev74.c.i210 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
+  store ptr null, ptr %prev74.c.i210, align 8, !tbaa !59
+  %next75.c.i211 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
+  store ptr %yp.1.i197, ptr %next75.c.i211, align 8, !tbaa !56
+  store ptr %25, ptr %prev65.i198.le526, align 8, !tbaa !59
+  br label %add_y_line.exit219
 
-if.end84.critedge.i220:                           ; preds = %while.cond.i191
-  %next52.i189.le523 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i188, i64 0, i32 10
-  %next57.c.i218 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
-  store ptr null, ptr %next57.c.i218, align 8, !tbaa !56
-  %prev58.c.i219 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
-  store ptr %yp.0.i188, ptr %prev58.c.i219, align 8, !tbaa !59
-  br label %add_y_line.exit222
+if.end84.critedge.i217:                           ; preds = %while.cond.i188
+  %next52.i186.le523 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i185, i64 0, i32 10
+  %next57.c.i215 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 10
+  store ptr null, ptr %next57.c.i215, align 8, !tbaa !56
+  %prev58.c.i216 = getelementptr inbounds %struct.active_line_s, ptr %25, i64 0, i32 9
+  store ptr %yp.0.i185, ptr %prev58.c.i216, align 8, !tbaa !59
+  br label %add_y_line.exit219
 
-add_y_line.exit222:                               ; preds = %if.then44.i184, %if.then60.i199, %if.then78.i211, %if.else80.i216, %if.end84.critedge.i220
-  %next52.le188.sink.i221 = phi ptr [ %next52.i189.le523, %if.end84.critedge.i220 ], [ %prev61.i198, %if.then60.i199 ], [ %y_list81.i, %if.else80.i216 ], [ %next79.i210, %if.then78.i211 ], [ %y_list81.i, %if.then44.i184 ]
-  store ptr %25, ptr %next52.le188.sink.i221, align 8, !tbaa !61
+add_y_line.exit219:                               ; preds = %if.then44.i181, %if.then60.i196, %if.then78.i208, %if.else80.i213, %if.end84.critedge.i217
+  %next52.le188.sink.i218 = phi ptr [ %next52.i186.le523, %if.end84.critedge.i217 ], [ %prev61.i195, %if.then60.i196 ], [ %y_list81.i, %if.else80.i213 ], [ %next79.i207, %if.then78.i208 ], [ %y_list81.i, %if.then44.i181 ]
+  store ptr %25, ptr %next52.le188.sink.i218, align 8, !tbaa !61
   store ptr %25, ptr %y_line.i, align 8, !tbaa !54
   br label %if.end39
 
-if.end39:                                         ; preds = %if.end, %add_y_line.exit222, %cond.end30
+if.end39:                                         ; preds = %if.end, %add_y_line.exit219, %cond.end30
   %cmp40 = icmp eq ptr %pseg.0465, %plast.0463
   br i1 %cmp40, label %if.then41, label %sw.epilog
 
@@ -566,8 +566,8 @@ cond.false55:                                     ; preds = %land.lhs.true50, %i
 cond.true58:                                      ; preds = %cond.false55
   %cmp59 = icmp sgt i64 %42, %1
   %cmp61 = icmp slt i64 %6, %3
-  %.not163 = select i1 %cmp59, i1 %cmp61, i1 false
-  %cond63 = zext i1 %.not163 to i32
+  %.not397 = select i1 %cmp59, i1 %cmp61, i1 false
+  %cond63 = zext i1 %.not397 to i32
   br label %cond.end77
 
 cond.false64:                                     ; preds = %cond.false55
@@ -590,29 +590,29 @@ cond.end77:                                       ; preds = %cond.true58, %cond.
 
 if.then82:                                        ; preds = %cond.end77
   %45 = load ptr, ptr %next.i, align 8, !tbaa !28
-  %incdec.ptr.i224 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 1
-  store ptr %incdec.ptr.i224, ptr %next.i, align 8, !tbaa !28
+  %incdec.ptr.i221 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 1
+  store ptr %incdec.ptr.i221, ptr %next.i, align 8, !tbaa !28
   %46 = load i64, ptr %y6, align 8, !tbaa !48
   %47 = load i64, ptr %pt7, align 8, !tbaa !49
   %48 = load i64, ptr %y8, align 8, !tbaa !48
   %49 = load i16, ptr %tag5, align 4, !tbaa !43
-  %tag10.i230 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 7
-  store i16 %49, ptr %tag10.i230, align 4, !tbaa !51
-  %direction.i231 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 6
-  store i32 %cond31, ptr %direction.i231, align 8, !tbaa !52
+  %tag10.i227 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 7
+  store i16 %49, ptr %tag10.i227, align 4, !tbaa !51
+  %direction.i228 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 6
+  store i32 %cond31, ptr %direction.i228, align 8, !tbaa !52
   %cmp.i = icmp sgt i32 %cond31, 0
-  %sub19.i232 = sub nsw i64 %47, %43
-  %cond.i233 = tail call i64 @llvm.abs.i64(i64 %sub19.i232, i1 true)
-  %or.i234 = or i64 %cond.i233, 1
-  %div.i235 = udiv i64 2147483647, %or.i234
+  %sub19.i229 = sub nsw i64 %47, %43
+  %cond.i230 = tail call i64 @llvm.abs.i64(i64 %sub19.i229, i1 true)
+  %or.i231 = or i64 %cond.i230, 1
+  %div.i232 = udiv i64 2147483647, %or.i231
   %..i = select i1 %cmp.i, i64 %48, i64 %46
   %.194.i = select i1 %cmp.i, i64 %47, i64 %43
   %.195.i = select i1 %cmp.i, i64 %43, i64 %47
   %.196.i = select i1 %cmp.i, i64 %46, i64 %48
   %lp.prev_lp.i = select i1 %cmp.i, ptr %pseg.0465, ptr %prev.0461
-  %add38.i236 = add nsw i64 %div.i235, %..i
+  %add38.i233 = add nsw i64 %div.i232, %..i
   %50 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 2
-  store i64 %add38.i236, ptr %50, align 8
+  store i64 %add38.i233, ptr %50, align 8
   store i64 %.194.i, ptr %45, align 8
   %51 = getelementptr inbounds i8, ptr %45, i64 8
   store i64 %..i, ptr %51, align 8
@@ -623,90 +623,90 @@ if.then82:                                        ; preds = %cond.end77
   %54 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 5
   store ptr %lp.prev_lp.i, ptr %54, align 8
   %55 = load ptr, ptr %y_line.i, align 8, !tbaa !54
-  %cmp43.i238 = icmp eq ptr %55, null
-  br i1 %cmp43.i238, label %if.then44.i241, label %if.else47.i244
+  %cmp43.i235 = icmp eq ptr %55, null
+  br i1 %cmp43.i235, label %if.then44.i238, label %if.else47.i241
 
-if.then44.i241:                                   ; preds = %if.then82
-  %prev45.i239 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i239, i8 0, i64 16, i1 false)
-  br label %add_y_line.exit279
+if.then44.i238:                                   ; preds = %if.then82
+  %prev45.i236 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i236, i8 0, i64 16, i1 false)
+  br label %add_y_line.exit276
 
-if.else47.i244:                                   ; preds = %if.then82
-  %y49.i242 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %55, i64 0, i32 1
-  %56 = load i64, ptr %y49.i242, align 8, !tbaa !55
-  %cmp50.not.i243 = icmp slt i64 %..i, %56
-  br i1 %cmp50.not.i243, label %while.cond64.i260, label %while.cond.i248
+if.else47.i241:                                   ; preds = %if.then82
+  %y49.i239 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %55, i64 0, i32 1
+  %56 = load i64, ptr %y49.i239, align 8, !tbaa !55
+  %cmp50.not.i240 = icmp slt i64 %..i, %56
+  br i1 %cmp50.not.i240, label %while.cond64.i257, label %while.cond.i245
 
-while.cond.i248:                                  ; preds = %if.else47.i244, %land.rhs.i251
-  %yp.0.i245 = phi ptr [ %57, %land.rhs.i251 ], [ %55, %if.else47.i244 ]
-  %next52.i246 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i245, i64 0, i32 10
-  %57 = load ptr, ptr %next52.i246, align 8, !tbaa !56
-  %cmp53.not.i247 = icmp eq ptr %57, null
-  br i1 %cmp53.not.i247, label %if.end84.critedge.i277, label %land.rhs.i251
+while.cond.i245:                                  ; preds = %if.else47.i241, %land.rhs.i248
+  %yp.0.i242 = phi ptr [ %57, %land.rhs.i248 ], [ %55, %if.else47.i241 ]
+  %next52.i243 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i242, i64 0, i32 10
+  %57 = load ptr, ptr %next52.i243, align 8, !tbaa !56
+  %cmp53.not.i244 = icmp eq ptr %57, null
+  br i1 %cmp53.not.i244, label %if.end84.critedge.i274, label %land.rhs.i248
 
-land.rhs.i251:                                    ; preds = %while.cond.i248
-  %y55.i249 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %57, i64 0, i32 1
-  %58 = load i64, ptr %y55.i249, align 8, !tbaa !55
-  %cmp56.i250 = icmp sgt i64 %..i, %58
-  br i1 %cmp56.i250, label %while.cond.i248, label %if.then60.i256, !llvm.loop !57
+land.rhs.i248:                                    ; preds = %while.cond.i245
+  %y55.i246 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %57, i64 0, i32 1
+  %58 = load i64, ptr %y55.i246, align 8, !tbaa !55
+  %cmp56.i247 = icmp sgt i64 %..i, %58
+  br i1 %cmp56.i247, label %while.cond.i245, label %if.then60.i253, !llvm.loop !57
 
-if.then60.i256:                                   ; preds = %land.rhs.i251
-  %next52.i246.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i245, i64 0, i32 10
-  %next57.i253 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
-  store ptr %57, ptr %next57.i253, align 8, !tbaa !56
-  %prev58.i254 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
-  store ptr %yp.0.i245, ptr %prev58.i254, align 8, !tbaa !59
-  store ptr %45, ptr %next52.i246.le, align 8, !tbaa !56
-  %prev61.i255 = getelementptr inbounds %struct.active_line_s, ptr %57, i64 0, i32 9
-  br label %add_y_line.exit279
+if.then60.i253:                                   ; preds = %land.rhs.i248
+  %next52.i243.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i242, i64 0, i32 10
+  %next57.i250 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
+  store ptr %57, ptr %next57.i250, align 8, !tbaa !56
+  %prev58.i251 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
+  store ptr %yp.0.i242, ptr %prev58.i251, align 8, !tbaa !59
+  store ptr %45, ptr %next52.i243.le, align 8, !tbaa !56
+  %prev61.i252 = getelementptr inbounds %struct.active_line_s, ptr %57, i64 0, i32 9
+  br label %add_y_line.exit276
 
-while.cond64.i260:                                ; preds = %if.else47.i244, %land.rhs67.i263
-  %yp.1.i257 = phi ptr [ %59, %land.rhs67.i263 ], [ %55, %if.else47.i244 ]
-  %prev65.i258 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i257, i64 0, i32 9
-  %59 = load ptr, ptr %prev65.i258, align 8, !tbaa !59
-  %cmp66.not.i259 = icmp eq ptr %59, null
-  br i1 %cmp66.not.i259, label %if.else80.i273, label %land.rhs67.i263
+while.cond64.i257:                                ; preds = %if.else47.i241, %land.rhs67.i260
+  %yp.1.i254 = phi ptr [ %59, %land.rhs67.i260 ], [ %55, %if.else47.i241 ]
+  %prev65.i255 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i254, i64 0, i32 9
+  %59 = load ptr, ptr %prev65.i255, align 8, !tbaa !59
+  %cmp66.not.i256 = icmp eq ptr %59, null
+  br i1 %cmp66.not.i256, label %if.else80.i270, label %land.rhs67.i260
 
-land.rhs67.i263:                                  ; preds = %while.cond64.i260
-  %y69.i261 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %59, i64 0, i32 1
-  %60 = load i64, ptr %y69.i261, align 8, !tbaa !55
-  %cmp70.i262 = icmp slt i64 %..i, %60
-  br i1 %cmp70.i262, label %while.cond64.i260, label %if.then78.i268, !llvm.loop !60
+land.rhs67.i260:                                  ; preds = %while.cond64.i257
+  %y69.i258 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %59, i64 0, i32 1
+  %60 = load i64, ptr %y69.i258, align 8, !tbaa !55
+  %cmp70.i259 = icmp slt i64 %..i, %60
+  br i1 %cmp70.i259, label %while.cond64.i257, label %if.then78.i265, !llvm.loop !60
 
-if.then78.i268:                                   ; preds = %land.rhs67.i263
-  %prev65.i258.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i257, i64 0, i32 9
-  %prev74.i265 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
-  store ptr %59, ptr %prev74.i265, align 8, !tbaa !59
-  %next75.i266 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
-  store ptr %yp.1.i257, ptr %next75.i266, align 8, !tbaa !56
-  store ptr %45, ptr %prev65.i258.le, align 8, !tbaa !59
-  %next79.i267 = getelementptr inbounds %struct.active_line_s, ptr %59, i64 0, i32 10
-  br label %add_y_line.exit279
+if.then78.i265:                                   ; preds = %land.rhs67.i260
+  %prev65.i255.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i254, i64 0, i32 9
+  %prev74.i262 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
+  store ptr %59, ptr %prev74.i262, align 8, !tbaa !59
+  %next75.i263 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
+  store ptr %yp.1.i254, ptr %next75.i263, align 8, !tbaa !56
+  store ptr %45, ptr %prev65.i255.le, align 8, !tbaa !59
+  %next79.i264 = getelementptr inbounds %struct.active_line_s, ptr %59, i64 0, i32 10
+  br label %add_y_line.exit276
 
-if.else80.i273:                                   ; preds = %while.cond64.i260
-  %prev65.i258.le532 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i257, i64 0, i32 9
-  %prev74.c.i270 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
-  store ptr null, ptr %prev74.c.i270, align 8, !tbaa !59
-  %next75.c.i271 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
-  store ptr %yp.1.i257, ptr %next75.c.i271, align 8, !tbaa !56
-  store ptr %45, ptr %prev65.i258.le532, align 8, !tbaa !59
-  br label %add_y_line.exit279
+if.else80.i270:                                   ; preds = %while.cond64.i257
+  %prev65.i255.le532 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i254, i64 0, i32 9
+  %prev74.c.i267 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
+  store ptr null, ptr %prev74.c.i267, align 8, !tbaa !59
+  %next75.c.i268 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
+  store ptr %yp.1.i254, ptr %next75.c.i268, align 8, !tbaa !56
+  store ptr %45, ptr %prev65.i255.le532, align 8, !tbaa !59
+  br label %add_y_line.exit276
 
-if.end84.critedge.i277:                           ; preds = %while.cond.i248
-  %next52.i246.le529 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i245, i64 0, i32 10
-  %next57.c.i275 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
-  store ptr null, ptr %next57.c.i275, align 8, !tbaa !56
-  %prev58.c.i276 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
-  store ptr %yp.0.i245, ptr %prev58.c.i276, align 8, !tbaa !59
-  br label %add_y_line.exit279
+if.end84.critedge.i274:                           ; preds = %while.cond.i245
+  %next52.i243.le529 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i242, i64 0, i32 10
+  %next57.c.i272 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 10
+  store ptr null, ptr %next57.c.i272, align 8, !tbaa !56
+  %prev58.c.i273 = getelementptr inbounds %struct.active_line_s, ptr %45, i64 0, i32 9
+  store ptr %yp.0.i242, ptr %prev58.c.i273, align 8, !tbaa !59
+  br label %add_y_line.exit276
 
-add_y_line.exit279:                               ; preds = %if.then44.i241, %if.then60.i256, %if.then78.i268, %if.else80.i273, %if.end84.critedge.i277
-  %next52.le188.sink.i278 = phi ptr [ %next52.i246.le529, %if.end84.critedge.i277 ], [ %prev61.i255, %if.then60.i256 ], [ %y_list81.i, %if.else80.i273 ], [ %next79.i267, %if.then78.i268 ], [ %y_list81.i, %if.then44.i241 ]
-  store ptr %45, ptr %next52.le188.sink.i278, align 8, !tbaa !61
+add_y_line.exit276:                               ; preds = %if.then44.i238, %if.then60.i253, %if.then78.i265, %if.else80.i270, %if.end84.critedge.i274
+  %next52.le188.sink.i275 = phi ptr [ %next52.i243.le529, %if.end84.critedge.i274 ], [ %prev61.i252, %if.then60.i253 ], [ %y_list81.i, %if.else80.i270 ], [ %next79.i264, %if.then78.i265 ], [ %y_list81.i, %if.then44.i238 ]
+  store ptr %45, ptr %next52.le188.sink.i275, align 8, !tbaa !61
   store ptr %45, ptr %y_line.i, align 8, !tbaa !54
   br label %if.end83
 
-if.end83:                                         ; preds = %add_y_line.exit279, %cond.end77
+if.end83:                                         ; preds = %add_y_line.exit276, %cond.end77
   %tobool86 = icmp ne i32 %cond78, 0
   %or.cond96 = and i1 %cmp79, %tobool86
   %cmp87 = icmp slt i32 %cond78, 0
@@ -715,121 +715,121 @@ if.end83:                                         ; preds = %add_y_line.exit279,
 
 if.then88:                                        ; preds = %if.end83
   %61 = load ptr, ptr %next.i, align 8, !tbaa !28
-  %incdec.ptr.i281 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 1
-  store ptr %incdec.ptr.i281, ptr %next.i, align 8, !tbaa !28
-  %pt.i282 = getelementptr inbounds %struct.segment_s, ptr %psub.0464, i64 0, i32 3
-  %62 = load i64, ptr %pt.i282, align 8, !tbaa !49
+  %incdec.ptr.i278 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 1
+  store ptr %incdec.ptr.i278, ptr %next.i, align 8, !tbaa !28
+  %pt.i279 = getelementptr inbounds %struct.segment_s, ptr %psub.0464, i64 0, i32 3
+  %62 = load i64, ptr %pt.i279, align 8, !tbaa !49
   %63 = load i64, ptr %y46, align 8, !tbaa !48
   %64 = load i64, ptr %pt, align 8, !tbaa !49
   %65 = load i64, ptr %y6, align 8, !tbaa !48
   %66 = load i16, ptr %tag5, align 4, !tbaa !43
-  %tag10.i287 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 7
-  store i16 %66, ptr %tag10.i287, align 4, !tbaa !51
-  %direction.i288 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 6
-  store i32 %cond78, ptr %direction.i288, align 8, !tbaa !52
-  %cmp.i289 = icmp sgt i32 %cond78, 0
-  %sub19.i290 = sub nsw i64 %64, %62
-  %cond.i291 = tail call i64 @llvm.abs.i64(i64 %sub19.i290, i1 true)
-  %or.i292 = or i64 %cond.i291, 1
-  %div.i293 = udiv i64 2147483647, %or.i292
-  %..i294 = select i1 %cmp.i289, i64 %65, i64 %63
-  %.194.i295 = select i1 %cmp.i289, i64 %64, i64 %62
-  %.195.i296 = select i1 %cmp.i289, i64 %62, i64 %64
-  %.196.i297 = select i1 %cmp.i289, i64 %63, i64 %65
-  %lp.prev_lp.i298 = select i1 %cmp.i289, ptr %psub.0464, ptr %pseg.0465
-  %add38.i299 = add nsw i64 %div.i293, %..i294
+  %tag10.i284 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 7
+  store i16 %66, ptr %tag10.i284, align 4, !tbaa !51
+  %direction.i285 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 6
+  store i32 %cond78, ptr %direction.i285, align 8, !tbaa !52
+  %cmp.i286 = icmp sgt i32 %cond78, 0
+  %sub19.i287 = sub nsw i64 %64, %62
+  %cond.i288 = tail call i64 @llvm.abs.i64(i64 %sub19.i287, i1 true)
+  %or.i289 = or i64 %cond.i288, 1
+  %div.i290 = udiv i64 2147483647, %or.i289
+  %..i291 = select i1 %cmp.i286, i64 %65, i64 %63
+  %.194.i292 = select i1 %cmp.i286, i64 %64, i64 %62
+  %.195.i293 = select i1 %cmp.i286, i64 %62, i64 %64
+  %.196.i294 = select i1 %cmp.i286, i64 %63, i64 %65
+  %lp.prev_lp.i295 = select i1 %cmp.i286, ptr %psub.0464, ptr %pseg.0465
+  %add38.i296 = add nsw i64 %div.i290, %..i291
   %67 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 2
-  store i64 %add38.i299, ptr %67, align 8
-  store i64 %.194.i295, ptr %61, align 8
+  store i64 %add38.i296, ptr %67, align 8
+  store i64 %.194.i292, ptr %61, align 8
   %68 = getelementptr inbounds i8, ptr %61, i64 8
-  store i64 %..i294, ptr %68, align 8
+  store i64 %..i291, ptr %68, align 8
   %69 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 1
-  store i64 %.195.i296, ptr %69, align 8
+  store i64 %.195.i293, ptr %69, align 8
   %70 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 1, i32 1
-  store i64 %.196.i297, ptr %70, align 8
+  store i64 %.196.i294, ptr %70, align 8
   %71 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 5
-  store ptr %lp.prev_lp.i298, ptr %71, align 8
+  store ptr %lp.prev_lp.i295, ptr %71, align 8
   %72 = load ptr, ptr %y_line.i, align 8, !tbaa !54
-  %cmp43.i301 = icmp eq ptr %72, null
-  br i1 %cmp43.i301, label %if.then44.i304, label %if.else47.i307
+  %cmp43.i298 = icmp eq ptr %72, null
+  br i1 %cmp43.i298, label %if.then44.i301, label %if.else47.i304
 
-if.then44.i304:                                   ; preds = %if.then88
-  %prev45.i302 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i302, i8 0, i64 16, i1 false)
-  br label %add_y_line.exit342
+if.then44.i301:                                   ; preds = %if.then88
+  %prev45.i299 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i299, i8 0, i64 16, i1 false)
+  br label %add_y_line.exit339
 
-if.else47.i307:                                   ; preds = %if.then88
-  %y49.i305 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %72, i64 0, i32 1
-  %73 = load i64, ptr %y49.i305, align 8, !tbaa !55
-  %cmp50.not.i306 = icmp slt i64 %..i294, %73
-  br i1 %cmp50.not.i306, label %while.cond64.i323, label %while.cond.i311
+if.else47.i304:                                   ; preds = %if.then88
+  %y49.i302 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %72, i64 0, i32 1
+  %73 = load i64, ptr %y49.i302, align 8, !tbaa !55
+  %cmp50.not.i303 = icmp slt i64 %..i291, %73
+  br i1 %cmp50.not.i303, label %while.cond64.i320, label %while.cond.i308
 
-while.cond.i311:                                  ; preds = %if.else47.i307, %land.rhs.i314
-  %yp.0.i308 = phi ptr [ %74, %land.rhs.i314 ], [ %72, %if.else47.i307 ]
-  %next52.i309 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i308, i64 0, i32 10
-  %74 = load ptr, ptr %next52.i309, align 8, !tbaa !56
-  %cmp53.not.i310 = icmp eq ptr %74, null
-  br i1 %cmp53.not.i310, label %if.end84.critedge.i340, label %land.rhs.i314
+while.cond.i308:                                  ; preds = %if.else47.i304, %land.rhs.i311
+  %yp.0.i305 = phi ptr [ %74, %land.rhs.i311 ], [ %72, %if.else47.i304 ]
+  %next52.i306 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i305, i64 0, i32 10
+  %74 = load ptr, ptr %next52.i306, align 8, !tbaa !56
+  %cmp53.not.i307 = icmp eq ptr %74, null
+  br i1 %cmp53.not.i307, label %if.end84.critedge.i337, label %land.rhs.i311
 
-land.rhs.i314:                                    ; preds = %while.cond.i311
-  %y55.i312 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %74, i64 0, i32 1
-  %75 = load i64, ptr %y55.i312, align 8, !tbaa !55
-  %cmp56.i313 = icmp sgt i64 %..i294, %75
-  br i1 %cmp56.i313, label %while.cond.i311, label %if.then60.i319, !llvm.loop !57
+land.rhs.i311:                                    ; preds = %while.cond.i308
+  %y55.i309 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %74, i64 0, i32 1
+  %75 = load i64, ptr %y55.i309, align 8, !tbaa !55
+  %cmp56.i310 = icmp sgt i64 %..i291, %75
+  br i1 %cmp56.i310, label %while.cond.i308, label %if.then60.i316, !llvm.loop !57
 
-if.then60.i319:                                   ; preds = %land.rhs.i314
-  %next52.i309.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i308, i64 0, i32 10
-  %next57.i316 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
-  store ptr %74, ptr %next57.i316, align 8, !tbaa !56
-  %prev58.i317 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
-  store ptr %yp.0.i308, ptr %prev58.i317, align 8, !tbaa !59
-  store ptr %61, ptr %next52.i309.le, align 8, !tbaa !56
-  %prev61.i318 = getelementptr inbounds %struct.active_line_s, ptr %74, i64 0, i32 9
-  br label %add_y_line.exit342
+if.then60.i316:                                   ; preds = %land.rhs.i311
+  %next52.i306.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i305, i64 0, i32 10
+  %next57.i313 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
+  store ptr %74, ptr %next57.i313, align 8, !tbaa !56
+  %prev58.i314 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
+  store ptr %yp.0.i305, ptr %prev58.i314, align 8, !tbaa !59
+  store ptr %61, ptr %next52.i306.le, align 8, !tbaa !56
+  %prev61.i315 = getelementptr inbounds %struct.active_line_s, ptr %74, i64 0, i32 9
+  br label %add_y_line.exit339
 
-while.cond64.i323:                                ; preds = %if.else47.i307, %land.rhs67.i326
-  %yp.1.i320 = phi ptr [ %76, %land.rhs67.i326 ], [ %72, %if.else47.i307 ]
-  %prev65.i321 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i320, i64 0, i32 9
-  %76 = load ptr, ptr %prev65.i321, align 8, !tbaa !59
-  %cmp66.not.i322 = icmp eq ptr %76, null
-  br i1 %cmp66.not.i322, label %if.else80.i336, label %land.rhs67.i326
+while.cond64.i320:                                ; preds = %if.else47.i304, %land.rhs67.i323
+  %yp.1.i317 = phi ptr [ %76, %land.rhs67.i323 ], [ %72, %if.else47.i304 ]
+  %prev65.i318 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i317, i64 0, i32 9
+  %76 = load ptr, ptr %prev65.i318, align 8, !tbaa !59
+  %cmp66.not.i319 = icmp eq ptr %76, null
+  br i1 %cmp66.not.i319, label %if.else80.i333, label %land.rhs67.i323
 
-land.rhs67.i326:                                  ; preds = %while.cond64.i323
-  %y69.i324 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %76, i64 0, i32 1
-  %77 = load i64, ptr %y69.i324, align 8, !tbaa !55
-  %cmp70.i325 = icmp slt i64 %..i294, %77
-  br i1 %cmp70.i325, label %while.cond64.i323, label %if.then78.i331, !llvm.loop !60
+land.rhs67.i323:                                  ; preds = %while.cond64.i320
+  %y69.i321 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %76, i64 0, i32 1
+  %77 = load i64, ptr %y69.i321, align 8, !tbaa !55
+  %cmp70.i322 = icmp slt i64 %..i291, %77
+  br i1 %cmp70.i322, label %while.cond64.i320, label %if.then78.i328, !llvm.loop !60
 
-if.then78.i331:                                   ; preds = %land.rhs67.i326
-  %prev65.i321.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i320, i64 0, i32 9
-  %prev74.i328 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
-  store ptr %76, ptr %prev74.i328, align 8, !tbaa !59
-  %next75.i329 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
-  store ptr %yp.1.i320, ptr %next75.i329, align 8, !tbaa !56
-  store ptr %61, ptr %prev65.i321.le, align 8, !tbaa !59
-  %next79.i330 = getelementptr inbounds %struct.active_line_s, ptr %76, i64 0, i32 10
-  br label %add_y_line.exit342
+if.then78.i328:                                   ; preds = %land.rhs67.i323
+  %prev65.i318.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i317, i64 0, i32 9
+  %prev74.i325 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
+  store ptr %76, ptr %prev74.i325, align 8, !tbaa !59
+  %next75.i326 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
+  store ptr %yp.1.i317, ptr %next75.i326, align 8, !tbaa !56
+  store ptr %61, ptr %prev65.i318.le, align 8, !tbaa !59
+  %next79.i327 = getelementptr inbounds %struct.active_line_s, ptr %76, i64 0, i32 10
+  br label %add_y_line.exit339
 
-if.else80.i336:                                   ; preds = %while.cond64.i323
-  %prev65.i321.le538 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i320, i64 0, i32 9
-  %prev74.c.i333 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
-  store ptr null, ptr %prev74.c.i333, align 8, !tbaa !59
-  %next75.c.i334 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
-  store ptr %yp.1.i320, ptr %next75.c.i334, align 8, !tbaa !56
-  store ptr %61, ptr %prev65.i321.le538, align 8, !tbaa !59
-  br label %add_y_line.exit342
+if.else80.i333:                                   ; preds = %while.cond64.i320
+  %prev65.i318.le538 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i317, i64 0, i32 9
+  %prev74.c.i330 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
+  store ptr null, ptr %prev74.c.i330, align 8, !tbaa !59
+  %next75.c.i331 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
+  store ptr %yp.1.i317, ptr %next75.c.i331, align 8, !tbaa !56
+  store ptr %61, ptr %prev65.i318.le538, align 8, !tbaa !59
+  br label %add_y_line.exit339
 
-if.end84.critedge.i340:                           ; preds = %while.cond.i311
-  %next52.i309.le535 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i308, i64 0, i32 10
-  %next57.c.i338 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
-  store ptr null, ptr %next57.c.i338, align 8, !tbaa !56
-  %prev58.c.i339 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
-  store ptr %yp.0.i308, ptr %prev58.c.i339, align 8, !tbaa !59
-  br label %add_y_line.exit342
+if.end84.critedge.i337:                           ; preds = %while.cond.i308
+  %next52.i306.le535 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i305, i64 0, i32 10
+  %next57.c.i335 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 10
+  store ptr null, ptr %next57.c.i335, align 8, !tbaa !56
+  %prev58.c.i336 = getelementptr inbounds %struct.active_line_s, ptr %61, i64 0, i32 9
+  store ptr %yp.0.i305, ptr %prev58.c.i336, align 8, !tbaa !59
+  br label %add_y_line.exit339
 
-add_y_line.exit342:                               ; preds = %if.then44.i304, %if.then60.i319, %if.then78.i331, %if.else80.i336, %if.end84.critedge.i340
-  %next52.le188.sink.i341 = phi ptr [ %next52.i309.le535, %if.end84.critedge.i340 ], [ %prev61.i318, %if.then60.i319 ], [ %y_list81.i, %if.else80.i336 ], [ %next79.i330, %if.then78.i331 ], [ %y_list81.i, %if.then44.i304 ]
-  store ptr %61, ptr %next52.le188.sink.i341, align 8, !tbaa !61
+add_y_line.exit339:                               ; preds = %if.then44.i301, %if.then60.i316, %if.then78.i328, %if.else80.i333, %if.end84.critedge.i337
+  %next52.le188.sink.i338 = phi ptr [ %next52.i306.le535, %if.end84.critedge.i337 ], [ %prev61.i315, %if.then60.i316 ], [ %y_list81.i, %if.else80.i333 ], [ %next79.i327, %if.then78.i328 ], [ %y_list81.i, %if.then44.i301 ]
+  store ptr %61, ptr %next52.le188.sink.i338, align 8, !tbaa !61
   store ptr %61, ptr %y_line.i, align 8, !tbaa !54
   br label %sw.epilog
 
@@ -839,119 +839,119 @@ if.else:                                          ; preds = %if.then41
 
 if.then91:                                        ; preds = %if.else
   %78 = load ptr, ptr %next.i, align 8, !tbaa !28
-  %incdec.ptr.i344 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 1
-  store ptr %incdec.ptr.i344, ptr %next.i, align 8, !tbaa !28
+  %incdec.ptr.i341 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 1
+  store ptr %incdec.ptr.i341, ptr %next.i, align 8, !tbaa !28
   %79 = load i64, ptr %pt, align 8, !tbaa !49
   %80 = load i64, ptr %y6, align 8, !tbaa !48
   %81 = load i16, ptr %tag5, align 4, !tbaa !43
-  %tag10.i350 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 7
-  store i16 %81, ptr %tag10.i350, align 4, !tbaa !51
-  %direction.i351 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 6
-  store i32 -1, ptr %direction.i351, align 8, !tbaa !52
+  %tag10.i347 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 7
+  store i16 %81, ptr %tag10.i347, align 4, !tbaa !51
+  %direction.i348 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 6
+  store i32 -1, ptr %direction.i348, align 8, !tbaa !52
   %82 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 2
   %83 = getelementptr inbounds i8, ptr %78, i64 8
   %84 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 1
   %85 = load <2 x i64>, ptr %pt7, align 8, !tbaa !53
   %86 = extractelement <2 x i64> %85, i64 0
-  %sub19.i352 = sub nsw i64 %86, %79
-  %cond.i353 = tail call i64 @llvm.abs.i64(i64 %sub19.i352, i1 true)
-  %or.i354 = or i64 %cond.i353, 1
-  %div.i355 = udiv i64 2147483647, %or.i354
-  %add38.i356 = add nsw i64 %div.i355, %80
-  store i64 %add38.i356, ptr %82, align 8
+  %sub19.i349 = sub nsw i64 %86, %79
+  %cond.i350 = tail call i64 @llvm.abs.i64(i64 %sub19.i349, i1 true)
+  %or.i351 = or i64 %cond.i350, 1
+  %div.i352 = udiv i64 2147483647, %or.i351
+  %add38.i353 = add nsw i64 %div.i352, %80
+  store i64 %add38.i353, ptr %82, align 8
   store i64 %79, ptr %78, align 8
   store i64 %80, ptr %83, align 8
   store <2 x i64> %85, ptr %84, align 8
   %87 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 5
   store ptr %prev.0461, ptr %87, align 8
   %88 = load ptr, ptr %y_line.i, align 8, !tbaa !54
-  %cmp43.i358 = icmp eq ptr %88, null
-  br i1 %cmp43.i358, label %if.then44.i361, label %if.else47.i364
+  %cmp43.i355 = icmp eq ptr %88, null
+  br i1 %cmp43.i355, label %if.then44.i358, label %if.else47.i361
 
-if.then44.i361:                                   ; preds = %if.then91
-  %prev45.i359 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i359, i8 0, i64 16, i1 false)
-  br label %add_y_line.exit399
+if.then44.i358:                                   ; preds = %if.then91
+  %prev45.i356 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %prev45.i356, i8 0, i64 16, i1 false)
+  br label %add_y_line.exit396
 
-if.else47.i364:                                   ; preds = %if.then91
-  %y49.i362 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %88, i64 0, i32 1
-  %89 = load i64, ptr %y49.i362, align 8, !tbaa !55
-  %cmp50.not.i363 = icmp slt i64 %80, %89
-  br i1 %cmp50.not.i363, label %while.cond64.i380, label %while.cond.i368
+if.else47.i361:                                   ; preds = %if.then91
+  %y49.i359 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %88, i64 0, i32 1
+  %89 = load i64, ptr %y49.i359, align 8, !tbaa !55
+  %cmp50.not.i360 = icmp slt i64 %80, %89
+  br i1 %cmp50.not.i360, label %while.cond64.i377, label %while.cond.i365
 
-while.cond.i368:                                  ; preds = %if.else47.i364, %land.rhs.i371
-  %yp.0.i365 = phi ptr [ %90, %land.rhs.i371 ], [ %88, %if.else47.i364 ]
-  %next52.i366 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i365, i64 0, i32 10
-  %90 = load ptr, ptr %next52.i366, align 8, !tbaa !56
-  %cmp53.not.i367 = icmp eq ptr %90, null
-  br i1 %cmp53.not.i367, label %if.end84.critedge.i397, label %land.rhs.i371
+while.cond.i365:                                  ; preds = %if.else47.i361, %land.rhs.i368
+  %yp.0.i362 = phi ptr [ %90, %land.rhs.i368 ], [ %88, %if.else47.i361 ]
+  %next52.i363 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i362, i64 0, i32 10
+  %90 = load ptr, ptr %next52.i363, align 8, !tbaa !56
+  %cmp53.not.i364 = icmp eq ptr %90, null
+  br i1 %cmp53.not.i364, label %if.end84.critedge.i394, label %land.rhs.i368
 
-land.rhs.i371:                                    ; preds = %while.cond.i368
-  %y55.i369 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %90, i64 0, i32 1
-  %91 = load i64, ptr %y55.i369, align 8, !tbaa !55
-  %cmp56.i370 = icmp sgt i64 %80, %91
-  br i1 %cmp56.i370, label %while.cond.i368, label %if.then60.i376, !llvm.loop !57
+land.rhs.i368:                                    ; preds = %while.cond.i365
+  %y55.i366 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %90, i64 0, i32 1
+  %91 = load i64, ptr %y55.i366, align 8, !tbaa !55
+  %cmp56.i367 = icmp sgt i64 %80, %91
+  br i1 %cmp56.i367, label %while.cond.i365, label %if.then60.i373, !llvm.loop !57
 
-if.then60.i376:                                   ; preds = %land.rhs.i371
-  %next52.i366.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i365, i64 0, i32 10
-  %next57.i373 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
-  store ptr %90, ptr %next57.i373, align 8, !tbaa !56
-  %prev58.i374 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
-  store ptr %yp.0.i365, ptr %prev58.i374, align 8, !tbaa !59
-  store ptr %78, ptr %next52.i366.le, align 8, !tbaa !56
-  %prev61.i375 = getelementptr inbounds %struct.active_line_s, ptr %90, i64 0, i32 9
-  br label %add_y_line.exit399
+if.then60.i373:                                   ; preds = %land.rhs.i368
+  %next52.i363.le = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i362, i64 0, i32 10
+  %next57.i370 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
+  store ptr %90, ptr %next57.i370, align 8, !tbaa !56
+  %prev58.i371 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
+  store ptr %yp.0.i362, ptr %prev58.i371, align 8, !tbaa !59
+  store ptr %78, ptr %next52.i363.le, align 8, !tbaa !56
+  %prev61.i372 = getelementptr inbounds %struct.active_line_s, ptr %90, i64 0, i32 9
+  br label %add_y_line.exit396
 
-while.cond64.i380:                                ; preds = %if.else47.i364, %land.rhs67.i383
-  %yp.1.i377 = phi ptr [ %92, %land.rhs67.i383 ], [ %88, %if.else47.i364 ]
-  %prev65.i378 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i377, i64 0, i32 9
-  %92 = load ptr, ptr %prev65.i378, align 8, !tbaa !59
-  %cmp66.not.i379 = icmp eq ptr %92, null
-  br i1 %cmp66.not.i379, label %if.else80.i393, label %land.rhs67.i383
+while.cond64.i377:                                ; preds = %if.else47.i361, %land.rhs67.i380
+  %yp.1.i374 = phi ptr [ %92, %land.rhs67.i380 ], [ %88, %if.else47.i361 ]
+  %prev65.i375 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i374, i64 0, i32 9
+  %92 = load ptr, ptr %prev65.i375, align 8, !tbaa !59
+  %cmp66.not.i376 = icmp eq ptr %92, null
+  br i1 %cmp66.not.i376, label %if.else80.i390, label %land.rhs67.i380
 
-land.rhs67.i383:                                  ; preds = %while.cond64.i380
-  %y69.i381 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %92, i64 0, i32 1
-  %93 = load i64, ptr %y69.i381, align 8, !tbaa !55
-  %cmp70.i382 = icmp slt i64 %80, %93
-  br i1 %cmp70.i382, label %while.cond64.i380, label %if.then78.i388, !llvm.loop !60
+land.rhs67.i380:                                  ; preds = %while.cond64.i377
+  %y69.i378 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %92, i64 0, i32 1
+  %93 = load i64, ptr %y69.i378, align 8, !tbaa !55
+  %cmp70.i379 = icmp slt i64 %80, %93
+  br i1 %cmp70.i379, label %while.cond64.i377, label %if.then78.i385, !llvm.loop !60
 
-if.then78.i388:                                   ; preds = %land.rhs67.i383
-  %prev65.i378.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i377, i64 0, i32 9
-  %prev74.i385 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
-  store ptr %92, ptr %prev74.i385, align 8, !tbaa !59
-  %next75.i386 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
-  store ptr %yp.1.i377, ptr %next75.i386, align 8, !tbaa !56
-  store ptr %78, ptr %prev65.i378.le, align 8, !tbaa !59
-  %next79.i387 = getelementptr inbounds %struct.active_line_s, ptr %92, i64 0, i32 10
-  br label %add_y_line.exit399
+if.then78.i385:                                   ; preds = %land.rhs67.i380
+  %prev65.i375.le = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i374, i64 0, i32 9
+  %prev74.i382 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
+  store ptr %92, ptr %prev74.i382, align 8, !tbaa !59
+  %next75.i383 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
+  store ptr %yp.1.i374, ptr %next75.i383, align 8, !tbaa !56
+  store ptr %78, ptr %prev65.i375.le, align 8, !tbaa !59
+  %next79.i384 = getelementptr inbounds %struct.active_line_s, ptr %92, i64 0, i32 10
+  br label %add_y_line.exit396
 
-if.else80.i393:                                   ; preds = %while.cond64.i380
-  %prev65.i378.le544 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i377, i64 0, i32 9
-  %prev74.c.i390 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
-  store ptr null, ptr %prev74.c.i390, align 8, !tbaa !59
-  %next75.c.i391 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
-  store ptr %yp.1.i377, ptr %next75.c.i391, align 8, !tbaa !56
-  store ptr %78, ptr %prev65.i378.le544, align 8, !tbaa !59
-  br label %add_y_line.exit399
+if.else80.i390:                                   ; preds = %while.cond64.i377
+  %prev65.i375.le544 = getelementptr inbounds %struct.active_line_s, ptr %yp.1.i374, i64 0, i32 9
+  %prev74.c.i387 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
+  store ptr null, ptr %prev74.c.i387, align 8, !tbaa !59
+  %next75.c.i388 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
+  store ptr %yp.1.i374, ptr %next75.c.i388, align 8, !tbaa !56
+  store ptr %78, ptr %prev65.i375.le544, align 8, !tbaa !59
+  br label %add_y_line.exit396
 
-if.end84.critedge.i397:                           ; preds = %while.cond.i368
-  %next52.i366.le541 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i365, i64 0, i32 10
-  %next57.c.i395 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
-  store ptr null, ptr %next57.c.i395, align 8, !tbaa !56
-  %prev58.c.i396 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
-  store ptr %yp.0.i365, ptr %prev58.c.i396, align 8, !tbaa !59
-  br label %add_y_line.exit399
+if.end84.critedge.i394:                           ; preds = %while.cond.i365
+  %next52.i363.le541 = getelementptr inbounds %struct.active_line_s, ptr %yp.0.i362, i64 0, i32 10
+  %next57.c.i392 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 10
+  store ptr null, ptr %next57.c.i392, align 8, !tbaa !56
+  %prev58.c.i393 = getelementptr inbounds %struct.active_line_s, ptr %78, i64 0, i32 9
+  store ptr %yp.0.i362, ptr %prev58.c.i393, align 8, !tbaa !59
+  br label %add_y_line.exit396
 
-add_y_line.exit399:                               ; preds = %if.then44.i361, %if.then60.i376, %if.then78.i388, %if.else80.i393, %if.end84.critedge.i397
-  %next52.le188.sink.i398 = phi ptr [ %next52.i366.le541, %if.end84.critedge.i397 ], [ %prev61.i375, %if.then60.i376 ], [ %y_list81.i, %if.else80.i393 ], [ %next79.i387, %if.then78.i388 ], [ %y_list81.i, %if.then44.i361 ]
-  store ptr %78, ptr %next52.le188.sink.i398, align 8, !tbaa !61
+add_y_line.exit396:                               ; preds = %if.then44.i358, %if.then60.i373, %if.then78.i385, %if.else80.i390, %if.end84.critedge.i394
+  %next52.le188.sink.i395 = phi ptr [ %next52.i363.le541, %if.end84.critedge.i394 ], [ %prev61.i372, %if.then60.i373 ], [ %y_list81.i, %if.else80.i390 ], [ %next79.i384, %if.then78.i385 ], [ %y_list81.i, %if.then44.i358 ]
+  store ptr %78, ptr %next52.le188.sink.i395, align 8, !tbaa !61
   store ptr %78, ptr %y_line.i, align 8, !tbaa !54
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %if.end39, %if.else, %add_y_line.exit399, %if.end83, %add_y_line.exit342, %sw.bb
-  %dir.0 = phi i32 [ 0, %sw.bb ], [ %cond31, %add_y_line.exit342 ], [ %cond31, %if.end83 ], [ %cond31, %add_y_line.exit399 ], [ %cond31, %if.else ], [ %cond31, %if.end39 ]
-  %plast.1 = phi ptr [ %5, %sw.bb ], [ %pseg.0465, %add_y_line.exit342 ], [ %pseg.0465, %if.end83 ], [ %pseg.0465, %add_y_line.exit399 ], [ %pseg.0465, %if.else ], [ %plast.0463, %if.end39 ]
-  %psub.1 = phi ptr [ %pseg.0465, %sw.bb ], [ %psub.0464, %add_y_line.exit342 ], [ %psub.0464, %if.end83 ], [ %psub.0464, %add_y_line.exit399 ], [ %psub.0464, %if.else ], [ %psub.0464, %if.end39 ]
+sw.epilog:                                        ; preds = %if.end39, %if.else, %add_y_line.exit396, %if.end83, %add_y_line.exit339, %sw.bb
+  %dir.0 = phi i32 [ 0, %sw.bb ], [ %cond31, %add_y_line.exit339 ], [ %cond31, %if.end83 ], [ %cond31, %add_y_line.exit396 ], [ %cond31, %if.else ], [ %cond31, %if.end39 ]
+  %plast.1 = phi ptr [ %5, %sw.bb ], [ %pseg.0465, %add_y_line.exit339 ], [ %pseg.0465, %if.end83 ], [ %pseg.0465, %add_y_line.exit396 ], [ %pseg.0465, %if.else ], [ %plast.0463, %if.end39 ]
+  %psub.1 = phi ptr [ %pseg.0465, %sw.bb ], [ %psub.0464, %add_y_line.exit339 ], [ %psub.0464, %if.end83 ], [ %psub.0464, %add_y_line.exit396 ], [ %psub.0464, %if.else ], [ %psub.0464, %if.end39 ]
   %next = getelementptr inbounds %struct.segment_s, ptr %pseg.0465, i64 0, i32 1
   %94 = load ptr, ptr %next, align 8, !tbaa !64
   %tobool.not = icmp eq ptr %94, null
@@ -991,31 +991,31 @@ while.cond8.preheader.lr.ph:                      ; preds = %if.end
   br label %while.cond8.preheader
 
 while.cond8.preheader:                            ; preds = %while.cond8.preheader.lr.ph, %cleanup
-  %yll.0595 = phi ptr [ %0, %while.cond8.preheader.lr.ph ], [ %yll.1559, %cleanup ]
+  %yll.0595 = phi ptr [ %0, %while.cond8.preheader.lr.ph ], [ %yll.1560, %cleanup ]
   %y.0594 = phi i64 [ %1, %while.cond8.preheader.lr.ph ], [ %y.1, %cleanup ]
   %xltop.0593 = phi i64 [ undef, %while.cond8.preheader.lr.ph ], [ %xltop.3, %cleanup ]
   %xlbot.0592 = phi i64 [ undef, %while.cond8.preheader.lr.ph ], [ %xlbot.3, %cleanup ]
   %endp.0591 = phi ptr [ undef, %while.cond8.preheader.lr.ph ], [ %endp.2, %cleanup ]
-  %cmp9.not562 = icmp eq ptr %yll.0595, null
-  br i1 %cmp9.not562, label %while.end, label %land.rhs
+  %cmp9.not563 = icmp eq ptr %yll.0595, null
+  br i1 %cmp9.not563, label %while.end.thread, label %land.rhs
 
 land.rhs:                                         ; preds = %while.cond8.preheader, %insert_x_new.exit
-  %yll.1563 = phi ptr [ %3, %insert_x_new.exit ], [ %yll.0595, %while.cond8.preheader ]
-  %y11 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %yll.1563, i64 0, i32 1
+  %yll.1564 = phi ptr [ %3, %insert_x_new.exit ], [ %yll.0595, %while.cond8.preheader ]
+  %y11 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %yll.1564, i64 0, i32 1
   %2 = load i64, ptr %y11, align 8, !tbaa !55
   %cmp12 = icmp eq i64 %2, %y.0594
-  br i1 %cmp12, label %while.body13, label %while.end.thread
+  br i1 %cmp12, label %while.body13, label %while.end
 
 while.body13:                                     ; preds = %land.rhs
-  %next14 = getelementptr inbounds %struct.active_line_s, ptr %yll.1563, i64 0, i32 10
+  %next14 = getelementptr inbounds %struct.active_line_s, ptr %yll.1564, i64 0, i32 10
   %3 = load ptr, ptr %next14, align 8, !tbaa !56
-  %4 = load i64, ptr %yll.1563, align 8, !tbaa !70
+  %4 = load i64, ptr %yll.1564, align 8, !tbaa !70
   %5 = load ptr, ptr %next, align 8, !tbaa !56
   %cmp.not53.i = icmp eq ptr %5, null
   br i1 %cmp.not53.i, label %if.end.critedge.i, label %land.rhs.lr.ph.i
 
 land.rhs.lr.ph.i:                                 ; preds = %while.body13
-  %end14.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1563, i64 0, i32 1
+  %end14.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1564, i64 0, i32 1
   br label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %while.body.i, %land.rhs.lr.ph.i
@@ -1050,7 +1050,7 @@ while.body.i:                                     ; preds = %lor.rhs12.i, %land.
 
 if.then.i:                                        ; preds = %lor.rhs12.i, %lor.rhs.i
   store ptr %6, ptr %next14, align 8, !tbaa !56
-  %prev20.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1563, i64 0, i32 9
+  %prev20.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1564, i64 0, i32 9
   store ptr %prev.054.i, ptr %prev20.i, align 8, !tbaa !59
   br label %insert_x_new.exit
 
@@ -1060,98 +1060,98 @@ if.end.critedge.i:                                ; preds = %while.body.i, %whil
   br label %insert_x_new.exit
 
 insert_x_new.exit:                                ; preds = %if.then.i, %if.end.critedge.i
-  %alp.sink.i = phi ptr [ %yll.1563, %if.end.critedge.i ], [ %6, %if.then.i ]
-  %prev.0.lcssa51.sink.i = phi ptr [ %prev.0.lcssa51.i, %if.end.critedge.i ], [ %yll.1563, %if.then.i ]
+  %alp.sink.i = phi ptr [ %yll.1564, %if.end.critedge.i ], [ %6, %if.then.i ]
+  %prev.0.lcssa51.sink.i = phi ptr [ %prev.0.lcssa51.i, %if.end.critedge.i ], [ %yll.1564, %if.then.i ]
   %prev.0.lcssa51.pn.i = phi ptr [ %prev.0.lcssa51.i, %if.end.critedge.i ], [ %prev.054.i, %if.then.i ]
   %prev20.c.i = getelementptr inbounds %struct.active_line_s, ptr %alp.sink.i, i64 0, i32 9
   store ptr %prev.0.lcssa51.sink.i, ptr %prev20.c.i, align 8, !tbaa !59
   %next247.i = getelementptr inbounds %struct.active_line_s, ptr %prev.0.lcssa51.pn.i, i64 0, i32 10
-  store ptr %yll.1563, ptr %next247.i, align 8, !tbaa !56
-  %x_current24.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1563, i64 0, i32 3
+  store ptr %yll.1564, ptr %next247.i, align 8, !tbaa !56
+  %x_current24.i = getelementptr inbounds %struct.active_line_s, ptr %yll.1564, i64 0, i32 3
   store i64 %4, ptr %x_current24.i, align 8, !tbaa !71
   %cmp9.not = icmp eq ptr %3, null
-  br i1 %cmp9.not, label %while.end, label %land.rhs, !llvm.loop !74
+  br i1 %cmp9.not, label %while.end.thread, label %land.rhs, !llvm.loop !74
 
-while.end:                                        ; preds = %insert_x_new.exit, %while.cond8.preheader
-  %12 = load ptr, ptr %next, align 8, !tbaa !56
+while.end:                                        ; preds = %land.rhs
+  %12 = load ptr, ptr %next, align 8, !tbaa !68
   %cmp17 = icmp eq ptr %12, null
-  br i1 %cmp17, label %cleanup366, label %for.body.preheader
+  br i1 %cmp17, label %cleanup, label %for.body.preheader
 
-while.end.thread:                                 ; preds = %land.rhs
-  %13 = load ptr, ptr %next, align 8, !tbaa !56
+while.end.thread:                                 ; preds = %insert_x_new.exit, %while.cond8.preheader
+  %13 = load ptr, ptr %next, align 8, !tbaa !68
   %cmp17539 = icmp eq ptr %13, null
-  br i1 %cmp17539, label %cleanup, label %for.body.preheader
+  br i1 %cmp17539, label %cleanup366, label %for.body.preheader
 
-for.body.preheader:                               ; preds = %while.end, %while.end.thread
-  %yll.1560 = phi ptr [ null, %while.end ], [ %yll.1563, %while.end.thread ]
-  %alp.2580.pre = phi ptr [ %12, %while.end ], [ %13, %while.end.thread ]
-  %cond = phi i64 [ 2147483647, %while.end ], [ %2, %while.end.thread ]
+for.body.preheader:                               ; preds = %while.end.thread, %while.end
+  %yll.1561 = phi ptr [ null, %while.end.thread ], [ %yll.1564, %while.end ]
+  %14 = phi ptr [ %13, %while.end.thread ], [ %12, %while.end ]
+  %cond = phi i64 [ 2147483647, %while.end.thread ], [ %2, %while.end ]
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.body
-  %alp.0567 = phi ptr [ %alp.0, %for.body ], [ %alp.2580.pre, %for.body.preheader ]
-  %y13.0566 = phi i64 [ %spec.select, %for.body ], [ %cond, %for.body.preheader ]
-  %y31 = getelementptr inbounds %struct.active_line_s, ptr %alp.0567, i64 0, i32 1, i32 1
-  %14 = load i64, ptr %y31, align 8, !tbaa !75
-  %spec.select = tail call i64 @llvm.smin.i64(i64 %14, i64 %y13.0566)
-  %next37 = getelementptr inbounds %struct.active_line_s, ptr %alp.0567, i64 0, i32 10
-  %alp.0 = load ptr, ptr %next37, align 8, !tbaa !56
-  %cmp30.not = icmp eq ptr %alp.0, null
+  %y13.0567 = phi i64 [ %spec.select, %for.body ], [ %cond, %for.body.preheader ]
+  %alp.0566 = phi ptr [ %16, %for.body ], [ %14, %for.body.preheader ]
+  %y31 = getelementptr inbounds %struct.active_line_s, ptr %alp.0566, i64 0, i32 1, i32 1
+  %15 = load i64, ptr %y31, align 8, !tbaa !75
+  %spec.select = tail call i64 @llvm.smin.i64(i64 %15, i64 %y13.0567)
+  %next37 = getelementptr inbounds %struct.active_line_s, ptr %alp.0566, i64 0, i32 10
+  %16 = load ptr, ptr %next37, align 8, !tbaa !56
+  %cmp30.not = icmp eq ptr %16, null
   br i1 %cmp30.not, label %for.body42, label %for.body, !llvm.loop !76
 
 for.cond232.preheader:                            ; preds = %if.end226
-  %cmp233.not581 = icmp eq ptr %alp.2580.pre, %alstop.1
+  %cmp233.not581 = icmp eq ptr %14, %alstop.1
   br i1 %cmp233.not581, label %while.body302.preheader, label %for.body235
 
 for.body42:                                       ; preds = %for.body, %if.end226
-  %y13.2575 = phi i64 [ %y13.4, %if.end226 ], [ %spec.select, %for.body ]
-  %end_count.0574 = phi i32 [ %end_count.1, %if.end226 ], [ 0, %for.body ]
-  %x.0573 = phi i64 [ %nx.0, %if.end226 ], [ -2147483648, %for.body ]
-  %alstop.0572 = phi ptr [ %alstop.1, %if.end226 ], [ %alp.2580.pre, %for.body ]
-  %alp.1571 = phi ptr [ %43, %if.end226 ], [ %alp.2580.pre, %for.body ]
+  %y13.2576 = phi i64 [ %y13.4, %if.end226 ], [ %spec.select, %for.body ]
+  %end_count.0575 = phi i32 [ %end_count.1, %if.end226 ], [ 0, %for.body ]
+  %x.0574 = phi i64 [ %nx.0, %if.end226 ], [ -2147483648, %for.body ]
+  %alstop.0573 = phi ptr [ %alstop.1, %if.end226 ], [ %14, %for.body ]
+  %alp.1571 = phi ptr [ %53, %if.end226 ], [ %14, %for.body ]
   %endp.1570 = phi ptr [ %alp.1571, %if.end226 ], [ %endp.0591, %for.body ]
   %end43 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 1
   %y44 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 1, i32 1
-  %15 = load i64, ptr %y44, align 8, !tbaa !75
-  %cmp45 = icmp eq i64 %y13.2575, %15
+  %17 = load i64, ptr %y44, align 8, !tbaa !75
+  %cmp45 = icmp eq i64 %y13.2576, %17
   br i1 %cmp45, label %cond.end87, label %cond.false49
 
 cond.false49:                                     ; preds = %for.body42
   %y_fast_max = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 2
-  %16 = load i64, ptr %y_fast_max, align 8, !tbaa !77
-  %cmp50.not = icmp sgt i64 %y13.2575, %16
+  %18 = load i64, ptr %y_fast_max, align 8, !tbaa !77
+  %cmp50.not = icmp sgt i64 %y13.2576, %18
   %y66 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %alp.1571, i64 0, i32 1
-  %17 = load i64, ptr %y66, align 8, !tbaa !55
-  %sub67 = sub nsw i64 %y13.2575, %17
+  %19 = load i64, ptr %y66, align 8, !tbaa !55
+  %sub67 = sub nsw i64 %y13.2576, %19
   br i1 %cmp50.not, label %cond.false64, label %cond.true51
 
 cond.true51:                                      ; preds = %cond.false49
-  %18 = load i64, ptr %end43, align 8, !tbaa !72
-  %19 = load i64, ptr %alp.1571, align 8, !tbaa !70
-  %sub58 = sub nsw i64 %18, %19
+  %20 = load i64, ptr %end43, align 8, !tbaa !72
+  %21 = load i64, ptr %alp.1571, align 8, !tbaa !70
+  %sub58 = sub nsw i64 %20, %21
   %mul = mul nsw i64 %sub58, %sub67
-  %sub63 = sub nsw i64 %15, %17
+  %sub63 = sub nsw i64 %17, %19
   %div = sdiv i64 %mul, %sub63
   br label %cond.end87.thread
 
 cond.false64:                                     ; preds = %cond.false49
   %conv = sitofp i64 %sub67 to double
-  %20 = load i64, ptr %end43, align 8, !tbaa !72
-  %21 = load i64, ptr %alp.1571, align 8, !tbaa !70
-  %sub72 = sub nsw i64 %20, %21
+  %22 = load i64, ptr %end43, align 8, !tbaa !72
+  %23 = load i64, ptr %alp.1571, align 8, !tbaa !70
+  %sub72 = sub nsw i64 %22, %23
   %conv73 = sitofp i64 %sub72 to double
   %mul74 = fmul double %conv, %conv73
-  %sub79 = sub nsw i64 %15, %17
+  %sub79 = sub nsw i64 %17, %19
   %conv80 = sitofp i64 %sub79 to double
   %div81 = fdiv double %mul74, %conv80
   %conv82 = fptosi double %div81 to i64
   br label %cond.end87.thread
 
 cond.end87:                                       ; preds = %for.body42
-  %22 = load i64, ptr %end43, align 8, !tbaa !72
+  %24 = load i64, ptr %end43, align 8, !tbaa !72
   %x_next = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 4
-  store i64 %22, ptr %x_next, align 8, !tbaa !78
-  %cmp89 = icmp slt i64 %22, %x.0573
+  store i64 %24, ptr %x_next, align 8, !tbaa !78
+  %cmp89 = icmp slt i64 %24, %x.0574
   br i1 %cmp89, label %cond.end87.if.then91_crit_edge, label %if.then220
 
 cond.end87.if.then91_crit_edge:                   ; preds = %cond.end87
@@ -1161,119 +1161,136 @@ cond.end87.if.then91_crit_edge:                   ; preds = %cond.end87
   br label %if.then91
 
 cond.end87.thread:                                ; preds = %cond.true51, %cond.false64
-  %23 = phi i64 [ %18, %cond.true51 ], [ %20, %cond.false64 ]
-  %24 = phi i64 [ %19, %cond.true51 ], [ %21, %cond.false64 ]
+  %25 = phi i64 [ %20, %cond.true51 ], [ %22, %cond.false64 ]
+  %26 = phi i64 [ %21, %cond.true51 ], [ %23, %cond.false64 ]
   %cond84 = phi i64 [ %div, %cond.true51 ], [ %conv82, %cond.false64 ]
-  %add = add nsw i64 %24, %cond84
-  %x_next541 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 4
-  store i64 %add, ptr %x_next541, align 8, !tbaa !78
-  %cmp89542 = icmp slt i64 %add, %x.0573
-  br i1 %cmp89542, label %if.then91, label %if.end226
+  %add = add nsw i64 %26, %cond84
+  %x_next542 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 4
+  store i64 %add, ptr %x_next542, align 8, !tbaa !78
+  %cmp89543 = icmp slt i64 %add, %x.0574
+  br i1 %cmp89543, label %if.then91, label %if.end226
 
 if.then91:                                        ; preds = %cond.end87.if.then91_crit_edge, %cond.end87.thread
-  %25 = phi i64 [ %23, %cond.end87.thread ], [ %22, %cond.end87.if.then91_crit_edge ]
-  %26 = phi i64 [ %24, %cond.end87.thread ], [ %.pre602, %cond.end87.if.then91_crit_edge ]
-  %27 = phi i64 [ %17, %cond.end87.thread ], [ %.pre, %cond.end87.if.then91_crit_edge ]
-  %x_next544 = phi ptr [ %x_next541, %cond.end87.thread ], [ %x_next, %cond.end87.if.then91_crit_edge ]
-  %end.i530 = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 1
+  %27 = phi i64 [ %25, %cond.end87.thread ], [ %24, %cond.end87.if.then91_crit_edge ]
+  %28 = phi i64 [ %26, %cond.end87.thread ], [ %.pre602, %cond.end87.if.then91_crit_edge ]
+  %29 = phi i64 [ %19, %cond.end87.thread ], [ %.pre, %cond.end87.if.then91_crit_edge ]
+  %x_next545 = phi ptr [ %x_next542, %cond.end87.thread ], [ %x_next, %cond.end87.if.then91_crit_edge ]
+  %end.i528 = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 1
   %y.i = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 1, i32 1
-  %28 = load i64, ptr %y.i, align 8, !tbaa !75
+  %30 = load i64, ptr %y.i, align 8, !tbaa !75
   %y1.i = getelementptr inbounds %struct.gs_fixed_point_s, ptr %endp.1570, i64 0, i32 1
-  %29 = load i64, ptr %y1.i, align 8, !tbaa !55
-  %sub.i = sub nsw i64 %28, %29
+  %31 = load i64, ptr %y1.i, align 8, !tbaa !55
+  %sub.i = sub nsw i64 %30, %31
   %conv.i = sitofp i64 %sub.i to double
-  %sub6.i = sub nsw i64 %15, %27
+  %sub6.i = sub nsw i64 %17, %29
   %conv7.i = sitofp i64 %sub6.i to double
-  %30 = load i64, ptr %endp.1570, align 8, !tbaa !70
-  %conv9.i = sitofp i64 %30 to double
-  %conv12.i = sitofp i64 %28 to double
-  %conv15.i = sitofp i64 %29 to double
-  %31 = load i64, ptr %end.i530, align 8, !tbaa !72
-  %conv18.i = sitofp i64 %31 to double
-  %32 = fneg double %conv15.i
-  %neg.i = fmul double %32, %conv18.i
-  %33 = tail call double @llvm.fmuladd.f64(double %conv9.i, double %conv12.i, double %neg.i)
-  %conv22.i = sitofp i64 %26 to double
-  %conv25.i = sitofp i64 %15 to double
-  %conv29.i = sitofp i64 %27 to double
-  %conv32.i = sitofp i64 %25 to double
-  %34 = fneg double %conv29.i
-  %neg34.i = fmul double %34, %conv32.i
-  %35 = tail call double @llvm.fmuladd.f64(double %conv22.i, double %conv25.i, double %neg34.i)
-  %36 = fneg double %35
-  %neg36.i = fmul double %conv.i, %36
-  %37 = tail call double @llvm.fmuladd.f64(double %33, double %conv7.i, double %neg36.i)
-  %sub41.i = sub nsw i64 %25, %26
+  %32 = load i64, ptr %endp.1570, align 8, !tbaa !70
+  %conv9.i = sitofp i64 %32 to double
+  %conv12.i = sitofp i64 %30 to double
+  %conv15.i = sitofp i64 %31 to double
+  %33 = load i64, ptr %end.i528, align 8, !tbaa !72
+  %conv18.i = sitofp i64 %33 to double
+  %34 = fneg double %conv15.i
+  %neg.i = fmul double %34, %conv18.i
+  %35 = tail call double @llvm.fmuladd.f64(double %conv9.i, double %conv12.i, double %neg.i)
+  %conv22.i = sitofp i64 %28 to double
+  %conv25.i = sitofp i64 %17 to double
+  %conv29.i = sitofp i64 %29 to double
+  %conv32.i = sitofp i64 %27 to double
+  %36 = fneg double %conv29.i
+  %neg34.i = fmul double %36, %conv32.i
+  %37 = tail call double @llvm.fmuladd.f64(double %conv22.i, double %conv25.i, double %neg34.i)
+  %38 = fneg double %37
+  %neg36.i = fmul double %conv.i, %38
+  %39 = tail call double @llvm.fmuladd.f64(double %35, double %conv7.i, double %neg36.i)
+  %sub41.i = sub nsw i64 %27, %28
   %conv42.i = sitofp i64 %sub41.i to double
-  %sub47.i = sub nsw i64 %31, %30
+  %sub47.i = sub nsw i64 %33, %32
   %conv48.i = sitofp i64 %sub47.i to double
-  %38 = fneg double %conv48.i
-  %neg50.i = fmul double %conv7.i, %38
-  %39 = tail call double @llvm.fmuladd.f64(double %conv42.i, double %conv.i, double %neg50.i)
-  %div.i = fdiv double %37, %39
+  %40 = fneg double %conv48.i
+  %neg50.i = fmul double %conv7.i, %40
+  %41 = tail call double @llvm.fmuladd.f64(double %conv42.i, double %conv.i, double %neg50.i)
+  %div.i = fdiv double %39, %41
   %conv51.i = fptosi double %div.i to i64
   %y_fast_max102 = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 2
   %y_fast_max156 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 2
+  %sub113 = sub nsw i64 %33, %32
+  %sub119 = sub nsw i64 %30, %31
+  %sub130 = sub nsw i64 %33, %32
+  %conv131 = sitofp i64 %sub130 to double
   br label %while.cond92
 
 while.cond92:                                     ; preds = %cond.end200, %if.then91
+  %42 = phi i64 [ %27, %if.then91 ], [ %49, %cond.end200 ]
+  %43 = phi i64 [ %27, %if.then91 ], [ %50, %cond.end200 ]
+  %44 = phi i64 [ %29, %if.then91 ], [ %51, %cond.end200 ]
   %y13.3 = phi i64 [ %conv51.i, %if.then91 ], [ %inc, %cond.end200 ]
-  %cmp96 = icmp eq i64 %y13.3, %28
+  %cmp96 = icmp eq i64 %y13.3, %30
   br i1 %cmp96, label %cond.end146, label %cond.false101
 
 cond.false101:                                    ; preds = %while.cond92
-  %40 = load i64, ptr %y_fast_max102, align 8, !tbaa !77
-  %cmp103.not = icmp sgt i64 %y13.3, %40
-  %sub124 = sub nsw i64 %y13.3, %29
+  %45 = load i64, ptr %y_fast_max102, align 8, !tbaa !77
+  %cmp103.not = icmp sgt i64 %y13.3, %45
+  %sub124 = sub nsw i64 %y13.3, %31
   br i1 %cmp103.not, label %cond.false121, label %cond.true105
 
 cond.true105:                                     ; preds = %cond.false101
-  %mul114 = mul nsw i64 %sub124, %sub47.i
-  %div120 = sdiv i64 %mul114, %sub.i
+  %mul114 = mul nsw i64 %sub113, %sub124
+  %div120 = sdiv i64 %mul114, %sub119
   br label %cond.end141
 
 cond.false121:                                    ; preds = %cond.false101
   %conv125 = sitofp i64 %sub124 to double
-  %mul132 = fmul double %conv48.i, %conv125
+  %mul132 = fmul double %conv125, %conv131
   %div139 = fdiv double %mul132, %conv.i
   %conv140 = fptosi double %div139 to i64
   br label %cond.end141
 
 cond.end141:                                      ; preds = %cond.false121, %cond.true105
   %cond142 = phi i64 [ %div120, %cond.true105 ], [ %conv140, %cond.false121 ]
-  %add145 = add nsw i64 %cond142, %30
+  %add145 = add nsw i64 %cond142, %32
   br label %cond.end146
 
 cond.end146:                                      ; preds = %while.cond92, %cond.end141
-  %cond147 = phi i64 [ %add145, %cond.end141 ], [ %31, %while.cond92 ]
-  %cmp150 = icmp eq i64 %y13.3, %15
+  %cond147 = phi i64 [ %add145, %cond.end141 ], [ %33, %while.cond92 ]
+  %cmp150 = icmp eq i64 %y13.3, %17
   br i1 %cmp150, label %cond.end200, label %cond.false155
 
 cond.false155:                                    ; preds = %cond.end146
-  %41 = load i64, ptr %y_fast_max156, align 8, !tbaa !77
-  %cmp157.not = icmp sgt i64 %y13.3, %41
-  %sub178 = sub nsw i64 %y13.3, %27
+  %46 = load i64, ptr %y_fast_max156, align 8, !tbaa !77
+  %cmp157.not = icmp sgt i64 %y13.3, %46
   br i1 %cmp157.not, label %cond.false175, label %cond.true159
 
 cond.true159:                                     ; preds = %cond.false155
-  %mul168 = mul nsw i64 %sub178, %sub41.i
-  %div174 = sdiv i64 %mul168, %sub6.i
+  %sub162 = sub nsw i64 %y13.3, %44
+  %sub167 = sub nsw i64 %43, %28
+  %mul168 = mul nsw i64 %sub167, %sub162
+  %sub173 = sub nsw i64 %17, %44
+  %div174 = sdiv i64 %mul168, %sub173
   br label %cond.end195
 
 cond.false175:                                    ; preds = %cond.false155
+  %sub178 = sub nsw i64 %y13.3, %29
   %conv179 = sitofp i64 %sub178 to double
-  %mul186 = fmul double %conv42.i, %conv179
+  %sub184 = sub nsw i64 %42, %28
+  %conv185 = sitofp i64 %sub184 to double
+  %mul186 = fmul double %conv179, %conv185
   %div193 = fdiv double %mul186, %conv7.i
   %conv194 = fptosi double %div193 to i64
   br label %cond.end195
 
 cond.end195:                                      ; preds = %cond.false175, %cond.true159
+  %47 = phi i64 [ %43, %cond.true159 ], [ %42, %cond.false175 ]
+  %48 = phi i64 [ %44, %cond.true159 ], [ %29, %cond.false175 ]
   %cond196 = phi i64 [ %div174, %cond.true159 ], [ %conv194, %cond.false175 ]
-  %add199 = add nsw i64 %cond196, %26
+  %add199 = add nsw i64 %cond196, %28
   br label %cond.end200
 
 cond.end200:                                      ; preds = %cond.end146, %cond.end195
-  %cond201 = phi i64 [ %add199, %cond.end195 ], [ %25, %cond.end146 ]
+  %49 = phi i64 [ %42, %cond.end195 ], [ %27, %cond.end146 ]
+  %50 = phi i64 [ %47, %cond.end195 ], [ %27, %cond.end146 ]
+  %51 = phi i64 [ %48, %cond.end195 ], [ %44, %cond.end146 ]
+  %cond201 = phi i64 [ %add199, %cond.end195 ], [ %27, %cond.end146 ]
   %cmp202.not = icmp sgt i64 %cond201, %cond147
   %inc = add nsw i64 %y13.3, 1
   br i1 %cmp202.not, label %while.cond92, label %while.end206
@@ -1281,183 +1298,183 @@ cond.end200:                                      ; preds = %cond.end146, %cond.
 while.end206:                                     ; preds = %cond.end200
   %x_next207 = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 4
   store i64 %cond147, ptr %x_next207, align 8, !tbaa !78
-  store i64 %cond201, ptr %x_next544, align 8, !tbaa !78
-  %add209 = add nsw i32 %end_count.0574, 4
-  %42 = trunc i32 %end_count.0574 to i16
-  %conv211 = add i16 %42, 7
+  store i64 %cond201, ptr %x_next545, align 8, !tbaa !78
+  %add209 = add nsw i32 %end_count.0575, 4
+  %52 = trunc i32 %end_count.0575 to i16
+  %conv211 = add i16 %52, 7
   %end_mark212 = getelementptr inbounds %struct.active_line_s, ptr %endp.1570, i64 0, i32 8
   store i16 %conv211, ptr %end_mark212, align 2, !tbaa !79
-  %conv214 = add i16 %42, 5
+  %conv214 = add i16 %52, 5
   br label %if.end226
 
 if.then220:                                       ; preds = %cond.end87
-  %conv221 = trunc i32 %end_count.0574 to i16
+  %conv221 = trunc i32 %end_count.0575 to i16
   br label %if.end226
 
 if.end226:                                        ; preds = %cond.end87.thread, %if.then220, %while.end206
   %conv221.sink = phi i16 [ %conv221, %if.then220 ], [ %conv214, %while.end206 ], [ -2, %cond.end87.thread ]
-  %alstop.1 = phi ptr [ %alstop.0572, %if.then220 ], [ %endp.1570, %while.end206 ], [ %alstop.0572, %cond.end87.thread ]
-  %end_count.1 = phi i32 [ %end_count.0574, %if.then220 ], [ %add209, %while.end206 ], [ %end_count.0574, %cond.end87.thread ]
-  %nx.0 = phi i64 [ %22, %if.then220 ], [ %cond201, %while.end206 ], [ %add, %cond.end87.thread ]
-  %y13.4 = phi i64 [ %y13.2575, %if.then220 ], [ %y13.3, %while.end206 ], [ %y13.2575, %cond.end87.thread ]
+  %alstop.1 = phi ptr [ %alstop.0573, %if.then220 ], [ %endp.1570, %while.end206 ], [ %alstop.0573, %cond.end87.thread ]
+  %end_count.1 = phi i32 [ %end_count.0575, %if.then220 ], [ %add209, %while.end206 ], [ %end_count.0575, %cond.end87.thread ]
+  %nx.0 = phi i64 [ %24, %if.then220 ], [ %cond201, %while.end206 ], [ %add, %cond.end87.thread ]
+  %y13.4 = phi i64 [ %y13.2576, %if.then220 ], [ %y13.3, %while.end206 ], [ %y13.2576, %cond.end87.thread ]
   %end_mark222 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 8
   store i16 %conv221.sink, ptr %end_mark222, align 2, !tbaa !79
   %next228 = getelementptr inbounds %struct.active_line_s, ptr %alp.1571, i64 0, i32 10
-  %43 = load ptr, ptr %next228, align 8, !tbaa !56
-  %cmp41.not = icmp eq ptr %43, null
+  %53 = load ptr, ptr %next228, align 8, !tbaa !56
+  %cmp41.not = icmp eq ptr %53, null
   br i1 %cmp41.not, label %for.cond232.preheader, label %for.body42, !llvm.loop !80
 
 for.body235:                                      ; preds = %for.cond232.preheader, %cond.end288
-  %alp.2582 = phi ptr [ %alp.2, %cond.end288 ], [ %alp.2580.pre, %for.cond232.preheader ]
+  %alp.2582 = phi ptr [ %63, %cond.end288 ], [ %14, %for.cond232.preheader ]
   %end236 = getelementptr inbounds %struct.active_line_s, ptr %alp.2582, i64 0, i32 1
   %y237 = getelementptr inbounds %struct.active_line_s, ptr %alp.2582, i64 0, i32 1, i32 1
-  %44 = load i64, ptr %y237, align 8, !tbaa !75
-  %cmp238 = icmp eq i64 %y13.4, %44
+  %54 = load i64, ptr %y237, align 8, !tbaa !75
+  %cmp238 = icmp eq i64 %y13.4, %54
   br i1 %cmp238, label %cond.true240, label %cond.false243
 
 cond.true240:                                     ; preds = %for.body235
-  %45 = load i64, ptr %end236, align 8, !tbaa !72
+  %55 = load i64, ptr %end236, align 8, !tbaa !72
   br label %cond.end288
 
 cond.false243:                                    ; preds = %for.body235
   %y_fast_max244 = getelementptr inbounds %struct.active_line_s, ptr %alp.2582, i64 0, i32 2
-  %46 = load i64, ptr %y_fast_max244, align 8, !tbaa !77
-  %cmp245.not = icmp sgt i64 %y13.4, %46
+  %56 = load i64, ptr %y_fast_max244, align 8, !tbaa !77
+  %cmp245.not = icmp sgt i64 %y13.4, %56
   %y265 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %alp.2582, i64 0, i32 1
-  %47 = load i64, ptr %y265, align 8, !tbaa !55
-  %sub266 = sub nsw i64 %y13.4, %47
+  %57 = load i64, ptr %y265, align 8, !tbaa !55
+  %sub266 = sub nsw i64 %y13.4, %57
   br i1 %cmp245.not, label %cond.false263, label %cond.true247
 
 cond.true247:                                     ; preds = %cond.false243
-  %48 = load i64, ptr %end236, align 8, !tbaa !72
-  %49 = load i64, ptr %alp.2582, align 8, !tbaa !70
-  %sub255 = sub nsw i64 %48, %49
+  %58 = load i64, ptr %end236, align 8, !tbaa !72
+  %59 = load i64, ptr %alp.2582, align 8, !tbaa !70
+  %sub255 = sub nsw i64 %58, %59
   %mul256 = mul nsw i64 %sub255, %sub266
-  %sub261 = sub nsw i64 %44, %47
+  %sub261 = sub nsw i64 %54, %57
   %div262 = sdiv i64 %mul256, %sub261
   br label %cond.end283
 
 cond.false263:                                    ; preds = %cond.false243
   %conv267 = sitofp i64 %sub266 to double
-  %50 = load i64, ptr %end236, align 8, !tbaa !72
-  %51 = load i64, ptr %alp.2582, align 8, !tbaa !70
-  %sub272 = sub nsw i64 %50, %51
+  %60 = load i64, ptr %end236, align 8, !tbaa !72
+  %61 = load i64, ptr %alp.2582, align 8, !tbaa !70
+  %sub272 = sub nsw i64 %60, %61
   %conv273 = sitofp i64 %sub272 to double
   %mul274 = fmul double %conv267, %conv273
-  %sub279 = sub nsw i64 %44, %47
+  %sub279 = sub nsw i64 %54, %57
   %conv280 = sitofp i64 %sub279 to double
   %div281 = fdiv double %mul274, %conv280
   %conv282 = fptosi double %div281 to i64
   br label %cond.end283
 
 cond.end283:                                      ; preds = %cond.false263, %cond.true247
-  %52 = phi i64 [ %49, %cond.true247 ], [ %51, %cond.false263 ]
+  %62 = phi i64 [ %59, %cond.true247 ], [ %61, %cond.false263 ]
   %cond284 = phi i64 [ %div262, %cond.true247 ], [ %conv282, %cond.false263 ]
-  %add287 = add nsw i64 %52, %cond284
+  %add287 = add nsw i64 %62, %cond284
   br label %cond.end288
 
 cond.end288:                                      ; preds = %cond.end283, %cond.true240
-  %cond289 = phi i64 [ %45, %cond.true240 ], [ %add287, %cond.end283 ]
+  %cond289 = phi i64 [ %55, %cond.true240 ], [ %add287, %cond.end283 ]
   %x_next290 = getelementptr inbounds %struct.active_line_s, ptr %alp.2582, i64 0, i32 4
   store i64 %cond289, ptr %x_next290, align 8, !tbaa !78
   %next292 = getelementptr inbounds %struct.active_line_s, ptr %alp.2582, i64 0, i32 10
-  %alp.2 = load ptr, ptr %next292, align 8, !tbaa !56
-  %cmp233.not = icmp eq ptr %alp.2, %alstop.1
+  %63 = load ptr, ptr %next292, align 8, !tbaa !56
+  %cmp233.not = icmp eq ptr %63, %alstop.1
   br i1 %cmp233.not, label %while.body302.preheader, label %for.body235, !llvm.loop !81
 
 while.body302.preheader:                          ; preds = %cond.end288, %for.cond232.preheader
   %sub297 = sub nsw i64 %y13.4, %y.0594
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %inside) #11
   store i32 0, ptr %inside, align 4, !tbaa !82
-  %53 = load i32, ptr %no_clip, align 8, !tbaa !37
-  store i32 %53, ptr %arrayidx298, align 4, !tbaa !82
+  %64 = load i32, ptr %no_clip, align 8, !tbaa !37
+  store i32 %64, ptr %arrayidx298, align 4, !tbaa !82
   br label %while.body302
 
 while.body302:                                    ; preds = %while.body302.preheader, %if.end358
-  %54 = phi i32 [ %71, %if.end358 ], [ 0, %while.body302.preheader ]
+  %65 = phi i32 [ %82, %if.end358 ], [ 0, %while.body302.preheader ]
   %xltop.1587 = phi i64 [ %xltop.2, %if.end358 ], [ %xltop.0593, %while.body302.preheader ]
   %xlbot.1586 = phi i64 [ %xlbot.2, %if.end358 ], [ %xlbot.0592, %while.body302.preheader ]
-  %alp294.0585 = phi ptr [ %57, %if.end358 ], [ %alp.2580.pre, %while.body302.preheader ]
+  %alp294.0585 = phi ptr [ %68, %if.end358 ], [ %14, %while.body302.preheader ]
   %x_current = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 3
-  %55 = load i64, ptr %x_current, align 8, !tbaa !71
+  %66 = load i64, ptr %x_current, align 8, !tbaa !71
   %x_next303 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 4
-  %56 = load i64, ptr %x_next303, align 8, !tbaa !78
+  %67 = load i64, ptr %x_next303, align 8, !tbaa !78
   %next305 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 10
-  %57 = load ptr, ptr %next305, align 8, !tbaa !56
-  %and = and i32 %54, %rule
+  %68 = load ptr, ptr %next305, align 8, !tbaa !56
+  %and = and i32 %65, %rule
   %tobool.not = icmp eq i32 %and, 0
   br i1 %tobool.not, label %if.else331, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %while.body302
-  %58 = load i32, ptr %arrayidx298, align 4, !tbaa !82
-  %59 = load i32, ptr %clip_rule, align 8, !tbaa !83
-  %and308 = and i32 %59, %58
+  %69 = load i32, ptr %arrayidx298, align 4, !tbaa !82
+  %70 = load i32, ptr %clip_rule, align 8, !tbaa !83
+  %and308 = and i32 %70, %69
   %tobool309.not = icmp eq i32 %and308, 0
   br i1 %tobool309.not, label %if.else331, label %if.then310
 
 if.then310:                                       ; preds = %land.lhs.true
   %direction = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 6
-  %60 = load i32, ptr %direction, align 8, !tbaa !52
+  %71 = load i32, ptr %direction, align 8, !tbaa !52
   %tag = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 7
-  %61 = load i16, ptr %tag, align 4, !tbaa !51
-  %idxprom = sext i16 %61 to i64
+  %72 = load i16, ptr %tag, align 4, !tbaa !51
+  %idxprom = sext i16 %72 to i64
   %arrayidx311 = getelementptr inbounds [2 x i32], ptr %inside, i64 0, i64 %idxprom
-  %62 = load i32, ptr %arrayidx311, align 4, !tbaa !82
-  %add312 = add nsw i32 %62, %60
+  %73 = load i32, ptr %arrayidx311, align 4, !tbaa !82
+  %add312 = add nsw i32 %73, %71
   store i32 %add312, ptr %arrayidx311, align 4, !tbaa !82
-  %63 = load i32, ptr %inside, align 4, !tbaa !82
-  %and314 = and i32 %63, %rule
+  %74 = load i32, ptr %inside, align 4, !tbaa !82
+  %and314 = and i32 %74, %rule
   %tobool315.not = icmp eq i32 %and314, 0
   br i1 %tobool315.not, label %if.then321, label %land.lhs.true316
 
 land.lhs.true316:                                 ; preds = %if.then310
-  %64 = load i32, ptr %arrayidx298, align 4, !tbaa !82
-  %and319 = and i32 %64, %59
+  %75 = load i32, ptr %arrayidx298, align 4, !tbaa !82
+  %and319 = and i32 %75, %70
   %tobool320.not = icmp eq i32 %and319, 0
   br i1 %tobool320.not, label %if.then321, label %if.end347
 
 if.then321:                                       ; preds = %land.lhs.true316, %if.then310
   %add322 = add nsw i64 %xlbot.1586, %trim
   %.neg = sub i64 %shl.neg596, %xlbot.1586
-  %sub324 = add i64 %.neg, %55
+  %sub324 = add i64 %.neg, %66
   %add325 = add nsw i64 %xltop.1587, %trim
-  %.neg555 = sub i64 %shl.neg596, %xltop.1587
-  %sub328 = add i64 %.neg555, %56
+  %.neg556 = sub i64 %shl.neg596, %xltop.1587
+  %sub328 = add i64 %.neg556, %67
   %call329 = tail call i32 (i64, i64, i64, i64, i64, i64, i32, ptr, ptr, ...) @gz_fill_trapezoid_fixed(i64 noundef %add322, i64 noundef %sub324, i64 noundef %y.0594, i64 noundef %add325, i64 noundef %sub328, i64 noundef %sub297, i32 noundef 0, ptr noundef %pdevc, ptr noundef nonnull %pgs) #11
   br label %if.end347
 
 if.else331:                                       ; preds = %land.lhs.true, %while.body302
   %direction332 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 6
-  %65 = load i32, ptr %direction332, align 8, !tbaa !52
+  %76 = load i32, ptr %direction332, align 8, !tbaa !52
   %tag333 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 7
-  %66 = load i16, ptr %tag333, align 4, !tbaa !51
-  %idxprom334 = sext i16 %66 to i64
+  %77 = load i16, ptr %tag333, align 4, !tbaa !51
+  %idxprom334 = sext i16 %77 to i64
   %arrayidx335 = getelementptr inbounds [2 x i32], ptr %inside, i64 0, i64 %idxprom334
-  %67 = load i32, ptr %arrayidx335, align 4, !tbaa !82
-  %add336 = add nsw i32 %67, %65
+  %78 = load i32, ptr %arrayidx335, align 4, !tbaa !82
+  %add336 = add nsw i32 %78, %76
   store i32 %add336, ptr %arrayidx335, align 4, !tbaa !82
-  %68 = load i32, ptr %inside, align 4, !tbaa !82
-  %and338 = and i32 %68, %rule
+  %79 = load i32, ptr %inside, align 4, !tbaa !82
+  %and338 = and i32 %79, %rule
   %tobool339.not = icmp eq i32 %and338, 0
   br i1 %tobool339.not, label %if.end347, label %land.lhs.true340
 
 land.lhs.true340:                                 ; preds = %if.else331
-  %69 = load i32, ptr %arrayidx298, align 4, !tbaa !82
-  %70 = load i32, ptr %clip_rule, align 8, !tbaa !83
-  %and343 = and i32 %70, %69
+  %80 = load i32, ptr %arrayidx298, align 4, !tbaa !82
+  %81 = load i32, ptr %clip_rule, align 8, !tbaa !83
+  %and343 = and i32 %81, %80
   %tobool344.not = icmp eq i32 %and343, 0
-  %spec.select528 = select i1 %tobool344.not, i64 %xlbot.1586, i64 %55
-  %spec.select529 = select i1 %tobool344.not, i64 %xltop.1587, i64 %56
+  %spec.select537 = select i1 %tobool344.not, i64 %xlbot.1586, i64 %66
+  %spec.select538 = select i1 %tobool344.not, i64 %xltop.1587, i64 %67
   br label %if.end347
 
 if.end347:                                        ; preds = %land.lhs.true340, %if.else331, %land.lhs.true316, %if.then321
-  %71 = phi i32 [ %63, %land.lhs.true316 ], [ %63, %if.then321 ], [ %68, %if.else331 ], [ %68, %land.lhs.true340 ]
-  %xlbot.2 = phi i64 [ %xlbot.1586, %land.lhs.true316 ], [ %xlbot.1586, %if.then321 ], [ %xlbot.1586, %if.else331 ], [ %spec.select528, %land.lhs.true340 ]
-  %xltop.2 = phi i64 [ %xltop.1587, %land.lhs.true316 ], [ %xltop.1587, %if.then321 ], [ %xltop.1587, %if.else331 ], [ %spec.select529, %land.lhs.true340 ]
-  store i64 %56, ptr %x_current, align 8, !tbaa !71
+  %82 = phi i32 [ %74, %land.lhs.true316 ], [ %74, %if.then321 ], [ %79, %if.else331 ], [ %79, %land.lhs.true340 ]
+  %xlbot.2 = phi i64 [ %xlbot.1586, %land.lhs.true316 ], [ %xlbot.1586, %if.then321 ], [ %xlbot.1586, %if.else331 ], [ %spec.select537, %land.lhs.true340 ]
+  %xltop.2 = phi i64 [ %xltop.1587, %land.lhs.true316 ], [ %xltop.1587, %if.then321 ], [ %xltop.1587, %if.else331 ], [ %spec.select538, %land.lhs.true340 ]
+  store i64 %67, ptr %x_current, align 8, !tbaa !71
   %end_mark349 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 8
-  %72 = load i16, ptr %end_mark349, align 2, !tbaa !79
-  %conv350 = sext i16 %72 to i32
+  %83 = load i16, ptr %end_mark349, align 2, !tbaa !79
+  %conv350 = sext i16 %83 to i32
   %cmp351.not = icmp sgt i32 %end_count.1, %conv350
   br i1 %cmp351.not, label %if.end358, label %if.then353
 
@@ -1469,141 +1486,141 @@ if.then353:                                       ; preds = %if.end347
   ]
 
 sw.bb:                                            ; preds = %if.then353
-  %73 = load ptr, ptr %next305, align 8, !tbaa !56
+  %84 = load ptr, ptr %next305, align 8, !tbaa !56
   br label %while.cond.i
 
 while.cond.i:                                     ; preds = %while.cond.i, %sw.bb
-  %alp.addr.0.i = phi ptr [ %alp294.0585, %sw.bb ], [ %74, %while.cond.i ]
+  %alp.addr.0.i = phi ptr [ %alp294.0585, %sw.bb ], [ %85, %while.cond.i ]
   %prev2.i = getelementptr inbounds %struct.active_line_s, ptr %alp.addr.0.i, i64 0, i32 9
-  %74 = load ptr, ptr %prev2.i, align 8, !tbaa !59
-  %end_mark.i = getelementptr inbounds %struct.active_line_s, ptr %74, i64 0, i32 8
-  %75 = load i16, ptr %end_mark.i, align 2, !tbaa !79
-  %76 = and i16 %75, 3
-  %cmp.i = icmp eq i16 %76, 3
+  %85 = load ptr, ptr %prev2.i, align 8, !tbaa !59
+  %end_mark.i = getelementptr inbounds %struct.active_line_s, ptr %85, i64 0, i32 8
+  %86 = load i16, ptr %end_mark.i, align 2, !tbaa !79
+  %87 = and i16 %86, 3
+  %cmp.i = icmp eq i16 %87, 3
   br i1 %cmp.i, label %while.cond.i, label %while.end.i, !llvm.loop !84
 
 while.end.i:                                      ; preds = %while.cond.i
   %prev2.i.le = getelementptr inbounds %struct.active_line_s, ptr %alp.addr.0.i, i64 0, i32 9
-  %next4.i = getelementptr inbounds %struct.active_line_s, ptr %74, i64 0, i32 10
+  %next4.i = getelementptr inbounds %struct.active_line_s, ptr %85, i64 0, i32 10
   store ptr %alp294.0585, ptr %next4.i, align 8, !tbaa !56
-  %cmp5.not.i = icmp eq ptr %73, null
-  br i1 %cmp5.not.i, label %if.end.i, label %if.then.i531
+  %cmp5.not.i = icmp eq ptr %84, null
+  br i1 %cmp5.not.i, label %if.end.i, label %if.then.i529
 
-if.then.i531:                                     ; preds = %while.end.i
-  %prev7.i = getelementptr inbounds %struct.active_line_s, ptr %73, i64 0, i32 9
+if.then.i529:                                     ; preds = %while.end.i
+  %prev7.i = getelementptr inbounds %struct.active_line_s, ptr %84, i64 0, i32 9
   store ptr %alp.addr.0.i, ptr %prev7.i, align 8, !tbaa !59
   br label %if.end.i
 
-if.end.i:                                         ; preds = %if.then.i531, %while.end.i
-  store ptr %73, ptr %prev2.i.le, align 8, !tbaa !59
-  store ptr %74, ptr %next305, align 8, !tbaa !56
+if.end.i:                                         ; preds = %if.then.i529, %while.end.i
+  store ptr %84, ptr %prev2.i.le, align 8, !tbaa !59
+  store ptr %85, ptr %next305, align 8, !tbaa !56
   br label %do.body.i
 
 do.body.i:                                        ; preds = %do.body.i, %if.end.i
-  %alp.addr.1.i = phi ptr [ %alp.addr.0.i, %if.end.i ], [ %77, %do.body.i ]
+  %alp.addr.1.i = phi ptr [ %alp.addr.0.i, %if.end.i ], [ %88, %do.body.i ]
   %next10.i = getelementptr inbounds %struct.active_line_s, ptr %alp.addr.1.i, i64 0, i32 10
-  %77 = load ptr, ptr %next10.i, align 8, !tbaa !56
+  %88 = load ptr, ptr %next10.i, align 8, !tbaa !56
   %prev11.i = getelementptr inbounds %struct.active_line_s, ptr %alp.addr.1.i, i64 0, i32 9
-  %78 = load ptr, ptr %prev11.i, align 8, !tbaa !59
-  store ptr %78, ptr %next10.i, align 8, !tbaa !56
-  store ptr %77, ptr %prev11.i, align 8, !tbaa !59
-  %cmp14.not.i = icmp eq ptr %77, %74
+  %89 = load ptr, ptr %prev11.i, align 8, !tbaa !59
+  store ptr %89, ptr %next10.i, align 8, !tbaa !56
+  store ptr %88, ptr %prev11.i, align 8, !tbaa !59
+  %cmp14.not.i = icmp eq ptr %88, %85
   br i1 %cmp14.not.i, label %if.end358, label %do.body.i, !llvm.loop !85
 
 sw.bb357:                                         ; preds = %if.then353
   %pseg1.i = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 5
-  %79 = load ptr, ptr %pseg1.i, align 8, !tbaa !86
-  %y2.i = getelementptr inbounds %struct.segment_s, ptr %79, i64 0, i32 3, i32 1
-  %80 = load i64, ptr %y2.i, align 8, !tbaa !48
+  %90 = load ptr, ptr %pseg1.i, align 8, !tbaa !86
+  %y2.i = getelementptr inbounds %struct.segment_s, ptr %90, i64 0, i32 3, i32 1
+  %91 = load i64, ptr %y2.i, align 8, !tbaa !48
   %direction.i = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 6
-  %81 = load i32, ptr %direction.i, align 8, !tbaa !52
-  %cmp.i532 = icmp eq i32 %81, 1
-  br i1 %cmp.i532, label %if.then.i533, label %if.else.i
+  %92 = load i32, ptr %direction.i, align 8, !tbaa !52
+  %cmp.i530 = icmp eq i32 %92, 1
+  br i1 %cmp.i530, label %if.then.i531, label %if.else.i
 
-if.then.i533:                                     ; preds = %sw.bb357
-  %next3.i = getelementptr inbounds %struct.segment_s, ptr %79, i64 0, i32 1
-  %82 = load ptr, ptr %next3.i, align 8, !tbaa !64
-  %cmp4.i = icmp eq ptr %82, null
+if.then.i531:                                     ; preds = %sw.bb357
+  %next3.i = getelementptr inbounds %struct.segment_s, ptr %90, i64 0, i32 1
+  %93 = load ptr, ptr %next3.i, align 8, !tbaa !64
+  %cmp4.i = icmp eq ptr %93, null
   br i1 %cmp4.i, label %if.then6.i, label %lor.lhs.false.i
 
-lor.lhs.false.i:                                  ; preds = %if.then.i533
-  %type.i = getelementptr inbounds %struct.segment_s, ptr %82, i64 0, i32 2
-  %83 = load i32, ptr %type.i, align 8, !tbaa !44
-  %cmp5.i534 = icmp eq i32 %83, 0
-  br i1 %cmp5.i534, label %if.then6.i, label %if.end9.i
+lor.lhs.false.i:                                  ; preds = %if.then.i531
+  %type.i = getelementptr inbounds %struct.segment_s, ptr %93, i64 0, i32 2
+  %94 = load i32, ptr %type.i, align 8, !tbaa !44
+  %cmp5.i532 = icmp eq i32 %94, 0
+  br i1 %cmp5.i532, label %if.then6.i, label %if.end9.i
 
-if.then6.i:                                       ; preds = %lor.lhs.false.i, %if.then.i533
+if.then6.i:                                       ; preds = %lor.lhs.false.i, %if.then.i531
   br label %if.end9.i
 
 if.else.i:                                        ; preds = %sw.bb357
-  %type7.i = getelementptr inbounds %struct.segment_s, ptr %79, i64 0, i32 2
-  %84 = load i32, ptr %type7.i, align 8, !tbaa !44
-  %cmp8.i = icmp eq i32 %84, 0
+  %type7.i = getelementptr inbounds %struct.segment_s, ptr %90, i64 0, i32 2
+  %95 = load i32, ptr %type7.i, align 8, !tbaa !44
+  %cmp8.i = icmp eq i32 %95, 0
   br i1 %cmp8.i, label %if.end9.i, label %cond.false.i
 
 cond.false.i:                                     ; preds = %if.else.i
-  %85 = load ptr, ptr %79, align 8, !tbaa !50
+  %96 = load ptr, ptr %90, align 8, !tbaa !50
   br label %if.end9.i
 
 if.end9.i:                                        ; preds = %cond.false.i, %if.else.i, %if.then6.i, %lor.lhs.false.i
-  %next.0.i = phi ptr [ %79, %if.then6.i ], [ %82, %lor.lhs.false.i ], [ %85, %cond.false.i ], [ %79, %if.else.i ]
+  %next.0.i = phi ptr [ %90, %if.then6.i ], [ %93, %lor.lhs.false.i ], [ %96, %cond.false.i ], [ %90, %if.else.i ]
   %y11.i = getelementptr inbounds %struct.segment_s, ptr %next.0.i, i64 0, i32 3, i32 1
-  %86 = load i64, ptr %y11.i, align 8, !tbaa !48
-  %cmp14.not.i535 = icmp sgt i64 %86, %80
-  br i1 %cmp14.not.i535, label %if.else23.i, label %if.then15.i
+  %97 = load i64, ptr %y11.i, align 8, !tbaa !48
+  %cmp14.not.i533 = icmp sgt i64 %97, %91
+  br i1 %cmp14.not.i533, label %if.else23.i, label %if.then15.i
 
 if.then15.i:                                      ; preds = %if.end9.i
-  %87 = load ptr, ptr %next305, align 8, !tbaa !56
+  %98 = load ptr, ptr %next305, align 8, !tbaa !56
   %prev17.i = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 9
-  %88 = load ptr, ptr %prev17.i, align 8, !tbaa !59
-  %next18.i = getelementptr inbounds %struct.active_line_s, ptr %88, i64 0, i32 10
-  store ptr %87, ptr %next18.i, align 8, !tbaa !56
-  %tobool.not.i = icmp eq ptr %87, null
+  %99 = load ptr, ptr %prev17.i, align 8, !tbaa !59
+  %next18.i = getelementptr inbounds %struct.active_line_s, ptr %99, i64 0, i32 10
+  store ptr %98, ptr %next18.i, align 8, !tbaa !56
+  %tobool.not.i = icmp eq ptr %98, null
   br i1 %tobool.not.i, label %if.end358, label %if.then19.i
 
 if.then19.i:                                      ; preds = %if.then15.i
-  %prev21.i = getelementptr inbounds %struct.active_line_s, ptr %87, i64 0, i32 9
-  store ptr %88, ptr %prev21.i, align 8, !tbaa !59
+  %prev21.i = getelementptr inbounds %struct.active_line_s, ptr %98, i64 0, i32 9
+  store ptr %99, ptr %prev21.i, align 8, !tbaa !59
   br label %if.end358
 
 if.else23.i:                                      ; preds = %if.end9.i
   %pt10.i = getelementptr inbounds %struct.segment_s, ptr %next.0.i, i64 0, i32 3
   store ptr %next.0.i, ptr %pseg1.i, align 8, !tbaa !86
-  %89 = load i64, ptr %pt10.i, align 8, !tbaa !49
-  %end.i536 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 1
-  %90 = load i64, ptr %end.i536, align 8, !tbaa !72
-  %sub.i537 = sub nsw i64 %89, %90
-  %cond40.i = tail call i64 @llvm.abs.i64(i64 %sub.i537, i1 true)
+  %100 = load i64, ptr %pt10.i, align 8, !tbaa !49
+  %end.i534 = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 1
+  %101 = load i64, ptr %end.i534, align 8, !tbaa !72
+  %sub.i535 = sub nsw i64 %100, %101
+  %cond40.i = tail call i64 @llvm.abs.i64(i64 %sub.i535, i1 true)
   %or.i = or i64 %cond40.i, 1
-  %div.i538 = udiv i64 2147483647, %or.i
+  %div.i536 = udiv i64 2147483647, %or.i
   %y42.i = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 1, i32 1
-  %91 = load i64, ptr %y42.i, align 8, !tbaa !75
-  %add.i = add nsw i64 %91, %div.i538
+  %102 = load i64, ptr %y42.i, align 8, !tbaa !75
+  %add.i = add nsw i64 %102, %div.i536
   %y_fast_max.i = getelementptr inbounds %struct.active_line_s, ptr %alp294.0585, i64 0, i32 2
   store i64 %add.i, ptr %y_fast_max.i, align 8, !tbaa !77
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %alp294.0585, ptr noundef nonnull align 8 dereferenceable(16) %end.i536, i64 16, i1 false), !tbaa.struct !87
-  store i64 %89, ptr %end.i536, align 8, !tbaa.struct !87
-  store i64 %86, ptr %y42.i, align 8, !tbaa.struct !67
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %alp294.0585, ptr noundef nonnull align 8 dereferenceable(16) %end.i534, i64 16, i1 false), !tbaa.struct !87
+  store i64 %100, ptr %end.i534, align 8, !tbaa.struct !87
+  store i64 %97, ptr %y42.i, align 8, !tbaa.struct !67
   br label %if.end358
 
 if.end358:                                        ; preds = %do.body.i, %if.else23.i, %if.then19.i, %if.then15.i, %if.then353, %if.end347
-  %cmp300.not = icmp eq ptr %57, null
+  %cmp300.not = icmp eq ptr %68, null
   br i1 %cmp300.not, label %while.end359, label %while.body302, !llvm.loop !88
 
 while.end359:                                     ; preds = %if.end358
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %inside) #11
   br label %cleanup
 
-cleanup:                                          ; preds = %while.end.thread, %while.end359
-  %yll.1559 = phi ptr [ %yll.1560, %while.end359 ], [ %yll.1563, %while.end.thread ]
-  %endp.2 = phi ptr [ %alp.1571, %while.end359 ], [ %endp.0591, %while.end.thread ]
-  %xlbot.3 = phi i64 [ %xlbot.2, %while.end359 ], [ %xlbot.0592, %while.end.thread ]
-  %xltop.3 = phi i64 [ %xltop.2, %while.end359 ], [ %xltop.0593, %while.end.thread ]
-  %y.1 = phi i64 [ %y13.4, %while.end359 ], [ %2, %while.end.thread ]
+cleanup:                                          ; preds = %while.end, %while.end359
+  %yll.1560 = phi ptr [ %yll.1561, %while.end359 ], [ %yll.1564, %while.end ]
+  %endp.2 = phi ptr [ %alp.1571, %while.end359 ], [ %endp.0591, %while.end ]
+  %xlbot.3 = phi i64 [ %xlbot.2, %while.end359 ], [ %xlbot.0592, %while.end ]
+  %xltop.3 = phi i64 [ %xltop.2, %while.end359 ], [ %xltop.0593, %while.end ]
+  %y.1 = phi i64 [ %y13.4, %while.end359 ], [ %2, %while.end ]
   %cmp5.not = icmp slt i64 %y.1, %pmax.sroa.3.0.copyload
   br i1 %cmp5.not, label %while.cond8.preheader, label %cleanup366
 
-cleanup366:                                       ; preds = %cleanup, %while.end, %if.end, %entry
+cleanup366:                                       ; preds = %cleanup, %while.end.thread, %if.end, %entry
   ret void
 }
 

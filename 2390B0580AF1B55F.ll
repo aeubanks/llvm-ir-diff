@@ -73,15 +73,15 @@ if.end:                                           ; preds = %entry
   %call21 = call noalias ptr @fopen(ptr noundef nonnull %call, ptr noundef nonnull @.str.3)
   store ptr %call21, ptr @output, align 8, !tbaa !5
   %cmp22.not = icmp eq ptr %call21, null
-  br i1 %cmp22.not, label %cleanup, label %YAMLWriteString.exit
+  br i1 %cmp22.not, label %cleanup, label %if.then.i
 
-YAMLWriteString.exit:                             ; preds = %if.end
+if.then.i:                                        ; preds = %if.end
   %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %call21, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5)
   %13 = load ptr, ptr @output, align 8, !tbaa !5
   %cmp.not.i47 = icmp eq ptr %13, null
   br i1 %cmp.not.i47, label %cleanup, label %YAMLWriteString.exit50
 
-YAMLWriteString.exit50:                           ; preds = %YAMLWriteString.exit
+YAMLWriteString.exit50:                           ; preds = %if.then.i
   %call.i48 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %13, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7)
   %.pr = load ptr, ptr @output, align 8, !tbaa !5
   %cmp.not.i51 = icmp eq ptr %.pr, null
@@ -115,7 +115,7 @@ if.then.i69:                                      ; preds = %YAMLWriteString.exi
   %call.i68 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr78.pr.pr, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.13)
   br label %cleanup
 
-cleanup:                                          ; preds = %YAMLWriteString.exit, %YAMLWriteString.exit50, %YAMLWriteString.exit58, %YAMLWriteString.exit54, %YAMLWriteString.exit62, %if.then.i69, %YAMLWriteString.exit66, %if.end, %entry
+cleanup:                                          ; preds = %if.then.i, %YAMLWriteString.exit50, %YAMLWriteString.exit58, %YAMLWriteString.exit54, %YAMLWriteString.exit62, %if.end, %YAMLWriteString.exit66, %if.then.i69, %entry
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %rawTime) #6
   ret void
 }

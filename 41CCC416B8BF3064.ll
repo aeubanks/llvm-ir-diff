@@ -8,9 +8,9 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i64 @foo(i32 noundef %offset) local_unnamed_addr #0 {
 entry:
-  %.b = load i1, ptr @next_buffer, align 4
-  %mul4 = select i1 %.b, i32 52783, i32 0
-  %add = add i32 %mul4, %offset
+  %.b13 = load i1, ptr @next_buffer, align 4
+  %mul1 = select i1 %.b13, i32 52783, i32 0
+  %add = add i32 %mul1, %offset
   %conv5 = zext i32 %add to i64
   ret i64 %conv5
 }
@@ -24,14 +24,14 @@ entry:
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
 entry:
-  %.b.i = load i1, ptr @next_buffer, align 4
-  br i1 %.b.i, label %if.then, label %if.end4
+  %.b13.i = load i1, ptr @next_buffer, align 4
+  br i1 %.b13.i, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #4
   unreachable
 
-if.end4:                                          ; preds = %entry
+if.end:                                           ; preds = %entry
   store i1 true, ptr @next_buffer, align 4
   tail call void @exit(i32 noundef 0) #4
   unreachable

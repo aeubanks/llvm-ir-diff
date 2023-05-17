@@ -66,7 +66,7 @@ sw.bb6.us:                                        ; preds = %for.body.us
   br i1 %cmp8.us, label %if.then9, label %sw.epilog.us
 
 sw.epilog.us:                                     ; preds = %sw.bb6.us, %sw.bb13.us, %sw.bb21.us, %for.body.us
-  %up2.sroa.0.1.us = phi i64 [ %up2.sroa.0.0.insert.insert.us, %for.body.us ], [ %up2.sroa.0.2.insert.insert49.us, %sw.bb21.us ], [ %up2.sroa.0.0.insert.insert.us, %sw.bb13.us ], [ %up2.sroa.0.4.insert.insert.us, %sw.bb6.us ]
+  %up2.sroa.0.1.us = phi i64 [ %up2.sroa.0.0.insert.insert.us, %for.body.us ], [ %up2.sroa.0.2.insert.insert49.us, %sw.bb21.us ], [ %up2.sroa.0.4.insert.insert.us, %sw.bb6.us ], [ %up2.sroa.0.0.insert.insert.us, %sw.bb13.us ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %operationChain)
   %7 = load ptr, ptr %_items.i37, align 8, !tbaa !12
   %8 = load i32, ptr %_size.i38, align 4, !tbaa !5
@@ -150,8 +150,8 @@ sw.bb21:                                          ; preds = %for.body
   %up2.sroa.0.2.insert.insert49 = or i64 %up2.sroa.0.4.insert.insert, 65793
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %sw.bb6, %sw.bb13, %for.body, %sw.bb21
-  %up2.sroa.0.1 = phi i64 [ %up2.sroa.0.0.insert.insert, %for.body ], [ %up2.sroa.0.2.insert.insert49, %sw.bb21 ], [ %up2.sroa.0.0.insert.insert, %sw.bb13 ], [ %up2.sroa.0.4.insert.insert, %sw.bb6 ]
+sw.epilog:                                        ; preds = %sw.bb13, %sw.bb6, %for.body, %sw.bb21
+  %up2.sroa.0.1 = phi i64 [ %up2.sroa.0.0.insert.insert, %for.body ], [ %up2.sroa.0.2.insert.insert49, %sw.bb21 ], [ %up2.sroa.0.4.insert.insert, %sw.bb6 ], [ %up2.sroa.0.0.insert.insert, %sw.bb13 ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %operationChain)
   %18 = load ptr, ptr %_items.i37, align 8, !tbaa !12
   %19 = load i32, ptr %_size.i38, align 4, !tbaa !5

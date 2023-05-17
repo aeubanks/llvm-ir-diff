@@ -32,12 +32,12 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.23 = private unnamed_addr constant [5 x i8] c" -> \00", align 1
 @.str.25 = private unnamed_addr constant [37 x i8] c"Found, resultant path has %d steps.\0A\00", align 1
 @.str.27 = private unnamed_addr constant [24 x i8] c"\0A\0ATotal %d legs found\0A\0A\00", align 1
-@str = private unnamed_addr constant [632 x i8] c"\0A\0A        PathFinder: finding a series of labeled nodes within a\0A                two-layer directed, cyclic graph.\0A               Copyright (2013) Sandia Corporation\0A\0A Sandia National Laboratories is a multi-program laboratory managed and\0A operated by Sandia Corporation, a wholly owned subsidiary of Lockheed\0A Martin Corporation, for the U.S. Department of Energy's National Nuclear\0A Security Administration under terms of Contract DE-AC04-94AL85000,\0A there is a non-exclusive license for use of this work by or on behalf\0A of the U.S. Government. Export of this program may require a license \0A from the United States Government.\0A\0A\00", align 1
-@str.28 = private unnamed_addr constant [67 x i8] c"Error: Could not allocation configuration structure.\0A\0A\09---Exiting\0A\00", align 1
-@str.29 = private unnamed_addr constant [21 x i8] c"\0A\0ASearches complete.\00", align 1
-@str.30 = private unnamed_addr constant [81 x i8] c"\0APlease insert a node label for this signature (\22\22 to complete, \22bail\22 to exit):\00", align 1
-@str.31 = private unnamed_addr constant [32 x i8] c"\0A\09Path not found for signature.\00", align 1
-@str.32 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@str = private unnamed_addr constant [21 x i8] c"\0A\0ASearches complete.\00", align 1
+@str.28 = private unnamed_addr constant [81 x i8] c"\0APlease insert a node label for this signature (\22\22 to complete, \22bail\22 to exit):\00", align 1
+@str.29 = private unnamed_addr constant [32 x i8] c"\0A\09Path not found for signature.\00", align 1
+@str.30 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@str.31 = private unnamed_addr constant [632 x i8] c"\0A\0A        PathFinder: finding a series of labeled nodes within a\0A                two-layer directed, cyclic graph.\0A               Copyright (2013) Sandia Corporation\0A\0A Sandia National Laboratories is a multi-program laboratory managed and\0A operated by Sandia Corporation, a wholly owned subsidiary of Lockheed\0A Martin Corporation, for the U.S. Department of Energy's National Nuclear\0A Security Administration under terms of Contract DE-AC04-94AL85000,\0A there is a non-exclusive license for use of this work by or on behalf\0A of the U.S. Government. Export of this program may require a license \0A from the United States Government.\0A\0A\00", align 1
+@str.32 = private unnamed_addr constant [67 x i8] c"Error: Could not allocation configuration structure.\0A\0A\09---Exiting\0A\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #0 {
@@ -48,12 +48,12 @@ entry:
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(23) %defaultFile, ptr noundef nonnull align 16 dereferenceable(23) @__const.main.defaultFile, i64 23, i1 false)
   %call = tail call ptr (...) @Configuration_new() #14
   call void @llvm.lifetime.start.p0(i64 200, ptr nonnull %commandLine) #14
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
   %tobool.not = icmp eq ptr %call, null
   br i1 %tobool.not, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  %puts120 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
+  %puts121 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
   tail call void @exit(i32 noundef 0) #15
   unreachable
 
@@ -62,10 +62,10 @@ if.end:                                           ; preds = %entry
   br i1 %cmp, label %if.then3, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %if.end
-  %call4150 = tail call i32 @getopt(i32 noundef %argc, ptr noundef %argv, ptr noundef nonnull @.str.2) #14
-  %sext151 = shl i32 %call4150, 24
-  %cmp6.not152 = icmp eq i32 %sext151, -16777216
-  br i1 %cmp6.not152, label %while.end, label %while.body.us.preheader
+  %call4134 = tail call i32 @getopt(i32 noundef %argc, ptr noundef %argv, ptr noundef nonnull @.str.2) #14
+  %sext135 = shl i32 %call4134, 24
+  %cmp6.not136 = icmp eq i32 %sext135, -16777216
+  br i1 %cmp6.not136, label %while.end, label %while.body.us.preheader
 
 while.body.us.preheader:                          ; preds = %while.cond.preheader
   %add.ptr = getelementptr inbounds i8, ptr %commandLine, i64 1
@@ -75,13 +75,13 @@ while.body.us.preheader:                          ; preds = %while.cond.preheade
   br label %while.body.us
 
 while.body.us:                                    ; preds = %while.body.us.preheader, %sw.epilog.us
-  %sext158.us = phi i32 [ %sext.us, %sw.epilog.us ], [ %sext151, %while.body.us.preheader ]
-  %oFlag.0157.us = phi i32 [ %oFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
-  %fileName.0156.us = phi ptr [ %fileName.1.us, %sw.epilog.us ], [ null, %while.body.us.preheader ]
-  %cFlag.0155.us = phi i32 [ %cFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
-  %xFlag.0154.us = phi i32 [ %xFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
-  %iFlag.0153.us = phi i32 [ %iFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
-  %conv5.us = ashr exact i32 %sext158.us, 24
+  %sext142.us = phi i32 [ %sext.us, %sw.epilog.us ], [ %sext135, %while.body.us.preheader ]
+  %oFlag.0141.us = phi i32 [ %oFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
+  %fileName.0140.us = phi ptr [ %fileName.1.us, %sw.epilog.us ], [ null, %while.body.us.preheader ]
+  %cFlag.0139.us = phi i32 [ %cFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
+  %xFlag.0138.us = phi i32 [ %xFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
+  %iFlag.0137.us = phi i32 [ %iFlag.1.us, %sw.epilog.us ], [ 0, %while.body.us.preheader ]
+  %conv5.us = ashr exact i32 %sext142.us, 24
   switch i32 %conv5.us, label %sw.epilog.us [
     i32 63, label %sw.bb
     i32 104, label %sw.bb34
@@ -111,8 +111,8 @@ for.body.us:                                      ; preds = %sw.bb49.us, %for.bo
 
 sw.bb43.us:                                       ; preds = %while.body.us
   %1 = load ptr, ptr @optarg, align 8, !tbaa !8
-  %call.i121.us = call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #14
-  %conv.i.us = trunc i64 %call.i121.us to i32
+  %call.i120.us = call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #14
+  %conv.i.us = trunc i64 %call.i120.us to i32
   %spec.store.select.us = call i32 @llvm.smax.i32(i32 %conv.i.us, i32 1)
   store i32 %spec.store.select.us, ptr %qThreadCount, align 8, !tbaa !12
   br label %sw.epilog.us
@@ -145,11 +145,11 @@ sw.bb36.us:                                       ; preds = %while.body.us
   br label %sw.epilog.us
 
 sw.epilog.us:                                     ; preds = %sw.bb36.us, %sw.bb37.us, %sw.bb38.us, %sw.bb39.us, %sw.bb41.us, %sw.bb43.us, %for.cond.for.end_crit_edge.us, %while.body.us
-  %iFlag.1.us = phi i32 [ %iFlag.0153.us, %while.body.us ], [ %iFlag.0153.us, %for.cond.for.end_crit_edge.us ], [ %iFlag.0153.us, %sw.bb43.us ], [ %iFlag.0153.us, %sw.bb41.us ], [ %iFlag.0153.us, %sw.bb39.us ], [ %iFlag.0153.us, %sw.bb38.us ], [ 1, %sw.bb37.us ], [ %iFlag.0153.us, %sw.bb36.us ]
-  %xFlag.1.us = phi i32 [ %xFlag.0154.us, %while.body.us ], [ %xFlag.0154.us, %for.cond.for.end_crit_edge.us ], [ %xFlag.0154.us, %sw.bb43.us ], [ %xFlag.0154.us, %sw.bb41.us ], [ %xFlag.0154.us, %sw.bb39.us ], [ 1, %sw.bb38.us ], [ %xFlag.0154.us, %sw.bb37.us ], [ %xFlag.0154.us, %sw.bb36.us ]
-  %cFlag.1.us = phi i32 [ %cFlag.0155.us, %while.body.us ], [ %cFlag.0155.us, %for.cond.for.end_crit_edge.us ], [ %cFlag.0155.us, %sw.bb43.us ], [ %cFlag.0155.us, %sw.bb41.us ], [ %cFlag.0155.us, %sw.bb39.us ], [ %cFlag.0155.us, %sw.bb38.us ], [ %cFlag.0155.us, %sw.bb37.us ], [ 1, %sw.bb36.us ]
-  %fileName.1.us = phi ptr [ %fileName.0156.us, %while.body.us ], [ %fileName.0156.us, %for.cond.for.end_crit_edge.us ], [ %fileName.0156.us, %sw.bb43.us ], [ %fileName.0156.us, %sw.bb41.us ], [ %fileName.0156.us, %sw.bb39.us ], [ %5, %sw.bb38.us ], [ %6, %sw.bb37.us ], [ %7, %sw.bb36.us ]
-  %oFlag.1.us = phi i32 [ %oFlag.0157.us, %while.body.us ], [ %oFlag.0157.us, %for.cond.for.end_crit_edge.us ], [ %oFlag.0157.us, %sw.bb43.us ], [ %oFlag.0157.us, %sw.bb41.us ], [ 1, %sw.bb39.us ], [ %oFlag.0157.us, %sw.bb38.us ], [ %oFlag.0157.us, %sw.bb37.us ], [ %oFlag.0157.us, %sw.bb36.us ]
+  %iFlag.1.us = phi i32 [ %iFlag.0137.us, %while.body.us ], [ %iFlag.0137.us, %for.cond.for.end_crit_edge.us ], [ %iFlag.0137.us, %sw.bb43.us ], [ %iFlag.0137.us, %sw.bb41.us ], [ %iFlag.0137.us, %sw.bb39.us ], [ %iFlag.0137.us, %sw.bb38.us ], [ 1, %sw.bb37.us ], [ %iFlag.0137.us, %sw.bb36.us ]
+  %xFlag.1.us = phi i32 [ %xFlag.0138.us, %while.body.us ], [ %xFlag.0138.us, %for.cond.for.end_crit_edge.us ], [ %xFlag.0138.us, %sw.bb43.us ], [ %xFlag.0138.us, %sw.bb41.us ], [ %xFlag.0138.us, %sw.bb39.us ], [ 1, %sw.bb38.us ], [ %xFlag.0138.us, %sw.bb37.us ], [ %xFlag.0138.us, %sw.bb36.us ]
+  %cFlag.1.us = phi i32 [ %cFlag.0139.us, %while.body.us ], [ %cFlag.0139.us, %for.cond.for.end_crit_edge.us ], [ %cFlag.0139.us, %sw.bb43.us ], [ %cFlag.0139.us, %sw.bb41.us ], [ %cFlag.0139.us, %sw.bb39.us ], [ %cFlag.0139.us, %sw.bb38.us ], [ %cFlag.0139.us, %sw.bb37.us ], [ 1, %sw.bb36.us ]
+  %fileName.1.us = phi ptr [ %fileName.0140.us, %while.body.us ], [ %fileName.0140.us, %for.cond.for.end_crit_edge.us ], [ %fileName.0140.us, %sw.bb43.us ], [ %fileName.0140.us, %sw.bb41.us ], [ %fileName.0140.us, %sw.bb39.us ], [ %5, %sw.bb38.us ], [ %6, %sw.bb37.us ], [ %7, %sw.bb36.us ]
+  %oFlag.1.us = phi i32 [ %oFlag.0141.us, %while.body.us ], [ %oFlag.0141.us, %for.cond.for.end_crit_edge.us ], [ %oFlag.0141.us, %sw.bb43.us ], [ %oFlag.0141.us, %sw.bb41.us ], [ 1, %sw.bb39.us ], [ %oFlag.0141.us, %sw.bb38.us ], [ %oFlag.0141.us, %sw.bb37.us ], [ %oFlag.0141.us, %sw.bb36.us ]
   %call4.us = call i32 @getopt(i32 noundef %argc, ptr noundef %argv, ptr noundef nonnull @.str.2) #14
   %sext.us = shl i32 %call4.us, 24
   %cmp6.not.us = icmp eq i32 %sext.us, -16777216
@@ -274,34 +274,10 @@ if.then79:                                        ; preds = %if.else77
   br label %if.end83
 
 if.else80:                                        ; preds = %if.else77
-  %call.i122 = call ptr @parseFile(ptr noundef %fileName.0.lcssa) #14
-  %tobool.i123.not = icmp eq ptr %call.i122, null
-  br i1 %tobool.i123.not, label %if.end83, label %if.end.i129
-
-if.end.i129:                                      ; preds = %if.else80
-  %searchOptions.i126 = getelementptr inbounds %struct.ConfigurationStruct, ptr %call, i64 0, i32 2
-  %26 = load ptr, ptr %searchOptions.i126, align 8, !tbaa !15
-  %outputFile.i127 = getelementptr inbounds %struct.SearchOptionsStruct, ptr %26, i64 0, i32 4
-  %27 = load ptr, ptr %outputFile.i127, align 8, !tbaa !19
-  %cmp.i128 = icmp eq ptr %27, null
-  br i1 %cmp.i128, label %if.then2.i131, label %if.else.i133
-
-if.then2.i131:                                    ; preds = %if.end.i129
-  %28 = load i32, ptr %26, align 8, !tbaa !22
-  %call4.i130 = call i32 @findAllPossibleLegs(ptr noundef nonnull %call.i122, i32 noundef %28) #14
-  br label %if.end7.i136
-
-if.else.i133:                                     ; preds = %if.end.i129
-  %call6.i132 = call i32 @findAndLogAllPossibleLegs(ptr noundef nonnull %call.i122, ptr noundef nonnull %26) #14
-  br label %if.end7.i136
-
-if.end7.i136:                                     ; preds = %if.else.i133, %if.then2.i131
-  %found.0.i134 = phi i32 [ %call4.i130, %if.then2.i131 ], [ %call6.i132, %if.else.i133 ]
-  %call8.i135 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, i32 noundef %found.0.i134)
-  call void @Graph_delete(ptr noundef nonnull %call.i122) #14
+  call void @exhaustiveLegSearch(ptr noundef %fileName.0.lcssa, ptr noundef nonnull %call)
   br label %if.end83
 
-if.end83:                                         ; preds = %if.end7.i136, %if.else80, %if.end7.i, %if.then3, %if.then76, %if.then79
+if.end83:                                         ; preds = %if.end7.i, %if.then3, %if.then76, %if.else80, %if.then79
   call void (...) @YAMLClose() #14
   br label %cleanup
 
@@ -402,7 +378,7 @@ if.then10:                                        ; preds = %if.end
   br label %if.end11
 
 if.end11:                                         ; preds = %if.then10, %if.end
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   ret void
 }
 
@@ -427,8 +403,8 @@ if.then:                                          ; preds = %entry
   ret void
 
 do.body:                                          ; preds = %do.body.backedge, %while.cond.preheader
-  %indvars.iv = phi i64 [ 0, %while.cond.preheader ], [ %indvars.iv.be, %do.body.backedge ]
-  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.30)
+  %i.0 = phi i32 [ 0, %while.cond.preheader ], [ %i.0.be, %do.body.backedge ]
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
   %0 = load ptr, ptr @stdin, align 8, !tbaa !8
   %call.i = call ptr @fgets(ptr noundef nonnull %stringBuffer, i32 noundef 200, ptr noundef %0)
   %cmp.i = icmp eq ptr %call.i, null
@@ -471,40 +447,39 @@ if.end5:                                          ; preds = %mygets.exit
 
 do.cond:                                          ; preds = %if.end5
   %call11 = call noalias ptr @strdup(ptr noundef nonnull %stringBuffer) #14
-  %arrayidx = getelementptr inbounds [25 x ptr], ptr %labels, i64 0, i64 %indvars.iv
+  %idxprom = zext i32 %i.0 to i64
+  %arrayidx = getelementptr inbounds [25 x ptr], ptr %labels, i64 0, i64 %idxprom
   store ptr %call11, ptr %arrayidx, align 8, !tbaa !8
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %cmp13 = icmp ugt i64 %indvars.iv, 23
-  br i1 %cmp13, label %do.end, label %do.body.backedge
+  %inc = add nuw nsw i32 %i.0, 1
+  %cmp13 = icmp ugt i32 %i.0, 23
+  %or.cond = or i1 %cmp13, %cmp8.not
+  br i1 %or.cond, label %do.end, label %do.body.backedge
 
 do.body.backedge:                                 ; preds = %do.cond, %if.end38
-  %indvars.iv.be = phi i64 [ %indvars.iv.next, %do.cond ], [ 0, %if.end38 ]
+  %i.0.be = phi i32 [ %inc, %do.cond ], [ 0, %if.end38 ]
   br label %do.body, !llvm.loop !23
 
 do.end:                                           ; preds = %if.end5, %do.cond
-  %i.156.in = phi i64 [ %indvars.iv.next, %do.cond ], [ %indvars.iv, %if.end5 ]
-  %i.156 = trunc i64 %i.156.in to i32
-  %sext = shl i64 %i.156.in, 32
-  %idxprom17 = ashr exact i64 %sext, 32
+  %i.159 = phi i32 [ %inc, %do.cond ], [ %i.0, %if.end5 ]
+  %idxprom17 = sext i32 %i.159 to i64
   %arrayidx18 = getelementptr inbounds [25 x ptr], ptr %labels, i64 0, i64 %idxprom17
   store ptr null, ptr %arrayidx18, align 8, !tbaa !8
   %call19 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.21)
-  %cmp2057 = icmp sgt i32 %i.156, 0
-  br i1 %cmp2057, label %for.body.lr.ph, label %for.end
+  %cmp2053 = icmp sgt i32 %i.159, 0
+  br i1 %cmp2053, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %do.end
-  %sub = shl i64 %i.156.in, 32
-  %sext64 = add i64 %sub, -4294967296
-  %2 = ashr exact i64 %sext64, 32
-  %wide.trip.count = and i64 %i.156.in, 4294967295
+  %sub = add nsw i32 %i.159, -1
+  %2 = zext i32 %sub to i64
+  %wide.trip.count = zext i32 %i.159 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %indvars.iv60 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next61, %for.inc ]
-  %arrayidx22 = getelementptr inbounds [25 x ptr], ptr %labels, i64 0, i64 %indvars.iv60
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
+  %arrayidx22 = getelementptr inbounds [25 x ptr], ptr %labels, i64 0, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx22, align 8, !tbaa !8
   %call23 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.22, ptr noundef %3)
-  %cmp24 = icmp slt i64 %indvars.iv60, %2
+  %cmp24 = icmp ult i64 %indvars.iv, %2
   br i1 %cmp24, label %if.then25, label %if.else
 
 if.then25:                                        ; preds = %for.body
@@ -512,12 +487,12 @@ if.then25:                                        ; preds = %for.body
   br label %for.inc
 
 if.else:                                          ; preds = %for.body
-  %puts51 = call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
+  %puts51 = call i32 @puts(ptr nonnull dereferenceable(1) @str.30)
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then25, %if.else
-  %indvars.iv.next61 = add nuw nsw i64 %indvars.iv60, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next61, %wide.trip.count
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !24
 
 for.end:                                          ; preds = %for.inc, %do.end
@@ -533,7 +508,7 @@ if.then34:                                        ; preds = %for.end
   br label %if.end38
 
 if.else36:                                        ; preds = %for.end
-  %puts50 = call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
+  %puts50 = call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
   br label %if.end38
 
 if.end38:                                         ; preds = %if.else36, %if.then34
@@ -618,14 +593,14 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
 
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
+
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #12
-
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #13
+declare i32 @llvm.smax.i32(i32, i32) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -639,8 +614,8 @@ attributes #8 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { cold }

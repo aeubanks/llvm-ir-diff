@@ -41,8 +41,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @stack_size = dso_local local_unnamed_addr global i32 0, align 4
 @see = dso_local local_unnamed_addr global ptr null, align 8
 @NDim = dso_local local_unnamed_addr global i32 0, align 4
-@str = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
-@str.12 = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str.12 = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
 @str.13 = private unnamed_addr constant [5 x i8] c"NULL\00", align 1
 @str.14 = private unnamed_addr constant [20 x i8] c"Done getting points\00", align 1
 @str.15 = private unnamed_addr constant [43 x i8] c"cannot push onto stack: stack is too large\00", align 1
@@ -73,7 +73,7 @@ if.then.i.i:                                      ; preds = %entry
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -205,7 +205,7 @@ if.then.i.i:                                      ; preds = %entry
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -480,7 +480,7 @@ while.body17:                                     ; preds = %while.cond14.prehea
   br i1 %cmp16.not, label %if.end56, label %while.body17, !llvm.loop !22
 
 if.then24:                                        ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -502,7 +502,7 @@ if.then.i.i:                                      ; preds = %if.then29
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %makeedge.exit
 
 if.then.i.i.i:                                    ; preds = %if.then.i.i
-  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -553,7 +553,7 @@ if.then.i.i94:                                    ; preds = %if.else34
   br i1 %cmp.i.i.i93, label %if.then.i.i.i96, label %makeedge.exit111
 
 if.then.i.i.i96:                                  ; preds = %if.then.i.i94
-  %puts.i.i.i95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -601,7 +601,7 @@ if.then.i.i115:                                   ; preds = %makeedge.exit111
   br i1 %cmp.i.i.i114, label %if.then.i.i.i117, label %makeedge.exit132
 
 if.then.i.i.i117:                                 ; preds = %if.then.i.i115
-  %puts.i.i.i116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i.i116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -682,8 +682,8 @@ makeedge.exit132:                                 ; preds = %if.then.i.i115, %if
   %55 = fneg double %sub11.i
   %neg.i = fmul double %sub12.i, %55
   %56 = tail call double @llvm.fmuladd.f64(double %sub.i, double %sub10.i, double %neg.i)
-  %cmp.i = fcmp ule double %56, 0.000000e+00
-  br i1 %cmp.i, label %if.else46, label %if.then42
+  %cmp.i = fcmp ogt double %56, 0.000000e+00
+  br i1 %cmp.i, label %if.then42, label %if.else46
 
 if.then42:                                        ; preds = %makeedge.exit132
   %57 = ptrtoint ptr %call39 to i64
@@ -701,8 +701,8 @@ if.else46:                                        ; preds = %makeedge.exit132
   %60 = fneg double %sub11.i141
   %neg.i143 = fmul double %sub12.i142, %60
   %61 = tail call double @llvm.fmuladd.f64(double %sub.i139, double %sub10.i140, double %neg.i143)
-  %cmp.i144 = fcmp ule double %61, 0.000000e+00
-  br i1 %cmp.i144, label %if.then52, label %if.end56
+  %cmp.i144 = fcmp ogt double %61, 0.000000e+00
+  br i1 %cmp.i144, label %if.end56, label %if.then52
 
 if.then52:                                        ; preds = %if.else46
   %62 = ptrtoint ptr %call39 to i64
@@ -851,8 +851,8 @@ while.cond3:                                      ; preds = %while.body4, %while
   %8 = fneg double %sub11.i
   %neg.i = fmul double %sub12.i, %8
   %9 = tail call double @llvm.fmuladd.f64(double %sub.i, double %sub10.i, double %neg.i)
-  %cmp.i = fcmp ule double %9, 0.000000e+00
-  br i1 %cmp.i, label %while.end, label %while.body4
+  %cmp.i = fcmp ogt double %9, 0.000000e+00
+  br i1 %cmp.i, label %while.body4, label %while.end
 
 while.body4:                                      ; preds = %while.cond3
   %10 = ptrtoint ptr %ldi.addr.1 to i64
@@ -886,8 +886,8 @@ while.end:                                        ; preds = %while.cond3
   %20 = fneg double %sub11.i275
   %neg.i277 = fmul double %sub12.i276, %20
   %21 = tail call double @llvm.fmuladd.f64(double %sub.i273, double %sub10.i274, double %neg.i277)
-  %cmp.i278 = fcmp ule double %21, 0.000000e+00
-  br i1 %cmp.i278, label %while.end24, label %cleanup
+  %cmp.i278 = fcmp ogt double %21, 0.000000e+00
+  br i1 %cmp.i278, label %cleanup, label %while.end24
 
 cleanup:                                          ; preds = %while.end
   %next23 = getelementptr inbounds %struct.edge_rec, ptr %16, i64 0, i32 1
@@ -950,8 +950,8 @@ while.cond54:                                     ; preds = %cleanup173, %while.
   %neg.i.i = fmul double %50, %49
   %51 = extractelement <2 x double> %48, i64 0
   %52 = tail call double @llvm.fmuladd.f64(double %51, double %sub10.i.i, double %neg.i.i)
-  %cmp.i.i = fcmp ule double %52, 0.000000e+00
-  br i1 %cmp.i.i, label %if.end79, label %while.cond68.preheader
+  %cmp.i.i = fcmp ogt double %52, 0.000000e+00
+  br i1 %cmp.i.i, label %while.cond68.preheader, label %if.end79
 
 while.cond68.preheader:                           ; preds = %while.cond54
   %norm.i = getelementptr inbounds %struct.VEC2, ptr %34, i64 0, i32 2
@@ -962,30 +962,26 @@ while.cond68.preheader:                           ; preds = %while.cond54
   br label %while.cond68
 
 while.cond68:                                     ; preds = %while.cond68.preheader, %while.body71
-  %56 = phi ptr [ %101, %while.body71 ], [ %avail_edge.promoted, %while.cond68.preheader ]
-  %lcand.1 = phi ptr [ %57, %while.body71 ], [ %lcand.0, %while.cond68.preheader ]
-  %57 = phi ptr [ %102, %while.body71 ], [ %35, %while.cond68.preheader ]
+  %56 = phi double [ %.pre429, %while.body71 ], [ %43, %while.cond68.preheader ]
+  %57 = phi double [ %.pre428, %while.body71 ], [ %42, %while.cond68.preheader ]
+  %58 = phi ptr [ %102, %while.body71 ], [ %avail_edge.promoted, %while.cond68.preheader ]
+  %lcand.1 = phi ptr [ %59, %while.body71 ], [ %lcand.0, %while.cond68.preheader ]
+  %59 = phi ptr [ %103, %while.body71 ], [ %35, %while.cond68.preheader ]
+  %v257.0 = phi ptr [ %106, %while.body71 ], [ %41, %while.cond68.preheader ]
   %v3.0 = load ptr, ptr %lcand.1, align 8, !tbaa !5
-  %v257.0.in.in.in = ptrtoint ptr %57 to i64
-  %v257.0.in.in = xor i64 %v257.0.in.in.in, 64
-  %v257.0.in = inttoptr i64 %v257.0.in.in to ptr
-  %v257.0 = load ptr, ptr %v257.0.in, align 8, !tbaa !5
   %v156.0.in.in.in = ptrtoint ptr %lcand.1 to i64
   %v156.0.in.in = xor i64 %v156.0.in.in.in, 64
   %v156.0.in = inttoptr i64 %v156.0.in.in to ptr
   %v156.0 = load ptr, ptr %v156.0.in, align 8, !tbaa !5
-  %58 = load double, ptr %v156.0, align 8, !tbaa !23
-  %sub.i281 = fsub double %58, %54
+  %60 = load double, ptr %v156.0, align 8, !tbaa !23
+  %sub.i281 = fsub double %60, %54
   %y6.i = getelementptr inbounds %struct.VEC2, ptr %v156.0, i64 0, i32 1
-  %59 = load double, ptr %y6.i, align 8, !tbaa !24
-  %sub7.i = fsub double %59, %55
+  %61 = load double, ptr %y6.i, align 8, !tbaa !24
+  %sub7.i = fsub double %61, %55
   %norm9.i = getelementptr inbounds %struct.VEC2, ptr %v156.0, i64 0, i32 2
-  %60 = load double, ptr %norm9.i, align 8, !tbaa !27
-  %61 = load double, ptr %v257.0, align 8, !tbaa !23
-  %sub12.i282 = fsub double %61, %54
-  %y14.i = getelementptr inbounds %struct.VEC2, ptr %v257.0, i64 0, i32 1
-  %62 = load double, ptr %y14.i, align 8, !tbaa !24
-  %sub15.i = fsub double %62, %55
+  %62 = load double, ptr %norm9.i, align 8, !tbaa !27
+  %sub12.i282 = fsub double %57, %54
+  %sub15.i = fsub double %56, %55
   %norm17.i = getelementptr inbounds %struct.VEC2, ptr %v257.0, i64 0, i32 2
   %63 = load double, ptr %norm17.i, align 8, !tbaa !27
   %64 = load double, ptr %v3.0, align 8, !tbaa !23
@@ -995,7 +991,7 @@ while.cond68:                                     ; preds = %while.cond68.prehea
   %sub23.i = fsub double %65, %55
   %norm25.i = getelementptr inbounds %struct.VEC2, ptr %v3.0, i64 0, i32 2
   %66 = load double, ptr %norm25.i, align 8, !tbaa !27
-  %sub26.i = fsub double %60, %53
+  %sub26.i = fsub double %62, %53
   %67 = fneg double %sub15.i
   %neg.i283 = fmul double %sub20.i, %67
   %68 = tail call double @llvm.fmuladd.f64(double %sub12.i282, double %sub23.i, double %neg.i283)
@@ -1010,8 +1006,8 @@ while.cond68:                                     ; preds = %while.cond68.prehea
   %neg36.i = fmul double %sub12.i282, %72
   %73 = tail call double @llvm.fmuladd.f64(double %sub.i281, double %sub15.i, double %neg36.i)
   %74 = tail call double @llvm.fmuladd.f64(double %sub33.i, double %73, double %71)
-  %cmp.i284 = fcmp ule double %74, 0.000000e+00
-  br i1 %cmp.i284, label %if.end79.loopexit, label %while.body71
+  %cmp.i284 = fcmp ogt double %74, 0.000000e+00
+  br i1 %cmp.i284, label %while.body71, label %if.end79.loopexit
 
 while.body71:                                     ; preds = %while.cond68
   %add.i = add i64 %v156.0.in.in.in, 32
@@ -1028,407 +1024,418 @@ while.body71:                                     ; preds = %while.cond68
   %or10.i = or i64 %and3.i, %and9.i
   %78 = inttoptr i64 %or10.i to ptr
   %next.i.i = getelementptr inbounds %struct.edge_rec, ptr %lcand.1, i64 0, i32 1
-  %add.i.i = add i64 %v257.0.in.in.in, 32
+  %79 = ptrtoint ptr %59 to i64
+  %add.i.i = add i64 %79, 32
   %and.i.i = and i64 %add.i.i, 127
-  %and2.i.i = and i64 %v257.0.in.in.in, -128
+  %and2.i.i = and i64 %79, -128
   %or.i.i = or i64 %and.i.i, %and2.i.i
-  %79 = inttoptr i64 %or.i.i to ptr
+  %80 = inttoptr i64 %or.i.i to ptr
   %next3.i.i = getelementptr inbounds %struct.edge_rec, ptr %78, i64 0, i32 1
-  %80 = load ptr, ptr %next3.i.i, align 8, !tbaa !11
-  %81 = ptrtoint ptr %80 to i64
-  %add4.i.i = add i64 %81, 32
+  %81 = load ptr, ptr %next3.i.i, align 8, !tbaa !11
+  %82 = ptrtoint ptr %81 to i64
+  %add4.i.i = add i64 %82, 32
   %and5.i.i = and i64 %add4.i.i, 127
-  %and7.i.i = and i64 %81, -128
+  %and7.i.i = and i64 %82, -128
   %or8.i.i = or i64 %and5.i.i, %and7.i.i
-  %82 = inttoptr i64 %or8.i.i to ptr
-  %next9.i.i = getelementptr inbounds %struct.edge_rec, ptr %82, i64 0, i32 1
-  %83 = load ptr, ptr %next9.i.i, align 8, !tbaa !11
-  %next10.i.i = getelementptr inbounds %struct.edge_rec, ptr %79, i64 0, i32 1
-  %84 = load ptr, ptr %next10.i.i, align 8, !tbaa !11
-  store ptr %83, ptr %next10.i.i, align 8, !tbaa !11
-  store ptr %84, ptr %next9.i.i, align 8, !tbaa !11
-  %85 = load ptr, ptr %next.i.i, align 8, !tbaa !11
-  %86 = load ptr, ptr %next3.i.i, align 8, !tbaa !11
-  store ptr %85, ptr %next3.i.i, align 8, !tbaa !11
-  store ptr %86, ptr %next.i.i, align 8, !tbaa !11
+  %83 = inttoptr i64 %or8.i.i to ptr
+  %next9.i.i = getelementptr inbounds %struct.edge_rec, ptr %83, i64 0, i32 1
+  %84 = load ptr, ptr %next9.i.i, align 8, !tbaa !11
+  %next10.i.i = getelementptr inbounds %struct.edge_rec, ptr %80, i64 0, i32 1
+  %85 = load ptr, ptr %next10.i.i, align 8, !tbaa !11
+  store ptr %84, ptr %next10.i.i, align 8, !tbaa !11
+  store ptr %85, ptr %next9.i.i, align 8, !tbaa !11
+  %86 = load ptr, ptr %next.i.i, align 8, !tbaa !11
+  %87 = load ptr, ptr %next3.i.i, align 8, !tbaa !11
+  store ptr %86, ptr %next3.i.i, align 8, !tbaa !11
+  store ptr %87, ptr %next.i.i, align 8, !tbaa !11
   %add11.i = add i64 %v156.0.in.in, 32
   %and12.i = and i64 %add11.i, 127
   %or15.i = or i64 %and12.i, %and1.i
-  %87 = inttoptr i64 %or15.i to ptr
-  %next16.i = getelementptr inbounds %struct.edge_rec, ptr %87, i64 0, i32 1
-  %88 = load ptr, ptr %next16.i, align 8, !tbaa !11
-  %89 = ptrtoint ptr %88 to i64
-  %add17.i = add i64 %89, 32
+  %88 = inttoptr i64 %or15.i to ptr
+  %next16.i = getelementptr inbounds %struct.edge_rec, ptr %88, i64 0, i32 1
+  %89 = load ptr, ptr %next16.i, align 8, !tbaa !11
+  %90 = ptrtoint ptr %89 to i64
+  %add17.i = add i64 %90, 32
   %and18.i = and i64 %add17.i, 127
-  %and26.i = and i64 %89, -128
+  %and26.i = and i64 %90, -128
   %or27.i = or i64 %and18.i, %and26.i
-  %90 = inttoptr i64 %or27.i to ptr
+  %91 = inttoptr i64 %or27.i to ptr
   %next.i40.i = getelementptr inbounds %struct.edge_rec, ptr %v156.0.in, i64 0, i32 1
-  %91 = load ptr, ptr %next.i40.i, align 8, !tbaa !11
-  %92 = ptrtoint ptr %91 to i64
-  %add.i41.i = add i64 %92, 32
+  %92 = load ptr, ptr %next.i40.i, align 8, !tbaa !11
+  %93 = ptrtoint ptr %92 to i64
+  %add.i41.i = add i64 %93, 32
   %and.i42.i = and i64 %add.i41.i, 127
-  %and2.i43.i = and i64 %92, -128
+  %and2.i43.i = and i64 %93, -128
   %or.i44.i = or i64 %and.i42.i, %and2.i43.i
-  %93 = inttoptr i64 %or.i44.i to ptr
-  %next3.i45.i = getelementptr inbounds %struct.edge_rec, ptr %90, i64 0, i32 1
-  %94 = load ptr, ptr %next3.i45.i, align 8, !tbaa !11
-  %95 = ptrtoint ptr %94 to i64
-  %add4.i46.i = add i64 %95, 32
+  %94 = inttoptr i64 %or.i44.i to ptr
+  %next3.i45.i = getelementptr inbounds %struct.edge_rec, ptr %91, i64 0, i32 1
+  %95 = load ptr, ptr %next3.i45.i, align 8, !tbaa !11
+  %96 = ptrtoint ptr %95 to i64
+  %add4.i46.i = add i64 %96, 32
   %and5.i47.i = and i64 %add4.i46.i, 127
-  %and7.i48.i = and i64 %95, -128
+  %and7.i48.i = and i64 %96, -128
   %or8.i49.i = or i64 %and5.i47.i, %and7.i48.i
-  %96 = inttoptr i64 %or8.i49.i to ptr
-  %next9.i50.i = getelementptr inbounds %struct.edge_rec, ptr %96, i64 0, i32 1
-  %97 = load ptr, ptr %next9.i50.i, align 8, !tbaa !11
-  %next10.i51.i = getelementptr inbounds %struct.edge_rec, ptr %93, i64 0, i32 1
-  %98 = load ptr, ptr %next10.i51.i, align 8, !tbaa !11
-  store ptr %97, ptr %next10.i51.i, align 8, !tbaa !11
-  store ptr %98, ptr %next9.i50.i, align 8, !tbaa !11
-  %99 = load ptr, ptr %next.i40.i, align 8, !tbaa !11
-  %100 = load ptr, ptr %next3.i45.i, align 8, !tbaa !11
-  store ptr %99, ptr %next3.i45.i, align 8, !tbaa !11
-  store ptr %100, ptr %next.i40.i, align 8, !tbaa !11
-  %101 = inttoptr i64 %and1.i to ptr
-  %next.i52.i = getelementptr inbounds %struct.edge_rec, ptr %101, i64 0, i32 1
-  store ptr %56, ptr %next.i52.i, align 8, !tbaa !11
-  store ptr %101, ptr @avail_edge, align 8, !tbaa !12
-  %next72 = getelementptr inbounds %struct.edge_rec, ptr %57, i64 0, i32 1
-  %102 = load ptr, ptr %next72, align 8, !tbaa !11
+  %97 = inttoptr i64 %or8.i49.i to ptr
+  %next9.i50.i = getelementptr inbounds %struct.edge_rec, ptr %97, i64 0, i32 1
+  %98 = load ptr, ptr %next9.i50.i, align 8, !tbaa !11
+  %next10.i51.i = getelementptr inbounds %struct.edge_rec, ptr %94, i64 0, i32 1
+  %99 = load ptr, ptr %next10.i51.i, align 8, !tbaa !11
+  store ptr %98, ptr %next10.i51.i, align 8, !tbaa !11
+  store ptr %99, ptr %next9.i50.i, align 8, !tbaa !11
+  %100 = load ptr, ptr %next.i40.i, align 8, !tbaa !11
+  %101 = load ptr, ptr %next3.i45.i, align 8, !tbaa !11
+  store ptr %100, ptr %next3.i45.i, align 8, !tbaa !11
+  store ptr %101, ptr %next.i40.i, align 8, !tbaa !11
+  %102 = inttoptr i64 %and1.i to ptr
+  %next.i52.i = getelementptr inbounds %struct.edge_rec, ptr %102, i64 0, i32 1
+  store ptr %58, ptr %next.i52.i, align 8, !tbaa !11
+  store ptr %102, ptr @avail_edge, align 8, !tbaa !12
+  %next72 = getelementptr inbounds %struct.edge_rec, ptr %59, i64 0, i32 1
+  %103 = load ptr, ptr %next72, align 8, !tbaa !11
+  %104 = ptrtoint ptr %103 to i64
+  %xor76 = xor i64 %104, 64
+  %105 = inttoptr i64 %xor76 to ptr
+  %106 = load ptr, ptr %105, align 8, !tbaa !5
+  %.pre428 = load double, ptr %106, align 8, !tbaa !23
+  %y14.i.phi.trans.insert = getelementptr inbounds %struct.VEC2, ptr %106, i64 0, i32 1
+  %.pre429 = load double, ptr %y14.i.phi.trans.insert, align 8, !tbaa !24
   br label %while.cond68, !llvm.loop !28
 
 if.end79.loopexit:                                ; preds = %while.cond68
-  %.pre428 = load ptr, ptr %basel.0, align 8, !tbaa !5
-  %.pre429 = load ptr, ptr %37, align 8, !tbaa !5
-  %103 = load <2 x double>, ptr %.pre428, align 8, !tbaa !26
-  %104 = load <2 x double>, ptr %.pre429, align 8, !tbaa !26
-  %105 = fsub <2 x double> %103, %104
-  %106 = extractelement <2 x double> %104, i64 0
-  %107 = extractelement <2 x double> %104, i64 1
+  %.pre430 = load ptr, ptr %basel.0, align 8, !tbaa !5
+  %.pre431 = load ptr, ptr %37, align 8, !tbaa !5
+  %107 = load <2 x double>, ptr %.pre430, align 8, !tbaa !26
+  %108 = load <2 x double>, ptr %.pre431, align 8, !tbaa !26
+  %109 = fsub <2 x double> %107, %108
+  %110 = extractelement <2 x double> %108, i64 0
+  %111 = extractelement <2 x double> %108, i64 1
   br label %if.end79
 
 if.end79:                                         ; preds = %if.end79.loopexit, %while.cond54
-  %108 = phi double [ %107, %if.end79.loopexit ], [ %46, %while.cond54 ]
-  %109 = phi double [ %106, %if.end79.loopexit ], [ %47, %while.cond54 ]
-  %110 = phi ptr [ %.pre429, %if.end79.loopexit ], [ %38, %while.cond54 ]
+  %112 = phi double [ %111, %if.end79.loopexit ], [ %46, %while.cond54 ]
+  %113 = phi double [ %110, %if.end79.loopexit ], [ %47, %while.cond54 ]
+  %114 = phi ptr [ %.pre431, %if.end79.loopexit ], [ %38, %while.cond54 ]
   %lcand.2 = phi ptr [ %lcand.1, %if.end79.loopexit ], [ %lcand.0, %while.cond54 ]
-  %111 = phi <2 x double> [ %105, %if.end79.loopexit ], [ %48, %while.cond54 ]
-  %112 = ptrtoint ptr %rcand.0 to i64
-  %add80 = add i64 %112, 32
+  %115 = phi <2 x double> [ %109, %if.end79.loopexit ], [ %48, %while.cond54 ]
+  %116 = ptrtoint ptr %rcand.0 to i64
+  %add80 = add i64 %116, 32
   %and81 = and i64 %add80, 127
-  %and82 = and i64 %112, -128
+  %and82 = and i64 %116, -128
   %or83 = or i64 %and81, %and82
-  %113 = inttoptr i64 %or83 to ptr
-  %next84 = getelementptr inbounds %struct.edge_rec, ptr %113, i64 0, i32 1
-  %114 = load ptr, ptr %next84, align 8, !tbaa !11
-  %115 = ptrtoint ptr %114 to i64
-  %add85 = add i64 %115, 32
+  %117 = inttoptr i64 %or83 to ptr
+  %next84 = getelementptr inbounds %struct.edge_rec, ptr %117, i64 0, i32 1
+  %118 = load ptr, ptr %next84, align 8, !tbaa !11
+  %119 = ptrtoint ptr %118 to i64
+  %add85 = add i64 %119, 32
   %and86 = and i64 %add85, 127
-  %and92 = and i64 %115, -128
+  %and92 = and i64 %119, -128
   %or93 = or i64 %and86, %and92
   %xor2.i288 = xor i64 %or93, 64
-  %116 = inttoptr i64 %xor2.i288 to ptr
-  %117 = load ptr, ptr %116, align 8, !tbaa !5
-  %118 = load double, ptr %117, align 8, !tbaa !23
-  %y5.i.i290 = getelementptr inbounds %struct.VEC2, ptr %117, i64 0, i32 1
-  %119 = load double, ptr %y5.i.i290, align 8, !tbaa !24
-  %sub10.i.i293 = fsub double %119, %108
-  %sub11.i.i294 = fsub double %118, %109
-  %120 = fneg double %sub11.i.i294
-  %121 = extractelement <2 x double> %111, i64 1
-  %neg.i.i296 = fmul double %121, %120
-  %122 = extractelement <2 x double> %111, i64 0
-  %123 = tail call double @llvm.fmuladd.f64(double %122, double %sub10.i.i293, double %neg.i.i296)
-  %cmp.i.i297 = fcmp ule double %123, 0.000000e+00
-  br i1 %cmp.i.i297, label %if.end128, label %while.cond104.preheader
+  %120 = inttoptr i64 %xor2.i288 to ptr
+  %121 = load ptr, ptr %120, align 8, !tbaa !5
+  %122 = load double, ptr %121, align 8, !tbaa !23
+  %y5.i.i290 = getelementptr inbounds %struct.VEC2, ptr %121, i64 0, i32 1
+  %123 = load double, ptr %y5.i.i290, align 8, !tbaa !24
+  %sub10.i.i293 = fsub double %123, %112
+  %sub11.i.i294 = fsub double %122, %113
+  %124 = fneg double %sub11.i.i294
+  %125 = extractelement <2 x double> %115, i64 1
+  %neg.i.i296 = fmul double %125, %124
+  %126 = extractelement <2 x double> %115, i64 0
+  %127 = tail call double @llvm.fmuladd.f64(double %126, double %sub10.i.i293, double %neg.i.i296)
+  %cmp.i.i297 = fcmp ogt double %127, 0.000000e+00
+  br i1 %cmp.i.i297, label %while.cond104.preheader, label %if.end128
 
 while.cond104.preheader:                          ; preds = %if.end79
-  %norm.i300 = getelementptr inbounds %struct.VEC2, ptr %110, i64 0, i32 2
-  %124 = load double, ptr %norm.i300, align 8, !tbaa !27
+  %norm.i300 = getelementptr inbounds %struct.VEC2, ptr %114, i64 0, i32 2
+  %128 = load double, ptr %norm.i300, align 8, !tbaa !27
   %avail_edge.promoted426 = load ptr, ptr @avail_edge, align 8, !tbaa !12
   br label %while.cond104
 
 while.cond104:                                    ; preds = %while.cond104.preheader, %while.body107
-  %125 = phi ptr [ %173, %while.body107 ], [ %avail_edge.promoted426, %while.cond104.preheader ]
+  %129 = phi double [ %.pre437, %while.body107 ], [ %123, %while.cond104.preheader ]
+  %130 = phi double [ %.pre436, %while.body107 ], [ %122, %while.cond104.preheader ]
+  %131 = phi ptr [ %177, %while.body107 ], [ %avail_edge.promoted426, %while.cond104.preheader ]
   %rcand.1 = phi ptr [ %t.1, %while.body107 ], [ %rcand.0, %while.cond104.preheader ]
-  %v156.1.in.in.in = phi i64 [ %or121, %while.body107 ], [ %or93, %while.cond104.preheader ]
-  %v257.1.in.in.in = phi i64 [ %v156.1.in.in.in, %while.body107 ], [ %112, %while.cond104.preheader ]
+  %t.1.in = phi i64 [ %or121, %while.body107 ], [ %or93, %while.cond104.preheader ]
+  %v156.1 = phi ptr [ %182, %while.body107 ], [ %121, %while.cond104.preheader ]
+  %v257.1.in.in.in = phi i64 [ %t.1.in, %while.body107 ], [ %116, %while.cond104.preheader ]
   %v3.1 = load ptr, ptr %rcand.1, align 8, !tbaa !5
   %v257.1.in.in = xor i64 %v257.1.in.in.in, 64
   %v257.1.in = inttoptr i64 %v257.1.in.in to ptr
   %v257.1 = load ptr, ptr %v257.1.in, align 8, !tbaa !5
-  %v156.1.in.in = xor i64 %v156.1.in.in.in, 64
-  %v156.1.in = inttoptr i64 %v156.1.in.in to ptr
-  %v156.1 = load ptr, ptr %v156.1.in, align 8, !tbaa !5
-  %126 = load double, ptr %v156.1, align 8, !tbaa !23
-  %sub.i301 = fsub double %126, %109
-  %y6.i302 = getelementptr inbounds %struct.VEC2, ptr %v156.1, i64 0, i32 1
-  %127 = load double, ptr %y6.i302, align 8, !tbaa !24
-  %sub7.i303 = fsub double %127, %108
+  %sub.i301 = fsub double %130, %113
+  %sub7.i303 = fsub double %129, %112
   %norm9.i304 = getelementptr inbounds %struct.VEC2, ptr %v156.1, i64 0, i32 2
-  %128 = load double, ptr %norm9.i304, align 8, !tbaa !27
-  %129 = load double, ptr %v257.1, align 8, !tbaa !23
-  %sub12.i305 = fsub double %129, %109
+  %132 = load double, ptr %norm9.i304, align 8, !tbaa !27
+  %133 = load double, ptr %v257.1, align 8, !tbaa !23
+  %sub12.i305 = fsub double %133, %113
   %y14.i306 = getelementptr inbounds %struct.VEC2, ptr %v257.1, i64 0, i32 1
-  %130 = load double, ptr %y14.i306, align 8, !tbaa !24
-  %sub15.i307 = fsub double %130, %108
+  %134 = load double, ptr %y14.i306, align 8, !tbaa !24
+  %sub15.i307 = fsub double %134, %112
   %norm17.i308 = getelementptr inbounds %struct.VEC2, ptr %v257.1, i64 0, i32 2
-  %131 = load double, ptr %norm17.i308, align 8, !tbaa !27
-  %132 = load double, ptr %v3.1, align 8, !tbaa !23
-  %sub20.i309 = fsub double %132, %109
+  %135 = load double, ptr %norm17.i308, align 8, !tbaa !27
+  %136 = load double, ptr %v3.1, align 8, !tbaa !23
+  %sub20.i309 = fsub double %136, %113
   %y22.i310 = getelementptr inbounds %struct.VEC2, ptr %v3.1, i64 0, i32 1
-  %133 = load double, ptr %y22.i310, align 8, !tbaa !24
-  %sub23.i311 = fsub double %133, %108
+  %137 = load double, ptr %y22.i310, align 8, !tbaa !24
+  %sub23.i311 = fsub double %137, %112
   %norm25.i312 = getelementptr inbounds %struct.VEC2, ptr %v3.1, i64 0, i32 2
-  %134 = load double, ptr %norm25.i312, align 8, !tbaa !27
-  %sub26.i313 = fsub double %128, %124
-  %135 = fneg double %sub15.i307
-  %neg.i314 = fmul double %sub20.i309, %135
-  %136 = tail call double @llvm.fmuladd.f64(double %sub12.i305, double %sub23.i311, double %neg.i314)
-  %mul.i315 = fmul double %sub26.i313, %136
-  %sub28.i316 = fsub double %131, %124
-  %137 = fneg double %sub23.i311
-  %neg31.i317 = fmul double %sub.i301, %137
-  %138 = tail call double @llvm.fmuladd.f64(double %sub20.i309, double %sub7.i303, double %neg31.i317)
-  %139 = tail call double @llvm.fmuladd.f64(double %sub28.i316, double %138, double %mul.i315)
-  %sub33.i318 = fsub double %134, %124
-  %140 = fneg double %sub7.i303
-  %neg36.i319 = fmul double %sub12.i305, %140
-  %141 = tail call double @llvm.fmuladd.f64(double %sub.i301, double %sub15.i307, double %neg36.i319)
-  %142 = tail call double @llvm.fmuladd.f64(double %sub33.i318, double %141, double %139)
-  %cmp.i320 = fcmp ule double %142, 0.000000e+00
-  br i1 %cmp.i320, label %if.end128.loopexit, label %while.body107
+  %138 = load double, ptr %norm25.i312, align 8, !tbaa !27
+  %sub26.i313 = fsub double %132, %128
+  %139 = fneg double %sub15.i307
+  %neg.i314 = fmul double %sub20.i309, %139
+  %140 = tail call double @llvm.fmuladd.f64(double %sub12.i305, double %sub23.i311, double %neg.i314)
+  %mul.i315 = fmul double %sub26.i313, %140
+  %sub28.i316 = fsub double %135, %128
+  %141 = fneg double %sub23.i311
+  %neg31.i317 = fmul double %sub.i301, %141
+  %142 = tail call double @llvm.fmuladd.f64(double %sub20.i309, double %sub7.i303, double %neg31.i317)
+  %143 = tail call double @llvm.fmuladd.f64(double %sub28.i316, double %142, double %mul.i315)
+  %sub33.i318 = fsub double %138, %128
+  %144 = fneg double %sub7.i303
+  %neg36.i319 = fmul double %sub12.i305, %144
+  %145 = tail call double @llvm.fmuladd.f64(double %sub.i301, double %sub15.i307, double %neg36.i319)
+  %146 = tail call double @llvm.fmuladd.f64(double %sub33.i318, double %145, double %143)
+  %cmp.i320 = fcmp ogt double %146, 0.000000e+00
+  br i1 %cmp.i320, label %while.body107, label %if.end128.loopexit
 
 while.body107:                                    ; preds = %while.cond104
-  %t.1 = inttoptr i64 %v156.1.in.in.in to ptr
-  %143 = ptrtoint ptr %rcand.1 to i64
-  %add.i322 = add i64 %143, 32
+  %t.1 = inttoptr i64 %t.1.in to ptr
+  %147 = ptrtoint ptr %rcand.1 to i64
+  %add.i322 = add i64 %147, 32
   %and.i323 = and i64 %add.i322, 127
-  %and1.i324 = and i64 %143, -128
+  %and1.i324 = and i64 %147, -128
   %or.i325 = or i64 %and.i323, %and1.i324
-  %144 = inttoptr i64 %or.i325 to ptr
-  %next.i326 = getelementptr inbounds %struct.edge_rec, ptr %144, i64 0, i32 1
-  %145 = load ptr, ptr %next.i326, align 8, !tbaa !11
-  %146 = ptrtoint ptr %145 to i64
-  %add2.i327 = add i64 %146, 32
+  %148 = inttoptr i64 %or.i325 to ptr
+  %next.i326 = getelementptr inbounds %struct.edge_rec, ptr %148, i64 0, i32 1
+  %149 = load ptr, ptr %next.i326, align 8, !tbaa !11
+  %150 = ptrtoint ptr %149 to i64
+  %add2.i327 = add i64 %150, 32
   %and3.i328 = and i64 %add2.i327, 127
-  %and9.i329 = and i64 %146, -128
+  %and9.i329 = and i64 %150, -128
   %or10.i330 = or i64 %and3.i328, %and9.i329
-  %147 = inttoptr i64 %or10.i330 to ptr
+  %151 = inttoptr i64 %or10.i330 to ptr
   %next.i.i331 = getelementptr inbounds %struct.edge_rec, ptr %rcand.1, i64 0, i32 1
-  %148 = load ptr, ptr %next.i.i331, align 8, !tbaa !11
-  %149 = ptrtoint ptr %148 to i64
-  %add.i.i332 = add i64 %149, 32
+  %152 = load ptr, ptr %next.i.i331, align 8, !tbaa !11
+  %153 = ptrtoint ptr %152 to i64
+  %add.i.i332 = add i64 %153, 32
   %and.i.i333 = and i64 %add.i.i332, 127
-  %and2.i.i334 = and i64 %149, -128
+  %and2.i.i334 = and i64 %153, -128
   %or.i.i335 = or i64 %and.i.i333, %and2.i.i334
-  %150 = inttoptr i64 %or.i.i335 to ptr
-  %next3.i.i336 = getelementptr inbounds %struct.edge_rec, ptr %147, i64 0, i32 1
-  %151 = load ptr, ptr %next3.i.i336, align 8, !tbaa !11
-  %152 = ptrtoint ptr %151 to i64
-  %add4.i.i337 = add i64 %152, 32
+  %154 = inttoptr i64 %or.i.i335 to ptr
+  %next3.i.i336 = getelementptr inbounds %struct.edge_rec, ptr %151, i64 0, i32 1
+  %155 = load ptr, ptr %next3.i.i336, align 8, !tbaa !11
+  %156 = ptrtoint ptr %155 to i64
+  %add4.i.i337 = add i64 %156, 32
   %and5.i.i338 = and i64 %add4.i.i337, 127
-  %and7.i.i339 = and i64 %152, -128
+  %and7.i.i339 = and i64 %156, -128
   %or8.i.i340 = or i64 %and5.i.i338, %and7.i.i339
-  %153 = inttoptr i64 %or8.i.i340 to ptr
-  %next9.i.i341 = getelementptr inbounds %struct.edge_rec, ptr %153, i64 0, i32 1
-  %154 = load ptr, ptr %next9.i.i341, align 8, !tbaa !11
-  %next10.i.i342 = getelementptr inbounds %struct.edge_rec, ptr %150, i64 0, i32 1
-  %155 = load ptr, ptr %next10.i.i342, align 8, !tbaa !11
-  store ptr %154, ptr %next10.i.i342, align 8, !tbaa !11
-  store ptr %155, ptr %next9.i.i341, align 8, !tbaa !11
-  %156 = load ptr, ptr %next.i.i331, align 8, !tbaa !11
-  %157 = load ptr, ptr %next3.i.i336, align 8, !tbaa !11
-  store ptr %156, ptr %next3.i.i336, align 8, !tbaa !11
-  store ptr %157, ptr %next.i.i331, align 8, !tbaa !11
-  %xor.i343 = xor i64 %143, 64
-  %158 = inttoptr i64 %xor.i343 to ptr
+  %157 = inttoptr i64 %or8.i.i340 to ptr
+  %next9.i.i341 = getelementptr inbounds %struct.edge_rec, ptr %157, i64 0, i32 1
+  %158 = load ptr, ptr %next9.i.i341, align 8, !tbaa !11
+  %next10.i.i342 = getelementptr inbounds %struct.edge_rec, ptr %154, i64 0, i32 1
+  %159 = load ptr, ptr %next10.i.i342, align 8, !tbaa !11
+  store ptr %158, ptr %next10.i.i342, align 8, !tbaa !11
+  store ptr %159, ptr %next9.i.i341, align 8, !tbaa !11
+  %160 = load ptr, ptr %next.i.i331, align 8, !tbaa !11
+  %161 = load ptr, ptr %next3.i.i336, align 8, !tbaa !11
+  store ptr %160, ptr %next3.i.i336, align 8, !tbaa !11
+  store ptr %161, ptr %next.i.i331, align 8, !tbaa !11
+  %xor.i343 = xor i64 %147, 64
+  %162 = inttoptr i64 %xor.i343 to ptr
   %add11.i344 = add i64 %xor.i343, 32
   %and12.i345 = and i64 %add11.i344, 127
   %or15.i346 = or i64 %and12.i345, %and1.i324
-  %159 = inttoptr i64 %or15.i346 to ptr
-  %next16.i347 = getelementptr inbounds %struct.edge_rec, ptr %159, i64 0, i32 1
-  %160 = load ptr, ptr %next16.i347, align 8, !tbaa !11
-  %161 = ptrtoint ptr %160 to i64
-  %add17.i348 = add i64 %161, 32
+  %163 = inttoptr i64 %or15.i346 to ptr
+  %next16.i347 = getelementptr inbounds %struct.edge_rec, ptr %163, i64 0, i32 1
+  %164 = load ptr, ptr %next16.i347, align 8, !tbaa !11
+  %165 = ptrtoint ptr %164 to i64
+  %add17.i348 = add i64 %165, 32
   %and18.i349 = and i64 %add17.i348, 127
-  %and26.i350 = and i64 %161, -128
+  %and26.i350 = and i64 %165, -128
   %or27.i351 = or i64 %and18.i349, %and26.i350
-  %162 = inttoptr i64 %or27.i351 to ptr
-  %next.i40.i352 = getelementptr inbounds %struct.edge_rec, ptr %158, i64 0, i32 1
-  %163 = load ptr, ptr %next.i40.i352, align 8, !tbaa !11
-  %164 = ptrtoint ptr %163 to i64
-  %add.i41.i353 = add i64 %164, 32
+  %166 = inttoptr i64 %or27.i351 to ptr
+  %next.i40.i352 = getelementptr inbounds %struct.edge_rec, ptr %162, i64 0, i32 1
+  %167 = load ptr, ptr %next.i40.i352, align 8, !tbaa !11
+  %168 = ptrtoint ptr %167 to i64
+  %add.i41.i353 = add i64 %168, 32
   %and.i42.i354 = and i64 %add.i41.i353, 127
-  %and2.i43.i355 = and i64 %164, -128
+  %and2.i43.i355 = and i64 %168, -128
   %or.i44.i356 = or i64 %and.i42.i354, %and2.i43.i355
-  %165 = inttoptr i64 %or.i44.i356 to ptr
-  %next3.i45.i357 = getelementptr inbounds %struct.edge_rec, ptr %162, i64 0, i32 1
-  %166 = load ptr, ptr %next3.i45.i357, align 8, !tbaa !11
-  %167 = ptrtoint ptr %166 to i64
-  %add4.i46.i358 = add i64 %167, 32
+  %169 = inttoptr i64 %or.i44.i356 to ptr
+  %next3.i45.i357 = getelementptr inbounds %struct.edge_rec, ptr %166, i64 0, i32 1
+  %170 = load ptr, ptr %next3.i45.i357, align 8, !tbaa !11
+  %171 = ptrtoint ptr %170 to i64
+  %add4.i46.i358 = add i64 %171, 32
   %and5.i47.i359 = and i64 %add4.i46.i358, 127
-  %and7.i48.i360 = and i64 %167, -128
+  %and7.i48.i360 = and i64 %171, -128
   %or8.i49.i361 = or i64 %and5.i47.i359, %and7.i48.i360
-  %168 = inttoptr i64 %or8.i49.i361 to ptr
-  %next9.i50.i362 = getelementptr inbounds %struct.edge_rec, ptr %168, i64 0, i32 1
-  %169 = load ptr, ptr %next9.i50.i362, align 8, !tbaa !11
-  %next10.i51.i363 = getelementptr inbounds %struct.edge_rec, ptr %165, i64 0, i32 1
-  %170 = load ptr, ptr %next10.i51.i363, align 8, !tbaa !11
-  store ptr %169, ptr %next10.i51.i363, align 8, !tbaa !11
-  store ptr %170, ptr %next9.i50.i362, align 8, !tbaa !11
-  %171 = load ptr, ptr %next.i40.i352, align 8, !tbaa !11
-  %172 = load ptr, ptr %next3.i45.i357, align 8, !tbaa !11
-  store ptr %171, ptr %next3.i45.i357, align 8, !tbaa !11
-  store ptr %172, ptr %next.i40.i352, align 8, !tbaa !11
-  %173 = inttoptr i64 %and1.i324 to ptr
-  %next.i52.i364 = getelementptr inbounds %struct.edge_rec, ptr %173, i64 0, i32 1
-  store ptr %125, ptr %next.i52.i364, align 8, !tbaa !11
-  store ptr %173, ptr @avail_edge, align 8, !tbaa !12
-  %add108 = add i64 %v156.1.in.in.in, 32
+  %172 = inttoptr i64 %or8.i49.i361 to ptr
+  %next9.i50.i362 = getelementptr inbounds %struct.edge_rec, ptr %172, i64 0, i32 1
+  %173 = load ptr, ptr %next9.i50.i362, align 8, !tbaa !11
+  %next10.i51.i363 = getelementptr inbounds %struct.edge_rec, ptr %169, i64 0, i32 1
+  %174 = load ptr, ptr %next10.i51.i363, align 8, !tbaa !11
+  store ptr %173, ptr %next10.i51.i363, align 8, !tbaa !11
+  store ptr %174, ptr %next9.i50.i362, align 8, !tbaa !11
+  %175 = load ptr, ptr %next.i40.i352, align 8, !tbaa !11
+  %176 = load ptr, ptr %next3.i45.i357, align 8, !tbaa !11
+  store ptr %175, ptr %next3.i45.i357, align 8, !tbaa !11
+  store ptr %176, ptr %next.i40.i352, align 8, !tbaa !11
+  %177 = inttoptr i64 %and1.i324 to ptr
+  %next.i52.i364 = getelementptr inbounds %struct.edge_rec, ptr %177, i64 0, i32 1
+  store ptr %131, ptr %next.i52.i364, align 8, !tbaa !11
+  store ptr %177, ptr @avail_edge, align 8, !tbaa !12
+  %add108 = add i64 %t.1.in, 32
   %and109 = and i64 %add108, 127
-  %and110 = and i64 %v156.1.in.in.in, -128
+  %and110 = and i64 %t.1.in, -128
   %or111 = or i64 %and109, %and110
-  %174 = inttoptr i64 %or111 to ptr
-  %next112 = getelementptr inbounds %struct.edge_rec, ptr %174, i64 0, i32 1
-  %175 = load ptr, ptr %next112, align 8, !tbaa !11
-  %176 = ptrtoint ptr %175 to i64
-  %add113 = add i64 %176, 32
+  %178 = inttoptr i64 %or111 to ptr
+  %next112 = getelementptr inbounds %struct.edge_rec, ptr %178, i64 0, i32 1
+  %179 = load ptr, ptr %next112, align 8, !tbaa !11
+  %180 = ptrtoint ptr %179 to i64
+  %add113 = add i64 %180, 32
   %and114 = and i64 %add113, 127
-  %and120 = and i64 %176, -128
+  %and120 = and i64 %180, -128
   %or121 = or i64 %and114, %and120
+  %xor125 = xor i64 %or121, 64
+  %181 = inttoptr i64 %xor125 to ptr
+  %182 = load ptr, ptr %181, align 8, !tbaa !5
+  %.pre436 = load double, ptr %182, align 8, !tbaa !23
+  %y6.i302.phi.trans.insert = getelementptr inbounds %struct.VEC2, ptr %182, i64 0, i32 1
+  %.pre437 = load double, ptr %y6.i302.phi.trans.insert, align 8, !tbaa !24
   br label %while.cond104, !llvm.loop !29
 
 if.end128.loopexit:                               ; preds = %while.cond104
-  %.pre434 = load ptr, ptr %basel.0, align 8, !tbaa !5
-  %.pre435 = load ptr, ptr %37, align 8, !tbaa !5
-  %177 = load <2 x double>, ptr %.pre434, align 8, !tbaa !26
-  %178 = load <2 x double>, ptr %.pre435, align 8, !tbaa !26
-  %179 = fsub <2 x double> %177, %178
-  %.pre444 = ptrtoint ptr %rcand.1 to i64
-  %180 = extractelement <2 x double> %178, i64 0
-  %181 = extractelement <2 x double> %178, i64 1
+  %.pre438 = load ptr, ptr %basel.0, align 8, !tbaa !5
+  %.pre439 = load ptr, ptr %37, align 8, !tbaa !5
+  %183 = load <2 x double>, ptr %.pre438, align 8, !tbaa !26
+  %184 = load <2 x double>, ptr %.pre439, align 8, !tbaa !26
+  %185 = fsub <2 x double> %183, %184
+  %.pre448 = ptrtoint ptr %rcand.1 to i64
+  %186 = extractelement <2 x double> %184, i64 0
+  %187 = extractelement <2 x double> %184, i64 1
   br label %if.end128
 
 if.end128:                                        ; preds = %if.end128.loopexit, %if.end79
-  %.pre-phi = phi i64 [ %.pre444, %if.end128.loopexit ], [ %112, %if.end79 ]
-  %182 = phi double [ %181, %if.end128.loopexit ], [ %108, %if.end79 ]
-  %183 = phi double [ %180, %if.end128.loopexit ], [ %109, %if.end79 ]
+  %.pre-phi = phi i64 [ %.pre448, %if.end128.loopexit ], [ %116, %if.end79 ]
+  %188 = phi double [ %187, %if.end128.loopexit ], [ %112, %if.end79 ]
+  %189 = phi double [ %186, %if.end128.loopexit ], [ %113, %if.end79 ]
   %rcand.2 = phi ptr [ %rcand.1, %if.end128.loopexit ], [ %rcand.0, %if.end79 ]
-  %184 = phi <2 x double> [ %179, %if.end128.loopexit ], [ %111, %if.end79 ]
-  %185 = ptrtoint ptr %lcand.2 to i64
-  %xor2.i366 = xor i64 %185, 64
-  %186 = inttoptr i64 %xor2.i366 to ptr
-  %187 = load ptr, ptr %186, align 8, !tbaa !5
-  %y5.i.i368 = getelementptr inbounds %struct.VEC2, ptr %187, i64 0, i32 1
+  %190 = phi <2 x double> [ %185, %if.end128.loopexit ], [ %115, %if.end79 ]
+  %191 = ptrtoint ptr %lcand.2 to i64
+  %xor2.i366 = xor i64 %191, 64
+  %192 = inttoptr i64 %xor2.i366 to ptr
+  %193 = load ptr, ptr %192, align 8, !tbaa !5
+  %y5.i.i368 = getelementptr inbounds %struct.VEC2, ptr %193, i64 0, i32 1
   %xor2.i378 = xor i64 %.pre-phi, 64
-  %188 = inttoptr i64 %xor2.i378 to ptr
-  %189 = load ptr, ptr %188, align 8, !tbaa !5
-  %y5.i.i380 = getelementptr inbounds %struct.VEC2, ptr %189, i64 0, i32 1
-  %190 = load double, ptr %187, align 8, !tbaa !23
-  %191 = load double, ptr %y5.i.i368, align 8, !tbaa !24
-  %192 = load double, ptr %189, align 8, !tbaa !23
-  %193 = load double, ptr %y5.i.i380, align 8, !tbaa !24
-  %194 = insertelement <2 x double> poison, double %193, i64 0
-  %195 = insertelement <2 x double> %194, double %191, i64 1
-  %196 = insertelement <2 x double> poison, double %182, i64 0
-  %197 = shufflevector <2 x double> %196, <2 x double> poison, <2 x i32> zeroinitializer
-  %198 = fsub <2 x double> %195, %197
-  %199 = insertelement <2 x double> poison, double %192, i64 0
-  %200 = insertelement <2 x double> %199, double %190, i64 1
-  %201 = insertelement <2 x double> poison, double %183, i64 0
-  %202 = shufflevector <2 x double> %201, <2 x double> poison, <2 x i32> zeroinitializer
-  %203 = fsub <2 x double> %200, %202
-  %204 = fneg <2 x double> %203
-  %205 = shufflevector <2 x double> %184, <2 x double> poison, <2 x i32> <i32 1, i32 1>
-  %206 = fmul <2 x double> %205, %204
-  %207 = shufflevector <2 x double> %184, <2 x double> poison, <2 x i32> zeroinitializer
-  %208 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %207, <2 x double> %198, <2 x double> %206)
-  %209 = fcmp ogt <2 x double> %208, zeroinitializer
-  %210 = extractelement <2 x i1> %209, i64 0
-  %211 = extractelement <2 x i1> %209, i64 1
-  %or.cond = select i1 %211, i1 true, i1 %210
+  %194 = inttoptr i64 %xor2.i378 to ptr
+  %195 = load ptr, ptr %194, align 8, !tbaa !5
+  %y5.i.i380 = getelementptr inbounds %struct.VEC2, ptr %195, i64 0, i32 1
+  %196 = load double, ptr %193, align 8, !tbaa !23
+  %197 = load double, ptr %y5.i.i368, align 8, !tbaa !24
+  %198 = load double, ptr %195, align 8, !tbaa !23
+  %199 = load double, ptr %y5.i.i380, align 8, !tbaa !24
+  %200 = insertelement <2 x double> poison, double %199, i64 0
+  %201 = insertelement <2 x double> %200, double %197, i64 1
+  %202 = insertelement <2 x double> poison, double %188, i64 0
+  %203 = shufflevector <2 x double> %202, <2 x double> poison, <2 x i32> zeroinitializer
+  %204 = fsub <2 x double> %201, %203
+  %205 = insertelement <2 x double> poison, double %198, i64 0
+  %206 = insertelement <2 x double> %205, double %196, i64 1
+  %207 = insertelement <2 x double> poison, double %189, i64 0
+  %208 = shufflevector <2 x double> %207, <2 x double> poison, <2 x i32> zeroinitializer
+  %209 = fsub <2 x double> %206, %208
+  %210 = fneg <2 x double> %209
+  %211 = shufflevector <2 x double> %190, <2 x double> poison, <2 x i32> <i32 1, i32 1>
+  %212 = fmul <2 x double> %211, %210
+  %213 = shufflevector <2 x double> %190, <2 x double> poison, <2 x i32> zeroinitializer
+  %214 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %213, <2 x double> %204, <2 x double> %212)
+  %215 = fcmp ogt <2 x double> %214, zeroinitializer
+  %216 = extractelement <2 x i1> %215, i64 0
+  %217 = extractelement <2 x i1> %215, i64 1
+  %or.cond = select i1 %217, i1 true, i1 %216
   br i1 %or.cond, label %if.end134, label %cleanup179
 
 if.end134:                                        ; preds = %if.end128
-  %212 = load ptr, ptr %lcand.2, align 8, !tbaa !5
-  %213 = load ptr, ptr %rcand.2, align 8, !tbaa !5
-  br i1 %211, label %lor.lhs.false, label %if.then146
+  %218 = load ptr, ptr %lcand.2, align 8, !tbaa !5
+  %219 = load ptr, ptr %rcand.2, align 8, !tbaa !5
+  br i1 %217, label %lor.lhs.false, label %if.then146
 
 lor.lhs.false:                                    ; preds = %if.end134
-  br i1 %210, label %land.lhs.true143, label %if.else167
+  br i1 %216, label %land.lhs.true143, label %if.else167
 
 land.lhs.true143:                                 ; preds = %lor.lhs.false
-  %norm.i390 = getelementptr inbounds %struct.VEC2, ptr %189, i64 0, i32 2
-  %214 = load double, ptr %norm.i390, align 8, !tbaa !27
-  %sub.i391 = fsub double %190, %192
-  %sub7.i393 = fsub double %191, %193
-  %norm9.i394 = getelementptr inbounds %struct.VEC2, ptr %187, i64 0, i32 2
-  %215 = load double, ptr %norm9.i394, align 8, !tbaa !27
-  %216 = load double, ptr %212, align 8, !tbaa !23
-  %sub12.i395 = fsub double %216, %192
-  %y14.i396 = getelementptr inbounds %struct.VEC2, ptr %212, i64 0, i32 1
-  %217 = load double, ptr %y14.i396, align 8, !tbaa !24
-  %sub15.i397 = fsub double %217, %193
-  %norm17.i398 = getelementptr inbounds %struct.VEC2, ptr %212, i64 0, i32 2
-  %218 = load double, ptr %norm17.i398, align 8, !tbaa !27
-  %219 = load double, ptr %213, align 8, !tbaa !23
-  %sub20.i399 = fsub double %219, %192
-  %y22.i400 = getelementptr inbounds %struct.VEC2, ptr %213, i64 0, i32 1
-  %220 = load double, ptr %y22.i400, align 8, !tbaa !24
-  %sub23.i401 = fsub double %220, %193
-  %norm25.i402 = getelementptr inbounds %struct.VEC2, ptr %213, i64 0, i32 2
-  %221 = load double, ptr %norm25.i402, align 8, !tbaa !27
-  %sub26.i403 = fsub double %215, %214
-  %222 = fneg double %sub15.i397
-  %neg.i404 = fmul double %sub20.i399, %222
-  %223 = tail call double @llvm.fmuladd.f64(double %sub12.i395, double %sub23.i401, double %neg.i404)
-  %mul.i405 = fmul double %sub26.i403, %223
-  %sub28.i406 = fsub double %218, %214
-  %224 = fneg double %sub23.i401
-  %neg31.i407 = fmul double %sub.i391, %224
-  %225 = tail call double @llvm.fmuladd.f64(double %sub20.i399, double %sub7.i393, double %neg31.i407)
-  %226 = tail call double @llvm.fmuladd.f64(double %sub28.i406, double %225, double %mul.i405)
-  %sub33.i408 = fsub double %221, %214
-  %227 = fneg double %sub7.i393
-  %neg36.i409 = fmul double %sub12.i395, %227
-  %228 = tail call double @llvm.fmuladd.f64(double %sub.i391, double %sub15.i397, double %neg36.i409)
-  %229 = tail call double @llvm.fmuladd.f64(double %sub33.i408, double %228, double %226)
-  %cmp.i410 = fcmp ule double %229, 0.000000e+00
-  br i1 %cmp.i410, label %if.else167, label %if.then146
+  %norm.i390 = getelementptr inbounds %struct.VEC2, ptr %195, i64 0, i32 2
+  %220 = load double, ptr %norm.i390, align 8, !tbaa !27
+  %sub.i391 = fsub double %196, %198
+  %sub7.i393 = fsub double %197, %199
+  %norm9.i394 = getelementptr inbounds %struct.VEC2, ptr %193, i64 0, i32 2
+  %221 = load double, ptr %norm9.i394, align 8, !tbaa !27
+  %222 = load double, ptr %218, align 8, !tbaa !23
+  %sub12.i395 = fsub double %222, %198
+  %y14.i396 = getelementptr inbounds %struct.VEC2, ptr %218, i64 0, i32 1
+  %223 = load double, ptr %y14.i396, align 8, !tbaa !24
+  %sub15.i397 = fsub double %223, %199
+  %norm17.i398 = getelementptr inbounds %struct.VEC2, ptr %218, i64 0, i32 2
+  %224 = load double, ptr %norm17.i398, align 8, !tbaa !27
+  %225 = load double, ptr %219, align 8, !tbaa !23
+  %sub20.i399 = fsub double %225, %198
+  %y22.i400 = getelementptr inbounds %struct.VEC2, ptr %219, i64 0, i32 1
+  %226 = load double, ptr %y22.i400, align 8, !tbaa !24
+  %sub23.i401 = fsub double %226, %199
+  %norm25.i402 = getelementptr inbounds %struct.VEC2, ptr %219, i64 0, i32 2
+  %227 = load double, ptr %norm25.i402, align 8, !tbaa !27
+  %sub26.i403 = fsub double %221, %220
+  %228 = fneg double %sub15.i397
+  %neg.i404 = fmul double %sub20.i399, %228
+  %229 = tail call double @llvm.fmuladd.f64(double %sub12.i395, double %sub23.i401, double %neg.i404)
+  %mul.i405 = fmul double %sub26.i403, %229
+  %sub28.i406 = fsub double %224, %220
+  %230 = fneg double %sub23.i401
+  %neg31.i407 = fmul double %sub.i391, %230
+  %231 = tail call double @llvm.fmuladd.f64(double %sub20.i399, double %sub7.i393, double %neg31.i407)
+  %232 = tail call double @llvm.fmuladd.f64(double %sub28.i406, double %231, double %mul.i405)
+  %sub33.i408 = fsub double %227, %220
+  %233 = fneg double %sub7.i393
+  %neg36.i409 = fmul double %sub12.i395, %233
+  %234 = tail call double @llvm.fmuladd.f64(double %sub.i391, double %sub15.i397, double %neg36.i409)
+  %235 = tail call double @llvm.fmuladd.f64(double %sub33.i408, double %234, double %232)
+  %cmp.i410 = fcmp ogt double %235, 0.000000e+00
+  br i1 %cmp.i410, label %if.then146, label %if.else167
 
 if.then146:                                       ; preds = %land.lhs.true143, %if.end134
   %call148 = tail call ptr @connect_left(ptr noundef nonnull %rcand.2, ptr noundef nonnull %37)
-  %230 = ptrtoint ptr %call148 to i64
-  %xor149 = xor i64 %230, 64
+  %236 = ptrtoint ptr %call148 to i64
+  %xor149 = xor i64 %236, 64
   %add150 = add i64 %xor149, 96
   %and151 = and i64 %add150, 127
-  %and153 = and i64 %230, -128
+  %and153 = and i64 %236, -128
   %or154 = or i64 %and151, %and153
-  %231 = inttoptr i64 %or154 to ptr
-  %next155 = getelementptr inbounds %struct.edge_rec, ptr %231, i64 0, i32 1
-  %232 = load ptr, ptr %next155, align 8, !tbaa !11
-  %233 = ptrtoint ptr %232 to i64
-  %add156 = add i64 %233, 32
+  %237 = inttoptr i64 %or154 to ptr
+  %next155 = getelementptr inbounds %struct.edge_rec, ptr %237, i64 0, i32 1
+  %238 = load ptr, ptr %next155, align 8, !tbaa !11
+  %239 = ptrtoint ptr %238 to i64
+  %add156 = add i64 %239, 32
   %and157 = and i64 %add156, 127
-  %and165 = and i64 %233, -128
+  %and165 = and i64 %239, -128
   %or166 = or i64 %and157, %and165
-  %234 = inttoptr i64 %or166 to ptr
+  %240 = inttoptr i64 %or166 to ptr
   br label %cleanup173
 
 if.else167:                                       ; preds = %land.lhs.true143, %lor.lhs.false
   %call168 = tail call ptr @connect_right(ptr noundef nonnull %lcand.2, ptr noundef nonnull %basel.0)
-  %235 = ptrtoint ptr %call168 to i64
-  %xor169 = xor i64 %235, 64
-  %236 = inttoptr i64 %xor169 to ptr
+  %241 = ptrtoint ptr %call168 to i64
+  %xor169 = xor i64 %241, 64
+  %242 = inttoptr i64 %xor169 to ptr
   %next171 = getelementptr inbounds %struct.edge_rec, ptr %call168, i64 0, i32 1
-  %237 = load ptr, ptr %next171, align 8, !tbaa !11
+  %243 = load ptr, ptr %next171, align 8, !tbaa !11
   br label %cleanup173
 
 cleanup173:                                       ; preds = %if.then146, %if.else167
-  %basel.2 = phi ptr [ %call148, %if.then146 ], [ %236, %if.else167 ]
-  %lcand.4 = phi ptr [ %lcand.2, %if.then146 ], [ %237, %if.else167 ]
-  %rcand.4 = phi ptr [ %234, %if.then146 ], [ %rcand.2, %if.else167 ]
+  %basel.2 = phi ptr [ %call148, %if.then146 ], [ %242, %if.else167 ]
+  %lcand.4 = phi ptr [ %lcand.2, %if.then146 ], [ %243, %if.else167 ]
+  %rcand.4 = phi ptr [ %240, %if.then146 ], [ %rcand.2, %if.else167 ]
   %.pre = load ptr, ptr %basel.2, align 8, !tbaa !5
   br label %while.cond54
 
@@ -1491,7 +1498,7 @@ entry:
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1519,7 +1526,7 @@ if.then:                                          ; preds = %entry
   br i1 %cmp.i, label %if.then.i, label %if.end3
 
 if.then.i:                                        ; preds = %if.then
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1608,7 +1615,7 @@ if.then.i:                                        ; preds = %entry
   br i1 %cmp.i.i, label %if.then.i.i, label %alloc_edge.exit
 
 if.then.i.i:                                      ; preds = %if.then.i
-  %puts.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -2093,11 +2100,11 @@ if.then:                                          ; preds = %entry
   br label %cleanup
 
 if.end:                                           ; preds = %entry
-  %div68 = lshr i32 %n, 1
+  %div78 = lshr i32 %n, 1
   %div3 = sdiv i32 %numnodes, 2
   %add = add nsw i32 %div3, %processor
-  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div68, double noundef %curmax, i32 noundef %i, i32 noundef %seed, i32 noundef %add, i32 noundef %div3)
-  %sub = sub nsw i32 %i, %div68
+  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div78, double noundef %curmax, i32 noundef %i, i32 noundef %seed, i32 noundef %add, i32 noundef %div3)
+  %sub = sub nsw i32 %i, %div78
   %call = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #29
   %curmax9 = getelementptr inbounds %struct.get_point, ptr %agg.result, i64 0, i32 1
   %0 = load double, ptr %curmax9, align 8, !tbaa !39
@@ -2121,18 +2128,18 @@ if.end:                                           ; preds = %entry
   %call17 = tail call double @exp(double noundef %div16) #28
   %mul = fmul double %0, %call17
   store double %mul, ptr %call, align 8, !tbaa !23
-  %div.i.i69 = sdiv i32 %add.i, 10000
-  %rem.i.i70 = srem i32 %add.i, 10000
-  %mul.i.i71 = mul nsw i32 %rem.i.i70, 3141
-  %mul3.i.i72 = mul nsw i32 %div.i.i69, 5821
-  %add.i.i73 = add nsw i32 %mul.i.i71, %mul3.i.i72
-  %rem4.i.i74 = srem i32 %add.i.i73, 10000
-  %mul5.i.i75 = mul nsw i32 %rem4.i.i74, 10000
-  %mul6.i.i76 = mul nsw i32 %rem.i.i70, 5821
-  %add7.i.i77 = add nsw i32 %mul6.i.i76, 1
-  %add.i78 = add nsw i32 %add7.i.i77, %mul5.i.i75
-  store i32 %add.i78, ptr %seed10, align 8, !tbaa !41
-  %conv22 = sitofp i32 %add.i78 to double
+  %div.i.i68 = sdiv i32 %add.i, 10000
+  %rem.i.i69 = srem i32 %add.i, 10000
+  %mul.i.i70 = mul nsw i32 %rem.i.i69, 3141
+  %mul3.i.i71 = mul nsw i32 %div.i.i68, 5821
+  %add.i.i72 = add nsw i32 %mul.i.i70, %mul3.i.i71
+  %rem4.i.i73 = srem i32 %add.i.i72, 10000
+  %mul5.i.i74 = mul nsw i32 %rem4.i.i73, 10000
+  %mul6.i.i75 = mul nsw i32 %rem.i.i69, 5821
+  %add7.i.i76 = add nsw i32 %mul6.i.i75, 1
+  %add.i77 = add nsw i32 %add7.i.i76, %mul5.i.i74
+  store i32 %add.i77, ptr %seed10, align 8, !tbaa !41
+  %conv22 = sitofp i32 %add.i77 to double
   %div23 = fdiv double %conv22, 0x41DFFFFFFFC00000
   %y = getelementptr inbounds %struct.VEC2, ptr %call, i64 0, i32 1
   store double %div23, ptr %y, align 8, !tbaa !24
@@ -2144,7 +2151,7 @@ if.end:                                           ; preds = %entry
   %right = getelementptr inbounds %struct.VERTEX, ptr %call, i64 0, i32 2
   store ptr %3, ptr %right, align 8, !tbaa !14
   %sub41 = add nsw i32 %sub, -1
-  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div68, double noundef %mul, i32 noundef %sub41, i32 noundef %add.i78, i32 noundef %processor, i32 noundef %div3)
+  tail call void @get_points(ptr nonnull sret(%struct.get_point) align 8 %agg.result, i32 noundef %div78, double noundef %mul, i32 noundef %sub41, i32 noundef %add.i77, i32 noundef %processor, i32 noundef %div3)
   %4 = load ptr, ptr %agg.result, align 8, !tbaa !42
   %left = getelementptr inbounds %struct.VERTEX, ptr %call, i64 0, i32 1
   store ptr %4, ptr %left, align 8, !tbaa !18

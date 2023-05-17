@@ -365,35 +365,34 @@ for.cond100.for.inc120_crit_edge.us.i:            ; preds = %for.body104.us.i
   br i1 %cmp97.us.i, label %for.cond100.preheader.us.i, label %img2buf.exit, !llvm.loop !11
 
 img2buf.exit:                                     ; preds = %for.cond100.for.inc120_crit_edge.us.i, %if.end.i, %for.cond100.preheader.lr.ph.i
-  %39 = add i32 %mul41, %mul37
-  %sub45 = sub i32 %26, %39
+  %sub45 = sub nsw i32 %sub96.i, %mul37
   %mul49 = mul i32 %sub1.i, %div
   %mul50 = mul i32 %mul49, %sub45
   %conv51 = sext i32 %mul50 to i64
   %call52 = tail call i64 @write(i32 noundef %p_out, ptr noundef %call, i64 noundef %conv51) #11
-  %40 = load i32, ptr %frame_cropping_flag, align 8, !tbaa !23
-  %tobool54.not = icmp eq i32 %40, 0
+  %39 = load i32, ptr %frame_cropping_flag, align 8, !tbaa !23
+  %tobool54.not = icmp eq i32 %39, 0
   br i1 %tobool54.not, label %if.end84, label %if.then55
 
 if.then55:                                        ; preds = %img2buf.exit
   %chroma_format_idc56 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 44
-  %41 = load i32, ptr %chroma_format_idc56, align 8, !tbaa !24
-  %idxprom57 = sext i32 %41 to i64
+  %40 = load i32, ptr %chroma_format_idc56, align 8, !tbaa !24
+  %idxprom57 = sext i32 %40 to i64
   %arrayidx58 = getelementptr inbounds [4 x i32], ptr @__const.write_out_picture.SubWidthC, i64 0, i64 %idxprom57
-  %42 = load i32, ptr %arrayidx58, align 4, !tbaa !25
-  %43 = load i32, ptr %frame_cropping_rect_left_offset32, align 4, !tbaa !26
-  %mul60 = mul nsw i32 %43, %42
-  %44 = load i32, ptr %frame_cropping_rect_right_offset33, align 8, !tbaa !27
-  %mul65 = mul nsw i32 %44, %42
+  %41 = load i32, ptr %arrayidx58, align 4, !tbaa !25
+  %42 = load i32, ptr %frame_cropping_rect_left_offset32, align 4, !tbaa !26
+  %mul60 = mul nsw i32 %42, %41
+  %43 = load i32, ptr %frame_cropping_rect_right_offset33, align 8, !tbaa !27
+  %mul65 = mul nsw i32 %43, %41
   %arrayidx68 = getelementptr inbounds [4 x i32], ptr @__const.write_out_picture.SubHeightC, i64 0, i64 %idxprom57
-  %45 = load i32, ptr %arrayidx68, align 4, !tbaa !25
-  %46 = load i32, ptr %frame_mbs_only_flag34, align 4, !tbaa !28
-  %sub70 = sub nsw i32 2, %46
-  %mul71 = mul nsw i32 %sub70, %45
-  %47 = load i32, ptr %frame_cropping_rect_top_offset36, align 4, !tbaa !29
-  %mul73 = mul nsw i32 %mul71, %47
-  %48 = load i32, ptr %frame_cropping_rect_bottom_offset40, align 8, !tbaa !30
-  %mul81 = mul nsw i32 %mul71, %48
+  %44 = load i32, ptr %arrayidx68, align 4, !tbaa !25
+  %45 = load i32, ptr %frame_mbs_only_flag34, align 4, !tbaa !28
+  %sub70 = sub nsw i32 2, %45
+  %mul71 = mul nsw i32 %sub70, %44
+  %46 = load i32, ptr %frame_cropping_rect_top_offset36, align 4, !tbaa !29
+  %mul73 = mul nsw i32 %mul71, %46
+  %47 = load i32, ptr %frame_cropping_rect_bottom_offset40, align 8, !tbaa !30
+  %mul81 = mul nsw i32 %mul71, %47
   br label %if.end84
 
 if.end84:                                         ; preds = %img2buf.exit, %if.then55, %if.end29
@@ -402,17 +401,17 @@ if.end84:                                         ; preds = %img2buf.exit, %if.t
   %crop_right.1 = phi i32 [ %mul65, %if.then55 ], [ %crop_right.0, %if.end29 ], [ 0, %img2buf.exit ]
   %crop_left.1 = phi i32 [ %mul60, %if.then55 ], [ %crop_left.0, %if.end29 ], [ 0, %img2buf.exit ]
   %imgY = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 29
-  %49 = load ptr, ptr %imgY, align 8, !tbaa !36
-  %50 = load i32, ptr %size_x, align 8, !tbaa !31
-  %51 = load i32, ptr %size_y, align 4, !tbaa !32
-  %52 = add i32 %crop_left.1, %crop_right.1
-  %sub1.i258 = sub i32 %50, %52
+  %48 = load ptr, ptr %imgY, align 8, !tbaa !36
+  %49 = load i32, ptr %size_x, align 8, !tbaa !31
+  %50 = load i32, ptr %size_y, align 4, !tbaa !32
+  %51 = add i32 %crop_left.1, %crop_right.1
+  %sub1.i258 = sub i32 %49, %51
   %cmp88.i259 = icmp ugt i32 %div, 2
   br i1 %cmp88.i259, label %if.then90.i264, label %if.else94.i265
 
 if.then90.i264:                                   ; preds = %if.end84
-  %53 = add i32 %crop_top.1, %crop_bottom.1
-  %sub3.i260 = sub i32 %51, %53
+  %52 = add i32 %crop_top.1, %crop_bottom.1
+  %sub3.i260 = sub i32 %50, %52
   %mul91.i261 = mul i32 %sub1.i258, %div
   %mul92.i262 = mul i32 %mul91.i261, %sub3.i260
   %conv93.i263 = sext i32 %mul92.i262 to i64
@@ -420,95 +419,94 @@ if.then90.i264:                                   ; preds = %if.end84
   br label %if.end.i269
 
 if.else94.i265:                                   ; preds = %if.end84
-  %54 = zext i32 %div to i64
+  %53 = zext i32 %div to i64
   br label %if.end.i269
 
 if.end.i269:                                      ; preds = %if.else94.i265, %if.then90.i264
-  %size.0.i266 = phi i64 [ 2, %if.then90.i264 ], [ %54, %if.else94.i265 ]
-  %sub96.i267 = sub nsw i32 %51, %crop_bottom.1
+  %size.0.i266 = phi i64 [ 2, %if.then90.i264 ], [ %53, %if.else94.i265 ]
+  %sub96.i267 = sub nsw i32 %50, %crop_bottom.1
   %cmp97208.i268 = icmp sgt i32 %sub96.i267, %crop_top.1
   br i1 %cmp97208.i268, label %for.cond100.preheader.lr.ph.i272, label %img2buf.exit290
 
 for.cond100.preheader.lr.ph.i272:                 ; preds = %if.end.i269
-  %sub101.i270 = sub nsw i32 %50, %crop_right.1
+  %sub101.i270 = sub nsw i32 %49, %crop_right.1
   %cmp102206.i271 = icmp sgt i32 %sub101.i270, %crop_left.1
   br i1 %cmp102206.i271, label %for.cond100.preheader.us.preheader.i273, label %img2buf.exit290
 
 for.cond100.preheader.us.preheader.i273:          ; preds = %for.cond100.preheader.lr.ph.i272
-  %55 = sext i32 %crop_left.1 to i64
-  %56 = sext i32 %sub101.i270 to i64
-  %57 = sext i32 %crop_top.1 to i64
-  %58 = sext i32 %sub96.i267 to i64
+  %54 = sext i32 %crop_left.1 to i64
+  %55 = sext i32 %sub101.i270 to i64
+  %56 = sext i32 %crop_top.1 to i64
+  %57 = sext i32 %sub96.i267 to i64
   br label %for.cond100.preheader.us.i277
 
 for.cond100.preheader.us.i277:                    ; preds = %for.cond100.for.inc120_crit_edge.us.i289, %for.cond100.preheader.us.preheader.i273
-  %indvars.iv212.i274 = phi i64 [ %57, %for.cond100.preheader.us.preheader.i273 ], [ %indvars.iv.next213.i287, %for.cond100.for.inc120_crit_edge.us.i289 ]
-  %59 = trunc i64 %indvars.iv212.i274 to i32
-  %60 = sub i32 %59, %crop_top.1
-  %61 = mul i32 %60, %sub1.i258
-  %sub105.us.i275 = sub i32 %61, %crop_left.1
-  %arrayidx113.us.i276 = getelementptr inbounds ptr, ptr %49, i64 %indvars.iv212.i274
-  %62 = load ptr, ptr %arrayidx113.us.i276, align 8, !tbaa !5
+  %indvars.iv212.i274 = phi i64 [ %56, %for.cond100.preheader.us.preheader.i273 ], [ %indvars.iv.next213.i287, %for.cond100.for.inc120_crit_edge.us.i289 ]
+  %58 = trunc i64 %indvars.iv212.i274 to i32
+  %59 = sub i32 %58, %crop_top.1
+  %60 = mul i32 %59, %sub1.i258
+  %sub105.us.i275 = sub i32 %60, %crop_left.1
+  %arrayidx113.us.i276 = getelementptr inbounds ptr, ptr %48, i64 %indvars.iv212.i274
+  %61 = load ptr, ptr %arrayidx113.us.i276, align 8, !tbaa !5
   br label %for.body104.us.i286
 
 for.body104.us.i286:                              ; preds = %for.body104.us.i286, %for.cond100.preheader.us.i277
-  %indvars.iv.i278 = phi i64 [ %55, %for.cond100.preheader.us.i277 ], [ %indvars.iv.next.i284, %for.body104.us.i286 ]
-  %63 = trunc i64 %indvars.iv.i278 to i32
-  %add108.us.i279 = add i32 %sub105.us.i275, %63
+  %indvars.iv.i278 = phi i64 [ %54, %for.cond100.preheader.us.i277 ], [ %indvars.iv.next.i284, %for.body104.us.i286 ]
+  %62 = trunc i64 %indvars.iv.i278 to i32
+  %add108.us.i279 = add i32 %sub105.us.i275, %62
   %mul109.us.i280 = mul nsw i32 %add108.us.i279, %div
   %idx.ext110.us.i281 = sext i32 %mul109.us.i280 to i64
   %add.ptr111.us.i282 = getelementptr inbounds i8, ptr %call, i64 %idx.ext110.us.i281
-  %arrayidx115.us.i283 = getelementptr inbounds i16, ptr %62, i64 %indvars.iv.i278
+  %arrayidx115.us.i283 = getelementptr inbounds i16, ptr %61, i64 %indvars.iv.i278
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr111.us.i282, ptr align 2 %arrayidx115.us.i283, i64 %size.0.i266, i1 false)
   %indvars.iv.next.i284 = add nsw i64 %indvars.iv.i278, 1
-  %cmp102.us.i285 = icmp slt i64 %indvars.iv.next.i284, %56
+  %cmp102.us.i285 = icmp slt i64 %indvars.iv.next.i284, %55
   br i1 %cmp102.us.i285, label %for.body104.us.i286, label %for.cond100.for.inc120_crit_edge.us.i289, !llvm.loop !9
 
 for.cond100.for.inc120_crit_edge.us.i289:         ; preds = %for.body104.us.i286
   %indvars.iv.next213.i287 = add nsw i64 %indvars.iv212.i274, 1
-  %cmp97.us.i288 = icmp slt i64 %indvars.iv.next213.i287, %58
+  %cmp97.us.i288 = icmp slt i64 %indvars.iv.next213.i287, %57
   br i1 %cmp97.us.i288, label %for.cond100.preheader.us.i277, label %img2buf.exit290, !llvm.loop !11
 
 img2buf.exit290:                                  ; preds = %for.cond100.for.inc120_crit_edge.us.i289, %if.end.i269, %for.cond100.preheader.lr.ph.i272
-  %64 = add i32 %crop_top.1, %crop_bottom.1
-  %sub89 = sub i32 %51, %64
+  %sub89 = sub nsw i32 %sub96.i267, %crop_top.1
   %mul93 = mul i32 %sub1.i258, %div
   %mul94 = mul i32 %mul93, %sub89
   %conv95 = sext i32 %mul94 to i64
   %call96 = tail call i64 @write(i32 noundef %p_out, ptr noundef %call, i64 noundef %conv95) #11
   %chroma_format_idc97 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 44
-  %65 = load i32, ptr %chroma_format_idc97, align 8, !tbaa !24
-  %cmp98.not = icmp eq i32 %65, 0
+  %63 = load i32, ptr %chroma_format_idc97, align 8, !tbaa !24
+  %cmp98.not = icmp eq i32 %63, 0
   br i1 %cmp98.not, label %if.end142, label %if.then100
 
 if.then100:                                       ; preds = %img2buf.exit290
   %frame_cropping_rect_left_offset101 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 47
-  %66 = load i32, ptr %frame_cropping_rect_left_offset101, align 4, !tbaa !26
+  %64 = load i32, ptr %frame_cropping_rect_left_offset101, align 4, !tbaa !26
   %frame_cropping_rect_right_offset102 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 48
-  %67 = load i32, ptr %frame_cropping_rect_right_offset102, align 8, !tbaa !27
+  %65 = load i32, ptr %frame_cropping_rect_right_offset102, align 8, !tbaa !27
   %frame_mbs_only_flag103 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 45
-  %68 = load i32, ptr %frame_mbs_only_flag103, align 4, !tbaa !28
-  %sub104 = sub nsw i32 2, %68
+  %66 = load i32, ptr %frame_mbs_only_flag103, align 4, !tbaa !28
+  %sub104 = sub nsw i32 2, %66
   %frame_cropping_rect_top_offset105 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 49
-  %69 = load i32, ptr %frame_cropping_rect_top_offset105, align 4, !tbaa !29
-  %mul106 = mul nsw i32 %sub104, %69
+  %67 = load i32, ptr %frame_cropping_rect_top_offset105, align 4, !tbaa !29
+  %mul106 = mul nsw i32 %sub104, %67
   %frame_cropping_rect_bottom_offset109 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 50
-  %70 = load i32, ptr %frame_cropping_rect_bottom_offset109, align 8, !tbaa !30
-  %mul110 = mul nsw i32 %70, %sub104
+  %68 = load i32, ptr %frame_cropping_rect_bottom_offset109, align 8, !tbaa !30
+  %mul110 = mul nsw i32 %68, %sub104
   %imgUV111 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 33
-  %71 = load ptr, ptr %imgUV111, align 8, !tbaa !33
-  %72 = load ptr, ptr %71, align 8, !tbaa !5
+  %69 = load ptr, ptr %imgUV111, align 8, !tbaa !33
+  %70 = load ptr, ptr %69, align 8, !tbaa !5
   %size_x_cr113 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 20
-  %73 = load i32, ptr %size_x_cr113, align 8, !tbaa !34
+  %71 = load i32, ptr %size_x_cr113, align 8, !tbaa !34
   %size_y_cr114 = getelementptr inbounds %struct.storable_picture, ptr %p, i64 0, i32 21
-  %74 = load i32, ptr %size_y_cr114, align 4, !tbaa !35
-  %75 = add i32 %67, %66
-  %sub1.i291 = sub i32 %73, %75
+  %72 = load i32, ptr %size_y_cr114, align 4, !tbaa !35
+  %73 = add i32 %65, %64
+  %sub1.i291 = sub i32 %71, %73
   br i1 %cmp88.i259, label %if.then90.i297, label %if.else94.i298
 
 if.then90.i297:                                   ; preds = %if.then100
-  %76 = add i32 %mul110, %mul106
-  %sub3.i293 = sub i32 %74, %76
+  %74 = add i32 %mul110, %mul106
+  %sub3.i293 = sub i32 %72, %74
   %mul91.i294 = mul i32 %sub1.i291, %div
   %mul92.i295 = mul i32 %mul91.i294, %sub3.i293
   %conv93.i296 = sext i32 %mul92.i295 to i64
@@ -516,58 +514,57 @@ if.then90.i297:                                   ; preds = %if.then100
   br label %if.end.i302
 
 if.else94.i298:                                   ; preds = %if.then100
-  %77 = zext i32 %div to i64
+  %75 = zext i32 %div to i64
   br label %if.end.i302
 
 if.end.i302:                                      ; preds = %if.else94.i298, %if.then90.i297
-  %size.0.i299 = phi i64 [ 2, %if.then90.i297 ], [ %77, %if.else94.i298 ]
-  %sub96.i300 = sub nsw i32 %74, %mul110
+  %size.0.i299 = phi i64 [ 2, %if.then90.i297 ], [ %75, %if.else94.i298 ]
+  %sub96.i300 = sub nsw i32 %72, %mul110
   %cmp97208.i301 = icmp sgt i32 %sub96.i300, %mul106
   br i1 %cmp97208.i301, label %for.cond100.preheader.lr.ph.i305, label %img2buf.exit323
 
 for.cond100.preheader.lr.ph.i305:                 ; preds = %if.end.i302
-  %sub101.i303 = sub nsw i32 %73, %67
-  %cmp102206.i304 = icmp sgt i32 %sub101.i303, %66
+  %sub101.i303 = sub nsw i32 %71, %65
+  %cmp102206.i304 = icmp sgt i32 %sub101.i303, %64
   br i1 %cmp102206.i304, label %for.cond100.preheader.us.preheader.i306, label %img2buf.exit323
 
 for.cond100.preheader.us.preheader.i306:          ; preds = %for.cond100.preheader.lr.ph.i305
-  %78 = sext i32 %66 to i64
-  %79 = sext i32 %sub101.i303 to i64
-  %80 = sext i32 %mul106 to i64
-  %81 = sext i32 %sub96.i300 to i64
+  %76 = sext i32 %64 to i64
+  %77 = sext i32 %sub101.i303 to i64
+  %78 = sext i32 %mul106 to i64
+  %79 = sext i32 %sub96.i300 to i64
   br label %for.cond100.preheader.us.i310
 
 for.cond100.preheader.us.i310:                    ; preds = %for.cond100.for.inc120_crit_edge.us.i322, %for.cond100.preheader.us.preheader.i306
-  %indvars.iv212.i307 = phi i64 [ %80, %for.cond100.preheader.us.preheader.i306 ], [ %indvars.iv.next213.i320, %for.cond100.for.inc120_crit_edge.us.i322 ]
-  %82 = trunc i64 %indvars.iv212.i307 to i32
-  %83 = sub i32 %82, %mul106
-  %84 = mul i32 %83, %sub1.i291
-  %sub105.us.i308 = sub i32 %84, %66
-  %arrayidx113.us.i309 = getelementptr inbounds ptr, ptr %72, i64 %indvars.iv212.i307
-  %85 = load ptr, ptr %arrayidx113.us.i309, align 8, !tbaa !5
+  %indvars.iv212.i307 = phi i64 [ %78, %for.cond100.preheader.us.preheader.i306 ], [ %indvars.iv.next213.i320, %for.cond100.for.inc120_crit_edge.us.i322 ]
+  %80 = trunc i64 %indvars.iv212.i307 to i32
+  %81 = sub i32 %80, %mul106
+  %82 = mul i32 %81, %sub1.i291
+  %sub105.us.i308 = sub i32 %82, %64
+  %arrayidx113.us.i309 = getelementptr inbounds ptr, ptr %70, i64 %indvars.iv212.i307
+  %83 = load ptr, ptr %arrayidx113.us.i309, align 8, !tbaa !5
   br label %for.body104.us.i319
 
 for.body104.us.i319:                              ; preds = %for.body104.us.i319, %for.cond100.preheader.us.i310
-  %indvars.iv.i311 = phi i64 [ %78, %for.cond100.preheader.us.i310 ], [ %indvars.iv.next.i317, %for.body104.us.i319 ]
-  %86 = trunc i64 %indvars.iv.i311 to i32
-  %add108.us.i312 = add i32 %sub105.us.i308, %86
+  %indvars.iv.i311 = phi i64 [ %76, %for.cond100.preheader.us.i310 ], [ %indvars.iv.next.i317, %for.body104.us.i319 ]
+  %84 = trunc i64 %indvars.iv.i311 to i32
+  %add108.us.i312 = add i32 %sub105.us.i308, %84
   %mul109.us.i313 = mul nsw i32 %add108.us.i312, %div
   %idx.ext110.us.i314 = sext i32 %mul109.us.i313 to i64
   %add.ptr111.us.i315 = getelementptr inbounds i8, ptr %call, i64 %idx.ext110.us.i314
-  %arrayidx115.us.i316 = getelementptr inbounds i16, ptr %85, i64 %indvars.iv.i311
+  %arrayidx115.us.i316 = getelementptr inbounds i16, ptr %83, i64 %indvars.iv.i311
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr111.us.i315, ptr align 2 %arrayidx115.us.i316, i64 %size.0.i299, i1 false)
   %indvars.iv.next.i317 = add nsw i64 %indvars.iv.i311, 1
-  %cmp102.us.i318 = icmp slt i64 %indvars.iv.next.i317, %79
+  %cmp102.us.i318 = icmp slt i64 %indvars.iv.next.i317, %77
   br i1 %cmp102.us.i318, label %for.body104.us.i319, label %for.cond100.for.inc120_crit_edge.us.i322, !llvm.loop !9
 
 for.cond100.for.inc120_crit_edge.us.i322:         ; preds = %for.body104.us.i319
   %indvars.iv.next213.i320 = add nsw i64 %indvars.iv212.i307, 1
-  %cmp97.us.i321 = icmp slt i64 %indvars.iv.next213.i320, %81
+  %cmp97.us.i321 = icmp slt i64 %indvars.iv.next213.i320, %79
   br i1 %cmp97.us.i321, label %for.cond100.preheader.us.i310, label %img2buf.exit323, !llvm.loop !11
 
 img2buf.exit323:                                  ; preds = %for.cond100.for.inc120_crit_edge.us.i322, %if.end.i302, %for.cond100.preheader.lr.ph.i305
-  %87 = add i32 %mul110, %mul106
-  %sub117 = sub i32 %74, %87
+  %sub117 = sub nsw i32 %sub96.i300, %mul106
   %mul121 = mul i32 %sub1.i291, %div
   %mul122 = mul i32 %mul121, %sub117
   %conv123 = sext i32 %mul122 to i64
@@ -575,16 +572,17 @@ img2buf.exit323:                                  ; preds = %for.cond100.for.inc
   br i1 %5, label %if.end142, label %if.then126
 
 if.then126:                                       ; preds = %img2buf.exit323
-  %88 = load ptr, ptr %imgUV111, align 8, !tbaa !33
-  %arrayidx128 = getelementptr inbounds ptr, ptr %88, i64 1
-  %89 = load ptr, ptr %arrayidx128, align 8, !tbaa !5
-  %90 = load i32, ptr %size_x_cr113, align 8, !tbaa !34
-  %91 = load i32, ptr %size_y_cr114, align 4, !tbaa !35
-  %sub1.i324 = sub i32 %90, %75
+  %85 = load ptr, ptr %imgUV111, align 8, !tbaa !33
+  %arrayidx128 = getelementptr inbounds ptr, ptr %85, i64 1
+  %86 = load ptr, ptr %arrayidx128, align 8, !tbaa !5
+  %87 = load i32, ptr %size_x_cr113, align 8, !tbaa !34
+  %88 = load i32, ptr %size_y_cr114, align 4, !tbaa !35
+  %sub1.i324 = sub i32 %87, %73
   br i1 %cmp88.i259, label %if.then90.i330, label %if.else94.i331
 
 if.then90.i330:                                   ; preds = %if.then126
-  %sub3.i326 = sub i32 %91, %87
+  %89 = add i32 %mul110, %mul106
+  %sub3.i326 = sub i32 %88, %89
   %mul91.i327 = mul i32 %sub1.i324, %div
   %mul92.i328 = mul i32 %mul91.i327, %sub3.i326
   %conv93.i329 = sext i32 %mul92.i328 to i64
@@ -592,57 +590,57 @@ if.then90.i330:                                   ; preds = %if.then126
   br label %if.end.i335
 
 if.else94.i331:                                   ; preds = %if.then126
-  %92 = zext i32 %div to i64
+  %90 = zext i32 %div to i64
   br label %if.end.i335
 
 if.end.i335:                                      ; preds = %if.else94.i331, %if.then90.i330
-  %size.0.i332 = phi i64 [ 2, %if.then90.i330 ], [ %92, %if.else94.i331 ]
-  %sub96.i333 = sub nsw i32 %91, %mul110
+  %size.0.i332 = phi i64 [ 2, %if.then90.i330 ], [ %90, %if.else94.i331 ]
+  %sub96.i333 = sub nsw i32 %88, %mul110
   %cmp97208.i334 = icmp sgt i32 %sub96.i333, %mul106
   br i1 %cmp97208.i334, label %for.cond100.preheader.lr.ph.i338, label %img2buf.exit356
 
 for.cond100.preheader.lr.ph.i338:                 ; preds = %if.end.i335
-  %sub101.i336 = sub nsw i32 %90, %67
-  %cmp102206.i337 = icmp sgt i32 %sub101.i336, %66
+  %sub101.i336 = sub nsw i32 %87, %65
+  %cmp102206.i337 = icmp sgt i32 %sub101.i336, %64
   br i1 %cmp102206.i337, label %for.cond100.preheader.us.preheader.i339, label %img2buf.exit356
 
 for.cond100.preheader.us.preheader.i339:          ; preds = %for.cond100.preheader.lr.ph.i338
-  %93 = sext i32 %66 to i64
-  %94 = sext i32 %sub101.i336 to i64
-  %95 = sext i32 %mul106 to i64
-  %96 = sext i32 %sub96.i333 to i64
+  %91 = sext i32 %64 to i64
+  %92 = sext i32 %sub101.i336 to i64
+  %93 = sext i32 %mul106 to i64
+  %94 = sext i32 %sub96.i333 to i64
   br label %for.cond100.preheader.us.i343
 
 for.cond100.preheader.us.i343:                    ; preds = %for.cond100.for.inc120_crit_edge.us.i355, %for.cond100.preheader.us.preheader.i339
-  %indvars.iv212.i340 = phi i64 [ %95, %for.cond100.preheader.us.preheader.i339 ], [ %indvars.iv.next213.i353, %for.cond100.for.inc120_crit_edge.us.i355 ]
-  %97 = trunc i64 %indvars.iv212.i340 to i32
-  %98 = sub i32 %97, %mul106
-  %99 = mul i32 %98, %sub1.i324
-  %sub105.us.i341 = sub i32 %99, %66
-  %arrayidx113.us.i342 = getelementptr inbounds ptr, ptr %89, i64 %indvars.iv212.i340
-  %100 = load ptr, ptr %arrayidx113.us.i342, align 8, !tbaa !5
+  %indvars.iv212.i340 = phi i64 [ %93, %for.cond100.preheader.us.preheader.i339 ], [ %indvars.iv.next213.i353, %for.cond100.for.inc120_crit_edge.us.i355 ]
+  %95 = trunc i64 %indvars.iv212.i340 to i32
+  %96 = sub i32 %95, %mul106
+  %97 = mul i32 %96, %sub1.i324
+  %sub105.us.i341 = sub i32 %97, %64
+  %arrayidx113.us.i342 = getelementptr inbounds ptr, ptr %86, i64 %indvars.iv212.i340
+  %98 = load ptr, ptr %arrayidx113.us.i342, align 8, !tbaa !5
   br label %for.body104.us.i352
 
 for.body104.us.i352:                              ; preds = %for.body104.us.i352, %for.cond100.preheader.us.i343
-  %indvars.iv.i344 = phi i64 [ %93, %for.cond100.preheader.us.i343 ], [ %indvars.iv.next.i350, %for.body104.us.i352 ]
-  %101 = trunc i64 %indvars.iv.i344 to i32
-  %add108.us.i345 = add i32 %sub105.us.i341, %101
+  %indvars.iv.i344 = phi i64 [ %91, %for.cond100.preheader.us.i343 ], [ %indvars.iv.next.i350, %for.body104.us.i352 ]
+  %99 = trunc i64 %indvars.iv.i344 to i32
+  %add108.us.i345 = add i32 %sub105.us.i341, %99
   %mul109.us.i346 = mul nsw i32 %add108.us.i345, %div
   %idx.ext110.us.i347 = sext i32 %mul109.us.i346 to i64
   %add.ptr111.us.i348 = getelementptr inbounds i8, ptr %call, i64 %idx.ext110.us.i347
-  %arrayidx115.us.i349 = getelementptr inbounds i16, ptr %100, i64 %indvars.iv.i344
+  %arrayidx115.us.i349 = getelementptr inbounds i16, ptr %98, i64 %indvars.iv.i344
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr111.us.i348, ptr align 2 %arrayidx115.us.i349, i64 %size.0.i332, i1 false)
   %indvars.iv.next.i350 = add nsw i64 %indvars.iv.i344, 1
-  %cmp102.us.i351 = icmp slt i64 %indvars.iv.next.i350, %94
+  %cmp102.us.i351 = icmp slt i64 %indvars.iv.next.i350, %92
   br i1 %cmp102.us.i351, label %for.body104.us.i352, label %for.cond100.for.inc120_crit_edge.us.i355, !llvm.loop !9
 
 for.cond100.for.inc120_crit_edge.us.i355:         ; preds = %for.body104.us.i352
   %indvars.iv.next213.i353 = add nsw i64 %indvars.iv212.i340, 1
-  %cmp97.us.i354 = icmp slt i64 %indvars.iv.next213.i353, %96
+  %cmp97.us.i354 = icmp slt i64 %indvars.iv.next213.i353, %94
   br i1 %cmp97.us.i354, label %for.cond100.preheader.us.i343, label %img2buf.exit356, !llvm.loop !11
 
 img2buf.exit356:                                  ; preds = %for.cond100.for.inc120_crit_edge.us.i355, %if.end.i335, %for.cond100.preheader.lr.ph.i338
-  %sub133 = sub i32 %91, %87
+  %sub133 = sub nsw i32 %sub96.i333, %mul106
   %mul137 = mul i32 %sub1.i324, %div
   %mul138 = mul i32 %mul137, %sub133
   %conv139 = sext i32 %mul138 to i64

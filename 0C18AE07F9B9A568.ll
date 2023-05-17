@@ -671,8 +671,8 @@ for.end241:                                       ; preds = %for.inc239, %entry
 define dso_local i32 @check_block(ptr noundef readonly %cor) local_unnamed_addr #2 {
 entry:
   %0 = load i32, ptr @num_objects, align 4, !tbaa !5
-  %cmp3312 = icmp sgt i32 %0, 0
-  br i1 %cmp3312, label %for.body.lr.ph, label %for.end
+  %cmp3316 = icmp sgt i32 %0, 0
+  br i1 %cmp3316, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx240 = getelementptr inbounds [2 x double], ptr %cor, i64 0, i64 1
@@ -680,19 +680,19 @@ for.body.lr.ph:                                   ; preds = %entry
   %arrayidx257 = getelementptr inbounds [2 x double], ptr %cor, i64 1
   %arrayidx276 = getelementptr inbounds [2 x double], ptr %cor, i64 2, i64 1
   %arrayidx275 = getelementptr inbounds [2 x double], ptr %cor, i64 2
-  %.pre3319 = load ptr, ptr @objects, align 8, !tbaa !9
+  %.pre3323 = load ptr, ptr @objects, align 8, !tbaa !9
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
   %1 = phi i32 [ %0, %for.body.lr.ph ], [ %203, %for.inc ]
-  %2 = phi ptr [ %.pre3319, %for.body.lr.ph ], [ %204, %for.inc ]
+  %2 = phi ptr [ %.pre3323, %for.body.lr.ph ], [ %204, %for.inc ]
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
-  %zv.03316 = phi i32 [ undef, %for.body.lr.ph ], [ %zv.5, %for.inc ]
-  %yv.03315 = phi i32 [ undef, %for.body.lr.ph ], [ %yv.5, %for.inc ]
-  %xv.03314 = phi i32 [ undef, %for.body.lr.ph ], [ %xv.3, %for.inc ]
-  %intersect.03313 = phi i32 [ 0, %for.body.lr.ph ], [ %intersect.3, %for.inc ]
+  %zv.03320 = phi i32 [ undef, %for.body.lr.ph ], [ %zv.5, %for.inc ]
+  %yv.03319 = phi i32 [ undef, %for.body.lr.ph ], [ %yv.5, %for.inc ]
+  %xv.03318 = phi i32 [ undef, %for.body.lr.ph ], [ %xv.3, %for.inc ]
+  %intersect.03317 = phi i32 [ 0, %for.body.lr.ph ], [ %intersect.3, %for.inc ]
   %arrayidx = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv
-  %cmp1 = icmp sgt i32 %intersect.03313, 0
+  %cmp1 = icmp sgt i32 %intersect.03317, 0
   br i1 %cmp1, label %for.inc, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %for.body
@@ -743,8 +743,8 @@ if.then27:                                        ; preds = %land.lhs.true
 lor.lhs.false45:                                  ; preds = %if.then27
   %cmp53 = fcmp ogt double %9, %sub
   %cmp62 = fcmp ogt double %7, %add
-  %or.cond3309 = and i1 %cmp62, %cmp53
-  br i1 %or.cond3309, label %if.then63, label %if.else100
+  %or.cond3247 = and i1 %cmp62, %cmp53
+  br i1 %or.cond3247, label %if.then63, label %if.else100
 
 if.then63:                                        ; preds = %lor.lhs.false45, %if.then27
   %10 = load double, ptr %arrayidx258, align 8, !tbaa !13
@@ -794,14 +794,14 @@ land.lhs.true109:                                 ; preds = %if.else100
 if.then118:                                       ; preds = %land.lhs.true109
   %cmp126 = fcmp olt double %18, %sub107
   %cmp135 = fcmp olt double %16, %add116
-  %or.cond3247 = and i1 %cmp135, %cmp126
-  br i1 %or.cond3247, label %if.then154, label %lor.lhs.false136
+  %or.cond3248 = and i1 %cmp135, %cmp126
+  br i1 %or.cond3248, label %if.then154, label %lor.lhs.false136
 
 lor.lhs.false136:                                 ; preds = %if.then118
   %cmp144 = fcmp ogt double %18, %sub107
   %cmp153 = fcmp ogt double %16, %add116
-  %or.cond3310 = and i1 %cmp153, %cmp144
-  br i1 %or.cond3310, label %if.then154, label %for.inc
+  %or.cond3249 = and i1 %cmp153, %cmp144
+  br i1 %or.cond3249, label %if.then154, label %for.inc
 
 if.then154:                                       ; preds = %lor.lhs.false136, %if.then118
   %19 = load double, ptr %arrayidx276, align 8, !tbaa !13
@@ -837,14 +837,14 @@ land.lhs.true184:                                 ; preds = %if.else175
 if.then193:                                       ; preds = %land.lhs.true184
   %cmp201 = fcmp olt double %24, %sub182
   %cmp210 = fcmp olt double %22, %add191
-  %or.cond3248 = and i1 %cmp210, %cmp201
-  br i1 %or.cond3248, label %if.then229, label %lor.lhs.false211
+  %or.cond3250 = and i1 %cmp210, %cmp201
+  br i1 %or.cond3250, label %if.then229, label %lor.lhs.false211
 
 lor.lhs.false211:                                 ; preds = %if.then193
   %cmp219 = fcmp ogt double %24, %sub182
   %cmp228 = fcmp ogt double %22, %add191
-  %or.cond3311 = and i1 %cmp228, %cmp219
-  br i1 %or.cond3311, label %if.then229, label %for.inc
+  %or.cond3251 = and i1 %cmp228, %cmp219
+  br i1 %or.cond3251, label %if.then229, label %for.inc
 
 if.then229:                                       ; preds = %lor.lhs.false211, %if.then193
   br label %for.inc
@@ -896,11 +896,11 @@ if.then292:                                       ; preds = %land.lhs.true283
 
 if.else294:                                       ; preds = %if.else
   %34 = add i32 %6, -2
-  %or.cond3249 = icmp ult i32 %34, 13
+  %or.cond3252 = icmp ult i32 %34, 13
   %rem = and i32 %6, 1
   %tobool.not = icmp eq i32 %rem, 0
-  %or.cond3250 = and i1 %or.cond3249, %tobool.not
-  br i1 %or.cond3250, label %if.then302, label %if.else1201
+  %or.cond3253 = and i1 %or.cond3252, %tobool.not
+  br i1 %or.cond3253, label %if.then302, label %if.else1201
 
 if.then302:                                       ; preds = %if.else294
   %cen303 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2
@@ -939,12 +939,12 @@ if.else343:                                       ; preds = %if.else336
   %add350 = fadd double %39, %40
   %div351 = fmul double %add350, 5.000000e-01
   %cmp352 = fcmp uge double %38, %div351
-  %.3251 = zext i1 %cmp352 to i32
+  %.3254 = zext i1 %cmp352 to i32
   br label %if.end357
 
 if.end357:                                        ; preds = %if.else343, %if.else336, %if.end329
   %tobool716.not = phi i1 [ true, %if.end329 ], [ true, %if.else336 ], [ false, %if.else343 ]
-  %yv.1 = phi i32 [ 0, %if.end329 ], [ 1, %if.else336 ], [ %.3251, %if.else343 ]
+  %yv.1 = phi i32 [ 0, %if.end329 ], [ 1, %if.else336 ], [ %.3254, %if.else343 ]
   %arrayidx359 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2, i64 2
   %41 = load double, ptr %arrayidx359, align 8, !tbaa !13
   %42 = load double, ptr %arrayidx275, align 8, !tbaa !13
@@ -960,12 +960,12 @@ if.else371:                                       ; preds = %if.else364
   %add378 = fadd double %42, %43
   %div379 = fmul double %add378, 5.000000e-01
   %cmp380 = fcmp uge double %41, %div379
-  %.3252 = zext i1 %cmp380 to i32
+  %.3255 = zext i1 %cmp380 to i32
   br label %if.end385
 
 if.end385:                                        ; preds = %if.else371, %if.else364, %if.end357
   %tobool900.not = phi i1 [ true, %if.end357 ], [ true, %if.else364 ], [ false, %if.else371 ]
-  %zv.1 = phi i32 [ 0, %if.end357 ], [ 1, %if.else364 ], [ %.3252, %if.else371 ]
+  %zv.1 = phi i32 [ 0, %if.end357 ], [ 1, %if.else364 ], [ %.3255, %if.else371 ]
   br i1 %tobool386.not, label %if.else715, label %if.then387
 
 if.then387:                                       ; preds = %if.end385
@@ -1284,7 +1284,7 @@ if.then1125:                                      ; preds = %land.lhs.true1062
   br label %if.end1129
 
 if.end1129:                                       ; preds = %if.else794, %land.lhs.true833, %if.then896, %if.then719, %land.lhs.true729, %if.then792, %if.else1005, %land.lhs.true1062, %if.then1125, %if.then901, %land.lhs.true940, %if.then1003, %if.else456, %land.lhs.true466, %if.then529, %if.then391, %if.then454, %if.else609, %land.lhs.true648, %if.then711, %if.then534, %land.lhs.true544, %if.then607
-  %intersect.1 = phi i32 [ 1, %if.then454 ], [ %intersect.03313, %if.then391 ], [ 1, %if.then529 ], [ %intersect.03313, %land.lhs.true466 ], [ %intersect.03313, %if.else456 ], [ 1, %if.then607 ], [ %intersect.03313, %land.lhs.true544 ], [ %intersect.03313, %if.then534 ], [ 1, %if.then711 ], [ %intersect.03313, %land.lhs.true648 ], [ %intersect.03313, %if.else609 ], [ 1, %if.then792 ], [ %intersect.03313, %land.lhs.true729 ], [ %intersect.03313, %if.then719 ], [ 1, %if.then896 ], [ %intersect.03313, %land.lhs.true833 ], [ %intersect.03313, %if.else794 ], [ 1, %if.then1003 ], [ %intersect.03313, %land.lhs.true940 ], [ %intersect.03313, %if.then901 ], [ 1, %if.then1125 ], [ %intersect.03313, %land.lhs.true1062 ], [ %intersect.03313, %if.else1005 ]
+  %intersect.1 = phi i32 [ 1, %if.then454 ], [ %intersect.03317, %if.then391 ], [ 1, %if.then529 ], [ %intersect.03317, %land.lhs.true466 ], [ %intersect.03317, %if.else456 ], [ 1, %if.then607 ], [ %intersect.03317, %land.lhs.true544 ], [ %intersect.03317, %if.then534 ], [ 1, %if.then711 ], [ %intersect.03317, %land.lhs.true648 ], [ %intersect.03317, %if.else609 ], [ 1, %if.then792 ], [ %intersect.03317, %land.lhs.true729 ], [ %intersect.03317, %if.then719 ], [ 1, %if.then896 ], [ %intersect.03317, %land.lhs.true833 ], [ %intersect.03317, %if.else794 ], [ 1, %if.then1003 ], [ %intersect.03317, %land.lhs.true940 ], [ %intersect.03317, %if.then901 ], [ 1, %if.then1125 ], [ %intersect.03317, %land.lhs.true1062 ], [ %intersect.03317, %if.else1005 ]
   %cmp1131 = icmp ne i32 %6, 2
   %tobool1133 = icmp ne i32 %intersect.1, 0
   %or.cond = and i1 %cmp1131, %tobool1133
@@ -1303,25 +1303,31 @@ if.then1134:                                      ; preds = %if.end1129
 land.lhs.true1137:                                ; preds = %if.then1134
   %98 = load double, ptr %arrayidx240, align 8, !tbaa !13
   %cmp1142 = fcmp olt double %98, %35
-  br i1 %cmp1142, label %for.inc, label %if.else1184.thread
+  br i1 %cmp1142, label %for.inc, label %if.else1154
 
 land.lhs.true1147:                                ; preds = %if.then1134
-  br i1 %cmp307, label %for.inc, label %if.else1184.thread
+  br i1 %cmp307, label %for.inc, label %if.else1154
+
+if.else1154:                                      ; preds = %land.lhs.true1137, %land.lhs.true1147
+  br label %for.inc
 
 land.lhs.true1157:                                ; preds = %if.then1134
   %99 = load double, ptr %arrayidx258, align 8, !tbaa !13
   %cmp1162 = fcmp olt double %99, %38
-  br i1 %cmp1162, label %for.inc, label %if.else1184.thread
+  br i1 %cmp1162, label %for.inc, label %if.else1174
 
 land.lhs.true1167:                                ; preds = %if.then1134
-  br i1 %cmp334, label %for.inc, label %if.else1184.thread
+  br i1 %cmp334, label %for.inc, label %if.else1174
+
+if.else1174:                                      ; preds = %land.lhs.true1157, %land.lhs.true1167
+  br label %for.inc
 
 land.lhs.true1177:                                ; preds = %if.then1134
   %100 = load double, ptr %arrayidx276, align 8, !tbaa !13
   %cmp1182 = fcmp olt double %100, %41
-  br i1 %cmp1182, label %for.inc, label %if.else1184.thread
+  br i1 %cmp1182, label %for.inc, label %if.else1184
 
-if.else1184.thread:                               ; preds = %land.lhs.true1177, %land.lhs.true1167, %land.lhs.true1157, %land.lhs.true1147, %land.lhs.true1137
+if.else1184:                                      ; preds = %land.lhs.true1177
   br label %for.inc
 
 land.lhs.true1187:                                ; preds = %if.then1134
@@ -1332,9 +1338,9 @@ if.then1193:                                      ; preds = %land.lhs.true1187
 
 if.else1201:                                      ; preds = %if.else294
   %101 = add i32 %6, -16
-  %or.cond3253 = icmp ult i32 %101, -13
-  %or.cond3254 = or i1 %or.cond3253, %tobool.not
-  br i1 %or.cond3254, label %if.else1570, label %if.then1211
+  %or.cond3257 = icmp ult i32 %101, -13
+  %or.cond3258 = or i1 %or.cond3257, %tobool.not
+  br i1 %or.cond3258, label %if.else1570, label %if.then1211
 
 if.then1211:                                      ; preds = %if.else1201
   %cen1212 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2
@@ -1346,7 +1352,7 @@ if.then1211:                                      ; preds = %if.else1201
 if.else1218:                                      ; preds = %if.then1211
   %104 = load double, ptr %arrayidx240, align 8, !tbaa !13
   %cmp1223 = fcmp ogt double %102, %104
-  %.xv.0 = select i1 %cmp1223, i32 1, i32 %xv.03314
+  %.xv.0 = select i1 %cmp1223, i32 1, i32 %xv.03318
   br label %if.end1227
 
 if.end1227:                                       ; preds = %if.else1218, %if.then1211
@@ -1361,7 +1367,7 @@ if.end1227:                                       ; preds = %if.else1218, %if.th
 if.else1234:                                      ; preds = %if.end1227
   %107 = load double, ptr %arrayidx258, align 8, !tbaa !13
   %cmp1239 = fcmp ogt double %105, %107
-  %.yv.0 = select i1 %cmp1239, i32 1, i32 %yv.03315
+  %.yv.0 = select i1 %cmp1239, i32 1, i32 %yv.03319
   br label %if.end1243
 
 if.end1243:                                       ; preds = %if.else1234, %if.end1227
@@ -1376,7 +1382,7 @@ if.end1243:                                       ; preds = %if.else1234, %if.en
 if.else1250:                                      ; preds = %if.end1243
   %110 = load double, ptr %arrayidx276, align 8, !tbaa !13
   %cmp1255 = fcmp ogt double %108, %110
-  %.zv.0 = select i1 %cmp1255, i32 1, i32 %zv.03316
+  %.zv.0 = select i1 %cmp1255, i32 1, i32 %zv.03320
   br label %if.end1259
 
 if.end1259:                                       ; preds = %if.else1250, %if.end1243
@@ -1497,7 +1503,7 @@ if.then1494:                                      ; preds = %if.else1437
   br label %if.end1498
 
 if.end1498:                                       ; preds = %if.then1263, %if.else1352, %if.then1391, %if.then1340, %if.then1350, %if.else1437, %if.then1494, %if.then1396, %if.then1435, %if.else1266, %if.then1276, %if.else1293, %if.then1332, %if.then1281, %if.then1291
-  %intersect.2 = phi i32 [ 1, %if.then1276 ], [ %intersect.03313, %if.else1266 ], [ 1, %if.then1291 ], [ %intersect.03313, %if.then1281 ], [ 1, %if.then1332 ], [ %intersect.03313, %if.else1293 ], [ 1, %if.then1350 ], [ %intersect.03313, %if.then1340 ], [ 1, %if.then1391 ], [ %intersect.03313, %if.else1352 ], [ 1, %if.then1435 ], [ %intersect.03313, %if.then1396 ], [ 1, %if.then1494 ], [ %intersect.03313, %if.else1437 ], [ 1, %if.then1263 ]
+  %intersect.2 = phi i32 [ 1, %if.then1276 ], [ %intersect.03317, %if.else1266 ], [ 1, %if.then1291 ], [ %intersect.03317, %if.then1281 ], [ 1, %if.then1332 ], [ %intersect.03317, %if.else1293 ], [ 1, %if.then1350 ], [ %intersect.03317, %if.then1340 ], [ 1, %if.then1391 ], [ %intersect.03317, %if.else1352 ], [ 1, %if.then1435 ], [ %intersect.03317, %if.then1396 ], [ 1, %if.then1494 ], [ %intersect.03317, %if.else1437 ], [ 1, %if.then1263 ]
   %cmp1500 = icmp ne i32 %6, 3
   %tobool1502 = icmp ne i32 %intersect.2, 0
   %or.cond2314 = and i1 %cmp1500, %tobool1502
@@ -1516,25 +1522,31 @@ if.then1503:                                      ; preds = %if.end1498
 land.lhs.true1506:                                ; preds = %if.then1503
   %125 = load double, ptr %arrayidx240, align 8, !tbaa !13
   %cmp1511 = fcmp olt double %125, %102
-  br i1 %cmp1511, label %for.inc, label %if.else1553.thread
+  br i1 %cmp1511, label %for.inc, label %if.else1523
 
 land.lhs.true1516:                                ; preds = %if.then1503
-  br i1 %cmp1216, label %for.inc, label %if.else1553.thread
+  br i1 %cmp1216, label %for.inc, label %if.else1523
+
+if.else1523:                                      ; preds = %land.lhs.true1506, %land.lhs.true1516
+  br label %for.inc
 
 land.lhs.true1526:                                ; preds = %if.then1503
   %126 = load double, ptr %arrayidx258, align 8, !tbaa !13
   %cmp1531 = fcmp olt double %126, %105
-  br i1 %cmp1531, label %for.inc, label %if.else1553.thread
+  br i1 %cmp1531, label %for.inc, label %if.else1543
 
 land.lhs.true1536:                                ; preds = %if.then1503
-  br i1 %cmp1232, label %for.inc, label %if.else1553.thread
+  br i1 %cmp1232, label %for.inc, label %if.else1543
+
+if.else1543:                                      ; preds = %land.lhs.true1526, %land.lhs.true1536
+  br label %for.inc
 
 land.lhs.true1546:                                ; preds = %if.then1503
   %127 = load double, ptr %arrayidx276, align 8, !tbaa !13
   %cmp1551 = fcmp olt double %127, %108
-  br i1 %cmp1551, label %for.inc, label %if.else1553.thread
+  br i1 %cmp1551, label %for.inc, label %if.else1553
 
-if.else1553.thread:                               ; preds = %land.lhs.true1546, %land.lhs.true1536, %land.lhs.true1526, %land.lhs.true1516, %land.lhs.true1506
+if.else1553:                                      ; preds = %land.lhs.true1546
   br label %for.inc
 
 land.lhs.true1556:                                ; preds = %if.then1503
@@ -1545,24 +1557,23 @@ if.then1562:                                      ; preds = %land.lhs.true1556
 
 if.else1570:                                      ; preds = %if.else1201
   switch i32 %6, label %if.else2305 [
-    i32 24, label %if.else1587
-    i32 22, label %if.then1586
-    i32 20, label %if.end1589
-    i32 21, label %if.end2147
-    i32 23, label %if.then2144
-    i32 25, label %if.else2145
+    i32 24, label %if.then1579
+    i32 22, label %if.then1579
+    i32 20, label %if.then1579
+    i32 25, label %if.then2137
+    i32 23, label %if.then2137
+    i32 21, label %if.then2137
   ]
 
-if.then1586:                                      ; preds = %if.else1570
-  br label %if.end1589
-
-if.else1587:                                      ; preds = %if.else1570
-  br label %if.end1589
-
-if.end1589:                                       ; preds = %if.else1570, %if.then1586, %if.else1587
-  %ca.0 = phi i64 [ 1, %if.then1586 ], [ 2, %if.else1587 ], [ 0, %if.else1570 ]
-  %c1.0 = phi i64 [ 2, %if.then1586 ], [ 0, %if.else1587 ], [ 1, %if.else1570 ]
-  %c2.0 = phi i64 [ 0, %if.then1586 ], [ 1, %if.else1587 ], [ 2, %if.else1570 ]
+if.then1579:                                      ; preds = %if.else1570, %if.else1570, %if.else1570
+  %cmp1572 = icmp eq i32 %6, 20
+  %cmp1585 = icmp ne i32 %6, 22
+  %.3266 = select i1 %cmp1585, i64 2, i64 1
+  %.3267 = select i1 %cmp1585, i64 0, i64 2
+  %.3268 = zext i1 %cmp1585 to i64
+  %ca.0 = select i1 %cmp1572, i64 0, i64 %.3266
+  %c1.0 = select i1 %cmp1572, i64 1, i64 %.3267
+  %c2.0 = select i1 %cmp1572, i64 2, i64 %.3268
   %arrayidx1592 = getelementptr inbounds [2 x double], ptr %cor, i64 %ca.0, i64 1
   %128 = load double, ptr %arrayidx1592, align 8, !tbaa !13
   %cen1593 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2
@@ -1574,7 +1585,7 @@ if.end1589:                                       ; preds = %if.else1570, %if.th
   %cmp1600 = fcmp ogt double %128, %sub1599
   br i1 %cmp1600, label %land.lhs.true1601, label %for.inc
 
-land.lhs.true1601:                                ; preds = %if.end1589
+land.lhs.true1601:                                ; preds = %if.then1579
   %arrayidx1591 = getelementptr inbounds [2 x double], ptr %cor, i64 %ca.0
   %131 = load double, ptr %arrayidx1591, align 8, !tbaa !13
   %add1611 = fadd double %129, %130
@@ -1599,12 +1610,12 @@ if.else1631:                                      ; preds = %if.else1622
   %add1641 = fadd double %133, %134
   %div1642 = fmul double %add1641, 5.000000e-01
   %cmp1643 = fcmp uge double %132, %div1642
-  %.3258 = zext i1 %cmp1643 to i32
+  %.3269 = zext i1 %cmp1643 to i32
   br label %if.end1648
 
 if.end1648:                                       ; preds = %if.else1631, %if.else1622, %if.then1613
   %tobool1813.not = phi i1 [ true, %if.then1613 ], [ true, %if.else1622 ], [ false, %if.else1631 ]
-  %yv.3 = phi i32 [ 0, %if.then1613 ], [ 1, %if.else1622 ], [ %.3258, %if.else1631 ]
+  %yv.3 = phi i32 [ 0, %if.then1613 ], [ 1, %if.else1622 ], [ %.3269, %if.else1631 ]
   %arrayidx1651 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2, i64 %c2.0
   %135 = load double, ptr %arrayidx1651, align 8, !tbaa !13
   %arrayidx1653 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.0
@@ -1622,12 +1633,12 @@ if.else1666:                                      ; preds = %if.else1657
   %add1676 = fadd double %136, %137
   %div1677 = fmul double %add1676, 5.000000e-01
   %cmp1678 = fcmp uge double %135, %div1677
-  %.3259 = zext i1 %cmp1678 to i32
+  %.3270 = zext i1 %cmp1678 to i32
   br label %if.end1683
 
 if.end1683:                                       ; preds = %if.else1666, %if.else1657, %if.end1648
   %tobool1945.not = phi i1 [ true, %if.end1648 ], [ true, %if.else1657 ], [ false, %if.else1666 ]
-  %zv.3 = phi i32 [ 0, %if.end1648 ], [ 1, %if.else1657 ], [ %.3259, %if.else1666 ]
+  %zv.3 = phi i32 [ 0, %if.end1648 ], [ 1, %if.else1657 ], [ %.3270, %if.else1666 ]
   %138 = load double, ptr %cor, align 8, !tbaa !13
   %139 = load double, ptr %cen1593, align 8, !tbaa !13
   %sub1690 = fsub double %139, %3
@@ -1845,16 +1856,15 @@ land.lhs.true2067:                                ; preds = %if.else2016
 if.then2122:                                      ; preds = %land.lhs.true2067
   br label %for.inc
 
-if.then2144:                                      ; preds = %if.else1570
-  br label %if.end2147
-
-if.else2145:                                      ; preds = %if.else1570
-  br label %if.end2147
-
-if.end2147:                                       ; preds = %if.else1570, %if.then2144, %if.else2145
-  %ca.1 = phi i64 [ 1, %if.then2144 ], [ 2, %if.else2145 ], [ 0, %if.else1570 ]
-  %c1.1 = phi i64 [ 2, %if.then2144 ], [ 0, %if.else2145 ], [ 1, %if.else1570 ]
-  %c2.1 = phi i64 [ 0, %if.then2144 ], [ 1, %if.else2145 ], [ 2, %if.else1570 ]
+if.then2137:                                      ; preds = %if.else1570, %if.else1570, %if.else1570
+  %cmp2130 = icmp eq i32 %6, 21
+  %cmp2143 = icmp ne i32 %6, 23
+  %.3273 = select i1 %cmp2143, i64 2, i64 1
+  %.3274 = select i1 %cmp2143, i64 0, i64 2
+  %.3275 = zext i1 %cmp2143 to i64
+  %ca.1 = select i1 %cmp2130, i64 0, i64 %.3273
+  %c1.1 = select i1 %cmp2130, i64 1, i64 %.3274
+  %c2.1 = select i1 %cmp2130, i64 2, i64 %.3275
   %arrayidx2150 = getelementptr inbounds [2 x double], ptr %cor, i64 %ca.1, i64 1
   %178 = load double, ptr %arrayidx2150, align 8, !tbaa !13
   %arrayidx2153 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2, i64 %ca.1
@@ -1865,7 +1875,7 @@ if.end2147:                                       ; preds = %if.else1570, %if.th
   %cmp2158 = fcmp ogt double %178, %sub2157
   br i1 %cmp2158, label %land.lhs.true2159, label %for.inc
 
-land.lhs.true2159:                                ; preds = %if.end2147
+land.lhs.true2159:                                ; preds = %if.then2137
   %arrayidx2149 = getelementptr inbounds [2 x double], ptr %cor, i64 %ca.1
   %181 = load double, ptr %arrayidx2149, align 8, !tbaa !13
   %add2169 = fadd double %179, %180
@@ -1892,18 +1902,18 @@ if.end2191:                                       ; preds = %if.then2171
   br i1 %cmp2198, label %if.end2211.thread, label %if.end2211
 
 if.end2191.thread:                                ; preds = %if.then2171
-  %arrayidx21943288 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2, i64 %c2.1
-  %187 = load double, ptr %arrayidx21943288, align 8, !tbaa !13
-  %arrayidx21963289 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1
-  %188 = load double, ptr %arrayidx21963289, align 8, !tbaa !13
-  %cmp21983290 = fcmp olt double %187, %188
-  br i1 %cmp21983290, label %if.else2249, label %if.end2211.thread3300
+  %arrayidx21943294 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 2, i64 %c2.1
+  %187 = load double, ptr %arrayidx21943294, align 8, !tbaa !13
+  %arrayidx21963295 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1
+  %188 = load double, ptr %arrayidx21963295, align 8, !tbaa !13
+  %cmp21983296 = fcmp olt double %187, %188
+  br i1 %cmp21983296, label %if.else2249, label %if.end2211.thread3306
 
-if.end2211.thread3300:                            ; preds = %if.end2191.thread
-  %arrayidx22063303 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1, i64 1
-  %189 = load double, ptr %arrayidx22063303, align 8, !tbaa !13
-  %cmp22073304 = fcmp ogt double %187, %189
-  br i1 %cmp22073304, label %if.else2249, label %if.then2234
+if.end2211.thread3306:                            ; preds = %if.end2191.thread
+  %arrayidx22063309 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1, i64 1
+  %189 = load double, ptr %arrayidx22063309, align 8, !tbaa !13
+  %cmp22073310 = fcmp ogt double %187, %189
+  br i1 %cmp22073310, label %if.else2249, label %if.then2234
 
 if.end2211:                                       ; preds = %if.end2191
   %arrayidx2206 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1, i64 1
@@ -1918,8 +1928,8 @@ if.then2213:                                      ; preds = %if.end2211
   br i1 %cmp2207, label %if.else2216, label %for.inc
 
 if.else2216:                                      ; preds = %if.end2211.thread, %if.then2213
-  %zv.432783282 = phi i32 [ 1, %if.then2213 ], [ 0, %if.end2211.thread ]
-  %idxprom2219 = zext i32 %zv.432783282 to i64
+  %zv.432843288 = phi i32 [ 1, %if.then2213 ], [ 0, %if.end2211.thread ]
+  %idxprom2219 = zext i32 %zv.432843288 to i64
   %arrayidx2220 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1, i64 %idxprom2219
   %191 = load double, ptr %arrayidx2220, align 8, !tbaa !13
   %sub2224 = fsub double %191, %185
@@ -1935,9 +1945,11 @@ if.then2229:                                      ; preds = %if.else2216
 if.else2232:                                      ; preds = %if.end2211
   br i1 %cmp2207, label %if.else2249, label %if.then2234
 
-if.then2234:                                      ; preds = %if.end2211.thread3300, %if.else2232
-  %194 = phi double [ %184, %if.else2232 ], [ %183, %if.end2211.thread3300 ]
-  %yv.4329333063307 = phi i32 [ 1, %if.else2232 ], [ 0, %if.end2211.thread3300 ]
+if.then2234:                                      ; preds = %if.end2211.thread3306, %if.else2232
+  %yv.4329933133314 = phi i32 [ 0, %if.end2211.thread3306 ], [ 1, %if.else2232 ]
+  %idxprom2237 = zext i32 %yv.4329933133314 to i64
+  %arrayidx2238 = getelementptr inbounds [2 x double], ptr %cor, i64 %c1.1, i64 %idxprom2237
+  %194 = load double, ptr %arrayidx2238, align 8, !tbaa !13
   %sub2242 = fsub double %194, %182
   %195 = tail call double @llvm.fabs.f64(double %sub2242)
   %arrayidx2245 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 6, i64 %c1.1
@@ -1948,18 +1960,18 @@ if.then2234:                                      ; preds = %if.end2211.thread33
 if.then2247:                                      ; preds = %if.then2234
   br label %for.inc
 
-if.else2249:                                      ; preds = %if.end2211.thread3300, %if.end2191.thread, %if.end2211.thread, %if.else2232
-  %197 = phi double [ %185, %if.else2232 ], [ %185, %if.end2211.thread ], [ %187, %if.end2191.thread ], [ %187, %if.end2211.thread3300 ]
-  %yv.43294 = phi i32 [ 1, %if.else2232 ], [ 1, %if.end2211.thread ], [ 0, %if.end2191.thread ], [ 0, %if.end2211.thread3300 ]
-  %zv.432793285 = phi i32 [ 1, %if.else2232 ], [ 0, %if.end2211.thread ], [ 0, %if.end2191.thread ], [ 1, %if.end2211.thread3300 ]
-  %idxprom2252 = zext i32 %yv.43294 to i64
+if.else2249:                                      ; preds = %if.end2211.thread3306, %if.end2191.thread, %if.end2211.thread, %if.else2232
+  %197 = phi double [ %185, %if.else2232 ], [ %185, %if.end2211.thread ], [ %187, %if.end2191.thread ], [ %187, %if.end2211.thread3306 ]
+  %yv.43300 = phi i32 [ 1, %if.else2232 ], [ 1, %if.end2211.thread ], [ 0, %if.end2191.thread ], [ 0, %if.end2211.thread3306 ]
+  %zv.432853291 = phi i32 [ 1, %if.else2232 ], [ 0, %if.end2211.thread ], [ 0, %if.end2191.thread ], [ 1, %if.end2211.thread3306 ]
+  %idxprom2252 = zext i32 %yv.43300 to i64
   %arrayidx2253 = getelementptr inbounds [2 x double], ptr %cor, i64 %c1.1, i64 %idxprom2252
   %198 = load double, ptr %arrayidx2253, align 8, !tbaa !13
   %sub2257 = fsub double %198, %182
   %arrayidx2260 = getelementptr inbounds %struct.object, ptr %2, i64 %indvars.iv, i32 6, i64 %c1.1
   %199 = load double, ptr %arrayidx2260, align 8, !tbaa !13
   %div2261 = fdiv double %sub2257, %199
-  %idxprom2276 = zext i32 %zv.432793285 to i64
+  %idxprom2276 = zext i32 %zv.432853291 to i64
   %arrayidx2277 = getelementptr inbounds [2 x double], ptr %cor, i64 %c2.1, i64 %idxprom2276
   %200 = load double, ptr %arrayidx2277, align 8, !tbaa !13
   %sub2281 = fsub double %200, %197
@@ -1977,16 +1989,16 @@ if.then2300:                                      ; preds = %if.else2249
 if.else2305:                                      ; preds = %if.else1570
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %6)
   %.pre = load ptr, ptr @objects, align 8, !tbaa !9
-  %.pre3321 = load i32, ptr @num_objects, align 4, !tbaa !5
+  %.pre3324 = load i32, ptr @num_objects, align 4, !tbaa !5
   br label %for.inc
 
-for.inc:                                          ; preds = %if.then1503, %if.then1134, %if.else1553.thread, %if.else1184.thread, %if.then2213, %if.then1721, %land.lhs.true1546, %land.lhs.true1536, %land.lhs.true1526, %land.lhs.true1516, %land.lhs.true1506, %land.lhs.true1177, %land.lhs.true1167, %land.lhs.true1157, %land.lhs.true1147, %land.lhs.true1137, %lor.lhs.false8, %lor.lhs.false4, %lor.lhs.false, %for.body, %if.then292, %land.lhs.true283, %land.lhs.true274, %land.lhs.true265, %land.lhs.true256, %land.lhs.true247, %if.then238, %if.then1562, %land.lhs.true1556, %if.end1498, %if.else2305, %if.else2216, %if.then2229, %if.else2249, %if.then2300, %if.then2234, %if.then2247, %land.lhs.true2159, %if.end2147, %if.end1589, %land.lhs.true1601, %if.else1873, %land.lhs.true1886, %if.then1941, %if.then1816, %if.then1871, %if.else2016, %land.lhs.true2067, %if.then2122, %if.then1946, %land.lhs.true1959, %if.then2014, %if.else1724, %if.then1737, %if.else1757, %if.then1808, %if.then1742, %if.then1755, %if.end1129, %land.lhs.true1187, %if.then1193, %if.then13, %land.lhs.true, %if.then154, %land.lhs.true163, %if.then172, %lor.lhs.false136, %lor.lhs.false211, %if.then229, %land.lhs.true184, %if.else175, %if.then63, %land.lhs.true72, %land.lhs.true81, %land.lhs.true90, %if.then99
-  %203 = phi i32 [ %1, %for.body ], [ %1, %lor.lhs.false ], [ %1, %lor.lhs.false4 ], [ %1, %lor.lhs.false8 ], [ %1, %if.then99 ], [ %1, %land.lhs.true90 ], [ %1, %land.lhs.true81 ], [ %1, %land.lhs.true72 ], [ %1, %if.then63 ], [ %1, %if.then172 ], [ %1, %land.lhs.true163 ], [ %1, %if.then154 ], [ %1, %lor.lhs.false136 ], [ %1, %if.then229 ], [ %1, %lor.lhs.false211 ], [ %1, %land.lhs.true184 ], [ %1, %if.else175 ], [ %1, %land.lhs.true ], [ %1, %if.then13 ], [ %1, %if.then292 ], [ %1, %land.lhs.true283 ], [ %1, %land.lhs.true274 ], [ %1, %land.lhs.true265 ], [ %1, %land.lhs.true256 ], [ %1, %land.lhs.true247 ], [ %1, %if.then238 ], [ %1, %if.then1562 ], [ %1, %land.lhs.true1556 ], [ %1, %if.end1498 ], [ %1, %if.then1737 ], [ %1, %if.else1724 ], [ %1, %if.then1755 ], [ %1, %if.then1742 ], [ %1, %if.then1808 ], [ %1, %if.else1757 ], [ %1, %if.then1871 ], [ %1, %if.then1816 ], [ %1, %if.then1941 ], [ %1, %land.lhs.true1886 ], [ %1, %if.else1873 ], [ %1, %if.then2014 ], [ %1, %land.lhs.true1959 ], [ %1, %if.then1946 ], [ %1, %if.then2122 ], [ %1, %land.lhs.true2067 ], [ %1, %if.else2016 ], [ %1, %land.lhs.true1601 ], [ %1, %if.end1589 ], [ %1, %if.then2229 ], [ %1, %if.else2216 ], [ %1, %if.then2247 ], [ %1, %if.then2234 ], [ %1, %if.then2300 ], [ %1, %if.else2249 ], [ %1, %land.lhs.true2159 ], [ %1, %if.end2147 ], [ %.pre3321, %if.else2305 ], [ %1, %if.then1193 ], [ %1, %land.lhs.true1187 ], [ %1, %if.end1129 ], [ %1, %land.lhs.true1137 ], [ %1, %land.lhs.true1147 ], [ %1, %land.lhs.true1157 ], [ %1, %land.lhs.true1167 ], [ %1, %land.lhs.true1177 ], [ %1, %land.lhs.true1506 ], [ %1, %land.lhs.true1516 ], [ %1, %land.lhs.true1526 ], [ %1, %land.lhs.true1536 ], [ %1, %land.lhs.true1546 ], [ %1, %if.then1721 ], [ %1, %if.then2213 ], [ %1, %if.else1184.thread ], [ %1, %if.else1553.thread ], [ %1, %if.then1134 ], [ %1, %if.then1503 ]
-  %204 = phi ptr [ %2, %for.body ], [ %2, %lor.lhs.false ], [ %2, %lor.lhs.false4 ], [ %2, %lor.lhs.false8 ], [ %2, %if.then99 ], [ %2, %land.lhs.true90 ], [ %2, %land.lhs.true81 ], [ %2, %land.lhs.true72 ], [ %2, %if.then63 ], [ %2, %if.then172 ], [ %2, %land.lhs.true163 ], [ %2, %if.then154 ], [ %2, %lor.lhs.false136 ], [ %2, %if.then229 ], [ %2, %lor.lhs.false211 ], [ %2, %land.lhs.true184 ], [ %2, %if.else175 ], [ %2, %land.lhs.true ], [ %2, %if.then13 ], [ %2, %if.then292 ], [ %2, %land.lhs.true283 ], [ %2, %land.lhs.true274 ], [ %2, %land.lhs.true265 ], [ %2, %land.lhs.true256 ], [ %2, %land.lhs.true247 ], [ %2, %if.then238 ], [ %2, %if.then1562 ], [ %2, %land.lhs.true1556 ], [ %2, %if.end1498 ], [ %2, %if.then1737 ], [ %2, %if.else1724 ], [ %2, %if.then1755 ], [ %2, %if.then1742 ], [ %2, %if.then1808 ], [ %2, %if.else1757 ], [ %2, %if.then1871 ], [ %2, %if.then1816 ], [ %2, %if.then1941 ], [ %2, %land.lhs.true1886 ], [ %2, %if.else1873 ], [ %2, %if.then2014 ], [ %2, %land.lhs.true1959 ], [ %2, %if.then1946 ], [ %2, %if.then2122 ], [ %2, %land.lhs.true2067 ], [ %2, %if.else2016 ], [ %2, %land.lhs.true1601 ], [ %2, %if.end1589 ], [ %2, %if.then2229 ], [ %2, %if.else2216 ], [ %2, %if.then2247 ], [ %2, %if.then2234 ], [ %2, %if.then2300 ], [ %2, %if.else2249 ], [ %2, %land.lhs.true2159 ], [ %2, %if.end2147 ], [ %.pre, %if.else2305 ], [ %2, %if.then1193 ], [ %2, %land.lhs.true1187 ], [ %2, %if.end1129 ], [ %2, %land.lhs.true1137 ], [ %2, %land.lhs.true1147 ], [ %2, %land.lhs.true1157 ], [ %2, %land.lhs.true1167 ], [ %2, %land.lhs.true1177 ], [ %2, %land.lhs.true1506 ], [ %2, %land.lhs.true1516 ], [ %2, %land.lhs.true1526 ], [ %2, %land.lhs.true1536 ], [ %2, %land.lhs.true1546 ], [ %2, %if.then1721 ], [ %2, %if.then2213 ], [ %2, %if.else1184.thread ], [ %2, %if.else1553.thread ], [ %2, %if.then1134 ], [ %2, %if.then1503 ]
-  %intersect.3 = phi i32 [ %intersect.03313, %for.body ], [ %intersect.03313, %lor.lhs.false ], [ %intersect.03313, %lor.lhs.false4 ], [ %intersect.03313, %lor.lhs.false8 ], [ 1, %if.then99 ], [ %intersect.03313, %land.lhs.true90 ], [ %intersect.03313, %land.lhs.true81 ], [ %intersect.03313, %land.lhs.true72 ], [ %intersect.03313, %if.then63 ], [ 1, %if.then172 ], [ %intersect.03313, %land.lhs.true163 ], [ %intersect.03313, %if.then154 ], [ %intersect.03313, %lor.lhs.false136 ], [ 1, %if.then229 ], [ %intersect.03313, %lor.lhs.false211 ], [ %intersect.03313, %land.lhs.true184 ], [ %intersect.03313, %if.else175 ], [ %intersect.03313, %land.lhs.true ], [ %intersect.03313, %if.then13 ], [ 1, %if.then292 ], [ %intersect.03313, %land.lhs.true283 ], [ %intersect.03313, %land.lhs.true274 ], [ %intersect.03313, %land.lhs.true265 ], [ %intersect.03313, %land.lhs.true256 ], [ %intersect.03313, %land.lhs.true247 ], [ %intersect.03313, %if.then238 ], [ %intersect.03313, %if.then1562 ], [ %intersect.2, %land.lhs.true1556 ], [ %intersect.2, %if.end1498 ], [ 1, %if.then1737 ], [ %intersect.03313, %if.else1724 ], [ 1, %if.then1755 ], [ %intersect.03313, %if.then1742 ], [ 1, %if.then1808 ], [ %intersect.03313, %if.else1757 ], [ 1, %if.then1871 ], [ %intersect.03313, %if.then1816 ], [ 1, %if.then1941 ], [ %intersect.03313, %land.lhs.true1886 ], [ %intersect.03313, %if.else1873 ], [ 1, %if.then2014 ], [ %intersect.03313, %land.lhs.true1959 ], [ %intersect.03313, %if.then1946 ], [ 1, %if.then2122 ], [ %intersect.03313, %land.lhs.true2067 ], [ %intersect.03313, %if.else2016 ], [ %intersect.03313, %land.lhs.true1601 ], [ %intersect.03313, %if.end1589 ], [ 1, %if.then2229 ], [ %intersect.03313, %if.else2216 ], [ 1, %if.then2247 ], [ %intersect.03313, %if.then2234 ], [ 1, %if.then2300 ], [ %intersect.03313, %if.else2249 ], [ %intersect.03313, %land.lhs.true2159 ], [ %intersect.03313, %if.end2147 ], [ %intersect.03313, %if.else2305 ], [ %intersect.03313, %if.then1193 ], [ %intersect.1, %land.lhs.true1187 ], [ %intersect.1, %if.end1129 ], [ %intersect.03313, %land.lhs.true1137 ], [ %intersect.03313, %land.lhs.true1147 ], [ %intersect.03313, %land.lhs.true1157 ], [ %intersect.03313, %land.lhs.true1167 ], [ %intersect.03313, %land.lhs.true1177 ], [ %intersect.03313, %land.lhs.true1506 ], [ %intersect.03313, %land.lhs.true1516 ], [ %intersect.03313, %land.lhs.true1526 ], [ %intersect.03313, %land.lhs.true1536 ], [ %intersect.03313, %land.lhs.true1546 ], [ 1, %if.then1721 ], [ 1, %if.then2213 ], [ %intersect.1, %if.else1184.thread ], [ %intersect.2, %if.else1553.thread ], [ %intersect.1, %if.then1134 ], [ %intersect.2, %if.then1503 ]
-  %xv.3 = phi i32 [ %xv.03314, %for.body ], [ %xv.03314, %lor.lhs.false ], [ %xv.03314, %lor.lhs.false4 ], [ %xv.03314, %lor.lhs.false8 ], [ %xv.03314, %if.then99 ], [ %xv.03314, %land.lhs.true90 ], [ %xv.03314, %land.lhs.true81 ], [ %xv.03314, %land.lhs.true72 ], [ %xv.03314, %if.then63 ], [ %xv.03314, %if.then172 ], [ %xv.03314, %land.lhs.true163 ], [ %xv.03314, %if.then154 ], [ %xv.03314, %lor.lhs.false136 ], [ %xv.03314, %if.then229 ], [ %xv.03314, %lor.lhs.false211 ], [ %xv.03314, %land.lhs.true184 ], [ %xv.03314, %if.else175 ], [ %xv.03314, %land.lhs.true ], [ %xv.03314, %if.then13 ], [ %xv.03314, %if.then292 ], [ %xv.03314, %land.lhs.true283 ], [ %xv.03314, %land.lhs.true274 ], [ %xv.03314, %land.lhs.true265 ], [ %xv.03314, %land.lhs.true256 ], [ %xv.03314, %land.lhs.true247 ], [ %xv.03314, %if.then238 ], [ %xv.2, %if.then1562 ], [ %xv.2, %land.lhs.true1556 ], [ %xv.2, %if.end1498 ], [ %xv.03314, %if.then1737 ], [ %xv.03314, %if.else1724 ], [ %xv.03314, %if.then1755 ], [ %xv.03314, %if.then1742 ], [ %xv.03314, %if.then1808 ], [ %xv.03314, %if.else1757 ], [ %xv.03314, %if.then1871 ], [ %xv.03314, %if.then1816 ], [ %xv.03314, %if.then1941 ], [ %xv.03314, %land.lhs.true1886 ], [ %xv.03314, %if.else1873 ], [ %xv.03314, %if.then2014 ], [ %xv.03314, %land.lhs.true1959 ], [ %xv.03314, %if.then1946 ], [ %xv.03314, %if.then2122 ], [ %xv.03314, %land.lhs.true2067 ], [ %xv.03314, %if.else2016 ], [ %xv.03314, %land.lhs.true1601 ], [ %xv.03314, %if.end1589 ], [ %xv.03314, %if.then2229 ], [ %xv.03314, %if.else2216 ], [ %xv.03314, %if.then2247 ], [ %xv.03314, %if.then2234 ], [ %xv.03314, %if.then2300 ], [ %xv.03314, %if.else2249 ], [ %xv.03314, %land.lhs.true2159 ], [ %xv.03314, %if.end2147 ], [ %xv.03314, %if.else2305 ], [ %xv.1, %if.then1193 ], [ %xv.1, %land.lhs.true1187 ], [ %xv.1, %if.end1129 ], [ %xv.1, %land.lhs.true1137 ], [ %xv.1, %land.lhs.true1147 ], [ %xv.1, %land.lhs.true1157 ], [ %xv.1, %land.lhs.true1167 ], [ %xv.1, %land.lhs.true1177 ], [ %xv.2, %land.lhs.true1506 ], [ %xv.2, %land.lhs.true1516 ], [ %xv.2, %land.lhs.true1526 ], [ %xv.2, %land.lhs.true1536 ], [ %xv.2, %land.lhs.true1546 ], [ %xv.03314, %if.then1721 ], [ %xv.03314, %if.then2213 ], [ %xv.1, %if.else1184.thread ], [ %xv.2, %if.else1553.thread ], [ %xv.1, %if.then1134 ], [ %xv.2, %if.then1503 ]
-  %yv.5 = phi i32 [ %yv.03315, %for.body ], [ %yv.03315, %lor.lhs.false ], [ %yv.03315, %lor.lhs.false4 ], [ %yv.03315, %lor.lhs.false8 ], [ %yv.03315, %if.then99 ], [ %yv.03315, %land.lhs.true90 ], [ %yv.03315, %land.lhs.true81 ], [ %yv.03315, %land.lhs.true72 ], [ %yv.03315, %if.then63 ], [ %yv.03315, %if.then172 ], [ %yv.03315, %land.lhs.true163 ], [ %yv.03315, %if.then154 ], [ %yv.03315, %lor.lhs.false136 ], [ %yv.03315, %if.then229 ], [ %yv.03315, %lor.lhs.false211 ], [ %yv.03315, %land.lhs.true184 ], [ %yv.03315, %if.else175 ], [ %yv.03315, %land.lhs.true ], [ %yv.03315, %if.then13 ], [ %yv.03315, %if.then292 ], [ %yv.03315, %land.lhs.true283 ], [ %yv.03315, %land.lhs.true274 ], [ %yv.03315, %land.lhs.true265 ], [ %yv.03315, %land.lhs.true256 ], [ %yv.03315, %land.lhs.true247 ], [ %yv.03315, %if.then238 ], [ %yv.2, %if.then1562 ], [ %yv.2, %land.lhs.true1556 ], [ %yv.2, %if.end1498 ], [ %yv.3, %if.then1737 ], [ %yv.3, %if.else1724 ], [ %yv.3, %if.then1755 ], [ %yv.3, %if.then1742 ], [ %yv.3, %if.then1808 ], [ %yv.3, %if.else1757 ], [ %yv.3, %if.then1871 ], [ %yv.3, %if.then1816 ], [ %yv.3, %if.then1941 ], [ %yv.3, %land.lhs.true1886 ], [ %yv.3, %if.else1873 ], [ %yv.3, %if.then2014 ], [ %yv.3, %land.lhs.true1959 ], [ %yv.3, %if.then1946 ], [ %yv.3, %if.then2122 ], [ %yv.3, %land.lhs.true2067 ], [ %yv.3, %if.else2016 ], [ %yv.03315, %land.lhs.true1601 ], [ %yv.03315, %if.end1589 ], [ %yv.03315, %if.then2229 ], [ %yv.03315, %if.else2216 ], [ %yv.4329333063307, %if.then2247 ], [ %yv.4329333063307, %if.then2234 ], [ %yv.43294, %if.then2300 ], [ %yv.43294, %if.else2249 ], [ %yv.03315, %land.lhs.true2159 ], [ %yv.03315, %if.end2147 ], [ %yv.03315, %if.else2305 ], [ %yv.1, %if.then1193 ], [ %yv.1, %land.lhs.true1187 ], [ %yv.1, %if.end1129 ], [ %yv.1, %land.lhs.true1137 ], [ %yv.1, %land.lhs.true1147 ], [ %yv.1, %land.lhs.true1157 ], [ %yv.1, %land.lhs.true1167 ], [ %yv.1, %land.lhs.true1177 ], [ %yv.2, %land.lhs.true1506 ], [ %yv.2, %land.lhs.true1516 ], [ %yv.2, %land.lhs.true1526 ], [ %yv.2, %land.lhs.true1536 ], [ %yv.2, %land.lhs.true1546 ], [ %yv.3, %if.then1721 ], [ %yv.03315, %if.then2213 ], [ %yv.1, %if.else1184.thread ], [ %yv.2, %if.else1553.thread ], [ %yv.1, %if.then1134 ], [ %yv.2, %if.then1503 ]
-  %zv.5 = phi i32 [ %zv.03316, %for.body ], [ %zv.03316, %lor.lhs.false ], [ %zv.03316, %lor.lhs.false4 ], [ %zv.03316, %lor.lhs.false8 ], [ %zv.03316, %if.then99 ], [ %zv.03316, %land.lhs.true90 ], [ %zv.03316, %land.lhs.true81 ], [ %zv.03316, %land.lhs.true72 ], [ %zv.03316, %if.then63 ], [ %zv.03316, %if.then172 ], [ %zv.03316, %land.lhs.true163 ], [ %zv.03316, %if.then154 ], [ %zv.03316, %lor.lhs.false136 ], [ %zv.03316, %if.then229 ], [ %zv.03316, %lor.lhs.false211 ], [ %zv.03316, %land.lhs.true184 ], [ %zv.03316, %if.else175 ], [ %zv.03316, %land.lhs.true ], [ %zv.03316, %if.then13 ], [ %zv.03316, %if.then292 ], [ %zv.03316, %land.lhs.true283 ], [ %zv.03316, %land.lhs.true274 ], [ %zv.03316, %land.lhs.true265 ], [ %zv.03316, %land.lhs.true256 ], [ %zv.03316, %land.lhs.true247 ], [ %zv.03316, %if.then238 ], [ %zv.2, %if.then1562 ], [ %zv.2, %land.lhs.true1556 ], [ %zv.2, %if.end1498 ], [ %zv.3, %if.then1737 ], [ %zv.3, %if.else1724 ], [ %zv.3, %if.then1755 ], [ %zv.3, %if.then1742 ], [ %zv.3, %if.then1808 ], [ %zv.3, %if.else1757 ], [ %zv.3, %if.then1871 ], [ %zv.3, %if.then1816 ], [ %zv.3, %if.then1941 ], [ %zv.3, %land.lhs.true1886 ], [ %zv.3, %if.else1873 ], [ %zv.3, %if.then2014 ], [ %zv.3, %land.lhs.true1959 ], [ %zv.3, %if.then1946 ], [ %zv.3, %if.then2122 ], [ %zv.3, %land.lhs.true2067 ], [ %zv.3, %if.else2016 ], [ %zv.03316, %land.lhs.true1601 ], [ %zv.03316, %if.end1589 ], [ %zv.432783282, %if.then2229 ], [ %zv.432783282, %if.else2216 ], [ %zv.03316, %if.then2247 ], [ %zv.03316, %if.then2234 ], [ %zv.432793285, %if.then2300 ], [ %zv.432793285, %if.else2249 ], [ %zv.03316, %land.lhs.true2159 ], [ %zv.03316, %if.end2147 ], [ %zv.03316, %if.else2305 ], [ %zv.1, %if.then1193 ], [ %zv.1, %land.lhs.true1187 ], [ %zv.1, %if.end1129 ], [ %zv.1, %land.lhs.true1137 ], [ %zv.1, %land.lhs.true1147 ], [ %zv.1, %land.lhs.true1157 ], [ %zv.1, %land.lhs.true1167 ], [ %zv.1, %land.lhs.true1177 ], [ %zv.2, %land.lhs.true1506 ], [ %zv.2, %land.lhs.true1516 ], [ %zv.2, %land.lhs.true1526 ], [ %zv.2, %land.lhs.true1536 ], [ %zv.2, %land.lhs.true1546 ], [ %zv.3, %if.then1721 ], [ %zv.03316, %if.then2213 ], [ %zv.1, %if.else1184.thread ], [ %zv.2, %if.else1553.thread ], [ %zv.1, %if.then1134 ], [ %zv.2, %if.then1503 ]
+for.inc:                                          ; preds = %if.else1553, %if.else1543, %if.else1523, %if.else1184, %if.else1174, %if.else1154, %if.then2213, %if.then1721, %if.then1503, %land.lhs.true1546, %land.lhs.true1536, %land.lhs.true1526, %land.lhs.true1516, %land.lhs.true1506, %if.then1134, %land.lhs.true1177, %land.lhs.true1167, %land.lhs.true1157, %land.lhs.true1147, %land.lhs.true1137, %lor.lhs.false8, %lor.lhs.false4, %lor.lhs.false, %for.body, %if.then292, %land.lhs.true283, %land.lhs.true274, %land.lhs.true265, %land.lhs.true256, %land.lhs.true247, %if.then238, %if.then1562, %land.lhs.true1556, %if.end1498, %if.else2305, %if.else2216, %if.then2229, %if.else2249, %if.then2300, %if.then2234, %if.then2247, %land.lhs.true2159, %if.then2137, %if.then1579, %land.lhs.true1601, %if.else1873, %land.lhs.true1886, %if.then1941, %if.then1816, %if.then1871, %if.else2016, %land.lhs.true2067, %if.then2122, %if.then1946, %land.lhs.true1959, %if.then2014, %if.else1724, %if.then1737, %if.else1757, %if.then1808, %if.then1742, %if.then1755, %if.end1129, %land.lhs.true1187, %if.then1193, %if.then13, %land.lhs.true, %if.then154, %land.lhs.true163, %if.then172, %lor.lhs.false136, %lor.lhs.false211, %if.then229, %land.lhs.true184, %if.else175, %if.then63, %land.lhs.true72, %land.lhs.true81, %land.lhs.true90, %if.then99
+  %203 = phi i32 [ %1, %for.body ], [ %1, %lor.lhs.false ], [ %1, %lor.lhs.false4 ], [ %1, %lor.lhs.false8 ], [ %1, %if.then99 ], [ %1, %land.lhs.true90 ], [ %1, %land.lhs.true81 ], [ %1, %land.lhs.true72 ], [ %1, %if.then63 ], [ %1, %if.then172 ], [ %1, %land.lhs.true163 ], [ %1, %if.then154 ], [ %1, %lor.lhs.false136 ], [ %1, %if.then229 ], [ %1, %lor.lhs.false211 ], [ %1, %land.lhs.true184 ], [ %1, %if.else175 ], [ %1, %land.lhs.true ], [ %1, %if.then13 ], [ %1, %if.then292 ], [ %1, %land.lhs.true283 ], [ %1, %land.lhs.true274 ], [ %1, %land.lhs.true265 ], [ %1, %land.lhs.true256 ], [ %1, %land.lhs.true247 ], [ %1, %if.then238 ], [ %1, %if.then1562 ], [ %1, %land.lhs.true1556 ], [ %1, %if.else1553 ], [ %1, %if.end1498 ], [ %1, %if.then1737 ], [ %1, %if.else1724 ], [ %1, %if.then1755 ], [ %1, %if.then1742 ], [ %1, %if.then1808 ], [ %1, %if.else1757 ], [ %1, %if.then1871 ], [ %1, %if.then1816 ], [ %1, %if.then1941 ], [ %1, %land.lhs.true1886 ], [ %1, %if.else1873 ], [ %1, %if.then2014 ], [ %1, %land.lhs.true1959 ], [ %1, %if.then1946 ], [ %1, %if.then2122 ], [ %1, %land.lhs.true2067 ], [ %1, %if.else2016 ], [ %1, %land.lhs.true1601 ], [ %1, %if.then1579 ], [ %1, %if.then2229 ], [ %1, %if.else2216 ], [ %1, %if.then2247 ], [ %1, %if.then2234 ], [ %1, %if.then2300 ], [ %1, %if.else2249 ], [ %1, %land.lhs.true2159 ], [ %1, %if.then2137 ], [ %.pre3324, %if.else2305 ], [ %1, %if.then1193 ], [ %1, %land.lhs.true1187 ], [ %1, %if.else1184 ], [ %1, %if.end1129 ], [ %1, %land.lhs.true1137 ], [ %1, %land.lhs.true1147 ], [ %1, %land.lhs.true1157 ], [ %1, %land.lhs.true1167 ], [ %1, %land.lhs.true1177 ], [ %1, %if.else1174 ], [ %1, %if.else1154 ], [ %1, %if.then1134 ], [ %1, %land.lhs.true1506 ], [ %1, %land.lhs.true1516 ], [ %1, %land.lhs.true1526 ], [ %1, %land.lhs.true1536 ], [ %1, %land.lhs.true1546 ], [ %1, %if.else1543 ], [ %1, %if.else1523 ], [ %1, %if.then1503 ], [ %1, %if.then1721 ], [ %1, %if.then2213 ]
+  %204 = phi ptr [ %2, %for.body ], [ %2, %lor.lhs.false ], [ %2, %lor.lhs.false4 ], [ %2, %lor.lhs.false8 ], [ %2, %if.then99 ], [ %2, %land.lhs.true90 ], [ %2, %land.lhs.true81 ], [ %2, %land.lhs.true72 ], [ %2, %if.then63 ], [ %2, %if.then172 ], [ %2, %land.lhs.true163 ], [ %2, %if.then154 ], [ %2, %lor.lhs.false136 ], [ %2, %if.then229 ], [ %2, %lor.lhs.false211 ], [ %2, %land.lhs.true184 ], [ %2, %if.else175 ], [ %2, %land.lhs.true ], [ %2, %if.then13 ], [ %2, %if.then292 ], [ %2, %land.lhs.true283 ], [ %2, %land.lhs.true274 ], [ %2, %land.lhs.true265 ], [ %2, %land.lhs.true256 ], [ %2, %land.lhs.true247 ], [ %2, %if.then238 ], [ %2, %if.then1562 ], [ %2, %land.lhs.true1556 ], [ %2, %if.else1553 ], [ %2, %if.end1498 ], [ %2, %if.then1737 ], [ %2, %if.else1724 ], [ %2, %if.then1755 ], [ %2, %if.then1742 ], [ %2, %if.then1808 ], [ %2, %if.else1757 ], [ %2, %if.then1871 ], [ %2, %if.then1816 ], [ %2, %if.then1941 ], [ %2, %land.lhs.true1886 ], [ %2, %if.else1873 ], [ %2, %if.then2014 ], [ %2, %land.lhs.true1959 ], [ %2, %if.then1946 ], [ %2, %if.then2122 ], [ %2, %land.lhs.true2067 ], [ %2, %if.else2016 ], [ %2, %land.lhs.true1601 ], [ %2, %if.then1579 ], [ %2, %if.then2229 ], [ %2, %if.else2216 ], [ %2, %if.then2247 ], [ %2, %if.then2234 ], [ %2, %if.then2300 ], [ %2, %if.else2249 ], [ %2, %land.lhs.true2159 ], [ %2, %if.then2137 ], [ %.pre, %if.else2305 ], [ %2, %if.then1193 ], [ %2, %land.lhs.true1187 ], [ %2, %if.else1184 ], [ %2, %if.end1129 ], [ %2, %land.lhs.true1137 ], [ %2, %land.lhs.true1147 ], [ %2, %land.lhs.true1157 ], [ %2, %land.lhs.true1167 ], [ %2, %land.lhs.true1177 ], [ %2, %if.else1174 ], [ %2, %if.else1154 ], [ %2, %if.then1134 ], [ %2, %land.lhs.true1506 ], [ %2, %land.lhs.true1516 ], [ %2, %land.lhs.true1526 ], [ %2, %land.lhs.true1536 ], [ %2, %land.lhs.true1546 ], [ %2, %if.else1543 ], [ %2, %if.else1523 ], [ %2, %if.then1503 ], [ %2, %if.then1721 ], [ %2, %if.then2213 ]
+  %intersect.3 = phi i32 [ %intersect.03317, %for.body ], [ %intersect.03317, %lor.lhs.false ], [ %intersect.03317, %lor.lhs.false4 ], [ %intersect.03317, %lor.lhs.false8 ], [ 1, %if.then99 ], [ %intersect.03317, %land.lhs.true90 ], [ %intersect.03317, %land.lhs.true81 ], [ %intersect.03317, %land.lhs.true72 ], [ %intersect.03317, %if.then63 ], [ 1, %if.then172 ], [ %intersect.03317, %land.lhs.true163 ], [ %intersect.03317, %if.then154 ], [ %intersect.03317, %lor.lhs.false136 ], [ 1, %if.then229 ], [ %intersect.03317, %lor.lhs.false211 ], [ %intersect.03317, %land.lhs.true184 ], [ %intersect.03317, %if.else175 ], [ %intersect.03317, %land.lhs.true ], [ %intersect.03317, %if.then13 ], [ 1, %if.then292 ], [ %intersect.03317, %land.lhs.true283 ], [ %intersect.03317, %land.lhs.true274 ], [ %intersect.03317, %land.lhs.true265 ], [ %intersect.03317, %land.lhs.true256 ], [ %intersect.03317, %land.lhs.true247 ], [ %intersect.03317, %if.then238 ], [ %intersect.03317, %if.then1562 ], [ %intersect.2, %land.lhs.true1556 ], [ %intersect.2, %if.else1553 ], [ %intersect.2, %if.end1498 ], [ 1, %if.then1737 ], [ %intersect.03317, %if.else1724 ], [ 1, %if.then1755 ], [ %intersect.03317, %if.then1742 ], [ 1, %if.then1808 ], [ %intersect.03317, %if.else1757 ], [ 1, %if.then1871 ], [ %intersect.03317, %if.then1816 ], [ 1, %if.then1941 ], [ %intersect.03317, %land.lhs.true1886 ], [ %intersect.03317, %if.else1873 ], [ 1, %if.then2014 ], [ %intersect.03317, %land.lhs.true1959 ], [ %intersect.03317, %if.then1946 ], [ 1, %if.then2122 ], [ %intersect.03317, %land.lhs.true2067 ], [ %intersect.03317, %if.else2016 ], [ %intersect.03317, %land.lhs.true1601 ], [ %intersect.03317, %if.then1579 ], [ 1, %if.then2229 ], [ %intersect.03317, %if.else2216 ], [ 1, %if.then2247 ], [ %intersect.03317, %if.then2234 ], [ 1, %if.then2300 ], [ %intersect.03317, %if.else2249 ], [ %intersect.03317, %land.lhs.true2159 ], [ %intersect.03317, %if.then2137 ], [ %intersect.03317, %if.else2305 ], [ %intersect.03317, %if.then1193 ], [ %intersect.1, %land.lhs.true1187 ], [ %intersect.1, %if.else1184 ], [ %intersect.1, %if.end1129 ], [ %intersect.03317, %land.lhs.true1137 ], [ %intersect.03317, %land.lhs.true1147 ], [ %intersect.03317, %land.lhs.true1157 ], [ %intersect.03317, %land.lhs.true1167 ], [ %intersect.03317, %land.lhs.true1177 ], [ %intersect.1, %if.else1174 ], [ %intersect.1, %if.else1154 ], [ %intersect.1, %if.then1134 ], [ %intersect.03317, %land.lhs.true1506 ], [ %intersect.03317, %land.lhs.true1516 ], [ %intersect.03317, %land.lhs.true1526 ], [ %intersect.03317, %land.lhs.true1536 ], [ %intersect.03317, %land.lhs.true1546 ], [ %intersect.2, %if.else1543 ], [ %intersect.2, %if.else1523 ], [ %intersect.2, %if.then1503 ], [ 1, %if.then1721 ], [ 1, %if.then2213 ]
+  %xv.3 = phi i32 [ %xv.03318, %for.body ], [ %xv.03318, %lor.lhs.false ], [ %xv.03318, %lor.lhs.false4 ], [ %xv.03318, %lor.lhs.false8 ], [ %xv.03318, %if.then99 ], [ %xv.03318, %land.lhs.true90 ], [ %xv.03318, %land.lhs.true81 ], [ %xv.03318, %land.lhs.true72 ], [ %xv.03318, %if.then63 ], [ %xv.03318, %if.then172 ], [ %xv.03318, %land.lhs.true163 ], [ %xv.03318, %if.then154 ], [ %xv.03318, %lor.lhs.false136 ], [ %xv.03318, %if.then229 ], [ %xv.03318, %lor.lhs.false211 ], [ %xv.03318, %land.lhs.true184 ], [ %xv.03318, %if.else175 ], [ %xv.03318, %land.lhs.true ], [ %xv.03318, %if.then13 ], [ %xv.03318, %if.then292 ], [ %xv.03318, %land.lhs.true283 ], [ %xv.03318, %land.lhs.true274 ], [ %xv.03318, %land.lhs.true265 ], [ %xv.03318, %land.lhs.true256 ], [ %xv.03318, %land.lhs.true247 ], [ %xv.03318, %if.then238 ], [ %xv.2, %if.then1562 ], [ %xv.2, %land.lhs.true1556 ], [ %xv.2, %if.else1553 ], [ %xv.2, %if.end1498 ], [ %xv.03318, %if.then1737 ], [ %xv.03318, %if.else1724 ], [ %xv.03318, %if.then1755 ], [ %xv.03318, %if.then1742 ], [ %xv.03318, %if.then1808 ], [ %xv.03318, %if.else1757 ], [ %xv.03318, %if.then1871 ], [ %xv.03318, %if.then1816 ], [ %xv.03318, %if.then1941 ], [ %xv.03318, %land.lhs.true1886 ], [ %xv.03318, %if.else1873 ], [ %xv.03318, %if.then2014 ], [ %xv.03318, %land.lhs.true1959 ], [ %xv.03318, %if.then1946 ], [ %xv.03318, %if.then2122 ], [ %xv.03318, %land.lhs.true2067 ], [ %xv.03318, %if.else2016 ], [ %xv.03318, %land.lhs.true1601 ], [ %xv.03318, %if.then1579 ], [ %xv.03318, %if.then2229 ], [ %xv.03318, %if.else2216 ], [ %xv.03318, %if.then2247 ], [ %xv.03318, %if.then2234 ], [ %xv.03318, %if.then2300 ], [ %xv.03318, %if.else2249 ], [ %xv.03318, %land.lhs.true2159 ], [ %xv.03318, %if.then2137 ], [ %xv.03318, %if.else2305 ], [ %xv.1, %if.then1193 ], [ %xv.1, %land.lhs.true1187 ], [ %xv.1, %if.else1184 ], [ %xv.1, %if.end1129 ], [ %xv.1, %land.lhs.true1137 ], [ %xv.1, %land.lhs.true1147 ], [ %xv.1, %land.lhs.true1157 ], [ %xv.1, %land.lhs.true1167 ], [ %xv.1, %land.lhs.true1177 ], [ %xv.1, %if.else1174 ], [ %xv.1, %if.else1154 ], [ %xv.1, %if.then1134 ], [ %xv.2, %land.lhs.true1506 ], [ %xv.2, %land.lhs.true1516 ], [ %xv.2, %land.lhs.true1526 ], [ %xv.2, %land.lhs.true1536 ], [ %xv.2, %land.lhs.true1546 ], [ %xv.2, %if.else1543 ], [ %xv.2, %if.else1523 ], [ %xv.2, %if.then1503 ], [ %xv.03318, %if.then1721 ], [ %xv.03318, %if.then2213 ]
+  %yv.5 = phi i32 [ %yv.03319, %for.body ], [ %yv.03319, %lor.lhs.false ], [ %yv.03319, %lor.lhs.false4 ], [ %yv.03319, %lor.lhs.false8 ], [ %yv.03319, %if.then99 ], [ %yv.03319, %land.lhs.true90 ], [ %yv.03319, %land.lhs.true81 ], [ %yv.03319, %land.lhs.true72 ], [ %yv.03319, %if.then63 ], [ %yv.03319, %if.then172 ], [ %yv.03319, %land.lhs.true163 ], [ %yv.03319, %if.then154 ], [ %yv.03319, %lor.lhs.false136 ], [ %yv.03319, %if.then229 ], [ %yv.03319, %lor.lhs.false211 ], [ %yv.03319, %land.lhs.true184 ], [ %yv.03319, %if.else175 ], [ %yv.03319, %land.lhs.true ], [ %yv.03319, %if.then13 ], [ %yv.03319, %if.then292 ], [ %yv.03319, %land.lhs.true283 ], [ %yv.03319, %land.lhs.true274 ], [ %yv.03319, %land.lhs.true265 ], [ %yv.03319, %land.lhs.true256 ], [ %yv.03319, %land.lhs.true247 ], [ %yv.03319, %if.then238 ], [ %yv.2, %if.then1562 ], [ %yv.2, %land.lhs.true1556 ], [ %yv.2, %if.else1553 ], [ %yv.2, %if.end1498 ], [ %yv.3, %if.then1737 ], [ %yv.3, %if.else1724 ], [ %yv.3, %if.then1755 ], [ %yv.3, %if.then1742 ], [ %yv.3, %if.then1808 ], [ %yv.3, %if.else1757 ], [ %yv.3, %if.then1871 ], [ %yv.3, %if.then1816 ], [ %yv.3, %if.then1941 ], [ %yv.3, %land.lhs.true1886 ], [ %yv.3, %if.else1873 ], [ %yv.3, %if.then2014 ], [ %yv.3, %land.lhs.true1959 ], [ %yv.3, %if.then1946 ], [ %yv.3, %if.then2122 ], [ %yv.3, %land.lhs.true2067 ], [ %yv.3, %if.else2016 ], [ %yv.03319, %land.lhs.true1601 ], [ %yv.03319, %if.then1579 ], [ %yv.03319, %if.then2229 ], [ %yv.03319, %if.else2216 ], [ %yv.4329933133314, %if.then2247 ], [ %yv.4329933133314, %if.then2234 ], [ %yv.43300, %if.then2300 ], [ %yv.43300, %if.else2249 ], [ %yv.03319, %land.lhs.true2159 ], [ %yv.03319, %if.then2137 ], [ %yv.03319, %if.else2305 ], [ %yv.1, %if.then1193 ], [ %yv.1, %land.lhs.true1187 ], [ %yv.1, %if.else1184 ], [ %yv.1, %if.end1129 ], [ %yv.1, %land.lhs.true1137 ], [ %yv.1, %land.lhs.true1147 ], [ %yv.1, %land.lhs.true1157 ], [ %yv.1, %land.lhs.true1167 ], [ %yv.1, %land.lhs.true1177 ], [ %yv.1, %if.else1174 ], [ %yv.1, %if.else1154 ], [ %yv.1, %if.then1134 ], [ %yv.2, %land.lhs.true1506 ], [ %yv.2, %land.lhs.true1516 ], [ %yv.2, %land.lhs.true1526 ], [ %yv.2, %land.lhs.true1536 ], [ %yv.2, %land.lhs.true1546 ], [ %yv.2, %if.else1543 ], [ %yv.2, %if.else1523 ], [ %yv.2, %if.then1503 ], [ %yv.3, %if.then1721 ], [ %yv.03319, %if.then2213 ]
+  %zv.5 = phi i32 [ %zv.03320, %for.body ], [ %zv.03320, %lor.lhs.false ], [ %zv.03320, %lor.lhs.false4 ], [ %zv.03320, %lor.lhs.false8 ], [ %zv.03320, %if.then99 ], [ %zv.03320, %land.lhs.true90 ], [ %zv.03320, %land.lhs.true81 ], [ %zv.03320, %land.lhs.true72 ], [ %zv.03320, %if.then63 ], [ %zv.03320, %if.then172 ], [ %zv.03320, %land.lhs.true163 ], [ %zv.03320, %if.then154 ], [ %zv.03320, %lor.lhs.false136 ], [ %zv.03320, %if.then229 ], [ %zv.03320, %lor.lhs.false211 ], [ %zv.03320, %land.lhs.true184 ], [ %zv.03320, %if.else175 ], [ %zv.03320, %land.lhs.true ], [ %zv.03320, %if.then13 ], [ %zv.03320, %if.then292 ], [ %zv.03320, %land.lhs.true283 ], [ %zv.03320, %land.lhs.true274 ], [ %zv.03320, %land.lhs.true265 ], [ %zv.03320, %land.lhs.true256 ], [ %zv.03320, %land.lhs.true247 ], [ %zv.03320, %if.then238 ], [ %zv.2, %if.then1562 ], [ %zv.2, %land.lhs.true1556 ], [ %zv.2, %if.else1553 ], [ %zv.2, %if.end1498 ], [ %zv.3, %if.then1737 ], [ %zv.3, %if.else1724 ], [ %zv.3, %if.then1755 ], [ %zv.3, %if.then1742 ], [ %zv.3, %if.then1808 ], [ %zv.3, %if.else1757 ], [ %zv.3, %if.then1871 ], [ %zv.3, %if.then1816 ], [ %zv.3, %if.then1941 ], [ %zv.3, %land.lhs.true1886 ], [ %zv.3, %if.else1873 ], [ %zv.3, %if.then2014 ], [ %zv.3, %land.lhs.true1959 ], [ %zv.3, %if.then1946 ], [ %zv.3, %if.then2122 ], [ %zv.3, %land.lhs.true2067 ], [ %zv.3, %if.else2016 ], [ %zv.03320, %land.lhs.true1601 ], [ %zv.03320, %if.then1579 ], [ %zv.432843288, %if.then2229 ], [ %zv.432843288, %if.else2216 ], [ %zv.03320, %if.then2247 ], [ %zv.03320, %if.then2234 ], [ %zv.432853291, %if.then2300 ], [ %zv.432853291, %if.else2249 ], [ %zv.03320, %land.lhs.true2159 ], [ %zv.03320, %if.then2137 ], [ %zv.03320, %if.else2305 ], [ %zv.1, %if.then1193 ], [ %zv.1, %land.lhs.true1187 ], [ %zv.1, %if.else1184 ], [ %zv.1, %if.end1129 ], [ %zv.1, %land.lhs.true1137 ], [ %zv.1, %land.lhs.true1147 ], [ %zv.1, %land.lhs.true1157 ], [ %zv.1, %land.lhs.true1167 ], [ %zv.1, %land.lhs.true1177 ], [ %zv.1, %if.else1174 ], [ %zv.1, %if.else1154 ], [ %zv.1, %if.then1134 ], [ %zv.2, %land.lhs.true1506 ], [ %zv.2, %land.lhs.true1516 ], [ %zv.2, %land.lhs.true1526 ], [ %zv.2, %land.lhs.true1536 ], [ %zv.2, %land.lhs.true1546 ], [ %zv.2, %if.else1543 ], [ %zv.2, %if.else1523 ], [ %zv.2, %if.then1503 ], [ %zv.3, %if.then1721 ], [ %zv.03320, %if.then2213 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %205 = sext i32 %203 to i64
   %cmp = icmp slt i64 %indvars.iv.next, %205

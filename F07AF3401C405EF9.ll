@@ -58,25 +58,25 @@ if.else27:                                        ; preds = %if.else
   br i1 %cmp31.not, label %if.end53.thread, label %if.end53
 
 if.end53.sink.split:                              ; preds = %if.else, %if.end
-  %.sink239.ph = phi i64 [ 8, %if.end ], [ 4, %if.else ]
+  %.sink235.ph = phi i64 [ 8, %if.end ], [ 4, %if.else ]
   %.sink.ph = phi i32 [ 1, %if.end ], [ 2, %if.else ]
   %image_width16 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 6
   %7 = load i32, ptr %image_width16, align 8, !tbaa !21
   br label %if.end53
 
 if.end53:                                         ; preds = %if.end53.sink.split, %if.else27
-  %.sink240 = phi i32 [ %6, %if.else27 ], [ %7, %if.end53.sink.split ]
-  %.sink239 = phi i64 [ 2, %if.else27 ], [ %.sink239.ph, %if.end53.sink.split ]
+  %.sink236 = phi i32 [ %6, %if.else27 ], [ %7, %if.end53.sink.split ]
+  %.sink235 = phi i64 [ 2, %if.else27 ], [ %.sink235.ph, %if.end53.sink.split ]
   %.sink = phi i32 [ 4, %if.else27 ], [ %.sink.ph, %if.end53.sink.split ]
-  %conv17 = zext i32 %.sink240 to i64
-  %call18 = tail call i64 @jdiv_round_up(i64 noundef %conv17, i64 noundef %.sink239) #4
+  %conv17 = zext i32 %.sink236 to i64
+  %call18 = tail call i64 @jdiv_round_up(i64 noundef %conv17, i64 noundef %.sink235) #4
   %conv19 = trunc i64 %call18 to i32
   %output_width20 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 26
   store i32 %conv19, ptr %output_width20, align 8, !tbaa !22
   %image_height21 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 7
   %8 = load i32, ptr %image_height21, align 4, !tbaa !23
   %conv22 = zext i32 %8 to i64
-  %call23 = tail call i64 @jdiv_round_up(i64 noundef %conv22, i64 noundef %.sink239) #4
+  %call23 = tail call i64 @jdiv_round_up(i64 noundef %conv22, i64 noundef %.sink235) #4
   %conv24 = trunc i64 %call23 to i32
   %output_height25 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 27
   store i32 %conv24, ptr %output_height25, align 4, !tbaa !24
@@ -86,8 +86,8 @@ if.end53:                                         ; preds = %if.end53.sink.split
   %9 = load ptr, ptr %comp_info, align 8, !tbaa !26
   %num_components = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 8
   %10 = load i32, ptr %num_components, align 8, !tbaa !27
-  %cmp54203 = icmp sgt i32 %10, 0
-  br i1 %cmp54203, label %for.body.lr.ph.split.us, label %for.end105
+  %cmp54199 = icmp sgt i32 %10, 0
+  br i1 %cmp54199, label %for.body.lr.ph.split.us, label %for.end105
 
 if.end53.thread:                                  ; preds = %if.else27
   %output_width47 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 26
@@ -98,12 +98,12 @@ if.end53.thread:                                  ; preds = %if.else27
   store i32 %11, ptr %output_height49, align 4, !tbaa !24
   %min_DCT_scaled_size50 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 59
   store i32 8, ptr %min_DCT_scaled_size50, align 4, !tbaa !25
-  %comp_info213 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 43
-  %12 = load ptr, ptr %comp_info213, align 8, !tbaa !26
-  %num_components214 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 8
-  %13 = load i32, ptr %num_components214, align 8, !tbaa !27
-  %cmp54203215 = icmp sgt i32 %13, 0
-  br i1 %cmp54203215, label %for.body.preheader, label %for.end105
+  %comp_info209 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 43
+  %12 = load ptr, ptr %comp_info209, align 8, !tbaa !26
+  %num_components210 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 8
+  %13 = load i32, ptr %num_components210, align 8, !tbaa !27
+  %cmp54199211 = icmp sgt i32 %13, 0
+  br i1 %cmp54199211, label %for.body.preheader, label %for.end105
 
 for.body.preheader:                               ; preds = %if.end53.thread
   %xtraiter = and i32 %13, 7
@@ -122,16 +122,16 @@ for.body.lr.ph.split.us:                          ; preds = %if.end53
   br label %for.body.us
 
 for.body.us:                                      ; preds = %while.end.us, %for.body.lr.ph.split.us
-  %compptr.0205.us = phi ptr [ %9, %for.body.lr.ph.split.us ], [ %incdec.ptr.us, %while.end.us ]
-  %ci.0204.us = phi i32 [ 0, %for.body.lr.ph.split.us ], [ %inc.us, %while.end.us ]
-  %h_samp_factor.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.us, i64 0, i32 2
-  %v_samp_factor.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.us, i64 0, i32 3
+  %compptr.0201.us = phi ptr [ %9, %for.body.lr.ph.split.us ], [ %incdec.ptr.us, %while.end.us ]
+  %ci.0200.us = phi i32 [ 0, %for.body.lr.ph.split.us ], [ %inc.us, %while.end.us ]
+  %h_samp_factor.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.us, i64 0, i32 2
+  %v_samp_factor.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.us, i64 0, i32 3
   %16 = load i32, ptr %h_samp_factor.us, align 8, !tbaa !29
   br label %land.lhs.true.us
 
 land.lhs.true.us:                                 ; preds = %for.body.us, %while.body.us
-  %ssize.0200.us = phi i32 [ %.sink, %for.body.us ], [ %mul59.us, %while.body.us ]
-  %mul59.us = shl i32 %ssize.0200.us, 1
+  %ssize.0196.us = phi i32 [ %.sink, %for.body.us ], [ %mul59.us, %while.body.us ]
+  %mul59.us = shl i32 %ssize.0196.us, 1
   %mul60.us = mul i32 %mul59.us, %16
   %cmp63.not.us = icmp sgt i32 %mul60.us, %mul62.us
   br i1 %cmp63.not.us, label %while.end.us, label %land.rhs.us
@@ -145,40 +145,40 @@ land.rhs.us:                                      ; preds = %land.lhs.true.us
   br i1 %cmp69.not.us, label %while.end.us, label %while.body.us
 
 while.body.us:                                    ; preds = %land.rhs.us
-  %cmp57.us = icmp slt i32 %ssize.0200.us, 4
+  %cmp57.us = icmp slt i32 %ssize.0196.us, 4
   br i1 %cmp57.us, label %land.lhs.true.us, label %while.end.us, !llvm.loop !33
 
 while.end.us:                                     ; preds = %land.rhs.us, %while.body.us, %land.lhs.true.us
-  %ssize.0.lcssa.us = phi i32 [ %ssize.0200.us, %land.lhs.true.us ], [ %mul59.us, %while.body.us ], [ %ssize.0200.us, %land.rhs.us ]
-  %DCT_scaled_size.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.us, i64 0, i32 9
+  %ssize.0.lcssa.us = phi i32 [ %ssize.0196.us, %land.lhs.true.us ], [ %mul59.us, %while.body.us ], [ %ssize.0196.us, %land.rhs.us ]
+  %DCT_scaled_size.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.us, i64 0, i32 9
   store i32 %ssize.0.lcssa.us, ptr %DCT_scaled_size.us, align 4, !tbaa !35
-  %inc.us = add nuw nsw i32 %ci.0204.us, 1
-  %incdec.ptr.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.us, i64 1
-  %exitcond211.not = icmp eq i32 %inc.us, %10
-  br i1 %exitcond211.not, label %for.cond73.preheader, label %for.body.us, !llvm.loop !36
+  %inc.us = add nuw nsw i32 %ci.0200.us, 1
+  %incdec.ptr.us = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.us, i64 1
+  %exitcond207.not = icmp eq i32 %inc.us, %10
+  br i1 %exitcond207.not, label %for.cond73.preheader, label %for.body.us, !llvm.loop !36
 
 for.cond73.preheader.loopexit.unr-lcssa:          ; preds = %for.body, %for.body.preheader
-  %compptr.0205.unr = phi ptr [ %12, %for.body.preheader ], [ %incdec.ptr.7, %for.body ]
+  %compptr.0201.unr = phi ptr [ %12, %for.body.preheader ], [ %incdec.ptr.7, %for.body ]
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.cond73.preheader, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.cond73.preheader.loopexit.unr-lcssa, %for.body.epil
-  %compptr.0205.epil = phi ptr [ %incdec.ptr.epil, %for.body.epil ], [ %compptr.0205.unr, %for.cond73.preheader.loopexit.unr-lcssa ]
+  %compptr.0201.epil = phi ptr [ %incdec.ptr.epil, %for.body.epil ], [ %compptr.0201.unr, %for.cond73.preheader.loopexit.unr-lcssa ]
   %epil.iter = phi i32 [ %epil.iter.next, %for.body.epil ], [ 0, %for.cond73.preheader.loopexit.unr-lcssa ]
-  %DCT_scaled_size.epil = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.epil, i64 0, i32 9
+  %DCT_scaled_size.epil = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.epil, i64 0, i32 9
   store i32 8, ptr %DCT_scaled_size.epil, align 4, !tbaa !35
-  %incdec.ptr.epil = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205.epil, i64 1
+  %incdec.ptr.epil = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201.epil, i64 1
   %epil.iter.next = add i32 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
   br i1 %epil.iter.cmp.not, label %for.cond73.preheader, label %for.body.epil, !llvm.loop !37
 
 for.cond73.preheader:                             ; preds = %while.end.us, %for.cond73.preheader.loopexit.unr-lcssa, %for.body.epil
-  %cmp54203221 = phi i1 [ %cmp54203215, %for.body.epil ], [ %cmp54203215, %for.cond73.preheader.loopexit.unr-lcssa ], [ true, %while.end.us ]
+  %cmp54199217 = phi i1 [ %cmp54199211, %for.body.epil ], [ %cmp54199211, %for.cond73.preheader.loopexit.unr-lcssa ], [ true, %while.end.us ]
   %19 = phi i32 [ %13, %for.body.epil ], [ %13, %for.cond73.preheader.loopexit.unr-lcssa ], [ %10, %while.end.us ]
-  %num_components219 = phi ptr [ %num_components214, %for.body.epil ], [ %num_components214, %for.cond73.preheader.loopexit.unr-lcssa ], [ %num_components, %while.end.us ]
+  %num_components215 = phi ptr [ %num_components210, %for.body.epil ], [ %num_components210, %for.cond73.preheader.loopexit.unr-lcssa ], [ %num_components, %while.end.us ]
   %20 = phi ptr [ %12, %for.body.epil ], [ %12, %for.cond73.preheader.loopexit.unr-lcssa ], [ %9, %while.end.us ]
-  %comp_info217 = phi ptr [ %comp_info213, %for.body.epil ], [ %comp_info213, %for.cond73.preheader.loopexit.unr-lcssa ], [ %comp_info, %while.end.us ]
-  br i1 %cmp54203221, label %for.body77.lr.ph, label %for.end105
+  %comp_info213 = phi ptr [ %comp_info209, %for.body.epil ], [ %comp_info209, %for.cond73.preheader.loopexit.unr-lcssa ], [ %comp_info, %while.end.us ]
+  br i1 %cmp54199217, label %for.body77.lr.ph, label %for.end105
 
 for.body77.lr.ph:                                 ; preds = %for.cond73.preheader
   %image_width78 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 6
@@ -188,37 +188,37 @@ for.body77.lr.ph:                                 ; preds = %for.cond73.preheade
   br label %for.body77
 
 for.body:                                         ; preds = %for.body, %for.body.preheader.new
-  %compptr.0205 = phi ptr [ %12, %for.body.preheader.new ], [ %incdec.ptr.7, %for.body ]
+  %compptr.0201 = phi ptr [ %12, %for.body.preheader.new ], [ %incdec.ptr.7, %for.body ]
   %niter = phi i32 [ 0, %for.body.preheader.new ], [ %niter.next.7, %for.body ]
-  %DCT_scaled_size = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 0, i32 9
+  %DCT_scaled_size = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 0, i32 9
   store i32 8, ptr %DCT_scaled_size, align 4, !tbaa !35
-  %DCT_scaled_size.1 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 1, i32 9
+  %DCT_scaled_size.1 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 1, i32 9
   store i32 8, ptr %DCT_scaled_size.1, align 4, !tbaa !35
-  %DCT_scaled_size.2 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 2, i32 9
+  %DCT_scaled_size.2 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 2, i32 9
   store i32 8, ptr %DCT_scaled_size.2, align 4, !tbaa !35
-  %DCT_scaled_size.3 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 3, i32 9
+  %DCT_scaled_size.3 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 3, i32 9
   store i32 8, ptr %DCT_scaled_size.3, align 4, !tbaa !35
-  %DCT_scaled_size.4 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 4, i32 9
+  %DCT_scaled_size.4 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 4, i32 9
   store i32 8, ptr %DCT_scaled_size.4, align 4, !tbaa !35
-  %DCT_scaled_size.5 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 5, i32 9
+  %DCT_scaled_size.5 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 5, i32 9
   store i32 8, ptr %DCT_scaled_size.5, align 4, !tbaa !35
-  %DCT_scaled_size.6 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 6, i32 9
+  %DCT_scaled_size.6 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 6, i32 9
   store i32 8, ptr %DCT_scaled_size.6, align 4, !tbaa !35
-  %DCT_scaled_size.7 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 7, i32 9
+  %DCT_scaled_size.7 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 7, i32 9
   store i32 8, ptr %DCT_scaled_size.7, align 4, !tbaa !35
-  %incdec.ptr.7 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0205, i64 8
+  %incdec.ptr.7 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.0201, i64 8
   %niter.next.7 = add i32 %niter, 8
   %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
   br i1 %niter.ncmp.7, label %for.cond73.preheader.loopexit.unr-lcssa, label %for.body, !llvm.loop !36
 
 for.body77:                                       ; preds = %for.body77.lr.ph, %for.body77
-  %compptr.1209 = phi ptr [ %20, %for.body77.lr.ph ], [ %incdec.ptr104, %for.body77 ]
-  %ci.1208 = phi i32 [ 0, %for.body77.lr.ph ], [ %inc103, %for.body77 ]
+  %compptr.1204 = phi ptr [ %20, %for.body77.lr.ph ], [ %incdec.ptr104, %for.body77 ]
+  %ci.1203 = phi i32 [ 0, %for.body77.lr.ph ], [ %inc103, %for.body77 ]
   %21 = load i32, ptr %image_width78, align 8, !tbaa !21
   %conv79 = zext i32 %21 to i64
-  %h_samp_factor80 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 0, i32 2
+  %h_samp_factor80 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 0, i32 2
   %22 = load i32, ptr %h_samp_factor80, align 8, !tbaa !29
-  %DCT_scaled_size81 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 0, i32 9
+  %DCT_scaled_size81 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 0, i32 9
   %23 = load i32, ptr %DCT_scaled_size81, align 4, !tbaa !35
   %mul82 = mul nsw i32 %23, %22
   %conv83 = sext i32 %mul82 to i64
@@ -228,11 +228,11 @@ for.body77:                                       ; preds = %for.body77.lr.ph, %
   %conv87 = sext i32 %mul86 to i64
   %call88 = tail call i64 @jdiv_round_up(i64 noundef %mul84, i64 noundef %conv87) #4
   %conv89 = trunc i64 %call88 to i32
-  %downsampled_width = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 0, i32 10
+  %downsampled_width = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 0, i32 10
   store i32 %conv89, ptr %downsampled_width, align 8, !tbaa !39
   %25 = load i32, ptr %image_height90, align 4, !tbaa !23
   %conv91 = zext i32 %25 to i64
-  %v_samp_factor92 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 0, i32 3
+  %v_samp_factor92 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 0, i32 3
   %26 = load i32, ptr %v_samp_factor92, align 4, !tbaa !31
   %27 = load i32, ptr %DCT_scaled_size81, align 4, !tbaa !35
   %mul94 = mul nsw i32 %27, %26
@@ -243,128 +243,128 @@ for.body77:                                       ; preds = %for.body77.lr.ph, %
   %conv99 = sext i32 %mul98 to i64
   %call100 = tail call i64 @jdiv_round_up(i64 noundef %mul96, i64 noundef %conv99) #4
   %conv101 = trunc i64 %call100 to i32
-  %downsampled_height = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 0, i32 11
+  %downsampled_height = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 0, i32 11
   store i32 %conv101, ptr %downsampled_height, align 4, !tbaa !40
-  %inc103 = add nuw nsw i32 %ci.1208, 1
-  %incdec.ptr104 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1209, i64 1
-  %.pr = load i32, ptr %num_components219, align 8, !tbaa !27
-  %cmp75 = icmp slt i32 %inc103, %.pr
+  %inc103 = add nuw nsw i32 %ci.1203, 1
+  %incdec.ptr104 = getelementptr inbounds %struct.jpeg_component_info, ptr %compptr.1204, i64 1
+  %29 = load i32, ptr %num_components215, align 8, !tbaa !27
+  %cmp75 = icmp slt i32 %inc103, %29
   br i1 %cmp75, label %for.body77, label %for.end105, !llvm.loop !41
 
 for.end105:                                       ; preds = %for.body77, %if.end53, %if.end53.thread, %for.cond73.preheader
-  %comp_info217235 = phi ptr [ %comp_info217, %for.cond73.preheader ], [ %comp_info, %if.end53 ], [ %comp_info213, %if.end53.thread ], [ %comp_info217, %for.body77 ]
-  %.lcssa = phi i32 [ %19, %for.cond73.preheader ], [ %10, %if.end53 ], [ %13, %if.end53.thread ], [ %.pr, %for.body77 ]
+  %comp_info213231 = phi ptr [ %comp_info213, %for.cond73.preheader ], [ %comp_info, %if.end53 ], [ %comp_info209, %if.end53.thread ], [ %comp_info213, %for.body77 ]
+  %30 = phi i32 [ %19, %for.cond73.preheader ], [ %10, %if.end53 ], [ %13, %if.end53.thread ], [ %29, %for.body77 ]
   %out_color_space = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 10
-  %29 = load i32, ptr %out_color_space, align 8, !tbaa !42
-  %switch.tableidx = add i32 %29, -1
-  %30 = icmp ult i32 %switch.tableidx, 5
-  br i1 %30, label %switch.lookup, label %sw.epilog
+  %31 = load i32, ptr %out_color_space, align 8, !tbaa !42
+  %switch.tableidx = add i32 %31, -1
+  %32 = icmp ult i32 %switch.tableidx, 5
+  br i1 %32, label %switch.lookup, label %sw.epilog
 
 switch.lookup:                                    ; preds = %for.end105
-  %31 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [5 x i32], ptr @switch.table.jpeg_calc_output_dimensions, i64 0, i64 %31
+  %33 = sext i32 %switch.tableidx to i64
+  %switch.gep = getelementptr inbounds [5 x i32], ptr @switch.table.jpeg_calc_output_dimensions, i64 0, i64 %33
   %switch.load = load i32, ptr %switch.gep, align 4
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %for.end105, %switch.lookup
-  %.lcssa.sink = phi i32 [ %switch.load, %switch.lookup ], [ %.lcssa, %for.end105 ]
+  %.sink237 = phi i32 [ %switch.load, %switch.lookup ], [ %30, %for.end105 ]
   %out_color_components111 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 28
-  store i32 %.lcssa.sink, ptr %out_color_components111, align 8, !tbaa !43
+  store i32 %.sink237, ptr %out_color_components111, align 8, !tbaa !43
   %quantize_colors = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 19
-  %32 = load i32, ptr %quantize_colors, align 4, !tbaa !44
-  %tobool.not = icmp eq i32 %32, 0
-  %cond = select i1 %tobool.not, i32 %.lcssa.sink, i32 1
+  %34 = load i32, ptr %quantize_colors, align 4, !tbaa !44
+  %tobool.not = icmp eq i32 %34, 0
+  %cond = select i1 %tobool.not, i32 %.sink237, i32 1
   %output_components = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 29
   store i32 %cond, ptr %output_components, align 4, !tbaa !45
   %do_fancy_upsampling.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 17
-  %33 = load i32, ptr %do_fancy_upsampling.i, align 4, !tbaa !46
-  %tobool.not.i = icmp eq i32 %33, 0
+  %35 = load i32, ptr %do_fancy_upsampling.i, align 4, !tbaa !46
+  %tobool.not.i = icmp eq i32 %35, 0
   br i1 %tobool.not.i, label %lor.lhs.false.i, label %if.end119
 
 lor.lhs.false.i:                                  ; preds = %sw.epilog
   %CCIR601_sampling.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 56
-  %34 = load i32, ptr %CCIR601_sampling.i, align 8, !tbaa !47
-  %tobool1.not.i = icmp eq i32 %34, 0
+  %36 = load i32, ptr %CCIR601_sampling.i, align 8, !tbaa !47
+  %tobool1.not.i = icmp eq i32 %36, 0
   br i1 %tobool1.not.i, label %if.end.i, label %if.end119
 
 if.end.i:                                         ; preds = %lor.lhs.false.i
   %jpeg_color_space.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 9
-  %35 = load i32, ptr %jpeg_color_space.i, align 4, !tbaa !48
-  %cmp.not.i = icmp eq i32 %35, 3
-  %cmp3.not.i = icmp eq i32 %.lcssa, 3
-  %or.cond = and i1 %cmp3.not.i, %cmp.not.i
-  %cmp5.not.i = icmp eq i32 %29, 2
-  %or.cond197 = and i1 %cmp5.not.i, %or.cond
-  %cmp7.not.i = icmp eq i32 %.lcssa.sink, 3
-  %or.cond241 = and i1 %or.cond197, %cmp7.not.i
-  br i1 %or.cond241, label %if.end9.i, label %if.end119
+  %37 = load i32, ptr %jpeg_color_space.i, align 4, !tbaa !48
+  %cmp.not.i = icmp eq i32 %37, 3
+  %cmp3.not.i = icmp eq i32 %30, 3
+  %or.cond = and i1 %cmp.not.i, %cmp3.not.i
+  %cmp5.not.i = icmp eq i32 %31, 2
+  %or.cond238 = and i1 %or.cond, %cmp5.not.i
+  %cmp7.not.i = icmp eq i32 %.sink237, 3
+  %or.cond239 = and i1 %or.cond238, %cmp7.not.i
+  br i1 %or.cond239, label %if.end9.i, label %if.end119
 
 if.end9.i:                                        ; preds = %if.end.i
-  %36 = load ptr, ptr %comp_info217235, align 8, !tbaa !26
-  %h_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 0, i32 2
-  %37 = load i32, ptr %h_samp_factor.i, align 8, !tbaa !29
-  %cmp10.not.i = icmp eq i32 %37, 2
+  %38 = load ptr, ptr %comp_info213231, align 8, !tbaa !26
+  %h_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 0, i32 2
+  %39 = load i32, ptr %h_samp_factor.i, align 8, !tbaa !29
+  %cmp10.not.i = icmp eq i32 %39, 2
   br i1 %cmp10.not.i, label %lor.lhs.false11.i, label %if.end119
 
 lor.lhs.false11.i:                                ; preds = %if.end9.i
-  %h_samp_factor14.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 1, i32 2
-  %38 = load i32, ptr %h_samp_factor14.i, align 8, !tbaa !29
-  %cmp15.not.i = icmp eq i32 %38, 1
+  %h_samp_factor14.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 1, i32 2
+  %40 = load i32, ptr %h_samp_factor14.i, align 8, !tbaa !29
+  %cmp15.not.i = icmp eq i32 %40, 1
   br i1 %cmp15.not.i, label %lor.lhs.false16.i, label %if.end119
 
 lor.lhs.false16.i:                                ; preds = %lor.lhs.false11.i
-  %h_samp_factor19.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 2, i32 2
-  %39 = load i32, ptr %h_samp_factor19.i, align 8, !tbaa !29
-  %cmp20.not.i = icmp eq i32 %39, 1
+  %h_samp_factor19.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 2, i32 2
+  %41 = load i32, ptr %h_samp_factor19.i, align 8, !tbaa !29
+  %cmp20.not.i = icmp eq i32 %41, 1
   br i1 %cmp20.not.i, label %lor.lhs.false21.i, label %if.end119
 
 lor.lhs.false21.i:                                ; preds = %lor.lhs.false16.i
-  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 0, i32 3
-  %40 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !31
-  %cmp24.i = icmp sgt i32 %40, 2
+  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 0, i32 3
+  %42 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !31
+  %cmp24.i = icmp sgt i32 %42, 2
   br i1 %cmp24.i, label %if.end119, label %lor.lhs.false25.i
 
 lor.lhs.false25.i:                                ; preds = %lor.lhs.false21.i
-  %v_samp_factor28.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 1, i32 3
-  %41 = load i32, ptr %v_samp_factor28.i, align 4, !tbaa !31
-  %cmp29.not.i = icmp eq i32 %41, 1
+  %v_samp_factor28.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 1, i32 3
+  %43 = load i32, ptr %v_samp_factor28.i, align 4, !tbaa !31
+  %cmp29.not.i = icmp eq i32 %43, 1
   br i1 %cmp29.not.i, label %lor.lhs.false30.i, label %if.end119
 
 lor.lhs.false30.i:                                ; preds = %lor.lhs.false25.i
-  %v_samp_factor33.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 2, i32 3
-  %42 = load i32, ptr %v_samp_factor33.i, align 4, !tbaa !31
-  %cmp34.not.i = icmp eq i32 %42, 1
+  %v_samp_factor33.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 2, i32 3
+  %44 = load i32, ptr %v_samp_factor33.i, align 4, !tbaa !31
+  %cmp34.not.i = icmp eq i32 %44, 1
   br i1 %cmp34.not.i, label %if.end36.i, label %if.end119
 
 if.end36.i:                                       ; preds = %lor.lhs.false30.i
-  %DCT_scaled_size.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 0, i32 9
-  %43 = load i32, ptr %DCT_scaled_size.i, align 4, !tbaa !35
+  %DCT_scaled_size.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 0, i32 9
+  %45 = load i32, ptr %DCT_scaled_size.i, align 4, !tbaa !35
   %min_DCT_scaled_size.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 59
-  %44 = load i32, ptr %min_DCT_scaled_size.i, align 4, !tbaa !25
-  %cmp39.not.i = icmp eq i32 %43, %44
+  %46 = load i32, ptr %min_DCT_scaled_size.i, align 4, !tbaa !25
+  %cmp39.not.i = icmp eq i32 %45, %46
   br i1 %cmp39.not.i, label %lor.lhs.false40.i, label %if.end119
 
 lor.lhs.false40.i:                                ; preds = %if.end36.i
-  %DCT_scaled_size43.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 1, i32 9
-  %45 = load i32, ptr %DCT_scaled_size43.i, align 4, !tbaa !35
-  %cmp45.not.i = icmp eq i32 %45, %43
-  br i1 %cmp45.not.i, label %use_merged_upsample.exit, label %if.end119
+  %DCT_scaled_size43.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 1, i32 9
+  %47 = load i32, ptr %DCT_scaled_size43.i, align 4, !tbaa !35
+  %cmp45.not.i = icmp eq i32 %47, %45
+  br i1 %cmp45.not.i, label %lor.lhs.false46.i, label %if.end119
 
-use_merged_upsample.exit:                         ; preds = %lor.lhs.false40.i
-  %DCT_scaled_size49.i = getelementptr inbounds %struct.jpeg_component_info, ptr %36, i64 2, i32 9
-  %46 = load i32, ptr %DCT_scaled_size49.i, align 4, !tbaa !35
-  %cmp51.not.i.not = icmp eq i32 %46, %43
+lor.lhs.false46.i:                                ; preds = %lor.lhs.false40.i
+  %DCT_scaled_size49.i = getelementptr inbounds %struct.jpeg_component_info, ptr %38, i64 2, i32 9
+  %48 = load i32, ptr %DCT_scaled_size49.i, align 4, !tbaa !35
+  %cmp51.not.i.not = icmp eq i32 %48, %45
   br i1 %cmp51.not.i.not, label %if.then115, label %if.end119
 
-if.then115:                                       ; preds = %use_merged_upsample.exit
+if.then115:                                       ; preds = %lor.lhs.false46.i
   %max_v_samp_factor116 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 58
-  %47 = load i32, ptr %max_v_samp_factor116, align 8, !tbaa !32
+  %49 = load i32, ptr %max_v_samp_factor116, align 8, !tbaa !32
   br label %if.end119
 
-if.end119:                                        ; preds = %use_merged_upsample.exit, %lor.lhs.false.i, %sw.epilog, %if.end.i, %lor.lhs.false30.i, %lor.lhs.false25.i, %lor.lhs.false21.i, %lor.lhs.false16.i, %lor.lhs.false11.i, %if.end9.i, %lor.lhs.false40.i, %if.end36.i, %if.then115
-  %.sink242 = phi i32 [ %47, %if.then115 ], [ 1, %if.end36.i ], [ 1, %lor.lhs.false40.i ], [ 1, %if.end9.i ], [ 1, %lor.lhs.false11.i ], [ 1, %lor.lhs.false16.i ], [ 1, %lor.lhs.false21.i ], [ 1, %lor.lhs.false25.i ], [ 1, %lor.lhs.false30.i ], [ 1, %if.end.i ], [ 1, %sw.epilog ], [ 1, %lor.lhs.false.i ], [ 1, %use_merged_upsample.exit ]
+if.end119:                                        ; preds = %lor.lhs.false46.i, %if.end36.i, %lor.lhs.false40.i, %if.end9.i, %lor.lhs.false11.i, %lor.lhs.false16.i, %lor.lhs.false21.i, %lor.lhs.false25.i, %lor.lhs.false30.i, %if.end.i, %sw.epilog, %lor.lhs.false.i, %if.then115
+  %.sink240 = phi i32 [ %49, %if.then115 ], [ 1, %lor.lhs.false.i ], [ 1, %sw.epilog ], [ 1, %if.end.i ], [ 1, %lor.lhs.false30.i ], [ 1, %lor.lhs.false25.i ], [ 1, %lor.lhs.false21.i ], [ 1, %lor.lhs.false16.i ], [ 1, %lor.lhs.false11.i ], [ 1, %if.end9.i ], [ 1, %lor.lhs.false40.i ], [ 1, %if.end36.i ], [ 1, %lor.lhs.false46.i ]
   %rec_outbuf_height118 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 30
-  store i32 %.sink242, ptr %rec_outbuf_height118, align 8, !tbaa !49
+  store i32 %.sink240, ptr %rec_outbuf_height118, align 8, !tbaa !49
   ret void
 }
 

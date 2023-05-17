@@ -266,14 +266,14 @@ cleanup.sink.split.i:                             ; preds = %if.then9.i, %if.the
 
 if.end35:                                         ; preds = %if.end.i
   %call37 = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %call6.i, ptr noundef nonnull %node) #10
-  br i1 %call37, label %if.end40, label %SystemCallMapElement_delete.exit
+  br i1 %call37, label %if.end40, label %if.end.i90
 
-SystemCallMapElement_delete.exit:                 ; preds = %if.end35
+if.end.i90:                                       ; preds = %if.end35
   tail call void @free(ptr noundef nonnull %call1.i) #10
   tail call void @NodePtrVec_delete(ptr noundef nonnull %call6.i) #10
   br label %if.end40
 
-if.end40:                                         ; preds = %SystemCallMapElement_delete.exit, %if.end35
+if.end40:                                         ; preds = %if.end.i90, %if.end35
   %label42 = getelementptr inbounds %struct.NodeStruct, ptr %node, i64 0, i32 2
   store ptr %call1.i, ptr %label42, align 8, !tbaa !20
   %10 = load i32, ptr %map, align 8, !tbaa !15
@@ -420,8 +420,8 @@ for.inc.i.us:                                     ; preds = %for.body.i.us
 
 SystemCallMap_getLabelIndex.exit.us:              ; preds = %for.body.i.us
   %6 = and i64 %indvars.iv.i.us, 2147483648
-  %cmp3.not.us = icmp eq i64 %6, 0
-  br i1 %cmp3.not.us, label %for.cond.us, label %for.end
+  %cmp3.us.not = icmp eq i64 %6, 0
+  br i1 %cmp3.us.not, label %for.cond.us, label %for.end
 
 for.cond.us:                                      ; preds = %SystemCallMap_getLabelIndex.exit.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
@@ -431,7 +431,7 @@ for.cond.us:                                      ; preds = %SystemCallMap_getLa
   br i1 %cmp.us.not, label %for.end, label %for.body.us, !llvm.loop !26
 
 for.end:                                          ; preds = %SystemCallMap_getLabelIndex.exit.us, %for.cond.us, %for.inc.i.us, %for.body.lr.ph, %entry
-  %tobool.lcssa = phi i1 [ true, %entry ], [ false, %for.body.lr.ph ], [ false, %for.inc.i.us ], [ %cmp3.not.us, %for.cond.us ], [ %cmp3.not.us, %SystemCallMap_getLabelIndex.exit.us ]
+  %tobool.lcssa = phi i1 [ true, %entry ], [ false, %for.body.lr.ph ], [ false, %for.inc.i.us ], [ %cmp3.us.not, %for.cond.us ], [ %cmp3.us.not, %SystemCallMap_getLabelIndex.exit.us ]
   ret i1 %tobool.lcssa
 }
 

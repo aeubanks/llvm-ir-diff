@@ -351,23 +351,23 @@ if.then12:                                        ; preds = %if.end
   %pvalue14 = getelementptr inbounds %struct.name_s, ptr %7, i64 0, i32 4
   %8 = load ptr, ptr %pvalue14, align 8, !tbaa !34
   %cmp15 = icmp eq ptr %8, null
-  br i1 %cmp15, label %land.lhs.true, label %if.end24
+  br i1 %cmp15, label %land.lhs.true, label %if.else
 
 land.lhs.true:                                    ; preds = %if.then12
   %9 = load ptr, ptr @dstack, align 8, !tbaa !5
   %cmp17 = icmp eq ptr %0, %9
-  br i1 %cmp17, label %if.then21, label %lor.lhs.false
+  br i1 %cmp17, label %if.end24, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %land.lhs.true
   %10 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
   %cmp19 = icmp eq ptr %0, %10
-  br i1 %cmp19, label %if.then21, label %if.end24
+  br i1 %cmp19, label %if.end24, label %if.else
 
-if.then21:                                        ; preds = %lor.lhs.false, %land.lhs.true
+if.else:                                          ; preds = %lor.lhs.false, %if.then12
   br label %if.end24
 
-if.end24:                                         ; preds = %if.then12, %lor.lhs.false, %if.then21
-  %storemerge = phi ptr [ %4, %if.then21 ], [ inttoptr (i64 1 to ptr), %lor.lhs.false ], [ inttoptr (i64 1 to ptr), %if.then12 ]
+if.end24:                                         ; preds = %land.lhs.true, %lor.lhs.false, %if.else
+  %storemerge = phi ptr [ inttoptr (i64 1 to ptr), %if.else ], [ %4, %lor.lhs.false ], [ %4, %land.lhs.true ]
   store ptr %storemerge, ptr %pvalue14, align 8, !tbaa !34
   br label %if.end26
 
@@ -471,23 +471,23 @@ if.then12.i:                                      ; preds = %if.end.i
   %pvalue14.i = getelementptr inbounds %struct.name_s, ptr %13, i64 0, i32 4
   %14 = load ptr, ptr %pvalue14.i, align 8, !tbaa !34
   %cmp15.i = icmp eq ptr %14, null
-  br i1 %cmp15.i, label %land.lhs.true.i, label %if.end24.i
+  br i1 %cmp15.i, label %land.lhs.true.i, label %if.else.i
 
 land.lhs.true.i:                                  ; preds = %if.then12.i
   %15 = load ptr, ptr @dstack, align 8, !tbaa !5
   %cmp17.i = icmp eq ptr %6, %15
-  br i1 %cmp17.i, label %if.then21.i, label %lor.lhs.false.i
+  br i1 %cmp17.i, label %if.end24.i, label %lor.lhs.false.i
 
 lor.lhs.false.i:                                  ; preds = %land.lhs.true.i
   %16 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
   %cmp19.i = icmp eq ptr %6, %16
-  br i1 %cmp19.i, label %if.then21.i, label %if.end24.i
+  br i1 %cmp19.i, label %if.end24.i, label %if.else.i
 
-if.then21.i:                                      ; preds = %lor.lhs.false.i, %land.lhs.true.i
+if.else.i:                                        ; preds = %lor.lhs.false.i, %if.then12.i
   br label %if.end24.i
 
-if.end24.i:                                       ; preds = %if.then21.i, %lor.lhs.false.i, %if.then12.i
-  %storemerge.i = phi ptr [ %10, %if.then21.i ], [ inttoptr (i64 1 to ptr), %lor.lhs.false.i ], [ inttoptr (i64 1 to ptr), %if.then12.i ]
+if.end24.i:                                       ; preds = %if.else.i, %lor.lhs.false.i, %land.lhs.true.i
+  %storemerge.i = phi ptr [ inttoptr (i64 1 to ptr), %if.else.i ], [ %10, %lor.lhs.false.i ], [ %10, %land.lhs.true.i ]
   store ptr %storemerge.i, ptr %pvalue14.i, align 8, !tbaa !34
   br label %dict_put.exit.thread
 
@@ -678,23 +678,23 @@ if.then12.i.i:                                    ; preds = %if.end.i.i
   %pvalue14.i.i = getelementptr inbounds %struct.name_s, ptr %15, i64 0, i32 4
   %16 = load ptr, ptr %pvalue14.i.i, align 8, !tbaa !34
   %cmp15.i.i = icmp eq ptr %16, null
-  br i1 %cmp15.i.i, label %land.lhs.true.i.i, label %if.end24.i.i
+  br i1 %cmp15.i.i, label %land.lhs.true.i.i, label %if.else.i.i
 
 land.lhs.true.i.i:                                ; preds = %if.then12.i.i
   %17 = load ptr, ptr @dstack, align 8, !tbaa !5
   %cmp17.i.i = icmp eq ptr %8, %17
-  br i1 %cmp17.i.i, label %if.then21.i.i, label %lor.lhs.false.i.i
+  br i1 %cmp17.i.i, label %if.end24.i.i, label %lor.lhs.false.i.i
 
 lor.lhs.false.i.i:                                ; preds = %land.lhs.true.i.i
   %18 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
   %cmp19.i.i = icmp eq ptr %8, %18
-  br i1 %cmp19.i.i, label %if.then21.i.i, label %if.end24.i.i
+  br i1 %cmp19.i.i, label %if.end24.i.i, label %if.else.i.i
 
-if.then21.i.i:                                    ; preds = %lor.lhs.false.i.i, %land.lhs.true.i.i
+if.else.i.i:                                      ; preds = %lor.lhs.false.i.i, %if.then12.i.i
   br label %if.end24.i.i
 
-if.end24.i.i:                                     ; preds = %if.then21.i.i, %lor.lhs.false.i.i, %if.then12.i.i
-  %storemerge.i.i = phi ptr [ %12, %if.then21.i.i ], [ inttoptr (i64 1 to ptr), %lor.lhs.false.i.i ], [ inttoptr (i64 1 to ptr), %if.then12.i.i ]
+if.end24.i.i:                                     ; preds = %if.else.i.i, %lor.lhs.false.i.i, %land.lhs.true.i.i
+  %storemerge.i.i = phi ptr [ inttoptr (i64 1 to ptr), %if.else.i.i ], [ %12, %lor.lhs.false.i.i ], [ %12, %land.lhs.true.i.i ]
   store ptr %storemerge.i.i, ptr %pvalue14.i.i, align 8, !tbaa !34
   br label %dict_put.exit.thread.i
 
@@ -728,8 +728,8 @@ dict_copy.exit:                                   ; preds = %if.end11.i, %if.end
   call void @alloc_free(ptr noundef %24, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %if.then4.i, %dict_copy.exit
-  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %if.then4.i ], [ -25, %entry ]
+cleanup:                                          ; preds = %if.then4.i, %entry, %dict_copy.exit
+  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %entry ], [ -25, %if.then4.i ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %drto) #8
   ret i32 %retval.0
 }

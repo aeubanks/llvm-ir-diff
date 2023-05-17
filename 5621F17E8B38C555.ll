@@ -100,8 +100,8 @@ for.body:                                         ; preds = %for.body, %for.body
   %idxprom24 = zext i32 %shr to i64
   %arrayidx25 = getelementptr inbounds [65536 x i32], ptr @countbits16, i64 0, i64 %idxprom24
   %6 = load i32, ptr %arrayidx25, align 4, !tbaa !9
-  %add26 = add i32 %5, %storemerge1110
-  %add27 = add i32 %add26, %6
+  %add26 = add nsw i32 %6, %5
+  %add27 = add nsw i32 %add26, %storemerge1110
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %arrayidx16.1 = getelementptr inbounds [32 x i32], ptr @g_board, i64 0, i64 %indvars.iv.next.1
   %7 = load i32, ptr %arrayidx16.1, align 8, !tbaa !9
@@ -114,8 +114,8 @@ for.body:                                         ; preds = %for.body, %for.body
   %idxprom24.1 = zext i32 %shr.1 to i64
   %arrayidx25.1 = getelementptr inbounds [65536 x i32], ptr @countbits16, i64 0, i64 %idxprom24.1
   %9 = load i32, ptr %arrayidx25.1, align 4, !tbaa !9
-  %add26.1 = add i32 %8, %add27
-  %add27.1 = add i32 %add26.1, %9
+  %add26.1 = add nsw i32 %9, %8
+  %add27.1 = add nsw i32 %add26.1, %add27
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
   br i1 %niter.ncmp.1, label %for.end.loopexit.unr-lcssa.loopexit, label %for.body, !llvm.loop !11
@@ -143,8 +143,8 @@ for.body.epil:                                    ; preds = %for.end.loopexit.un
   %idxprom24.epil = zext i32 %shr.epil to i64
   %arrayidx25.epil = getelementptr inbounds [65536 x i32], ptr @countbits16, i64 0, i64 %idxprom24.epil
   %13 = load i32, ptr %arrayidx25.epil, align 4, !tbaa !9
-  %add26.epil = add i32 %12, %storemerge1110.unr
-  %add27.epil = add i32 %add26.epil, %13
+  %add26.epil = add nsw i32 %13, %12
+  %add27.epil = add nsw i32 %add26.epil, %storemerge1110.unr
   br label %for.end
 
 for.end:                                          ; preds = %for.body.epil, %for.end.loopexit.unr-lcssa, %if.end12
@@ -321,7 +321,7 @@ for.body60:                                       ; preds = %for.body60.lr.ph, %
   %23 = load i32, ptr %arrayidx89, align 4, !tbaa !9
   %xor90 = xor i32 %shl, %23
   store i32 %xor90, ptr %arrayidx89, align 4, !tbaa !9
-  %bit2_index = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom28, i64 %idxprom68, i64 %idxprom72, i32 0, i32 1
+  %bit2_index = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx73, i64 0, i32 1
   %24 = load i32, ptr %bit2_index, align 4, !tbaa !20
   %rem1041081 = and i32 %24, 31
   %shl105 = shl nuw i32 1, %rem1041081
@@ -331,7 +331,7 @@ for.body60:                                       ; preds = %for.body60.lr.ph, %
   %25 = load i32, ptr %arrayidx122, align 4, !tbaa !9
   %xor123 = xor i32 %shl105, %25
   store i32 %xor123, ptr %arrayidx122, align 4, !tbaa !9
-  %hash_code = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom28, i64 %idxprom68, i64 %idxprom72, i32 0, i32 2
+  %hash_code = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx73, i64 0, i32 2
   %26 = load i32, ptr %hash_code, align 8, !tbaa !21
   %27 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 1), align 4, !tbaa !22
   %xor137 = xor i32 %27, %26
@@ -435,7 +435,7 @@ for.body60:                                       ; preds = %for.body60.lr.ph, %
   %50 = load i32, ptr %arrayidx425, align 4, !tbaa !9
   %xor426 = xor i32 %shl408, %50
   store i32 %xor426, ptr %arrayidx425, align 4, !tbaa !9
-  %bit2_index440 = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom28, i64 %idxprom398, i64 %idxprom403, i32 0, i32 1
+  %bit2_index440 = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx404, i64 0, i32 1
   %51 = load i32, ptr %bit2_index440, align 4, !tbaa !20
   %rem4411089 = and i32 %51, 31
   %shl442 = shl nuw i32 1, %rem4411089
@@ -445,7 +445,7 @@ for.body60:                                       ; preds = %for.body60.lr.ph, %
   %52 = load i32, ptr %arrayidx459, align 4, !tbaa !9
   %xor460 = xor i32 %shl442, %52
   store i32 %xor460, ptr %arrayidx459, align 4, !tbaa !9
-  %hash_code474 = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom28, i64 %idxprom398, i64 %idxprom403, i32 0, i32 2
+  %hash_code474 = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx404, i64 0, i32 2
   %53 = load i32, ptr %hash_code474, align 8, !tbaa !21
   %54 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 1), align 4, !tbaa !22
   %xor475 = xor i32 %54, %53
@@ -933,7 +933,7 @@ for.body:                                         ; preds = %for.body.preheader,
   %19 = load i32, ptr %arrayidx116, align 4, !tbaa !9
   %xor117 = xor i32 %shl, %19
   store i32 %xor117, ptr %arrayidx116, align 4, !tbaa !9
-  %bit2_index = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom14, i64 %idxprom95, i64 %idxprom99, i32 0, i32 1
+  %bit2_index = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx100, i64 0, i32 1
   %20 = load i32, ptr %bit2_index, align 4, !tbaa !20
   %rem131967 = and i32 %20, 31
   %shl132 = shl nuw i32 1, %rem131967
@@ -943,7 +943,7 @@ for.body:                                         ; preds = %for.body.preheader,
   %21 = load i32, ptr %arrayidx149, align 4, !tbaa !9
   %xor150 = xor i32 %shl132, %21
   store i32 %xor150, ptr %arrayidx149, align 4, !tbaa !9
-  %hash_code = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom14, i64 %idxprom95, i64 %idxprom99, i32 0, i32 2
+  %hash_code = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx100, i64 0, i32 2
   %22 = load i32, ptr %hash_code, align 8, !tbaa !21
   %23 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 1), align 4, !tbaa !22
   %xor164 = xor i32 %23, %22
@@ -1050,7 +1050,7 @@ for.body:                                         ; preds = %for.body.preheader,
   %48 = load i32, ptr %arrayidx451, align 4, !tbaa !9
   %xor452 = xor i32 %shl434, %48
   store i32 %xor452, ptr %arrayidx451, align 4, !tbaa !9
-  %bit2_index466 = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom14, i64 %idxprom424, i64 %idxprom429, i32 0, i32 1
+  %bit2_index466 = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx430, i64 0, i32 1
   %49 = load i32, ptr %bit2_index466, align 4, !tbaa !20
   %rem467975 = and i32 %49, 31
   %shl468 = shl nuw i32 1, %rem467975
@@ -1060,7 +1060,7 @@ for.body:                                         ; preds = %for.body.preheader,
   %50 = load i32, ptr %arrayidx485, align 4, !tbaa !9
   %xor486 = xor i32 %shl468, %50
   store i32 %xor486, ptr %arrayidx485, align 4, !tbaa !9
-  %hash_code500 = getelementptr inbounds [2 x [32 x [32 x %struct.KeyInfo]]], ptr @g_keyinfo, i64 0, i64 %idxprom14, i64 %idxprom424, i64 %idxprom429, i32 0, i32 2
+  %hash_code500 = getelementptr inbounds %struct.KeyInfo_s, ptr %arrayidx430, i64 0, i32 2
   %51 = load i32, ptr %hash_code500, align 8, !tbaa !21
   %52 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 1), align 4, !tbaa !22
   %xor501 = xor i32 %52, %51

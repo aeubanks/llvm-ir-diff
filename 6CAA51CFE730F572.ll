@@ -48,11 +48,11 @@ entry:
 
 if.end:                                           ; preds = %entry
   %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1)
-  %.pre17 = load i32, ptr @lookahead, align 4
+  %.pre16 = load i32, ptr @lookahead, align 4
   br label %while.cond
 
 while.cond:                                       ; preds = %while.cond.backedge, %if.end
-  %2 = phi i32 [ %.pre17, %if.end ], [ %.be, %while.cond.backedge ]
+  %2 = phi i32 [ %.pre16, %if.end ], [ %.be, %while.cond.backedge ]
   switch i32 %2, label %while.body [
     i32 -1, label %if.then13
     i32 59, label %if.else
@@ -63,7 +63,7 @@ while.body:                                       ; preds = %while.cond
   %call4 = tail call i32 @getc(ptr noundef %3)
   store i32 %call4, ptr @lookahead, align 4, !tbaa !5
   switch i32 %call4, label %if.then9 [
-    i32 10, label %if.end7.thread
+    i32 10, label %if.then6
     i32 -1, label %while.cond.backedge
   ]
 
@@ -71,13 +71,13 @@ while.cond.backedge:                              ; preds = %while.body, %if.the
   %.be = phi i32 [ %call4, %while.body ], [ %.pre, %if.then9 ]
   br label %while.cond, !llvm.loop !11
 
-if.end7.thread:                                   ; preds = %while.body
+if.then6:                                         ; preds = %while.body
   %4 = load i32, ptr @lineno, align 4, !tbaa !5
   %inc = add nsw i32 %4, 1
   store i32 %inc, ptr @lineno, align 4, !tbaa !5
   br label %if.then9
 
-if.then9:                                         ; preds = %while.body, %if.end7.thread
+if.then9:                                         ; preds = %if.then6, %while.body
   %putchar = tail call i32 @putchar(i32 %call4)
   %.pre = load i32, ptr @lookahead, align 4
   br label %while.cond.backedge

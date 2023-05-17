@@ -17,7 +17,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.10 = private unnamed_addr constant [12 x i8] c"!!!--------\00", align 1
 @.str.11 = private unnamed_addr constant [7 x i8] c"---\00\00\00\00", align 1
 @.str.12 = private unnamed_addr constant [11 x i8] c"-\00\00\00\00\00\00\00\00\00\00", align 1
-@str.13 = private unnamed_addr constant [11 x i8] c"oo\00\00\00\00\00\00\00\00\00", align 1
+@str = private unnamed_addr constant [11 x i8] c"oo\00\00\00\00\00\00\00\00\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
@@ -150,37 +150,37 @@ if.end94:                                         ; preds = %if.end90
   store i32 1869376613, ptr %add.ptr96, align 1
   %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %add.ptr96, ptr noundef nonnull dereferenceable(6) @.str.4, i64 6)
   %tobool111.not = icmp eq i32 %bcmp, 0
-  br i1 %tobool111.not, label %lor.lhs.false132, label %if.then112
+  br i1 %tobool111.not, label %if.end113, label %if.then112
 
 if.then112:                                       ; preds = %if.end94
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false132:                                 ; preds = %if.end94
+if.end113:                                        ; preds = %if.end94
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(64) %dst, i8 32, i64 64, i1 false)
   store i32 7, ptr @x, align 4, !tbaa !9
   store i32 2, ptr @y, align 4, !tbaa !9
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(10) %add.ptr96, ptr noundef nonnull align 1 dereferenceable(10) @str.13, i64 noundef 10, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(10) %add.ptr96, ptr noundef nonnull align 1 dereferenceable(10) @str, i64 noundef 10, i1 false)
   %bcmp214 = call i32 @bcmp(ptr noundef nonnull dereferenceable(12) %dst, ptr noundef nonnull dereferenceable(12) @.str.6, i64 12)
   %tobool135.not = icmp eq i32 %bcmp214, 0
   br i1 %tobool135.not, label %if.end137, label %if.then136
 
-if.then136:                                       ; preds = %lor.lhs.false132
+if.then136:                                       ; preds = %if.end113
   tail call void @abort() #8
   unreachable
 
-if.end137:                                        ; preds = %lor.lhs.false132
+if.end137:                                        ; preds = %if.end113
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(64) %dst, i8 32, i64 64, i1 false)
   store i64 478560413032, ptr %dst, align 16
   %bcmp215 = call i32 @bcmp(ptr noundef nonnull dereferenceable(9) %dst, ptr noundef nonnull dereferenceable(9) @.str.8, i64 9)
   %tobool146.not = icmp eq i32 %bcmp215, 0
-  br i1 %tobool146.not, label %lor.lhs.false157, label %if.then147
+  br i1 %tobool146.not, label %if.end148, label %if.then147
 
 if.then147:                                       ; preds = %if.end137
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false157:                                 ; preds = %if.end137
+if.end148:                                        ; preds = %if.end137
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(64) @buf, i8 32, i64 64, i1 false)
   store i32 34, ptr @x, align 4, !tbaa !9
   store i32 3, ptr @y, align 4, !tbaa !9
@@ -189,22 +189,22 @@ lor.lhs.false157:                                 ; preds = %if.end137
   %tobool159.not = icmp eq i32 %bcmp216, 0
   br i1 %tobool159.not, label %if.end161, label %if.then160
 
-if.then160:                                       ; preds = %lor.lhs.false157
+if.then160:                                       ; preds = %if.end148
   tail call void @abort() #8
   unreachable
 
-if.end161:                                        ; preds = %lor.lhs.false157
+if.end161:                                        ; preds = %if.end148
   store i32 4, ptr @y, align 4, !tbaa !9
   store i64 3255307777713450285, ptr getelementptr inbounds ([64 x i8], ptr @buf, i64 0, i64 3), align 1
   %bcmp217 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(11) @buf, ptr noundef nonnull dereferenceable(11) @.str.10, i64 11)
   %tobool172.not = icmp eq i32 %bcmp217, 0
-  br i1 %tobool172.not, label %lor.lhs.false188, label %if.then173
+  br i1 %tobool172.not, label %if.end174, label %if.then173
 
 if.then173:                                       ; preds = %if.end161
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false188:                                 ; preds = %if.end161
+if.end174:                                        ; preds = %if.end161
   store i32 11, ptr @x, align 4, !tbaa !9
   store i32 5, ptr @y, align 4, !tbaa !9
   store i32 0, ptr getelementptr inbounds ([64 x i8], ptr @buf, i64 0, i64 11), align 1
@@ -212,11 +212,11 @@ lor.lhs.false188:                                 ; preds = %if.end161
   %tobool190.not = icmp eq i32 %bcmp218, 0
   br i1 %tobool190.not, label %if.end192, label %if.then191
 
-if.then191:                                       ; preds = %lor.lhs.false188
+if.then191:                                       ; preds = %if.end174
   tail call void @abort() #8
   unreachable
 
-if.end192:                                        ; preds = %lor.lhs.false188
+if.end192:                                        ; preds = %if.end174
   store i32 15, ptr @x, align 4, !tbaa !9
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) getelementptr inbounds ([64 x i8], ptr @buf, i64 0, i64 15), i8 0, i64 6, i1 false)
   %bcmp219 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(11) getelementptr inbounds ([64 x i8], ptr @buf, i64 0, i64 10), ptr noundef nonnull dereferenceable(11) @.str.12, i64 11)

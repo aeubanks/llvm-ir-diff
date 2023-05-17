@@ -20,7 +20,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.9 = private unnamed_addr constant [16 x i8] c"Getting Results\00", align 1
 @str.10 = private unnamed_addr constant [7 x i8] c"Done.\0A\00", align 1
 
-; Function Attrs: nofree nounwind uwtable
+; Function Attrs: nofree nounwind memory(readwrite, argmem: write) uwtable
 define dso_local ptr @alloc_tree(i32 noundef %level, i32 noundef %label, ptr noundef %back) local_unnamed_addr #0 {
 entry:
   %cmp = icmp eq i32 %level, 0
@@ -738,9 +738,9 @@ check_patients_waiting.exit:                      ; preds = %while.body.us.i, %i
   store i64 %conv.i, ptr %seed.i, align 8, !tbaa !16
   %conv4.i = fpext float %call.i to double
   %cmp.i87 = fcmp ogt double %conv4.i, 6.660000e-01
-  br i1 %cmp.i87, label %generate_patient.exit, label %cleanup
+  br i1 %cmp.i87, label %if.then34, label %cleanup
 
-generate_patient.exit:                            ; preds = %check_patients_waiting.exit
+if.then34:                                        ; preds = %check_patients_waiting.exit
   %call6.i = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
   %time.i88 = getelementptr inbounds %struct.Patient, ptr %call6.i, i64 0, i32 1
   store i32 0, ptr %time.i88, align 4, !tbaa !27
@@ -753,7 +753,7 @@ generate_patient.exit:                            ; preds = %check_patients_wait
   %cmp.i93 = icmp sgt i32 %42, 0
   br i1 %cmp.i93, label %if.then.i99, label %if.else.i101
 
-if.then.i99:                                      ; preds = %generate_patient.exit
+if.then.i99:                                      ; preds = %if.then34
   %sub.i94 = add nsw i32 %42, -1
   store i32 %sub.i94, ptr %free_personnel.i, align 4, !tbaa !36
   tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %call6.i) #11
@@ -763,25 +763,25 @@ if.then.i99:                                      ; preds = %generate_patient.ex
   store i32 %add4.i98, ptr %time.i88, align 4, !tbaa !27
   br label %cleanup
 
-if.else.i101:                                     ; preds = %generate_patient.exit
+if.else.i101:                                     ; preds = %if.then34
   tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %call6.i) #11
   br label %cleanup
 
-cleanup:                                          ; preds = %check_patients_waiting.exit, %if.else.i101, %if.then.i99, %entry
-  %retval.0 = phi ptr [ null, %entry ], [ %call29, %if.then.i99 ], [ %call29, %if.else.i101 ], [ %call29, %check_patients_waiting.exit ]
+cleanup:                                          ; preds = %check_patients_waiting.exit, %if.then.i99, %if.else.i101, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ %call29, %if.else.i101 ], [ %call29, %if.then.i99 ], [ %call29, %check_patients_waiting.exit ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nofree willreturn
 declare double @ldexp(double, i32) local_unnamed_addr #7
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
-attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+attributes #0 = { nofree nounwind memory(readwrite, argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -789,8 +789,8 @@ attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #5 = { nounwind uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree willreturn }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind allocsize(0) }
 attributes #11 = { nounwind }
 

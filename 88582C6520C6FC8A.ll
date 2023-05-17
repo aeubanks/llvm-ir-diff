@@ -265,7 +265,7 @@ entry:
 for.cond.cleanup.i.i.thread:                      ; preds = %entry
   %call.i.i42 = call noalias noundef nonnull dereferenceable(1024) ptr @_Znam(i64 noundef 1024) #14
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(1024) %call.i.i42, i8 0, i64 1024, i1 false), !tbaa !5
-  br label %_ZN3fsm7advanceEc.exit
+  br label %_ZN6sampleC2Ev.exit
 
 for.body13.i.i.preheader:                         ; preds = %for.body.i.i
   %1 = add nuw nsw i32 %max_node.2.i.i, 1
@@ -305,23 +305,23 @@ for.body13.i.i:                                   ; preds = %for.body13.i.i.preh
   %incdec.ptr24.i.i = getelementptr inbounds %class.triple, ptr %e8.045.i.i, i64 1
   %10 = load i32, ptr %incdec.ptr24.i.i, align 4, !tbaa !11
   %tobool11.not.i.i = icmp eq i32 %10, 0
-  br i1 %tobool11.not.i.i, label %_ZN3fsm7advanceEc.exit, label %for.body13.i.i, !llvm.loop !21
+  br i1 %tobool11.not.i.i, label %_ZN6sampleC2Ev.exit, label %for.body13.i.i, !llvm.loop !21
 
-_ZN3fsm7advanceEc.exit:                           ; preds = %for.body13.i.i, %for.cond.cleanup.i.i.thread
+_ZN6sampleC2Ev.exit:                              ; preds = %for.body13.i.i, %for.cond.cleanup.i.i.thread
   %call.i.i43 = phi ptr [ %call.i.i42, %for.cond.cleanup.i.i.thread ], [ %call.i.i, %for.body13.i.i ]
   %arrayidx.i = getelementptr inbounds %class.state, ptr %call.i.i43, i64 1
   %11 = load i8, ptr %input_string, align 16, !tbaa !22
   %idxprom.i = sext i8 %11 to i64
   %arrayidx.i16 = getelementptr inbounds [128 x ptr], ptr %arrayidx.i, i64 0, i64 %idxprom.i
   %12 = load ptr, ptr %arrayidx.i16, align 8, !tbaa !5
-  %cmp.i.not44 = icmp eq ptr %12, %call.i.i43
-  br i1 %cmp.i.not44, label %_ZN3fsmD2Ev.exit, label %land.rhs
+  %cmp.i44 = icmp eq ptr %12, %call.i.i43
+  br i1 %cmp.i44, label %delete.notnull.i, label %land.rhs
 
-land.rhs:                                         ; preds = %_ZN3fsm7advanceEc.exit, %while.body
-  %indvars.iv = phi i64 [ %indvars.iv.next, %while.body ], [ 1, %_ZN3fsm7advanceEc.exit ]
-  %m.sroa.11.145 = phi ptr [ %14, %while.body ], [ %12, %_ZN3fsm7advanceEc.exit ]
+land.rhs:                                         ; preds = %_ZN6sampleC2Ev.exit, %while.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %while.body ], [ 1, %_ZN6sampleC2Ev.exit ]
+  %m.sroa.11.145 = phi ptr [ %14, %while.body ], [ %12, %_ZN6sampleC2Ev.exit ]
   %cmp.i20.not = icmp eq ptr %m.sroa.11.145, null
-  br i1 %cmp.i20.not, label %_ZN3fsmD2Ev.exit, label %while.body
+  br i1 %cmp.i20.not, label %delete.notnull.i, label %while.body
 
 while.body:                                       ; preds = %land.rhs
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
@@ -330,12 +330,12 @@ while.body:                                       ; preds = %land.rhs
   %idxprom.i24 = sext i8 %13 to i64
   %arrayidx.i25 = getelementptr inbounds [128 x ptr], ptr %m.sroa.11.145, i64 0, i64 %idxprom.i24
   %14 = load ptr, ptr %arrayidx.i25, align 8, !tbaa !5
-  %cmp.i.not = icmp eq ptr %14, %call.i.i43
-  br i1 %cmp.i.not, label %_ZN3fsmD2Ev.exit, label %land.rhs, !llvm.loop !23
+  %cmp.i = icmp eq ptr %14, %call.i.i43
+  br i1 %cmp.i, label %delete.notnull.i, label %land.rhs, !llvm.loop !23
 
-_ZN3fsmD2Ev.exit:                                 ; preds = %land.rhs, %while.body, %_ZN3fsm7advanceEc.exit
-  %.str.3.sink = phi ptr [ @.str.2, %_ZN3fsm7advanceEc.exit ], [ @.str.2, %while.body ], [ @.str.3, %land.rhs ]
-  %call12 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.3.sink)
+delete.notnull.i:                                 ; preds = %land.rhs, %while.body, %_ZN6sampleC2Ev.exit
+  %.str.2.sink = phi ptr [ @.str.2, %_ZN6sampleC2Ev.exit ], [ @.str.2, %while.body ], [ @.str.3, %land.rhs ]
+  %call10 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.2.sink)
   call void @_ZdaPv(ptr noundef nonnull %call.i.i43) #15
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %input_string) #16
   ret i32 0

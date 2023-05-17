@@ -89,7 +89,7 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 define dso_local noundef i32 @main() local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
 entry:
   invoke void @_Z11callsthrowsv()
-          to label %return.unreachable unwind label %lpad
+          to label %try.cont.unreachable unwind label %lpad
 
 lpad:                                             ; preds = %entry
   %0 = landingpad { ptr, i32 }
@@ -108,7 +108,7 @@ catch:                                            ; preds = %lpad
   tail call void @__cxa_end_catch() #6
   ret i32 %sub
 
-return.unreachable:                               ; preds = %entry
+try.cont.unreachable:                             ; preds = %entry
   unreachable
 
 eh.resume:                                        ; preds = %lpad

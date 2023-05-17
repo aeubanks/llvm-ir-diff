@@ -390,8 +390,8 @@ declare ptr @__ctype_tolower_loc() local_unnamed_addr #6
 define dso_local ptr @bmhi_search(ptr noundef readonly %string, i32 noundef %stringlen) local_unnamed_addr #7 {
 entry:
   %0 = load i32, ptr @patlen, align 4, !tbaa !5
-  %1 = xor i32 %stringlen, -1
-  %sub1 = add i32 %0, %1
+  %sub = add nsw i32 %0, -1
+  %sub1 = sub nsw i32 %sub, %stringlen
   %cmp = icmp sgt i32 %sub1, -1
   br i1 %cmp, label %cleanup, label %if.end
 
@@ -399,21 +399,20 @@ if.end:                                           ; preds = %entry
   %idx.ext = sext i32 %stringlen to i64
   %add.ptr = getelementptr inbounds i8, ptr %string, i64 %idx.ext
   %sub5 = sub nsw i32 32767, %stringlen
-  %sub10 = add i32 %0, -1
-  %2 = load ptr, ptr @pat, align 8
-  %3 = load i32, ptr @skip2, align 4
-  %4 = zext i32 %sub10 to i64
+  %1 = load ptr, ptr @pat, align 8
+  %2 = load i32, ptr @skip2, align 4
+  %3 = zext i32 %sub to i64
   br label %while.cond
 
 while.cond:                                       ; preds = %while.cond.backedge, %if.end
   %i.1 = phi i32 [ %sub1, %if.end ], [ %i.1.be, %while.cond.backedge ]
   %idxprom = sext i32 %i.1 to i64
   %arrayidx = getelementptr inbounds i8, ptr %add.ptr, i64 %idxprom
-  %5 = load i8, ptr %arrayidx, align 1, !tbaa !11
-  %idxprom2 = zext i8 %5 to i64
+  %4 = load i8, ptr %arrayidx, align 1, !tbaa !11
+  %idxprom2 = zext i8 %4 to i64
   %arrayidx3 = getelementptr inbounds [256 x i32], ptr @skip, i64 0, i64 %idxprom2
-  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !5
-  %add = add nsw i32 %6, %i.1
+  %5 = load i32, ptr %arrayidx3, align 4, !tbaa !5
+  %add = add nsw i32 %5, %i.1
   %cmp4 = icmp slt i32 %add, 0
   br i1 %cmp4, label %while.cond.backedge, label %while.end
 
@@ -427,34 +426,34 @@ while.end:                                        ; preds = %while.cond
 
 if.end8:                                          ; preds = %while.end
   %sub9 = add nsw i32 %add, -32767
-  %sub11 = sub nsw i32 %sub9, %sub10
+  %sub11 = sub nsw i32 %sub9, %sub
   %idx.ext12 = sext i32 %sub11 to i64
   %add.ptr13 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext12
   br label %while.cond14
 
 while.cond14:                                     ; preds = %land.rhs, %if.end8
-  %indvars.iv = phi i64 [ %8, %land.rhs ], [ %4, %if.end8 ]
-  %7 = trunc i64 %indvars.iv to i32
-  %cmp15 = icmp sgt i32 %7, 0
+  %indvars.iv = phi i64 [ %7, %land.rhs ], [ %3, %if.end8 ]
+  %6 = trunc i64 %indvars.iv to i32
+  %cmp15 = icmp sgt i32 %6, 0
   br i1 %cmp15, label %land.rhs, label %cleanup
 
 land.rhs:                                         ; preds = %while.cond14
-  %8 = add nsw i64 %indvars.iv, -1
+  %7 = add nsw i64 %indvars.iv, -1
   %call = tail call ptr @__ctype_toupper_loc() #13
-  %9 = load ptr, ptr %call, align 8, !tbaa !9
-  %arrayidx17 = getelementptr inbounds i8, ptr %add.ptr13, i64 %8
-  %10 = load i8, ptr %arrayidx17, align 1, !tbaa !11
-  %idxprom18 = sext i8 %10 to i64
-  %arrayidx19 = getelementptr inbounds i32, ptr %9, i64 %idxprom18
-  %11 = load i32, ptr %arrayidx19, align 4, !tbaa !5
-  %arrayidx21 = getelementptr inbounds i8, ptr %2, i64 %8
-  %12 = load i8, ptr %arrayidx21, align 1, !tbaa !11
-  %conv22 = zext i8 %12 to i32
-  %cmp23 = icmp eq i32 %11, %conv22
+  %8 = load ptr, ptr %call, align 8, !tbaa !9
+  %arrayidx17 = getelementptr inbounds i8, ptr %add.ptr13, i64 %7
+  %9 = load i8, ptr %arrayidx17, align 1, !tbaa !11
+  %idxprom18 = sext i8 %9 to i64
+  %arrayidx19 = getelementptr inbounds i32, ptr %8, i64 %idxprom18
+  %10 = load i32, ptr %arrayidx19, align 4, !tbaa !5
+  %arrayidx21 = getelementptr inbounds i8, ptr %1, i64 %7
+  %11 = load i8, ptr %arrayidx21, align 1, !tbaa !11
+  %conv22 = zext i8 %11 to i32
+  %cmp23 = icmp eq i32 %10, %conv22
   br i1 %cmp23, label %while.cond14, label %if.end30, !llvm.loop !22
 
 if.end30:                                         ; preds = %land.rhs
-  %add31 = add nsw i32 %3, %sub9
+  %add31 = add nsw i32 %2, %sub9
   %cmp32 = icmp sgt i32 %add31, -1
   br i1 %cmp32, label %cleanup, label %while.cond.backedge
 

@@ -111,9 +111,9 @@ if.then.i:                                        ; preds = %for.end
   %7 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i = urem i32 %mul, %7
   %tobool3.not.i.i.i = icmp eq i32 %rem2.i.i.i, 0
-  %sub6.i.i.i = sub i32 %7, %rem2.i.i.i
-  %add7.i.i.i = select i1 %tobool3.not.i.i.i, i32 0, i32 %sub6.i.i.i
-  %RealSize.1.i.i.i = add i32 %add7.i.i.i, %mul
+  %sub6.i.i.i = add i32 %7, %mul
+  %add7.i.i.i = sub i32 %sub6.i.i.i, %rem2.i.i.i
+  %RealSize.1.i.i.i = select i1 %tobool3.not.i.i.i, i32 %mul, i32 %add7.i.i.i
   %8 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i = zext i32 %8 to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i
@@ -137,7 +137,7 @@ if.then9.i:                                       ; preds = %if.then.i
 
 if.end13.i:                                       ; preds = %if.then9.i, %if.then.i
   %13 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i = add i32 %RealSize.1.i.i.i, %13
+  %add.i = add i32 %13, %RealSize.1.i.i.i
   %conv.i = zext i32 %add.i to i64
   %add14.i = add nuw nsw i64 %conv.i, 16
   %14 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -187,9 +187,9 @@ if.then.i70:                                      ; preds = %memory_Free.exit
   %23 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i55 = urem i32 %mul20, %23
   %tobool3.not.i.i.i56 = icmp eq i32 %rem2.i.i.i55, 0
-  %sub6.i.i.i57 = sub i32 %23, %rem2.i.i.i55
-  %add7.i.i.i58 = select i1 %tobool3.not.i.i.i56, i32 0, i32 %sub6.i.i.i57
-  %RealSize.1.i.i.i59 = add i32 %add7.i.i.i58, %mul20
+  %sub6.i.i.i57 = add i32 %23, %mul20
+  %add7.i.i.i58 = sub i32 %sub6.i.i.i57, %rem2.i.i.i55
+  %RealSize.1.i.i.i59 = select i1 %tobool3.not.i.i.i56, i32 %mul20, i32 %add7.i.i.i58
   %24 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i60 = zext i32 %24 to i64
   %idx.neg.i61 = sub nsw i64 0, %idx.ext.i60
@@ -213,7 +213,7 @@ if.then9.i71:                                     ; preds = %if.then.i70
 
 if.end13.i77:                                     ; preds = %if.then9.i71, %if.then.i70
   %29 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i72 = add i32 %RealSize.1.i.i.i59, %29
+  %add.i72 = add i32 %29, %RealSize.1.i.i.i59
   %conv.i73 = zext i32 %add.i72 to i64
   %add14.i74 = add nuw nsw i64 %conv.i73, 16
   %30 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -262,9 +262,9 @@ if.then.i105:                                     ; preds = %memory_Free.exit88
   %38 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i90 = urem i32 %mul26, %38
   %tobool3.not.i.i.i91 = icmp eq i32 %rem2.i.i.i90, 0
-  %sub6.i.i.i92 = sub i32 %38, %rem2.i.i.i90
-  %add7.i.i.i93 = select i1 %tobool3.not.i.i.i91, i32 0, i32 %sub6.i.i.i92
-  %RealSize.1.i.i.i94 = add i32 %add7.i.i.i93, %mul26
+  %sub6.i.i.i92 = add i32 %38, %mul26
+  %add7.i.i.i93 = sub i32 %sub6.i.i.i92, %rem2.i.i.i90
+  %RealSize.1.i.i.i94 = select i1 %tobool3.not.i.i.i91, i32 %mul26, i32 %add7.i.i.i93
   %39 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i95 = zext i32 %39 to i64
   %idx.neg.i96 = sub nsw i64 0, %idx.ext.i95
@@ -288,7 +288,7 @@ if.then9.i106:                                    ; preds = %if.then.i105
 
 if.end13.i112:                                    ; preds = %if.then9.i106, %if.then.i105
   %44 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i107 = add i32 %RealSize.1.i.i.i94, %44
+  %add.i107 = add i32 %44, %RealSize.1.i.i.i94
   %conv.i108 = zext i32 %add.i107 to i64
   %add14.i109 = add nuw nsw i64 %conv.i108, 16
   %45 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -374,9 +374,9 @@ if.then.i:                                        ; preds = %for.end
   %1 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i = urem i32 %mul, %1
   %tobool3.not.i.i.i = icmp eq i32 %rem2.i.i.i, 0
-  %sub6.i.i.i = sub i32 %1, %rem2.i.i.i
-  %add7.i.i.i = select i1 %tobool3.not.i.i.i, i32 0, i32 %sub6.i.i.i
-  %RealSize.1.i.i.i = add i32 %add7.i.i.i, %mul
+  %sub6.i.i.i = add i32 %1, %mul
+  %add7.i.i.i = sub i32 %sub6.i.i.i, %rem2.i.i.i
+  %RealSize.1.i.i.i = select i1 %tobool3.not.i.i.i, i32 %mul, i32 %add7.i.i.i
   %2 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i = zext i32 %2 to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i
@@ -400,7 +400,7 @@ if.then9.i:                                       ; preds = %if.then.i
 
 if.end13.i:                                       ; preds = %if.then9.i, %if.then.i
   %7 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i = add i32 %RealSize.1.i.i.i, %7
+  %add.i = add i32 %7, %RealSize.1.i.i.i
   %conv.i = zext i32 %add.i to i64
   %add14.i = add nuw nsw i64 %conv.i, 16
   %8 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -445,7 +445,7 @@ define dso_local ptr @table_Init(ptr noundef %table, i32 noundef %opbound, i32 n
 entry:
   %0 = getelementptr i8, ptr %table, i64 28
   %table.val134 = load i32, ptr %0, align 4
-  %spec.select = tail call i32 @llvm.smax.i32(i32 %table.val134, i32 %opbound)
+  %table.val134.opbound = tail call i32 @llvm.smax.i32(i32 %table.val134, i32 %opbound)
   %1 = getelementptr i8, ptr %table, i64 32
   %table.val127 = load i32, ptr %1, align 8
   %cond8 = tail call i32 @llvm.smax.i32(i32 %table.val127, i32 %varbound)
@@ -464,7 +464,7 @@ if.then:                                          ; preds = %entry
   %cond15 = tail call i32 @llvm.smax.i32(i32 %table.val140, i32 %termbound)
   tail call void @table_Free(ptr noundef nonnull %table)
   %call.i = tail call ptr @memory_Malloc(i32 noundef 40) #6
-  %add.i = add i32 %spec.select, 1
+  %add.i = add i32 %table.val134.opbound, 1
   %add1.i = add i32 %add.i, %cond8
   %call2.i = tail call ptr @memory_Calloc(i32 noundef %add1.i, i32 noundef 24) #6
   %idx.ext.i = sext i32 %cond8 to i64
@@ -479,7 +479,7 @@ if.then:                                          ; preds = %entry
   %posstamp.i.i = getelementptr inbounds %struct.table, ptr %call.i, i64 0, i32 2
   store ptr %call9.i, ptr %posstamp.i.i, align 8
   %opbound1.i.i = getelementptr inbounds %struct.table, ptr %call.i, i64 0, i32 4
-  store i32 %spec.select, ptr %opbound1.i.i, align 4
+  store i32 %table.val134.opbound, ptr %opbound1.i.i, align 4
   %varbound1.i.i = getelementptr inbounds %struct.table, ptr %call.i, i64 0, i32 5
   store i32 %cond8, ptr %varbound1.i.i, align 8
   %termbound1.i.i = getelementptr inbounds %struct.table, ptr %call.i, i64 0, i32 6
@@ -496,7 +496,7 @@ if.else:                                          ; preds = %entry
   br i1 %cmp27, label %if.then28, label %if.else54
 
 if.then28:                                        ; preds = %if.else
-  %add30 = add i32 %spec.select, 1
+  %add30 = add i32 %table.val134.opbound, 1
   %add31 = add i32 %add30, %cond8
   %call32 = tail call ptr @memory_Calloc(i32 noundef %add31, i32 noundef 24) #6
   %idx.ext = sext i32 %cond8 to i64
@@ -545,9 +545,9 @@ if.then.i:                                        ; preds = %for.end
   %8 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i = urem i32 %mul, %8
   %tobool3.not.i.i.i = icmp eq i32 %rem2.i.i.i, 0
-  %sub6.i.i.i = sub i32 %8, %rem2.i.i.i
-  %add7.i.i.i = select i1 %tobool3.not.i.i.i, i32 0, i32 %sub6.i.i.i
-  %RealSize.1.i.i.i = add i32 %add7.i.i.i, %mul
+  %sub6.i.i.i = add i32 %8, %mul
+  %add7.i.i.i = sub i32 %sub6.i.i.i, %rem2.i.i.i
+  %RealSize.1.i.i.i = select i1 %tobool3.not.i.i.i, i32 %mul, i32 %add7.i.i.i
   %9 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i143 = zext i32 %9 to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i143
@@ -571,7 +571,7 @@ if.then9.i:                                       ; preds = %if.then.i
 
 if.end13.i:                                       ; preds = %if.then9.i, %if.then.i
   %14 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i145 = add i32 %RealSize.1.i.i.i, %14
+  %add.i145 = add i32 %14, %RealSize.1.i.i.i
   %conv.i = zext i32 %add.i145 to i64
   %add14.i = add nuw nsw i64 %conv.i, 16
   %15 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -608,7 +608,7 @@ if.else25.i:                                      ; preds = %for.end
   br label %memory_Free.exit
 
 memory_Free.exit:                                 ; preds = %if.end23.i, %if.else25.i
-  store i32 %spec.select, ptr %0, align 4
+  store i32 %table.val134.opbound, ptr %0, align 4
   store i32 %cond8, ptr %1, align 8
   br label %cleanup
 
@@ -634,26 +634,26 @@ define dso_local ptr @table_QueryAndEnter(ptr nocapture noundef readonly %table,
 entry:
   %table.val = load ptr, ptr %table, align 8
   %term.val = load i32, ptr %term, align 8
+  %cmp.i.i = icmp sgt i32 %term.val, 0
   %sub.i = sub nsw i32 0, %term.val
   %0 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %cmp.i.inv.i = icmp sgt i32 %term.val, 0
-  %shr.i.i = select i1 %cmp.i.inv.i, i32 0, i32 %0
+  %shr.i.i = select i1 %cmp.i.i, i32 0, i32 %0
   %retval.0.i = ashr i32 %sub.i, %shr.i.i
   %idx.ext = sext i32 %retval.0.i to i64
   %add.ptr = getelementptr inbounds %struct.termarray, ptr %table.val, i64 %idx.ext
   %1 = getelementptr i8, ptr %term, i64 16
-  %terms.057 = load ptr, ptr %1, align 8
-  %cmp.i.not58 = icmp eq ptr %terms.057, null
-  br i1 %cmp.i.not58, label %for.end, label %for.body.lr.ph
+  %terms.058 = load ptr, ptr %1, align 8
+  %cmp.i.not59 = icmp eq ptr %terms.058, null
+  br i1 %cmp.i.not59, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %2 = getelementptr i8, ptr %table, i64 36
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %if.end
-  %terms.060 = phi ptr [ %terms.057, %for.body.lr.ph ], [ %terms.0, %if.end ]
-  %ta.059 = phi ptr [ %add.ptr, %for.body.lr.ph ], [ %add.ptr15, %if.end ]
-  %3 = getelementptr i8, ptr %ta.059, i64 16
+  %terms.061 = phi ptr [ %terms.058, %for.body.lr.ph ], [ %terms.0, %if.end ]
+  %ta.060 = phi ptr [ %add.ptr, %for.body.lr.ph ], [ %add.ptr15, %if.end ]
+  %3 = getelementptr i8, ptr %ta.060, i64 16
   %ta.0.val44 = load ptr, ptr %3, align 8
   %tobool6.not = icmp eq ptr %ta.0.val44, null
   br i1 %tobool6.not, label %if.then, label %if.end
@@ -667,14 +667,14 @@ if.then:                                          ; preds = %for.body
 
 if.end:                                           ; preds = %if.then, %for.body
   %ta.0.val = phi ptr [ %call8, %if.then ], [ %ta.0.val44, %for.body ]
-  %4 = getelementptr i8, ptr %terms.060, i64 8
+  %4 = getelementptr i8, ptr %terms.061, i64 8
   %terms.0.val = load ptr, ptr %4, align 8
   %5 = getelementptr i8, ptr %terms.0.val, i64 28
   %call11.val = load i32, ptr %5, align 4
   %call13 = tail call i32 @part_Find(ptr noundef %p, i32 noundef %call11.val) #6
   %idx.ext14 = sext i32 %call13 to i64
   %add.ptr15 = getelementptr inbounds %struct.termarray, ptr %ta.0.val, i64 %idx.ext14
-  %terms.0 = load ptr, ptr %terms.060, align 8
+  %terms.0 = load ptr, ptr %terms.061, align 8
   %cmp.i.not = icmp eq ptr %terms.0, null
   br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !9
 
@@ -684,8 +684,8 @@ for.end:                                          ; preds = %if.end, %entry
   %table.val9.i = load i32, ptr %6, align 8
   %7 = getelementptr i8, ptr %ta.0.lcssa, i64 8
   %ta.val.i = load i32, ptr %7, align 8
-  %cmp.i.not.i = icmp eq i32 %ta.val.i, %table.val9.i
-  br i1 %cmp.i.not.i, label %table_DelayedInit.exit, label %table_DelayedInit.exit.thread
+  %cmp.i.i51 = icmp eq i32 %ta.val.i, %table.val9.i
+  br i1 %cmp.i.i51, label %table_DelayedInit.exit, label %table_DelayedInit.exit.thread
 
 table_DelayedInit.exit.thread:                    ; preds = %for.end
   store ptr null, ptr %ta.0.lcssa, align 8
@@ -708,24 +708,24 @@ if.else:                                          ; preds = %table_DelayedInit.e
   %idxprom.i.i.i = sext i32 %term.val47 to i64
   %arrayidx.i.i.i = getelementptr inbounds i32, ptr %table.val10.i, i64 %idxprom.i.i.i
   %10 = load i32, ptr %arrayidx.i.i.i, align 4
-  %cmp.i.not.i51 = icmp eq i32 %10, %table.val11.i
-  br i1 %cmp.i.not.i51, label %table_DelayedPosInit.exit, label %if.then.i53
+  %cmp.i.i52 = icmp eq i32 %10, %table.val11.i
+  br i1 %cmp.i.i52, label %table_DelayedPosInit.exit, label %if.then.i54
 
-if.then.i53:                                      ; preds = %if.else
+if.then.i54:                                      ; preds = %if.else
   %11 = getelementptr i8, ptr %table, i64 8
   %table.val.i.i = load ptr, ptr %11, align 8
   %arrayidx.i.i = getelementptr inbounds ptr, ptr %table.val.i.i, i64 %idxprom.i.i.i
   store ptr null, ptr %arrayidx.i.i, align 8
-  %table.val.i52 = load i32, ptr %6, align 8
+  %table.val.i53 = load i32, ptr %6, align 8
   %table.val.i12.i = load ptr, ptr %9, align 8
   %arrayidx.i14.i = getelementptr inbounds i32, ptr %table.val.i12.i, i64 %idxprom.i.i.i
-  store i32 %table.val.i52, ptr %arrayidx.i14.i, align 4
+  store i32 %table.val.i53, ptr %arrayidx.i14.i, align 4
   br label %table_DelayedPosInit.exit
 
-table_DelayedPosInit.exit:                        ; preds = %if.else, %if.then.i53
+table_DelayedPosInit.exit:                        ; preds = %if.else, %if.then.i54
   %12 = getelementptr i8, ptr %table, i64 8
-  %table.val.i54 = load ptr, ptr %12, align 8
-  %arrayidx.i = getelementptr inbounds ptr, ptr %table.val.i54, i64 %idxprom.i.i.i
+  %table.val.i55 = load ptr, ptr %12, align 8
+  %arrayidx.i = getelementptr inbounds ptr, ptr %table.val.i55, i64 %idxprom.i.i.i
   store ptr %ta.0.lcssa, ptr %arrayidx.i, align 8
   br label %cleanup
 
@@ -748,8 +748,8 @@ entry:
   %idxprom.i.i.i = sext i32 %term.val to i64
   %arrayidx.i.i.i = getelementptr inbounds i32, ptr %table.val10.i, i64 %idxprom.i.i.i
   %3 = load i32, ptr %arrayidx.i.i.i, align 4
-  %cmp.i.not.i = icmp eq i32 %3, %table.val11.i
-  br i1 %cmp.i.not.i, label %table_DelayedPosInit.exit, label %if.then.i
+  %cmp.i.i = icmp eq i32 %3, %table.val11.i
+  br i1 %cmp.i.i, label %table_DelayedPosInit.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %entry
   %4 = getelementptr i8, ptr %table, i64 8

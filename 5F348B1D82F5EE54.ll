@@ -247,8 +247,8 @@ while.cond:                                       ; preds = %if.end11, %sw.bb1
   %idxprom = sext i32 %c.0 to i64
   %arrayidx = getelementptr inbounds i16, ptr %2, i64 %idxprom
   %3 = load i16, ptr %arrayidx, align 2, !tbaa !14
-  %.fr319 = freeze i16 %3
-  %4 = and i16 %.fr319, 8
+  %.fr328 = freeze i16 %3
+  %4 = and i16 %.fr328, 8
   %tobool.not = icmp eq i16 %4, 0
   br i1 %tobool.not, label %switch.early.test, label %while.body
 
@@ -286,18 +286,18 @@ sw.bb15:                                          ; preds = %if.end, %if.end, %i
   store i32 0, ptr @numval, align 4, !tbaa !5
   %call17 = tail call ptr @__ctype_b_loc() #9
   %7 = load ptr, ptr %call17, align 8, !tbaa !9
-  %idxprom18324 = zext i32 %call to i64
-  %arrayidx19325 = getelementptr inbounds i16, ptr %7, i64 %idxprom18324
-  %8 = load i16, ptr %arrayidx19325, align 2, !tbaa !14
+  %idxprom18323 = zext i32 %call to i64
+  %arrayidx19324 = getelementptr inbounds i16, ptr %7, i64 %idxprom18323
+  %8 = load i16, ptr %arrayidx19324, align 2, !tbaa !14
   %9 = and i16 %8, 2048
-  %tobool22.not326 = icmp eq i16 %9, 0
-  br i1 %tobool22.not326, label %while.end25, label %while.body23
+  %tobool22.not325 = icmp eq i16 %9, 0
+  br i1 %tobool22.not325, label %while.end25, label %while.body23
 
 while.body23:                                     ; preds = %sw.bb15, %while.body23
-  %c.1327 = phi i32 [ %call24, %while.body23 ], [ %call, %sw.bb15 ]
+  %c.1326 = phi i32 [ %call24, %while.body23 ], [ %call, %sw.bb15 ]
   %10 = load i32, ptr @numval, align 4, !tbaa !5
   %mul = mul nsw i32 %10, 10
-  %add = add i32 %c.1327, -48
+  %add = add i32 %c.1326, -48
   %sub = add i32 %add, %mul
   store i32 %sub, ptr @numval, align 4, !tbaa !5
   %11 = load ptr, ptr @finput, align 8, !tbaa !9
@@ -331,10 +331,10 @@ if.then31:                                        ; preds = %sw.bb27
   br i1 %or.cond233, label %while.body43, label %if.else
 
 while.body43:                                     ; preds = %if.then31, %while.body43
-  %code.0322 = phi i32 [ %add46, %while.body43 ], [ 0, %if.then31 ]
-  %c.2321 = phi i32 [ %call47, %while.body43 ], [ %call32, %if.then31 ]
-  %mul44 = shl nsw i32 %code.0322, 3
-  %sub45 = add nsw i32 %c.2321, -48
+  %code.0321 = phi i32 [ %add46, %while.body43 ], [ 0, %if.then31 ]
+  %c.2320 = phi i32 [ %call47, %while.body43 ], [ %call32, %if.then31 ]
+  %mul44 = shl nsw i32 %code.0321, 3
+  %sub45 = add nsw i32 %c.2320, -48
   %add46 = add nuw nsw i32 %sub45, %mul44
   %19 = load ptr, ptr @finput, align 8, !tbaa !9
   %call47 = tail call i32 @getc(ptr noundef %19)

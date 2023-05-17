@@ -21,12 +21,11 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @AllocHCG() local_unnamed_addr #0 {
 entry:
   %0 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %1 = mul i64 %0, 24
-  %mul = add i64 %1, 24
+  %add = add i64 %0, 1
+  %mul = mul i64 %add, 24
   %call = tail call noalias ptr @malloc(i64 noundef %mul) #9
   store ptr %call, ptr @HCG, align 8, !tbaa !9
-  %add1 = add i64 %0, 1
-  %mul3 = mul i64 %add1, %add1
+  %mul3 = mul i64 %add, %add
   %mul4 = shl i64 %mul3, 3
   %call5 = tail call noalias ptr @malloc(i64 noundef %mul4) #9
   store ptr %call5, ptr @storageRootHCG, align 8, !tbaa !9
@@ -56,12 +55,11 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #3
 define dso_local void @BuildHCG() local_unnamed_addr #4 {
 entry:
   %0 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %1 = mul i64 %0, 24
-  %mul.i = add i64 %1, 24
+  %add.i = add i64 %0, 1
+  %mul.i = mul i64 %add.i, 24
   %call.i = tail call noalias ptr @malloc(i64 noundef %mul.i) #9
   store ptr %call.i, ptr @HCG, align 8, !tbaa !9
-  %add1.i = add i64 %0, 1
-  %mul3.i = mul i64 %add1.i, %add1.i
+  %mul3.i = mul i64 %add.i, %add.i
   %mul4.i = shl i64 %mul3.i, 3
   %call5.i = tail call noalias ptr @malloc(i64 noundef %mul4.i) #9
   store ptr %call5.i, ptr @storageRootHCG, align 8, !tbaa !9
@@ -71,84 +69,84 @@ entry:
   br i1 %cmp.not65, label %for.end34, label %for.body
 
 for.body:                                         ; preds = %entry, %for.end30
-  %2 = phi i64 [ %20, %for.end30 ], [ %0, %entry ]
-  %3 = phi ptr [ %19, %for.end30 ], [ %call.i, %entry ]
+  %1 = phi i64 [ %19, %for.end30 ], [ %0, %entry ]
+  %2 = phi ptr [ %18, %for.end30 ], [ %call.i, %entry ]
   %net.066 = phi i64 [ %inc33, %for.end30 ], [ 1, %entry ]
-  %4 = load ptr, ptr @FIRST, align 8, !tbaa !9
-  %arrayidx = getelementptr inbounds i64, ptr %4, i64 %net.066
-  %5 = load i64, ptr %arrayidx, align 8, !tbaa !5
-  %6 = load ptr, ptr @LAST, align 8, !tbaa !9
-  %arrayidx1 = getelementptr inbounds i64, ptr %6, i64 %net.066
-  %7 = load i64, ptr %arrayidx1, align 8, !tbaa !5
-  %8 = load ptr, ptr @storageHCG, align 8, !tbaa !9
-  %arrayidx2 = getelementptr inbounds %struct._nodeHCGType, ptr %3, i64 %net.066
-  store ptr %8, ptr %arrayidx2, align 8, !tbaa !11
-  %cmp4.not61 = icmp eq i64 %2, 0
+  %3 = load ptr, ptr @FIRST, align 8, !tbaa !9
+  %arrayidx = getelementptr inbounds i64, ptr %3, i64 %net.066
+  %4 = load i64, ptr %arrayidx, align 8, !tbaa !5
+  %5 = load ptr, ptr @LAST, align 8, !tbaa !9
+  %arrayidx1 = getelementptr inbounds i64, ptr %5, i64 %net.066
+  %6 = load i64, ptr %arrayidx1, align 8, !tbaa !5
+  %7 = load ptr, ptr @storageHCG, align 8, !tbaa !9
+  %arrayidx2 = getelementptr inbounds %struct._nodeHCGType, ptr %2, i64 %net.066
+  store ptr %7, ptr %arrayidx2, align 8, !tbaa !11
+  %cmp4.not61 = icmp eq i64 %1, 0
   br i1 %cmp4.not61, label %for.end30, label %for.body5.lr.ph
 
 for.body5.lr.ph:                                  ; preds = %for.body
   %storageHCG.promoted = load ptr, ptr @storageHCG, align 8, !tbaa !9
-  %9 = load ptr, ptr @FIRST, align 8, !tbaa !9
-  %10 = load ptr, ptr @LAST, align 8
-  %11 = load ptr, ptr @HCG, align 8
-  %arrayidx18 = getelementptr inbounds %struct._nodeHCGType, ptr %11, i64 %net.066
+  %8 = load ptr, ptr @FIRST, align 8, !tbaa !9
+  %9 = load ptr, ptr @LAST, align 8
+  %10 = load ptr, ptr @HCG, align 8
+  %arrayidx18 = getelementptr inbounds %struct._nodeHCGType, ptr %10, i64 %net.066
   br label %for.body5
 
 for.body5:                                        ; preds = %for.body5.lr.ph, %for.inc28
-  %12 = phi i64 [ %2, %for.body5.lr.ph ], [ %18, %for.inc28 ]
+  %11 = phi i64 [ %1, %for.body5.lr.ph ], [ %17, %for.inc28 ]
   %which.064 = phi i64 [ 1, %for.body5.lr.ph ], [ %inc29, %for.inc28 ]
   %constraint.063 = phi i64 [ 0, %for.body5.lr.ph ], [ %constraint.1, %for.inc28 ]
   %incdec.ptr6062 = phi ptr [ %storageHCG.promoted, %for.body5.lr.ph ], [ %incdec.ptr59, %for.inc28 ]
-  %arrayidx6 = getelementptr inbounds i64, ptr %9, i64 %which.064
-  %13 = load i64, ptr %arrayidx6, align 8, !tbaa !5
-  %cmp7 = icmp ult i64 %13, %5
+  %arrayidx6 = getelementptr inbounds i64, ptr %8, i64 %which.064
+  %12 = load i64, ptr %arrayidx6, align 8, !tbaa !5
+  %cmp7 = icmp ult i64 %12, %4
   br i1 %cmp7, label %land.lhs.true, label %lor.lhs.false
 
 land.lhs.true:                                    ; preds = %for.body5
-  %arrayidx8 = getelementptr inbounds i64, ptr %10, i64 %which.064
-  %14 = load i64, ptr %arrayidx8, align 8, !tbaa !5
-  %cmp9 = icmp ult i64 %14, %5
+  %arrayidx8 = getelementptr inbounds i64, ptr %9, i64 %which.064
+  %13 = load i64, ptr %arrayidx8, align 8, !tbaa !5
+  %cmp9 = icmp ult i64 %13, %4
   br i1 %cmp9, label %for.inc28, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %land.lhs.true, %for.body5
-  %cmp11 = icmp ugt i64 %13, %7
+  %cmp11 = icmp ugt i64 %12, %6
   br i1 %cmp11, label %land.lhs.true12, label %for.end
 
 land.lhs.true12:                                  ; preds = %lor.lhs.false
-  %arrayidx13 = getelementptr inbounds i64, ptr %10, i64 %which.064
-  %15 = load i64, ptr %arrayidx13, align 8, !tbaa !5
-  %cmp14 = icmp ugt i64 %15, %7
+  %arrayidx13 = getelementptr inbounds i64, ptr %9, i64 %which.064
+  %14 = load i64, ptr %arrayidx13, align 8, !tbaa !5
+  %cmp14 = icmp ugt i64 %14, %6
   br i1 %cmp14, label %for.inc28, label %for.end
 
 for.end:                                          ; preds = %lor.lhs.false, %land.lhs.true12
-  %16 = load ptr, ptr %arrayidx18, align 8, !tbaa !11
-  %arrayidx25 = getelementptr inbounds i64, ptr %16, i64 %constraint.063
+  %15 = load ptr, ptr %arrayidx18, align 8, !tbaa !11
+  %arrayidx25 = getelementptr inbounds i64, ptr %15, i64 %constraint.063
   store i64 %which.064, ptr %arrayidx25, align 8, !tbaa !5
   %incdec.ptr = getelementptr inbounds i64, ptr %incdec.ptr6062, i64 1
   store ptr %incdec.ptr, ptr @storageHCG, align 8, !tbaa !9
-  %17 = load i64, ptr @storageLimitHCG, align 8, !tbaa !5
-  %dec = add i64 %17, -1
+  %16 = load i64, ptr @storageLimitHCG, align 8, !tbaa !5
+  %dec = add i64 %16, -1
   store i64 %dec, ptr @storageLimitHCG, align 8, !tbaa !5
   %inc26 = add i64 %constraint.063, 1
   %.pre = load i64, ptr @channelNets, align 8, !tbaa !5
   br label %for.inc28
 
 for.inc28:                                        ; preds = %for.end, %land.lhs.true12, %land.lhs.true
-  %18 = phi i64 [ %12, %land.lhs.true ], [ %12, %land.lhs.true12 ], [ %.pre, %for.end ]
+  %17 = phi i64 [ %11, %land.lhs.true ], [ %11, %land.lhs.true12 ], [ %.pre, %for.end ]
   %incdec.ptr59 = phi ptr [ %incdec.ptr6062, %land.lhs.true ], [ %incdec.ptr6062, %land.lhs.true12 ], [ %incdec.ptr, %for.end ]
   %constraint.1 = phi i64 [ %constraint.063, %land.lhs.true ], [ %constraint.063, %land.lhs.true12 ], [ %inc26, %for.end ]
   %inc29 = add i64 %which.064, 1
-  %cmp4.not = icmp ugt i64 %inc29, %18
+  %cmp4.not = icmp ugt i64 %inc29, %17
   br i1 %cmp4.not, label %for.end30, label %for.body5, !llvm.loop !13
 
 for.end30:                                        ; preds = %for.inc28, %for.body
   %constraint.0.lcssa = phi i64 [ 0, %for.body ], [ %constraint.1, %for.inc28 ]
-  %19 = load ptr, ptr @HCG, align 8, !tbaa !9
-  %nets = getelementptr inbounds %struct._nodeHCGType, ptr %19, i64 %net.066, i32 1
+  %18 = load ptr, ptr @HCG, align 8, !tbaa !9
+  %nets = getelementptr inbounds %struct._nodeHCGType, ptr %18, i64 %net.066, i32 1
   store i64 %constraint.0.lcssa, ptr %nets, align 8, !tbaa !15
   %inc33 = add i64 %net.066, 1
-  %20 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not = icmp ugt i64 %inc33, %20
+  %19 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc33, %19
   br i1 %cmp.not, label %for.end34, label %for.body, !llvm.loop !16
 
 for.end34:                                        ; preds = %for.end30, %entry

@@ -48,23 +48,23 @@ if.else:                                          ; preds = %entry
 land.lhs.true.i:                                  ; preds = %if.else
   %1 = load i32, ptr @deferred_access_stack.body, align 16, !tbaa !9
   %tobool1.not.i = icmp eq i32 %1, 0
-  br i1 %tobool1.not.i, label %cond.false.i, label %land.lhs.true.i21
+  br i1 %tobool1.not.i, label %cond.false.i, label %VEC_deferred_access_base_last.exit
 
 cond.false.i:                                     ; preds = %land.lhs.true.i, %if.else
   tail call void @vec_assert_fail() #5
   unreachable
 
-land.lhs.true.i21:                                ; preds = %land.lhs.true.i
+VEC_deferred_access_base_last.exit:               ; preds = %land.lhs.true.i
   %sub.i = add i32 %1, -1
   store i32 %sub.i, ptr @deferred_access_stack.body, align 16, !tbaa !9
   %tobool1.not.i20 = icmp eq i32 %sub.i, 0
   br i1 %tobool1.not.i20, label %cond.false.i22, label %VEC_deferred_access_base_last.exit26
 
-cond.false.i22:                                   ; preds = %land.lhs.true.i21
+cond.false.i22:                                   ; preds = %VEC_deferred_access_base_last.exit
   tail call void @vec_assert_fail() #5
   unreachable
 
-VEC_deferred_access_base_last.exit26:             ; preds = %land.lhs.true.i21
+VEC_deferred_access_base_last.exit26:             ; preds = %VEC_deferred_access_base_last.exit
   %sub.i23 = add i32 %1, -2
   %idxprom.i24 = zext i32 %sub.i23 to i64
   %deferring_access_checks_kind = getelementptr inbounds %struct.VEC_deferred_access_base, ptr @deferred_access_stack.body, i64 0, i32 1, i64 %idxprom.i24, i32 1

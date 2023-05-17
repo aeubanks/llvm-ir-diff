@@ -421,6 +421,7 @@ for.end.for.end212_crit_edge:                     ; preds = %for.end
 for.body178:                                      ; preds = %for.end, %for.inc210
   %indvars.iv993 = phi i64 [ %indvars.iv.next994, %for.inc210 ], [ 1, %for.end ]
   %91 = load ptr, ptr @netRoutes, align 8, !tbaa !9
+  %arrayidx180 = getelementptr inbounds %struct.nrbox, ptr %91, i64 %indvars.iv993
   %currentRoute = getelementptr inbounds %struct.nrbox, ptr %91, i64 %indvars.iv993, i32 2
   store i32 1, ptr %currentRoute, align 4, !tbaa !14
   %92 = load i32, ptr @MAXPATHS, align 4, !tbaa !5
@@ -428,8 +429,7 @@ for.body178:                                      ; preds = %for.end, %for.inc21
   %conv182 = sext i32 %add181 to i64
   %mul183 = shl nsw i64 %conv182, 3
   %call184 = call noalias ptr @malloc(i64 noundef %mul183) #17
-  %arrayidx186 = getelementptr inbounds %struct.nrbox, ptr %91, i64 %indvars.iv993
-  store ptr %call184, ptr %arrayidx186, align 8, !tbaa !16
+  store ptr %call184, ptr %arrayidx180, align 8, !tbaa !16
   %cmp188.not914 = icmp slt i32 %92, 1
   br i1 %cmp188.not914, label %for.inc210, label %for.body190.preheader
 
@@ -666,7 +666,7 @@ for.end272:                                       ; preds = %for.end259.thread, 
   %call296 = call noalias ptr @malloc(i64 noundef %mul286) #17
   store ptr %call296, ptr @addTargetList, align 8, !tbaa !9
   %128 = load i32, ptr @EXTRASOURCES, align 4, !tbaa !5
-  %mul297 = mul nsw i32 %102, %128
+  %mul297 = mul nsw i32 %128, %102
   %add298 = add nsw i32 %mul297, 1
   %conv299 = sext i32 %add298 to i64
   %mul300 = shl nsw i64 %conv299, 3

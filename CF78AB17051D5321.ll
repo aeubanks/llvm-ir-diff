@@ -203,6 +203,10 @@ if.then3:                                         ; preds = %if.end
   br label %if.end4
 
 if.end4:                                          ; preds = %if.then3, %if.end
+  %cmp5.not174 = icmp eq i32 %size, 0
+  br i1 %cmp5.not174, label %return, label %while.body.lr.ph.lr.ph
+
+while.body.lr.ph.lr.ph:                           ; preds = %if.end4
   %_curBlockIndex = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 3
   %Blocks = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 12
   %_size.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 12, i32 0, i32 0, i32 0, i32 2
@@ -215,25 +219,21 @@ if.end4:                                          ; preds = %if.then3, %if.end
   %_items.i113 = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 12, i32 0, i32 0, i32 0, i32 3
   %_curBlockPos = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 4
   %TotalSize = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 12, i32 0, i32 1
-  %cmp5.not179 = icmp eq i32 %size, 0
-  br i1 %cmp5.not179, label %return, label %while.cond.preheader
+  br label %while.body.lr.ph.split
 
-while.cond.preheader:                             ; preds = %if.end4, %if.end45
-  %data.addr.0.ph181 = phi ptr [ %add.ptr26, %if.end45 ], [ %data, %if.end4 ]
-  %size.addr.0.ph180 = phi i32 [ %sub28, %if.end45 ], [ %size, %if.end4 ]
-  %.pre = load i32, ptr %_size.i, align 4, !tbaa !40
-  br label %while.cond
+while.body.lr.ph.split:                           ; preds = %if.end45, %while.body.lr.ph.lr.ph
+  %data.addr.0.ph177 = phi ptr [ %data, %while.body.lr.ph.lr.ph ], [ %add.ptr26, %if.end45 ]
+  %size.addr.0.ph175 = phi i32 [ %size, %while.body.lr.ph.lr.ph ], [ %sub28, %if.end45 ]
+  %3 = load i64, ptr %_curBlockIndex, align 8, !tbaa !40
+  %conv172 = trunc i64 %3 to i32
+  %4 = load i32, ptr %_size.i, align 4, !tbaa !41
+  %cmp8173 = icmp sgt i32 %4, %conv172
+  br i1 %cmp8173, label %if.then9, label %if.end46
 
-while.cond:                                       ; preds = %while.cond.preheader, %cleanup83
-  %3 = phi i32 [ %.pre, %while.cond.preheader ], [ %inc.i, %cleanup83 ]
-  %4 = load i64, ptr %_curBlockIndex, align 8, !tbaa !41
-  %conv = trunc i64 %4 to i32
-  %cmp8 = icmp sgt i32 %3, %conv
-  br i1 %cmp8, label %if.then9, label %if.end46
-
-if.then9:                                         ; preds = %while.cond
+if.then9:                                         ; preds = %cleanup83, %while.body.lr.ph.split
+  %.us-phi = phi i64 [ %3, %while.body.lr.ph.split ], [ %28, %cleanup83 ]
   %5 = load ptr, ptr %_items.i113, align 8, !tbaa !42
-  %sext = shl i64 %4, 32
+  %sext = shl i64 %.us-phi, 32
   %idxprom.i = ashr exact i64 %sext, 32
   %arrayidx.i = getelementptr inbounds ptr, ptr %5, i64 %idxprom.i
   %6 = load ptr, ptr %arrayidx.i, align 8, !tbaa !43
@@ -243,25 +243,25 @@ if.then9:                                         ; preds = %while.cond
   %_blockSize.i = getelementptr inbounds %class.CMemBlockManager, ptr %8, i64 0, i32 1
   %9 = load i64, ptr %_blockSize.i, align 8, !tbaa !32
   %sub = sub i64 %9, %7
-  %conv17 = zext i32 %size.addr.0.ph180 to i64
+  %conv17 = zext i32 %size.addr.0.ph175 to i64
   %spec.select = call i64 @llvm.umin.i64(i64 %sub, i64 %conv17)
-  call void @llvm.memmove.p0.p0.i64(ptr align 1 %add.ptr, ptr align 1 %data.addr.0.ph181, i64 %spec.select, i1 false)
-  %.pre152 = trunc i64 %spec.select to i32
+  call void @llvm.memmove.p0.p0.i64(ptr align 1 %add.ptr, ptr align 1 %data.addr.0.ph177, i64 %spec.select, i1 false)
+  %.pre193 = trunc i64 %spec.select to i32
   br i1 %cmp.not, label %if.end25, label %if.then23
 
 if.then23:                                        ; preds = %if.then9
   %10 = load i32, ptr %processedSize, align 4, !tbaa !39
-  %add = add i32 %10, %.pre152
+  %add = add i32 %10, %.pre193
   store i32 %add, ptr %processedSize, align 4, !tbaa !39
   br label %if.end25
 
 if.end25:                                         ; preds = %if.then9, %if.then23
-  %add.ptr26 = getelementptr inbounds i8, ptr %data.addr.0.ph181, i64 %spec.select
-  %sub28 = sub i32 %size.addr.0.ph180, %.pre152
+  %add.ptr26 = getelementptr inbounds i8, ptr %data.addr.0.ph177, i64 %spec.select
+  %sub28 = sub i32 %size.addr.0.ph175, %.pre193
   %11 = load i64, ptr %_curBlockPos, align 8, !tbaa !44
   %add30 = add i64 %11, %spec.select
   store i64 %add30, ptr %_curBlockPos, align 8, !tbaa !44
-  %12 = load i64, ptr %_curBlockIndex, align 8, !tbaa !41
+  %12 = load i64, ptr %_curBlockIndex, align 8, !tbaa !40
   %13 = load ptr, ptr %_memManager50, align 8, !tbaa !5
   %_blockSize.i.i = getelementptr inbounds %class.CMemBlockManager, ptr %13, i64 0, i32 1
   %14 = load i64, ptr %_blockSize.i.i, align 8, !tbaa !32
@@ -281,15 +281,15 @@ if.end37:                                         ; preds = %if.then34, %if.end2
 
 if.then42:                                        ; preds = %if.end37
   %inc = add i64 %12, 1
-  store i64 %inc, ptr %_curBlockIndex, align 8, !tbaa !41
+  store i64 %inc, ptr %_curBlockIndex, align 8, !tbaa !40
   store i64 0, ptr %_curBlockPos, align 8, !tbaa !44
   br label %if.end45
 
 if.end45:                                         ; preds = %if.then42, %if.end37
   %cmp5.not = icmp eq i32 %sub28, 0
-  br i1 %cmp5.not, label %return, label %while.cond.preheader
+  br i1 %cmp5.not, label %return, label %while.body.lr.ph.split
 
-if.end46:                                         ; preds = %while.cond
+if.end46:                                         ; preds = %while.body.lr.ph.split, %cleanup83
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %events) #11
   store ptr %StopWritingEvent, ptr %events, align 16, !tbaa !43
   store ptr %WriteToRealStreamEvent, ptr %arrayinit.element, align 8, !tbaa !43
@@ -303,40 +303,41 @@ if.end46:                                         ; preds = %while.cond
   switch i32 %call54, label %cleanup83.thread [
     i32 0, label %sw.bb
     i32 1, label %sw.bb55
-    i32 2, label %cleanup83
+    i32 2, label %sw.epilog
   ]
 
 sw.bb:                                            ; preds = %if.end46
-  %StopWriteResult = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 10
-  %18 = load i32, ptr %StopWriteResult, align 8, !tbaa !46
+  %StopWriteResult.phi.trans.insert = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 10
+  %.pre192 = load i32, ptr %StopWriteResult.phi.trans.insert, align 8, !tbaa !46
   br label %cleanup83.thread
 
 sw.bb55:                                          ; preds = %if.end46
+  %OutSeqStream.i.phi.trans.insert = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 13
+  %.pre191 = load ptr, ptr %OutSeqStream.i.phi.trans.insert, align 8, !tbaa !34
+  %.pre = load ptr, ptr %_memManager50, align 8, !tbaa !5
+  %_blockSize.i.i112.phi.trans.insert = getelementptr inbounds %class.CMemBlockManager, ptr %.pre, i64 0, i32 1
+  %.pre190 = load i64, ptr %_blockSize.i.i112.phi.trans.insert, align 8, !tbaa !32
   store i8 1, ptr %_realStreamMode, align 8, !tbaa !31
-  %19 = load ptr, ptr %_memManager50, align 8, !tbaa !5
-  %_blockSize.i.i112 = getelementptr inbounds %class.CMemBlockManager, ptr %19, i64 0, i32 1
-  %20 = load i64, ptr %_blockSize.i.i112, align 8, !tbaa !32
-  %OutSeqStream.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 13
-  %21 = load ptr, ptr %OutSeqStream.i, align 8, !tbaa !34
-  %call3.i = call noundef i32 @_ZNK10CMemBlocks13WriteToStreamEmP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(40) %Blocks, i64 noundef %20, ptr noundef %21)
+  %call3.i = call noundef i32 @_ZNK10CMemBlocks13WriteToStreamEmP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(40) %Blocks, i64 noundef %.pre190, ptr noundef %.pre191)
   %cmp.not.not.i = icmp eq i32 %call3.i, 0
   br i1 %cmp.not.not.i, label %cleanup.cont, label %cleanup83.thread
 
 cleanup.cont:                                     ; preds = %sw.bb55
-  %22 = load ptr, ptr %_memManager50, align 8, !tbaa !5
-  call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %Blocks, ptr noundef %22)
+  %OutSeqStream.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 13
+  %18 = load ptr, ptr %_memManager50, align 8, !tbaa !5
+  call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %Blocks, ptr noundef %18)
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSize2) #11
-  %23 = load ptr, ptr %OutSeqStream.i, align 8, !tbaa !34
-  %vtable63 = load ptr, ptr %23, align 8, !tbaa !37
+  %19 = load ptr, ptr %OutSeqStream.i, align 8, !tbaa !34
+  %vtable63 = load ptr, ptr %19, align 8, !tbaa !37
   %vfn64 = getelementptr inbounds ptr, ptr %vtable63, i64 5
-  %24 = load ptr, ptr %vfn64, align 8
-  %call65 = call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef %data.addr.0.ph181, i32 noundef %size.addr.0.ph180, ptr noundef nonnull %processedSize2)
+  %20 = load ptr, ptr %vfn64, align 8
+  %call65 = call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef %data.addr.0.ph177, i32 noundef %size.addr.0.ph175, ptr noundef nonnull %processedSize2)
   br i1 %cmp.not, label %if.end69, label %if.then67
 
 if.then67:                                        ; preds = %cleanup.cont
-  %25 = load i32, ptr %processedSize2, align 4, !tbaa !39
-  %26 = load i32, ptr %processedSize, align 4, !tbaa !39
-  %add68 = add i32 %26, %25
+  %21 = load i32, ptr %processedSize2, align 4, !tbaa !39
+  %22 = load i32, ptr %processedSize, align 4, !tbaa !39
+  %add68 = add i32 %22, %21
   store i32 %add68, ptr %processedSize, align 4, !tbaa !39
   br label %if.end69
 
@@ -344,31 +345,37 @@ if.end69:                                         ; preds = %if.then67, %cleanup
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSize2) #11
   br label %cleanup83.thread
 
-cleanup83.thread:                                 ; preds = %if.end46, %sw.bb55, %if.end69, %sw.bb
-  %retval.2.ph = phi i32 [ %18, %sw.bb ], [ %call65, %if.end69 ], [ %call3.i, %sw.bb55 ], [ -2147467259, %if.end46 ]
+sw.epilog:                                        ; preds = %if.end46
+  %23 = load ptr, ptr %_memManager50, align 8, !tbaa !5
+  %call75 = call noundef ptr @_ZN18CMemBlockManagerMt13AllocateBlockEv(ptr noundef nonnull align 8 dereferenceable(88) %23)
+  call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %Blocks)
+  %24 = load ptr, ptr %_items.i113, align 8, !tbaa !42
+  %25 = load i32, ptr %_size.i, align 4, !tbaa !41
+  %idxprom.i115 = sext i32 %25 to i64
+  %arrayidx.i116 = getelementptr inbounds ptr, ptr %24, i64 %idxprom.i115
+  store ptr %call75, ptr %arrayidx.i116, align 8, !tbaa !43
+  %inc.i = add nsw i32 %25, 1
+  store i32 %inc.i, ptr %_size.i, align 4, !tbaa !41
+  %26 = load ptr, ptr %_items.i113, align 8, !tbaa !42
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %26, i64 %idxprom.i115
+  %27 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !43
+  %cmp80 = icmp eq ptr %27, null
+  br i1 %cmp80, label %cleanup83.thread, label %cleanup83
+
+cleanup83.thread:                                 ; preds = %sw.epilog, %if.end46, %sw.bb55, %if.end69, %sw.bb
+  %retval.2.ph = phi i32 [ %.pre192, %sw.bb ], [ %call65, %if.end69 ], [ %call3.i, %sw.bb55 ], [ -2147467259, %if.end46 ], [ -2147467259, %sw.epilog ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %events) #11
   br label %return
 
-cleanup83:                                        ; preds = %if.end46
-  %27 = load ptr, ptr %_memManager50, align 8, !tbaa !5
-  %call75 = call noundef ptr @_ZN18CMemBlockManagerMt13AllocateBlockEv(ptr noundef nonnull align 8 dereferenceable(88) %27)
-  call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %Blocks)
-  %28 = load ptr, ptr %_items.i113, align 8, !tbaa !42
-  %29 = load i32, ptr %_size.i, align 4, !tbaa !40
-  %idxprom.i115 = sext i32 %29 to i64
-  %arrayidx.i116 = getelementptr inbounds ptr, ptr %28, i64 %idxprom.i115
-  store ptr %call75, ptr %arrayidx.i116, align 8, !tbaa !43
-  %inc.i = add nsw i32 %29, 1
-  store i32 %inc.i, ptr %_size.i, align 4, !tbaa !40
-  %30 = load ptr, ptr %_items.i113, align 8, !tbaa !42
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %30, i64 %idxprom.i115
-  %31 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !43
-  %cmp80.not = icmp eq ptr %31, null
+cleanup83:                                        ; preds = %sw.epilog
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %events) #11
-  br i1 %cmp80.not, label %return, label %while.cond
+  %28 = load i64, ptr %_curBlockIndex, align 8, !tbaa !40
+  %conv = trunc i64 %28 to i32
+  %cmp8.not = icmp slt i32 %25, %conv
+  br i1 %cmp8.not, label %if.end46, label %if.then9
 
-return:                                           ; preds = %if.end45, %cleanup83, %if.end4, %cleanup83.thread, %if.then
-  %retval.3 = phi i32 [ %call2, %if.then ], [ %retval.2.ph, %cleanup83.thread ], [ 0, %if.end4 ], [ -2147467259, %cleanup83 ], [ 0, %if.end45 ]
+return:                                           ; preds = %if.end45, %if.end4, %cleanup83.thread, %if.then
+  %retval.3 = phi i32 [ %call2, %if.then ], [ %retval.2.ph, %cleanup83.thread ], [ 0, %if.end4 ], [ 0, %if.end45 ]
   ret i32 %retval.3
 }
 
@@ -425,7 +432,7 @@ if.end18:                                         ; preds = %if.then7, %if.end15
 
 if.then20:                                        ; preds = %if.end18
   %_curBlockIndex.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 3
-  %3 = load i64, ptr %_curBlockIndex.i, align 8, !tbaa !41
+  %3 = load i64, ptr %_curBlockIndex.i, align 8, !tbaa !40
   %_memManager.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 2
   %4 = load ptr, ptr %_memManager.i, align 8, !tbaa !5
   %_blockSize.i.i = getelementptr inbounds %class.CMemBlockManager, ptr %4, i64 0, i32 1
@@ -577,16 +584,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !49
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !49
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !49
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !49
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
+if.then:                                          ; preds = %for.cond.14.i
   store ptr %this, ptr %outObject, align 8, !tbaa !43
   %vtable = load ptr, ptr %this, align 8, !tbaa !37
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -594,8 +601,8 @@ if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(168) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
   ret i32 %retval.0
 }
 
@@ -638,9 +645,9 @@ entry:
   %_memManager.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 2
   %0 = load ptr, ptr %_memManager.i, align 8, !tbaa !5
   invoke void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %Blocks.i, ptr noundef %0)
-          to label %invoke.cont unwind label %terminate.lpad
+          to label %_ZN13COutMemStream4FreeEv.exit unwind label %terminate.lpad
 
-invoke.cont:                                      ; preds = %entry
+_ZN13COutMemStream4FreeEv.exit:                   ; preds = %entry
   %LockMode.i = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 12, i32 1
   store i8 1, ptr %LockMode.i, align 8, !tbaa !27
   %OutStream = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 14
@@ -648,7 +655,7 @@ invoke.cont:                                      ; preds = %entry
   %tobool.not.i = icmp eq ptr %1, null
   br i1 %tobool.not.i, label %_ZN9CMyComPtrI10IOutStreamED2Ev.exit, label %if.then.i
 
-if.then.i:                                        ; preds = %invoke.cont
+if.then.i:                                        ; preds = %_ZN13COutMemStream4FreeEv.exit
   %vtable.i = load ptr, ptr %1, align 8, !tbaa !37
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
   %2 = load ptr, ptr %vfn.i, align 8
@@ -662,7 +669,7 @@ terminate.lpad.i:                                 ; preds = %if.then.i
   tail call void @__clang_call_terminate(ptr %4) #12
   unreachable
 
-_ZN9CMyComPtrI10IOutStreamED2Ev.exit:             ; preds = %invoke.cont, %if.then.i
+_ZN9CMyComPtrI10IOutStreamED2Ev.exit:             ; preds = %_ZN13COutMemStream4FreeEv.exit, %if.then.i
   %OutSeqStream = getelementptr inbounds %class.COutMemStream, ptr %this, i64 0, i32 13
   %5 = load ptr, ptr %OutSeqStream, align 8, !tbaa !34
   %tobool.not.i2 = icmp eq ptr %5, null
@@ -821,8 +828,8 @@ attributes #13 = { builtin nounwind }
 !37 = !{!38, !38, i64 0}
 !38 = !{!"vtable pointer", !13, i64 0}
 !39 = !{!11, !11, i64 0}
-!40 = !{!23, !11, i64 12}
-!41 = !{!6, !15, i64 24}
+!40 = !{!6, !15, i64 24}
+!41 = !{!23, !11, i64 12}
 !42 = !{!23, !14, i64 16}
 !43 = !{!14, !14, i64 0}
 !44 = !{!6, !15, i64 32}

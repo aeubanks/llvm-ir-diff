@@ -172,8 +172,7 @@ if.then91:                                        ; preds = %for.body88
   %arrayidx97 = getelementptr inbounds %struct.cli_exe_section, ptr %sections, i64 %indvars.iv231
   %15 = load i32, ptr %arrayidx97, align 4, !tbaa !12
   %sub99 = sub i32 %14, %15
-  %sub109.neg = sub i32 %lastsz.0223, %14
-  %sub110 = add i32 %sub109.neg, %15
+  %sub110 = sub i32 %lastsz.0223, %sub99
   br label %if.end114
 
 if.else:                                          ; preds = %for.body88

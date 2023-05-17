@@ -29,9 +29,9 @@ entry:
   %add.ptr = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !5
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %sw.epilog [
     i32 13, label %sw.bb
     i32 0, label %sw.bb
@@ -40,24 +40,24 @@ entry:
   ]
 
 sw.bb:                                            ; preds = %entry, %entry, %entry
-  %3 = and i16 %0, 512
-  %tobool.not.not = icmp eq i16 %3, 0
+  %not = and i32 %conv, 512
+  %tobool.not.not = icmp eq i32 %not, 0
   br i1 %tobool.not.not, label %cleanup, label %sw.epilog
 
 sw.bb4:                                           ; preds = %entry
   %call = tail call ptr @dict_access_ref(ptr noundef nonnull %op) #5
   %type_attrs5 = getelementptr inbounds %struct.ref_s, ptr %call, i64 0, i32 1
-  %4 = load i16, ptr %type_attrs5, align 8, !tbaa !5
-  %5 = and i16 %4, 512
-  %tobool9.not.not = icmp eq i16 %5, 0
+  %1 = load i16, ptr %type_attrs5, align 8, !tbaa !5
+  %2 = and i16 %1, 512
+  %tobool9.not.not = icmp eq i16 %2, 0
   br i1 %tobool9.not.not, label %cleanup, label %sw.epilog
 
 sw.epilog:                                        ; preds = %sw.bb4, %sw.bb, %entry
   %type_attrs12 = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 1
-  %6 = load i16, ptr %type_attrs12, align 8, !tbaa !5
-  %7 = lshr i16 %6, 2
-  %8 = and i16 %7, 63
-  %shr15 = zext i16 %8 to i32
+  %3 = load i16, ptr %type_attrs12, align 8, !tbaa !5
+  %conv13 = zext i16 %3 to i32
+  %and14 = lshr i32 %conv13, 2
+  %shr15 = and i32 %and14, 63
   switch i32 %shr15, label %sw.epilog33 [
     i32 13, label %sw.bb16
     i32 0, label %sw.bb16
@@ -66,16 +66,16 @@ sw.epilog:                                        ; preds = %sw.bb4, %sw.bb, %en
   ]
 
 sw.bb16:                                          ; preds = %sw.epilog, %sw.epilog, %sw.epilog
-  %9 = and i16 %6, 512
-  %tobool21.not.not = icmp eq i16 %9, 0
+  %not19 = and i32 %conv13, 512
+  %tobool21.not.not = icmp eq i32 %not19, 0
   br i1 %tobool21.not.not, label %cleanup, label %sw.epilog33
 
 sw.bb24:                                          ; preds = %sw.epilog
   %call25 = tail call ptr @dict_access_ref(ptr noundef nonnull %add.ptr) #5
   %type_attrs26 = getelementptr inbounds %struct.ref_s, ptr %call25, i64 0, i32 1
-  %10 = load i16, ptr %type_attrs26, align 8, !tbaa !5
-  %11 = and i16 %10, 512
-  %tobool30.not.not = icmp eq i16 %11, 0
+  %4 = load i16, ptr %type_attrs26, align 8, !tbaa !5
+  %5 = and i16 %4, 512
+  %tobool30.not.not = icmp eq i16 %5, 0
   br i1 %tobool30.not.not, label %cleanup, label %sw.epilog33
 
 sw.epilog33:                                      ; preds = %sw.bb24, %sw.bb16, %sw.epilog
@@ -84,8 +84,8 @@ sw.epilog33:                                      ; preds = %sw.bb24, %sw.bb16, 
   %conv36 = zext i1 %tobool35.not to i16
   store i16 %conv36, ptr %add.ptr, align 8, !tbaa !10
   store i16 4, ptr %type_attrs12, align 8, !tbaa !5
-  %12 = load ptr, ptr @osp, align 8, !tbaa !11
-  %add.ptr38 = getelementptr inbounds %struct.ref_s, ptr %12, i64 -1
+  %6 = load ptr, ptr @osp, align 8, !tbaa !11
+  %add.ptr38 = getelementptr inbounds %struct.ref_s, ptr %6, i64 -1
   store ptr %add.ptr38, ptr @osp, align 8, !tbaa !11
   br label %cleanup
 

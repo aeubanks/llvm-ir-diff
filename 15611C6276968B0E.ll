@@ -16,7 +16,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @_Z4foo2v() local_unnamed_addr #1 personality ptr @__gxx_personality_v0 {
-if.end37:
+entry:
   ret void
 }
 
@@ -24,13 +24,13 @@ declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @_Z4foo3v() local_unnamed_addr #1 personality ptr @__gxx_personality_v0 {
-if.end:
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @_Z4foo4v() local_unnamed_addr #1 personality ptr @__gxx_personality_v0 {
-if.end:
+entry:
   ret void
 }
 

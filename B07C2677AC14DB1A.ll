@@ -3430,90 +3430,89 @@ cond.true31:                                      ; preds = %if.end
   %idxprom34 = sext i32 %28 to i64
   %arrayidx35 = getelementptr inbounds i8, ptr %27, i64 %idxprom34
   %29 = load i8, ptr %arrayidx35, align 1, !tbaa !25
+  %30 = sext i8 %29 to i32
   br label %cond.end38
 
 cond.end38:                                       ; preds = %if.end, %cond.true31
-  %cond39 = phi i8 [ %29, %cond.true31 ], [ -1, %if.end ]
-  %30 = load i32, ptr %left_block, align 4, !tbaa !67
-  %tobool42.not = icmp eq i32 %30, 0
-  br i1 %tobool42.not, label %cond.end73, label %cond.end53
+  %cond39 = phi i32 [ %30, %cond.true31 ], [ -1, %if.end ]
+  %31 = load i32, ptr %left_block, align 4, !tbaa !67
+  %tobool42.not = icmp eq i32 %31, 0
+  br i1 %tobool42.not, label %cond.end53, label %cond.true43
 
-cond.end53:                                       ; preds = %cond.end38
-  %31 = load ptr, ptr @img, align 8, !tbaa !5
-  %ipredmode44 = getelementptr inbounds %struct.ImageParameters, ptr %31, i64 0, i32 31
-  %32 = load ptr, ptr %ipredmode44, align 8, !tbaa !71
+cond.true43:                                      ; preds = %cond.end38
+  %32 = load ptr, ptr @img, align 8, !tbaa !5
+  %ipredmode44 = getelementptr inbounds %struct.ImageParameters, ptr %32, i64 0, i32 31
+  %33 = load ptr, ptr %ipredmode44, align 8, !tbaa !71
   %pos_y45 = getelementptr inbounds %struct.pix_pos, ptr %left_block, i64 0, i32 5
-  %33 = load i32, ptr %pos_y45, align 4, !tbaa !72
-  %idxprom46 = sext i32 %33 to i64
-  %arrayidx47 = getelementptr inbounds ptr, ptr %32, i64 %idxprom46
-  %34 = load ptr, ptr %arrayidx47, align 8, !tbaa !5
+  %34 = load i32, ptr %pos_y45, align 4, !tbaa !72
+  %idxprom46 = sext i32 %34 to i64
+  %arrayidx47 = getelementptr inbounds ptr, ptr %33, i64 %idxprom46
+  %35 = load ptr, ptr %arrayidx47, align 8, !tbaa !5
   %pos_x48 = getelementptr inbounds %struct.pix_pos, ptr %left_block, i64 0, i32 4
-  %35 = load i32, ptr %pos_x48, align 4, !tbaa !73
-  %idxprom49 = sext i32 %35 to i64
-  %arrayidx50 = getelementptr inbounds i8, ptr %34, i64 %idxprom49
-  %36 = load i8, ptr %arrayidx50, align 1, !tbaa !25
-  %cmp = icmp slt i8 %cond39, 0
-  %cmp59 = icmp slt i8 %36, 0
+  %36 = load i32, ptr %pos_x48, align 4, !tbaa !73
+  %idxprom49 = sext i32 %36 to i64
+  %arrayidx50 = getelementptr inbounds i8, ptr %35, i64 %idxprom49
+  %37 = load i8, ptr %arrayidx50, align 1, !tbaa !25
+  %38 = sext i8 %37 to i32
+  br label %cond.end53
+
+cond.end53:                                       ; preds = %cond.end38, %cond.true43
+  %cond54 = phi i32 [ %38, %cond.true43 ], [ -1, %cond.end38 ]
+  %cmp = icmp slt i32 %cond39, 0
+  %cmp59 = icmp slt i32 %cond54, 0
   %or.cond = select i1 %cmp, i1 true, i1 %cmp59
-  br i1 %or.cond, label %cond.end73, label %cond.false62
-
-cond.false62:                                     ; preds = %cond.end53
-  %37 = call i8 @llvm.smin.i8(i8 %cond39, i8 %36)
-  %cond72 = zext i8 %37 to i32
-  br label %cond.end73
-
-cond.end73:                                       ; preds = %cond.end38, %cond.end53, %cond.false62
-  %cond74 = phi i32 [ %cond72, %cond.false62 ], [ 2, %cond.end53 ], [ 2, %cond.end38 ]
+  %cond72 = call i32 @llvm.smin.i32(i32 %cond39, i32 %cond54)
+  %cond74 = select i1 %or.cond, i32 2, i32 %cond72
   store i32 2147483647, ptr %min_cost, align 4, !tbaa !54
   call void @intrapred_luma(i32 noundef %add7, i32 noundef %add8, ptr noundef nonnull %left_available, ptr noundef nonnull %up_available, ptr noundef nonnull %all_available) #15
   %idxprom180 = zext i32 %add to i64
   %idxprom222 = sext i32 %b8 to i64
   %idxprom224 = sext i32 %b4 to i64
   %idxprom244 = sext i32 %add7 to i64
-  %38 = sext i32 %add9 to i64
-  %39 = sext i32 %add6 to i64
-  %40 = sext i32 %add10 to i64
-  %41 = sext i32 %add8 to i64
-  %42 = zext i32 %cond74 to i64
-  %43 = or i64 %39, 1
-  %44 = add nsw i64 %40, 1
-  %45 = or i64 %39, 2
-  %46 = add nsw i64 %40, 2
-  %47 = or i64 %39, 3
-  %48 = add nsw i64 %40, 3
-  %49 = add nsw i64 %41, 1
+  %39 = sext i32 %add9 to i64
+  %40 = sext i32 %add6 to i64
+  %41 = sext i32 %add10 to i64
+  %42 = sext i32 %add8 to i64
+  %43 = zext i32 %cond74 to i64
+  %44 = or i64 %40, 1
+  %45 = add nsw i64 %41, 1
+  %46 = or i64 %40, 2
+  %47 = add nsw i64 %41, 2
+  %48 = or i64 %40, 3
+  %49 = add nsw i64 %41, 3
+  %50 = add nsw i64 %42, 1
   %arrayidx255.1 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 1
-  %50 = add nsw i64 %41, 2
+  %51 = add nsw i64 %42, 2
   %arrayidx255.2 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 2
-  %51 = add nsw i64 %41, 3
+  %52 = add nsw i64 %42, 3
   %arrayidx255.3 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 3
-  %52 = add nsw i64 %41, 1
-  %53 = add nsw i64 %41, 2
-  %54 = add nsw i64 %41, 3
-  %55 = add nsw i64 %40, 1
-  %56 = add nsw i64 %40, 2
-  %57 = add nsw i64 %40, 3
+  %53 = add nsw i64 %42, 1
+  %54 = add nsw i64 %42, 2
+  %55 = add nsw i64 %42, 3
+  %56 = add nsw i64 %41, 1
+  %57 = add nsw i64 %41, 2
+  %58 = add nsw i64 %41, 3
   br label %for.body
 
-for.body:                                         ; preds = %cond.end73, %cleanup
-  %rec4x4.sroa.11.0 = phi i64 [ undef, %cond.end73 ], [ %rec4x4.sroa.11.3, %cleanup ]
-  %rec4x4.sroa.8.0 = phi i64 [ undef, %cond.end73 ], [ %rec4x4.sroa.8.3, %cleanup ]
-  %rec4x4.sroa.5.0 = phi i64 [ undef, %cond.end73 ], [ %rec4x4.sroa.5.3, %cleanup ]
-  %rec4x4.sroa.0.0 = phi i64 [ undef, %cond.end73 ], [ %rec4x4.sroa.0.3, %cleanup ]
-  %indvars.iv = phi i64 [ 0, %cond.end73 ], [ %indvars.iv.next, %cleanup ]
-  %best_ipmode.0664 = phi i32 [ 0, %cond.end73 ], [ %best_ipmode.3, %cleanup ]
-  %min_rdcost.0663 = phi double [ 1.000000e+30, %cond.end73 ], [ %min_rdcost.3, %cleanup ]
-  %nonzero.0662 = phi i32 [ 0, %cond.end73 ], [ %nonzero.3, %cleanup ]
+for.body:                                         ; preds = %cond.end53, %cleanup
+  %rec4x4.sroa.11.0 = phi i64 [ undef, %cond.end53 ], [ %rec4x4.sroa.11.3, %cleanup ]
+  %rec4x4.sroa.8.0 = phi i64 [ undef, %cond.end53 ], [ %rec4x4.sroa.8.3, %cleanup ]
+  %rec4x4.sroa.5.0 = phi i64 [ undef, %cond.end53 ], [ %rec4x4.sroa.5.3, %cleanup ]
+  %rec4x4.sroa.0.0 = phi i64 [ undef, %cond.end53 ], [ %rec4x4.sroa.0.3, %cleanup ]
+  %indvars.iv = phi i64 [ 0, %cond.end53 ], [ %indvars.iv.next, %cleanup ]
+  %best_ipmode.0660 = phi i32 [ 0, %cond.end53 ], [ %best_ipmode.3, %cleanup ]
+  %min_rdcost.0659 = phi double [ 1.000000e+30, %cond.end53 ], [ %min_rdcost.3, %cleanup ]
+  %nonzero.0658 = phi i32 [ 0, %cond.end53 ], [ %nonzero.3, %cleanup ]
   %cmp77 = icmp eq i64 %indvars.iv, 2
   br i1 %cmp77, label %lor.end, label %lor.lhs.false79
 
 lor.lhs.false79:                                  ; preds = %for.body
   %cmp80 = icmp eq i64 %indvars.iv, 0
-  %58 = and i64 %indvars.iv, 11
-  %59 = icmp eq i64 %58, 3
-  %or.cond492 = or i1 %cmp80, %59
-  %60 = load i32, ptr %up_available, align 4
-  %tobool88 = icmp ne i32 %60, 0
+  %59 = and i64 %indvars.iv, 11
+  %60 = icmp eq i64 %59, 3
+  %or.cond492 = or i1 %cmp80, %60
+  %61 = load i32, ptr %up_available, align 4
+  %tobool88 = icmp ne i32 %61, 0
   %or.cond493 = select i1 %or.cond492, i1 %tobool88, i1 false
   br i1 %or.cond493, label %lor.end, label %lor.lhs.false89
 
@@ -3521,352 +3520,352 @@ lor.lhs.false89:                                  ; preds = %lor.lhs.false79
   %cmp90 = icmp eq i64 %indvars.iv, 1
   %cmp93 = icmp eq i64 %indvars.iv, 8
   %or.cond494 = or i1 %cmp90, %cmp93
-  %61 = load i32, ptr %left_available, align 4
-  %tobool96 = icmp ne i32 %61, 0
+  %62 = load i32, ptr %left_available, align 4
+  %tobool96 = icmp ne i32 %62, 0
   %or.cond495 = select i1 %or.cond494, i1 %tobool96, i1 false
   br i1 %or.cond495, label %lor.end, label %lor.rhs
 
 lor.rhs:                                          ; preds = %lor.lhs.false89
-  %62 = load i32, ptr %all_available, align 4, !tbaa !54
-  %tobool97 = icmp ne i32 %62, 0
+  %63 = load i32, ptr %all_available, align 4, !tbaa !54
+  %tobool97 = icmp ne i32 %63, 0
   br label %lor.end
 
 lor.end:                                          ; preds = %lor.lhs.false89, %lor.lhs.false79, %lor.rhs, %for.body
-  %63 = phi i1 [ true, %for.body ], [ %tobool97, %lor.rhs ], [ true, %lor.lhs.false79 ], [ true, %lor.lhs.false89 ]
-  %64 = load ptr, ptr @input, align 8, !tbaa !5
-  %IntraDisableInterOnly = getelementptr inbounds %struct.InputParameters, ptr %64, i64 0, i32 84
-  %65 = load i32, ptr %IntraDisableInterOnly, align 8, !tbaa !74
-  %cmp98 = icmp eq i32 %65, 0
+  %64 = phi i1 [ true, %for.body ], [ %tobool97, %lor.rhs ], [ true, %lor.lhs.false79 ], [ true, %lor.lhs.false89 ]
+  %65 = load ptr, ptr @input, align 8, !tbaa !5
+  %IntraDisableInterOnly = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 84
+  %66 = load i32, ptr %IntraDisableInterOnly, align 8, !tbaa !74
+  %cmp98 = icmp eq i32 %66, 0
   br i1 %cmp98, label %if.then103, label %lor.lhs.false100
 
 lor.lhs.false100:                                 ; preds = %lor.end
-  %66 = load ptr, ptr @img, align 8, !tbaa !5
-  %type = getelementptr inbounds %struct.ImageParameters, ptr %66, i64 0, i32 5
-  %67 = load i32, ptr %type, align 4, !tbaa !22
-  %cmp101.not = icmp eq i32 %67, 2
+  %67 = load ptr, ptr @img, align 8, !tbaa !5
+  %type = getelementptr inbounds %struct.ImageParameters, ptr %67, i64 0, i32 5
+  %68 = load i32, ptr %type, align 4, !tbaa !22
+  %cmp101.not = icmp eq i32 %68, 2
   br i1 %cmp101.not, label %if.end128, label %if.then103
 
 if.then103:                                       ; preds = %lor.lhs.false100, %lor.end
-  %Intra4x4ParDisable = getelementptr inbounds %struct.InputParameters, ptr %64, i64 0, i32 85
-  %68 = load i32, ptr %Intra4x4ParDisable, align 4, !tbaa !75
-  %tobool104.not = icmp ne i32 %68, 0
+  %Intra4x4ParDisable = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 85
+  %69 = load i32, ptr %Intra4x4ParDisable, align 4, !tbaa !75
+  %tobool104.not = icmp ne i32 %69, 0
   %or.cond496 = icmp ult i64 %indvars.iv, 2
   %or.cond648 = and i1 %or.cond496, %tobool104.not
   br i1 %or.cond648, label %cleanup, label %if.end112
 
 if.end112:                                        ; preds = %if.then103
-  %Intra4x4DiagDisable = getelementptr inbounds %struct.InputParameters, ptr %64, i64 0, i32 86
-  %69 = load i32, ptr %Intra4x4DiagDisable, align 8, !tbaa !76
-  %tobool113.not = icmp ne i32 %69, 0
-  %70 = trunc i64 %indvars.iv to i32
-  %71 = add i32 %70, -3
-  %or.cond497 = icmp ult i32 %71, 2
+  %Intra4x4DiagDisable = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 86
+  %70 = load i32, ptr %Intra4x4DiagDisable, align 8, !tbaa !76
+  %tobool113.not = icmp ne i32 %70, 0
+  %71 = trunc i64 %indvars.iv to i32
+  %72 = add i32 %71, -3
+  %or.cond497 = icmp ult i32 %72, 2
   %or.cond649 = and i1 %tobool113.not, %or.cond497
   br i1 %or.cond649, label %cleanup, label %if.end121
 
 if.end121:                                        ; preds = %if.end112
-  %Intra4x4DirDisable = getelementptr inbounds %struct.InputParameters, ptr %64, i64 0, i32 87
-  %72 = load i32, ptr %Intra4x4DirDisable, align 4, !tbaa !77
-  %tobool122 = icmp ne i32 %72, 0
+  %Intra4x4DirDisable = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 87
+  %73 = load i32, ptr %Intra4x4DirDisable, align 4, !tbaa !77
+  %tobool122 = icmp ne i32 %73, 0
   %cmp124 = icmp ugt i64 %indvars.iv, 4
   %or.cond498 = and i1 %cmp124, %tobool122
-  %.not = xor i1 %63, true
+  %.not = xor i1 %64, true
   %brmerge = select i1 %or.cond498, i1 true, i1 %.not
   br i1 %brmerge, label %cleanup, label %if.then130
 
 if.end128:                                        ; preds = %lor.lhs.false100
-  br i1 %63, label %if.then130, label %cleanup
+  br i1 %64, label %if.then130, label %cleanup
 
 if.then130:                                       ; preds = %if.end121, %if.end128
-  %rdopt = getelementptr inbounds %struct.InputParameters, ptr %64, i64 0, i32 113
-  %73 = load i32, ptr %rdopt, align 8, !tbaa !14
-  %tobool131.not = icmp eq i32 %73, 0
+  %rdopt = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 113
+  %74 = load i32, ptr %rdopt, align 8, !tbaa !14
+  %tobool131.not = icmp eq i32 %74, 0
   br i1 %tobool131.not, label %for.cond133.preheader, label %for.cond173.preheader
 
 for.cond173.preheader:                            ; preds = %if.then130
-  %74 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx181 = getelementptr inbounds %struct.ImageParameters, ptr %74, i64 0, i32 51, i64 %39, i64 %idxprom180
-  %arrayidx186 = getelementptr inbounds %struct.ImageParameters, ptr %74, i64 0, i32 47, i64 %indvars.iv, i64 0
-  %75 = load i64, ptr %arrayidx186, align 8
-  store i64 %75, ptr %arrayidx181, align 2
-  %76 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %arrayidx193 = getelementptr inbounds ptr, ptr %76, i64 %40
-  %77 = load ptr, ptr %arrayidx193, align 8, !tbaa !5
-  %78 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx196 = getelementptr inbounds i16, ptr %77, i64 %38
-  %arrayidx204 = getelementptr inbounds %struct.ImageParameters, ptr %78, i64 0, i32 47, i64 %indvars.iv, i64 0, i64 0
-  %arrayidx210 = getelementptr inbounds %struct.ImageParameters, ptr %78, i64 0, i32 52, i64 0, i64 0
-  %79 = load <4 x i16>, ptr %arrayidx196, align 2, !tbaa !37
-  %80 = zext <4 x i16> %79 to <4 x i32>
-  %81 = load <4 x i16>, ptr %arrayidx204, align 2, !tbaa !37
-  %82 = zext <4 x i16> %81 to <4 x i32>
-  %83 = sub nsw <4 x i32> %80, %82
-  store <4 x i32> %83, ptr %arrayidx210, align 4, !tbaa !54
-  %arrayidx181.1 = getelementptr inbounds %struct.ImageParameters, ptr %78, i64 0, i32 51, i64 %43, i64 %idxprom180
-  %arrayidx186.1 = getelementptr inbounds %struct.ImageParameters, ptr %78, i64 0, i32 47, i64 %indvars.iv, i64 1
-  %84 = load i64, ptr %arrayidx186.1, align 8
-  store i64 %84, ptr %arrayidx181.1, align 2
-  %85 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %arrayidx193.1 = getelementptr inbounds ptr, ptr %85, i64 %44
-  %86 = load ptr, ptr %arrayidx193.1, align 8, !tbaa !5
-  %87 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx196.1678 = getelementptr inbounds i16, ptr %86, i64 %38
-  %arrayidx204.1680 = getelementptr inbounds %struct.ImageParameters, ptr %87, i64 0, i32 47, i64 %indvars.iv, i64 1, i64 0
-  %arrayidx210.1683 = getelementptr inbounds %struct.ImageParameters, ptr %87, i64 0, i32 52, i64 1, i64 0
-  %88 = load <4 x i16>, ptr %arrayidx196.1678, align 2, !tbaa !37
-  %89 = zext <4 x i16> %88 to <4 x i32>
-  %90 = load <4 x i16>, ptr %arrayidx204.1680, align 2, !tbaa !37
-  %91 = zext <4 x i16> %90 to <4 x i32>
-  %92 = sub nsw <4 x i32> %89, %91
-  store <4 x i32> %92, ptr %arrayidx210.1683, align 4, !tbaa !54
-  %arrayidx181.2 = getelementptr inbounds %struct.ImageParameters, ptr %87, i64 0, i32 51, i64 %45, i64 %idxprom180
-  %arrayidx186.2 = getelementptr inbounds %struct.ImageParameters, ptr %87, i64 0, i32 47, i64 %indvars.iv, i64 2
-  %93 = load i64, ptr %arrayidx186.2, align 8
-  store i64 %93, ptr %arrayidx181.2, align 2
-  %94 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %arrayidx193.2 = getelementptr inbounds ptr, ptr %94, i64 %46
-  %95 = load ptr, ptr %arrayidx193.2, align 8, !tbaa !5
-  %96 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx196.2684 = getelementptr inbounds i16, ptr %95, i64 %38
-  %arrayidx204.2686 = getelementptr inbounds %struct.ImageParameters, ptr %96, i64 0, i32 47, i64 %indvars.iv, i64 2, i64 0
-  %arrayidx210.2689 = getelementptr inbounds %struct.ImageParameters, ptr %96, i64 0, i32 52, i64 2, i64 0
-  %97 = load <4 x i16>, ptr %arrayidx196.2684, align 2, !tbaa !37
-  %98 = zext <4 x i16> %97 to <4 x i32>
-  %99 = load <4 x i16>, ptr %arrayidx204.2686, align 2, !tbaa !37
-  %100 = zext <4 x i16> %99 to <4 x i32>
-  %101 = sub nsw <4 x i32> %98, %100
-  store <4 x i32> %101, ptr %arrayidx210.2689, align 4, !tbaa !54
-  %arrayidx181.3 = getelementptr inbounds %struct.ImageParameters, ptr %96, i64 0, i32 51, i64 %47, i64 %idxprom180
-  %arrayidx186.3 = getelementptr inbounds %struct.ImageParameters, ptr %96, i64 0, i32 47, i64 %indvars.iv, i64 3
-  %102 = load i64, ptr %arrayidx186.3, align 8
-  store i64 %102, ptr %arrayidx181.3, align 2
-  %103 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %arrayidx193.3 = getelementptr inbounds ptr, ptr %103, i64 %48
-  %104 = load ptr, ptr %arrayidx193.3, align 8, !tbaa !5
-  %105 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx196.3690 = getelementptr inbounds i16, ptr %104, i64 %38
-  %arrayidx204.3692 = getelementptr inbounds %struct.ImageParameters, ptr %105, i64 0, i32 47, i64 %indvars.iv, i64 3, i64 0
-  %arrayidx210.3695 = getelementptr inbounds %struct.ImageParameters, ptr %105, i64 0, i32 52, i64 3, i64 0
-  %106 = load <4 x i16>, ptr %arrayidx196.3690, align 2, !tbaa !37
-  %107 = zext <4 x i16> %106 to <4 x i32>
-  %108 = load <4 x i16>, ptr %arrayidx204.3692, align 2, !tbaa !37
-  %109 = zext <4 x i16> %108 to <4 x i32>
-  %110 = sub nsw <4 x i32> %107, %109
-  store <4 x i32> %110, ptr %arrayidx210.3695, align 4, !tbaa !54
-  %111 = trunc i64 %indvars.iv to i32
-  %call217 = call double @RDCost_for_4x4IntraBlocks(ptr noundef nonnull %c_nz, i32 noundef %b8, i32 noundef %b4, i32 noundef %111, double noundef %lambda, double poison, i32 noundef %cond74)
-  %cmp218 = fcmp olt double %call217, %min_rdcost.0663
+  %75 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx181 = getelementptr inbounds %struct.ImageParameters, ptr %75, i64 0, i32 51, i64 %40, i64 %idxprom180
+  %arrayidx186 = getelementptr inbounds %struct.ImageParameters, ptr %75, i64 0, i32 47, i64 %indvars.iv, i64 0
+  %76 = load i64, ptr %arrayidx186, align 8
+  store i64 %76, ptr %arrayidx181, align 2
+  %77 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %arrayidx193 = getelementptr inbounds ptr, ptr %77, i64 %41
+  %78 = load ptr, ptr %arrayidx193, align 8, !tbaa !5
+  %79 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx196 = getelementptr inbounds i16, ptr %78, i64 %39
+  %arrayidx204 = getelementptr inbounds %struct.ImageParameters, ptr %79, i64 0, i32 47, i64 %indvars.iv, i64 0, i64 0
+  %arrayidx210 = getelementptr inbounds %struct.ImageParameters, ptr %79, i64 0, i32 52, i64 0, i64 0
+  %80 = load <4 x i16>, ptr %arrayidx196, align 2, !tbaa !37
+  %81 = zext <4 x i16> %80 to <4 x i32>
+  %82 = load <4 x i16>, ptr %arrayidx204, align 2, !tbaa !37
+  %83 = zext <4 x i16> %82 to <4 x i32>
+  %84 = sub nsw <4 x i32> %81, %83
+  store <4 x i32> %84, ptr %arrayidx210, align 4, !tbaa !54
+  %arrayidx181.1 = getelementptr inbounds %struct.ImageParameters, ptr %79, i64 0, i32 51, i64 %44, i64 %idxprom180
+  %arrayidx186.1 = getelementptr inbounds %struct.ImageParameters, ptr %79, i64 0, i32 47, i64 %indvars.iv, i64 1
+  %85 = load i64, ptr %arrayidx186.1, align 8
+  store i64 %85, ptr %arrayidx181.1, align 2
+  %86 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %arrayidx193.1 = getelementptr inbounds ptr, ptr %86, i64 %45
+  %87 = load ptr, ptr %arrayidx193.1, align 8, !tbaa !5
+  %88 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx196.1674 = getelementptr inbounds i16, ptr %87, i64 %39
+  %arrayidx204.1676 = getelementptr inbounds %struct.ImageParameters, ptr %88, i64 0, i32 47, i64 %indvars.iv, i64 1, i64 0
+  %arrayidx210.1679 = getelementptr inbounds %struct.ImageParameters, ptr %88, i64 0, i32 52, i64 1, i64 0
+  %89 = load <4 x i16>, ptr %arrayidx196.1674, align 2, !tbaa !37
+  %90 = zext <4 x i16> %89 to <4 x i32>
+  %91 = load <4 x i16>, ptr %arrayidx204.1676, align 2, !tbaa !37
+  %92 = zext <4 x i16> %91 to <4 x i32>
+  %93 = sub nsw <4 x i32> %90, %92
+  store <4 x i32> %93, ptr %arrayidx210.1679, align 4, !tbaa !54
+  %arrayidx181.2 = getelementptr inbounds %struct.ImageParameters, ptr %88, i64 0, i32 51, i64 %46, i64 %idxprom180
+  %arrayidx186.2 = getelementptr inbounds %struct.ImageParameters, ptr %88, i64 0, i32 47, i64 %indvars.iv, i64 2
+  %94 = load i64, ptr %arrayidx186.2, align 8
+  store i64 %94, ptr %arrayidx181.2, align 2
+  %95 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %arrayidx193.2 = getelementptr inbounds ptr, ptr %95, i64 %47
+  %96 = load ptr, ptr %arrayidx193.2, align 8, !tbaa !5
+  %97 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx196.2680 = getelementptr inbounds i16, ptr %96, i64 %39
+  %arrayidx204.2682 = getelementptr inbounds %struct.ImageParameters, ptr %97, i64 0, i32 47, i64 %indvars.iv, i64 2, i64 0
+  %arrayidx210.2685 = getelementptr inbounds %struct.ImageParameters, ptr %97, i64 0, i32 52, i64 2, i64 0
+  %98 = load <4 x i16>, ptr %arrayidx196.2680, align 2, !tbaa !37
+  %99 = zext <4 x i16> %98 to <4 x i32>
+  %100 = load <4 x i16>, ptr %arrayidx204.2682, align 2, !tbaa !37
+  %101 = zext <4 x i16> %100 to <4 x i32>
+  %102 = sub nsw <4 x i32> %99, %101
+  store <4 x i32> %102, ptr %arrayidx210.2685, align 4, !tbaa !54
+  %arrayidx181.3 = getelementptr inbounds %struct.ImageParameters, ptr %97, i64 0, i32 51, i64 %48, i64 %idxprom180
+  %arrayidx186.3 = getelementptr inbounds %struct.ImageParameters, ptr %97, i64 0, i32 47, i64 %indvars.iv, i64 3
+  %103 = load i64, ptr %arrayidx186.3, align 8
+  store i64 %103, ptr %arrayidx181.3, align 2
+  %104 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %arrayidx193.3 = getelementptr inbounds ptr, ptr %104, i64 %49
+  %105 = load ptr, ptr %arrayidx193.3, align 8, !tbaa !5
+  %106 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx196.3686 = getelementptr inbounds i16, ptr %105, i64 %39
+  %arrayidx204.3688 = getelementptr inbounds %struct.ImageParameters, ptr %106, i64 0, i32 47, i64 %indvars.iv, i64 3, i64 0
+  %arrayidx210.3691 = getelementptr inbounds %struct.ImageParameters, ptr %106, i64 0, i32 52, i64 3, i64 0
+  %107 = load <4 x i16>, ptr %arrayidx196.3686, align 2, !tbaa !37
+  %108 = zext <4 x i16> %107 to <4 x i32>
+  %109 = load <4 x i16>, ptr %arrayidx204.3688, align 2, !tbaa !37
+  %110 = zext <4 x i16> %109 to <4 x i32>
+  %111 = sub nsw <4 x i32> %108, %110
+  store <4 x i32> %111, ptr %arrayidx210.3691, align 4, !tbaa !54
+  %112 = trunc i64 %indvars.iv to i32
+  %call217 = call double @RDCost_for_4x4IntraBlocks(ptr noundef nonnull %c_nz, i32 noundef %b8, i32 noundef %b4, i32 noundef %112, double noundef %lambda, double poison, i32 noundef %cond74)
+  %cmp218 = fcmp olt double %call217, %min_rdcost.0659
   br i1 %cmp218, label %if.then220, label %if.end287
 
 for.cond133.preheader:                            ; preds = %if.then130
-  %112 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %113 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx143 = getelementptr inbounds ptr, ptr %112, i64 %40
-  %114 = load ptr, ptr %arrayidx143, align 8, !tbaa !5
-  %arrayidx146 = getelementptr inbounds i16, ptr %114, i64 %38
-  %arrayidx153 = getelementptr inbounds %struct.ImageParameters, ptr %113, i64 0, i32 47, i64 %indvars.iv, i64 0, i64 0
-  %115 = load <4 x i16>, ptr %arrayidx146, align 2, !tbaa !37
-  %116 = zext <4 x i16> %115 to <4 x i32>
-  %117 = load <4 x i16>, ptr %arrayidx153, align 2, !tbaa !37
-  %118 = zext <4 x i16> %117 to <4 x i32>
-  %119 = sub nsw <4 x i32> %116, %118
-  store <4 x i32> %119, ptr @diff, align 16, !tbaa !54
-  %arrayidx143.1 = getelementptr inbounds ptr, ptr %112, i64 %55
-  %120 = load ptr, ptr %arrayidx143.1, align 8, !tbaa !5
-  %arrayidx146.1714 = getelementptr inbounds i16, ptr %120, i64 %38
-  %arrayidx153.1716 = getelementptr inbounds %struct.ImageParameters, ptr %113, i64 0, i32 47, i64 %indvars.iv, i64 1, i64 0
-  %121 = load <4 x i16>, ptr %arrayidx146.1714, align 2, !tbaa !37
-  %122 = zext <4 x i16> %121 to <4 x i32>
-  %123 = load <4 x i16>, ptr %arrayidx153.1716, align 2, !tbaa !37
-  %124 = zext <4 x i16> %123 to <4 x i32>
-  %125 = sub nsw <4 x i32> %122, %124
-  store <4 x i32> %125, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 4), align 16, !tbaa !54
-  %arrayidx143.2 = getelementptr inbounds ptr, ptr %112, i64 %56
-  %126 = load ptr, ptr %arrayidx143.2, align 8, !tbaa !5
-  %arrayidx146.2721 = getelementptr inbounds i16, ptr %126, i64 %38
-  %arrayidx153.2723 = getelementptr inbounds %struct.ImageParameters, ptr %113, i64 0, i32 47, i64 %indvars.iv, i64 2, i64 0
-  %127 = load <4 x i16>, ptr %arrayidx146.2721, align 2, !tbaa !37
-  %128 = zext <4 x i16> %127 to <4 x i32>
-  %129 = load <4 x i16>, ptr %arrayidx153.2723, align 2, !tbaa !37
-  %130 = zext <4 x i16> %129 to <4 x i32>
-  %131 = sub nsw <4 x i32> %128, %130
-  store <4 x i32> %131, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 8), align 16, !tbaa !54
-  %arrayidx143.3 = getelementptr inbounds ptr, ptr %112, i64 %57
-  %132 = load ptr, ptr %arrayidx143.3, align 8, !tbaa !5
-  %arrayidx146.3728 = getelementptr inbounds i16, ptr %132, i64 %38
-  %arrayidx153.3730 = getelementptr inbounds %struct.ImageParameters, ptr %113, i64 0, i32 47, i64 %indvars.iv, i64 3, i64 0
-  %133 = load <4 x i16>, ptr %arrayidx146.3728, align 2, !tbaa !37
-  %134 = zext <4 x i16> %133 to <4 x i32>
-  %135 = load <4 x i16>, ptr %arrayidx153.3730, align 2, !tbaa !37
-  %136 = zext <4 x i16> %135 to <4 x i32>
-  %137 = sub nsw <4 x i32> %134, %136
-  store <4 x i32> %137, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 12), align 16, !tbaa !54
-  %cmp162 = icmp eq i64 %indvars.iv, %42
+  %113 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %114 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx143 = getelementptr inbounds ptr, ptr %113, i64 %41
+  %115 = load ptr, ptr %arrayidx143, align 8, !tbaa !5
+  %arrayidx146 = getelementptr inbounds i16, ptr %115, i64 %39
+  %arrayidx153 = getelementptr inbounds %struct.ImageParameters, ptr %114, i64 0, i32 47, i64 %indvars.iv, i64 0, i64 0
+  %116 = load <4 x i16>, ptr %arrayidx146, align 2, !tbaa !37
+  %117 = zext <4 x i16> %116 to <4 x i32>
+  %118 = load <4 x i16>, ptr %arrayidx153, align 2, !tbaa !37
+  %119 = zext <4 x i16> %118 to <4 x i32>
+  %120 = sub nsw <4 x i32> %117, %119
+  store <4 x i32> %120, ptr @diff, align 16, !tbaa !54
+  %arrayidx143.1 = getelementptr inbounds ptr, ptr %113, i64 %56
+  %121 = load ptr, ptr %arrayidx143.1, align 8, !tbaa !5
+  %arrayidx146.1710 = getelementptr inbounds i16, ptr %121, i64 %39
+  %arrayidx153.1712 = getelementptr inbounds %struct.ImageParameters, ptr %114, i64 0, i32 47, i64 %indvars.iv, i64 1, i64 0
+  %122 = load <4 x i16>, ptr %arrayidx146.1710, align 2, !tbaa !37
+  %123 = zext <4 x i16> %122 to <4 x i32>
+  %124 = load <4 x i16>, ptr %arrayidx153.1712, align 2, !tbaa !37
+  %125 = zext <4 x i16> %124 to <4 x i32>
+  %126 = sub nsw <4 x i32> %123, %125
+  store <4 x i32> %126, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 4), align 16, !tbaa !54
+  %arrayidx143.2 = getelementptr inbounds ptr, ptr %113, i64 %57
+  %127 = load ptr, ptr %arrayidx143.2, align 8, !tbaa !5
+  %arrayidx146.2717 = getelementptr inbounds i16, ptr %127, i64 %39
+  %arrayidx153.2719 = getelementptr inbounds %struct.ImageParameters, ptr %114, i64 0, i32 47, i64 %indvars.iv, i64 2, i64 0
+  %128 = load <4 x i16>, ptr %arrayidx146.2717, align 2, !tbaa !37
+  %129 = zext <4 x i16> %128 to <4 x i32>
+  %130 = load <4 x i16>, ptr %arrayidx153.2719, align 2, !tbaa !37
+  %131 = zext <4 x i16> %130 to <4 x i32>
+  %132 = sub nsw <4 x i32> %129, %131
+  store <4 x i32> %132, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 8), align 16, !tbaa !54
+  %arrayidx143.3 = getelementptr inbounds ptr, ptr %113, i64 %58
+  %133 = load ptr, ptr %arrayidx143.3, align 8, !tbaa !5
+  %arrayidx146.3724 = getelementptr inbounds i16, ptr %133, i64 %39
+  %arrayidx153.3726 = getelementptr inbounds %struct.ImageParameters, ptr %114, i64 0, i32 47, i64 %indvars.iv, i64 3, i64 0
+  %134 = load <4 x i16>, ptr %arrayidx146.3724, align 2, !tbaa !37
+  %135 = zext <4 x i16> %134 to <4 x i32>
+  %136 = load <4 x i16>, ptr %arrayidx153.3726, align 2, !tbaa !37
+  %137 = zext <4 x i16> %136 to <4 x i32>
+  %138 = sub nsw <4 x i32> %135, %137
+  store <4 x i32> %138, ptr getelementptr inbounds ([16 x i32], ptr @diff, i64 0, i64 12), align 16, !tbaa !54
+  %cmp162 = icmp eq i64 %indvars.iv, %43
   %cond167 = select i1 %cmp162, i32 0, i32 %conv
   %call = call i32 @distortion4x4(ptr noundef nonnull @diff) #15
   %add168 = add nsw i32 %call, %cond167
-  %138 = load i32, ptr %min_cost, align 4, !tbaa !54
-  %cmp169 = icmp slt i32 %add168, %138
+  %139 = load i32, ptr %min_cost, align 4, !tbaa !54
+  %cmp169 = icmp slt i32 %add168, %139
   br i1 %cmp169, label %if.then171, label %cleanup
 
 if.then171:                                       ; preds = %for.cond133.preheader
   store i32 %add168, ptr %min_cost, align 4, !tbaa !54
-  %139 = trunc i64 %indvars.iv to i32
+  %140 = trunc i64 %indvars.iv to i32
   br label %cleanup
 
 if.then220:                                       ; preds = %for.cond173.preheader
-  %140 = load ptr, ptr @cofAC4x4, align 8, !tbaa !5
-  %141 = load ptr, ptr %140, align 8, !tbaa !5
-  %142 = load ptr, ptr @img, align 8, !tbaa !5
-  %cofAC = getelementptr inbounds %struct.ImageParameters, ptr %142, i64 0, i32 53
-  %143 = load ptr, ptr %cofAC, align 8, !tbaa !78
-  %arrayidx223 = getelementptr inbounds ptr, ptr %143, i64 %idxprom222
-  %144 = load ptr, ptr %arrayidx223, align 8, !tbaa !5
-  %arrayidx225 = getelementptr inbounds ptr, ptr %144, i64 %idxprom224
-  %145 = load ptr, ptr %arrayidx225, align 8, !tbaa !5
-  %146 = load ptr, ptr %145, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %141, ptr noundef nonnull align 4 dereferenceable(72) %146, i64 72, i1 false)
-  %arrayidx227 = getelementptr inbounds ptr, ptr %140, i64 1
-  %147 = load ptr, ptr %arrayidx227, align 8, !tbaa !5
-  %148 = load ptr, ptr @img, align 8, !tbaa !5
-  %cofAC228 = getelementptr inbounds %struct.ImageParameters, ptr %148, i64 0, i32 53
-  %149 = load ptr, ptr %cofAC228, align 8, !tbaa !78
-  %arrayidx230 = getelementptr inbounds ptr, ptr %149, i64 %idxprom222
-  %150 = load ptr, ptr %arrayidx230, align 8, !tbaa !5
-  %arrayidx232 = getelementptr inbounds ptr, ptr %150, i64 %idxprom224
-  %151 = load ptr, ptr %arrayidx232, align 8, !tbaa !5
-  %arrayidx233 = getelementptr inbounds ptr, ptr %151, i64 1
-  %152 = load ptr, ptr %arrayidx233, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %147, ptr noundef nonnull align 4 dereferenceable(72) %152, i64 72, i1 false)
-  %153 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %imgY = getelementptr inbounds %struct.storable_picture, ptr %153, i64 0, i32 29
-  %154 = load ptr, ptr %imgY, align 8, !tbaa !50
-  %155 = load ptr, ptr @img, align 8, !tbaa !5
-  %type246 = getelementptr inbounds %struct.ImageParameters, ptr %155, i64 0, i32 5
-  %156 = load i32, ptr %type246, align 4, !tbaa !22
-  %cmp247 = icmp ne i32 %156, 3
-  %157 = load i32, ptr @si_frame_indicator, align 4
-  %tobool250 = icmp ne i32 %157, 0
+  %141 = load ptr, ptr @cofAC4x4, align 8, !tbaa !5
+  %142 = load ptr, ptr %141, align 8, !tbaa !5
+  %143 = load ptr, ptr @img, align 8, !tbaa !5
+  %cofAC = getelementptr inbounds %struct.ImageParameters, ptr %143, i64 0, i32 53
+  %144 = load ptr, ptr %cofAC, align 8, !tbaa !78
+  %arrayidx223 = getelementptr inbounds ptr, ptr %144, i64 %idxprom222
+  %145 = load ptr, ptr %arrayidx223, align 8, !tbaa !5
+  %arrayidx225 = getelementptr inbounds ptr, ptr %145, i64 %idxprom224
+  %146 = load ptr, ptr %arrayidx225, align 8, !tbaa !5
+  %147 = load ptr, ptr %146, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %142, ptr noundef nonnull align 4 dereferenceable(72) %147, i64 72, i1 false)
+  %arrayidx227 = getelementptr inbounds ptr, ptr %141, i64 1
+  %148 = load ptr, ptr %arrayidx227, align 8, !tbaa !5
+  %149 = load ptr, ptr @img, align 8, !tbaa !5
+  %cofAC228 = getelementptr inbounds %struct.ImageParameters, ptr %149, i64 0, i32 53
+  %150 = load ptr, ptr %cofAC228, align 8, !tbaa !78
+  %arrayidx230 = getelementptr inbounds ptr, ptr %150, i64 %idxprom222
+  %151 = load ptr, ptr %arrayidx230, align 8, !tbaa !5
+  %arrayidx232 = getelementptr inbounds ptr, ptr %151, i64 %idxprom224
+  %152 = load ptr, ptr %arrayidx232, align 8, !tbaa !5
+  %arrayidx233 = getelementptr inbounds ptr, ptr %152, i64 1
+  %153 = load ptr, ptr %arrayidx233, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %148, ptr noundef nonnull align 4 dereferenceable(72) %153, i64 72, i1 false)
+  %154 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %imgY = getelementptr inbounds %struct.storable_picture, ptr %154, i64 0, i32 29
+  %155 = load ptr, ptr %imgY, align 8, !tbaa !50
+  %156 = load ptr, ptr @img, align 8, !tbaa !5
+  %type246 = getelementptr inbounds %struct.ImageParameters, ptr %156, i64 0, i32 5
+  %157 = load i32, ptr %type246, align 4, !tbaa !22
+  %cmp247 = icmp ne i32 %157, 3
+  %158 = load i32, ptr @si_frame_indicator, align 4
+  %tobool250 = icmp ne i32 %158, 0
   %or.cond499 = select i1 %cmp247, i1 true, i1 %tobool250
-  %158 = load i32, ptr @sp2_frame_indicator, align 4
-  %tobool252 = icmp ne i32 %158, 0
+  %159 = load i32, ptr @sp2_frame_indicator, align 4
+  %tobool252 = icmp ne i32 %159, 0
   %or.cond500 = select i1 %or.cond499, i1 true, i1 %tobool252
   br i1 %or.cond500, label %for.body237.us.preheader, label %for.body237.preheader
 
 for.body237.preheader:                            ; preds = %if.then220
-  %159 = load ptr, ptr @lrec, align 8
-  %arrayidx243 = getelementptr inbounds ptr, ptr %154, i64 %41
-  %160 = load ptr, ptr %arrayidx243, align 8, !tbaa !5
-  %arrayidx245 = getelementptr inbounds i16, ptr %160, i64 %idxprom244
-  %161 = load i64, ptr %arrayidx245, align 2
-  %arrayidx259 = getelementptr inbounds ptr, ptr %159, i64 %41
-  %162 = load ptr, ptr %arrayidx259, align 8, !tbaa !5
-  %arrayidx261 = getelementptr inbounds i32, ptr %162, i64 %idxprom244
+  %160 = load ptr, ptr @lrec, align 8
+  %arrayidx243 = getelementptr inbounds ptr, ptr %155, i64 %42
+  %161 = load ptr, ptr %arrayidx243, align 8, !tbaa !5
+  %arrayidx245 = getelementptr inbounds i16, ptr %161, i64 %idxprom244
+  %162 = load i64, ptr %arrayidx245, align 2
+  %arrayidx259 = getelementptr inbounds ptr, ptr %160, i64 %42
+  %163 = load ptr, ptr %arrayidx259, align 8, !tbaa !5
+  %arrayidx261 = getelementptr inbounds i32, ptr %163, i64 %idxprom244
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %lrec4x4, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx261, i64 16, i1 false)
-  %arrayidx243.1 = getelementptr inbounds ptr, ptr %154, i64 %49
-  %163 = load ptr, ptr %arrayidx243.1, align 8, !tbaa !5
-  %arrayidx245.1 = getelementptr inbounds i16, ptr %163, i64 %idxprom244
-  %164 = load i64, ptr %arrayidx245.1, align 2
-  %arrayidx259.1 = getelementptr inbounds ptr, ptr %159, i64 %49
-  %165 = load ptr, ptr %arrayidx259.1, align 8, !tbaa !5
-  %arrayidx261.1 = getelementptr inbounds i32, ptr %165, i64 %idxprom244
+  %arrayidx243.1 = getelementptr inbounds ptr, ptr %155, i64 %50
+  %164 = load ptr, ptr %arrayidx243.1, align 8, !tbaa !5
+  %arrayidx245.1 = getelementptr inbounds i16, ptr %164, i64 %idxprom244
+  %165 = load i64, ptr %arrayidx245.1, align 2
+  %arrayidx259.1 = getelementptr inbounds ptr, ptr %160, i64 %50
+  %166 = load ptr, ptr %arrayidx259.1, align 8, !tbaa !5
+  %arrayidx261.1 = getelementptr inbounds i32, ptr %166, i64 %idxprom244
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %arrayidx255.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx261.1, i64 16, i1 false)
-  %arrayidx243.2 = getelementptr inbounds ptr, ptr %154, i64 %50
-  %166 = load ptr, ptr %arrayidx243.2, align 8, !tbaa !5
-  %arrayidx245.2 = getelementptr inbounds i16, ptr %166, i64 %idxprom244
-  %167 = load i64, ptr %arrayidx245.2, align 2
-  %arrayidx259.2 = getelementptr inbounds ptr, ptr %159, i64 %50
-  %168 = load ptr, ptr %arrayidx259.2, align 8, !tbaa !5
-  %arrayidx261.2 = getelementptr inbounds i32, ptr %168, i64 %idxprom244
+  %arrayidx243.2 = getelementptr inbounds ptr, ptr %155, i64 %51
+  %167 = load ptr, ptr %arrayidx243.2, align 8, !tbaa !5
+  %arrayidx245.2 = getelementptr inbounds i16, ptr %167, i64 %idxprom244
+  %168 = load i64, ptr %arrayidx245.2, align 2
+  %arrayidx259.2 = getelementptr inbounds ptr, ptr %160, i64 %51
+  %169 = load ptr, ptr %arrayidx259.2, align 8, !tbaa !5
+  %arrayidx261.2 = getelementptr inbounds i32, ptr %169, i64 %idxprom244
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %arrayidx255.2, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx261.2, i64 16, i1 false)
-  %arrayidx243.3 = getelementptr inbounds ptr, ptr %154, i64 %51
-  %169 = load ptr, ptr %arrayidx243.3, align 8, !tbaa !5
-  %arrayidx245.3 = getelementptr inbounds i16, ptr %169, i64 %idxprom244
-  %170 = load i64, ptr %arrayidx245.3, align 2
-  %arrayidx259.3 = getelementptr inbounds ptr, ptr %159, i64 %51
-  %171 = load ptr, ptr %arrayidx259.3, align 8, !tbaa !5
-  %arrayidx261.3 = getelementptr inbounds i32, ptr %171, i64 %idxprom244
+  %arrayidx243.3 = getelementptr inbounds ptr, ptr %155, i64 %52
+  %170 = load ptr, ptr %arrayidx243.3, align 8, !tbaa !5
+  %arrayidx245.3 = getelementptr inbounds i16, ptr %170, i64 %idxprom244
+  %171 = load i64, ptr %arrayidx245.3, align 2
+  %arrayidx259.3 = getelementptr inbounds ptr, ptr %160, i64 %52
+  %172 = load ptr, ptr %arrayidx259.3, align 8, !tbaa !5
+  %arrayidx261.3 = getelementptr inbounds i32, ptr %172, i64 %idxprom244
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %arrayidx255.3, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx261.3, i64 16, i1 false)
   br label %for.end265
 
 for.body237.us.preheader:                         ; preds = %if.then220
-  %arrayidx243.us = getelementptr inbounds ptr, ptr %154, i64 %41
-  %172 = load ptr, ptr %arrayidx243.us, align 8, !tbaa !5
-  %arrayidx245.us = getelementptr inbounds i16, ptr %172, i64 %idxprom244
-  %173 = load i64, ptr %arrayidx245.us, align 2
-  %arrayidx243.us.1 = getelementptr inbounds ptr, ptr %154, i64 %52
-  %174 = load ptr, ptr %arrayidx243.us.1, align 8, !tbaa !5
-  %arrayidx245.us.1 = getelementptr inbounds i16, ptr %174, i64 %idxprom244
-  %175 = load i64, ptr %arrayidx245.us.1, align 2
-  %arrayidx243.us.2 = getelementptr inbounds ptr, ptr %154, i64 %53
-  %176 = load ptr, ptr %arrayidx243.us.2, align 8, !tbaa !5
-  %arrayidx245.us.2 = getelementptr inbounds i16, ptr %176, i64 %idxprom244
-  %177 = load i64, ptr %arrayidx245.us.2, align 2
-  %arrayidx243.us.3 = getelementptr inbounds ptr, ptr %154, i64 %54
-  %178 = load ptr, ptr %arrayidx243.us.3, align 8, !tbaa !5
-  %arrayidx245.us.3 = getelementptr inbounds i16, ptr %178, i64 %idxprom244
-  %179 = load i64, ptr %arrayidx245.us.3, align 2
+  %arrayidx243.us = getelementptr inbounds ptr, ptr %155, i64 %42
+  %173 = load ptr, ptr %arrayidx243.us, align 8, !tbaa !5
+  %arrayidx245.us = getelementptr inbounds i16, ptr %173, i64 %idxprom244
+  %174 = load i64, ptr %arrayidx245.us, align 2
+  %arrayidx243.us.1 = getelementptr inbounds ptr, ptr %155, i64 %53
+  %175 = load ptr, ptr %arrayidx243.us.1, align 8, !tbaa !5
+  %arrayidx245.us.1 = getelementptr inbounds i16, ptr %175, i64 %idxprom244
+  %176 = load i64, ptr %arrayidx245.us.1, align 2
+  %arrayidx243.us.2 = getelementptr inbounds ptr, ptr %155, i64 %54
+  %177 = load ptr, ptr %arrayidx243.us.2, align 8, !tbaa !5
+  %arrayidx245.us.2 = getelementptr inbounds i16, ptr %177, i64 %idxprom244
+  %178 = load i64, ptr %arrayidx245.us.2, align 2
+  %arrayidx243.us.3 = getelementptr inbounds ptr, ptr %155, i64 %55
+  %179 = load ptr, ptr %arrayidx243.us.3, align 8, !tbaa !5
+  %arrayidx245.us.3 = getelementptr inbounds i16, ptr %179, i64 %idxprom244
+  %180 = load i64, ptr %arrayidx245.us.3, align 2
   br label %for.end265
 
 for.end265:                                       ; preds = %for.body237.preheader, %for.body237.us.preheader
-  %rec4x4.sroa.11.1 = phi i64 [ %179, %for.body237.us.preheader ], [ %170, %for.body237.preheader ]
-  %rec4x4.sroa.8.1 = phi i64 [ %177, %for.body237.us.preheader ], [ %167, %for.body237.preheader ]
-  %rec4x4.sroa.5.1 = phi i64 [ %175, %for.body237.us.preheader ], [ %164, %for.body237.preheader ]
-  %rec4x4.sroa.0.1 = phi i64 [ %173, %for.body237.us.preheader ], [ %161, %for.body237.preheader ]
-  %180 = load i32, ptr %c_nz, align 4, !tbaa !54
-  %AdaptiveRounding = getelementptr inbounds %struct.ImageParameters, ptr %155, i64 0, i32 98
-  %181 = load i32, ptr %AdaptiveRounding, align 4, !tbaa !79
-  %tobool266.not = icmp eq i32 %181, 0
+  %rec4x4.sroa.11.1 = phi i64 [ %180, %for.body237.us.preheader ], [ %171, %for.body237.preheader ]
+  %rec4x4.sroa.8.1 = phi i64 [ %178, %for.body237.us.preheader ], [ %168, %for.body237.preheader ]
+  %rec4x4.sroa.5.1 = phi i64 [ %176, %for.body237.us.preheader ], [ %165, %for.body237.preheader ]
+  %rec4x4.sroa.0.1 = phi i64 [ %174, %for.body237.us.preheader ], [ %162, %for.body237.preheader ]
+  %181 = load i32, ptr %c_nz, align 4, !tbaa !54
+  %AdaptiveRounding = getelementptr inbounds %struct.ImageParameters, ptr %156, i64 0, i32 98
+  %182 = load i32, ptr %AdaptiveRounding, align 4, !tbaa !79
+  %tobool266.not = icmp eq i32 %182, 0
   br i1 %tobool266.not, label %if.end287, label %for.cond268.preheader
 
 for.cond268.preheader:                            ; preds = %for.end265
-  %182 = load ptr, ptr @fadjust4x4, align 8, !tbaa !5
-  %arrayidx274 = getelementptr inbounds ptr, ptr %182, i64 %39
-  %183 = load ptr, ptr %arrayidx274, align 8, !tbaa !5
-  %arrayidx276 = getelementptr inbounds i32, ptr %183, i64 %idxprom180
-  %fadjust4x4 = getelementptr inbounds %struct.ImageParameters, ptr %155, i64 0, i32 55
-  %184 = load ptr, ptr %fadjust4x4, align 8, !tbaa !80
-  %arrayidx277 = getelementptr inbounds ptr, ptr %184, i64 1
-  %185 = load ptr, ptr %arrayidx277, align 8, !tbaa !5
-  %arrayidx280 = getelementptr inbounds ptr, ptr %185, i64 %39
-  %186 = load ptr, ptr %arrayidx280, align 8, !tbaa !5
-  %arrayidx282 = getelementptr inbounds i32, ptr %186, i64 %idxprom180
+  %183 = load ptr, ptr @fadjust4x4, align 8, !tbaa !5
+  %arrayidx274 = getelementptr inbounds ptr, ptr %183, i64 %40
+  %184 = load ptr, ptr %arrayidx274, align 8, !tbaa !5
+  %arrayidx276 = getelementptr inbounds i32, ptr %184, i64 %idxprom180
+  %fadjust4x4 = getelementptr inbounds %struct.ImageParameters, ptr %156, i64 0, i32 55
+  %185 = load ptr, ptr %fadjust4x4, align 8, !tbaa !80
+  %arrayidx277 = getelementptr inbounds ptr, ptr %185, i64 1
+  %186 = load ptr, ptr %arrayidx277, align 8, !tbaa !5
+  %arrayidx280 = getelementptr inbounds ptr, ptr %186, i64 %40
+  %187 = load ptr, ptr %arrayidx280, align 8, !tbaa !5
+  %arrayidx282 = getelementptr inbounds i32, ptr %187, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx276, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx282, i64 16, i1 false)
-  %arrayidx274.1 = getelementptr inbounds ptr, ptr %182, i64 %43
-  %187 = load ptr, ptr %arrayidx274.1, align 8, !tbaa !5
-  %arrayidx276.1 = getelementptr inbounds i32, ptr %187, i64 %idxprom180
-  %188 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4.1 = getelementptr inbounds %struct.ImageParameters, ptr %188, i64 0, i32 55
-  %189 = load ptr, ptr %fadjust4x4.1, align 8, !tbaa !80
-  %arrayidx277.1 = getelementptr inbounds ptr, ptr %189, i64 1
-  %190 = load ptr, ptr %arrayidx277.1, align 8, !tbaa !5
-  %arrayidx280.1 = getelementptr inbounds ptr, ptr %190, i64 %43
-  %191 = load ptr, ptr %arrayidx280.1, align 8, !tbaa !5
-  %arrayidx282.1 = getelementptr inbounds i32, ptr %191, i64 %idxprom180
+  %arrayidx274.1 = getelementptr inbounds ptr, ptr %183, i64 %44
+  %188 = load ptr, ptr %arrayidx274.1, align 8, !tbaa !5
+  %arrayidx276.1 = getelementptr inbounds i32, ptr %188, i64 %idxprom180
+  %189 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4.1 = getelementptr inbounds %struct.ImageParameters, ptr %189, i64 0, i32 55
+  %190 = load ptr, ptr %fadjust4x4.1, align 8, !tbaa !80
+  %arrayidx277.1 = getelementptr inbounds ptr, ptr %190, i64 1
+  %191 = load ptr, ptr %arrayidx277.1, align 8, !tbaa !5
+  %arrayidx280.1 = getelementptr inbounds ptr, ptr %191, i64 %44
+  %192 = load ptr, ptr %arrayidx280.1, align 8, !tbaa !5
+  %arrayidx282.1 = getelementptr inbounds i32, ptr %192, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx276.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx282.1, i64 16, i1 false)
-  %arrayidx274.2 = getelementptr inbounds ptr, ptr %182, i64 %45
-  %192 = load ptr, ptr %arrayidx274.2, align 8, !tbaa !5
-  %arrayidx276.2 = getelementptr inbounds i32, ptr %192, i64 %idxprom180
-  %193 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4.2 = getelementptr inbounds %struct.ImageParameters, ptr %193, i64 0, i32 55
-  %194 = load ptr, ptr %fadjust4x4.2, align 8, !tbaa !80
-  %arrayidx277.2 = getelementptr inbounds ptr, ptr %194, i64 1
-  %195 = load ptr, ptr %arrayidx277.2, align 8, !tbaa !5
-  %arrayidx280.2 = getelementptr inbounds ptr, ptr %195, i64 %45
-  %196 = load ptr, ptr %arrayidx280.2, align 8, !tbaa !5
-  %arrayidx282.2 = getelementptr inbounds i32, ptr %196, i64 %idxprom180
+  %arrayidx274.2 = getelementptr inbounds ptr, ptr %183, i64 %46
+  %193 = load ptr, ptr %arrayidx274.2, align 8, !tbaa !5
+  %arrayidx276.2 = getelementptr inbounds i32, ptr %193, i64 %idxprom180
+  %194 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4.2 = getelementptr inbounds %struct.ImageParameters, ptr %194, i64 0, i32 55
+  %195 = load ptr, ptr %fadjust4x4.2, align 8, !tbaa !80
+  %arrayidx277.2 = getelementptr inbounds ptr, ptr %195, i64 1
+  %196 = load ptr, ptr %arrayidx277.2, align 8, !tbaa !5
+  %arrayidx280.2 = getelementptr inbounds ptr, ptr %196, i64 %46
+  %197 = load ptr, ptr %arrayidx280.2, align 8, !tbaa !5
+  %arrayidx282.2 = getelementptr inbounds i32, ptr %197, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx276.2, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx282.2, i64 16, i1 false)
-  %arrayidx274.3 = getelementptr inbounds ptr, ptr %182, i64 %47
-  %197 = load ptr, ptr %arrayidx274.3, align 8, !tbaa !5
-  %arrayidx276.3 = getelementptr inbounds i32, ptr %197, i64 %idxprom180
-  %198 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4.3 = getelementptr inbounds %struct.ImageParameters, ptr %198, i64 0, i32 55
-  %199 = load ptr, ptr %fadjust4x4.3, align 8, !tbaa !80
-  %arrayidx277.3 = getelementptr inbounds ptr, ptr %199, i64 1
-  %200 = load ptr, ptr %arrayidx277.3, align 8, !tbaa !5
-  %arrayidx280.3 = getelementptr inbounds ptr, ptr %200, i64 %47
-  %201 = load ptr, ptr %arrayidx280.3, align 8, !tbaa !5
-  %arrayidx282.3 = getelementptr inbounds i32, ptr %201, i64 %idxprom180
+  %arrayidx274.3 = getelementptr inbounds ptr, ptr %183, i64 %48
+  %198 = load ptr, ptr %arrayidx274.3, align 8, !tbaa !5
+  %arrayidx276.3 = getelementptr inbounds i32, ptr %198, i64 %idxprom180
+  %199 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4.3 = getelementptr inbounds %struct.ImageParameters, ptr %199, i64 0, i32 55
+  %200 = load ptr, ptr %fadjust4x4.3, align 8, !tbaa !80
+  %arrayidx277.3 = getelementptr inbounds ptr, ptr %200, i64 1
+  %201 = load ptr, ptr %arrayidx277.3, align 8, !tbaa !5
+  %arrayidx280.3 = getelementptr inbounds ptr, ptr %201, i64 %48
+  %202 = load ptr, ptr %arrayidx280.3, align 8, !tbaa !5
+  %arrayidx282.3 = getelementptr inbounds i32, ptr %202, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx276.3, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx282.3, i64 16, i1 false)
   br label %if.end287
 
@@ -3875,11 +3874,11 @@ if.end287:                                        ; preds = %for.cond268.prehead
   %rec4x4.sroa.8.2 = phi i64 [ %rec4x4.sroa.8.1, %for.end265 ], [ %rec4x4.sroa.8.1, %for.cond268.preheader ], [ %rec4x4.sroa.8.0, %for.cond173.preheader ]
   %rec4x4.sroa.5.2 = phi i64 [ %rec4x4.sroa.5.1, %for.end265 ], [ %rec4x4.sroa.5.1, %for.cond268.preheader ], [ %rec4x4.sroa.5.0, %for.cond173.preheader ]
   %rec4x4.sroa.0.2 = phi i64 [ %rec4x4.sroa.0.1, %for.end265 ], [ %rec4x4.sroa.0.1, %for.cond268.preheader ], [ %rec4x4.sroa.0.0, %for.cond173.preheader ]
-  %nonzero.1 = phi i32 [ %180, %for.end265 ], [ %180, %for.cond268.preheader ], [ %nonzero.0662, %for.cond173.preheader ]
-  %min_rdcost.1 = phi double [ %call217, %for.end265 ], [ %call217, %for.cond268.preheader ], [ %min_rdcost.0663, %for.cond173.preheader ]
-  %best_ipmode.1 = phi i32 [ %111, %for.end265 ], [ %111, %for.cond268.preheader ], [ %best_ipmode.0664, %for.cond173.preheader ]
-  %202 = load ptr, ptr @cs_cm, align 8, !tbaa !5
-  call void @reset_coding_state(ptr noundef %202) #15
+  %nonzero.1 = phi i32 [ %181, %for.end265 ], [ %181, %for.cond268.preheader ], [ %nonzero.0658, %for.cond173.preheader ]
+  %min_rdcost.1 = phi double [ %call217, %for.end265 ], [ %call217, %for.cond268.preheader ], [ %min_rdcost.0659, %for.cond173.preheader ]
+  %best_ipmode.1 = phi i32 [ %112, %for.end265 ], [ %112, %for.cond268.preheader ], [ %best_ipmode.0660, %for.cond173.preheader ]
+  %203 = load ptr, ptr @cs_cm, align 8, !tbaa !5
+  call void @reset_coding_state(ptr noundef %203) #15
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end121, %if.end128, %for.cond133.preheader, %if.then171, %if.end287, %if.end112, %if.then103
@@ -3887,487 +3886,487 @@ cleanup:                                          ; preds = %if.end121, %if.end1
   %rec4x4.sroa.8.3 = phi i64 [ %rec4x4.sroa.8.0, %if.then103 ], [ %rec4x4.sroa.8.0, %if.end112 ], [ %rec4x4.sroa.8.0, %if.end121 ], [ %rec4x4.sroa.8.0, %if.then171 ], [ %rec4x4.sroa.8.0, %for.cond133.preheader ], [ %rec4x4.sroa.8.2, %if.end287 ], [ %rec4x4.sroa.8.0, %if.end128 ]
   %rec4x4.sroa.5.3 = phi i64 [ %rec4x4.sroa.5.0, %if.then103 ], [ %rec4x4.sroa.5.0, %if.end112 ], [ %rec4x4.sroa.5.0, %if.end121 ], [ %rec4x4.sroa.5.0, %if.then171 ], [ %rec4x4.sroa.5.0, %for.cond133.preheader ], [ %rec4x4.sroa.5.2, %if.end287 ], [ %rec4x4.sroa.5.0, %if.end128 ]
   %rec4x4.sroa.0.3 = phi i64 [ %rec4x4.sroa.0.0, %if.then103 ], [ %rec4x4.sroa.0.0, %if.end112 ], [ %rec4x4.sroa.0.0, %if.end121 ], [ %rec4x4.sroa.0.0, %if.then171 ], [ %rec4x4.sroa.0.0, %for.cond133.preheader ], [ %rec4x4.sroa.0.2, %if.end287 ], [ %rec4x4.sroa.0.0, %if.end128 ]
-  %nonzero.3 = phi i32 [ %nonzero.0662, %if.then103 ], [ %nonzero.0662, %if.end112 ], [ %nonzero.0662, %if.end121 ], [ %nonzero.0662, %if.then171 ], [ %nonzero.0662, %for.cond133.preheader ], [ %nonzero.1, %if.end287 ], [ %nonzero.0662, %if.end128 ]
-  %min_rdcost.3 = phi double [ %min_rdcost.0663, %if.then103 ], [ %min_rdcost.0663, %if.end112 ], [ %min_rdcost.0663, %if.end121 ], [ %min_rdcost.0663, %if.then171 ], [ %min_rdcost.0663, %for.cond133.preheader ], [ %min_rdcost.1, %if.end287 ], [ %min_rdcost.0663, %if.end128 ]
-  %best_ipmode.3 = phi i32 [ %best_ipmode.0664, %if.then103 ], [ %best_ipmode.0664, %if.end112 ], [ %best_ipmode.0664, %if.end121 ], [ %139, %if.then171 ], [ %best_ipmode.0664, %for.cond133.preheader ], [ %best_ipmode.1, %if.end287 ], [ %best_ipmode.0664, %if.end128 ]
+  %nonzero.3 = phi i32 [ %nonzero.0658, %if.then103 ], [ %nonzero.0658, %if.end112 ], [ %nonzero.0658, %if.end121 ], [ %nonzero.0658, %if.then171 ], [ %nonzero.0658, %for.cond133.preheader ], [ %nonzero.1, %if.end287 ], [ %nonzero.0658, %if.end128 ]
+  %min_rdcost.3 = phi double [ %min_rdcost.0659, %if.then103 ], [ %min_rdcost.0659, %if.end112 ], [ %min_rdcost.0659, %if.end121 ], [ %min_rdcost.0659, %if.then171 ], [ %min_rdcost.0659, %for.cond133.preheader ], [ %min_rdcost.1, %if.end287 ], [ %min_rdcost.0659, %if.end128 ]
+  %best_ipmode.3 = phi i32 [ %best_ipmode.0660, %if.then103 ], [ %best_ipmode.0660, %if.end112 ], [ %best_ipmode.0660, %if.end121 ], [ %140, %if.then171 ], [ %best_ipmode.0660, %for.cond133.preheader ], [ %best_ipmode.1, %if.end287 ], [ %best_ipmode.0660, %if.end128 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 9
   br i1 %exitcond.not, label %for.end292, label %for.body, !llvm.loop !81
 
 for.end292:                                       ; preds = %cleanup
   %conv293 = trunc i32 %best_ipmode.3 to i8
-  %203 = load ptr, ptr @img, align 8, !tbaa !5
-  %ipredmode294 = getelementptr inbounds %struct.ImageParameters, ptr %203, i64 0, i32 31
-  %204 = load ptr, ptr %ipredmode294, align 8, !tbaa !71
+  %204 = load ptr, ptr @img, align 8, !tbaa !5
+  %ipredmode294 = getelementptr inbounds %struct.ImageParameters, ptr %204, i64 0, i32 31
+  %205 = load ptr, ptr %ipredmode294, align 8, !tbaa !71
   %idxprom295 = sext i32 %shr12 to i64
-  %arrayidx296 = getelementptr inbounds ptr, ptr %204, i64 %idxprom295
-  %205 = load ptr, ptr %arrayidx296, align 8, !tbaa !5
+  %arrayidx296 = getelementptr inbounds ptr, ptr %205, i64 %idxprom295
+  %206 = load ptr, ptr %arrayidx296, align 8, !tbaa !5
   %idxprom297 = sext i32 %shr11 to i64
-  %arrayidx298 = getelementptr inbounds i8, ptr %205, i64 %idxprom297
+  %arrayidx298 = getelementptr inbounds i8, ptr %206, i64 %idxprom297
   store i8 %conv293, ptr %arrayidx298, align 1, !tbaa !25
   %cmp299 = icmp eq i32 %cond74, %best_ipmode.3
   %cmp303 = icmp sge i32 %best_ipmode.3, %cond74
   %sub307 = sext i1 %cmp303 to i32
   %cond309 = add nsw i32 %best_ipmode.3, %sub307
-  %206 = trunc i32 %cond309 to i8
-  %cond311 = select i1 %cmp299, i8 -1, i8 %206
-  %207 = load ptr, ptr @img, align 8, !tbaa !5
-  %mb_data = getelementptr inbounds %struct.ImageParameters, ptr %207, i64 0, i32 61
-  %208 = load ptr, ptr %mb_data, align 8, !tbaa !82
-  %current_mb_nr313 = getelementptr inbounds %struct.ImageParameters, ptr %207, i64 0, i32 3
-  %209 = load i32, ptr %current_mb_nr313, align 4, !tbaa !65
-  %idxprom314 = sext i32 %209 to i64
+  %207 = trunc i32 %cond309 to i8
+  %cond311 = select i1 %cmp299, i8 -1, i8 %207
+  %208 = load ptr, ptr @img, align 8, !tbaa !5
+  %mb_data = getelementptr inbounds %struct.ImageParameters, ptr %208, i64 0, i32 61
+  %209 = load ptr, ptr %mb_data, align 8, !tbaa !82
+  %current_mb_nr313 = getelementptr inbounds %struct.ImageParameters, ptr %208, i64 0, i32 3
+  %210 = load i32, ptr %current_mb_nr313, align 4, !tbaa !65
+  %idxprom314 = sext i32 %210 to i64
   %add317 = add nsw i32 %0, %b4
   %idxprom318 = sext i32 %add317 to i64
-  %arrayidx319 = getelementptr inbounds %struct.macroblock, ptr %208, i64 %idxprom314, i32 10, i64 %idxprom318
+  %arrayidx319 = getelementptr inbounds %struct.macroblock, ptr %209, i64 %idxprom314, i32 10, i64 %idxprom318
   store i8 %cond311, ptr %arrayidx319, align 1, !tbaa !25
-  %210 = load ptr, ptr @input, align 8, !tbaa !5
-  %rdopt320 = getelementptr inbounds %struct.InputParameters, ptr %210, i64 0, i32 113
-  %211 = load i32, ptr %rdopt320, align 8, !tbaa !14
-  %tobool321.not = icmp eq i32 %211, 0
+  %211 = load ptr, ptr @input, align 8, !tbaa !5
+  %rdopt320 = getelementptr inbounds %struct.InputParameters, ptr %211, i64 0, i32 113
+  %212 = load i32, ptr %rdopt320, align 8, !tbaa !14
+  %tobool321.not = icmp eq i32 %212, 0
   br i1 %tobool321.not, label %for.cond323.preheader, label %for.cond375.preheader
 
 for.cond375.preheader:                            ; preds = %for.end292
-  %212 = load ptr, ptr @cofAC4x4, align 8, !tbaa !5
-  %213 = load ptr, ptr @img, align 8, !tbaa !5
-  %cofAC379 = getelementptr inbounds %struct.ImageParameters, ptr %213, i64 0, i32 53
-  %214 = load ptr, ptr %cofAC379, align 8, !tbaa !78
-  %arrayidx381 = getelementptr inbounds ptr, ptr %214, i64 %idxprom222
-  %215 = load ptr, ptr %arrayidx381, align 8, !tbaa !5
-  %arrayidx383 = getelementptr inbounds ptr, ptr %215, i64 %idxprom224
-  %216 = load ptr, ptr %arrayidx383, align 8, !tbaa !5
-  %217 = load ptr, ptr %216, align 8, !tbaa !5
-  %218 = load ptr, ptr %212, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %217, ptr noundef nonnull align 4 dereferenceable(72) %218, i64 72, i1 false)
-  %219 = load ptr, ptr @img, align 8, !tbaa !5
-  %cofAC379.1 = getelementptr inbounds %struct.ImageParameters, ptr %219, i64 0, i32 53
-  %220 = load ptr, ptr %cofAC379.1, align 8, !tbaa !78
-  %arrayidx381.1 = getelementptr inbounds ptr, ptr %220, i64 %idxprom222
-  %221 = load ptr, ptr %arrayidx381.1, align 8, !tbaa !5
-  %arrayidx383.1 = getelementptr inbounds ptr, ptr %221, i64 %idxprom224
-  %222 = load ptr, ptr %arrayidx383.1, align 8, !tbaa !5
-  %arrayidx385.1 = getelementptr inbounds ptr, ptr %222, i64 1
-  %223 = load ptr, ptr %arrayidx385.1, align 8, !tbaa !5
-  %arrayidx387.1 = getelementptr inbounds ptr, ptr %212, i64 1
-  %224 = load ptr, ptr %arrayidx387.1, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %223, ptr noundef nonnull align 4 dereferenceable(72) %224, i64 72, i1 false)
+  %213 = load ptr, ptr @cofAC4x4, align 8, !tbaa !5
+  %214 = load ptr, ptr @img, align 8, !tbaa !5
+  %cofAC379 = getelementptr inbounds %struct.ImageParameters, ptr %214, i64 0, i32 53
+  %215 = load ptr, ptr %cofAC379, align 8, !tbaa !78
+  %arrayidx381 = getelementptr inbounds ptr, ptr %215, i64 %idxprom222
+  %216 = load ptr, ptr %arrayidx381, align 8, !tbaa !5
+  %arrayidx383 = getelementptr inbounds ptr, ptr %216, i64 %idxprom224
+  %217 = load ptr, ptr %arrayidx383, align 8, !tbaa !5
+  %218 = load ptr, ptr %217, align 8, !tbaa !5
+  %219 = load ptr, ptr %213, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %218, ptr noundef nonnull align 4 dereferenceable(72) %219, i64 72, i1 false)
+  %220 = load ptr, ptr @img, align 8, !tbaa !5
+  %cofAC379.1 = getelementptr inbounds %struct.ImageParameters, ptr %220, i64 0, i32 53
+  %221 = load ptr, ptr %cofAC379.1, align 8, !tbaa !78
+  %arrayidx381.1 = getelementptr inbounds ptr, ptr %221, i64 %idxprom222
+  %222 = load ptr, ptr %arrayidx381.1, align 8, !tbaa !5
+  %arrayidx383.1 = getelementptr inbounds ptr, ptr %222, i64 %idxprom224
+  %223 = load ptr, ptr %arrayidx383.1, align 8, !tbaa !5
+  %arrayidx385.1 = getelementptr inbounds ptr, ptr %223, i64 1
+  %224 = load ptr, ptr %arrayidx385.1, align 8, !tbaa !5
+  %arrayidx387.1 = getelementptr inbounds ptr, ptr %213, i64 1
+  %225 = load ptr, ptr %arrayidx387.1, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(72) %224, ptr noundef nonnull align 4 dereferenceable(72) %225, i64 72, i1 false)
   %idxprom411 = sext i32 %best_ipmode.3 to i64
-  %225 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %imgY395 = getelementptr inbounds %struct.storable_picture, ptr %225, i64 0, i32 29
-  %226 = load ptr, ptr %imgY395, align 8, !tbaa !50
-  %arrayidx398 = getelementptr inbounds ptr, ptr %226, i64 %41
-  %227 = load ptr, ptr %arrayidx398, align 8, !tbaa !5
-  %arrayidx400 = getelementptr inbounds i16, ptr %227, i64 %idxprom244
+  %226 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %imgY395 = getelementptr inbounds %struct.storable_picture, ptr %226, i64 0, i32 29
+  %227 = load ptr, ptr %imgY395, align 8, !tbaa !50
+  %arrayidx398 = getelementptr inbounds ptr, ptr %227, i64 %42
+  %228 = load ptr, ptr %arrayidx398, align 8, !tbaa !5
+  %arrayidx400 = getelementptr inbounds i16, ptr %228, i64 %idxprom244
   store i64 %rec4x4.sroa.0.3, ptr %arrayidx400, align 2
-  %228 = load ptr, ptr @img, align 8, !tbaa !5
-  %arrayidx409 = getelementptr inbounds %struct.ImageParameters, ptr %228, i64 0, i32 51, i64 %39, i64 %idxprom180
-  %arrayidx414 = getelementptr inbounds %struct.ImageParameters, ptr %228, i64 0, i32 47, i64 %idxprom411, i64 0
-  %229 = load i64, ptr %arrayidx414, align 8
-  store i64 %229, ptr %arrayidx409, align 2
-  %230 = load ptr, ptr @img, align 8, !tbaa !5
-  %type416 = getelementptr inbounds %struct.ImageParameters, ptr %230, i64 0, i32 5
-  %231 = load i32, ptr %type416, align 4, !tbaa !22
-  %cmp417 = icmp ne i32 %231, 3
-  %232 = load i32, ptr @si_frame_indicator, align 4
-  %tobool420 = icmp ne i32 %232, 0
+  %229 = load ptr, ptr @img, align 8, !tbaa !5
+  %arrayidx409 = getelementptr inbounds %struct.ImageParameters, ptr %229, i64 0, i32 51, i64 %40, i64 %idxprom180
+  %arrayidx414 = getelementptr inbounds %struct.ImageParameters, ptr %229, i64 0, i32 47, i64 %idxprom411, i64 0
+  %230 = load i64, ptr %arrayidx414, align 8
+  store i64 %230, ptr %arrayidx409, align 2
+  %231 = load ptr, ptr @img, align 8, !tbaa !5
+  %type416 = getelementptr inbounds %struct.ImageParameters, ptr %231, i64 0, i32 5
+  %232 = load i32, ptr %type416, align 4, !tbaa !22
+  %cmp417 = icmp ne i32 %232, 3
+  %233 = load i32, ptr @si_frame_indicator, align 4
+  %tobool420 = icmp ne i32 %233, 0
   %or.cond501 = select i1 %cmp417, i1 true, i1 %tobool420
-  %233 = load i32, ptr @sp2_frame_indicator, align 4
-  %tobool422 = icmp ne i32 %233, 0
+  %234 = load i32, ptr @sp2_frame_indicator, align 4
+  %tobool422 = icmp ne i32 %234, 0
   %or.cond502 = select i1 %or.cond501, i1 true, i1 %tobool422
   br i1 %or.cond502, label %for.inc433, label %if.then423
 
 for.cond323.preheader:                            ; preds = %for.end292
-  %234 = load ptr, ptr @img, align 8, !tbaa !5
+  %235 = load ptr, ptr @img, align 8, !tbaa !5
   %idxprom334 = sext i32 %best_ipmode.3 to i64
-  %235 = load ptr, ptr @imgY_org, align 8, !tbaa !5
-  %236 = zext i32 %add to i64
-  %arrayidx348 = getelementptr inbounds ptr, ptr %235, i64 %40
-  %237 = load ptr, ptr %arrayidx348, align 8, !tbaa !5
-  %arrayidx339 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 0, i64 0
-  %238 = load i16, ptr %arrayidx339, align 2, !tbaa !37
-  %arrayidx346 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %39, i64 %236
-  store i16 %238, ptr %arrayidx346, align 2, !tbaa !37
-  %arrayidx351 = getelementptr inbounds i16, ptr %237, i64 %38
-  %239 = load i16, ptr %arrayidx351, align 2, !tbaa !37
-  %conv352 = zext i16 %239 to i32
-  %240 = load i16, ptr %arrayidx339, align 2, !tbaa !37
-  %conv360 = zext i16 %240 to i32
+  %236 = load ptr, ptr @imgY_org, align 8, !tbaa !5
+  %237 = zext i32 %add to i64
+  %arrayidx348 = getelementptr inbounds ptr, ptr %236, i64 %41
+  %238 = load ptr, ptr %arrayidx348, align 8, !tbaa !5
+  %arrayidx339 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 0, i64 0
+  %239 = load i16, ptr %arrayidx339, align 2, !tbaa !37
+  %arrayidx346 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %40, i64 %237
+  store i16 %239, ptr %arrayidx346, align 2, !tbaa !37
+  %arrayidx351 = getelementptr inbounds i16, ptr %238, i64 %39
+  %240 = load i16, ptr %arrayidx351, align 2, !tbaa !37
+  %conv352 = zext i16 %240 to i32
+  %241 = load i16, ptr %arrayidx339, align 2, !tbaa !37
+  %conv360 = zext i16 %241 to i32
   %sub361 = sub nsw i32 %conv352, %conv360
-  %arrayidx366 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 0, i64 0
+  %arrayidx366 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 0, i64 0
   store i32 %sub361, ptr %arrayidx366, align 4, !tbaa !54
-  %arrayidx339.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 0, i64 1
-  %241 = load i16, ptr %arrayidx339.1, align 2, !tbaa !37
-  %242 = or i64 %236, 1
-  %arrayidx346.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %39, i64 %242
-  store i16 %241, ptr %arrayidx346.1, align 2, !tbaa !37
-  %243 = add nsw i64 %38, 1
-  %arrayidx351.1 = getelementptr inbounds i16, ptr %237, i64 %243
-  %244 = load i16, ptr %arrayidx351.1, align 2, !tbaa !37
-  %conv352.1 = zext i16 %244 to i32
-  %245 = load i16, ptr %arrayidx339.1, align 2, !tbaa !37
-  %conv360.1 = zext i16 %245 to i32
+  %arrayidx339.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 0, i64 1
+  %242 = load i16, ptr %arrayidx339.1, align 2, !tbaa !37
+  %243 = or i64 %237, 1
+  %arrayidx346.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %40, i64 %243
+  store i16 %242, ptr %arrayidx346.1, align 2, !tbaa !37
+  %244 = add nsw i64 %39, 1
+  %arrayidx351.1 = getelementptr inbounds i16, ptr %238, i64 %244
+  %245 = load i16, ptr %arrayidx351.1, align 2, !tbaa !37
+  %conv352.1 = zext i16 %245 to i32
+  %246 = load i16, ptr %arrayidx339.1, align 2, !tbaa !37
+  %conv360.1 = zext i16 %246 to i32
   %sub361.1 = sub nsw i32 %conv352.1, %conv360.1
-  %arrayidx366.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 0, i64 1
+  %arrayidx366.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 0, i64 1
   store i32 %sub361.1, ptr %arrayidx366.1, align 4, !tbaa !54
-  %arrayidx339.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 0, i64 2
-  %246 = load i16, ptr %arrayidx339.2, align 2, !tbaa !37
-  %247 = or i64 %236, 2
-  %arrayidx346.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %39, i64 %247
-  store i16 %246, ptr %arrayidx346.2, align 2, !tbaa !37
-  %248 = add nsw i64 %38, 2
-  %arrayidx351.2 = getelementptr inbounds i16, ptr %237, i64 %248
-  %249 = load i16, ptr %arrayidx351.2, align 2, !tbaa !37
-  %conv352.2 = zext i16 %249 to i32
-  %250 = load i16, ptr %arrayidx339.2, align 2, !tbaa !37
-  %conv360.2 = zext i16 %250 to i32
+  %arrayidx339.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 0, i64 2
+  %247 = load i16, ptr %arrayidx339.2, align 2, !tbaa !37
+  %248 = or i64 %237, 2
+  %arrayidx346.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %40, i64 %248
+  store i16 %247, ptr %arrayidx346.2, align 2, !tbaa !37
+  %249 = add nsw i64 %39, 2
+  %arrayidx351.2 = getelementptr inbounds i16, ptr %238, i64 %249
+  %250 = load i16, ptr %arrayidx351.2, align 2, !tbaa !37
+  %conv352.2 = zext i16 %250 to i32
+  %251 = load i16, ptr %arrayidx339.2, align 2, !tbaa !37
+  %conv360.2 = zext i16 %251 to i32
   %sub361.2 = sub nsw i32 %conv352.2, %conv360.2
-  %arrayidx366.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 0, i64 2
+  %arrayidx366.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 0, i64 2
   store i32 %sub361.2, ptr %arrayidx366.2, align 4, !tbaa !54
-  %arrayidx339.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 0, i64 3
-  %251 = load i16, ptr %arrayidx339.3, align 2, !tbaa !37
-  %252 = or i64 %236, 3
-  %arrayidx346.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %39, i64 %252
-  store i16 %251, ptr %arrayidx346.3, align 2, !tbaa !37
-  %253 = add nsw i64 %38, 3
-  %arrayidx351.3 = getelementptr inbounds i16, ptr %237, i64 %253
-  %254 = load i16, ptr %arrayidx351.3, align 2, !tbaa !37
-  %conv352.3 = zext i16 %254 to i32
-  %255 = load i16, ptr %arrayidx339.3, align 2, !tbaa !37
-  %conv360.3 = zext i16 %255 to i32
+  %arrayidx339.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 0, i64 3
+  %252 = load i16, ptr %arrayidx339.3, align 2, !tbaa !37
+  %253 = or i64 %237, 3
+  %arrayidx346.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %40, i64 %253
+  store i16 %252, ptr %arrayidx346.3, align 2, !tbaa !37
+  %254 = add nsw i64 %39, 3
+  %arrayidx351.3 = getelementptr inbounds i16, ptr %238, i64 %254
+  %255 = load i16, ptr %arrayidx351.3, align 2, !tbaa !37
+  %conv352.3 = zext i16 %255 to i32
+  %256 = load i16, ptr %arrayidx339.3, align 2, !tbaa !37
+  %conv360.3 = zext i16 %256 to i32
   %sub361.3 = sub nsw i32 %conv352.3, %conv360.3
-  %arrayidx366.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 0, i64 3
+  %arrayidx366.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 0, i64 3
   store i32 %sub361.3, ptr %arrayidx366.3, align 4, !tbaa !54
-  %256 = add nsw i64 %40, 1
-  %257 = or i64 %39, 1
-  %arrayidx348.1 = getelementptr inbounds ptr, ptr %235, i64 %256
-  %258 = load ptr, ptr %arrayidx348.1, align 8, !tbaa !5
-  %arrayidx339.1761 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 1, i64 0
-  %259 = load i16, ptr %arrayidx339.1761, align 2, !tbaa !37
-  %arrayidx346.1762 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %257, i64 %236
-  store i16 %259, ptr %arrayidx346.1762, align 2, !tbaa !37
-  %arrayidx351.1763 = getelementptr inbounds i16, ptr %258, i64 %38
-  %260 = load i16, ptr %arrayidx351.1763, align 2, !tbaa !37
-  %conv352.1764 = zext i16 %260 to i32
-  %261 = load i16, ptr %arrayidx339.1761, align 2, !tbaa !37
-  %conv360.1765 = zext i16 %261 to i32
-  %sub361.1766 = sub nsw i32 %conv352.1764, %conv360.1765
-  %arrayidx366.1767 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 1, i64 0
-  store i32 %sub361.1766, ptr %arrayidx366.1767, align 4, !tbaa !54
-  %arrayidx339.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 1, i64 1
-  %262 = load i16, ptr %arrayidx339.1.1, align 2, !tbaa !37
-  %arrayidx346.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %257, i64 %242
-  store i16 %262, ptr %arrayidx346.1.1, align 2, !tbaa !37
-  %arrayidx351.1.1 = getelementptr inbounds i16, ptr %258, i64 %243
-  %263 = load i16, ptr %arrayidx351.1.1, align 2, !tbaa !37
-  %conv352.1.1 = zext i16 %263 to i32
-  %264 = load i16, ptr %arrayidx339.1.1, align 2, !tbaa !37
-  %conv360.1.1 = zext i16 %264 to i32
+  %257 = add nsw i64 %41, 1
+  %258 = or i64 %40, 1
+  %arrayidx348.1 = getelementptr inbounds ptr, ptr %236, i64 %257
+  %259 = load ptr, ptr %arrayidx348.1, align 8, !tbaa !5
+  %arrayidx339.1757 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 1, i64 0
+  %260 = load i16, ptr %arrayidx339.1757, align 2, !tbaa !37
+  %arrayidx346.1758 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %258, i64 %237
+  store i16 %260, ptr %arrayidx346.1758, align 2, !tbaa !37
+  %arrayidx351.1759 = getelementptr inbounds i16, ptr %259, i64 %39
+  %261 = load i16, ptr %arrayidx351.1759, align 2, !tbaa !37
+  %conv352.1760 = zext i16 %261 to i32
+  %262 = load i16, ptr %arrayidx339.1757, align 2, !tbaa !37
+  %conv360.1761 = zext i16 %262 to i32
+  %sub361.1762 = sub nsw i32 %conv352.1760, %conv360.1761
+  %arrayidx366.1763 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 1, i64 0
+  store i32 %sub361.1762, ptr %arrayidx366.1763, align 4, !tbaa !54
+  %arrayidx339.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 1, i64 1
+  %263 = load i16, ptr %arrayidx339.1.1, align 2, !tbaa !37
+  %arrayidx346.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %258, i64 %243
+  store i16 %263, ptr %arrayidx346.1.1, align 2, !tbaa !37
+  %arrayidx351.1.1 = getelementptr inbounds i16, ptr %259, i64 %244
+  %264 = load i16, ptr %arrayidx351.1.1, align 2, !tbaa !37
+  %conv352.1.1 = zext i16 %264 to i32
+  %265 = load i16, ptr %arrayidx339.1.1, align 2, !tbaa !37
+  %conv360.1.1 = zext i16 %265 to i32
   %sub361.1.1 = sub nsw i32 %conv352.1.1, %conv360.1.1
-  %arrayidx366.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 1, i64 1
+  %arrayidx366.1.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 1, i64 1
   store i32 %sub361.1.1, ptr %arrayidx366.1.1, align 4, !tbaa !54
-  %arrayidx339.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 1, i64 2
-  %265 = load i16, ptr %arrayidx339.2.1, align 2, !tbaa !37
-  %arrayidx346.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %257, i64 %247
-  store i16 %265, ptr %arrayidx346.2.1, align 2, !tbaa !37
-  %arrayidx351.2.1 = getelementptr inbounds i16, ptr %258, i64 %248
-  %266 = load i16, ptr %arrayidx351.2.1, align 2, !tbaa !37
-  %conv352.2.1 = zext i16 %266 to i32
-  %267 = load i16, ptr %arrayidx339.2.1, align 2, !tbaa !37
-  %conv360.2.1 = zext i16 %267 to i32
+  %arrayidx339.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 1, i64 2
+  %266 = load i16, ptr %arrayidx339.2.1, align 2, !tbaa !37
+  %arrayidx346.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %258, i64 %248
+  store i16 %266, ptr %arrayidx346.2.1, align 2, !tbaa !37
+  %arrayidx351.2.1 = getelementptr inbounds i16, ptr %259, i64 %249
+  %267 = load i16, ptr %arrayidx351.2.1, align 2, !tbaa !37
+  %conv352.2.1 = zext i16 %267 to i32
+  %268 = load i16, ptr %arrayidx339.2.1, align 2, !tbaa !37
+  %conv360.2.1 = zext i16 %268 to i32
   %sub361.2.1 = sub nsw i32 %conv352.2.1, %conv360.2.1
-  %arrayidx366.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 1, i64 2
+  %arrayidx366.2.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 1, i64 2
   store i32 %sub361.2.1, ptr %arrayidx366.2.1, align 4, !tbaa !54
-  %arrayidx339.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 1, i64 3
-  %268 = load i16, ptr %arrayidx339.3.1, align 2, !tbaa !37
-  %arrayidx346.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %257, i64 %252
-  store i16 %268, ptr %arrayidx346.3.1, align 2, !tbaa !37
-  %arrayidx351.3.1 = getelementptr inbounds i16, ptr %258, i64 %253
-  %269 = load i16, ptr %arrayidx351.3.1, align 2, !tbaa !37
-  %conv352.3.1 = zext i16 %269 to i32
-  %270 = load i16, ptr %arrayidx339.3.1, align 2, !tbaa !37
-  %conv360.3.1 = zext i16 %270 to i32
+  %arrayidx339.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 1, i64 3
+  %269 = load i16, ptr %arrayidx339.3.1, align 2, !tbaa !37
+  %arrayidx346.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %258, i64 %253
+  store i16 %269, ptr %arrayidx346.3.1, align 2, !tbaa !37
+  %arrayidx351.3.1 = getelementptr inbounds i16, ptr %259, i64 %254
+  %270 = load i16, ptr %arrayidx351.3.1, align 2, !tbaa !37
+  %conv352.3.1 = zext i16 %270 to i32
+  %271 = load i16, ptr %arrayidx339.3.1, align 2, !tbaa !37
+  %conv360.3.1 = zext i16 %271 to i32
   %sub361.3.1 = sub nsw i32 %conv352.3.1, %conv360.3.1
-  %arrayidx366.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 1, i64 3
+  %arrayidx366.3.1 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 1, i64 3
   store i32 %sub361.3.1, ptr %arrayidx366.3.1, align 4, !tbaa !54
-  %271 = add nsw i64 %40, 2
-  %272 = or i64 %39, 2
-  %arrayidx348.2 = getelementptr inbounds ptr, ptr %235, i64 %271
-  %273 = load ptr, ptr %arrayidx348.2, align 8, !tbaa !5
-  %arrayidx339.2768 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 2, i64 0
-  %274 = load i16, ptr %arrayidx339.2768, align 2, !tbaa !37
-  %arrayidx346.2769 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %272, i64 %236
-  store i16 %274, ptr %arrayidx346.2769, align 2, !tbaa !37
-  %arrayidx351.2770 = getelementptr inbounds i16, ptr %273, i64 %38
-  %275 = load i16, ptr %arrayidx351.2770, align 2, !tbaa !37
-  %conv352.2771 = zext i16 %275 to i32
-  %276 = load i16, ptr %arrayidx339.2768, align 2, !tbaa !37
-  %conv360.2772 = zext i16 %276 to i32
-  %sub361.2773 = sub nsw i32 %conv352.2771, %conv360.2772
-  %arrayidx366.2774 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 2, i64 0
-  store i32 %sub361.2773, ptr %arrayidx366.2774, align 4, !tbaa !54
-  %arrayidx339.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 2, i64 1
-  %277 = load i16, ptr %arrayidx339.1.2, align 2, !tbaa !37
-  %arrayidx346.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %272, i64 %242
-  store i16 %277, ptr %arrayidx346.1.2, align 2, !tbaa !37
-  %arrayidx351.1.2 = getelementptr inbounds i16, ptr %273, i64 %243
-  %278 = load i16, ptr %arrayidx351.1.2, align 2, !tbaa !37
-  %conv352.1.2 = zext i16 %278 to i32
-  %279 = load i16, ptr %arrayidx339.1.2, align 2, !tbaa !37
-  %conv360.1.2 = zext i16 %279 to i32
+  %272 = add nsw i64 %41, 2
+  %273 = or i64 %40, 2
+  %arrayidx348.2 = getelementptr inbounds ptr, ptr %236, i64 %272
+  %274 = load ptr, ptr %arrayidx348.2, align 8, !tbaa !5
+  %arrayidx339.2764 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 2, i64 0
+  %275 = load i16, ptr %arrayidx339.2764, align 2, !tbaa !37
+  %arrayidx346.2765 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %273, i64 %237
+  store i16 %275, ptr %arrayidx346.2765, align 2, !tbaa !37
+  %arrayidx351.2766 = getelementptr inbounds i16, ptr %274, i64 %39
+  %276 = load i16, ptr %arrayidx351.2766, align 2, !tbaa !37
+  %conv352.2767 = zext i16 %276 to i32
+  %277 = load i16, ptr %arrayidx339.2764, align 2, !tbaa !37
+  %conv360.2768 = zext i16 %277 to i32
+  %sub361.2769 = sub nsw i32 %conv352.2767, %conv360.2768
+  %arrayidx366.2770 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 2, i64 0
+  store i32 %sub361.2769, ptr %arrayidx366.2770, align 4, !tbaa !54
+  %arrayidx339.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 2, i64 1
+  %278 = load i16, ptr %arrayidx339.1.2, align 2, !tbaa !37
+  %arrayidx346.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %273, i64 %243
+  store i16 %278, ptr %arrayidx346.1.2, align 2, !tbaa !37
+  %arrayidx351.1.2 = getelementptr inbounds i16, ptr %274, i64 %244
+  %279 = load i16, ptr %arrayidx351.1.2, align 2, !tbaa !37
+  %conv352.1.2 = zext i16 %279 to i32
+  %280 = load i16, ptr %arrayidx339.1.2, align 2, !tbaa !37
+  %conv360.1.2 = zext i16 %280 to i32
   %sub361.1.2 = sub nsw i32 %conv352.1.2, %conv360.1.2
-  %arrayidx366.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 2, i64 1
+  %arrayidx366.1.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 2, i64 1
   store i32 %sub361.1.2, ptr %arrayidx366.1.2, align 4, !tbaa !54
-  %arrayidx339.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 2, i64 2
-  %280 = load i16, ptr %arrayidx339.2.2, align 2, !tbaa !37
-  %arrayidx346.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %272, i64 %247
-  store i16 %280, ptr %arrayidx346.2.2, align 2, !tbaa !37
-  %arrayidx351.2.2 = getelementptr inbounds i16, ptr %273, i64 %248
-  %281 = load i16, ptr %arrayidx351.2.2, align 2, !tbaa !37
-  %conv352.2.2 = zext i16 %281 to i32
-  %282 = load i16, ptr %arrayidx339.2.2, align 2, !tbaa !37
-  %conv360.2.2 = zext i16 %282 to i32
+  %arrayidx339.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 2, i64 2
+  %281 = load i16, ptr %arrayidx339.2.2, align 2, !tbaa !37
+  %arrayidx346.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %273, i64 %248
+  store i16 %281, ptr %arrayidx346.2.2, align 2, !tbaa !37
+  %arrayidx351.2.2 = getelementptr inbounds i16, ptr %274, i64 %249
+  %282 = load i16, ptr %arrayidx351.2.2, align 2, !tbaa !37
+  %conv352.2.2 = zext i16 %282 to i32
+  %283 = load i16, ptr %arrayidx339.2.2, align 2, !tbaa !37
+  %conv360.2.2 = zext i16 %283 to i32
   %sub361.2.2 = sub nsw i32 %conv352.2.2, %conv360.2.2
-  %arrayidx366.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 2, i64 2
+  %arrayidx366.2.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 2, i64 2
   store i32 %sub361.2.2, ptr %arrayidx366.2.2, align 4, !tbaa !54
-  %arrayidx339.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 2, i64 3
-  %283 = load i16, ptr %arrayidx339.3.2, align 2, !tbaa !37
-  %arrayidx346.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %272, i64 %252
-  store i16 %283, ptr %arrayidx346.3.2, align 2, !tbaa !37
-  %arrayidx351.3.2 = getelementptr inbounds i16, ptr %273, i64 %253
-  %284 = load i16, ptr %arrayidx351.3.2, align 2, !tbaa !37
-  %conv352.3.2 = zext i16 %284 to i32
-  %285 = load i16, ptr %arrayidx339.3.2, align 2, !tbaa !37
-  %conv360.3.2 = zext i16 %285 to i32
+  %arrayidx339.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 2, i64 3
+  %284 = load i16, ptr %arrayidx339.3.2, align 2, !tbaa !37
+  %arrayidx346.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %273, i64 %253
+  store i16 %284, ptr %arrayidx346.3.2, align 2, !tbaa !37
+  %arrayidx351.3.2 = getelementptr inbounds i16, ptr %274, i64 %254
+  %285 = load i16, ptr %arrayidx351.3.2, align 2, !tbaa !37
+  %conv352.3.2 = zext i16 %285 to i32
+  %286 = load i16, ptr %arrayidx339.3.2, align 2, !tbaa !37
+  %conv360.3.2 = zext i16 %286 to i32
   %sub361.3.2 = sub nsw i32 %conv352.3.2, %conv360.3.2
-  %arrayidx366.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 2, i64 3
+  %arrayidx366.3.2 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 2, i64 3
   store i32 %sub361.3.2, ptr %arrayidx366.3.2, align 4, !tbaa !54
-  %286 = add nsw i64 %40, 3
-  %287 = or i64 %39, 3
-  %arrayidx348.3 = getelementptr inbounds ptr, ptr %235, i64 %286
-  %288 = load ptr, ptr %arrayidx348.3, align 8, !tbaa !5
-  %arrayidx339.3775 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 3, i64 0
-  %289 = load i16, ptr %arrayidx339.3775, align 2, !tbaa !37
-  %arrayidx346.3776 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %287, i64 %236
-  store i16 %289, ptr %arrayidx346.3776, align 2, !tbaa !37
-  %arrayidx351.3777 = getelementptr inbounds i16, ptr %288, i64 %38
-  %290 = load i16, ptr %arrayidx351.3777, align 2, !tbaa !37
-  %conv352.3778 = zext i16 %290 to i32
-  %291 = load i16, ptr %arrayidx339.3775, align 2, !tbaa !37
-  %conv360.3779 = zext i16 %291 to i32
-  %sub361.3780 = sub nsw i32 %conv352.3778, %conv360.3779
-  %arrayidx366.3781 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 3, i64 0
-  store i32 %sub361.3780, ptr %arrayidx366.3781, align 4, !tbaa !54
-  %arrayidx339.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 3, i64 1
-  %292 = load i16, ptr %arrayidx339.1.3, align 2, !tbaa !37
-  %arrayidx346.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %287, i64 %242
-  store i16 %292, ptr %arrayidx346.1.3, align 2, !tbaa !37
-  %arrayidx351.1.3 = getelementptr inbounds i16, ptr %288, i64 %243
-  %293 = load i16, ptr %arrayidx351.1.3, align 2, !tbaa !37
-  %conv352.1.3 = zext i16 %293 to i32
-  %294 = load i16, ptr %arrayidx339.1.3, align 2, !tbaa !37
-  %conv360.1.3 = zext i16 %294 to i32
+  %287 = add nsw i64 %41, 3
+  %288 = or i64 %40, 3
+  %arrayidx348.3 = getelementptr inbounds ptr, ptr %236, i64 %287
+  %289 = load ptr, ptr %arrayidx348.3, align 8, !tbaa !5
+  %arrayidx339.3771 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 3, i64 0
+  %290 = load i16, ptr %arrayidx339.3771, align 2, !tbaa !37
+  %arrayidx346.3772 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %288, i64 %237
+  store i16 %290, ptr %arrayidx346.3772, align 2, !tbaa !37
+  %arrayidx351.3773 = getelementptr inbounds i16, ptr %289, i64 %39
+  %291 = load i16, ptr %arrayidx351.3773, align 2, !tbaa !37
+  %conv352.3774 = zext i16 %291 to i32
+  %292 = load i16, ptr %arrayidx339.3771, align 2, !tbaa !37
+  %conv360.3775 = zext i16 %292 to i32
+  %sub361.3776 = sub nsw i32 %conv352.3774, %conv360.3775
+  %arrayidx366.3777 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 3, i64 0
+  store i32 %sub361.3776, ptr %arrayidx366.3777, align 4, !tbaa !54
+  %arrayidx339.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 3, i64 1
+  %293 = load i16, ptr %arrayidx339.1.3, align 2, !tbaa !37
+  %arrayidx346.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %288, i64 %243
+  store i16 %293, ptr %arrayidx346.1.3, align 2, !tbaa !37
+  %arrayidx351.1.3 = getelementptr inbounds i16, ptr %289, i64 %244
+  %294 = load i16, ptr %arrayidx351.1.3, align 2, !tbaa !37
+  %conv352.1.3 = zext i16 %294 to i32
+  %295 = load i16, ptr %arrayidx339.1.3, align 2, !tbaa !37
+  %conv360.1.3 = zext i16 %295 to i32
   %sub361.1.3 = sub nsw i32 %conv352.1.3, %conv360.1.3
-  %arrayidx366.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 3, i64 1
+  %arrayidx366.1.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 3, i64 1
   store i32 %sub361.1.3, ptr %arrayidx366.1.3, align 4, !tbaa !54
-  %arrayidx339.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 3, i64 2
-  %295 = load i16, ptr %arrayidx339.2.3, align 2, !tbaa !37
-  %arrayidx346.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %287, i64 %247
-  store i16 %295, ptr %arrayidx346.2.3, align 2, !tbaa !37
-  %arrayidx351.2.3 = getelementptr inbounds i16, ptr %288, i64 %248
-  %296 = load i16, ptr %arrayidx351.2.3, align 2, !tbaa !37
-  %conv352.2.3 = zext i16 %296 to i32
-  %297 = load i16, ptr %arrayidx339.2.3, align 2, !tbaa !37
-  %conv360.2.3 = zext i16 %297 to i32
+  %arrayidx339.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 3, i64 2
+  %296 = load i16, ptr %arrayidx339.2.3, align 2, !tbaa !37
+  %arrayidx346.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %288, i64 %248
+  store i16 %296, ptr %arrayidx346.2.3, align 2, !tbaa !37
+  %arrayidx351.2.3 = getelementptr inbounds i16, ptr %289, i64 %249
+  %297 = load i16, ptr %arrayidx351.2.3, align 2, !tbaa !37
+  %conv352.2.3 = zext i16 %297 to i32
+  %298 = load i16, ptr %arrayidx339.2.3, align 2, !tbaa !37
+  %conv360.2.3 = zext i16 %298 to i32
   %sub361.2.3 = sub nsw i32 %conv352.2.3, %conv360.2.3
-  %arrayidx366.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 3, i64 2
+  %arrayidx366.2.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 3, i64 2
   store i32 %sub361.2.3, ptr %arrayidx366.2.3, align 4, !tbaa !54
-  %arrayidx339.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 47, i64 %idxprom334, i64 3, i64 3
-  %298 = load i16, ptr %arrayidx339.3.3, align 2, !tbaa !37
-  %arrayidx346.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 51, i64 %287, i64 %252
-  store i16 %298, ptr %arrayidx346.3.3, align 2, !tbaa !37
-  %arrayidx351.3.3 = getelementptr inbounds i16, ptr %288, i64 %253
-  %299 = load i16, ptr %arrayidx351.3.3, align 2, !tbaa !37
-  %conv352.3.3 = zext i16 %299 to i32
-  %300 = load i16, ptr %arrayidx339.3.3, align 2, !tbaa !37
-  %conv360.3.3 = zext i16 %300 to i32
+  %arrayidx339.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 47, i64 %idxprom334, i64 3, i64 3
+  %299 = load i16, ptr %arrayidx339.3.3, align 2, !tbaa !37
+  %arrayidx346.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 51, i64 %288, i64 %253
+  store i16 %299, ptr %arrayidx346.3.3, align 2, !tbaa !37
+  %arrayidx351.3.3 = getelementptr inbounds i16, ptr %289, i64 %254
+  %300 = load i16, ptr %arrayidx351.3.3, align 2, !tbaa !37
+  %conv352.3.3 = zext i16 %300 to i32
+  %301 = load i16, ptr %arrayidx339.3.3, align 2, !tbaa !37
+  %conv360.3.3 = zext i16 %301 to i32
   %sub361.3.3 = sub nsw i32 %conv352.3.3, %conv360.3.3
-  %arrayidx366.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %234, i64 0, i32 52, i64 3, i64 3
+  %arrayidx366.3.3 = getelementptr inbounds %struct.ImageParameters, ptr %235, i64 0, i32 52, i64 3, i64 3
   store i32 %sub361.3.3, ptr %arrayidx366.3.3, align 4, !tbaa !54
   %call373 = call i32 @dct_luma(i32 noundef %add, i32 noundef %add6, ptr noundef nonnull %dummy, i32 noundef 1) #15
   br label %if.end459
 
 if.then423:                                       ; preds = %for.cond375.preheader
-  %301 = load ptr, ptr @lrec, align 8, !tbaa !5
-  %arrayidx426 = getelementptr inbounds ptr, ptr %301, i64 %41
-  %302 = load ptr, ptr %arrayidx426, align 8, !tbaa !5
-  %arrayidx428 = getelementptr inbounds i32, ptr %302, i64 %idxprom244
+  %302 = load ptr, ptr @lrec, align 8, !tbaa !5
+  %arrayidx426 = getelementptr inbounds ptr, ptr %302, i64 %42
+  %303 = load ptr, ptr %arrayidx426, align 8, !tbaa !5
+  %arrayidx428 = getelementptr inbounds i32, ptr %303, i64 %idxprom244
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx428, ptr noundef nonnull align 16 dereferenceable(16) %lrec4x4, i64 16, i1 false)
   br label %for.inc433
 
 for.inc433:                                       ; preds = %for.cond375.preheader, %if.then423
-  %303 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %imgY395.1 = getelementptr inbounds %struct.storable_picture, ptr %303, i64 0, i32 29
-  %304 = load ptr, ptr %imgY395.1, align 8, !tbaa !50
-  %305 = add nsw i64 %41, 1
-  %arrayidx398.1 = getelementptr inbounds ptr, ptr %304, i64 %305
-  %306 = load ptr, ptr %arrayidx398.1, align 8, !tbaa !5
-  %arrayidx400.1 = getelementptr inbounds i16, ptr %306, i64 %idxprom244
+  %304 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %imgY395.1 = getelementptr inbounds %struct.storable_picture, ptr %304, i64 0, i32 29
+  %305 = load ptr, ptr %imgY395.1, align 8, !tbaa !50
+  %306 = add nsw i64 %42, 1
+  %arrayidx398.1 = getelementptr inbounds ptr, ptr %305, i64 %306
+  %307 = load ptr, ptr %arrayidx398.1, align 8, !tbaa !5
+  %arrayidx400.1 = getelementptr inbounds i16, ptr %307, i64 %idxprom244
   store i64 %rec4x4.sroa.5.3, ptr %arrayidx400.1, align 2
-  %307 = load ptr, ptr @img, align 8, !tbaa !5
-  %308 = or i64 %39, 1
-  %arrayidx409.1 = getelementptr inbounds %struct.ImageParameters, ptr %307, i64 0, i32 51, i64 %308, i64 %idxprom180
-  %arrayidx414.1 = getelementptr inbounds %struct.ImageParameters, ptr %307, i64 0, i32 47, i64 %idxprom411, i64 1
-  %309 = load i64, ptr %arrayidx414.1, align 8
-  store i64 %309, ptr %arrayidx409.1, align 2
-  %310 = load ptr, ptr @img, align 8, !tbaa !5
-  %type416.1 = getelementptr inbounds %struct.ImageParameters, ptr %310, i64 0, i32 5
-  %311 = load i32, ptr %type416.1, align 4, !tbaa !22
-  %cmp417.1 = icmp ne i32 %311, 3
-  %312 = load i32, ptr @si_frame_indicator, align 4
-  %tobool420.1 = icmp ne i32 %312, 0
+  %308 = load ptr, ptr @img, align 8, !tbaa !5
+  %309 = or i64 %40, 1
+  %arrayidx409.1 = getelementptr inbounds %struct.ImageParameters, ptr %308, i64 0, i32 51, i64 %309, i64 %idxprom180
+  %arrayidx414.1 = getelementptr inbounds %struct.ImageParameters, ptr %308, i64 0, i32 47, i64 %idxprom411, i64 1
+  %310 = load i64, ptr %arrayidx414.1, align 8
+  store i64 %310, ptr %arrayidx409.1, align 2
+  %311 = load ptr, ptr @img, align 8, !tbaa !5
+  %type416.1 = getelementptr inbounds %struct.ImageParameters, ptr %311, i64 0, i32 5
+  %312 = load i32, ptr %type416.1, align 4, !tbaa !22
+  %cmp417.1 = icmp ne i32 %312, 3
+  %313 = load i32, ptr @si_frame_indicator, align 4
+  %tobool420.1 = icmp ne i32 %313, 0
   %or.cond501.1 = select i1 %cmp417.1, i1 true, i1 %tobool420.1
-  %313 = load i32, ptr @sp2_frame_indicator, align 4
-  %tobool422.1 = icmp ne i32 %313, 0
+  %314 = load i32, ptr @sp2_frame_indicator, align 4
+  %tobool422.1 = icmp ne i32 %314, 0
   %or.cond502.1 = select i1 %or.cond501.1, i1 true, i1 %tobool422.1
   br i1 %or.cond502.1, label %for.inc433.1, label %if.then423.1
 
 if.then423.1:                                     ; preds = %for.inc433
-  %314 = load ptr, ptr @lrec, align 8, !tbaa !5
-  %arrayidx426.1 = getelementptr inbounds ptr, ptr %314, i64 %305
-  %315 = load ptr, ptr %arrayidx426.1, align 8, !tbaa !5
-  %arrayidx428.1 = getelementptr inbounds i32, ptr %315, i64 %idxprom244
+  %315 = load ptr, ptr @lrec, align 8, !tbaa !5
+  %arrayidx426.1 = getelementptr inbounds ptr, ptr %315, i64 %306
+  %316 = load ptr, ptr %arrayidx426.1, align 8, !tbaa !5
+  %arrayidx428.1 = getelementptr inbounds i32, ptr %316, i64 %idxprom244
   %arrayidx430.1 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx428.1, ptr noundef nonnull align 16 dereferenceable(16) %arrayidx430.1, i64 16, i1 false)
   br label %for.inc433.1
 
 for.inc433.1:                                     ; preds = %if.then423.1, %for.inc433
-  %316 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %imgY395.2 = getelementptr inbounds %struct.storable_picture, ptr %316, i64 0, i32 29
-  %317 = load ptr, ptr %imgY395.2, align 8, !tbaa !50
-  %318 = add nsw i64 %41, 2
-  %arrayidx398.2 = getelementptr inbounds ptr, ptr %317, i64 %318
-  %319 = load ptr, ptr %arrayidx398.2, align 8, !tbaa !5
-  %arrayidx400.2 = getelementptr inbounds i16, ptr %319, i64 %idxprom244
+  %317 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %imgY395.2 = getelementptr inbounds %struct.storable_picture, ptr %317, i64 0, i32 29
+  %318 = load ptr, ptr %imgY395.2, align 8, !tbaa !50
+  %319 = add nsw i64 %42, 2
+  %arrayidx398.2 = getelementptr inbounds ptr, ptr %318, i64 %319
+  %320 = load ptr, ptr %arrayidx398.2, align 8, !tbaa !5
+  %arrayidx400.2 = getelementptr inbounds i16, ptr %320, i64 %idxprom244
   store i64 %rec4x4.sroa.8.3, ptr %arrayidx400.2, align 2
-  %320 = load ptr, ptr @img, align 8, !tbaa !5
-  %321 = or i64 %39, 2
-  %arrayidx409.2 = getelementptr inbounds %struct.ImageParameters, ptr %320, i64 0, i32 51, i64 %321, i64 %idxprom180
-  %arrayidx414.2 = getelementptr inbounds %struct.ImageParameters, ptr %320, i64 0, i32 47, i64 %idxprom411, i64 2
-  %322 = load i64, ptr %arrayidx414.2, align 8
-  store i64 %322, ptr %arrayidx409.2, align 2
-  %323 = load ptr, ptr @img, align 8, !tbaa !5
-  %type416.2 = getelementptr inbounds %struct.ImageParameters, ptr %323, i64 0, i32 5
-  %324 = load i32, ptr %type416.2, align 4, !tbaa !22
-  %cmp417.2 = icmp ne i32 %324, 3
-  %325 = load i32, ptr @si_frame_indicator, align 4
-  %tobool420.2 = icmp ne i32 %325, 0
+  %321 = load ptr, ptr @img, align 8, !tbaa !5
+  %322 = or i64 %40, 2
+  %arrayidx409.2 = getelementptr inbounds %struct.ImageParameters, ptr %321, i64 0, i32 51, i64 %322, i64 %idxprom180
+  %arrayidx414.2 = getelementptr inbounds %struct.ImageParameters, ptr %321, i64 0, i32 47, i64 %idxprom411, i64 2
+  %323 = load i64, ptr %arrayidx414.2, align 8
+  store i64 %323, ptr %arrayidx409.2, align 2
+  %324 = load ptr, ptr @img, align 8, !tbaa !5
+  %type416.2 = getelementptr inbounds %struct.ImageParameters, ptr %324, i64 0, i32 5
+  %325 = load i32, ptr %type416.2, align 4, !tbaa !22
+  %cmp417.2 = icmp ne i32 %325, 3
+  %326 = load i32, ptr @si_frame_indicator, align 4
+  %tobool420.2 = icmp ne i32 %326, 0
   %or.cond501.2 = select i1 %cmp417.2, i1 true, i1 %tobool420.2
-  %326 = load i32, ptr @sp2_frame_indicator, align 4
-  %tobool422.2 = icmp ne i32 %326, 0
+  %327 = load i32, ptr @sp2_frame_indicator, align 4
+  %tobool422.2 = icmp ne i32 %327, 0
   %or.cond502.2 = select i1 %or.cond501.2, i1 true, i1 %tobool422.2
   br i1 %or.cond502.2, label %for.inc433.2, label %if.then423.2
 
 if.then423.2:                                     ; preds = %for.inc433.1
-  %327 = load ptr, ptr @lrec, align 8, !tbaa !5
-  %arrayidx426.2 = getelementptr inbounds ptr, ptr %327, i64 %318
-  %328 = load ptr, ptr %arrayidx426.2, align 8, !tbaa !5
-  %arrayidx428.2 = getelementptr inbounds i32, ptr %328, i64 %idxprom244
+  %328 = load ptr, ptr @lrec, align 8, !tbaa !5
+  %arrayidx426.2 = getelementptr inbounds ptr, ptr %328, i64 %319
+  %329 = load ptr, ptr %arrayidx426.2, align 8, !tbaa !5
+  %arrayidx428.2 = getelementptr inbounds i32, ptr %329, i64 %idxprom244
   %arrayidx430.2 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 2
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx428.2, ptr noundef nonnull align 16 dereferenceable(16) %arrayidx430.2, i64 16, i1 false)
   br label %for.inc433.2
 
 for.inc433.2:                                     ; preds = %if.then423.2, %for.inc433.1
-  %329 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %imgY395.3 = getelementptr inbounds %struct.storable_picture, ptr %329, i64 0, i32 29
-  %330 = load ptr, ptr %imgY395.3, align 8, !tbaa !50
-  %331 = add nsw i64 %41, 3
-  %arrayidx398.3 = getelementptr inbounds ptr, ptr %330, i64 %331
-  %332 = load ptr, ptr %arrayidx398.3, align 8, !tbaa !5
-  %arrayidx400.3 = getelementptr inbounds i16, ptr %332, i64 %idxprom244
+  %330 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %imgY395.3 = getelementptr inbounds %struct.storable_picture, ptr %330, i64 0, i32 29
+  %331 = load ptr, ptr %imgY395.3, align 8, !tbaa !50
+  %332 = add nsw i64 %42, 3
+  %arrayidx398.3 = getelementptr inbounds ptr, ptr %331, i64 %332
+  %333 = load ptr, ptr %arrayidx398.3, align 8, !tbaa !5
+  %arrayidx400.3 = getelementptr inbounds i16, ptr %333, i64 %idxprom244
   store i64 %rec4x4.sroa.11.3, ptr %arrayidx400.3, align 2
-  %333 = load ptr, ptr @img, align 8, !tbaa !5
-  %334 = or i64 %39, 3
-  %arrayidx409.3 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 51, i64 %334, i64 %idxprom180
-  %arrayidx414.3 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 47, i64 %idxprom411, i64 3
-  %335 = load i64, ptr %arrayidx414.3, align 8
-  store i64 %335, ptr %arrayidx409.3, align 2
-  %336 = load ptr, ptr @img, align 8, !tbaa !5
-  %type416.3 = getelementptr inbounds %struct.ImageParameters, ptr %336, i64 0, i32 5
-  %337 = load i32, ptr %type416.3, align 4, !tbaa !22
-  %cmp417.3 = icmp ne i32 %337, 3
-  %338 = load i32, ptr @si_frame_indicator, align 4
-  %tobool420.3 = icmp ne i32 %338, 0
+  %334 = load ptr, ptr @img, align 8, !tbaa !5
+  %335 = or i64 %40, 3
+  %arrayidx409.3 = getelementptr inbounds %struct.ImageParameters, ptr %334, i64 0, i32 51, i64 %335, i64 %idxprom180
+  %arrayidx414.3 = getelementptr inbounds %struct.ImageParameters, ptr %334, i64 0, i32 47, i64 %idxprom411, i64 3
+  %336 = load i64, ptr %arrayidx414.3, align 8
+  store i64 %336, ptr %arrayidx409.3, align 2
+  %337 = load ptr, ptr @img, align 8, !tbaa !5
+  %type416.3 = getelementptr inbounds %struct.ImageParameters, ptr %337, i64 0, i32 5
+  %338 = load i32, ptr %type416.3, align 4, !tbaa !22
+  %cmp417.3 = icmp ne i32 %338, 3
+  %339 = load i32, ptr @si_frame_indicator, align 4
+  %tobool420.3 = icmp ne i32 %339, 0
   %or.cond501.3 = select i1 %cmp417.3, i1 true, i1 %tobool420.3
-  %339 = load i32, ptr @sp2_frame_indicator, align 4
-  %tobool422.3 = icmp ne i32 %339, 0
+  %340 = load i32, ptr @sp2_frame_indicator, align 4
+  %tobool422.3 = icmp ne i32 %340, 0
   %or.cond502.3 = select i1 %or.cond501.3, i1 true, i1 %tobool422.3
   br i1 %or.cond502.3, label %for.inc433.3, label %if.then423.3
 
 if.then423.3:                                     ; preds = %for.inc433.2
-  %340 = load ptr, ptr @lrec, align 8, !tbaa !5
-  %arrayidx426.3 = getelementptr inbounds ptr, ptr %340, i64 %331
-  %341 = load ptr, ptr %arrayidx426.3, align 8, !tbaa !5
-  %arrayidx428.3 = getelementptr inbounds i32, ptr %341, i64 %idxprom244
+  %341 = load ptr, ptr @lrec, align 8, !tbaa !5
+  %arrayidx426.3 = getelementptr inbounds ptr, ptr %341, i64 %332
+  %342 = load ptr, ptr %arrayidx426.3, align 8, !tbaa !5
+  %arrayidx428.3 = getelementptr inbounds i32, ptr %342, i64 %idxprom244
   %arrayidx430.3 = getelementptr inbounds [4 x [4 x i32]], ptr %lrec4x4, i64 0, i64 3
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx428.3, ptr noundef nonnull align 16 dereferenceable(16) %arrayidx430.3, i64 16, i1 false)
   %.pre = load ptr, ptr @img, align 8, !tbaa !5
   br label %for.inc433.3
 
 for.inc433.3:                                     ; preds = %if.then423.3, %for.inc433.2
-  %342 = phi ptr [ %.pre, %if.then423.3 ], [ %336, %for.inc433.2 ]
-  %AdaptiveRounding436 = getelementptr inbounds %struct.ImageParameters, ptr %342, i64 0, i32 98
-  %343 = load i32, ptr %AdaptiveRounding436, align 4, !tbaa !79
-  %tobool437.not = icmp eq i32 %343, 0
+  %343 = phi ptr [ %.pre, %if.then423.3 ], [ %337, %for.inc433.2 ]
+  %AdaptiveRounding436 = getelementptr inbounds %struct.ImageParameters, ptr %343, i64 0, i32 98
+  %344 = load i32, ptr %AdaptiveRounding436, align 4, !tbaa !79
+  %tobool437.not = icmp eq i32 %344, 0
   br i1 %tobool437.not, label %if.end459, label %for.cond439.preheader
 
 for.cond439.preheader:                            ; preds = %for.inc433.3
-  %344 = load ptr, ptr @fadjust4x4, align 8, !tbaa !5
-  %fadjust4x4443 = getelementptr inbounds %struct.ImageParameters, ptr %342, i64 0, i32 55
-  %345 = load ptr, ptr %fadjust4x4443, align 8, !tbaa !80
-  %arrayidx444 = getelementptr inbounds ptr, ptr %345, i64 1
-  %346 = load ptr, ptr %arrayidx444, align 8, !tbaa !5
-  %arrayidx447 = getelementptr inbounds ptr, ptr %346, i64 %39
-  %347 = load ptr, ptr %arrayidx447, align 8, !tbaa !5
-  %arrayidx449 = getelementptr inbounds i32, ptr %347, i64 %idxprom180
-  %arrayidx452 = getelementptr inbounds ptr, ptr %344, i64 %39
-  %348 = load ptr, ptr %arrayidx452, align 8, !tbaa !5
-  %arrayidx454 = getelementptr inbounds i32, ptr %348, i64 %idxprom180
+  %345 = load ptr, ptr @fadjust4x4, align 8, !tbaa !5
+  %fadjust4x4443 = getelementptr inbounds %struct.ImageParameters, ptr %343, i64 0, i32 55
+  %346 = load ptr, ptr %fadjust4x4443, align 8, !tbaa !80
+  %arrayidx444 = getelementptr inbounds ptr, ptr %346, i64 1
+  %347 = load ptr, ptr %arrayidx444, align 8, !tbaa !5
+  %arrayidx447 = getelementptr inbounds ptr, ptr %347, i64 %40
+  %348 = load ptr, ptr %arrayidx447, align 8, !tbaa !5
+  %arrayidx449 = getelementptr inbounds i32, ptr %348, i64 %idxprom180
+  %arrayidx452 = getelementptr inbounds ptr, ptr %345, i64 %40
+  %349 = load ptr, ptr %arrayidx452, align 8, !tbaa !5
+  %arrayidx454 = getelementptr inbounds i32, ptr %349, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx449, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx454, i64 16, i1 false)
-  %349 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4443.1 = getelementptr inbounds %struct.ImageParameters, ptr %349, i64 0, i32 55
-  %350 = load ptr, ptr %fadjust4x4443.1, align 8, !tbaa !80
-  %arrayidx444.1 = getelementptr inbounds ptr, ptr %350, i64 1
-  %351 = load ptr, ptr %arrayidx444.1, align 8, !tbaa !5
-  %arrayidx447.1 = getelementptr inbounds ptr, ptr %351, i64 %308
-  %352 = load ptr, ptr %arrayidx447.1, align 8, !tbaa !5
-  %arrayidx449.1 = getelementptr inbounds i32, ptr %352, i64 %idxprom180
-  %arrayidx452.1 = getelementptr inbounds ptr, ptr %344, i64 %308
-  %353 = load ptr, ptr %arrayidx452.1, align 8, !tbaa !5
-  %arrayidx454.1 = getelementptr inbounds i32, ptr %353, i64 %idxprom180
+  %350 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4443.1 = getelementptr inbounds %struct.ImageParameters, ptr %350, i64 0, i32 55
+  %351 = load ptr, ptr %fadjust4x4443.1, align 8, !tbaa !80
+  %arrayidx444.1 = getelementptr inbounds ptr, ptr %351, i64 1
+  %352 = load ptr, ptr %arrayidx444.1, align 8, !tbaa !5
+  %arrayidx447.1 = getelementptr inbounds ptr, ptr %352, i64 %309
+  %353 = load ptr, ptr %arrayidx447.1, align 8, !tbaa !5
+  %arrayidx449.1 = getelementptr inbounds i32, ptr %353, i64 %idxprom180
+  %arrayidx452.1 = getelementptr inbounds ptr, ptr %345, i64 %309
+  %354 = load ptr, ptr %arrayidx452.1, align 8, !tbaa !5
+  %arrayidx454.1 = getelementptr inbounds i32, ptr %354, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx449.1, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx454.1, i64 16, i1 false)
-  %354 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4443.2 = getelementptr inbounds %struct.ImageParameters, ptr %354, i64 0, i32 55
-  %355 = load ptr, ptr %fadjust4x4443.2, align 8, !tbaa !80
-  %arrayidx444.2 = getelementptr inbounds ptr, ptr %355, i64 1
-  %356 = load ptr, ptr %arrayidx444.2, align 8, !tbaa !5
-  %arrayidx447.2 = getelementptr inbounds ptr, ptr %356, i64 %321
-  %357 = load ptr, ptr %arrayidx447.2, align 8, !tbaa !5
-  %arrayidx449.2 = getelementptr inbounds i32, ptr %357, i64 %idxprom180
-  %arrayidx452.2 = getelementptr inbounds ptr, ptr %344, i64 %321
-  %358 = load ptr, ptr %arrayidx452.2, align 8, !tbaa !5
-  %arrayidx454.2 = getelementptr inbounds i32, ptr %358, i64 %idxprom180
+  %355 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4443.2 = getelementptr inbounds %struct.ImageParameters, ptr %355, i64 0, i32 55
+  %356 = load ptr, ptr %fadjust4x4443.2, align 8, !tbaa !80
+  %arrayidx444.2 = getelementptr inbounds ptr, ptr %356, i64 1
+  %357 = load ptr, ptr %arrayidx444.2, align 8, !tbaa !5
+  %arrayidx447.2 = getelementptr inbounds ptr, ptr %357, i64 %322
+  %358 = load ptr, ptr %arrayidx447.2, align 8, !tbaa !5
+  %arrayidx449.2 = getelementptr inbounds i32, ptr %358, i64 %idxprom180
+  %arrayidx452.2 = getelementptr inbounds ptr, ptr %345, i64 %322
+  %359 = load ptr, ptr %arrayidx452.2, align 8, !tbaa !5
+  %arrayidx454.2 = getelementptr inbounds i32, ptr %359, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx449.2, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx454.2, i64 16, i1 false)
-  %359 = load ptr, ptr @img, align 8, !tbaa !5
-  %fadjust4x4443.3 = getelementptr inbounds %struct.ImageParameters, ptr %359, i64 0, i32 55
-  %360 = load ptr, ptr %fadjust4x4443.3, align 8, !tbaa !80
-  %arrayidx444.3 = getelementptr inbounds ptr, ptr %360, i64 1
-  %361 = load ptr, ptr %arrayidx444.3, align 8, !tbaa !5
-  %arrayidx447.3 = getelementptr inbounds ptr, ptr %361, i64 %334
-  %362 = load ptr, ptr %arrayidx447.3, align 8, !tbaa !5
-  %arrayidx449.3 = getelementptr inbounds i32, ptr %362, i64 %idxprom180
-  %arrayidx452.3 = getelementptr inbounds ptr, ptr %344, i64 %334
-  %363 = load ptr, ptr %arrayidx452.3, align 8, !tbaa !5
-  %arrayidx454.3 = getelementptr inbounds i32, ptr %363, i64 %idxprom180
+  %360 = load ptr, ptr @img, align 8, !tbaa !5
+  %fadjust4x4443.3 = getelementptr inbounds %struct.ImageParameters, ptr %360, i64 0, i32 55
+  %361 = load ptr, ptr %fadjust4x4443.3, align 8, !tbaa !80
+  %arrayidx444.3 = getelementptr inbounds ptr, ptr %361, i64 1
+  %362 = load ptr, ptr %arrayidx444.3, align 8, !tbaa !5
+  %arrayidx447.3 = getelementptr inbounds ptr, ptr %362, i64 %335
+  %363 = load ptr, ptr %arrayidx447.3, align 8, !tbaa !5
+  %arrayidx449.3 = getelementptr inbounds i32, ptr %363, i64 %idxprom180
+  %arrayidx452.3 = getelementptr inbounds ptr, ptr %345, i64 %335
+  %364 = load ptr, ptr %arrayidx452.3, align 8, !tbaa !5
+  %arrayidx454.3 = getelementptr inbounds i32, ptr %364, i64 %idxprom180
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %arrayidx449.3, ptr noundef nonnull align 4 dereferenceable(16) %arrayidx454.3, i64 16, i1 false)
   br label %if.end459
 
@@ -4462,93 +4461,93 @@ entry:
   %add.2.i = add nsw i32 %add.1.i, %4
   %call.3.i = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 0, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
   %tobool.not.3.i = icmp ne i32 %call.3.i, 0
-  %.not.not = select i1 %tobool.not.3.i, i1 true, i1 %tobool.not.2.i
-  %5 = select i1 %.not.not, i1 true, i1 %tobool.not.1.i
-  %narrow.i = select i1 %5, i1 true, i1 %tobool.not.i
-  %6 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.3.i = add nsw i32 %add.2.i, %6
+  %5 = select i1 %tobool.not.3.i, i1 true, i1 %tobool.not.2.i
+  %6 = select i1 %5, i1 true, i1 %tobool.not.1.i
+  %narrow.i = select i1 %6, i1 true, i1 %tobool.not.i
+  %7 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.3.i = add nsw i32 %add.2.i, %7
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %cost4x4.i) #15
   %or = zext i1 %narrow.i to i32
-  %7 = load i32, ptr %cost, align 4, !tbaa !54
-  %add = add nsw i32 %add.3.i, %7
+  %8 = load i32, ptr %cost, align 4, !tbaa !54
+  %add = add nsw i32 %add.3.i, %8
   store i32 %add, ptr %cost, align 4, !tbaa !54
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %cost4x4.i) #15
   %call.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 0, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.i.1 = icmp eq i32 %call.i.1, 0
-  %8 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.i.1 = add nsw i32 %8, %conv.i
-  %call.1.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 1, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.1.i.1 = icmp eq i32 %call.1.i.1, 0
+  %tobool.not.i.1 = icmp ne i32 %call.i.1, 0
   %9 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.1.i.1 = add nsw i32 %add.i.1, %9
-  %call.2.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.2.i.1 = icmp eq i32 %call.2.i.1, 0
+  %add.i.1 = add nsw i32 %9, %conv.i
+  %call.1.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 1, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.1.i.1 = icmp ne i32 %call.1.i.1, 0
   %10 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.2.i.1 = add nsw i32 %add.1.i.1, %10
+  %add.1.i.1 = add nsw i32 %add.i.1, %10
+  %call.2.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.2.i.1 = icmp ne i32 %call.2.i.1, 0
+  %11 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.2.i.1 = add nsw i32 %add.1.i.1, %11
   %call.3.i.1 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 1, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.3.i.1 = icmp eq i32 %call.3.i.1, 0
-  %.not.1 = select i1 %tobool.not.3.i.1, i1 %tobool.not.2.i.1, i1 false
-  %11 = select i1 %.not.1, i1 %tobool.not.1.i.1, i1 false
-  %narrow.i.1 = select i1 %11, i1 %tobool.not.i.1, i1 false
-  %12 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.3.i.1 = add nsw i32 %add.2.i.1, %12
+  %tobool.not.3.i.1 = icmp ne i32 %call.3.i.1, 0
+  %12 = select i1 %tobool.not.3.i.1, i1 true, i1 %tobool.not.2.i.1
+  %13 = select i1 %12, i1 true, i1 %tobool.not.1.i.1
+  %narrow.i.1 = select i1 %13, i1 true, i1 %tobool.not.i.1
+  %14 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.3.i.1 = add nsw i32 %add.2.i.1, %14
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %cost4x4.i) #15
-  %or.1 = select i1 %narrow.i.1, i32 0, i32 2
+  %or.1 = select i1 %narrow.i.1, i32 2, i32 0
   %cbp.1.1 = or i32 %or.1, %or
-  %13 = load i32, ptr %cost, align 4, !tbaa !54
-  %add.1 = add nsw i32 %add.3.i.1, %13
+  %15 = load i32, ptr %cost, align 4, !tbaa !54
+  %add.1 = add nsw i32 %add.3.i.1, %15
   store i32 %add.1, ptr %cost, align 4, !tbaa !54
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %cost4x4.i) #15
   %call.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 0, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.i.2 = icmp eq i32 %call.i.2, 0
-  %14 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.i.2 = add nsw i32 %14, %conv.i
-  %call.1.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 1, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.1.i.2 = icmp eq i32 %call.1.i.2, 0
-  %15 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.1.i.2 = add nsw i32 %add.i.2, %15
-  %call.2.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.2.i.2 = icmp eq i32 %call.2.i.2, 0
+  %tobool.not.i.2 = icmp ne i32 %call.i.2, 0
   %16 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.2.i.2 = add nsw i32 %add.1.i.2, %16
-  %call.3.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.3.i.2 = icmp eq i32 %call.3.i.2, 0
-  %.not.2 = select i1 %tobool.not.3.i.2, i1 %tobool.not.2.i.2, i1 false
-  %17 = select i1 %.not.2, i1 %tobool.not.1.i.2, i1 false
-  %narrow.i.2 = select i1 %17, i1 %tobool.not.i.2, i1 false
+  %add.i.2 = add nsw i32 %16, %conv.i
+  %call.1.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 1, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.1.i.2 = icmp ne i32 %call.1.i.2, 0
+  %17 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.1.i.2 = add nsw i32 %add.i.2, %17
+  %call.2.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.2.i.2 = icmp ne i32 %call.2.i.2, 0
   %18 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.3.i.2 = add nsw i32 %add.2.i.2, %18
+  %add.2.i.2 = add nsw i32 %add.1.i.2, %18
+  %call.3.i.2 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 2, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.3.i.2 = icmp ne i32 %call.3.i.2, 0
+  %19 = select i1 %tobool.not.3.i.2, i1 true, i1 %tobool.not.2.i.2
+  %20 = select i1 %19, i1 true, i1 %tobool.not.1.i.2
+  %narrow.i.2 = select i1 %20, i1 true, i1 %tobool.not.i.2
+  %21 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.3.i.2 = add nsw i32 %add.2.i.2, %21
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %cost4x4.i) #15
-  %or.2 = select i1 %narrow.i.2, i32 0, i32 4
-  %cbp.1.2 = or i32 %or.2, %cbp.1.1
-  %19 = load i32, ptr %cost, align 4, !tbaa !54
-  %add.2 = add nsw i32 %add.3.i.2, %19
+  %or.2 = select i1 %narrow.i.2, i32 4, i32 0
+  %cbp.1.2 = or i32 %cbp.1.1, %or.2
+  %22 = load i32, ptr %cost, align 4, !tbaa !54
+  %add.2 = add nsw i32 %add.3.i.2, %22
   store i32 %add.2, ptr %cost, align 4, !tbaa !54
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %cost4x4.i) #15
   %call.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 0, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.i.3 = icmp eq i32 %call.i.3, 0
-  %20 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.i.3 = add nsw i32 %20, %conv.i
+  %tobool.not.i.3 = icmp ne i32 %call.i.3, 0
+  %23 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.i.3 = add nsw i32 %23, %conv.i
   %call.1.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 1, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.1.i.3 = icmp eq i32 %call.1.i.3, 0
-  %21 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.1.i.3 = add nsw i32 %add.i.3, %21
-  %call.2.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.2.i.3 = icmp eq i32 %call.2.i.3, 0
-  %22 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.2.i.3 = add nsw i32 %add.1.i.3, %22
-  %call.3.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
-  %tobool.not.3.i.3 = icmp eq i32 %call.3.i.3, 0
-  %.not.3 = select i1 %tobool.not.3.i.3, i1 %tobool.not.2.i.3, i1 false
-  %23 = select i1 %.not.3, i1 %tobool.not.1.i.3, i1 false
-  %narrow.i.3 = select i1 %23, i1 %tobool.not.i.3, i1 false
+  %tobool.not.1.i.3 = icmp ne i32 %call.1.i.3, 0
   %24 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
-  %add.3.i.3 = add nsw i32 %add.2.i.3, %24
+  %add.1.i.3 = add nsw i32 %add.i.3, %24
+  %call.2.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 2, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.2.i.3 = icmp ne i32 %call.2.i.3, 0
+  %25 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.2.i.3 = add nsw i32 %add.1.i.3, %25
+  %call.3.i.3 = call i32 @Mode_Decision_for_4x4IntraBlocks(i32 noundef 3, i32 noundef 3, double noundef %lambda, ptr noundef nonnull %cost4x4.i)
+  %tobool.not.3.i.3 = icmp ne i32 %call.3.i.3, 0
+  %26 = select i1 %tobool.not.3.i.3, i1 true, i1 %tobool.not.2.i.3
+  %27 = select i1 %26, i1 true, i1 %tobool.not.1.i.3
+  %narrow.i.3 = select i1 %27, i1 true, i1 %tobool.not.i.3
+  %28 = load i32, ptr %cost4x4.i, align 4, !tbaa !54
+  %add.3.i.3 = add nsw i32 %add.2.i.3, %28
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %cost4x4.i) #15
-  %or.3 = select i1 %narrow.i.3, i32 0, i32 8
-  %cbp.1.3 = or i32 %or.3, %cbp.1.2
-  %25 = load i32, ptr %cost, align 4, !tbaa !54
-  %add.3 = add nsw i32 %add.3.i.3, %25
+  %or.3 = select i1 %narrow.i.3, i32 8, i32 0
+  %cbp.1.3 = or i32 %cbp.1.2, %or.3
+  %29 = load i32, ptr %cost, align 4, !tbaa !54
+  %add.3 = add nsw i32 %add.3.i.3, %29
   store i32 %add.3, ptr %cost, align 4, !tbaa !54
   ret i32 %cbp.1.3
 }
@@ -5654,14 +5653,14 @@ cond.end397.us:                                   ; preds = %cond.true390.us, %i
   %118 = load i8, ptr %arrayidx367.us, align 2, !tbaa !25
   %.off842.us = add i8 %118, -1
   %switch843.us = icmp ult i8 %.off842.us, 2
-  br i1 %switch843.us, label %land.lhs.true421.us, label %for.inc448.us
+  br i1 %switch843.us, label %lor.lhs.false424.us, label %for.inc448.us
 
-land.lhs.true421.us:                              ; preds = %cond.end397.us
+lor.lhs.false424.us:                              ; preds = %cond.end397.us
   %119 = load i16, ptr %arrayidx264.us, align 2, !tbaa !37
   %cmp428.not.us = icmp eq i16 %119, 0
   br i1 %cmp428.not.us, label %for.inc448.us, label %cond.true430.us
 
-cond.true430.us:                                  ; preds = %land.lhs.true421.us
+cond.true430.us:                                  ; preds = %lor.lhs.false424.us
   %arrayidx434.us = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom263.us
   %120 = load i8, ptr %arrayidx434.us, align 2, !tbaa !25
   br label %for.inc448.us
@@ -5691,9 +5690,9 @@ if.then268.us:                                    ; preds = %for.body250.us.preh
   %132 = load i8, ptr %arrayidx284.us, align 1, !tbaa !25
   br label %for.inc448.us
 
-for.inc448.us:                                    ; preds = %cond.end397.us, %land.lhs.true421.us, %cond.true430.us, %if.then268.us
-  %idxprom272.us.sink = phi i64 [ %idxprom272.us, %if.then268.us ], [ %idxprom404.us, %cond.true430.us ], [ %idxprom404.us, %land.lhs.true421.us ], [ %idxprom404.us, %cond.end397.us ]
-  %.sink = phi i8 [ %132, %if.then268.us ], [ %120, %cond.true430.us ], [ -1, %land.lhs.true421.us ], [ -1, %cond.end397.us ]
+for.inc448.us:                                    ; preds = %cond.end397.us, %lor.lhs.false424.us, %cond.true430.us, %if.then268.us
+  %idxprom272.us.sink = phi i64 [ %idxprom272.us, %if.then268.us ], [ %idxprom404.us, %cond.true430.us ], [ %idxprom404.us, %lor.lhs.false424.us ], [ %idxprom404.us, %cond.end397.us ]
+  %.sink = phi i8 [ %132, %if.then268.us ], [ %120, %cond.true430.us ], [ -1, %lor.lhs.false424.us ], [ -1, %cond.end397.us ]
   %133 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx285.us = getelementptr inbounds %struct.storable_picture, ptr %133, i64 0, i32 35
   %134 = load ptr, ptr %ref_idx285.us, align 8, !tbaa !98
@@ -5738,14 +5737,14 @@ cond.end397.us.1:                                 ; preds = %cond.true390.us.1, 
   %146 = load i8, ptr %arrayidx367.us.1, align 2, !tbaa !25
   %.off842.us.1 = add i8 %146, -1
   %switch843.us.1 = icmp ult i8 %.off842.us.1, 2
-  br i1 %switch843.us.1, label %land.lhs.true421.us.1, label %for.inc448.us.1
+  br i1 %switch843.us.1, label %lor.lhs.false424.us.1, label %for.inc448.us.1
 
-land.lhs.true421.us.1:                            ; preds = %cond.end397.us.1
+lor.lhs.false424.us.1:                            ; preds = %cond.end397.us.1
   %147 = load i16, ptr %arrayidx264.us, align 2, !tbaa !37
   %cmp428.not.us.1 = icmp eq i16 %147, 0
   br i1 %cmp428.not.us.1, label %for.inc448.us.1, label %cond.true430.us.1
 
-cond.true430.us.1:                                ; preds = %land.lhs.true421.us.1
+cond.true430.us.1:                                ; preds = %lor.lhs.false424.us.1
   %arrayidx434.us.1 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom263.us
   %148 = load i8, ptr %arrayidx434.us.1, align 2, !tbaa !25
   br label %for.inc448.us.1
@@ -5775,9 +5774,9 @@ if.then268.us.1:                                  ; preds = %for.inc448.us
   %160 = load i8, ptr %arrayidx284.us.1, align 1, !tbaa !25
   br label %for.inc448.us.1
 
-for.inc448.us.1:                                  ; preds = %cond.end397.us.1, %land.lhs.true421.us.1, %cond.true430.us.1, %if.then268.us.1
-  %idxprom272.us.1.sink = phi i64 [ %idxprom272.us.1, %if.then268.us.1 ], [ %idxprom404.us.1, %cond.true430.us.1 ], [ %idxprom404.us.1, %land.lhs.true421.us.1 ], [ %idxprom404.us.1, %cond.end397.us.1 ]
-  %.sink1042 = phi i8 [ %160, %if.then268.us.1 ], [ %148, %cond.true430.us.1 ], [ -1, %land.lhs.true421.us.1 ], [ -1, %cond.end397.us.1 ]
+for.inc448.us.1:                                  ; preds = %cond.end397.us.1, %lor.lhs.false424.us.1, %cond.true430.us.1, %if.then268.us.1
+  %idxprom272.us.1.sink = phi i64 [ %idxprom272.us.1, %if.then268.us.1 ], [ %idxprom404.us.1, %cond.true430.us.1 ], [ %idxprom404.us.1, %lor.lhs.false424.us.1 ], [ %idxprom404.us.1, %cond.end397.us.1 ]
+  %.sink1042 = phi i8 [ %160, %if.then268.us.1 ], [ %148, %cond.true430.us.1 ], [ -1, %lor.lhs.false424.us.1 ], [ -1, %cond.end397.us.1 ]
   %161 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx285.us.1 = getelementptr inbounds %struct.storable_picture, ptr %161, i64 0, i32 35
   %162 = load ptr, ptr %ref_idx285.us.1, align 8, !tbaa !98
@@ -5825,14 +5824,14 @@ cond.end397.us.2:                                 ; preds = %cond.true390.us.2, 
   %174 = load i8, ptr %arrayidx367.us.2, align 1, !tbaa !25
   %.off842.us.2 = add i8 %174, -1
   %switch843.us.2 = icmp ult i8 %.off842.us.2, 2
-  br i1 %switch843.us.2, label %land.lhs.true421.us.2, label %for.inc448.us.2
+  br i1 %switch843.us.2, label %lor.lhs.false424.us.2, label %for.inc448.us.2
 
-land.lhs.true421.us.2:                            ; preds = %cond.end397.us.2
+lor.lhs.false424.us.2:                            ; preds = %cond.end397.us.2
   %175 = load i16, ptr %arrayidx264.us.2, align 2, !tbaa !37
   %cmp428.not.us.2 = icmp eq i16 %175, 0
   br i1 %cmp428.not.us.2, label %for.inc448.us.2, label %cond.true430.us.2
 
-cond.true430.us.2:                                ; preds = %land.lhs.true421.us.2
+cond.true430.us.2:                                ; preds = %lor.lhs.false424.us.2
   %arrayidx434.us.2 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom263.us.2
   br label %for.inc448.us.2.sink.split
 
@@ -5866,9 +5865,9 @@ for.inc448.us.2.sink.split:                       ; preds = %if.then268.us.2, %c
   %187 = load i8, ptr %arrayidx434.us.2.sink, align 1, !tbaa !25
   br label %for.inc448.us.2
 
-for.inc448.us.2:                                  ; preds = %for.inc448.us.2.sink.split, %cond.end397.us.2, %land.lhs.true421.us.2
-  %idxprom272.us.2.sink = phi i64 [ %idxprom404.us.2, %land.lhs.true421.us.2 ], [ %idxprom404.us.2, %cond.end397.us.2 ], [ %idxprom272.us.2.sink.ph, %for.inc448.us.2.sink.split ]
-  %.sink1047 = phi i8 [ -1, %land.lhs.true421.us.2 ], [ -1, %cond.end397.us.2 ], [ %187, %for.inc448.us.2.sink.split ]
+for.inc448.us.2:                                  ; preds = %for.inc448.us.2.sink.split, %cond.end397.us.2, %lor.lhs.false424.us.2
+  %idxprom272.us.2.sink = phi i64 [ %idxprom404.us.2, %lor.lhs.false424.us.2 ], [ %idxprom404.us.2, %cond.end397.us.2 ], [ %idxprom272.us.2.sink.ph, %for.inc448.us.2.sink.split ]
+  %.sink1047 = phi i8 [ -1, %lor.lhs.false424.us.2 ], [ -1, %cond.end397.us.2 ], [ %187, %for.inc448.us.2.sink.split ]
   %188 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx285.us.2 = getelementptr inbounds %struct.storable_picture, ptr %188, i64 0, i32 35
   %189 = load ptr, ptr %ref_idx285.us.2, align 8, !tbaa !98
@@ -5913,14 +5912,14 @@ cond.end397.us.3:                                 ; preds = %cond.true390.us.3, 
   %201 = load i8, ptr %arrayidx367.us.3, align 1, !tbaa !25
   %.off842.us.3 = add i8 %201, -1
   %switch843.us.3 = icmp ult i8 %.off842.us.3, 2
-  br i1 %switch843.us.3, label %land.lhs.true421.us.3, label %for.inc451
+  br i1 %switch843.us.3, label %lor.lhs.false424.us.3, label %for.inc451
 
-land.lhs.true421.us.3:                            ; preds = %cond.end397.us.3
+lor.lhs.false424.us.3:                            ; preds = %cond.end397.us.3
   %202 = load i16, ptr %arrayidx264.us.2, align 2, !tbaa !37
   %cmp428.not.us.3 = icmp eq i16 %202, 0
   br i1 %cmp428.not.us.3, label %for.inc451, label %cond.true430.us.3
 
-cond.true430.us.3:                                ; preds = %land.lhs.true421.us.3
+cond.true430.us.3:                                ; preds = %lor.lhs.false424.us.3
   %arrayidx434.us.3 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom263.us.2
   %203 = load i8, ptr %arrayidx434.us.3, align 1, !tbaa !25
   br label %for.inc451
@@ -5965,9 +5964,9 @@ land.lhs.true298:                                 ; preds = %land.lhs.true294
   ]
 
 land.lhs.true325:                                 ; preds = %land.lhs.true298, %land.lhs.true298
-  %.off = add nsw i8 %217, -1
-  %switch = icmp ult i8 %.off, 2
-  br i1 %switch, label %for.inc448.thread, label %if.else363
+  %.off.old = add nsw i8 %217, -1
+  %switch.old = icmp ult i8 %.off.old, 2
+  br i1 %switch.old, label %for.inc448.thread, label %if.else363
 
 for.inc448.thread:                                ; preds = %land.lhs.true325
   %218 = load ptr, ptr @enc_picture, align 8, !tbaa !5
@@ -5999,17 +5998,17 @@ if.else363:                                       ; preds = %land.lhs.true325, %
   %arrayidx367 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 %idxprom364, i64 %idxprom366
   %228 = load i8, ptr %arrayidx367, align 2, !tbaa !25
   switch i8 %228, label %cond.end397 [
-    i8 0, label %land.lhs.true379
-    i8 2, label %land.lhs.true379
+    i8 0, label %cond.true390
+    i8 2, label %cond.true390
   ]
 
-land.lhs.true379:                                 ; preds = %if.else363, %if.else363
+cond.true390:                                     ; preds = %if.else363, %if.else363
   %arrayidx394 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8fwref, i64 0, i64 %idxprom364, i64 %idxprom366
   %229 = load i8, ptr %arrayidx394, align 2, !tbaa !25
   br label %cond.end397
 
-cond.end397:                                      ; preds = %if.else363, %land.lhs.true379
-  %cond398 = phi i8 [ %229, %land.lhs.true379 ], [ -1, %if.else363 ]
+cond.end397:                                      ; preds = %if.else363, %cond.true390
+  %cond398 = phi i8 [ %229, %cond.true390 ], [ -1, %if.else363 ]
   %230 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx400 = getelementptr inbounds %struct.storable_picture, ptr %230, i64 0, i32 35
   %231 = load ptr, ptr %ref_idx400, align 8, !tbaa !98
@@ -6022,15 +6021,15 @@ cond.end397:                                      ; preds = %if.else363, %land.l
   %234 = load i8, ptr %arrayidx367, align 2, !tbaa !25
   %.off842 = add i8 %234, -1
   %switch843 = icmp ult i8 %.off842, 2
-  br i1 %switch843, label %land.lhs.true421, label %for.inc448
+  br i1 %switch843, label %cond.true430, label %for.inc448
 
-land.lhs.true421:                                 ; preds = %cond.end397
+cond.true430:                                     ; preds = %cond.end397
   %arrayidx434 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom366
   %235 = load i8, ptr %arrayidx434, align 2, !tbaa !25
   br label %for.inc448
 
-for.inc448:                                       ; preds = %land.lhs.true421, %cond.end397
-  %cond438 = phi i8 [ %235, %land.lhs.true421 ], [ -1, %cond.end397 ]
+for.inc448:                                       ; preds = %cond.true430, %cond.end397
+  %cond438 = phi i8 [ %235, %cond.true430 ], [ -1, %cond.end397 ]
   %236 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx440 = getelementptr inbounds %struct.storable_picture, ptr %236, i64 0, i32 35
   %237 = load ptr, ptr %ref_idx440, align 8, !tbaa !98
@@ -6062,9 +6061,9 @@ land.lhs.true298.1:                               ; preds = %land.lhs.true294.1
   ]
 
 land.lhs.true325.1:                               ; preds = %land.lhs.true298.1, %land.lhs.true298.1
-  %.off.1 = add nsw i8 %243, -1
-  %switch.1 = icmp ult i8 %.off.1, 2
-  br i1 %switch.1, label %for.inc448.1.thread, label %if.else363.1
+  %.off.old.1 = add nsw i8 %243, -1
+  %switch.old.1 = icmp ult i8 %.off.old.1, 2
+  br i1 %switch.old.1, label %for.inc448.1.thread, label %if.else363.1
 
 for.inc448.1.thread:                              ; preds = %land.lhs.true325.1
   %244 = load ptr, ptr @enc_picture, align 8, !tbaa !5
@@ -6098,17 +6097,17 @@ if.else363.1:                                     ; preds = %land.lhs.true325.1,
   %arrayidx367.1 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 %idxprom364, i64 %idxprom366.1
   %254 = load i8, ptr %arrayidx367.1, align 2, !tbaa !25
   switch i8 %254, label %cond.end397.1 [
-    i8 0, label %land.lhs.true379.1
-    i8 2, label %land.lhs.true379.1
+    i8 0, label %cond.true390.1
+    i8 2, label %cond.true390.1
   ]
 
-land.lhs.true379.1:                               ; preds = %if.else363.1, %if.else363.1
+cond.true390.1:                                   ; preds = %if.else363.1, %if.else363.1
   %arrayidx394.1 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8fwref, i64 0, i64 %idxprom364, i64 %idxprom366.1
   %255 = load i8, ptr %arrayidx394.1, align 2, !tbaa !25
   br label %cond.end397.1
 
-cond.end397.1:                                    ; preds = %land.lhs.true379.1, %if.else363.1
-  %cond398.1 = phi i8 [ %255, %land.lhs.true379.1 ], [ -1, %if.else363.1 ]
+cond.end397.1:                                    ; preds = %cond.true390.1, %if.else363.1
+  %cond398.1 = phi i8 [ %255, %cond.true390.1 ], [ -1, %if.else363.1 ]
   %256 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx400.1 = getelementptr inbounds %struct.storable_picture, ptr %256, i64 0, i32 35
   %257 = load ptr, ptr %ref_idx400.1, align 8, !tbaa !98
@@ -6121,15 +6120,15 @@ cond.end397.1:                                    ; preds = %land.lhs.true379.1,
   %260 = load i8, ptr %arrayidx367.1, align 2, !tbaa !25
   %.off842.1 = add i8 %260, -1
   %switch843.1 = icmp ult i8 %.off842.1, 2
-  br i1 %switch843.1, label %land.lhs.true421.1, label %for.inc448.1
+  br i1 %switch843.1, label %cond.true430.1, label %for.inc448.1
 
-land.lhs.true421.1:                               ; preds = %cond.end397.1
+cond.true430.1:                                   ; preds = %cond.end397.1
   %arrayidx434.1 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom366.1
   %261 = load i8, ptr %arrayidx434.1, align 2, !tbaa !25
   br label %for.inc448.1
 
-for.inc448.1:                                     ; preds = %cond.end397.1, %land.lhs.true421.1
-  %cond438.1 = phi i8 [ %261, %land.lhs.true421.1 ], [ -1, %cond.end397.1 ]
+for.inc448.1:                                     ; preds = %cond.end397.1, %cond.true430.1
+  %cond438.1 = phi i8 [ %261, %cond.true430.1 ], [ -1, %cond.end397.1 ]
   %262 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx440.1 = getelementptr inbounds %struct.storable_picture, ptr %262, i64 0, i32 35
   %263 = load ptr, ptr %ref_idx440.1, align 8, !tbaa !98
@@ -6163,9 +6162,9 @@ land.lhs.true298.2:                               ; preds = %land.lhs.true294.2
   ]
 
 land.lhs.true325.2:                               ; preds = %land.lhs.true298.2, %land.lhs.true298.2
-  %.off.2 = add nsw i8 %269, -1
-  %switch.2 = icmp ult i8 %.off.2, 2
-  br i1 %switch.2, label %for.inc448.2.thread, label %if.else363.2
+  %.off.old.2 = add nsw i8 %269, -1
+  %switch.old.2 = icmp ult i8 %.off.old.2, 2
+  br i1 %switch.old.2, label %for.inc448.2.thread, label %if.else363.2
 
 for.inc448.2.thread:                              ; preds = %land.lhs.true325.2
   %270 = load ptr, ptr @enc_picture, align 8, !tbaa !5
@@ -6199,17 +6198,17 @@ if.else363.2:                                     ; preds = %land.lhs.true325.2,
   %arrayidx367.2 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 %idxprom364, i64 %idxprom366.2
   %280 = load i8, ptr %arrayidx367.2, align 1, !tbaa !25
   switch i8 %280, label %cond.end397.2 [
-    i8 0, label %land.lhs.true379.2
-    i8 2, label %land.lhs.true379.2
+    i8 0, label %cond.true390.2
+    i8 2, label %cond.true390.2
   ]
 
-land.lhs.true379.2:                               ; preds = %if.else363.2, %if.else363.2
+cond.true390.2:                                   ; preds = %if.else363.2, %if.else363.2
   %arrayidx394.2 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8fwref, i64 0, i64 %idxprom364, i64 %idxprom366.2
   %281 = load i8, ptr %arrayidx394.2, align 1, !tbaa !25
   br label %cond.end397.2
 
-cond.end397.2:                                    ; preds = %land.lhs.true379.2, %if.else363.2
-  %cond398.2 = phi i8 [ %281, %land.lhs.true379.2 ], [ -1, %if.else363.2 ]
+cond.end397.2:                                    ; preds = %cond.true390.2, %if.else363.2
+  %cond398.2 = phi i8 [ %281, %cond.true390.2 ], [ -1, %if.else363.2 ]
   %282 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx400.2 = getelementptr inbounds %struct.storable_picture, ptr %282, i64 0, i32 35
   %283 = load ptr, ptr %ref_idx400.2, align 8, !tbaa !98
@@ -6222,15 +6221,15 @@ cond.end397.2:                                    ; preds = %land.lhs.true379.2,
   %286 = load i8, ptr %arrayidx367.2, align 1, !tbaa !25
   %.off842.2 = add i8 %286, -1
   %switch843.2 = icmp ult i8 %.off842.2, 2
-  br i1 %switch843.2, label %land.lhs.true421.2, label %for.inc448.2
+  br i1 %switch843.2, label %cond.true430.2, label %for.inc448.2
 
-land.lhs.true421.2:                               ; preds = %cond.end397.2
+cond.true430.2:                                   ; preds = %cond.end397.2
   %arrayidx434.2 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom366.2
   %287 = load i8, ptr %arrayidx434.2, align 1, !tbaa !25
   br label %for.inc448.2
 
-for.inc448.2:                                     ; preds = %cond.end397.2, %land.lhs.true421.2
-  %cond438.2 = phi i8 [ %287, %land.lhs.true421.2 ], [ -1, %cond.end397.2 ]
+for.inc448.2:                                     ; preds = %cond.end397.2, %cond.true430.2
+  %cond438.2 = phi i8 [ %287, %cond.true430.2 ], [ -1, %cond.end397.2 ]
   %288 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx440.2 = getelementptr inbounds %struct.storable_picture, ptr %288, i64 0, i32 35
   %289 = load ptr, ptr %ref_idx440.2, align 8, !tbaa !98
@@ -6263,9 +6262,9 @@ land.lhs.true298.3:                               ; preds = %land.lhs.true294.3
   ]
 
 land.lhs.true325.3:                               ; preds = %land.lhs.true298.3, %land.lhs.true298.3
-  %.off.3 = add nsw i8 %295, -1
-  %switch.3 = icmp ult i8 %.off.3, 2
-  br i1 %switch.3, label %if.then350.3, label %if.else363.3
+  %.off.old.3 = add nsw i8 %295, -1
+  %switch.old.3 = icmp ult i8 %.off.old.3, 2
+  br i1 %switch.old.3, label %if.then350.3, label %if.else363.3
 
 if.then350.3:                                     ; preds = %land.lhs.true325.3
   %296 = load ptr, ptr @enc_picture, align 8, !tbaa !5
@@ -6286,17 +6285,17 @@ if.else363.3:                                     ; preds = %land.lhs.true325.3,
   %arrayidx367.3 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 %idxprom364, i64 %idxprom366.3
   %300 = load i8, ptr %arrayidx367.3, align 1, !tbaa !25
   switch i8 %300, label %cond.end397.3 [
-    i8 0, label %land.lhs.true379.3
-    i8 2, label %land.lhs.true379.3
+    i8 0, label %cond.true390.3
+    i8 2, label %cond.true390.3
   ]
 
-land.lhs.true379.3:                               ; preds = %if.else363.3, %if.else363.3
+cond.true390.3:                                   ; preds = %if.else363.3, %if.else363.3
   %arrayidx394.3 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8fwref, i64 0, i64 %idxprom364, i64 %idxprom366.3
   %301 = load i8, ptr %arrayidx394.3, align 1, !tbaa !25
   br label %cond.end397.3
 
-cond.end397.3:                                    ; preds = %land.lhs.true379.3, %if.else363.3
-  %cond398.3 = phi i8 [ %301, %land.lhs.true379.3 ], [ -1, %if.else363.3 ]
+cond.end397.3:                                    ; preds = %cond.true390.3, %if.else363.3
+  %cond398.3 = phi i8 [ %301, %cond.true390.3 ], [ -1, %if.else363.3 ]
   %302 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx400.3 = getelementptr inbounds %struct.storable_picture, ptr %302, i64 0, i32 35
   %303 = load ptr, ptr %ref_idx400.3, align 8, !tbaa !98
@@ -6309,16 +6308,16 @@ cond.end397.3:                                    ; preds = %land.lhs.true379.3,
   %306 = load i8, ptr %arrayidx367.3, align 1, !tbaa !25
   %.off842.3 = add i8 %306, -1
   %switch843.3 = icmp ult i8 %.off842.3, 2
-  br i1 %switch843.3, label %land.lhs.true421.3, label %for.inc451
+  br i1 %switch843.3, label %cond.true430.3, label %for.inc451
 
-land.lhs.true421.3:                               ; preds = %cond.end397.3
+cond.true430.3:                                   ; preds = %cond.end397.3
   %arrayidx434.3 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8bwref, i64 0, i64 %idxprom364, i64 %idxprom366.3
   %307 = load i8, ptr %arrayidx434.3, align 1, !tbaa !25
   br label %for.inc451
 
-for.inc451:                                       ; preds = %cond.end397.3, %land.lhs.true421.3, %cond.end397.us.3, %land.lhs.true421.us.3, %cond.true430.us.3, %if.then350.3, %if.then268.us.3
-  %idxprom355.3.sink = phi i64 [ %idxprom355.3, %if.then350.3 ], [ %idxprom272.us.3, %if.then268.us.3 ], [ %idxprom404.us.3, %cond.true430.us.3 ], [ %idxprom404.us.3, %land.lhs.true421.us.3 ], [ %idxprom404.us.3, %cond.end397.us.3 ], [ %idxprom404.3, %land.lhs.true421.3 ], [ %idxprom404.3, %cond.end397.3 ]
-  %.sink1052 = phi i8 [ 0, %if.then350.3 ], [ %215, %if.then268.us.3 ], [ %203, %cond.true430.us.3 ], [ -1, %land.lhs.true421.us.3 ], [ -1, %cond.end397.us.3 ], [ %307, %land.lhs.true421.3 ], [ -1, %cond.end397.3 ]
+for.inc451:                                       ; preds = %cond.end397.3, %cond.true430.3, %cond.end397.us.3, %lor.lhs.false424.us.3, %cond.true430.us.3, %if.then350.3, %if.then268.us.3
+  %idxprom355.3.sink = phi i64 [ %idxprom355.3, %if.then350.3 ], [ %idxprom272.us.3, %if.then268.us.3 ], [ %idxprom404.us.3, %cond.true430.us.3 ], [ %idxprom404.us.3, %lor.lhs.false424.us.3 ], [ %idxprom404.us.3, %cond.end397.us.3 ], [ %idxprom404.3, %cond.true430.3 ], [ %idxprom404.3, %cond.end397.3 ]
+  %.sink1052 = phi i8 [ 0, %if.then350.3 ], [ %215, %if.then268.us.3 ], [ %203, %cond.true430.us.3 ], [ -1, %lor.lhs.false424.us.3 ], [ -1, %cond.end397.us.3 ], [ %307, %cond.true430.3 ], [ -1, %cond.end397.3 ]
   %308 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx357.3 = getelementptr inbounds %struct.storable_picture, ptr %308, i64 0, i32 35
   %309 = load ptr, ptr %ref_idx357.3, align 8, !tbaa !98
@@ -10132,7 +10131,7 @@ land.end.thread:                                  ; preds = %entry
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %cc_rate) #15
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %dummy) #15
   tail call void @SetModesAndRefframeForBlocks(i32 noundef %mode)
-  %cmp11788 = icmp eq i32 %mode, 0
+  %cmp11789 = icmp eq i32 %mode, 0
   br label %if.end33
 
 land.end:                                         ; preds = %entry
@@ -10275,7 +10274,7 @@ cleanup:                                          ; preds = %for.cond16.2.3, %fo
   br i1 %cmp14.not796.lcssa, label %cleanup632, label %if.end33
 
 if.end33:                                         ; preds = %for.cond16.2.3, %land.end.thread, %cleanup, %land.end
-  %cmp11790 = phi i1 [ %cmp11788, %land.end.thread ], [ true, %cleanup ], [ %cmp11, %land.end ], [ true, %for.cond16.2.3 ]
+  %cmp11791 = phi i1 [ %cmp11789, %land.end.thread ], [ true, %cleanup ], [ %cmp11, %land.end ], [ true, %for.cond16.2.3 ]
   %36 = phi i1 [ false, %land.end.thread ], [ %cmp9, %cleanup ], [ %cmp9, %land.end ], [ %cmp9, %for.cond16.2.3 ]
   %37 = load ptr, ptr @img, align 8, !tbaa !5
   %MbaffFrameFlag = getelementptr inbounds %struct.ImageParameters, ptr %37, i64 0, i32 100
@@ -10306,8 +10305,8 @@ if.then44:                                        ; preds = %land.lhs.true37
   %47 = load ptr, ptr %46, align 8, !tbaa !5
   %48 = load i16, ptr %47, align 2, !tbaa !37
   %49 = add i16 %48, -8192
-  %or.cond786 = icmp ult i16 %49, -16384
-  br i1 %or.cond786, label %cleanup632, label %lor.lhs.false64
+  %or.cond787 = icmp ult i16 %49, -16384
+  br i1 %or.cond787, label %cleanup632, label %lor.lhs.false64
 
 lor.lhs.false64:                                  ; preds = %if.then44
   %arrayidx71 = getelementptr inbounds i16, ptr %47, i64 1
@@ -10382,7 +10381,7 @@ if.end120:                                        ; preds = %if.then97, %if.end9
 
 if.then123:                                       ; preds = %if.end120
   tail call void @LumaResidualCoding() #15
-  br i1 %cmp11790, label %land.lhs.true126, label %if.end271
+  br i1 %cmp11791, label %land.lhs.true126, label %if.end271
 
 land.lhs.true126:                                 ; preds = %if.then123
   %cbp = getelementptr inbounds %struct.macroblock, ptr %3, i64 %idxprom, i32 12
@@ -17999,8 +17998,8 @@ if.end560:                                        ; preds = %if.then548, %if.els
   %2175 = load i32, ptr %rate, align 4, !tbaa !54
   %conv562 = sitofp i32 %2175 to double
   %cmp.i = fcmp olt double %conv562, 5.000000e-01
-  %cond.i787 = select i1 %cmp.i, double 5.000000e-01, double %conv562
-  %2176 = call double @llvm.fmuladd.f64(double %lambda, double %cond.i787, double %conv561)
+  %cond.i786 = select i1 %cmp.i, double 5.000000e-01, double %conv562
+  %2176 = call double @llvm.fmuladd.f64(double %lambda, double %cond.i786, double %conv561)
   %2177 = load double, ptr %min_rdcost, align 8, !tbaa !21
   %cmp565 = fcmp ult double %2176, %2177
   %2178 = load ptr, ptr @img, align 8, !tbaa !5
@@ -18026,8 +18025,8 @@ if.then576:                                       ; preds = %if.end560, %land.lh
   %2182 = or i32 %2181, %mode
   %or.cond653.not = icmp ne i32 %2182, 0
   %cmp584 = fcmp une double %2176, %2177
-  %or.cond791 = or i1 %cmp584, %or.cond653.not
-  br i1 %or.cond791, label %cleanup632, label %lor.lhs.false586
+  %or.cond788 = or i1 %cmp584, %or.cond653.not
+  br i1 %or.cond788, label %cleanup632, label %lor.lhs.false586
 
 lor.lhs.false586:                                 ; preds = %if.then576
   %2183 = load ptr, ptr @input, align 8, !tbaa !5
@@ -21139,7 +21138,7 @@ entry:
   %0 = add i32 %mode, -11
   %or.cond = icmp ult i32 %0, -2
   %cmp2 = icmp ne i32 %mode, 13
-  %spec.select = and i1 %cmp2, %or.cond
+  %spec.select = and i1 %or.cond, %cmp2
   %shl = select i1 %spec.select, i32 2, i32 0
   %add = add nsw i32 %shl, %luma_transform_size_8x8_flag
   %idxprom = sext i32 %add to i64
@@ -21517,9 +21516,9 @@ for.body75.us:                                    ; preds = %for.body75.us.prehe
   %116 = trunc i32 %114 to i16
   %conv89.us = add i16 %115, %116
   %117 = tail call i16 @llvm.smax.i16(i16 %conv89.us, i16 0)
-  %cond.i.i180.us = zext i16 %117 to i32
-  %cond.i4.i181.us = tail call i32 @llvm.smin.i32(i32 %cond.i.i180.us, i32 %shl5)
-  %conv96.us = trunc i32 %cond.i4.i181.us to i16
+  %cond.i.i177.us = zext i16 %117 to i32
+  %cond.i4.i178.us = tail call i32 @llvm.smin.i32(i32 %cond.i.i177.us, i32 %shl5)
+  %conv96.us = trunc i32 %cond.i4.i178.us to i16
   store i16 %conv96.us, ptr %arrayidx86.us, align 2, !tbaa !37
   %arrayidx105.us = getelementptr inbounds i32, ptr %96, i64 %indvars.iv193
   %118 = load i32, ptr %arrayidx105.us, align 4, !tbaa !54
@@ -21528,9 +21527,9 @@ for.body75.us:                                    ; preds = %for.body75.us.prehe
   %120 = trunc i32 %118 to i16
   %conv112.us = add i16 %119, %120
   %121 = tail call i16 @llvm.smax.i16(i16 %conv112.us, i16 0)
-  %cond.i.i182.us = zext i16 %121 to i32
-  %cond.i4.i183.us = tail call i32 @llvm.smin.i32(i32 %cond.i.i182.us, i32 %shl5)
-  %conv119.us = trunc i32 %cond.i4.i183.us to i16
+  %cond.i.i179.us = zext i16 %121 to i32
+  %cond.i4.i180.us = tail call i32 @llvm.smin.i32(i32 %cond.i.i179.us, i32 %shl5)
+  %conv119.us = trunc i32 %cond.i4.i180.us to i16
   store i16 %conv119.us, ptr %arrayidx109.us, align 2, !tbaa !37
   %indvars.iv.next194 = add nuw nsw i64 %indvars.iv193, 1
   %exitcond196.not = icmp eq i64 %indvars.iv.next194, %wide.trip.count
@@ -28374,16 +28373,13 @@ if.end216:                                        ; preds = %if.end216.sink.spli
 declare i32 @llvm.smin.i32(i32, i32) #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i8 @llvm.smin.i8(i8, i8) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i8 @llvm.smax.i8(i8, i8) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i16 @llvm.smax.i16(i16, i16) #13

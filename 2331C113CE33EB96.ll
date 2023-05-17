@@ -28,14 +28,14 @@ declare void @abort() local_unnamed_addr #1
 define dso_local i32 @main() local_unnamed_addr #2 {
 entry:
   %.pr = load i8, ptr @g_list, align 1, !tbaa !9
-  %0 = icmp eq i8 %.pr, 0
-  br i1 %0, label %for.end, label %g.exit
+  %cmp.not7 = icmp eq i8 %.pr, 0
+  br i1 %cmp.not7, label %for.end, label %g.exit.lr.ph
 
-g.exit:                                           ; preds = %entry
+g.exit.lr.ph:                                     ; preds = %entry
   store i8 0, ptr @g_list, align 1, !tbaa !9
   br label %for.end
 
-for.end:                                          ; preds = %g.exit, %entry
+for.end:                                          ; preds = %g.exit.lr.ph, %entry
   ret i32 0
 }
 

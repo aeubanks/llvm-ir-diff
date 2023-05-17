@@ -25,8 +25,8 @@ declare i32 @isprint(i32 noundef) local_unnamed_addr #2
 define dso_local i32 @main() local_unnamed_addr #3 {
 entry:
   %call.i = tail call i32 @isprint(i32 noundef 97) #5
-  %tobool.not.i.not = icmp eq i32 %call.i, 0
-  br i1 %tobool.not.i.not, label %if.then, label %if.end
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  br i1 %tobool.not.i, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #6

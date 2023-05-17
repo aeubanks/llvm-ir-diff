@@ -219,14 +219,14 @@ if.end.20:                                        ; preds = %if.end9.19
   br i1 %cmp7.not.20, label %if.end9.20, label %if.end14
 
 if.end9.20:                                       ; preds = %if.end.20
-  %cmp4.not.21 = icmp ult i64 %1, 2147483649
-  %cmp7.not.21 = icmp ult i64 %1, 3221225473
-  %spec.select = select i1 %cmp4.not.21, i32 -2147483648, i32 -1073741824
+  %cmp4.not.21 = icmp ugt i64 %1, 2147483648
+  %cmp7.not.21 = icmp ugt i64 %1, 3221225472
+  %spec.select = select i1 %cmp4.not.21, i32 -1073741824, i32 -2147483648
   br label %if.end14
 
 if.end14:                                         ; preds = %if.end9.20, %if.end, %if.then, %if.end9, %if.end.1, %if.end9.1, %if.end.2, %if.end9.2, %if.end.3, %if.end9.3, %if.end.4, %if.end9.4, %if.end.5, %if.end9.5, %if.end.6, %if.end9.6, %if.end.7, %if.end9.7, %if.end.8, %if.end9.8, %if.end.9, %if.end9.9, %if.end.10, %if.end9.10, %if.end.11, %if.end9.11, %if.end.12, %if.end9.12, %if.end.13, %if.end9.13, %if.end.14, %if.end9.14, %if.end.15, %if.end9.15, %if.end.16, %if.end9.16, %if.end.17, %if.end9.17, %if.end.18, %if.end9.18, %if.end.19, %if.end9.19, %if.end.20, %land.lhs.true, %entry
   %reducedDictionarySize.2 = phi i32 [ 1024, %entry ], [ 1024, %land.lhs.true ], [ 1536, %if.end ], [ 1024, %if.then ], [ 2048, %if.end9 ], [ 3072, %if.end.1 ], [ 4096, %if.end9.1 ], [ 6144, %if.end.2 ], [ 8192, %if.end9.2 ], [ 12288, %if.end.3 ], [ 16384, %if.end9.3 ], [ 24576, %if.end.4 ], [ 32768, %if.end9.4 ], [ 49152, %if.end.5 ], [ 65536, %if.end9.5 ], [ 98304, %if.end.6 ], [ 131072, %if.end9.6 ], [ 196608, %if.end.7 ], [ 262144, %if.end9.7 ], [ 393216, %if.end.8 ], [ 524288, %if.end9.8 ], [ 786432, %if.end.9 ], [ 1048576, %if.end9.9 ], [ 1572864, %if.end.10 ], [ 2097152, %if.end9.10 ], [ 3145728, %if.end.11 ], [ 4194304, %if.end9.11 ], [ 6291456, %if.end.12 ], [ 8388608, %if.end9.12 ], [ 12582912, %if.end.13 ], [ 16777216, %if.end9.13 ], [ 25165824, %if.end.14 ], [ 33554432, %if.end9.14 ], [ 50331648, %if.end.15 ], [ 67108864, %if.end9.15 ], [ 100663296, %if.end.16 ], [ 134217728, %if.end9.16 ], [ 201326592, %if.end.17 ], [ 268435456, %if.end9.17 ], [ 402653184, %if.end.18 ], [ 536870912, %if.end9.18 ], [ 805306368, %if.end.19 ], [ 1073741824, %if.end9.19 ], [ 1610612736, %if.end.20 ], [ %spec.select, %if.end9.20 ]
-  %tobool.not = phi i1 [ false, %entry ], [ false, %land.lhs.true ], [ true, %if.end ], [ true, %if.then ], [ true, %if.end9 ], [ true, %if.end.1 ], [ true, %if.end9.1 ], [ true, %if.end.2 ], [ true, %if.end9.2 ], [ true, %if.end.3 ], [ true, %if.end9.3 ], [ true, %if.end.4 ], [ true, %if.end9.4 ], [ true, %if.end.5 ], [ true, %if.end9.5 ], [ true, %if.end.6 ], [ true, %if.end9.6 ], [ true, %if.end.7 ], [ true, %if.end9.7 ], [ true, %if.end.8 ], [ true, %if.end9.8 ], [ true, %if.end.9 ], [ true, %if.end9.9 ], [ true, %if.end.10 ], [ true, %if.end9.10 ], [ true, %if.end.11 ], [ true, %if.end9.11 ], [ true, %if.end.12 ], [ true, %if.end9.12 ], [ true, %if.end.13 ], [ true, %if.end9.13 ], [ true, %if.end.14 ], [ true, %if.end9.14 ], [ true, %if.end.15 ], [ true, %if.end9.15 ], [ true, %if.end.16 ], [ true, %if.end9.16 ], [ true, %if.end.17 ], [ true, %if.end9.17 ], [ true, %if.end.18 ], [ true, %if.end9.18 ], [ true, %if.end.19 ], [ true, %if.end9.19 ], [ true, %if.end.20 ], [ %cmp7.not.21, %if.end9.20 ]
+  %tobool.not = phi i1 [ true, %entry ], [ true, %land.lhs.true ], [ false, %if.end ], [ false, %if.then ], [ false, %if.end9 ], [ false, %if.end.1 ], [ false, %if.end9.1 ], [ false, %if.end.2 ], [ false, %if.end9.2 ], [ false, %if.end.3 ], [ false, %if.end9.3 ], [ false, %if.end.4 ], [ false, %if.end9.4 ], [ false, %if.end.5 ], [ false, %if.end9.5 ], [ false, %if.end.6 ], [ false, %if.end9.6 ], [ false, %if.end.7 ], [ false, %if.end9.7 ], [ false, %if.end.8 ], [ false, %if.end9.8 ], [ false, %if.end.9 ], [ false, %if.end9.9 ], [ false, %if.end.10 ], [ false, %if.end9.10 ], [ false, %if.end.11 ], [ false, %if.end9.11 ], [ false, %if.end.12 ], [ false, %if.end9.12 ], [ false, %if.end.13 ], [ false, %if.end9.13 ], [ false, %if.end.14 ], [ false, %if.end9.14 ], [ false, %if.end.15 ], [ false, %if.end9.15 ], [ false, %if.end.16 ], [ false, %if.end9.16 ], [ false, %if.end.17 ], [ false, %if.end9.17 ], [ false, %if.end.18 ], [ false, %if.end9.18 ], [ false, %if.end.19 ], [ false, %if.end9.19 ], [ false, %if.end.20 ], [ %cmp7.not.21, %if.end9.20 ]
   %_size.i = getelementptr inbounds %struct.CMethod, ptr %method, i64 0, i32 1, i32 0, i32 0, i32 2
   %2 = load i32, ptr %_size.i, align 4, !tbaa !17
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %setCoderProperties) #9
@@ -239,13 +239,13 @@ if.end14:                                         ; preds = %if.end9.20, %if.end
 invoke.cont16:                                    ; preds = %if.end14
   %4 = load ptr, ptr %setCoderProperties, align 8, !tbaa !18
   %cmp20 = icmp eq ptr %4, null
-  br i1 %cmp20, label %if.then21, label %invoke.cont26
+  br i1 %cmp20, label %if.then21, label %if.else
 
 if.then21:                                        ; preds = %invoke.cont16
   %cmp22.not = icmp eq i32 %2, 0
-  br i1 %cmp22.not, label %if.end118, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194.thread
+  br i1 %cmp22.not, label %if.end118, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188.thread
 
-_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194.thread: ; preds = %if.then21
+_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188.thread: ; preds = %if.then21
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %setCoderProperties) #9
   br label %56
 
@@ -254,7 +254,7 @@ lpad:                                             ; preds = %if.end14
           cleanup
   br label %ehcleanup120
 
-invoke.cont26:                                    ; preds = %invoke.cont16
+if.else:                                          ; preds = %invoke.cont16
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %propIDs) #9
   %_capacity.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 1
   %_itemSize.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 4
@@ -269,7 +269,7 @@ invoke.cont26:                                    ; preds = %invoke.cont16
   %call30 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %9) #10
           to label %invoke.cont29 unwind label %lpad28
 
-invoke.cont29:                                    ; preds = %invoke.cont26
+invoke.cont29:                                    ; preds = %if.else
   store i64 %conv27, ptr %call30, align 16
   %10 = getelementptr inbounds i8, ptr %call30, i64 8
   %isempty = icmp eq i32 %2, 0
@@ -289,133 +289,133 @@ arrayctor.loop:                                   ; preds = %arrayctor.loop, %ne
   br i1 %arrayctor.done, label %arrayctor.cont, label %arrayctor.loop
 
 arrayctor.cont:                                   ; preds = %arrayctor.loop
-  %cmp35213 = icmp sgt i32 %2, 0
-  br i1 %cmp35213, label %invoke.cont38.lr.ph, label %for.cond.cleanup
+  %cmp35212 = icmp sgt i32 %2, 0
+  br i1 %cmp35212, label %for.body.lr.ph, label %for.cond.cleanup
 
-invoke.cont38.lr.ph:                              ; preds = %arrayctor.cont
+for.body.lr.ph:                                   ; preds = %arrayctor.cont
   %_items.i.i = getelementptr inbounds %struct.CMethod, ptr %method, i64 0, i32 1, i32 0, i32 0, i32 3
   %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 3
-  %_size.i174 = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 2
-  %wide.trip.count221 = zext i32 %2 to i64
-  br i1 %tobool.not, label %invoke.cont38.us, label %invoke.cont38
+  %_size.i168 = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 2
+  %wide.trip.count220 = zext i32 %2 to i64
+  br i1 %tobool.not, label %for.body.us, label %for.body
 
-invoke.cont38.us:                                 ; preds = %invoke.cont38.lr.ph, %if.end58.us
-  %indvars.iv218 = phi i64 [ %indvars.iv.next219, %if.end58.us ], [ 0, %invoke.cont38.lr.ph ]
+for.body.us:                                      ; preds = %for.body.lr.ph, %invoke.cont44.us
+  %indvars.iv217 = phi i64 [ %indvars.iv.next218, %invoke.cont44.us ], [ 0, %for.body.lr.ph ]
   %11 = load ptr, ptr %_items.i.i, align 8, !tbaa !27
-  %arrayidx.i.i.us = getelementptr inbounds ptr, ptr %11, i64 %indvars.iv218
+  %arrayidx.i.i.us = getelementptr inbounds ptr, ptr %11, i64 %indvars.iv217
   %12 = load ptr, ptr %arrayidx.i.i.us, align 8, !tbaa !28
   %13 = load i32, ptr %12, align 8, !tbaa !29
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %propIDs)
-          to label %invoke.cont41.us unwind label %lpad37.split.us
+          to label %_ZN13CRecordVectorIjE3AddEj.exit.us unwind label %lpad37.split.us
 
-invoke.cont41.us:                                 ; preds = %invoke.cont38.us
+_ZN13CRecordVectorIjE3AddEj.exit.us:              ; preds = %for.body.us
   %14 = load ptr, ptr %_items.i, align 8, !tbaa !27
-  %15 = load i32, ptr %_size.i174, align 4, !tbaa !17
+  %15 = load i32, ptr %_size.i168, align 4, !tbaa !17
   %idxprom.i.us = sext i32 %15 to i64
   %arrayidx.i.us = getelementptr inbounds i32, ptr %14, i64 %idxprom.i.us
   store i32 %13, ptr %arrayidx.i.us, align 4, !tbaa !32
-  %16 = load i32, ptr %_size.i174, align 4, !tbaa !17
+  %16 = load i32, ptr %_size.i168, align 4, !tbaa !17
   %inc.i.us = add nsw i32 %16, 1
-  store i32 %inc.i.us, ptr %_size.i174, align 4, !tbaa !17
-  %arrayidx.us = getelementptr inbounds %"class.NWindows::NCOM::CPropVariant", ptr %10, i64 %indvars.iv218
+  store i32 %inc.i.us, ptr %_size.i168, align 4, !tbaa !17
+  %arrayidx.us = getelementptr inbounds %"class.NWindows::NCOM::CPropVariant", ptr %10, i64 %indvars.iv217
   %Value.us = getelementptr inbounds %struct.CProp, ptr %12, i64 0, i32 1
   %call45.us = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN8NWindows4NCOM12CPropVariantaSERKS1_(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx.us, ptr noundef nonnull align 8 dereferenceable(16) %Value.us)
           to label %invoke.cont44.us unwind label %lpad43.split.us
 
-invoke.cont44.us:                                 ; preds = %invoke.cont41.us
-  %17 = load i32, ptr %12, align 8
-  %cmp48.us = icmp eq i32 %17, 1
-  br i1 %cmp48.us, label %if.then49.us, label %if.end58.us
+invoke.cont44.us:                                 ; preds = %_ZN13CRecordVectorIjE3AddEj.exit.us
+  %indvars.iv.next218 = add nuw nsw i64 %indvars.iv217, 1
+  %exitcond221.not = icmp eq i64 %indvars.iv.next218, %wide.trip.count220
+  br i1 %exitcond221.not, label %for.cond.cleanup, label %for.body.us, !llvm.loop !33
 
-if.then49.us:                                     ; preds = %invoke.cont44.us
-  %18 = load i16, ptr %arrayidx.us, align 8, !tbaa !23
-  %cmp51.us = icmp eq i16 %18, 19
-  br i1 %cmp51.us, label %if.then52.us, label %if.end58.us
-
-if.then52.us:                                     ; preds = %if.then49.us
-  %19 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %arrayidx.us, i64 0, i32 4
-  %20 = load i32, ptr %19, align 8, !tbaa !33
-  %cmp53.us = icmp ult i32 %reducedDictionarySize.2, %20
-  br i1 %cmp53.us, label %if.then54.us, label %if.end58.us
-
-if.then54.us:                                     ; preds = %if.then52.us
-  store i32 %reducedDictionarySize.2, ptr %19, align 8, !tbaa !33
-  br label %if.end58.us
-
-if.end58.us:                                      ; preds = %invoke.cont44.us, %if.then54.us, %if.then52.us, %if.then49.us
-  %indvars.iv.next219 = add nuw nsw i64 %indvars.iv218, 1
-  %exitcond222.not = icmp eq i64 %indvars.iv.next219, %wide.trip.count221
-  br i1 %exitcond222.not, label %for.cond.cleanup, label %invoke.cont38.us, !llvm.loop !34
-
-lpad37.split.us:                                  ; preds = %invoke.cont38.us
-  %21 = landingpad { ptr, i32 }
+lpad37.split.us:                                  ; preds = %for.body.us
+  %17 = landingpad { ptr, i32 }
           catch ptr null
   br label %catch
 
-lpad43.split.us:                                  ; preds = %invoke.cont41.us
-  %22 = landingpad { ptr, i32 }
+lpad43.split.us:                                  ; preds = %_ZN13CRecordVectorIjE3AddEj.exit.us
+  %18 = landingpad { ptr, i32 }
           catch ptr null
   br label %catch
 
-for.cond.cleanup:                                 ; preds = %invoke.cont44, %if.end58.us, %invoke.cont29, %arrayctor.cont
+for.cond.cleanup:                                 ; preds = %if.end58, %invoke.cont44.us, %invoke.cont29, %arrayctor.cont
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %setCoderProperties62) #9
   store ptr null, ptr %setCoderProperties62, align 8, !tbaa !18
   %vtable68 = load ptr, ptr %coder, align 8, !tbaa !20
-  %23 = load ptr, ptr %vtable68, align 8
-  %call71 = invoke noundef i32 %23(ptr noundef nonnull align 8 dereferenceable(8) %coder, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetCoderProperties, ptr noundef nonnull %setCoderProperties62)
+  %19 = load ptr, ptr %vtable68, align 8
+  %call71 = invoke noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(8) %coder, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetCoderProperties, ptr noundef nonnull %setCoderProperties62)
           to label %invoke.cont74 unwind label %lpad65
 
-lpad28:                                           ; preds = %invoke.cont26
-  %24 = landingpad { ptr, i32 }
+lpad28:                                           ; preds = %if.else
+  %20 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup111
 
-invoke.cont38:                                    ; preds = %invoke.cont38.lr.ph, %invoke.cont44
-  %indvars.iv = phi i64 [ %indvars.iv.next, %invoke.cont44 ], [ 0, %invoke.cont38.lr.ph ]
-  %25 = load ptr, ptr %_items.i.i, align 8, !tbaa !27
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %25, i64 %indvars.iv
-  %26 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !28
-  %27 = load i32, ptr %26, align 8, !tbaa !29
+for.body:                                         ; preds = %for.body.lr.ph, %if.end58
+  %indvars.iv = phi i64 [ %indvars.iv.next, %if.end58 ], [ 0, %for.body.lr.ph ]
+  %21 = load ptr, ptr %_items.i.i, align 8, !tbaa !27
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %21, i64 %indvars.iv
+  %22 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !28
+  %23 = load i32, ptr %22, align 8, !tbaa !29
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %propIDs)
-          to label %invoke.cont41 unwind label %lpad37.split
+          to label %_ZN13CRecordVectorIjE3AddEj.exit unwind label %lpad37.split
 
-invoke.cont41:                                    ; preds = %invoke.cont38
-  %28 = load ptr, ptr %_items.i, align 8, !tbaa !27
-  %29 = load i32, ptr %_size.i174, align 4, !tbaa !17
-  %idxprom.i = sext i32 %29 to i64
-  %arrayidx.i = getelementptr inbounds i32, ptr %28, i64 %idxprom.i
-  store i32 %27, ptr %arrayidx.i, align 4, !tbaa !32
-  %30 = load i32, ptr %_size.i174, align 4, !tbaa !17
-  %inc.i = add nsw i32 %30, 1
-  store i32 %inc.i, ptr %_size.i174, align 4, !tbaa !17
+_ZN13CRecordVectorIjE3AddEj.exit:                 ; preds = %for.body
+  %24 = load ptr, ptr %_items.i, align 8, !tbaa !27
+  %25 = load i32, ptr %_size.i168, align 4, !tbaa !17
+  %idxprom.i = sext i32 %25 to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %24, i64 %idxprom.i
+  store i32 %23, ptr %arrayidx.i, align 4, !tbaa !32
+  %26 = load i32, ptr %_size.i168, align 4, !tbaa !17
+  %inc.i = add nsw i32 %26, 1
+  store i32 %inc.i, ptr %_size.i168, align 4, !tbaa !17
   %arrayidx = getelementptr inbounds %"class.NWindows::NCOM::CPropVariant", ptr %10, i64 %indvars.iv
-  %Value = getelementptr inbounds %struct.CProp, ptr %26, i64 0, i32 1
+  %Value = getelementptr inbounds %struct.CProp, ptr %22, i64 0, i32 1
   %call45 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN8NWindows4NCOM12CPropVariantaSERKS1_(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, ptr noundef nonnull align 8 dereferenceable(16) %Value)
           to label %invoke.cont44 unwind label %lpad43.split
 
-invoke.cont44:                                    ; preds = %invoke.cont41
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count221
-  br i1 %exitcond.not, label %for.cond.cleanup, label %invoke.cont38, !llvm.loop !34
+invoke.cont44:                                    ; preds = %_ZN13CRecordVectorIjE3AddEj.exit
+  %27 = load i32, ptr %22, align 8, !tbaa !29
+  %cmp48 = icmp eq i32 %27, 1
+  br i1 %cmp48, label %if.then49, label %if.end58
 
-lpad37.split:                                     ; preds = %invoke.cont38
+if.then49:                                        ; preds = %invoke.cont44
+  %28 = load i16, ptr %arrayidx, align 8, !tbaa !23
+  %cmp51 = icmp eq i16 %28, 19
+  br i1 %cmp51, label %if.then52, label %if.end58
+
+if.then52:                                        ; preds = %if.then49
+  %29 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %arrayidx, i64 0, i32 4
+  %30 = load i32, ptr %29, align 8, !tbaa !35
+  %cmp53 = icmp ult i32 %reducedDictionarySize.2, %30
+  br i1 %cmp53, label %if.then54, label %if.end58
+
+if.then54:                                        ; preds = %if.then52
+  store i32 %reducedDictionarySize.2, ptr %29, align 8, !tbaa !35
+  br label %if.end58
+
+lpad37.split:                                     ; preds = %for.body
   %31 = landingpad { ptr, i32 }
           catch ptr null
   br label %catch
 
-lpad43.split:                                     ; preds = %invoke.cont41
+lpad43.split:                                     ; preds = %_ZN13CRecordVectorIjE3AddEj.exit
   %32 = landingpad { ptr, i32 }
           catch ptr null
   br label %catch
 
+if.end58:                                         ; preds = %invoke.cont44, %if.then52, %if.then54, %if.then49
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count220
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !llvm.loop !33
+
 invoke.cont74:                                    ; preds = %for.cond.cleanup
-  %33 = load ptr, ptr %setCoderProperties62, align 8, !tbaa !18
-  %_items.i.i175 = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 3
-  %34 = load ptr, ptr %_items.i.i175, align 8, !tbaa !27
-  %vtable76 = load ptr, ptr %33, align 8, !tbaa !20
+  %_items.i.i169 = getelementptr inbounds %class.CBaseRecordVector, ptr %propIDs, i64 0, i32 3
+  %33 = load ptr, ptr %_items.i.i169, align 8, !tbaa !27
+  %34 = load ptr, ptr %setCoderProperties62, align 8, !tbaa !18
+  %vtable76 = load ptr, ptr %34, align 8, !tbaa !20
   %vfn77 = getelementptr inbounds ptr, ptr %vtable76, i64 5
   %35 = load ptr, ptr %vfn77, align 8
-  %call79 = invoke noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull %34, ptr noundef nonnull %10, i32 noundef %2)
+  %call79 = invoke noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %34, ptr noundef %33, ptr noundef nonnull %10, i32 noundef %2)
           to label %invoke.cont78 unwind label %lpad65
 
 invoke.cont78:                                    ; preds = %invoke.cont74
@@ -451,30 +451,30 @@ lpad65:                                           ; preds = %invoke.cont74, %for
   %41 = landingpad { ptr, i32 }
           catch ptr null
   %42 = load ptr, ptr %setCoderProperties62, align 8, !tbaa !18
-  %tobool.not.i176 = icmp eq ptr %42, null
-  br i1 %tobool.not.i176, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit182, label %if.then.i180
+  %tobool.not.i170 = icmp eq ptr %42, null
+  br i1 %tobool.not.i170, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit176, label %if.then.i174
 
-if.then.i180:                                     ; preds = %lpad65
-  %vtable.i177 = load ptr, ptr %42, align 8, !tbaa !20
-  %vfn.i178 = getelementptr inbounds ptr, ptr %vtable.i177, i64 2
-  %43 = load ptr, ptr %vfn.i178, align 8
-  %call.i179 = invoke noundef i32 %43(ptr noundef nonnull align 8 dereferenceable(8) %42)
-          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit182 unwind label %terminate.lpad.i181
+if.then.i174:                                     ; preds = %lpad65
+  %vtable.i171 = load ptr, ptr %42, align 8, !tbaa !20
+  %vfn.i172 = getelementptr inbounds ptr, ptr %vtable.i171, i64 2
+  %43 = load ptr, ptr %vfn.i172, align 8
+  %call.i173 = invoke noundef i32 %43(ptr noundef nonnull align 8 dereferenceable(8) %42)
+          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit176 unwind label %terminate.lpad.i175
 
-terminate.lpad.i181:                              ; preds = %if.then.i180
+terminate.lpad.i175:                              ; preds = %if.then.i174
   %44 = landingpad { ptr, i32 }
           catch ptr null
   %45 = extractvalue { ptr, i32 } %44, 0
   call void @__clang_call_terminate(ptr %45) #11
   unreachable
 
-_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit182: ; preds = %lpad65, %if.then.i180
+_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit176: ; preds = %lpad65, %if.then.i174
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %setCoderProperties62) #9
   br label %catch
 
-catch:                                            ; preds = %lpad43.split, %lpad43.split.us, %lpad37.split, %lpad37.split.us, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit182
-  %.pn171.pn = phi { ptr, i32 } [ %41, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit182 ], [ %31, %lpad37.split ], [ %21, %lpad37.split.us ], [ %32, %lpad43.split ], [ %22, %lpad43.split.us ]
-  %exn.slot.1 = extractvalue { ptr, i32 } %.pn171.pn, 0
+catch:                                            ; preds = %lpad43.split, %lpad43.split.us, %lpad37.split, %lpad37.split.us, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit176
+  %.pn198.pn = phi { ptr, i32 } [ %41, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit176 ], [ %31, %lpad37.split ], [ %17, %lpad37.split.us ], [ %32, %lpad43.split ], [ %18, %lpad43.split.us ]
+  %exn.slot.1 = extractvalue { ptr, i32 } %.pn198.pn, 0
   %46 = call ptr @__cxa_begin_catch(ptr %exn.slot.1) #9
   %47 = load i64, ptr %call30, align 8
   %arraydestroy.isempty82 = icmp eq i64 %47, 0
@@ -487,10 +487,10 @@ arraydestroy.body83.preheader:                    ; preds = %catch
 arraydestroy.body83:                              ; preds = %arraydestroy.body83.preheader, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit
   %arraydestroy.elementPast84 = phi ptr [ %arraydestroy.element85, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit ], [ %delete.end, %arraydestroy.body83.preheader ]
   %arraydestroy.element85 = getelementptr inbounds %"class.NWindows::NCOM::CPropVariant", ptr %arraydestroy.elementPast84, i64 -1
-  %call.i183 = invoke noundef i32 @_ZN8NWindows4NCOM12CPropVariant5ClearEv(ptr noundef nonnull align 8 dereferenceable(16) %arraydestroy.element85)
-          to label %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit unwind label %terminate.lpad.i184
+  %call.i177 = invoke noundef i32 @_ZN8NWindows4NCOM12CPropVariant5ClearEv(ptr noundef nonnull align 8 dereferenceable(16) %arraydestroy.element85)
+          to label %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit unwind label %terminate.lpad.i178
 
-terminate.lpad.i184:                              ; preds = %arraydestroy.body83
+terminate.lpad.i178:                              ; preds = %arraydestroy.body83
   %48 = landingpad { ptr, i32 }
           catch ptr null
   %49 = extractvalue { ptr, i32 } %48, 0
@@ -512,24 +512,24 @@ lpad89:                                           ; preds = %arraydestroy.done87
   invoke void @__cxa_end_catch()
           to label %ehcleanup111 unwind label %terminate.lpad
 
-arraydestroy.body96:                              ; preds = %arraydestroy.body96.preheader, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit187
-  %arraydestroy.elementPast97 = phi ptr [ %arraydestroy.element98, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit187 ], [ %delete.end94, %arraydestroy.body96.preheader ]
+arraydestroy.body96:                              ; preds = %arraydestroy.body96.preheader, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit181
+  %arraydestroy.elementPast97 = phi ptr [ %arraydestroy.element98, %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit181 ], [ %delete.end94, %arraydestroy.body96.preheader ]
   %arraydestroy.element98 = getelementptr inbounds %"class.NWindows::NCOM::CPropVariant", ptr %arraydestroy.elementPast97, i64 -1
-  %call.i185 = invoke noundef i32 @_ZN8NWindows4NCOM12CPropVariant5ClearEv(ptr noundef nonnull align 8 dereferenceable(16) %arraydestroy.element98)
-          to label %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit187 unwind label %terminate.lpad.i186
+  %call.i179 = invoke noundef i32 @_ZN8NWindows4NCOM12CPropVariant5ClearEv(ptr noundef nonnull align 8 dereferenceable(16) %arraydestroy.element98)
+          to label %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit181 unwind label %terminate.lpad.i180
 
-terminate.lpad.i186:                              ; preds = %arraydestroy.body96
+terminate.lpad.i180:                              ; preds = %arraydestroy.body96
   %51 = landingpad { ptr, i32 }
           catch ptr null
   %52 = extractvalue { ptr, i32 } %51, 0
   call void @__clang_call_terminate(ptr %52) #11
   unreachable
 
-_ZN8NWindows4NCOM12CPropVariantD2Ev.exit187:      ; preds = %arraydestroy.body96
+_ZN8NWindows4NCOM12CPropVariantD2Ev.exit181:      ; preds = %arraydestroy.body96
   %arraydestroy.done99 = icmp eq ptr %arraydestroy.element98, %10
   br i1 %arraydestroy.done99, label %arraydestroy.done100, label %arraydestroy.body96
 
-arraydestroy.done100:                             ; preds = %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit187, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit
+arraydestroy.done100:                             ; preds = %_ZN8NWindows4NCOM12CPropVariantD2Ev.exit181, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit
   call void @_ZdaPv(ptr noundef nonnull %call30) #12
   %cmp102.not = icmp eq i32 %call79, 0
   call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %propIDs) #9
@@ -537,7 +537,7 @@ arraydestroy.done100:                             ; preds = %_ZN8NWindows4NCOM12
   br i1 %cmp102.not, label %if.end118, label %cleanup119
 
 ehcleanup111:                                     ; preds = %lpad89, %lpad28
-  %.pn = phi { ptr, i32 } [ %24, %lpad28 ], [ %50, %lpad89 ]
+  %.pn = phi { ptr, i32 } [ %20, %lpad28 ], [ %50, %lpad89 ]
   call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %propIDs) #9
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %propIDs) #9
   br label %ehcleanup120
@@ -548,54 +548,54 @@ if.end118:                                        ; preds = %arraydestroy.done10
 cleanup119:                                       ; preds = %arraydestroy.done100, %if.end118
   %cond134.ph = phi i32 [ 0, %if.end118 ], [ %call79, %arraydestroy.done100 ]
   %.pr = load ptr, ptr %setCoderProperties, align 8, !tbaa !18
-  %tobool.not.i188 = icmp eq ptr %.pr, null
-  br i1 %tobool.not.i188, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194, label %if.then.i192
+  %tobool.not.i182 = icmp eq ptr %.pr, null
+  br i1 %tobool.not.i182, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188, label %if.then.i186
 
-if.then.i192:                                     ; preds = %cleanup119
-  %vtable.i189 = load ptr, ptr %.pr, align 8, !tbaa !20
-  %vfn.i190 = getelementptr inbounds ptr, ptr %vtable.i189, i64 2
-  %53 = load ptr, ptr %vfn.i190, align 8
-  %call.i191 = invoke noundef i32 %53(ptr noundef nonnull align 8 dereferenceable(8) %.pr)
-          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194 unwind label %terminate.lpad.i193
+if.then.i186:                                     ; preds = %cleanup119
+  %vtable.i183 = load ptr, ptr %.pr, align 8, !tbaa !20
+  %vfn.i184 = getelementptr inbounds ptr, ptr %vtable.i183, i64 2
+  %53 = load ptr, ptr %vfn.i184, align 8
+  %call.i185 = invoke noundef i32 %53(ptr noundef nonnull align 8 dereferenceable(8) %.pr)
+          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188 unwind label %terminate.lpad.i187
 
-terminate.lpad.i193:                              ; preds = %if.then.i192
+terminate.lpad.i187:                              ; preds = %if.then.i186
   %54 = landingpad { ptr, i32 }
           catch ptr null
   %55 = extractvalue { ptr, i32 } %54, 0
   call void @__clang_call_terminate(ptr %55) #11
   unreachable
 
-_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194: ; preds = %cleanup119, %if.then.i192
+_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188: ; preds = %cleanup119, %if.then.i186
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %setCoderProperties) #9
   br label %56
 
-56:                                               ; preds = %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194.thread
-  %57 = phi i32 [ -2147024809, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194.thread ], [ %cond134.ph, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit194 ]
+56:                                               ; preds = %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188.thread
+  %57 = phi i32 [ -2147024809, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188.thread ], [ %cond134.ph, %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit188 ]
   ret i32 %57
 
 ehcleanup120:                                     ; preds = %ehcleanup111, %lpad
-  %.pn.pn.pn = phi { ptr, i32 } [ %.pn, %ehcleanup111 ], [ %5, %lpad ]
+  %.pn.pn = phi { ptr, i32 } [ %.pn, %ehcleanup111 ], [ %5, %lpad ]
   %58 = load ptr, ptr %setCoderProperties, align 8, !tbaa !18
-  %tobool.not.i195 = icmp eq ptr %58, null
-  br i1 %tobool.not.i195, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit201, label %if.then.i199
+  %tobool.not.i189 = icmp eq ptr %58, null
+  br i1 %tobool.not.i189, label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit195, label %if.then.i193
 
-if.then.i199:                                     ; preds = %ehcleanup120
-  %vtable.i196 = load ptr, ptr %58, align 8, !tbaa !20
-  %vfn.i197 = getelementptr inbounds ptr, ptr %vtable.i196, i64 2
-  %59 = load ptr, ptr %vfn.i197, align 8
-  %call.i198 = invoke noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(8) %58)
-          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit201 unwind label %terminate.lpad.i200
+if.then.i193:                                     ; preds = %ehcleanup120
+  %vtable.i190 = load ptr, ptr %58, align 8, !tbaa !20
+  %vfn.i191 = getelementptr inbounds ptr, ptr %vtable.i190, i64 2
+  %59 = load ptr, ptr %vfn.i191, align 8
+  %call.i192 = invoke noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(8) %58)
+          to label %_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit195 unwind label %terminate.lpad.i194
 
-terminate.lpad.i200:                              ; preds = %if.then.i199
+terminate.lpad.i194:                              ; preds = %if.then.i193
   %60 = landingpad { ptr, i32 }
           catch ptr null
   %61 = extractvalue { ptr, i32 } %60, 0
   call void @__clang_call_terminate(ptr %61) #11
   unreachable
 
-_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit201: ; preds = %ehcleanup120, %if.then.i199
+_ZN9CMyComPtrI27ICompressSetCoderPropertiesED2Ev.exit195: ; preds = %ehcleanup120, %if.then.i193
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %setCoderProperties) #9
-  resume { ptr, i32 } %.pn.pn.pn
+  resume { ptr, i32 } %.pn.pn
 
 terminate.lpad:                                   ; preds = %lpad89
   %62 = landingpad { ptr, i32 }
@@ -713,6 +713,6 @@ attributes #13 = { noreturn }
 !30 = !{!"_ZTS5CProp", !13, i64 0, !31, i64 8}
 !31 = !{!"_ZTSN8NWindows4NCOM12CPropVariantE", !24, i64 0}
 !32 = !{!13, !13, i64 0}
-!33 = !{!8, !8, i64 0}
-!34 = distinct !{!34, !35}
-!35 = !{!"llvm.loop.mustprogress"}
+!33 = distinct !{!33, !34}
+!34 = !{!"llvm.loop.mustprogress"}
+!35 = !{!8, !8, i64 0}

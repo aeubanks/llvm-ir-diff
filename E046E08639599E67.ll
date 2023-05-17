@@ -48,7 +48,7 @@ entry.cont.cont:                                  ; preds = %entry.cont.else, %e
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end:
+entry:
   store ptr @.str, ptr @x, align 8, !tbaa !5
   tail call void @foo()
   store ptr @.str, ptr @x, align 8, !tbaa !5

@@ -127,14 +127,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not4648 = icmp eq i64 %7, 0
   %cmp.not.i.not46 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not4648
-  br i1 %cmp.not.i.not46, label %for.cond.cleanup, label %for.cond13.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not46, label %if.end.i, label %for.cond13.preheader.lr.ph, !prof !30
 
 for.cond13.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %8 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %9 = load i64, ptr %8, align 8, !tbaa !32
   %cmp43 = icmp sgt i64 %9, 0
-  br i1 %cmp43, label %for.cond13.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp43, label %for.cond13.preheader.us.preheader, label %if.end.i
 
 for.cond13.preheader.us.preheader:                ; preds = %for.cond13.preheader.lr.ph
   %10 = shl i64 %9, 3
@@ -270,9 +270,9 @@ for.body16.us:                                    ; preds = %for.body16.us.prol.
 for.cond13.for.cond.cleanup15_crit_edge.us:       ; preds = %for.body16.us.prol.loopexit, %for.body16.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.047.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond13.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond13.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond13.for.cond.cleanup15_crit_edge.us, %for.cond13.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond13.for.cond.cleanup15_crit_edge.us, %for.cond13.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -301,9 +301,9 @@ entry:
   %max_iterations.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 2
   %3 = load i64, ptr %max_iterations.i.i, align 8
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
-  %cmp.not.i.not5557 = icmp eq i64 %3, 0
-  %cmp.not.i.not55 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not5557
-  br i1 %cmp.not.i.not55, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  %cmp.not.i.not5456 = icmp eq i64 %3, 0
+  %cmp.not.i.not54 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not5456
+  br i1 %cmp.not.i.not54, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -312,21 +312,21 @@ for.body.lr.ph:                                   ; preds = %entry
   %conv = trunc i64 %5 to i32
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %do.end, %entry
+if.end.i:                                         ; preds = %do.end, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
 for.body:                                         ; preds = %for.body.lr.ph, %do.end
-  %__begin1.sroa.0.056 = phi i64 [ %3, %for.body.lr.ph ], [ %dec.i, %do.end ]
+  %__begin1.sroa.0.055 = phi i64 [ %3, %for.body.lr.ph ], [ %dec.i, %do.end ]
   br label %do.body
 
 do.body:                                          ; preds = %for.cond.cleanup9, %for.body
   %ipntp.0 = phi i32 [ 0, %for.body ], [ %add, %for.cond.cleanup9 ]
-  %ii.0 = phi i32 [ %conv, %for.body ], [ %div5051, %for.cond.cleanup9 ]
+  %ii.0 = phi i32 [ %conv, %for.body ], [ %div5057, %for.cond.cleanup9 ]
   %add = add i32 %ii.0, %ipntp.0
-  %div5051 = lshr i32 %ii.0, 1
-  %cmp52 = icmp sgt i32 %ii.0, 1
-  br i1 %cmp52, label %for.body10.preheader, label %do.end
+  %div5057 = lshr i32 %ii.0, 1
+  %cmp51 = icmp sgt i32 %ii.0, 1
+  br i1 %cmp51, label %for.body10.preheader, label %do.end
 
 for.body10.preheader:                             ; preds = %do.body
   %add7 = add i32 %ipntp.0, 1
@@ -335,7 +335,7 @@ for.body10.preheader:                             ; preds = %do.body
   br label %for.body10
 
 for.cond.cleanup9:                                ; preds = %for.body10
-  br i1 %cmp52, label %do.body, label %do.end, !llvm.loop !46
+  br i1 %cmp51, label %do.body, label %do.end, !llvm.loop !46
 
 for.body10:                                       ; preds = %for.body10.preheader, %for.body10
   %indvars.iv60 = phi i64 [ %7, %for.body10.preheader ], [ %indvars.iv.next61, %for.body10 ]
@@ -364,9 +364,9 @@ for.body10:                                       ; preds = %for.body10.preheade
   br i1 %cmp, label %for.body10, label %for.cond.cleanup9, !llvm.loop !47
 
 do.end:                                           ; preds = %do.body, %for.cond.cleanup9
-  %dec.i = add i64 %__begin1.sroa.0.056, -1
+  %dec.i = add i64 %__begin1.sroa.0.055, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -389,7 +389,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2628 = icmp eq i64 %3, 0
   %cmp.not.i.not26 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2628
-  br i1 %cmp.not.i.not26, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not26, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -400,9 +400,9 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body.lr.ph.split.us:                          ; preds = %for.body.lr.ph
   store double 0.000000e+00, ptr %q, align 8, !tbaa !9
-  br label %for.cond.cleanup
+  br label %if.end.i
 
-for.cond.cleanup:                                 ; preds = %for.cond.cleanup8, %for.body.lr.ph.split.us, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup8, %for.body.lr.ph.split.us, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %q) #10
   ret void
@@ -418,7 +418,7 @@ for.cond.cleanup8:                                ; preds = %for.body9, %for.bod
   %8 = phi i64 [ %7, %for.body ], [ %14, %for.body9 ]
   %dec.i = add i64 %__begin1.sroa.0.027, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30, !llvm.loop !48
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30, !llvm.loop !48
 
 for.body9:                                        ; preds = %for.body, %for.body9
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body9 ], [ 0, %for.body ]
@@ -454,7 +454,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not5153 = icmp eq i64 %3, 0
   %cmp.not.i.not51 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not5153
-  br i1 %cmp.not.i.not51, label %for.cond.cleanup, label %for.cond6.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not51, label %if.end.i, label %for.cond6.preheader.lr.ph, !prof !30
 
 for.cond6.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -494,7 +494,7 @@ for.cond6.preheader.prol.loopexit:                ; preds = %for.cond6.preheader
   %.unr83 = phi double [ %.pre, %for.cond6.preheader.preheader ], [ %mul.prol, %for.cond6.preheader.prol ]
   %__begin1.sroa.0.052.unr = phi i64 [ %3, %for.cond6.preheader.preheader ], [ %dec.i.prol, %for.cond6.preheader.prol ]
   %9 = icmp eq i64 %3, 1
-  br i1 %9, label %for.cond.cleanup, label %for.cond6.preheader
+  br i1 %9, label %if.end.i, label %for.cond6.preheader
 
 for.cond6.preheader.us.preheader:                 ; preds = %for.cond6.preheader.lr.ph
   %10 = add nsw i64 %5, -5
@@ -669,7 +669,7 @@ for.cond11.for.cond.cleanup14_crit_edge.us.us.2:  ; preds = %for.cond11.for.cond
   store double %mul.us.us.2, ptr %arrayidx10.us.us.2, align 8, !tbaa !9
   %dec.i.us = add i64 %__begin1.sroa.0.052.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond6.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond6.preheader.us, !prof !30
 
 for.cond6.preheader:                              ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader
   %49 = phi double [ %mul.2.1, %for.cond6.preheader ], [ %.unr, %for.cond6.preheader.prol.loopexit ]
@@ -696,9 +696,9 @@ for.cond6.preheader:                              ; preds = %for.cond6.preheader
   store double %mul.2.1, ptr %arrayidx10.2.phi.trans.insert, align 8, !tbaa !9
   %dec.i.1 = add i64 %__begin1.sroa.0.052, -2
   %cmp.not.i.not.1 = icmp eq i64 %dec.i.1, 0
-  br i1 %cmp.not.i.not.1, label %for.cond.cleanup, label %for.cond6.preheader, !prof !53
+  br i1 %cmp.not.i.not.1, label %if.end.i, label %for.cond6.preheader, !prof !53
 
-for.cond.cleanup:                                 ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader, %for.cond11.for.cond.cleanup14_crit_edge.us.us.2, %entry
+if.end.i:                                         ; preds = %for.cond6.preheader.prol.loopexit, %for.cond6.preheader, %for.cond11.for.cond.cleanup14_crit_edge.us.us.2, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -722,14 +722,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3739 = icmp eq i64 %4, 0
   %cmp.not.i.not37 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3739
-  br i1 %cmp.not.i.not37, label %for.cond.cleanup, label %for.cond8.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not37, label %if.end.i, label %for.cond8.preheader.lr.ph, !prof !30
 
 for.cond8.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %5 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %6 = load i64, ptr %5, align 8, !tbaa !32
   %cmp34 = icmp sgt i64 %6, 1
-  br i1 %cmp34, label %for.cond8.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp34, label %for.cond8.preheader.us.preheader, label %if.end.i
 
 for.cond8.preheader.us.preheader:                 ; preds = %for.cond8.preheader.lr.ph
   %.pre.pre = load double, ptr %0, align 8, !tbaa !9
@@ -789,9 +789,9 @@ for.body11.us.epil:                               ; preds = %for.cond8.for.cond.
 for.cond8.for.cond.cleanup10_crit_edge.us:        ; preds = %for.cond8.for.cond.cleanup10_crit_edge.us.unr-lcssa, %for.body11.us.epil
   %dec.i.us = add i64 %__begin1.sroa.0.038.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond8.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond8.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond8.for.cond.cleanup10_crit_edge.us, %for.cond8.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond8.for.cond.cleanup10_crit_edge.us, %for.cond8.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -823,14 +823,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not8082 = icmp eq i64 %8, 0
   %cmp.not.i.not80 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not8082
-  br i1 %cmp.not.i.not80, label %for.cond.cleanup, label %for.cond15.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not80, label %if.end.i, label %for.cond15.preheader.lr.ph, !prof !30
 
 for.cond15.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %9 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %10 = load i64, ptr %9, align 8, !tbaa !32
   %cmp77 = icmp sgt i64 %10, 0
-  br i1 %cmp77, label %for.cond15.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp77, label %for.cond15.preheader.us.preheader, label %if.end.i
 
 for.cond15.preheader.us.preheader:                ; preds = %for.cond15.preheader.lr.ph
   %11 = shl i64 %10, 3
@@ -955,9 +955,9 @@ for.body18.us:                                    ; preds = %for.body18.us.prehe
 for.cond15.for.cond.cleanup17_crit_edge.us:       ; preds = %for.body18.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.081.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond15.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond15.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond15.for.cond.cleanup17_crit_edge.us, %for.cond15.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond15.for.cond.cleanup17_crit_edge.us, %for.cond15.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1007,14 +1007,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not336338 = icmp eq i64 %17, 0
   %cmp.not.i.not336 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not336338
-  br i1 %cmp.not.i.not336, label %for.cond.cleanup, label %for.cond32.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not336, label %if.end.i, label %for.cond32.preheader.lr.ph, !prof !30
 
 for.cond32.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %18 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %19 = load i64, ptr %18, align 8, !tbaa !32
   %cmp36332 = icmp sgt i64 %19, 1
-  br i1 %cmp36332, label %for.cond32.preheader.lr.ph.split.us, label %for.cond.cleanup
+  br i1 %cmp36332, label %for.cond32.preheader.lr.ph.split.us, label %if.end.i
 
 for.cond32.preheader.lr.ph.split.us:              ; preds = %for.cond32.preheader.lr.ph
   %arrayidx199 = getelementptr inbounds ptr, ptr %5, i64 1
@@ -1231,9 +1231,9 @@ for.body38.us.us.1:                               ; preds = %for.body38.us.us, %
 for.cond34.for.cond.cleanup37_crit_edge.us.us.1:  ; preds = %for.body38.us.us.1
   %dec.i.us = add i64 %__begin1.sroa.0.0337.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond32.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond32.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond34.for.cond.cleanup37_crit_edge.us.us.1, %for.cond32.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond34.for.cond.cleanup37_crit_edge.us.us.1, %for.cond32.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1269,14 +1269,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not9698 = icmp eq i64 %10, 0
   %cmp.not.i.not96 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not9698
-  br i1 %cmp.not.i.not96, label %for.cond.cleanup, label %for.cond19.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not96, label %if.end.i, label %for.cond19.preheader.lr.ph, !prof !30
 
 for.cond19.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %11 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %12 = load i64, ptr %11, align 8, !tbaa !32
   %cmp93 = icmp sgt i64 %12, 0
-  br i1 %cmp93, label %for.cond19.preheader.us, label %for.cond.cleanup
+  br i1 %cmp93, label %for.cond19.preheader.us, label %if.end.i
 
 for.cond19.preheader.us:                          ; preds = %for.cond19.preheader.lr.ph, %for.cond19.for.cond.cleanup21_crit_edge.us
   %__begin1.sroa.0.097.us = phi i64 [ %dec.i.us, %for.cond19.for.cond.cleanup21_crit_edge.us ], [ %10, %for.cond19.preheader.lr.ph ]
@@ -1324,9 +1324,9 @@ for.body22.us:                                    ; preds = %for.cond19.preheade
 for.cond19.for.cond.cleanup21_crit_edge.us:       ; preds = %for.body22.us
   %dec.i.us = add i64 %__begin1.sroa.0.097.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond19.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond19.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond19.for.cond.cleanup21_crit_edge.us, %for.cond19.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond19.for.cond.cleanup21_crit_edge.us, %for.cond19.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1348,14 +1348,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not141143 = icmp eq i64 %3, 0
   %cmp.not.i.not141 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not141143
-  br i1 %cmp.not.i.not141, label %for.cond.cleanup, label %for.cond6.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not141, label %if.end.i, label %for.cond6.preheader.lr.ph, !prof !30
 
 for.cond6.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %4 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %5 = load i64, ptr %4, align 8, !tbaa !32
   %cmp138 = icmp sgt i64 %5, 0
-  br i1 %cmp138, label %for.cond6.preheader.us, label %for.cond.cleanup
+  br i1 %cmp138, label %for.cond6.preheader.us, label %if.end.i
 
 for.cond6.preheader.us:                           ; preds = %for.cond6.preheader.lr.ph, %for.cond6.for.cond.cleanup8_crit_edge.us
   %__begin1.sroa.0.0142.us = phi i64 [ %dec.i.us, %for.cond6.for.cond.cleanup8_crit_edge.us ], [ %3, %for.cond6.preheader.lr.ph ]
@@ -1414,9 +1414,9 @@ for.body9.us:                                     ; preds = %for.cond6.preheader
 for.cond6.for.cond.cleanup8_crit_edge.us:         ; preds = %for.body9.us
   %dec.i.us = add i64 %__begin1.sroa.0.0142.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond6.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond6.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond6.for.cond.cleanup8_crit_edge.us, %for.cond6.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond6.for.cond.cleanup8_crit_edge.us, %for.cond6.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1438,7 +1438,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3436 = icmp eq i64 %3, 0
   %cmp.not.i.not34 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3436
-  br i1 %cmp.not.i.not34, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not34, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -1466,7 +1466,7 @@ for.body.prol:                                    ; preds = %for.body.preheader,
 for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
   %__begin1.sroa.0.035.unr = phi i64 [ %3, %for.body.preheader ], [ %dec.i.prol, %for.body.prol ]
   %8 = icmp ult i64 %6, 7
-  br i1 %8, label %for.cond.cleanup, label %for.body
+  br i1 %8, label %if.end.i, label %for.body
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %9 = add i64 %5, -1
@@ -1537,9 +1537,9 @@ for.body11.us.epil:                               ; preds = %for.cond8.for.cond.
 for.cond8.for.cond.cleanup10_crit_edge.us:        ; preds = %for.body11.us.epil, %for.cond8.for.cond.cleanup10_crit_edge.us.unr-lcssa
   %dec.i.us = add i64 %__begin1.sroa.0.035.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.body.prol.loopexit, %for.body, %for.cond8.for.cond.cleanup10_crit_edge.us, %entry
+if.end.i:                                         ; preds = %for.body.prol.loopexit, %for.body, %for.cond8.for.cond.cleanup10_crit_edge.us, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -1563,7 +1563,7 @@ for.body:                                         ; preds = %for.body.prol.loope
   store double %27, ptr %0, align 8, !tbaa !9
   %dec.i.7 = add i64 %__begin1.sroa.0.035, -8
   %cmp.not.i.not.7 = icmp eq i64 %dec.i.7, 0
-  br i1 %cmp.not.i.not.7, label %for.cond.cleanup, label %for.body, !prof !75
+  br i1 %cmp.not.i.not.7, label %if.end.i, label %for.body, !prof !75
 }
 
 ; Function Attrs: uwtable
@@ -1583,14 +1583,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not3032 = icmp eq i64 %3, 0
   %cmp.not.i.not30 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not3032
-  br i1 %cmp.not.i.not30, label %for.cond.cleanup, label %for.cond6.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not30, label %if.end.i, label %for.cond6.preheader.lr.ph, !prof !30
 
 for.cond6.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %4 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %5 = load i64, ptr %4, align 8, !tbaa !32
   %cmp27 = icmp sgt i64 %5, 0
-  br i1 %cmp27, label %for.cond6.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp27, label %for.cond6.preheader.us.preheader, label %if.end.i
 
 for.cond6.preheader.us.preheader:                 ; preds = %for.cond6.preheader.lr.ph
   %6 = shl i64 %5, 3
@@ -1702,9 +1702,9 @@ for.body9.us:                                     ; preds = %for.body9.us.prol.l
 for.cond6.for.cond.cleanup8_crit_edge.us:         ; preds = %for.body9.us.prol.loopexit, %for.body9.us, %middle.block
   %dec.i.us = add i64 %__begin1.sroa.0.031.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond6.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond6.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond6.for.cond.cleanup8_crit_edge.us, %for.cond6.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond6.for.cond.cleanup8_crit_edge.us, %for.cond6.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1738,14 +1738,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not145147 = icmp eq i64 %9, 0
   %cmp.not.i.not145 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not145147
-  br i1 %cmp.not.i.not145, label %for.cond.cleanup, label %for.cond15.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not145, label %if.end.i, label %for.cond15.preheader.lr.ph, !prof !30
 
 for.cond15.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %10 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %11 = load i64, ptr %10, align 8, !tbaa !32
   %cmp142 = icmp sgt i64 %11, 0
-  br i1 %cmp142, label %for.cond15.preheader.us, label %for.cond.cleanup
+  br i1 %cmp142, label %for.cond15.preheader.us, label %if.end.i
 
 for.cond15.preheader.us:                          ; preds = %for.cond15.preheader.lr.ph, %for.cond15.for.cond.cleanup17_crit_edge.us
   %__begin1.sroa.0.0146.us = phi i64 [ %dec.i.us, %for.cond15.for.cond.cleanup17_crit_edge.us ], [ %9, %for.cond15.preheader.lr.ph ]
@@ -1824,9 +1824,9 @@ for.body18.us:                                    ; preds = %for.cond15.preheade
 for.cond15.for.cond.cleanup17_crit_edge.us:       ; preds = %for.body18.us
   %dec.i.us = add i64 %__begin1.sroa.0.0146.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond15.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond15.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond15.for.cond.cleanup17_crit_edge.us, %for.cond15.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond15.for.cond.cleanup17_crit_edge.us, %for.cond15.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -1870,14 +1870,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not230299 = icmp eq i64 %14, 0
   %cmp.not.i.not230 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not230299
-  br i1 %cmp.not.i.not230, label %for.cond.cleanup, label %for.cond26.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not230, label %if.end.i, label %for.cond26.preheader.lr.ph, !prof !30
 
 for.cond26.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %15 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %16 = load i64, ptr %15, align 8, !tbaa !32
   %cmp221 = icmp sgt i64 %16, 0
-  br i1 %cmp221, label %for.body29.us.preheader.preheader, label %for.cond.cleanup
+  br i1 %cmp221, label %for.body29.us.preheader.preheader, label %if.end.i
 
 for.body29.us.preheader.preheader:                ; preds = %for.cond26.preheader.lr.ph
   %17 = shl i64 %16, 3
@@ -1950,7 +1950,7 @@ for.body29.us.preheader:                          ; preds = %for.body29.us.prehe
 for.cond.cleanup117.us:                           ; preds = %for.body118.us
   %dec.i.us = add i64 %__begin1.sroa.0.0231.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.body29.us.preheader, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.body29.us.preheader, !prof !30
 
 for.body118.us:                                   ; preds = %for.body118.us.preheader, %for.body118.us
   %indvars.iv306 = phi i64 [ %indvars.iv.next307, %for.body118.us ], [ 0, %for.body118.us.preheader ]
@@ -2086,7 +2086,7 @@ for.body61.us.preheader370:                       ; preds = %for.body61.us.prehe
 for.body118.us.preheader:                         ; preds = %for.body61.us, %middle.block
   br label %for.body118.us
 
-for.cond.cleanup:                                 ; preds = %for.cond.cleanup117.us, %for.cond26.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup117.us, %for.cond26.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -2129,7 +2129,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not498500 = icmp eq i64 %14, 0
   %cmp.not.i.not498 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not498500
-  br i1 %cmp.not.i.not498, label %for.cond.cleanup, label %for.cond25.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not498, label %if.end.i, label %for.cond25.preheader.lr.ph, !prof !30
 
 for.cond25.preheader.lr.ph:                       ; preds = %entry
   %conv = trunc i64 %12 to i32
@@ -3288,7 +3288,7 @@ for.body30.us.4:                                  ; preds = %for.body30.us.4.pre
   %exitcond.4.not = icmp eq i64 %indvars.iv.next.4, %wide.trip.count
   br i1 %exitcond.4.not, label %for.cond129.preheader, label %for.body30.us.4, !llvm.loop !230
 
-for.cond.cleanup:                                 ; preds = %for.end319, %entry
+if.end.i:                                         ; preds = %for.end319, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -4300,7 +4300,7 @@ for.body287.us.4:                                 ; preds = %for.body287.us.4.pr
 for.end319:                                       ; preds = %for.body287.us.4.prol.loopexit, %for.body287.us.4, %middle.block, %for.cond25.preheader, %for.cond129.preheader, %for.cond280.preheader
   %dec.i = add i64 %__begin1.sroa.0.0499, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond25.preheader, !prof !30
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond25.preheader, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -4324,14 +4324,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not89113 = icmp eq i64 %5, 0
   %cmp.not.i.not89 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not89113
-  br i1 %cmp.not.i.not89, label %for.cond.cleanup, label %for.cond9.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not89, label %if.end.i, label %for.cond9.preheader.lr.ph, !prof !30
 
 for.cond9.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %6 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %7 = load i64, ptr %6, align 8, !tbaa !32
   %cmp24.not85 = icmp slt i64 %7, 1
-  br i1 %cmp24.not85, label %for.cond.cleanup, label %for.cond9.preheader.us92.preheader
+  br i1 %cmp24.not85, label %if.end.i, label %for.cond9.preheader.us92.preheader
 
 for.cond9.preheader.us92.preheader:               ; preds = %for.cond9.preheader.lr.ph
   %8 = add i64 %7, -1
@@ -4453,9 +4453,9 @@ for.cond21.for.cond.cleanup25_crit_edge.us:       ; preds = %for.cond21.for.cond
   %sub42.us.lcssa = phi double [ %sub42.us.lcssa.ph, %for.cond21.for.cond.cleanup25_crit_edge.us.unr-lcssa ], [ %sub42.us.epil, %for.body26.us.epil ]
   %dec.i.us111 = add i64 %__begin1.sroa.0.090.us94, -1
   %cmp.not.i.not.us112 = icmp eq i64 %dec.i.us111, 0
-  br i1 %cmp.not.i.not.us112, label %for.cond.cleanup, label %for.cond9.preheader.us92, !prof !30
+  br i1 %cmp.not.i.not.us112, label %if.end.i, label %for.cond9.preheader.us92, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond21.for.cond.cleanup25_crit_edge.us, %for.cond9.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond21.for.cond.cleanup25_crit_edge.us, %for.cond9.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4497,14 +4497,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not118120 = icmp eq i64 %13, 0
   %cmp.not.i.not118 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not118120
-  br i1 %cmp.not.i.not118, label %for.cond.cleanup, label %for.cond25.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not118, label %if.end.i, label %for.cond25.preheader.lr.ph, !prof !30
 
 for.cond25.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %14 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %15 = load i64, ptr %14, align 8, !tbaa !32
   %cmp115 = icmp sgt i64 %15, 0
-  br i1 %cmp115, label %for.cond25.preheader.us, label %for.cond.cleanup
+  br i1 %cmp115, label %for.cond25.preheader.us, label %if.end.i
 
 for.cond25.preheader.us:                          ; preds = %for.cond25.preheader.lr.ph, %for.cond25.for.cond.cleanup27_crit_edge.us
   %__begin1.sroa.0.0119.us = phi i64 [ %dec.i.us, %for.cond25.for.cond.cleanup27_crit_edge.us ], [ %13, %for.cond25.preheader.lr.ph ]
@@ -4565,9 +4565,9 @@ if.end42.us:                                      ; preds = %if.then40.us, %if.t
 for.cond25.for.cond.cleanup27_crit_edge.us:       ; preds = %if.end42.us
   %dec.i.us = add i64 %__begin1.sroa.0.0119.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond25.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond25.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond25.for.cond.cleanup27_crit_edge.us, %for.cond25.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond25.for.cond.cleanup27_crit_edge.us, %for.cond25.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4591,14 +4591,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not5658 = icmp eq i64 %4, 0
   %cmp.not.i.not56 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not5658
-  br i1 %cmp.not.i.not56, label %for.cond.cleanup, label %for.cond7.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not56, label %if.end.i, label %for.cond7.preheader.lr.ph, !prof !30
 
 for.cond7.preheader.lr.ph:                        ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %5 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %6 = load i64, ptr %5, align 8, !tbaa !32
   %cmp1451 = icmp sgt i64 %6, 0
-  br i1 %cmp1451, label %for.cond7.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp1451, label %for.cond7.preheader.us.preheader, label %if.end.i
 
 for.cond7.preheader.us.preheader:                 ; preds = %for.cond7.preheader.lr.ph
   %xtraiter = and i64 %6, 1
@@ -4684,9 +4684,9 @@ for.inc31.split.us.us.us:                         ; preds = %for.cond12.for.cond
 for.end33.split.us.us:                            ; preds = %for.inc31.split.us.us.us
   %dec.i.us = add i64 %__begin1.sroa.0.057.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond7.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond7.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.end33.split.us.us, %for.cond7.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.end33.split.us.us, %for.cond7.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -4723,13 +4723,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not6365 = icmp eq i64 %9, 0
   %cmp.not.i.not63 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6365
-  br i1 %cmp.not.i.not63, label %for.cond.cleanup, label %for.cond18.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not63, label %if.end.i, label %for.cond18.preheader.lr.ph, !prof !30
 
 for.cond18.preheader.lr.ph:                       ; preds = %entry
   %10 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %11 = load i64, ptr %10, align 8, !tbaa !32
   %12 = icmp sgt i64 %11, 0
-  br i1 %12, label %for.cond18.preheader, label %for.cond.cleanup
+  br i1 %12, label %for.cond18.preheader, label %if.end.i
 
 for.cond18.preheader:                             ; preds = %for.cond18.preheader.lr.ph, %for.cond.cleanup20
   %13 = phi i64 [ %14, %for.cond.cleanup20 ], [ %11, %for.cond18.preheader.lr.ph ]
@@ -4737,7 +4737,7 @@ for.cond18.preheader:                             ; preds = %for.cond18.preheade
   %cmp60 = icmp sgt i64 %13, 0
   br i1 %cmp60, label %for.body21, label %for.cond.cleanup20
 
-for.cond.cleanup:                                 ; preds = %for.cond.cleanup20, %for.cond18.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup20, %for.cond18.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
@@ -4745,7 +4745,7 @@ for.cond.cleanup20:                               ; preds = %for.body21, %for.co
   %14 = phi i64 [ %13, %for.cond18.preheader ], [ %19, %for.body21 ]
   %dec.i = add i64 %__begin1.sroa.0.064, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond18.preheader, !prof !30, !llvm.loop !283
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond18.preheader, !prof !30, !llvm.loop !283
 
 for.body21:                                       ; preds = %for.cond18.preheader, %for.body21
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body21 ], [ 0, %for.cond18.preheader ]
@@ -4795,14 +4795,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not116118 = icmp eq i64 %7, 0
   %cmp.not.i.not116 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not116118
-  br i1 %cmp.not.i.not116, label %for.cond.cleanup, label %for.cond14.preheader.lr.ph, !prof !30
+  br i1 %cmp.not.i.not116, label %if.end.i, label %for.cond14.preheader.lr.ph, !prof !30
 
 for.cond14.preheader.lr.ph:                       ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
   %8 = load ptr, ptr %range_.i, align 8, !tbaa !31
   %9 = load i64, ptr %8, align 8, !tbaa !32
   %cmp18112 = icmp sgt i64 %9, 1
-  br i1 %cmp18112, label %for.cond14.preheader.us.preheader, label %for.cond.cleanup
+  br i1 %cmp18112, label %for.cond14.preheader.us.preheader, label %if.end.i
 
 for.cond14.preheader.us.preheader:                ; preds = %for.cond14.preheader.lr.ph
   %arrayidx21.us.us.phi.trans.insert = getelementptr inbounds ptr, ptr %0, i64 2
@@ -5069,9 +5069,9 @@ for.body20.us.us.4:                               ; preds = %for.body20.us.us.4,
 for.cond16.for.cond.cleanup19_crit_edge.us.us.4:  ; preds = %for.body20.us.us.4
   %dec.i.us = add i64 %__begin1.sroa.0.0117.us, -1
   %cmp.not.i.not.us = icmp eq i64 %dec.i.us, 0
-  br i1 %cmp.not.i.not.us, label %for.cond.cleanup, label %for.cond14.preheader.us, !prof !30
+  br i1 %cmp.not.i.not.us, label %if.end.i, label %for.cond14.preheader.us, !prof !30
 
-for.cond.cleanup:                                 ; preds = %for.cond16.for.cond.cleanup19_crit_edge.us.us.4, %for.cond14.preheader.lr.ph, %entry
+if.end.i:                                         ; preds = %for.cond16.for.cond.cleanup19_crit_edge.us.us.4, %for.cond14.preheader.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 }
@@ -5094,7 +5094,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2527 = icmp eq i64 %2, 0
   %cmp.not.i.not25 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2527
-  br i1 %cmp.not.i.not25, label %for.cond.cleanup, label %for.body.lr.ph, !prof !30
+  br i1 %cmp.not.i.not25, label %if.end.i, label %for.body.lr.ph, !prof !30
 
 for.body.lr.ph:                                   ; preds = %entry
   %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
@@ -5105,9 +5105,9 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body.lr.ph.split.us:                          ; preds = %for.body.lr.ph
   store i32 0, ptr %m, align 4, !tbaa !84
-  br label %for.cond.cleanup
+  br label %if.end.i
 
-for.cond.cleanup:                                 ; preds = %for.cond.cleanup6, %for.body.lr.ph.split.us, %entry
+if.end.i:                                         ; preds = %for.cond.cleanup6, %for.body.lr.ph.split.us, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %m) #10
   ret void
@@ -5125,7 +5125,7 @@ for.cond.cleanup6:                                ; preds = %for.inc, %for.body
   %9 = phi i64 [ %7, %for.body ], [ %15, %for.inc ]
   %dec.i = add i64 %__begin1.sroa.0.026, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !30, !llvm.loop !286
+  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !30, !llvm.loop !286
 
 for.body7:                                        ; preds = %for.body, %for.inc
   %10 = phi i64 [ %15, %for.inc ], [ %6, %for.body ]

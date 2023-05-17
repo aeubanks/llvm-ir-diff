@@ -608,6 +608,7 @@ while.end:                                        ; preds = %if.end185, %entry
   %95 = load i32, ptr @edgeCount, align 4, !tbaa !5
   %inc253 = add nsw i32 %95, 1
   %idxprom254 = sext i32 %inc253 to i64
+  %arrayidx255 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254
   %start256 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 1
   store i32 %94, ptr %start256, align 4, !tbaa !16
   %96 = load i32, ptr @bbt, align 4, !tbaa !5
@@ -629,9 +630,9 @@ while.end:                                        ; preds = %if.end185, %entry
   %add277 = add nsw i32 %95, 4
   %nextEdge280 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 8
   store i32 %add277, ptr %nextEdge280, align 4, !tbaa !24
-  %arrayidx282 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254
-  store i32 -1, ptr %arrayidx282, align 4, !tbaa !22
+  store i32 -1, ptr %arrayidx255, align 4, !tbaa !22
   %idxprom285 = sext i32 %add273 to i64
+  %arrayidx286 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285
   %start287 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 1
   store i32 %97, ptr %start287, align 4, !tbaa !16
   %98 = load i32, ptr @bbr, align 4, !tbaa !5
@@ -651,9 +652,9 @@ while.end:                                        ; preds = %if.end185, %entry
   store i32 %add304, ptr %prevEdge307, align 4, !tbaa !25
   %nextEdge311 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 8
   store i32 %inc253, ptr %nextEdge311, align 4, !tbaa !24
-  %arrayidx313 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285
-  store i32 -1, ptr %arrayidx313, align 4, !tbaa !22
+  store i32 -1, ptr %arrayidx286, align 4, !tbaa !22
   %idxprom316 = sext i32 %add304 to i64
+  %arrayidx317 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316
   %start318 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 1
   store i32 %94, ptr %start318, align 4, !tbaa !16
   %end321 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 2
@@ -670,10 +671,10 @@ while.end:                                        ; preds = %if.end185, %entry
   store i32 %add277, ptr %prevEdge338, align 4, !tbaa !25
   %nextEdge342 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 8
   store i32 %add273, ptr %nextEdge342, align 4, !tbaa !24
-  %arrayidx344 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316
-  store i32 -1, ptr %arrayidx344, align 4, !tbaa !22
+  store i32 -1, ptr %arrayidx317, align 4, !tbaa !22
   store i32 %add277, ptr @edgeCount, align 4, !tbaa !5
   %idxprom347 = sext i32 %add277 to i64
+  %arrayidx348 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347
   %start349 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 1
   store i32 %97, ptr %start349, align 4, !tbaa !16
   %end352 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 2
@@ -690,8 +691,7 @@ while.end:                                        ; preds = %if.end185, %entry
   store i32 %inc253, ptr %prevEdge369, align 4, !tbaa !25
   %nextEdge373 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 8
   store i32 %add304, ptr %nextEdge373, align 4, !tbaa !24
-  %arrayidx375 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347
-  store i32 -1, ptr %arrayidx375, align 4, !tbaa !22
+  store i32 -1, ptr %arrayidx348, align 4, !tbaa !22
   store i32 0, ptr @numProbes, align 4, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %vy) #12
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %vx) #12
@@ -734,11 +734,11 @@ declare i32 @llvm.smin.i32(i32, i32) #9
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #9
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #9
-
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11

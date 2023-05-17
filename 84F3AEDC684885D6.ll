@@ -7,9 +7,9 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @negzero_check(double noundef %d) local_unnamed_addr #0 {
 entry:
   %cmp = fcmp oeq double %d, 0.000000e+00
-  %0 = bitcast double %d to i64
-  %1 = icmp ne i64 %0, 0
-  %narrow = and i1 %cmp, %1
+  %rhsv.cast = bitcast double %d to i64
+  %0 = icmp ne i64 %rhsv.cast, 0
+  %narrow = and i1 %cmp, %0
   %retval.0 = zext i1 %narrow to i32
   ret i32 %retval.0
 }
@@ -23,11 +23,11 @@ entry:
   br i1 %or.cond, label %land.lhs.true2, label %if.else
 
 land.lhs.true2:                                   ; preds = %entry
-  %0 = bitcast double %d to i64
-  %1 = bitcast double %e to i64
-  %2 = or i64 %0, %1
-  %or.cond14 = icmp eq i64 %2, 0
-  br i1 %or.cond14, label %return, label %if.else
+  %rhsv.cast.i = bitcast double %d to i64
+  %rhsv.cast.i11 = bitcast double %e to i64
+  %0 = or i64 %rhsv.cast.i, %rhsv.cast.i11
+  %or.cond15 = icmp eq i64 %0, 0
+  br i1 %or.cond15, label %return, label %if.else
 
 if.else:                                          ; preds = %land.lhs.true2, %entry
   br label %return
@@ -39,7 +39,7 @@ return:                                           ; preds = %land.lhs.true2, %if
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   ret i32 0
 }
 

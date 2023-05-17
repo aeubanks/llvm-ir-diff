@@ -281,8 +281,8 @@ if.end42:                                         ; preds = %if.then40, %if.end3
 
 if.then49:                                        ; preds = %if.end42
   %call.i222 = tail call i64 @strtol(ptr nocapture noundef nonnull %offstr, ptr noundef null, i32 noundef 10) #13
-  %sext = shl i64 %call.i222, 32
-  %conv51 = ashr exact i64 %sext, 32
+  %sext230 = shl i64 %call.i222, 32
+  %conv51 = ashr exact i64 %sext230, 32
   br label %cleanup165
 
 if.else52:                                        ; preds = %if.end42
@@ -299,7 +299,7 @@ land.lhs.true:                                    ; preds = %if.else52
 lor.lhs.false59:                                  ; preds = %land.lhs.true
   %call60 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %offstr, ptr noundef nonnull dereferenceable(4) @.str.4, i64 noundef 3) #14
   %tobool61.not = icmp eq i32 %call60, 0
-  br i1 %tobool61.not, label %if.then62, label %land.lhs.true82
+  br i1 %tobool61.not, label %if.then62, label %if.else77
 
 if.then62:                                        ; preds = %lor.lhs.false59, %land.lhs.true
   %arrayidx63 = getelementptr inbounds i8, ptr %offstr, i64 2
@@ -322,11 +322,11 @@ if.else71:                                        ; preds = %if.then62
   %conv76 = zext i32 %sub to i64
   br label %cleanup165
 
-land.lhs.true82:                                  ; preds = %lor.lhs.false59
+if.else77:                                        ; preds = %lor.lhs.false59
   %cmp85 = icmp eq i8 %3, 83
   br i1 %cmp85, label %if.then87, label %if.else142
 
-if.then87:                                        ; preds = %land.lhs.true82
+if.then87:                                        ; preds = %if.else77
   %call88 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %offstr, ptr noundef nonnull dereferenceable(3) @.str.5, i64 noundef 2) #14
   %tobool89.not = icmp eq i32 %call88, 0
   br i1 %tobool89.not, label %land.lhs.true90, label %if.else114
@@ -402,7 +402,7 @@ if.end141:                                        ; preds = %if.end133, %if.end1
   %offset.0 = zext i32 %add139 to i64
   br label %cleanup165
 
-if.else142:                                       ; preds = %if.else52, %land.lhs.true82
+if.else142:                                       ; preds = %if.else52, %if.else77
   %call143 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %offstr, ptr noundef nonnull dereferenceable(5) @.str.8, i64 noundef 4) #14
   %tobool144.not = icmp eq i32 %call143, 0
   br i1 %tobool144.not, label %if.then145, label %if.end164
@@ -433,8 +433,8 @@ if.end155:                                        ; preds = %if.end153, %if.then
   %21 = phi i64 [ %20, %if.end153 ], [ %19, %if.then145 ]
   %add.ptr157 = getelementptr inbounds i8, ptr %offstr, i64 4
   %call.i228 = tail call i64 @strtol(ptr nocapture noundef nonnull %add.ptr157, ptr noundef null, i32 noundef 10) #13
-  %sext233 = shl i64 %call.i228, 32
-  %conv159 = ashr exact i64 %sext233, 32
+  %sext = shl i64 %call.i228, 32
+  %conv159 = ashr exact i64 %sext, 32
   %sub160 = sub nsw i64 %21, %conv159
   br label %cleanup
 

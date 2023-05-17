@@ -18,7 +18,7 @@ declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapt
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.end:
+entry:
   %buf = alloca [6 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 6, ptr nonnull %buf) #3
   %arrayidx = getelementptr inbounds [6 x i8], ptr %buf, i64 0, i64 2

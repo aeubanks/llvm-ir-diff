@@ -2036,10 +2036,10 @@ if.end323:                                        ; preds = %for.body115.prehead
 define dso_local void @UpdateDecoders() local_unnamed_addr #4 {
 entry:
   %0 = load ptr, ptr @input, align 8, !tbaa !5
-  %NoOfDecoders23 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 127
-  %1 = load i32, ptr %NoOfDecoders23, align 8, !tbaa !50
-  %cmp24 = icmp sgt i32 %1, 0
-  br i1 %cmp24, label %for.body, label %for.end
+  %NoOfDecoders21 = getelementptr inbounds %struct.InputParameters, ptr %0, i64 0, i32 127
+  %1 = load i32, ptr %NoOfDecoders21, align 8, !tbaa !50
+  %cmp22 = icmp sgt i32 %1, 0
+  br i1 %cmp22, label %for.body, label %for.end
 
 for.body:                                         ; preds = %entry, %DecOneForthPix.exit
   %indvars.iv = phi i64 [ %indvars.iv.next, %DecOneForthPix.exit ], [ 0, %entry ]
@@ -2069,10 +2069,10 @@ for.body:                                         ; preds = %entry, %DecOneForth
   br i1 %or.cond.i, label %for.cond2.preheader.us.preheader.i, label %Error_Concealment.exit
 
 for.cond2.preheader.us.preheader.i:               ; preds = %for.body
-  %div1.i1921 = lshr i32 %12, 4
-  %div.i2022 = lshr i32 %11, 4
-  %wide.trip.count26.i = zext i32 %div.i2022 to i64
-  %wide.trip.count.i = zext i32 %div1.i1921 to i64
+  %div1.i1924 = lshr i32 %12, 4
+  %div.i2025 = lshr i32 %11, 4
+  %wide.trip.count26.i = zext i32 %div.i2025 to i64
+  %wide.trip.count.i = zext i32 %div1.i1924 to i64
   br label %for.cond2.preheader.us.i
 
 for.cond2.preheader.us.i:                         ; preds = %for.cond2.for.inc7_crit_edge.us.i, %for.cond2.preheader.us.preheader.i
@@ -2829,19 +2829,14 @@ entry:
   %idxprom3 = sext i32 %mb_x to i64
   %arrayidx4 = getelementptr inbounds i8, ptr %7, i64 %idxprom3
   %8 = load i8, ptr %arrayidx4, align 1, !tbaa !46
-  switch i8 %8, label %land.end54 [
-    i8 0, label %land.rhs
-    i8 8, label %land.rhs39
-    i8 3, label %land.rhs39
-    i8 2, label %land.rhs39
-    i8 1, label %land.rhs39
-  ]
+  %cmp = icmp eq i8 %8, 0
+  br i1 %cmp, label %land.rhs, label %land.end14
 
 land.rhs:                                         ; preds = %entry
   %type = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 5
   %9 = load i32, ptr %type, align 4, !tbaa !17
   switch i32 %9, label %land.end14.fold.split [
-    i32 0, label %land.end54
+    i32 0, label %land.end14
     i32 1, label %land.rhs11
   ]
 
@@ -2849,31 +2844,39 @@ land.rhs11:                                       ; preds = %land.rhs
   %nal_reference_idc = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 122
   %10 = load i32, ptr %nal_reference_idc, align 8, !tbaa !28
   %cmp12 = icmp sgt i32 %10, 0
-  br label %land.end54
+  br label %land.end14
 
 land.end14.fold.split:                            ; preds = %land.rhs
-  br label %land.end54
+  br label %land.end14
 
-land.rhs39:                                       ; preds = %entry, %entry, %entry, %entry
+land.end14:                                       ; preds = %land.rhs, %land.end14.fold.split, %land.rhs11, %entry
+  %11 = phi i1 [ false, %entry ], [ true, %land.rhs ], [ %cmp12, %land.rhs11 ], [ false, %land.end14.fold.split ]
+  switch i8 %8, label %land.end54 [
+    i8 8, label %land.rhs39
+    i8 3, label %land.rhs39
+    i8 2, label %land.rhs39
+    i8 1, label %land.rhs39
+  ]
+
+land.rhs39:                                       ; preds = %land.end14, %land.end14, %land.end14, %land.end14
   %type40 = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 5
-  %11 = load i32, ptr %type40, align 4, !tbaa !17
-  switch i32 %11, label %land.end54.fold.split [
+  %12 = load i32, ptr %type40, align 4, !tbaa !17
+  switch i32 %12, label %land.end54.fold.split [
     i32 0, label %land.end54
     i32 1, label %land.rhs47
   ]
 
 land.rhs47:                                       ; preds = %land.rhs39
   %nal_reference_idc48 = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 122
-  %12 = load i32, ptr %nal_reference_idc48, align 8, !tbaa !28
-  %cmp49 = icmp sgt i32 %12, 0
+  %13 = load i32, ptr %nal_reference_idc48, align 8, !tbaa !28
+  %cmp49 = icmp sgt i32 %13, 0
   br label %land.end54
 
 land.end54.fold.split:                            ; preds = %land.rhs39
   br label %land.end54
 
-land.end54:                                       ; preds = %entry, %land.rhs, %land.end14.fold.split, %land.rhs11, %land.rhs39, %land.end54.fold.split, %land.rhs47
-  %13 = phi i1 [ false, %land.rhs39 ], [ false, %land.rhs47 ], [ false, %land.end54.fold.split ], [ false, %land.end14.fold.split ], [ %cmp12, %land.rhs11 ], [ true, %land.rhs ], [ false, %entry ]
-  %14 = phi i1 [ true, %land.rhs39 ], [ %cmp49, %land.rhs47 ], [ false, %land.end54.fold.split ], [ false, %land.end14.fold.split ], [ false, %land.rhs11 ], [ false, %land.rhs ], [ false, %entry ]
+land.end54:                                       ; preds = %land.end14, %land.rhs39, %land.end54.fold.split, %land.rhs47
+  %14 = phi i1 [ true, %land.rhs39 ], [ %cmp49, %land.rhs47 ], [ false, %land.end14 ], [ false, %land.end54.fold.split ]
   %15 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %mv56 = getelementptr inbounds %struct.storable_picture, ptr %15, i64 0, i32 38
   %16 = load ptr, ptr %mv56, align 8, !tbaa !73
@@ -2911,9 +2914,9 @@ for.cond109.preheader:                            ; preds = %land.end54
   %arrayidx129.1 = getelementptr inbounds ptr, ptr %22, i64 %26
   %27 = load ptr, ptr %arrayidx129.1, align 8, !tbaa !5
   %28 = load i16, ptr %27, align 2, !tbaa !24
-  %conv132.1907 = sext i16 %28 to i32
-  %arrayidx138.1908 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 0, i64 1
-  store i32 %conv132.1907, ptr %arrayidx138.1908, align 4, !tbaa !15
+  %conv132.1903 = sext i16 %28 to i32
+  %arrayidx138.1904 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 0, i64 1
+  store i32 %conv132.1903, ptr %arrayidx138.1904, align 4, !tbaa !15
   %arrayidx131.1.1 = getelementptr inbounds i16, ptr %27, i64 1
   %29 = load i16, ptr %arrayidx131.1.1, align 2, !tbaa !24
   %conv132.1.1 = sext i16 %29 to i32
@@ -2946,23 +2949,23 @@ for.cond109.preheader:                            ; preds = %land.end54
   %38 = or i64 %21, 1
   %arrayidx124.1 = getelementptr inbounds ptr, ptr %17, i64 %38
   %39 = load ptr, ptr %arrayidx124.1, align 8, !tbaa !5
-  %arrayidx129.1914 = getelementptr inbounds ptr, ptr %39, i64 %20
-  %40 = load ptr, ptr %arrayidx129.1914, align 8, !tbaa !5
+  %arrayidx129.1910 = getelementptr inbounds ptr, ptr %39, i64 %20
+  %40 = load ptr, ptr %arrayidx129.1910, align 8, !tbaa !5
   %41 = load i16, ptr %40, align 2, !tbaa !24
-  %conv132.1915 = sext i16 %41 to i32
-  %arrayidx138.1916 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 0
-  store i32 %conv132.1915, ptr %arrayidx138.1916, align 16, !tbaa !15
-  %arrayidx131.1.1917 = getelementptr inbounds i16, ptr %40, i64 1
-  %42 = load i16, ptr %arrayidx131.1.1917, align 2, !tbaa !24
-  %conv132.1.1918 = sext i16 %42 to i32
-  %arrayidx138.1.1919 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 1, i64 0
-  store i32 %conv132.1.1918, ptr %arrayidx138.1.1919, align 16, !tbaa !15
+  %conv132.1911 = sext i16 %41 to i32
+  %arrayidx138.1912 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 0
+  store i32 %conv132.1911, ptr %arrayidx138.1912, align 16, !tbaa !15
+  %arrayidx131.1.1913 = getelementptr inbounds i16, ptr %40, i64 1
+  %42 = load i16, ptr %arrayidx131.1.1913, align 2, !tbaa !24
+  %conv132.1.1914 = sext i16 %42 to i32
+  %arrayidx138.1.1915 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 1, i64 0
+  store i32 %conv132.1.1914, ptr %arrayidx138.1.1915, align 16, !tbaa !15
   %arrayidx129.1.1 = getelementptr inbounds ptr, ptr %39, i64 %26
   %43 = load ptr, ptr %arrayidx129.1.1, align 8, !tbaa !5
   %44 = load i16, ptr %43, align 2, !tbaa !24
-  %conv132.1907.1 = sext i16 %44 to i32
-  %arrayidx138.1908.1 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 1
-  store i32 %conv132.1907.1, ptr %arrayidx138.1908.1, align 4, !tbaa !15
+  %conv132.1903.1 = sext i16 %44 to i32
+  %arrayidx138.1904.1 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 1
+  store i32 %conv132.1903.1, ptr %arrayidx138.1904.1, align 4, !tbaa !15
   %arrayidx131.1.1.1 = getelementptr inbounds i16, ptr %43, i64 1
   %45 = load i16, ptr %arrayidx131.1.1.1, align 2, !tbaa !24
   %conv132.1.1.1 = sext i16 %45 to i32
@@ -2993,23 +2996,23 @@ for.cond109.preheader:                            ; preds = %land.end54
   %52 = or i64 %21, 2
   %arrayidx124.2 = getelementptr inbounds ptr, ptr %17, i64 %52
   %53 = load ptr, ptr %arrayidx124.2, align 8, !tbaa !5
-  %arrayidx129.2921 = getelementptr inbounds ptr, ptr %53, i64 %20
-  %54 = load ptr, ptr %arrayidx129.2921, align 8, !tbaa !5
+  %arrayidx129.2917 = getelementptr inbounds ptr, ptr %53, i64 %20
+  %54 = load ptr, ptr %arrayidx129.2917, align 8, !tbaa !5
   %55 = load i16, ptr %54, align 2, !tbaa !24
-  %conv132.2922 = sext i16 %55 to i32
-  %arrayidx138.2923 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 0
-  store i32 %conv132.2922, ptr %arrayidx138.2923, align 16, !tbaa !15
-  %arrayidx131.1.2924 = getelementptr inbounds i16, ptr %54, i64 1
-  %56 = load i16, ptr %arrayidx131.1.2924, align 2, !tbaa !24
-  %conv132.1.2925 = sext i16 %56 to i32
-  %arrayidx138.1.2926 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 2, i64 0
-  store i32 %conv132.1.2925, ptr %arrayidx138.1.2926, align 16, !tbaa !15
+  %conv132.2918 = sext i16 %55 to i32
+  %arrayidx138.2919 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 0
+  store i32 %conv132.2918, ptr %arrayidx138.2919, align 16, !tbaa !15
+  %arrayidx131.1.2920 = getelementptr inbounds i16, ptr %54, i64 1
+  %56 = load i16, ptr %arrayidx131.1.2920, align 2, !tbaa !24
+  %conv132.1.2921 = sext i16 %56 to i32
+  %arrayidx138.1.2922 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 2, i64 0
+  store i32 %conv132.1.2921, ptr %arrayidx138.1.2922, align 16, !tbaa !15
   %arrayidx129.1.2 = getelementptr inbounds ptr, ptr %53, i64 %26
   %57 = load ptr, ptr %arrayidx129.1.2, align 8, !tbaa !5
   %58 = load i16, ptr %57, align 2, !tbaa !24
-  %conv132.1907.2 = sext i16 %58 to i32
-  %arrayidx138.1908.2 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 1
-  store i32 %conv132.1907.2, ptr %arrayidx138.1908.2, align 4, !tbaa !15
+  %conv132.1903.2 = sext i16 %58 to i32
+  %arrayidx138.1904.2 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 1
+  store i32 %conv132.1903.2, ptr %arrayidx138.1904.2, align 4, !tbaa !15
   %arrayidx131.1.1.2 = getelementptr inbounds i16, ptr %57, i64 1
   %59 = load i16, ptr %arrayidx131.1.1.2, align 2, !tbaa !24
   %conv132.1.1.2 = sext i16 %59 to i32
@@ -3040,23 +3043,23 @@ for.cond109.preheader:                            ; preds = %land.end54
   %66 = or i64 %21, 3
   %arrayidx124.3 = getelementptr inbounds ptr, ptr %17, i64 %66
   %67 = load ptr, ptr %arrayidx124.3, align 8, !tbaa !5
-  %arrayidx129.3928 = getelementptr inbounds ptr, ptr %67, i64 %20
-  %68 = load ptr, ptr %arrayidx129.3928, align 8, !tbaa !5
+  %arrayidx129.3924 = getelementptr inbounds ptr, ptr %67, i64 %20
+  %68 = load ptr, ptr %arrayidx129.3924, align 8, !tbaa !5
   %69 = load i16, ptr %68, align 2, !tbaa !24
-  %conv132.3929 = sext i16 %69 to i32
-  %arrayidx138.3930 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 0
-  store i32 %conv132.3929, ptr %arrayidx138.3930, align 16, !tbaa !15
-  %arrayidx131.1.3931 = getelementptr inbounds i16, ptr %68, i64 1
-  %70 = load i16, ptr %arrayidx131.1.3931, align 2, !tbaa !24
-  %conv132.1.3932 = sext i16 %70 to i32
-  %arrayidx138.1.3933 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 3, i64 0
-  store i32 %conv132.1.3932, ptr %arrayidx138.1.3933, align 16, !tbaa !15
+  %conv132.3925 = sext i16 %69 to i32
+  %arrayidx138.3926 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 0
+  store i32 %conv132.3925, ptr %arrayidx138.3926, align 16, !tbaa !15
+  %arrayidx131.1.3927 = getelementptr inbounds i16, ptr %68, i64 1
+  %70 = load i16, ptr %arrayidx131.1.3927, align 2, !tbaa !24
+  %conv132.1.3928 = sext i16 %70 to i32
+  %arrayidx138.1.3929 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 3, i64 0
+  store i32 %conv132.1.3928, ptr %arrayidx138.1.3929, align 16, !tbaa !15
   %arrayidx129.1.3 = getelementptr inbounds ptr, ptr %67, i64 %26
   %71 = load ptr, ptr %arrayidx129.1.3, align 8, !tbaa !5
   %72 = load i16, ptr %71, align 2, !tbaa !24
-  %conv132.1907.3 = sext i16 %72 to i32
-  %arrayidx138.1908.3 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 1
-  store i32 %conv132.1907.3, ptr %arrayidx138.1908.3, align 4, !tbaa !15
+  %conv132.1903.3 = sext i16 %72 to i32
+  %arrayidx138.1904.3 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 1
+  store i32 %conv132.1903.3, ptr %arrayidx138.1904.3, align 4, !tbaa !15
   %arrayidx131.1.1.3 = getelementptr inbounds i16, ptr %71, i64 1
   %73 = load i16, ptr %arrayidx131.1.1.3, align 2, !tbaa !24
   %conv132.1.1.3 = sext i16 %73 to i32
@@ -3119,8 +3122,8 @@ for.cond.preheader:                               ; preds = %sw.bb
   br label %for.cond68.preheader
 
 for.cond68.preheader:                             ; preds = %for.cond.preheader, %for.cond68.preheader
-  %indvars.iv1000 = phi i64 [ 0, %for.cond.preheader ], [ %indvars.iv.next1001, %for.cond68.preheader ]
-  %100 = add nuw nsw i64 %indvars.iv1000, %84
+  %indvars.iv996 = phi i64 [ 0, %for.cond.preheader ], [ %indvars.iv.next997, %for.cond68.preheader ]
+  %100 = add nuw nsw i64 %indvars.iv996, %84
   %arrayidx75 = getelementptr inbounds ptr, ptr %82, i64 %100
   %101 = load ptr, ptr %arrayidx75, align 8, !tbaa !5
   %arrayidx81 = getelementptr inbounds ptr, ptr %inY, i64 %100
@@ -3189,9 +3192,9 @@ for.cond68.preheader:                             ; preds = %for.cond.preheader,
   %118 = load i16, ptr %arrayidx78.15, align 2, !tbaa !24
   %arrayidx84.15 = getelementptr inbounds i16, ptr %102, i64 %99
   store i16 %118, ptr %arrayidx84.15, align 2, !tbaa !24
-  %indvars.iv.next1001 = add nuw nsw i64 %indvars.iv1000, 1
-  %exitcond1004.not = icmp eq i64 %indvars.iv.next1001, 16
-  br i1 %exitcond1004.not, label %sw.epilog, label %for.cond68.preheader, !llvm.loop !74
+  %indvars.iv.next997 = add nuw nsw i64 %indvars.iv996, 1
+  %exitcond1000.not = icmp eq i64 %indvars.iv.next997, 16
+  br i1 %exitcond1000.not, label %sw.epilog, label %for.cond68.preheader, !llvm.loop !74
 
 for.cond92.preheader:                             ; preds = %sw.bb
   %119 = sext i32 %mul2 to i64
@@ -3255,8 +3258,8 @@ for.cond92.preheader:                             ; preds = %sw.bb
   %137 = or i64 %121, 8
   %arrayidx98.8 = getelementptr inbounds ptr, ptr %inY, i64 %137
   %138 = load ptr, ptr %arrayidx98.8, align 8, !tbaa !5
-  %arrayidx101.81054 = getelementptr inbounds i16, ptr %138, i64 %119
-  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx101.81054, align 2, !tbaa !24
+  %arrayidx101.81050 = getelementptr inbounds i16, ptr %138, i64 %119
+  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx101.81050, align 2, !tbaa !24
   %arrayidx101.8.8 = getelementptr inbounds i16, ptr %138, i64 %120
   store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx101.8.8, align 2, !tbaa !24
   %139 = or i64 %121, 9
@@ -3313,7 +3316,7 @@ for.cond92.preheader:                             ; preds = %sw.bb
 if.then169:                                       ; preds = %for.cond109.preheader
   %idxprom179 = sext i32 %rem to i64
   %arrayidx180 = getelementptr inbounds ptr, ptr %refY, i64 %idxprom179
-  br i1 %13, label %for.cond171.preheader, label %if.else199
+  br i1 %11, label %for.cond171.preheader, label %if.else199
 
 for.cond171.preheader:                            ; preds = %if.then169
   %153 = load ptr, ptr %arrayidx180, align 8, !tbaa !5
@@ -3337,8 +3340,8 @@ for.cond171.preheader:                            ; preds = %if.then169
   br label %for.cond175.preheader
 
 for.cond175.preheader:                            ; preds = %for.cond171.preheader, %for.cond175.preheader
-  %indvars.iv979 = phi i64 [ 0, %for.cond171.preheader ], [ %indvars.iv.next980, %for.cond175.preheader ]
-  %171 = add nuw nsw i64 %indvars.iv979, %155
+  %indvars.iv975 = phi i64 [ 0, %for.cond171.preheader ], [ %indvars.iv.next976, %for.cond175.preheader ]
+  %171 = add nuw nsw i64 %indvars.iv975, %155
   %arrayidx183 = getelementptr inbounds ptr, ptr %153, i64 %171
   %172 = load ptr, ptr %arrayidx183, align 8, !tbaa !5
   %arrayidx189 = getelementptr inbounds ptr, ptr %inY, i64 %171
@@ -3407,9 +3410,9 @@ for.cond175.preheader:                            ; preds = %for.cond171.prehead
   %189 = load i16, ptr %arrayidx186.15, align 2, !tbaa !24
   %arrayidx192.15 = getelementptr inbounds i16, ptr %173, i64 %170
   store i16 %189, ptr %arrayidx192.15, align 2, !tbaa !24
-  %indvars.iv.next980 = add nuw nsw i64 %indvars.iv979, 1
-  %exitcond983.not = icmp eq i64 %indvars.iv.next980, 16
-  br i1 %exitcond983.not, label %sw.epilog, label %for.cond175.preheader, !llvm.loop !75
+  %indvars.iv.next976 = add nuw nsw i64 %indvars.iv975, 1
+  %exitcond979.not = icmp eq i64 %indvars.iv.next976, 16
+  br i1 %exitcond979.not, label %sw.epilog, label %for.cond175.preheader, !llvm.loop !75
 
 if.else199:                                       ; preds = %if.then169
   br i1 %14, label %if.then201, label %for.cond270.preheader
@@ -3438,17 +3441,17 @@ for.cond270.preheader:                            ; preds = %if.else199
 if.then201:                                       ; preds = %if.else199
   %208 = sext i32 %mul125 to i64
   %209 = add i32 %mul121, 4
-  %.pre1016.pre = load ptr, ptr @decs, align 8, !tbaa !5
-  %RefBlock.phi.trans.insert.phi.trans.insert = getelementptr inbounds %struct.Decoders, ptr %.pre1016.pre, i64 0, i32 4
-  %.pre1017.pre = load ptr, ptr %RefBlock.phi.trans.insert.phi.trans.insert, align 8, !tbaa !37
+  %.pre1012.pre = load ptr, ptr @decs, align 8, !tbaa !5
+  %RefBlock.phi.trans.insert.phi.trans.insert = getelementptr inbounds %struct.Decoders, ptr %.pre1012.pre, i64 0, i32 4
+  %.pre1013.pre = load ptr, ptr %RefBlock.phi.trans.insert.phi.trans.insert, align 8, !tbaa !37
   br label %for.body208
 
 for.body208:                                      ; preds = %if.then201, %for.inc266
-  %.pre1017 = phi ptr [ %.pre1017.pre, %if.then201 ], [ %221, %for.inc266 ]
-  %indvars.iv966 = phi i64 [ %21, %if.then201 ], [ %indvars.iv.next967, %for.inc266 ]
-  %indvars970 = trunc i64 %indvars.iv966 to i32
-  %210 = sub nuw nsw i64 %indvars.iv966, %21
-  %mul249 = shl nsw i32 %indvars970, 2
+  %.pre1013 = phi ptr [ %.pre1013.pre, %if.then201 ], [ %221, %for.inc266 ]
+  %indvars.iv962 = phi i64 [ %21, %if.then201 ], [ %indvars.iv.next963, %for.inc266 ]
+  %indvars966 = trunc i64 %indvars.iv962 to i32
+  %210 = sub nuw nsw i64 %indvars.iv962, %21
+  %mul249 = shl nsw i32 %indvars966, 2
   %211 = sext i32 %mul249 to i64
   %arrayidx252 = getelementptr inbounds ptr, ptr %inY, i64 %211
   %212 = or i64 %211, 1
@@ -3460,20 +3463,20 @@ for.body208:                                      ; preds = %if.then201, %for.in
   br label %for.body215
 
 for.body215:                                      ; preds = %for.body208, %for.body215
-  %215 = phi ptr [ %.pre1017, %for.body208 ], [ %221, %for.body215 ]
-  %indvars.iv959 = phi i64 [ %208, %for.body208 ], [ %indvars.iv.next960, %for.body215 ]
-  %indvars963 = trunc i64 %indvars.iv959 to i32
+  %215 = phi ptr [ %.pre1013, %for.body208 ], [ %221, %for.body215 ]
+  %indvars.iv955 = phi i64 [ %208, %for.body208 ], [ %indvars.iv.next956, %for.body215 ]
+  %indvars959 = trunc i64 %indvars.iv955 to i32
   %216 = load ptr, ptr %arrayidx180, align 8, !tbaa !5
-  %217 = sub nuw nsw i64 %indvars.iv959, %208
+  %217 = sub nuw nsw i64 %indvars.iv955, %208
   %arrayidx226 = getelementptr inbounds [4 x [4 x i32]], ptr %mv, i64 0, i64 %210, i64 %217
   %218 = load i32, ptr %arrayidx226, align 4, !tbaa !15
   %arrayidx235 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 %210, i64 %217
   %219 = load i32, ptr %arrayidx235, align 4, !tbaa !15
-  tail call void @Get_Reference_Block(ptr noundef %216, i32 noundef %indvars970, i32 noundef %indvars963, i32 noundef %218, i32 noundef %219, ptr noundef %215)
+  tail call void @Get_Reference_Block(ptr noundef %216, i32 noundef %indvars966, i32 noundef %indvars959, i32 noundef %218, i32 noundef %219, ptr noundef %215)
   %220 = load ptr, ptr @decs, align 8, !tbaa !5
   %RefBlock244 = getelementptr inbounds %struct.Decoders, ptr %220, i64 0, i32 4
   %221 = load ptr, ptr %RefBlock244, align 8, !tbaa !37
-  %mul253 = shl nsw i32 %indvars963, 2
+  %mul253 = shl nsw i32 %indvars959, 2
   %222 = sext i32 %mul253 to i64
   %223 = load ptr, ptr %221, align 8, !tbaa !5
   %224 = load ptr, ptr %arrayidx252, align 8, !tbaa !5
@@ -3499,8 +3502,8 @@ for.body215:                                      ; preds = %for.body208, %for.b
   %232 = load ptr, ptr %arrayidx246.1, align 8, !tbaa !5
   %233 = load ptr, ptr %arrayidx252.1, align 8, !tbaa !5
   %234 = load i16, ptr %232, align 2, !tbaa !24
-  %arrayidx256.1956 = getelementptr inbounds i16, ptr %233, i64 %222
-  store i16 %234, ptr %arrayidx256.1956, align 2, !tbaa !24
+  %arrayidx256.1952 = getelementptr inbounds i16, ptr %233, i64 %222
+  store i16 %234, ptr %arrayidx256.1952, align 2, !tbaa !24
   %arrayidx248.1.1 = getelementptr inbounds i16, ptr %232, i64 1
   %235 = load i16, ptr %arrayidx248.1.1, align 2, !tbaa !24
   %arrayidx256.1.1 = getelementptr inbounds i16, ptr %233, i64 %227
@@ -3517,8 +3520,8 @@ for.body215:                                      ; preds = %for.body208, %for.b
   %238 = load ptr, ptr %arrayidx246.2, align 8, !tbaa !5
   %239 = load ptr, ptr %arrayidx252.2, align 8, !tbaa !5
   %240 = load i16, ptr %238, align 2, !tbaa !24
-  %arrayidx256.2957 = getelementptr inbounds i16, ptr %239, i64 %222
-  store i16 %240, ptr %arrayidx256.2957, align 2, !tbaa !24
+  %arrayidx256.2953 = getelementptr inbounds i16, ptr %239, i64 %222
+  store i16 %240, ptr %arrayidx256.2953, align 2, !tbaa !24
   %arrayidx248.1.2 = getelementptr inbounds i16, ptr %238, i64 1
   %241 = load i16, ptr %arrayidx248.1.2, align 2, !tbaa !24
   %arrayidx256.1.2 = getelementptr inbounds i16, ptr %239, i64 %227
@@ -3535,8 +3538,8 @@ for.body215:                                      ; preds = %for.body208, %for.b
   %244 = load ptr, ptr %arrayidx246.3, align 8, !tbaa !5
   %245 = load ptr, ptr %arrayidx252.3, align 8, !tbaa !5
   %246 = load i16, ptr %244, align 2, !tbaa !24
-  %arrayidx256.3958 = getelementptr inbounds i16, ptr %245, i64 %222
-  store i16 %246, ptr %arrayidx256.3958, align 2, !tbaa !24
+  %arrayidx256.3954 = getelementptr inbounds i16, ptr %245, i64 %222
+  store i16 %246, ptr %arrayidx256.3954, align 2, !tbaa !24
   %arrayidx248.1.3 = getelementptr inbounds i16, ptr %244, i64 1
   %247 = load i16, ptr %arrayidx248.1.3, align 2, !tbaa !24
   %arrayidx256.1.3 = getelementptr inbounds i16, ptr %245, i64 %227
@@ -3549,20 +3552,20 @@ for.body215:                                      ; preds = %for.body208, %for.b
   %249 = load i16, ptr %arrayidx248.3.3, align 2, !tbaa !24
   %arrayidx256.3.3 = getelementptr inbounds i16, ptr %245, i64 %231
   store i16 %249, ptr %arrayidx256.3.3, align 2, !tbaa !24
-  %indvars.iv.next960 = add nsw i64 %indvars.iv959, 1
-  %lftr.wideiv964 = trunc i64 %indvars.iv.next960 to i32
-  %exitcond965.not = icmp eq i32 %add126, %lftr.wideiv964
-  br i1 %exitcond965.not, label %for.inc266, label %for.body215, !llvm.loop !76
+  %indvars.iv.next956 = add nsw i64 %indvars.iv955, 1
+  %lftr.wideiv960 = trunc i64 %indvars.iv.next956 to i32
+  %exitcond961.not = icmp eq i32 %add126, %lftr.wideiv960
+  br i1 %exitcond961.not, label %for.inc266, label %for.body215, !llvm.loop !76
 
 for.inc266:                                       ; preds = %for.body215
-  %indvars.iv.next967 = add nsw i64 %indvars.iv966, 1
-  %lftr.wideiv971 = trunc i64 %indvars.iv.next967 to i32
-  %exitcond972.not = icmp eq i32 %209, %lftr.wideiv971
-  br i1 %exitcond972.not, label %sw.epilog, label %for.body208, !llvm.loop !77
+  %indvars.iv.next963 = add nsw i64 %indvars.iv962, 1
+  %lftr.wideiv967 = trunc i64 %indvars.iv.next963 to i32
+  %exitcond968.not = icmp eq i32 %209, %lftr.wideiv967
+  br i1 %exitcond968.not, label %sw.epilog, label %for.body208, !llvm.loop !77
 
 for.cond274.preheader:                            ; preds = %for.cond270.preheader, %for.cond274.preheader
-  %indvars.iv941 = phi i64 [ 0, %for.cond270.preheader ], [ %indvars.iv.next942, %for.cond274.preheader ]
-  %250 = add nuw nsw i64 %indvars.iv941, %192
+  %indvars.iv937 = phi i64 [ 0, %for.cond270.preheader ], [ %indvars.iv.next938, %for.cond274.preheader ]
+  %250 = add nuw nsw i64 %indvars.iv937, %192
   %arrayidx282 = getelementptr inbounds ptr, ptr %190, i64 %250
   %251 = load ptr, ptr %arrayidx282, align 8, !tbaa !5
   %arrayidx288 = getelementptr inbounds ptr, ptr %inY, i64 %250
@@ -3631,9 +3634,9 @@ for.cond274.preheader:                            ; preds = %for.cond270.prehead
   %268 = load i16, ptr %arrayidx285.15, align 2, !tbaa !24
   %arrayidx291.15 = getelementptr inbounds i16, ptr %252, i64 %207
   store i16 %268, ptr %arrayidx291.15, align 2, !tbaa !24
-  %indvars.iv.next942 = add nuw nsw i64 %indvars.iv941, 1
-  %exitcond945.not = icmp eq i64 %indvars.iv.next942, 16
-  br i1 %exitcond945.not, label %sw.epilog, label %for.cond274.preheader, !llvm.loop !78
+  %indvars.iv.next938 = add nuw nsw i64 %indvars.iv937, 1
+  %exitcond941.not = icmp eq i64 %indvars.iv.next938, 16
+  br i1 %exitcond941.not, label %sw.epilog, label %for.cond274.preheader, !llvm.loop !78
 
 for.cond305.preheader:                            ; preds = %for.cond109.preheader
   %269 = sext i32 %mul2 to i64
@@ -3697,8 +3700,8 @@ for.cond305.preheader:                            ; preds = %for.cond109.prehead
   %287 = or i64 %271, 8
   %arrayidx311.8 = getelementptr inbounds ptr, ptr %inY, i64 %287
   %288 = load ptr, ptr %arrayidx311.8, align 8, !tbaa !5
-  %arrayidx314.81053 = getelementptr inbounds i16, ptr %288, i64 %269
-  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx314.81053, align 2, !tbaa !24
+  %arrayidx314.81049 = getelementptr inbounds i16, ptr %288, i64 %269
+  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx314.81049, align 2, !tbaa !24
   %arrayidx314.8.8 = getelementptr inbounds i16, ptr %288, i64 %270
   store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx314.8.8, align 2, !tbaa !24
   %289 = or i64 %271, 9
@@ -3780,9 +3783,9 @@ for.cond327.preheader:                            ; preds = %sw.bb322
   %arrayidx347.1 = getelementptr inbounds ptr, ptr %306, i64 %310
   %311 = load ptr, ptr %arrayidx347.1, align 8, !tbaa !5
   %312 = load i16, ptr %311, align 2, !tbaa !24
-  %conv350.1834 = sext i16 %312 to i32
-  %arrayidx356.1835 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 0, i64 1
-  store i32 %conv350.1834, ptr %arrayidx356.1835, align 4, !tbaa !15
+  %conv350.1830 = sext i16 %312 to i32
+  %arrayidx356.1831 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 0, i64 1
+  store i32 %conv350.1830, ptr %arrayidx356.1831, align 4, !tbaa !15
   %arrayidx349.1.1 = getelementptr inbounds i16, ptr %311, i64 1
   %313 = load i16, ptr %arrayidx349.1.1, align 2, !tbaa !24
   %conv350.1.1 = sext i16 %313 to i32
@@ -3815,23 +3818,23 @@ for.cond327.preheader:                            ; preds = %sw.bb322
   %322 = or i64 %305, 1
   %arrayidx342.1 = getelementptr inbounds ptr, ptr %17, i64 %322
   %323 = load ptr, ptr %arrayidx342.1, align 8, !tbaa !5
-  %arrayidx347.1841 = getelementptr inbounds ptr, ptr %323, i64 %304
-  %324 = load ptr, ptr %arrayidx347.1841, align 8, !tbaa !5
+  %arrayidx347.1837 = getelementptr inbounds ptr, ptr %323, i64 %304
+  %324 = load ptr, ptr %arrayidx347.1837, align 8, !tbaa !5
   %325 = load i16, ptr %324, align 2, !tbaa !24
-  %conv350.1842 = sext i16 %325 to i32
-  %arrayidx356.1843 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 0
-  store i32 %conv350.1842, ptr %arrayidx356.1843, align 16, !tbaa !15
-  %arrayidx349.1.1844 = getelementptr inbounds i16, ptr %324, i64 1
-  %326 = load i16, ptr %arrayidx349.1.1844, align 2, !tbaa !24
-  %conv350.1.1845 = sext i16 %326 to i32
-  %arrayidx356.1.1846 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 1, i64 0
-  store i32 %conv350.1.1845, ptr %arrayidx356.1.1846, align 16, !tbaa !15
+  %conv350.1838 = sext i16 %325 to i32
+  %arrayidx356.1839 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 0
+  store i32 %conv350.1838, ptr %arrayidx356.1839, align 16, !tbaa !15
+  %arrayidx349.1.1840 = getelementptr inbounds i16, ptr %324, i64 1
+  %326 = load i16, ptr %arrayidx349.1.1840, align 2, !tbaa !24
+  %conv350.1.1841 = sext i16 %326 to i32
+  %arrayidx356.1.1842 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 1, i64 0
+  store i32 %conv350.1.1841, ptr %arrayidx356.1.1842, align 16, !tbaa !15
   %arrayidx347.1.1 = getelementptr inbounds ptr, ptr %323, i64 %310
   %327 = load ptr, ptr %arrayidx347.1.1, align 8, !tbaa !5
   %328 = load i16, ptr %327, align 2, !tbaa !24
-  %conv350.1834.1 = sext i16 %328 to i32
-  %arrayidx356.1835.1 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 1
-  store i32 %conv350.1834.1, ptr %arrayidx356.1835.1, align 4, !tbaa !15
+  %conv350.1830.1 = sext i16 %328 to i32
+  %arrayidx356.1831.1 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 1, i64 1
+  store i32 %conv350.1830.1, ptr %arrayidx356.1831.1, align 4, !tbaa !15
   %arrayidx349.1.1.1 = getelementptr inbounds i16, ptr %327, i64 1
   %329 = load i16, ptr %arrayidx349.1.1.1, align 2, !tbaa !24
   %conv350.1.1.1 = sext i16 %329 to i32
@@ -3862,23 +3865,23 @@ for.cond327.preheader:                            ; preds = %sw.bb322
   %336 = or i64 %305, 2
   %arrayidx342.2 = getelementptr inbounds ptr, ptr %17, i64 %336
   %337 = load ptr, ptr %arrayidx342.2, align 8, !tbaa !5
-  %arrayidx347.2848 = getelementptr inbounds ptr, ptr %337, i64 %304
-  %338 = load ptr, ptr %arrayidx347.2848, align 8, !tbaa !5
+  %arrayidx347.2844 = getelementptr inbounds ptr, ptr %337, i64 %304
+  %338 = load ptr, ptr %arrayidx347.2844, align 8, !tbaa !5
   %339 = load i16, ptr %338, align 2, !tbaa !24
-  %conv350.2849 = sext i16 %339 to i32
-  %arrayidx356.2850 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 0
-  store i32 %conv350.2849, ptr %arrayidx356.2850, align 16, !tbaa !15
-  %arrayidx349.1.2851 = getelementptr inbounds i16, ptr %338, i64 1
-  %340 = load i16, ptr %arrayidx349.1.2851, align 2, !tbaa !24
-  %conv350.1.2852 = sext i16 %340 to i32
-  %arrayidx356.1.2853 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 2, i64 0
-  store i32 %conv350.1.2852, ptr %arrayidx356.1.2853, align 16, !tbaa !15
+  %conv350.2845 = sext i16 %339 to i32
+  %arrayidx356.2846 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 0
+  store i32 %conv350.2845, ptr %arrayidx356.2846, align 16, !tbaa !15
+  %arrayidx349.1.2847 = getelementptr inbounds i16, ptr %338, i64 1
+  %340 = load i16, ptr %arrayidx349.1.2847, align 2, !tbaa !24
+  %conv350.1.2848 = sext i16 %340 to i32
+  %arrayidx356.1.2849 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 2, i64 0
+  store i32 %conv350.1.2848, ptr %arrayidx356.1.2849, align 16, !tbaa !15
   %arrayidx347.1.2 = getelementptr inbounds ptr, ptr %337, i64 %310
   %341 = load ptr, ptr %arrayidx347.1.2, align 8, !tbaa !5
   %342 = load i16, ptr %341, align 2, !tbaa !24
-  %conv350.1834.2 = sext i16 %342 to i32
-  %arrayidx356.1835.2 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 1
-  store i32 %conv350.1834.2, ptr %arrayidx356.1835.2, align 4, !tbaa !15
+  %conv350.1830.2 = sext i16 %342 to i32
+  %arrayidx356.1831.2 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 2, i64 1
+  store i32 %conv350.1830.2, ptr %arrayidx356.1831.2, align 4, !tbaa !15
   %arrayidx349.1.1.2 = getelementptr inbounds i16, ptr %341, i64 1
   %343 = load i16, ptr %arrayidx349.1.1.2, align 2, !tbaa !24
   %conv350.1.1.2 = sext i16 %343 to i32
@@ -3909,23 +3912,23 @@ for.cond327.preheader:                            ; preds = %sw.bb322
   %350 = or i64 %305, 3
   %arrayidx342.3 = getelementptr inbounds ptr, ptr %17, i64 %350
   %351 = load ptr, ptr %arrayidx342.3, align 8, !tbaa !5
-  %arrayidx347.3855 = getelementptr inbounds ptr, ptr %351, i64 %304
-  %352 = load ptr, ptr %arrayidx347.3855, align 8, !tbaa !5
+  %arrayidx347.3851 = getelementptr inbounds ptr, ptr %351, i64 %304
+  %352 = load ptr, ptr %arrayidx347.3851, align 8, !tbaa !5
   %353 = load i16, ptr %352, align 2, !tbaa !24
-  %conv350.3856 = sext i16 %353 to i32
-  %arrayidx356.3857 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 0
-  store i32 %conv350.3856, ptr %arrayidx356.3857, align 16, !tbaa !15
-  %arrayidx349.1.3858 = getelementptr inbounds i16, ptr %352, i64 1
-  %354 = load i16, ptr %arrayidx349.1.3858, align 2, !tbaa !24
-  %conv350.1.3859 = sext i16 %354 to i32
-  %arrayidx356.1.3860 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 3, i64 0
-  store i32 %conv350.1.3859, ptr %arrayidx356.1.3860, align 16, !tbaa !15
+  %conv350.3852 = sext i16 %353 to i32
+  %arrayidx356.3853 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 0
+  store i32 %conv350.3852, ptr %arrayidx356.3853, align 16, !tbaa !15
+  %arrayidx349.1.3854 = getelementptr inbounds i16, ptr %352, i64 1
+  %354 = load i16, ptr %arrayidx349.1.3854, align 2, !tbaa !24
+  %conv350.1.3855 = sext i16 %354 to i32
+  %arrayidx356.1.3856 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 3, i64 0
+  store i32 %conv350.1.3855, ptr %arrayidx356.1.3856, align 16, !tbaa !15
   %arrayidx347.1.3 = getelementptr inbounds ptr, ptr %351, i64 %310
   %355 = load ptr, ptr %arrayidx347.1.3, align 8, !tbaa !5
   %356 = load i16, ptr %355, align 2, !tbaa !24
-  %conv350.1834.3 = sext i16 %356 to i32
-  %arrayidx356.1835.3 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 1
-  store i32 %conv350.1834.3, ptr %arrayidx356.1835.3, align 4, !tbaa !15
+  %conv350.1830.3 = sext i16 %356 to i32
+  %arrayidx356.1831.3 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 0, i64 3, i64 1
+  store i32 %conv350.1830.3, ptr %arrayidx356.1831.3, align 4, !tbaa !15
   %arrayidx349.1.1.3 = getelementptr inbounds i16, ptr %355, i64 1
   %357 = load i16, ptr %arrayidx349.1.1.3, align 2, !tbaa !24
   %conv350.1.1.3 = sext i16 %357 to i32
@@ -3953,7 +3956,7 @@ for.cond327.preheader:                            ; preds = %sw.bb322
   %conv350.1.3.3 = sext i16 %363 to i32
   %arrayidx356.1.3.3 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 3, i64 3
   store i32 %conv350.1.3.3, ptr %arrayidx356.1.3.3, align 4, !tbaa !15
-  br i1 %13, label %for.cond386.preheader, label %if.else414
+  br i1 %11, label %for.cond386.preheader, label %if.else414
 
 for.cond386.preheader:                            ; preds = %for.cond327.preheader
   %idxprom394 = sext i32 %rem to i64
@@ -3979,8 +3982,8 @@ for.cond386.preheader:                            ; preds = %for.cond327.prehead
   br label %for.cond390.preheader
 
 for.cond390.preheader:                            ; preds = %for.cond386.preheader, %for.cond390.preheader
-  %indvars.iv894 = phi i64 [ 0, %for.cond386.preheader ], [ %indvars.iv.next895, %for.cond390.preheader ]
-  %382 = add nuw nsw i64 %indvars.iv894, %366
+  %indvars.iv890 = phi i64 [ 0, %for.cond386.preheader ], [ %indvars.iv.next891, %for.cond390.preheader ]
+  %382 = add nuw nsw i64 %indvars.iv890, %366
   %arrayidx398 = getelementptr inbounds ptr, ptr %364, i64 %382
   %383 = load ptr, ptr %arrayidx398, align 8, !tbaa !5
   %arrayidx404 = getelementptr inbounds ptr, ptr %inY, i64 %382
@@ -4049,9 +4052,9 @@ for.cond390.preheader:                            ; preds = %for.cond386.prehead
   %400 = load i16, ptr %arrayidx401.15, align 2, !tbaa !24
   %arrayidx407.15 = getelementptr inbounds i16, ptr %384, i64 %381
   store i16 %400, ptr %arrayidx407.15, align 2, !tbaa !24
-  %indvars.iv.next895 = add nuw nsw i64 %indvars.iv894, 1
-  %exitcond898.not = icmp eq i64 %indvars.iv.next895, 16
-  br i1 %exitcond898.not, label %sw.epilog, label %for.cond390.preheader, !llvm.loop !79
+  %indvars.iv.next891 = add nuw nsw i64 %indvars.iv890, 1
+  %exitcond894.not = icmp eq i64 %indvars.iv.next891, 16
+  br i1 %exitcond894.not, label %sw.epilog, label %for.cond390.preheader, !llvm.loop !79
 
 if.else414:                                       ; preds = %for.cond327.preheader
   br i1 %14, label %if.then416, label %sw.epilog
@@ -4063,15 +4066,15 @@ if.then416:                                       ; preds = %if.else414
   %402 = add i32 %mul339, 4
   %.pre.pre = load ptr, ptr @decs, align 8, !tbaa !5
   %RefBlock451.phi.trans.insert.phi.trans.insert = getelementptr inbounds %struct.Decoders, ptr %.pre.pre, i64 0, i32 4
-  %.pre1015.pre = load ptr, ptr %RefBlock451.phi.trans.insert.phi.trans.insert, align 8, !tbaa !37
+  %.pre1011.pre = load ptr, ptr %RefBlock451.phi.trans.insert.phi.trans.insert, align 8, !tbaa !37
   br label %for.body423
 
 for.body423:                                      ; preds = %if.then416, %for.inc482
-  %.pre1015 = phi ptr [ %.pre1015.pre, %if.then416 ], [ %414, %for.inc482 ]
-  %indvars.iv881 = phi i64 [ %305, %if.then416 ], [ %indvars.iv.next882, %for.inc482 ]
-  %indvars885 = trunc i64 %indvars.iv881 to i32
-  %403 = sub nuw nsw i64 %indvars.iv881, %305
-  %mul465 = shl nsw i32 %indvars885, 2
+  %.pre1011 = phi ptr [ %.pre1011.pre, %if.then416 ], [ %414, %for.inc482 ]
+  %indvars.iv877 = phi i64 [ %305, %if.then416 ], [ %indvars.iv.next878, %for.inc482 ]
+  %indvars881 = trunc i64 %indvars.iv877 to i32
+  %403 = sub nuw nsw i64 %indvars.iv877, %305
+  %mul465 = shl nsw i32 %indvars881, 2
   %404 = sext i32 %mul465 to i64
   %arrayidx468 = getelementptr inbounds ptr, ptr %inY, i64 %404
   %405 = or i64 %404, 1
@@ -4083,20 +4086,20 @@ for.body423:                                      ; preds = %if.then416, %for.in
   br label %for.body430
 
 for.body430:                                      ; preds = %for.body423, %for.body430
-  %408 = phi ptr [ %.pre1015, %for.body423 ], [ %414, %for.body430 ]
-  %indvars.iv875 = phi i64 [ %401, %for.body423 ], [ %indvars.iv.next876, %for.body430 ]
-  %indvars879 = trunc i64 %indvars.iv875 to i32
+  %408 = phi ptr [ %.pre1011, %for.body423 ], [ %414, %for.body430 ]
+  %indvars.iv871 = phi i64 [ %401, %for.body423 ], [ %indvars.iv.next872, %for.body430 ]
+  %indvars875 = trunc i64 %indvars.iv871 to i32
   %409 = load ptr, ptr %arrayidx432, align 8, !tbaa !5
-  %410 = sub nuw nsw i64 %indvars.iv875, %401
+  %410 = sub nuw nsw i64 %indvars.iv871, %401
   %arrayidx441 = getelementptr inbounds [4 x [4 x i32]], ptr %mv, i64 0, i64 %403, i64 %410
   %411 = load i32, ptr %arrayidx441, align 4, !tbaa !15
   %arrayidx450 = getelementptr inbounds [2 x [4 x [4 x i32]]], ptr %mv, i64 0, i64 1, i64 %403, i64 %410
   %412 = load i32, ptr %arrayidx450, align 4, !tbaa !15
-  tail call void @Get_Reference_Block(ptr noundef %409, i32 noundef %indvars885, i32 noundef %indvars879, i32 noundef %411, i32 noundef %412, ptr noundef %408)
+  tail call void @Get_Reference_Block(ptr noundef %409, i32 noundef %indvars881, i32 noundef %indvars875, i32 noundef %411, i32 noundef %412, ptr noundef %408)
   %413 = load ptr, ptr @decs, align 8, !tbaa !5
   %RefBlock460 = getelementptr inbounds %struct.Decoders, ptr %413, i64 0, i32 4
   %414 = load ptr, ptr %RefBlock460, align 8, !tbaa !37
-  %mul469 = shl nsw i32 %indvars879, 2
+  %mul469 = shl nsw i32 %indvars875, 2
   %415 = sext i32 %mul469 to i64
   %416 = load ptr, ptr %414, align 8, !tbaa !5
   %417 = load ptr, ptr %arrayidx468, align 8, !tbaa !5
@@ -4122,8 +4125,8 @@ for.body430:                                      ; preds = %for.body423, %for.b
   %425 = load ptr, ptr %arrayidx462.1, align 8, !tbaa !5
   %426 = load ptr, ptr %arrayidx468.1, align 8, !tbaa !5
   %427 = load i16, ptr %425, align 2, !tbaa !24
-  %arrayidx472.1872 = getelementptr inbounds i16, ptr %426, i64 %415
-  store i16 %427, ptr %arrayidx472.1872, align 2, !tbaa !24
+  %arrayidx472.1868 = getelementptr inbounds i16, ptr %426, i64 %415
+  store i16 %427, ptr %arrayidx472.1868, align 2, !tbaa !24
   %arrayidx464.1.1 = getelementptr inbounds i16, ptr %425, i64 1
   %428 = load i16, ptr %arrayidx464.1.1, align 2, !tbaa !24
   %arrayidx472.1.1 = getelementptr inbounds i16, ptr %426, i64 %420
@@ -4140,8 +4143,8 @@ for.body430:                                      ; preds = %for.body423, %for.b
   %431 = load ptr, ptr %arrayidx462.2, align 8, !tbaa !5
   %432 = load ptr, ptr %arrayidx468.2, align 8, !tbaa !5
   %433 = load i16, ptr %431, align 2, !tbaa !24
-  %arrayidx472.2873 = getelementptr inbounds i16, ptr %432, i64 %415
-  store i16 %433, ptr %arrayidx472.2873, align 2, !tbaa !24
+  %arrayidx472.2869 = getelementptr inbounds i16, ptr %432, i64 %415
+  store i16 %433, ptr %arrayidx472.2869, align 2, !tbaa !24
   %arrayidx464.1.2 = getelementptr inbounds i16, ptr %431, i64 1
   %434 = load i16, ptr %arrayidx464.1.2, align 2, !tbaa !24
   %arrayidx472.1.2 = getelementptr inbounds i16, ptr %432, i64 %420
@@ -4158,8 +4161,8 @@ for.body430:                                      ; preds = %for.body423, %for.b
   %437 = load ptr, ptr %arrayidx462.3, align 8, !tbaa !5
   %438 = load ptr, ptr %arrayidx468.3, align 8, !tbaa !5
   %439 = load i16, ptr %437, align 2, !tbaa !24
-  %arrayidx472.3874 = getelementptr inbounds i16, ptr %438, i64 %415
-  store i16 %439, ptr %arrayidx472.3874, align 2, !tbaa !24
+  %arrayidx472.3870 = getelementptr inbounds i16, ptr %438, i64 %415
+  store i16 %439, ptr %arrayidx472.3870, align 2, !tbaa !24
   %arrayidx464.1.3 = getelementptr inbounds i16, ptr %437, i64 1
   %440 = load i16, ptr %arrayidx464.1.3, align 2, !tbaa !24
   %arrayidx472.1.3 = getelementptr inbounds i16, ptr %438, i64 %420
@@ -4172,16 +4175,16 @@ for.body430:                                      ; preds = %for.body423, %for.b
   %442 = load i16, ptr %arrayidx464.3.3, align 2, !tbaa !24
   %arrayidx472.3.3 = getelementptr inbounds i16, ptr %438, i64 %424
   store i16 %442, ptr %arrayidx472.3.3, align 2, !tbaa !24
-  %indvars.iv.next876 = add nsw i64 %indvars.iv875, 1
-  %lftr.wideiv = trunc i64 %indvars.iv.next876 to i32
-  %exitcond880.not = icmp eq i32 %add344, %lftr.wideiv
-  br i1 %exitcond880.not, label %for.inc482, label %for.body430, !llvm.loop !80
+  %indvars.iv.next872 = add nsw i64 %indvars.iv871, 1
+  %lftr.wideiv = trunc i64 %indvars.iv.next872 to i32
+  %exitcond876.not = icmp eq i32 %add344, %lftr.wideiv
+  br i1 %exitcond876.not, label %for.inc482, label %for.body430, !llvm.loop !80
 
 for.inc482:                                       ; preds = %for.body430
-  %indvars.iv.next882 = add nsw i64 %indvars.iv881, 1
-  %lftr.wideiv886 = trunc i64 %indvars.iv.next882 to i32
-  %exitcond887.not = icmp eq i32 %402, %lftr.wideiv886
-  br i1 %exitcond887.not, label %sw.epilog, label %for.body423, !llvm.loop !81
+  %indvars.iv.next878 = add nsw i64 %indvars.iv877, 1
+  %lftr.wideiv882 = trunc i64 %indvars.iv.next878 to i32
+  %exitcond883.not = icmp eq i32 %402, %lftr.wideiv882
+  br i1 %exitcond883.not, label %sw.epilog, label %for.body423, !llvm.loop !81
 
 sw.bb488:                                         ; preds = %land.end54
   %type489 = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 5
@@ -4352,8 +4355,8 @@ for.cond529.preheader:                            ; preds = %sw.bb488
   %499 = or i64 %483, 8
   %arrayidx535.8 = getelementptr inbounds ptr, ptr %inY, i64 %499
   %500 = load ptr, ptr %arrayidx535.8, align 8, !tbaa !5
-  %arrayidx538.81052 = getelementptr inbounds i16, ptr %500, i64 %481
-  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx538.81052, align 2, !tbaa !24
+  %arrayidx538.81048 = getelementptr inbounds i16, ptr %500, i64 %481
+  store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx538.81048, align 2, !tbaa !24
   %arrayidx538.8.8 = getelementptr inbounds i16, ptr %500, i64 %482
   store <8 x i16> <i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127, i16 127>, ptr %arrayidx538.8.8, align 2, !tbaa !24
   %501 = or i64 %483, 9

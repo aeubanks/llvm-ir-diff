@@ -35,9 +35,9 @@ entry:
 invoke.cont3.i:                                   ; preds = %entry
   %0 = load ptr, ptr %agg.tmp.i, align 8, !tbaa !12
   %cmp.not.i.i = icmp eq ptr %0, null
-  br i1 %cmp.not.i.i, label %"_ZNSt6threadC2IZ4mainE3$_0JEvEEOT_DpOT0_.exit", label %_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i.i
+  br i1 %cmp.not.i.i, label %"_ZNSt6threadC2IZ4mainE3$_0JEvEEOT_DpOT0_.exit", label %delete.notnull.i.i.i
 
-_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i.i: ; preds = %invoke.cont3.i
+delete.notnull.i.i.i:                             ; preds = %invoke.cont3.i
   %vtable.i.i.i = load ptr, ptr %0, align 8, !tbaa !10
   %vfn.i.i.i = getelementptr inbounds ptr, ptr %vtable.i.i.i, i64 1
   %1 = load ptr, ptr %vfn.i.i.i, align 8
@@ -49,20 +49,20 @@ lpad2.i:                                          ; preds = %entry
           cleanup
   %3 = load ptr, ptr %agg.tmp.i, align 8, !tbaa !12
   %cmp.not.i5.i = icmp eq ptr %3, null
-  br i1 %cmp.not.i5.i, label %common.resume, label %_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i8.i
+  br i1 %cmp.not.i5.i, label %common.resume, label %delete.notnull.i.i8.i
 
-_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i8.i: ; preds = %lpad2.i
+delete.notnull.i.i8.i:                            ; preds = %lpad2.i
   %vtable.i.i6.i = load ptr, ptr %3, align 8, !tbaa !10
   %vfn.i.i7.i = getelementptr inbounds ptr, ptr %vtable.i.i6.i, i64 1
   %4 = load ptr, ptr %vfn.i.i7.i, align 8
   call void %4(ptr noundef nonnull align 8 dereferenceable(8) %3) #9
   br label %common.resume
 
-common.resume:                                    ; preds = %lpad2.i, %_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i8.i, %_ZNSt6threadD2Ev.exit5
-  %common.resume.op = phi { ptr, i32 } [ %5, %_ZNSt6threadD2Ev.exit5 ], [ %2, %_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i8.i ], [ %2, %lpad2.i ]
+common.resume:                                    ; preds = %lpad2.i, %delete.notnull.i.i8.i, %_ZNSt6threadD2Ev.exit5
+  %common.resume.op = phi { ptr, i32 } [ %5, %_ZNSt6threadD2Ev.exit5 ], [ %2, %delete.notnull.i.i8.i ], [ %2, %lpad2.i ]
   resume { ptr, i32 } %common.resume.op
 
-"_ZNSt6threadC2IZ4mainE3$_0JEvEEOT_DpOT0_.exit":  ; preds = %invoke.cont3.i, %_ZNKSt14default_deleteINSt6thread6_StateEEclEPS1_.exit.i.i
+"_ZNSt6threadC2IZ4mainE3$_0JEvEEOT_DpOT0_.exit":  ; preds = %invoke.cont3.i, %delete.notnull.i.i.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %agg.tmp.i)
   invoke void @_ZNSt6thread4joinEv(ptr noundef nonnull align 8 dereferenceable(8) %t)
           to label %invoke.cont unwind label %lpad

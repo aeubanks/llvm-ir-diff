@@ -56,12 +56,10 @@ entry:
   %destroy = getelementptr inbounds %struct.HaloExchangeSt, ptr %call.i.i, i64 0, i32 4
   store ptr @destroyAtomsExchange, ptr %destroy, align 8, !tbaa !14
   %call.i = tail call noalias dereferenceable_or_null(120) ptr @malloc(i64 noundef 120) #12
-  %add30 = shl i32 %0, 1
-  %mul31 = add i32 %add30, 4
+  %mul31 = shl nsw i32 %add, 1
   %mul35 = mul nsw i32 %mul31, %add3
   store i32 %mul35, ptr %call.i, align 8, !tbaa !5
-  %add39 = shl i32 %2, 1
-  %mul40 = add i32 %add39, 4
+  %mul40 = shl nsw i32 %add6, 1
   %mul44 = mul nsw i32 %mul40, %add3
   %arrayidx46 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 2
   store i32 %mul44, ptr %arrayidx46, align 8, !tbaa !5
@@ -485,6 +483,7 @@ entry:
   %0 = load i32, ptr %arrayidx, align 4, !tbaa !5
   %arrayidx2 = getelementptr inbounds [3 x i32], ptr %boxes, i64 0, i64 2
   %1 = load i32, ptr %arrayidx2, align 8, !tbaa !5
+  %mul = mul nsw i32 %1, %0
   %2 = load i32, ptr %boxes, align 8, !tbaa !5
   %add = add nsw i32 %2, 2
   %mul7 = mul nsw i32 %add, %1
@@ -494,14 +493,13 @@ entry:
   %mul20 = shl i32 %cond19, 9
   store i32 %mul20, ptr %bufCapacity.i, align 8, !tbaa !9
   %call.i = tail call noalias dereferenceable_or_null(120) ptr @malloc(i64 noundef 120) #12
-  %mul28 = mul nsw i32 %1, %0
-  store i32 %mul28, ptr %call.i, align 8, !tbaa !5
+  store i32 %mul, ptr %call.i, align 8, !tbaa !5
   %arrayidx37 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 2
   store i32 %mul7, ptr %arrayidx37, align 8, !tbaa !5
   %arrayidx46 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 4
   store i32 %mul14, ptr %arrayidx46, align 8, !tbaa !5
   %arrayidx50 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 1
-  store i32 %mul28, ptr %arrayidx50, align 4, !tbaa !5
+  store i32 %mul, ptr %arrayidx50, align 4, !tbaa !5
   %arrayidx54 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 3
   store i32 %mul7, ptr %arrayidx54, align 4, !tbaa !5
   %arrayidx58 = getelementptr inbounds [6 x i32], ptr %call.i, i64 0, i64 5

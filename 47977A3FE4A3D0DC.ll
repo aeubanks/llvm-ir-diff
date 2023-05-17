@@ -447,26 +447,26 @@ entry:
 if.else:                                          ; preds = %entry
   %0 = load i8, ptr %value, align 1, !tbaa !15
   %1 = add i8 %0, -48
-  %or.cond28 = icmp ult i8 %1, 10
-  br i1 %or.cond28, label %while.body, label %return
+  %or.cond32 = icmp ult i8 %1, 10
+  br i1 %or.cond32, label %while.body, label %return
 
 while.body:                                       ; preds = %if.else, %while.body
-  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
-  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
-  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
-  %conv4 = zext i8 %2 to i32
-  %mul = mul nsw i32 %num.024, 10
-  %sub = add nsw i32 %conv4, -48
+  %conv428.in = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %num.027 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.026 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %conv428 = zext i8 %conv428.in to i32
+  %mul = mul nsw i32 %num.027, 10
+  %sub = add nsw i32 %conv428, -48
   %add = add nsw i32 %sub, %mul
-  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.026, i64 1
   %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
-  %3 = add i8 %.pr, -48
-  %or.cond = icmp ult i8 %3, 10
+  %2 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %2, 10
   br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !17
 
 while.end:                                        ; preds = %while.body
-  %4 = icmp eq i8 %.pr, 0
-  br i1 %4, label %if.end, label %return
+  %3 = icmp eq i8 %.pr, 0
+  br i1 %3, label %if.end, label %return
 
 if.end:                                           ; preds = %while.end
   %nodeNumber = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 12
@@ -569,26 +569,26 @@ entry:
 if.else:                                          ; preds = %entry
   %0 = load i8, ptr %value, align 1, !tbaa !15
   %1 = add i8 %0, -48
-  %or.cond28 = icmp ult i8 %1, 10
-  br i1 %or.cond28, label %while.body, label %return
+  %or.cond32 = icmp ult i8 %1, 10
+  br i1 %or.cond32, label %while.body, label %return
 
 while.body:                                       ; preds = %if.else, %while.body
-  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
-  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
-  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
-  %conv4 = zext i8 %2 to i32
-  %mul = mul nsw i32 %num.024, 10
-  %sub = add nsw i32 %conv4, -48
+  %conv428.in = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %num.027 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.026 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %conv428 = zext i8 %conv428.in to i32
+  %mul = mul nsw i32 %num.027, 10
+  %sub = add nsw i32 %conv428, -48
   %add = add nsw i32 %sub, %mul
-  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.026, i64 1
   %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
-  %3 = add i8 %.pr, -48
-  %or.cond = icmp ult i8 %3, 10
+  %2 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %2, 10
   br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !21
 
 while.end:                                        ; preds = %while.body
-  %4 = icmp eq i8 %.pr, 0
-  br i1 %4, label %if.end, label %return
+  %3 = icmp eq i8 %.pr, 0
+  br i1 %3, label %if.end, label %return
 
 if.end:                                           ; preds = %while.end
   %block_size = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 14

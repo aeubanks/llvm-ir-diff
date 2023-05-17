@@ -15,7 +15,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   %x = alloca ptr, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %x) #3
   store ptr %x, ptr getelementptr inbounds ([2048 x i8], ptr @B, i64 0, i64 8), align 8, !tbaa !5

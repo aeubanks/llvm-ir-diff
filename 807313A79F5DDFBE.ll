@@ -221,22 +221,22 @@ if.else74:                                        ; preds = %if.end
   %4 = load i32, ptr %gap_inc, align 4, !tbaa !12
   %cmp75.not = icmp eq i32 %4, 158
   %bf.load92172 = load i16, ptr %res_gap, align 4
-  %osu296174 = getelementptr inbounds %struct.STYLE, ptr %style, i64 0, i32 1
-  %bf.load97175 = load i16, ptr %osu296174, align 4
+  %osu296173 = getelementptr inbounds %struct.STYLE, ptr %style, i64 0, i32 1
+  %bf.load97174 = load i16, ptr %osu296173, align 4
   br i1 %cmp75.not, label %if.else91.thread, label %land.lhs.true77
 
 if.else91.thread:                                 ; preds = %if.else74
-  %bf.clear98176 = and i16 %bf.load97175, 1023
+  %bf.clear98175 = and i16 %bf.load97174, 1023
   %5 = and i16 %bf.load92172, -1024
-  %bf.set108180 = or i16 %bf.clear98176, %5
-  store i16 %bf.set108180, ptr %osu296174, align 4
+  %bf.set108176 = or i16 %bf.clear98175, %5
+  store i16 %bf.set108176, ptr %osu296173, align 4
   %owidth = getelementptr inbounds %struct.GAP, ptr %res_gap, i64 0, i32 1
   %6 = load i16, ptr %owidth, align 2, !tbaa !14
-  %conv112181 = zext i16 %6 to i32
+  %conv112177 = zext i16 %6 to i32
   br label %cond.end139
 
 land.lhs.true77:                                  ; preds = %if.else74
-  %bf.lshr171 = xor i16 %bf.load97175, %bf.load92172
+  %bf.lshr171 = xor i16 %bf.load97174, %bf.load92172
   %7 = and i16 %bf.lshr171, 7168
   %cmp84.not = icmp eq i16 %7, 0
   br i1 %cmp84.not, label %if.else91, label %if.then86
@@ -246,10 +246,10 @@ if.then86:                                        ; preds = %land.lhs.true77
   br label %if.end145
 
 if.else91:                                        ; preds = %land.lhs.true77
-  %bf.clear98 = and i16 %bf.load97175, 1023
+  %bf.clear98 = and i16 %bf.load97174, 1023
   %8 = and i16 %bf.load92172, -1024
   %bf.set108 = or i16 %bf.clear98, %8
-  store i16 %bf.set108, ptr %osu296174, align 4
+  store i16 %bf.set108, ptr %osu296173, align 4
   %cond = icmp eq i32 %4, 159
   %owidth117 = getelementptr inbounds %struct.STYLE, ptr %style, i64 0, i32 1, i32 0, i32 1
   %9 = load i16, ptr %owidth117, align 2, !tbaa !5
@@ -258,9 +258,9 @@ if.else91:                                        ; preds = %land.lhs.true77
   br i1 %cond, label %cond.true115, label %cond.false121
 
 cond.true115:                                     ; preds = %if.else91
-  %conv118182 = zext i16 %9 to i32
-  %conv120183 = zext i16 %10 to i32
-  %add = add nuw nsw i32 %conv120183, %conv118182
+  %conv118178 = zext i16 %9 to i32
+  %conv120179 = zext i16 %10 to i32
+  %add = add nuw nsw i32 %conv120179, %conv118178
   br label %cond.end139
 
 cond.false121:                                    ; preds = %if.else91
@@ -271,7 +271,7 @@ cond.false121:                                    ; preds = %if.else91
   br label %cond.end139
 
 cond.end139:                                      ; preds = %cond.false121, %cond.true115, %if.else91.thread
-  %cond140 = phi i32 [ %conv112181, %if.else91.thread ], [ %add, %cond.true115 ], [ %spec.select, %cond.false121 ]
+  %cond140 = phi i32 [ %conv112177, %if.else91.thread ], [ %add, %cond.true115 ], [ %spec.select, %cond.false121 ]
   %conv141 = trunc i32 %cond140 to i16
   %owidth143 = getelementptr inbounds %struct.STYLE, ptr %style, i64 0, i32 1, i32 0, i32 1
   store i16 %conv141, ptr %owidth143, align 2, !tbaa !5

@@ -42,7 +42,7 @@ define dso_local ptr @Insert(ptr nocapture noundef %h, ptr noundef %i) local_unn
 entry:
   %call.i = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #14
   %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.then.i, label %if.end.i
+  br i1 %cmp.i, label %if.then.i, label %NewHeap.exit
 
 if.then.i:                                        ; preds = %entry
   %0 = load ptr, ptr @stderr, align 8, !tbaa !5
@@ -50,7 +50,7 @@ if.then.i:                                        ; preds = %entry
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-if.end.i:                                         ; preds = %entry
+NewHeap.exit:                                     ; preds = %entry
   store ptr %i, ptr %call.i, align 8, !tbaa !9
   %parent.i = getelementptr inbounds %struct._Heap, ptr %call.i, i64 0, i32 1
   %forward.i = getelementptr inbounds %struct._Heap, ptr %call.i, i64 0, i32 3
@@ -66,7 +66,7 @@ if.end.i:                                         ; preds = %entry
   %cmp1.i = icmp eq ptr %2, null
   br i1 %cmp1.i, label %Meld.exit, label %if.end3.i
 
-if.end3.i:                                        ; preds = %if.end.i
+if.end3.i:                                        ; preds = %NewHeap.exit
   %forward.i.i = getelementptr inbounds %struct._Heap, ptr %2, i64 0, i32 3
   %3 = load ptr, ptr %forward.i.i, align 8, !tbaa !13
   %backward.i.i = getelementptr inbounds %struct._Heap, ptr %3, i64 0, i32 4
@@ -80,8 +80,8 @@ if.end3.i:                                        ; preds = %if.end.i
   %h2.h1.i = select i1 %tobool.not.i, ptr %call.i, ptr %2
   br label %Meld.exit
 
-Meld.exit:                                        ; preds = %if.end.i, %if.end3.i
-  %retval.0.i = phi ptr [ %call.i, %if.end.i ], [ %h2.h1.i, %if.end3.i ]
+Meld.exit:                                        ; preds = %NewHeap.exit, %if.end3.i
+  %retval.0.i = phi ptr [ %call.i, %NewHeap.exit ], [ %h2.h1.i, %if.end3.i ]
   store ptr %retval.0.i, ptr %h, align 8, !tbaa !5
   ret ptr %call.i
 }
@@ -234,24 +234,23 @@ do.body:                                          ; preds = %do.body.preheader, 
 
 while.body:                                       ; preds = %do.body, %if.end21
   %6 = phi ptr [ %21, %if.end21 ], [ %5, %do.body ]
-  %arrayidx254 = phi ptr [ %arrayidx, %if.end21 ], [ %arrayidx250, %do.body ]
-  %r.0.in253 = phi ptr [ %r.0.in, %if.end21 ], [ %r.0.in247, %do.body ]
+  %arrayidx253 = phi ptr [ %arrayidx, %if.end21 ], [ %arrayidx250, %do.body ]
   %h2.1252 = phi ptr [ %h2.2, %if.end21 ], [ %h2.0, %do.body ]
   %7 = load ptr, ptr %6, align 8, !tbaa !9
   %8 = load ptr, ptr %h2.1252, align 8, !tbaa !9
   %call13 = tail call i32 @LessThan(ptr noundef %7, ptr noundef %8) #17
   %tobool.not = icmp eq i32 %call13, 0
-  %9 = load ptr, ptr %arrayidx254, align 8, !tbaa !5
+  %9 = load ptr, ptr %arrayidx253, align 8, !tbaa !5
   br i1 %tobool.not, label %if.else, label %if.then14
 
 if.then14:                                        ; preds = %while.body
-  %child.i195 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 2
-  %10 = load ptr, ptr %child.i195, align 8, !tbaa !17
-  %cmp.i196 = icmp eq ptr %10, null
-  br i1 %cmp.i196, label %if.then.i197, label %if.else.i
+  %child.i194 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 2
+  %10 = load ptr, ptr %child.i194, align 8, !tbaa !17
+  %cmp.i195 = icmp eq ptr %10, null
+  br i1 %cmp.i195, label %if.then.i196, label %if.else.i
 
-if.then.i197:                                     ; preds = %if.then14
-  store ptr %h2.1252, ptr %child.i195, align 8, !tbaa !17
+if.then.i196:                                     ; preds = %if.then14
+  store ptr %h2.1252, ptr %child.i194, align 8, !tbaa !17
   br label %AddEntry.exit
 
 if.else.i:                                        ; preds = %if.then14
@@ -267,57 +266,60 @@ if.else.i:                                        ; preds = %if.then14
   store ptr %11, ptr %forward1.i.i, align 8, !tbaa !13
   br label %AddEntry.exit
 
-AddEntry.exit:                                    ; preds = %if.then.i197, %if.else.i
+AddEntry.exit:                                    ; preds = %if.then.i196, %if.else.i
   %parent.i = getelementptr inbounds %struct._Heap, ptr %h2.1252, i64 0, i32 1
   store ptr %9, ptr %parent.i, align 8, !tbaa !18
   %rank.i = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 5
   %13 = load i32, ptr %rank.i, align 8, !tbaa !15
-  %14 = load i32, ptr %r.0.in253, align 8, !tbaa !15
+  %rank3.i = getelementptr inbounds %struct._Heap, ptr %h2.1252, i64 0, i32 5
+  %14 = load i32, ptr %rank3.i, align 8, !tbaa !15
   %add.i = add i32 %13, 1
   %add4.i = add i32 %add.i, %14
   store i32 %add4.i, ptr %rank.i, align 8, !tbaa !15
-  %15 = load ptr, ptr %arrayidx254, align 8, !tbaa !5
+  %15 = load ptr, ptr %arrayidx253, align 8, !tbaa !5
+  %r.0.in.phi.trans.insert = getelementptr inbounds %struct._Heap, ptr %15, i64 0, i32 5
+  %r.0.pre = load i32, ptr %r.0.in.phi.trans.insert, align 8, !tbaa !15
   br label %if.end21
 
 if.else:                                          ; preds = %while.body
-  %child.i199 = getelementptr inbounds %struct._Heap, ptr %h2.1252, i64 0, i32 2
-  %16 = load ptr, ptr %child.i199, align 8, !tbaa !17
-  %cmp.i200 = icmp eq ptr %16, null
-  br i1 %cmp.i200, label %if.then.i201, label %if.else.i206
+  %child.i198 = getelementptr inbounds %struct._Heap, ptr %h2.1252, i64 0, i32 2
+  %16 = load ptr, ptr %child.i198, align 8, !tbaa !17
+  %cmp.i199 = icmp eq ptr %16, null
+  br i1 %cmp.i199, label %if.then.i200, label %if.else.i205
 
-if.then.i201:                                     ; preds = %if.else
-  store ptr %9, ptr %child.i199, align 8, !tbaa !17
-  br label %AddEntry.exit213
+if.then.i200:                                     ; preds = %if.else
+  store ptr %9, ptr %child.i198, align 8, !tbaa !17
+  br label %AddEntry.exit212
 
-if.else.i206:                                     ; preds = %if.else
-  %forward.i.i202 = getelementptr inbounds %struct._Heap, ptr %16, i64 0, i32 3
-  %17 = load ptr, ptr %forward.i.i202, align 8, !tbaa !13
-  %backward.i.i203 = getelementptr inbounds %struct._Heap, ptr %17, i64 0, i32 4
-  store ptr %9, ptr %backward.i.i203, align 8, !tbaa !14
-  %forward1.i.i204 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 3
-  %18 = load ptr, ptr %forward1.i.i204, align 8, !tbaa !13
-  %backward2.i.i205 = getelementptr inbounds %struct._Heap, ptr %18, i64 0, i32 4
-  store ptr %16, ptr %backward2.i.i205, align 8, !tbaa !14
-  store ptr %18, ptr %forward.i.i202, align 8, !tbaa !13
-  store ptr %17, ptr %forward1.i.i204, align 8, !tbaa !13
-  br label %AddEntry.exit213
+if.else.i205:                                     ; preds = %if.else
+  %forward.i.i201 = getelementptr inbounds %struct._Heap, ptr %16, i64 0, i32 3
+  %17 = load ptr, ptr %forward.i.i201, align 8, !tbaa !13
+  %backward.i.i202 = getelementptr inbounds %struct._Heap, ptr %17, i64 0, i32 4
+  store ptr %9, ptr %backward.i.i202, align 8, !tbaa !14
+  %forward1.i.i203 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 3
+  %18 = load ptr, ptr %forward1.i.i203, align 8, !tbaa !13
+  %backward2.i.i204 = getelementptr inbounds %struct._Heap, ptr %18, i64 0, i32 4
+  store ptr %16, ptr %backward2.i.i204, align 8, !tbaa !14
+  store ptr %18, ptr %forward.i.i201, align 8, !tbaa !13
+  store ptr %17, ptr %forward1.i.i203, align 8, !tbaa !13
+  br label %AddEntry.exit212
 
-AddEntry.exit213:                                 ; preds = %if.then.i201, %if.else.i206
-  %parent.i207 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 1
-  store ptr %h2.1252, ptr %parent.i207, align 8, !tbaa !18
-  %19 = load i32, ptr %r.0.in253, align 8, !tbaa !15
-  %rank3.i209 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 5
-  %20 = load i32, ptr %rank3.i209, align 8, !tbaa !15
-  %add.i210 = add i32 %19, 1
-  %add4.i211 = add i32 %add.i210, %20
-  store i32 %add4.i211, ptr %r.0.in253, align 8, !tbaa !15
+AddEntry.exit212:                                 ; preds = %if.then.i200, %if.else.i205
+  %parent.i206 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 1
+  store ptr %h2.1252, ptr %parent.i206, align 8, !tbaa !18
+  %rank.i207 = getelementptr inbounds %struct._Heap, ptr %h2.1252, i64 0, i32 5
+  %19 = load i32, ptr %rank.i207, align 8, !tbaa !15
+  %rank3.i208 = getelementptr inbounds %struct._Heap, ptr %9, i64 0, i32 5
+  %20 = load i32, ptr %rank3.i208, align 8, !tbaa !15
+  %add.i209 = add i32 %19, 1
+  %add4.i210 = add i32 %add.i209, %20
+  store i32 %add4.i210, ptr %rank.i207, align 8, !tbaa !15
   br label %if.end21
 
-if.end21:                                         ; preds = %AddEntry.exit213, %AddEntry.exit
-  %h2.2 = phi ptr [ %15, %AddEntry.exit ], [ %h2.1252, %AddEntry.exit213 ]
-  store ptr null, ptr %arrayidx254, align 8, !tbaa !5
-  %r.0.in = getelementptr inbounds %struct._Heap, ptr %h2.2, i64 0, i32 5
-  %r.0 = load i32, ptr %r.0.in, align 8, !tbaa !15
+if.end21:                                         ; preds = %AddEntry.exit212, %AddEntry.exit
+  %r.0 = phi i32 [ %r.0.pre, %AddEntry.exit ], [ %add4.i210, %AddEntry.exit212 ]
+  %h2.2 = phi ptr [ %15, %AddEntry.exit ], [ %h2.1252, %AddEntry.exit212 ]
+  store ptr null, ptr %arrayidx253, align 8, !tbaa !5
   %idxprom = sext i32 %r.0 to i64
   %arrayidx = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %idxprom
   %21 = load ptr, ptr %arrayidx, align 8, !tbaa !5
@@ -340,7 +342,7 @@ do.end:                                           ; preds = %while.end
 
 do.body35:                                        ; preds = %do.end, %while.end64
   %23 = phi ptr [ %42, %while.end64 ], [ %22, %do.end ]
-  %rMax.2 = phi i32 [ %spec.select194, %while.end64 ], [ %spec.select, %do.end ]
+  %rMax.2 = phi i32 [ %spec.select246, %while.end64 ], [ %spec.select, %do.end ]
   %h2.3 = phi ptr [ %24, %while.end64 ], [ %22, %do.end ]
   %forward36 = getelementptr inbounds %struct._Heap, ptr %h2.3, i64 0, i32 3
   %24 = load ptr, ptr %forward36, align 8, !tbaa !13
@@ -349,100 +351,102 @@ do.body35:                                        ; preds = %do.end, %while.end6
   store ptr %h2.3, ptr %backward38, align 8, !tbaa !14
   %parent39 = getelementptr inbounds %struct._Heap, ptr %h2.3, i64 0, i32 1
   store ptr null, ptr %parent39, align 8, !tbaa !18
-  %r.1.in257 = getelementptr inbounds %struct._Heap, ptr %h2.3, i64 0, i32 5
-  %r.1258 = load i32, ptr %r.1.in257, align 8, !tbaa !15
-  %idxprom42259 = sext i32 %r.1258 to i64
-  %arrayidx43260 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %idxprom42259
-  %25 = load ptr, ptr %arrayidx43260, align 8, !tbaa !5
-  %cmp44.not261 = icmp eq ptr %25, null
-  br i1 %cmp44.not261, label %while.end64, label %while.body45
+  %r.1.in256 = getelementptr inbounds %struct._Heap, ptr %h2.3, i64 0, i32 5
+  %r.1257 = load i32, ptr %r.1.in256, align 8, !tbaa !15
+  %idxprom42258 = sext i32 %r.1257 to i64
+  %arrayidx43259 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %idxprom42258
+  %25 = load ptr, ptr %arrayidx43259, align 8, !tbaa !5
+  %cmp44.not260 = icmp eq ptr %25, null
+  br i1 %cmp44.not260, label %while.end64, label %while.body45
 
 while.body45:                                     ; preds = %do.body35, %if.end60
   %26 = phi ptr [ %41, %if.end60 ], [ %25, %do.body35 ]
-  %arrayidx43264 = phi ptr [ %arrayidx43, %if.end60 ], [ %arrayidx43260, %do.body35 ]
-  %r.1.in263 = phi ptr [ %r.1.in, %if.end60 ], [ %r.1.in257, %do.body35 ]
-  %h2.4262 = phi ptr [ %h2.5, %if.end60 ], [ %h2.3, %do.body35 ]
+  %arrayidx43262 = phi ptr [ %arrayidx43, %if.end60 ], [ %arrayidx43259, %do.body35 ]
+  %h2.4261 = phi ptr [ %h2.5, %if.end60 ], [ %h2.3, %do.body35 ]
   %27 = load ptr, ptr %26, align 8, !tbaa !9
-  %28 = load ptr, ptr %h2.4262, align 8, !tbaa !9
+  %28 = load ptr, ptr %h2.4261, align 8, !tbaa !9
   %call50 = tail call i32 @LessThan(ptr noundef %27, ptr noundef %28) #17
   %tobool51.not = icmp eq i32 %call50, 0
-  %29 = load ptr, ptr %arrayidx43264, align 8, !tbaa !5
+  %29 = load ptr, ptr %arrayidx43262, align 8, !tbaa !5
   br i1 %tobool51.not, label %if.else57, label %if.then52
 
 if.then52:                                        ; preds = %while.body45
-  %child.i214 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 2
-  %30 = load ptr, ptr %child.i214, align 8, !tbaa !17
-  %cmp.i215 = icmp eq ptr %30, null
-  br i1 %cmp.i215, label %if.then.i216, label %if.else.i221
+  %child.i213 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 2
+  %30 = load ptr, ptr %child.i213, align 8, !tbaa !17
+  %cmp.i214 = icmp eq ptr %30, null
+  br i1 %cmp.i214, label %if.then.i215, label %if.else.i220
 
-if.then.i216:                                     ; preds = %if.then52
-  store ptr %h2.4262, ptr %child.i214, align 8, !tbaa !17
-  br label %AddEntry.exit228
+if.then.i215:                                     ; preds = %if.then52
+  store ptr %h2.4261, ptr %child.i213, align 8, !tbaa !17
+  br label %AddEntry.exit227
 
-if.else.i221:                                     ; preds = %if.then52
-  %forward.i.i217 = getelementptr inbounds %struct._Heap, ptr %30, i64 0, i32 3
-  %31 = load ptr, ptr %forward.i.i217, align 8, !tbaa !13
-  %backward.i.i218 = getelementptr inbounds %struct._Heap, ptr %31, i64 0, i32 4
-  store ptr %h2.4262, ptr %backward.i.i218, align 8, !tbaa !14
-  %forward1.i.i219 = getelementptr inbounds %struct._Heap, ptr %h2.4262, i64 0, i32 3
-  %32 = load ptr, ptr %forward1.i.i219, align 8, !tbaa !13
-  %backward2.i.i220 = getelementptr inbounds %struct._Heap, ptr %32, i64 0, i32 4
-  store ptr %30, ptr %backward2.i.i220, align 8, !tbaa !14
-  store ptr %32, ptr %forward.i.i217, align 8, !tbaa !13
-  store ptr %31, ptr %forward1.i.i219, align 8, !tbaa !13
-  br label %AddEntry.exit228
+if.else.i220:                                     ; preds = %if.then52
+  %forward.i.i216 = getelementptr inbounds %struct._Heap, ptr %30, i64 0, i32 3
+  %31 = load ptr, ptr %forward.i.i216, align 8, !tbaa !13
+  %backward.i.i217 = getelementptr inbounds %struct._Heap, ptr %31, i64 0, i32 4
+  store ptr %h2.4261, ptr %backward.i.i217, align 8, !tbaa !14
+  %forward1.i.i218 = getelementptr inbounds %struct._Heap, ptr %h2.4261, i64 0, i32 3
+  %32 = load ptr, ptr %forward1.i.i218, align 8, !tbaa !13
+  %backward2.i.i219 = getelementptr inbounds %struct._Heap, ptr %32, i64 0, i32 4
+  store ptr %30, ptr %backward2.i.i219, align 8, !tbaa !14
+  store ptr %32, ptr %forward.i.i216, align 8, !tbaa !13
+  store ptr %31, ptr %forward1.i.i218, align 8, !tbaa !13
+  br label %AddEntry.exit227
 
-AddEntry.exit228:                                 ; preds = %if.then.i216, %if.else.i221
-  %parent.i222 = getelementptr inbounds %struct._Heap, ptr %h2.4262, i64 0, i32 1
-  store ptr %29, ptr %parent.i222, align 8, !tbaa !18
-  %rank.i223 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 5
-  %33 = load i32, ptr %rank.i223, align 8, !tbaa !15
-  %34 = load i32, ptr %r.1.in263, align 8, !tbaa !15
-  %add.i225 = add i32 %33, 1
-  %add4.i226 = add i32 %add.i225, %34
-  store i32 %add4.i226, ptr %rank.i223, align 8, !tbaa !15
-  %35 = load ptr, ptr %arrayidx43264, align 8, !tbaa !5
+AddEntry.exit227:                                 ; preds = %if.then.i215, %if.else.i220
+  %parent.i221 = getelementptr inbounds %struct._Heap, ptr %h2.4261, i64 0, i32 1
+  store ptr %29, ptr %parent.i221, align 8, !tbaa !18
+  %rank.i222 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 5
+  %33 = load i32, ptr %rank.i222, align 8, !tbaa !15
+  %rank3.i223 = getelementptr inbounds %struct._Heap, ptr %h2.4261, i64 0, i32 5
+  %34 = load i32, ptr %rank3.i223, align 8, !tbaa !15
+  %add.i224 = add i32 %33, 1
+  %add4.i225 = add i32 %add.i224, %34
+  store i32 %add4.i225, ptr %rank.i222, align 8, !tbaa !15
+  %35 = load ptr, ptr %arrayidx43262, align 8, !tbaa !5
+  %r.1.in.phi.trans.insert = getelementptr inbounds %struct._Heap, ptr %35, i64 0, i32 5
+  %r.1.pre = load i32, ptr %r.1.in.phi.trans.insert, align 8, !tbaa !15
   br label %if.end60
 
 if.else57:                                        ; preds = %while.body45
-  %child.i229 = getelementptr inbounds %struct._Heap, ptr %h2.4262, i64 0, i32 2
-  %36 = load ptr, ptr %child.i229, align 8, !tbaa !17
-  %cmp.i230 = icmp eq ptr %36, null
-  br i1 %cmp.i230, label %if.then.i231, label %if.else.i236
+  %child.i228 = getelementptr inbounds %struct._Heap, ptr %h2.4261, i64 0, i32 2
+  %36 = load ptr, ptr %child.i228, align 8, !tbaa !17
+  %cmp.i229 = icmp eq ptr %36, null
+  br i1 %cmp.i229, label %if.then.i230, label %if.else.i235
 
-if.then.i231:                                     ; preds = %if.else57
-  store ptr %29, ptr %child.i229, align 8, !tbaa !17
-  br label %AddEntry.exit243
+if.then.i230:                                     ; preds = %if.else57
+  store ptr %29, ptr %child.i228, align 8, !tbaa !17
+  br label %AddEntry.exit242
 
-if.else.i236:                                     ; preds = %if.else57
-  %forward.i.i232 = getelementptr inbounds %struct._Heap, ptr %36, i64 0, i32 3
-  %37 = load ptr, ptr %forward.i.i232, align 8, !tbaa !13
-  %backward.i.i233 = getelementptr inbounds %struct._Heap, ptr %37, i64 0, i32 4
-  store ptr %29, ptr %backward.i.i233, align 8, !tbaa !14
-  %forward1.i.i234 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 3
-  %38 = load ptr, ptr %forward1.i.i234, align 8, !tbaa !13
-  %backward2.i.i235 = getelementptr inbounds %struct._Heap, ptr %38, i64 0, i32 4
-  store ptr %36, ptr %backward2.i.i235, align 8, !tbaa !14
-  store ptr %38, ptr %forward.i.i232, align 8, !tbaa !13
-  store ptr %37, ptr %forward1.i.i234, align 8, !tbaa !13
-  br label %AddEntry.exit243
+if.else.i235:                                     ; preds = %if.else57
+  %forward.i.i231 = getelementptr inbounds %struct._Heap, ptr %36, i64 0, i32 3
+  %37 = load ptr, ptr %forward.i.i231, align 8, !tbaa !13
+  %backward.i.i232 = getelementptr inbounds %struct._Heap, ptr %37, i64 0, i32 4
+  store ptr %29, ptr %backward.i.i232, align 8, !tbaa !14
+  %forward1.i.i233 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 3
+  %38 = load ptr, ptr %forward1.i.i233, align 8, !tbaa !13
+  %backward2.i.i234 = getelementptr inbounds %struct._Heap, ptr %38, i64 0, i32 4
+  store ptr %36, ptr %backward2.i.i234, align 8, !tbaa !14
+  store ptr %38, ptr %forward.i.i231, align 8, !tbaa !13
+  store ptr %37, ptr %forward1.i.i233, align 8, !tbaa !13
+  br label %AddEntry.exit242
 
-AddEntry.exit243:                                 ; preds = %if.then.i231, %if.else.i236
-  %parent.i237 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 1
-  store ptr %h2.4262, ptr %parent.i237, align 8, !tbaa !18
-  %39 = load i32, ptr %r.1.in263, align 8, !tbaa !15
-  %rank3.i239 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 5
-  %40 = load i32, ptr %rank3.i239, align 8, !tbaa !15
-  %add.i240 = add i32 %39, 1
-  %add4.i241 = add i32 %add.i240, %40
-  store i32 %add4.i241, ptr %r.1.in263, align 8, !tbaa !15
+AddEntry.exit242:                                 ; preds = %if.then.i230, %if.else.i235
+  %parent.i236 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 1
+  store ptr %h2.4261, ptr %parent.i236, align 8, !tbaa !18
+  %rank.i237 = getelementptr inbounds %struct._Heap, ptr %h2.4261, i64 0, i32 5
+  %39 = load i32, ptr %rank.i237, align 8, !tbaa !15
+  %rank3.i238 = getelementptr inbounds %struct._Heap, ptr %29, i64 0, i32 5
+  %40 = load i32, ptr %rank3.i238, align 8, !tbaa !15
+  %add.i239 = add i32 %39, 1
+  %add4.i240 = add i32 %add.i239, %40
+  store i32 %add4.i240, ptr %rank.i237, align 8, !tbaa !15
   br label %if.end60
 
-if.end60:                                         ; preds = %AddEntry.exit243, %AddEntry.exit228
-  %h2.5 = phi ptr [ %35, %AddEntry.exit228 ], [ %h2.4262, %AddEntry.exit243 ]
-  store ptr null, ptr %arrayidx43264, align 8, !tbaa !5
-  %r.1.in = getelementptr inbounds %struct._Heap, ptr %h2.5, i64 0, i32 5
-  %r.1 = load i32, ptr %r.1.in, align 8, !tbaa !15
+if.end60:                                         ; preds = %AddEntry.exit242, %AddEntry.exit227
+  %r.1 = phi i32 [ %r.1.pre, %AddEntry.exit227 ], [ %add4.i240, %AddEntry.exit242 ]
+  %h2.5 = phi ptr [ %35, %AddEntry.exit227 ], [ %h2.4261, %AddEntry.exit242 ]
+  store ptr null, ptr %arrayidx43262, align 8, !tbaa !5
   %idxprom42 = sext i32 %r.1 to i64
   %arrayidx43 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %idxprom42
   %41 = load ptr, ptr %arrayidx43, align 8, !tbaa !5
@@ -456,15 +460,15 @@ while.end64.loopexit:                             ; preds = %if.end60
 while.end64:                                      ; preds = %while.end64.loopexit, %do.body35
   %42 = phi ptr [ %23, %do.body35 ], [ %.pre, %while.end64.loopexit ]
   %h2.4.lcssa = phi ptr [ %h2.3, %do.body35 ], [ %h2.5, %while.end64.loopexit ]
-  %r.1.lcssa = phi i32 [ %r.1258, %do.body35 ], [ %r.1, %while.end64.loopexit ]
-  %arrayidx43.lcssa = phi ptr [ %arrayidx43260, %do.body35 ], [ %arrayidx43, %while.end64.loopexit ]
+  %r.1.lcssa = phi i32 [ %r.1257, %do.body35 ], [ %r.1, %while.end64.loopexit ]
+  %arrayidx43.lcssa = phi ptr [ %arrayidx43259, %do.body35 ], [ %arrayidx43, %while.end64.loopexit ]
   store ptr %h2.4.lcssa, ptr %arrayidx43.lcssa, align 8, !tbaa !5
-  %spec.select194 = tail call i32 @llvm.smax.i32(i32 %r.1.lcssa, i32 %rMax.2)
+  %spec.select246 = tail call i32 @llvm.smax.i32(i32 %r.1.lcssa, i32 %rMax.2)
   %cmp72.not = icmp eq ptr %24, %42
   br i1 %cmp72.not, label %for.body.preheader, label %do.body35, !llvm.loop !23
 
 for.body.preheader:                               ; preds = %while.end64, %do.end
-  %rMax.4 = phi i32 [ %spec.select, %do.end ], [ %spec.select194, %while.end64 ]
+  %rMax.4 = phi i32 [ %spec.select, %do.end ], [ %spec.select246, %while.end64 ]
   %43 = add nuw i32 %rMax.4, 1
   %wide.trip.count = zext i32 %43 to i64
   br label %for.body
@@ -491,34 +495,34 @@ for.end:                                          ; preds = %for.inc, %for.end.s
   %arrayidx82 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %idxprom81
   %46 = load ptr, ptr %arrayidx82, align 8, !tbaa !5
   store ptr null, ptr %arrayidx82, align 8, !tbaa !5
-  %cmp87.not.not273 = icmp slt i32 %j.0.lcssa.ph, %rMax.4
-  br i1 %cmp87.not.not273, label %for.body88.lr.ph, label %for.end110
+  %cmp87.not.not271 = icmp slt i32 %j.0.lcssa.ph, %rMax.4
+  br i1 %cmp87.not.not271, label %for.body88.lr.ph, label %for.end110
 
 for.body88.lr.ph:                                 ; preds = %for.end
-  %forward.i244 = getelementptr inbounds %struct._Heap, ptr %46, i64 0, i32 3
+  %forward.i243 = getelementptr inbounds %struct._Heap, ptr %46, i64 0, i32 3
   br label %for.body88
 
 for.body88:                                       ; preds = %for.body88.lr.ph, %for.inc108
-  %indvars.iv282 = phi i64 [ %idxprom81, %for.body88.lr.ph ], [ %indvars.iv.next283, %for.inc108 ]
-  %min.0274 = phi ptr [ %46, %for.body88.lr.ph ], [ %min.2, %for.inc108 ]
-  %indvars.iv.next283 = add nuw nsw i64 %indvars.iv282, 1
-  %arrayidx90 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %indvars.iv.next283
+  %indvars.iv280 = phi i64 [ %idxprom81, %for.body88.lr.ph ], [ %indvars.iv.next281, %for.inc108 ]
+  %min.0272 = phi ptr [ %46, %for.body88.lr.ph ], [ %min.2, %for.inc108 ]
+  %indvars.iv.next281 = add nuw nsw i64 %indvars.iv280, 1
+  %arrayidx90 = getelementptr inbounds [10000 x ptr], ptr @hTable, i64 0, i64 %indvars.iv.next281
   %47 = load ptr, ptr %arrayidx90, align 8, !tbaa !5
   %cmp91.not = icmp eq ptr %47, null
   br i1 %cmp91.not, label %for.inc108, label %if.then92
 
 if.then92:                                        ; preds = %for.body88
-  %48 = load ptr, ptr %forward.i244, align 8, !tbaa !13
-  %backward.i245 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 4
-  store ptr %47, ptr %backward.i245, align 8, !tbaa !14
+  %48 = load ptr, ptr %forward.i243, align 8, !tbaa !13
+  %backward.i244 = getelementptr inbounds %struct._Heap, ptr %48, i64 0, i32 4
+  store ptr %47, ptr %backward.i244, align 8, !tbaa !14
   %forward1.i = getelementptr inbounds %struct._Heap, ptr %47, i64 0, i32 3
   %49 = load ptr, ptr %forward1.i, align 8, !tbaa !13
-  %backward2.i246 = getelementptr inbounds %struct._Heap, ptr %49, i64 0, i32 4
-  store ptr %46, ptr %backward2.i246, align 8, !tbaa !14
-  store ptr %49, ptr %forward.i244, align 8, !tbaa !13
+  %backward2.i245 = getelementptr inbounds %struct._Heap, ptr %49, i64 0, i32 4
+  store ptr %46, ptr %backward2.i245, align 8, !tbaa !14
+  store ptr %49, ptr %forward.i243, align 8, !tbaa !13
   store ptr %48, ptr %forward1.i, align 8, !tbaa !13
   %50 = load ptr, ptr %47, align 8, !tbaa !9
-  %51 = load ptr, ptr %min.0274, align 8, !tbaa !9
+  %51 = load ptr, ptr %min.0272, align 8, !tbaa !9
   %call99 = tail call i32 @LessThan(ptr noundef %50, ptr noundef %51) #17
   %tobool100.not = icmp eq i32 %call99, 0
   br i1 %tobool100.not, label %if.end104, label %if.then101
@@ -528,13 +532,13 @@ if.then101:                                       ; preds = %if.then92
   br label %if.end104
 
 if.end104:                                        ; preds = %if.then101, %if.then92
-  %min.1 = phi ptr [ %52, %if.then101 ], [ %min.0274, %if.then92 ]
+  %min.1 = phi ptr [ %52, %if.then101 ], [ %min.0272, %if.then92 ]
   store ptr null, ptr %arrayidx90, align 8, !tbaa !5
   br label %for.inc108
 
 for.inc108:                                       ; preds = %for.body88, %if.end104
-  %min.2 = phi ptr [ %min.1, %if.end104 ], [ %min.0274, %for.body88 ]
-  %53 = trunc i64 %indvars.iv.next283 to i32
+  %min.2 = phi ptr [ %min.1, %if.end104 ], [ %min.0272, %for.body88 ]
+  %53 = trunc i64 %indvars.iv.next281 to i32
   %cmp87.not.not = icmp sgt i32 %rMax.4, %53
   br i1 %cmp87.not.not, label %for.body88, label %for.end110, !llvm.loop !25
 
@@ -876,7 +880,7 @@ RemoveChild.exit:                                 ; preds = %do.body.i.i
   store ptr null, ptr %parent, align 8, !tbaa !18
   br label %if.end4
 
-if.end4:                                          ; preds = %if.then2, %if.end.i, %RemoveChild.exit
+if.end4:                                          ; preds = %if.end.i, %if.then2, %RemoveChild.exit
   %child = getelementptr inbounds %struct._Heap, ptr %i, i64 0, i32 2
   %11 = load ptr, ptr %child, align 8, !tbaa !17
   %cmp5.not = icmp eq ptr %11, null
@@ -969,11 +973,11 @@ cleanup:                                          ; preds = %if.end12, %if.then6
 
 declare i32 @Equal(ptr noundef, ptr noundef) local_unnamed_addr #5
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #13
@@ -989,8 +993,8 @@ attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #8 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind allocsize(0) }
 attributes #15 = { cold }

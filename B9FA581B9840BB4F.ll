@@ -121,7 +121,7 @@ $_ZTI14BenchmarkDemo7 = comdat any
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-invoke.cont10:
+entry:
   %benchmarkDemo1 = alloca %class.BenchmarkDemo1, align 8
   %benchmarkDemo2 = alloca %class.BenchmarkDemo2, align 8
   %benchmarkDemo3 = alloca %class.BenchmarkDemo3, align 8
@@ -151,124 +151,124 @@ invoke.cont10:
   store i32 1, ptr %m_benchmark.i.i, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo1, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo1, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo2) #9
-  %m_ownsMemory.i.i.i.i85 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i85, align 8, !tbaa !9
-  %m_data.i.i.i.i86 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i86, align 8, !tbaa !14
-  %m_size.i.i.i.i87 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i87, align 4, !tbaa !15
-  %m_capacity.i.i.i.i88 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i88, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i89 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i89, align 8, !tbaa !17
-  %m_data.i.i5.i.i90 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i90, align 8, !tbaa !20
-  %m_size.i.i6.i.i91 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i91, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i92 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i92, align 8, !tbaa !22
-  %m_benchmark.i.i93 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 7
-  store i32 2, ptr %m_benchmark.i.i93, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i77 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i77, align 8, !tbaa !9
+  %m_data.i.i.i.i78 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i78, align 8, !tbaa !14
+  %m_size.i.i.i.i79 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i79, align 4, !tbaa !15
+  %m_capacity.i.i.i.i80 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i80, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i81 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i81, align 8, !tbaa !17
+  %m_data.i.i5.i.i82 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i82, align 8, !tbaa !20
+  %m_size.i.i6.i.i83 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i83, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i84 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i84, align 8, !tbaa !22
+  %m_benchmark.i.i85 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 7
+  store i32 2, ptr %m_benchmark.i.i85, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo2, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo2, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo3) #9
-  %m_ownsMemory.i.i.i.i94 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i94, align 8, !tbaa !9
-  %m_data.i.i.i.i95 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i95, align 8, !tbaa !14
-  %m_size.i.i.i.i96 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i96, align 4, !tbaa !15
-  %m_capacity.i.i.i.i97 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i97, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i98 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i98, align 8, !tbaa !17
-  %m_data.i.i5.i.i99 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i99, align 8, !tbaa !20
-  %m_size.i.i6.i.i100 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i100, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i101 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i101, align 8, !tbaa !22
-  %m_benchmark.i.i102 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 7
-  store i32 3, ptr %m_benchmark.i.i102, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i86 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i86, align 8, !tbaa !9
+  %m_data.i.i.i.i87 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i87, align 8, !tbaa !14
+  %m_size.i.i.i.i88 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i88, align 4, !tbaa !15
+  %m_capacity.i.i.i.i89 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i89, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i90 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i90, align 8, !tbaa !17
+  %m_data.i.i5.i.i91 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i91, align 8, !tbaa !20
+  %m_size.i.i6.i.i92 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i92, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i93 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i93, align 8, !tbaa !22
+  %m_benchmark.i.i94 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 7
+  store i32 3, ptr %m_benchmark.i.i94, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo3, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo3, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo4) #9
-  %m_ownsMemory.i.i.i.i103 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i103, align 8, !tbaa !9
-  %m_data.i.i.i.i104 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i104, align 8, !tbaa !14
-  %m_size.i.i.i.i105 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i105, align 4, !tbaa !15
-  %m_capacity.i.i.i.i106 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i106, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i107 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i107, align 8, !tbaa !17
-  %m_data.i.i5.i.i108 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i108, align 8, !tbaa !20
-  %m_size.i.i6.i.i109 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i109, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i110 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i110, align 8, !tbaa !22
-  %m_benchmark.i.i111 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 7
-  store i32 4, ptr %m_benchmark.i.i111, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i95 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i95, align 8, !tbaa !9
+  %m_data.i.i.i.i96 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i96, align 8, !tbaa !14
+  %m_size.i.i.i.i97 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i97, align 4, !tbaa !15
+  %m_capacity.i.i.i.i98 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i98, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i99 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i99, align 8, !tbaa !17
+  %m_data.i.i5.i.i100 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i100, align 8, !tbaa !20
+  %m_size.i.i6.i.i101 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i101, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i102 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i102, align 8, !tbaa !22
+  %m_benchmark.i.i103 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 7
+  store i32 4, ptr %m_benchmark.i.i103, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo4, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo4, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo5) #9
-  %m_ownsMemory.i.i.i.i112 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i112, align 8, !tbaa !9
-  %m_data.i.i.i.i113 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i113, align 8, !tbaa !14
-  %m_size.i.i.i.i114 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i114, align 4, !tbaa !15
-  %m_capacity.i.i.i.i115 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i115, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i116 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i116, align 8, !tbaa !17
-  %m_data.i.i5.i.i117 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i117, align 8, !tbaa !20
-  %m_size.i.i6.i.i118 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i118, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i119 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i119, align 8, !tbaa !22
-  %m_benchmark.i.i120 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 7
-  store i32 5, ptr %m_benchmark.i.i120, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i104 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i104, align 8, !tbaa !9
+  %m_data.i.i.i.i105 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i105, align 8, !tbaa !14
+  %m_size.i.i.i.i106 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i106, align 4, !tbaa !15
+  %m_capacity.i.i.i.i107 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i107, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i108 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i108, align 8, !tbaa !17
+  %m_data.i.i5.i.i109 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i109, align 8, !tbaa !20
+  %m_size.i.i6.i.i110 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i110, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i111 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i111, align 8, !tbaa !22
+  %m_benchmark.i.i112 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 7
+  store i32 5, ptr %m_benchmark.i.i112, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo5, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo5, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo6) #9
-  %m_ownsMemory.i.i.i.i121 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i121, align 8, !tbaa !9
-  %m_data.i.i.i.i122 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i122, align 8, !tbaa !14
-  %m_size.i.i.i.i123 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i123, align 4, !tbaa !15
-  %m_capacity.i.i.i.i124 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i124, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i125 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i125, align 8, !tbaa !17
-  %m_data.i.i5.i.i126 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i126, align 8, !tbaa !20
-  %m_size.i.i6.i.i127 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i127, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i128 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i128, align 8, !tbaa !22
-  %m_benchmark.i.i129 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 7
-  store i32 6, ptr %m_benchmark.i.i129, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i113 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i113, align 8, !tbaa !9
+  %m_data.i.i.i.i114 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i114, align 8, !tbaa !14
+  %m_size.i.i.i.i115 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i115, align 4, !tbaa !15
+  %m_capacity.i.i.i.i116 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i116, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i117 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i117, align 8, !tbaa !17
+  %m_data.i.i5.i.i118 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i118, align 8, !tbaa !20
+  %m_size.i.i6.i.i119 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i119, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i120 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i120, align 8, !tbaa !22
+  %m_benchmark.i.i121 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 7
+  store i32 6, ptr %m_benchmark.i.i121, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo6, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo6, align 8, !tbaa !26
   call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo7) #9
-  %m_ownsMemory.i.i.i.i130 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i.i.i130, align 8, !tbaa !9
-  %m_data.i.i.i.i131 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 5
-  store ptr null, ptr %m_data.i.i.i.i131, align 8, !tbaa !14
-  %m_size.i.i.i.i132 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i.i.i.i132, align 4, !tbaa !15
-  %m_capacity.i.i.i.i133 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i.i133, align 8, !tbaa !16
-  %m_ownsMemory.i.i4.i.i134 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i4.i.i134, align 8, !tbaa !17
-  %m_data.i.i5.i.i135 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 5
-  store ptr null, ptr %m_data.i.i5.i.i135, align 8, !tbaa !20
-  %m_size.i.i6.i.i136 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i.i6.i.i136, align 4, !tbaa !21
-  %m_capacity.i.i7.i.i137 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 3
-  store i32 0, ptr %m_capacity.i.i7.i.i137, align 8, !tbaa !22
-  %m_benchmark.i.i138 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 7
-  store i32 7, ptr %m_benchmark.i.i138, align 8, !tbaa !23
+  %m_ownsMemory.i.i.i.i122 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i122, align 8, !tbaa !9
+  %m_data.i.i.i.i123 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i123, align 8, !tbaa !14
+  %m_size.i.i.i.i124 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i124, align 4, !tbaa !15
+  %m_capacity.i.i.i.i125 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i125, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i126 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i126, align 8, !tbaa !17
+  %m_data.i.i5.i.i127 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i127, align 8, !tbaa !20
+  %m_size.i.i6.i.i128 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i128, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i129 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i129, align 8, !tbaa !22
+  %m_benchmark.i.i130 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 7
+  store i32 7, ptr %m_benchmark.i.i130, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo7, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo7, align 8, !tbaa !26
   invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo1)
           to label %for.body20 unwind label %lpad16
@@ -493,13 +493,13 @@ lpad9:                                            ; preds = %for.cond.cleanup.6
           cleanup
   br label %ehcleanup44
 
-lpad16:                                           ; preds = %for.cond.cleanup.5, %for.cond.cleanup.4, %for.cond.cleanup.3, %for.cond.cleanup.2, %for.cond.cleanup.1, %for.cond.cleanup, %invoke.cont10
+lpad16:                                           ; preds = %for.cond.cleanup.5, %for.cond.cleanup.4, %for.cond.cleanup.3, %for.cond.cleanup.2, %for.cond.cleanup.1, %for.cond.cleanup, %entry
   %12 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup37
 
-for.body20:                                       ; preds = %invoke.cont10, %if.end
-  %i.0140 = phi i32 [ %inc, %if.end ], [ 0, %invoke.cont10 ]
+for.body20:                                       ; preds = %entry, %if.end
+  %i.0140 = phi i32 [ %inc, %if.end ], [ 0, %entry ]
   %vtable = load ptr, ptr %benchmarkDemo1, align 8, !tbaa !26
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
   %13 = load ptr, ptr %vfn, align 8
@@ -709,39 +709,39 @@ invoke.cont:                                      ; preds = %entry
   %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !28
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %invoke.cont3, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP7RagDollED2Ev.exit, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %invoke.cont
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %invoke.cont3 unwind label %lpad2
+          to label %_ZN20btAlignedObjectArrayIP7RagDollED2Ev.exit unwind label %lpad2
 
-invoke.cont3:                                     ; preds = %invoke.cont, %if.then3.i.i.i
+_ZN20btAlignedObjectArrayIP7RagDollED2Ev.exit:    ; preds = %if.then3.i.i.i, %invoke.cont
   %m_size.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !17
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !20
   store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !21
   %m_capacity.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !22
-  %m_data.i.i.i10 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 5
-  %2 = load ptr, ptr %m_data.i.i.i10, align 8, !tbaa !14
-  %tobool.not.i.i.i11 = icmp eq ptr %2, null
-  %m_ownsMemory.i.i.i12 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 6
-  %3 = load i8, ptr %m_ownsMemory.i.i.i12, align 8, !range !28
-  %tobool2.not.i.i.i13 = icmp eq i8 %3, 0
-  %or.cond.i.i14 = select i1 %tobool.not.i.i.i11, i1 true, i1 %tobool2.not.i.i.i13
-  br i1 %or.cond.i.i14, label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit, label %if.then3.i.i.i15
+  %m_data.i.i.i9 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 5
+  %2 = load ptr, ptr %m_data.i.i.i9, align 8, !tbaa !14
+  %tobool.not.i.i.i10 = icmp eq ptr %2, null
+  %m_ownsMemory.i.i.i11 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 6
+  %3 = load i8, ptr %m_ownsMemory.i.i.i11, align 8, !range !28
+  %tobool2.not.i.i.i12 = icmp eq i8 %3, 0
+  %or.cond.i.i13 = select i1 %tobool.not.i.i.i10, i1 true, i1 %tobool2.not.i.i.i12
+  br i1 %or.cond.i.i13, label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit, label %if.then3.i.i.i14
 
-if.then3.i.i.i15:                                 ; preds = %invoke.cont3
+if.then3.i.i.i14:                                 ; preds = %_ZN20btAlignedObjectArrayIP7RagDollED2Ev.exit
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %2)
   br label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit
 
-_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit: ; preds = %invoke.cont3, %if.then3.i.i.i15
-  %m_size.i.i.i16 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 2
-  store i8 1, ptr %m_ownsMemory.i.i.i12, align 8, !tbaa !9
-  store ptr null, ptr %m_data.i.i.i10, align 8, !tbaa !14
-  store i32 0, ptr %m_size.i.i.i16, align 4, !tbaa !15
-  %m_capacity.i.i.i17 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i17, align 8, !tbaa !16
+_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit: ; preds = %_ZN20btAlignedObjectArrayIP7RagDollED2Ev.exit, %if.then3.i.i.i14
+  %m_size.i.i.i15 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i11, align 8, !tbaa !9
+  store ptr null, ptr %m_data.i.i.i9, align 8, !tbaa !14
+  store i32 0, ptr %m_size.i.i.i15, align 4, !tbaa !15
+  %m_capacity.i.i.i16 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i16, align 8, !tbaa !16
   ret void
 
 lpad:                                             ; preds = %entry

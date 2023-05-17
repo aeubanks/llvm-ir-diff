@@ -1610,10 +1610,10 @@ if.else:                                          ; preds = %if.then72
 
 if.then79:                                        ; preds = %if.else
   %sub80 = sub i64 %track.4164, %storemerge.i
-  %spec.select143 = tail call i64 @llvm.abs.i64(i64 %sub80, i1 true)
-  %cmp85 = icmp slt i64 %spec.select143, %vcvDist.0165
+  %spec.select144 = tail call i64 @llvm.abs.i64(i64 %sub80, i1 true)
+  %cmp85 = icmp slt i64 %spec.select144, %vcvDist.0165
   %spec.select186 = select i1 %cmp85, i64 %track.4164, i64 %trackAssign.0163
-  %spec.select187 = tail call i64 @llvm.smin.i64(i64 %spec.select143, i64 %vcvDist.0165)
+  %spec.select187 = tail call i64 @llvm.smin.i64(i64 %spec.select144, i64 %vcvDist.0165)
   br label %for.inc91
 
 for.inc91:                                        ; preds = %if.then79, %if.then74, %for.body69, %if.else

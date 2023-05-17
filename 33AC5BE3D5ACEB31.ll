@@ -306,8 +306,8 @@ sw.default:                                       ; preds = %entry
   %17 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
   tail call void @alloc_free(ptr noundef %16, i32 noundef 1, i32 noundef %17, ptr noundef nonnull @.str.13) #8
   %18 = load ptr, ptr @esp, align 8, !tbaa !10
-  %add.ptr.i61 = getelementptr inbounds %struct.ref_s, ptr %18, i64 -4
-  store ptr %add.ptr.i61, ptr @esp, align 8, !tbaa !10
+  %add.ptr.i60 = getelementptr inbounds %struct.ref_s, ptr %18, i64 -4
+  store ptr %add.ptr.i60, ptr @esp, align 8, !tbaa !10
   br label %cleanup39
 
 cleanup39:                                        ; preds = %if.then23, %if.end25, %if.then, %if.end, %sw.default, %sw.bb
@@ -673,23 +673,23 @@ entry:
   %arrayidx = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
   %type_attrs = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !5
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %cleanup [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
 sw.epilog:                                        ; preds = %entry, %entry
-  %3 = and i16 %0, 3
-  %tobool.not = icmp eq i16 %3, 3
+  %not = and i32 %conv, 3
+  %tobool.not = icmp eq i32 %not, 3
   br i1 %tobool.not, label %if.end, label %cleanup
 
 if.end:                                           ; preds = %sw.epilog
   %type_attrs.i = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
-  %4 = load i16, ptr %type_attrs.i, align 8, !tbaa !5
-  %conv.i = zext i16 %4 to i32
+  %1 = load i16, ptr %type_attrs.i, align 8, !tbaa !5
+  %conv.i = zext i16 %1 to i32
   %and.i = and i32 %conv.i, 252
   %cmp.i = icmp eq i32 %and.i, 52
   br i1 %cmp.i, label %if.end.i, label %cleanup
@@ -700,67 +700,67 @@ if.end.i:                                         ; preds = %if.end
   br i1 %tobool.not.not.i, label %cleanup, label %if.end6.i
 
 if.end6.i:                                        ; preds = %if.end.i
-  %5 = load ptr, ptr @esp, align 8, !tbaa !10
-  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 6
-  %6 = load ptr, ptr @estop, align 8, !tbaa !10
-  %cmp7.i = icmp ugt ptr %add.ptr.i, %6
+  %2 = load ptr, ptr @esp, align 8, !tbaa !10
+  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %2, i64 6
+  %3 = load ptr, ptr @estop, align 8, !tbaa !10
+  %cmp7.i = icmp ugt ptr %add.ptr.i, %3
   br i1 %cmp7.i, label %cleanup, label %if.end10.i
 
 if.end10.i:                                       ; preds = %if.end6.i
-  %7 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
-  %call.i = tail call ptr @alloc(i32 noundef 1, i32 noundef %7, ptr noundef nonnull @.str.12) #8
+  %4 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
+  %call.i = tail call ptr @alloc(i32 noundef 1, i32 noundef %4, ptr noundef nonnull @.str.12) #8
   %cmp11.i = icmp eq ptr %call.i, null
   br i1 %cmp11.i, label %cleanup, label %if.end7
 
 if.end7:                                          ; preds = %if.end10.i
-  %8 = load ptr, ptr @esp, align 8, !tbaa !10
-  %incdec.ptr.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 1
+  %5 = load ptr, ptr @esp, align 8, !tbaa !10
+  %incdec.ptr.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 1
   store i16 1, ptr %incdec.ptr.i, align 8, !tbaa !14
-  %type_attrs15.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 1, i32 1
+  %type_attrs15.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 1, i32 1
   store i16 33, ptr %type_attrs15.i, align 8, !tbaa !5
-  %incdec.ptr16.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 2
+  %incdec.ptr16.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 2
   store ptr @finish_show, ptr %incdec.ptr16.i, align 8, !tbaa !14
-  %type_attrs18.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 2, i32 1
+  %type_attrs18.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 2, i32 1
   store i16 37, ptr %type_attrs18.i, align 8, !tbaa !5
-  %size.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 2, i32 2
+  %size.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 2, i32 2
   store i16 0, ptr %size.i, align 2, !tbaa !15
-  %incdec.ptr19.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 3
+  %incdec.ptr19.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 3
   store i16 0, ptr %incdec.ptr19.i, align 8, !tbaa !14
-  %type_attrs21.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 3, i32 1
+  %type_attrs21.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 3, i32 1
   store i16 32, ptr %type_attrs21.i, align 8, !tbaa !5
-  %incdec.ptr22.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 4
+  %incdec.ptr22.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 4
   store ptr %incdec.ptr22.i, ptr @esp, align 8, !tbaa !10
   store ptr %call.i, ptr %incdec.ptr22.i, align 8, !tbaa !14
-  %type_attrs24.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 4, i32 1
+  %type_attrs24.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 4, i32 1
   store i16 52, ptr %type_attrs24.i, align 8, !tbaa !5
-  %9 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
-  %conv25.i = trunc i32 %9 to i16
-  %size26.i = getelementptr inbounds %struct.ref_s, ptr %8, i64 4, i32 2
+  %6 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
+  %conv25.i = trunc i32 %6 to i16
+  %size26.i = getelementptr inbounds %struct.ref_s, ptr %5, i64 4, i32 2
   store i16 %conv25.i, ptr %size26.i, align 2, !tbaa !15
-  %10 = load ptr, ptr @igs, align 8, !tbaa !10
-  %11 = load ptr, ptr %op, align 8, !tbaa !14
+  %7 = load ptr, ptr @igs, align 8, !tbaa !10
+  %8 = load ptr, ptr %op, align 8, !tbaa !14
   %size = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 2
-  %12 = load i16, ptr %size, align 2, !tbaa !15
-  %conv9 = zext i16 %12 to i32
-  %call10 = tail call i32 @gs_kshow_n_init(ptr noundef nonnull %call.i, ptr noundef %10, ptr noundef %11, i32 noundef %conv9) #8
+  %9 = load i16, ptr %size, align 2, !tbaa !15
+  %conv9 = zext i16 %9 to i32
+  %call10 = tail call i32 @gs_kshow_n_init(ptr noundef nonnull %call.i, ptr noundef %7, ptr noundef %8, i32 noundef %conv9) #8
   %cmp11 = icmp slt i32 %call10, 0
-  %13 = load ptr, ptr @esp, align 8, !tbaa !10
+  %10 = load ptr, ptr @esp, align 8, !tbaa !10
   br i1 %cmp11, label %if.then13, label %if.end14
 
 if.then13:                                        ; preds = %if.end7
-  %14 = load ptr, ptr %13, align 8, !tbaa !14
-  %15 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
-  tail call void @alloc_free(ptr noundef %14, i32 noundef 1, i32 noundef %15, ptr noundef nonnull @.str.13) #8
-  %16 = load ptr, ptr @esp, align 8, !tbaa !10
-  %add.ptr.i27 = getelementptr inbounds %struct.ref_s, ptr %16, i64 -4
+  %11 = load ptr, ptr %10, align 8, !tbaa !14
+  %12 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
+  tail call void @alloc_free(ptr noundef %11, i32 noundef 1, i32 noundef %12, ptr noundef nonnull @.str.13) #8
+  %13 = load ptr, ptr @esp, align 8, !tbaa !10
+  %add.ptr.i27 = getelementptr inbounds %struct.ref_s, ptr %13, i64 -4
   store ptr %add.ptr.i27, ptr @esp, align 8, !tbaa !10
   br label %cleanup
 
 if.end14:                                         ; preds = %if.end7
-  %arrayidx15 = getelementptr inbounds %struct.ref_s, ptr %13, i64 -1
+  %arrayidx15 = getelementptr inbounds %struct.ref_s, ptr %10, i64 -1
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx15, ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, i64 16, i1 false), !tbaa.struct !16
-  %17 = load ptr, ptr @osp, align 8, !tbaa !10
-  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %17, i64 -2
+  %14 = load ptr, ptr @osp, align 8, !tbaa !10
+  %add.ptr = getelementptr inbounds %struct.ref_s, ptr %14, i64 -2
   store ptr %add.ptr, ptr @osp, align 8, !tbaa !10
   %add.ptr17 = getelementptr inbounds %struct.ref_s, ptr %op, i64 -2
   %call18 = tail call i32 @show_continue(ptr noundef nonnull %add.ptr17)

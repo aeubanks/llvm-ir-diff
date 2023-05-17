@@ -156,63 +156,63 @@ if.end10:                                         ; preds = %if.end, %if.then7
   %idxprom = sext i32 %pool_id to i64
   %arrayidx11 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 1, i64 %idxprom
   %hdr_ptr.0111 = load ptr, ptr %arrayidx11, align 8, !tbaa !16
-  %cond112 = icmp eq ptr %hdr_ptr.0111, null
-  br i1 %cond112, label %if.then17, label %while.body
+  %cond113 = icmp eq ptr %hdr_ptr.0111, null
+  br i1 %cond113, label %if.then17, label %while.body
 
 while.cond:                                       ; preds = %while.body
-  %hdr_ptr.0 = load ptr, ptr %hdr_ptr.0113, align 8, !tbaa !16
+  %hdr_ptr.0 = load ptr, ptr %hdr_ptr.0114, align 8, !tbaa !16
   %cond = icmp eq ptr %hdr_ptr.0, null
   br i1 %cond, label %if.then17, label %while.body, !llvm.loop !33
 
 while.body:                                       ; preds = %if.end10, %while.cond
-  %hdr_ptr.0113 = phi ptr [ %hdr_ptr.0, %while.cond ], [ %hdr_ptr.0111, %if.end10 ]
-  %bytes_left = getelementptr inbounds %struct.anon, ptr %hdr_ptr.0113, i64 0, i32 2
+  %hdr_ptr.0114 = phi ptr [ %hdr_ptr.0, %while.cond ], [ %hdr_ptr.0111, %if.end10 ]
+  %bytes_left = getelementptr inbounds %struct.anon, ptr %hdr_ptr.0114, i64 0, i32 2
   %7 = load i64, ptr %bytes_left, align 8, !tbaa !16
   %cmp13.not = icmp ult i64 %7, %sizeofobject.addr.0
   br i1 %cmp13.not, label %while.cond, label %if.end51, !llvm.loop !33
 
 if.then17:                                        ; preds = %while.cond, %if.end10
-  %prev_hdr_ptr.0.lcssa = phi ptr [ null, %if.end10 ], [ %hdr_ptr.0113, %while.cond ]
+  %prev_hdr_ptr.0.lcssa = phi ptr [ null, %if.end10 ], [ %hdr_ptr.0114, %while.cond ]
   %cmp19 = icmp eq ptr %prev_hdr_ptr.0.lcssa, null
   %first_pool_slop.extra_pool_slop = select i1 %cmp19, ptr @first_pool_slop, ptr @extra_pool_slop
   %slop.0.in = getelementptr inbounds [2 x i64], ptr %first_pool_slop.extra_pool_slop, i64 0, i64 %idxprom
   %slop.0 = load i64, ptr %slop.0.in, align 8, !tbaa !11
   %sub26 = sub i64 999999976, %sizeofobject.addr.0
   %slop.1 = tail call i64 @llvm.umin.i64(i64 %slop.0, i64 %sub26)
-  %add18114 = add i64 %slop.1, %sizeofobject.addr.0
-  %add31115 = add i64 %add18114, 24
-  %call116 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31115) #7
-  %cmp32.not117 = icmp eq ptr %call116, null
-  br i1 %cmp32.not117, label %if.end34, label %for.end
+  %add18115 = add i64 %slop.1, %sizeofobject.addr.0
+  %add31116 = add i64 %add18115, 24
+  %call117 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31116) #7
+  %cmp32.not118 = icmp eq ptr %call117, null
+  br i1 %cmp32.not118, label %if.end34, label %for.end
 
 if.end34:                                         ; preds = %if.then17, %if.end37
-  %slop.2118 = phi i64 [ %div106, %if.end37 ], [ %slop.1, %if.then17 ]
-  %div106 = lshr i64 %slop.2118, 1
-  %cmp35 = icmp ult i64 %slop.2118, 100
+  %slop.2119 = phi i64 [ %div108, %if.end37 ], [ %slop.1, %if.then17 ]
+  %div108 = lshr i64 %slop.2119, 1
+  %cmp35 = icmp ult i64 %slop.2119, 100
   br i1 %cmp35, label %if.then36, label %if.end37
 
 if.then36:                                        ; preds = %if.end34
   %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code.i107 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
-  store i32 53, ptr %msg_code.i107, align 8, !tbaa !14
-  %msg_parm.i108 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
-  store i32 2, ptr %msg_parm.i108, align 4, !tbaa !16
+  %msg_code.i106 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
+  store i32 53, ptr %msg_code.i106, align 8, !tbaa !14
+  %msg_parm.i107 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
+  store i32 2, ptr %msg_parm.i107, align 4, !tbaa !16
   %9 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %10 = load ptr, ptr %9, align 8, !tbaa !17
   tail call void %10(ptr noundef nonnull %cinfo) #7
   br label %if.end37
 
 if.end37:                                         ; preds = %if.then36, %if.end34
-  %add18 = add i64 %div106, %sizeofobject.addr.0
+  %add18 = add i64 %div108, %sizeofobject.addr.0
   %add31 = add i64 %add18, 24
   %call = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31) #7
   %cmp32.not = icmp eq ptr %call, null
   br i1 %cmp32.not, label %if.end34, label %for.end
 
 for.end:                                          ; preds = %if.end37, %if.then17
-  %add41.pre-phi = phi i64 [ %add18114, %if.then17 ], [ %add18, %if.end37 ]
-  %add31.lcssa = phi i64 [ %add31115, %if.then17 ], [ %add31, %if.end37 ]
-  %call.lcssa = phi ptr [ %call116, %if.then17 ], [ %call, %if.end37 ]
+  %add41.pre-phi = phi i64 [ %add18115, %if.then17 ], [ %add18, %if.end37 ]
+  %add31.lcssa = phi i64 [ %add31116, %if.then17 ], [ %add31, %if.end37 ]
+  %call.lcssa = phi ptr [ %call117, %if.then17 ], [ %call, %if.end37 ]
   %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
   %11 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
   %add39 = add i64 %11, %add31.lcssa
@@ -225,7 +225,7 @@ for.end:                                          ; preds = %if.end37, %if.then1
   br label %if.end51
 
 if.end51:                                         ; preds = %while.body, %for.end
-  %hdr_ptr.1 = phi ptr [ %call.lcssa, %for.end ], [ %hdr_ptr.0113, %while.body ]
+  %hdr_ptr.1 = phi ptr [ %call.lcssa, %for.end ], [ %hdr_ptr.0114, %while.body ]
   %add.ptr = getelementptr inbounds %union.small_pool_struct, ptr %hdr_ptr.1, i64 1
   %bytes_used52 = getelementptr inbounds %struct.anon, ptr %hdr_ptr.1, i64 0, i32 1
   %12 = load i64, ptr %bytes_used52, align 8, !tbaa !16
@@ -1129,11 +1129,11 @@ if.else:                                          ; preds = %if.end20
 
 if.end33:                                         ; preds = %if.end20.if.end33_crit_edge, %if.else
   %25 = phi i32 [ %24, %if.else ], [ %.pre, %if.end20.if.end33_crit_edge ]
-  %storemerge = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
-  store i32 %storemerge, ptr %cur_start_row, align 4, !tbaa !67
+  %26 = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
+  store i32 %26, ptr %cur_start_row, align 4, !tbaa !67
   %samplesperrow.i143 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 2
-  %26 = load i32, ptr %samplesperrow.i143, align 4, !tbaa !48
-  %conv.i144 = zext i32 %26 to i64
+  %27 = load i32, ptr %samplesperrow.i143, align 4, !tbaa !48
+  %conv.i144 = zext i32 %27 to i64
   %rowsperchunk.i146 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 5
   %rows_in_mem.i147 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
   %cmp92.not.i148 = icmp eq i32 %25, 0
@@ -1141,30 +1141,30 @@ if.end33:                                         ; preds = %if.end20.if.end33_c
 
 for.body.lr.ph.i157:                              ; preds = %if.end33
   %conv391.i149 = zext i32 %25 to i64
-  %conv1.i150 = zext i32 %storemerge to i64
-  %mul2.i151 = mul nuw nsw i64 %conv.i144, %conv1.i150
+  %conv1.i150 = zext i32 %26 to i64
+  %mul2.i151 = mul nuw nsw i64 %conv1.i150, %conv.i144
   %first_undef_row.i152 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 7
   %b_s_info.i154 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 12
   %.pre97.i156 = load i32, ptr %rowsperchunk.i146, align 8, !tbaa !66
   br label %for.body.us.i
 
 for.body.us.i:                                    ; preds = %if.end.us.i, %for.body.lr.ph.i157
-  %27 = phi i32 [ %34, %if.end.us.i ], [ %.pre97.i156, %for.body.lr.ph.i157 ]
+  %28 = phi i32 [ %35, %if.end.us.i ], [ %.pre97.i156, %for.body.lr.ph.i157 ]
   %conv395.us.i = phi i64 [ %conv3.us.i, %if.end.us.i ], [ %conv391.i149, %for.body.lr.ph.i157 ]
   %i.094.us.i = phi i64 [ %add52.us.i, %if.end.us.i ], [ 0, %for.body.lr.ph.i157 ]
   %file_offset.093.us.i = phi i64 [ %add49.us.i, %if.end.us.i ], [ %mul2.i151, %for.body.lr.ph.i157 ]
-  %conv5.us.i = zext i32 %27 to i64
+  %conv5.us.i = zext i32 %28 to i64
   %sub.us.i = sub nsw i64 %conv395.us.i, %i.094.us.i
   %conv5.sub.us.i = tail call i64 @llvm.smin.i64(i64 %sub.us.i, i64 %conv5.us.i)
-  %28 = load i32, ptr %cur_start_row, align 4, !tbaa !67
-  %conv16.us.i = zext i32 %28 to i64
+  %29 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %conv16.us.i = zext i32 %29 to i64
   %add.us.i = add nuw nsw i64 %i.094.us.i, %conv16.us.i
-  %29 = load i32, ptr %first_undef_row.i152, align 8, !tbaa !68
-  %conv17.us.i = zext i32 %29 to i64
+  %30 = load i32, ptr %first_undef_row.i152, align 8, !tbaa !68
+  %conv17.us.i = zext i32 %30 to i64
   %sub18.us.i = sub nsw i64 %conv17.us.i, %add.us.i
   %cond27.us.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.us.i, i64 %sub18.us.i)
-  %30 = load i32, ptr %rows_in_array, align 8, !tbaa !47
-  %conv28.us.i = zext i32 %30 to i64
+  %31 = load i32, ptr %rows_in_array, align 8, !tbaa !47
+  %conv28.us.i = zext i32 %31 to i64
   %sub29.us.i = sub nsw i64 %conv28.us.i, %add.us.i
   %cond38.us.i = tail call i64 @llvm.smin.i64(i64 %cond27.us.i, i64 %sub29.us.i)
   %cmp39.us.i = icmp slt i64 %cond38.us.i, 1
@@ -1172,28 +1172,28 @@ for.body.us.i:                                    ; preds = %if.end.us.i, %for.b
 
 if.end.us.i:                                      ; preds = %for.body.us.i
   %mul41.us.i = mul nuw nsw i64 %cond38.us.i, %conv.i144
-  %31 = load ptr, ptr %b_s_info.i154, align 8, !tbaa !79
-  %32 = load ptr, ptr %ptr, align 8, !tbaa !44
-  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %32, i64 %i.094.us.i
-  %33 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
-  tail call void %31(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i154, ptr noundef %33, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
+  %32 = load ptr, ptr %b_s_info.i154, align 8, !tbaa !79
+  %33 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %33, i64 %i.094.us.i
+  %34 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
+  tail call void %32(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i154, ptr noundef %34, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
   %add49.us.i = add nsw i64 %mul41.us.i, %file_offset.093.us.i
-  %34 = load i32, ptr %rowsperchunk.i146, align 8, !tbaa !66
-  %conv51.us.i = zext i32 %34 to i64
+  %35 = load i32, ptr %rowsperchunk.i146, align 8, !tbaa !66
+  %conv51.us.i = zext i32 %35 to i64
   %add52.us.i = add nuw nsw i64 %i.094.us.i, %conv51.us.i
-  %35 = load i32, ptr %rows_in_mem.i147, align 4, !tbaa !65
-  %conv3.us.i = zext i32 %35 to i64
+  %36 = load i32, ptr %rows_in_mem.i147, align 4, !tbaa !65
+  %conv3.us.i = zext i32 %36 to i64
   %cmp.us.i = icmp ult i64 %add52.us.i, %conv3.us.i
   br i1 %cmp.us.i, label %for.body.us.i, label %if.end34, !llvm.loop !78
 
 if.end34:                                         ; preds = %if.end.us.i, %for.body.us.i, %if.end33, %lor.lhs.false6
   %first_undef_row = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 7
-  %36 = load i32, ptr %first_undef_row, align 8, !tbaa !68
-  %cmp35 = icmp ult i32 %36, %add
+  %37 = load i32, ptr %first_undef_row, align 8, !tbaa !68
+  %cmp35 = icmp ult i32 %37, %add
   br i1 %cmp35, label %if.then37, label %if.end75
 
 if.then37:                                        ; preds = %if.end34
-  %cmp39 = icmp ult i32 %36, %start_row
+  %cmp39 = icmp ult i32 %37, %start_row
   %tobool42.not = icmp eq i32 %writable, 0
   br i1 %cmp39, label %if.then41, label %if.end51
 
@@ -1201,11 +1201,11 @@ if.then41:                                        ; preds = %if.then37
   br i1 %tobool42.not, label %if.end55.thread, label %if.end51.thread163
 
 if.end51.thread163:                               ; preds = %if.then41
-  %37 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
+  %38 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %38, i64 0, i32 5
   store i32 20, ptr %msg_code45, align 8, !tbaa !14
-  %38 = load ptr, ptr %37, align 8, !tbaa !17
-  tail call void %38(ptr noundef nonnull %cinfo) #7
+  %39 = load ptr, ptr %38, align 8, !tbaa !17
+  tail call void %39(ptr noundef nonnull %cinfo) #7
   br label %if.end55.thread178
 
 if.end51:                                         ; preds = %if.then37
@@ -1213,56 +1213,56 @@ if.end51:                                         ; preds = %if.then37
 
 if.end55:                                         ; preds = %if.end51
   %pre_zero = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
-  %39 = load i32, ptr %pre_zero, align 4, !tbaa !50
-  %tobool56.not = icmp eq i32 %39, 0
+  %40 = load i32, ptr %pre_zero, align 4, !tbaa !50
+  %tobool56.not = icmp eq i32 %40, 0
   br i1 %tobool56.not, label %if.end75.thread, label %if.then57
 
 if.end55.thread178:                               ; preds = %if.end51, %if.end51.thread163
-  %undef_row.0166 = phi i32 [ %start_row, %if.end51.thread163 ], [ %36, %if.end51 ]
+  %undef_row.0166 = phi i32 [ %start_row, %if.end51.thread163 ], [ %37, %if.end51 ]
   store i32 %add, ptr %first_undef_row, align 8, !tbaa !68
   %pre_zero181 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
-  %40 = load i32, ptr %pre_zero181, align 4, !tbaa !50
-  %tobool56.not182 = icmp eq i32 %40, 0
+  %41 = load i32, ptr %pre_zero181, align 4, !tbaa !50
+  %tobool56.not182 = icmp eq i32 %41, 0
   br i1 %tobool56.not182, label %if.then77, label %if.then57
 
 if.end55.thread:                                  ; preds = %if.then41
   %pre_zero170 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
-  %41 = load i32, ptr %pre_zero170, align 4, !tbaa !50
-  %tobool56.not171 = icmp eq i32 %41, 0
+  %42 = load i32, ptr %pre_zero170, align 4, !tbaa !50
+  %tobool56.not171 = icmp eq i32 %42, 0
   br i1 %tobool56.not171, label %if.end75.thread, label %if.then57
 
 if.then57:                                        ; preds = %if.end55.thread178, %if.end55.thread, %if.end55
-  %undef_row.0161173 = phi i32 [ %start_row, %if.end55.thread ], [ %36, %if.end55 ], [ %undef_row.0166, %if.end55.thread178 ]
+  %undef_row.0161173 = phi i32 [ %start_row, %if.end55.thread ], [ %37, %if.end55 ], [ %undef_row.0166, %if.end55.thread178 ]
   %samplesperrow = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 2
-  %42 = load i32, ptr %samplesperrow, align 4, !tbaa !48
-  %conv58 = zext i32 %42 to i64
-  %43 = load i32, ptr %cur_start_row, align 4, !tbaa !67
-  %sub60 = sub i32 %undef_row.0161173, %43
-  %sub62 = sub i32 %add, %43
+  %43 = load i32, ptr %samplesperrow, align 4, !tbaa !48
+  %conv58 = zext i32 %43 to i64
+  %44 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %sub60 = sub i32 %undef_row.0161173, %44
+  %sub62 = sub i32 %add, %44
   %cmp63175 = icmp ult i32 %sub60, %sub62
   br i1 %cmp63175, label %while.body.preheader, label %if.end75
 
 while.body.preheader:                             ; preds = %if.then57
-  %44 = zext i32 %sub60 to i64
+  %45 = zext i32 %sub60 to i64
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
-  %indvars.iv = phi i64 [ %44, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
-  %45 = load ptr, ptr %ptr, align 8, !tbaa !44
-  %arrayidx = getelementptr inbounds ptr, ptr %45, i64 %indvars.iv
-  %46 = load ptr, ptr %arrayidx, align 8, !tbaa !35
-  tail call void @jzero_far(ptr noundef %46, i64 noundef %conv58) #7
+  %indvars.iv = phi i64 [ %45, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
+  %46 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %arrayidx = getelementptr inbounds ptr, ptr %46, i64 %indvars.iv
+  %47 = load ptr, ptr %arrayidx, align 8, !tbaa !35
+  tail call void @jzero_far(ptr noundef %47, i64 noundef %conv58) #7
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %lftr.wideiv = trunc i64 %indvars.iv.next to i32
   %exitcond.not = icmp eq i32 %sub62, %lftr.wideiv
   br i1 %exitcond.not, label %if.end75, label %while.body, !llvm.loop !80
 
 if.end75.thread:                                  ; preds = %if.end55.thread, %if.end55
-  %47 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
+  %48 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %48, i64 0, i32 5
   store i32 20, ptr %msg_code70, align 8, !tbaa !14
-  %48 = load ptr, ptr %47, align 8, !tbaa !17
-  tail call void %48(ptr noundef nonnull %cinfo) #7
+  %49 = load ptr, ptr %48, align 8, !tbaa !17
+  tail call void %49(ptr noundef nonnull %cinfo) #7
   br label %if.end79
 
 if.end75:                                         ; preds = %while.body, %if.then57, %if.end34
@@ -1275,11 +1275,11 @@ if.then77:                                        ; preds = %if.end55.thread178,
   br label %if.end79
 
 if.end79:                                         ; preds = %if.end75.thread, %if.then77, %if.end75
-  %49 = load ptr, ptr %ptr, align 8, !tbaa !44
-  %50 = load i32, ptr %cur_start_row, align 4, !tbaa !67
-  %sub82 = sub i32 %start_row, %50
+  %50 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %51 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %sub82 = sub i32 %start_row, %51
   %idx.ext = zext i32 %sub82 to i64
-  %add.ptr = getelementptr inbounds ptr, ptr %49, i64 %idx.ext
+  %add.ptr = getelementptr inbounds ptr, ptr %50, i64 %idx.ext
   ret ptr %add.ptr
 }
 
@@ -1430,11 +1430,11 @@ if.else:                                          ; preds = %if.end20
 
 if.end33:                                         ; preds = %if.end20.if.end33_crit_edge, %if.else
   %25 = phi i32 [ %24, %if.else ], [ %.pre, %if.end20.if.end33_crit_edge ]
-  %storemerge = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
-  store i32 %storemerge, ptr %cur_start_row, align 4, !tbaa !73
+  %26 = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
+  store i32 %26, ptr %cur_start_row, align 4, !tbaa !73
   %blocksperrow.i143 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 2
-  %26 = load i32, ptr %blocksperrow.i143, align 4, !tbaa !57
-  %conv.i144 = zext i32 %26 to i64
+  %27 = load i32, ptr %blocksperrow.i143, align 4, !tbaa !57
+  %conv.i144 = zext i32 %27 to i64
   %mul.i145 = shl nuw nsw i64 %conv.i144, 7
   %rowsperchunk.i147 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 5
   %rows_in_mem.i148 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
@@ -1443,7 +1443,7 @@ if.end33:                                         ; preds = %if.end20.if.end33_c
 
 for.body.lr.ph.i158:                              ; preds = %if.end33
   %conv391.i150 = zext i32 %25 to i64
-  %conv1.i151 = zext i32 %storemerge to i64
+  %conv1.i151 = zext i32 %26 to i64
   %mul2.i152 = mul nsw i64 %mul.i145, %conv1.i151
   %first_undef_row.i153 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 7
   %b_s_info.i155 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 12
@@ -1451,22 +1451,22 @@ for.body.lr.ph.i158:                              ; preds = %if.end33
   br label %for.body.us.i
 
 for.body.us.i:                                    ; preds = %if.end.us.i, %for.body.lr.ph.i158
-  %27 = phi i32 [ %34, %if.end.us.i ], [ %.pre97.i157, %for.body.lr.ph.i158 ]
+  %28 = phi i32 [ %35, %if.end.us.i ], [ %.pre97.i157, %for.body.lr.ph.i158 ]
   %conv395.us.i = phi i64 [ %conv3.us.i, %if.end.us.i ], [ %conv391.i150, %for.body.lr.ph.i158 ]
   %i.094.us.i = phi i64 [ %add52.us.i, %if.end.us.i ], [ 0, %for.body.lr.ph.i158 ]
   %file_offset.093.us.i = phi i64 [ %add49.us.i, %if.end.us.i ], [ %mul2.i152, %for.body.lr.ph.i158 ]
-  %conv5.us.i = zext i32 %27 to i64
+  %conv5.us.i = zext i32 %28 to i64
   %sub.us.i = sub nsw i64 %conv395.us.i, %i.094.us.i
   %conv5.sub.us.i = tail call i64 @llvm.smin.i64(i64 %sub.us.i, i64 %conv5.us.i)
-  %28 = load i32, ptr %cur_start_row, align 4, !tbaa !73
-  %conv16.us.i = zext i32 %28 to i64
+  %29 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %conv16.us.i = zext i32 %29 to i64
   %add.us.i = add nuw nsw i64 %i.094.us.i, %conv16.us.i
-  %29 = load i32, ptr %first_undef_row.i153, align 8, !tbaa !74
-  %conv17.us.i = zext i32 %29 to i64
+  %30 = load i32, ptr %first_undef_row.i153, align 8, !tbaa !74
+  %conv17.us.i = zext i32 %30 to i64
   %sub18.us.i = sub nsw i64 %conv17.us.i, %add.us.i
   %cond27.us.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.us.i, i64 %sub18.us.i)
-  %30 = load i32, ptr %rows_in_array, align 8, !tbaa !56
-  %conv28.us.i = zext i32 %30 to i64
+  %31 = load i32, ptr %rows_in_array, align 8, !tbaa !56
+  %conv28.us.i = zext i32 %31 to i64
   %sub29.us.i = sub nsw i64 %conv28.us.i, %add.us.i
   %cond38.us.i = tail call i64 @llvm.smin.i64(i64 %cond27.us.i, i64 %sub29.us.i)
   %cmp39.us.i = icmp slt i64 %cond38.us.i, 1
@@ -1474,28 +1474,28 @@ for.body.us.i:                                    ; preds = %if.end.us.i, %for.b
 
 if.end.us.i:                                      ; preds = %for.body.us.i
   %mul41.us.i = mul nsw i64 %cond38.us.i, %mul.i145
-  %31 = load ptr, ptr %b_s_info.i155, align 8, !tbaa !83
-  %32 = load ptr, ptr %ptr, align 8, !tbaa !54
-  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %32, i64 %i.094.us.i
-  %33 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
-  tail call void %31(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i155, ptr noundef %33, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
+  %32 = load ptr, ptr %b_s_info.i155, align 8, !tbaa !83
+  %33 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %33, i64 %i.094.us.i
+  %34 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
+  tail call void %32(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i155, ptr noundef %34, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
   %add49.us.i = add nsw i64 %mul41.us.i, %file_offset.093.us.i
-  %34 = load i32, ptr %rowsperchunk.i147, align 8, !tbaa !72
-  %conv51.us.i = zext i32 %34 to i64
+  %35 = load i32, ptr %rowsperchunk.i147, align 8, !tbaa !72
+  %conv51.us.i = zext i32 %35 to i64
   %add52.us.i = add nuw nsw i64 %i.094.us.i, %conv51.us.i
-  %35 = load i32, ptr %rows_in_mem.i148, align 4, !tbaa !71
-  %conv3.us.i = zext i32 %35 to i64
+  %36 = load i32, ptr %rows_in_mem.i148, align 4, !tbaa !71
+  %conv3.us.i = zext i32 %36 to i64
   %cmp.us.i = icmp ult i64 %add52.us.i, %conv3.us.i
   br i1 %cmp.us.i, label %for.body.us.i, label %if.end34, !llvm.loop !82
 
 if.end34:                                         ; preds = %if.end.us.i, %for.body.us.i, %if.end33, %lor.lhs.false6
   %first_undef_row = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 7
-  %36 = load i32, ptr %first_undef_row, align 8, !tbaa !74
-  %cmp35 = icmp ult i32 %36, %add
+  %37 = load i32, ptr %first_undef_row, align 8, !tbaa !74
+  %cmp35 = icmp ult i32 %37, %add
   br i1 %cmp35, label %if.then37, label %if.end75
 
 if.then37:                                        ; preds = %if.end34
-  %cmp39 = icmp ult i32 %36, %start_row
+  %cmp39 = icmp ult i32 %37, %start_row
   %tobool42.not = icmp eq i32 %writable, 0
   br i1 %cmp39, label %if.then41, label %if.end51
 
@@ -1503,11 +1503,11 @@ if.then41:                                        ; preds = %if.then37
   br i1 %tobool42.not, label %if.end55.thread, label %if.end51.thread164
 
 if.end51.thread164:                               ; preds = %if.then41
-  %37 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
+  %38 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %38, i64 0, i32 5
   store i32 20, ptr %msg_code45, align 8, !tbaa !14
-  %38 = load ptr, ptr %37, align 8, !tbaa !17
-  tail call void %38(ptr noundef nonnull %cinfo) #7
+  %39 = load ptr, ptr %38, align 8, !tbaa !17
+  tail call void %39(ptr noundef nonnull %cinfo) #7
   br label %if.end55.thread179
 
 if.end51:                                         ; preds = %if.then37
@@ -1515,57 +1515,57 @@ if.end51:                                         ; preds = %if.then37
 
 if.end55:                                         ; preds = %if.end51
   %pre_zero = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
-  %39 = load i32, ptr %pre_zero, align 4, !tbaa !59
-  %tobool56.not = icmp eq i32 %39, 0
+  %40 = load i32, ptr %pre_zero, align 4, !tbaa !59
+  %tobool56.not = icmp eq i32 %40, 0
   br i1 %tobool56.not, label %if.end75.thread, label %if.then57
 
 if.end55.thread179:                               ; preds = %if.end51, %if.end51.thread164
-  %undef_row.0167 = phi i32 [ %start_row, %if.end51.thread164 ], [ %36, %if.end51 ]
+  %undef_row.0167 = phi i32 [ %start_row, %if.end51.thread164 ], [ %37, %if.end51 ]
   store i32 %add, ptr %first_undef_row, align 8, !tbaa !74
   %pre_zero182 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
-  %40 = load i32, ptr %pre_zero182, align 4, !tbaa !59
-  %tobool56.not183 = icmp eq i32 %40, 0
+  %41 = load i32, ptr %pre_zero182, align 4, !tbaa !59
+  %tobool56.not183 = icmp eq i32 %41, 0
   br i1 %tobool56.not183, label %if.then77, label %if.then57
 
 if.end55.thread:                                  ; preds = %if.then41
   %pre_zero171 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
-  %41 = load i32, ptr %pre_zero171, align 4, !tbaa !59
-  %tobool56.not172 = icmp eq i32 %41, 0
+  %42 = load i32, ptr %pre_zero171, align 4, !tbaa !59
+  %tobool56.not172 = icmp eq i32 %42, 0
   br i1 %tobool56.not172, label %if.end75.thread, label %if.then57
 
 if.then57:                                        ; preds = %if.end55.thread179, %if.end55.thread, %if.end55
-  %undef_row.0162174 = phi i32 [ %start_row, %if.end55.thread ], [ %36, %if.end55 ], [ %undef_row.0167, %if.end55.thread179 ]
+  %undef_row.0162174 = phi i32 [ %start_row, %if.end55.thread ], [ %37, %if.end55 ], [ %undef_row.0167, %if.end55.thread179 ]
   %blocksperrow = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 2
-  %42 = load i32, ptr %blocksperrow, align 4, !tbaa !57
-  %conv58 = zext i32 %42 to i64
+  %43 = load i32, ptr %blocksperrow, align 4, !tbaa !57
+  %conv58 = zext i32 %43 to i64
   %mul = shl nuw nsw i64 %conv58, 7
-  %43 = load i32, ptr %cur_start_row, align 4, !tbaa !73
-  %sub60 = sub i32 %undef_row.0162174, %43
-  %sub62 = sub i32 %add, %43
+  %44 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %sub60 = sub i32 %undef_row.0162174, %44
+  %sub62 = sub i32 %add, %44
   %cmp63176 = icmp ult i32 %sub60, %sub62
   br i1 %cmp63176, label %while.body.preheader, label %if.end75
 
 while.body.preheader:                             ; preds = %if.then57
-  %44 = zext i32 %sub60 to i64
+  %45 = zext i32 %sub60 to i64
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
-  %indvars.iv = phi i64 [ %44, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
-  %45 = load ptr, ptr %ptr, align 8, !tbaa !54
-  %arrayidx = getelementptr inbounds ptr, ptr %45, i64 %indvars.iv
-  %46 = load ptr, ptr %arrayidx, align 8, !tbaa !35
-  tail call void @jzero_far(ptr noundef %46, i64 noundef %mul) #7
+  %indvars.iv = phi i64 [ %45, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
+  %46 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %arrayidx = getelementptr inbounds ptr, ptr %46, i64 %indvars.iv
+  %47 = load ptr, ptr %arrayidx, align 8, !tbaa !35
+  tail call void @jzero_far(ptr noundef %47, i64 noundef %mul) #7
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %lftr.wideiv = trunc i64 %indvars.iv.next to i32
   %exitcond.not = icmp eq i32 %sub62, %lftr.wideiv
   br i1 %exitcond.not, label %if.end75, label %while.body, !llvm.loop !84
 
 if.end75.thread:                                  ; preds = %if.end55.thread, %if.end55
-  %47 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
+  %48 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %48, i64 0, i32 5
   store i32 20, ptr %msg_code70, align 8, !tbaa !14
-  %48 = load ptr, ptr %47, align 8, !tbaa !17
-  tail call void %48(ptr noundef nonnull %cinfo) #7
+  %49 = load ptr, ptr %48, align 8, !tbaa !17
+  tail call void %49(ptr noundef nonnull %cinfo) #7
   br label %if.end79
 
 if.end75:                                         ; preds = %while.body, %if.then57, %if.end34
@@ -1578,11 +1578,11 @@ if.then77:                                        ; preds = %if.end55.thread179,
   br label %if.end79
 
 if.end79:                                         ; preds = %if.end75.thread, %if.then77, %if.end75
-  %49 = load ptr, ptr %ptr, align 8, !tbaa !54
-  %50 = load i32, ptr %cur_start_row, align 4, !tbaa !73
-  %sub82 = sub i32 %start_row, %50
+  %50 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %51 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %sub82 = sub i32 %start_row, %51
   %idx.ext = zext i32 %sub82 to i64
-  %add.ptr = getelementptr inbounds ptr, ptr %49, i64 %idx.ext
+  %add.ptr = getelementptr inbounds ptr, ptr %50, i64 %idx.ext
   ret ptr %add.ptr
 }
 
@@ -1762,19 +1762,19 @@ declare void @jpeg_free_large(ptr noundef, ptr noundef, i64 noundef) local_unnam
 declare void @jpeg_free_small(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #5
+declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

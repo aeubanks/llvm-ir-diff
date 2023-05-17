@@ -1387,15 +1387,15 @@ define dso_local void @store_array(i32 noundef %var_name) local_unnamed_addr #0 
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %while.body.i
+  br i1 %cmp7.i.not, label %if.then.i, label %while.body.i
 
 while.body.i:                                     ; preds = %entry
   %s_next.i = getelementptr inbounds %struct.estack_rec, ptr %temp.06.i, i64 0, i32 1
   %temp.0.i = load ptr, ptr %s_next.i, align 8, !tbaa !9
   %cmp.i.not = icmp eq ptr %temp.0.i, null
-  br i1 %cmp.i.not, label %check_stack.exit.thread, label %if.end
+  br i1 %cmp.i.not, label %if.then.i, label %if.end
 
-check_stack.exit.thread:                          ; preds = %while.body.i, %entry
+if.then.i:                                        ; preds = %entry, %while.body.i
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1463,7 +1463,7 @@ if.then.i33:                                      ; preds = %if.then12
   tail call void @free(ptr noundef nonnull %15) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.i33, %if.then12, %check_stack.exit.thread, %if.then9, %if.else
+cleanup:                                          ; preds = %if.then.i, %if.then9, %if.else, %if.then12, %if.then.i33
   ret void
 }
 
@@ -1556,9 +1556,9 @@ define dso_local void @load_array(i32 noundef %var_name) local_unnamed_addr #0 {
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
+  br i1 %cmp7.i.not, label %if.then.i, label %if.end
 
-check_stack.exit.thread:                          ; preds = %entry
+if.then.i:                                        ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1617,7 +1617,7 @@ pop.exit:                                         ; preds = %if.then11, %if.then
   store ptr %call.i, ptr @ex_stack, align 8, !tbaa !9
   br label %cleanup
 
-cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -1705,9 +1705,9 @@ define dso_local void @decr_array(i8 noundef signext %var_name) local_unnamed_ad
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
+  br i1 %cmp7.i.not, label %if.then.i, label %if.end
 
-check_stack.exit.thread:                          ; preds = %entry
+if.then.i:                                        ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1762,7 +1762,7 @@ pop.exit:                                         ; preds = %if.then12, %if.then
   tail call void @bc_sub(ptr noundef %7, ptr noundef %8, ptr noundef nonnull %call925) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -1850,9 +1850,9 @@ define dso_local void @incr_array(i32 noundef %var_name) local_unnamed_addr #0 {
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
+  br i1 %cmp7.i.not, label %if.then.i, label %if.end
 
-check_stack.exit.thread:                          ; preds = %entry
+if.then.i:                                        ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1906,7 +1906,7 @@ pop.exit:                                         ; preds = %if.then11, %if.then
   tail call void @bc_add(ptr noundef %7, ptr noundef %8, ptr noundef nonnull %call922) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -2223,8 +2223,8 @@ auto_var.exit:                                    ; preds = %if.then.i, %if.else
   %sub.pre-phi = phi i32 [ %.pre100, %if.then.i ], [ %sub.i, %if.else.i ]
   %cmp31 = icmp eq i32 %sub.pre-phi, %conv27
   %16 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %sext88 = shl i64 %call26, 32
-  %idxprom34 = ashr exact i64 %sext88, 32
+  %sext89 = shl i64 %call26, 32
+  %idxprom34 = ashr exact i64 %sext89, 32
   %arrayidx35 = getelementptr inbounds ptr, ptr %16, i64 %idxprom34
   br i1 %cmp31, label %if.then33, label %if.end
 
@@ -2274,9 +2274,9 @@ if.end57:                                         ; preds = %if.end, %if.end55, 
   %params.1 = phi ptr [ %params.095, %if.then9 ], [ %params.095, %if.end ], [ %incdec.ptr, %if.end55 ]
   %22 = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp.not.i = icmp eq ptr %22, null
-  br i1 %cmp.not.i, label %if.end61, label %if.then.i89
+  br i1 %cmp.not.i, label %if.end61, label %if.then.i88
 
-if.then.i89:                                      ; preds = %if.end57
+if.then.i88:                                      ; preds = %if.end57
   %s_next.i = getelementptr inbounds %struct.estack_rec, ptr %22, i64 0, i32 1
   %23 = load ptr, ptr %s_next.i, align 8, !tbaa !37
   store ptr %23, ptr @ex_stack, align 8, !tbaa !9
@@ -2288,7 +2288,7 @@ if.else58:                                        ; preds = %while.body
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.19) #10
   unreachable
 
-if.end61:                                         ; preds = %if.then.i89, %if.end57
+if.end61:                                         ; preds = %if.then.i88, %if.end57
   %next = getelementptr inbounds %struct.arg_list, ptr %params.1, i64 0, i32 1
   %params.0 = load ptr, ptr %next, align 8, !tbaa !9
   %call = tail call zeroext i8 @byte(ptr noundef %pc) #10

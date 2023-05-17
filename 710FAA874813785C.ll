@@ -176,412 +176,411 @@ if.then:                                          ; preds = %for.body
 
 for.inc:                                          ; preds = %for.body, %if.then
   %exitcond.not = icmp eq i64 %indvars.iv.next, 50
-  br i1 %exitcond.not, label %while.cond25.preheader, label %for.body.backedge
+  br i1 %exitcond.not, label %land.rhs.preheader, label %for.body.backedge
 
 for.body.backedge:                                ; preds = %if.end51, %for.inc179, %for.inc
   %.be = phi ptr [ %2, %for.inc ], [ %.pre, %for.inc179 ], [ %.pre, %if.end51 ]
   %indvars.iv.be = phi i64 [ %indvars.iv.next, %for.inc ], [ 0, %for.inc179 ], [ 0, %if.end51 ]
   br label %for.body, !llvm.loop !13
 
-while.cond25.preheader:                           ; preds = %for.inc
+land.rhs.preheader:                               ; preds = %for.inc
   %9 = load double, ptr %arrayidx30, align 8, !tbaa !5
   %cmp31 = fcmp oeq double %9, 0.000000e+00
-  br i1 %cmp31, label %while.cond25.1, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31, label %while.body32, label %land.rhs37.preheader
 
-while.cond25.1:                                   ; preds = %while.cond25.preheader
+while.body32:                                     ; preds = %land.rhs.preheader
   %10 = load ptr, ptr %arrayidx28.1, align 8, !tbaa !9
   %arrayidx30.1 = getelementptr inbounds double, ptr %10, i64 49
   %11 = load double, ptr %arrayidx30.1, align 8, !tbaa !5
   %cmp31.1 = fcmp oeq double %11, 0.000000e+00
-  br i1 %cmp31.1, label %while.cond25.2, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.1, label %while.body32.1, label %land.rhs37.preheader
 
-while.cond25.2:                                   ; preds = %while.cond25.1
+while.body32.1:                                   ; preds = %while.body32
   %12 = load ptr, ptr %arrayidx28.2, align 8, !tbaa !9
   %arrayidx30.2 = getelementptr inbounds double, ptr %12, i64 48
   %13 = load double, ptr %arrayidx30.2, align 8, !tbaa !5
   %cmp31.2 = fcmp oeq double %13, 0.000000e+00
-  br i1 %cmp31.2, label %while.cond25.3, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.2, label %while.body32.2, label %land.rhs37.preheader
 
-while.cond25.3:                                   ; preds = %while.cond25.2
+while.body32.2:                                   ; preds = %while.body32.1
   %14 = load ptr, ptr %arrayidx28.3, align 8, !tbaa !9
   %arrayidx30.3 = getelementptr inbounds double, ptr %14, i64 47
   %15 = load double, ptr %arrayidx30.3, align 8, !tbaa !5
   %cmp31.3 = fcmp oeq double %15, 0.000000e+00
-  br i1 %cmp31.3, label %while.cond25.4, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.3, label %while.body32.3, label %land.rhs37.preheader
 
-while.cond25.4:                                   ; preds = %while.cond25.3
+while.body32.3:                                   ; preds = %while.body32.2
   %16 = load ptr, ptr %arrayidx28.4, align 8, !tbaa !9
   %arrayidx30.4 = getelementptr inbounds double, ptr %16, i64 46
   %17 = load double, ptr %arrayidx30.4, align 8, !tbaa !5
   %cmp31.4 = fcmp oeq double %17, 0.000000e+00
-  br i1 %cmp31.4, label %while.cond25.5, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.4, label %while.body32.4, label %land.rhs37.preheader
 
-while.cond25.5:                                   ; preds = %while.cond25.4
+while.body32.4:                                   ; preds = %while.body32.3
   %18 = load ptr, ptr %arrayidx28.5, align 8, !tbaa !9
   %arrayidx30.5 = getelementptr inbounds double, ptr %18, i64 45
   %19 = load double, ptr %arrayidx30.5, align 8, !tbaa !5
   %cmp31.5 = fcmp oeq double %19, 0.000000e+00
-  br i1 %cmp31.5, label %while.cond25.6, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.5, label %while.body32.5, label %land.rhs37.preheader
 
-while.cond25.6:                                   ; preds = %while.cond25.5
+while.body32.5:                                   ; preds = %while.body32.4
   %20 = load ptr, ptr %arrayidx28.6, align 8, !tbaa !9
   %arrayidx30.6 = getelementptr inbounds double, ptr %20, i64 44
   %21 = load double, ptr %arrayidx30.6, align 8, !tbaa !5
   %cmp31.6 = fcmp oeq double %21, 0.000000e+00
-  br i1 %cmp31.6, label %while.cond25.7, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.6, label %while.body32.6, label %land.rhs37.preheader
 
-while.cond25.7:                                   ; preds = %while.cond25.6
+while.body32.6:                                   ; preds = %while.body32.5
   %22 = load ptr, ptr %arrayidx28.7, align 8, !tbaa !9
   %arrayidx30.7 = getelementptr inbounds double, ptr %22, i64 43
   %23 = load double, ptr %arrayidx30.7, align 8, !tbaa !5
   %cmp31.7 = fcmp oeq double %23, 0.000000e+00
-  br i1 %cmp31.7, label %while.cond25.8, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.7, label %while.body32.7, label %land.rhs37.preheader
 
-while.cond25.8:                                   ; preds = %while.cond25.7
+while.body32.7:                                   ; preds = %while.body32.6
   %24 = load ptr, ptr %arrayidx28.8, align 8, !tbaa !9
   %arrayidx30.8 = getelementptr inbounds double, ptr %24, i64 42
   %25 = load double, ptr %arrayidx30.8, align 8, !tbaa !5
   %cmp31.8 = fcmp oeq double %25, 0.000000e+00
-  br i1 %cmp31.8, label %while.cond25.9, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.8, label %while.body32.8, label %land.rhs37.preheader
 
-while.cond25.9:                                   ; preds = %while.cond25.8
+while.body32.8:                                   ; preds = %while.body32.7
   %26 = load ptr, ptr %arrayidx28.9, align 8, !tbaa !9
   %arrayidx30.9 = getelementptr inbounds double, ptr %26, i64 41
   %27 = load double, ptr %arrayidx30.9, align 8, !tbaa !5
   %cmp31.9 = fcmp oeq double %27, 0.000000e+00
-  br i1 %cmp31.9, label %while.cond25.10, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.9, label %while.body32.9, label %land.rhs37.preheader
 
-while.cond25.10:                                  ; preds = %while.cond25.9
+while.body32.9:                                   ; preds = %while.body32.8
   %28 = load ptr, ptr %arrayidx28.10, align 8, !tbaa !9
   %arrayidx30.10 = getelementptr inbounds double, ptr %28, i64 40
   %29 = load double, ptr %arrayidx30.10, align 8, !tbaa !5
   %cmp31.10 = fcmp oeq double %29, 0.000000e+00
-  br i1 %cmp31.10, label %while.cond25.11, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.10, label %while.body32.10, label %land.rhs37.preheader
 
-while.cond25.11:                                  ; preds = %while.cond25.10
+while.body32.10:                                  ; preds = %while.body32.9
   %30 = load ptr, ptr %arrayidx28.11, align 8, !tbaa !9
   %arrayidx30.11 = getelementptr inbounds double, ptr %30, i64 39
   %31 = load double, ptr %arrayidx30.11, align 8, !tbaa !5
   %cmp31.11 = fcmp oeq double %31, 0.000000e+00
-  br i1 %cmp31.11, label %while.cond25.12, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.11, label %while.body32.11, label %land.rhs37.preheader
 
-while.cond25.12:                                  ; preds = %while.cond25.11
+while.body32.11:                                  ; preds = %while.body32.10
   %32 = load ptr, ptr %arrayidx28.12, align 8, !tbaa !9
   %arrayidx30.12 = getelementptr inbounds double, ptr %32, i64 38
   %33 = load double, ptr %arrayidx30.12, align 8, !tbaa !5
   %cmp31.12 = fcmp oeq double %33, 0.000000e+00
-  br i1 %cmp31.12, label %while.cond25.13, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.12, label %while.body32.12, label %land.rhs37.preheader
 
-while.cond25.13:                                  ; preds = %while.cond25.12
+while.body32.12:                                  ; preds = %while.body32.11
   %34 = load ptr, ptr %arrayidx28.13, align 8, !tbaa !9
   %arrayidx30.13 = getelementptr inbounds double, ptr %34, i64 37
   %35 = load double, ptr %arrayidx30.13, align 8, !tbaa !5
   %cmp31.13 = fcmp oeq double %35, 0.000000e+00
-  br i1 %cmp31.13, label %while.cond25.14, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.13, label %while.body32.13, label %land.rhs37.preheader
 
-while.cond25.14:                                  ; preds = %while.cond25.13
+while.body32.13:                                  ; preds = %while.body32.12
   %36 = load ptr, ptr %arrayidx28.14, align 8, !tbaa !9
   %arrayidx30.14 = getelementptr inbounds double, ptr %36, i64 36
   %37 = load double, ptr %arrayidx30.14, align 8, !tbaa !5
   %cmp31.14 = fcmp oeq double %37, 0.000000e+00
-  br i1 %cmp31.14, label %while.cond25.15, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.14, label %while.body32.14, label %land.rhs37.preheader
 
-while.cond25.15:                                  ; preds = %while.cond25.14
+while.body32.14:                                  ; preds = %while.body32.13
   %38 = load ptr, ptr %arrayidx28.15, align 8, !tbaa !9
   %arrayidx30.15 = getelementptr inbounds double, ptr %38, i64 35
   %39 = load double, ptr %arrayidx30.15, align 8, !tbaa !5
   %cmp31.15 = fcmp oeq double %39, 0.000000e+00
-  br i1 %cmp31.15, label %while.cond25.16, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.15, label %while.body32.15, label %land.rhs37.preheader
 
-while.cond25.16:                                  ; preds = %while.cond25.15
+while.body32.15:                                  ; preds = %while.body32.14
   %40 = load ptr, ptr %arrayidx28.16, align 8, !tbaa !9
   %arrayidx30.16 = getelementptr inbounds double, ptr %40, i64 34
   %41 = load double, ptr %arrayidx30.16, align 8, !tbaa !5
   %cmp31.16 = fcmp oeq double %41, 0.000000e+00
-  br i1 %cmp31.16, label %while.cond25.17, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.16, label %while.body32.16, label %land.rhs37.preheader
 
-while.cond25.17:                                  ; preds = %while.cond25.16
+while.body32.16:                                  ; preds = %while.body32.15
   %42 = load ptr, ptr %arrayidx28.17, align 8, !tbaa !9
   %arrayidx30.17 = getelementptr inbounds double, ptr %42, i64 33
   %43 = load double, ptr %arrayidx30.17, align 8, !tbaa !5
   %cmp31.17 = fcmp oeq double %43, 0.000000e+00
-  br i1 %cmp31.17, label %while.cond25.18, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.17, label %while.body32.17, label %land.rhs37.preheader
 
-while.cond25.18:                                  ; preds = %while.cond25.17
+while.body32.17:                                  ; preds = %while.body32.16
   %44 = load ptr, ptr %arrayidx28.18, align 8, !tbaa !9
   %arrayidx30.18 = getelementptr inbounds double, ptr %44, i64 32
   %45 = load double, ptr %arrayidx30.18, align 8, !tbaa !5
   %cmp31.18 = fcmp oeq double %45, 0.000000e+00
-  br i1 %cmp31.18, label %while.cond25.19, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.18, label %while.body32.18, label %land.rhs37.preheader
 
-while.cond25.19:                                  ; preds = %while.cond25.18
+while.body32.18:                                  ; preds = %while.body32.17
   %46 = load ptr, ptr %arrayidx28.19, align 8, !tbaa !9
   %arrayidx30.19 = getelementptr inbounds double, ptr %46, i64 31
   %47 = load double, ptr %arrayidx30.19, align 8, !tbaa !5
   %cmp31.19 = fcmp oeq double %47, 0.000000e+00
-  br i1 %cmp31.19, label %while.cond25.20, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.19, label %while.body32.19, label %land.rhs37.preheader
 
-while.cond25.20:                                  ; preds = %while.cond25.19
+while.body32.19:                                  ; preds = %while.body32.18
   %48 = load ptr, ptr %arrayidx28.20, align 8, !tbaa !9
   %arrayidx30.20 = getelementptr inbounds double, ptr %48, i64 30
   %49 = load double, ptr %arrayidx30.20, align 8, !tbaa !5
   %cmp31.20 = fcmp oeq double %49, 0.000000e+00
-  br i1 %cmp31.20, label %while.cond25.21, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.20, label %while.body32.20, label %land.rhs37.preheader
 
-while.cond25.21:                                  ; preds = %while.cond25.20
+while.body32.20:                                  ; preds = %while.body32.19
   %50 = load ptr, ptr %arrayidx28.21, align 8, !tbaa !9
   %arrayidx30.21 = getelementptr inbounds double, ptr %50, i64 29
   %51 = load double, ptr %arrayidx30.21, align 8, !tbaa !5
   %cmp31.21 = fcmp oeq double %51, 0.000000e+00
-  br i1 %cmp31.21, label %while.cond25.22, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.21, label %while.body32.21, label %land.rhs37.preheader
 
-while.cond25.22:                                  ; preds = %while.cond25.21
+while.body32.21:                                  ; preds = %while.body32.20
   %52 = load ptr, ptr %arrayidx28.22, align 8, !tbaa !9
   %arrayidx30.22 = getelementptr inbounds double, ptr %52, i64 28
   %53 = load double, ptr %arrayidx30.22, align 8, !tbaa !5
   %cmp31.22 = fcmp oeq double %53, 0.000000e+00
-  br i1 %cmp31.22, label %while.cond25.23, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.22, label %while.body32.22, label %land.rhs37.preheader
 
-while.cond25.23:                                  ; preds = %while.cond25.22
+while.body32.22:                                  ; preds = %while.body32.21
   %54 = load ptr, ptr %arrayidx28.23, align 8, !tbaa !9
   %arrayidx30.23 = getelementptr inbounds double, ptr %54, i64 27
   %55 = load double, ptr %arrayidx30.23, align 8, !tbaa !5
   %cmp31.23 = fcmp oeq double %55, 0.000000e+00
-  br i1 %cmp31.23, label %while.cond25.24, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.23, label %while.body32.23, label %land.rhs37.preheader
 
-while.cond25.24:                                  ; preds = %while.cond25.23
+while.body32.23:                                  ; preds = %while.body32.22
   %56 = load ptr, ptr %arrayidx28.24, align 8, !tbaa !9
   %arrayidx30.24 = getelementptr inbounds double, ptr %56, i64 26
   %57 = load double, ptr %arrayidx30.24, align 8, !tbaa !5
   %cmp31.24 = fcmp oeq double %57, 0.000000e+00
-  br i1 %cmp31.24, label %while.cond25.25, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.24, label %while.body32.24, label %land.rhs37.preheader
 
-while.cond25.25:                                  ; preds = %while.cond25.24
+while.body32.24:                                  ; preds = %while.body32.23
   %58 = load ptr, ptr %arrayidx28.25, align 8, !tbaa !9
   %arrayidx30.25 = getelementptr inbounds double, ptr %58, i64 25
   %59 = load double, ptr %arrayidx30.25, align 8, !tbaa !5
   %cmp31.25 = fcmp oeq double %59, 0.000000e+00
-  br i1 %cmp31.25, label %while.cond25.26, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.25, label %while.body32.25, label %land.rhs37.preheader
 
-while.cond25.26:                                  ; preds = %while.cond25.25
+while.body32.25:                                  ; preds = %while.body32.24
   %60 = load ptr, ptr %arrayidx28.26, align 8, !tbaa !9
   %arrayidx30.26 = getelementptr inbounds double, ptr %60, i64 24
   %61 = load double, ptr %arrayidx30.26, align 8, !tbaa !5
   %cmp31.26 = fcmp oeq double %61, 0.000000e+00
-  br i1 %cmp31.26, label %while.cond25.27, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.26, label %while.body32.26, label %land.rhs37.preheader
 
-while.cond25.27:                                  ; preds = %while.cond25.26
+while.body32.26:                                  ; preds = %while.body32.25
   %62 = load ptr, ptr %arrayidx28.27, align 8, !tbaa !9
   %arrayidx30.27 = getelementptr inbounds double, ptr %62, i64 23
   %63 = load double, ptr %arrayidx30.27, align 8, !tbaa !5
   %cmp31.27 = fcmp oeq double %63, 0.000000e+00
-  br i1 %cmp31.27, label %while.cond25.28, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.27, label %while.body32.27, label %land.rhs37.preheader
 
-while.cond25.28:                                  ; preds = %while.cond25.27
+while.body32.27:                                  ; preds = %while.body32.26
   %64 = load ptr, ptr %arrayidx28.28, align 8, !tbaa !9
   %arrayidx30.28 = getelementptr inbounds double, ptr %64, i64 22
   %65 = load double, ptr %arrayidx30.28, align 8, !tbaa !5
   %cmp31.28 = fcmp oeq double %65, 0.000000e+00
-  br i1 %cmp31.28, label %while.cond25.29, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.28, label %while.body32.28, label %land.rhs37.preheader
 
-while.cond25.29:                                  ; preds = %while.cond25.28
+while.body32.28:                                  ; preds = %while.body32.27
   %66 = load ptr, ptr %arrayidx28.29, align 8, !tbaa !9
   %arrayidx30.29 = getelementptr inbounds double, ptr %66, i64 21
   %67 = load double, ptr %arrayidx30.29, align 8, !tbaa !5
   %cmp31.29 = fcmp oeq double %67, 0.000000e+00
-  br i1 %cmp31.29, label %while.cond25.30, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.29, label %while.body32.29, label %land.rhs37.preheader
 
-while.cond25.30:                                  ; preds = %while.cond25.29
+while.body32.29:                                  ; preds = %while.body32.28
   %68 = load ptr, ptr %arrayidx28.30, align 8, !tbaa !9
   %arrayidx30.30 = getelementptr inbounds double, ptr %68, i64 20
   %69 = load double, ptr %arrayidx30.30, align 8, !tbaa !5
   %cmp31.30 = fcmp oeq double %69, 0.000000e+00
-  br i1 %cmp31.30, label %while.cond25.31, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.30, label %while.body32.30, label %land.rhs37.preheader
 
-while.cond25.31:                                  ; preds = %while.cond25.30
+while.body32.30:                                  ; preds = %while.body32.29
   %70 = load ptr, ptr %arrayidx28.31, align 8, !tbaa !9
   %arrayidx30.31 = getelementptr inbounds double, ptr %70, i64 19
   %71 = load double, ptr %arrayidx30.31, align 8, !tbaa !5
   %cmp31.31 = fcmp oeq double %71, 0.000000e+00
-  br i1 %cmp31.31, label %while.cond25.32, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.31, label %while.body32.31, label %land.rhs37.preheader
 
-while.cond25.32:                                  ; preds = %while.cond25.31
+while.body32.31:                                  ; preds = %while.body32.30
   %72 = load ptr, ptr %arrayidx28.32, align 8, !tbaa !9
   %arrayidx30.32 = getelementptr inbounds double, ptr %72, i64 18
   %73 = load double, ptr %arrayidx30.32, align 8, !tbaa !5
   %cmp31.32 = fcmp oeq double %73, 0.000000e+00
-  br i1 %cmp31.32, label %while.cond25.33, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.32, label %while.body32.32, label %land.rhs37.preheader
 
-while.cond25.33:                                  ; preds = %while.cond25.32
+while.body32.32:                                  ; preds = %while.body32.31
   %74 = load ptr, ptr %arrayidx28.33, align 8, !tbaa !9
   %arrayidx30.33 = getelementptr inbounds double, ptr %74, i64 17
   %75 = load double, ptr %arrayidx30.33, align 8, !tbaa !5
   %cmp31.33 = fcmp oeq double %75, 0.000000e+00
-  br i1 %cmp31.33, label %while.cond25.34, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.33, label %while.body32.33, label %land.rhs37.preheader
 
-while.cond25.34:                                  ; preds = %while.cond25.33
+while.body32.33:                                  ; preds = %while.body32.32
   %76 = load ptr, ptr %arrayidx28.34, align 8, !tbaa !9
   %arrayidx30.34 = getelementptr inbounds double, ptr %76, i64 16
   %77 = load double, ptr %arrayidx30.34, align 8, !tbaa !5
   %cmp31.34 = fcmp oeq double %77, 0.000000e+00
-  br i1 %cmp31.34, label %while.cond25.35, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.34, label %while.body32.34, label %land.rhs37.preheader
 
-while.cond25.35:                                  ; preds = %while.cond25.34
+while.body32.34:                                  ; preds = %while.body32.33
   %78 = load ptr, ptr %arrayidx28.35, align 8, !tbaa !9
   %arrayidx30.35 = getelementptr inbounds double, ptr %78, i64 15
   %79 = load double, ptr %arrayidx30.35, align 8, !tbaa !5
   %cmp31.35 = fcmp oeq double %79, 0.000000e+00
-  br i1 %cmp31.35, label %while.cond25.36, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.35, label %while.body32.35, label %land.rhs37.preheader
 
-while.cond25.36:                                  ; preds = %while.cond25.35
+while.body32.35:                                  ; preds = %while.body32.34
   %80 = load ptr, ptr %arrayidx28.36, align 8, !tbaa !9
   %arrayidx30.36 = getelementptr inbounds double, ptr %80, i64 14
   %81 = load double, ptr %arrayidx30.36, align 8, !tbaa !5
   %cmp31.36 = fcmp oeq double %81, 0.000000e+00
-  br i1 %cmp31.36, label %while.cond25.37, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.36, label %while.body32.36, label %land.rhs37.preheader
 
-while.cond25.37:                                  ; preds = %while.cond25.36
+while.body32.36:                                  ; preds = %while.body32.35
   %82 = load ptr, ptr %arrayidx28.37, align 8, !tbaa !9
   %arrayidx30.37 = getelementptr inbounds double, ptr %82, i64 13
   %83 = load double, ptr %arrayidx30.37, align 8, !tbaa !5
   %cmp31.37 = fcmp oeq double %83, 0.000000e+00
-  br i1 %cmp31.37, label %while.cond25.38, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.37, label %while.body32.37, label %land.rhs37.preheader
 
-while.cond25.38:                                  ; preds = %while.cond25.37
+while.body32.37:                                  ; preds = %while.body32.36
   %84 = load ptr, ptr %arrayidx28.38, align 8, !tbaa !9
   %arrayidx30.38 = getelementptr inbounds double, ptr %84, i64 12
   %85 = load double, ptr %arrayidx30.38, align 8, !tbaa !5
   %cmp31.38 = fcmp oeq double %85, 0.000000e+00
-  br i1 %cmp31.38, label %while.cond25.39, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.38, label %while.body32.38, label %land.rhs37.preheader
 
-while.cond25.39:                                  ; preds = %while.cond25.38
+while.body32.38:                                  ; preds = %while.body32.37
   %86 = load ptr, ptr %arrayidx28.39, align 8, !tbaa !9
   %arrayidx30.39 = getelementptr inbounds double, ptr %86, i64 11
   %87 = load double, ptr %arrayidx30.39, align 8, !tbaa !5
   %cmp31.39 = fcmp oeq double %87, 0.000000e+00
-  br i1 %cmp31.39, label %while.cond25.40, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.39, label %while.body32.39, label %land.rhs37.preheader
 
-while.cond25.40:                                  ; preds = %while.cond25.39
+while.body32.39:                                  ; preds = %while.body32.38
   %88 = load ptr, ptr %arrayidx28.40, align 8, !tbaa !9
   %arrayidx30.40 = getelementptr inbounds double, ptr %88, i64 10
   %89 = load double, ptr %arrayidx30.40, align 8, !tbaa !5
   %cmp31.40 = fcmp oeq double %89, 0.000000e+00
-  br i1 %cmp31.40, label %while.cond25.41, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.40, label %while.body32.40, label %land.rhs37.preheader
 
-while.cond25.41:                                  ; preds = %while.cond25.40
+while.body32.40:                                  ; preds = %while.body32.39
   %90 = load ptr, ptr %arrayidx28.41, align 8, !tbaa !9
   %arrayidx30.41 = getelementptr inbounds double, ptr %90, i64 9
   %91 = load double, ptr %arrayidx30.41, align 8, !tbaa !5
   %cmp31.41 = fcmp oeq double %91, 0.000000e+00
-  br i1 %cmp31.41, label %while.cond25.42, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.41, label %while.body32.41, label %land.rhs37.preheader
 
-while.cond25.42:                                  ; preds = %while.cond25.41
+while.body32.41:                                  ; preds = %while.body32.40
   %92 = load ptr, ptr %arrayidx28.42, align 8, !tbaa !9
   %arrayidx30.42 = getelementptr inbounds double, ptr %92, i64 8
   %93 = load double, ptr %arrayidx30.42, align 8, !tbaa !5
   %cmp31.42 = fcmp oeq double %93, 0.000000e+00
-  br i1 %cmp31.42, label %while.cond25.43, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.42, label %while.body32.42, label %land.rhs37.preheader
 
-while.cond25.43:                                  ; preds = %while.cond25.42
+while.body32.42:                                  ; preds = %while.body32.41
   %94 = load ptr, ptr %arrayidx28.43, align 8, !tbaa !9
   %arrayidx30.43 = getelementptr inbounds double, ptr %94, i64 7
   %95 = load double, ptr %arrayidx30.43, align 8, !tbaa !5
   %cmp31.43 = fcmp oeq double %95, 0.000000e+00
-  br i1 %cmp31.43, label %while.cond25.44, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.43, label %while.body32.43, label %land.rhs37.preheader
 
-while.cond25.44:                                  ; preds = %while.cond25.43
+while.body32.43:                                  ; preds = %while.body32.42
   %96 = load ptr, ptr %arrayidx28.44, align 8, !tbaa !9
   %arrayidx30.44 = getelementptr inbounds double, ptr %96, i64 6
   %97 = load double, ptr %arrayidx30.44, align 8, !tbaa !5
   %cmp31.44 = fcmp oeq double %97, 0.000000e+00
-  br i1 %cmp31.44, label %while.cond25.45, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.44, label %while.body32.44, label %land.rhs37.preheader
 
-while.cond25.45:                                  ; preds = %while.cond25.44
+while.body32.44:                                  ; preds = %while.body32.43
   %98 = load ptr, ptr %arrayidx28.45, align 8, !tbaa !9
   %arrayidx30.45 = getelementptr inbounds double, ptr %98, i64 5
   %99 = load double, ptr %arrayidx30.45, align 8, !tbaa !5
   %cmp31.45 = fcmp oeq double %99, 0.000000e+00
-  br i1 %cmp31.45, label %while.cond25.46, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.45, label %while.body32.45, label %land.rhs37.preheader
 
-while.cond25.46:                                  ; preds = %while.cond25.45
+while.body32.45:                                  ; preds = %while.body32.44
   %100 = load ptr, ptr %arrayidx28.46, align 8, !tbaa !9
   %arrayidx30.46 = getelementptr inbounds double, ptr %100, i64 4
   %101 = load double, ptr %arrayidx30.46, align 8, !tbaa !5
   %cmp31.46 = fcmp oeq double %101, 0.000000e+00
-  br i1 %cmp31.46, label %while.cond25.47, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.46, label %while.body32.46, label %land.rhs37.preheader
 
-while.cond25.47:                                  ; preds = %while.cond25.46
+while.body32.46:                                  ; preds = %while.body32.45
   %102 = load ptr, ptr %arrayidx28.47, align 8, !tbaa !9
   %arrayidx30.47 = getelementptr inbounds double, ptr %102, i64 3
   %103 = load double, ptr %arrayidx30.47, align 8, !tbaa !5
   %cmp31.47 = fcmp oeq double %103, 0.000000e+00
-  br i1 %cmp31.47, label %while.cond25.48, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.47, label %while.body32.47, label %land.rhs37.preheader
 
-while.cond25.48:                                  ; preds = %while.cond25.47
+while.body32.47:                                  ; preds = %while.body32.46
   %104 = load ptr, ptr %arrayidx28.48, align 8, !tbaa !9
   %arrayidx30.48 = getelementptr inbounds double, ptr %104, i64 2
   %105 = load double, ptr %arrayidx30.48, align 8, !tbaa !5
   %cmp31.48 = fcmp oeq double %105, 0.000000e+00
-  br i1 %cmp31.48, label %while.cond25.49, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.48, label %while.body32.48, label %land.rhs37.preheader
 
-while.cond25.49:                                  ; preds = %while.cond25.48
+while.body32.48:                                  ; preds = %while.body32.47
   %106 = load double, ptr %arrayidx30.49, align 8, !tbaa !5
   %cmp31.49 = fcmp oeq double %106, 0.000000e+00
-  br i1 %cmp31.49, label %while.end182, label %while.cond35.preheader, !llvm.loop !14
+  br i1 %cmp31.49, label %while.end182, label %land.rhs37.preheader
 
-while.cond35.preheader:                           ; preds = %while.cond25.49, %while.cond25.48, %while.cond25.47, %while.cond25.46, %while.cond25.45, %while.cond25.44, %while.cond25.43, %while.cond25.42, %while.cond25.41, %while.cond25.40, %while.cond25.39, %while.cond25.38, %while.cond25.37, %while.cond25.36, %while.cond25.35, %while.cond25.34, %while.cond25.33, %while.cond25.32, %while.cond25.31, %while.cond25.30, %while.cond25.29, %while.cond25.28, %while.cond25.27, %while.cond25.26, %while.cond25.25, %while.cond25.24, %while.cond25.23, %while.cond25.22, %while.cond25.21, %while.cond25.20, %while.cond25.19, %while.cond25.18, %while.cond25.17, %while.cond25.16, %while.cond25.15, %while.cond25.14, %while.cond25.13, %while.cond25.12, %while.cond25.11, %while.cond25.10, %while.cond25.9, %while.cond25.8, %while.cond25.7, %while.cond25.6, %while.cond25.5, %while.cond25.4, %while.cond25.3, %while.cond25.2, %while.cond25.1, %while.cond25.preheader
-  %q.0.lcssa.ph = phi i32 [ 50, %while.cond25.preheader ], [ 49, %while.cond25.1 ], [ 48, %while.cond25.2 ], [ 47, %while.cond25.3 ], [ 46, %while.cond25.4 ], [ 45, %while.cond25.5 ], [ 44, %while.cond25.6 ], [ 43, %while.cond25.7 ], [ 42, %while.cond25.8 ], [ 41, %while.cond25.9 ], [ 40, %while.cond25.10 ], [ 39, %while.cond25.11 ], [ 38, %while.cond25.12 ], [ 37, %while.cond25.13 ], [ 36, %while.cond25.14 ], [ 35, %while.cond25.15 ], [ 34, %while.cond25.16 ], [ 33, %while.cond25.17 ], [ 32, %while.cond25.18 ], [ 31, %while.cond25.19 ], [ 30, %while.cond25.20 ], [ 29, %while.cond25.21 ], [ 28, %while.cond25.22 ], [ 27, %while.cond25.23 ], [ 26, %while.cond25.24 ], [ 25, %while.cond25.25 ], [ 24, %while.cond25.26 ], [ 23, %while.cond25.27 ], [ 22, %while.cond25.28 ], [ 21, %while.cond25.29 ], [ 20, %while.cond25.30 ], [ 19, %while.cond25.31 ], [ 18, %while.cond25.32 ], [ 17, %while.cond25.33 ], [ 16, %while.cond25.34 ], [ 15, %while.cond25.35 ], [ 14, %while.cond25.36 ], [ 13, %while.cond25.37 ], [ 12, %while.cond25.38 ], [ 11, %while.cond25.39 ], [ 10, %while.cond25.40 ], [ 9, %while.cond25.41 ], [ 8, %while.cond25.42 ], [ 7, %while.cond25.43 ], [ 6, %while.cond25.44 ], [ 5, %while.cond25.45 ], [ 4, %while.cond25.46 ], [ 3, %while.cond25.47 ], [ 2, %while.cond25.48 ], [ 1, %while.cond25.49 ]
+land.rhs37.preheader:                             ; preds = %land.rhs.preheader, %while.body32, %while.body32.1, %while.body32.2, %while.body32.3, %while.body32.4, %while.body32.5, %while.body32.6, %while.body32.7, %while.body32.8, %while.body32.9, %while.body32.10, %while.body32.11, %while.body32.12, %while.body32.13, %while.body32.14, %while.body32.15, %while.body32.16, %while.body32.17, %while.body32.18, %while.body32.19, %while.body32.20, %while.body32.21, %while.body32.22, %while.body32.23, %while.body32.24, %while.body32.25, %while.body32.26, %while.body32.27, %while.body32.28, %while.body32.29, %while.body32.30, %while.body32.31, %while.body32.32, %while.body32.33, %while.body32.34, %while.body32.35, %while.body32.36, %while.body32.37, %while.body32.38, %while.body32.39, %while.body32.40, %while.body32.41, %while.body32.42, %while.body32.43, %while.body32.44, %while.body32.45, %while.body32.46, %while.body32.47, %while.body32.48
+  %q.0.lcssa.ph = phi i32 [ 50, %land.rhs.preheader ], [ 49, %while.body32 ], [ 48, %while.body32.1 ], [ 47, %while.body32.2 ], [ 46, %while.body32.3 ], [ 45, %while.body32.4 ], [ 44, %while.body32.5 ], [ 43, %while.body32.6 ], [ 42, %while.body32.7 ], [ 41, %while.body32.8 ], [ 40, %while.body32.9 ], [ 39, %while.body32.10 ], [ 38, %while.body32.11 ], [ 37, %while.body32.12 ], [ 36, %while.body32.13 ], [ 35, %while.body32.14 ], [ 34, %while.body32.15 ], [ 33, %while.body32.16 ], [ 32, %while.body32.17 ], [ 31, %while.body32.18 ], [ 30, %while.body32.19 ], [ 29, %while.body32.20 ], [ 28, %while.body32.21 ], [ 27, %while.body32.22 ], [ 26, %while.body32.23 ], [ 25, %while.body32.24 ], [ 24, %while.body32.25 ], [ 23, %while.body32.26 ], [ 22, %while.body32.27 ], [ 21, %while.body32.28 ], [ 20, %while.body32.29 ], [ 19, %while.body32.30 ], [ 18, %while.body32.31 ], [ 17, %while.body32.32 ], [ 16, %while.body32.33 ], [ 15, %while.body32.34 ], [ 14, %while.body32.35 ], [ 13, %while.body32.36 ], [ 12, %while.body32.37 ], [ 11, %while.body32.38 ], [ 10, %while.body32.39 ], [ 9, %while.body32.40 ], [ 8, %while.body32.41 ], [ 7, %while.body32.42 ], [ 6, %while.body32.43 ], [ 5, %while.body32.44 ], [ 4, %while.body32.45 ], [ 3, %while.body32.46 ], [ 2, %while.body32.47 ], [ 1, %while.body32.48 ]
   %107 = zext i32 %q.0.lcssa.ph to i64
-  br label %while.cond35
+  br label %land.rhs37
 
-while.cond35:                                     ; preds = %while.cond35.preheader, %land.rhs37
-  %indvars.iv313 = phi i64 [ %107, %while.cond35.preheader ], [ %indvars.iv.next314, %land.rhs37 ]
-  %cmp36 = icmp sgt i64 %indvars.iv313, 0
-  br i1 %cmp36, label %land.rhs37, label %for.body91.preheader
-
-land.rhs37:                                       ; preds = %while.cond35
-  %indvars.iv.next314 = add nsw i64 %indvars.iv313, -1
-  %idxprom39 = and i64 %indvars.iv.next314, 4294967295
-  %arrayidx40 = getelementptr inbounds ptr, ptr %A, i64 %idxprom39
+land.rhs37:                                       ; preds = %land.rhs37.preheader, %while.body45
+  %indvars.iv317 = phi i64 [ %107, %land.rhs37.preheader ], [ %indvars.iv.next318, %while.body45 ]
+  %indvars.iv.next318 = add nsw i64 %indvars.iv317, -1
+  %arrayidx40 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv.next318
   %108 = load ptr, ptr %arrayidx40, align 8, !tbaa !9
-  %arrayidx42 = getelementptr inbounds double, ptr %108, i64 %indvars.iv313
+  %arrayidx42 = getelementptr inbounds double, ptr %108, i64 %indvars.iv317
   %109 = load double, ptr %arrayidx42, align 8, !tbaa !5
   %cmp43 = fcmp une double %109, 0.000000e+00
-  br i1 %cmp43, label %while.cond35, label %if.end51, !llvm.loop !15
+  br i1 %cmp43, label %while.body45, label %if.end51
+
+while.body45:                                     ; preds = %land.rhs37
+  %cmp36 = icmp ugt i64 %indvars.iv317, 1
+  br i1 %cmp36, label %land.rhs37, label %for.body91.preheader, !llvm.loop !14
 
 if.end51:                                         ; preds = %land.rhs37
-  %110 = trunc i64 %indvars.iv313 to i32
-  %sext = shl i64 %indvars.iv313, 32
+  %110 = trunc i64 %indvars.iv317 to i32
+  %sext = shl i64 %indvars.iv317, 32
   %idxprom78 = ashr exact i64 %sext, 32
-  %cmp89305 = icmp sgt i32 %q.0.lcssa.ph, %110
-  br i1 %cmp89305, label %for.body91.preheader, label %for.body.backedge
+  %cmp89309 = icmp sgt i32 %q.0.lcssa.ph, %110
+  br i1 %cmp89309, label %for.body91.preheader, label %for.body.backedge
 
-for.body91.preheader:                             ; preds = %while.cond35, %if.end51
-  %idxprom78344 = phi i64 [ %idxprom78, %if.end51 ], [ 0, %while.cond35 ]
-  %p.1.lcssa341 = phi i32 [ %110, %if.end51 ], [ 0, %while.cond35 ]
-  %idxprom53342.in = add nsw i32 %q.0.lcssa.ph, -1
-  %idxprom53342 = sext i32 %idxprom53342.in to i64
-  %idxprom58343 = zext i32 %q.0.lcssa.ph to i64
-  %add83 = add nsw i32 %p.1.lcssa341, 1
+for.body91.preheader:                             ; preds = %while.body45, %if.end51
+  %idxprom78348 = phi i64 [ %idxprom78, %if.end51 ], [ 0, %while.body45 ]
+  %p.1.lcssa.ph345 = phi i32 [ %110, %if.end51 ], [ 0, %while.body45 ]
+  %idxprom53346.in = add nsw i32 %q.0.lcssa.ph, -1
+  %idxprom53346 = sext i32 %idxprom53346.in to i64
+  %idxprom58347 = zext i32 %q.0.lcssa.ph to i64
+  %add83 = add nsw i32 %p.1.lcssa.ph345, 1
   %idxprom84 = sext i32 %add83 to i64
   %arrayidx85 = getelementptr inbounds ptr, ptr %A, i64 %idxprom84
   %111 = load ptr, ptr %arrayidx85, align 8, !tbaa !9
-  %arrayidx87 = getelementptr inbounds double, ptr %111, i64 %idxprom78344
+  %arrayidx87 = getelementptr inbounds double, ptr %111, i64 %idxprom78348
   %112 = load double, ptr %arrayidx87, align 8, !tbaa !5
-  %arrayidx79 = getelementptr inbounds ptr, ptr %A, i64 %idxprom78344
+  %arrayidx79 = getelementptr inbounds ptr, ptr %A, i64 %idxprom78348
   %113 = load ptr, ptr %arrayidx79, align 8, !tbaa !9
-  %arrayidx81 = getelementptr inbounds double, ptr %113, i64 %idxprom78344
+  %arrayidx81 = getelementptr inbounds double, ptr %113, i64 %idxprom78348
   %114 = load double, ptr %arrayidx81, align 8, !tbaa !5
-  %arrayidx59 = getelementptr inbounds ptr, ptr %A, i64 %idxprom58343
+  %arrayidx59 = getelementptr inbounds ptr, ptr %A, i64 %idxprom58347
   %115 = load ptr, ptr %arrayidx59, align 8, !tbaa !9
-  %arrayidx61 = getelementptr inbounds double, ptr %115, i64 %idxprom58343
+  %arrayidx61 = getelementptr inbounds double, ptr %115, i64 %idxprom58347
   %116 = load double, ptr %arrayidx61, align 8, !tbaa !5
-  %arrayidx67 = getelementptr inbounds double, ptr %115, i64 %idxprom53342
+  %arrayidx67 = getelementptr inbounds double, ptr %115, i64 %idxprom53346
   %117 = load double, ptr %arrayidx67, align 8, !tbaa !5
   %mul68 = fmul double %117, %117
-  %arrayidx54 = getelementptr inbounds ptr, ptr %A, i64 %idxprom53342
+  %arrayidx54 = getelementptr inbounds ptr, ptr %A, i64 %idxprom53346
   %118 = load ptr, ptr %arrayidx54, align 8, !tbaa !9
-  %arrayidx57 = getelementptr inbounds double, ptr %118, i64 %idxprom53342
+  %arrayidx57 = getelementptr inbounds double, ptr %118, i64 %idxprom53346
   %119 = load double, ptr %arrayidx57, align 8, !tbaa !5
   %sub62 = fsub double %119, %116
   %div = fmul double %sub62, 5.000000e-01
@@ -593,31 +592,31 @@ for.body91.preheader:                             ; preds = %while.cond35, %if.e
   %div76 = fdiv double %mul68, %121
   %sub77 = fsub double %116, %div76
   %sub82 = fsub double %114, %sub77
-  %122 = add nsw i64 %idxprom78344, -1
+  %122 = add nsw i64 %idxprom78348, -1
   br label %for.body91
 
 for.body91:                                       ; preds = %for.body91.preheader, %for.inc179
-  %indvars.iv323 = phi i64 [ %idxprom78344, %for.body91.preheader ], [ %indvars.iv.next324.pre-phi, %for.inc179 ]
-  %indvars.iv316 = phi i64 [ %122, %for.body91.preheader ], [ %indvars.iv.next317, %for.inc179 ]
-  %x.0308 = phi double [ %sub82, %for.body91.preheader ], [ %x.1, %for.inc179 ]
-  %z.0307 = phi double [ %112, %for.body91.preheader ], [ %z.1, %for.inc179 ]
-  %smax362 = tail call i64 @llvm.smax.i64(i64 %idxprom78344, i64 %indvars.iv316)
-  %smax355 = tail call i64 @llvm.smax.i64(i64 %idxprom78344, i64 %indvars.iv316)
-  %smax = tail call i64 @llvm.smax.i64(i64 %idxprom78344, i64 %indvars.iv316)
+  %indvars.iv327 = phi i64 [ %idxprom78348, %for.body91.preheader ], [ %indvars.iv.next328.pre-phi, %for.inc179 ]
+  %indvars.iv320 = phi i64 [ %122, %for.body91.preheader ], [ %indvars.iv.next321, %for.inc179 ]
+  %x.0312 = phi double [ %sub82, %for.body91.preheader ], [ %x.1, %for.inc179 ]
+  %z.0311 = phi double [ %112, %for.body91.preheader ], [ %z.1, %for.inc179 ]
+  %smax367 = tail call i64 @llvm.smax.i64(i64 %idxprom78348, i64 %indvars.iv320)
+  %smax360 = tail call i64 @llvm.smax.i64(i64 %idxprom78348, i64 %indvars.iv320)
+  %smax = tail call i64 @llvm.smax.i64(i64 %idxprom78348, i64 %indvars.iv320)
   %123 = shl i64 %smax, 3
-  %smax320 = tail call i64 @llvm.smax.i64(i64 %indvars.iv316, i64 %idxprom78344)
-  %cmp.i290 = fcmp oeq double %z.0307, 0.000000e+00
+  %smax324 = tail call i64 @llvm.smax.i64(i64 %indvars.iv320, i64 %idxprom78348)
+  %cmp.i290 = fcmp oeq double %z.0311, 0.000000e+00
   br i1 %cmp.i290, label %Givens.exit, label %if.else.i
 
 if.else.i:                                        ; preds = %for.body91
-  %124 = tail call double @llvm.fabs.f64(double %z.0307)
-  %125 = tail call double @llvm.fabs.f64(double %x.0308)
+  %124 = tail call double @llvm.fabs.f64(double %z.0311)
+  %125 = tail call double @llvm.fabs.f64(double %x.0312)
   %cmp1.i = fcmp ogt double %124, %125
   br i1 %cmp1.i, label %if.then2.i, label %if.else4.i
 
 if.then2.i:                                       ; preds = %if.else.i
-  %fneg.i = fneg double %x.0308
-  %div.i = fdiv double %fneg.i, %z.0307
+  %fneg.i = fneg double %x.0312
+  %div.i = fdiv double %fneg.i, %z.0311
   %126 = tail call double @llvm.fmuladd.f64(double %div.i, double %div.i, double 1.000000e+00)
   %sqrt.i = tail call double @llvm.sqrt.f64(double %126)
   %div3.i = fdiv double 1.000000e+00, %sqrt.i
@@ -627,8 +626,8 @@ if.then2.i:                                       ; preds = %if.else.i
   br label %Givens.exit
 
 if.else4.i:                                       ; preds = %if.else.i
-  %fneg5.i = fneg double %z.0307
-  %div6.i = fdiv double %fneg5.i, %x.0308
+  %fneg5.i = fneg double %z.0311
+  %div6.i = fdiv double %fneg5.i, %x.0312
   %129 = tail call double @llvm.fmuladd.f64(double %div6.i, double %div6.i, double 1.000000e+00)
   %sqrt28.i = tail call double @llvm.sqrt.f64(double %129)
   %div9.i = fdiv double 1.000000e+00, %sqrt28.i
@@ -639,90 +638,90 @@ if.else4.i:                                       ; preds = %if.else.i
 
 Givens.exit:                                      ; preds = %for.body91, %if.then2.i, %if.else4.i
   %132 = phi <2 x double> [ %128, %if.then2.i ], [ %131, %if.else4.i ], [ <double 1.000000e+00, double 0.000000e+00>, %for.body91 ]
-  %133 = trunc i64 %indvars.iv323 to i32
+  %133 = trunc i64 %indvars.iv327 to i32
   %134 = add i32 %133, -1
-  %cond = tail call i32 @llvm.smax.i32(i32 %134, i32 %p.1.lcssa341)
-  %135 = add nsw i64 %indvars.iv323, 2
+  %cond = tail call i32 @llvm.smax.i32(i32 %134, i32 %p.1.lcssa.ph345)
+  %135 = add nsw i64 %indvars.iv327, 2
   %136 = trunc i64 %135 to i32
   %cond103 = tail call i32 @llvm.smin.i32(i32 %q.0.lcssa.ph, i32 %136)
-  %cmp105.not301 = icmp sgt i32 %cond, %cond103
-  br i1 %cmp105.not301, label %for.cond133.preheader.for.end162_crit_edge, label %for.body107.lr.ph
+  %cmp105.not305 = icmp sgt i32 %cond, %cond103
+  br i1 %cmp105.not305, label %for.cond133.preheader.for.end162_crit_edge, label %for.body107.lr.ph
 
 for.body107.lr.ph:                                ; preds = %Givens.exit
-  %arrayidx109 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv323
+  %arrayidx109 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv327
   %137 = load ptr, ptr %arrayidx109, align 8, !tbaa !9
-  %138 = add nsw i64 %indvars.iv323, 1
+  %138 = add nsw i64 %indvars.iv327, 1
   %arrayidx114 = getelementptr inbounds ptr, ptr %A, i64 %138
   %139 = load ptr, ptr %arrayidx114, align 8, !tbaa !9
   %140 = extractelement <2 x double> %132, i64 1
   %141 = fneg double %140
   %142 = sext i32 %cond103 to i64
-  %smax353 = tail call i64 @llvm.smax.i64(i64 %idxprom78344, i64 %142)
-  %smax354 = tail call i64 @llvm.smax.i64(i64 %smax353, i64 %indvars.iv316)
-  %143 = add i64 %smax354, 1
-  %144 = sub i64 %143, %smax355
+  %smax358 = tail call i64 @llvm.smax.i64(i64 %idxprom78348, i64 %142)
+  %smax359 = tail call i64 @llvm.smax.i64(i64 %smax358, i64 %indvars.iv320)
+  %143 = add i64 %smax359, 1
+  %144 = sub i64 %143, %smax360
   %min.iters.check = icmp ult i64 %144, 4
   br i1 %min.iters.check, label %for.body107.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %for.body107.lr.ph
   %scevgep = getelementptr i8, ptr %137, i64 %123
-  %scevgep346 = getelementptr i8, ptr %137, i64 8
-  %smax347 = tail call i64 @llvm.smax.i64(i64 %idxprom78344, i64 %142)
-  %smax348 = tail call i64 @llvm.smax.i64(i64 %smax347, i64 %indvars.iv316)
-  %145 = shl i64 %smax348, 3
-  %scevgep349 = getelementptr i8, ptr %scevgep346, i64 %145
-  %scevgep350 = getelementptr i8, ptr %139, i64 %123
-  %scevgep351 = getelementptr i8, ptr %139, i64 8
-  %scevgep352 = getelementptr i8, ptr %scevgep351, i64 %145
-  %bound0 = icmp ult ptr %scevgep, %scevgep352
-  %bound1 = icmp ult ptr %scevgep350, %scevgep349
+  %scevgep351 = getelementptr i8, ptr %137, i64 8
+  %smax352 = tail call i64 @llvm.smax.i64(i64 %idxprom78348, i64 %142)
+  %smax353 = tail call i64 @llvm.smax.i64(i64 %smax352, i64 %indvars.iv320)
+  %145 = shl i64 %smax353, 3
+  %scevgep354 = getelementptr i8, ptr %scevgep351, i64 %145
+  %scevgep355 = getelementptr i8, ptr %139, i64 %123
+  %scevgep356 = getelementptr i8, ptr %139, i64 8
+  %scevgep357 = getelementptr i8, ptr %scevgep356, i64 %145
+  %bound0 = icmp ult ptr %scevgep, %scevgep357
+  %bound1 = icmp ult ptr %scevgep355, %scevgep354
   %found.conflict = and i1 %bound0, %bound1
   br i1 %found.conflict, label %for.body107.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %vector.memcheck
   %n.vec = and i64 %144, -2
-  %ind.end = add i64 %smax320, %n.vec
+  %ind.end = add i64 %smax324, %n.vec
   %broadcast.splatinsert = insertelement <2 x double> poison, double %141, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
-  %broadcast.splat358 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> zeroinitializer
-  %broadcast.splat360 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> <i32 1, i32 1>
+  %broadcast.splat363 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> zeroinitializer
+  %broadcast.splat365 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> <i32 1, i32 1>
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %offset.idx = add i64 %smax320, %index
+  %offset.idx = add i64 %smax324, %index
   %146 = getelementptr inbounds double, ptr %137, i64 %offset.idx
-  %wide.load = load <2 x double>, ptr %146, align 8, !tbaa !5, !alias.scope !16, !noalias !19
+  %wide.load = load <2 x double>, ptr %146, align 8, !tbaa !5, !alias.scope !15, !noalias !18
   %147 = getelementptr inbounds double, ptr %139, i64 %offset.idx
-  %wide.load356 = load <2 x double>, ptr %147, align 8, !tbaa !5, !alias.scope !19
-  %148 = fmul <2 x double> %wide.load356, %broadcast.splat
-  %149 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %broadcast.splat358, <2 x double> %wide.load, <2 x double> %148)
-  store <2 x double> %149, ptr %146, align 8, !tbaa !5, !alias.scope !16, !noalias !19
-  %150 = fmul <2 x double> %broadcast.splat358, %wide.load356
-  %151 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %broadcast.splat360, <2 x double> %wide.load, <2 x double> %150)
-  store <2 x double> %151, ptr %147, align 8, !tbaa !5, !alias.scope !19
+  %wide.load361 = load <2 x double>, ptr %147, align 8, !tbaa !5, !alias.scope !18
+  %148 = fmul <2 x double> %wide.load361, %broadcast.splat
+  %149 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %broadcast.splat363, <2 x double> %wide.load, <2 x double> %148)
+  store <2 x double> %149, ptr %146, align 8, !tbaa !5, !alias.scope !15, !noalias !18
+  %150 = fmul <2 x double> %broadcast.splat363, %wide.load361
+  %151 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %broadcast.splat365, <2 x double> %wide.load, <2 x double> %150)
+  store <2 x double> %151, ptr %147, align 8, !tbaa !5, !alias.scope !18
   %index.next = add nuw i64 %index, 2
   %152 = icmp eq i64 %index.next, %n.vec
-  br i1 %152, label %middle.block, label %vector.body, !llvm.loop !21
+  br i1 %152, label %middle.block, label %vector.body, !llvm.loop !20
 
 middle.block:                                     ; preds = %vector.body
   %cmp.n = icmp eq i64 %144, %n.vec
   br i1 %cmp.n, label %for.cond133.preheader, label %for.body107.preheader
 
 for.body107.preheader:                            ; preds = %vector.memcheck, %for.body107.lr.ph, %middle.block
-  %indvars.iv318.ph = phi i64 [ %smax320, %vector.memcheck ], [ %smax320, %for.body107.lr.ph ], [ %ind.end, %middle.block ]
+  %indvars.iv322.ph = phi i64 [ %smax324, %vector.memcheck ], [ %smax324, %for.body107.lr.ph ], [ %ind.end, %middle.block ]
   %153 = extractelement <2 x double> %132, i64 0
   br label %for.body107
 
 for.cond133.preheader:                            ; preds = %for.body107, %middle.block
-  br i1 %cmp105.not301, label %for.cond133.preheader.for.end162_crit_edge, label %for.body136.lr.ph
+  br i1 %cmp105.not305, label %for.cond133.preheader.for.end162_crit_edge, label %for.body136.lr.ph
 
 for.cond133.preheader.for.end162_crit_edge:       ; preds = %Givens.exit, %for.cond133.preheader
-  %.pre331 = add nsw i64 %indvars.iv323, 1
+  %.pre335 = add nsw i64 %indvars.iv327, 1
   br label %for.end162
 
 for.body136.lr.ph:                                ; preds = %for.cond133.preheader
-  %154 = add nsw i64 %indvars.iv323, 1
+  %154 = add nsw i64 %indvars.iv327, 1
   %155 = fneg double %140
   %156 = sext i32 %cond103 to i64
   %157 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> <i32 poison, i32 0>
@@ -732,9 +731,9 @@ for.body136.lr.ph:                                ; preds = %for.cond133.prehead
   br i1 %lcmp.mod.not, label %for.body136.prol.loopexit, label %for.body136.prol
 
 for.body136.prol:                                 ; preds = %for.body136.lr.ph
-  %arrayidx138.prol = getelementptr inbounds ptr, ptr %A, i64 %smax320
+  %arrayidx138.prol = getelementptr inbounds ptr, ptr %A, i64 %smax324
   %159 = load ptr, ptr %arrayidx138.prol, align 8, !tbaa !9
-  %arrayidx140.prol = getelementptr inbounds double, ptr %159, i64 %indvars.iv323
+  %arrayidx140.prol = getelementptr inbounds double, ptr %159, i64 %indvars.iv327
   %160 = load double, ptr %arrayidx140.prol, align 8, !tbaa !5
   %arrayidx145.prol = getelementptr inbounds double, ptr %159, i64 %154
   %161 = load double, ptr %arrayidx145.prol, align 8, !tbaa !5
@@ -745,19 +744,19 @@ for.body136.prol:                                 ; preds = %for.body136.lr.ph
   %166 = shufflevector <2 x double> %165, <2 x double> poison, <2 x i32> zeroinitializer
   %167 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %132, <2 x double> %166, <2 x double> %164)
   store <2 x double> %167, ptr %arrayidx140.prol, align 8, !tbaa !5
-  %indvars.iv.next322.prol = add nsw i64 %smax320, 1
+  %indvars.iv.next326.prol = add nsw i64 %smax324, 1
   br label %for.body136.prol.loopexit
 
 for.body136.prol.loopexit:                        ; preds = %for.body136.prol, %for.body136.lr.ph
-  %indvars.iv321.unr = phi i64 [ %smax320, %for.body136.lr.ph ], [ %indvars.iv.next322.prol, %for.body136.prol ]
-  %168 = icmp eq i64 %smax354, %smax362
+  %indvars.iv325.unr = phi i64 [ %smax324, %for.body136.lr.ph ], [ %indvars.iv.next326.prol, %for.body136.prol ]
+  %168 = icmp eq i64 %smax359, %smax367
   br i1 %168, label %for.end162, label %for.body136
 
 for.body107:                                      ; preds = %for.body107.preheader, %for.body107
-  %indvars.iv318 = phi i64 [ %indvars.iv.next319, %for.body107 ], [ %indvars.iv318.ph, %for.body107.preheader ]
-  %arrayidx111 = getelementptr inbounds double, ptr %137, i64 %indvars.iv318
+  %indvars.iv322 = phi i64 [ %indvars.iv.next323, %for.body107 ], [ %indvars.iv322.ph, %for.body107.preheader ]
+  %arrayidx111 = getelementptr inbounds double, ptr %137, i64 %indvars.iv322
   %169 = load double, ptr %arrayidx111, align 8, !tbaa !5
-  %arrayidx116 = getelementptr inbounds double, ptr %139, i64 %indvars.iv318
+  %arrayidx116 = getelementptr inbounds double, ptr %139, i64 %indvars.iv322
   %170 = load double, ptr %arrayidx116, align 8, !tbaa !5
   %neg = fmul double %170, %141
   %171 = tail call double @llvm.fmuladd.f64(double %153, double %169, double %neg)
@@ -765,15 +764,15 @@ for.body107:                                      ; preds = %for.body107.prehead
   %mul124 = fmul double %153, %170
   %172 = tail call double @llvm.fmuladd.f64(double %140, double %169, double %mul124)
   store double %172, ptr %arrayidx116, align 8, !tbaa !5
-  %indvars.iv.next319 = add nsw i64 %indvars.iv318, 1
-  %cmp105.not.not = icmp slt i64 %indvars.iv318, %142
-  br i1 %cmp105.not.not, label %for.body107, label %for.cond133.preheader, !llvm.loop !24
+  %indvars.iv.next323 = add nsw i64 %indvars.iv322, 1
+  %cmp105.not.not = icmp slt i64 %indvars.iv322, %142
+  br i1 %cmp105.not.not, label %for.body107, label %for.cond133.preheader, !llvm.loop !23
 
 for.body136:                                      ; preds = %for.body136.prol.loopexit, %for.body136
-  %indvars.iv321 = phi i64 [ %indvars.iv.next322.1, %for.body136 ], [ %indvars.iv321.unr, %for.body136.prol.loopexit ]
-  %arrayidx138 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv321
+  %indvars.iv325 = phi i64 [ %indvars.iv.next326.1, %for.body136 ], [ %indvars.iv325.unr, %for.body136.prol.loopexit ]
+  %arrayidx138 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv325
   %173 = load ptr, ptr %arrayidx138, align 8, !tbaa !9
-  %arrayidx140 = getelementptr inbounds double, ptr %173, i64 %indvars.iv323
+  %arrayidx140 = getelementptr inbounds double, ptr %173, i64 %indvars.iv327
   %174 = load double, ptr %arrayidx140, align 8, !tbaa !5
   %arrayidx145 = getelementptr inbounds double, ptr %173, i64 %154
   %175 = load double, ptr %arrayidx145, align 8, !tbaa !5
@@ -784,10 +783,10 @@ for.body136:                                      ; preds = %for.body136.prol.lo
   %180 = shufflevector <2 x double> %179, <2 x double> poison, <2 x i32> zeroinitializer
   %181 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %132, <2 x double> %180, <2 x double> %178)
   store <2 x double> %181, ptr %arrayidx140, align 8, !tbaa !5
-  %indvars.iv.next322 = add nsw i64 %indvars.iv321, 1
-  %arrayidx138.1 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv.next322
+  %indvars.iv.next326 = add nsw i64 %indvars.iv325, 1
+  %arrayidx138.1 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv.next326
   %182 = load ptr, ptr %arrayidx138.1, align 8, !tbaa !9
-  %arrayidx140.1 = getelementptr inbounds double, ptr %182, i64 %indvars.iv323
+  %arrayidx140.1 = getelementptr inbounds double, ptr %182, i64 %indvars.iv327
   %183 = load double, ptr %arrayidx140.1, align 8, !tbaa !5
   %arrayidx145.1 = getelementptr inbounds double, ptr %182, i64 %154
   %184 = load double, ptr %arrayidx145.1, align 8, !tbaa !5
@@ -798,12 +797,12 @@ for.body136:                                      ; preds = %for.body136.prol.lo
   %189 = shufflevector <2 x double> %188, <2 x double> poison, <2 x i32> zeroinitializer
   %190 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %132, <2 x double> %189, <2 x double> %187)
   store <2 x double> %190, ptr %arrayidx140.1, align 8, !tbaa !5
-  %indvars.iv.next322.1 = add nsw i64 %indvars.iv321, 2
-  %cmp134.not.not.1 = icmp slt i64 %indvars.iv.next322, %156
-  br i1 %cmp134.not.not.1, label %for.body136, label %for.end162, !llvm.loop !25
+  %indvars.iv.next326.1 = add nsw i64 %indvars.iv325, 2
+  %cmp134.not.not.1 = icmp slt i64 %indvars.iv.next326, %156
+  br i1 %cmp134.not.not.1, label %for.body136, label %for.end162, !llvm.loop !24
 
 for.end162:                                       ; preds = %for.body136.prol.loopexit, %for.body136, %for.cond133.preheader.for.end162_crit_edge
-  %indvars.iv.next324.pre-phi = phi i64 [ %.pre331, %for.cond133.preheader.for.end162_crit_edge ], [ %154, %for.body136 ], [ %154, %for.body136.prol.loopexit ]
+  %indvars.iv.next328.pre-phi = phi i64 [ %.pre335, %for.cond133.preheader.for.end162_crit_edge ], [ %154, %for.body136 ], [ %154, %for.body136.prol.loopexit ]
   %191 = extractelement <2 x double> %132, i64 0
   %192 = extractelement <2 x double> %132, i64 1
   br label %for.body.i
@@ -812,9 +811,9 @@ for.body.i:                                       ; preds = %for.body.i, %for.en
   %indvars.iv.i = phi i64 [ 0, %for.end162 ], [ %indvars.iv.next.i, %for.body.i ]
   %arrayidx.i = getelementptr inbounds ptr, ptr %U, i64 %indvars.iv.i
   %193 = load ptr, ptr %arrayidx.i, align 8, !tbaa !9
-  %arrayidx2.i = getelementptr inbounds double, ptr %193, i64 %indvars.iv323
+  %arrayidx2.i = getelementptr inbounds double, ptr %193, i64 %indvars.iv327
   %194 = load double, ptr %arrayidx2.i, align 8, !tbaa !5
-  %arrayidx6.i = getelementptr inbounds double, ptr %193, i64 %indvars.iv.next324.pre-phi
+  %arrayidx6.i = getelementptr inbounds double, ptr %193, i64 %indvars.iv.next328.pre-phi
   %195 = load double, ptr %arrayidx6.i, align 8, !tbaa !5
   %196 = fneg double %195
   %neg.i = fmul double %192, %196
@@ -828,39 +827,39 @@ for.body.i:                                       ; preds = %for.body.i, %for.en
   br i1 %exitcond.not.i, label %ApplyRGivens.exit, label %for.body.i, !llvm.loop !11
 
 ApplyRGivens.exit:                                ; preds = %for.body.i
-  %cmp165 = icmp slt i64 %indvars.iv323, %idxprom53342
+  %cmp165 = icmp slt i64 %indvars.iv327, %idxprom53346
   br i1 %cmp165, label %if.then167, label %for.inc179
 
 if.then167:                                       ; preds = %ApplyRGivens.exit
-  %arrayidx170 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv.next324.pre-phi
+  %arrayidx170 = getelementptr inbounds ptr, ptr %A, i64 %indvars.iv.next328.pre-phi
   %199 = load ptr, ptr %arrayidx170, align 8, !tbaa !9
-  %arrayidx172 = getelementptr inbounds double, ptr %199, i64 %indvars.iv323
+  %arrayidx172 = getelementptr inbounds double, ptr %199, i64 %indvars.iv327
   %200 = load double, ptr %arrayidx172, align 8, !tbaa !5
   %arrayidx175 = getelementptr inbounds ptr, ptr %A, i64 %135
   %201 = load ptr, ptr %arrayidx175, align 8, !tbaa !9
-  %arrayidx177 = getelementptr inbounds double, ptr %201, i64 %indvars.iv323
+  %arrayidx177 = getelementptr inbounds double, ptr %201, i64 %indvars.iv327
   %202 = load double, ptr %arrayidx177, align 8, !tbaa !5
   br label %for.inc179
 
 for.inc179:                                       ; preds = %ApplyRGivens.exit, %if.then167
-  %z.1 = phi double [ %202, %if.then167 ], [ %z.0307, %ApplyRGivens.exit ]
-  %x.1 = phi double [ %200, %if.then167 ], [ %x.0308, %ApplyRGivens.exit ]
-  %indvars.iv.next317 = add nsw i64 %indvars.iv316, 1
-  %exitcond330.not = icmp eq i64 %indvars.iv.next324.pre-phi, %idxprom58343
-  br i1 %exitcond330.not, label %for.body.backedge, label %for.body91, !llvm.loop !26
+  %z.1 = phi double [ %202, %if.then167 ], [ %z.0311, %ApplyRGivens.exit ]
+  %x.1 = phi double [ %200, %if.then167 ], [ %x.0312, %ApplyRGivens.exit ]
+  %indvars.iv.next321 = add nsw i64 %indvars.iv320, 1
+  %exitcond334.not = icmp eq i64 %indvars.iv.next328.pre-phi, %idxprom58347
+  br i1 %exitcond334.not, label %for.body.backedge, label %for.body91, !llvm.loop !25
 
-while.end182:                                     ; preds = %while.cond25.49
+while.end182:                                     ; preds = %while.body32.48
   ret ptr undef
 }
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.sqrt.f64(double) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.sqrt.f64(double) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #4
@@ -892,15 +891,14 @@ attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memo
 !12 = !{!"llvm.loop.mustprogress"}
 !13 = distinct !{!13, !12}
 !14 = distinct !{!14, !12}
-!15 = distinct !{!15, !12}
-!16 = !{!17}
-!17 = distinct !{!17, !18}
-!18 = distinct !{!18, !"LVerDomain"}
-!19 = !{!20}
-!20 = distinct !{!20, !18}
-!21 = distinct !{!21, !12, !22, !23}
-!22 = !{!"llvm.loop.isvectorized", i32 1}
-!23 = !{!"llvm.loop.unroll.runtime.disable"}
-!24 = distinct !{!24, !12, !22}
+!15 = !{!16}
+!16 = distinct !{!16, !17}
+!17 = distinct !{!17, !"LVerDomain"}
+!18 = !{!19}
+!19 = distinct !{!19, !17}
+!20 = distinct !{!20, !12, !21, !22}
+!21 = !{!"llvm.loop.isvectorized", i32 1}
+!22 = !{!"llvm.loop.unroll.runtime.disable"}
+!23 = distinct !{!23, !12, !21}
+!24 = distinct !{!24, !12}
 !25 = distinct !{!25, !12}
-!26 = distinct !{!26, !12}

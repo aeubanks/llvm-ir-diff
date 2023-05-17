@@ -137,8 +137,8 @@ while.end:                                        ; preds = %if.end11
 if.else19:                                        ; preds = %entry
   %7 = load i64, ptr %v2, align 8
   %8 = load i64, ptr %left, align 8
-  %.not = icmp eq i64 %7, %8
-  br i1 %.not, label %if.end25, label %if.end25.sink.split
+  %9 = icmp eq i64 %7, %8
+  br i1 %9, label %if.end25, label %if.end25.sink.split
 
 if.end25.sink.split:                              ; preds = %while.end, %if.else19
   %.sink = phi i64 [ %8, %if.else19 ], [ %6, %while.end ]
@@ -146,9 +146,9 @@ if.end25.sink.split:                              ; preds = %while.end, %if.else
   br label %if.end25
 
 if.end25:                                         ; preds = %if.end25.sink.split, %if.else19
-  %9 = load ptr, ptr %P, align 8, !tbaa !5
+  %10 = load ptr, ptr %P, align 8, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %P) #7
-  ret ptr %9
+  ret ptr %10
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -170,17 +170,23 @@ entry:
 tailrecurse.us.peel:                              ; preds = %entry
   %1 = load i64, ptr %act, align 8
   %2 = load i64, ptr %n, align 8
-  %.not.us.peel = icmp eq i64 %1, %2
+  %3 = icmp eq i64 %1, %2
+  br i1 %3, label %if.then.us.peel, label %if.end.us.peel
+
+if.then.us.peel:                                  ; preds = %tailrecurse.us.peel
   %v2.us.peel = getelementptr inbounds %struct.DCEL_segment, ptr %act, i64 0, i32 1
-  %p.sroa.0.0.in.us.peel = select i1 %.not.us.peel, ptr %v2.us.peel, ptr %act
-  %p.sroa.0.0.us.peel = load i64, ptr %p.sroa.0.0.in.us.peel, align 8
+  %p.sroa.0.0.copyload.us.peel = load i64, ptr %v2.us.peel, align 8, !tbaa.struct !15
+  br label %if.end.us.peel
+
+if.end.us.peel:                                   ; preds = %if.then.us.peel, %tailrecurse.us.peel
+  %p.sroa.0.0.us.peel = phi i64 [ %p.sroa.0.0.copyload.us.peel, %if.then.us.peel ], [ %1, %tailrecurse.us.peel ]
   %v24.us.peel = getelementptr inbounds %struct.DCEL_segment, ptr %n, i64 0, i32 1
-  %3 = load i64, ptr %v24.us.peel, align 8
+  %4 = load i64, ptr %v24.us.peel, align 8
   %p1.sroa.0.0.extract.trunc.i.i.us.peel = trunc i64 %2 to i32
   %p1.sroa.2.0.extract.shift.i.i.us.peel = lshr i64 %2, 32
   %p1.sroa.2.0.extract.trunc.i.i.us.peel = trunc i64 %p1.sroa.2.0.extract.shift.i.i.us.peel to i32
-  %p2.sroa.0.0.extract.trunc.i.i.us.peel = trunc i64 %3 to i32
-  %p2.sroa.3.0.extract.shift.i.i.us.peel = lshr i64 %3, 32
+  %p2.sroa.0.0.extract.trunc.i.i.us.peel = trunc i64 %4 to i32
+  %p2.sroa.3.0.extract.shift.i.i.us.peel = lshr i64 %4, 32
   %p2.sroa.3.0.extract.trunc.i.i.us.peel = trunc i64 %p2.sroa.3.0.extract.shift.i.i.us.peel to i32
   %p3.sroa.0.0.extract.trunc.i.i.us.peel = trunc i64 %p.sroa.0.0.us.peel to i32
   %p3.sroa.3.0.extract.shift.i.i.us.peel = lshr i64 %p.sroa.0.0.us.peel, 32
@@ -194,18 +200,18 @@ tailrecurse.us.peel:                              ; preds = %entry
   %sub7.i.i.us.peel = add i32 %mul6.neg.i.i.us.peel, %mul10.i.i.us.peel
   %add.i.i.us.peel = sub i32 %sub7.i.i.us.peel, %mul13.i.i.us.peel
   %sub14.i.i.us.peel = add i32 %add.i.i.us.peel, %mul.i.i.us.peel
-  %cmp1.i.us.peel = icmp sgt i32 %sub14.i.i.us.peel, -1
-  br i1 %cmp1.i.us.peel, label %if.end51, label %if.then7.us.peel
+  %cmp1.i.us.peel = icmp slt i32 %sub14.i.i.us.peel, 0
+  br i1 %cmp1.i.us.peel, label %if.then7.us.peel, label %if.end51
 
-if.then7.us.peel:                                 ; preds = %tailrecurse.us.peel
+if.then7.us.peel:                                 ; preds = %if.end.us.peel
   %call8.us.peel = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   store i64 %p.sroa.0.0.us.peel, ptr %call8.us.peel, align 8, !tbaa.struct !15
   %v210.us.peel = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us.peel, i64 0, i32 1
-  store i64 %3, ptr %v210.us.peel, align 8
+  store i64 %4, ptr %v210.us.peel, align 8
   %p1.peel = getelementptr inbounds %struct.DCEL_segment, ptr %act, i64 0, i32 2
-  %4 = load ptr, ptr %p1.peel, align 8, !tbaa !17
+  %5 = load ptr, ptr %p1.peel, align 8, !tbaa !17
   %p113.peel = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us.peel, i64 0, i32 2
-  store ptr %4, ptr %p113.peel, align 8, !tbaa !17
+  store ptr %5, ptr %p113.peel, align 8, !tbaa !17
   %p2.peel = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us.peel, i64 0, i32 3
   store ptr %n, ptr %p2.peel, align 8, !tbaa !18
   %q1.peel = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us.peel, i64 0, i32 4
@@ -214,32 +220,38 @@ if.then7.us.peel:                                 ; preds = %tailrecurse.us.peel
   store ptr %first, ptr %q2.peel, align 8, !tbaa !19
   %q214.peel = getelementptr inbounds %struct.DCEL_segment, ptr %n, i64 0, i32 5
   store ptr %call8.us.peel, ptr %q214.peel, align 8, !tbaa !19
-  %5 = load i64, ptr %4, align 8
-  %.not111.peel = icmp eq i64 %5, %p.sroa.0.0.us.peel
-  %q121.peel = getelementptr inbounds %struct.DCEL_segment, ptr %4, i64 0, i32 4
-  %q224.peel = getelementptr inbounds %struct.DCEL_segment, ptr %4, i64 0, i32 5
-  %q121.peel.sink = select i1 %.not111.peel, ptr %q121.peel, ptr %q224.peel
+  %6 = load i64, ptr %5, align 8
+  %7 = icmp eq i64 %6, %p.sroa.0.0.us.peel
+  %q121.peel = getelementptr inbounds %struct.DCEL_segment, ptr %5, i64 0, i32 4
+  %q224.peel = getelementptr inbounds %struct.DCEL_segment, ptr %5, i64 0, i32 5
+  %q121.peel.sink = select i1 %7, ptr %q121.peel, ptr %q224.peel
   store ptr %call8.us.peel, ptr %q121.peel.sink, align 8, !tbaa !5
   store ptr %call8.us.peel, ptr %p1.peel, align 8, !tbaa !17
   br label %tailrecurse.us
 
 tailrecurse.us:                                   ; preds = %if.then7.us.peel, %if.then7.us
   %storemerge = phi ptr [ %call8.us.peel, %if.then7.us.peel ], [ %call8.us, %if.then7.us ]
-  %act.tr.ph = phi ptr [ %4, %if.then7.us.peel ], [ %9, %if.then7.us ]
+  %act.tr.ph = phi ptr [ %5, %if.then7.us.peel ], [ %13, %if.then7.us ]
   store ptr %storemerge, ptr %p227, align 8, !tbaa !18
-  %6 = load i64, ptr %act.tr.ph, align 8
-  %7 = load i64, ptr %storemerge, align 8
-  %.not.us = icmp eq i64 %6, %7
+  %8 = load i64, ptr %act.tr.ph, align 8
+  %9 = load i64, ptr %storemerge, align 8
+  %10 = icmp eq i64 %8, %9
+  br i1 %10, label %if.then.us, label %if.end.us
+
+if.then.us:                                       ; preds = %tailrecurse.us
   %v2.us = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr.ph, i64 0, i32 1
-  %p.sroa.0.0.in.us = select i1 %.not.us, ptr %v2.us, ptr %act.tr.ph
-  %p.sroa.0.0.us = load i64, ptr %p.sroa.0.0.in.us, align 8
+  %p.sroa.0.0.copyload.us = load i64, ptr %v2.us, align 8, !tbaa.struct !15
+  br label %if.end.us
+
+if.end.us:                                        ; preds = %if.then.us, %tailrecurse.us
+  %p.sroa.0.0.us = phi i64 [ %p.sroa.0.0.copyload.us, %if.then.us ], [ %8, %tailrecurse.us ]
   %v24.us = getelementptr inbounds %struct.DCEL_segment, ptr %storemerge, i64 0, i32 1
-  %8 = load i64, ptr %v24.us, align 8
-  %p1.sroa.0.0.extract.trunc.i.i.us = trunc i64 %7 to i32
-  %p1.sroa.2.0.extract.shift.i.i.us = lshr i64 %7, 32
+  %11 = load i64, ptr %v24.us, align 8
+  %p1.sroa.0.0.extract.trunc.i.i.us = trunc i64 %9 to i32
+  %p1.sroa.2.0.extract.shift.i.i.us = lshr i64 %9, 32
   %p1.sroa.2.0.extract.trunc.i.i.us = trunc i64 %p1.sroa.2.0.extract.shift.i.i.us to i32
-  %p2.sroa.0.0.extract.trunc.i.i.us = trunc i64 %8 to i32
-  %p2.sroa.3.0.extract.shift.i.i.us = lshr i64 %8, 32
+  %p2.sroa.0.0.extract.trunc.i.i.us = trunc i64 %11 to i32
+  %p2.sroa.3.0.extract.shift.i.i.us = lshr i64 %11, 32
   %p2.sroa.3.0.extract.trunc.i.i.us = trunc i64 %p2.sroa.3.0.extract.shift.i.i.us to i32
   %p3.sroa.0.0.extract.trunc.i.i.us = trunc i64 %p.sroa.0.0.us to i32
   %p3.sroa.3.0.extract.shift.i.i.us = lshr i64 %p.sroa.0.0.us, 32
@@ -253,18 +265,19 @@ tailrecurse.us:                                   ; preds = %if.then7.us.peel, %
   %sub7.i.i.us = add i32 %mul6.neg.i.i.us, %mul10.i.i.us
   %add.i.i.us = sub i32 %sub7.i.i.us, %mul13.i.i.us
   %sub14.i.i.us = add i32 %add.i.i.us, %mul.i.i.us
-  %cmp1.i.us = icmp sgt i32 %sub14.i.i.us, -1
-  br i1 %cmp1.i.us, label %if.end51, label %if.then7.us
+  %cmp1.i.us = icmp slt i32 %sub14.i.i.us, 0
+  br i1 %cmp1.i.us, label %if.then7.us, label %if.end51
 
-if.then7.us:                                      ; preds = %tailrecurse.us
+if.then7.us:                                      ; preds = %if.end.us
   %call8.us = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   store i64 %p.sroa.0.0.us, ptr %call8.us, align 8, !tbaa.struct !15
   %v210.us = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us, i64 0, i32 1
-  store i64 %8, ptr %v210.us, align 8
+  %12 = load i64, ptr %v24.us, align 8
+  store i64 %12, ptr %v210.us, align 8
   %p1 = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr.ph, i64 0, i32 2
-  %9 = load ptr, ptr %p1, align 8, !tbaa !17
+  %13 = load ptr, ptr %p1, align 8, !tbaa !17
   %p113 = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us, i64 0, i32 2
-  store ptr %9, ptr %p113, align 8, !tbaa !17
+  store ptr %13, ptr %p113, align 8, !tbaa !17
   %p2 = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us, i64 0, i32 3
   store ptr %storemerge, ptr %p2, align 8, !tbaa !18
   %q1 = getelementptr inbounds %struct.DCEL_segment, ptr %call8.us, i64 0, i32 4
@@ -273,31 +286,37 @@ if.then7.us:                                      ; preds = %tailrecurse.us
   store ptr %first, ptr %q2, align 8, !tbaa !19
   %q214 = getelementptr inbounds %struct.DCEL_segment, ptr %storemerge, i64 0, i32 5
   store ptr %call8.us, ptr %q214, align 8, !tbaa !19
-  %10 = load i64, ptr %9, align 8
-  %.not111 = icmp eq i64 %10, %p.sroa.0.0.us
-  %q224 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 5
-  %q121 = getelementptr inbounds %struct.DCEL_segment, ptr %9, i64 0, i32 4
-  %q224.sink = select i1 %.not111, ptr %q121, ptr %q224
+  %14 = load i64, ptr %13, align 8
+  %15 = icmp eq i64 %14, %p.sroa.0.0.us
+  %q224 = getelementptr inbounds %struct.DCEL_segment, ptr %13, i64 0, i32 5
+  %q121 = getelementptr inbounds %struct.DCEL_segment, ptr %13, i64 0, i32 4
+  %q224.sink = select i1 %15, ptr %q121, ptr %q224
   store ptr %call8.us, ptr %q224.sink, align 8, !tbaa !5
   store ptr %call8.us, ptr %p1, align 8, !tbaa !17
   br label %tailrecurse.us, !llvm.loop !20
 
 tailrecurse:                                      ; preds = %entry, %if.then7
   %n.tr = phi ptr [ %call8, %if.then7 ], [ %n, %entry ]
-  %act.tr = phi ptr [ %14, %if.then7 ], [ %act, %entry ]
-  %11 = load i64, ptr %act.tr, align 8
-  %12 = load i64, ptr %n.tr, align 8
-  %.not = icmp eq i64 %11, %12
+  %act.tr = phi ptr [ %21, %if.then7 ], [ %act, %entry ]
+  %16 = load i64, ptr %act.tr, align 8
+  %17 = load i64, ptr %n.tr, align 8
+  %18 = icmp eq i64 %16, %17
+  br i1 %18, label %if.then, label %if.end
+
+if.then:                                          ; preds = %tailrecurse
   %v2 = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr, i64 0, i32 1
-  %p.sroa.0.0.in = select i1 %.not, ptr %v2, ptr %act.tr
-  %p.sroa.0.0 = load i64, ptr %p.sroa.0.0.in, align 8
+  %p.sroa.0.0.copyload = load i64, ptr %v2, align 8, !tbaa.struct !15
+  br label %if.end
+
+if.end:                                           ; preds = %tailrecurse, %if.then
+  %p.sroa.0.0 = phi i64 [ %p.sroa.0.0.copyload, %if.then ], [ %16, %tailrecurse ]
   %v24 = getelementptr inbounds %struct.DCEL_segment, ptr %n.tr, i64 0, i32 1
-  %13 = load i64, ptr %v24, align 8
-  %p1.sroa.0.0.extract.trunc.i.i = trunc i64 %12 to i32
-  %p1.sroa.2.0.extract.shift.i.i = lshr i64 %12, 32
+  %19 = load i64, ptr %v24, align 8
+  %p1.sroa.0.0.extract.trunc.i.i = trunc i64 %17 to i32
+  %p1.sroa.2.0.extract.shift.i.i = lshr i64 %17, 32
   %p1.sroa.2.0.extract.trunc.i.i = trunc i64 %p1.sroa.2.0.extract.shift.i.i to i32
-  %p2.sroa.0.0.extract.trunc.i.i = trunc i64 %13 to i32
-  %p2.sroa.3.0.extract.shift.i.i = lshr i64 %13, 32
+  %p2.sroa.0.0.extract.trunc.i.i = trunc i64 %19 to i32
+  %p2.sroa.3.0.extract.shift.i.i = lshr i64 %19, 32
   %p2.sroa.3.0.extract.trunc.i.i = trunc i64 %p2.sroa.3.0.extract.shift.i.i to i32
   %p3.sroa.0.0.extract.trunc.i.i = trunc i64 %p.sroa.0.0 to i32
   %p3.sroa.3.0.extract.shift.i.i = lshr i64 %p.sroa.0.0, 32
@@ -311,18 +330,19 @@ tailrecurse:                                      ; preds = %entry, %if.then7
   %sub7.i.i = add i32 %mul6.neg.i.i, %mul10.i.i
   %add.i.i = sub i32 %sub7.i.i, %mul13.i.i
   %sub14.i.i = add i32 %add.i.i, %mul.i.i
-  %cmp3.i = icmp slt i32 %sub14.i.i, 1
-  br i1 %cmp3.i, label %if.end51, label %if.then7
+  %cmp3.i = icmp sgt i32 %sub14.i.i, 0
+  br i1 %cmp3.i, label %if.then7, label %if.end51
 
-if.then7:                                         ; preds = %tailrecurse
+if.then7:                                         ; preds = %if.end
   %call8 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   store i64 %p.sroa.0.0, ptr %call8, align 8, !tbaa.struct !15
   %v210 = getelementptr inbounds %struct.DCEL_segment, ptr %call8, i64 0, i32 1
-  store i64 %13, ptr %v210, align 8
+  %20 = load i64, ptr %v24, align 8
+  store i64 %20, ptr %v210, align 8
   %q130 = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr, i64 0, i32 4
-  %14 = load ptr, ptr %q130, align 8, !tbaa !9
+  %21 = load ptr, ptr %q130, align 8, !tbaa !9
   %q131 = getelementptr inbounds %struct.DCEL_segment, ptr %call8, i64 0, i32 4
-  store ptr %14, ptr %q131, align 8, !tbaa !9
+  store ptr %21, ptr %q131, align 8, !tbaa !9
   %q232 = getelementptr inbounds %struct.DCEL_segment, ptr %call8, i64 0, i32 5
   store ptr %n.tr, ptr %q232, align 8, !tbaa !19
   %p133 = getelementptr inbounds %struct.DCEL_segment, ptr %call8, i64 0, i32 2
@@ -331,17 +351,17 @@ if.then7:                                         ; preds = %tailrecurse
   store ptr %first, ptr %p234, align 8, !tbaa !18
   %p235 = getelementptr inbounds %struct.DCEL_segment, ptr %n.tr, i64 0, i32 3
   store ptr %call8, ptr %p235, align 8, !tbaa !18
-  %15 = load i64, ptr %14, align 8
-  %.not110 = icmp eq i64 %15, %p.sroa.0.0
-  %p245 = getelementptr inbounds %struct.DCEL_segment, ptr %14, i64 0, i32 3
-  %p142 = getelementptr inbounds %struct.DCEL_segment, ptr %14, i64 0, i32 2
-  %p245.sink = select i1 %.not110, ptr %p142, ptr %p245
+  %22 = load i64, ptr %21, align 8
+  %23 = icmp eq i64 %22, %p.sroa.0.0
+  %p245 = getelementptr inbounds %struct.DCEL_segment, ptr %21, i64 0, i32 3
+  %p142 = getelementptr inbounds %struct.DCEL_segment, ptr %21, i64 0, i32 2
+  %p245.sink = select i1 %23, ptr %p142, ptr %p245
   store ptr %call8, ptr %p245.sink, align 8, !tbaa !5
   store ptr %call8, ptr %q130, align 8, !tbaa !9
   store ptr %call8, ptr %q248, align 8, !tbaa !19
   br label %tailrecurse
 
-if.end51:                                         ; preds = %tailrecurse, %tailrecurse.us, %tailrecurse.us.peel
+if.end51:                                         ; preds = %if.end, %if.end.us, %if.end.us.peel
   ret void
 }
 
@@ -353,8 +373,8 @@ define dso_local ptr @construct_ch() local_unnamed_addr #2 {
 entry:
   store i32 0, ptr @CHno, align 4, !tbaa !16
   %0 = load ptr, ptr @Splaytree, align 8, !tbaa !5
-  %cmp.i.not = icmp eq ptr %0, null
-  br i1 %cmp.i.not, label %cleanup, label %if.then
+  %cmp.i = icmp eq ptr %0, null
+  br i1 %cmp.i, label %cleanup, label %if.then
 
 if.then:                                          ; preds = %entry
   %call1 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
@@ -369,9 +389,9 @@ if.then:                                          ; preds = %entry
   %q2 = getelementptr inbounds %struct.DCEL_segment, ptr %call1, i64 0, i32 5
   store ptr %call1, ptr %q2, align 8, !tbaa !19
   %1 = load ptr, ptr @Splaytree, align 8, !tbaa !5
-  %cmp.i66.not = icmp eq ptr %1, null
+  %cmp.i66 = icmp eq ptr %1, null
   %v2 = getelementptr inbounds %struct.DCEL_segment, ptr %call1, i64 0, i32 1
-  br i1 %cmp.i66.not, label %if.then5, label %if.else
+  br i1 %cmp.i66, label %if.then5, label %if.else
 
 if.then5:                                         ; preds = %if.then
   store i64 %call2, ptr %v2, align 8
@@ -386,7 +406,7 @@ if.else:                                          ; preds = %if.then
 
 while.body:                                       ; preds = %if.else, %add_segments.exit
   %left.072 = phi ptr [ %4, %add_segments.exit ], [ %call1, %if.else ]
-  %right.071 = phi ptr [ %10, %add_segments.exit ], [ %call1, %if.else ]
+  %right.071 = phi ptr [ %13, %add_segments.exit ], [ %call1, %if.else ]
   %call12 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   %v214 = getelementptr inbounds %struct.DCEL_segment, ptr %left.072, i64 0, i32 1
   %3 = load i64, ptr %v214, align 8
@@ -413,20 +433,26 @@ while.body:                                       ; preds = %if.else, %add_segme
 
 tailrecurse.i:                                    ; preds = %if.then7.i, %while.body
   %n.tr.i = phi ptr [ %call8.i, %if.then7.i ], [ %call12, %while.body ]
-  %act.tr.i = phi ptr [ %8, %if.then7.i ], [ %right.071, %while.body ]
+  %act.tr.i = phi ptr [ %10, %if.then7.i ], [ %right.071, %while.body ]
   %5 = load i64, ptr %act.tr.i, align 8
   %6 = load i64, ptr %n.tr.i, align 8
-  %.not.i = icmp eq i64 %5, %6
+  %7 = icmp eq i64 %5, %6
+  br i1 %7, label %if.then.i, label %if.end.i
+
+if.then.i:                                        ; preds = %tailrecurse.i
   %v2.i = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr.i, i64 0, i32 1
-  %p.sroa.0.0.in.i = select i1 %.not.i, ptr %v2.i, ptr %act.tr.i
-  %p.sroa.0.0.i = load i64, ptr %p.sroa.0.0.in.i, align 8
+  %p.sroa.0.0.copyload.i = load i64, ptr %v2.i, align 8, !tbaa.struct !15
+  br label %if.end.i
+
+if.end.i:                                         ; preds = %if.then.i, %tailrecurse.i
+  %p.sroa.0.0.i = phi i64 [ %p.sroa.0.0.copyload.i, %if.then.i ], [ %5, %tailrecurse.i ]
   %v24.i = getelementptr inbounds %struct.DCEL_segment, ptr %n.tr.i, i64 0, i32 1
-  %7 = load i64, ptr %v24.i, align 8
+  %8 = load i64, ptr %v24.i, align 8
   %p1.sroa.0.0.extract.trunc.i.i.i = trunc i64 %6 to i32
   %p1.sroa.2.0.extract.shift.i.i.i = lshr i64 %6, 32
   %p1.sroa.2.0.extract.trunc.i.i.i = trunc i64 %p1.sroa.2.0.extract.shift.i.i.i to i32
-  %p2.sroa.0.0.extract.trunc.i.i.i = trunc i64 %7 to i32
-  %p2.sroa.3.0.extract.shift.i.i.i = lshr i64 %7, 32
+  %p2.sroa.0.0.extract.trunc.i.i.i = trunc i64 %8 to i32
+  %p2.sroa.3.0.extract.shift.i.i.i = lshr i64 %8, 32
   %p2.sroa.3.0.extract.trunc.i.i.i = trunc i64 %p2.sroa.3.0.extract.shift.i.i.i to i32
   %p3.sroa.0.0.extract.trunc.i.i.i = trunc i64 %p.sroa.0.0.i to i32
   %p3.sroa.3.0.extract.shift.i.i.i = lshr i64 %p.sroa.0.0.i, 32
@@ -440,18 +466,19 @@ tailrecurse.i:                                    ; preds = %if.then7.i, %while.
   %sub7.i.i.i = add i32 %mul6.neg.i.i.i, %mul10.i.i.i
   %add.i.i.i = sub i32 %sub7.i.i.i, %mul13.i.i.i
   %sub14.i.i.i = add i32 %add.i.i.i, %mul.i.i.i
-  %cmp3.i.i = icmp slt i32 %sub14.i.i.i, 1
-  br i1 %cmp3.i.i, label %add_segments.exit, label %if.then7.i
+  %cmp3.i.i = icmp sgt i32 %sub14.i.i.i, 0
+  br i1 %cmp3.i.i, label %if.then7.i, label %add_segments.exit
 
-if.then7.i:                                       ; preds = %tailrecurse.i
+if.then7.i:                                       ; preds = %if.end.i
   %call8.i = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #8
   store i64 %p.sroa.0.0.i, ptr %call8.i, align 8, !tbaa.struct !15
   %v210.i = getelementptr inbounds %struct.DCEL_segment, ptr %call8.i, i64 0, i32 1
-  store i64 %7, ptr %v210.i, align 8
+  %9 = load i64, ptr %v24.i, align 8
+  store i64 %9, ptr %v210.i, align 8
   %q130.i = getelementptr inbounds %struct.DCEL_segment, ptr %act.tr.i, i64 0, i32 4
-  %8 = load ptr, ptr %q130.i, align 8, !tbaa !9
+  %10 = load ptr, ptr %q130.i, align 8, !tbaa !9
   %q131.i = getelementptr inbounds %struct.DCEL_segment, ptr %call8.i, i64 0, i32 4
-  store ptr %8, ptr %q131.i, align 8, !tbaa !9
+  store ptr %10, ptr %q131.i, align 8, !tbaa !9
   %q232.i = getelementptr inbounds %struct.DCEL_segment, ptr %call8.i, i64 0, i32 5
   store ptr %n.tr.i, ptr %q232.i, align 8, !tbaa !19
   %p133.i = getelementptr inbounds %struct.DCEL_segment, ptr %call8.i, i64 0, i32 2
@@ -460,24 +487,24 @@ if.then7.i:                                       ; preds = %tailrecurse.i
   store ptr %4, ptr %p234.i, align 8, !tbaa !18
   %p235.i = getelementptr inbounds %struct.DCEL_segment, ptr %n.tr.i, i64 0, i32 3
   store ptr %call8.i, ptr %p235.i, align 8, !tbaa !18
-  %9 = load i64, ptr %8, align 8
-  %.not110.i = icmp eq i64 %9, %p.sroa.0.0.i
-  %p245.i = getelementptr inbounds %struct.DCEL_segment, ptr %8, i64 0, i32 3
-  %p142.i = getelementptr inbounds %struct.DCEL_segment, ptr %8, i64 0, i32 2
-  %p245.sink.i = select i1 %.not110.i, ptr %p142.i, ptr %p245.i
+  %11 = load i64, ptr %10, align 8
+  %12 = icmp eq i64 %11, %p.sroa.0.0.i
+  %p245.i = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 3
+  %p142.i = getelementptr inbounds %struct.DCEL_segment, ptr %10, i64 0, i32 2
+  %p245.sink.i = select i1 %12, ptr %p142.i, ptr %p245.i
   store ptr %call8.i, ptr %p245.sink.i, align 8, !tbaa !5
   store ptr %call8.i, ptr %q130.i, align 8, !tbaa !9
   store ptr %call8.i, ptr %q248.i, align 8, !tbaa !19
   br label %tailrecurse.i
 
-add_segments.exit:                                ; preds = %tailrecurse.i
-  %10 = load ptr, ptr %q248.i, align 8, !tbaa !19
-  %11 = load ptr, ptr @Splaytree, align 8, !tbaa !5
-  %cmp.i68.not = icmp eq ptr %11, null
+add_segments.exit:                                ; preds = %if.end.i
+  %13 = load ptr, ptr %q248.i, align 8, !tbaa !19
+  %14 = load ptr, ptr @Splaytree, align 8, !tbaa !5
+  %cmp.i68.not = icmp eq ptr %14, null
   br i1 %cmp.i68.not, label %if.end, label %while.body, !llvm.loop !22
 
 if.end:                                           ; preds = %add_segments.exit, %if.else, %if.then5
-  %right.1 = phi ptr [ %call1, %if.then5 ], [ %call1, %if.else ], [ %10, %add_segments.exit ]
+  %right.1 = phi ptr [ %call1, %if.then5 ], [ %call1, %if.else ], [ %13, %add_segments.exit ]
   %left.1 = phi ptr [ %call1, %if.then5 ], [ %call1, %if.else ], [ %4, %add_segments.exit ]
   tail call void @free_tree(ptr noundef null) #7
   %call26 = tail call ptr @get_points_on_hull(ptr noundef nonnull %left.1, ptr noundef %right.1)

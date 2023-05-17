@@ -96,7 +96,7 @@ land.lhs.true67:                                  ; preds = %land.lhs.true61, %l
   %cmp68.not = icmp eq ptr %11, null
   br i1 %cmp68.not, label %return, label %tailrecurse.backedge
 
-return:                                           ; preds = %lor.lhs.false37, %land.lhs.true55, %land.lhs.true61, %land.lhs.true67
+return:                                           ; preds = %land.lhs.true55, %land.lhs.true61, %land.lhs.true67, %lor.lhs.false37
   ret ptr %root.tr
 }
 

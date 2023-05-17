@@ -195,7 +195,7 @@ for.body24.us.us:                                 ; preds = %for.cond21.preheade
   %arrayidx27.us.us = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv
   %6 = load ptr, ptr %arrayidx27.us.us, align 8, !tbaa !5
   %cmp28.us.us = icmp eq ptr %5, %6
-  br i1 %cmp28.us.us, label %do.body.us.us, label %for.cond21.us.us, !llvm.loop !21
+  br i1 %cmp28.us.us, label %do.body.us.us, label %for.cond21.us.us
 
 for.cond21.preheader.us.us:                       ; preds = %if.end14.us.us
   %7 = load ptr, ptr %to_nodes.us, align 8, !tbaa !18
@@ -205,7 +205,7 @@ for.cond4.for.end46_crit_edge.us:                 ; preds = %if.end39.us
   %next.us = getelementptr inbounds %struct.node_t, ptr %cur_node.083.us, i64 0, i32 1
   %8 = load ptr, ptr %next.us, align 8, !tbaa !15
   %tobool.not.us = icmp eq ptr %8, null
-  br i1 %tobool.not.us, label %for.end48, label %for.body.us, !llvm.loop !22
+  br i1 %tobool.not.us, label %for.end48, label %for.body.us, !llvm.loop !21
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.cond4.preheader
   %cur_node.083 = phi ptr [ %9, %for.cond4.preheader ], [ %nodelist, %for.body.lr.ph ]
@@ -219,7 +219,7 @@ for.cond4.preheader:                              ; preds = %for.body
   %next = getelementptr inbounds %struct.node_t, ptr %cur_node.083, i64 0, i32 1
   %9 = load ptr, ptr %next, align 8, !tbaa !15
   %tobool.not = icmp eq ptr %9, null
-  br i1 %tobool.not, label %for.end48, label %for.body, !llvm.loop !22
+  br i1 %tobool.not, label %for.end48, label %for.body, !llvm.loop !21
 
 if.then:                                          ; preds = %for.body, %for.body.us
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
@@ -286,7 +286,7 @@ if.end:                                           ; preds = %if.else, %if.then
   %next = getelementptr inbounds %struct.node_t, ptr %cur_node.023, i64 0, i32 1
   %4 = load ptr, ptr %next, align 8, !tbaa !15
   %tobool.not = icmp eq ptr %4, null
-  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !23
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !22
 
 for.end:                                          ; preds = %if.end, %entry
   ret void
@@ -324,28 +324,28 @@ if.then.us:                                       ; preds = %for.body2.us
 
 if.end.us:                                        ; preds = %if.then.us, %for.body2.us
   %from_length.us = getelementptr inbounds %struct.node_t, ptr %1, i64 0, i32 6
-  %3 = load i32, ptr %from_length.us, align 4, !tbaa !24
+  %3 = load i32, ptr %from_length.us, align 4, !tbaa !23
   %inc.us = add nsw i32 %3, 1
-  store i32 %inc.us, ptr %from_length.us, align 4, !tbaa !24
+  store i32 %inc.us, ptr %from_length.us, align 4, !tbaa !23
   %from_values.us = getelementptr inbounds %struct.node_t, ptr %1, i64 0, i32 3
-  %4 = load ptr, ptr %from_values.us, align 8, !tbaa !25, !nonnull !26
+  %4 = load ptr, ptr %from_values.us, align 8, !tbaa !24, !nonnull !25
   %idxprom9.us = sext i32 %3 to i64
   %arrayidx10.us = getelementptr inbounds ptr, ptr %4, i64 %idxprom9.us
   store ptr %2, ptr %arrayidx10.us, align 8, !tbaa !5
   %call11.us = tail call double @gen_uniform_double() #12
   %coeffs.us = getelementptr inbounds %struct.node_t, ptr %1, i64 0, i32 4
-  %5 = load ptr, ptr %coeffs.us, align 8, !tbaa !27
+  %5 = load ptr, ptr %coeffs.us, align 8, !tbaa !26
   %arrayidx13.us = getelementptr inbounds double, ptr %5, i64 %idxprom9.us
   store double %call11.us, ptr %arrayidx13.us, align 8, !tbaa !9
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %for.cond1.for.end_crit_edge.us, label %for.body2.us, !llvm.loop !28
+  br i1 %exitcond.not, label %for.cond1.for.end_crit_edge.us, label %for.body2.us, !llvm.loop !27
 
 for.cond1.for.end_crit_edge.us:                   ; preds = %if.end.us
   %next.us = getelementptr inbounds %struct.node_t, ptr %cur_node.032.us, i64 0, i32 1
   %6 = load ptr, ptr %next.us, align 8, !tbaa !15
   %tobool.not.us = icmp eq ptr %6, null
-  br i1 %tobool.not.us, label %for.end16, label %for.cond1.preheader.us, !llvm.loop !29
+  br i1 %tobool.not.us, label %for.end16, label %for.cond1.preheader.us, !llvm.loop !28
 
 for.end16:                                        ; preds = %for.cond1.for.end_crit_edge.us, %entry
   ret void
@@ -362,7 +362,7 @@ define dso_local void @make_tables(ptr nocapture noundef writeonly %table, i32 n
 entry:
   %mul = mul nsw i32 %groupname, 793
   tail call void @init_random(i32 noundef %mul) #12
-  %0 = load i32, ptr @n_nodes, align 4, !tbaa !30
+  %0 = load i32, ptr @n_nodes, align 4, !tbaa !29
   %conv = sext i32 %0 to i64
   %mul1 = shl nsw i64 %conv, 3
   %call = tail call noalias ptr @malloc(i64 noundef %mul1) #10
@@ -410,7 +410,7 @@ for.body.i:                                       ; preds = %for.body.i, %make_t
 fill_table.exit:                                  ; preds = %for.body.i
   %next8.i = getelementptr inbounds %struct.node_t, ptr %call2.i, i64 0, i32 1
   store ptr null, ptr %next8.i, align 8, !tbaa !15
-  %1 = load i32, ptr @n_nodes, align 4, !tbaa !30
+  %1 = load i32, ptr @n_nodes, align 4, !tbaa !29
   %conv6 = sext i32 %1 to i64
   %mul7 = shl nsw i64 %conv6, 3
   %call8 = tail call noalias ptr @malloc(i64 noundef %mul7) #10
@@ -478,16 +478,16 @@ entry:
   %arrayidx = getelementptr inbounds %struct.table_t, ptr %table, i64 0, i32 1, i64 %idxprom
   %0 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %1 = load ptr, ptr %0, align 8, !tbaa !5
-  %2 = load i32, ptr @n_nodes, align 4, !tbaa !30
-  %3 = load i32, ptr @d_nodes, align 4, !tbaa !30
-  %4 = load i32, ptr @local_p, align 4, !tbaa !30
+  %2 = load i32, ptr @n_nodes, align 4, !tbaa !29
+  %3 = load i32, ptr @d_nodes, align 4, !tbaa !29
+  %4 = load i32, ptr @local_p, align 4, !tbaa !29
   tail call void @make_neighbors(ptr noundef %1, ptr noundef %table, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %groupname)
   %arrayidx4 = getelementptr inbounds [1 x ptr], ptr %table, i64 0, i64 %idxprom
   %5 = load ptr, ptr %arrayidx4, align 8, !tbaa !5
   %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = load i32, ptr @n_nodes, align 4, !tbaa !30
-  %8 = load i32, ptr @d_nodes, align 4, !tbaa !30
-  %9 = load i32, ptr @local_p, align 4, !tbaa !30
+  %7 = load i32, ptr @n_nodes, align 4, !tbaa !29
+  %8 = load i32, ptr @d_nodes, align 4, !tbaa !29
+  %9 = load i32, ptr @local_p, align 4, !tbaa !29
   tail call void @make_neighbors(ptr noundef %6, ptr noundef nonnull %h_table, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %groupname)
   ret void
 }
@@ -534,7 +534,7 @@ if.end.i:                                         ; preds = %if.else.i, %if.then
   %next.i = getelementptr inbounds %struct.node_t, ptr %cur_node.023.i, i64 0, i32 1
   %6 = load ptr, ptr %next.i, align 8, !tbaa !15
   %tobool.not.i = icmp eq ptr %6, null
-  br i1 %tobool.not.i, label %update_from_coeffs.exit, label %for.body.i, !llvm.loop !23
+  br i1 %tobool.not.i, label %update_from_coeffs.exit, label %for.body.i, !llvm.loop !22
 
 update_from_coeffs.exit:                          ; preds = %if.end.i, %entry
   %arrayidx3 = getelementptr inbounds [1 x ptr], ptr %table, i64 0, i64 %idxprom
@@ -575,7 +575,7 @@ if.end.i27:                                       ; preds = %if.else.i22, %if.th
   %next.i25 = getelementptr inbounds %struct.node_t, ptr %cur_node.023.i10, i64 0, i32 1
   %13 = load ptr, ptr %next.i25, align 8, !tbaa !15
   %tobool.not.i26 = icmp eq ptr %13, null
-  br i1 %tobool.not.i26, label %update_from_coeffs.exit28, label %for.body.i13, !llvm.loop !23
+  br i1 %tobool.not.i26, label %update_from_coeffs.exit28, label %for.body.i13, !llvm.loop !22
 
 update_from_coeffs.exit28:                        ; preds = %if.end.i27, %update_from_coeffs.exit
   ret void
@@ -590,7 +590,7 @@ entry:
   %arrayidx = getelementptr inbounds %struct.table_t, ptr %table, i64 0, i32 1, i64 %idxprom
   %0 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %1 = load ptr, ptr %0, align 8, !tbaa !5
-  %2 = load i32, ptr @d_nodes, align 4, !tbaa !30
+  %2 = load i32, ptr @d_nodes, align 4, !tbaa !29
   %tobool.not31.i = icmp ne ptr %1, null
   %cmp29.i = icmp sgt i32 %2, 0
   %or.cond.i = and i1 %tobool.not31.i, %cmp29.i
@@ -620,31 +620,31 @@ if.then.us.i:                                     ; preds = %for.body2.us.i
 
 if.end.us.i:                                      ; preds = %if.then.us.i, %for.body2.us.i
   %from_length.us.i = getelementptr inbounds %struct.node_t, ptr %4, i64 0, i32 6
-  %6 = load i32, ptr %from_length.us.i, align 4, !tbaa !24
+  %6 = load i32, ptr %from_length.us.i, align 4, !tbaa !23
   %inc.us.i = add nsw i32 %6, 1
-  store i32 %inc.us.i, ptr %from_length.us.i, align 4, !tbaa !24
+  store i32 %inc.us.i, ptr %from_length.us.i, align 4, !tbaa !23
   %from_values.us.i = getelementptr inbounds %struct.node_t, ptr %4, i64 0, i32 3
-  %7 = load ptr, ptr %from_values.us.i, align 8, !tbaa !25, !nonnull !26
+  %7 = load ptr, ptr %from_values.us.i, align 8, !tbaa !24, !nonnull !25
   %idxprom9.us.i = sext i32 %6 to i64
   %arrayidx10.us.i = getelementptr inbounds ptr, ptr %7, i64 %idxprom9.us.i
   store ptr %5, ptr %arrayidx10.us.i, align 8, !tbaa !5
   %call11.us.i = tail call double @gen_uniform_double() #12
   %coeffs.us.i = getelementptr inbounds %struct.node_t, ptr %4, i64 0, i32 4
-  %8 = load ptr, ptr %coeffs.us.i, align 8, !tbaa !27
+  %8 = load ptr, ptr %coeffs.us.i, align 8, !tbaa !26
   %arrayidx13.us.i = getelementptr inbounds double, ptr %8, i64 %idxprom9.us.i
   store double %call11.us.i, ptr %arrayidx13.us.i, align 8, !tbaa !9
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
-  br i1 %exitcond.not.i, label %for.cond1.for.end_crit_edge.us.i, label %for.body2.us.i, !llvm.loop !28
+  br i1 %exitcond.not.i, label %for.cond1.for.end_crit_edge.us.i, label %for.body2.us.i, !llvm.loop !27
 
 for.cond1.for.end_crit_edge.us.i:                 ; preds = %if.end.us.i
   %next.us.i = getelementptr inbounds %struct.node_t, ptr %cur_node.032.us.i, i64 0, i32 1
   %9 = load ptr, ptr %next.us.i, align 8, !tbaa !15
   %tobool.not.us.i = icmp eq ptr %9, null
-  br i1 %tobool.not.us.i, label %fill_from_fields.exit.loopexit, label %for.cond1.preheader.us.i, !llvm.loop !29
+  br i1 %tobool.not.us.i, label %fill_from_fields.exit.loopexit, label %for.cond1.preheader.us.i, !llvm.loop !28
 
 fill_from_fields.exit.loopexit:                   ; preds = %for.cond1.for.end_crit_edge.us.i
-  %.pre = load i32, ptr @d_nodes, align 4, !tbaa !30
+  %.pre = load i32, ptr @d_nodes, align 4, !tbaa !29
   br label %fill_from_fields.exit
 
 fill_from_fields.exit:                            ; preds = %fill_from_fields.exit.loopexit, %entry
@@ -681,28 +681,28 @@ if.then.us.i23:                                   ; preds = %for.body2.us.i21
 
 if.end.us.i34:                                    ; preds = %if.then.us.i23, %for.body2.us.i21
   %from_length.us.i24 = getelementptr inbounds %struct.node_t, ptr %14, i64 0, i32 6
-  %16 = load i32, ptr %from_length.us.i24, align 4, !tbaa !24
+  %16 = load i32, ptr %from_length.us.i24, align 4, !tbaa !23
   %inc.us.i25 = add nsw i32 %16, 1
-  store i32 %inc.us.i25, ptr %from_length.us.i24, align 4, !tbaa !24
+  store i32 %inc.us.i25, ptr %from_length.us.i24, align 4, !tbaa !23
   %from_values.us.i26 = getelementptr inbounds %struct.node_t, ptr %14, i64 0, i32 3
-  %17 = load ptr, ptr %from_values.us.i26, align 8, !tbaa !25, !nonnull !26
+  %17 = load ptr, ptr %from_values.us.i26, align 8, !tbaa !24, !nonnull !25
   %idxprom9.us.i27 = sext i32 %16 to i64
   %arrayidx10.us.i28 = getelementptr inbounds ptr, ptr %17, i64 %idxprom9.us.i27
   store ptr %15, ptr %arrayidx10.us.i28, align 8, !tbaa !5
   %call11.us.i29 = tail call double @gen_uniform_double() #12
   %coeffs.us.i30 = getelementptr inbounds %struct.node_t, ptr %14, i64 0, i32 4
-  %18 = load ptr, ptr %coeffs.us.i30, align 8, !tbaa !27
+  %18 = load ptr, ptr %coeffs.us.i30, align 8, !tbaa !26
   %arrayidx13.us.i31 = getelementptr inbounds double, ptr %18, i64 %idxprom9.us.i27
   store double %call11.us.i29, ptr %arrayidx13.us.i31, align 8, !tbaa !9
   %indvars.iv.next.i32 = add nuw nsw i64 %indvars.iv.i18, 1
   %exitcond.not.i33 = icmp eq i64 %indvars.iv.next.i32, %wide.trip.count.i13
-  br i1 %exitcond.not.i33, label %for.cond1.for.end_crit_edge.us.i37, label %for.body2.us.i21, !llvm.loop !28
+  br i1 %exitcond.not.i33, label %for.cond1.for.end_crit_edge.us.i37, label %for.body2.us.i21, !llvm.loop !27
 
 for.cond1.for.end_crit_edge.us.i37:               ; preds = %if.end.us.i34
   %next.us.i35 = getelementptr inbounds %struct.node_t, ptr %cur_node.032.us.i15, i64 0, i32 1
   %19 = load ptr, ptr %next.us.i35, align 8, !tbaa !15
   %tobool.not.us.i36 = icmp eq ptr %19, null
-  br i1 %tobool.not.us.i36, label %fill_from_fields.exit38, label %for.cond1.preheader.us.i17, !llvm.loop !29
+  br i1 %tobool.not.us.i36, label %fill_from_fields.exit38, label %for.cond1.preheader.us.i17, !llvm.loop !28
 
 fill_from_fields.exit38:                          ; preds = %for.cond1.for.end_crit_edge.us.i37, %fill_from_fields.exit
   ret void
@@ -717,7 +717,7 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @clear_nummiss(ptr nocapture noundef readnone %table, i32 noundef %groupname) local_unnamed_addr #7 {
 entry:
-  store i32 0, ptr @NumMisses, align 4, !tbaa !30
+  store i32 0, ptr @NumMisses, align 4, !tbaa !29
   ret void
 }
 
@@ -752,32 +752,32 @@ entry:
   %h_table.i = getelementptr inbounds %struct.table_t, ptr %call, i64 0, i32 1
   %0 = load ptr, ptr %h_table.i, align 8, !tbaa !5
   %1 = load ptr, ptr %0, align 8, !tbaa !5
-  %2 = load i32, ptr @n_nodes, align 4, !tbaa !30
-  %3 = load i32, ptr @d_nodes, align 4, !tbaa !30
-  %4 = load i32, ptr @local_p, align 4, !tbaa !30
+  %2 = load i32, ptr @n_nodes, align 4, !tbaa !29
+  %3 = load i32, ptr @d_nodes, align 4, !tbaa !29
+  %4 = load i32, ptr @local_p, align 4, !tbaa !29
   tail call void @make_neighbors(ptr noundef %1, ptr noundef %call, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef 0)
   %5 = load ptr, ptr %call, align 8, !tbaa !5
   %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = load i32, ptr @n_nodes, align 4, !tbaa !30
-  %8 = load i32, ptr @d_nodes, align 4, !tbaa !30
-  %9 = load i32, ptr @local_p, align 4, !tbaa !30
+  %7 = load i32, ptr @n_nodes, align 4, !tbaa !29
+  %8 = load i32, ptr @d_nodes, align 4, !tbaa !29
+  %9 = load i32, ptr @local_p, align 4, !tbaa !29
   tail call void @make_neighbors(ptr noundef %6, ptr noundef nonnull %h_table.i, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef 0)
   %puts106 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   tail call void @update_all_from_coeffs(ptr noundef nonnull %call, i32 noundef 0) #12
   %puts107 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
   tail call void @fill_all_from_fields(ptr noundef nonnull %call, i32 noundef 0) #12
   %puts108 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %10 = load i32, ptr @NumNodes, align 4, !tbaa !30
-  %puts110 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
-  %11 = load i32, ptr @NumNodes, align 4, !tbaa !30
-  %cmp113 = icmp sgt i32 %11, 0
-  br i1 %cmp113, label %for.body.preheader, label %for.end55
+  %10 = load i32, ptr @NumNodes, align 4, !tbaa !29
+  %puts109 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %11 = load i32, ptr @NumNodes, align 4, !tbaa !29
+  %cmp112 = icmp sgt i32 %11, 0
+  br i1 %cmp112, label %for.body.preheader, label %for.end55
 
 for.body.preheader:                               ; preds = %entry
-  %.fr109 = freeze i32 %10
-  %12 = add i32 %.fr109, 1
+  %.fr = freeze i32 %10
+  %12 = add i32 %.fr, 1
   %13 = icmp ult i32 %12, 3
-  %div8 = select i1 %13, i32 %.fr109, i32 0
+  %div8 = select i1 %13, i32 %.fr, i32 0
   %14 = sext i32 %div8 to i64
   %wide.trip.count = zext i32 %11 to i64
   %xtraiter = and i64 %wide.trip.count, 1
@@ -817,7 +817,7 @@ for.body:                                         ; preds = %for.body, %for.body
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
-  br i1 %niter.ncmp.1, label %for.end55.loopexit.unr-lcssa, label %for.body, !llvm.loop !31
+  br i1 %niter.ncmp.1, label %for.end55.loopexit.unr-lcssa, label %for.body, !llvm.loop !30
 
 for.end55.loopexit.unr-lcssa:                     ; preds = %for.body, %for.body.preheader
   %indvars.iv.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next.1, %for.body ]
@@ -839,9 +839,9 @@ for.body.epil:                                    ; preds = %for.end55.loopexit.
   br label %for.end55
 
 for.end55:                                        ; preds = %for.body.epil, %for.end55.loopexit.unr-lcssa, %entry
-  %puts111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
-  store i32 0, ptr @NumMisses, align 4, !tbaa !30
-  %puts112 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
+  %puts110 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  store i32 0, ptr @NumMisses, align 4, !tbaa !29
+  %puts111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   ret ptr %call2
 }
 
@@ -891,12 +891,11 @@ attributes #12 = { nounwind }
 !20 = distinct !{!20, !17}
 !21 = distinct !{!21, !17}
 !22 = distinct !{!22, !17}
-!23 = distinct !{!23, !17}
-!24 = !{!12, !13, i64 44}
-!25 = !{!12, !6, i64 24}
-!26 = !{}
-!27 = !{!12, !6, i64 32}
+!23 = !{!12, !13, i64 44}
+!24 = !{!12, !6, i64 24}
+!25 = !{}
+!26 = !{!12, !6, i64 32}
+!27 = distinct !{!27, !17}
 !28 = distinct !{!28, !17}
-!29 = distinct !{!29, !17}
-!30 = !{!13, !13, i64 0}
-!31 = distinct !{!31, !17}
+!29 = !{!13, !13, i64 0}
+!30 = distinct !{!30, !17}

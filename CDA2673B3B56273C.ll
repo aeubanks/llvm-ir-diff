@@ -17,7 +17,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @foo(ptr nocapture noundef %data) local_unnamed_addr #0 {
-entry:
+if.end:
   ret void
 }
 

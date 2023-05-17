@@ -161,11 +161,11 @@ for.body:                                         ; preds = %for.cond.preheader,
   br i1 %cmp6, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
-  %arrayidx9 = getelementptr inbounds %class.HexxagonMove, ptr %2, i64 %indvars.iv
-  %5 = load i64, ptr %arrayidx9, align 4
-  %arrayidx16 = getelementptr inbounds %class.HexxagonMove, ptr %2, i64 %indvars.iv.next
-  %6 = load i64, ptr %arrayidx16, align 4
-  store i64 %6, ptr %arrayidx9, align 4
+  %arrayidx4 = getelementptr inbounds %class.HexxagonMove, ptr %2, i64 %indvars.iv.next
+  %arrayidx = getelementptr inbounds %class.HexxagonMove, ptr %2, i64 %indvars.iv
+  %5 = load i64, ptr %arrayidx, align 4
+  %6 = load i64, ptr %arrayidx4, align 4
+  store i64 %6, ptr %arrayidx, align 4
   %7 = load ptr, ptr %moves, align 8, !tbaa !11
   %arrayidx20 = getelementptr inbounds %class.HexxagonMove, ptr %7, i64 %indvars.iv.next
   store i64 %5, ptr %arrayidx20, align 4
@@ -344,8 +344,8 @@ entry:
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %tb.i) #16
   %call.i = call i32 @ftime(ptr noundef nonnull %tb.i)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %tb.i) #16
-  %cmp42 = icmp sgt i32 %depth, 1
-  br i1 %cmp42, label %for.cond2.preheader.lr.ph, label %for.cond.cleanup
+  %cmp43 = icmp sgt i32 %depth, 1
+  br i1 %cmp43, label %for.cond2.preheader.lr.ph, label %for.cond.cleanup
 
 for.cond2.preheader.lr.ph:                        ; preds = %entry
   %moves.i33 = getelementptr inbounds %class.HexxagonMoveList, ptr %this, i64 0, i32 1
@@ -354,12 +354,12 @@ for.cond2.preheader.lr.ph:                        ; preds = %entry
 
 for.cond2.preheader:                              ; preds = %for.cond2.preheader.lr.ph, %_ZN16HexxagonMoveList8sortListEv.exit
   %0 = phi i32 [ %.pre, %for.cond2.preheader.lr.ph ], [ %14, %_ZN16HexxagonMoveList8sortListEv.exit ]
-  %i.043 = phi i32 [ 1, %for.cond2.preheader.lr.ph ], [ %inc19, %_ZN16HexxagonMoveList8sortListEv.exit ]
-  %cmp438 = icmp sgt i32 %0, 0
-  br i1 %cmp438, label %for.body7, label %for.cond.preheader.i.preheader
+  %i.044 = phi i32 [ 1, %for.cond2.preheader.lr.ph ], [ %inc19, %_ZN16HexxagonMoveList8sortListEv.exit ]
+  %cmp439 = icmp sgt i32 %0, 0
+  br i1 %cmp439, label %for.body7, label %for.cond.preheader.i.preheader
 
 for.cond.preheader.i.preheader:                   ; preds = %for.body7, %for.cond2.preheader
-  %.ph51 = phi i32 [ %0, %for.cond2.preheader ], [ %17, %for.body7 ]
+  %.ph52 = phi i32 [ %0, %for.cond2.preheader ], [ %17, %for.body7 ]
   br label %for.cond.preheader.i
 
 for.cond.cleanup:                                 ; preds = %_ZN16HexxagonMoveList8sortListEv.exit, %entry
@@ -370,8 +370,8 @@ while.cond.loopexit.i:                            ; preds = %for.inc.i
   br i1 %tobool.not.i, label %_ZN16HexxagonMoveList8sortListEv.exit, label %for.cond.preheader.i, !llvm.loop !16
 
 for.cond.preheader.i:                             ; preds = %for.cond.preheader.i.preheader, %while.cond.loopexit.i
-  %1 = phi i32 [ %11, %while.cond.loopexit.i ], [ %.ph51, %for.cond.preheader.i.preheader ]
-  %2 = phi i32 [ %12, %while.cond.loopexit.i ], [ %.ph51, %for.cond.preheader.i.preheader ]
+  %1 = phi i32 [ %11, %while.cond.loopexit.i ], [ %.ph52, %for.cond.preheader.i.preheader ]
+  %2 = phi i32 [ %12, %while.cond.loopexit.i ], [ %.ph52, %for.cond.preheader.i.preheader ]
   %cmp29.i = icmp sgt i32 %2, 1
   br i1 %cmp29.i, label %for.body.i, label %_ZN16HexxagonMoveList8sortListEv.exit
 
@@ -390,11 +390,11 @@ for.body.i:                                       ; preds = %for.cond.preheader.
   br i1 %cmp6.i, label %if.then.i, label %for.inc.i
 
 if.then.i:                                        ; preds = %for.body.i
-  %arrayidx9.i = getelementptr inbounds %class.HexxagonMove, ptr %5, i64 %indvars.iv.i
-  %8 = load i64, ptr %arrayidx9.i, align 4
-  %arrayidx16.i = getelementptr inbounds %class.HexxagonMove, ptr %5, i64 %indvars.iv.next.i
-  %9 = load i64, ptr %arrayidx16.i, align 4
-  store i64 %9, ptr %arrayidx9.i, align 4
+  %arrayidx4.i = getelementptr inbounds %class.HexxagonMove, ptr %5, i64 %indvars.iv.next.i
+  %arrayidx.i = getelementptr inbounds %class.HexxagonMove, ptr %5, i64 %indvars.iv.i
+  %8 = load i64, ptr %arrayidx.i, align 4
+  %9 = load i64, ptr %arrayidx4.i, align 4
+  store i64 %9, ptr %arrayidx.i, align 4
   %10 = load ptr, ptr %moves.i33, align 8, !tbaa !11
   %arrayidx20.i = getelementptr inbounds %class.HexxagonMove, ptr %10, i64 %indvars.iv.next.i
   store i64 %8, ptr %arrayidx20.i, align 4
@@ -412,27 +412,27 @@ for.inc.i:                                        ; preds = %if.then.i, %for.bod
 
 _ZN16HexxagonMoveList8sortListEv.exit:            ; preds = %while.cond.loopexit.i, %for.cond.preheader.i
   %14 = phi i32 [ %11, %while.cond.loopexit.i ], [ %1, %for.cond.preheader.i ]
-  %inc19 = add nuw nsw i32 %i.043, 1
+  %inc19 = add nuw nsw i32 %i.044, 1
   %exitcond.not = icmp eq i32 %inc19, %depth
   br i1 %exitcond.not, label %for.cond.cleanup, label %for.cond2.preheader, !llvm.loop !25
 
 for.body7:                                        ; preds = %for.cond2.preheader, %for.body7
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body7 ], [ 0, %for.cond2.preheader ]
-  %alpha.040 = phi i32 [ %spec.select, %for.body7 ], [ -32000, %for.cond2.preheader ]
-  %best.039 = phi i32 [ %best.1, %for.body7 ], [ -32000, %for.cond2.preheader ]
-  %spec.select = call i32 @llvm.smax.i32(i32 %best.039, i32 %alpha.040)
+  %alpha.041 = phi i32 [ %spec.select, %for.body7 ], [ -32000, %for.cond2.preheader ]
+  %best.040 = phi i32 [ %best.1, %for.body7 ], [ -32000, %for.cond2.preheader ]
+  %spec.select = call i32 @llvm.smax.i32(i32 %best.040, i32 %alpha.041)
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %newboard) #16
   call void @_ZN13HexxagonBoardC1ERKS_(ptr noundef nonnull align 4 dereferenceable(16) %newboard, ptr noundef nonnull align 4 dereferenceable(16) %board)
   %15 = load ptr, ptr %moves.i33, align 8, !tbaa !11
-  %arrayidx.i = getelementptr inbounds %class.HexxagonMove, ptr %15, i64 %indvars.iv
-  %call10 = call noundef i32 @_ZN13HexxagonBoard9applyMoveER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %newboard, ptr noundef nonnull align 4 dereferenceable(8) %arrayidx.i)
+  %arrayidx.i34 = getelementptr inbounds %class.HexxagonMove, ptr %15, i64 %indvars.iv
+  %call10 = call noundef i32 @_ZN13HexxagonBoard9applyMoveER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %newboard, ptr noundef nonnull align 4 dereferenceable(8) %arrayidx.i34)
   %sub11 = sub nsw i32 0, %spec.select
-  %call12 = call noundef i32 @_Z9alphaBetaR13HexxagonBoardiiiPFvvE(ptr noundef nonnull align 4 dereferenceable(16) %newboard, i32 noundef %i.043, i32 noundef -32000, i32 noundef %sub11, ptr noundef %callback)
+  %call12 = call noundef i32 @_Z9alphaBetaR13HexxagonBoardiiiPFvvE(ptr noundef nonnull align 4 dereferenceable(16) %newboard, i32 noundef %i.044, i32 noundef -32000, i32 noundef %sub11, ptr noundef %callback)
   %sub13 = sub nsw i32 0, %call12
   %16 = load ptr, ptr %moves.i33, align 8, !tbaa !11
   %score = getelementptr inbounds %class.HexxagonMove, ptr %16, i64 %indvars.iv, i32 2
   store i32 %sub13, ptr %score, align 4, !tbaa !14
-  %best.1 = call i32 @llvm.smax.i32(i32 %best.039, i32 %sub13)
+  %best.1 = call i32 @llvm.smax.i32(i32 %best.040, i32 %sub13)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %newboard) #16
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %17 = load i32, ptr %this, align 8, !tbaa !5

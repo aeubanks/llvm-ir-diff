@@ -60,46 +60,46 @@ cond.end:                                         ; preds = %entry
 cond.end13:                                       ; preds = %cond.end
   %arrayidx10 = getelementptr inbounds ptr, ptr %argv, i64 2
   %2 = load ptr, ptr %arrayidx10, align 8, !tbaa !5
-  %call.i269 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #3
-  %3 = trunc i64 %call.i269 to i16
+  %call.i267 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #3
+  %3 = trunc i64 %call.i267 to i16
   %cmp16 = icmp ugt i32 %argc, 3
   br i1 %cmp16, label %cond.true20, label %cond.end25
 
 cond.true20:                                      ; preds = %cond.end13
   %arrayidx21 = getelementptr inbounds ptr, ptr %argv, i64 3
   %4 = load ptr, ptr %arrayidx21, align 8, !tbaa !5
-  %call.i271 = tail call i64 @strtol(ptr nocapture noundef nonnull %4, ptr noundef null, i32 noundef 10) #3
-  %sext284 = shl i64 %call.i271, 32
-  %conv23 = ashr exact i64 %sext284, 32
+  %call.i269 = tail call i64 @strtol(ptr nocapture noundef nonnull %4, ptr noundef null, i32 noundef 10) #3
+  %sext = shl i64 %call.i269, 32
+  %conv23 = ashr exact i64 %sext, 32
   br label %cond.end25
 
 cond.end25:                                       ; preds = %entry, %cond.end, %cond.end13, %cond.true20
-  %cmp16283 = phi i1 [ true, %cond.true20 ], [ false, %cond.end13 ], [ false, %cond.end ], [ false, %entry ]
-  %cond14282 = phi i16 [ %3, %cond.true20 ], [ %3, %cond.end13 ], [ -769, %cond.end ], [ -769, %entry ]
-  %cond277281 = phi i8 [ %1, %cond.true20 ], [ %1, %cond.end13 ], [ %1, %cond.end ], [ 100, %entry ]
+  %cmp16284 = phi i1 [ true, %cond.true20 ], [ false, %cond.end13 ], [ false, %cond.end ], [ false, %entry ]
+  %cond14283 = phi i16 [ %3, %cond.true20 ], [ %3, %cond.end13 ], [ -769, %cond.end ], [ -769, %entry ]
+  %cond278282 = phi i8 [ %1, %cond.true20 ], [ %1, %cond.end13 ], [ %1, %cond.end ], [ 100, %entry ]
   %cond26 = phi i64 [ %conv23, %cond.true20 ], [ 179923220407203, %cond.end13 ], [ 179923220407203, %cond.end ], [ 179923220407203, %entry ]
-  %conv27 = sext i8 %cond277281 to i32
-  %conv29 = sext i8 %cond277281 to i64
+  %conv27 = sext i8 %cond278282 to i32
+  %conv29 = sext i8 %cond278282 to i64
   %call36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %conv27, i32 noundef %conv27, i32 noundef %conv27)
   %call39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %conv27, i32 noundef %conv27)
   %call40 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %conv27, i32 noundef %conv27)
   %call41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %conv29, i64 noundef %conv29)
-  %conv42 = zext i8 %cond277281 to i32
+  %conv42 = zext i8 %cond278282 to i32
   %call44 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %conv42, i32 noundef %conv42)
   %conv45 = and i32 %conv27, 65535
   %call47 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %conv45, i32 noundef %conv45)
   %call48 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv27, i32 noundef %conv27)
   %call49 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i64 noundef %conv29, i64 noundef %conv29)
-  %conv50 = zext i16 %cond14282 to i32
-  %conv51 = sext i16 %cond14282 to i32
-  %conv52 = sext i16 %cond14282 to i64
+  %conv50 = zext i16 %cond14283 to i32
+  %conv51 = sext i16 %cond14283 to i32
+  %conv52 = sext i16 %cond14283 to i64
   %call58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %conv51, i32 noundef %conv51)
-  %sext = shl i32 %conv50, 24
-  %conv59 = ashr exact i32 %sext, 24
+  %sext273 = shl i32 %conv50, 24
+  %conv59 = ashr exact i32 %sext273, 24
   %call61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %conv59, i32 noundef %conv59)
   %call62 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %conv51, i32 noundef %conv51)
   %call63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i64 noundef %conv52, i64 noundef %conv52)
-  %conv50.mask = and i16 %cond14282, 255
+  %conv50.mask = and i16 %cond14283, 255
   %conv64 = zext i16 %conv50.mask to i32
   %call66 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %conv64, i32 noundef %conv64)
   %call69 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, i32 noundef %conv50, i32 noundef %conv50)
@@ -107,11 +107,11 @@ cond.end25:                                       ; preds = %entry, %cond.end, %
   %call71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15, i64 noundef %conv52, i64 noundef %conv52)
   %conv72 = trunc i64 %cond26 to i32
   %call78 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.16, i64 noundef %cond26, i64 noundef %cond26)
-  %sext267 = shl i32 %conv72, 24
-  %conv79 = ashr exact i32 %sext267, 24
+  %sext274 = shl i32 %conv72, 24
+  %conv79 = ashr exact i32 %sext274, 24
   %call81 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %conv79, i32 noundef %conv79)
-  %sext268 = shl i32 %conv72, 16
-  %conv82 = ashr exact i32 %sext268, 16
+  %sext275 = shl i32 %conv72, 16
+  %conv82 = ashr exact i32 %sext275, 16
   %call84 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %conv82, i32 noundef %conv82)
   %call85 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %conv72, i32 noundef %conv72)
   %conv86 = and i32 %conv72, 255
@@ -120,13 +120,13 @@ cond.end25:                                       ; preds = %entry, %cond.end, %
   %call91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.21, i32 noundef %conv89, i32 noundef %conv89)
   %call92 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.22, i32 noundef %conv72, i32 noundef %conv72)
   %call93 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.23, i64 noundef %cond26, i64 noundef %cond26)
-  br i1 %cmp16283, label %cond.true98, label %cond.end102
+  br i1 %cmp16284, label %cond.true98, label %cond.end102
 
 cond.true98:                                      ; preds = %cond.end25
   %arrayidx99 = getelementptr inbounds ptr, ptr %argv, i64 3
   %5 = load ptr, ptr %arrayidx99, align 8, !tbaa !5
-  %call.i273 = tail call double @strtod(ptr nocapture noundef nonnull %5, ptr noundef null) #3
-  %6 = fptrunc double %call.i273 to float
+  %call.i271 = tail call double @strtod(ptr nocapture noundef nonnull %5, ptr noundef null) #3
+  %6 = fptrunc double %call.i271 to float
   br label %cond.end102
 
 cond.end102:                                      ; preds = %cond.end25, %cond.true98
@@ -137,11 +137,11 @@ cond.end102:                                      ; preds = %cond.end25, %cond.t
 cond.true107:                                     ; preds = %cond.end102
   %arrayidx108 = getelementptr inbounds ptr, ptr %argv, i64 4
   %7 = load ptr, ptr %arrayidx108, align 8, !tbaa !5
-  %call.i274 = tail call double @strtod(ptr nocapture noundef nonnull %7, ptr noundef null) #3
+  %call.i272 = tail call double @strtod(ptr nocapture noundef nonnull %7, ptr noundef null) #3
   br label %cond.end111
 
 cond.end111:                                      ; preds = %cond.end102, %cond.true107
-  %cond112 = phi double [ %call.i274, %cond.true107 ], [ 2.000000e+00, %cond.end102 ]
+  %cond112 = phi double [ %call.i272, %cond.true107 ], [ 2.000000e+00, %cond.end102 ]
   %conv113 = fptoui float %cond103 to i16
   %conv114 = fptoui float %cond103 to i32
   %conv115 = fptoui float %cond103 to i64

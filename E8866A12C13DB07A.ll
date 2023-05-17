@@ -72,9 +72,9 @@ if.end20.i:                                       ; preds = %if.end16.i
   store ptr %call17.i, ptr %dev_color.i, align 8, !tbaa !20
   %call21.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
   %cmp22.i = icmp eq ptr %call21.i, null
-  br i1 %cmp22.i, label %cleanup, label %if.end4
+  br i1 %cmp22.i, label %cleanup, label %if.end24.i
 
-if.end4:                                          ; preds = %if.end20.i
+if.end24.i:                                       ; preds = %if.end20.i
   %device.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 22
   store ptr %call21.i, ptr %device.i, align 8, !tbaa !21
   %device_is_shared.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 23
@@ -106,11 +106,11 @@ if.end4:                                          ; preds = %if.end20.i
   store i8 0, ptr %in_cachedevice, align 4, !tbaa !36
   %call10 = tail call i32 @gs_initgraphics(ptr noundef nonnull %call), !range !37
   %cmp11 = icmp slt i32 %call10, 0
-  %.call = select i1 %cmp11, ptr null, ptr %call
+  %spec.select = select i1 %cmp11, ptr null, ptr %call
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end20.i, %if.end16.i, %if.end12.i, %if.end8.i, %if.end4.i, %if.end.i, %if.end, %if.end4, %entry
-  %retval.0 = phi ptr [ null, %entry ], [ %.call, %if.end4 ], [ null, %if.end ], [ null, %if.end.i ], [ null, %if.end4.i ], [ null, %if.end8.i ], [ null, %if.end12.i ], [ null, %if.end16.i ], [ null, %if.end20.i ]
+cleanup:                                          ; preds = %if.end24.i, %if.end, %if.end.i, %if.end4.i, %if.end8.i, %if.end12.i, %if.end16.i, %if.end20.i, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ null, %if.end20.i ], [ null, %if.end16.i ], [ null, %if.end12.i ], [ null, %if.end8.i ], [ null, %if.end4.i ], [ null, %if.end.i ], [ null, %if.end ], [ %spec.select, %if.end24.i ]
   ret ptr %retval.0
 }
 
@@ -350,9 +350,9 @@ if.end20.i:                                       ; preds = %if.end16.i
   store ptr %call17.i, ptr %dev_color.i, align 8, !tbaa !20
   %call21.i = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
   %cmp22.i = icmp eq ptr %call21.i, null
-  br i1 %cmp22.i, label %cleanup, label %if.end6
+  br i1 %cmp22.i, label %cleanup, label %if.end24.i
 
-if.end6:                                          ; preds = %if.end20.i
+if.end24.i:                                       ; preds = %if.end20.i
   %device.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 22
   store ptr %call21.i, ptr %device.i, align 8, !tbaa !21
   %device_is_shared.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 23
@@ -392,8 +392,8 @@ if.end6:                                          ; preds = %if.end20.i
   store ptr %call, ptr %pgs, align 8, !tbaa !23
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end20.i, %if.end16.i, %if.end12.i, %if.end8.i, %if.end4.i, %if.end.i, %if.end, %entry, %if.end6
-  %retval.0 = phi i32 [ 0, %if.end6 ], [ -25, %entry ], [ -25, %if.end ], [ -25, %if.end.i ], [ -25, %if.end4.i ], [ -25, %if.end8.i ], [ -25, %if.end12.i ], [ -25, %if.end16.i ], [ -25, %if.end20.i ]
+cleanup:                                          ; preds = %if.end, %if.end.i, %if.end4.i, %if.end8.i, %if.end12.i, %if.end16.i, %if.end20.i, %entry, %if.end24.i
+  %retval.0 = phi i32 [ 0, %if.end24.i ], [ -25, %entry ], [ -25, %if.end20.i ], [ -25, %if.end16.i ], [ -25, %if.end12.i ], [ -25, %if.end8.i ], [ -25, %if.end4.i ], [ -25, %if.end.i ], [ -25, %if.end ]
   ret i32 %retval.0
 }
 
@@ -426,24 +426,24 @@ cleanup:                                          ; preds = %entry, %if.end
 define dso_local i32 @gs_grestoreall(ptr nocapture noundef %pgs) local_unnamed_addr #0 {
 entry:
   %0 = load ptr, ptr %pgs, align 8, !tbaa !23
-  %cmp.i3 = icmp eq ptr %0, null
-  br i1 %cmp.i3, label %while.end, label %gs_grestore.exit.lr.ph
+  %cmp.i.not1 = icmp eq ptr %0, null
+  br i1 %cmp.i.not1, label %while.end, label %if.end.i.lr.ph
 
-gs_grestore.exit.lr.ph:                           ; preds = %entry
+if.end.i.lr.ph:                                   ; preds = %entry
   %free.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1, i32 1
-  br label %gs_grestore.exit
+  br label %if.end.i
 
-gs_grestore.exit:                                 ; preds = %gs_grestore.exit.lr.ph, %gs_grestore.exit
-  %1 = phi ptr [ %0, %gs_grestore.exit.lr.ph ], [ %3, %gs_grestore.exit ]
+if.end.i:                                         ; preds = %if.end.i.lr.ph, %if.end.i
+  %1 = phi ptr [ %0, %if.end.i.lr.ph ], [ %3, %if.end.i ]
   tail call void @free_state_contents(ptr noundef nonnull %pgs)
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %pgs, ptr noundef nonnull align 8 dereferenceable(464) %1, i64 464, i1 false), !tbaa.struct !38
   %2 = load ptr, ptr %free.i, align 8, !tbaa !25
   tail call void %2(ptr noundef nonnull %1, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.3) #7
   %3 = load ptr, ptr %pgs, align 8, !tbaa !23
-  %cmp.i = icmp eq ptr %3, null
-  br i1 %cmp.i, label %while.end, label %gs_grestore.exit, !llvm.loop !52
+  %cmp.i.not = icmp eq ptr %3, null
+  br i1 %cmp.i.not, label %while.end, label %if.end.i, !llvm.loop !52
 
-while.end:                                        ; preds = %gs_grestore.exit, %entry
+while.end:                                        ; preds = %if.end.i, %entry
   ret i32 0
 }
 

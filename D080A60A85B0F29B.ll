@@ -1005,7 +1005,6 @@ if.end16:                                         ; preds = %for.body12
   %idxprom18 = sext i32 %44 to i64
   %arrayidx19 = getelementptr inbounds %struct.jpeg_inverse_dct, ptr %43, i64 0, i32 1, i64 %idxprom18
   %45 = load ptr, ptr %arrayidx19, align 8, !tbaa !31
-  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 13
   %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 17
   %cond = load i32, ptr %last_col_width, align 4, !tbaa !49
   %cond.fr = freeze i32 %cond
@@ -1021,6 +1020,7 @@ if.end16:                                         ; preds = %for.body12
 for.body29.lr.ph:                                 ; preds = %if.end16
   %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 18
   %cmp37145 = icmp sgt i32 %cond.fr, 0
+  %MCU_width47 = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 13
   br i1 %cmp37145, label %for.body29.us.preheader, label %for.body29.lr.ph.split
 
 for.body29.us.preheader:                          ; preds = %for.body29.lr.ph
@@ -1060,7 +1060,7 @@ if.end46.us.loopexit:                             ; preds = %for.body39.us
 if.end46.us:                                      ; preds = %if.end46.us.loopexit, %lor.lhs.false.us
   %55 = phi i32 [ %.pre215, %if.end46.us.loopexit ], [ %50, %lor.lhs.false.us ]
   %56 = phi i32 [ %60, %if.end46.us.loopexit ], [ %51, %lor.lhs.false.us ]
-  %57 = load i32, ptr %MCU_width, align 4, !tbaa !56
+  %57 = load i32, ptr %MCU_width47, align 4, !tbaa !56
   %add48.us = add nsw i32 %57, %blkn.1151.us
   %idx.ext50.us = sext i32 %56 to i64
   %add.ptr51.us = getelementptr inbounds ptr, ptr %output_ptr.0150.us, i64 %idx.ext50.us
@@ -1082,7 +1082,7 @@ for.body39.us:                                    ; preds = %if.then35.us, %for.
   br i1 %exitcond.not, label %if.end46.us.loopexit, label %for.body39.us, !llvm.loop !88
 
 for.body29.lr.ph.split:                           ; preds = %for.body29.lr.ph
-  %61 = load i32, ptr %MCU_width, align 4, !tbaa !56
+  %61 = load i32, ptr %MCU_width47, align 4, !tbaa !56
   %62 = mul i32 %61, %47
   %63 = add i32 %blkn.0166, %62
   br label %for.inc55

@@ -176,8 +176,8 @@ lor.rhs:                                          ; preds = %land.rhs
 if.else:                                          ; preds = %entry, %lor.rhs
   br label %return
 
-return:                                           ; preds = %land.rhs, %lor.rhs, %if.else
-  %retval.0 = phi ptr [ null, %if.else ], [ %r, %lor.rhs ], [ %r, %land.rhs ]
+return:                                           ; preds = %lor.rhs, %land.rhs, %if.else
+  %retval.0 = phi ptr [ null, %if.else ], [ %r, %land.rhs ], [ %r, %lor.rhs ]
   ret ptr %retval.0
 }
 
@@ -207,8 +207,8 @@ lor.rhs:                                          ; preds = %land.rhs
 if.else:                                          ; preds = %entry, %lor.rhs
   br label %return
 
-return:                                           ; preds = %land.rhs, %lor.rhs, %if.else
-  %retval.0 = phi ptr [ null, %if.else ], [ %r, %lor.rhs ], [ %r, %land.rhs ]
+return:                                           ; preds = %lor.rhs, %land.rhs, %if.else
+  %retval.0 = phi ptr [ null, %if.else ], [ %r, %land.rhs ], [ %r, %lor.rhs ]
   ret ptr %retval.0
 }
 
@@ -237,8 +237,8 @@ land.lhs.true:                                    ; preds = %if.then
   %1 = load ptr, ptr %l.i, align 8, !tbaa !24
   %current_state.i = getelementptr inbounds %class.light, ptr %1, i64 0, i32 1
   %2 = load i32, ptr %current_state.i, align 8, !tbaa !26
-  %cmp.i31.not = icmp eq i32 %2, 2
-  br i1 %cmp.i31.not, label %return, label %if.else
+  %cmp.i31 = icmp eq i32 %2, 2
+  br i1 %cmp.i31, label %return, label %if.else
 
 if.else:                                          ; preds = %land.lhs.true, %if.then
   br label %return
@@ -254,8 +254,8 @@ land.lhs.true19:                                  ; preds = %if.else16
   %4 = load ptr, ptr %l.i36, align 8, !tbaa !24
   %current_state.i37 = getelementptr inbounds %class.light, ptr %4, i64 0, i32 1
   %5 = load i32, ptr %current_state.i37, align 8, !tbaa !26
-  %cmp.i38.not = icmp eq i32 %5, 0
-  br i1 %cmp.i38.not, label %return, label %if.else24
+  %cmp.i38 = icmp eq i32 %5, 0
+  br i1 %cmp.i38, label %return, label %if.else24
 
 if.else24:                                        ; preds = %land.lhs.true19, %if.else16
   br label %return
@@ -290,17 +290,17 @@ if.then:                                          ; preds = %lor.lhs.false, %ent
   br i1 %narrow.i, label %if.then20, label %if.end41
 
 if.end:                                           ; preds = %lor.lhs.false
-  %l.i73 = getelementptr inbounds %class.intersection_roadlet, ptr %r, i64 0, i32 1
-  %2 = load ptr, ptr %l.i73, align 8, !tbaa !24
-  %current_state.i74 = getelementptr inbounds %class.light, ptr %2, i64 0, i32 1
-  %3 = load i32, ptr %current_state.i74, align 8, !tbaa !26
+  %l.i72 = getelementptr inbounds %class.intersection_roadlet, ptr %r, i64 0, i32 1
+  %2 = load ptr, ptr %l.i72, align 8, !tbaa !24
+  %current_state.i73 = getelementptr inbounds %class.light, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %current_state.i73, align 8, !tbaa !26
   %4 = and i32 %3, -2
-  %narrow.i75 = icmp eq i32 %4, 2
-  %cmp.i79 = icmp eq i32 %3, 0
-  br i1 %narrow.i75, label %if.then20, label %if.end41
+  %narrow.i74 = icmp eq i32 %4, 2
+  %cmp.i78 = icmp eq i32 %3, 0
+  br i1 %narrow.i74, label %if.then20, label %if.end41
 
 if.then20:                                        ; preds = %if.then, %if.end
-  %green_light.0.in100 = phi i1 [ %cmp.i, %if.then ], [ %cmp.i79, %if.end ]
+  %green_light.0.in101 = phi i1 [ %cmp.i, %if.then ], [ %cmp.i78, %if.end ]
   %add.i = add nsw i32 %d.coerce, 2
   %rem.i = srem i32 %add.i, 8
   %idxprom.i = sext i32 %rem.i to i64
@@ -312,40 +312,40 @@ if.then20:                                        ; preds = %if.then, %if.end
 if.else27:                                        ; preds = %if.then20
   %plan = getelementptr inbounds %class.vehicle, ptr %v, i64 0, i32 5
   store i32 %rem.i, ptr %plan, align 4, !tbaa !28
-  %call1.i84 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 9)
+  %call1.i83 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 9)
   %call33 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7vehicle(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull byval(%class.vehicle) align 8 %v)
-  %call1.i86 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call33, ptr noundef nonnull @.str.5, i64 noundef 4)
+  %call1.i85 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call33, ptr noundef nonnull @.str.5, i64 noundef 4)
   %6 = load i32, ptr %plan, align 4, !tbaa !28
-  %rem.i87 = srem i32 %6, 9
-  %call38 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %call33, i32 %rem.i87)
-  %call1.i89 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call38, ptr noundef nonnull @.str.6, i64 noundef 1)
-  br i1 %green_light.0.in100, label %if.end45.thread114, label %if.then47
+  %rem.i86 = srem i32 %6, 9
+  %call38 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %call33, i32 %rem.i86)
+  %call1.i88 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call38, ptr noundef nonnull @.str.6, i64 noundef 1)
+  br i1 %green_light.0.in101, label %if.end45.thread118, label %if.then47
 
-if.end45.thread114:                               ; preds = %if.else27
-  %call1.i91117 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 7)
+if.end45.thread118:                               ; preds = %if.else27
+  %call1.i90121 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 7)
   br label %if.then47
 
 if.end41:                                         ; preds = %if.then, %if.then20, %if.end
-  %green_light.0.in99 = phi i1 [ %cmp.i79, %if.end ], [ %green_light.0.in100, %if.then20 ], [ %cmp.i, %if.then ]
-  br i1 %green_light.0.in99, label %if.end45, label %if.end49
+  %green_light.0.in100 = phi i1 [ %cmp.i78, %if.end ], [ %green_light.0.in101, %if.then20 ], [ %cmp.i, %if.then ]
+  br i1 %green_light.0.in100, label %if.end45, label %if.end49
 
 if.end45:                                         ; preds = %if.end41
-  %call1.i91 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 7)
+  %call1.i90 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 7)
   br label %if.end49
 
-if.then47:                                        ; preds = %if.else27, %if.end45.thread114
-  %call1.i93 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 13)
+if.then47:                                        ; preds = %if.else27, %if.end45.thread118
+  %call1.i92 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 13)
   br label %if.end49
 
 if.end49:                                         ; preds = %if.end41, %if.end45, %if.then47
-  %green_light.0.in99101109 = phi i1 [ %green_light.0.in100, %if.then47 ], [ true, %if.end45 ], [ false, %if.end41 ]
-  %tobool46103107 = phi i1 [ true, %if.then47 ], [ false, %if.end45 ], [ false, %if.end41 ]
+  %tobool46112 = phi i1 [ true, %if.then47 ], [ false, %if.end45 ], [ false, %if.end41 ]
+  %green_light.0.in100103110 = phi i1 [ %green_light.0.in101, %if.then47 ], [ true, %if.end45 ], [ false, %if.end41 ]
   %occupant.i.i = getelementptr inbounds %class.roadlet, ptr %r, i64 0, i32 1
   %7 = load ptr, ptr %occupant.i.i, align 8, !tbaa !5
-  %cmp.i94.not = icmp eq ptr %7, null
-  %or.cond = or i1 %green_light.0.in99101109, %tobool46103107
-  %or.cond69 = and i1 %or.cond, %cmp.i94.not
-  %retval.0 = select i1 %or.cond69, ptr %r, ptr null
+  %cmp.i93.not = icmp eq ptr %7, null
+  %or.cond = or i1 %tobool46112, %green_light.0.in100103110
+  %or.cond98 = and i1 %cmp.i93.not, %or.cond
+  %retval.0 = select i1 %or.cond98, ptr %r, ptr null
   ret ptr %retval.0
 }
 

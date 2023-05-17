@@ -12,7 +12,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local double @f(i64 noundef %i) local_unnamed_addr #0 {
-if.end:
+entry:
   %conv = sitofp i64 %i to double
   %conv.i = fptosi double %conv to i64
   %conv6 = sitofp i64 %conv.i to double
@@ -21,7 +21,7 @@ if.end:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end6:
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

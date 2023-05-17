@@ -11,8 +11,9 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %0 = load i8, ptr @a, align 1
-  %tobool.not.i = icmp ne i8 %0, 0
-  br i1 %tobool.not.i, label %land.rhs.i, label %entry.land.end_crit_edge.i
+  %conv.i = zext i8 %0 to i32
+  %tobool.i = icmp ne i8 %0, 0
+  br i1 %tobool.i, label %land.rhs.i, label %entry.land.end_crit_edge.i
 
 entry.land.end_crit_edge.i:                       ; preds = %entry
   %.pre.i = load i32, ptr @b, align 4, !tbaa !5
@@ -20,25 +21,23 @@ entry.land.end_crit_edge.i:                       ; preds = %entry
   br label %land.end.i
 
 land.rhs.i:                                       ; preds = %entry
-  %conv.i = zext i8 %0 to i32
   store i32 %conv.i, ptr @b, align 4, !tbaa !5
   br label %land.end.i
 
 land.end.i:                                       ; preds = %land.rhs.i, %entry.land.end_crit_edge.i
-  %conv18.pre-phi.i = phi i32 [ 0, %entry.land.end_crit_edge.i ], [ %conv.i, %land.rhs.i ]
   %tobool7.i = phi i1 [ %1, %entry.land.end_crit_edge.i ], [ true, %land.rhs.i ]
-  %land.ext.neg.i = sext i1 %tobool.not.i to i32
-  %land.ext.i = zext i1 %tobool.not.i to i32
+  %land.ext.neg.i = sext i1 %tobool.i to i32
+  %land.ext.i = zext i1 %tobool.i to i32
   store i32 %land.ext.i, ptr @c, align 4, !tbaa !5
   %not.i = xor i32 %land.ext.i, -1
-  %2 = or i1 %tobool.not.i, %tobool7.i
+  %2 = or i1 %tobool.i, %tobool7.i
   %not11.i = xor i8 %0, -1
   %tobool13.not.i = icmp eq i8 %0, 0
   %spec.select.i = select i1 %tobool13.not.i, i32 %not.i, i32 0
   %conv14.i = zext i8 %not11.i to i32
   %tobool15.i = icmp ne i8 %0, -1
   %or.cond.i = select i1 %tobool15.i, i1 %2, i1 false
-  %d.0.i = select i1 %or.cond.i, i32 %conv18.pre-phi.i, i32 0
+  %d.0.i = select i1 %or.cond.i, i32 %conv.i, i32 0
   %mul.i = mul nsw i32 %spec.select.i, %conv14.i
   %mul21.i = mul nsw i32 %mul.i, %d.0.i
   %not22.neg.i = add nsw i32 %mul21.i, 1

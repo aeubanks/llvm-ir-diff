@@ -27,57 +27,57 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.63 = private unnamed_addr constant [50 x i8] c"                    first item on the input line.\00", align 1
 @CH = external local_unnamed_addr global i8, align 1
 @.str.67 = private unnamed_addr constant [58 x i8] c"****** %d format errors found in output of your scanner.\0A\00", align 1
-@str = private unnamed_addr constant [4 x i8] c"EOF\00", align 1
-@str.70 = private unnamed_addr constant [18 x i8] c"   SEMICOLON (;) \00", align 1
-@str.71 = private unnamed_addr constant [59 x i8] c"------------>ERROR: Expected a Newline Character <--------\00", align 1
-@str.72 = private unnamed_addr constant [14 x i8] c"   COMMA (,) \00", align 1
-@str.73 = private unnamed_addr constant [22 x i8] c"   RIGHT BRACKET (]) \00", align 1
-@str.74 = private unnamed_addr constant [21 x i8] c"   LEFT BRACKET ([) \00", align 1
-@str.75 = private unnamed_addr constant [20 x i8] c"   RIGHT PAREN ')' \00", align 1
-@str.76 = private unnamed_addr constant [19 x i8] c"   LEFT PAREN '(' \00", align 1
-@str.77 = private unnamed_addr constant [8 x i8] c"   NOT \00", align 1
-@str.78 = private unnamed_addr constant [7 x i8] c"   DO \00", align 1
-@str.79 = private unnamed_addr constant [10 x i8] c"   WHILE \00", align 1
-@str.80 = private unnamed_addr constant [9 x i8] c"   ELSE \00", align 1
-@str.81 = private unnamed_addr constant [9 x i8] c"   THEN \00", align 1
-@str.82 = private unnamed_addr constant [7 x i8] c"   IF \00", align 1
-@str.83 = private unnamed_addr constant [12 x i8] c"   WRITELN \00", align 1
-@str.84 = private unnamed_addr constant [10 x i8] c"   WRITE \00", align 1
-@str.85 = private unnamed_addr constant [9 x i8] c"   READ \00", align 1
-@str.86 = private unnamed_addr constant [8 x i8] c"   END \00", align 1
-@str.87 = private unnamed_addr constant [10 x i8] c"   BEGIN \00", align 1
-@str.88 = private unnamed_addr constant [13 x i8] c"   FUNCTION \00", align 1
-@str.89 = private unnamed_addr constant [12 x i8] c"   FORWARD \00", align 1
-@str.90 = private unnamed_addr constant [14 x i8] c"   PROCEDURE \00", align 1
-@str.91 = private unnamed_addr constant [7 x i8] c"   OF \00", align 1
-@str.92 = private unnamed_addr constant [10 x i8] c"   ARRAY \00", align 1
-@str.93 = private unnamed_addr constant [19 x i8] c"   REAL (KEYWORD) \00", align 1
-@str.94 = private unnamed_addr constant [22 x i8] c"   INTEGER (KEYWORD) \00", align 1
-@str.95 = private unnamed_addr constant [8 x i8] c"   VAR \00", align 1
-@str.96 = private unnamed_addr constant [12 x i8] c"   PROGRAM \00", align 1
-@str.99 = private unnamed_addr constant [49 x i8] c"---------->ERROR: Expected a VALID/ILLEGAL Code \00", align 1
-@str.100 = private unnamed_addr constant [8 x i8] c"illegal\00", align 1
-@str.101 = private unnamed_addr constant [12 x i8] c"   DOT (.) \00", align 1
-@str.102 = private unnamed_addr constant [16 x i8] c"   DOTDOT (..) \00", align 1
-@str.103 = private unnamed_addr constant [14 x i8] c"   COLON (:) \00", align 1
-@str.104 = private unnamed_addr constant [16 x i8] c"   ASSIGN (:=) \00", align 1
-@str.105 = private unnamed_addr constant [2 x i8] c">\00", align 1
-@str.106 = private unnamed_addr constant [3 x i8] c">=\00", align 1
-@str.107 = private unnamed_addr constant [2 x i8] c"<\00", align 1
-@str.108 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
-@str.109 = private unnamed_addr constant [3 x i8] c"<>\00", align 1
-@str.110 = private unnamed_addr constant [2 x i8] c"=\00", align 1
-@str.111 = private unnamed_addr constant [4 x i8] c"DIV\00", align 1
-@str.112 = private unnamed_addr constant [4 x i8] c"AND\00", align 1
-@str.113 = private unnamed_addr constant [2 x i8] c"/\00", align 1
-@str.114 = private unnamed_addr constant [2 x i8] c"*\00", align 1
-@str.115 = private unnamed_addr constant [3 x i8] c"OR\00", align 1
-@str.116 = private unnamed_addr constant [2 x i8] c"-\00", align 1
-@str.117 = private unnamed_addr constant [2 x i8] c"+\00", align 1
-@str.118 = private unnamed_addr constant [50 x i8] c"------------>ERROR: A Valid TOKEN Code is not the\00", align 1
-@str.119 = private unnamed_addr constant [11 x i8] c" <--------\00", align 1
-@str.120 = private unnamed_addr constant [60 x i8] c"------------>ERROR: Expected a SPACE between Token Code and\00", align 1
-@str.121 = private unnamed_addr constant [54 x i8] c"                    the string following it <--------\00", align 1
+@str = private unnamed_addr constant [60 x i8] c"------------>ERROR: Expected a SPACE between Token Code and\00", align 1
+@str.70 = private unnamed_addr constant [54 x i8] c"                    the string following it <--------\00", align 1
+@str.71 = private unnamed_addr constant [4 x i8] c"EOF\00", align 1
+@str.72 = private unnamed_addr constant [18 x i8] c"   SEMICOLON (;) \00", align 1
+@str.73 = private unnamed_addr constant [59 x i8] c"------------>ERROR: Expected a Newline Character <--------\00", align 1
+@str.74 = private unnamed_addr constant [14 x i8] c"   COMMA (,) \00", align 1
+@str.75 = private unnamed_addr constant [22 x i8] c"   RIGHT BRACKET (]) \00", align 1
+@str.76 = private unnamed_addr constant [21 x i8] c"   LEFT BRACKET ([) \00", align 1
+@str.77 = private unnamed_addr constant [20 x i8] c"   RIGHT PAREN ')' \00", align 1
+@str.78 = private unnamed_addr constant [19 x i8] c"   LEFT PAREN '(' \00", align 1
+@str.79 = private unnamed_addr constant [8 x i8] c"   NOT \00", align 1
+@str.80 = private unnamed_addr constant [7 x i8] c"   DO \00", align 1
+@str.81 = private unnamed_addr constant [10 x i8] c"   WHILE \00", align 1
+@str.82 = private unnamed_addr constant [9 x i8] c"   ELSE \00", align 1
+@str.83 = private unnamed_addr constant [9 x i8] c"   THEN \00", align 1
+@str.84 = private unnamed_addr constant [7 x i8] c"   IF \00", align 1
+@str.85 = private unnamed_addr constant [12 x i8] c"   WRITELN \00", align 1
+@str.86 = private unnamed_addr constant [10 x i8] c"   WRITE \00", align 1
+@str.87 = private unnamed_addr constant [9 x i8] c"   READ \00", align 1
+@str.88 = private unnamed_addr constant [8 x i8] c"   END \00", align 1
+@str.89 = private unnamed_addr constant [10 x i8] c"   BEGIN \00", align 1
+@str.90 = private unnamed_addr constant [13 x i8] c"   FUNCTION \00", align 1
+@str.91 = private unnamed_addr constant [12 x i8] c"   FORWARD \00", align 1
+@str.92 = private unnamed_addr constant [14 x i8] c"   PROCEDURE \00", align 1
+@str.93 = private unnamed_addr constant [7 x i8] c"   OF \00", align 1
+@str.94 = private unnamed_addr constant [10 x i8] c"   ARRAY \00", align 1
+@str.95 = private unnamed_addr constant [19 x i8] c"   REAL (KEYWORD) \00", align 1
+@str.96 = private unnamed_addr constant [22 x i8] c"   INTEGER (KEYWORD) \00", align 1
+@str.97 = private unnamed_addr constant [8 x i8] c"   VAR \00", align 1
+@str.98 = private unnamed_addr constant [12 x i8] c"   PROGRAM \00", align 1
+@str.101 = private unnamed_addr constant [49 x i8] c"---------->ERROR: Expected a VALID/ILLEGAL Code \00", align 1
+@str.102 = private unnamed_addr constant [8 x i8] c"illegal\00", align 1
+@str.103 = private unnamed_addr constant [12 x i8] c"   DOT (.) \00", align 1
+@str.104 = private unnamed_addr constant [16 x i8] c"   DOTDOT (..) \00", align 1
+@str.105 = private unnamed_addr constant [14 x i8] c"   COLON (:) \00", align 1
+@str.106 = private unnamed_addr constant [16 x i8] c"   ASSIGN (:=) \00", align 1
+@str.107 = private unnamed_addr constant [2 x i8] c">\00", align 1
+@str.108 = private unnamed_addr constant [3 x i8] c">=\00", align 1
+@str.109 = private unnamed_addr constant [2 x i8] c"<\00", align 1
+@str.110 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
+@str.111 = private unnamed_addr constant [3 x i8] c"<>\00", align 1
+@str.112 = private unnamed_addr constant [2 x i8] c"=\00", align 1
+@str.113 = private unnamed_addr constant [4 x i8] c"DIV\00", align 1
+@str.114 = private unnamed_addr constant [4 x i8] c"AND\00", align 1
+@str.115 = private unnamed_addr constant [2 x i8] c"/\00", align 1
+@str.116 = private unnamed_addr constant [2 x i8] c"*\00", align 1
+@str.117 = private unnamed_addr constant [3 x i8] c"OR\00", align 1
+@str.118 = private unnamed_addr constant [2 x i8] c"-\00", align 1
+@str.119 = private unnamed_addr constant [2 x i8] c"+\00", align 1
+@str.120 = private unnamed_addr constant [50 x i8] c"------------>ERROR: A Valid TOKEN Code is not the\00", align 1
+@str.121 = private unnamed_addr constant [11 x i8] c" <--------\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
@@ -164,8 +164,8 @@ if.else.i:                                        ; preds = %sw.bb
   %4 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %inc.i = add nsw i32 %4, 1
   store i32 %inc.i, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %puts15.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
+  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts15.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
   br label %while.cond.i.preheader
 
 while.cond.i.preheader:                           ; preds = %if.else.i, %if.then.i
@@ -212,15 +212,15 @@ sw.bb8:                                           ; preds = %if.then
   ]
 
 sw.bb11:                                          ; preds = %sw.bb8
-  %puts222 = call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
+  %puts246 = call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
   br label %sw.epilog155
 
 sw.bb13:                                          ; preds = %sw.bb8
-  %puts221 = call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
+  %puts245 = call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
   br label %sw.epilog155
 
 sw.bb15:                                          ; preds = %sw.bb8
-  %puts220 = call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
+  %puts244 = call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
   br label %sw.epilog155
 
 sw.default:                                       ; preds = %sw.bb8
@@ -242,19 +242,19 @@ sw.bb18:                                          ; preds = %if.then
   ]
 
 sw.bb21:                                          ; preds = %sw.bb18
-  %puts219 = call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
+  %puts243 = call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
   br label %sw.epilog155
 
 sw.bb23:                                          ; preds = %sw.bb18
-  %puts218 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %puts242 = call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
   br label %sw.epilog155
 
 sw.bb25:                                          ; preds = %sw.bb18
-  %puts217 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %puts241 = call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
   br label %sw.epilog155
 
 sw.bb27:                                          ; preds = %sw.bb18
-  %puts216 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %puts240 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
   br label %sw.epilog155
 
 sw.default29:                                     ; preds = %sw.bb18
@@ -278,27 +278,27 @@ sw.bb33:                                          ; preds = %if.then
   ]
 
 sw.bb36:                                          ; preds = %sw.bb33
-  %puts215 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %puts239 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
   br label %sw.epilog155
 
 sw.bb38:                                          ; preds = %sw.bb33
-  %puts214 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %puts238 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
   br label %sw.epilog155
 
 sw.bb40:                                          ; preds = %sw.bb33
-  %puts213 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %puts237 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
   br label %sw.epilog155
 
 sw.bb42:                                          ; preds = %sw.bb33
-  %puts212 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
+  %puts236 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
   br label %sw.epilog155
 
 sw.bb44:                                          ; preds = %sw.bb33
-  %puts211 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
+  %puts235 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
   br label %sw.epilog155
 
 sw.bb46:                                          ; preds = %sw.bb33
-  %puts210 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %puts234 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
   br label %sw.epilog155
 
 sw.default48:                                     ; preds = %sw.bb33
@@ -309,19 +309,19 @@ sw.default48:                                     ; preds = %sw.bb33
   br label %sw.epilog155
 
 sw.bb52:                                          ; preds = %if.then
-  %puts209 = call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
+  %puts233 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
   br label %sw.epilog155
 
 sw.bb54:                                          ; preds = %if.then
-  %puts208 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
+  %puts232 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
   br label %sw.epilog155
 
 sw.bb56:                                          ; preds = %if.then
-  %puts207 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %puts231 = call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
   br label %sw.epilog155
 
 sw.bb58:                                          ; preds = %if.then
-  %puts206 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
+  %puts230 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
   br label %sw.epilog155
 
 sw.bb60:                                          ; preds = %if.then
@@ -334,7 +334,7 @@ sw.bb60:                                          ; preds = %if.then
   ]
 
 if.then64:                                        ; preds = %sw.bb60
-  %puts205 = call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %puts229 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   br label %sw.epilog155
 
 if.then68:                                        ; preds = %sw.bb60
@@ -347,7 +347,7 @@ if.else71:                                        ; preds = %sw.bb60
   %16 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %inc72 = add nsw i32 %16, 1
   store i32 %inc72, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts204 = call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %puts228 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
   %17 = load i32, ptr %I1, align 4, !tbaa !5
   %call74 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30, i32 noundef %17)
   br label %sw.epilog155
@@ -362,7 +362,7 @@ sw.bb76:                                          ; preds = %if.then
   ]
 
 if.then81:                                        ; preds = %sw.bb76
-  %puts203 = call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %puts227 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   br label %sw.epilog155
 
 if.then86:                                        ; preds = %sw.bb76
@@ -375,210 +375,210 @@ if.else89:                                        ; preds = %sw.bb76
   %20 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %inc90 = add nsw i32 %20, 1
   store i32 %inc90, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts202 = call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %puts226 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
   %21 = load i32, ptr %I1, align 4, !tbaa !5
   %call92 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30, i32 noundef %21)
   br label %sw.epilog155
 
 sw.bb95:                                          ; preds = %if.then
-  %puts201 = call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
+  %puts225 = call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
   br label %sw.epilog155
 
 sw.bb97:                                          ; preds = %if.then
-  %puts200 = call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
+  %puts224 = call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
   br label %sw.epilog155
 
 sw.bb99:                                          ; preds = %if.then
-  %puts199 = call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
+  %puts223 = call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
   br label %sw.epilog155
 
 sw.bb101:                                         ; preds = %if.then
-  %puts198 = call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
+  %puts222 = call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
   br label %sw.epilog155
 
 sw.bb103:                                         ; preds = %if.then
-  %puts197 = call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
+  %puts221 = call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
   br label %sw.epilog155
 
 sw.bb105:                                         ; preds = %if.then
-  %puts196 = call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
+  %puts220 = call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
   br label %sw.epilog155
 
 sw.bb107:                                         ; preds = %if.then
-  %puts195 = call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %puts219 = call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
   br label %sw.epilog155
 
 sw.bb109:                                         ; preds = %if.then
-  %puts194 = call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
+  %puts218 = call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
   br label %sw.epilog155
 
 sw.bb111:                                         ; preds = %if.then
-  %puts193 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  %puts217 = call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
   br label %sw.epilog155
 
 sw.bb113:                                         ; preds = %if.then
-  %puts192 = call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
+  %puts216 = call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
   br label %sw.epilog155
 
 sw.bb115:                                         ; preds = %if.then
-  %puts191 = call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
+  %puts215 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
   br label %sw.epilog155
 
 sw.bb117:                                         ; preds = %if.then
-  %puts190 = call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
+  %puts214 = call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
   br label %sw.epilog155
 
 sw.bb119:                                         ; preds = %if.then
-  %puts189 = call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
+  %puts213 = call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
   br label %sw.epilog155
 
 sw.bb121:                                         ; preds = %if.then
-  %puts188 = call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
+  %puts212 = call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
   br label %sw.epilog155
 
 sw.bb123:                                         ; preds = %if.then
-  %puts187 = call i32 @puts(ptr nonnull dereferenceable(1) @str.82)
+  %puts211 = call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
   br label %sw.epilog155
 
 sw.bb125:                                         ; preds = %if.then
-  %puts186 = call i32 @puts(ptr nonnull dereferenceable(1) @str.81)
+  %puts210 = call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
   br label %sw.epilog155
 
 sw.bb127:                                         ; preds = %if.then
-  %puts185 = call i32 @puts(ptr nonnull dereferenceable(1) @str.80)
+  %puts209 = call i32 @puts(ptr nonnull dereferenceable(1) @str.82)
   br label %sw.epilog155
 
 sw.bb129:                                         ; preds = %if.then
-  %puts184 = call i32 @puts(ptr nonnull dereferenceable(1) @str.79)
+  %puts208 = call i32 @puts(ptr nonnull dereferenceable(1) @str.81)
   br label %sw.epilog155
 
 sw.bb131:                                         ; preds = %if.then
-  %puts183 = call i32 @puts(ptr nonnull dereferenceable(1) @str.78)
+  %puts207 = call i32 @puts(ptr nonnull dereferenceable(1) @str.80)
   br label %sw.epilog155
 
 sw.bb133:                                         ; preds = %if.then
-  %puts182 = call i32 @puts(ptr nonnull dereferenceable(1) @str.77)
+  %puts206 = call i32 @puts(ptr nonnull dereferenceable(1) @str.79)
   br label %sw.epilog155
 
 sw.bb135:                                         ; preds = %if.then
   %call136 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.54)
   call void (...) @GETCHR() #7
   %22 = load i8, ptr @CH, align 1, !tbaa !11
-  %cmp.i225 = icmp eq i8 %22, 32
-  br i1 %cmp.i225, label %if.then.i226, label %if.else.i230
+  %cmp.i174 = icmp eq i8 %22, 32
+  br i1 %cmp.i174, label %if.then.i175, label %if.else.i179
 
-if.then.i226:                                     ; preds = %sw.bb135
+if.then.i175:                                     ; preds = %sw.bb135
   call void (...) @FLUSH() #7
   call void (...) @GETCHR() #7
-  br label %while.cond.i232.preheader
+  br label %while.cond.i181.preheader
 
-if.else.i230:                                     ; preds = %sw.bb135
+if.else.i179:                                     ; preds = %sw.bb135
   %23 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
-  %inc.i227 = add nsw i32 %23, 1
-  store i32 %inc.i227, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts.i228 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %puts15.i229 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
-  br label %while.cond.i232.preheader
+  %inc.i176 = add nsw i32 %23, 1
+  store i32 %inc.i176, ptr @ERROR_CNT, align 4, !tbaa !5
+  %puts.i177 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts15.i178 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
+  br label %while.cond.i181.preheader
 
-while.cond.i232.preheader:                        ; preds = %if.else.i230, %if.then.i226
-  br label %while.cond.i232
+while.cond.i181.preheader:                        ; preds = %if.else.i179, %if.then.i175
+  br label %while.cond.i181
 
-while.cond.i232:                                  ; preds = %while.cond.i232.preheader, %while.body.i233
+while.cond.i181:                                  ; preds = %while.cond.i181.preheader, %while.body.i182
   %24 = load i8, ptr @CH, align 1
-  switch i8 %24, label %while.body.i233 [
-    i8 10, label %if.then12.i234
-    i8 -1, label %if.else13.i235
+  switch i8 %24, label %while.body.i182 [
+    i8 10, label %if.then12.i183
+    i8 -1, label %if.else13.i184
   ]
 
-while.body.i233:                                  ; preds = %while.cond.i232
+while.body.i182:                                  ; preds = %while.cond.i181
   call void (...) @GETCHR() #7
-  br label %while.cond.i232, !llvm.loop !12
+  br label %while.cond.i181, !llvm.loop !12
 
-if.then12.i234:                                   ; preds = %while.cond.i232
+if.then12.i183:                                   ; preds = %while.cond.i181
   call void (...) @BACKUP() #7
-  br label %GETSTR.exit236
+  br label %GETSTR.exit185
 
-if.else13.i235:                                   ; preds = %while.cond.i232
+if.else13.i184:                                   ; preds = %while.cond.i181
   store i1 true, ptr @EOF_FLAG, align 4
-  br label %GETSTR.exit236
+  br label %GETSTR.exit185
 
-GETSTR.exit236:                                   ; preds = %if.then12.i234, %if.else13.i235
+GETSTR.exit185:                                   ; preds = %if.then12.i183, %if.else13.i184
   %25 = load ptr, ptr @LEXEME, align 8, !tbaa !9
-  %puts181 = call i32 @puts(ptr nonnull dereferenceable(1) %25)
+  %puts205 = call i32 @puts(ptr nonnull dereferenceable(1) %25)
   br label %sw.epilog155
 
 sw.bb138:                                         ; preds = %if.then
-  %puts180 = call i32 @puts(ptr nonnull dereferenceable(1) @str.76)
+  %puts204 = call i32 @puts(ptr nonnull dereferenceable(1) @str.78)
   br label %sw.epilog155
 
 sw.bb140:                                         ; preds = %if.then
-  %puts179 = call i32 @puts(ptr nonnull dereferenceable(1) @str.75)
+  %puts203 = call i32 @puts(ptr nonnull dereferenceable(1) @str.77)
   br label %sw.epilog155
 
 sw.bb142:                                         ; preds = %if.then
-  %puts178 = call i32 @puts(ptr nonnull dereferenceable(1) @str.74)
+  %puts202 = call i32 @puts(ptr nonnull dereferenceable(1) @str.76)
   br label %sw.epilog155
 
 sw.bb144:                                         ; preds = %if.then
-  %puts177 = call i32 @puts(ptr nonnull dereferenceable(1) @str.73)
+  %puts201 = call i32 @puts(ptr nonnull dereferenceable(1) @str.75)
   br label %sw.epilog155
 
 sw.bb146:                                         ; preds = %if.then
-  %puts176 = call i32 @puts(ptr nonnull dereferenceable(1) @str.72)
+  %puts200 = call i32 @puts(ptr nonnull dereferenceable(1) @str.74)
   br label %sw.epilog155
 
 sw.bb148:                                         ; preds = %if.then
-  %puts174 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
+  %puts198 = call i32 @puts(ptr nonnull dereferenceable(1) @str.72)
   br label %sw.epilog155
 
 sw.default150:                                    ; preds = %if.then
   %26 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %inc151 = add nsw i32 %26, 1
   store i32 %inc151, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts223 = call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
+  %puts247 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
   %call153 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.63)
-  %puts224 = call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
+  %puts248 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   call void (...) @GETCHR() #7
   %27 = load i8, ptr @CH, align 1, !tbaa !11
-  %cmp.i237 = icmp eq i8 %27, 32
-  br i1 %cmp.i237, label %if.then.i238, label %if.else.i242
+  %cmp.i186 = icmp eq i8 %27, 32
+  br i1 %cmp.i186, label %if.then.i187, label %if.else.i191
 
-if.then.i238:                                     ; preds = %sw.default150
+if.then.i187:                                     ; preds = %sw.default150
   call void (...) @FLUSH() #7
   call void (...) @GETCHR() #7
-  br label %while.cond.i244.preheader
+  br label %while.cond.i193.preheader
 
-if.else.i242:                                     ; preds = %sw.default150
+if.else.i191:                                     ; preds = %sw.default150
   %28 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
-  %inc.i239 = add nsw i32 %28, 1
-  store i32 %inc.i239, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts.i240 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %puts15.i241 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
-  br label %while.cond.i244.preheader
+  %inc.i188 = add nsw i32 %28, 1
+  store i32 %inc.i188, ptr @ERROR_CNT, align 4, !tbaa !5
+  %puts.i189 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts15.i190 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
+  br label %while.cond.i193.preheader
 
-while.cond.i244.preheader:                        ; preds = %if.else.i242, %if.then.i238
-  br label %while.cond.i244
+while.cond.i193.preheader:                        ; preds = %if.else.i191, %if.then.i187
+  br label %while.cond.i193
 
-while.cond.i244:                                  ; preds = %while.cond.i244.preheader, %while.body.i245
+while.cond.i193:                                  ; preds = %while.cond.i193.preheader, %while.body.i194
   %29 = load i8, ptr @CH, align 1
-  switch i8 %29, label %while.body.i245 [
-    i8 10, label %if.then12.i246
-    i8 -1, label %if.else13.i247
+  switch i8 %29, label %while.body.i194 [
+    i8 10, label %if.then12.i195
+    i8 -1, label %if.else13.i196
   ]
 
-while.body.i245:                                  ; preds = %while.cond.i244
+while.body.i194:                                  ; preds = %while.cond.i193
   call void (...) @GETCHR() #7
-  br label %while.cond.i244, !llvm.loop !12
+  br label %while.cond.i193, !llvm.loop !12
 
-if.then12.i246:                                   ; preds = %while.cond.i244
+if.then12.i195:                                   ; preds = %while.cond.i193
   call void (...) @BACKUP() #7
   br label %sw.epilog155
 
-if.else13.i247:                                   ; preds = %while.cond.i244
+if.else13.i196:                                   ; preds = %while.cond.i193
   store i1 true, ptr @EOF_FLAG, align 4
   br label %sw.epilog155
 
-sw.epilog155:                                     ; preds = %if.else13.i247, %if.then12.i246, %if.then81, %if.else89, %if.then86, %if.then64, %if.else71, %if.then68, %sw.bb36, %sw.bb38, %sw.bb40, %sw.bb42, %sw.bb44, %sw.bb46, %sw.default48, %sw.bb21, %sw.bb23, %sw.bb25, %sw.bb27, %sw.default29, %sw.bb11, %sw.bb13, %sw.bb15, %sw.default, %sw.bb148, %sw.bb146, %sw.bb144, %sw.bb142, %sw.bb140, %sw.bb138, %GETSTR.exit236, %sw.bb133, %sw.bb131, %sw.bb129, %sw.bb127, %sw.bb125, %sw.bb123, %sw.bb121, %sw.bb119, %sw.bb117, %sw.bb115, %sw.bb113, %sw.bb111, %sw.bb109, %sw.bb107, %sw.bb105, %sw.bb103, %sw.bb101, %sw.bb99, %sw.bb97, %sw.bb95, %sw.bb58, %sw.bb56, %sw.bb54, %sw.bb52, %sw.bb5, %GETSTR.exit
+sw.epilog155:                                     ; preds = %if.else13.i196, %if.then12.i195, %if.then81, %if.else89, %if.then86, %if.then64, %if.else71, %if.then68, %sw.bb36, %sw.bb38, %sw.bb40, %sw.bb42, %sw.bb44, %sw.bb46, %sw.default48, %sw.bb21, %sw.bb23, %sw.bb25, %sw.bb27, %sw.default29, %sw.bb11, %sw.bb13, %sw.bb15, %sw.default, %sw.bb148, %sw.bb146, %sw.bb144, %sw.bb142, %sw.bb140, %sw.bb138, %GETSTR.exit185, %sw.bb133, %sw.bb131, %sw.bb129, %sw.bb127, %sw.bb125, %sw.bb123, %sw.bb121, %sw.bb119, %sw.bb117, %sw.bb115, %sw.bb113, %sw.bb111, %sw.bb109, %sw.bb107, %sw.bb105, %sw.bb103, %sw.bb101, %sw.bb99, %sw.bb97, %sw.bb95, %sw.bb58, %sw.bb56, %sw.bb54, %sw.bb52, %sw.bb5, %GETSTR.exit
   call void (...) @GETCHR() #7
   %30 = load i8, ptr @CH, align 1, !tbaa !11
   %cmp157 = icmp eq i8 %30, 10
@@ -590,7 +590,7 @@ if.then160:                                       ; preds = %sw.epilog155
   %31 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %inc161 = add nsw i32 %31, 1
   store i32 %inc161, ptr @ERROR_CNT, align 4, !tbaa !5
-  %puts175 = call i32 @puts(ptr nonnull dereferenceable(1) @str.71)
+  %puts199 = call i32 @puts(ptr nonnull dereferenceable(1) @str.73)
   br label %if.end165
 
 if.end165.thread:                                 ; preds = %while.body
@@ -603,7 +603,7 @@ if.end165:                                        ; preds = %sw.epilog155, %if.t
   br i1 %.b173.pre, label %while.end, label %while.body, !llvm.loop !16
 
 while.end:                                        ; preds = %if.end165, %if.end165.thread, %entry
-  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.71)
   %32 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %tobool167.not = icmp eq i32 %32, 0
   br i1 %tobool167.not, label %if.end170, label %if.then168

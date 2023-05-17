@@ -48,9 +48,9 @@ if.end:                                           ; preds = %entry
 if.end6.thread:                                   ; preds = %if.end, %if.end.thread
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 2
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !7
-  %call.i19 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #3
-  %conv.i20 = trunc i64 %call.i19 to i32
-  store i32 %conv.i20, ptr @NumNodes, align 4, !tbaa !11
+  %call.i18 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #3
+  %conv.i19 = trunc i64 %call.i18 to i32
+  store i32 %conv.i19, ptr @NumNodes, align 4, !tbaa !11
   br label %if.end12
 
 if.end6:                                          ; preds = %if.end
@@ -61,14 +61,14 @@ if.end6:                                          ; preds = %if.end
 if.end12:                                         ; preds = %if.end6, %if.end6.thread
   %arrayidx9 = getelementptr inbounds ptr, ptr %argv, i64 1
   %2 = load ptr, ptr %arrayidx9, align 8, !tbaa !7
-  %call.i21 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #3
-  %conv.i22 = trunc i64 %call.i21 to i32
+  %call.i20 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #3
+  %conv.i21 = trunc i64 %call.i20 to i32
   %.pr = load i32, ptr @NumNodes, align 4, !tbaa !11
   %cmp3.i = icmp sgt i32 %.pr, 1
   br i1 %cmp3.i, label %while.body.i.preheader, label %mylog.exit
 
 while.body.i.preheader:                           ; preds = %if.end6, %if.end12
-  %size.030 = phi i32 [ %conv.i22, %if.end12 ], [ 32768, %if.end6 ]
+  %size.030 = phi i32 [ %conv.i21, %if.end12 ], [ 32768, %if.end6 ]
   %3 = phi i32 [ %.pr, %if.end12 ], [ 4, %if.end6 ]
   br label %while.body.i
 
@@ -81,7 +81,7 @@ while.body.i:                                     ; preds = %while.body.i.prehea
   br i1 %cmp.i, label %while.body.i, label %mylog.exit, !llvm.loop !5
 
 mylog.exit:                                       ; preds = %while.body.i, %if.end12
-  %size.029 = phi i32 [ %conv.i22, %if.end12 ], [ %size.030, %while.body.i ]
+  %size.029 = phi i32 [ %conv.i21, %if.end12 ], [ %size.030, %while.body.i ]
   %j.0.lcssa.i = phi i32 [ 0, %if.end12 ], [ %inc.i, %while.body.i ]
   store i32 %j.0.lcssa.i, ptr @NDim, align 4, !tbaa !11
   ret i32 %size.029

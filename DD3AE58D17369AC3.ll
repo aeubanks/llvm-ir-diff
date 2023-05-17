@@ -13,8 +13,8 @@ define dso_local i32 @findside(ptr nocapture noundef readonly %cellptr, i32 noun
 entry:
   %numsides = getelementptr inbounds %struct.cellbox, ptr %cellptr, i64 0, i32 7
   %0 = load i32, ptr %numsides, align 8, !tbaa !5
-  %cmp.not104 = icmp slt i32 %0, 1
-  br i1 %cmp.not104, label %for.end, label %for.body.lr.ph
+  %cmp.not101 = icmp slt i32 %0, 1
+  br i1 %cmp.not101, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr @pSideArray, align 8, !tbaa !12
@@ -24,26 +24,26 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
-  %kmin.0107 = phi i32 [ undef, %for.body.lr.ph ], [ %spec.select103, %for.body ]
-  %min.0106 = phi i32 [ 10000000, %for.body.lr.ph ], [ %spec.select102, %for.body ]
+  %kmin.0104 = phi i32 [ undef, %for.body.lr.ph ], [ %spec.select108, %for.body ]
+  %min.0103 = phi i32 [ 10000000, %for.body.lr.ph ], [ %spec.select107, %for.body ]
   %vertical = getelementptr inbounds %struct.psidebox, ptr %1, i64 %indvars.iv, i32 2
   %3 = load i32, ptr %vertical, align 8, !tbaa !13
   %cmp1 = icmp eq i32 %3, 1
+  %4 = trunc i64 %indvars.iv to i32
   %position = getelementptr inbounds %struct.psidebox, ptr %1, i64 %indvars.iv, i32 3
-  %4 = load i32, ptr %position, align 4, !tbaa !15
-  %5 = trunc i64 %indvars.iv to i32
+  %5 = load i32, ptr %position, align 4, !tbaa !15
   %x.y = select i1 %cmp1, i32 %x, i32 %y
-  %sub37 = sub nsw i32 %x.y, %4
+  %sub37 = sub nsw i32 %x.y, %5
   %cond51 = tail call i32 @llvm.abs.i32(i32 %sub37, i1 true)
-  %cmp52 = icmp slt i32 %cond51, %min.0106
-  %spec.select102 = tail call i32 @llvm.smin.i32(i32 %cond51, i32 %min.0106)
-  %spec.select103 = select i1 %cmp52, i32 %5, i32 %kmin.0107
+  %spec.select107 = tail call i32 @llvm.smin.i32(i32 %cond51, i32 %min.0103)
+  %cmp52.sink = icmp slt i32 %cond51, %min.0103
+  %spec.select108 = select i1 %cmp52.sink, i32 %4, i32 %kmin.0104
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !16
 
 for.end:                                          ; preds = %for.body, %entry
-  %kmin.0.lcssa = phi i32 [ undef, %entry ], [ %spec.select103, %for.body ]
+  %kmin.0.lcssa = phi i32 [ undef, %entry ], [ %spec.select108, %for.body ]
   ret i32 %kmin.0.lcssa
 }
 

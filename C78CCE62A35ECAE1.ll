@@ -245,16 +245,16 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
-if.end198:
+entry:
   %0 = load i32, ptr @fail_count, align 4, !tbaa !5
   %cmp199.not = icmp eq i32 %0, 0
   br i1 %cmp199.not, label %if.end202, label %if.then201
 
-if.then201:                                       ; preds = %if.end198
+if.then201:                                       ; preds = %entry
   tail call void @abort() #6
   unreachable
 
-if.end202:                                        ; preds = %if.end198
+if.end202:                                        ; preds = %entry
   tail call void @exit(i32 noundef 0) #6
   unreachable
 }

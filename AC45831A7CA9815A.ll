@@ -50,6 +50,7 @@ entry:
   %7 = load i32, ptr %pencil, align 8, !tbaa !19
   %plane = getelementptr inbounds %struct.bufferCopy_type, ptr %0, i64 %idxprom1, i32 4, i32 5
   %8 = load i32, ptr %plane, align 4, !tbaa !20
+  %write = getelementptr inbounds %struct.bufferCopy_type, ptr %0, i64 %idxprom1, i32 5
   %i52 = getelementptr inbounds %struct.bufferCopy_type, ptr %0, i64 %idxprom1, i32 5, i32 1
   %9 = load i32, ptr %i52, align 4, !tbaa !21
   %j59 = getelementptr inbounds %struct.bufferCopy_type, ptr %0, i64 %idxprom1, i32 5, i32 2
@@ -83,8 +84,7 @@ if.end:                                           ; preds = %if.then, %entry
   %read81.0.in = phi ptr [ %arrayidx114, %if.then ], [ %ptr, %entry ]
   %read81.0 = load ptr, ptr %read81.0.in, align 8, !tbaa !5
   %read81.0450 = ptrtoint ptr %read81.0 to i64
-  %write120 = getelementptr inbounds %struct.bufferCopy_type, ptr %0, i64 %idxprom1, i32 5
-  %19 = load i32, ptr %write120, align 8, !tbaa !37
+  %19 = load i32, ptr %write, align 8, !tbaa !37
   %cmp122 = icmp sgt i32 %19, -1
   br i1 %cmp122, label %if.then123, label %if.end140
 
@@ -881,23 +881,23 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #3
 define dso_local void @rebuild_lambda(ptr nocapture noundef %domain, i32 noundef %level, double noundef %a, double noundef %b) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11367 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11367 = icmp sgt i32 %1, 0
   br i1 %cmp11367, label %for.body.lr.ph, label %for.end216
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %arrayidx60 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 23, i64 %idxprom
-  %wide.trip.count378 = zext i32 %0 to i64
+  %wide.trip.count378 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end209
   %indvars.iv375 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next376, %for.end209 ]
   %dominant_eigenvalue.0368 = phi double [ -1.000000e+00, %for.body.lr.ph ], [ %dominant_eigenvalue.1, %for.end209 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv375, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv375, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -1117,15 +1117,15 @@ if.end:                                           ; preds = %if.then, %entry
   br label %for.body
 
 for.body:                                         ; preds = %if.end, %for.end337
-  %s.0535 = phi i32 [ 0, %if.end ], [ %add344, %for.end337 ]
-  %and = and i32 %s.0535, 1
+  %s.0534 = phi i32 [ 0, %if.end ], [ %add344, %for.end337 ]
+  %and = and i32 %s.0534, 1
   %cmp16 = icmp eq i32 %and, 0
   %phi_id. = select i1 %cmp16, i32 %phi_id, i32 10
   tail call void @exchange_boundary(ptr noundef nonnull %domain, i32 noundef %level, i32 noundef %phi_id., i32 noundef 1, i32 noundef %conv24, i32 noundef %conv24)
   %call = tail call i64 (...) @CycleTime() #9
   %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp29533 = icmp sgt i32 %1, 0
-  br i1 %cmp29533, label %for.body31.lr.ph, label %for.end337
+  %cmp29532 = icmp sgt i32 %1, 0
+  br i1 %cmp29532, label %for.body31.lr.ph, label %for.end337
 
 for.body31.lr.ph:                                 ; preds = %for.body
   %2 = load ptr, ptr %subdomains, align 8, !tbaa !28
@@ -1166,9 +1166,9 @@ for.body31:                                       ; preds = %for.body31.lr.ph, %
   %arrayidx153 = getelementptr inbounds ptr, ptr %7, i64 4
   %13 = load ptr, ptr %arrayidx153, align 8, !tbaa !5
   %add.ptr158 = getelementptr inbounds double, ptr %13, i64 %idx.ext
-  %add160 = add nsw i32 %6, %s.0535
-  %cmp161529 = icmp sgt i32 %6, 0
-  br i1 %cmp161529, label %for.body163.lr.ph, label %for.end334
+  %add160 = add nsw i32 %6, %s.0534
+  %cmp161528 = icmp sgt i32 %6, 0
+  br i1 %cmp161528, label %for.body163.lr.ph, label %for.end334
 
 for.body163.lr.ph:                                ; preds = %for.body31
   %14 = ptrtoint ptr %13 to i64
@@ -1248,7 +1248,7 @@ for.body163:                                      ; preds = %for.body163.lr.ph, 
   %indvar = phi i64 [ 0, %for.body163.lr.ph ], [ %indvar.next, %for.end331 ]
   %indvars.iv541 = phi i64 [ %27, %for.body163.lr.ph ], [ %indvars.iv.next542, %for.end331 ]
   %indvars.iv = phi i32 [ %26, %for.body163.lr.ph ], [ %indvars.iv.next, %for.end331 ]
-  %ss.0530 = phi i32 [ %s.0535, %for.body163.lr.ph ], [ %inc333, %for.end331 ]
+  %ss.0529 = phi i32 [ %s.0534, %for.body163.lr.ph ], [ %inc333, %for.end331 ]
   %79 = sext i32 %indvars.iv to i64
   %80 = add i64 %indvar, %79
   %81 = sub i64 %78, %80
@@ -1279,13 +1279,13 @@ for.body163:                                      ; preds = %for.body163.lr.ph, 
   %106 = add i32 %46, %105
   %107 = sext i32 %indvars.iv to i64
   %indvars.iv.next542 = add nsw i64 %indvars.iv541, -1
-  %and164 = and i32 %ss.0530, 1
+  %and164 = and i32 %ss.0529, 1
   %cmp165 = icmp eq i32 %and164, 0
   %narrow = select i1 %cmp165, i32 %phi_id, i32 10
   %.pn.in.v = sext i32 %narrow to i64
   %.pn.in = getelementptr inbounds ptr, ptr %7, i64 %.pn.in.v
-  %narrow515 = select i1 %cmp165, i32 10, i32 %phi_id
-  %.pn514.in.v = sext i32 %narrow515 to i64
+  %narrow535 = select i1 %cmp165, i32 10, i32 %phi_id
+  %.pn514.in.v = sext i32 %narrow535 to i64
   %.pn514.in = getelementptr inbounds ptr, ptr %7, i64 %.pn514.in.v
   %.pn514 = load ptr, ptr %.pn514.in, align 8, !tbaa !5
   %.pn514554 = ptrtoint ptr %.pn514 to i64
@@ -1297,15 +1297,15 @@ for.body163:                                      ; preds = %for.body163.lr.ph, 
   %sub224 = sub i32 1, %108
   %109 = add nsw i64 %indvars.iv.next542, %30
   %110 = sext i32 %sub224 to i64
-  %cmp227520 = icmp sgt i64 %109, %110
-  br i1 %cmp227520, label %for.cond231.preheader.lr.ph, label %for.end331
+  %cmp227519 = icmp sgt i64 %109, %110
+  br i1 %cmp227519, label %for.cond231.preheader.lr.ph, label %for.end331
 
 for.cond231.preheader.lr.ph:                      ; preds = %for.body163
   %111 = add nsw i64 %indvars.iv.next542, %29
-  %cmp233518 = icmp sgt i64 %111, %110
+  %cmp233517 = icmp sgt i64 %111, %110
   %112 = add nsw i64 %indvars.iv.next542, %28
-  %cmp239516 = icmp sgt i64 %112, %110
-  %or.cond = select i1 %cmp233518, i1 %cmp239516, i1 false
+  %cmp239515 = icmp sgt i64 %112, %110
+  %or.cond = select i1 %cmp233517, i1 %cmp239515, i1 false
   br i1 %or.cond, label %for.cond231.preheader.us.us.preheader, label %for.end331
 
 for.cond231.preheader.us.us.preheader:            ; preds = %for.cond231.preheader.lr.ph
@@ -1331,7 +1331,7 @@ for.cond231.preheader.us.us.preheader:            ; preds = %for.cond231.prehead
 
 for.cond231.preheader.us.us:                      ; preds = %for.cond231.preheader.us.us.preheader, %for.cond231.for.inc329_crit_edge.split.us.us.us
   %indvar550 = phi i32 [ 0, %for.cond231.preheader.us.us.preheader ], [ %indvar.next551, %for.cond231.for.inc329_crit_edge.split.us.us.us ]
-  %k.0521.us.us = phi i32 [ %sub224, %for.cond231.preheader.us.us.preheader ], [ %inc330.us.us, %for.cond231.for.inc329_crit_edge.split.us.us.us ]
+  %k.0520.us.us = phi i32 [ %sub224, %for.cond231.preheader.us.us.preheader ], [ %inc330.us.us, %for.cond231.for.inc329_crit_edge.split.us.us.us ]
   %127 = mul i32 %5, %indvar550
   %128 = add i32 %84, %127
   %129 = add i32 %86, %127
@@ -1344,12 +1344,12 @@ for.cond231.preheader.us.us:                      ; preds = %for.cond231.prehead
   %136 = add i32 %102, %133
   %137 = add i32 %104, %133
   %138 = add i32 %106, %133
-  %mul244.us.us = mul nsw i32 %k.0521.us.us, %5
+  %mul244.us.us = mul nsw i32 %k.0520.us.us, %5
   br label %for.cond237.preheader.us.us.us
 
 for.cond237.preheader.us.us.us:                   ; preds = %for.cond237.for.inc326_crit_edge.us.us.us, %for.cond231.preheader.us.us
   %indvar552 = phi i32 [ %indvar.next553, %for.cond237.for.inc326_crit_edge.us.us.us ], [ 0, %for.cond231.preheader.us.us ]
-  %j.0519.us.us.us = phi i32 [ %inc327.us.us.us, %for.cond237.for.inc326_crit_edge.us.us.us ], [ %sub224, %for.cond231.preheader.us.us ]
+  %j.0518.us.us.us = phi i32 [ %inc327.us.us.us, %for.cond237.for.inc326_crit_edge.us.us.us ], [ %sub224, %for.cond231.preheader.us.us ]
   %139 = mul i32 %4, %indvar552
   %140 = add i32 %128, %139
   %141 = sext i32 %140 to i64
@@ -1383,7 +1383,7 @@ for.cond237.preheader.us.us.us:                   ; preds = %for.cond237.for.inc
   %169 = add i64 %74, %148
   %170 = add i64 %75, %142
   %171 = add i64 %76, %142
-  %mul242.us.us.us = mul nsw i32 %j.0519.us.us.us, %4
+  %mul242.us.us.us = mul nsw i32 %j.0518.us.us.us, %4
   %add243.us.us.us = add i32 %mul242.us.us.us, %mul244.us.us
   br i1 %min.iters.check, label %for.body241.us.us.us.preheader, label %vector.scevcheck
 
@@ -1622,21 +1622,21 @@ for.body241.us.us.us:                             ; preds = %for.body241.us.us.u
   br i1 %cmp239.us.us.us, label %for.body241.us.us.us, label %for.cond237.for.inc326_crit_edge.us.us.us, !llvm.loop !73
 
 for.cond237.for.inc326_crit_edge.us.us.us:        ; preds = %for.body241.us.us.us, %middle.block
-  %inc327.us.us.us = add nsw i32 %j.0519.us.us.us, 1
+  %inc327.us.us.us = add nsw i32 %j.0518.us.us.us, 1
   %289 = sext i32 %inc327.us.us.us to i64
   %cmp233.us.us.us = icmp sgt i64 %111, %289
   %indvar.next553 = add i32 %indvar552, 1
   br i1 %cmp233.us.us.us, label %for.cond237.preheader.us.us.us, label %for.cond231.for.inc329_crit_edge.split.us.us.us, !llvm.loop !74
 
 for.cond231.for.inc329_crit_edge.split.us.us.us:  ; preds = %for.cond237.for.inc326_crit_edge.us.us.us
-  %inc330.us.us = add nsw i32 %k.0521.us.us, 1
+  %inc330.us.us = add nsw i32 %k.0520.us.us, 1
   %290 = sext i32 %inc330.us.us to i64
   %cmp227.us.us = icmp sgt i64 %109, %290
   %indvar.next551 = add i32 %indvar550, 1
   br i1 %cmp227.us.us, label %for.cond231.preheader.us.us, label %for.end331, !llvm.loop !75
 
 for.end331:                                       ; preds = %for.cond231.for.inc329_crit_edge.split.us.us.us, %for.cond231.preheader.lr.ph, %for.body163
-  %inc333 = add nsw i32 %ss.0530, 1
+  %inc333 = add nsw i32 %ss.0529, 1
   %cmp161 = icmp slt i32 %inc333, %add160
   %indvars.iv.next = add i32 %indvars.iv, 1
   %indvar.next = add i64 %indvar, 1
@@ -1653,7 +1653,7 @@ for.end337:                                       ; preds = %for.end334, %for.bo
   %291 = load i64, ptr %arrayidx341, align 8, !tbaa !58
   %add342 = add i64 %sub339, %291
   store i64 %add342, ptr %arrayidx341, align 8, !tbaa !58
-  %add344 = add nsw i32 %s.0535, %0
+  %add344 = add nsw i32 %s.0534, %0
   %cmp14 = icmp slt i32 %add344, 4
   br i1 %cmp14, label %for.body, label %for.end345, !llvm.loop !78
 
@@ -1666,26 +1666,26 @@ define dso_local void @apply_op(ptr nocapture noundef %domain, i32 noundef %leve
 entry:
   tail call void @exchange_boundary(ptr noundef %domain, i32 noundef %level, i32 noundef %x_id, i32 noundef 1, i32 noundef 0, i32 noundef 0)
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11384 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11384 = icmp sgt i32 %1, 0
   br i1 %cmp11384, label %for.body.lr.ph, label %for.end246
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %arrayidx60 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 23, i64 %idxprom
   %idxprom70 = sext i32 %x_id to i64
   %idxprom81 = sext i32 %Ax_id to i64
-  %wide.trip.count394 = zext i32 %0 to i64
+  %wide.trip.count394 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %a, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end243
   %indvars.iv391 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next392, %for.end243 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv391, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv391, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -2075,27 +2075,27 @@ define dso_local void @residual(ptr nocapture noundef %domain, i32 noundef %leve
 entry:
   tail call void @exchange_boundary(ptr noundef %domain, i32 noundef %level, i32 noundef %phi_id, i32 noundef 1, i32 noundef 0, i32 noundef 0)
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11389 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11389 = icmp sgt i32 %1, 0
   br i1 %cmp11389, label %for.body.lr.ph, label %for.end250
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %arrayidx60 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 23, i64 %idxprom
   %idxprom70 = sext i32 %phi_id to i64
   %idxprom81 = sext i32 %rhs_id to i64
   %idxprom147 = sext i32 %res_id to i64
-  %wide.trip.count399 = zext i32 %0 to i64
+  %wide.trip.count399 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %a, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end247
   %indvars.iv396 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next397, %for.end247 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv396, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv396, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -2500,26 +2500,26 @@ define dso_local void @residual_and_restriction(ptr nocapture noundef %domain, i
 entry:
   tail call void @exchange_boundary(ptr noundef %domain, i32 noundef %level_f, i32 noundef %phi_id, i32 noundef 1, i32 noundef 0, i32 noundef 0)
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level_f to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11551 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11551 = icmp sgt i32 %1, 0
   br i1 %cmp11551, label %for.body.lr.ph, label %for.end331
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom17 = sext i32 %level_c to i64
   %arrayidx99 = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 23, i64 %idxprom
   %idxprom109 = sext i32 %phi_id to i64
   %idxprom120 = sext i32 %rhs_id to i64
   %idxprom186 = sext i32 %res_id to i64
-  %wide.trip.count632 = zext i32 %0 to i64
+  %wide.trip.count632 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end328
   %indvars.iv629 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next630, %for.end328 ]
-  %levels16 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv629, i32 5
+  %levels16 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv629, i32 5
   %2 = load ptr, ptr %levels16, align 8, !tbaa !32
   %pencil = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom17, i32 5
   %3 = load i32, ptr %pencil, align 8, !tbaa !60
@@ -3181,28 +3181,24 @@ define dso_local void @restriction(ptr nocapture noundef %domain, i32 noundef %l
 entry:
   %add = add nsw i32 %level_f, 1
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %add to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11262 = icmp sgt i32 %0, 0
-  br i1 %cmp11262, label %for.body.lr.ph, label %entry.for.end169_crit_edge
-
-entry.for.end169_crit_edge:                       ; preds = %entry
-  %.pre = sext i32 %level_f to i64
-  br label %for.end169
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11262 = icmp sgt i32 %1, 0
+  %idxprom60 = sext i32 %level_f to i64
+  br i1 %cmp11262, label %for.body.lr.ph, label %for.end169
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
-  %idxprom60 = sext i32 %level_f to i64
   %idxprom83 = sext i32 %id_f to i64
   %idxprom94 = sext i32 %id_c to i64
-  %wide.trip.count272 = zext i32 %0 to i64
+  %wide.trip.count272 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end166
   %indvars.iv269 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next270, %for.end166 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv269, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv269, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %ghosts = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 4
   %3 = load i32, ptr %ghosts, align 4, !tbaa !62
@@ -3332,11 +3328,10 @@ for.end166:                                       ; preds = %for.cond105.for.inc
   %exitcond273.not = icmp eq i64 %indvars.iv.next270, %wide.trip.count272
   br i1 %exitcond273.not, label %for.end169, label %for.body, !llvm.loop !103
 
-for.end169:                                       ; preds = %for.end166, %entry.for.end169_crit_edge
-  %idxprom171.pre-phi = phi i64 [ %.pre, %entry.for.end169_crit_edge ], [ %idxprom60, %for.end166 ]
+for.end169:                                       ; preds = %for.end166, %entry
   %call170 = tail call i64 (...) @CycleTime() #9
   %sub = sub i64 %call170, %call
-  %arrayidx172 = getelementptr inbounds %struct.anon, ptr %domain, i64 0, i32 3, i64 %idxprom171.pre-phi
+  %arrayidx172 = getelementptr inbounds %struct.anon, ptr %domain, i64 0, i32 3, i64 %idxprom60
   %25 = load i64, ptr %arrayidx172, align 8, !tbaa !58
   %add173 = add i64 %sub, %25
   store i64 %add173, ptr %arrayidx172, align 8, !tbaa !58
@@ -3347,26 +3342,22 @@ for.end169:                                       ; preds = %for.end166, %entry.
 define dso_local void @restriction_betas(ptr nocapture noundef %domain, i32 noundef %level_f, i32 noundef %level_c) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level_c to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11524 = icmp sgt i32 %0, 0
-  br i1 %cmp11524, label %for.body.lr.ph, label %entry.for.end320_crit_edge
-
-entry.for.end320_crit_edge:                       ; preds = %entry
-  %.pre = sext i32 %level_f to i64
-  br label %for.end320
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11524 = icmp sgt i32 %1, 0
+  %idxprom60 = sext i32 %level_f to i64
+  br i1 %cmp11524, label %for.body.lr.ph, label %for.end320
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
-  %idxprom60 = sext i32 %level_f to i64
-  %wide.trip.count552 = zext i32 %0 to i64
+  %wide.trip.count552 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end317
   %indvars.iv549 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next550, %for.end317 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv549, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv549, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %ghosts = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 4
   %3 = load i32, ptr %ghosts, align 4, !tbaa !62
@@ -3642,11 +3633,10 @@ for.end317:                                       ; preds = %for.cond270.for.inc
   %exitcond553.not = icmp eq i64 %indvars.iv.next550, %wide.trip.count552
   br i1 %exitcond553.not, label %for.end320, label %for.body, !llvm.loop !113
 
-for.end320:                                       ; preds = %for.end317, %entry.for.end320_crit_edge
-  %idxprom322.pre-phi = phi i64 [ %.pre, %entry.for.end320_crit_edge ], [ %idxprom60, %for.end317 ]
+for.end320:                                       ; preds = %for.end317, %entry
   %call321 = tail call i64 (...) @CycleTime() #9
   %sub = sub i64 %call321, %call
-  %arrayidx323 = getelementptr inbounds %struct.anon, ptr %domain, i64 0, i32 3, i64 %idxprom322.pre-phi
+  %arrayidx323 = getelementptr inbounds %struct.anon, ptr %domain, i64 0, i32 3, i64 %idxprom60
   %31 = load i64, ptr %arrayidx323, align 8, !tbaa !58
   %add324 = add i64 %sub, %31
   store i64 %add324, ptr %arrayidx323, align 8, !tbaa !58
@@ -3657,25 +3647,25 @@ for.end320:                                       ; preds = %for.end317, %entry.
 define dso_local void @interpolation_constant(ptr nocapture noundef %domain, i32 noundef %level_f, double noundef %prescale_f, i32 noundef %id_f, i32 noundef %id_c) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level_f to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11210 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11210 = icmp sgt i32 %1, 0
   br i1 %cmp11210, label %for.body.lr.ph, label %for.end138
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
   %add = add nsw i32 %level_f, 1
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom18 = sext i32 %add to i64
   %idxprom83 = sext i32 %id_f to i64
   %idxprom94 = sext i32 %id_c to i64
-  %wide.trip.count220 = zext i32 %0 to i64
+  %wide.trip.count220 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end135
   %indvars.iv217 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next218, %for.end135 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv217, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv217, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %ghosts = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom18, i32 4
   %3 = load i32, ptr %ghosts, align 4, !tbaa !62
@@ -3827,24 +3817,24 @@ entry:
   %add = add nsw i32 %level_f, 1
   tail call void @exchange_boundary(ptr noundef %domain, i32 noundef %add, i32 noundef %id_c, i32 noundef 1, i32 noundef 1, i32 noundef 1)
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level_f to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11604 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11604 = icmp sgt i32 %1, 0
   br i1 %cmp11604, label %for.body.lr.ph, label %for.end356
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom18 = sext i32 %add to i64
   %idxprom107 = sext i32 %id_f to i64
   %idxprom118 = sext i32 %id_c to i64
-  %wide.trip.count614 = zext i32 %0 to i64
+  %wide.trip.count614 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end353
   %indvars.iv611 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next612, %for.end353 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv611, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv611, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %ghosts = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom18, i32 4
   %3 = load i32, ptr %ghosts, align 4, !tbaa !62
@@ -4133,22 +4123,22 @@ for.end356:                                       ; preds = %for.end353, %entry
 define dso_local void @zero_grid(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %grid_id) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11159 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11159 = icmp sgt i32 %1, 0
   br i1 %cmp11159, label %for.body.lr.ph, label %for.end99
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %grid_id to i64
-  %wide.trip.count = zext i32 %0 to i64
+  %wide.trip.count = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end96
   %indvars.iv166 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next167, %for.end96 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv166, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv166, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -4330,17 +4320,17 @@ for.end99:                                        ; preds = %for.end96, %entry
 define dso_local void @initialize_grid_to_scalar(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %grid_id, double noundef %scalar) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11186 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11186 = icmp sgt i32 %1, 0
   br i1 %cmp11186, label %for.body.lr.ph, label %for.end114
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %grid_id to i64
-  %wide.trip.count = zext i32 %0 to i64
+  %wide.trip.count = zext i32 %1 to i64
   %broadcast.splatinsert221 = insertelement <2 x double> poison, double %scalar, i64 0
   %broadcast.splat222 = shufflevector <2 x double> %broadcast.splatinsert221, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert223 = insertelement <2 x double> poison, double %scalar, i64 0
@@ -4349,7 +4339,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end111
   %indvars.iv193 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next194, %for.end111 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv193, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv193, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -4471,8 +4461,8 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %38 = select <2 x i1> %34, <2 x i1> <i1 true, i1 true>, <2 x i1> %36
   %39 = select <2 x i1> %37, <2 x i1> <i1 true, i1 true>, <2 x i1> %broadcast.splat214
   %40 = select <2 x i1> %38, <2 x i1> <i1 true, i1 true>, <2 x i1> %broadcast.splat216
-  %41 = or <2 x i1> %broadcast.splat218, %39
-  %42 = or <2 x i1> %broadcast.splat220, %40
+  %41 = or <2 x i1> %39, %broadcast.splat218
+  %42 = or <2 x i1> %40, %broadcast.splat220
   %43 = select <2 x i1> %41, <2 x double> zeroinitializer, <2 x double> %broadcast.splat222
   %44 = select <2 x i1> %42, <2 x double> zeroinitializer, <2 x double> %broadcast.splat224
   %45 = sext i32 %30 to i64
@@ -4500,9 +4490,9 @@ for.body84.us.us.us:                              ; preds = %for.body84.us.us.us
   %50 = or i32 %23, %49
   %or.cond120.not.us.us.us = icmp slt i32 %50, 0
   %cmp97.not.us.us.us = icmp sge i64 %indvars.iv, %12
-  %or.cond.not.us.us.us = select i1 %or.cond120.not.us.us.us, i1 true, i1 %cmp97.not.us.us.us
-  %or.cond172.us.us.us = select i1 %or.cond.not.us.us.us, i1 true, i1 %cmp100.not.us.us.us
-  %spec.select.us.us.us = or i1 %cmp102.us.us, %or.cond172.us.us.us
+  %or.cond.us.us.us.not = select i1 %or.cond120.not.us.us.us, i1 true, i1 %cmp97.not.us.us.us
+  %or.cond172.us.us.us = select i1 %or.cond.us.us.us.not, i1 true, i1 %cmp100.not.us.us.us
+  %spec.select.us.us.us = or i1 %or.cond172.us.us.us, %cmp102.us.us
   %cond.us.us.us = select i1 %spec.select.us.us.us, double 0.000000e+00, double %scalar
   %idxprom104.us.us.us = sext i32 %add88.us.us.us to i64
   %arrayidx105.us.us.us = getelementptr inbounds double, ptr %add.ptr, i64 %idxprom104.us.us.us
@@ -4543,19 +4533,19 @@ for.end114:                                       ; preds = %for.end111, %entry
 define dso_local void @add_grids(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_c, double noundef %scale_a, i32 noundef %id_a, double noundef %scale_b, i32 noundef %id_b) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11195 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11195 = icmp sgt i32 %1, 0
   br i1 %cmp11195, label %for.body.lr.ph, label %for.end128
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_c to i64
   %idxprom75 = sext i32 %id_a to i64
   %idxprom89 = sext i32 %id_b to i64
-  %wide.trip.count205 = zext i32 %0 to i64
+  %wide.trip.count205 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %scale_b, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert212 = insertelement <2 x double> poison, double %scale_b, i64 0
@@ -4568,7 +4558,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end125
   %indvars.iv202 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next203, %for.end125 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv202, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv202, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -4771,19 +4761,19 @@ for.end128:                                       ; preds = %for.end125, %entry
 define dso_local void @mul_grids(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_c, double noundef %scale, i32 noundef %id_a, i32 noundef %id_b) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11195 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11195 = icmp sgt i32 %1, 0
   br i1 %cmp11195, label %for.body.lr.ph, label %for.end128
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_c to i64
   %idxprom75 = sext i32 %id_a to i64
   %idxprom89 = sext i32 %id_b to i64
-  %wide.trip.count205 = zext i32 %0 to i64
+  %wide.trip.count205 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %scale, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert210 = insertelement <2 x double> poison, double %scale, i64 0
@@ -4792,7 +4782,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end125
   %indvars.iv202 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next203, %for.end125 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv202, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv202, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -4995,18 +4985,18 @@ for.end128:                                       ; preds = %for.end125, %entry
 define dso_local void @scale_grid(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_c, double noundef %scale_a, i32 noundef %id_a) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11171 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11171 = icmp sgt i32 %1, 0
   br i1 %cmp11171, label %for.body.lr.ph, label %for.end111
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_c to i64
   %idxprom75 = sext i32 %id_a to i64
-  %wide.trip.count181 = zext i32 %0 to i64
+  %wide.trip.count181 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %scale_a, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert185 = insertelement <2 x double> poison, double %scale_a, i64 0
@@ -5015,7 +5005,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end108
   %indvars.iv178 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next179, %for.end108 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv178, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv178, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -5192,24 +5182,24 @@ for.end111:                                       ; preds = %for.end108, %entry
 define dso_local double @dot(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_a, i32 noundef %id_b) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11180 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11180 = icmp sgt i32 %1, 0
   br i1 %cmp11180, label %for.body.lr.ph, label %for.end112
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_a to i64
   %idxprom75 = sext i32 %id_b to i64
-  %wide.trip.count191 = zext i32 %0 to i64
+  %wide.trip.count191 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end108
   %indvars.iv188 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next189, %for.end108 ]
   %a_dot_b_domain.0181 = phi double [ 0.000000e+00, %for.body.lr.ph ], [ %add109, %for.end108 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv188, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv188, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -5339,23 +5329,23 @@ for.end112:                                       ; preds = %for.end108, %entry
 define dso_local double @norm(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %grid_id) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11163 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11163 = icmp sgt i32 %1, 0
   br i1 %cmp11163, label %for.body.lr.ph, label %for.end100
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %grid_id to i64
-  %wide.trip.count174 = zext i32 %0 to i64
+  %wide.trip.count174 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end93
   %indvars.iv171 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next172, %for.end93 ]
   %max_norm.0164 = phi double [ 0.000000e+00, %for.body.lr.ph ], [ %max_norm.1, %for.end93 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv171, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv171, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -5483,23 +5473,23 @@ for.end100:                                       ; preds = %for.end93, %entry
 define dso_local double @mean(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_a) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11171 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11171 = icmp sgt i32 %1, 0
   br i1 %cmp11171, label %for.body.lr.ph, label %for.end96
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_a to i64
-  %wide.trip.count182 = zext i32 %0 to i64
+  %wide.trip.count182 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end92
   %indvars.iv179 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next180, %for.end92 ]
   %sum_domain.0172 = phi double [ 0.000000e+00, %for.body.lr.ph ], [ %add93, %for.end92 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv179, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv179, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -5651,18 +5641,18 @@ for.end96:                                        ; preds = %for.end92, %entry
 define dso_local void @shift_grid(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_c, i32 noundef %id_a, double noundef %shift_a) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11171 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11171 = icmp sgt i32 %1, 0
   br i1 %cmp11171, label %for.body.lr.ph, label %for.end111
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_c to i64
   %idxprom75 = sext i32 %id_a to i64
-  %wide.trip.count181 = zext i32 %0 to i64
+  %wide.trip.count181 = zext i32 %1 to i64
   %broadcast.splatinsert = insertelement <2 x double> poison, double %shift_a, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert185 = insertelement <2 x double> poison, double %shift_a, i64 0
@@ -5671,7 +5661,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end108
   %indvars.iv178 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next179, %for.end108 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv178, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv178, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60
@@ -5848,24 +5838,24 @@ for.end111:                                       ; preds = %for.end108, %entry
 define dso_local void @project_cell_to_face(ptr nocapture noundef %domain, i32 noundef %level, i32 noundef %id_cell, i32 noundef %id_face, i32 noundef %dir) local_unnamed_addr #1 {
 entry:
   %call = tail call i64 (...) @CycleTime() #9
+  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
+  %0 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom = sext i32 %level to i64
   %subdomains_per_rank = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 19
-  %0 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
-  %cmp11179 = icmp sgt i32 %0, 0
+  %1 = load i32, ptr %subdomains_per_rank, align 8, !tbaa !59
+  %cmp11179 = icmp sgt i32 %1, 0
   br i1 %cmp11179, label %for.body.lr.ph, label %for.end116
 
 for.body.lr.ph:                                   ; preds = %entry
-  %subdomains = getelementptr inbounds %struct.domain_type, ptr %domain, i64 0, i32 25
-  %1 = load ptr, ptr %subdomains, align 8, !tbaa !28
   %idxprom65 = sext i32 %id_cell to i64
   %idxprom75 = sext i32 %id_face to i64
-  %wide.trip.count190 = zext i32 %0 to i64
+  %wide.trip.count190 = zext i32 %1 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end113
   %indvars.iv187 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next188, %for.end113 ]
   %stride.0180 = phi i32 [ undef, %for.body.lr.ph ], [ %stride.1, %for.end113 ]
-  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %1, i64 %indvars.iv187, i32 5
+  %levels17 = getelementptr inbounds %struct.subdomain_type, ptr %0, i64 %indvars.iv187, i32 5
   %2 = load ptr, ptr %levels17, align 8, !tbaa !32
   %pencil20 = getelementptr inbounds %struct.box_type, ptr %2, i64 %idxprom, i32 5
   %3 = load i32, ptr %pencil20, align 8, !tbaa !60

@@ -115,26 +115,16 @@ if.end10:                                         ; preds = %entry
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @ilt(float noundef %x, float noundef %y, i32 noundef %ok) local_unnamed_addr #0 {
 entry:
-  %cmp = fcmp uno float %x, %y
-  %cmp2 = fcmp olt float %x, %y
-  %0 = zext i1 %cmp2 to i32
-  %land.ext = select i1 %cmp, i32 0, i32 %0
+  %narrow = fcmp olt float %x, %y
+  %land.ext = zext i1 %narrow to i32
   %cmp3.not = icmp eq i32 %land.ext, %ok
-  br i1 %cmp3.not, label %if.end, label %if.then
+  br i1 %cmp3.not, label %if.end35, label %if.then
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %entry
-  %cmp9.not = icmp eq i32 %0, %ok
-  br i1 %cmp9.not, label %if.end35, label %if.then10
-
-if.then10:                                        ; preds = %if.end
-  tail call void @abort() #3
-  unreachable
-
-if.end35:                                         ; preds = %if.end
+if.end35:                                         ; preds = %entry
   ret i32 undef
 }
 
@@ -157,26 +147,16 @@ if.end10:                                         ; preds = %entry
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @ile(float noundef %x, float noundef %y, i32 noundef %ok) local_unnamed_addr #0 {
 entry:
-  %cmp = fcmp uno float %x, %y
-  %cmp2 = fcmp ole float %x, %y
-  %0 = zext i1 %cmp2 to i32
-  %land.ext = select i1 %cmp, i32 0, i32 %0
+  %narrow = fcmp ole float %x, %y
+  %land.ext = zext i1 %narrow to i32
   %cmp3.not = icmp eq i32 %land.ext, %ok
-  br i1 %cmp3.not, label %if.end, label %if.then
+  br i1 %cmp3.not, label %if.end34, label %if.then
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %entry
-  %cmp8.not = icmp eq i32 %0, %ok
-  br i1 %cmp8.not, label %if.end34, label %if.then9
-
-if.then9:                                         ; preds = %if.end
-  tail call void @abort() #3
-  unreachable
-
-if.end34:                                         ; preds = %if.end
+if.end34:                                         ; preds = %entry
   ret i32 undef
 }
 
@@ -199,26 +179,16 @@ if.end10:                                         ; preds = %entry
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @igt(float noundef %x, float noundef %y, i32 noundef %ok) local_unnamed_addr #0 {
 entry:
-  %cmp = fcmp uno float %x, %y
-  %cmp2 = fcmp ogt float %x, %y
-  %0 = zext i1 %cmp2 to i32
-  %land.ext = select i1 %cmp, i32 0, i32 %0
+  %narrow = fcmp ogt float %x, %y
+  %land.ext = zext i1 %narrow to i32
   %cmp3.not = icmp eq i32 %land.ext, %ok
-  br i1 %cmp3.not, label %if.end, label %if.then
+  br i1 %cmp3.not, label %if.end35, label %if.then
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %entry
-  %cmp9.not = icmp eq i32 %0, %ok
-  br i1 %cmp9.not, label %if.end35, label %if.then10
-
-if.then10:                                        ; preds = %if.end
-  tail call void @abort() #3
-  unreachable
-
-if.end35:                                         ; preds = %if.end
+if.end35:                                         ; preds = %entry
   ret i32 undef
 }
 
@@ -241,32 +211,22 @@ if.end10:                                         ; preds = %entry
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @ige(float noundef %x, float noundef %y, i32 noundef %ok) local_unnamed_addr #0 {
 entry:
-  %cmp = fcmp uno float %x, %y
-  %cmp2 = fcmp oge float %x, %y
-  %0 = zext i1 %cmp2 to i32
-  %land.ext = select i1 %cmp, i32 0, i32 %0
+  %narrow = fcmp oge float %x, %y
+  %land.ext = zext i1 %narrow to i32
   %cmp3.not = icmp eq i32 %land.ext, %ok
-  br i1 %cmp3.not, label %if.end, label %if.then
+  br i1 %cmp3.not, label %if.end34, label %if.then
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %entry
-  %cmp8.not = icmp eq i32 %0, %ok
-  br i1 %cmp8.not, label %if.end34, label %if.then9
-
-if.then9:                                         ; preds = %if.end
-  tail call void @abort() #3
-  unreachable
-
-if.end34:                                         ; preds = %if.end
+if.end34:                                         ; preds = %entry
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-iunge.exit155:
+entry:
   store float 0x7FF0000000000000, ptr @pinf, align 4, !tbaa !5
   store float 0xFFF0000000000000, ptr @ninf, align 4, !tbaa !5
   store float 0x7FF8000000000000, ptr @NaN, align 4, !tbaa !5

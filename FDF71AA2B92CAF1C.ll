@@ -108,15 +108,15 @@ entry:
 define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #5 {
 entry:
   %cmp = icmp eq i32 %argc, 2
-  br i1 %cmp, label %cond.true, label %nth_toggle_activate.exit77
+  br i1 %cmp, label %cond.true, label %nth_toggle_activate.exit
 
 cond.true:                                        ; preds = %entry
   %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
   %0 = load ptr, ptr %arrayidx, align 8, !tbaa !18
   %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #11
-  br label %nth_toggle_activate.exit77
+  br label %nth_toggle_activate.exit
 
-nth_toggle_activate.exit77:                       ; preds = %cond.true, %entry
+nth_toggle_activate.exit:                         ; preds = %entry, %cond.true
   %call.i54 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
   %value.i.i = getelementptr inbounds %struct.Toggle, ptr %call.i54, i64 0, i32 1
   store ptr @toggle_value, ptr %value.i.i, align 8, !tbaa !10

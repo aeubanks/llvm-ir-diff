@@ -20,10 +20,10 @@ entry:
   %overflow_arg_area_p = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
   %0 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
   %reg_save_area = load ptr, ptr %0, align 16
-  %invariant.gep = getelementptr i8, ptr %reg_save_area, i64 16
   %1 = load float, ptr getelementptr inbounds ([5 x %struct.S], ptr @a, i64 0, i64 2, i32 0, i64 2), align 16
   %fp_offset_p.promoted = load i32, ptr %fp_offset_p, align 4
   %overflow_arg_area_p.promoted = load ptr, ptr %overflow_arg_area_p, align 8
+  %overflow_arg_area_p.promoted.sroa.gep = getelementptr inbounds i8, ptr %overflow_arg_area_p.promoted, i64 8
   %shl.mask = and i32 %z, 268435455
   %switch = icmp eq i32 %shl.mask, 1
   br i1 %switch, label %sw.bb, label %if.end.thread
@@ -32,27 +32,28 @@ for.cond:                                         ; preds = %if.end
   br i1 %switch, label %sw.bb.1, label %for.end.sink.split
 
 sw.bb.1:                                          ; preds = %for.cond
-  %fits_in_fp.1 = icmp ult i32 %8, 145
+  %fits_in_fp.1 = icmp ult i32 %12, 145
   br i1 %fits_in_fp.1, label %vaarg.in_reg.1, label %vaarg.in_mem.1
 
 vaarg.in_mem.1:                                   ; preds = %sw.bb.1
-  %overflow_arg_area.sroa.gep.1 = getelementptr inbounds i8, ptr %overflow_arg_area.next26, i64 8
-  %overflow_arg_area.next.1 = getelementptr i8, ptr %overflow_arg_area.next26, i64 16
+  %overflow_arg_area.next.1 = getelementptr i8, ptr %overflow_arg_area.next25, i64 16
   store ptr %overflow_arg_area.next.1, ptr %overflow_arg_area_p, align 8
-  %vaarg.addr.sroa.phi.sroa.speculate.load.vaarg.in_mem.1 = load float, ptr %overflow_arg_area.sroa.gep.1, align 4, !tbaa.struct !9
+  %vaarg.addr.sroa.phi.1.phi.trans.insert = getelementptr inbounds i8, ptr %overflow_arg_area.next25, i64 8
+  %arg.sroa.3.0.copyload.1.pre = load float, ptr %vaarg.addr.sroa.phi.1.phi.trans.insert, align 4, !tbaa.struct !9
   br label %land.lhs.true.1
 
 vaarg.in_reg.1:                                   ; preds = %sw.bb.1
-  %2 = zext i32 %8 to i64
-  %gep.1 = getelementptr i8, ptr %invariant.gep, i64 %2
-  %3 = load float, ptr %gep.1, align 16
-  %4 = add nuw nsw i32 %8, 32
-  store i32 %4, ptr %fp_offset_p, align 4
+  %2 = zext i32 %12 to i64
+  %3 = getelementptr i8, ptr %reg_save_area, i64 %2
+  %4 = getelementptr inbounds i8, ptr %3, i64 16
+  %5 = load float, ptr %4, align 16
+  %6 = add nuw nsw i32 %12, 32
+  store i32 %6, ptr %fp_offset_p, align 4
   br label %land.lhs.true.1
 
 land.lhs.true.1:                                  ; preds = %vaarg.in_reg.1, %vaarg.in_mem.1
-  %arg.sroa.3.1.ph.1 = phi float [ %vaarg.addr.sroa.phi.sroa.speculate.load.vaarg.in_mem.1, %vaarg.in_mem.1 ], [ %3, %vaarg.in_reg.1 ]
-  %cmp5.1 = fcmp une float %1, %arg.sroa.3.1.ph.1
+  %arg.sroa.3.0.copyload.1 = phi float [ %5, %vaarg.in_reg.1 ], [ %arg.sroa.3.0.copyload.1.pre, %vaarg.in_mem.1 ]
+  %cmp5.1 = fcmp une float %1, %arg.sroa.3.0.copyload.1
   br i1 %cmp5.1, label %for.end.sink.split, label %for.end
 
 sw.bb:                                            ; preds = %entry
@@ -60,25 +61,25 @@ sw.bb:                                            ; preds = %entry
   br i1 %fits_in_fp, label %vaarg.in_reg, label %vaarg.in_mem
 
 vaarg.in_reg:                                     ; preds = %sw.bb
-  %5 = zext i32 %fp_offset_p.promoted to i64
-  %gep = getelementptr i8, ptr %invariant.gep, i64 %5
-  %6 = load float, ptr %gep, align 16
-  %7 = add nuw nsw i32 %fp_offset_p.promoted, 32
-  store i32 %7, ptr %fp_offset_p, align 4
+  %7 = zext i32 %fp_offset_p.promoted to i64
+  %8 = getelementptr i8, ptr %reg_save_area, i64 %7
+  %9 = getelementptr inbounds i8, ptr %8, i64 16
+  %10 = load float, ptr %9, align 16
+  %11 = add nuw nsw i32 %fp_offset_p.promoted, 32
+  store i32 %11, ptr %fp_offset_p, align 4
   br label %land.lhs.true
 
 vaarg.in_mem:                                     ; preds = %sw.bb
-  %overflow_arg_area.sroa.gep = getelementptr inbounds i8, ptr %overflow_arg_area_p.promoted, i64 8
   %overflow_arg_area.next = getelementptr i8, ptr %overflow_arg_area_p.promoted, i64 16
   store ptr %overflow_arg_area.next, ptr %overflow_arg_area_p, align 8
-  %vaarg.addr.sroa.phi.sroa.speculate.load.vaarg.in_mem = load float, ptr %overflow_arg_area.sroa.gep, align 4, !tbaa.struct !9
+  %arg.sroa.3.0.copyload.pre = load float, ptr %overflow_arg_area_p.promoted.sroa.gep, align 4, !tbaa.struct !9
   br label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %vaarg.in_mem, %vaarg.in_reg
-  %overflow_arg_area.next26 = phi ptr [ %overflow_arg_area.next, %vaarg.in_mem ], [ %overflow_arg_area_p.promoted, %vaarg.in_reg ]
-  %8 = phi i32 [ %fp_offset_p.promoted, %vaarg.in_mem ], [ %7, %vaarg.in_reg ]
-  %arg.sroa.3.1.ph = phi float [ %vaarg.addr.sroa.phi.sroa.speculate.load.vaarg.in_mem, %vaarg.in_mem ], [ %6, %vaarg.in_reg ]
-  %cmp5 = fcmp une float %1, %arg.sroa.3.1.ph
+  %arg.sroa.3.0.copyload = phi float [ %10, %vaarg.in_reg ], [ %arg.sroa.3.0.copyload.pre, %vaarg.in_mem ]
+  %overflow_arg_area.next25 = phi ptr [ %overflow_arg_area_p.promoted, %vaarg.in_reg ], [ %overflow_arg_area.next, %vaarg.in_mem ]
+  %12 = phi i32 [ %11, %vaarg.in_reg ], [ %fp_offset_p.promoted, %vaarg.in_mem ]
+  %cmp5 = fcmp une float %1, %arg.sroa.3.0.copyload
   br i1 %cmp5, label %if.then, label %if.end
 
 if.then:                                          ; preds = %land.lhs.true
@@ -87,15 +88,15 @@ if.then:                                          ; preds = %land.lhs.true
   br label %if.end
 
 if.end:                                           ; preds = %land.lhs.true, %if.then
-  %.pr21 = phi i32 [ %inc6, %if.then ], [ %fails.promoted, %land.lhs.true ]
-  %tobool7.not = icmp eq i32 %.pr21, 0
+  %.pr19 = phi i32 [ %inc6, %if.then ], [ %fails.promoted, %land.lhs.true ]
+  %tobool7.not = icmp eq i32 %.pr19, 0
   br i1 %tobool7.not, label %for.cond, label %for.end
 
 if.end.thread:                                    ; preds = %entry
   %inc2 = add nsw i32 %fails.promoted, 1
   store i32 %inc2, ptr @fails, align 4, !tbaa !5
-  %tobool7.not30 = icmp eq i32 %inc2, 0
-  br i1 %tobool7.not30, label %for.end.sink.split, label %for.end
+  %tobool7.not31 = icmp eq i32 %inc2, 0
+  br i1 %tobool7.not31, label %for.end.sink.split, label %for.end
 
 for.end.sink.split:                               ; preds = %land.lhs.true.1, %for.cond, %if.end.thread
   store i32 1, ptr @fails, align 4, !tbaa !5

@@ -564,57 +564,69 @@ lor.rhs:                                          ; preds = %land.rhs
   %vcl_hrd_parameters_present_flag = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 22
   %5 = load i32, ptr %vcl_hrd_parameters_present_flag, align 4, !tbaa !34
   %cmp4.not = icmp eq i32 %5, 0
-  br i1 %cmp4.not, label %if.else46, label %lor.lhs.false
+  br i1 %cmp4.not, label %if.else46, label %if.else
+
+if.else:                                          ; preds = %lor.rhs
+  %vcl_hrd_parameters_present_flag19 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 22
+  %6 = load i32, ptr %vcl_hrd_parameters_present_flag19, align 4, !tbaa !34
+  %tobool20.not = icmp eq i32 %6, 0
+  br i1 %tobool20.not, label %lor.lhs.false, label %if.then21
+
+if.then21:                                        ; preds = %if.else
+  %cpb_removal_delay_length_minus123 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 23, i32 7
+  %7 = load <2 x i32>, ptr %cpb_removal_delay_length_minus123, align 4, !tbaa !17
+  %8 = add <2 x i32> %7, <i32 1, i32 1>
+  br label %lor.lhs.false
 
 if.end31:                                         ; preds = %land.rhs
   %cpb_removal_delay_length_minus1 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 21, i32 7
-  %dpb_output_delay_length_minus1 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 21, i32 8
+  %9 = load <2 x i32>, ptr %cpb_removal_delay_length_minus1, align 4, !tbaa !17
+  %10 = add <2 x i32> %9, <i32 1, i32 1>
   br label %if.end42
 
-lor.lhs.false:                                    ; preds = %lor.rhs
-  %dpb_output_delay_length_minus127 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 23, i32 8
-  %cpb_removal_delay_length_minus123 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 23, i32 7
-  br label %if.end42
+lor.lhs.false:                                    ; preds = %if.then21, %if.else
+  %11 = phi <2 x i32> [ <i32 24, i32 24>, %if.else ], [ %8, %if.then21 ]
+  %vcl_hrd_parameters_present_flag36 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %0, i64 0, i32 38, i32 22
+  %12 = load i32, ptr %vcl_hrd_parameters_present_flag36, align 4, !tbaa !34
+  %tobool37.not = icmp eq i32 %12, 0
+  br i1 %tobool37.not, label %if.else46, label %if.end42
 
-if.end42:                                         ; preds = %if.end31, %lor.lhs.false
-  %dpb_output_len.0166.in.in = phi ptr [ %dpb_output_delay_length_minus127, %lor.lhs.false ], [ %dpb_output_delay_length_minus1, %if.end31 ]
-  %cpb_removal_len.0164.in.in = phi ptr [ %cpb_removal_delay_length_minus123, %lor.lhs.false ], [ %cpb_removal_delay_length_minus1, %if.end31 ]
-  %cpb_removal_len.0164.in = load i32, ptr %cpb_removal_len.0164.in.in, align 4, !tbaa !17
-  %dpb_output_len.0166.in = load i32, ptr %dpb_output_len.0166.in.in, align 4, !tbaa !17
-  %cpb_removal_len.0164 = add i32 %cpb_removal_len.0164.in, 1
-  %dpb_output_len.0166 = add i32 %dpb_output_len.0166.in, 1
-  %call39 = tail call i32 @u_v(i32 noundef %cpb_removal_len.0164, ptr noundef nonnull @.str.78, ptr noundef nonnull %call1) #10
-  %call40 = tail call i32 @u_v(i32 noundef %dpb_output_len.0166, ptr noundef nonnull @.str.79, ptr noundef nonnull %call1) #10
+if.end42:                                         ; preds = %lor.lhs.false, %if.end31
+  %13 = phi <2 x i32> [ %11, %lor.lhs.false ], [ %10, %if.end31 ]
+  %14 = extractelement <2 x i32> %13, i64 0
+  %call39 = tail call i32 @u_v(i32 noundef %14, ptr noundef nonnull @.str.78, ptr noundef nonnull %call1) #10
+  %15 = extractelement <2 x i32> %13, i64 1
+  %call40 = tail call i32 @u_v(i32 noundef %15, ptr noundef nonnull @.str.79, ptr noundef nonnull %call1) #10
   %.pre = load ptr, ptr @active_sps, align 8, !tbaa !38
   %vui_parameters_present_flag43.phi.trans.insert = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %.pre, i64 0, i32 37
-  %.pre173 = load i32, ptr %vui_parameters_present_flag43.phi.trans.insert, align 4, !tbaa !26
-  %6 = icmp eq i32 %.pre173, 0
-  br i1 %6, label %if.end111, label %if.else46
+  %.pre167 = load i32, ptr %vui_parameters_present_flag43.phi.trans.insert, align 4, !tbaa !26
+  %16 = icmp eq i32 %.pre167, 0
+  br i1 %16, label %if.end111, label %if.else46
 
-if.else46:                                        ; preds = %lor.rhs, %if.end42
-  %7 = phi ptr [ %.pre, %if.end42 ], [ %0, %lor.rhs ]
-  %pic_struct_present_flag = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %7, i64 0, i32 38, i32 25
-  %8 = load i32, ptr %pic_struct_present_flag, align 4, !tbaa !39
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %if.end111, label %if.then50
+if.else46:                                        ; preds = %lor.rhs, %lor.lhs.false, %if.end42
+  %17 = phi ptr [ %.pre, %if.end42 ], [ %0, %lor.lhs.false ], [ %0, %lor.rhs ]
+  %pic_struct_present_flag = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %17, i64 0, i32 38, i32 25
+  %18 = load i32, ptr %pic_struct_present_flag, align 4, !tbaa !39
+  %19 = icmp eq i32 %18, 0
+  br i1 %19, label %if.end111, label %if.then50
 
 if.then50:                                        ; preds = %if.else46
   %call51 = tail call i32 @u_v(i32 noundef 4, ptr noundef nonnull @.str.80, ptr noundef nonnull %call1) #10
-  %10 = icmp ult i32 %call51, 9
-  br i1 %10, label %switch.lookup, label %sw.epilog
+  %20 = icmp ult i32 %call51, 9
+  br i1 %20, label %switch.lookup, label %sw.epilog
 
 sw.epilog:                                        ; preds = %if.then50
   tail call void @error(ptr noundef nonnull @.str.81, i32 noundef 500) #10
   br label %if.end111
 
 switch.lookup:                                    ; preds = %if.then50
-  %11 = sext i32 %call51 to i64
-  %switch.gep = getelementptr inbounds [9 x i32], ptr @switch.table.interpret_picture_timing_info, i64 0, i64 %11
+  %21 = sext i32 %call51 to i64
+  %switch.gep = getelementptr inbounds [9 x i32], ptr @switch.table.interpret_picture_timing_info, i64 0, i64 %21
   %switch.load = load i32, ptr %switch.gep, align 4
   br label %for.body
 
 for.body:                                         ; preds = %switch.lookup, %for.inc
-  %i.0172 = phi i32 [ %inc, %for.inc ], [ 0, %switch.lookup ]
+  %i.0166 = phi i32 [ %inc, %for.inc ], [ 0, %switch.lookup ]
   %call55 = tail call i32 @u_1(ptr noundef nonnull @.str.82, ptr noundef %call1) #10
   %tobool56.not = icmp eq i32 %call55, 0
   br i1 %tobool56.not, label %for.inc, label %if.then57
@@ -657,24 +669,24 @@ if.end86.sink.split:                              ; preds = %if.then77, %if.then
   br label %if.end86
 
 if.end86:                                         ; preds = %if.end86.sink.split, %if.else70, %if.then77, %if.then73
-  %12 = load ptr, ptr @active_sps, align 8, !tbaa !38
-  %vcl_hrd_parameters_present_flag88 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %12, i64 0, i32 38, i32 22
-  %13 = load i32, ptr %vcl_hrd_parameters_present_flag88, align 4, !tbaa !34
-  %tobool89.not = icmp eq i32 %13, 0
+  %22 = load ptr, ptr @active_sps, align 8, !tbaa !38
+  %vcl_hrd_parameters_present_flag88 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %22, i64 0, i32 38, i32 22
+  %23 = load i32, ptr %vcl_hrd_parameters_present_flag88, align 4, !tbaa !34
+  %tobool89.not = icmp eq i32 %23, 0
   br i1 %tobool89.not, label %if.else94, label %if.then90
 
 if.then90:                                        ; preds = %if.end86
-  %time_offset_length93 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %12, i64 0, i32 38, i32 23, i32 9
+  %time_offset_length93 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %22, i64 0, i32 38, i32 23, i32 9
   br label %if.end104
 
 if.else94:                                        ; preds = %if.end86
-  %nal_hrd_parameters_present_flag96 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %12, i64 0, i32 38, i32 20
-  %14 = load i32, ptr %nal_hrd_parameters_present_flag96, align 4, !tbaa !30
-  %tobool97.not = icmp eq i32 %14, 0
+  %nal_hrd_parameters_present_flag96 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %22, i64 0, i32 38, i32 20
+  %24 = load i32, ptr %nal_hrd_parameters_present_flag96, align 4, !tbaa !30
+  %tobool97.not = icmp eq i32 %24, 0
   br i1 %tobool97.not, label %if.then106, label %if.then98
 
 if.then98:                                        ; preds = %if.else94
-  %time_offset_length101 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %12, i64 0, i32 38, i32 21, i32 9
+  %time_offset_length101 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %22, i64 0, i32 38, i32 21, i32 9
   br label %if.end104
 
 if.end104:                                        ; preds = %if.then98, %if.then90
@@ -684,12 +696,12 @@ if.end104:                                        ; preds = %if.then98, %if.then
   br i1 %tobool105.not, label %for.inc, label %if.then106
 
 if.then106:                                       ; preds = %if.else94, %if.end104
-  %time_offset_length.0170 = phi i32 [ %time_offset_length.0, %if.end104 ], [ 24, %if.else94 ]
-  %call107 = tail call i32 @u_v(i32 noundef %time_offset_length.0170, ptr noundef nonnull @.str.96, ptr noundef %call1) #10
+  %time_offset_length.0164 = phi i32 [ %time_offset_length.0, %if.end104 ], [ 24, %if.else94 ]
+  %call107 = tail call i32 @u_v(i32 noundef %time_offset_length.0164, ptr noundef nonnull @.str.96, ptr noundef %call1) #10
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then106, %if.end104, %for.body
-  %inc = add nuw nsw i32 %i.0172, 1
+  %inc = add nuw nsw i32 %i.0166, 1
   %exitcond.not = icmp eq i32 %inc, %switch.load
   br i1 %exitcond.not, label %if.end111, label %for.body, !llvm.loop !40
 

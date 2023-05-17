@@ -28,7 +28,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @switch.table.gs_image_init.2 = private unnamed_addr constant [9 x i32] [i32 4, i32 3, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1], align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_image_init(ptr noundef %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %bps, i32 noundef %spp, ptr noundef %pmat) local_unnamed_addr #0 {
+define dso_local i32 @gs_image_init(ptr nocapture noundef writeonly %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %bps, i32 noundef %spp, ptr noundef %pmat) local_unnamed_addr #0 {
 entry:
   %in_cachedevice = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 19
   %0 = load i8, ptr %in_cachedevice, align 4, !tbaa !5
@@ -87,7 +87,7 @@ cleanup:                                          ; preds = %switch.hole_check17
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_init(ptr noundef writeonly %penum, i32 noundef %width, i32 noundef %height, i32 noundef %log2_bps, i32 noundef %spp, i32 noundef %spread, ptr noundef %pmat, ptr noundef %pgs, i64 noundef %color0, i64 noundef %color1) local_unnamed_addr #0 {
+define dso_local i32 @image_init(ptr nocapture noundef writeonly %penum, i32 noundef %width, i32 noundef %height, i32 noundef %log2_bps, i32 noundef %spp, i32 noundef %spread, ptr noundef %pmat, ptr noundef %pgs, i64 noundef %color0, i64 noundef %color1) local_unnamed_addr #0 {
 entry:
   %mat = alloca %struct.gs_matrix_s, align 8
   call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %mat) #8
@@ -157,10 +157,10 @@ if.end14:                                         ; preds = %if.end10
   %conv28 = fptosi float %mul27 to i64
   %mul30 = fmul float %7, 4.096000e+03
   %conv31 = fptosi float %mul30 to i64
-  %.sink372 = select i1 %cmp23, i64 %conv28, i64 0
+  %.sink367 = select i1 %cmp23, i64 %conv28, i64 0
   %.sink = select i1 %cmp23, i64 %conv31, i64 0
   %8 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
-  store i64 %.sink372, ptr %8, align 8
+  store i64 %.sink367, ptr %8, align 8
   %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
   store i64 %.sink, ptr %9, align 8
   %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 8
@@ -351,24 +351,20 @@ cond.true164:                                     ; preds = %land.rhs
   br label %cond.end
 
 cond.false171:                                    ; preds = %land.rhs
-  %cmp172.not = icmp sgt i64 %14, %conv38
+  %cmp172.not = icmp sle i64 %14, %conv38
   %add175 = add nsw i64 %mdy.0, %conv38
   %cmp176 = icmp sle i64 %add175, %16
-  br i1 %cmp172.not, label %cond.end.thread, label %cond.end
-
-cond.end.thread:                                  ; preds = %cond.false171
-  %never_clip366 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
-  store i32 0, ptr %never_clip366, align 8, !tbaa !53
-  br label %lor.end
+  %narrow = select i1 %cmp172.not, i1 %cmp176, i1 false
+  br label %cond.end
 
 cond.end:                                         ; preds = %cond.false171, %cond.true164
-  %cond.in = phi i1 [ %17, %cond.true164 ], [ %cmp176, %cond.false171 ]
+  %cond.in = phi i1 [ %17, %cond.true164 ], [ %narrow, %cond.false171 ]
   %land.ext182 = zext i1 %cond.in to i32
   %never_clip = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
   store i32 %land.ext182, ptr %never_clip, align 8, !tbaa !53
   %tobool180.not = xor i1 %cond.in, true
-  %brmerge371 = or i1 %cmp23, %tobool180.not
-  br i1 %brmerge371, label %lor.end, label %lor.rhs
+  %brmerge = or i1 %cmp23, %tobool180.not
+  br i1 %brmerge, label %lor.end, label %lor.rhs
 
 lor.rhs:                                          ; preds = %cond.end
   %cmp188 = icmp eq i64 %color0, -1
@@ -389,8 +385,8 @@ lor.end.critedge:                                 ; preds = %cond.true, %cond.fa
   store i32 0, ptr %never_clip.c, align 8, !tbaa !53
   br label %lor.end
 
-lor.end:                                          ; preds = %cond.end, %cond.end.thread, %lor.end.critedge, %land.rhs193, %lor.rhs
-  %20 = phi i1 [ true, %cond.end ], [ %cmp195, %land.rhs193 ], [ false, %lor.rhs ], [ true, %lor.end.critedge ], [ true, %cond.end.thread ]
+lor.end:                                          ; preds = %cond.end, %lor.end.critedge, %land.rhs193, %lor.rhs
+  %20 = phi i1 [ true, %cond.end ], [ %cmp195, %land.rhs193 ], [ false, %lor.rhs ], [ true, %lor.end.critedge ]
   %lor.ext = zext i1 %20 to i32
   %slow_loop = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 17
   store i32 %lor.ext, ptr %slow_loop, align 8, !tbaa !55
@@ -405,8 +401,8 @@ cond.false204:                                    ; preds = %lor.end
 
 cond.false208:                                    ; preds = %cond.false204
   %cmp209 = icmp ne i32 %log2_bps, 0
-  %brmerge = select i1 %cmp209, i1 true, i1 %20
-  br i1 %brmerge, label %if.else236, label %land.rhs214
+  %brmerge363 = select i1 %cmp209, i1 true, i1 %20
+  br i1 %brmerge363, label %if.else236, label %land.rhs214
 
 land.rhs214:                                      ; preds = %cond.false208
   %add218 = add i64 %mul128, 2048
@@ -426,8 +422,8 @@ if.then235:                                       ; preds = %land.rhs214
 
 if.else236:                                       ; preds = %lor.end, %cond.false204, %cond.false208, %land.rhs214
   %cond231.ph = phi ptr [ @image_render_mono, %land.rhs214 ], [ @image_render_mono, %cond.false208 ], [ @image_render_color, %cond.false204 ], [ @image_render_skip, %lor.end ]
-  %render369 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
-  store ptr %cond231.ph, ptr %render369, align 8, !tbaa !57
+  %render365 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
+  store ptr %cond231.ph, ptr %render365, align 8, !tbaa !57
   %cmp237.not = icmp eq i32 %spread, 1
   %idxprom243 = sext i32 %log2_bps to i64
   %unpack245 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
@@ -464,7 +460,7 @@ cleanup:                                          ; preds = %if.end10, %if.end4,
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_imagemask_init(ptr noundef %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %invert, ptr noundef %pmat) local_unnamed_addr #0 {
+define dso_local i32 @gs_imagemask_init(ptr nocapture noundef writeonly %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %invert, ptr noundef %pmat) local_unnamed_addr #0 {
 entry:
   %color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
   %0 = load ptr, ptr %color, align 8, !tbaa !63
@@ -1068,13 +1064,16 @@ if.end49:                                         ; preds = %if.else41, %if.then
 
 if.then52:                                        ; preds = %if.end49
   %conv55 = zext i8 %next.sroa.0.0 to i16
-  %add58 = mul nuw i16 %conv55, 257
+  %shl = shl nuw i16 %conv55, 8
+  %add58 = or i16 %shl, %conv55
   store i16 %add58, ptr %rcolor, align 2, !tbaa !81
   %conv63 = zext i8 %next.sroa.9.0 to i16
-  %add67 = mul nuw i16 %conv63, 257
+  %shl64 = shl nuw i16 %conv63, 8
+  %add67 = or i16 %shl64, %conv63
   store i16 %add67, ptr %green, align 2, !tbaa !80
   %conv72 = zext i8 %next.sroa.13.0 to i16
-  %add76 = mul nuw i16 %conv72, 257
+  %shl73 = shl nuw i16 %conv72, 8
+  %add76 = or i16 %shl73, %conv72
   store i16 %add76, ptr %blue, align 2, !tbaa !78
   %call79 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %rcolor) #8
   %call80 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef %pdevc_next.0261, ptr noundef %0) #8
@@ -1669,15 +1668,15 @@ while.body.lr.ph:                                 ; preds = %if.end10
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %cleanup
-  %pos.0115 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
+  %pos.0116 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
   %dpos.0114 = phi i32 [ 0, %while.body.lr.ph ], [ %add26, %cleanup ]
   %dleft.0113 = phi i32 [ %dsize, %while.body.lr.ph ], [ %sub27, %cleanup ]
-  %sub = sub i32 %0, %pos.0115
+  %sub = sub i32 %0, %pos.0116
   %cond = tail call i32 @llvm.umin.i32(i32 %dleft.0113, i32 %sub)
   %6 = load ptr, ptr %buffer, align 8, !tbaa !37
   %7 = load i32, ptr %log2_bps, align 8, !tbaa !24
   %sub14 = sub nsw i32 3, %7
-  %shl = shl i32 %pos.0115, %sub14
+  %shl = shl i32 %pos.0116, %sub14
   %8 = load i32, ptr %spread, align 8, !tbaa !26
   %mul = mul i32 %shl, %8
   %idx.ext = zext i32 %mul to i64
@@ -1704,7 +1703,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp17, label %for.body, label %for.end, !llvm.loop !104
 
 for.end:                                          ; preds = %for.body, %while.body
-  %add = add i32 %cond, %pos.0115
+  %add = add i32 %cond, %pos.0116
   %add26 = add i32 %cond, %dpos.0114
   %sub27 = sub i32 %dleft.0113, %cond
   %cmp28 = icmp eq i32 %add, %0
@@ -1779,9 +1778,6 @@ declare i32 @gz_fill_rectangle(...) local_unnamed_addr #2
 declare i32 @gx_color_from_rgb(...) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -1789,6 +1785,9 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

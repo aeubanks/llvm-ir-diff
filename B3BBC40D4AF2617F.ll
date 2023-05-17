@@ -17,20 +17,20 @@ entry:
   br i1 %tobool6.not, label %do.body.split.us.lr.ph.split.us, label %a
 
 do.body.split.us.lr.ph.split.us:                  ; preds = %entry
-  %tobool.not.us.us32 = icmp ult i64 %sub, 512
-  br i1 %tobool.not.us.us32, label %do.end, label %if.then.us.us
+  %tobool.not.us.us31 = icmp ult i64 %sub, 512
+  br i1 %tobool.not.us.us31, label %do.end, label %if.then.us.us
 
 if.then.us.us:                                    ; preds = %do.body.split.us.lr.ph.split.us, %if.then.us.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %if.then.us.us ], [ 0, %do.body.split.us.lr.ph.split.us ]
-  %o.026.us34 = phi i64 [ %shr1.us.us36, %if.then.us.us ], [ %shr, %do.body.split.us.lr.ph.split.us ]
-  %arrayidx27.us33 = phi ptr [ %arrayidx.us, %if.then.us.us ], [ @bytes, %do.body.split.us.lr.ph.split.us ]
-  %shr1.us.us36 = lshr i64 %o.026.us34, 7
-  %1 = trunc i64 %o.026.us34 to i8
+  %o.025.us33 = phi i64 [ %shr1.us.us35, %if.then.us.us ], [ %shr, %do.body.split.us.lr.ph.split.us ]
+  %arrayidx26.us32 = phi ptr [ %arrayidx.us, %if.then.us.us ], [ @bytes, %do.body.split.us.lr.ph.split.us ]
+  %shr1.us.us35 = lshr i64 %o.025.us33, 7
+  %1 = trunc i64 %o.025.us33 to i8
   %or.le.us = or i8 %1, -128
-  store i8 %or.le.us, ptr %arrayidx27.us33, align 1, !tbaa !5
+  store i8 %or.le.us, ptr %arrayidx26.us32, align 1, !tbaa !5
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx.us = getelementptr inbounds [5 x i8], ptr @bytes, i64 0, i64 %indvars.iv.next
-  %tobool.not.us.us = icmp ult i64 %o.026.us34, 16384
+  %tobool.not.us.us = icmp ult i64 %o.025.us33, 16384
   br i1 %tobool.not.us.us, label %do.end, label %if.then.us.us
 
 a:                                                ; preds = %entry, %a
@@ -40,10 +40,10 @@ a:                                                ; preds = %entry, %a
   br i1 %tobool.not, label %do.end, label %a
 
 do.end:                                           ; preds = %a, %if.then.us.us, %do.body.split.us.lr.ph.split.us
-  %.us-phi = phi i64 [ %shr, %do.body.split.us.lr.ph.split.us ], [ %shr1.us.us36, %if.then.us.us ], [ %o.1, %a ]
-  %.us-phi19 = phi ptr [ @bytes, %do.body.split.us.lr.ph.split.us ], [ %arrayidx.us, %if.then.us.us ], [ @bytes, %a ]
+  %.us-phi = phi i64 [ %shr, %do.body.split.us.lr.ph.split.us ], [ %shr1.us.us35, %if.then.us.us ], [ %o.1, %a ]
+  %.us-phi18 = phi ptr [ @bytes, %do.body.split.us.lr.ph.split.us ], [ %arrayidx.us, %if.then.us.us ], [ @bytes, %a ]
   %2 = trunc i64 %.us-phi to i8
-  store i8 %2, ptr %.us-phi19, align 1, !tbaa !5
+  store i8 %2, ptr %.us-phi18, align 1, !tbaa !5
   ret void
 }
 
@@ -60,8 +60,8 @@ if.then.us.us.i:                                  ; preds = %entry
   br label %add_unwind_adjustsp.exit
 
 add_unwind_adjustsp.exit:                         ; preds = %entry, %if.then.us.us.i
-  %.us-phi19.i = phi ptr [ getelementptr inbounds ([5 x i8], ptr @bytes, i64 0, i64 1), %if.then.us.us.i ], [ @bytes, %entry ]
-  store i8 7, ptr %.us-phi19.i, align 1, !tbaa !5
+  %.us-phi18.i = phi ptr [ getelementptr inbounds ([5 x i8], ptr @bytes, i64 0, i64 1), %if.then.us.us.i ], [ @bytes, %entry ]
+  store i8 7, ptr %.us-phi18.i, align 1, !tbaa !5
   %1 = load i8, ptr @bytes, align 1, !tbaa !5
   %cmp = icmp ne i8 %1, -120
   %2 = load i8, ptr getelementptr inbounds ([5 x i8], ptr @bytes, i64 0, i64 1), align 1

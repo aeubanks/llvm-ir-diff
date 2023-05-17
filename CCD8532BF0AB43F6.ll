@@ -107,16 +107,15 @@ entry:
   %5 = load i32, ptr %arrayidx19.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %5, ptr %arrayidx22.i, align 4, !tbaa !10
-  %6 = mul i32 %2, %add
-  %mul35.i = mul nsw i32 %4, %add9
-  %7 = add i32 %6, %mul35.i
-  %sub36.i = sub i32 0, %7
+  %sub.i = sub nsw i32 0, %add
+  %mul.i = mul nsw i32 %2, %sub.i
+  %mul35.i = mul nsw i32 %add9, %4
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %8 = mul i32 %3, %add
-  %mul54.i = mul nsw i32 %5, %add9
-  %9 = add i32 %8, %mul54.i
-  %sub55.i = sub i32 0, %9
+  %mul47.i = mul nsw i32 %3, %sub.i
+  %mul54.i = mul nsw i32 %add9, %5
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -157,16 +156,15 @@ entry:
   store i32 %sub9, ptr %arrayidx22.i, align 4, !tbaa !10
   %arrayidx24.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 2, i64 2
   %5 = load i32, ptr %arrayidx24.i, align 4, !tbaa !10
-  %6 = mul i32 %5, %3
+  %sub.i = sub nsw i32 0, %5
+  %mul.i = mul nsw i32 %3, %sub.i
   %mul35.i = mul nsw i32 %2, %0
-  %7 = add i32 %mul35.i, %6
-  %sub36.i = sub i32 0, %7
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %8 = mul i32 %5, %4
+  %mul47.i = mul nsw i32 %4, %sub.i
   %mul54.i = mul nsw i32 %2, %1
-  %9 = add i32 %mul54.i, %8
-  %sub55.i = sub i32 0, %9
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -205,18 +203,16 @@ entry:
   %4 = load i32, ptr %arrayidx19.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %4, ptr %arrayidx22.i, align 4, !tbaa !10
-  %5 = mul i32 %2, %0
+  %mul.i = mul nsw i32 %2, %sub
   %arrayidx31.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 2, i64 2, i64 1
-  %6 = load i32, ptr %arrayidx31.i, align 4, !tbaa !10
-  %mul35.i = mul nsw i32 %6, %3
-  %7 = add i32 %5, %mul35.i
-  %sub36.i = sub i32 0, %7
+  %5 = load i32, ptr %arrayidx31.i, align 4, !tbaa !10
+  %mul35.i = mul nsw i32 %5, %3
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %8 = mul i32 %2, %1
-  %mul54.i = mul nsw i32 %6, %4
-  %9 = add i32 %8, %mul54.i
-  %sub55.i = sub i32 0, %9
+  %mul47.i = mul nsw i32 %2, %sub9
+  %mul54.i = mul nsw i32 %5, %4
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -368,16 +364,15 @@ if.end140:                                        ; preds = %if.else115.if.end14
   store i32 %21, ptr %arrayidx15.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %20, ptr %arrayidx22.i, align 4, !tbaa !10
-  %24 = mul i32 %19, %23
+  %sub.i = sub nsw i32 0, %19
+  %mul.i = mul nsw i32 %23, %sub.i
   %mul35.i = mul nsw i32 %18, %21
-  %25 = add i32 %24, %mul35.i
-  %sub36.i = sub i32 0, %25
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %26 = mul i32 %19, %22
+  %mul47.i = mul nsw i32 %22, %sub.i
   %mul54.i = mul nsw i32 %18, %20
-  %27 = add i32 %26, %mul54.i
-  %sub55.i = sub i32 0, %27
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -452,16 +447,15 @@ entry:
   store i32 %add23, ptr %arrayidx15.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %add49, ptr %arrayidx22.i, align 4, !tbaa !10
-  %12 = mul i32 %add65, %add
+  %sub.i = sub nsw i32 0, %add65
+  %mul.i = mul nsw i32 %add, %sub.i
   %mul35.i = mul nsw i32 %add81, %add23
-  %13 = add i32 %12, %mul35.i
-  %sub36.i = sub i32 0, %13
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %14 = mul i32 %add65, %add36
+  %mul47.i = mul nsw i32 %add36, %sub.i
   %mul54.i = mul nsw i32 %add81, %add49
-  %15 = add i32 %14, %mul54.i
-  %sub55.i = sub i32 0, %15
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -606,16 +600,15 @@ if.end:                                           ; preds = %entry
   store i32 %2, ptr %arrayidx15.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %4, ptr %arrayidx22.i, align 4, !tbaa !10
-  %7 = mul i32 %5, %1
+  %sub.i = sub nsw i32 0, %5
+  %mul.i = mul nsw i32 %1, %sub.i
   %mul35.i = mul nsw i32 %6, %2
-  %8 = add i32 %7, %mul35.i
-  %sub36.i = sub i32 0, %8
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %9 = mul i32 %5, %3
+  %mul47.i = mul nsw i32 %3, %sub.i
   %mul54.i = mul nsw i32 %6, %4
-  %10 = add i32 %9, %mul54.i
-  %sub55.i = sub i32 0, %10
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -699,16 +692,15 @@ if.end:                                           ; preds = %entry
   store i32 %add35, ptr %arrayidx15.i, align 4, !tbaa !10
   %arrayidx22.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 1
   store i32 %add73, ptr %arrayidx22.i, align 4, !tbaa !10
-  %13 = mul i32 %add98, %add
+  %sub.i = sub nsw i32 0, %add98
+  %mul.i = mul nsw i32 %add, %sub.i
   %mul35.i = mul nsw i32 %add123, %add35
-  %14 = add i32 %13, %mul35.i
-  %sub36.i = sub i32 0, %14
+  %sub36.i = sub nsw i32 %mul.i, %mul35.i
   %arrayidx38.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2
   store i32 %sub36.i, ptr %arrayidx38.i, align 4, !tbaa !10
-  %15 = mul i32 %add98, %add54
+  %mul47.i = mul nsw i32 %add54, %sub.i
   %mul54.i = mul nsw i32 %add123, %add73
-  %16 = add i32 %15, %mul54.i
-  %sub55.i = sub i32 0, %16
+  %sub55.i = sub nsw i32 %mul47.i, %mul54.i
   %arrayidx58.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 2, i64 1
   store i32 %sub55.i, ptr %arrayidx58.i, align 4, !tbaa !10
   %arrayidx61.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 3, i64 1, i64 2
@@ -729,9 +721,9 @@ define dso_local i32 @MTDecodeP(ptr noundef %t, ptr nocapture noundef writeonly 
 entry:
   %0 = load i32, ptr %t, align 4, !tbaa !5
   %cmp.i = icmp eq i32 %0, 100
-  br i1 %cmp.i, label %cleanup, label %if.end
+  br i1 %cmp.i, label %cleanup, label %for.cond2.preheader.preheader.i
 
-if.end:                                           ; preds = %entry
+for.cond2.preheader.preheader.i:                  ; preds = %entry
   %arrayidx7.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 2, i64 0, i64 0
   %idxprom9.i = sext i32 %0 to i64
   %arrayidx14.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom9.i, i64 0, i64 0
@@ -781,7 +773,7 @@ if.end:                                           ; preds = %entry
   %or.cond187 = select i1 %or.cond186, i1 %cmp22, i1 false
   br i1 %or.cond187, label %if.then23, label %if.else30
 
-if.then23:                                        ; preds = %if.end
+if.then23:                                        ; preds = %for.cond2.preheader.preheader.i
   store i32 0, ptr %arrayidx7.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx7.1.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx7.135.i, align 4, !tbaa !10
@@ -789,10 +781,10 @@ if.then23:                                        ; preds = %if.end
   store i32 %8, ptr %arrayidx7.2.i, align 4, !tbaa !10
   store i32 %9, ptr %arrayidx7.1.2.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx13.i, align 4, !tbaa !10
-  %sub36.i.i352 = sub i32 0, %9
-  store i32 %sub36.i.i352, ptr %arrayidx9.i, align 4, !tbaa !10
-  %sub55.i.i355 = sub i32 0, %8
-  store i32 %sub55.i.i355, ptr %arrayidx19.i, align 4, !tbaa !10
+  %sub.i.i353 = sub nsw i32 0, %8
+  %sub36.i.i356 = sub nsw i32 0, %9
+  store i32 %sub36.i.i356, ptr %arrayidx9.i, align 4, !tbaa !10
+  store i32 %sub.i.i353, ptr %arrayidx19.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx25.i, align 4, !tbaa !10
   store <4 x i32> <i32 0, i32 1, i32 0, i32 1>, ptr %ti.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx10.i, align 4, !tbaa !10
@@ -809,7 +801,7 @@ if.else:                                          ; preds = %if.then23
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(10) @MTDecodeP.cif, ptr noundef nonnull align 1 dereferenceable(10) @.str.1, i64 10, i1 false)
   br label %if.end157
 
-if.else30:                                        ; preds = %if.end
+if.else30:                                        ; preds = %for.cond2.preheader.preheader.i
   %cmp33 = icmp eq i32 %5, -1
   %or.cond189 = select i1 %cmp, i1 %cmp33, i1 false
   %cmp35 = icmp eq i32 %6, -1
@@ -856,9 +848,9 @@ if.then55:                                        ; preds = %if.else47
   store i32 %8, ptr %arrayidx7.2.i, align 4, !tbaa !10
   store i32 %9, ptr %arrayidx7.1.2.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx13.i, align 4, !tbaa !10
+  %sub.i.i466 = sub nsw i32 0, %8
   store i32 %9, ptr %arrayidx9.i, align 4, !tbaa !10
-  %sub55.i.i454 = sub i32 0, %8
-  store i32 %sub55.i.i454, ptr %arrayidx19.i, align 4, !tbaa !10
+  store i32 %sub.i.i466, ptr %arrayidx19.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx25.i, align 4, !tbaa !10
   store <4 x i32> <i32 0, i32 1, i32 0, i32 -1>, ptr %ti.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx10.i, align 4, !tbaa !10
@@ -888,8 +880,8 @@ if.then72:                                        ; preds = %if.else64
   store i32 %8, ptr %arrayidx7.2.i, align 4, !tbaa !10
   store i32 %9, ptr %arrayidx7.1.2.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx13.i, align 4, !tbaa !10
-  %sub36.i.i494 = sub i32 0, %9
-  store i32 %sub36.i.i494, ptr %arrayidx9.i, align 4, !tbaa !10
+  %sub36.i.i518 = sub nsw i32 0, %9
+  store i32 %sub36.i.i518, ptr %arrayidx9.i, align 4, !tbaa !10
   store i32 %8, ptr %arrayidx19.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx25.i, align 4, !tbaa !10
   store <4 x i32> <i32 0, i32 -1, i32 0, i32 1>, ptr %ti.i, align 4, !tbaa !10
@@ -1022,15 +1014,15 @@ land.lhs.true172:                                 ; preds = %land.lhs.true167
 
 if.then177:                                       ; preds = %land.lhs.true172
   %14 = load i32, ptr %t, align 4, !tbaa !5
-  %cmp.i502 = icmp eq i32 %14, 0
-  br i1 %cmp.i502, label %MTPopP.exit, label %if.end.i
+  %cmp.i527 = icmp eq i32 %14, 0
+  br i1 %cmp.i527, label %MTPopP.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %if.then177
   %dec.i = add nsw i32 %14, -1
   store i32 %dec.i, ptr %t, align 4, !tbaa !5
   %idxprom.i = sext i32 %dec.i to i64
-  %arrayidx10.i503 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i, i64 0, i64 0
-  %15 = load i32, ptr %arrayidx10.i503, align 4, !tbaa !10
+  %arrayidx10.i528 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i, i64 0, i64 0
+  %15 = load i32, ptr %arrayidx10.i528, align 4, !tbaa !10
   store i32 %15, ptr %arrayidx7.i, align 4, !tbaa !10
   %arrayidx10.1.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i, i64 0, i64 1
   %16 = load i32, ptr %arrayidx10.1.i, align 4, !tbaa !10
@@ -1051,16 +1043,15 @@ if.end.i:                                         ; preds = %if.then177
   store i32 %17, ptr %arrayidx34.i, align 4, !tbaa !10
   store i32 %16, ptr %arrayidx12.i, align 4, !tbaa !10
   store i32 %18, ptr %arrayidx13.i, align 4, !tbaa !10
-  %21 = mul i32 %19, %15
-  %mul35.i.i508 = mul nsw i32 %20, %16
-  %22 = add i32 %21, %mul35.i.i508
-  %sub36.i.i509 = sub i32 0, %22
-  store i32 %sub36.i.i509, ptr %arrayidx9.i, align 4, !tbaa !10
-  %23 = mul i32 %19, %17
-  %mul54.i.i511 = mul nsw i32 %20, %18
-  %24 = add i32 %23, %mul54.i.i511
-  %sub55.i.i512 = sub i32 0, %24
-  store i32 %sub55.i.i512, ptr %arrayidx19.i, align 4, !tbaa !10
+  %sub.i.i533 = sub nsw i32 0, %19
+  %mul.i.i534 = mul nsw i32 %15, %sub.i.i533
+  %mul35.i.i535 = mul nsw i32 %20, %16
+  %sub36.i.i536 = sub nsw i32 %mul.i.i534, %mul35.i.i535
+  store i32 %sub36.i.i536, ptr %arrayidx9.i, align 4, !tbaa !10
+  %mul47.i.i538 = mul nsw i32 %17, %sub.i.i533
+  %mul54.i.i539 = mul nsw i32 %20, %18
+  %sub55.i.i540 = sub nsw i32 %mul47.i.i538, %mul54.i.i539
+  store i32 %sub55.i.i540, ptr %arrayidx19.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx25.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx28.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx10.i, align 4, !tbaa !10
@@ -1071,53 +1062,52 @@ MTPopP.exit:                                      ; preds = %if.then177, %if.end
   br label %cleanup
 
 if.else179:                                       ; preds = %land.lhs.true172, %land.lhs.true167, %land.lhs.true162, %if.end157
-  %25 = load i32, ptr %t, align 4, !tbaa !5
-  %cmp.i518 = icmp eq i32 %25, 0
-  br i1 %cmp.i518, label %cleanup, label %if.end.i546
+  %21 = load i32, ptr %t, align 4, !tbaa !5
+  %cmp.i546 = icmp eq i32 %21, 0
+  br i1 %cmp.i546, label %cleanup, label %if.end.i577
 
-if.end.i546:                                      ; preds = %if.else179
-  %dec.i519 = add nsw i32 %25, -1
-  store i32 %dec.i519, ptr %t, align 4, !tbaa !5
-  %idxprom.i520 = sext i32 %dec.i519 to i64
-  %arrayidx10.i521 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 0, i64 0
-  %26 = load i32, ptr %arrayidx10.i521, align 4, !tbaa !10
-  store i32 %26, ptr %arrayidx7.i, align 4, !tbaa !10
-  %arrayidx10.1.i523 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 0, i64 1
-  %27 = load i32, ptr %arrayidx10.1.i523, align 4, !tbaa !10
-  store i32 %27, ptr %arrayidx7.1.i, align 4, !tbaa !10
-  %arrayidx10.136.i525 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 1, i64 0
-  %28 = load i32, ptr %arrayidx10.136.i525, align 4, !tbaa !10
-  store i32 %28, ptr %arrayidx7.135.i, align 4, !tbaa !10
-  %arrayidx10.1.1.i527 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 1, i64 1
-  %29 = load i32, ptr %arrayidx10.1.1.i527, align 4, !tbaa !10
-  store i32 %29, ptr %arrayidx7.1.1.i, align 4, !tbaa !10
-  %arrayidx10.2.i529 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 2, i64 0
-  %30 = load i32, ptr %arrayidx10.2.i529, align 4, !tbaa !10
-  store i32 %30, ptr %arrayidx7.2.i, align 4, !tbaa !10
-  %arrayidx10.1.2.i531 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i520, i64 2, i64 1
-  %31 = load i32, ptr %arrayidx10.1.2.i531, align 4, !tbaa !10
-  store i32 %31, ptr %arrayidx7.1.2.i, align 4, !tbaa !10
-  store i32 %26, ptr %ti.i, align 4, !tbaa !10
-  store i32 %28, ptr %arrayidx34.i, align 4, !tbaa !10
-  store i32 %27, ptr %arrayidx12.i, align 4, !tbaa !10
-  store i32 %29, ptr %arrayidx13.i, align 4, !tbaa !10
-  %32 = mul i32 %30, %26
-  %mul35.i.i537 = mul nsw i32 %31, %27
-  %33 = add i32 %32, %mul35.i.i537
-  %sub36.i.i538 = sub i32 0, %33
-  store i32 %sub36.i.i538, ptr %arrayidx9.i, align 4, !tbaa !10
-  %34 = mul i32 %30, %28
-  %mul54.i.i540 = mul nsw i32 %31, %29
-  %35 = add i32 %34, %mul54.i.i540
-  %sub55.i.i541 = sub i32 0, %35
-  store i32 %sub55.i.i541, ptr %arrayidx19.i, align 4, !tbaa !10
+if.end.i577:                                      ; preds = %if.else179
+  %dec.i547 = add nsw i32 %21, -1
+  store i32 %dec.i547, ptr %t, align 4, !tbaa !5
+  %idxprom.i548 = sext i32 %dec.i547 to i64
+  %arrayidx10.i549 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 0, i64 0
+  %22 = load i32, ptr %arrayidx10.i549, align 4, !tbaa !10
+  store i32 %22, ptr %arrayidx7.i, align 4, !tbaa !10
+  %arrayidx10.1.i551 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 0, i64 1
+  %23 = load i32, ptr %arrayidx10.1.i551, align 4, !tbaa !10
+  store i32 %23, ptr %arrayidx7.1.i, align 4, !tbaa !10
+  %arrayidx10.136.i553 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 1, i64 0
+  %24 = load i32, ptr %arrayidx10.136.i553, align 4, !tbaa !10
+  store i32 %24, ptr %arrayidx7.135.i, align 4, !tbaa !10
+  %arrayidx10.1.1.i555 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 1, i64 1
+  %25 = load i32, ptr %arrayidx10.1.1.i555, align 4, !tbaa !10
+  store i32 %25, ptr %arrayidx7.1.1.i, align 4, !tbaa !10
+  %arrayidx10.2.i557 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 2, i64 0
+  %26 = load i32, ptr %arrayidx10.2.i557, align 4, !tbaa !10
+  store i32 %26, ptr %arrayidx7.2.i, align 4, !tbaa !10
+  %arrayidx10.1.2.i559 = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom.i548, i64 2, i64 1
+  %27 = load i32, ptr %arrayidx10.1.2.i559, align 4, !tbaa !10
+  store i32 %27, ptr %arrayidx7.1.2.i, align 4, !tbaa !10
+  store i32 %22, ptr %ti.i, align 4, !tbaa !10
+  store i32 %24, ptr %arrayidx34.i, align 4, !tbaa !10
+  store i32 %23, ptr %arrayidx12.i, align 4, !tbaa !10
+  store i32 %25, ptr %arrayidx13.i, align 4, !tbaa !10
+  %sub.i.i565 = sub nsw i32 0, %26
+  %mul.i.i566 = mul nsw i32 %22, %sub.i.i565
+  %mul35.i.i567 = mul nsw i32 %27, %23
+  %sub36.i.i568 = sub nsw i32 %mul.i.i566, %mul35.i.i567
+  store i32 %sub36.i.i568, ptr %arrayidx9.i, align 4, !tbaa !10
+  %mul47.i.i570 = mul nsw i32 %24, %sub.i.i565
+  %mul54.i.i571 = mul nsw i32 %27, %25
+  %sub55.i.i572 = sub nsw i32 %mul47.i.i570, %mul54.i.i571
+  store i32 %sub55.i.i572, ptr %arrayidx19.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx25.i, align 4, !tbaa !10
   store i32 0, ptr %arrayidx28.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx10.i, align 4, !tbaa !10
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %if.end.i546, %if.else179, %MTPopP.exit, %if.else148
-  %retval.0 = phi i32 [ 1, %MTPopP.exit ], [ 0, %if.else148 ], [ 0, %if.else179 ], [ 0, %if.end.i546 ], [ 0, %entry ]
+cleanup:                                          ; preds = %entry, %if.end.i577, %if.else179, %MTPopP.exit, %if.else148
+  %retval.0 = phi i32 [ 1, %MTPopP.exit ], [ 0, %if.else148 ], [ 0, %if.else179 ], [ 0, %if.end.i577 ], [ 0, %entry ]
   ret i32 %retval.0
 }
 

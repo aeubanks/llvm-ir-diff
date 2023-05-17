@@ -193,7 +193,7 @@ if.end21:                                         ; preds = %if.then13, %if.end
   %result.0 = phi i32 [ %call20, %if.then13 ], [ 0, %if.end ]
   %11 = load i32, ptr %_streamPos, align 8, !tbaa !18
   %add = add i32 %11, %size.0
-  %12 = load i32, ptr %_bufferSize, align 4
+  %12 = load i32, ptr %_bufferSize, align 4, !tbaa !14
   %cmp25 = icmp eq i32 %add, %12
   %spec.store.select = select i1 %cmp25, i32 0, i32 %add
   store i32 %spec.store.select, ptr %_streamPos, align 8
@@ -210,9 +210,9 @@ if.then32:                                        ; preds = %if.end21
 if.end34:                                         ; preds = %if.then32, %if.end21
   %14 = phi i32 [ 0, %if.then32 ], [ %13, %if.end21 ]
   %cmp37 = icmp ugt i32 %spec.store.select, %14
-  %cond43 = select i1 %cmp37, i32 %spec.store.select, i32 %12
+  %. = select i1 %cmp37, i32 %spec.store.select, i32 %12
   %_limitPos = getelementptr inbounds %class.COutBuffer, ptr %this, i64 0, i32 2
-  store i32 %cond43, ptr %_limitPos, align 4, !tbaa !19
+  store i32 %., ptr %_limitPos, align 4, !tbaa !19
   %conv44 = zext i32 %size.0 to i64
   %_processedSize = getelementptr inbounds %class.COutBuffer, ptr %this, i64 0, i32 6
   %15 = load i64, ptr %_processedSize, align 8, !tbaa !21
@@ -291,7 +291,7 @@ if.end21.i:                                       ; preds = %if.then13.i, %if.en
   %result.0.i = phi i32 [ %call20.i, %if.then13.i ], [ 0, %if.end.i ]
   %11 = load i32, ptr %_streamPos, align 8, !tbaa !18
   %add.i = add i32 %11, %size.0.i
-  %12 = load i32, ptr %_bufferSize.i, align 4
+  %12 = load i32, ptr %_bufferSize.i, align 4, !tbaa !14
   %cmp25.i = icmp eq i32 %add.i, %12
   %spec.store.select.i = select i1 %cmp25.i, i32 0, i32 %add.i
   store i32 %spec.store.select.i, ptr %_streamPos, align 8
@@ -307,8 +307,8 @@ if.then32.i:                                      ; preds = %if.end21.i
 _ZN10COutBuffer9FlushPartEv.exit:                 ; preds = %if.end21.i, %if.then32.i
   %14 = phi i32 [ 0, %if.then32.i ], [ %13, %if.end21.i ]
   %cmp37.i = icmp ugt i32 %spec.store.select.i, %14
-  %cond43.i = select i1 %cmp37.i, i32 %spec.store.select.i, i32 %12
-  store i32 %cond43.i, ptr %_limitPos.i, align 4, !tbaa !19
+  %..i = select i1 %cmp37.i, i32 %spec.store.select.i, i32 %12
+  store i32 %..i, ptr %_limitPos.i, align 4, !tbaa !19
   %conv44.i = zext i32 %size.0.i to i64
   %15 = load i64, ptr %_processedSize.i, align 8, !tbaa !21
   %add45.i = add i64 %15, %conv44.i
@@ -388,7 +388,7 @@ if.end21.i.i:                                     ; preds = %if.then13.i.i, %if.
   %result.0.i.i = phi i32 [ %call20.i.i, %if.then13.i.i ], [ 0, %if.end.i.i ]
   %11 = load i32, ptr %_streamPos.i, align 8, !tbaa !18
   %add.i.i = add i32 %11, %size.0.i.i
-  %12 = load i32, ptr %_bufferSize.i.i, align 4
+  %12 = load i32, ptr %_bufferSize.i.i, align 4, !tbaa !14
   %cmp25.i.i = icmp eq i32 %add.i.i, %12
   %spec.store.select.i.i = select i1 %cmp25.i.i, i32 0, i32 %add.i.i
   store i32 %spec.store.select.i.i, ptr %_streamPos.i, align 8
@@ -404,16 +404,16 @@ if.then32.i.i:                                    ; preds = %if.end21.i.i
 _ZN10COutBuffer9FlushPartEv.exit.i:               ; preds = %if.then32.i.i, %if.end21.i.i
   %14 = phi i32 [ 0, %if.then32.i.i ], [ %13, %if.end21.i.i ]
   %cmp37.i.i = icmp ugt i32 %spec.store.select.i.i, %14
-  %cond43.i.i = select i1 %cmp37.i.i, i32 %spec.store.select.i.i, i32 %12
-  store i32 %cond43.i.i, ptr %_limitPos.i.i, align 4, !tbaa !19
+  %..i.i = select i1 %cmp37.i.i, i32 %spec.store.select.i.i, i32 %12
+  store i32 %..i.i, ptr %_limitPos.i.i, align 4, !tbaa !19
   %conv44.i.i = zext i32 %size.0.i.i to i64
   %15 = load i64, ptr %_processedSize.i.i, align 8, !tbaa !21
   %add45.i.i = add i64 %15, %conv44.i.i
   store i64 %add45.i.i, ptr %_processedSize.i.i, align 8, !tbaa !21
   %cmp2.not.not.i = icmp eq i32 %result.0.i.i, 0
-  br i1 %cmp2.not.not.i, label %while.cond.i, label %invoke.cont
+  br i1 %cmp2.not.not.i, label %while.cond.i, label %if.then
 
-invoke.cont:                                      ; preds = %_ZN10COutBuffer9FlushPartEv.exit.i
+if.then:                                          ; preds = %_ZN10COutBuffer9FlushPartEv.exit.i
   %exception = call ptr @__cxa_allocate_exception(i64 4) #8
   store i32 %result.0.i.i, ptr %exception, align 4, !tbaa !25
   call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI19COutBufferException, ptr null) #9

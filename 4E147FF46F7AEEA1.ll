@@ -248,7 +248,7 @@ if.then43:                                        ; preds = %cli_scanfile.exit
   %call44 = tail call i32 @closedir(ptr noundef nonnull %call)
   br label %cleanup
 
-if.end48:                                         ; preds = %if.then25, %if.then40, %if.then31, %cli_scanfile.exit, %if.end
+if.end48:                                         ; preds = %if.then40, %if.then25, %if.then31, %cli_scanfile.exit, %if.end
   tail call void @free(ptr noundef nonnull %call16) #9
   br label %if.end50
 
@@ -1628,7 +1628,7 @@ cond.true29:                                      ; preds = %cond.end
 cond.end32:                                       ; preds = %cond.end, %cond.true29
   %cond33 = phi i32 [ %13, %cond.true29 ], [ 0, %cond.end ]
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.35, ptr noundef nonnull %3, i32 noundef %7, i32 noundef %8, i32 noundef %conv20, i32 noundef %9, i32 noundef %10, i32 noundef %conv23, i32 noundef %cond, i32 noundef %cond33) #9
-  %14 = load i32, ptr %st_size, align 8
+  %14 = load i32, ptr %st_size, align 8, !tbaa !57
   %tobool35.not = icmp eq i32 %14, 0
   br i1 %tobool35.not, label %if.then36, label %if.end42
 
@@ -1825,8 +1825,8 @@ if.then170:                                       ; preds = %if.end148
   %tobool172.not = icmp ne i64 %45, 0
   %conv175 = zext i32 %14 to i64
   %cmp178 = icmp ult i64 %45, %conv175
-  %or.cond452 = and i1 %tobool172.not, %cmp178
-  br i1 %or.cond452, label %if.then180, label %if.end191
+  %or.cond444 = and i1 %tobool172.not, %cmp178
+  br i1 %or.cond444, label %if.then180, label %if.end191
 
 if.then180:                                       ; preds = %if.then170
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.43, ptr noundef nonnull %36, i32 noundef %14, i64 noundef %45) #9
@@ -1845,8 +1845,8 @@ if.end191:                                        ; preds = %if.then170
   %48 = load i32, ptr %maxfiles, align 4, !tbaa !76
   %tobool193.not = icmp ne i32 %48, 0
   %cmp197 = icmp ugt i32 %inc, %48
-  %or.cond444 = and i1 %tobool193.not, %cmp197
-  br i1 %or.cond444, label %if.then199, label %if.end209
+  %or.cond445 = and i1 %tobool193.not, %cmp197
+  br i1 %or.cond445, label %if.then199, label %if.end209
 
 if.then199:                                       ; preds = %if.end191
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.45, i32 noundef %48) #9
@@ -1910,7 +1910,7 @@ if.else222:                                       ; preds = %if.then215
   br label %while.end308
 
 while.cond231.preheader:                          ; preds = %while.cond231.preheader.lr.ph, %if.end288
-  %success.0525 = phi i8 [ 0, %while.cond231.preheader.lr.ph ], [ %success.1448, %if.end288 ]
+  %success.0525 = phi i8 [ 0, %while.cond231.preheader.lr.ph ], [ %success.1449, %if.end288 ]
   %bfcnt.0524 = phi i32 [ 0, %while.cond231.preheader.lr.ph ], [ %inc295, %if.end288 ]
   br label %while.cond231
 
@@ -1975,7 +1975,7 @@ if.then273:                                       ; preds = %if.end268
   br label %while.end296
 
 if.end276:                                        ; preds = %if.then249, %if.end268
-  %success.1448 = phi i8 [ 1, %if.end268 ], [ %success.0525, %if.then249 ]
+  %success.1449 = phi i8 [ 1, %if.end268 ], [ %success.0525, %if.then249 ]
   %ret.2 = phi i32 [ %call270, %if.end268 ], [ %ret.1, %if.then249 ]
   %64 = load i32, ptr %fd, align 4, !tbaa !40
   %call277 = call i32 @close(i32 noundef %64) #9
@@ -2010,7 +2010,7 @@ if.end288:                                        ; preds = %if.end281
 
 while.end296:                                     ; preds = %if.end288, %if.end281, %if.then249, %while.cond225.preheader, %if.then273, %if.then267
   %ret.3 = phi i32 [ -113, %if.then267 ], [ 1, %if.then273 ], [ %call227522, %while.cond225.preheader ], [ %call227, %if.end288 ], [ %ret.2, %if.end281 ], [ -104, %if.then249 ]
-  %success.2 = phi i8 [ 1, %if.then267 ], [ 1, %if.then273 ], [ 0, %while.cond225.preheader ], [ %success.1448, %if.end288 ], [ %success.1448, %if.end281 ], [ %success.0525, %if.then249 ]
+  %success.2 = phi i8 [ 1, %if.then267 ], [ 1, %if.then273 ], [ 0, %while.cond225.preheader ], [ %success.1449, %if.end288 ], [ %success.1449, %if.end281 ], [ %success.0525, %if.then249 ]
   %call297 = call i32 @zip_file_close(ptr noundef nonnull %call212) #9
   %tobool298 = icmp ne i32 %ret.3, 0
   %tobool302 = icmp ne i8 %success.2, 0
@@ -2333,7 +2333,7 @@ do.body:                                          ; preds = %do.cond, %if.end13
 if.end17:                                         ; preds = %do.body
   %1 = load ptr, ptr %limits.i, align 8, !tbaa !24
   %tobool.not.i = icmp eq ptr %1, null
-  br i1 %tobool.not.i, label %if.end21, label %if.then.i
+  br i1 %tobool.not.i, label %if.end21.critedge, label %if.then.i
 
 if.then.i:                                        ; preds = %if.end17
   %maxfilesize.i = getelementptr inbounds %struct.cl_limits, ptr %1, i64 0, i32 5
@@ -2355,7 +2355,7 @@ if.then6.i:                                       ; preds = %land.lhs.true.i
   %5 = load i32, ptr %options.i, align 8, !tbaa !21
   %and.i = and i32 %5, 256
   %tobool13.not.i = icmp eq i32 %and.i, 0
-  br i1 %tobool13.not.i, label %if.end21, label %if.then14.i
+  br i1 %tobool13.not.i, label %if.end21.critedge, label %if.then14.i
 
 if.then14.i:                                      ; preds = %if.then6.i
   %6 = load ptr, ptr %ctx, align 8, !tbaa !22
@@ -2366,22 +2366,22 @@ if.end15.i:                                       ; preds = %land.lhs.true.i, %i
   %maxratio.i = getelementptr inbounds %struct.cl_limits, ptr %1, i64 0, i32 3
   %7 = load i32, ptr %maxratio.i, align 4, !tbaa !59
   %tobool17.not.i = icmp eq i32 %7, 0
-  br i1 %tobool17.not.i, label %if.end21, label %land.lhs.true18.i
+  br i1 %tobool17.not.i, label %if.end21.critedge, label %land.lhs.true18.i
 
 land.lhs.true18.i:                                ; preds = %if.end15.i
   %8 = load i32, ptr %orig_size.i, align 4, !tbaa !89
   %tobool20.not.i = icmp eq i32 %8, 0
-  br i1 %tobool20.not.i, label %if.end21, label %land.lhs.true21.i
+  br i1 %tobool20.not.i, label %if.end21.critedge, label %land.lhs.true21.i
 
 land.lhs.true21.i:                                ; preds = %land.lhs.true18.i
   %9 = load i32, ptr %metadata, align 8, !tbaa !90
   %tobool22.not.i = icmp eq i32 %9, 0
-  br i1 %tobool22.not.i, label %if.end21, label %if.then23.i
+  br i1 %tobool22.not.i, label %if.end21.critedge, label %if.then23.i
 
 if.then23.i:                                      ; preds = %land.lhs.true21.i
   %div.i = udiv i32 %8, %9
   %cmp28.not.i = icmp ult i32 %div.i, %7
-  br i1 %cmp28.not.i, label %if.end21, label %if.then30.i
+  br i1 %cmp28.not.i, label %if.end21.critedge, label %if.then30.i
 
 if.then30.i:                                      ; preds = %if.then23.i
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.74, i32 noundef %div.i, i32 noundef %7) #9
@@ -2397,26 +2397,26 @@ if.then30.i:                                      ; preds = %if.then23.i
 
 if.then46.i:                                      ; preds = %if.then30.i
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.75) #9
-  br label %if.end21
+  br label %if.end21.critedge
 
 if.else.i:                                        ; preds = %if.then30.i
   %13 = load i32, ptr %options.i, align 8, !tbaa !21
   %and48.i = and i32 %13, 256
   %tobool49.not.i = icmp eq i32 %and48.i, 0
-  br i1 %tobool49.not.i, label %if.end21, label %if.then50.i
+  br i1 %tobool49.not.i, label %if.end21.critedge, label %if.then50.i
 
 if.then50.i:                                      ; preds = %if.else.i
   %14 = load ptr, ptr %ctx, align 8, !tbaa !22
   store ptr @.str.76, ptr %14, align 8, !tbaa !23
   br label %do.end
 
-if.end21:                                         ; preds = %if.then6.i, %if.end17, %if.then23.i, %if.else.i, %if.then46.i, %land.lhs.true21.i, %land.lhs.true18.i, %if.end15.i
+if.end21.critedge:                                ; preds = %if.else.i, %if.then46.i, %if.then23.i, %land.lhs.true21.i, %land.lhs.true18.i, %if.end15.i, %if.then6.i, %if.end17
   %call22 = call i32 @cli_unarj_extract_file(i32 noundef %desc, ptr noundef %call, ptr noundef nonnull %metadata) #9
   %15 = load i32, ptr %ofd, align 4, !tbaa !91
   %cmp23 = icmp sgt i32 %15, -1
   br i1 %cmp23, label %if.then24, label %if.end34
 
-if.then24:                                        ; preds = %if.end21
+if.then24:                                        ; preds = %if.end21.critedge
   %call26 = call i64 @lseek(i32 noundef %15, i64 noundef 0, i32 noundef 0) #9
   %16 = load i32, ptr %ofd, align 4, !tbaa !91
   %call28 = call i32 @cli_magic_scandesc(i32 noundef %16, ptr noundef nonnull %ctx)
@@ -2431,7 +2431,7 @@ if.then32:                                        ; preds = %if.then24
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.69, ptr noundef %19) #9
   br label %do.end
 
-if.end34:                                         ; preds = %if.then24, %if.end21
+if.end34:                                         ; preds = %if.then24, %if.end21.critedge
   %20 = load ptr, ptr %filename, align 8, !tbaa !87
   %tobool36.not = icmp eq ptr %20, null
   br i1 %tobool36.not, label %do.cond, label %if.then37
@@ -2538,7 +2538,7 @@ if.then15:                                        ; preds = %if.then10
   call void @cab_free(ptr noundef nonnull %cab) #9
   br label %cleanup
 
-land.lhs.true20:                                  ; preds = %land.lhs.true6, %land.lhs.true
+land.lhs.true20:                                  ; preds = %land.lhs.true, %land.lhs.true6
   %maxfiles = getelementptr inbounds %struct.cl_limits, ptr %1, i64 0, i32 1
   %7 = load i32, ptr %maxfiles, align 4, !tbaa !76
   %tobool22.not = icmp ne i32 %7, 0

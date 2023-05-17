@@ -533,8 +533,8 @@ if.end58:                                         ; preds = %if.else53, %if.then
   %19 = load ptr, ptr %stk, align 8, !tbaa !20
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end, %lor.lhs.false, %if.end7, %if.end4, %entry, %if.end58
-  %retval.0 = phi ptr [ %19, %if.end58 ], [ null, %entry ], [ null, %if.end4 ], [ null, %if.end7 ], [ %0, %lor.lhs.false ], [ null, %if.end ]
+cleanup:                                          ; preds = %if.end7, %if.end4, %if.end, %lor.lhs.false, %entry, %if.end58
+  %retval.0 = phi ptr [ %19, %if.end58 ], [ null, %entry ], [ %0, %lor.lhs.false ], [ null, %if.end ], [ null, %if.end4 ], [ null, %if.end7 ]
   ret ptr %retval.0
 }
 

@@ -737,12 +737,12 @@ land.lhs.true32:                                  ; preds = %if.then20
   %mb_field37 = getelementptr inbounds %struct.macroblock, ptr %9, i64 %idxprom9, i32 20
   %17 = load i32, ptr %mb_field37, align 4, !tbaa !27
   %cmp38 = icmp eq i32 %17, 0
-  %div172178 = zext i1 %cmp38 to i32
-  %spec.select174 = lshr i32 %cond.i, %div172178
+  %div170 = zext i1 %cmp38 to i32
+  %spec.select = lshr i32 %cond.i, %div170
   br label %if.end43
 
-if.end43:                                         ; preds = %land.lhs.true32, %land.lhs.true22, %if.then20, %entry, %if.then
-  %b.0 = phi i32 [ %cond.i, %if.then ], [ 0, %entry ], [ %spec.select173, %land.lhs.true22 ], [ %cond.i, %if.then20 ], [ %spec.select174, %land.lhs.true32 ]
+if.end43:                                         ; preds = %land.lhs.true22, %land.lhs.true32, %entry, %if.then20, %if.then
+  %b.0 = phi i32 [ %cond.i, %if.then ], [ %cond.i, %if.then20 ], [ %spec.select, %land.lhs.true32 ], [ 0, %entry ], [ %spec.select173, %land.lhs.true22 ]
   %18 = load i32, ptr %block_a, align 4, !tbaa !16
   %tobool45.not = icmp eq i32 %18, 0
   br i1 %tobool45.not, label %if.end95, label %if.then46
@@ -783,19 +783,19 @@ land.lhs.true70:                                  ; preds = %if.then67
   %26 = load i32, ptr %mb_field75, align 4, !tbaa !27
   %cmp76 = icmp eq i32 %26, 1
   %mul78 = zext i1 %cmp76 to i32
-  %spec.select175 = shl nuw nsw i32 %cond.i168, %mul78
+  %spec.select174 = shl nuw nsw i32 %cond.i168, %mul78
   br label %if.end95
 
 land.lhs.true82:                                  ; preds = %if.then67
   %mb_field87 = getelementptr inbounds %struct.macroblock, ptr %19, i64 %idxprom49, i32 20
   %27 = load i32, ptr %mb_field87, align 4, !tbaa !27
   %cmp88 = icmp eq i32 %27, 0
-  %div90171177 = zext i1 %cmp88 to i32
-  %spec.select176 = lshr i32 %cond.i168, %div90171177
+  %div90169 = zext i1 %cmp88 to i32
+  %spec.select171 = lshr i32 %cond.i168, %div90169
   br label %if.end95
 
-if.end95:                                         ; preds = %land.lhs.true82, %land.lhs.true70, %if.then67, %if.end43, %if.then46
-  %a.0 = phi i32 [ %cond.i168, %if.then46 ], [ 0, %if.end43 ], [ %spec.select175, %land.lhs.true70 ], [ %cond.i168, %if.then67 ], [ %spec.select176, %land.lhs.true82 ]
+if.end95:                                         ; preds = %land.lhs.true70, %land.lhs.true82, %if.end43, %if.then67, %if.then46
+  %a.0 = phi i32 [ %cond.i168, %if.then46 ], [ %cond.i168, %if.then67 ], [ %spec.select171, %land.lhs.true82 ], [ 0, %if.end43 ], [ %spec.select174, %land.lhs.true70 ]
   %add = add nsw i32 %a.0, %b.0
   %cmp96 = icmp slt i32 %add, 3
   br i1 %cmp96, label %if.then97, label %if.else99
@@ -838,11 +838,11 @@ if.then114:                                       ; preds = %if.end108
   %call119 = call i32 @biari_decode_symbol_eq_prob(ptr noundef %dep_dp) #12
   %tobool120.not = icmp eq i32 %call119, 0
   %sub122 = xor i32 %call118, -1
-  %spec.select = select i1 %tobool120.not, i32 %inc, i32 %sub122
+  %spec.select172 = select i1 %tobool120.not, i32 %inc, i32 %sub122
   br label %if.end124
 
 if.end124:                                        ; preds = %if.then114, %if.end108
-  %act_sym.0 = phi i32 [ 0, %if.end108 ], [ %spec.select, %if.then114 ]
+  %act_sym.0 = phi i32 [ 0, %if.end108 ], [ %spec.select172, %if.then114 ]
   %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
   store i32 %act_sym.0, ptr %value1, align 4, !tbaa !30
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %block_b) #12
@@ -898,15 +898,15 @@ do.body.i:                                        ; preds = %do.end, %do.body.i
   br i1 %cmp1.not.i, label %while.body.i, label %do.body.i, !llvm.loop !49
 
 while.body.i:                                     ; preds = %do.body.i, %while.body.i
+  %dec18.in.i = phi i32 [ %dec18.i, %while.body.i ], [ %k.addr.1.i, %do.body.i ]
   %binary_symbol.017.i = phi i32 [ %binary_symbol.1.i, %while.body.i ], [ 0, %do.body.i ]
-  %k.addr.216.i = phi i32 [ %dec.i, %while.body.i ], [ %k.addr.1.i, %do.body.i ]
-  %dec.i = add nsw i32 %k.addr.216.i, -1
+  %dec18.i = add nsw i32 %dec18.in.i, -1
   %call2.i = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %dep_dp) #12
   %cmp3.i = icmp eq i32 %call2.i, 1
-  %shl5.i = shl nuw i32 1, %dec.i
+  %shl5.i = shl nuw i32 1, %dec18.i
   %or.i = select i1 %cmp3.i, i32 %shl5.i, i32 0
   %binary_symbol.1.i = or i32 %or.i, %binary_symbol.017.i
-  %tobool.not.i = icmp eq i32 %dec.i, 0
+  %tobool.not.i = icmp eq i32 %dec18.i, 0
   br i1 %tobool.not.i, label %exp_golomb_decode_eq_prob.exit, label %while.body.i, !llvm.loop !50
 
 exp_golomb_decode_eq_prob.exit:                   ; preds = %while.body.i
@@ -1144,7 +1144,7 @@ if.then55:                                        ; preds = %if.else39
   %call61 = tail call i32 @biari_decode_symbol(ptr noundef %dep_dp, ptr noundef nonnull %add.ptr60) #12
   %cmp63.not = icmp eq i32 %call61, 0
   %spec.select.v = select i1 %cmp63.not, i32 5, i32 9
-  %spec.select = add i32 %spec.select.v, %mul
+  %spec.select = add i32 %mul, %spec.select.v
   br label %if.end68
 
 if.end68:                                         ; preds = %if.then55, %if.else39
@@ -1252,7 +1252,7 @@ if.then180:                                       ; preds = %if.else163
   %call186 = tail call i32 @biari_decode_symbol(ptr noundef %dep_dp, ptr noundef nonnull %add.ptr185) #12
   %cmp188.not = icmp eq i32 %call186, 0
   %spec.select633.v = select i1 %cmp188.not, i32 6, i32 10
-  %spec.select633 = add i32 %spec.select633.v, %mul170
+  %spec.select633 = add i32 %mul170, %spec.select633.v
   br label %if.end193
 
 if.end193:                                        ; preds = %if.then180, %if.else163
@@ -1426,7 +1426,7 @@ if.then416:                                       ; preds = %if.else399
   %call423 = tail call i32 @biari_decode_symbol(ptr noundef %dep_dp, ptr noundef nonnull %add.ptr412) #12
   %cmp424.not = icmp eq i32 %call423, 0
   %spec.select641.v = select i1 %cmp424.not, i32 4, i32 8
-  %spec.select641 = add nsw i32 %spec.select641.v, %add407
+  %spec.select641 = add nsw i32 %add407, %spec.select641.v
   br label %if.end429
 
 if.end429:                                        ; preds = %if.then416, %if.else399
@@ -1956,7 +1956,7 @@ for.end86:                                        ; preds = %if.else50, %if.then
   %call.1 = call i32 @biari_decode_symbol(ptr noundef %dep_dp, ptr noundef nonnull %add.ptr.1) #12
   %tobool79.not.1 = icmp eq i32 %call.1, 0
   %add81.1 = select i1 %tobool79.not.1, i32 0, i32 8
-  %cbp.2.1 = or i32 %add81.1, %cbp.2
+  %cbp.2.1 = or i32 %cbp.2, %add81.1
   %37 = load ptr, ptr @dec_picture, align 8, !tbaa !5
   %chroma_format_idc = getelementptr inbounds %struct.storable_picture, ptr %37, i64 0, i32 50
   %38 = load i32, ptr %chroma_format_idc, align 4, !tbaa !61
@@ -2390,9 +2390,9 @@ if.else138:                                       ; preds = %if.then134
   br label %if.end149
 
 if.end149:                                        ; preds = %if.then110, %if.then134, %if.else138, %if.then131
-  %cond77386401418 = phi i32 [ %cond77386401.ph, %if.else138 ], [ %cond77386401.ph, %if.then131 ], [ %cond77386401.ph, %if.then134 ], [ %cond77395, %if.then110 ]
-  %cond75384402417 = phi i32 [ %cond75384402.ph, %if.else138 ], [ %cond75384402.ph, %if.then131 ], [ %cond75384402.ph, %if.then134 ], [ %cond75394, %if.then110 ]
-  %bit_pos_a.2403416 = phi i32 [ %bit_pos_a.2403.ph, %if.else138 ], [ %bit_pos_a.2403.ph, %if.then131 ], [ %bit_pos_a.2403.ph, %if.then134 ], [ %bit_pos_a.1, %if.then110 ]
+  %cond77386401419 = phi i32 [ %cond77386401.ph, %if.else138 ], [ %cond77386401.ph, %if.then131 ], [ %cond77386401.ph, %if.then134 ], [ %cond77395, %if.then110 ]
+  %cond75384402418 = phi i32 [ %cond75384402.ph, %if.else138 ], [ %cond75384402.ph, %if.then131 ], [ %cond75384402.ph, %if.then134 ], [ %cond75394, %if.then110 ]
+  %bit_pos_a.2403417 = phi i32 [ %bit_pos_a.2403.ph, %if.else138 ], [ %bit_pos_a.2403.ph, %if.then131 ], [ %bit_pos_a.2403.ph, %if.then134 ], [ %bit_pos_a.1, %if.then110 ]
   %upper_bit.0 = phi i32 [ %conv147, %if.else138 ], [ %cond77386401.ph, %if.then131 ], [ 1, %if.then134 ], [ %cond77395, %if.then110 ]
   %32 = load i32, ptr %block_a, align 4, !tbaa !16
   %tobool151.not = icmp eq i32 %32, 0
@@ -2412,7 +2412,7 @@ if.then152:                                       ; preds = %if.end149
 if.else161:                                       ; preds = %if.then152
   %cbp_bits166 = getelementptr inbounds %struct.macroblock, ptr %33, i64 %idxprom155, i32 10
   %36 = load i64, ptr %cbp_bits166, align 8, !tbaa !66
-  %add167 = add nsw i32 %bit_pos_a.2403416, %cond75384402417
+  %add167 = add nsw i32 %bit_pos_a.2403417, %cond75384402418
   %sh_prom168 = zext i32 %add167 to i64
   %shl169 = shl nuw i64 1, %sh_prom168
   %and170 = and i64 %36, %shl169
@@ -2421,7 +2421,7 @@ if.else161:                                       ; preds = %if.then152
   br label %if.end183
 
 if.end183:                                        ; preds = %if.end149, %if.else161, %if.then152
-  %left_bit.0 = phi i32 [ %conv174, %if.else161 ], [ %cond77386401418, %if.end149 ], [ 1, %if.then152 ]
+  %left_bit.0 = phi i32 [ %conv174, %if.else161 ], [ %cond77386401419, %if.end149 ], [ 1, %if.then152 ]
   %mul177 = shl nsw i32 %upper_bit.0, 1
   %add178 = add nsw i32 %left_bit.0, %mul177
   %currentSlice = getelementptr inbounds %struct.img_par, ptr %img, i64 0, i32 38
@@ -2448,7 +2448,7 @@ cond.false186.cond.true188_crit_edge:             ; preds = %cond.false186
 
 cond.true188:                                     ; preds = %cond.false186.cond.true188_crit_edge, %if.then87
   %mul189.pre-phi = phi i32 [ %.pre, %cond.false186.cond.true188_crit_edge ], [ %shl81, %if.then87 ]
-  %cbp_bit.0406410 = phi i32 [ %call, %cond.false186.cond.true188_crit_edge ], [ 1, %if.then87 ]
+  %cbp_bit.0406411 = phi i32 [ %call, %cond.false186.cond.true188_crit_edge ], [ 1, %if.then87 ]
   %add190 = or i32 %mul189.pre-phi, 1
   %add191 = add nsw i32 %add190, %cond53
   br label %cond.end216
@@ -2473,7 +2473,7 @@ cond.false204:                                    ; preds = %cond.false198
   br label %cond.end216
 
 cond.end216:                                      ; preds = %cond.false192, %cond.true188, %cond.false204, %cond.true200, %if.end183
-  %cbp_bit.0407 = phi i32 [ %call, %if.end183 ], [ %cbp_bit.0406410, %cond.true188 ], [ %call, %cond.false192 ], [ %call, %cond.true200 ], [ %call, %cond.false204 ]
+  %cbp_bit.0407 = phi i32 [ %call, %if.end183 ], [ %cbp_bit.0406411, %cond.true188 ], [ %call, %cond.false192 ], [ %call, %cond.true200 ], [ %call, %cond.false204 ]
   %cond217 = phi i32 [ 0, %if.end183 ], [ %add191, %cond.true188 ], [ %.mux, %cond.false192 ], [ %add203, %cond.true200 ], [ %add207, %cond.false204 ]
   %tobool218.not = icmp eq i32 %cbp_bit.0407, 0
   br i1 %tobool218.not, label %if.end275, label %if.then219
@@ -2819,19 +2819,19 @@ do.body.i:                                        ; preds = %do.end, %do.body.i
   br i1 %cmp1.not.i, label %while.cond.preheader.i, label %do.body.i, !llvm.loop !49
 
 while.cond.preheader.i:                           ; preds = %do.body.i
-  %tobool.not15.i = icmp eq i32 %k.addr.1.i, 0
-  br i1 %tobool.not15.i, label %exp_golomb_decode_eq_prob.exit, label %while.body.i
+  %tobool.not16.i = icmp eq i32 %k.addr.1.i, 0
+  br i1 %tobool.not16.i, label %exp_golomb_decode_eq_prob.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %while.cond.preheader.i, %while.body.i
+  %dec18.in.i = phi i32 [ %dec18.i, %while.body.i ], [ %k.addr.1.i, %while.cond.preheader.i ]
   %binary_symbol.017.i = phi i32 [ %binary_symbol.1.i, %while.body.i ], [ 0, %while.cond.preheader.i ]
-  %k.addr.216.i = phi i32 [ %dec.i, %while.body.i ], [ %k.addr.1.i, %while.cond.preheader.i ]
-  %dec.i = add nsw i32 %k.addr.216.i, -1
+  %dec18.i = add nsw i32 %dec18.in.i, -1
   %call2.i = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %dep_dp) #12
   %cmp3.i = icmp eq i32 %call2.i, 1
-  %shl5.i = shl nuw i32 1, %dec.i
+  %shl5.i = shl nuw i32 1, %dec18.i
   %or.i = select i1 %cmp3.i, i32 %shl5.i, i32 0
   %binary_symbol.1.i = or i32 %or.i, %binary_symbol.017.i
-  %tobool.not.i = icmp eq i32 %dec.i, 0
+  %tobool.not.i = icmp eq i32 %dec18.i, 0
   br i1 %tobool.not.i, label %exp_golomb_decode_eq_prob.exit, label %while.body.i, !llvm.loop !50
 
 exp_golomb_decode_eq_prob.exit:                   ; preds = %while.body.i, %while.cond.preheader.i
@@ -2865,7 +2865,7 @@ if.then:                                          ; preds = %entry
   %call = tail call i32 @read_and_store_CBP_block_bit(ptr noundef %arrayidx, ptr noundef %dep_dp, ptr noundef nonnull %img, i32 noundef %3)
   store i32 %call, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
   %cmp1.not = icmp eq i32 %call, 0
-  br i1 %cmp1.not, label %if.then20, label %if.then2
+  br i1 %cmp1.not, label %if.end18.thread, label %if.then2
 
 if.then2:                                         ; preds = %if.then
   %4 = load i32, ptr %context, align 8, !tbaa !46
@@ -2879,45 +2879,30 @@ if.then2:                                         ; preds = %if.then
 if.end6:                                          ; preds = %if.then2, %entry
   %6 = phi i32 [ %.pr, %if.then2 ], [ %2, %entry ]
   %tobool.not = icmp eq i32 %6, 0
-  br i1 %tobool.not, label %if.then20, label %if.then7
+  br i1 %tobool.not, label %if.end18.thread, label %if.then7
 
 if.then7:                                         ; preds = %if.end6
   %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
   %readRunLevel_CABAC.pos.promoted = load i32, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
   store i32 0, ptr %value2, align 8, !tbaa !37
-  %idxprom843 = sext i32 %readRunLevel_CABAC.pos.promoted to i64
-  %arrayidx944 = getelementptr inbounds [64 x i32], ptr @readRunLevel_CABAC.coeff, i64 0, i64 %idxprom843
-  %7 = load i32, ptr %arrayidx944, align 4, !tbaa !19
-  %cmp1045 = icmp eq i32 %7, 0
-  br i1 %cmp1045, label %for.inc, label %if.end18
+  %idxprom841 = sext i32 %readRunLevel_CABAC.pos.promoted to i64
+  %arrayidx942 = getelementptr inbounds [64 x i32], ptr @readRunLevel_CABAC.coeff, i64 0, i64 %idxprom841
+  %7 = load i32, ptr %arrayidx942, align 4, !tbaa !19
+  %cmp1043 = icmp eq i32 %7, 0
+  br i1 %cmp1043, label %for.inc, label %if.end18
 
 for.inc:                                          ; preds = %if.then7, %for.inc
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc ], [ %idxprom843, %if.then7 ]
-  %storemerge47 = phi i32 [ %inc12, %for.inc ], [ 0, %if.then7 ]
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc ], [ %idxprom841, %if.then7 ]
+  %storemerge45 = phi i32 [ %inc12, %for.inc ], [ 0, %if.then7 ]
   %indvars.iv.next = add i64 %indvars.iv, 1
-  %inc12 = add nuw nsw i32 %storemerge47, 1
+  %inc12 = add nuw nsw i32 %storemerge45, 1
   store i32 %inc12, ptr %value2, align 8, !tbaa !37
   %arrayidx9 = getelementptr inbounds [64 x i32], ptr @readRunLevel_CABAC.coeff, i64 0, i64 %indvars.iv.next
   %8 = load i32, ptr %arrayidx9, align 4, !tbaa !19
   %cmp10 = icmp eq i32 %8, 0
   br i1 %cmp10, label %for.inc, label %for.cond.if.end18_crit_edge, !llvm.loop !71
 
-for.cond.if.end18_crit_edge:                      ; preds = %for.inc
-  %9 = trunc i64 %indvars.iv.next to i32
-  br label %if.end18
-
-if.end18:                                         ; preds = %for.cond.if.end18_crit_edge, %if.then7
-  %.lcssa41 = phi i32 [ %9, %for.cond.if.end18_crit_edge ], [ %readRunLevel_CABAC.pos.promoted, %if.then7 ]
-  %.lcssa = phi i32 [ %8, %for.cond.if.end18_crit_edge ], [ %7, %if.then7 ]
-  %inc13 = add nsw i32 %.lcssa41, 1
-  store i32 %inc13, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
-  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
-  store i32 %.lcssa, ptr %value1, align 4, !tbaa !30
-  %dec = add nsw i32 %6, -1
-  store i32 %dec, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
-  br label %if.end21
-
-if.then20:                                        ; preds = %if.then, %if.end6
+if.end18.thread:                                  ; preds = %if.end6, %if.then
   %value216 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
   store i32 0, ptr %value216, align 8, !tbaa !37
   %value117 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
@@ -2926,7 +2911,22 @@ if.then20:                                        ; preds = %if.then, %if.end6
   store i32 0, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
   br label %if.end21
 
-if.end21:                                         ; preds = %if.end18, %if.then20
+for.cond.if.end18_crit_edge:                      ; preds = %for.inc
+  %9 = trunc i64 %indvars.iv.next to i32
+  br label %if.end18
+
+if.end18:                                         ; preds = %for.cond.if.end18_crit_edge, %if.then7
+  %.lcssa39 = phi i32 [ %9, %for.cond.if.end18_crit_edge ], [ %readRunLevel_CABAC.pos.promoted, %if.then7 ]
+  %.lcssa = phi i32 [ %8, %for.cond.if.end18_crit_edge ], [ %7, %if.then7 ]
+  %inc13 = add nsw i32 %.lcssa39, 1
+  store i32 %inc13, ptr @readRunLevel_CABAC.pos, align 4, !tbaa !19
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  store i32 %.lcssa, ptr %value1, align 4, !tbaa !30
+  %dec = add nsw i32 %6, -1
+  store i32 %dec, ptr @readRunLevel_CABAC.coeff_ctr, align 4, !tbaa !19
+  br label %if.end21
+
+if.end21:                                         ; preds = %if.end18, %if.end18.thread
   ret void
 }
 
@@ -2989,24 +2989,24 @@ do.body:                                          ; preds = %do.body, %entry
   %inc = zext i1 %cmp to i32
   %k.addr.1 = add nsw i32 %k.addr.0, %inc
   %add = select i1 %cmp, i32 %shl, i32 0
-  %symbol.1 = add nsw i32 %add, %symbol.0
+  %symbol.1 = add nsw i32 %symbol.0, %add
   %cmp1.not = icmp eq i32 %call, 0
   br i1 %cmp1.not, label %while.cond.preheader, label %do.body, !llvm.loop !49
 
 while.cond.preheader:                             ; preds = %do.body
-  %tobool.not15 = icmp eq i32 %k.addr.1, 0
-  br i1 %tobool.not15, label %while.end, label %while.body
+  %tobool.not16 = icmp eq i32 %k.addr.1, 0
+  br i1 %tobool.not16, label %while.end, label %while.body
 
 while.body:                                       ; preds = %while.cond.preheader, %while.body
+  %dec18.in = phi i32 [ %dec18, %while.body ], [ %k.addr.1, %while.cond.preheader ]
   %binary_symbol.017 = phi i32 [ %binary_symbol.1, %while.body ], [ 0, %while.cond.preheader ]
-  %k.addr.216 = phi i32 [ %dec, %while.body ], [ %k.addr.1, %while.cond.preheader ]
-  %dec = add nsw i32 %k.addr.216, -1
+  %dec18 = add nsw i32 %dec18.in, -1
   %call2 = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %dep_dp) #12
   %cmp3 = icmp eq i32 %call2, 1
-  %shl5 = shl nuw i32 1, %dec
+  %shl5 = shl nuw i32 1, %dec18
   %or = select i1 %cmp3, i32 %shl5, i32 0
-  %binary_symbol.1 = or i32 %or, %binary_symbol.017
-  %tobool.not = icmp eq i32 %dec, 0
+  %binary_symbol.1 = or i32 %binary_symbol.017, %or
+  %tobool.not = icmp eq i32 %dec18, 0
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !50
 
 while.end:                                        ; preds = %while.body, %while.cond.preheader
@@ -3055,11 +3055,11 @@ if.end:                                           ; preds = %entry.if.end_crit_e
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11

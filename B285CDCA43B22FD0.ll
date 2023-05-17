@@ -88,7 +88,7 @@ for.body29.lr.ph:                                 ; preds = %for.end23.thread, %
 for.body29.us.preheader:                          ; preds = %for.body29.lr.ph
   %idxprom.le.i = zext i32 %sub to i64
   %arrayidx.le.i = getelementptr inbounds [1 x ptr], ptr %call, i64 0, i64 %idxprom.le.i
-  %5 = load ptr, ptr %arrayidx.le.i, align 8, !tbaa !5
+  %.lcssa.in.sroa.speculate.load.for.cond.for.end_crit_edge.i.us = load ptr, ptr %arrayidx.le.i, align 8, !tbaa !5
   br label %for.end.i.us
 
 for.end.i.us:                                     ; preds = %for.body29.us.preheader, %AddEdges.exit.us
@@ -99,8 +99,8 @@ for.end.i.us:                                     ; preds = %for.body29.us.prehe
   br i1 %tobool.not42.i.us, label %AddEdges.exit.us, label %for.cond8.preheader.us.i.us.preheader
 
 for.cond8.preheader.us.i.us.preheader:            ; preds = %for.end.i.us
-  %6 = trunc i64 %indvars.iv94 to i32
-  %mul30.us = mul nsw i32 %div, %6
+  %5 = trunc i64 %indvars.iv94 to i32
+  %mul30.us = mul nsw i32 %div, %5
   br label %for.cond8.preheader.us.i.us
 
 for.cond8.preheader.us.i.us:                      ; preds = %for.cond8.preheader.us.i.us.preheader, %for.cond8.for.end16_crit_edge.us.i.us
@@ -133,13 +133,13 @@ if.then.us.i.us:                                  ; preds = %for.body10.us.i.us
   %add1.i.us.i.us = add nsw i32 %rem.i.us.i.us, 1
   %rem.us.i.us = srem i32 %i.140.us.i.us, %div
   %idx.ext.us.i.us = zext i32 %rem.us.i.us to i64
-  %add.ptr.us.i.us = getelementptr inbounds %struct.vert_st, ptr %5, i64 %idx.ext.us.i.us
-  %7 = load ptr, ptr %edgehash.us.i.us, align 8, !tbaa !13
+  %add.ptr.us.i.us = getelementptr inbounds %struct.vert_st, ptr %.lcssa.in.sroa.speculate.load.for.cond.for.end_crit_edge.i.us, i64 %idx.ext.us.i.us
+  %6 = load ptr, ptr %edgehash.us.i.us, align 8, !tbaa !13
   %conv.us.i.us = sext i32 %add1.i.us.i.us to i64
-  %8 = inttoptr i64 %conv.us.i.us to ptr
-  %9 = ptrtoint ptr %add.ptr.us.i.us to i64
-  %10 = trunc i64 %9 to i32
-  tail call void @HashInsert(ptr noundef %8, i32 noundef %10, ptr noundef %7) #8
+  %7 = inttoptr i64 %conv.us.i.us to ptr
+  %8 = ptrtoint ptr %add.ptr.us.i.us to i64
+  %9 = trunc i64 %8 to i32
+  tail call void @HashInsert(ptr noundef %7, i32 noundef %9, ptr noundef %6) #8
   br label %if.end.us.i.us
 
 if.end.us.i.us:                                   ; preds = %if.then.us.i.us, %for.body10.us.i.us
@@ -181,14 +181,14 @@ entry:
 
 declare void @HashInsert(ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #4
+
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #5
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #5
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
@@ -197,8 +197,8 @@ attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-mat
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nofree nounwind }
-attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #5 = { nofree nounwind }
 attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #7 = { nounwind allocsize(0) }
 attributes #8 = { nounwind }

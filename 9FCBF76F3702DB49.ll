@@ -34,7 +34,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 {
-for.cond1.preheader.lr.ph.split.us.split.us.i:
+entry:
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 64, i32 noundef 64, i32 noundef 128)
   %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef 63, i32 noundef 63, i32 noundef 127)
   store <4 x i32> <i32 1, i32 64, i32 64, i32 128>, ptr getelementptr inbounds (%struct.Mat, ptr @p, i64 0, i32 1), align 8, !tbaa !5
@@ -60,8 +60,8 @@ for.cond1.preheader.lr.ph.split.us.split.us.i:
   store ptr %call.i59, ptr @c, align 8, !tbaa !9
   br label %for.cond1.preheader.us.us.i
 
-for.cond1.preheader.us.us.i:                      ; preds = %for.cond1.for.inc29_crit_edge.split.us.us.us.i, %for.cond1.preheader.lr.ph.split.us.split.us.i
-  %i.057.us.us.i = phi i32 [ 0, %for.cond1.preheader.lr.ph.split.us.split.us.i ], [ %inc30.us.us.i, %for.cond1.for.inc29_crit_edge.split.us.us.us.i ]
+for.cond1.preheader.us.us.i:                      ; preds = %for.cond1.for.inc29_crit_edge.split.us.us.us.i, %entry
+  %i.057.us.us.i = phi i32 [ 0, %entry ], [ %inc30.us.us.i, %for.cond1.for.inc29_crit_edge.split.us.us.us.i ]
   %mul.us.us.i = mul nsw i32 %i.057.us.us.i, %i.057.us.us.i
   %conv.us.us.i = sitofp i32 %mul.us.us.i to float
   %div.us.us.i = fdiv float %conv.us.us.i, 3.969000e+03
@@ -1923,11 +1923,11 @@ if.end:                                           ; preds = %if.else, %if.then
 ; Function Attrs: nofree nounwind
 declare noundef i32 @gettimeofday(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1943,8 +1943,8 @@ attributes #10 = { mustprogress nofree nounwind willreturn allockind("alloc,unin
 attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nofree nounwind }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #15 = { nofree nounwind }
 attributes #16 = { nounwind allocsize(0) }
 attributes #17 = { nounwind }
 attributes #18 = { nounwind willreturn memory(read) }

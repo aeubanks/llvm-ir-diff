@@ -318,8 +318,6 @@ cleanup2:                                         ; preds = %Xz_GetUnpackSize.ex
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Xzs_ReadBackward(ptr nocapture noundef %p, ptr noundef %stream, ptr noundef %startOffset, ptr noundef %progress, ptr noundef %alloc) local_unnamed_addr #0 {
 entry:
-  %numBlocks64.i.i = alloca i64, align 8
-  %sig.i = alloca [12 x i8], align 1
   %buf.i = alloca [12 x i8], align 4
   %tempBuf.i = alloca [1024 x i8], align 16
   %headerFlags.i = alloca i16, align 2
@@ -341,25 +339,24 @@ cleanup.cont:                                     ; preds = %entry
   call void @Xz_Construct(ptr noundef nonnull %st) #9
   call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %buf.i) #9
   %2 = load i64, ptr %startOffset, align 8, !tbaa !33
-  %and.i149 = and i64 %2, 3
-  %cmp.not.i150 = icmp ne i64 %and.i149, 0
-  %cmp1.i151 = icmp slt i64 %2, 12
-  %or.cond279.i152 = or i1 %cmp1.i151, %cmp.not.i150
-  br i1 %or.cond279.i152, label %.loopexit, label %if.end.i.lr.ph
+  %and.i110 = and i64 %2, 3
+  %cmp.not.i111 = icmp ne i64 %and.i110, 0
+  %cmp1.i112 = icmp slt i64 %2, 12
+  %or.cond285.i113 = or i1 %cmp1.i112, %cmp.not.i111
+  br i1 %or.cond285.i113, label %.loopexit, label %if.end.i.lr.ph
 
 if.end.i.lr.ph:                                   ; preds = %cleanup.cont
   %add.ptr.i = getelementptr inbounds i8, ptr %buf.i, i64 10
   %add.ptr103.i = getelementptr inbounds i8, ptr %buf.i, i64 8
   %arrayidx109.i = getelementptr inbounds i8, ptr %buf.i, i64 9
   %add.ptr120.i = getelementptr inbounds i8, ptr %buf.i, i64 4
-  %numBlocks28.i.i = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 1
-  %numBlocksAllocated.i.i = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 2
-  %blocks.i.i98 = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 3
-  %Free.i = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %numBlocks.i.i = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 1
+  %blocks.i.i = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 3
   %realStream.i = getelementptr inbounds %struct.CSecToRead, ptr %secToRead.i, i64 0, i32 1
   %startOffset2 = getelementptr inbounds %struct.CXzStream, ptr %st, i64 0, i32 4
   %numAllocated = getelementptr inbounds %struct.CXzs, ptr %p, i64 0, i32 1
   %streams = getelementptr inbounds %struct.CXzs, ptr %p, i64 0, i32 2
+  %Free = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
   %tobool.not = icmp eq ptr %progress, null
   br label %if.end.i
 
@@ -385,47 +382,46 @@ if.then16.i:                                      ; preds = %cleanup.cont12.i
   %add.i = add nsw i64 %4, 12
   store i64 %add.i, ptr %startOffset, align 8, !tbaa !33
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %tempBuf.i) #9
-  %cmp17314.i = icmp slt i64 %4, 0
-  br i1 %cmp17314.i, label %cleanup98.i, label %if.end21.i
+  %cmp17318.i = icmp slt i64 %4, 0
+  br i1 %cmp17318.i, label %cleanup98.i, label %if.end21.i
 
 if.end21.i:                                       ; preds = %if.then16.i, %cleanup92.i
   %5 = phi i64 [ %10, %cleanup92.i ], [ %add.i, %if.then16.i ]
-  %i.0315.i = phi i64 [ %add23.i, %cleanup92.i ], [ 0, %if.then16.i ]
+  %i.0319.i = phi i64 [ %add23.i, %cleanup92.i ], [ 0, %if.then16.i ]
   %spec.select.i = call i64 @llvm.umin.i64(i64 %5, i64 1024)
-  %add23.i = add nuw nsw i64 %spec.select.i, %i.0315.i
+  %add23.i = add nuw nsw i64 %spec.select.i, %i.0319.i
   %sub.i = sub nsw i64 0, %spec.select.i
   store i64 %sub.i, ptr %startOffset, align 8, !tbaa !33
   %6 = load ptr, ptr %Seek, align 8, !tbaa !34
-  %call.i282.i = call i32 %6(ptr noundef %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
-  %cmp26.not.i = icmp eq i32 %call.i282.i, 0
+  %call.i279.i = call i32 %6(ptr noundef %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
+  %cmp26.not.i = icmp eq i32 %call.i279.i, 0
   br i1 %cmp26.not.i, label %cleanup.cont31.i, label %cleanup98.i
 
 cleanup.cont31.i:                                 ; preds = %if.end21.i
   %call34.i = call i32 @LookInStream_Read2(ptr noundef nonnull %stream, ptr noundef nonnull %tempBuf.i, i64 noundef %spec.select.i, i32 noundef 17) #9
   %cmp35.not.i = icmp eq i32 %call34.i, 0
-  br i1 %cmp35.not.i, label %for.cond41.i, label %cleanup98.i
+  br i1 %cmp35.not.i, label %for.body.i, label %cleanup98.i
 
-for.cond41.i:                                     ; preds = %cleanup.cont31.i, %for.body.i
-  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.body.i ], [ %spec.select.i, %cleanup.cont31.i ]
-  %cmp42.i = icmp sgt i64 %indvars.iv.i, 0
-  br i1 %cmp42.i, label %for.body.i, label %cleanup92.i
-
-for.body.i:                                       ; preds = %for.cond41.i
+for.body.i:                                       ; preds = %cleanup.cont31.i, %for.inc.i
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.inc.i ], [ %spec.select.i, %cleanup.cont31.i ]
   %indvars.iv.next.i = add nsw i64 %indvars.iv.i, -1
-  %idxprom.i = and i64 %indvars.iv.next.i, 4294967295
-  %arrayidx.i = getelementptr inbounds [1024 x i8], ptr %tempBuf.i, i64 0, i64 %idxprom.i
+  %arrayidx.i = getelementptr inbounds [1024 x i8], ptr %tempBuf.i, i64 0, i64 %indvars.iv.next.i
   %7 = load i8, ptr %arrayidx.i, align 1, !tbaa !9
   %cmp46.not.i = icmp eq i8 %7, 0
-  br i1 %cmp46.not.i, label %for.cond41.i, label %if.then52.i, !llvm.loop !36
+  br i1 %cmp46.not.i, label %for.inc.i, label %if.then52.i
+
+for.inc.i:                                        ; preds = %for.body.i
+  %cmp42.i = icmp ugt i64 %indvars.iv.i, 1
+  br i1 %cmp42.i, label %for.body.i, label %cleanup92.i, !llvm.loop !36
 
 if.then52.i:                                      ; preds = %for.body.i
-  %and53324.i = and i64 %indvars.iv.i, 3
-  %cmp54.not.i = icmp eq i64 %and53324.i, 0
+  %and53.i122 = and i64 %indvars.iv.i, 3
+  %cmp54.not.i = icmp eq i64 %and53.i122, 0
   br i1 %cmp54.not.i, label %if.end57.i, label %cleanup98.i
 
 if.end57.i:                                       ; preds = %if.then52.i
-  %sext.i = shl i64 %indvars.iv.i, 32
-  %conv58.i = ashr exact i64 %sext.i, 32
+  %sext = shl i64 %indvars.iv.i, 32
+  %conv58.i = ashr exact i64 %sext, 32
   %8 = load i64, ptr %startOffset, align 8, !tbaa !33
   %add59.i = add nsw i64 %8, %conv58.i
   store i64 %add59.i, ptr %startOffset, align 8, !tbaa !33
@@ -446,11 +442,11 @@ cleanup.cont73.i:                                 ; preds = %if.end63.i
   br i1 %cmp77.not.i, label %cleanup.cont83.i, label %cleanup98.i
 
 cleanup.cont83.i:                                 ; preds = %cleanup.cont73.i
-  %bcmp278.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(2) %add.ptr.i, ptr noundef nonnull dereferenceable(2) @XZ_FOOTER_SIG, i64 2)
-  %cmp87.not.i = icmp eq i32 %bcmp278.i, 0
+  %bcmp284.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(2) %add.ptr.i, ptr noundef nonnull dereferenceable(2) @XZ_FOOTER_SIG, i64 2)
+  %cmp87.not.i = icmp eq i32 %bcmp284.i, 0
   br i1 %cmp87.not.i, label %cleanup98.thread.i, label %cleanup98.i
 
-cleanup92.i:                                      ; preds = %for.cond41.i
+cleanup92.i:                                      ; preds = %for.inc.i
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %tempBuf.i) #9
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %tempBuf.i) #9
   %10 = load i64, ptr %startOffset, align 8, !tbaa !33
@@ -464,7 +460,7 @@ cleanup98.thread.i:                               ; preds = %cleanup.cont83.i
   br label %if.end101.i
 
 cleanup98.i:                                      ; preds = %cleanup.cont83.i, %cleanup.cont73.i, %if.end63.i, %if.end57.i, %if.then52.i, %if.then16.i, %cleanup92.i, %cleanup.cont31.i, %if.end21.i
-  %retval.7.ph.i = phi i32 [ %call34.i, %cleanup.cont31.i ], [ %call.i282.i, %if.end21.i ], [ 17, %cleanup92.i ], [ 17, %if.then16.i ], [ %call76.i, %cleanup.cont73.i ], [ %call66.i, %if.end63.i ], [ 17, %if.then52.i ], [ 17, %if.end57.i ], [ 17, %cleanup.cont83.i ]
+  %retval.7.ph.i = phi i32 [ %call34.i, %cleanup.cont31.i ], [ %call.i279.i, %if.end21.i ], [ 17, %cleanup92.i ], [ 17, %if.then16.i ], [ %call76.i, %cleanup.cont73.i ], [ %call66.i, %if.end63.i ], [ 17, %if.then52.i ], [ 17, %if.end57.i ], [ 17, %cleanup.cont83.i ]
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %tempBuf.i) #9
   br label %.loopexit
 
@@ -492,186 +488,36 @@ if.end125.i:                                      ; preds = %if.end117.i
   %sub132.i = sub nuw nsw i64 -16, %add129.i
   store i64 %sub132.i, ptr %startOffset, align 8, !tbaa !33
   %15 = load ptr, ptr %Seek, align 8, !tbaa !34
-  %call.i284.i = call i32 %15(ptr noundef nonnull %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
-  %cmp135.not.i = icmp eq i32 %call.i284.i, 0
+  %call.i281.i = call i32 %15(ptr noundef nonnull %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
+  %cmp135.not.i = icmp eq i32 %call.i281.i, 0
   br i1 %cmp135.not.i, label %cleanup.cont141.i, label %.loopexit
 
 cleanup.cont141.i:                                ; preds = %if.end125.i
   %shl130.i = add nuw nsw i64 %add129.i, 4
-  %cmp.i = icmp ugt i32 %14, 536870911
-  br i1 %cmp.i, label %.loopexit, label %if.end3.i
+  %call143.i = call fastcc i32 @Xz_ReadIndex(ptr noundef nonnull %st, ptr noundef nonnull %stream, i64 noundef %shl130.i, ptr noundef %alloc)
+  %cmp144.not.i = icmp eq i32 %call143.i, 0
+  br i1 %cmp144.not.i, label %cleanup.cont150.i, label %.loopexit
 
-if.end3.i:                                        ; preds = %cleanup.cont141.i
-  %16 = load ptr, ptr %alloc, align 8, !tbaa !38
-  %call.i94 = call ptr %16(ptr noundef nonnull %alloc, i64 noundef %shl130.i) #9
-  %cmp4.i = icmp eq ptr %call.i94, null
-  br i1 %cmp4.i, label %.loopexit, label %if.end6.i
-
-if.end6.i:                                        ; preds = %if.end3.i
-  %call7.i95 = call i32 @LookInStream_Read2(ptr noundef nonnull %stream, ptr noundef nonnull %call.i94, i64 noundef %shl130.i, i32 noundef 4) #9
-  %cmp8.i = icmp eq i32 %call7.i95, 0
-  br i1 %cmp8.i, label %if.then9.i, label %Xz_ReadIndex.exit.thread108
-
-if.then9.i:                                       ; preds = %if.end6.i
-  %cmp.i.i = icmp eq i32 %14, 0
-  br i1 %cmp.i.i, label %Xz_ReadIndex.exit.thread108, label %lor.lhs.false.i.i
-
-lor.lhs.false.i.i:                                ; preds = %if.then9.i
-  %17 = load i8, ptr %call.i94, align 1, !tbaa !9
-  %cmp1.not.i.i = icmp eq i8 %17, 0
-  br i1 %cmp1.not.i.i, label %if.end.i.i, label %Xz_ReadIndex.exit.thread108
-
-if.end.i.i:                                       ; preds = %lor.lhs.false.i.i
-  %call.i.i96 = call i32 @CrcCalc(ptr noundef nonnull %call.i94, i64 noundef %add129.i) #9
-  %add.ptr.i.i = getelementptr inbounds i8, ptr %call.i94, i64 %add129.i
-  %18 = load i32, ptr %add.ptr.i.i, align 4, !tbaa !5
-  %cmp3.not.i.i = icmp eq i32 %call.i.i96, %18
-  br i1 %cmp3.not.i.i, label %if.end6.i.i, label %Xz_ReadIndex.exit.thread108
-
-if.end6.i.i:                                      ; preds = %if.end.i.i
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %numBlocks64.i.i) #9
-  %add.ptr7.i.i = getelementptr inbounds i8, ptr %call.i94, i64 1
-  %sub8.i.i = add nsw i64 %add129.i, -1
-  %call9.i.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr7.i.i, i64 noundef %sub8.i.i, ptr noundef nonnull %numBlocks64.i.i) #9
-  %cmp10.not.i.i = icmp eq i32 %call9.i.i, 0
-  %conv14.i.i = zext i32 %call9.i.i to i64
-  %add.i.i97 = add nuw nsw i64 %conv14.i.i, 1
-  br i1 %cmp10.not.i.i, label %cleanup22.thread.i.i, label %cleanup22.i.i
-
-cleanup22.thread.i.i:                             ; preds = %if.end6.i.i
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %numBlocks64.i.i) #9
-  br label %Xz_ReadIndex.exit.thread108
-
-cleanup22.i.i:                                    ; preds = %if.end6.i.i
-  %19 = load i64, ptr %numBlocks64.i.i, align 8, !tbaa !33
-  %mul.i.i = shl i64 %19, 1
-  %cmp18.not.i.i = icmp ugt i64 %mul.i.i, %add129.i
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %numBlocks64.i.i) #9
-  br i1 %cmp18.not.i.i, label %Xz_ReadIndex.exit.thread108, label %cleanup.cont24.i.i
-
-cleanup.cont24.i.i:                               ; preds = %cleanup22.i.i
-  call void @Xz_Free(ptr noundef nonnull %st, ptr noundef nonnull %alloc) #9
-  %cmp25.not.i.i = icmp eq i64 %19, 0
-  br i1 %cmp25.not.i.i, label %while.cond.i.i, label %if.then27.i.i
-
-if.then27.i.i:                                    ; preds = %cleanup.cont24.i.i
-  store i64 %19, ptr %numBlocks28.i.i, align 8, !tbaa !10
-  store i64 %19, ptr %numBlocksAllocated.i.i, align 8, !tbaa !39
-  %20 = load ptr, ptr %alloc, align 8, !tbaa !38
-  %mul29.i.i = shl i64 %19, 4
-  %call30.i.i = call ptr %20(ptr noundef nonnull %alloc, i64 noundef %mul29.i.i) #9
-  store ptr %call30.i.i, ptr %blocks.i.i98, align 8, !tbaa !16
-  %cmp32.i.i = icmp eq ptr %call30.i.i, null
-  br i1 %cmp32.i.i, label %Xz_ReadIndex.exit.thread108, label %for.body.i.i103
-
-for.cond.i.i101:                                  ; preds = %cleanup71.i.i
-  %inc.i.i99 = add nuw i64 %i.0155.i.i, 1
-  %conv61.i.i = zext i32 %call56.i.i to i64
-  %add62.i.i = add i64 %add49.i.i, %conv61.i.i
-  %exitcond.not.i.i100 = icmp eq i64 %inc.i.i99, %19
-  br i1 %exitcond.not.i.i100, label %while.cond.i.i, label %for.body.i.i103, !llvm.loop !40
-
-for.body.i.i103:                                  ; preds = %if.then27.i.i, %for.cond.i.i101
-  %i.0155.i.i = phi i64 [ %inc.i.i99, %for.cond.i.i101 ], [ 0, %if.then27.i.i ]
-  %pos.1154.i.i = phi i64 [ %add62.i.i, %for.cond.i.i101 ], [ %add.i.i97, %if.then27.i.i ]
-  %21 = load ptr, ptr %blocks.i.i98, align 8, !tbaa !16
-  %add.ptr41.i.i = getelementptr inbounds i8, ptr %call.i94, i64 %pos.1154.i.i
-  %sub42.i.i = sub i64 %add129.i, %pos.1154.i.i
-  %totalSize.i.i102 = getelementptr inbounds %struct.CXzBlockSizes, ptr %21, i64 %i.0155.i.i, i32 1
-  %call43.i.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr41.i.i, i64 noundef %sub42.i.i, ptr noundef nonnull %totalSize.i.i102) #9
-  %cmp44.not.i.i = icmp eq i32 %call43.i.i, 0
-  br i1 %cmp44.not.i.i, label %Xz_ReadIndex.exit.thread108, label %cleanup.cont52.i.i
-
-cleanup.cont52.i.i:                               ; preds = %for.body.i.i103
-  %conv48.i.i = zext i32 %call43.i.i to i64
-  %add49.i.i = add i64 %pos.1154.i.i, %conv48.i.i
-  %arrayidx39.i.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %21, i64 %i.0155.i.i
-  %add.ptr54.i.i = getelementptr inbounds i8, ptr %call.i94, i64 %add49.i.i
-  %sub55.i.i = sub i64 %add129.i, %add49.i.i
-  %call56.i.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr54.i.i, i64 noundef %sub55.i.i, ptr noundef %arrayidx39.i.i) #9
-  %cmp57.not.i.i = icmp eq i32 %call56.i.i, 0
-  br i1 %cmp57.not.i.i, label %Xz_ReadIndex.exit.thread108, label %cleanup71.i.i
-
-cleanup71.i.i:                                    ; preds = %cleanup.cont52.i.i
-  %22 = load i64, ptr %totalSize.i.i102, align 8, !tbaa !22
-  %cmp67.not.i.i = icmp eq i64 %22, 0
-  br i1 %cmp67.not.i.i, label %Xz_ReadIndex.exit.thread108, label %for.cond.i.i101
-
-while.cond.i.i:                                   ; preds = %cleanup.cont24.i.i, %for.cond.i.i101
-  %pos.6.i.i.ph = phi i64 [ %add.i.i97, %cleanup.cont24.i.i ], [ %add62.i.i, %for.cond.i.i101 ]
-  %and.i.i104 = and i64 %pos.6.i.i.ph, 3
-  %cmp75.not.i.i = icmp eq i64 %and.i.i104, 0
-  br i1 %cmp75.not.i.i, label %while.end.i.i, label %while.body.i.i
-
-while.body.i.i:                                   ; preds = %while.cond.i.i
-  %inc77.i.i = add i64 %pos.6.i.i.ph, 1
-  %arrayidx78.i.i = getelementptr inbounds i8, ptr %call.i94, i64 %pos.6.i.i.ph
-  %23 = load i8, ptr %arrayidx78.i.i, align 1, !tbaa !9
-  %cmp80.not.i.i = icmp eq i8 %23, 0
-  br i1 %cmp80.not.i.i, label %while.cond.i.i.1, label %Xz_ReadIndex.exit.thread108, !llvm.loop !41
-
-while.cond.i.i.1:                                 ; preds = %while.body.i.i
-  %and.i.i104.1 = and i64 %inc77.i.i, 3
-  %cmp75.not.i.i.1 = icmp eq i64 %and.i.i104.1, 0
-  br i1 %cmp75.not.i.i.1, label %while.end.i.i, label %while.body.i.i.1
-
-while.body.i.i.1:                                 ; preds = %while.cond.i.i.1
-  %inc77.i.i.1 = add i64 %pos.6.i.i.ph, 2
-  %arrayidx78.i.i.1 = getelementptr inbounds i8, ptr %call.i94, i64 %inc77.i.i
-  %24 = load i8, ptr %arrayidx78.i.i.1, align 1, !tbaa !9
-  %cmp80.not.i.i.1 = icmp eq i8 %24, 0
-  br i1 %cmp80.not.i.i.1, label %while.cond.i.i.2, label %Xz_ReadIndex.exit.thread108, !llvm.loop !41
-
-while.cond.i.i.2:                                 ; preds = %while.body.i.i.1
-  %and.i.i104.2 = and i64 %inc77.i.i.1, 3
-  %cmp75.not.i.i.2 = icmp eq i64 %and.i.i104.2, 0
-  br i1 %cmp75.not.i.i.2, label %while.end.i.i, label %while.body.i.i.2
-
-while.body.i.i.2:                                 ; preds = %while.cond.i.i.2
-  %arrayidx78.i.i.2 = getelementptr inbounds i8, ptr %call.i94, i64 %inc77.i.i.1
-  %25 = load i8, ptr %arrayidx78.i.i.2, align 1, !tbaa !9
-  %cmp80.not.i.i.2 = icmp eq i8 %25, 0
-  br i1 %cmp80.not.i.i.2, label %while.cond.i.i.3, label %Xz_ReadIndex.exit.thread108, !llvm.loop !41
-
-while.cond.i.i.3:                                 ; preds = %while.body.i.i.2
-  %inc77.i.i.2 = add i64 %pos.6.i.i.ph, 3
-  %and.i.i104.3 = and i64 %inc77.i.i.2, 3
-  %cmp75.not.i.i.3 = icmp eq i64 %and.i.i104.3, 0
-  br i1 %cmp75.not.i.i.3, label %while.end.i.i, label %Xz_ReadIndex.exit.thread108
-
-while.end.i.i:                                    ; preds = %while.cond.i.i.3, %while.cond.i.i.2, %while.cond.i.i.1, %while.cond.i.i
-  %pos.6.i.i.lcssa = phi i64 [ %pos.6.i.i.ph, %while.cond.i.i ], [ %inc77.i.i, %while.cond.i.i.1 ], [ %inc77.i.i.1, %while.cond.i.i.2 ], [ %inc77.i.i.2, %while.cond.i.i.3 ]
-  %cmp84.i.i = icmp eq i64 %pos.6.i.i.lcssa, %add129.i
-  br i1 %cmp84.i.i, label %cleanup.cont150.i, label %Xz_ReadIndex.exit.thread108
-
-Xz_ReadIndex.exit.thread108:                      ; preds = %if.end6.i, %while.end.i.i, %cleanup22.i.i, %lor.lhs.false.i.i, %if.then9.i, %if.end.i.i, %if.then27.i.i, %for.body.i.i103, %cleanup.cont52.i.i, %cleanup71.i.i, %while.cond.i.i.3, %while.body.i.i, %while.body.i.i.1, %while.body.i.i.2, %cleanup22.thread.i.i
-  %res.0.i.ph = phi i32 [ 16, %cleanup22.thread.i.i ], [ 16, %while.body.i.i.2 ], [ 16, %while.body.i.i.1 ], [ 16, %while.body.i.i ], [ 16, %while.cond.i.i.3 ], [ 16, %cleanup71.i.i ], [ 16, %cleanup.cont52.i.i ], [ 16, %for.body.i.i103 ], [ %call7.i95, %if.end6.i ], [ 16, %while.end.i.i ], [ 16, %cleanup22.i.i ], [ 16, %lor.lhs.false.i.i ], [ 16, %if.then9.i ], [ 16, %if.end.i.i ], [ 2, %if.then27.i.i ]
-  %26 = load ptr, ptr %Free.i, align 8, !tbaa !27
-  call void %26(ptr noundef nonnull %alloc, ptr noundef nonnull %call.i94) #9
-  br label %.loopexit
-
-cleanup.cont150.i:                                ; preds = %while.end.i.i
-  %27 = load ptr, ptr %Free.i, align 8, !tbaa !27
-  call void %27(ptr noundef nonnull %alloc, ptr noundef nonnull %call.i94) #9
-  %28 = load i64, ptr %numBlocks28.i.i, align 8, !tbaa !10
-  %cmp11.not.i.i = icmp eq i64 %28, 0
+cleanup.cont150.i:                                ; preds = %cleanup.cont141.i
+  %16 = load i64, ptr %numBlocks.i.i, align 8, !tbaa !10
+  %cmp11.not.i.i = icmp eq i64 %16, 0
   br i1 %cmp11.not.i.i, label %Xz_GetPackSize.exit.i, label %for.body.lr.ph.i.i
 
 for.body.lr.ph.i.i:                               ; preds = %cleanup.cont150.i
-  %29 = load ptr, ptr %blocks.i.i98, align 8, !tbaa !16
+  %17 = load ptr, ptr %blocks.i.i, align 8, !tbaa !16
   br label %for.body.i.i
 
 for.cond.i.i:                                     ; preds = %for.body.i.i
   %inc.i.i = add nuw i64 %i.013.i.i, 1
-  %exitcond.not.i.i = icmp eq i64 %inc.i.i, %28
+  %exitcond.not.i.i = icmp eq i64 %inc.i.i, %16
   br i1 %exitcond.not.i.i, label %Xz_GetPackSize.exit.i, label %for.body.i.i, !llvm.loop !21
 
 for.body.i.i:                                     ; preds = %for.cond.i.i, %for.body.lr.ph.i.i
   %i.013.i.i = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %inc.i.i, %for.cond.i.i ]
   %size.012.i.i = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %add1.i.i, %for.cond.i.i ]
-  %totalSize.i.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %29, i64 %i.013.i.i, i32 1
-  %30 = load i64, ptr %totalSize.i.i, align 8, !tbaa !22
-  %add.i.i = add i64 %30, 3
+  %totalSize.i.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %17, i64 %i.013.i.i, i32 1
+  %18 = load i64, ptr %totalSize.i.i, align 8, !tbaa !22
+  %add.i.i = add i64 %18, 3
   %and.i.i = and i64 %add.i.i, -4
   %add1.i.i = add i64 %and.i.i, %size.012.i.i
   %cmp2.not.i.i = icmp ult i64 %add1.i.i, %size.012.i.i
@@ -689,64 +535,38 @@ Xz_GetPackSize.exit.i:                            ; preds = %for.cond.i.i, %clea
 if.end163.i:                                      ; preds = %Xz_GetPackSize.exit.i
   %sub164.i = sub nsw i64 0, %add153.i
   store i64 %sub164.i, ptr %startOffset, align 8, !tbaa !33
-  %31 = load ptr, ptr %Seek, align 8, !tbaa !34
-  %call.i286.i = call i32 %31(ptr noundef %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
-  %cmp167.not.i = icmp eq i32 %call.i286.i, 0
-  br i1 %cmp167.not.i, label %cleanup.cont177.i, label %.loopexit
+  %19 = load ptr, ptr %Seek, align 8, !tbaa !34
+  %call.i283.i = call i32 %19(ptr noundef %stream, ptr noundef nonnull %startOffset, i32 noundef 1) #9
+  %cmp167.not.i = icmp eq i32 %call.i283.i, 0
+  br i1 %cmp167.not.i, label %Xz_ReadBackward.exit, label %.loopexit
 
-cleanup.cont177.i:                                ; preds = %if.end163.i
+.loopexit:                                        ; preds = %cleanup.cont141.i, %if.end125.i, %cleanup.cont.i, %if.end.i, %cleanup47, %if.end101.i, %if.end117.i, %Xz_GetPackSize.exit.i, %if.end163.i, %for.body.i.i, %cleanup.cont, %cleanup98.i
+  %retval.15.i.ph = phi i32 [ %retval.7.ph.i, %cleanup98.i ], [ 17, %cleanup.cont ], [ 16, %for.body.i.i ], [ %call143.i, %cleanup.cont141.i ], [ %call.i281.i, %if.end125.i ], [ %call6.i, %cleanup.cont.i ], [ %call.i.i, %if.end.i ], [ 17, %cleanup47 ], [ 4, %if.end101.i ], [ 16, %if.end117.i ], [ 16, %Xz_GetPackSize.exit.i ], [ %call.i283.i, %if.end163.i ]
+  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %buf.i) #9
+  br label %cleanup47.thread
+
+Xz_ReadBackward.exit:                             ; preds = %if.end163.i
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %headerFlags.i) #9
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %secToRead.i) #9
   call void @SecToRead_CreateVTable(ptr noundef nonnull %secToRead.i) #9
-  store ptr %stream, ptr %realStream.i, align 8, !tbaa !42
-  call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %sig.i) #9
-  %call.i = call i32 @SeqInStream_Read2(ptr noundef nonnull %secToRead.i, ptr noundef nonnull %sig.i, i64 noundef 12, i32 noundef 17) #9
-  %cmp.not.i91 = icmp eq i32 %call.i, 0
-  br i1 %cmp.not.i91, label %cleanup.cont.i93, label %Xz_ReadHeader.exit.thread
-
-cleanup.cont.i93:                                 ; preds = %cleanup.cont177.i
-  %bcmp.i92 = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %sig.i, ptr noundef nonnull dereferenceable(6) @XZ_SIG, i64 6)
-  %cmp3.not.i = icmp eq i32 %bcmp.i92, 0
-  br i1 %cmp3.not.i, label %Xz_ReadHeader.exit, label %Xz_ReadHeader.exit.thread
-
-Xz_ReadHeader.exit.thread:                        ; preds = %cleanup.cont177.i, %cleanup.cont.i93
-  %retval.1.i.ph = phi i32 [ 17, %cleanup.cont.i93 ], [ %call.i, %cleanup.cont177.i ]
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %sig.i) #9
-  br label %.loopexit136
-
-Xz_ReadHeader.exit:                               ; preds = %cleanup.cont.i93
-  %call7.i = call i32 @Xz_ParseHeader(ptr noundef nonnull %headerFlags.i, ptr noundef nonnull %sig.i) #9
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %sig.i) #9
-  %cmp180.not.i = icmp eq i32 %call7.i, 0
-  br i1 %cmp180.not.i, label %cleanup.cont186.i, label %.loopexit136
-
-cleanup.cont186.i:                                ; preds = %Xz_ReadHeader.exit
-  %32 = load i16, ptr %st, align 8, !tbaa !37
-  %33 = load i16, ptr %headerFlags.i, align 2, !tbaa !45
-  %cmp190.i = icmp eq i16 %32, %33
-  br i1 %cmp190.i, label %cleanup.cont9, label %.loopexit136
-
-.loopexit:                                        ; preds = %if.end125.i, %cleanup.cont.i, %if.end.i, %cleanup47, %if.end101.i, %if.end117.i, %Xz_GetPackSize.exit.i, %if.end163.i, %cleanup.cont141.i, %if.end3.i, %for.body.i.i, %cleanup.cont, %Xz_ReadIndex.exit.thread108, %cleanup98.i
-  %retval.15.i.ph = phi i32 [ %res.0.i.ph, %Xz_ReadIndex.exit.thread108 ], [ %retval.7.ph.i, %cleanup98.i ], [ 17, %cleanup.cont ], [ 16, %for.body.i.i ], [ %call.i284.i, %if.end125.i ], [ %call6.i, %cleanup.cont.i ], [ %call.i.i, %if.end.i ], [ 17, %cleanup47 ], [ 4, %if.end101.i ], [ 16, %if.end117.i ], [ 16, %Xz_GetPackSize.exit.i ], [ %call.i286.i, %if.end163.i ], [ 4, %cleanup.cont141.i ], [ 2, %if.end3.i ]
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %buf.i) #9
-  br label %cleanup47.thread
-
-.loopexit136:                                     ; preds = %Xz_ReadHeader.exit, %cleanup.cont186.i, %Xz_ReadHeader.exit.thread
-  %retval.14.i.ph = phi i32 [ %retval.1.i.ph, %Xz_ReadHeader.exit.thread ], [ 16, %cleanup.cont186.i ], [ %call7.i, %Xz_ReadHeader.exit ]
+  store ptr %stream, ptr %realStream.i, align 8, !tbaa !38
+  %call179.i = call i32 @Xz_ReadHeader(ptr noundef nonnull %headerFlags.i, ptr noundef nonnull %secToRead.i)
+  %cmp180.not.i = icmp eq i32 %call179.i, 0
+  %20 = load i16, ptr %st, align 8
+  %21 = load i16, ptr %headerFlags.i, align 2
+  %cmp190.i = icmp eq i16 %20, %21
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %secToRead.i) #9
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %headerFlags.i) #9
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %buf.i) #9
-  br label %cleanup47.thread
+  %22 = load i64, ptr %startOffset, align 8, !tbaa !33
+  store i64 %22, ptr %startOffset2, align 8, !tbaa !41
+  %cmp4.not = select i1 %cmp180.not.i, i1 %cmp190.i, i1 false
+  br i1 %cmp4.not, label %cleanup.cont9, label %cleanup47.thread.loopexit.split.loop.exit137
 
-cleanup.cont9:                                    ; preds = %cleanup.cont186.i
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %secToRead.i) #9
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %headerFlags.i) #9
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %buf.i) #9
-  %34 = load i64, ptr %startOffset, align 8, !tbaa !33
-  store i64 %34, ptr %startOffset2, align 8, !tbaa !46
-  %35 = load i64, ptr %p, align 8, !tbaa !23
-  %36 = load i64, ptr %numAllocated, align 8, !tbaa !47
-  %cmp10 = icmp eq i64 %35, %36
+cleanup.cont9:                                    ; preds = %Xz_ReadBackward.exit
+  %23 = load i64, ptr %p, align 8, !tbaa !23
+  %24 = load i64, ptr %numAllocated, align 8, !tbaa !42
+  %cmp10 = icmp eq i64 %23, %24
   br i1 %cmp10, label %if.then11, label %cleanup.cont9.if.end28_crit_edge
 
 cleanup.cont9.if.end28_crit_edge:                 ; preds = %cleanup.cont9
@@ -754,42 +574,42 @@ cleanup.cont9.if.end28_crit_edge:                 ; preds = %cleanup.cont9
   br label %if.end28
 
 if.then11:                                        ; preds = %cleanup.cont9
-  %div90 = lshr i64 %35, 2
-  %add = add i64 %35, 1
+  %div90 = lshr i64 %23, 2
+  %add = add i64 %23, 1
   %add14 = add i64 %add, %div90
-  %37 = load ptr, ptr %alloc, align 8, !tbaa !38
+  %25 = load ptr, ptr %alloc, align 8, !tbaa !43
   %mul = mul i64 %add14, 40
-  %call15 = call ptr %37(ptr noundef nonnull %alloc, i64 noundef %mul) #9
+  %call15 = call ptr %25(ptr noundef nonnull %alloc, i64 noundef %mul) #9
   %cmp16.not = icmp eq ptr %call15, null
   br i1 %cmp16.not, label %cleanup47.thread, label %cleanup24
 
 cleanup24:                                        ; preds = %if.then11
-  store i64 %add14, ptr %numAllocated, align 8, !tbaa !47
-  %38 = load ptr, ptr %streams, align 8, !tbaa !25
-  %39 = load i64, ptr %p, align 8, !tbaa !23
-  %mul21 = mul i64 %39, 40
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call15, ptr align 8 %38, i64 %mul21, i1 false)
-  %40 = load ptr, ptr %Free.i, align 8, !tbaa !27
-  %41 = load ptr, ptr %streams, align 8, !tbaa !25
-  call void %40(ptr noundef nonnull %alloc, ptr noundef %41) #9
+  store i64 %add14, ptr %numAllocated, align 8, !tbaa !42
+  %26 = load ptr, ptr %streams, align 8, !tbaa !25
+  %27 = load i64, ptr %p, align 8, !tbaa !23
+  %mul21 = mul i64 %27, 40
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call15, ptr align 8 %26, i64 %mul21, i1 false)
+  %28 = load ptr, ptr %Free, align 8, !tbaa !27
+  %29 = load ptr, ptr %streams, align 8, !tbaa !25
+  call void %28(ptr noundef nonnull %alloc, ptr noundef %29) #9
   store ptr %call15, ptr %streams, align 8, !tbaa !25
-  %.pre179 = load i64, ptr %p, align 8, !tbaa !23
+  %.pre129 = load i64, ptr %p, align 8, !tbaa !23
   br label %if.end28
 
 if.end28:                                         ; preds = %cleanup.cont9.if.end28_crit_edge, %cleanup24
-  %42 = phi i64 [ %35, %cleanup.cont9.if.end28_crit_edge ], [ %.pre179, %cleanup24 ]
-  %43 = phi ptr [ %.pre, %cleanup.cont9.if.end28_crit_edge ], [ %call15, %cleanup24 ]
-  %inc = add i64 %42, 1
+  %30 = phi i64 [ %23, %cleanup.cont9.if.end28_crit_edge ], [ %.pre129, %cleanup24 ]
+  %31 = phi ptr [ %.pre, %cleanup.cont9.if.end28_crit_edge ], [ %call15, %cleanup24 ]
+  %inc = add i64 %30, 1
   store i64 %inc, ptr %p, align 8, !tbaa !23
-  %arrayidx = getelementptr inbounds %struct.CXzStream, ptr %43, i64 %42
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %arrayidx, ptr noundef nonnull align 8 dereferenceable(40) %st, i64 40, i1 false), !tbaa.struct !48
-  %44 = load i64, ptr %startOffset, align 8, !tbaa !33
-  %cmp31 = icmp eq i64 %44, 0
+  %arrayidx = getelementptr inbounds %struct.CXzStream, ptr %31, i64 %30
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %arrayidx, ptr noundef nonnull align 8 dereferenceable(40) %st, i64 40, i1 false), !tbaa.struct !44
+  %32 = load i64, ptr %startOffset, align 8, !tbaa !33
+  %cmp31 = icmp eq i64 %32, 0
   br i1 %cmp31, label %for.end, label %if.end33
 
 if.end33:                                         ; preds = %if.end28
-  %45 = load ptr, ptr %Seek, align 8, !tbaa !34
-  %call36 = call i32 %45(ptr noundef nonnull %stream, ptr noundef nonnull %startOffset, i32 noundef 0) #9
+  %33 = load ptr, ptr %Seek, align 8, !tbaa !34
+  %call36 = call i32 %33(ptr noundef nonnull %stream, ptr noundef nonnull %startOffset, i32 noundef 0) #9
   %cmp37.not = icmp eq i32 %call36, 0
   br i1 %cmp37.not, label %cleanup.cont42, label %cleanup47.thread
 
@@ -797,16 +617,21 @@ cleanup.cont42:                                   ; preds = %if.end33
   br i1 %tobool.not, label %cleanup47, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %cleanup.cont42
-  %46 = load ptr, ptr %progress, align 8, !tbaa !51
-  %47 = load i64, ptr %endOffset, align 8, !tbaa !33
-  %48 = load i64, ptr %startOffset, align 8, !tbaa !33
-  %sub = sub nsw i64 %47, %48
-  %call43 = call i32 %46(ptr noundef nonnull %progress, i64 noundef %sub, i64 noundef -1) #9
+  %34 = load ptr, ptr %progress, align 8, !tbaa !48
+  %35 = load i64, ptr %endOffset, align 8, !tbaa !33
+  %36 = load i64, ptr %startOffset, align 8, !tbaa !33
+  %sub = sub nsw i64 %35, %36
+  %call43 = call i32 %34(ptr noundef nonnull %progress, i64 noundef %sub, i64 noundef -1) #9
   %cmp44.not = icmp eq i32 %call43, 0
   br i1 %cmp44.not, label %cleanup47, label %cleanup47.thread
 
-cleanup47.thread:                                 ; preds = %if.end33, %land.lhs.true, %if.then11, %.loopexit, %.loopexit136
-  %retval.6.ph = phi i32 [ %retval.14.i.ph, %.loopexit136 ], [ %retval.15.i.ph, %.loopexit ], [ 2, %if.then11 ], [ %call36, %if.end33 ], [ 10, %land.lhs.true ]
+cleanup47.thread.loopexit.split.loop.exit137:     ; preds = %Xz_ReadBackward.exit
+  %cond192.i.le = select i1 %cmp190.i, i32 0, i32 16
+  %retval.14.i.le = select i1 %cmp180.not.i, i32 %cond192.i.le, i32 %call179.i
+  br label %cleanup47.thread
+
+cleanup47.thread:                                 ; preds = %if.then11, %land.lhs.true, %if.end33, %cleanup47.thread.loopexit.split.loop.exit137, %.loopexit
+  %retval.6.ph = phi i32 [ %retval.15.i.ph, %.loopexit ], [ %retval.14.i.le, %cleanup47.thread.loopexit.split.loop.exit137 ], [ 2, %if.then11 ], [ 10, %land.lhs.true ], [ %call36, %if.end33 ]
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %st) #9
   br label %cleanup51
 
@@ -815,12 +640,12 @@ cleanup47:                                        ; preds = %cleanup.cont42, %la
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %st) #9
   call void @Xz_Construct(ptr noundef nonnull %st) #9
   call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %buf.i) #9
-  %49 = load i64, ptr %startOffset, align 8, !tbaa !33
-  %and.i = and i64 %49, 3
+  %37 = load i64, ptr %startOffset, align 8, !tbaa !33
+  %and.i = and i64 %37, 3
   %cmp.not.i = icmp ne i64 %and.i, 0
-  %cmp1.i = icmp slt i64 %49, 12
-  %or.cond279.i = or i1 %cmp1.i, %cmp.not.i
-  br i1 %or.cond279.i, label %.loopexit, label %if.end.i
+  %cmp1.i = icmp slt i64 %37, 12
+  %or.cond285.i = or i1 %cmp1.i, %cmp.not.i
+  br i1 %or.cond285.i, label %.loopexit, label %if.end.i
 
 for.end:                                          ; preds = %if.end28
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %st) #9
@@ -840,6 +665,173 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 declare i32 @LookInStream_Read2(ptr noundef, ptr noundef, i64 noundef, i32 noundef) local_unnamed_addr #2
 
 declare i32 @CrcCalc(ptr noundef, i64 noundef) local_unnamed_addr #2
+
+; Function Attrs: nounwind uwtable
+define internal fastcc i32 @Xz_ReadIndex(ptr noundef %p, ptr noundef %stream, i64 noundef %indexSize, ptr noundef %alloc) unnamed_addr #0 {
+entry:
+  %numBlocks64.i = alloca i64, align 8
+  %cmp = icmp ugt i64 %indexSize, 2147483648
+  br i1 %cmp, label %cleanup, label %if.end3
+
+if.end3:                                          ; preds = %entry
+  %0 = load ptr, ptr %alloc, align 8, !tbaa !43
+  %call = tail call ptr %0(ptr noundef nonnull %alloc, i64 noundef %indexSize) #9
+  %cmp4 = icmp eq ptr %call, null
+  br i1 %cmp4, label %cleanup, label %if.end6
+
+if.end6:                                          ; preds = %if.end3
+  %call7 = tail call i32 @LookInStream_Read2(ptr noundef %stream, ptr noundef nonnull %call, i64 noundef %indexSize, i32 noundef 4) #9
+  %cmp8 = icmp eq i32 %call7, 0
+  br i1 %cmp8, label %if.then9, label %if.end11
+
+if.then9:                                         ; preds = %if.end6
+  %cmp.i = icmp ult i64 %indexSize, 5
+  br i1 %cmp.i, label %if.end11, label %lor.lhs.false.i
+
+lor.lhs.false.i:                                  ; preds = %if.then9
+  %1 = load i8, ptr %call, align 1, !tbaa !9
+  %cmp1.not.i = icmp eq i8 %1, 0
+  br i1 %cmp1.not.i, label %if.end.i, label %if.end11
+
+if.end.i:                                         ; preds = %lor.lhs.false.i
+  %sub.i = add nsw i64 %indexSize, -4
+  %call.i = tail call i32 @CrcCalc(ptr noundef nonnull %call, i64 noundef %sub.i) #9
+  %add.ptr.i = getelementptr inbounds i8, ptr %call, i64 %sub.i
+  %2 = load i32, ptr %add.ptr.i, align 4, !tbaa !5
+  %cmp3.not.i = icmp eq i32 %call.i, %2
+  br i1 %cmp3.not.i, label %if.end6.i, label %if.end11
+
+if.end6.i:                                        ; preds = %if.end.i
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %numBlocks64.i) #9
+  %add.ptr7.i = getelementptr inbounds i8, ptr %call, i64 1
+  %sub8.i = add nsw i64 %indexSize, -5
+  %call9.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr7.i, i64 noundef %sub8.i, ptr noundef nonnull %numBlocks64.i) #9
+  %cmp10.not.i = icmp eq i32 %call9.i, 0
+  %conv14.i = zext i32 %call9.i to i64
+  %add.i = add nuw nsw i64 %conv14.i, 1
+  br i1 %cmp10.not.i, label %cleanup22.thread.i, label %cleanup22.i
+
+cleanup22.thread.i:                               ; preds = %if.end6.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %numBlocks64.i) #9
+  br label %if.end11
+
+cleanup22.i:                                      ; preds = %if.end6.i
+  %3 = load i64, ptr %numBlocks64.i, align 8, !tbaa !33
+  %mul.i = shl i64 %3, 1
+  %cmp18.not.i = icmp ugt i64 %mul.i, %sub.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %numBlocks64.i) #9
+  br i1 %cmp18.not.i, label %if.end11, label %cleanup.cont24.i
+
+cleanup.cont24.i:                                 ; preds = %cleanup22.i
+  call void @Xz_Free(ptr noundef %p, ptr noundef nonnull %alloc) #9
+  %cmp25.not.i = icmp eq i64 %3, 0
+  br i1 %cmp25.not.i, label %while.cond.i, label %if.then27.i
+
+if.then27.i:                                      ; preds = %cleanup.cont24.i
+  %numBlocks28.i = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 1
+  store i64 %3, ptr %numBlocks28.i, align 8, !tbaa !10
+  %numBlocksAllocated.i = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 2
+  store i64 %3, ptr %numBlocksAllocated.i, align 8, !tbaa !49
+  %4 = load ptr, ptr %alloc, align 8, !tbaa !43
+  %mul29.i = shl i64 %3, 4
+  %call30.i = call ptr %4(ptr noundef nonnull %alloc, i64 noundef %mul29.i) #9
+  %blocks.i = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 3
+  store ptr %call30.i, ptr %blocks.i, align 8, !tbaa !16
+  %cmp32.i = icmp eq ptr %call30.i, null
+  br i1 %cmp32.i, label %if.end11, label %for.body.i
+
+for.cond.i:                                       ; preds = %cleanup71.i
+  %inc.i = add nuw i64 %i.0155.i, 1
+  %conv61.i = zext i32 %call56.i to i64
+  %add62.i = add i64 %add49.i, %conv61.i
+  %exitcond.not.i = icmp eq i64 %inc.i, %3
+  br i1 %exitcond.not.i, label %while.cond.i, label %for.body.i, !llvm.loop !50
+
+for.body.i:                                       ; preds = %if.then27.i, %for.cond.i
+  %i.0155.i = phi i64 [ %inc.i, %for.cond.i ], [ 0, %if.then27.i ]
+  %pos.1154.i = phi i64 [ %add62.i, %for.cond.i ], [ %add.i, %if.then27.i ]
+  %5 = load ptr, ptr %blocks.i, align 8, !tbaa !16
+  %add.ptr41.i = getelementptr inbounds i8, ptr %call, i64 %pos.1154.i
+  %sub42.i = sub i64 %sub.i, %pos.1154.i
+  %totalSize.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %5, i64 %i.0155.i, i32 1
+  %call43.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr41.i, i64 noundef %sub42.i, ptr noundef nonnull %totalSize.i) #9
+  %cmp44.not.i = icmp eq i32 %call43.i, 0
+  br i1 %cmp44.not.i, label %if.end11, label %cleanup.cont52.i
+
+cleanup.cont52.i:                                 ; preds = %for.body.i
+  %conv48.i = zext i32 %call43.i to i64
+  %add49.i = add i64 %pos.1154.i, %conv48.i
+  %arrayidx39.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %5, i64 %i.0155.i
+  %add.ptr54.i = getelementptr inbounds i8, ptr %call, i64 %add49.i
+  %sub55.i = sub i64 %sub.i, %add49.i
+  %call56.i = call i32 @Xz_ReadVarInt(ptr noundef nonnull %add.ptr54.i, i64 noundef %sub55.i, ptr noundef %arrayidx39.i) #9
+  %cmp57.not.i = icmp eq i32 %call56.i, 0
+  br i1 %cmp57.not.i, label %if.end11, label %cleanup71.i
+
+cleanup71.i:                                      ; preds = %cleanup.cont52.i
+  %6 = load i64, ptr %totalSize.i, align 8, !tbaa !22
+  %cmp67.not.i = icmp eq i64 %6, 0
+  br i1 %cmp67.not.i, label %if.end11, label %for.cond.i
+
+while.cond.i:                                     ; preds = %cleanup.cont24.i, %for.cond.i
+  %pos.6.i.ph = phi i64 [ %add.i, %cleanup.cont24.i ], [ %add62.i, %for.cond.i ]
+  %and.i = and i64 %pos.6.i.ph, 3
+  %cmp75.not.i = icmp eq i64 %and.i, 0
+  br i1 %cmp75.not.i, label %while.end.i, label %while.body.i
+
+while.body.i:                                     ; preds = %while.cond.i
+  %inc77.i = add i64 %pos.6.i.ph, 1
+  %arrayidx78.i = getelementptr inbounds i8, ptr %call, i64 %pos.6.i.ph
+  %7 = load i8, ptr %arrayidx78.i, align 1, !tbaa !9
+  %cmp80.not.i = icmp eq i8 %7, 0
+  br i1 %cmp80.not.i, label %while.cond.i.1, label %if.end11, !llvm.loop !51
+
+while.cond.i.1:                                   ; preds = %while.body.i
+  %and.i.1 = and i64 %inc77.i, 3
+  %cmp75.not.i.1 = icmp eq i64 %and.i.1, 0
+  br i1 %cmp75.not.i.1, label %while.end.i, label %while.body.i.1
+
+while.body.i.1:                                   ; preds = %while.cond.i.1
+  %inc77.i.1 = add i64 %pos.6.i.ph, 2
+  %arrayidx78.i.1 = getelementptr inbounds i8, ptr %call, i64 %inc77.i
+  %8 = load i8, ptr %arrayidx78.i.1, align 1, !tbaa !9
+  %cmp80.not.i.1 = icmp eq i8 %8, 0
+  br i1 %cmp80.not.i.1, label %while.cond.i.2, label %if.end11, !llvm.loop !51
+
+while.cond.i.2:                                   ; preds = %while.body.i.1
+  %and.i.2 = and i64 %inc77.i.1, 3
+  %cmp75.not.i.2 = icmp eq i64 %and.i.2, 0
+  br i1 %cmp75.not.i.2, label %while.end.i, label %while.body.i.2
+
+while.body.i.2:                                   ; preds = %while.cond.i.2
+  %arrayidx78.i.2 = getelementptr inbounds i8, ptr %call, i64 %inc77.i.1
+  %9 = load i8, ptr %arrayidx78.i.2, align 1, !tbaa !9
+  %cmp80.not.i.2 = icmp eq i8 %9, 0
+  br i1 %cmp80.not.i.2, label %while.cond.i.3, label %if.end11, !llvm.loop !51
+
+while.cond.i.3:                                   ; preds = %while.body.i.2
+  %inc77.i.2 = add i64 %pos.6.i.ph, 3
+  %and.i.3 = and i64 %inc77.i.2, 3
+  %cmp75.not.i.3 = icmp eq i64 %and.i.3, 0
+  br i1 %cmp75.not.i.3, label %while.end.i, label %if.end11
+
+while.end.i:                                      ; preds = %while.cond.i.3, %while.cond.i.2, %while.cond.i.1, %while.cond.i
+  %pos.6.i.lcssa = phi i64 [ %pos.6.i.ph, %while.cond.i ], [ %inc77.i, %while.cond.i.1 ], [ %inc77.i.1, %while.cond.i.2 ], [ %inc77.i.2, %while.cond.i.3 ]
+  %cmp84.i = icmp eq i64 %pos.6.i.lcssa, %sub.i
+  %cond.i = select i1 %cmp84.i, i32 0, i32 16
+  br label %if.end11
+
+if.end11:                                         ; preds = %cleanup71.i, %cleanup.cont52.i, %for.body.i, %while.body.i, %while.body.i.1, %while.body.i.2, %while.cond.i.3, %while.end.i, %if.then27.i, %cleanup22.i, %cleanup22.thread.i, %if.end.i, %lor.lhs.false.i, %if.then9, %if.end6
+  %res.0 = phi i32 [ %call7, %if.end6 ], [ %cond.i, %while.end.i ], [ 16, %cleanup22.i ], [ 16, %lor.lhs.false.i ], [ 16, %if.then9 ], [ 16, %if.end.i ], [ 2, %if.then27.i ], [ 16, %cleanup22.thread.i ], [ 16, %while.cond.i.3 ], [ 16, %while.body.i.2 ], [ 16, %while.body.i.1 ], [ 16, %while.body.i ], [ 16, %for.body.i ], [ 16, %cleanup.cont52.i ], [ 16, %cleanup71.i ]
+  %Free = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %10 = load ptr, ptr %Free, align 8, !tbaa !27
+  call void %10(ptr noundef nonnull %alloc, ptr noundef nonnull %call) #9
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.end3, %entry, %if.end11
+  %retval.0 = phi i32 [ %res.0, %if.end11 ], [ 4, %entry ], [ 2, %if.end3 ]
+  ret i32 %retval.0
+}
 
 declare void @SecToRead_CreateVTable(ptr noundef) local_unnamed_addr #2
 
@@ -906,17 +898,17 @@ attributes #9 = { nounwind }
 !35 = !{!"", !14, i64 0, !14, i64 8, !14, i64 16, !14, i64 24}
 !36 = distinct !{!36, !18}
 !37 = !{!11, !12, i64 0}
-!38 = !{!28, !14, i64 0}
-!39 = !{!11, !13, i64 16}
-!40 = distinct !{!40, !18}
-!41 = distinct !{!41, !18}
-!42 = !{!43, !14, i64 8}
-!43 = !{!"", !44, i64 0, !14, i64 8}
-!44 = !{!"", !14, i64 0}
+!38 = !{!39, !14, i64 8}
+!39 = !{!"", !40, i64 0, !14, i64 8}
+!40 = !{!"", !14, i64 0}
+!41 = !{!11, !15, i64 32}
+!42 = !{!24, !13, i64 8}
+!43 = !{!28, !14, i64 0}
+!44 = !{i64 0, i64 2, !45, i64 8, i64 8, !46, i64 16, i64 8, !46, i64 24, i64 8, !47, i64 32, i64 8, !33}
 !45 = !{!12, !12, i64 0}
-!46 = !{!11, !15, i64 32}
-!47 = !{!24, !13, i64 8}
-!48 = !{i64 0, i64 2, !45, i64 8, i64 8, !49, i64 16, i64 8, !49, i64 24, i64 8, !50, i64 32, i64 8, !33}
-!49 = !{!13, !13, i64 0}
-!50 = !{!14, !14, i64 0}
-!51 = !{!44, !14, i64 0}
+!46 = !{!13, !13, i64 0}
+!47 = !{!14, !14, i64 0}
+!48 = !{!40, !14, i64 0}
+!49 = !{!11, !13, i64 16}
+!50 = distinct !{!50, !18}
+!51 = distinct !{!51, !18}

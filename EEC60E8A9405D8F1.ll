@@ -44,12 +44,12 @@ entry:
   %c.036 = trunc i32 %call to i8
   store i8 %c.036, ptr %x, align 1, !tbaa !9
   %call237 = tail call i32 @bar(ptr noundef %w), !range !10
-  %cmp38 = icmp eq i32 %call237, 39
-  %or.cond39 = select i1 %y, i1 %cmp38, i1 false
-  %cmp1140 = icmp eq i32 %call237, 34
-  %or.cond2641 = select i1 %z, i1 %cmp1140, i1 false
-  %or.cond3542 = select i1 %or.cond39, i1 true, i1 %or.cond2641
-  br i1 %or.cond3542, label %while.end, label %if.end14.lr.ph
+  %cmp39 = icmp eq i32 %call237, 39
+  %or.cond40 = select i1 %y, i1 %cmp39, i1 false
+  %cmp1141 = icmp eq i32 %call237, 34
+  %or.cond2642 = select i1 %z, i1 %cmp1141, i1 false
+  %or.cond3543 = select i1 %or.cond40, i1 true, i1 %or.cond2642
+  br i1 %or.cond3543, label %while.end, label %if.end14.lr.ph
 
 if.end14.lr.ph:                                   ; preds = %entry
   %brmerge = or i1 %y, %z
@@ -62,62 +62,63 @@ if.end14.lr.ph.split.us.split.us:                 ; preds = %if.end14.lr.ph.spli
   br i1 %z, label %if.end14.us.us.us, label %if.end14.us.us
 
 if.end14.us.us.us:                                ; preds = %if.end14.lr.ph.split.us.split.us, %if.end14.us.us.us
-  %indvars.iv131 = phi i64 [ %indvars.iv.next132, %if.end14.us.us.us ], [ 1, %if.end14.lr.ph.split.us.split.us ]
-  %call244.us.us.us = phi i32 [ %call2.us.us.us, %if.end14.us.us.us ], [ %call237, %if.end14.lr.ph.split.us.split.us ]
-  %c.0.us.us.us = trunc i32 %call244.us.us.us to i8
-  %indvars.iv.next132 = add nuw i64 %indvars.iv131, 1
-  %arrayidx.us.us.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv131
+  %indvars.iv135 = phi i64 [ %indvars.iv.next136, %if.end14.us.us.us ], [ 1, %if.end14.lr.ph.split.us.split.us ]
+  %call245.us.us.us = phi i32 [ %call2.us.us.us, %if.end14.us.us.us ], [ %call237, %if.end14.lr.ph.split.us.split.us ]
+  %c.0.us.us.us = trunc i32 %call245.us.us.us to i8
+  %indvars.iv.next136 = add nuw i64 %indvars.iv135, 1
+  %arrayidx.us.us.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv135
   store i8 %c.0.us.us.us, ptr %arrayidx.us.us.us, align 1, !tbaa !9
   %call2.us.us.us = tail call i32 @bar(ptr noundef %w), !range !10
-  switch i32 %call2.us.us.us, label %if.end14.us.us.us [
-    i32 39, label %while.end
-    i32 34, label %while.end
+  %sext.us.us.us = shl nsw i32 %call2.us.us.us, 24
+  switch i32 %sext.us.us.us, label %if.end14.us.us.us [
+    i32 654311424, label %while.end
+    i32 570425344, label %while.end
   ]
 
 if.end14.us.us:                                   ; preds = %if.end14.lr.ph.split.us.split.us, %if.end14.us.us
-  %indvars.iv127 = phi i64 [ %indvars.iv.next128, %if.end14.us.us ], [ 1, %if.end14.lr.ph.split.us.split.us ]
-  %call244.us.us = phi i32 [ %call2.us.us, %if.end14.us.us ], [ %call237, %if.end14.lr.ph.split.us.split.us ]
-  %c.0.us.us = trunc i32 %call244.us.us to i8
-  %indvars.iv.next128 = add nuw i64 %indvars.iv127, 1
-  %arrayidx.us.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv127
+  %indvars.iv131 = phi i64 [ %indvars.iv.next132, %if.end14.us.us ], [ 1, %if.end14.lr.ph.split.us.split.us ]
+  %call245.us.us = phi i32 [ %call2.us.us, %if.end14.us.us ], [ %call237, %if.end14.lr.ph.split.us.split.us ]
+  %c.0.us.us = trunc i32 %call245.us.us to i8
+  %indvars.iv.next132 = add nuw i64 %indvars.iv131, 1
+  %arrayidx.us.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv131
   store i8 %c.0.us.us, ptr %arrayidx.us.us, align 1, !tbaa !9
   %call2.us.us = tail call i32 @bar(ptr noundef %w), !range !10
   %cmp.us.us = icmp eq i32 %call2.us.us, 39
   br i1 %cmp.us.us, label %while.end, label %if.end14.us.us
 
 if.end14.lr.ph.split.us.split:                    ; preds = %if.end14.lr.ph.split.us
-  br i1 %z, label %if.end14.us, label %if.end14.us.us87
+  br i1 %z, label %if.end14.us, label %if.end14.us.us90
 
-if.end14.us.us87:                                 ; preds = %if.end14.lr.ph.split.us.split, %if.end14.us.us87
-  %indvars.iv119 = phi i64 [ %indvars.iv.next120, %if.end14.us.us87 ], [ 1, %if.end14.lr.ph.split.us.split ]
-  %call244.us.us88 = phi i32 [ %call2.us.us94, %if.end14.us.us87 ], [ %call237, %if.end14.lr.ph.split.us.split ]
-  %c.0.us.us90 = trunc i32 %call244.us.us88 to i8
-  %indvars.iv.next120 = add nuw i64 %indvars.iv119, 1
-  %arrayidx.us.us93 = getelementptr inbounds i8, ptr %x, i64 %indvars.iv119
-  store i8 %c.0.us.us90, ptr %arrayidx.us.us93, align 1, !tbaa !9
-  %call2.us.us94 = tail call i32 @bar(ptr noundef %w), !range !10
-  br label %if.end14.us.us87
+if.end14.us.us90:                                 ; preds = %if.end14.lr.ph.split.us.split, %if.end14.us.us90
+  %indvars.iv123 = phi i64 [ %indvars.iv.next124, %if.end14.us.us90 ], [ 1, %if.end14.lr.ph.split.us.split ]
+  %call245.us.us91 = phi i32 [ %call2.us.us97, %if.end14.us.us90 ], [ %call237, %if.end14.lr.ph.split.us.split ]
+  %c.0.us.us93 = trunc i32 %call245.us.us91 to i8
+  %indvars.iv.next124 = add nuw i64 %indvars.iv123, 1
+  %arrayidx.us.us96 = getelementptr inbounds i8, ptr %x, i64 %indvars.iv123
+  store i8 %c.0.us.us93, ptr %arrayidx.us.us96, align 1, !tbaa !9
+  %call2.us.us97 = tail call i32 @bar(ptr noundef %w), !range !10
+  br label %if.end14.us.us90
 
 if.end14.us:                                      ; preds = %if.end14.lr.ph.split.us.split, %if.end14.us
-  %indvars.iv123 = phi i64 [ %indvars.iv.next124, %if.end14.us ], [ 1, %if.end14.lr.ph.split.us.split ]
-  %call244.us = phi i32 [ %call2.us, %if.end14.us ], [ %call237, %if.end14.lr.ph.split.us.split ]
-  %c.0.us = trunc i32 %call244.us to i8
-  %indvars.iv.next124 = add nuw i64 %indvars.iv123, 1
-  %arrayidx.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv123
+  %indvars.iv127 = phi i64 [ %indvars.iv.next128, %if.end14.us ], [ 1, %if.end14.lr.ph.split.us.split ]
+  %call245.us = phi i32 [ %call2.us, %if.end14.us ], [ %call237, %if.end14.lr.ph.split.us.split ]
+  %c.0.us = trunc i32 %call245.us to i8
+  %indvars.iv.next128 = add nuw i64 %indvars.iv127, 1
+  %arrayidx.us = getelementptr inbounds i8, ptr %x, i64 %indvars.iv127
   store i8 %c.0.us, ptr %arrayidx.us, align 1, !tbaa !9
   %call2.us = tail call i32 @bar(ptr noundef %w), !range !10
   %cmp11.us = icmp eq i32 %call2.us, 34
   br i1 %cmp11.us, label %while.end, label %if.end14.us
 
 if.end14.lr.ph.split.split.split.split:           ; preds = %if.end14.lr.ph
-  %call2079 = tail call i32 @baz(i32 noundef %call237), !range !11
-  %tobool21.not80 = icmp eq i32 %call2079, 0
-  br i1 %tobool21.not80, label %while.end, label %if.end23
+  %call2082 = tail call i32 @baz(i32 noundef %call237), !range !11
+  %tobool21.not83 = icmp eq i32 %call2082, 0
+  br i1 %tobool21.not83, label %while.end, label %if.end23
 
 if.end23:                                         ; preds = %if.end14.lr.ph.split.split.split.split, %if.end23
   %indvars.iv = phi i64 [ %indvars.iv.next, %if.end23 ], [ 1, %if.end14.lr.ph.split.split.split.split ]
-  %call24481 = phi i32 [ %call2, %if.end23 ], [ %call237, %if.end14.lr.ph.split.split.split.split ]
-  %c.0 = trunc i32 %call24481 to i8
+  %call24584 = phi i32 [ %call2, %if.end23 ], [ %call237, %if.end14.lr.ph.split.split.split.split ]
+  %c.0 = trunc i32 %call24584 to i8
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds i8, ptr %x, i64 %indvars.iv
   store i8 %c.0, ptr %arrayidx, align 1, !tbaa !9
@@ -127,7 +128,7 @@ if.end23:                                         ; preds = %if.end14.lr.ph.spli
   br i1 %tobool21.not, label %while.end, label %if.end23
 
 while.end:                                        ; preds = %if.end23, %if.end14.us, %if.end14.us.us, %if.end14.us.us.us, %if.end14.us.us.us, %if.end14.lr.ph.split.split.split.split, %entry
-  %inc.lcssa = phi i64 [ 1, %entry ], [ 1, %if.end14.lr.ph.split.split.split.split ], [ %indvars.iv.next132, %if.end14.us.us.us ], [ %indvars.iv.next132, %if.end14.us.us.us ], [ %indvars.iv.next128, %if.end14.us.us ], [ %indvars.iv.next124, %if.end14.us ], [ %indvars.iv.next, %if.end23 ]
+  %inc.lcssa = phi i64 [ 1, %entry ], [ 1, %if.end14.lr.ph.split.split.split.split ], [ %indvars.iv.next136, %if.end14.us.us.us ], [ %indvars.iv.next136, %if.end14.us.us.us ], [ %indvars.iv.next132, %if.end14.us.us ], [ %indvars.iv.next128, %if.end14.us ], [ %indvars.iv.next, %if.end23 ]
   %idxprom24 = and i64 %inc.lcssa, 4294967295
   %arrayidx25 = getelementptr inbounds i8, ptr %x, i64 %idxprom24
   store i8 0, ptr %arrayidx25, align 1, !tbaa !9

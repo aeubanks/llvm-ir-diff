@@ -227,8 +227,8 @@ for.cond:                                         ; preds = %if.end13, %entry
 
 land.lhs.true.i:                                  ; preds = %for.cond
   %1 = load ptr, ptr %_stream.i, align 8, !tbaa !13
-  %call.i.i24 = tail call i32 @feof(ptr noundef %1) #12
-  %cmp.i.not.i = icmp eq i32 %call.i.i24, 0
+  %call.i.i23 = tail call i32 @feof(ptr noundef %1) #12
+  %cmp.i.not.i = icmp eq i32 %call.i.i23, 0
   br i1 %cmp.i.not.i, label %if.then.i, label %if.then
 
 if.then.i:                                        ; preds = %land.lhs.true.i
@@ -526,8 +526,8 @@ entry:
   %_stream.i = getelementptr inbounds %class.CStdInStream, ptr %this, i64 0, i32 1
   %1 = load ptr, ptr %_stream.i, align 8, !tbaa !13
   %call.i4 = tail call i32 @fgetc(ptr noundef %1)
-  %cmp.i5 = icmp eq i32 %call.i4, -1
-  br i1 %cmp.i5, label %land.lhs.true.i, label %while.body
+  %cond5 = icmp eq i32 %call.i4, -1
+  br i1 %cond5, label %land.lhs.true.i, label %while.body
 
 land.lhs.true.i:                                  ; preds = %while.body, %entry
   %2 = load ptr, ptr %_stream.i, align 8, !tbaa !13
@@ -547,8 +547,8 @@ while.body:                                       ; preds = %entry, %while.body
   %call2 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN11CStringBaseIcEpLEc(ptr noundef nonnull align 8 dereferenceable(16) %resultString, i8 noundef signext %conv)
   %3 = load ptr, ptr %_stream.i, align 8, !tbaa !13
   %call.i = tail call i32 @fgetc(ptr noundef %3)
-  %cmp.i = icmp eq i32 %call.i, -1
-  br i1 %cmp.i, label %land.lhs.true.i, label %while.body, !llvm.loop !37
+  %cond = icmp eq i32 %call.i, -1
+  br i1 %cond, label %land.lhs.true.i, label %while.body, !llvm.loop !37
 
 while.end:                                        ; preds = %land.lhs.true.i
   ret void

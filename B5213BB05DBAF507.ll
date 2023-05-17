@@ -518,8 +518,8 @@ if.then:                                          ; preds = %entry
   %9 = lshr i32 %sub10, 3
   %add13 = and i32 %9, 536870908
   %10 = add nuw nsw i32 %add13, 8
-  %narrow195 = select i1 %cmp6, i32 8, i32 %10
-  %cond15 = zext i32 %narrow195 to i64
+  %narrow197 = select i1 %cmp6, i32 8, i32 %10
+  %cond15 = zext i32 %narrow197 to i64
   %call18 = tail call noalias ptr @malloc(i64 noundef %cond15) #6
   %call19 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call18, i32 noundef %8) #5
   %call20 = tail call ptr (ptr, ptr, ptr, ...) @set_and(ptr noundef %call19, ptr noundef %a, ptr noundef %b) #5
@@ -530,14 +530,14 @@ if.then:                                          ; preds = %entry
   %12 = lshr i32 %sub25, 3
   %add28 = and i32 %12, 536870908
   %13 = add nuw nsw i32 %add28, 8
-  %narrow196 = select i1 %cmp21, i32 8, i32 %13
-  %cond30 = zext i32 %narrow196 to i64
+  %narrow198 = select i1 %cmp21, i32 8, i32 %13
+  %cond30 = zext i32 %narrow198 to i64
   %call33 = tail call noalias ptr @malloc(i64 noundef %cond30) #6
   %call34 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call33, i32 noundef %11) #5
   %call34228 = ptrtoint ptr %call34 to i64
   %14 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !19
-  %cmp35197 = icmp sgt i32 %14, 0
-  br i1 %cmp35197, label %for.body.lr.ph, label %for.end
+  %cmp35195 = icmp sgt i32 %14, 0
+  br i1 %cmp35195, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %if.then
   %data = getelementptr inbounds %struct.set_family, ptr %call, i64 0, i32 5

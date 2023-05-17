@@ -361,6 +361,7 @@ do.body82:                                        ; preds = %do.body82.prol.loop
   br i1 %tobool90.not.3, label %if.end207, label %do.body82, !llvm.loop !43
 
 if.else:                                          ; preds = %entry
+  %SummFreq96 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %0, i64 0, i32 1
   %Freq97 = getelementptr inbounds i8, ptr %0, i64 3
   %29 = load i8, ptr %Freq97, align 1, !tbaa !29
   %conv98 = zext i8 %29 to i64
@@ -390,8 +391,7 @@ if.else:                                          ; preds = %entry
   %HiBitsFlag120 = getelementptr inbounds %struct.CPpmd7, ptr %p, i64 0, i32 7
   store i32 %conv119, ptr %HiBitsFlag120, align 8, !tbaa !38
   %add121 = add i32 %add113, %conv119
-  %SummFreq124 = getelementptr inbounds %struct.CPpmd7_Context_, ptr %0, i64 0, i32 1
-  %38 = load i8, ptr %SummFreq124, align 2, !tbaa !33
+  %38 = load i8, ptr %SummFreq96, align 2, !tbaa !33
   %idxprom126 = zext i8 %38 to i64
   %arrayidx127 = getelementptr inbounds %struct.CPpmd7, ptr %p, i64 0, i32 23, i64 %idxprom126
   %39 = load i8, ptr %arrayidx127, align 1, !tbaa !37
@@ -546,6 +546,7 @@ for.end280:                                       ; preds = %for.cond271
   call void %66(ptr noundef nonnull %rc, i32 noundef %hiCnt211.1, i32 noundef %conv273) #6
   %Shift = getelementptr inbounds %struct.CPpmd_See, ptr %call262, i64 0, i32 1
   %67 = load i8, ptr %Shift, align 1, !tbaa !55
+  %conv287 = zext i8 %67 to i32
   %cmp288 = icmp ult i8 %67, 7
   br i1 %cmp288, label %land.lhs.true, label %if.end303
 
@@ -563,8 +564,7 @@ if.then294:                                       ; preds = %land.lhs.true
   store i16 %shl, ptr %call262, align 1, !tbaa !57
   %inc298 = add nuw nsw i8 %67, 1
   store i8 %inc298, ptr %Shift, align 1, !tbaa !55
-  %conv299 = zext i8 %67 to i32
-  %shl300 = shl nuw nsw i32 3, %conv299
+  %shl300 = shl i32 3, %conv287
   %conv301 = trunc i32 %shl300 to i8
   store i8 %conv301, ptr %Count, align 1, !tbaa !56
   br label %if.end303

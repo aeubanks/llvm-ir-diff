@@ -24,22 +24,22 @@ entry:
 for.cond:                                         ; preds = %for.body
   %inc = add nuw nsw i32 %i.04, 1
   %and.i.1 = and i32 %inc, 62
-  %cmp.i.1 = icmp ugt i32 %and.i.1, 48
+  %cmp.i.1 = icmp ult i32 %and.i.1, 49
   %or.i.1 = add nsw i32 %and.i.1, -49
   %shr.i.1 = lshr i32 %or.i.1, 2
-  %cmp1.not.i.1 = icmp slt i32 %or.i.1, %shr.i.1
-  %narrow.i.not.1 = select i1 %cmp.i.1, i1 %cmp1.not.i.1, i1 false
-  br i1 %narrow.i.not.1, label %if.then, label %for.cond.1
+  %cmp1.not.i.1 = icmp sge i32 %or.i.1, %shr.i.1
+  %narrow.i.1 = select i1 %cmp.i.1, i1 true, i1 %cmp1.not.i.1
+  br i1 %narrow.i.1, label %for.cond.1, label %if.then
 
 for.cond.1:                                       ; preds = %for.cond
   %inc.1 = add nuw nsw i32 %i.04, 2
   %and.i.2 = and i32 %inc.1, 62
-  %cmp.i.2 = icmp ugt i32 %and.i.2, 48
+  %cmp.i.2 = icmp ult i32 %and.i.2, 49
   %or.i.2 = add nsw i32 %and.i.2, -49
   %shr.i.2 = lshr i32 %or.i.2, 2
-  %cmp1.not.i.2 = icmp slt i32 %or.i.2, %shr.i.2
-  %narrow.i.not.2 = select i1 %cmp.i.2, i1 %cmp1.not.i.2, i1 false
-  br i1 %narrow.i.not.2, label %if.then, label %for.cond.2
+  %cmp1.not.i.2 = icmp sge i32 %or.i.2, %shr.i.2
+  %narrow.i.2 = select i1 %cmp.i.2, i1 true, i1 %cmp1.not.i.2
+  br i1 %narrow.i.2, label %for.cond.2, label %if.then
 
 for.cond.2:                                       ; preds = %for.cond.1
   %inc.2 = add nuw nsw i32 %i.04, 3
@@ -49,12 +49,12 @@ for.cond.2:                                       ; preds = %for.cond.1
 for.body:                                         ; preds = %for.cond.2, %entry
   %i.04 = phi i32 [ 0, %entry ], [ %inc.2, %for.cond.2 ]
   %and.i = and i32 %i.04, 62
-  %cmp.i = icmp ugt i32 %and.i, 48
+  %cmp.i = icmp ult i32 %and.i, 49
   %or.i = add nsw i32 %and.i, -49
   %shr.i = lshr i32 %or.i, 2
-  %cmp1.not.i = icmp slt i32 %or.i, %shr.i
-  %narrow.i.not = select i1 %cmp.i, i1 %cmp1.not.i, i1 false
-  br i1 %narrow.i.not, label %if.then, label %for.cond
+  %cmp1.not.i = icmp sge i32 %or.i, %shr.i
+  %narrow.i = select i1 %cmp.i, i1 true, i1 %cmp1.not.i
+  br i1 %narrow.i, label %for.cond, label %if.then
 
 if.then:                                          ; preds = %for.cond.1, %for.cond, %for.body
   tail call void @abort() #3

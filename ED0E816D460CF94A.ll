@@ -78,7 +78,7 @@ if.then:                                          ; preds = %for.body
   %15 = load i32, ptr %ycenter41, align 8, !tbaa !17
   %sub42 = sub nsw i32 %15, %div2
   %mul75 = mul i32 %sub42, %sub42
-  %add76 = add nsw i32 %mul75, %mul
+  %add76 = add nuw nsw i32 %mul75, %mul
   %conv = sitofp i32 %add76 to double
   %call77 = tail call double @sqrt(double noundef %conv) #5
   %conv78 = fptosi double %call77 to i32
@@ -94,7 +94,7 @@ if.then:                                          ; preds = %for.body
   %19 = load i32, ptr %ycenter120, align 8, !tbaa !17
   %sub121 = sub nsw i32 %19, %div2
   %mul156 = mul i32 %sub121, %sub121
-  %add157 = add nsw i32 %mul156, %mul117
+  %add157 = add nuw nsw i32 %mul156, %mul117
   %conv158 = sitofp i32 %add157 to double
   %call159 = tail call double @sqrt(double noundef %conv158) #5
   %conv160 = fptosi double %call159 to i32
@@ -561,12 +561,12 @@ cleanup:                                          ; preds = %for.inc222, %for.en
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write)
 declare double @sqrt(double noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
+; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local void @padOverlaps() local_unnamed_addr #3 {
 entry:
   %0 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp.not291 = icmp slt i32 %0, 1
-  br i1 %cmp.not291, label %for.end189, label %for.body.lr.ph
+  %cmp.not295 = icmp slt i32 %0, 1
+  br i1 %cmp.not295, label %for.end189, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr @cellarray, align 8, !tbaa !12
@@ -574,45 +574,40 @@ for.body.lr.ph:                                   ; preds = %entry
   %3 = load i32, ptr @blockr, align 4
   %4 = load i32, ptr @blockb, align 4
   %5 = load i32, ptr @blockt, align 4
+  %add142 = add nuw i32 %0, 1
   %6 = load i32, ptr @numpads, align 4
-  %add144 = add i32 %6, %0
-  %cmp167.not.not280 = icmp slt i32 %6, 1
-  %7 = zext i32 %0 to i64
-  %smax = tail call i32 @llvm.smax.i32(i32 %0, i32 %add144)
+  %add144 = add nsw i32 %6, %0
+  %cmp145.not279 = icmp slt i32 %6, 1
+  %7 = sext i32 %add142 to i64
   %8 = sext i32 %add144 to i64
-  %9 = add nuw i32 %0, 1
-  %wide.trip.count337 = zext i32 %9 to i64
-  %wide.trip.count = sext i32 %smax to i64
-  %wide.trip.count313 = sext i32 %smax to i64
-  %wide.trip.count321 = sext i32 %smax to i64
-  %wide.trip.count329 = sext i32 %smax to i64
+  %wide.trip.count = zext i32 %add142 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc187
-  %indvars.iv334 = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next335, %for.inc187 ]
-  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv334
-  %10 = load ptr, ptr %arrayidx, align 8, !tbaa !12
-  %orient = getelementptr inbounds %struct.cellbox, ptr %10, i64 0, i32 5
-  %11 = load i32, ptr %orient, align 8, !tbaa !18
-  %idxprom1 = sext i32 %11 to i64
-  %arrayidx2 = getelementptr inbounds %struct.cellbox, ptr %10, i64 0, i32 21, i64 %idxprom1
-  %12 = load ptr, ptr %arrayidx2, align 8, !tbaa !12
-  %xcenter = getelementptr inbounds %struct.cellbox, ptr %10, i64 0, i32 2
-  %13 = load i32, ptr %xcenter, align 4, !tbaa !14
-  %left = getelementptr inbounds %struct.tilebox, ptr %12, i64 0, i32 9
-  %14 = load i32, ptr %left, align 8, !tbaa !20
-  %add = add nsw i32 %14, %13
-  %right = getelementptr inbounds %struct.tilebox, ptr %12, i64 0, i32 10
-  %15 = load i32, ptr %right, align 4, !tbaa !22
-  %add4 = add nsw i32 %15, %13
-  %ycenter = getelementptr inbounds %struct.cellbox, ptr %10, i64 0, i32 3
-  %16 = load i32, ptr %ycenter, align 8, !tbaa !17
-  %bottom = getelementptr inbounds %struct.tilebox, ptr %12, i64 0, i32 11
-  %17 = load i32, ptr %bottom, align 8, !tbaa !23
-  %add5 = add nsw i32 %17, %16
-  %top = getelementptr inbounds %struct.tilebox, ptr %12, i64 0, i32 12
-  %18 = load i32, ptr %top, align 4, !tbaa !24
-  %add7 = add nsw i32 %18, %16
+  %indvars.iv337 = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next338, %for.inc187 ]
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv337
+  %9 = load ptr, ptr %arrayidx, align 8, !tbaa !12
+  %orient = getelementptr inbounds %struct.cellbox, ptr %9, i64 0, i32 5
+  %10 = load i32, ptr %orient, align 8, !tbaa !18
+  %idxprom1 = sext i32 %10 to i64
+  %arrayidx2 = getelementptr inbounds %struct.cellbox, ptr %9, i64 0, i32 21, i64 %idxprom1
+  %11 = load ptr, ptr %arrayidx2, align 8, !tbaa !12
+  %xcenter = getelementptr inbounds %struct.cellbox, ptr %9, i64 0, i32 2
+  %12 = load i32, ptr %xcenter, align 4, !tbaa !14
+  %left = getelementptr inbounds %struct.tilebox, ptr %11, i64 0, i32 9
+  %13 = load i32, ptr %left, align 8, !tbaa !20
+  %add = add nsw i32 %13, %12
+  %right = getelementptr inbounds %struct.tilebox, ptr %11, i64 0, i32 10
+  %14 = load i32, ptr %right, align 4, !tbaa !22
+  %add4 = add nsw i32 %14, %12
+  %ycenter = getelementptr inbounds %struct.cellbox, ptr %9, i64 0, i32 3
+  %15 = load i32, ptr %ycenter, align 8, !tbaa !17
+  %bottom = getelementptr inbounds %struct.tilebox, ptr %11, i64 0, i32 11
+  %16 = load i32, ptr %bottom, align 8, !tbaa !23
+  %add5 = add nsw i32 %16, %15
+  %top = getelementptr inbounds %struct.tilebox, ptr %11, i64 0, i32 12
+  %17 = load i32, ptr %top, align 4, !tbaa !24
+  %add7 = add nsw i32 %17, %15
   %cmp8.not = icmp slt i32 %add, %2
   %cmp9.not = icmp sgt i32 %add4, %3
   %or.cond = select i1 %cmp8.not, i1 true, i1 %cmp9.not
@@ -623,240 +618,247 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %or.cond261, label %if.end, label %for.inc187
 
 if.end:                                           ; preds = %for.body
-  br i1 %cmp8.not, label %for.cond17, label %if.else
+  br i1 %cmp8.not, label %if.then15, label %if.else
 
-for.cond17:                                       ; preds = %if.end, %for.body20
-  %indvars.iv326 = phi i64 [ %indvars.iv.next327, %for.body20 ], [ %7, %if.end ]
-  %exitcond330.not = icmp eq i64 %indvars.iv326, %wide.trip.count329
-  br i1 %exitcond330.not, label %for.inc187, label %for.body20
+if.then15:                                        ; preds = %if.end
+  br i1 %cmp145.not279, label %for.inc187, label %for.body20
 
-for.body20:                                       ; preds = %for.cond17
-  %indvars.iv.next327 = add nuw nsw i64 %indvars.iv326, 1
-  %arrayidx22 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next327
-  %19 = load ptr, ptr %arrayidx22, align 8, !tbaa !12
-  %padside = getelementptr inbounds %struct.cellbox, ptr %19, i64 0, i32 11
-  %20 = load i32, ptr %padside, align 8, !tbaa !32
-  %cmp23.not = icmp eq i32 %20, 1
-  br i1 %cmp23.not, label %if.end25, label %for.cond17, !llvm.loop !33
+for.cond17:                                       ; preds = %for.body20
+  %indvars.iv.next332 = add nsw i64 %indvars.iv331, 1
+  %cmp19.not.not = icmp slt i64 %indvars.iv331, %8
+  br i1 %cmp19.not.not, label %for.body20, label %for.inc187, !llvm.loop !32
+
+for.body20:                                       ; preds = %if.then15, %for.cond17
+  %indvars.iv331 = phi i64 [ %indvars.iv.next332, %for.cond17 ], [ %7, %if.then15 ]
+  %arrayidx22 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv331
+  %18 = load ptr, ptr %arrayidx22, align 8, !tbaa !12
+  %padside = getelementptr inbounds %struct.cellbox, ptr %18, i64 0, i32 11
+  %19 = load i32, ptr %padside, align 8, !tbaa !33
+  %cmp23.not = icmp eq i32 %19, 1
+  br i1 %cmp23.not, label %if.end25, label %for.cond17
 
 if.end25:                                         ; preds = %for.body20
-  %xcenter26 = getelementptr inbounds %struct.cellbox, ptr %19, i64 0, i32 2
-  %21 = load i32, ptr %xcenter26, align 4, !tbaa !14
-  %orient28 = getelementptr inbounds %struct.cellbox, ptr %19, i64 0, i32 5
-  %22 = load i32, ptr %orient28, align 8, !tbaa !18
-  %idxprom29 = sext i32 %22 to i64
-  %arrayidx30 = getelementptr inbounds %struct.cellbox, ptr %19, i64 0, i32 21, i64 %idxprom29
-  %23 = load ptr, ptr %arrayidx30, align 8, !tbaa !12
-  %right31 = getelementptr inbounds %struct.tilebox, ptr %23, i64 0, i32 10
-  %24 = load i32, ptr %right31, align 4, !tbaa !22
-  %add32 = sub i32 %21, %add
-  %sub = add i32 %add32, %24
+  %xcenter26 = getelementptr inbounds %struct.cellbox, ptr %18, i64 0, i32 2
+  %20 = load i32, ptr %xcenter26, align 4, !tbaa !14
+  %orient28 = getelementptr inbounds %struct.cellbox, ptr %18, i64 0, i32 5
+  %21 = load i32, ptr %orient28, align 8, !tbaa !18
+  %idxprom29 = sext i32 %21 to i64
+  %arrayidx30 = getelementptr inbounds %struct.cellbox, ptr %18, i64 0, i32 21, i64 %idxprom29
+  %22 = load ptr, ptr %arrayidx30, align 8, !tbaa !12
+  %right31 = getelementptr inbounds %struct.tilebox, ptr %22, i64 0, i32 10
+  %23 = load i32, ptr %right31, align 4, !tbaa !22
+  %add32 = sub i32 %20, %add
+  %sub = add i32 %add32, %23
   %cmp33 = icmp slt i32 %sub, 1
-  %brmerge = select i1 %cmp33, i1 true, i1 %cmp167.not.not280
-  br i1 %brmerge, label %for.inc187, label %for.body40
+  br i1 %cmp33, label %for.inc187, label %for.body40
 
 for.body40:                                       ; preds = %if.end25, %for.inc
-  %indvars.iv331 = phi i64 [ %indvars.iv.next332, %for.inc ], [ %7, %if.end25 ]
-  %indvars.iv.next332 = add nuw nsw i64 %indvars.iv331, 1
-  %arrayidx42 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next332
-  %25 = load ptr, ptr %arrayidx42, align 8, !tbaa !12
-  %padside43 = getelementptr inbounds %struct.cellbox, ptr %25, i64 0, i32 11
-  %26 = load i32, ptr %padside43, align 8, !tbaa !32
-  %cmp44 = icmp eq i32 %26, 1
+  %indvars.iv334 = phi i64 [ %indvars.iv.next335, %for.inc ], [ %7, %if.end25 ]
+  %arrayidx42 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv334
+  %24 = load ptr, ptr %arrayidx42, align 8, !tbaa !12
+  %padside43 = getelementptr inbounds %struct.cellbox, ptr %24, i64 0, i32 11
+  %25 = load i32, ptr %padside43, align 8, !tbaa !33
+  %cmp44 = icmp eq i32 %25, 1
   br i1 %cmp44, label %if.then45, label %for.inc
 
 if.then45:                                        ; preds = %for.body40
-  %xcenter46 = getelementptr inbounds %struct.cellbox, ptr %25, i64 0, i32 2
-  %27 = load i32, ptr %xcenter46, align 4, !tbaa !14
-  %sub47 = sub nsw i32 %27, %sub
+  %xcenter46 = getelementptr inbounds %struct.cellbox, ptr %24, i64 0, i32 2
+  %26 = load i32, ptr %xcenter46, align 4, !tbaa !14
+  %sub47 = sub nsw i32 %26, %sub
   store i32 %sub47, ptr %xcenter46, align 4, !tbaa !14
   br label %for.inc
 
 for.inc:                                          ; preds = %for.body40, %if.then45
-  %cmp39.not.not = icmp slt i64 %indvars.iv.next332, %8
+  %indvars.iv.next335 = add nsw i64 %indvars.iv334, 1
+  %cmp39.not.not = icmp slt i64 %indvars.iv334, %8
   br i1 %cmp39.not.not, label %for.body40, label %for.inc187, !llvm.loop !34
 
 if.else:                                          ; preds = %if.end
-  br i1 %cmp9.not, label %for.cond55, label %if.else95
+  br i1 %cmp9.not, label %if.then53, label %if.else95
 
-for.cond55:                                       ; preds = %if.else, %for.body58
-  %indvars.iv318 = phi i64 [ %indvars.iv.next319, %for.body58 ], [ %7, %if.else ]
-  %exitcond322.not = icmp eq i64 %indvars.iv318, %wide.trip.count321
-  br i1 %exitcond322.not, label %for.inc187, label %for.body58
+if.then53:                                        ; preds = %if.else
+  br i1 %cmp145.not279, label %for.inc187, label %for.body58
 
-for.body58:                                       ; preds = %for.cond55
-  %indvars.iv.next319 = add nuw nsw i64 %indvars.iv318, 1
-  %arrayidx60 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next319
-  %28 = load ptr, ptr %arrayidx60, align 8, !tbaa !12
-  %padside61 = getelementptr inbounds %struct.cellbox, ptr %28, i64 0, i32 11
-  %29 = load i32, ptr %padside61, align 8, !tbaa !32
-  %cmp62.not = icmp eq i32 %29, 3
-  br i1 %cmp62.not, label %if.end64, label %for.cond55, !llvm.loop !35
+for.cond55:                                       ; preds = %for.body58
+  %indvars.iv.next326 = add nsw i64 %indvars.iv325, 1
+  %cmp57.not.not = icmp slt i64 %indvars.iv325, %8
+  br i1 %cmp57.not.not, label %for.body58, label %for.inc187, !llvm.loop !35
+
+for.body58:                                       ; preds = %if.then53, %for.cond55
+  %indvars.iv325 = phi i64 [ %indvars.iv.next326, %for.cond55 ], [ %7, %if.then53 ]
+  %arrayidx60 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv325
+  %27 = load ptr, ptr %arrayidx60, align 8, !tbaa !12
+  %padside61 = getelementptr inbounds %struct.cellbox, ptr %27, i64 0, i32 11
+  %28 = load i32, ptr %padside61, align 8, !tbaa !33
+  %cmp62.not = icmp eq i32 %28, 3
+  br i1 %cmp62.not, label %if.end64, label %for.cond55
 
 if.end64:                                         ; preds = %for.body58
-  %xcenter65 = getelementptr inbounds %struct.cellbox, ptr %28, i64 0, i32 2
-  %30 = load i32, ptr %xcenter65, align 4, !tbaa !14
-  %orient67 = getelementptr inbounds %struct.cellbox, ptr %28, i64 0, i32 5
-  %31 = load i32, ptr %orient67, align 8, !tbaa !18
-  %idxprom68 = sext i32 %31 to i64
-  %arrayidx69 = getelementptr inbounds %struct.cellbox, ptr %28, i64 0, i32 21, i64 %idxprom68
-  %32 = load ptr, ptr %arrayidx69, align 8, !tbaa !12
-  %left70 = getelementptr inbounds %struct.tilebox, ptr %32, i64 0, i32 9
-  %33 = load i32, ptr %left70, align 8, !tbaa !20
-  %34 = add i32 %30, %33
-  %sub72 = sub i32 %add4, %34
+  %xcenter65 = getelementptr inbounds %struct.cellbox, ptr %27, i64 0, i32 2
+  %29 = load i32, ptr %xcenter65, align 4, !tbaa !14
+  %orient67 = getelementptr inbounds %struct.cellbox, ptr %27, i64 0, i32 5
+  %30 = load i32, ptr %orient67, align 8, !tbaa !18
+  %idxprom68 = sext i32 %30 to i64
+  %arrayidx69 = getelementptr inbounds %struct.cellbox, ptr %27, i64 0, i32 21, i64 %idxprom68
+  %31 = load ptr, ptr %arrayidx69, align 8, !tbaa !12
+  %left70 = getelementptr inbounds %struct.tilebox, ptr %31, i64 0, i32 9
+  %32 = load i32, ptr %left70, align 8, !tbaa !20
+  %33 = add i32 %29, %32
+  %sub72 = sub i32 %add4, %33
   %cmp73 = icmp slt i32 %sub72, 1
-  %brmerge293 = select i1 %cmp73, i1 true, i1 %cmp167.not.not280
-  br i1 %brmerge293, label %for.inc187, label %for.body80
+  br i1 %cmp73, label %for.inc187, label %for.body80
 
 for.body80:                                       ; preds = %if.end64, %for.inc89
-  %indvars.iv323 = phi i64 [ %indvars.iv.next324, %for.inc89 ], [ %7, %if.end64 ]
-  %indvars.iv.next324 = add nuw nsw i64 %indvars.iv323, 1
-  %arrayidx82 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next324
-  %35 = load ptr, ptr %arrayidx82, align 8, !tbaa !12
-  %padside83 = getelementptr inbounds %struct.cellbox, ptr %35, i64 0, i32 11
-  %36 = load i32, ptr %padside83, align 8, !tbaa !32
-  %cmp84 = icmp eq i32 %36, 3
+  %indvars.iv328 = phi i64 [ %indvars.iv.next329, %for.inc89 ], [ %7, %if.end64 ]
+  %arrayidx82 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv328
+  %34 = load ptr, ptr %arrayidx82, align 8, !tbaa !12
+  %padside83 = getelementptr inbounds %struct.cellbox, ptr %34, i64 0, i32 11
+  %35 = load i32, ptr %padside83, align 8, !tbaa !33
+  %cmp84 = icmp eq i32 %35, 3
   br i1 %cmp84, label %if.then85, label %for.inc89
 
 if.then85:                                        ; preds = %for.body80
-  %xcenter86 = getelementptr inbounds %struct.cellbox, ptr %35, i64 0, i32 2
-  %37 = load i32, ptr %xcenter86, align 4, !tbaa !14
-  %add87 = add nsw i32 %37, %sub72
+  %xcenter86 = getelementptr inbounds %struct.cellbox, ptr %34, i64 0, i32 2
+  %36 = load i32, ptr %xcenter86, align 4, !tbaa !14
+  %add87 = add nsw i32 %36, %sub72
   store i32 %add87, ptr %xcenter86, align 4, !tbaa !14
   br label %for.inc89
 
 for.inc89:                                        ; preds = %for.body80, %if.then85
-  %cmp79.not.not = icmp slt i64 %indvars.iv.next324, %8
+  %indvars.iv.next329 = add nsw i64 %indvars.iv328, 1
+  %cmp79.not.not = icmp slt i64 %indvars.iv328, %8
   br i1 %cmp79.not.not, label %for.body80, label %for.inc187, !llvm.loop !36
 
 if.else95:                                        ; preds = %if.else
-  br i1 %cmp11.not, label %for.cond99, label %if.else139
+  br i1 %cmp11.not, label %if.then97, label %if.else139
 
-for.cond99:                                       ; preds = %if.else95, %for.body102
-  %indvars.iv310 = phi i64 [ %indvars.iv.next311, %for.body102 ], [ %7, %if.else95 ]
-  %exitcond314.not = icmp eq i64 %indvars.iv310, %wide.trip.count313
-  br i1 %exitcond314.not, label %for.inc187, label %for.body102
+if.then97:                                        ; preds = %if.else95
+  br i1 %cmp145.not279, label %for.inc187, label %for.body102
 
-for.body102:                                      ; preds = %for.cond99
-  %indvars.iv.next311 = add nuw nsw i64 %indvars.iv310, 1
-  %arrayidx104 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next311
-  %38 = load ptr, ptr %arrayidx104, align 8, !tbaa !12
-  %padside105 = getelementptr inbounds %struct.cellbox, ptr %38, i64 0, i32 11
-  %39 = load i32, ptr %padside105, align 8, !tbaa !32
-  %cmp106.not = icmp eq i32 %39, 4
-  br i1 %cmp106.not, label %if.end108, label %for.cond99, !llvm.loop !37
+for.cond99:                                       ; preds = %for.body102
+  %indvars.iv.next320 = add nsw i64 %indvars.iv319, 1
+  %cmp101.not.not = icmp slt i64 %indvars.iv319, %8
+  br i1 %cmp101.not.not, label %for.body102, label %for.inc187, !llvm.loop !37
+
+for.body102:                                      ; preds = %if.then97, %for.cond99
+  %indvars.iv319 = phi i64 [ %indvars.iv.next320, %for.cond99 ], [ %7, %if.then97 ]
+  %arrayidx104 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv319
+  %37 = load ptr, ptr %arrayidx104, align 8, !tbaa !12
+  %padside105 = getelementptr inbounds %struct.cellbox, ptr %37, i64 0, i32 11
+  %38 = load i32, ptr %padside105, align 8, !tbaa !33
+  %cmp106.not = icmp eq i32 %38, 4
+  br i1 %cmp106.not, label %if.end108, label %for.cond99
 
 if.end108:                                        ; preds = %for.body102
-  %ycenter109 = getelementptr inbounds %struct.cellbox, ptr %38, i64 0, i32 3
-  %40 = load i32, ptr %ycenter109, align 8, !tbaa !17
-  %orient111 = getelementptr inbounds %struct.cellbox, ptr %38, i64 0, i32 5
-  %41 = load i32, ptr %orient111, align 8, !tbaa !18
-  %idxprom112 = sext i32 %41 to i64
-  %arrayidx113 = getelementptr inbounds %struct.cellbox, ptr %38, i64 0, i32 21, i64 %idxprom112
-  %42 = load ptr, ptr %arrayidx113, align 8, !tbaa !12
-  %top114 = getelementptr inbounds %struct.tilebox, ptr %42, i64 0, i32 12
-  %43 = load i32, ptr %top114, align 4, !tbaa !24
-  %add115 = sub i32 %40, %add5
-  %sub116 = add i32 %add115, %43
+  %ycenter109 = getelementptr inbounds %struct.cellbox, ptr %37, i64 0, i32 3
+  %39 = load i32, ptr %ycenter109, align 8, !tbaa !17
+  %orient111 = getelementptr inbounds %struct.cellbox, ptr %37, i64 0, i32 5
+  %40 = load i32, ptr %orient111, align 8, !tbaa !18
+  %idxprom112 = sext i32 %40 to i64
+  %arrayidx113 = getelementptr inbounds %struct.cellbox, ptr %37, i64 0, i32 21, i64 %idxprom112
+  %41 = load ptr, ptr %arrayidx113, align 8, !tbaa !12
+  %top114 = getelementptr inbounds %struct.tilebox, ptr %41, i64 0, i32 12
+  %42 = load i32, ptr %top114, align 4, !tbaa !24
+  %add115 = sub i32 %39, %add5
+  %sub116 = add i32 %add115, %42
   %cmp117 = icmp slt i32 %sub116, 1
-  %brmerge294 = select i1 %cmp117, i1 true, i1 %cmp167.not.not280
-  br i1 %brmerge294, label %for.inc187, label %for.body124
+  br i1 %cmp117, label %for.inc187, label %for.body124
 
 for.body124:                                      ; preds = %if.end108, %for.inc133
-  %indvars.iv315 = phi i64 [ %indvars.iv.next316, %for.inc133 ], [ %7, %if.end108 ]
-  %indvars.iv.next316 = add nuw nsw i64 %indvars.iv315, 1
-  %arrayidx126 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next316
-  %44 = load ptr, ptr %arrayidx126, align 8, !tbaa !12
-  %padside127 = getelementptr inbounds %struct.cellbox, ptr %44, i64 0, i32 11
-  %45 = load i32, ptr %padside127, align 8, !tbaa !32
-  %cmp128 = icmp eq i32 %45, 4
+  %indvars.iv322 = phi i64 [ %indvars.iv.next323, %for.inc133 ], [ %7, %if.end108 ]
+  %arrayidx126 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv322
+  %43 = load ptr, ptr %arrayidx126, align 8, !tbaa !12
+  %padside127 = getelementptr inbounds %struct.cellbox, ptr %43, i64 0, i32 11
+  %44 = load i32, ptr %padside127, align 8, !tbaa !33
+  %cmp128 = icmp eq i32 %44, 4
   br i1 %cmp128, label %if.then129, label %for.inc133
 
 if.then129:                                       ; preds = %for.body124
-  %ycenter130 = getelementptr inbounds %struct.cellbox, ptr %44, i64 0, i32 3
-  %46 = load i32, ptr %ycenter130, align 8, !tbaa !17
-  %sub131 = sub nsw i32 %46, %sub116
+  %ycenter130 = getelementptr inbounds %struct.cellbox, ptr %43, i64 0, i32 3
+  %45 = load i32, ptr %ycenter130, align 8, !tbaa !17
+  %sub131 = sub nsw i32 %45, %sub116
   store i32 %sub131, ptr %ycenter130, align 8, !tbaa !17
   br label %for.inc133
 
 for.inc133:                                       ; preds = %for.body124, %if.then129
-  %cmp123.not.not = icmp slt i64 %indvars.iv.next316, %8
+  %indvars.iv.next323 = add nsw i64 %indvars.iv322, 1
+  %cmp123.not.not = icmp slt i64 %indvars.iv322, %8
   br i1 %cmp123.not.not, label %for.body124, label %for.inc187, !llvm.loop !38
 
 if.else139:                                       ; preds = %if.else95
-  br i1 %cmp13.not, label %for.cond143, label %for.inc187
+  %cmp140 = icmp sle i32 %add7, %5
+  %brmerge299 = select i1 %cmp140, i1 true, i1 %cmp145.not279
+  br i1 %brmerge299, label %for.inc187, label %for.body146
 
-for.cond143:                                      ; preds = %if.else139, %for.body146
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body146 ], [ %7, %if.else139 ]
-  %exitcond.not = icmp eq i64 %indvars.iv, %wide.trip.count
-  br i1 %exitcond.not, label %for.inc187, label %for.body146
+for.cond143:                                      ; preds = %for.body146
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %cmp145.not.not = icmp slt i64 %indvars.iv, %8
+  br i1 %cmp145.not.not, label %for.body146, label %for.inc187, !llvm.loop !39
 
-for.body146:                                      ; preds = %for.cond143
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %arrayidx148 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next
-  %47 = load ptr, ptr %arrayidx148, align 8, !tbaa !12
-  %padside149 = getelementptr inbounds %struct.cellbox, ptr %47, i64 0, i32 11
-  %48 = load i32, ptr %padside149, align 8, !tbaa !32
-  %cmp150.not = icmp eq i32 %48, 2
-  br i1 %cmp150.not, label %if.end152, label %for.cond143, !llvm.loop !39
+for.body146:                                      ; preds = %if.else139, %for.cond143
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.cond143 ], [ %7, %if.else139 ]
+  %arrayidx148 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv
+  %46 = load ptr, ptr %arrayidx148, align 8, !tbaa !12
+  %padside149 = getelementptr inbounds %struct.cellbox, ptr %46, i64 0, i32 11
+  %47 = load i32, ptr %padside149, align 8, !tbaa !33
+  %cmp150.not = icmp eq i32 %47, 2
+  br i1 %cmp150.not, label %if.end152, label %for.cond143
 
 if.end152:                                        ; preds = %for.body146
-  %ycenter153 = getelementptr inbounds %struct.cellbox, ptr %47, i64 0, i32 3
-  %49 = load i32, ptr %ycenter153, align 8, !tbaa !17
-  %orient155 = getelementptr inbounds %struct.cellbox, ptr %47, i64 0, i32 5
-  %50 = load i32, ptr %orient155, align 8, !tbaa !18
-  %idxprom156 = sext i32 %50 to i64
-  %arrayidx157 = getelementptr inbounds %struct.cellbox, ptr %47, i64 0, i32 21, i64 %idxprom156
-  %51 = load ptr, ptr %arrayidx157, align 8, !tbaa !12
-  %bottom158 = getelementptr inbounds %struct.tilebox, ptr %51, i64 0, i32 11
-  %52 = load i32, ptr %bottom158, align 8, !tbaa !23
-  %53 = add i32 %49, %52
-  %sub160 = sub i32 %add7, %53
+  %ycenter153 = getelementptr inbounds %struct.cellbox, ptr %46, i64 0, i32 3
+  %48 = load i32, ptr %ycenter153, align 8, !tbaa !17
+  %orient155 = getelementptr inbounds %struct.cellbox, ptr %46, i64 0, i32 5
+  %49 = load i32, ptr %orient155, align 8, !tbaa !18
+  %idxprom156 = sext i32 %49 to i64
+  %arrayidx157 = getelementptr inbounds %struct.cellbox, ptr %46, i64 0, i32 21, i64 %idxprom156
+  %50 = load ptr, ptr %arrayidx157, align 8, !tbaa !12
+  %bottom158 = getelementptr inbounds %struct.tilebox, ptr %50, i64 0, i32 11
+  %51 = load i32, ptr %bottom158, align 8, !tbaa !23
+  %52 = add i32 %48, %51
+  %sub160 = sub i32 %add7, %52
   %cmp161 = icmp slt i32 %sub160, 1
-  %brmerge295 = select i1 %cmp161, i1 true, i1 %cmp167.not.not280
-  br i1 %brmerge295, label %for.inc187, label %for.body168
+  br i1 %cmp161, label %for.inc187, label %for.body168
 
 for.body168:                                      ; preds = %if.end152, %for.inc177
-  %indvars.iv307 = phi i64 [ %indvars.iv.next308, %for.inc177 ], [ %7, %if.end152 ]
-  %indvars.iv.next308 = add nuw nsw i64 %indvars.iv307, 1
-  %arrayidx170 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next308
-  %54 = load ptr, ptr %arrayidx170, align 8, !tbaa !12
-  %padside171 = getelementptr inbounds %struct.cellbox, ptr %54, i64 0, i32 11
-  %55 = load i32, ptr %padside171, align 8, !tbaa !32
-  %cmp172 = icmp eq i32 %55, 2
+  %indvars.iv316 = phi i64 [ %indvars.iv.next317, %for.inc177 ], [ %7, %if.end152 ]
+  %arrayidx170 = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv316
+  %53 = load ptr, ptr %arrayidx170, align 8, !tbaa !12
+  %padside171 = getelementptr inbounds %struct.cellbox, ptr %53, i64 0, i32 11
+  %54 = load i32, ptr %padside171, align 8, !tbaa !33
+  %cmp172 = icmp eq i32 %54, 2
   br i1 %cmp172, label %if.then173, label %for.inc177
 
 if.then173:                                       ; preds = %for.body168
-  %ycenter174 = getelementptr inbounds %struct.cellbox, ptr %54, i64 0, i32 3
-  %56 = load i32, ptr %ycenter174, align 8, !tbaa !17
-  %add175 = add nsw i32 %56, %sub160
+  %ycenter174 = getelementptr inbounds %struct.cellbox, ptr %53, i64 0, i32 3
+  %55 = load i32, ptr %ycenter174, align 8, !tbaa !17
+  %add175 = add nsw i32 %55, %sub160
   store i32 %add175, ptr %ycenter174, align 8, !tbaa !17
   br label %for.inc177
 
 for.inc177:                                       ; preds = %for.body168, %if.then173
-  %cmp167.not.not = icmp slt i64 %indvars.iv.next308, %8
+  %indvars.iv.next317 = add nsw i64 %indvars.iv316, 1
+  %cmp167.not.not = icmp slt i64 %indvars.iv316, %8
   br i1 %cmp167.not.not, label %for.body168, label %for.inc187, !llvm.loop !40
 
-for.inc187:                                       ; preds = %for.cond143, %for.inc177, %for.cond99, %for.inc133, %for.cond55, %for.inc89, %for.cond17, %for.inc, %if.end152, %if.end108, %if.end64, %if.end25, %for.body, %if.else139
-  %indvars.iv.next335 = add nuw nsw i64 %indvars.iv334, 1
-  %exitcond338.not = icmp eq i64 %indvars.iv.next335, %wide.trip.count337
-  br i1 %exitcond338.not, label %for.end189, label %for.body, !llvm.loop !41
+for.inc187:                                       ; preds = %for.cond143, %for.inc177, %for.cond99, %for.inc133, %for.cond55, %for.inc89, %for.cond17, %for.inc, %if.end152, %if.else139, %if.end108, %if.end64, %if.end25, %if.then97, %if.then53, %if.then15, %for.body
+  %indvars.iv.next338 = add nuw nsw i64 %indvars.iv337, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next338, %wide.trip.count
+  br i1 %exitcond.not, label %for.end189, label %for.body, !llvm.loop !41
 
 for.end189:                                       ; preds = %for.inc187, %entry
   ret void
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #4
+declare i32 @llvm.smax.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
+declare i32 @llvm.smin.i32(i32, i32) #4
 
 attributes #0 = { nofree nounwind memory(readwrite, inaccessiblemem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(readwrite, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #3 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #5 = { nounwind }
 
@@ -895,8 +897,8 @@ attributes #5 = { nounwind }
 !29 = distinct !{!29, !10}
 !30 = distinct !{!30, !10}
 !31 = distinct !{!31, !10}
-!32 = !{!15, !6, i64 80}
-!33 = distinct !{!33, !10}
+!32 = distinct !{!32, !10}
+!33 = !{!15, !6, i64 80}
 !34 = distinct !{!34, !10}
 !35 = distinct !{!35, !10}
 !36 = distinct !{!36, !10}

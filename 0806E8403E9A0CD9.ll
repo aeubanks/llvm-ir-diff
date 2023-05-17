@@ -42,11 +42,11 @@ for.body:                                         ; preds = %entry, %for.body
   %arrayidx11 = getelementptr inbounds %struct.hypre_Box_struct, ptr %7, i64 %indvars.iv
   %8 = load i32, ptr %arrayidx11, align 4, !tbaa !17
   store i32 %8, ptr %6, align 4, !tbaa !17
-  %arrayidx19 = getelementptr inbounds %struct.hypre_Box_struct, ptr %7, i64 %indvars.iv, i32 0, i64 1
+  %arrayidx19 = getelementptr inbounds [3 x i32], ptr %arrayidx11, i64 0, i64 1
   %9 = load i32, ptr %arrayidx19, align 4, !tbaa !17
   %arrayidx21 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 1
   store i32 %9, ptr %arrayidx21, align 4, !tbaa !17
-  %arrayidx26 = getelementptr inbounds %struct.hypre_Box_struct, ptr %7, i64 %indvars.iv, i32 0, i64 2
+  %arrayidx26 = getelementptr inbounds [3 x i32], ptr %arrayidx11, i64 0, i64 2
   %10 = load i32, ptr %arrayidx26, align 4, !tbaa !17
   %arrayidx28 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 2
   store i32 %10, ptr %arrayidx28, align 4, !tbaa !17

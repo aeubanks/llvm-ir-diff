@@ -4,6 +4,7 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 @e = dso_local local_unnamed_addr global i8 0, align 1
+@__const.main.c = private unnamed_addr constant [2 x i8] c"T\87", align 1
 
 ; Function Attrs: noinline nounwind uwtable
 define dso_local void @bar(i8 noundef signext %x) local_unnamed_addr #0 {
@@ -14,7 +15,7 @@ entry:
   ]
 
 if.then:                                          ; preds = %entry
-  tail call void @abort() #5
+  tail call void @abort() #4
   unreachable
 
 if.end:                                           ; preds = %entry, %entry
@@ -40,14 +41,8 @@ if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
-; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
-
-; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
-
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind willreturn memory(write, argmem: read, inaccessiblemem: none) uwtable
-define dso_local void @baz(ptr nocapture noundef readonly %x) local_unnamed_addr #3 {
+define dso_local void @baz(ptr nocapture noundef readonly %x) local_unnamed_addr #2 {
 entry:
   %0 = load i8, ptr %x, align 1, !tbaa !5
   %cmp = icmp slt i8 %0, 0
@@ -62,65 +57,58 @@ if.end:                                           ; preds = %if.then, %entry
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main() local_unnamed_addr #4 {
+define dso_local i32 @main() local_unnamed_addr #3 {
 entry:
-  %c = alloca [2 x i8], align 2
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %c) #6
-  store i16 -30892, ptr %c, align 2
   store i8 33, ptr @e, align 1, !tbaa !5
-  call void @foo(ptr noundef nonnull %c)
+  tail call void @foo(ptr noundef nonnull @__const.main.c)
   %0 = load i8, ptr @e, align 1, !tbaa !5
   %cmp.not = icmp eq i8 %0, 33
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
-  tail call void @abort() #5
+  tail call void @abort() #4
   unreachable
 
 if.end:                                           ; preds = %entry
-  %add.ptr = getelementptr inbounds i8, ptr %c, i64 1
-  call void @foo(ptr noundef nonnull %add.ptr)
+  tail call void @foo(ptr noundef nonnull getelementptr inbounds ([2 x i8], ptr @__const.main.c, i64 0, i64 1))
   %1 = load i8, ptr @e, align 1, !tbaa !5
   %cmp4.not = icmp eq i8 %1, -121
   br i1 %cmp4.not, label %if.end7, label %if.then6
 
 if.then6:                                         ; preds = %if.end
-  tail call void @abort() #5
+  tail call void @abort() #4
   unreachable
 
 if.end7:                                          ; preds = %if.end
   store i8 33, ptr @e, align 1, !tbaa !5
-  call void @baz(ptr noundef nonnull %c)
+  tail call void @baz(ptr noundef nonnull @__const.main.c)
   %2 = load i8, ptr @e, align 1, !tbaa !5
   %cmp10.not = icmp eq i8 %2, 33
   br i1 %cmp10.not, label %if.end13, label %if.then12
 
 if.then12:                                        ; preds = %if.end7
-  tail call void @abort() #5
+  tail call void @abort() #4
   unreachable
 
 if.end13:                                         ; preds = %if.end7
-  call void @baz(ptr noundef nonnull %add.ptr)
+  tail call void @baz(ptr noundef nonnull getelementptr inbounds ([2 x i8], ptr @__const.main.c, i64 0, i64 1))
   %3 = load i8, ptr @e, align 1, !tbaa !5
   %cmp17.not = icmp eq i8 %3, -121
   br i1 %cmp17.not, label %if.end20, label %if.then19
 
 if.then19:                                        ; preds = %if.end13
-  tail call void @abort() #5
+  tail call void @abort() #4
   unreachable
 
 if.end20:                                         ; preds = %if.end13
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %c) #6
   ret i32 0
 }
 
 attributes #0 = { noinline nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #3 = { mustprogress nofree noinline norecurse nosync nounwind willreturn memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { noreturn nounwind }
-attributes #6 = { nounwind }
+attributes #2 = { mustprogress nofree noinline norecurse nosync nounwind willreturn memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

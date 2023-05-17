@@ -88,34 +88,34 @@ if.end:                                           ; preds = %if.then, %entry
   %conv26 = zext i8 %12 to i32
   %shl27 = shl nuw nsw i32 %conv26, 8
   %add28 = or i32 %shl27, %conv24
-  %13 = lshr i8 %spec.store.select, 3
-  %shr = zext i8 %13 to i32
+  %conv30 = zext i8 %spec.store.select to i32
+  %shr = lshr i32 %conv30, 3
   %pixel_size = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 7
   store i32 %shr, ptr %pixel_size, align 4, !tbaa !27
   %arrayidx31 = getelementptr inbounds [18 x i8], ptr %targaheader, i64 0, i64 17
-  %14 = load i8, ptr %arrayidx31, align 1, !tbaa !26
-  %15 = and i8 %14, 32
-  %cmp33 = icmp eq i8 %15, 0
+  %13 = load i8, ptr %arrayidx31, align 1, !tbaa !26
+  %14 = and i8 %13, 32
+  %cmp33 = icmp eq i8 %14, 0
   %cmp36 = icmp ugt i8 %5, 1
   %cmp39 = icmp ult i8 %spec.store.select, 8
-  %or.cond295 = select i1 %cmp36, i1 true, i1 %cmp39
+  %or.cond298 = select i1 %cmp36, i1 true, i1 %cmp39
   %cmp43 = icmp ugt i8 %spec.store.select, 39
-  %or.cond296 = select i1 %or.cond295, i1 true, i1 %cmp43
-  br i1 %or.cond296, label %if.then54, label %lor.lhs.false45
+  %or.cond299 = select i1 %or.cond298, i1 true, i1 %cmp43
+  br i1 %or.cond299, label %if.then54, label %lor.lhs.false45
 
 lor.lhs.false45:                                  ; preds = %if.end
-  %16 = and i8 %spec.store.select, 7
-  %cmp49 = icmp ne i8 %16, 0
-  %cmp52 = icmp ugt i8 %14, 63
+  %and48 = and i32 %conv30, 7
+  %cmp49 = icmp ne i32 %and48, 0
+  %cmp52 = icmp ugt i8 %13, 63
   %or.cond = select i1 %cmp49, i1 true, i1 %cmp52
   br i1 %or.cond, label %if.then54, label %if.end59
 
 if.then54:                                        ; preds = %lor.lhs.false45, %if.end
-  %17 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code56 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %17, i64 0, i32 5
+  %15 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code56 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %15, i64 0, i32 5
   store i32 1033, ptr %msg_code56, align 8, !tbaa !23
-  %18 = load ptr, ptr %17, align 8, !tbaa !25
-  tail call void %18(ptr noundef nonnull %cinfo) #5
+  %16 = load ptr, ptr %15, align 8, !tbaa !25
+  tail call void %16(ptr noundef nonnull %cinfo) #5
   br label %if.end59
 
 if.end59:                                         ; preds = %lor.lhs.false45, %if.then54
@@ -133,8 +133,8 @@ if.then62:                                        ; preds = %if.end59
 if.end64:                                         ; preds = %if.end59, %if.then62
   %read_non_rle_pixel.sink = phi ptr [ @read_rle_pixel, %if.then62 ], [ @read_non_rle_pixel, %if.end59 ]
   %subtype.0 = phi i32 [ %sub, %if.then62 ], [ %conv12, %if.end59 ]
-  %19 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 5
-  store ptr %read_non_rle_pixel.sink, ptr %19, align 8
+  %17 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 5
+  store ptr %read_non_rle_pixel.sink, ptr %17, align 8
   %in_color_space = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 9
   store i32 2, ptr %in_color_space, align 4, !tbaa !30
   switch i32 %subtype.0, label %sw.default130 [
@@ -144,8 +144,8 @@ if.end64:                                         ; preds = %if.end59, %if.then6
   ]
 
 sw.bb:                                            ; preds = %if.end64
-  %20 = load i32, ptr %pixel_size, align 4, !tbaa !27
-  %cmp66 = icmp eq i32 %20, 1
+  %18 = load i32, ptr %pixel_size, align 4, !tbaa !27
+  %cmp66 = icmp eq i32 %18, 1
   %cmp68 = icmp eq i8 %5, 1
   %or.cond196 = select i1 %cmp66, i1 %cmp68, i1 false
   br i1 %or.cond196, label %if.then70, label %if.else71
@@ -156,31 +156,31 @@ if.then70:                                        ; preds = %sw.bb
   br label %if.end76
 
 if.else71:                                        ; preds = %sw.bb
-  %21 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code73 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %21, i64 0, i32 5
+  %19 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code73 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %19, i64 0, i32 5
   store i32 1033, ptr %msg_code73, align 8, !tbaa !23
-  %22 = load ptr, ptr %21, align 8, !tbaa !25
-  tail call void %22(ptr noundef nonnull %cinfo) #5
+  %20 = load ptr, ptr %19, align 8, !tbaa !25
+  tail call void %20(ptr noundef nonnull %cinfo) #5
   br label %if.end76
 
 if.end76:                                         ; preds = %if.else71, %if.then70
-  %23 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code78 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %23, i64 0, i32 5
+  %21 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code78 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %21, i64 0, i32 5
   store i32 1037, ptr %msg_code78, align 8, !tbaa !23
-  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %23, i64 0, i32 6
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %21, i64 0, i32 6
   store i32 %add22, ptr %msg_parm, align 4, !tbaa !26
-  %24 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %arrayidx83 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %24, i64 0, i32 6, i32 0, i64 1
+  %22 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %arrayidx83 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %22, i64 0, i32 6, i32 0, i64 1
   store i32 %add28, ptr %arrayidx83, align 4, !tbaa !26
-  %25 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %emit_message = getelementptr inbounds %struct.jpeg_error_mgr, ptr %25, i64 0, i32 1
-  %26 = load ptr, ptr %emit_message, align 8, !tbaa !32
-  tail call void %26(ptr noundef nonnull %cinfo, i32 noundef 1) #5
+  %23 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %emit_message = getelementptr inbounds %struct.jpeg_error_mgr, ptr %23, i64 0, i32 1
+  %24 = load ptr, ptr %emit_message, align 8, !tbaa !32
+  tail call void %24(ptr noundef nonnull %cinfo, i32 noundef 1) #5
   br label %sw.epilog135
 
 sw.bb85:                                          ; preds = %if.end64
-  %27 = load i32, ptr %pixel_size, align 4, !tbaa !27
-  switch i32 %27, label %sw.default [
+  %25 = load i32, ptr %pixel_size, align 4, !tbaa !27
+  switch i32 %25, label %sw.default [
     i32 2, label %sw.bb87
     i32 3, label %sw.bb89
     i32 4, label %sw.bb91
@@ -202,32 +202,32 @@ sw.bb91:                                          ; preds = %sw.bb85
   br label %sw.epilog
 
 sw.default:                                       ; preds = %sw.bb85
-  %28 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code94 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %28, i64 0, i32 5
+  %26 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code94 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %26, i64 0, i32 5
   store i32 1033, ptr %msg_code94, align 8, !tbaa !23
-  %29 = load ptr, ptr %28, align 8, !tbaa !25
-  tail call void %29(ptr noundef nonnull %cinfo) #5
+  %27 = load ptr, ptr %26, align 8, !tbaa !25
+  tail call void %27(ptr noundef nonnull %cinfo) #5
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %sw.default, %sw.bb91, %sw.bb89, %sw.bb87
-  %30 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code98 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %30, i64 0, i32 5
+  %28 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code98 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %28, i64 0, i32 5
   store i32 1035, ptr %msg_code98, align 8, !tbaa !23
-  %msg_parm100 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %30, i64 0, i32 6
+  %msg_parm100 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %28, i64 0, i32 6
   store i32 %add22, ptr %msg_parm100, align 4, !tbaa !26
-  %31 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %arrayidx104 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %31, i64 0, i32 6, i32 0, i64 1
+  %29 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %arrayidx104 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %29, i64 0, i32 6, i32 0, i64 1
   store i32 %add28, ptr %arrayidx104, align 4, !tbaa !26
-  %32 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %emit_message106 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %32, i64 0, i32 1
-  %33 = load ptr, ptr %emit_message106, align 8, !tbaa !32
-  tail call void %33(ptr noundef nonnull %cinfo, i32 noundef 1) #5
+  %30 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %emit_message106 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %30, i64 0, i32 1
+  %31 = load ptr, ptr %emit_message106, align 8, !tbaa !32
+  tail call void %31(ptr noundef nonnull %cinfo, i32 noundef 1) #5
   br label %sw.epilog135
 
 sw.bb107:                                         ; preds = %if.end64
   store i32 1, ptr %in_color_space, align 4, !tbaa !30
-  %34 = load i32, ptr %pixel_size, align 4, !tbaa !27
-  %cmp110 = icmp eq i32 %34, 1
+  %32 = load i32, ptr %pixel_size, align 4, !tbaa !27
+  %cmp110 = icmp eq i32 %32, 1
   br i1 %cmp110, label %if.then112, label %if.else114
 
 if.then112:                                       ; preds = %sw.bb107
@@ -236,34 +236,34 @@ if.then112:                                       ; preds = %sw.bb107
   br label %if.end119
 
 if.else114:                                       ; preds = %sw.bb107
-  %35 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code116 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %35, i64 0, i32 5
+  %33 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code116 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %33, i64 0, i32 5
   store i32 1033, ptr %msg_code116, align 8, !tbaa !23
-  %36 = load ptr, ptr %35, align 8, !tbaa !25
-  tail call void %36(ptr noundef nonnull %cinfo) #5
+  %34 = load ptr, ptr %33, align 8, !tbaa !25
+  tail call void %34(ptr noundef nonnull %cinfo) #5
   br label %if.end119
 
 if.end119:                                        ; preds = %if.else114, %if.then112
-  %37 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code121 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
+  %35 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code121 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %35, i64 0, i32 5
   store i32 1036, ptr %msg_code121, align 8, !tbaa !23
-  %msg_parm123 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 6
+  %msg_parm123 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %35, i64 0, i32 6
   store i32 %add22, ptr %msg_parm123, align 4, !tbaa !26
-  %38 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %arrayidx127 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %38, i64 0, i32 6, i32 0, i64 1
+  %36 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %arrayidx127 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %36, i64 0, i32 6, i32 0, i64 1
   store i32 %add28, ptr %arrayidx127, align 4, !tbaa !26
-  %39 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %emit_message129 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %39, i64 0, i32 1
-  %40 = load ptr, ptr %emit_message129, align 8, !tbaa !32
-  tail call void %40(ptr noundef nonnull %cinfo, i32 noundef 1) #5
+  %37 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %emit_message129 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 1
+  %38 = load ptr, ptr %emit_message129, align 8, !tbaa !32
+  tail call void %38(ptr noundef nonnull %cinfo, i32 noundef 1) #5
   br label %sw.epilog135
 
 sw.default130:                                    ; preds = %if.end64
-  %41 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code132 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %41, i64 0, i32 5
+  %39 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code132 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %39, i64 0, i32 5
   store i32 1033, ptr %msg_code132, align 8, !tbaa !23
-  %42 = load ptr, ptr %41, align 8, !tbaa !25
-  tail call void %42(ptr noundef nonnull %cinfo) #5
+  %40 = load ptr, ptr %39, align 8, !tbaa !25
+  tail call void %40(ptr noundef nonnull %cinfo) #5
   br label %sw.epilog135
 
 sw.epilog135:                                     ; preds = %sw.default130, %if.end119, %sw.epilog, %if.end76
@@ -272,22 +272,22 @@ sw.epilog135:                                     ; preds = %sw.default130, %if.
 
 if.then136:                                       ; preds = %sw.epilog135
   %mem = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 1
-  %43 = load ptr, ptr %mem, align 8, !tbaa !5
-  %request_virt_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %43, i64 0, i32 4
-  %44 = load ptr, ptr %request_virt_sarray, align 8, !tbaa !33
+  %41 = load ptr, ptr %mem, align 8, !tbaa !5
+  %request_virt_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %41, i64 0, i32 4
+  %42 = load ptr, ptr %request_virt_sarray, align 8, !tbaa !33
   %mul = mul nuw nsw i32 %components.0, %add22
-  %call137 = tail call ptr %44(ptr noundef nonnull %cinfo, i32 noundef 1, i32 noundef 0, i32 noundef %mul, i32 noundef %add28, i32 noundef 1) #5
+  %call137 = tail call ptr %42(ptr noundef nonnull %cinfo, i32 noundef 1, i32 noundef 0, i32 noundef %mul, i32 noundef %add28, i32 noundef 1) #5
   %whole_image = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 3
   store ptr %call137, ptr %whole_image, align 8, !tbaa !34
   %progress = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 2
-  %45 = load ptr, ptr %progress, align 8, !tbaa !35
-  %cmp138.not = icmp eq ptr %45, null
+  %43 = load ptr, ptr %progress, align 8, !tbaa !35
+  %cmp138.not = icmp eq ptr %43, null
   br i1 %cmp138.not, label %if.end143, label %if.then140
 
 if.then140:                                       ; preds = %if.then136
-  %total_extra_passes = getelementptr inbounds %struct.cdjpeg_progress_mgr, ptr %45, i64 0, i32 2
-  %46 = load i32, ptr %total_extra_passes, align 4, !tbaa !36
-  %inc = add nsw i32 %46, 1
+  %total_extra_passes = getelementptr inbounds %struct.cdjpeg_progress_mgr, ptr %43, i64 0, i32 2
+  %44 = load i32, ptr %total_extra_passes, align 4, !tbaa !36
+  %inc = add nsw i32 %44, 1
   store i32 %inc, ptr %total_extra_passes, align 4, !tbaa !36
   br label %if.end143
 
@@ -300,49 +300,49 @@ if.else147:                                       ; preds = %sw.epilog135
   %whole_image148 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 3
   store ptr null, ptr %whole_image148, align 8, !tbaa !34
   %mem149 = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 1
-  %47 = load ptr, ptr %mem149, align 8, !tbaa !5
-  %alloc_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %47, i64 0, i32 2
-  %48 = load ptr, ptr %alloc_sarray, align 8, !tbaa !40
+  %45 = load ptr, ptr %mem149, align 8, !tbaa !5
+  %alloc_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %45, i64 0, i32 2
+  %46 = load ptr, ptr %alloc_sarray, align 8, !tbaa !40
   %mul150 = mul nuw nsw i32 %components.0, %add22
-  %call151 = tail call ptr %48(ptr noundef nonnull %cinfo, i32 noundef 1, i32 noundef %mul150, i32 noundef 1) #5
+  %call151 = tail call ptr %46(ptr noundef nonnull %cinfo, i32 noundef 1, i32 noundef %mul150, i32 noundef 1) #5
   %buffer = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 4
   store ptr %call151, ptr %buffer, align 8, !tbaa !41
   %buffer_height154 = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 5
   store i32 1, ptr %buffer_height154, align 8, !tbaa !39
   %get_pixel_rows155 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 10
-  %49 = load ptr, ptr %get_pixel_rows155, align 8, !tbaa !31
+  %47 = load ptr, ptr %get_pixel_rows155, align 8, !tbaa !31
   br label %if.end158
 
 if.end158:                                        ; preds = %if.else147, %if.end143
-  %.sink = phi ptr [ %49, %if.else147 ], [ @preload_image, %if.end143 ]
+  %.sink = phi ptr [ %47, %if.else147 ], [ @preload_image, %if.end143 ]
   %get_pixel_rows157 = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 1
   store ptr %.sink, ptr %get_pixel_rows157, align 8, !tbaa !42
-  %tobool159.not302 = icmp eq i8 %4, 0
-  br i1 %tobool159.not302, label %while.end, label %while.body.lr.ph
+  %tobool159.not303 = icmp eq i8 %4, 0
+  br i1 %tobool159.not303, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %if.end158
   %cinfo.i = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %read_byte.exit
-  %idlen.0303 = phi i32 [ %conv8, %while.body.lr.ph ], [ %dec, %read_byte.exit ]
-  %dec = add nsw i32 %idlen.0303, -1
-  %50 = load ptr, ptr %input_file, align 8, !tbaa !21
-  %call.i = tail call i32 @getc(ptr noundef %50)
+  %dec304.in = phi i32 [ %conv8, %while.body.lr.ph ], [ %dec304, %read_byte.exit ]
+  %dec304 = add nsw i32 %dec304.in, -1
+  %48 = load ptr, ptr %input_file, align 8, !tbaa !21
+  %call.i = tail call i32 @getc(ptr noundef %48)
   %cmp.i = icmp eq i32 %call.i, -1
   br i1 %cmp.i, label %if.then.i, label %read_byte.exit
 
 if.then.i:                                        ; preds = %while.body
-  %51 = load ptr, ptr %cinfo.i, align 8, !tbaa !16
-  %52 = load ptr, ptr %51, align 8, !tbaa !22
-  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %52, i64 0, i32 5
+  %49 = load ptr, ptr %cinfo.i, align 8, !tbaa !16
+  %50 = load ptr, ptr %49, align 8, !tbaa !22
+  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %50, i64 0, i32 5
   store i32 42, ptr %msg_code.i, align 8, !tbaa !23
-  %53 = load ptr, ptr %52, align 8, !tbaa !25
-  tail call void %53(ptr noundef nonnull %51) #5
+  %51 = load ptr, ptr %50, align 8, !tbaa !25
+  tail call void %51(ptr noundef nonnull %49) #5
   br label %read_byte.exit
 
 read_byte.exit:                                   ; preds = %while.body, %if.then.i
-  %tobool159.not = icmp eq i32 %dec, 0
+  %tobool159.not = icmp eq i32 %dec304, 0
   br i1 %tobool159.not, label %while.end, label %while.body, !llvm.loop !43
 
 while.end:                                        ; preds = %read_byte.exit, %if.end158
@@ -352,110 +352,110 @@ while.end:                                        ; preds = %read_byte.exit, %if
 if.then163:                                       ; preds = %while.end
   %cmp164 = icmp ult i32 %add, 257
   %arrayidx167 = getelementptr inbounds [18 x i8], ptr %targaheader, i64 0, i64 3
-  %54 = load i16, ptr %arrayidx167, align 1
-  %cmp173.not = icmp eq i16 %54, 0
+  %52 = load i16, ptr %arrayidx167, align 1
+  %cmp173.not = icmp eq i16 %52, 0
   %or.cond301 = select i1 %cmp164, i1 %cmp173.not, i1 false
   br i1 %or.cond301, label %if.end180, label %if.then175
 
 if.then175:                                       ; preds = %if.then163
-  %55 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code177 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %55, i64 0, i32 5
+  %53 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code177 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %53, i64 0, i32 5
   store i32 1032, ptr %msg_code177, align 8, !tbaa !23
-  %56 = load ptr, ptr %55, align 8, !tbaa !25
-  tail call void %56(ptr noundef nonnull %cinfo) #5
+  %54 = load ptr, ptr %53, align 8, !tbaa !25
+  tail call void %54(ptr noundef nonnull %cinfo) #5
   br label %if.end180
 
 if.end180:                                        ; preds = %if.then163, %if.then175
   %mem181 = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 1
-  %57 = load ptr, ptr %mem181, align 8, !tbaa !5
-  %alloc_sarray182 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %57, i64 0, i32 2
-  %58 = load ptr, ptr %alloc_sarray182, align 8, !tbaa !40
-  %call183 = tail call ptr %58(ptr noundef %cinfo, i32 noundef 1, i32 noundef %add, i32 noundef 3) #5
+  %55 = load ptr, ptr %mem181, align 8, !tbaa !5
+  %alloc_sarray182 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %55, i64 0, i32 2
+  %56 = load ptr, ptr %alloc_sarray182, align 8, !tbaa !40
+  %call183 = tail call ptr %56(ptr noundef %cinfo, i32 noundef 1, i32 noundef %add, i32 noundef 3) #5
   %colormap = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 2
   store ptr %call183, ptr %colormap, align 8, !tbaa !45
   %arrayidx184 = getelementptr inbounds [18 x i8], ptr %targaheader, i64 0, i64 7
-  %59 = load i8, ptr %arrayidx184, align 1, !tbaa !26
-  %cmp.not.i = icmp eq i8 %59, 24
-  br i1 %cmp.not.i, label %for.body.lr.ph.i, label %if.then.i299
+  %57 = load i8, ptr %arrayidx184, align 1, !tbaa !26
+  %cmp.not.i = icmp eq i8 %57, 24
+  br i1 %cmp.not.i, label %for.body.lr.ph.i, label %if.then.i297
 
-if.then.i299:                                     ; preds = %if.end180
-  %cinfo.i297 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
-  %60 = load ptr, ptr %cinfo.i297, align 8, !tbaa !16
-  %61 = load ptr, ptr %60, align 8, !tbaa !22
-  %msg_code.i298 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %61, i64 0, i32 5
-  store i32 1032, ptr %msg_code.i298, align 8, !tbaa !23
-  %62 = load ptr, ptr %61, align 8, !tbaa !25
-  tail call void %62(ptr noundef nonnull %60) #5
+if.then.i297:                                     ; preds = %if.end180
+  %cinfo.i295 = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
+  %58 = load ptr, ptr %cinfo.i295, align 8, !tbaa !16
+  %59 = load ptr, ptr %58, align 8, !tbaa !22
+  %msg_code.i296 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %59, i64 0, i32 5
+  store i32 1032, ptr %msg_code.i296, align 8, !tbaa !23
+  %60 = load ptr, ptr %59, align 8, !tbaa !25
+  tail call void %60(ptr noundef nonnull %58) #5
   br label %for.body.lr.ph.i
 
-for.body.lr.ph.i:                                 ; preds = %if.end180, %if.then.i299
+for.body.lr.ph.i:                                 ; preds = %if.end180, %if.then.i297
   %cinfo.i.i = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 1
   %wide.trip.count.i = zext i32 %add to i64
   br label %for.body.i
 
 for.body.i:                                       ; preds = %read_byte.exit43.i, %for.body.lr.ph.i
   %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %read_byte.exit43.i ]
-  %63 = load ptr, ptr %input_file, align 8, !tbaa !21
-  %call.i.i = tail call i32 @getc(ptr noundef %63)
+  %61 = load ptr, ptr %input_file, align 8, !tbaa !21
+  %call.i.i = tail call i32 @getc(ptr noundef %61)
   %cmp.i.i = icmp eq i32 %call.i.i, -1
   br i1 %cmp.i.i, label %if.then.i.i, label %read_byte.exit.i
 
 if.then.i.i:                                      ; preds = %for.body.i
-  %64 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
-  %65 = load ptr, ptr %64, align 8, !tbaa !22
-  %msg_code.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %65, i64 0, i32 5
+  %62 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
+  %63 = load ptr, ptr %62, align 8, !tbaa !22
+  %msg_code.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %63, i64 0, i32 5
   store i32 42, ptr %msg_code.i.i, align 8, !tbaa !23
-  %66 = load ptr, ptr %65, align 8, !tbaa !25
-  tail call void %66(ptr noundef nonnull %64) #5
+  %64 = load ptr, ptr %63, align 8, !tbaa !25
+  tail call void %64(ptr noundef nonnull %62) #5
   br label %read_byte.exit.i
 
 read_byte.exit.i:                                 ; preds = %if.then.i.i, %for.body.i
   %conv.i = trunc i32 %call.i.i to i8
-  %67 = load ptr, ptr %colormap, align 8, !tbaa !45
-  %arrayidx.i = getelementptr inbounds ptr, ptr %67, i64 2
-  %68 = load ptr, ptr %arrayidx.i, align 8, !tbaa !46
-  %arrayidx5.i = getelementptr inbounds i8, ptr %68, i64 %indvars.iv.i
+  %65 = load ptr, ptr %colormap, align 8, !tbaa !45
+  %arrayidx.i = getelementptr inbounds ptr, ptr %65, i64 2
+  %66 = load ptr, ptr %arrayidx.i, align 8, !tbaa !46
+  %arrayidx5.i = getelementptr inbounds i8, ptr %66, i64 %indvars.iv.i
   store i8 %conv.i, ptr %arrayidx5.i, align 1, !tbaa !26
-  %69 = load ptr, ptr %input_file, align 8, !tbaa !21
-  %call.i31.i = tail call i32 @getc(ptr noundef %69)
+  %67 = load ptr, ptr %input_file, align 8, !tbaa !21
+  %call.i31.i = tail call i32 @getc(ptr noundef %67)
   %cmp.i32.i = icmp eq i32 %call.i31.i, -1
   br i1 %cmp.i32.i, label %if.then.i35.i, label %read_byte.exit36.i
 
 if.then.i35.i:                                    ; preds = %read_byte.exit.i
-  %70 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
-  %71 = load ptr, ptr %70, align 8, !tbaa !22
-  %msg_code.i34.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %71, i64 0, i32 5
+  %68 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
+  %69 = load ptr, ptr %68, align 8, !tbaa !22
+  %msg_code.i34.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %69, i64 0, i32 5
   store i32 42, ptr %msg_code.i34.i, align 8, !tbaa !23
-  %72 = load ptr, ptr %71, align 8, !tbaa !25
-  tail call void %72(ptr noundef nonnull %70) #5
+  %70 = load ptr, ptr %69, align 8, !tbaa !25
+  tail call void %70(ptr noundef nonnull %68) #5
   br label %read_byte.exit36.i
 
 read_byte.exit36.i:                               ; preds = %if.then.i35.i, %read_byte.exit.i
   %conv7.i = trunc i32 %call.i31.i to i8
-  %73 = load ptr, ptr %colormap, align 8, !tbaa !45
-  %arrayidx9.i = getelementptr inbounds ptr, ptr %73, i64 1
-  %74 = load ptr, ptr %arrayidx9.i, align 8, !tbaa !46
-  %arrayidx11.i = getelementptr inbounds i8, ptr %74, i64 %indvars.iv.i
+  %71 = load ptr, ptr %colormap, align 8, !tbaa !45
+  %arrayidx9.i = getelementptr inbounds ptr, ptr %71, i64 1
+  %72 = load ptr, ptr %arrayidx9.i, align 8, !tbaa !46
+  %arrayidx11.i = getelementptr inbounds i8, ptr %72, i64 %indvars.iv.i
   store i8 %conv7.i, ptr %arrayidx11.i, align 1, !tbaa !26
-  %75 = load ptr, ptr %input_file, align 8, !tbaa !21
-  %call.i38.i = tail call i32 @getc(ptr noundef %75)
+  %73 = load ptr, ptr %input_file, align 8, !tbaa !21
+  %call.i38.i = tail call i32 @getc(ptr noundef %73)
   %cmp.i39.i = icmp eq i32 %call.i38.i, -1
   br i1 %cmp.i39.i, label %if.then.i42.i, label %read_byte.exit43.i
 
 if.then.i42.i:                                    ; preds = %read_byte.exit36.i
-  %76 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
-  %77 = load ptr, ptr %76, align 8, !tbaa !22
-  %msg_code.i41.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %77, i64 0, i32 5
+  %74 = load ptr, ptr %cinfo.i.i, align 8, !tbaa !16
+  %75 = load ptr, ptr %74, align 8, !tbaa !22
+  %msg_code.i41.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %75, i64 0, i32 5
   store i32 42, ptr %msg_code.i41.i, align 8, !tbaa !23
-  %78 = load ptr, ptr %77, align 8, !tbaa !25
-  tail call void %78(ptr noundef nonnull %76) #5
+  %76 = load ptr, ptr %75, align 8, !tbaa !25
+  tail call void %76(ptr noundef nonnull %74) #5
   br label %read_byte.exit43.i
 
 read_byte.exit43.i:                               ; preds = %if.then.i42.i, %read_byte.exit36.i
   %conv13.i = trunc i32 %call.i38.i to i8
-  %79 = load ptr, ptr %colormap, align 8, !tbaa !45
-  %80 = load ptr, ptr %79, align 8, !tbaa !46
-  %arrayidx17.i = getelementptr inbounds i8, ptr %80, i64 %indvars.iv.i
+  %77 = load ptr, ptr %colormap, align 8, !tbaa !45
+  %78 = load ptr, ptr %77, align 8, !tbaa !46
+  %arrayidx17.i = getelementptr inbounds i8, ptr %78, i64 %indvars.iv.i
   store i8 %conv13.i, ptr %arrayidx17.i, align 1, !tbaa !26
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
@@ -466,11 +466,11 @@ if.else186:                                       ; preds = %while.end
   br i1 %tobool187.not, label %if.end193, label %if.then188
 
 if.then188:                                       ; preds = %if.else186
-  %81 = load ptr, ptr %cinfo, align 8, !tbaa !22
-  %msg_code190 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %81, i64 0, i32 5
+  %79 = load ptr, ptr %cinfo, align 8, !tbaa !22
+  %msg_code190 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %79, i64 0, i32 5
   store i32 1033, ptr %msg_code190, align 8, !tbaa !23
-  %82 = load ptr, ptr %81, align 8, !tbaa !25
-  tail call void %82(ptr noundef nonnull %cinfo) #5
+  %80 = load ptr, ptr %79, align 8, !tbaa !25
+  tail call void %80(ptr noundef nonnull %cinfo) #5
   br label %if.end193
 
 if.end193:                                        ; preds = %if.then188, %if.else186
@@ -845,36 +845,36 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp, label %for.body, label %if.then11, !llvm.loop !60
 
 for.end:                                          ; preds = %for.body.us, %entry
-  %.lcssa = phi i32 [ 0, %entry ], [ %6, %for.body.us ]
+  %16 = phi i32 [ 0, %entry ], [ %6, %for.body.us ]
   %cmp9.not = icmp eq ptr %0, null
   br i1 %cmp9.not, label %if.end13, label %if.then11
 
 if.then11:                                        ; preds = %for.body, %for.end
-  %.lcssa46 = phi i32 [ %.lcssa, %for.end ], [ %14, %for.body ]
+  %17 = phi i32 [ %16, %for.end ], [ %14, %for.body ]
   %completed_extra_passes = getelementptr inbounds %struct.cdjpeg_progress_mgr, ptr %0, i64 0, i32 1
-  %16 = load i32, ptr %completed_extra_passes, align 8, !tbaa !64
-  %inc12 = add nsw i32 %16, 1
+  %18 = load i32, ptr %completed_extra_passes, align 8, !tbaa !64
+  %inc12 = add nsw i32 %18, 1
   store i32 %inc12, ptr %completed_extra_passes, align 8, !tbaa !64
   br label %if.end13
 
 if.end13:                                         ; preds = %if.then11, %for.end
-  %.lcssa47 = phi i32 [ %.lcssa46, %if.then11 ], [ %.lcssa, %for.end ]
+  %19 = phi i32 [ %17, %if.then11 ], [ %16, %for.end ]
   %get_pixel_rows15 = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 1
   store ptr @get_memory_row, ptr %get_pixel_rows15, align 8, !tbaa !42
   %current_row = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 4
   store i32 0, ptr %current_row, align 8, !tbaa !65
-  %sub1.i = add i32 %.lcssa47, -1
+  %sub1.i = add i32 %19, -1
   %mem.i = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 1
-  %17 = load ptr, ptr %mem.i, align 8, !tbaa !5
-  %access_virt_sarray.i = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %17, i64 0, i32 7
-  %18 = load ptr, ptr %access_virt_sarray.i, align 8, !tbaa !59
+  %20 = load ptr, ptr %mem.i, align 8, !tbaa !5
+  %access_virt_sarray.i = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %20, i64 0, i32 7
+  %21 = load ptr, ptr %access_virt_sarray.i, align 8, !tbaa !59
   %whole_image.i = getelementptr inbounds %struct._tga_source_struct, ptr %sinfo, i64 0, i32 3
-  %19 = load ptr, ptr %whole_image.i, align 8, !tbaa !34
-  %call.i = tail call ptr %18(ptr noundef nonnull %cinfo, ptr noundef %19, i32 noundef %sub1.i, i32 noundef 1, i32 noundef 0) #5
+  %22 = load ptr, ptr %whole_image.i, align 8, !tbaa !34
+  %call.i = tail call ptr %21(ptr noundef nonnull %cinfo, ptr noundef %22, i32 noundef %sub1.i, i32 noundef 1, i32 noundef 0) #5
   %buffer.i = getelementptr inbounds %struct.cjpeg_source_struct, ptr %sinfo, i64 0, i32 4
   store ptr %call.i, ptr %buffer.i, align 8, !tbaa !41
-  %20 = load i32, ptr %current_row, align 8, !tbaa !65
-  %inc.i = add i32 %20, 1
+  %23 = load i32, ptr %current_row, align 8, !tbaa !65
+  %inc.i = add i32 %23, 1
   store i32 %inc.i, ptr %current_row, align 8, !tbaa !65
   ret i32 1
 }

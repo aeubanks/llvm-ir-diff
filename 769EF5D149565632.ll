@@ -51,8 +51,8 @@ if.then:                                          ; preds = %FindSkeletonString.
 if.end:                                           ; preds = %FindSkeletonString.exit
   tail call void @TreeCCStreamLine(ptr noundef %stream, i64 noundef 1, ptr noundef %skeleton) #7
   %5 = load i8, ptr %3, align 1, !tbaa !11
-  %cmp.i109 = icmp eq i8 %5, 0
-  br i1 %cmp.i109, label %while.end68, label %while.cond.i.preheader.lr.ph
+  %cmp.i107 = icmp eq i8 %5, 0
+  br i1 %cmp.i107, label %while.end68, label %while.cond.i.preheader.lr.ph
 
 while.cond.i.preheader.lr.ph:                     ; preds = %if.end
   %yy_replacement = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 9
@@ -181,7 +181,7 @@ while.cond10.outer.backedge:                      ; preds = %if.end53, %if.end31
   %start.0.ph.be = phi i32 [ %add, %if.end31 ], [ %add54, %if.end53 ]
   br label %while.cond10.outer, !llvm.loop !17
 
-if.else55:                                        ; preds = %while.cond10, %land.lhs.true, %land.lhs.true37
+if.else55:                                        ; preds = %land.lhs.true, %while.cond10, %land.lhs.true37
   %inc = add nsw i32 %posn.0, 1
   br label %while.cond10, !llvm.loop !17
 

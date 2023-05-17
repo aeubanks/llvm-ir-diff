@@ -1393,10 +1393,10 @@ for.body:                                         ; preds = %for.body.preheader,
   br i1 %tobool1.not, label %for.inc, label %if.then2
 
 if.then2:                                         ; preds = %for.body
-  %6 = getelementptr i8, ptr %5, i64 8
-  %.val = load ptr, ptr %6, align 8, !tbaa !49
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(3) @cumBuf, ptr noundef nonnull align 1 dereferenceable(3) @.str.170, i64 3, i1 false)
-  call fastcc void @layoutNts(ptr noundef %.val)
+  %pat.i = getelementptr inbounds %struct.ruleAST, ptr %5, i64 0, i32 1
+  %6 = load ptr, ptr %pat.i, align 8, !tbaa !49
+  call fastcc void @layoutNts(ptr noundef %6)
   %strlen.i = call i64 @strlen(ptr nonnull dereferenceable(1) @cumBuf)
   %endptr.i = getelementptr inbounds i8, ptr @cumBuf, i64 %strlen.i
   store i32 8200240, ptr %endptr.i, align 1
@@ -1738,7 +1738,7 @@ for.body:                                         ; preds = %if.end4, %if.end48
   br i1 %tobool8.not, label %if.else46, label %if.then9
 
 if.then9:                                         ; preds = %for.body
-  %fputc62 = tail call i32 @fputc(i32 123, ptr %16)
+  %fputc63 = tail call i32 @fputc(i32 123, ptr %16)
   %17 = load ptr, ptr @outfile, align 8, !tbaa !5
   %18 = load ptr, ptr @pVector, align 8, !tbaa !5
   %arrayidx12 = getelementptr inbounds ptr, ptr %18, i64 %indvars.iv
@@ -1803,7 +1803,7 @@ if.then.i:                                        ; preds = %cond.end39
   %lhs.i = getelementptr inbounds %struct.rule, ptr %35, i64 0, i32 4
   %36 = load ptr, ptr %lhs.i, align 8, !tbaa !46
   %37 = load ptr, ptr %36, align 8, !tbaa !47
-  %call.i63 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str.173, ptr noundef %37)
+  %call.i62 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str.173, ptr noundef %37)
   %pat.i = getelementptr inbounds %struct.ruleAST, ptr %33, i64 0, i32 1
   %38 = load ptr, ptr %pat.i, align 8, !tbaa !49
   tail call fastcc void @printPatternAST(ptr noundef %38)
@@ -1875,7 +1875,7 @@ for.body:                                         ; preds = %if.end, %if.end9
   br i1 %tobool2.not, label %if.else, label %if.then3
 
 if.then3:                                         ; preds = %for.body
-  %fputc18 = tail call i32 @fputc(i32 34, ptr %9)
+  %fputc19 = tail call i32 @fputc(i32 34, ptr %9)
   %10 = load ptr, ptr @pVector, align 8, !tbaa !5
   %arrayidx6 = getelementptr inbounds ptr, ptr %10, i64 %indvars.iv
   %11 = load ptr, ptr %arrayidx6, align 8, !tbaa !5
@@ -1889,7 +1889,7 @@ if.then.i:                                        ; preds = %if.then3
   %lhs.i = getelementptr inbounds %struct.rule, ptr %13, i64 0, i32 4
   %14 = load ptr, ptr %lhs.i, align 8, !tbaa !46
   %15 = load ptr, ptr %14, align 8, !tbaa !47
-  %call.i20 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.173, ptr noundef %15)
+  %call.i17 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.173, ptr noundef %15)
   %pat.i = getelementptr inbounds %struct.ruleAST, ptr %11, i64 0, i32 1
   %16 = load ptr, ptr %pat.i, align 8, !tbaa !49
   tail call fastcc void @printPatternAST(ptr noundef %16)
@@ -1901,11 +1901,11 @@ if.else.i:                                        ; preds = %if.then3
 
 printRule.exit:                                   ; preds = %if.then.i, %if.else.i
   %17 = load ptr, ptr @outfile, align 8, !tbaa !5
-  %fputc19 = tail call i32 @fputc(i32 34, ptr %17)
+  %fputc20 = tail call i32 @fputc(i32 34, ptr %17)
   br label %if.end9
 
 if.else:                                          ; preds = %for.body
-  %fputc17 = tail call i32 @fputc(i32 48, ptr %9)
+  %fputc18 = tail call i32 @fputc(i32 48, ptr %9)
   br label %if.end9
 
 if.end9:                                          ; preds = %if.else, %printRule.exit

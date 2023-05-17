@@ -56,13 +56,13 @@ lor.lhs.false:                                    ; preds = %land.lhs.true13, %l
 if.then:                                          ; preds = %lor.lhs.false, %land.lhs.true13
   store i32 %3, ptr %arrayidx, align 4, !tbaa !12
   %11 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 0, i64 1), align 4, !tbaa !12
-  %arrayidx30 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom, i32 0, i64 1
+  %arrayidx30 = getelementptr inbounds [4 x i32], ptr %arrayidx, i64 0, i64 1
   store i32 %11, ptr %arrayidx30, align 4, !tbaa !12
   %12 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 0, i64 2), align 4, !tbaa !12
-  %arrayidx34 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom, i32 0, i64 2
+  %arrayidx34 = getelementptr inbounds [4 x i32], ptr %arrayidx, i64 0, i64 2
   store i32 %12, ptr %arrayidx34, align 4, !tbaa !12
   %13 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_norm_hashkey, i64 0, i32 0, i64 3), align 4, !tbaa !12
-  %arrayidx38 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom, i32 0, i64 3
+  %arrayidx38 = getelementptr inbounds [4 x i32], ptr %arrayidx, i64 0, i64 3
   store i32 %13, ptr %arrayidx38, align 4, !tbaa !12
   %nodes41 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom, i32 1
   store i32 %nodes, ptr %nodes41, align 4, !tbaa !13
@@ -172,13 +172,13 @@ lor.lhs.false122:                                 ; preds = %land.lhs.true115, %
 if.then128:                                       ; preds = %lor.lhs.false122, %land.lhs.true115
   store i32 %26, ptr %arrayidx96, align 4, !tbaa !12
   %34 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 0, i64 1), align 4, !tbaa !12
-  %arrayidx136 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom95, i32 0, i64 1
+  %arrayidx136 = getelementptr inbounds [4 x i32], ptr %arrayidx96, i64 0, i64 1
   store i32 %34, ptr %arrayidx136, align 4, !tbaa !12
   %35 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 0, i64 2), align 4, !tbaa !12
-  %arrayidx140 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom95, i32 0, i64 2
+  %arrayidx140 = getelementptr inbounds [4 x i32], ptr %arrayidx96, i64 0, i64 2
   store i32 %35, ptr %arrayidx140, align 4, !tbaa !12
   %36 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipV_hashkey, i64 0, i32 0, i64 3), align 4, !tbaa !12
-  %arrayidx144 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom95, i32 0, i64 3
+  %arrayidx144 = getelementptr inbounds [4 x i32], ptr %arrayidx96, i64 0, i64 3
   store i32 %36, ptr %arrayidx144, align 4, !tbaa !12
   %nodes147 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom95, i32 1
   store i32 %nodes, ptr %nodes147, align 4, !tbaa !13
@@ -288,13 +288,13 @@ lor.lhs.false247:                                 ; preds = %land.lhs.true240, %
 if.then253:                                       ; preds = %lor.lhs.false247, %land.lhs.true240
   store i32 %49, ptr %arrayidx221, align 4, !tbaa !12
   %57 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 0, i64 1), align 4, !tbaa !12
-  %arrayidx261 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom220, i32 0, i64 1
+  %arrayidx261 = getelementptr inbounds [4 x i32], ptr %arrayidx221, i64 0, i64 1
   store i32 %57, ptr %arrayidx261, align 4, !tbaa !12
   %58 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 0, i64 2), align 4, !tbaa !12
-  %arrayidx265 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom220, i32 0, i64 2
+  %arrayidx265 = getelementptr inbounds [4 x i32], ptr %arrayidx221, i64 0, i64 2
   store i32 %58, ptr %arrayidx265, align 4, !tbaa !12
   %59 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipH_hashkey, i64 0, i32 0, i64 3), align 4, !tbaa !12
-  %arrayidx269 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom220, i32 0, i64 3
+  %arrayidx269 = getelementptr inbounds [4 x i32], ptr %arrayidx221, i64 0, i64 3
   store i32 %59, ptr %arrayidx269, align 4, !tbaa !12
   %nodes272 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom220, i32 1
   store i32 %nodes, ptr %nodes272, align 4, !tbaa !13
@@ -404,13 +404,13 @@ lor.lhs.false372:                                 ; preds = %land.lhs.true365, %
 if.then378:                                       ; preds = %lor.lhs.false372, %land.lhs.true365
   store i32 %72, ptr %arrayidx346, align 4, !tbaa !12
   %80 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 0, i64 1), align 4, !tbaa !12
-  %arrayidx386 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom345, i32 0, i64 1
+  %arrayidx386 = getelementptr inbounds [4 x i32], ptr %arrayidx346, i64 0, i64 1
   store i32 %80, ptr %arrayidx386, align 4, !tbaa !12
   %81 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 0, i64 2), align 4, !tbaa !12
-  %arrayidx390 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom345, i32 0, i64 2
+  %arrayidx390 = getelementptr inbounds [4 x i32], ptr %arrayidx346, i64 0, i64 2
   store i32 %81, ptr %arrayidx390, align 4, !tbaa !12
   %82 = load i32, ptr getelementptr inbounds (%struct.Hash_Key, ptr @g_flipVH_hashkey, i64 0, i32 0, i64 3), align 4, !tbaa !12
-  %arrayidx394 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom345, i32 0, i64 3
+  %arrayidx394 = getelementptr inbounds [4 x i32], ptr %arrayidx346, i64 0, i64 3
   store i32 %82, ptr %arrayidx394, align 4, !tbaa !12
   %nodes397 = getelementptr inbounds %struct.Hash_Entry, ptr %1, i64 %idxprom345, i32 1
   store i32 %nodes, ptr %nodes397, align 4, !tbaa !13

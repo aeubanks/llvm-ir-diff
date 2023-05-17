@@ -31,10 +31,10 @@ entry:
   %mul3 = shl nsw i64 %conv2, 3
   %call4 = tail call noalias ptr @malloc(i64 noundef %mul3) #3
   store ptr %call4, ptr @yBellArray, align 8, !tbaa !9
+  %arrayidx = getelementptr inbounds %struct.bellbox, ptr %call, i64 1
   %from = getelementptr inbounds %struct.bellbox, ptr %call, i64 1, i32 1
   store i32 0, ptr %from, align 4, !tbaa !11
-  %arrayidx5 = getelementptr inbounds %struct.bellbox, ptr %call, i64 1
-  store i32 0, ptr %arrayidx5, align 4, !tbaa !13
+  store i32 0, ptr %arrayidx, align 4, !tbaa !13
   %cmp.not135 = icmp slt i32 %0, 2
   br i1 %cmp.not135, label %for.cond10.preheader, label %for.body.preheader
 
@@ -149,10 +149,10 @@ for.inc38:                                        ; preds = %for.inc36, %for.bod
   br i1 %exitcond154.not, label %for.end40, label %for.body13, !llvm.loop !22
 
 for.end40:                                        ; preds = %for.inc38, %for.cond10.preheader
+  %arrayidx41 = getelementptr inbounds %struct.bellbox, ptr %call4, i64 1
   %from42 = getelementptr inbounds %struct.bellbox, ptr %call4, i64 1, i32 1
   store i32 0, ptr %from42, align 4, !tbaa !11
-  %arrayidx43 = getelementptr inbounds %struct.bellbox, ptr %call4, i64 1
-  store i32 0, ptr %arrayidx43, align 4, !tbaa !13
+  store i32 0, ptr %arrayidx41, align 4, !tbaa !13
   %cmp46.not142 = icmp slt i32 %1, 2
   br i1 %cmp46.not142, label %for.cond55.preheader, label %for.body48.preheader
 

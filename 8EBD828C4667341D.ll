@@ -649,12 +649,12 @@ land.lhs.true48:                                  ; preds = %if.end46
 
 land.lhs.true55:                                  ; preds = %land.lhs.true48, %if.end46
   %spec.select = tail call i32 @llvm.smax.i32(i32 %23, i32 %24)
-  %spec.select132 = tail call i32 @llvm.smin.i32(i32 %23, i32 %24)
+  %spec.select134 = tail call i32 @llvm.smin.i32(i32 %23, i32 %24)
   br label %if.end58
 
 if.end58:                                         ; preds = %land.lhs.true55, %if.end46
   %working1.0 = phi i32 [ %spec.select, %land.lhs.true55 ], [ %23, %if.end46 ]
-  %25 = phi i32 [ %spec.select132, %land.lhs.true55 ], [ %24, %if.end46 ]
+  %25 = phi i32 [ %spec.select134, %land.lhs.true55 ], [ %24, %if.end46 ]
   %or61 = or i32 %or, %shl26
   %26 = load ptr, ptr @combList, align 8, !tbaa !5
   %arrayidx63 = getelementptr inbounds %struct.Comb, ptr %26, i64 %idxprom62

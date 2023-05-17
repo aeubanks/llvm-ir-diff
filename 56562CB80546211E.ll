@@ -57,8 +57,7 @@ for.cond.i:                                       ; preds = %entry, %for.cond.i
   br i1 %cmp.not.i, label %_ZL11MyStringLenPKw.exit, label %for.cond.i, !llvm.loop !11
 
 _ZL11MyStringLenPKw.exit:                         ; preds = %for.cond.i
-  %add = shl i32 %i.0.i, 2
-  %mul = add i32 %add, 4
+  %mul = shl i32 %inc.i, 2
   %conv2 = zext i32 %mul to i64
   %add3 = add nuw nsw i64 %conv2, 4
   %call.i = tail call noalias ptr @malloc(i64 noundef %add3) #9
@@ -66,7 +65,8 @@ _ZL11MyStringLenPKw.exit:                         ; preds = %for.cond.i
   br i1 %cmp5, label %return, label %if.end7
 
 if.end7:                                          ; preds = %_ZL11MyStringLenPKw.exit
-  store i32 %add, ptr %call.i, align 4, !tbaa !5
+  %mul9 = shl i32 %i.0.i, 2
+  store i32 %mul9, ptr %call.i, align 4, !tbaa !5
   %add.ptr = getelementptr inbounds i32, ptr %call.i, i64 1
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %add.ptr, ptr nonnull align 4 %sz, i64 %conv2, i1 false)
   br label %return

@@ -213,14 +213,14 @@ entry:
   %0 = load ptr, ptr @img, align 8, !tbaa !9
   %type = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 5
   %1 = load i32, ptr %type, align 4, !tbaa !11
-  %.fr1391 = freeze i32 %1
-  %cmp = icmp eq i32 %.fr1391, 2
-  %cmp3 = icmp eq i32 %.fr1391, 1
+  %.fr = freeze i32 %1
+  %cmp = icmp eq i32 %.fr, 2
+  %cmp3 = icmp eq i32 %.fr, 1
   %conv5 = zext i1 %cmp3 to i16
   br i1 %cmp, label %lor.end22, label %lor.rhs14
 
 lor.rhs14:                                        ; preds = %entry
-  switch i32 %.fr1391, label %lor.end22 [
+  switch i32 %.fr, label %lor.end22 [
     i32 3, label %land.lhs.true
     i32 0, label %land.lhs.true
   ]
@@ -315,7 +315,6 @@ if.end42:                                         ; preds = %cond.end, %if.then4
   %arrayidx371 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 8
   %all_blk_8x8 = getelementptr inbounds %struct.macroblock, ptr %6, i64 %idxprom, i32 30
   %luma_transform_size_8x8_flag = getelementptr inbounds %struct.macroblock, ptr %6, i64 %idxprom, i32 31
-  %not.cmp3 = xor i1 %cmp3, true
   %mb_type = getelementptr inbounds %struct.macroblock, ptr %6, i64 %idxprom, i32 8
   store i32 0, ptr %c_ipred_mode, align 8, !tbaa !26
   %21 = load ptr, ptr @cs_cm, align 8, !tbaa !9
@@ -357,22 +356,22 @@ if.end65:                                         ; preds = %if.then64, %if.end6
   %arrayidx101.2 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 2, i64 2
   %arrayidx97 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 2, i64 0
   %arrayidx97.1 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 2, i64 1
-  %arrayidx108.11472 = getelementptr inbounds [3 x i32], ptr %lambda_mf, i64 0, i64 1
+  %arrayidx108.11451 = getelementptr inbounds [3 x i32], ptr %lambda_mf, i64 0, i64 1
   %arrayidx97.2 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 2, i64 2
   %arrayidx108.2 = getelementptr inbounds [3 x i32], ptr %lambda_mf, i64 0, i64 2
   br label %for.body69
 
 for.body69:                                       ; preds = %if.end65, %for.inc365
-  %indvars.iv1400 = phi i64 [ 1, %if.end65 ], [ %indvars.iv.next1401, %for.inc365 ]
-  %RDCost16.11371 = phi double [ 0x7FEFFFFFFFFFFFFF, %if.end65 ], [ %RDCost16.3, %for.inc365 ]
-  %mode16.11370 = phi i16 [ 0, %if.end65 ], [ %mode16.3, %for.inc365 ]
-  %mode.01368 = phi i32 [ 1, %if.end65 ], [ %inc366, %for.inc365 ]
-  %min_cost.01367 = phi i32 [ 2147483647, %if.end65 ], [ %min_cost.1, %for.inc365 ]
+  %indvars.iv1377 = phi i64 [ 1, %if.end65 ], [ %indvars.iv.next1378, %for.inc365 ]
+  %RDCost16.11346 = phi double [ 0x7FEFFFFFFFFFFFFF, %if.end65 ], [ %RDCost16.3, %for.inc365 ]
+  %mode16.11345 = phi i16 [ 0, %if.end65 ], [ %mode16.3, %for.inc365 ]
+  %mode.01343 = phi i32 [ 1, %if.end65 ], [ %inc366, %for.inc365 ]
+  %min_cost.01342 = phi i32 [ 2147483647, %if.end65 ], [ %min_cost.1, %for.inc365 ]
   store i16 0, ptr @bi_pred_me, align 2, !tbaa !22
   %25 = load ptr, ptr @img, align 8, !tbaa !9
-  %arrayidx71 = getelementptr inbounds %struct.ImageParameters, ptr %25, i64 0, i32 83, i64 %indvars.iv1400
+  %arrayidx71 = getelementptr inbounds %struct.ImageParameters, ptr %25, i64 0, i32 83, i64 %indvars.iv1377
   store i16 0, ptr %arrayidx71, align 2, !tbaa !22
-  %arrayidx74 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %indvars.iv1400
+  %arrayidx74 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %indvars.iv1377
   %26 = load i16, ptr %arrayidx74, align 2, !tbaa !22
   %tobool76 = icmp eq i16 %26, 0
   %27 = load i16, ptr %inter_skip, align 2
@@ -382,14 +381,14 @@ for.body69:                                       ; preds = %if.end65, %for.inc3
 
 if.then79:                                        ; preds = %for.body69
   store i32 0, ptr %cost, align 4, !tbaa !5
-  %cmp81 = icmp eq i64 %indvars.iv1400, 1
-  %cmp210 = icmp ugt i64 %indvars.iv1400, 1
-  %28 = trunc i64 %indvars.iv1400 to i32
+  %cmp81 = icmp eq i64 %indvars.iv1377, 1
+  %cmp210 = icmp ugt i64 %indvars.iv1377, 1
+  %28 = trunc i64 %indvars.iv1377 to i32
   br label %for.cond87.preheader
 
 for.cond87.preheader:                             ; preds = %if.then79, %for.inc222
   %cmp213 = phi i1 [ true, %if.then79 ], [ false, %for.inc222 ]
-  %cmp841392 = phi i1 [ false, %if.then79 ], [ true, %for.inc222 ]
+  %cmp841367 = phi i1 [ false, %if.then79 ], [ true, %for.inc222 ]
   %indvars.iv = phi i64 [ 0, %if.then79 ], [ 1, %for.inc222 ]
   %29 = load ptr, ptr @input, align 8, !tbaa !9
   %CtxAdptLagrangeMult91 = getelementptr inbounds %struct.InputParameters, ptr %29, i64 0, i32 114
@@ -409,16 +408,16 @@ cond.end105:                                      ; preds = %for.cond87.preheade
   %call103 = call double @sqrt(double noundef %33) #6
   %mul = fmul double %call103, %conv102
   %conv104 = fptosi double %mul to i32
-  %.pre1428 = load ptr, ptr @input, align 8, !tbaa !9
-  %CtxAdptLagrangeMult91.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1428, i64 0, i32 114
-  %.pre1429 = load i32, ptr %CtxAdptLagrangeMult91.1.phi.trans.insert, align 4, !tbaa !29
+  %.pre1407 = load ptr, ptr @input, align 8, !tbaa !9
+  %CtxAdptLagrangeMult91.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1407, i64 0, i32 114
+  %.pre1408 = load i32, ptr %CtxAdptLagrangeMult91.1.phi.trans.insert, align 4, !tbaa !29
   store i32 %conv104, ptr %lambda_mf, align 4, !tbaa !5
-  %cmp92.1 = icmp eq i32 %.pre1429, 0
+  %cmp92.1 = icmp eq i32 %.pre1408, 0
   br i1 %cmp92.1, label %cond.end105.1.thread, label %cond.end105.1
 
 cond.end105.1.thread:                             ; preds = %cond.end105, %cond.end105.thread
   %34 = load i32, ptr %arrayidx97.1, align 4, !tbaa !5
-  store i32 %34, ptr %arrayidx108.11472, align 4, !tbaa !5
+  store i32 %34, ptr %arrayidx108.11451, align 4, !tbaa !5
   br label %cond.true94.2
 
 cond.end105.1:                                    ; preds = %cond.end105
@@ -428,11 +427,11 @@ cond.end105.1:                                    ; preds = %cond.end105
   %call103.1 = call double @sqrt(double noundef %36) #6
   %mul.1 = fmul double %call103.1, %conv102.1
   %conv104.1 = fptosi double %mul.1 to i32
-  %.pre1430 = load ptr, ptr @input, align 8, !tbaa !9
-  %CtxAdptLagrangeMult91.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1430, i64 0, i32 114
-  %.pre1431 = load i32, ptr %CtxAdptLagrangeMult91.2.phi.trans.insert, align 4, !tbaa !29
+  %.pre1409 = load ptr, ptr @input, align 8, !tbaa !9
+  %CtxAdptLagrangeMult91.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1409, i64 0, i32 114
+  %.pre1410 = load i32, ptr %CtxAdptLagrangeMult91.2.phi.trans.insert, align 4, !tbaa !29
   store i32 %conv104.1, ptr %arrayidx108.1, align 4, !tbaa !5
-  %cmp92.2 = icmp eq i32 %.pre1431, 0
+  %cmp92.2 = icmp eq i32 %.pre1410, 0
   br i1 %cmp92.2, label %cond.true94.2, label %cond.false98.2
 
 cond.false98.2:                                   ; preds = %cond.end105.1
@@ -480,7 +479,7 @@ if.else140:                                       ; preds = %if.then127
 
 if.end143:                                        ; preds = %if.else140, %if.then137
   call void @determine_prediction_list(i32 noundef %28, ptr noundef nonnull %bmcost, ptr noundef nonnull %best_ref, ptr noundef nonnull %best_pdir, ptr noundef nonnull %cost, ptr noundef nonnull @bi_pred_me) #6
-  %.pre1432 = load i8, ptr %best_pdir, align 1, !tbaa !31
+  %.pre1411 = load i8, ptr %best_pdir, align 1, !tbaa !31
   br label %if.end148
 
 if.else146:                                       ; preds = %cond.end105.2
@@ -492,7 +491,7 @@ if.else146:                                       ; preds = %cond.end105.2
   br label %if.end148
 
 if.end148:                                        ; preds = %if.else146, %if.end143
-  %45 = phi i8 [ 0, %if.else146 ], [ %.pre1432, %if.end143 ]
+  %45 = phi i8 [ 0, %if.else146 ], [ %.pre1411, %if.end143 ]
   %46 = load i16, ptr %list_offset, align 2, !tbaa !22
   %conv150 = sext i16 %46 to i32
   %47 = load i8, ptr %best_ref, align 2, !tbaa !31
@@ -570,14 +569,14 @@ if.then215:                                       ; preds = %if.end209
   br label %for.inc222
 
 for.inc222:                                       ; preds = %if.end209, %if.then215
-  %cmp84.not = or i1 %cmp81, %cmp841392
+  %cmp84.not = or i1 %cmp81, %cmp841367
   br i1 %cmp84.not, label %for.end224, label %for.cond87.preheader, !llvm.loop !32
 
 for.end224:                                       ; preds = %for.inc222
   br i1 %cmp81, label %if.then227, label %if.end351
 
 if.then227:                                       ; preds = %for.end224
-  switch i32 %.fr1391, label %for.body234 [
+  switch i32 %.fr, label %for.body234 [
     i32 3, label %if.then229
     i32 0, label %if.then229
   ]
@@ -598,7 +597,7 @@ for.end301.thread:                                ; preds = %for.body234
 for.end301:                                       ; preds = %for.body234
   store i32 0, ptr %c_ipred_mode, align 8, !tbaa !26
   call void @compute_mode_RD_cost(i32 noundef 1, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  switch i32 %.fr1391, label %if.end349 [
+  switch i32 %.fr, label %if.end349 [
     i32 3, label %if.then303
     i32 0, label %if.then303
   ]
@@ -666,17 +665,19 @@ if.end349:                                        ; preds = %for.end301.thread, 
   br label %if.end351
 
 if.end351:                                        ; preds = %if.end349, %for.end224
-  %mode16.2 = phi i16 [ %86, %if.end349 ], [ %mode16.11370, %for.end224 ]
-  %RDCost16.2 = phi double [ %85, %if.end349 ], [ %RDCost16.11371, %for.end224 ]
+  %mode16.2 = phi i16 [ %86, %if.end349 ], [ %mode16.11345, %for.end224 ]
+  %RDCost16.2 = phi double [ %85, %if.end349 ], [ %RDCost16.11346, %for.end224 ]
   %87 = load i16, ptr %inter_skip, align 2, !tbaa !22
   %tobool352.not = icmp eq i16 %87, 0
-  %88 = load i32, ptr %cost, align 4
-  %cmp354 = icmp slt i32 %88, %min_cost.01367
-  %or.cond1325 = select i1 %tobool352.not, i1 %cmp354, i1 false
-  br i1 %or.cond1325, label %if.then356, label %for.inc365
+  br i1 %tobool352.not, label %land.lhs.true353, label %for.inc365
 
-if.then356:                                       ; preds = %if.end351
-  %conv357 = trunc i32 %mode.01368 to i16
+land.lhs.true353:                                 ; preds = %if.end351
+  %88 = load i32, ptr %cost, align 4, !tbaa !5
+  %cmp354 = icmp slt i32 %88, %min_cost.01342
+  br i1 %cmp354, label %if.then356, label %for.inc365
+
+if.then356:                                       ; preds = %land.lhs.true353
+  %conv357 = trunc i32 %mode.01343 to i16
   store i16 %conv357, ptr @best_mode, align 2, !tbaa !22
   %89 = load ptr, ptr @input, align 8, !tbaa !9
   %CtxAdptLagrangeMult358 = getelementptr inbounds %struct.InputParameters, ptr %89, i64 0, i32 114
@@ -688,13 +689,13 @@ if.then361:                                       ; preds = %if.then356
   call void @adjust_mb16x16_cost(i32 noundef %88) #6
   br label %for.inc365
 
-for.inc365:                                       ; preds = %for.body69, %if.then356, %if.then361, %if.end351
-  %min_cost.1 = phi i32 [ %min_cost.01367, %for.body69 ], [ %min_cost.01367, %if.end351 ], [ %88, %if.then361 ], [ %88, %if.then356 ]
-  %mode16.3 = phi i16 [ %mode16.11370, %for.body69 ], [ %mode16.2, %if.end351 ], [ %mode16.2, %if.then361 ], [ %mode16.2, %if.then356 ]
-  %RDCost16.3 = phi double [ %RDCost16.11371, %for.body69 ], [ %RDCost16.2, %if.end351 ], [ %RDCost16.2, %if.then361 ], [ %RDCost16.2, %if.then356 ]
-  %indvars.iv.next1401 = add nuw nsw i64 %indvars.iv1400, 1
-  %inc366 = add nuw nsw i32 %mode.01368, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next1401, 4
+for.inc365:                                       ; preds = %for.body69, %if.then356, %if.then361, %land.lhs.true353, %if.end351
+  %min_cost.1 = phi i32 [ %min_cost.01342, %for.body69 ], [ %min_cost.01342, %if.end351 ], [ %88, %if.then361 ], [ %88, %if.then356 ], [ %min_cost.01342, %land.lhs.true353 ]
+  %mode16.3 = phi i16 [ %mode16.11345, %for.body69 ], [ %mode16.2, %if.end351 ], [ %mode16.2, %if.then361 ], [ %mode16.2, %if.then356 ], [ %mode16.2, %land.lhs.true353 ]
+  %RDCost16.3 = phi double [ %RDCost16.11346, %for.body69 ], [ %RDCost16.2, %if.end351 ], [ %RDCost16.2, %if.then361 ], [ %RDCost16.2, %if.then356 ], [ %RDCost16.2, %land.lhs.true353 ]
+  %indvars.iv.next1378 = add nuw nsw i64 %indvars.iv1377, 1
+  %inc366 = add nuw nsw i32 %mode.01343, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next1378, 4
   br i1 %exitcond.not, label %for.end367, label %for.body69, !llvm.loop !41
 
 for.end367:                                       ; preds = %for.inc365
@@ -779,10 +780,10 @@ if.end403:                                        ; preds = %if.then374
   %122 = load i32, ptr @cnt_nonz_8x8, align 4, !tbaa !5
   store i32 %122, ptr @cnt_nonz8_8x8ts, align 4, !tbaa !5
   store i32 0, ptr %luma_transform_size_8x8_flag, align 8, !tbaa !47
-  %.pre1433 = load ptr, ptr @input, align 8, !tbaa !9
-  %Transform8x8Mode404.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1433, i64 0, i32 153
-  %.pre1434 = load i32, ptr %Transform8x8Mode404.phi.trans.insert, align 4, !tbaa !45
-  %cmp405.not = icmp eq i32 %.pre1434, 2
+  %.pre1412 = load ptr, ptr @input, align 8, !tbaa !9
+  %Transform8x8Mode404.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1412, i64 0, i32 153
+  %.pre1413 = load i32, ptr %Transform8x8Mode404.phi.trans.insert, align 4, !tbaa !45
+  %cmp405.not = icmp eq i32 %.pre1413, 2
   br i1 %cmp405.not, label %if.end433, label %if.then407
 
 if.then407:                                       ; preds = %if.then374, %if.end403
@@ -891,21 +892,21 @@ if.then447:                                       ; preds = %if.then443
 if.end450:                                        ; preds = %if.then443, %if.then447
   %RDCost16.4.sink = phi double [ %RDCost16.4, %if.then447 ], [ 1.000000e+30, %if.then443 ]
   store double %RDCost16.4.sink, ptr %min_rdcost, align 8
-  %.pre1435 = load ptr, ptr @input, align 8, !tbaa !9
+  %.pre1414 = load ptr, ptr @input, align 8, !tbaa !9
   br i1 %tobool52, label %land.end454.thread, label %land.end454
 
 land.end454:                                      ; preds = %if.end450
-  %SelectiveIntraEnable = getelementptr inbounds %struct.InputParameters, ptr %.pre1435, i64 0, i32 191
+  %SelectiveIntraEnable = getelementptr inbounds %struct.InputParameters, ptr %.pre1414, i64 0, i32 191
   %156 = load i32, ptr %SelectiveIntraEnable, align 4, !tbaa !51
-  %.fr = freeze i32 %156
-  %tobool453 = icmp ne i32 %.fr, 0
-  %spec.select1361 = select i1 %tobool453, i32 5, i32 9
+  %.fr1368 = freeze i32 %156
+  %tobool453 = icmp ne i32 %.fr1368, 0
+  %spec.select1336 = select i1 %tobool453, i32 5, i32 9
   br label %land.end454.thread
 
 land.end454.thread:                               ; preds = %if.end450, %land.end454
   %157 = phi i1 [ %tobool453, %land.end454 ], [ false, %if.end450 ]
-  %158 = phi i32 [ %spec.select1361, %land.end454 ], [ 9, %if.end450 ]
-  %BiPredMotionEstimation456 = getelementptr inbounds %struct.InputParameters, ptr %.pre1435, i64 0, i32 46
+  %158 = phi i32 [ %spec.select1336, %land.end454 ], [ 9, %if.end450 ]
+  %BiPredMotionEstimation456 = getelementptr inbounds %struct.InputParameters, ptr %.pre1414, i64 0, i32 46
   %159 = load i32, ptr %BiPredMotionEstimation456, align 8, !tbaa !30
   %tobool457.not = icmp eq i32 %159, 0
   br i1 %tobool457.not, label %if.end461, label %if.then458
@@ -919,7 +920,7 @@ if.end461:                                        ; preds = %if.then458, %land.e
   %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %154, i64 0, i32 160
   %160 = load i32, ptr %yuv_format, align 8, !tbaa !52
   %cmp462 = icmp eq i32 %160, 0
-  %or.cond1043.not = or i1 %157, %cmp462
+  %or.cond1043.not = or i1 %cmp462, %157
   br i1 %or.cond1043.not, label %if.end477, label %if.then467
 
 if.then467:                                       ; preds = %if.end461
@@ -943,14 +944,18 @@ if.end477:                                        ; preds = %if.end461, %if.then
   %sext1319 = shl i32 %max_chroma_pred_mode.0, 16
   %conv482 = ashr exact i32 %sext1319, 16
   store i32 %conv478, ptr %c_ipred_mode, align 8, !tbaa !26
-  %cmp483.not1378 = icmp sgt i32 %conv478, %conv482
-  %.pre1442 = load ptr, ptr @img, align 8, !tbaa !9
-  br i1 %cmp483.not1378, label %for.end757, label %for.body485
+  %cmp483.not1354 = icmp sgt i32 %conv478, %conv482
+  %.pre1421 = load ptr, ptr @img, align 8, !tbaa !9
+  br i1 %cmp483.not1354, label %for.end757, label %for.body485.preheader
 
-for.body485:                                      ; preds = %if.end477, %for.inc754
-  %.pre1438 = phi ptr [ %.pre14381464, %for.inc754 ], [ %.pre1442, %if.end477 ]
-  %164 = phi ptr [ %274, %for.inc754 ], [ %.pre1442, %if.end477 ]
-  %storemerge1379 = phi i32 [ %inc756, %for.inc754 ], [ %conv478, %if.end477 ]
+for.body485.preheader:                            ; preds = %if.end477
+  %not.cmp3 = xor i1 %cmp3, true
+  br label %for.body485
+
+for.body485:                                      ; preds = %for.body485.preheader, %for.inc754
+  %.pre1417 = phi ptr [ %.pre14171443, %for.inc754 ], [ %.pre1421, %for.body485.preheader ]
+  %164 = phi ptr [ %274, %for.inc754 ], [ %.pre1421, %for.body485.preheader ]
+  %storemerge1355 = phi i32 [ %inc756, %for.inc754 ], [ %conv478, %for.body485.preheader ]
   %yuv_format486 = getelementptr inbounds %struct.ImageParameters, ptr %164, i64 0, i32 160
   %165 = load i32, ptr %yuv_format486, align 8, !tbaa !52
   %cmp487.not = icmp eq i32 %165, 0
@@ -969,29 +974,27 @@ lor.lhs.false:                                    ; preds = %land.lhs.true489
 land.lhs.true492:                                 ; preds = %land.lhs.true489, %lor.lhs.false
   %ChromaIntraDisable = getelementptr inbounds %struct.InputParameters, ptr %166, i64 0, i32 90
   %168 = load i32, ptr %ChromaIntraDisable, align 8, !tbaa !55
-  %cmp493 = icmp eq i32 %168, 1
-  br i1 %cmp493, label %land.lhs.true495, label %lor.lhs.false499
-
-land.lhs.true495:                                 ; preds = %land.lhs.true492
-  %cmp497.not = icmp eq i32 %storemerge1379, 0
-  br i1 %cmp497.not, label %for.body526.preheader, label %for.inc754
+  %cmp493 = icmp ne i32 %168, 1
+  %cmp497.not = icmp eq i32 %storemerge1355, 0
+  %or.cond1325 = or i1 %cmp497.not, %cmp493
+  br i1 %or.cond1325, label %lor.lhs.false499, label %for.inc754
 
 lor.lhs.false499:                                 ; preds = %land.lhs.true492, %lor.lhs.false
-  %cmp501 = icmp ne i32 %storemerge1379, 2
+  %cmp501 = icmp ne i32 %storemerge1355, 2
   %169 = load i32, ptr %mb_available_up, align 4
   %tobool504 = icmp ne i32 %169, 0
   %or.cond1044 = select i1 %cmp501, i1 true, i1 %tobool504
   br i1 %or.cond1044, label %lor.lhs.false505, label %for.inc754
 
 lor.lhs.false505:                                 ; preds = %lor.lhs.false499
-  %cmp507 = icmp ne i32 %storemerge1379, 1
+  %cmp507 = icmp ne i32 %storemerge1355, 1
   %170 = load i32, ptr %mb_available_left, align 4
   %tobool510 = icmp ne i32 %170, 0
   %or.cond1045 = select i1 %cmp507, i1 true, i1 %tobool510
   br i1 %or.cond1045, label %lor.lhs.false511, label %for.inc754
 
 lor.lhs.false511:                                 ; preds = %lor.lhs.false505
-  %cmp513 = icmp eq i32 %storemerge1379, 3
+  %cmp513 = icmp eq i32 %storemerge1355, 3
   br i1 %cmp513, label %land.lhs.true515, label %for.body526.preheader
 
 land.lhs.true515:                                 ; preds = %lor.lhs.false511
@@ -1001,16 +1004,16 @@ land.lhs.true515:                                 ; preds = %lor.lhs.false511
   %or.cond1047 = select i1 %or.cond1046, i1 %tobool520, i1 false
   br i1 %or.cond1047, label %for.body526.preheader, label %for.inc754
 
-for.body526.preheader:                            ; preds = %land.lhs.true495, %land.lhs.true515, %lor.lhs.false511, %for.body485
+for.body526.preheader:                            ; preds = %land.lhs.true515, %lor.lhs.false511, %for.body485
   br label %for.body526
 
 for.body526:                                      ; preds = %for.body526.preheader, %for.inc751
-  %.pre14381467 = phi ptr [ %.pre14381465, %for.inc751 ], [ %.pre1438, %for.body526.preheader ]
-  %172 = phi ptr [ %272, %for.inc751 ], [ %.pre1438, %for.body526.preheader ]
-  %173 = phi ptr [ %273, %for.inc751 ], [ %.pre1438, %for.body526.preheader ]
-  %index.91377 = phi i32 [ %inc752, %for.inc751 ], [ 0, %for.body526.preheader ]
-  %ctr16x16.31376 = phi i32 [ %ctr16x16.6, %for.inc751 ], [ 0, %for.body526.preheader ]
-  %idxprom527 = sext i32 %index.91377 to i64
+  %.pre14171446 = phi ptr [ %.pre14171444, %for.inc751 ], [ %.pre1417, %for.body526.preheader ]
+  %172 = phi ptr [ %272, %for.inc751 ], [ %.pre1417, %for.body526.preheader ]
+  %173 = phi ptr [ %273, %for.inc751 ], [ %.pre1417, %for.body526.preheader ]
+  %index.91353 = phi i32 [ %inc752, %for.inc751 ], [ 0, %for.body526.preheader ]
+  %ctr16x16.31352 = phi i32 [ %ctr16x16.6, %for.inc751 ], [ 0, %for.body526.preheader ]
+  %idxprom527 = sext i32 %index.91353 to i64
   %arrayidx528 = getelementptr inbounds [9 x i32], ptr @mb_mode_table, i64 0, i64 %idxprom527
   %174 = load i32, ptr %arrayidx528, align 4, !tbaa !5
   %yuv_format529 = getelementptr inbounds %struct.ImageParameters, ptr %173, i64 0, i32 160
@@ -1032,17 +1035,17 @@ if.end545:                                        ; preds = %if.then532, %for.bo
   br i1 %or.cond1050, label %if.then551, label %if.end545.if.end580_crit_edge
 
 if.end545.if.end580_crit_edge:                    ; preds = %if.end545
-  %.pre1439 = load ptr, ptr @input, align 8, !tbaa !9
+  %.pre1418 = load ptr, ptr @input, align 8, !tbaa !9
   br label %if.end580
 
 if.then551:                                       ; preds = %if.end545
-  %conv552 = trunc i32 %ctr16x16.31376 to i8
+  %conv552 = trunc i32 %ctr16x16.31352 to i8
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4) getelementptr inbounds ([15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 1), i8 %conv552, i64 4, i1 false)
   %176 = load ptr, ptr @input, align 8, !tbaa !9
   %BiPredMotionEstimation556 = getelementptr inbounds %struct.InputParameters, ptr %176, i64 0, i32 46
   %177 = load i32, ptr %BiPredMotionEstimation556, align 8, !tbaa !30
   %tobool557 = icmp ne i32 %177, 0
-  %cmp559 = icmp eq i32 %ctr16x16.31376, 2
+  %cmp559 = icmp eq i32 %ctr16x16.31352, 2
   %or.cond1051 = select i1 %tobool557, i1 %cmp559, i1 false
   br i1 %or.cond1051, label %land.lhs.true561, label %if.end573
 
@@ -1054,17 +1057,17 @@ land.lhs.true561:                                 ; preds = %if.then551
   br label %if.end573
 
 if.end573:                                        ; preds = %land.lhs.true561, %if.then551
-  %ctr16x16.4 = phi i32 [ %ctr16x16.31376, %if.then551 ], [ %spec.select, %land.lhs.true561 ]
+  %ctr16x16.4 = phi i32 [ %ctr16x16.31352, %if.then551 ], [ %spec.select, %land.lhs.true561 ]
   %cmp574 = icmp slt i32 %ctr16x16.4, 2
   %dec577 = sext i1 %cmp574 to i32
-  %spec.select1327 = add nsw i32 %index.91377, %dec577
+  %spec.select1327 = add nsw i32 %index.91353, %dec577
   %inc579 = add nsw i32 %ctr16x16.4, 1
   br label %if.end580
 
 if.end580:                                        ; preds = %if.end545.if.end580_crit_edge, %if.end573
-  %179 = phi ptr [ %176, %if.end573 ], [ %.pre1439, %if.end545.if.end580_crit_edge ]
-  %ctr16x16.5 = phi i32 [ %inc579, %if.end573 ], [ %ctr16x16.31376, %if.end545.if.end580_crit_edge ]
-  %index.11 = phi i32 [ %spec.select1327, %if.end573 ], [ %index.91377, %if.end545.if.end580_crit_edge ]
+  %179 = phi ptr [ %176, %if.end573 ], [ %.pre1418, %if.end545.if.end580_crit_edge ]
+  %ctr16x16.5 = phi i32 [ %inc579, %if.end573 ], [ %ctr16x16.31352, %if.end545.if.end580_crit_edge ]
+  %index.11 = phi i32 [ %spec.select1327, %if.end573 ], [ %index.91353, %if.end545.if.end580_crit_edge ]
   %SkipIntraInInterSlices = getelementptr inbounds %struct.InputParameters, ptr %179, i64 0, i32 67
   %180 = load i32, ptr %SkipIntraInInterSlices, align 8, !tbaa !56
   %tobool581 = icmp eq i32 %180, 0
@@ -1132,32 +1135,32 @@ for.cond618.preheader:                            ; preds = %for.cond606.prehead
   br i1 %or.cond1057, label %if.then680, label %for.cond618
 
 for.cond618:                                      ; preds = %for.cond618.preheader
-  br i1 %cmp619.not, label %for.inc675, label %for.body624.11513, !llvm.loop !63
+  br i1 %cmp619.not, label %for.inc675, label %for.body624.11491, !llvm.loop !63
 
-for.body624.11513:                                ; preds = %for.cond618
-  %arrayidx641.11509 = getelementptr inbounds i32, ptr %193, i64 1
-  %200 = load i32, ptr %arrayidx641.11509, align 4, !tbaa !5
-  %arrayidx658.11510 = getelementptr inbounds i32, ptr %196, i64 1
-  %201 = load i32, ptr %arrayidx658.11510, align 4, !tbaa !5
-  %add659.11511 = add i32 %200, -128
-  %202 = add i32 %add659.11511, %201
-  %or.cond1057.11512 = icmp ult i32 %202, -256
-  br i1 %or.cond1057.11512, label %if.then680, label %for.cond618.11517
+for.body624.11491:                                ; preds = %for.cond618
+  %arrayidx641.11487 = getelementptr inbounds i32, ptr %193, i64 1
+  %200 = load i32, ptr %arrayidx641.11487, align 4, !tbaa !5
+  %arrayidx658.11488 = getelementptr inbounds i32, ptr %196, i64 1
+  %201 = load i32, ptr %arrayidx658.11488, align 4, !tbaa !5
+  %add659.11489 = add i32 %200, -128
+  %202 = add i32 %add659.11489, %201
+  %or.cond1057.11490 = icmp ult i32 %202, -256
+  br i1 %or.cond1057.11490, label %if.then680, label %for.cond618.11495
 
-for.cond618.11517:                                ; preds = %for.body624.11513
-  br i1 %cmp619.not, label %for.inc675, label %for.body624.21523, !llvm.loop !63
+for.cond618.11495:                                ; preds = %for.body624.11491
+  br i1 %cmp619.not, label %for.inc675, label %for.body624.21501, !llvm.loop !63
 
-for.body624.21523:                                ; preds = %for.cond618.11517
-  %arrayidx641.21519 = getelementptr inbounds i32, ptr %193, i64 2
-  %203 = load i32, ptr %arrayidx641.21519, align 4, !tbaa !5
-  %arrayidx658.21520 = getelementptr inbounds i32, ptr %196, i64 2
-  %204 = load i32, ptr %arrayidx658.21520, align 4, !tbaa !5
-  %add659.21521 = add i32 %203, -128
-  %205 = add i32 %add659.21521, %204
-  %or.cond1057.21522 = icmp ult i32 %205, -256
-  br i1 %or.cond1057.21522, label %if.then680, label %for.inc675
+for.body624.21501:                                ; preds = %for.cond618.11495
+  %arrayidx641.21497 = getelementptr inbounds i32, ptr %193, i64 2
+  %203 = load i32, ptr %arrayidx641.21497, align 4, !tbaa !5
+  %arrayidx658.21498 = getelementptr inbounds i32, ptr %196, i64 2
+  %204 = load i32, ptr %arrayidx658.21498, align 4, !tbaa !5
+  %add659.21499 = add i32 %203, -128
+  %205 = add i32 %add659.21499, %204
+  %or.cond1057.21500 = icmp ult i32 %205, -256
+  br i1 %or.cond1057.21500, label %if.then680, label %for.inc675
 
-for.inc675:                                       ; preds = %for.cond618, %for.cond618.11517, %for.body624.21523, %for.cond606.preheader
+for.inc675:                                       ; preds = %for.cond618, %for.cond618.11495, %for.body624.21501, %for.cond606.preheader
   %arrayidx613.1 = getelementptr inbounds [15 x [4 x i8]], ptr @best8x8pdir, i64 0, i64 %idxprom610, i64 1
   %206 = load i8, ptr %arrayidx613.1, align 1, !tbaa !31
   %cmp615.1 = icmp eq i8 %206, 2
@@ -1331,7 +1334,7 @@ for.body624.3.2:                                  ; preds = %for.cond618.3.1
   %or.cond1057.3.2 = icmp ult i32 %262, -256
   br i1 %or.cond1057.3.2, label %if.then680, label %if.end711
 
-if.then680:                                       ; preds = %for.cond618.preheader, %for.body624.11513, %for.body624.21523, %for.cond618.preheader.1, %for.body624.1.1, %for.body624.1.2, %for.cond618.preheader.2, %for.body624.2.1, %for.body624.2.2, %for.cond618.preheader.3, %for.body624.3.1, %for.body624.3.2
+if.then680:                                       ; preds = %for.cond618.preheader, %for.body624.11491, %for.body624.21501, %for.cond618.preheader.1, %for.body624.1.1, %for.body624.1.2, %for.cond618.preheader.2, %for.body624.2.1, %for.body624.2.2, %for.cond618.preheader.3, %for.body624.3.1, %for.body624.3.2
   %BiPredMotionEstimation681 = getelementptr inbounds %struct.InputParameters, ptr %179, i64 0, i32 46
   %263 = load i32, ptr %BiPredMotionEstimation681, align 8, !tbaa !30
   %tobool682 = icmp ne i32 %263, 0
@@ -1355,15 +1358,15 @@ if.end711:                                        ; preds = %for.cond618.3, %for
 
 if.then716:                                       ; preds = %if.end711
   call void @compute_mode_RD_cost(i32 noundef %174, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1437 = load ptr, ptr @img, align 8, !tbaa !9
-  %.pre1440 = load ptr, ptr @input, align 8, !tbaa !9
+  %.pre1416 = load ptr, ptr @img, align 8, !tbaa !9
+  %.pre1419 = load ptr, ptr @input, align 8, !tbaa !9
   br label %if.end717
 
 if.end717:                                        ; preds = %if.then716, %if.end711
-  %.pre14381466 = phi ptr [ %.pre1437, %if.then716 ], [ %.pre14381467, %if.end711 ]
-  %266 = phi ptr [ %.pre1437, %if.then716 ], [ %172, %if.end711 ]
-  %267 = phi ptr [ %.pre1440, %if.then716 ], [ %179, %if.end711 ]
-  %268 = phi ptr [ %.pre1437, %if.then716 ], [ %173, %if.end711 ]
+  %.pre14171445 = phi ptr [ %.pre1416, %if.then716 ], [ %.pre14171446, %if.end711 ]
+  %266 = phi ptr [ %.pre1416, %if.then716 ], [ %172, %if.end711 ]
+  %267 = phi ptr [ %.pre1419, %if.then716 ], [ %179, %if.end711 ]
+  %268 = phi ptr [ %.pre1416, %if.then716 ], [ %173, %if.end711 ]
   %BiPredMotionEstimation718 = getelementptr inbounds %struct.InputParameters, ptr %267, i64 0, i32 46
   %269 = load i32, ptr %BiPredMotionEstimation718, align 8, !tbaa !30
   %tobool719 = icmp ne i32 %269, 0
@@ -1385,38 +1388,38 @@ land.lhs.true726:                                 ; preds = %if.end717
 for.inc751.sink.split:                            ; preds = %land.lhs.true726, %land.lhs.true686
   %.sink = phi i16 [ %264, %land.lhs.true686 ], [ %270, %land.lhs.true726 ]
   %arrayidx689.sink = phi ptr [ %arrayidx689, %land.lhs.true686 ], [ %arrayidx729, %land.lhs.true726 ]
-  %.pre14381465.ph = phi ptr [ %.pre14381467, %land.lhs.true686 ], [ %.pre14381466, %land.lhs.true726 ]
+  %.pre14171444.ph = phi ptr [ %.pre14171446, %land.lhs.true686 ], [ %.pre14171445, %land.lhs.true726 ]
   %.ph = phi ptr [ %172, %land.lhs.true686 ], [ %266, %land.lhs.true726 ]
-  %.ph1493 = phi ptr [ %173, %land.lhs.true686 ], [ %266, %land.lhs.true726 ]
+  %.ph1472 = phi ptr [ %173, %land.lhs.true686 ], [ %266, %land.lhs.true726 ]
   %add701 = add nsw i16 %.sink, 1
   store i16 %add701, ptr %arrayidx689.sink, align 2, !tbaa !22
   br label %for.inc751
 
 for.inc751:                                       ; preds = %for.inc751.sink.split, %if.then680, %land.lhs.true686, %if.end717, %land.lhs.true726, %land.lhs.true591, %if.then532
-  %.pre14381465 = phi ptr [ %.pre14381467, %if.then532 ], [ %.pre14381467, %land.lhs.true591 ], [ %.pre14381466, %land.lhs.true726 ], [ %.pre14381466, %if.end717 ], [ %.pre14381467, %land.lhs.true686 ], [ %.pre14381467, %if.then680 ], [ %.pre14381465.ph, %for.inc751.sink.split ]
+  %.pre14171444 = phi ptr [ %.pre14171446, %if.then532 ], [ %.pre14171446, %land.lhs.true591 ], [ %.pre14171445, %land.lhs.true726 ], [ %.pre14171445, %if.end717 ], [ %.pre14171446, %land.lhs.true686 ], [ %.pre14171446, %if.then680 ], [ %.pre14171444.ph, %for.inc751.sink.split ]
   %272 = phi ptr [ %172, %if.then532 ], [ %172, %land.lhs.true591 ], [ %266, %land.lhs.true726 ], [ %266, %if.end717 ], [ %172, %land.lhs.true686 ], [ %172, %if.then680 ], [ %.ph, %for.inc751.sink.split ]
-  %273 = phi ptr [ %173, %if.then532 ], [ %173, %land.lhs.true591 ], [ %266, %land.lhs.true726 ], [ %268, %if.end717 ], [ %173, %land.lhs.true686 ], [ %173, %if.then680 ], [ %.ph1493, %for.inc751.sink.split ]
-  %ctr16x16.6 = phi i32 [ %ctr16x16.31376, %if.then532 ], [ %ctr16x16.5, %land.lhs.true591 ], [ 2, %land.lhs.true726 ], [ %ctr16x16.5, %if.end717 ], [ 2, %land.lhs.true686 ], [ %ctr16x16.5, %if.then680 ], [ 2, %for.inc751.sink.split ]
-  %index.12 = phi i32 [ %index.91377, %if.then532 ], [ %index.11, %land.lhs.true591 ], [ %index.11, %land.lhs.true726 ], [ %index.11, %if.end717 ], [ %index.11, %land.lhs.true686 ], [ %index.11, %if.then680 ], [ %index.11, %for.inc751.sink.split ]
+  %273 = phi ptr [ %173, %if.then532 ], [ %173, %land.lhs.true591 ], [ %266, %land.lhs.true726 ], [ %268, %if.end717 ], [ %173, %land.lhs.true686 ], [ %173, %if.then680 ], [ %.ph1472, %for.inc751.sink.split ]
+  %ctr16x16.6 = phi i32 [ %ctr16x16.31352, %if.then532 ], [ %ctr16x16.5, %land.lhs.true591 ], [ 2, %land.lhs.true726 ], [ %ctr16x16.5, %if.end717 ], [ 2, %land.lhs.true686 ], [ %ctr16x16.5, %if.then680 ], [ 2, %for.inc751.sink.split ]
+  %index.12 = phi i32 [ %index.91353, %if.then532 ], [ %index.11, %land.lhs.true591 ], [ %index.11, %land.lhs.true726 ], [ %index.11, %if.end717 ], [ %index.11, %land.lhs.true686 ], [ %index.11, %if.then680 ], [ %index.11, %for.inc751.sink.split ]
   %inc752 = add nsw i32 %index.12, 1
   %cmp524 = icmp slt i32 %inc752, %158
   br i1 %cmp524, label %for.body526, label %for.inc754.loopexit, !llvm.loop !64
 
 for.inc754.loopexit:                              ; preds = %for.inc751
-  %.pre1441 = load i32, ptr %c_ipred_mode, align 8, !tbaa !26
+  %.pre1420 = load i32, ptr %c_ipred_mode, align 8, !tbaa !26
   br label %for.inc754
 
-for.inc754:                                       ; preds = %for.inc754.loopexit, %land.lhs.true495, %land.lhs.true515, %lor.lhs.false499, %lor.lhs.false505
-  %.pre14381464 = phi ptr [ %.pre1438, %land.lhs.true515 ], [ %.pre1438, %lor.lhs.false505 ], [ %.pre1438, %lor.lhs.false499 ], [ %.pre1438, %land.lhs.true495 ], [ %.pre14381465, %for.inc754.loopexit ]
-  %274 = phi ptr [ %164, %land.lhs.true515 ], [ %164, %lor.lhs.false505 ], [ %164, %lor.lhs.false499 ], [ %164, %land.lhs.true495 ], [ %272, %for.inc754.loopexit ]
-  %275 = phi i32 [ 3, %land.lhs.true515 ], [ 1, %lor.lhs.false505 ], [ 2, %lor.lhs.false499 ], [ %storemerge1379, %land.lhs.true495 ], [ %.pre1441, %for.inc754.loopexit ]
+for.inc754:                                       ; preds = %for.inc754.loopexit, %land.lhs.true492, %land.lhs.true515, %lor.lhs.false499, %lor.lhs.false505
+  %.pre14171443 = phi ptr [ %.pre1417, %land.lhs.true515 ], [ %.pre1417, %lor.lhs.false505 ], [ %.pre1417, %lor.lhs.false499 ], [ %.pre1417, %land.lhs.true492 ], [ %.pre14171444, %for.inc754.loopexit ]
+  %274 = phi ptr [ %164, %land.lhs.true515 ], [ %164, %lor.lhs.false505 ], [ %164, %lor.lhs.false499 ], [ %164, %land.lhs.true492 ], [ %272, %for.inc754.loopexit ]
+  %275 = phi i32 [ 3, %land.lhs.true515 ], [ 1, %lor.lhs.false505 ], [ 2, %lor.lhs.false499 ], [ %storemerge1355, %land.lhs.true492 ], [ %.pre1420, %for.inc754.loopexit ]
   %inc756 = add nsw i32 %275, 1
   store i32 %inc756, ptr %c_ipred_mode, align 8, !tbaa !26
   %cmp483.not.not = icmp slt i32 %275, %conv482
   br i1 %cmp483.not.not, label %for.body485, label %for.end757, !llvm.loop !65
 
 for.end757:                                       ; preds = %for.inc754, %if.end477
-  %276 = phi ptr [ %.pre1442, %if.end477 ], [ %274, %for.inc754 ]
+  %276 = phi ptr [ %.pre1421, %if.end477 ], [ %274, %for.inc754 ]
   %type758 = getelementptr inbounds %struct.ImageParameters, ptr %276, i64 0, i32 5
   %277 = load i32, ptr %type758, align 4, !tbaa !11
   %cmp759.not = icmp eq i32 %277, 2
@@ -1469,66 +1472,66 @@ if.end784:                                        ; preds = %if.then769, %if.the
   %sext1322 = shl i32 %max_chroma_pred_mode.1, 16
   %conv789 = ashr exact i32 %sext1322, 16
   store i32 %conv785, ptr %c_ipred_mode, align 8, !tbaa !26
-  %cmp790.not1382 = icmp sgt i32 %conv785, %conv789
-  br i1 %cmp790.not1382, label %if.end887, label %for.body792.preheader
+  %cmp790.not1358 = icmp sgt i32 %conv785, %conv789
+  br i1 %cmp790.not1358, label %if.end887, label %for.body792.preheader
 
 for.body792.preheader:                            ; preds = %if.end784
   %288 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 5), align 4
-  %cmp844.us = icmp sgt i32 %288, 9
-  %cmp868.us = icmp ne i32 %288, 1
-  %idxprom874.us = sext i32 %288 to i64
-  %arrayidx875.us = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us
-  %289 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 6), align 8
-  %cmp844.us.1 = icmp sgt i32 %289, 9
-  %cmp868.us.1 = icmp ne i32 %289, 1
-  %idxprom874.us.1 = sext i32 %289 to i64
-  %arrayidx875.us.1 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.1
-  %290 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 7), align 4
-  %cmp844.us.2 = icmp sgt i32 %290, 9
-  %cmp868.us.2 = icmp ne i32 %290, 1
-  %idxprom874.us.2 = sext i32 %290 to i64
-  %arrayidx875.us.2 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.2
-  %291 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 8), align 16
-  %cmp844.us.3 = icmp sgt i32 %291, 9
-  %cmp868.us.3 = icmp ne i32 %291, 1
-  %idxprom874.us.3 = sext i32 %291 to i64
-  %arrayidx875.us.3 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.3
-  %292 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 5), align 4
-  %cmp844 = icmp sgt i32 %292, 9
-  %cmp863 = icmp ne i32 %292, 0
-  %cmp868 = icmp ne i32 %292, 1
-  %or.cond1072.not = select i1 %cmp, i1 true, i1 %cmp868
-  %or.cond1328 = and i1 %cmp863, %or.cond1072.not
-  %idxprom874 = sext i32 %292 to i64
+  %cmp844 = icmp sgt i32 %288, 9
+  %cmp868 = icmp ne i32 %288, 1
+  %idxprom874 = sext i32 %288 to i64
   %arrayidx875 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874
-  %293 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 6), align 8
-  %cmp844.1 = icmp sgt i32 %293, 9
-  %cmp863.1 = icmp ne i32 %293, 0
-  %cmp868.1 = icmp ne i32 %293, 1
-  %or.cond1072.not.1 = select i1 %cmp, i1 true, i1 %cmp868.1
-  %or.cond1328.1 = and i1 %cmp863.1, %or.cond1072.not.1
-  %idxprom874.1 = sext i32 %293 to i64
+  %289 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 6), align 8
+  %cmp844.1 = icmp sgt i32 %289, 9
+  %cmp868.1 = icmp ne i32 %289, 1
+  %idxprom874.1 = sext i32 %289 to i64
   %arrayidx875.1 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.1
-  %294 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 7), align 4
-  %cmp844.2 = icmp sgt i32 %294, 9
-  %cmp863.2 = icmp ne i32 %294, 0
-  %cmp868.2 = icmp ne i32 %294, 1
-  %or.cond1072.not.2 = select i1 %cmp, i1 true, i1 %cmp868.2
-  %or.cond1328.2 = and i1 %cmp863.2, %or.cond1072.not.2
-  %idxprom874.2 = sext i32 %294 to i64
+  %290 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 7), align 4
+  %cmp844.2 = icmp sgt i32 %290, 9
+  %cmp868.2 = icmp ne i32 %290, 1
+  %idxprom874.2 = sext i32 %290 to i64
   %arrayidx875.2 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.2
-  %295 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 8), align 16
-  %cmp844.3 = icmp sgt i32 %295, 9
-  %cmp863.3 = icmp ne i32 %295, 0
-  %cmp868.3 = icmp ne i32 %295, 1
-  %or.cond1072.not.3 = select i1 %cmp, i1 true, i1 %cmp868.3
-  %or.cond1328.3 = and i1 %cmp863.3, %or.cond1072.not.3
-  %idxprom874.3 = sext i32 %295 to i64
+  %291 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 8), align 16
+  %cmp844.3 = icmp sgt i32 %291, 9
+  %cmp868.3 = icmp ne i32 %291, 1
+  %idxprom874.3 = sext i32 %291 to i64
   %arrayidx875.3 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.3
+  %292 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 5), align 4
+  %cmp844.us = icmp sgt i32 %292, 9
+  %cmp863.us = icmp ne i32 %292, 0
+  %cmp868.us = icmp ne i32 %292, 1
+  %or.cond1072.not.us = select i1 %cmp, i1 true, i1 %cmp868.us
+  %or.cond1329.us = and i1 %cmp863.us, %or.cond1072.not.us
+  %idxprom874.us = sext i32 %292 to i64
+  %arrayidx875.us = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us
+  %293 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 6), align 8
+  %cmp844.us.1 = icmp sgt i32 %293, 9
+  %cmp863.us.1 = icmp ne i32 %293, 0
+  %cmp868.us.1 = icmp ne i32 %293, 1
+  %or.cond1072.not.us.1 = select i1 %cmp, i1 true, i1 %cmp868.us.1
+  %or.cond1329.us.1 = and i1 %cmp863.us.1, %or.cond1072.not.us.1
+  %idxprom874.us.1 = sext i32 %293 to i64
+  %arrayidx875.us.1 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.1
+  %294 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 7), align 4
+  %cmp844.us.2 = icmp sgt i32 %294, 9
+  %cmp863.us.2 = icmp ne i32 %294, 0
+  %cmp868.us.2 = icmp ne i32 %294, 1
+  %or.cond1072.not.us.2 = select i1 %cmp, i1 true, i1 %cmp868.us.2
+  %or.cond1329.us.2 = and i1 %cmp863.us.2, %or.cond1072.not.us.2
+  %idxprom874.us.2 = sext i32 %294 to i64
+  %arrayidx875.us.2 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.2
+  %295 = load i32, ptr getelementptr inbounds ([9 x i32], ptr @mb_mode_table, i64 0, i64 8), align 16
+  %cmp844.us.3 = icmp sgt i32 %295, 9
+  %cmp863.us.3 = icmp ne i32 %295, 0
+  %cmp868.us.3 = icmp ne i32 %295, 1
+  %or.cond1072.not.us.3 = select i1 %cmp, i1 true, i1 %cmp868.us.3
+  %or.cond1329.us.3 = and i1 %cmp863.us.3, %or.cond1072.not.us.3
+  %idxprom874.us.3 = sext i32 %295 to i64
+  %arrayidx875.us.3 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3, i64 %idxprom874.us.3
   br label %for.body792
 
 for.body792:                                      ; preds = %for.body792.preheader, %for.inc882
-  %storemerge13211383 = phi i32 [ %inc884, %for.inc882 ], [ %conv785, %for.body792.preheader ]
+  %storemerge13211359 = phi i32 [ %inc884, %for.inc882 ], [ %conv785, %for.body792.preheader ]
   %296 = load ptr, ptr @img, align 8, !tbaa !9
   %yuv_format793 = getelementptr inbounds %struct.ImageParameters, ptr %296, i64 0, i32 160
   %297 = load i32, ptr %yuv_format793, align 8, !tbaa !52
@@ -1548,29 +1551,27 @@ lor.lhs.false798:                                 ; preds = %land.lhs.true796
 land.lhs.true801:                                 ; preds = %land.lhs.true796, %lor.lhs.false798
   %ChromaIntraDisable802 = getelementptr inbounds %struct.InputParameters, ptr %298, i64 0, i32 90
   %300 = load i32, ptr %ChromaIntraDisable802, align 8, !tbaa !55
-  %cmp803 = icmp eq i32 %300, 1
-  br i1 %cmp803, label %land.lhs.true805, label %lor.lhs.false809
-
-land.lhs.true805:                                 ; preds = %land.lhs.true801
-  %cmp807.not = icmp eq i32 %storemerge13211383, 0
-  br i1 %cmp807.not, label %if.end832, label %for.inc882
+  %cmp803 = icmp ne i32 %300, 1
+  %cmp807.not = icmp eq i32 %storemerge13211359, 0
+  %or.cond1328 = or i1 %cmp807.not, %cmp803
+  br i1 %or.cond1328, label %lor.lhs.false809, label %for.inc882
 
 lor.lhs.false809:                                 ; preds = %land.lhs.true801, %lor.lhs.false798
-  %cmp811 = icmp ne i32 %storemerge13211383, 2
+  %cmp811 = icmp ne i32 %storemerge13211359, 2
   %301 = load i32, ptr %mb_available_up, align 4
   %tobool814 = icmp ne i32 %301, 0
   %or.cond1064 = select i1 %cmp811, i1 true, i1 %tobool814
   br i1 %or.cond1064, label %lor.lhs.false815, label %for.inc882
 
 lor.lhs.false815:                                 ; preds = %lor.lhs.false809
-  %cmp817 = icmp ne i32 %storemerge13211383, 1
+  %cmp817 = icmp ne i32 %storemerge13211359, 1
   %302 = load i32, ptr %mb_available_left, align 4
   %tobool820 = icmp ne i32 %302, 0
   %or.cond1065 = select i1 %cmp817, i1 true, i1 %tobool820
   br i1 %or.cond1065, label %lor.lhs.false821, label %for.inc882
 
 lor.lhs.false821:                                 ; preds = %lor.lhs.false815
-  %cmp823 = icmp eq i32 %storemerge13211383, 3
+  %cmp823 = icmp eq i32 %storemerge13211359, 3
   br i1 %cmp823, label %land.lhs.true825, label %if.end832
 
 land.lhs.true825:                                 ; preds = %lor.lhs.false821
@@ -1580,289 +1581,292 @@ land.lhs.true825:                                 ; preds = %lor.lhs.false821
   %or.cond1067 = select i1 %or.cond1066, i1 %tobool830, i1 false
   br i1 %or.cond1067, label %if.end832, label %for.inc882
 
-if.end832:                                        ; preds = %land.lhs.true805, %land.lhs.true825, %lor.lhs.false821, %for.body792
+if.end832:                                        ; preds = %land.lhs.true825, %lor.lhs.false821, %for.body792
   %304 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839 = getelementptr inbounds %struct.InputParameters, ptr %304, i64 0, i32 67
-  %305 = load i32, ptr %SkipIntraInInterSlices839, align 8, !tbaa !56
-  %tobool840 = icmp eq i32 %305, 0
-  %or.cond1068 = or i1 %tobool52, %tobool840
-  %or.cond1068.not = xor i1 %or.cond1068, true
+  %SkipIntraInInterSlices839.us = getelementptr inbounds %struct.InputParameters, ptr %304, i64 0, i32 67
+  %305 = load i32, ptr %SkipIntraInInterSlices839.us, align 8, !tbaa !56
+  %tobool840.us = icmp eq i32 %305, 0
+  %or.cond1068.us = or i1 %tobool52, %tobool840.us
+  %or.cond1068.not.us = xor i1 %or.cond1068.us, true
   %306 = load i16, ptr @best_mode, align 2
-  %cmp848 = icmp slt i16 %306, 4
-  br i1 %cmp3, label %for.body836.preheader, label %for.body836.us.preheader
-
-for.body836.us.preheader:                         ; preds = %if.end832
-  %or.cond1069.us = select i1 %or.cond1068.not, i1 %cmp844.us, i1 false
-  %or.cond1070.us = select i1 %or.cond1069.us, i1 %cmp848, i1 false
-  br i1 %or.cond1070.us, label %land.lhs.true850.us, label %if.end855.us
+  %cmp848.us = icmp slt i16 %306, 4
+  br i1 %cmp3, label %for.body836.us.preheader, label %for.body836.preheader
 
 for.body836.preheader:                            ; preds = %if.end832
-  %or.cond1069 = select i1 %or.cond1068.not, i1 %cmp844, i1 false
-  %or.cond1070 = select i1 %or.cond1069, i1 %cmp848, i1 false
+  %or.cond1069 = select i1 %or.cond1068.not.us, i1 %cmp844, i1 false
+  %or.cond1070 = select i1 %or.cond1069, i1 %cmp848.us, i1 false
   br i1 %or.cond1070, label %land.lhs.true850, label %if.end855
+
+for.body836.us.preheader:                         ; preds = %if.end832
+  %or.cond1069.us = select i1 %or.cond1068.not.us, i1 %cmp844.us, i1 false
+  %or.cond1070.us = select i1 %or.cond1069.us, i1 %cmp848.us, i1 false
+  br i1 %or.cond1070.us, label %land.lhs.true850.us, label %if.end855.us
 
 land.lhs.true850.us:                              ; preds = %for.body836.us.preheader
   %307 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.us = icmp eq i32 %307, 0
-  br i1 %cmp852.us, label %for.inc879.us, label %if.end872.us
+  %cmp852.us = icmp ne i32 %307, 0
+  %brmerge = select i1 %cmp794.not, i1 true, i1 %or.cond1329.us
+  %or.cond1477 = select i1 %cmp852.us, i1 %brmerge, i1 false
+  br i1 %or.cond1477, label %if.end872.us, label %for.inc879.us
 
 if.end855.us:                                     ; preds = %for.body836.us.preheader
-  %308 = or i1 %cmp794.not, %cmp
-  %or.cond1390 = select i1 %308, i1 true, i1 %cmp868.us
-  br i1 %or.cond1390, label %if.end872.us, label %for.inc879.us
+  %brmerge.old = select i1 %cmp794.not, i1 true, i1 %or.cond1329.us
+  br i1 %brmerge.old, label %if.end872.us, label %for.inc879.us
 
 if.end872.us:                                     ; preds = %land.lhs.true850.us, %if.end855.us
-  %309 = load i16, ptr %arrayidx875.us, align 2, !tbaa !22
-  %tobool876.not.us = icmp eq i16 %309, 0
+  %308 = load i16, ptr %arrayidx875.us, align 2, !tbaa !22
+  %tobool876.not.us = icmp eq i16 %308, 0
   br i1 %tobool876.not.us, label %for.inc879.us, label %if.then877.us
 
 if.then877.us:                                    ; preds = %if.end872.us
-  call void @compute_mode_RD_cost(i32 noundef %288, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1444 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.us.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1444, i64 0, i32 67
-  %.pre1445 = load i32, ptr %SkipIntraInInterSlices839.us.1.phi.trans.insert, align 8, !tbaa !56
-  %.pre1446 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %292, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1432 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.us.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1432, i64 0, i32 67
+  %.pre1433 = load i32, ptr %SkipIntraInInterSlices839.us.1.phi.trans.insert, align 8, !tbaa !56
+  %.pre1434 = load i16, ptr @best_mode, align 2
   br label %for.inc879.us
 
 for.inc879.us:                                    ; preds = %if.end855.us, %if.then877.us, %if.end872.us, %land.lhs.true850.us
-  %310 = phi i16 [ %306, %if.end855.us ], [ %.pre1446, %if.then877.us ], [ %306, %if.end872.us ], [ %306, %land.lhs.true850.us ]
-  %311 = phi i32 [ %305, %if.end855.us ], [ %.pre1445, %if.then877.us ], [ %305, %if.end872.us ], [ %305, %land.lhs.true850.us ]
-  %tobool840.us.1 = icmp eq i32 %311, 0
+  %309 = phi i16 [ %.pre1434, %if.then877.us ], [ %306, %if.end872.us ], [ %306, %land.lhs.true850.us ], [ %306, %if.end855.us ]
+  %310 = phi i32 [ %.pre1433, %if.then877.us ], [ %305, %if.end872.us ], [ %305, %land.lhs.true850.us ], [ %305, %if.end855.us ]
+  %tobool840.us.1 = icmp eq i32 %310, 0
   %or.cond1068.us.1 = or i1 %tobool52, %tobool840.us.1
   %or.cond1068.not.us.1 = xor i1 %or.cond1068.us.1, true
   %or.cond1069.us.1 = select i1 %or.cond1068.not.us.1, i1 %cmp844.us.1, i1 false
-  %cmp848.us.1 = icmp slt i16 %310, 4
+  %cmp848.us.1 = icmp slt i16 %309, 4
   %or.cond1070.us.1 = select i1 %or.cond1069.us.1, i1 %cmp848.us.1, i1 false
   br i1 %or.cond1070.us.1, label %land.lhs.true850.us.1, label %if.end855.us.1
 
 land.lhs.true850.us.1:                            ; preds = %for.inc879.us
-  %312 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.us.1 = icmp eq i32 %312, 0
-  br i1 %cmp852.us.1, label %for.inc879.us.1, label %if.end872.us.1
+  %311 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.us.1 = icmp eq i32 %311, 0
+  br i1 %cmp852.us.1, label %for.inc879.us.1, label %if.end855.us.1
 
-if.end855.us.1:                                   ; preds = %for.inc879.us
-  %313 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.us.1 = getelementptr inbounds %struct.ImageParameters, ptr %313, i64 0, i32 160
-  %314 = load i32, ptr %yuv_format856.us.1, align 8, !tbaa !52
-  %cmp857.not.us.1 = icmp eq i32 %314, 0
-  %315 = or i1 %cmp857.not.us.1, %cmp
-  %or.cond1390.1 = select i1 %315, i1 true, i1 %cmp868.us.1
-  br i1 %or.cond1390.1, label %if.end872.us.1, label %for.inc879.us.1
+if.end855.us.1:                                   ; preds = %land.lhs.true850.us.1, %for.inc879.us
+  %312 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.us.1 = getelementptr inbounds %struct.ImageParameters, ptr %312, i64 0, i32 160
+  %313 = load i32, ptr %yuv_format856.us.1, align 8, !tbaa !52
+  %cmp857.not.us.1 = icmp eq i32 %313, 0
+  %brmerge1473 = select i1 %cmp857.not.us.1, i1 true, i1 %or.cond1329.us.1
+  br i1 %brmerge1473, label %if.end872.us.1, label %for.inc879.us.1
 
-if.end872.us.1:                                   ; preds = %land.lhs.true850.us.1, %if.end855.us.1
-  %316 = load i16, ptr %arrayidx875.us.1, align 2, !tbaa !22
-  %tobool876.not.us.1 = icmp eq i16 %316, 0
+if.end872.us.1:                                   ; preds = %if.end855.us.1
+  %314 = load i16, ptr %arrayidx875.us.1, align 2, !tbaa !22
+  %tobool876.not.us.1 = icmp eq i16 %314, 0
   br i1 %tobool876.not.us.1, label %for.inc879.us.1, label %if.then877.us.1
 
 if.then877.us.1:                                  ; preds = %if.end872.us.1
-  call void @compute_mode_RD_cost(i32 noundef %289, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1447 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.us.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1447, i64 0, i32 67
-  %.pre1448 = load i32, ptr %SkipIntraInInterSlices839.us.2.phi.trans.insert, align 8, !tbaa !56
-  %.pre1449 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %293, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1435 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.us.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1435, i64 0, i32 67
+  %.pre1436 = load i32, ptr %SkipIntraInInterSlices839.us.2.phi.trans.insert, align 8, !tbaa !56
+  %.pre1437 = load i16, ptr @best_mode, align 2
   br label %for.inc879.us.1
 
-for.inc879.us.1:                                  ; preds = %if.then877.us.1, %if.end872.us.1, %if.end855.us.1, %land.lhs.true850.us.1
-  %317 = phi i16 [ %.pre1449, %if.then877.us.1 ], [ %310, %if.end872.us.1 ], [ %310, %if.end855.us.1 ], [ %310, %land.lhs.true850.us.1 ]
-  %318 = phi i32 [ %.pre1448, %if.then877.us.1 ], [ %311, %if.end872.us.1 ], [ %311, %if.end855.us.1 ], [ %311, %land.lhs.true850.us.1 ]
-  %tobool840.us.2 = icmp eq i32 %318, 0
+for.inc879.us.1:                                  ; preds = %if.end855.us.1, %if.then877.us.1, %if.end872.us.1, %land.lhs.true850.us.1
+  %315 = phi i16 [ %.pre1437, %if.then877.us.1 ], [ %309, %if.end872.us.1 ], [ %309, %land.lhs.true850.us.1 ], [ %309, %if.end855.us.1 ]
+  %316 = phi i32 [ %.pre1436, %if.then877.us.1 ], [ %310, %if.end872.us.1 ], [ %310, %land.lhs.true850.us.1 ], [ %310, %if.end855.us.1 ]
+  %tobool840.us.2 = icmp eq i32 %316, 0
   %or.cond1068.us.2 = or i1 %tobool52, %tobool840.us.2
   %or.cond1068.not.us.2 = xor i1 %or.cond1068.us.2, true
   %or.cond1069.us.2 = select i1 %or.cond1068.not.us.2, i1 %cmp844.us.2, i1 false
-  %cmp848.us.2 = icmp slt i16 %317, 4
+  %cmp848.us.2 = icmp slt i16 %315, 4
   %or.cond1070.us.2 = select i1 %or.cond1069.us.2, i1 %cmp848.us.2, i1 false
   br i1 %or.cond1070.us.2, label %land.lhs.true850.us.2, label %if.end855.us.2
 
 land.lhs.true850.us.2:                            ; preds = %for.inc879.us.1
-  %319 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.us.2 = icmp eq i32 %319, 0
-  br i1 %cmp852.us.2, label %for.inc879.us.2, label %if.end872.us.2
+  %317 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.us.2 = icmp eq i32 %317, 0
+  br i1 %cmp852.us.2, label %for.inc879.us.2, label %if.end855.us.2
 
-if.end855.us.2:                                   ; preds = %for.inc879.us.1
-  %320 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.us.2 = getelementptr inbounds %struct.ImageParameters, ptr %320, i64 0, i32 160
-  %321 = load i32, ptr %yuv_format856.us.2, align 8, !tbaa !52
-  %cmp857.not.us.2 = icmp eq i32 %321, 0
-  %322 = or i1 %cmp857.not.us.2, %cmp
-  %or.cond1390.2 = select i1 %322, i1 true, i1 %cmp868.us.2
-  br i1 %or.cond1390.2, label %if.end872.us.2, label %for.inc879.us.2
+if.end855.us.2:                                   ; preds = %land.lhs.true850.us.2, %for.inc879.us.1
+  %318 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.us.2 = getelementptr inbounds %struct.ImageParameters, ptr %318, i64 0, i32 160
+  %319 = load i32, ptr %yuv_format856.us.2, align 8, !tbaa !52
+  %cmp857.not.us.2 = icmp eq i32 %319, 0
+  %brmerge1474 = select i1 %cmp857.not.us.2, i1 true, i1 %or.cond1329.us.2
+  br i1 %brmerge1474, label %if.end872.us.2, label %for.inc879.us.2
 
-if.end872.us.2:                                   ; preds = %land.lhs.true850.us.2, %if.end855.us.2
-  %323 = load i16, ptr %arrayidx875.us.2, align 2, !tbaa !22
-  %tobool876.not.us.2 = icmp eq i16 %323, 0
+if.end872.us.2:                                   ; preds = %if.end855.us.2
+  %320 = load i16, ptr %arrayidx875.us.2, align 2, !tbaa !22
+  %tobool876.not.us.2 = icmp eq i16 %320, 0
   br i1 %tobool876.not.us.2, label %for.inc879.us.2, label %if.then877.us.2
 
 if.then877.us.2:                                  ; preds = %if.end872.us.2
-  call void @compute_mode_RD_cost(i32 noundef %290, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1450 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.us.3.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1450, i64 0, i32 67
-  %.pre1451 = load i32, ptr %SkipIntraInInterSlices839.us.3.phi.trans.insert, align 8, !tbaa !56
-  %.pre1452 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %294, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1438 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.us.3.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1438, i64 0, i32 67
+  %.pre1439 = load i32, ptr %SkipIntraInInterSlices839.us.3.phi.trans.insert, align 8, !tbaa !56
+  %.pre1440 = load i16, ptr @best_mode, align 2
   br label %for.inc879.us.2
 
-for.inc879.us.2:                                  ; preds = %if.then877.us.2, %if.end872.us.2, %if.end855.us.2, %land.lhs.true850.us.2
-  %324 = phi i16 [ %.pre1452, %if.then877.us.2 ], [ %317, %if.end872.us.2 ], [ %317, %if.end855.us.2 ], [ %317, %land.lhs.true850.us.2 ]
-  %325 = phi i32 [ %.pre1451, %if.then877.us.2 ], [ %318, %if.end872.us.2 ], [ %318, %if.end855.us.2 ], [ %318, %land.lhs.true850.us.2 ]
-  %tobool840.us.3 = icmp eq i32 %325, 0
+for.inc879.us.2:                                  ; preds = %if.end855.us.2, %if.then877.us.2, %if.end872.us.2, %land.lhs.true850.us.2
+  %321 = phi i16 [ %.pre1440, %if.then877.us.2 ], [ %315, %if.end872.us.2 ], [ %315, %land.lhs.true850.us.2 ], [ %315, %if.end855.us.2 ]
+  %322 = phi i32 [ %.pre1439, %if.then877.us.2 ], [ %316, %if.end872.us.2 ], [ %316, %land.lhs.true850.us.2 ], [ %316, %if.end855.us.2 ]
+  %tobool840.us.3 = icmp eq i32 %322, 0
   %or.cond1068.us.3 = or i1 %tobool52, %tobool840.us.3
   %or.cond1068.not.us.3 = xor i1 %or.cond1068.us.3, true
   %or.cond1069.us.3 = select i1 %or.cond1068.not.us.3, i1 %cmp844.us.3, i1 false
-  %cmp848.us.3 = icmp slt i16 %324, 4
+  %cmp848.us.3 = icmp slt i16 %321, 4
   %or.cond1070.us.3 = select i1 %or.cond1069.us.3, i1 %cmp848.us.3, i1 false
   br i1 %or.cond1070.us.3, label %land.lhs.true850.us.3, label %if.end855.us.3
 
 land.lhs.true850.us.3:                            ; preds = %for.inc879.us.2
-  %326 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.us.3 = icmp eq i32 %326, 0
-  br i1 %cmp852.us.3, label %for.inc882, label %if.end872.us.3
+  %323 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.us.3 = icmp eq i32 %323, 0
+  br i1 %cmp852.us.3, label %for.inc882, label %if.end855.us.3
 
-if.end855.us.3:                                   ; preds = %for.inc879.us.2
-  %327 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.us.3 = getelementptr inbounds %struct.ImageParameters, ptr %327, i64 0, i32 160
-  %328 = load i32, ptr %yuv_format856.us.3, align 8, !tbaa !52
-  %cmp857.not.us.3 = icmp eq i32 %328, 0
-  %329 = or i1 %cmp857.not.us.3, %cmp
-  %or.cond1390.3 = select i1 %329, i1 true, i1 %cmp868.us.3
-  br i1 %or.cond1390.3, label %if.end872.us.3, label %for.inc882
+if.end855.us.3:                                   ; preds = %land.lhs.true850.us.3, %for.inc879.us.2
+  %324 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.us.3 = getelementptr inbounds %struct.ImageParameters, ptr %324, i64 0, i32 160
+  %325 = load i32, ptr %yuv_format856.us.3, align 8, !tbaa !52
+  %cmp857.not.us.3 = icmp eq i32 %325, 0
+  %brmerge1475 = select i1 %cmp857.not.us.3, i1 true, i1 %or.cond1329.us.3
+  br i1 %brmerge1475, label %if.end872.us.3, label %for.inc882
 
-if.end872.us.3:                                   ; preds = %land.lhs.true850.us.3, %if.end855.us.3
-  %330 = load i16, ptr %arrayidx875.us.3, align 2, !tbaa !22
-  %tobool876.not.us.3 = icmp eq i16 %330, 0
-  br i1 %tobool876.not.us.3, label %for.inc882, label %for.inc882.sink.split
+if.end872.us.3:                                   ; preds = %if.end855.us.3
+  %326 = load i16, ptr %arrayidx875.us.3, align 2, !tbaa !22
+  %tobool876.not.us.3 = icmp eq i16 %326, 0
+  br i1 %tobool876.not.us.3, label %for.inc882, label %if.then877.us.3
+
+if.then877.us.3:                                  ; preds = %if.end872.us.3
+  call void @compute_mode_RD_cost(i32 noundef %295, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  br label %for.inc882
 
 land.lhs.true850:                                 ; preds = %for.body836.preheader
-  %331 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852 = icmp ne i32 %331, 0
-  %brmerge = select i1 %cmp794.not, i1 true, i1 %or.cond1328
-  %or.cond1499 = select i1 %cmp852, i1 %brmerge, i1 false
-  br i1 %or.cond1499, label %if.end872, label %for.inc879
+  %327 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852 = icmp eq i32 %327, 0
+  br i1 %cmp852, label %for.inc879, label %if.end872
 
 if.end855:                                        ; preds = %for.body836.preheader
-  %brmerge.old = select i1 %cmp794.not, i1 true, i1 %or.cond1328
-  br i1 %brmerge.old, label %if.end872, label %for.inc879
+  %328 = or i1 %cmp794.not, %cmp
+  %or.cond1366 = select i1 %328, i1 true, i1 %cmp868
+  br i1 %or.cond1366, label %if.end872, label %for.inc879
 
 if.end872:                                        ; preds = %land.lhs.true850, %if.end855
-  %332 = load i16, ptr %arrayidx875, align 2, !tbaa !22
-  %tobool876.not = icmp eq i16 %332, 0
+  %329 = load i16, ptr %arrayidx875, align 2, !tbaa !22
+  %tobool876.not = icmp eq i16 %329, 0
   br i1 %tobool876.not, label %for.inc879, label %if.then877
 
 if.then877:                                       ; preds = %if.end872
-  call void @compute_mode_RD_cost(i32 noundef %292, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1453 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1453, i64 0, i32 67
-  %.pre1454 = load i32, ptr %SkipIntraInInterSlices839.1.phi.trans.insert, align 8, !tbaa !56
-  %.pre1455 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %288, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1423 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.1.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1423, i64 0, i32 67
+  %.pre1424 = load i32, ptr %SkipIntraInInterSlices839.1.phi.trans.insert, align 8, !tbaa !56
+  %.pre1425 = load i16, ptr @best_mode, align 2
   br label %for.inc879
 
 for.inc879:                                       ; preds = %if.end855, %if.end872, %if.then877, %land.lhs.true850
-  %333 = phi i16 [ %306, %if.end872 ], [ %.pre1455, %if.then877 ], [ %306, %land.lhs.true850 ], [ %306, %if.end855 ]
-  %334 = phi i32 [ %305, %if.end872 ], [ %.pre1454, %if.then877 ], [ %305, %land.lhs.true850 ], [ %305, %if.end855 ]
-  %tobool840.1 = icmp eq i32 %334, 0
+  %330 = phi i16 [ %306, %if.end855 ], [ %306, %if.end872 ], [ %.pre1425, %if.then877 ], [ %306, %land.lhs.true850 ]
+  %331 = phi i32 [ %305, %if.end855 ], [ %305, %if.end872 ], [ %.pre1424, %if.then877 ], [ %305, %land.lhs.true850 ]
+  %tobool840.1 = icmp eq i32 %331, 0
   %or.cond1068.1 = or i1 %tobool52, %tobool840.1
   %or.cond1068.not.1 = xor i1 %or.cond1068.1, true
   %or.cond1069.1 = select i1 %or.cond1068.not.1, i1 %cmp844.1, i1 false
-  %cmp848.1 = icmp slt i16 %333, 4
+  %cmp848.1 = icmp slt i16 %330, 4
   %or.cond1070.1 = select i1 %or.cond1069.1, i1 %cmp848.1, i1 false
   br i1 %or.cond1070.1, label %land.lhs.true850.1, label %if.end855.1
 
 land.lhs.true850.1:                               ; preds = %for.inc879
-  %335 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.1 = icmp eq i32 %335, 0
-  br i1 %cmp852.1, label %for.inc879.1, label %if.end855.1
+  %332 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.1 = icmp eq i32 %332, 0
+  br i1 %cmp852.1, label %for.inc879.1, label %if.end872.1
 
-if.end855.1:                                      ; preds = %land.lhs.true850.1, %for.inc879
-  %336 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.1 = getelementptr inbounds %struct.ImageParameters, ptr %336, i64 0, i32 160
-  %337 = load i32, ptr %yuv_format856.1, align 8, !tbaa !52
-  %cmp857.not.1 = icmp eq i32 %337, 0
-  %brmerge1494 = select i1 %cmp857.not.1, i1 true, i1 %or.cond1328.1
-  br i1 %brmerge1494, label %if.end872.1, label %for.inc879.1
+if.end855.1:                                      ; preds = %for.inc879
+  %333 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.1 = getelementptr inbounds %struct.ImageParameters, ptr %333, i64 0, i32 160
+  %334 = load i32, ptr %yuv_format856.1, align 8, !tbaa !52
+  %cmp857.not.1 = icmp eq i32 %334, 0
+  %335 = or i1 %cmp857.not.1, %cmp
+  %or.cond1366.1 = select i1 %335, i1 true, i1 %cmp868.1
+  br i1 %or.cond1366.1, label %if.end872.1, label %for.inc879.1
 
-if.end872.1:                                      ; preds = %if.end855.1
-  %338 = load i16, ptr %arrayidx875.1, align 2, !tbaa !22
-  %tobool876.not.1 = icmp eq i16 %338, 0
+if.end872.1:                                      ; preds = %land.lhs.true850.1, %if.end855.1
+  %336 = load i16, ptr %arrayidx875.1, align 2, !tbaa !22
+  %tobool876.not.1 = icmp eq i16 %336, 0
   br i1 %tobool876.not.1, label %for.inc879.1, label %if.then877.1
 
 if.then877.1:                                     ; preds = %if.end872.1
-  call void @compute_mode_RD_cost(i32 noundef %293, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1456 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1456, i64 0, i32 67
-  %.pre1457 = load i32, ptr %SkipIntraInInterSlices839.2.phi.trans.insert, align 8, !tbaa !56
-  %.pre1458 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %289, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1426 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.2.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1426, i64 0, i32 67
+  %.pre1427 = load i32, ptr %SkipIntraInInterSlices839.2.phi.trans.insert, align 8, !tbaa !56
+  %.pre1428 = load i16, ptr @best_mode, align 2
   br label %for.inc879.1
 
-for.inc879.1:                                     ; preds = %if.end855.1, %if.then877.1, %if.end872.1, %land.lhs.true850.1
-  %339 = phi i16 [ %.pre1458, %if.then877.1 ], [ %333, %if.end872.1 ], [ %333, %land.lhs.true850.1 ], [ %333, %if.end855.1 ]
-  %340 = phi i32 [ %.pre1457, %if.then877.1 ], [ %334, %if.end872.1 ], [ %334, %land.lhs.true850.1 ], [ %334, %if.end855.1 ]
-  %tobool840.2 = icmp eq i32 %340, 0
+for.inc879.1:                                     ; preds = %if.then877.1, %if.end872.1, %if.end855.1, %land.lhs.true850.1
+  %337 = phi i16 [ %.pre1428, %if.then877.1 ], [ %330, %if.end872.1 ], [ %330, %if.end855.1 ], [ %330, %land.lhs.true850.1 ]
+  %338 = phi i32 [ %.pre1427, %if.then877.1 ], [ %331, %if.end872.1 ], [ %331, %if.end855.1 ], [ %331, %land.lhs.true850.1 ]
+  %tobool840.2 = icmp eq i32 %338, 0
   %or.cond1068.2 = or i1 %tobool52, %tobool840.2
   %or.cond1068.not.2 = xor i1 %or.cond1068.2, true
   %or.cond1069.2 = select i1 %or.cond1068.not.2, i1 %cmp844.2, i1 false
-  %cmp848.2 = icmp slt i16 %339, 4
+  %cmp848.2 = icmp slt i16 %337, 4
   %or.cond1070.2 = select i1 %or.cond1069.2, i1 %cmp848.2, i1 false
   br i1 %or.cond1070.2, label %land.lhs.true850.2, label %if.end855.2
 
 land.lhs.true850.2:                               ; preds = %for.inc879.1
-  %341 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.2 = icmp eq i32 %341, 0
-  br i1 %cmp852.2, label %for.inc879.2, label %if.end855.2
+  %339 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.2 = icmp eq i32 %339, 0
+  br i1 %cmp852.2, label %for.inc879.2, label %if.end872.2
 
-if.end855.2:                                      ; preds = %land.lhs.true850.2, %for.inc879.1
-  %342 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.2 = getelementptr inbounds %struct.ImageParameters, ptr %342, i64 0, i32 160
-  %343 = load i32, ptr %yuv_format856.2, align 8, !tbaa !52
-  %cmp857.not.2 = icmp eq i32 %343, 0
-  %brmerge1495 = select i1 %cmp857.not.2, i1 true, i1 %or.cond1328.2
-  br i1 %brmerge1495, label %if.end872.2, label %for.inc879.2
+if.end855.2:                                      ; preds = %for.inc879.1
+  %340 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.2 = getelementptr inbounds %struct.ImageParameters, ptr %340, i64 0, i32 160
+  %341 = load i32, ptr %yuv_format856.2, align 8, !tbaa !52
+  %cmp857.not.2 = icmp eq i32 %341, 0
+  %342 = or i1 %cmp857.not.2, %cmp
+  %or.cond1366.2 = select i1 %342, i1 true, i1 %cmp868.2
+  br i1 %or.cond1366.2, label %if.end872.2, label %for.inc879.2
 
-if.end872.2:                                      ; preds = %if.end855.2
-  %344 = load i16, ptr %arrayidx875.2, align 2, !tbaa !22
-  %tobool876.not.2 = icmp eq i16 %344, 0
+if.end872.2:                                      ; preds = %land.lhs.true850.2, %if.end855.2
+  %343 = load i16, ptr %arrayidx875.2, align 2, !tbaa !22
+  %tobool876.not.2 = icmp eq i16 %343, 0
   br i1 %tobool876.not.2, label %for.inc879.2, label %if.then877.2
 
 if.then877.2:                                     ; preds = %if.end872.2
-  call void @compute_mode_RD_cost(i32 noundef %294, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
-  %.pre1459 = load ptr, ptr @input, align 8, !tbaa !9
-  %SkipIntraInInterSlices839.3.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1459, i64 0, i32 67
-  %.pre1460 = load i32, ptr %SkipIntraInInterSlices839.3.phi.trans.insert, align 8, !tbaa !56
-  %.pre1461 = load i16, ptr @best_mode, align 2
+  call void @compute_mode_RD_cost(i32 noundef %290, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+  %.pre1429 = load ptr, ptr @input, align 8, !tbaa !9
+  %SkipIntraInInterSlices839.3.phi.trans.insert = getelementptr inbounds %struct.InputParameters, ptr %.pre1429, i64 0, i32 67
+  %.pre1430 = load i32, ptr %SkipIntraInInterSlices839.3.phi.trans.insert, align 8, !tbaa !56
+  %.pre1431 = load i16, ptr @best_mode, align 2
   br label %for.inc879.2
 
-for.inc879.2:                                     ; preds = %if.end855.2, %if.then877.2, %if.end872.2, %land.lhs.true850.2
-  %345 = phi i16 [ %.pre1461, %if.then877.2 ], [ %339, %if.end872.2 ], [ %339, %land.lhs.true850.2 ], [ %339, %if.end855.2 ]
-  %346 = phi i32 [ %.pre1460, %if.then877.2 ], [ %340, %if.end872.2 ], [ %340, %land.lhs.true850.2 ], [ %340, %if.end855.2 ]
-  %tobool840.3 = icmp eq i32 %346, 0
+for.inc879.2:                                     ; preds = %if.then877.2, %if.end872.2, %if.end855.2, %land.lhs.true850.2
+  %344 = phi i16 [ %.pre1431, %if.then877.2 ], [ %337, %if.end872.2 ], [ %337, %if.end855.2 ], [ %337, %land.lhs.true850.2 ]
+  %345 = phi i32 [ %.pre1430, %if.then877.2 ], [ %338, %if.end872.2 ], [ %338, %if.end855.2 ], [ %338, %land.lhs.true850.2 ]
+  %tobool840.3 = icmp eq i32 %345, 0
   %or.cond1068.3 = or i1 %tobool52, %tobool840.3
   %or.cond1068.not.3 = xor i1 %or.cond1068.3, true
   %or.cond1069.3 = select i1 %or.cond1068.not.3, i1 %cmp844.3, i1 false
-  %cmp848.3 = icmp slt i16 %345, 4
+  %cmp848.3 = icmp slt i16 %344, 4
   %or.cond1070.3 = select i1 %or.cond1069.3, i1 %cmp848.3, i1 false
   br i1 %or.cond1070.3, label %land.lhs.true850.3, label %if.end855.3
 
 land.lhs.true850.3:                               ; preds = %for.inc879.2
-  %347 = load i32, ptr %cbp, align 4, !tbaa !35
-  %cmp852.3 = icmp eq i32 %347, 0
-  br i1 %cmp852.3, label %for.inc882, label %if.end855.3
+  %346 = load i32, ptr %cbp, align 4, !tbaa !35
+  %cmp852.3 = icmp eq i32 %346, 0
+  br i1 %cmp852.3, label %for.inc882, label %if.end872.3
 
-if.end855.3:                                      ; preds = %land.lhs.true850.3, %for.inc879.2
-  %348 = load ptr, ptr @img, align 8, !tbaa !9
-  %yuv_format856.3 = getelementptr inbounds %struct.ImageParameters, ptr %348, i64 0, i32 160
-  %349 = load i32, ptr %yuv_format856.3, align 8, !tbaa !52
-  %cmp857.not.3 = icmp eq i32 %349, 0
-  %brmerge1496 = select i1 %cmp857.not.3, i1 true, i1 %or.cond1328.3
-  br i1 %brmerge1496, label %if.end872.3, label %for.inc882
+if.end855.3:                                      ; preds = %for.inc879.2
+  %347 = load ptr, ptr @img, align 8, !tbaa !9
+  %yuv_format856.3 = getelementptr inbounds %struct.ImageParameters, ptr %347, i64 0, i32 160
+  %348 = load i32, ptr %yuv_format856.3, align 8, !tbaa !52
+  %cmp857.not.3 = icmp eq i32 %348, 0
+  %349 = or i1 %cmp857.not.3, %cmp
+  %or.cond1366.3 = select i1 %349, i1 true, i1 %cmp868.3
+  br i1 %or.cond1366.3, label %if.end872.3, label %for.inc882
 
-if.end872.3:                                      ; preds = %if.end855.3
+if.end872.3:                                      ; preds = %land.lhs.true850.3, %if.end855.3
   %350 = load i16, ptr %arrayidx875.3, align 2, !tbaa !22
   %tobool876.not.3 = icmp eq i16 %350, 0
-  br i1 %tobool876.not.3, label %for.inc882, label %for.inc882.sink.split
+  br i1 %tobool876.not.3, label %for.inc882, label %if.then877.3
 
-for.inc882.sink.split:                            ; preds = %if.end872.3, %if.end872.us.3
-  %.sink1497 = phi i32 [ %291, %if.end872.us.3 ], [ %295, %if.end872.3 ]
-  call void @compute_mode_RD_cost(i32 noundef %.sink1497, ptr noundef nonnull %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
+if.then877.3:                                     ; preds = %if.end872.3
+  call void @compute_mode_RD_cost(i32 noundef %291, ptr noundef %arrayidx, ptr noundef nonnull byval(%struct.RD_PARAMS) align 8 %enc_mb, ptr noundef nonnull %min_rdcost, ptr noundef nonnull %min_rate, i32 noundef 0, i16 noundef signext %conv5, ptr noundef nonnull %inter_skip) #6
   br label %for.inc882
 
-for.inc882:                                       ; preds = %for.inc882.sink.split, %if.end855.3, %land.lhs.true850.3, %if.end872.3, %land.lhs.true850.us.3, %if.end855.us.3, %if.end872.us.3, %land.lhs.true805, %land.lhs.true825, %lor.lhs.false809, %lor.lhs.false815
+for.inc882:                                       ; preds = %if.end855.us.3, %land.lhs.true850.3, %if.end855.3, %if.end872.3, %if.then877.3, %land.lhs.true850.us.3, %if.end872.us.3, %if.then877.us.3, %land.lhs.true801, %land.lhs.true825, %lor.lhs.false809, %lor.lhs.false815
   %351 = load i32, ptr %c_ipred_mode, align 8, !tbaa !26
   %inc884 = add nsw i32 %351, 1
   store i32 %inc884, ptr %c_ipred_mode, align 8, !tbaa !26
@@ -1922,9 +1926,9 @@ if.then933:                                       ; preds = %lor.lhs.false929, %
   br label %if.end938.sink.split
 
 if.end938.sink.split:                             ; preds = %if.then891, %if.then933
-  %.sink1498 = phi i32 [ 0, %if.then933 ], [ 1, %if.then891 ]
+  %.sink1476 = phi i32 [ 0, %if.then933 ], [ 1, %if.then891 ]
   %prev_cbp936 = getelementptr inbounds %struct.macroblock, ptr %6, i64 %idxprom, i32 37
-  store i32 %.sink1498, ptr %prev_cbp936, align 8, !tbaa !73
+  store i32 %.sink1476, ptr %prev_cbp936, align 8, !tbaa !73
   br label %if.end938
 
 if.end938:                                        ; preds = %if.end938.sink.split, %lor.lhs.false929, %land.lhs.true926
@@ -1977,10 +1981,10 @@ land.lhs.true959:                                 ; preds = %cond.true955
   br i1 %tobool961.not, label %cond.true966, label %if.end977
 
 land.lhs.true959.thread:                          ; preds = %cond.false952
-  %mb_type9601359 = getelementptr inbounds %struct.macroblock, ptr %cond, i64 0, i32 8
-  %373 = load i32, ptr %mb_type9601359, align 8, !tbaa !68
-  %tobool961.not1360 = icmp eq i32 %373, 0
-  br i1 %tobool961.not1360, label %land.lhs.true970, label %if.end977
+  %mb_type9601334 = getelementptr inbounds %struct.macroblock, ptr %cond, i64 0, i32 8
+  %373 = load i32, ptr %mb_type9601334, align 8, !tbaa !68
+  %tobool961.not1335 = icmp eq i32 %373, 0
+  br i1 %tobool961.not1335, label %land.lhs.true970, label %if.end977
 
 cond.true966:                                     ; preds = %land.lhs.true959
   %cbp967 = getelementptr inbounds %struct.macroblock, ptr %cond, i64 0, i32 12
@@ -2010,11 +2014,11 @@ if.end977:                                        ; preds = %land.lhs.true959.th
 
 if.then979:                                       ; preds = %if.end977
   call void @update_refresh_map(i32 noundef %conv47, i32 noundef %lor.ext907.le, ptr noundef nonnull %arrayidx) #6
-  %.pre1462 = load ptr, ptr @input, align 8, !tbaa !9
+  %.pre1441 = load ptr, ptr @input, align 8, !tbaa !9
   br label %if.end981
 
 if.end981:                                        ; preds = %if.then979, %if.end977
-  %379 = phi ptr [ %.pre1462, %if.then979 ], [ %377, %if.end977 ]
+  %379 = phi ptr [ %.pre1441, %if.then979 ], [ %377, %if.end977 ]
   %SearchMode982 = getelementptr inbounds %struct.InputParameters, ptr %379, i64 0, i32 169
   %380 = load i32, ptr %SearchMode982, align 4, !tbaa !24
   switch i32 %380, label %if.end1002 [
@@ -2053,8 +2057,8 @@ land.lhs.true1004:                                ; preds = %if.end1002
   %389 = load ptr, ptr @img, align 8, !tbaa !9
   %type1005 = getelementptr inbounds %struct.ImageParameters, ptr %389, i64 0, i32 5
   %390 = load i32, ptr %type1005, align 4, !tbaa !11
-  %switch1329 = icmp ult i32 %390, 2
-  br i1 %switch1329, label %if.then1012, label %if.end1033
+  %switch1330 = icmp ult i32 %390, 2
+  br i1 %switch1330, label %if.then1012, label %if.end1033
 
 if.then1012:                                      ; preds = %land.lhs.true1004
   %391 = load i32, ptr %mb_type, align 8, !tbaa !68

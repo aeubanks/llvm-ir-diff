@@ -295,25 +295,25 @@ entry:
   %new_proc.i = getelementptr inbounds %struct.bnode, ptr %call.i, i64 0, i32 4
   store i32 %proc, ptr %new_proc.i, align 4, !tbaa !31
   %cmp15218 = icmp sgt i32 %nbodyx, 0
-  br i1 %cmp15218, label %if.end.lr.ph, label %for.end142
+  br i1 %cmp15218, label %for.body17.lr.ph, label %for.end142
 
-if.end.lr.ph:                                     ; preds = %entry
+for.body17.lr.ph:                                 ; preds = %entry
   %conv = sitofp i32 %seedfactor to double
   %mul = fmul double %conv, 1.230000e+02
   %conv22 = sitofp i32 %nbodyx to double
   %div23 = fdiv double 1.000000e+00, %conv22
   %arrayidx48.2 = getelementptr inbounds [3 x double], ptr %agg.result, i64 0, i64 2
   %arrayidx129.2 = getelementptr inbounds %struct.datapoints, ptr %agg.result, i64 0, i32 1, i64 2
-  br label %if.end
+  br label %for.body17
 
-if.end:                                           ; preds = %if.end.lr.ph, %do.end104
-  %0 = phi double [ 0.000000e+00, %if.end.lr.ph ], [ %add133.2, %do.end104 ]
-  %1 = phi double [ 0.000000e+00, %if.end.lr.ph ], [ %add.2, %do.end104 ]
-  %prev.0221 = phi ptr [ %call.i, %if.end.lr.ph ], [ %call.i203, %do.end104 ]
-  %i.0220 = phi i32 [ 0, %if.end.lr.ph ], [ %inc141, %do.end104 ]
-  %seed.0219 = phi double [ %mul, %if.end.lr.ph ], [ %call79.2, %do.end104 ]
-  %2 = phi <2 x double> [ zeroinitializer, %if.end.lr.ph ], [ %18, %do.end104 ]
-  %3 = phi <2 x double> [ zeroinitializer, %if.end.lr.ph ], [ %5, %do.end104 ]
+for.body17:                                       ; preds = %for.body17.lr.ph, %do.end104
+  %0 = phi double [ 0.000000e+00, %for.body17.lr.ph ], [ %add133.2, %do.end104 ]
+  %1 = phi double [ 0.000000e+00, %for.body17.lr.ph ], [ %add.2, %do.end104 ]
+  %prev.0221 = phi ptr [ %call.i, %for.body17.lr.ph ], [ %call.i203, %do.end104 ]
+  %i.0220 = phi i32 [ 0, %for.body17.lr.ph ], [ %inc141, %do.end104 ]
+  %seed.0219 = phi double [ %mul, %for.body17.lr.ph ], [ %call79.2, %do.end104 ]
+  %2 = phi <2 x double> [ zeroinitializer, %for.body17.lr.ph ], [ %18, %do.end104 ]
+  %3 = phi <2 x double> [ zeroinitializer, %for.body17.lr.ph ], [ %5, %do.end104 ]
   %call.i203 = tail call noalias dereferenceable_or_null(144) ptr @malloc(i64 noundef 144) #26
   %proc.i204 = getelementptr inbounds %struct.bnode, ptr %call.i203, i64 0, i32 3
   store i32 %proc, ptr %proc.i204, align 8, !tbaa !26
@@ -353,8 +353,8 @@ if.end:                                           ; preds = %if.end.lr.ph, %do.e
   store double %add.2, ptr %arrayidx48.2, align 8, !tbaa !13
   br label %do.body
 
-do.body:                                          ; preds = %if.end, %do.body
-  %seed.2 = phi double [ %call60, %do.body ], [ %call33.2, %if.end ]
+do.body:                                          ; preds = %for.body17, %do.body
+  %seed.2 = phi double [ %call60, %do.body ], [ %call33.2, %for.body17 ]
   %call58 = tail call double (double, ...) @my_rand(double noundef %seed.2) #25
   %call59 = tail call double (double, double, double, ...) @xrand(double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef %call58) #25
   %call60 = tail call double (double, ...) @my_rand(double noundef %call58) #25
@@ -415,7 +415,7 @@ do.end104:                                        ; preds = %do.body74
   store double %add133.2, ptr %arrayidx129.2, align 8, !tbaa !13
   %inc141 = add nuw nsw i32 %i.0220, 1
   %exitcond.not = icmp eq i32 %inc141, %nbodyx
-  br i1 %exitcond.not, label %for.end142, label %if.end, !llvm.loop !35
+  br i1 %exitcond.not, label %for.end142, label %for.body17, !llvm.loop !35
 
 for.end142:                                       ; preds = %do.end104, %entry
   %prev.0.lcssa = phi ptr [ %call.i, %entry ], [ %call.i203, %do.end104 ]
@@ -522,7 +522,7 @@ entry:
   %and.1 = and i32 %ic.sroa.2.0.extract.trunc, %l
   %tobool.not.1 = icmp eq i32 %and.1, 0
   %add1.1 = select i1 %tobool.not.1, i32 0, i32 2
-  %i.1.1 = or i32 %add1.1, %add1
+  %i.1.1 = or i32 %add1, %add1.1
   %and.2 = and i32 %ic.sroa.3.8.extract.trunc, %l
   %tobool.not.2 = icmp ne i32 %and.2, 0
   %add1.2 = zext i1 %tobool.not.2 to i32
@@ -550,8 +550,8 @@ if.end:                                           ; preds = %if.then, %entry
   %call = tail call ptr @maketree(ptr poison, i32 noundef %1, ptr noundef nonnull %t, i32 noundef %nstep, i32 noundef 0)
   store ptr %call, ptr %root1, align 8, !tbaa !9
   %2 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %cmp7.i = icmp sgt i32 %2, 0
-  br i1 %cmp7.i, label %for.body.lr.ph.i, label %computegrav.exit
+  %cmp8.i = icmp sgt i32 %2, 0
+  br i1 %cmp8.i, label %for.body.lr.ph.i, label %computegrav.exit
 
 for.body.lr.ph.i:                                 ; preds = %if.end
   %rsize1.i = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 1
@@ -756,8 +756,8 @@ entry:
   %hg.i.i.i = alloca %struct.hgstruct, align 8
   %tmp.i.i.i = alloca %struct.hgstruct, align 8
   %0 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %cmp7 = icmp sgt i32 %0, 0
-  br i1 %cmp7, label %for.body.lr.ph, label %for.end
+  %cmp8 = icmp sgt i32 %0, 0
+  br i1 %cmp8, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %entry
   %rsize1 = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 1
@@ -1790,7 +1790,7 @@ if.end8:                                          ; preds = %cell_alloc.exit, %i
   %and.1.i = and i32 %ic.sroa.2.0.extract.trunc.i, %l
   %tobool.not.1.i = icmp eq i32 %and.1.i, 0
   %add1.1.i = select i1 %tobool.not.1.i, i64 0, i64 2
-  %i.1.1.i = or i64 %add1.1.i, %add1.i
+  %i.1.1.i = or i64 %add1.i, %add1.1.i
   %and.2.i = and i32 %ic.sroa.3.8.extract.trunc.i, %l
   %tobool.not.2.i = icmp ne i32 %and.2.i, 0
   %add1.2.i = zext i1 %tobool.not.2.i to i64
@@ -2203,7 +2203,7 @@ if.end42:                                         ; preds = %if.end26
   %add50 = select i1 %17, i32 0, i32 4
   %18 = extractelement <2 x i1> %16, i64 0
   %add50.1 = select i1 %18, i32 0, i32 2
-  %i.1.1 = or i32 %add50.1, %add50
+  %i.1.1 = or i32 %add50, %add50.1
   %and.2 = and i32 %conv44, %l
   %tobool.not.2 = icmp ne i32 %and.2, 0
   %add50.2 = zext i1 %tobool.not.2 to i32
@@ -2354,11 +2354,11 @@ return:                                           ; preds = %tailrecurse, %if.th
   ret i32 %retval.0
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #22
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #23
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #22
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.floor.v2f64(<2 x double>) #24
@@ -2385,8 +2385,8 @@ attributes #18 = { nofree nosync nounwind memory(read, argmem: readwrite, inacce
 attributes #19 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #20 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #21 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #22 = { nofree nounwind }
-attributes #23 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #22 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #23 = { nofree nounwind }
 attributes #24 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #25 = { nounwind }
 attributes #26 = { nounwind allocsize(0) }

@@ -442,7 +442,7 @@ for.body58.us.epil:                               ; preds = %if.end74.us.loopexi
   br i1 %epil.iter252.cmp.not, label %if.end74.us, label %for.body58.us.epil, !llvm.loop !55
 
 if.end74.us:                                      ; preds = %if.end74.us.loopexit244.unr-lcssa, %for.body58.us.epil, %for.body34.us.prol.loopexit, %for.body34.us, %if.else.us, %if.then22.us, %if.then.us
-  %49 = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %49 = phi i32 [ %18, %if.else.us ], [ %37, %if.then22.us ], [ %35, %if.then.us ], [ %37, %for.body34.us ], [ %37, %for.body34.us.prol.loopexit ], [ %18, %for.body58.us.epil ], [ %18, %if.end74.us.loopexit244.unr-lcssa ]
   %add76.us = add nsw i32 %49, %blkn.1186.us
   %add77.us = add i32 %ypos.0188.us, 8
   %inc79.us = add nuw nsw i32 %yindex.0185.us, 1
@@ -501,7 +501,6 @@ for.body8:                                        ; preds = %for.body8.lr.ph, %f
   %blkn.0191 = phi i32 [ %blkn.1.lcssa, %for.inc81 ], [ 0, %for.body8.lr.ph ]
   %arrayidx = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv211
   %66 = load ptr, ptr %arrayidx, align 8, !tbaa !28
-  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 13
   %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 17
   %cond = load i32, ptr %last_col_width, align 4, !tbaa !45
   %MCU_sample_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 16
@@ -514,6 +513,7 @@ for.body8:                                        ; preds = %for.body8.lr.ph, %f
 
 for.body13.lr.ph:                                 ; preds = %for.body8
   %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 18
+  %MCU_width51 = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 13
   %arrayidx17 = getelementptr inbounds ptr, ptr %input_buf, i64 %indvars.iv211
   %69 = sext i32 %cond to i64
   %70 = xor i64 %69, -1
@@ -543,7 +543,7 @@ if.then:                                          ; preds = %lor.lhs.false, %for
   %arrayidx19 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom18
   %76 = load ptr, ptr %arrayidx19, align 8, !tbaa !28
   tail call void %74(ptr noundef %cinfo, ptr noundef nonnull %66, ptr noundef %75, ptr noundef %76, i32 noundef %ypos.0188, i32 noundef %mul, i32 noundef %cond) #4
-  %77 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %77 = load i32, ptr %MCU_width51, align 4, !tbaa !49
   %cmp21 = icmp sgt i32 %77, %cond
   br i1 %cmp21, label %if.then22, label %if.end74
 
@@ -556,7 +556,7 @@ if.then22:                                        ; preds = %if.then
   %conv = sext i32 %sub28 to i64
   %mul29 = shl nsw i64 %conv, 7
   tail call void @jzero_far(ptr noundef %78, i64 noundef %mul29) #4
-  %79 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %79 = load i32, ptr %MCU_width51, align 4, !tbaa !49
   %cmp32182 = icmp slt i32 %cond, %79
   br i1 %cmp32182, label %for.body34.preheader, label %if.end74
 
@@ -611,11 +611,11 @@ if.else:                                          ; preds = %lor.lhs.false
   %idxprom49 = sext i32 %blkn.1186 to i64
   %arrayidx50 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom49
   %98 = load ptr, ptr %arrayidx50, align 8, !tbaa !28
-  %99 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %99 = load i32, ptr %MCU_width51, align 4, !tbaa !49
   %conv52 = sext i32 %99 to i64
   %mul53 = shl nsw i64 %conv52, 7
   tail call void @jzero_far(ptr noundef %98, i64 noundef %mul53) #4
-  %100 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %100 = load i32, ptr %MCU_width51, align 4, !tbaa !49
   %cmp56180 = icmp sgt i32 %100, 0
   br i1 %cmp56180, label %for.body58.lr.ph, label %if.end74
 

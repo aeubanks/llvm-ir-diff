@@ -115,7 +115,6 @@ return:                                           ; preds = %entry, %if.end
 ; Function Attrs: nounwind uwtable
 define dso_local void @MatchFinder_ReadIfRequired(ptr nocapture noundef %p) local_unnamed_addr #5 {
 entry:
-  %size.i = alloca i64, align 8
   %streamEndWasReached = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 14
   %0 = load i32, ptr %streamEndWasReached, align 8, !tbaa !21
   %tobool.not = icmp eq i32 %0, 0
@@ -130,99 +129,137 @@ if.end:                                           ; preds = %entry
   %3 = load i32, ptr %pos, align 8, !tbaa !14
   %sub = sub i32 %2, %3
   %cmp.not = icmp ult i32 %1, %sub
-  br i1 %cmp.not, label %if.end2, label %lor.lhs.false.i
+  br i1 %cmp.not, label %if.end2, label %if.then1
 
-lor.lhs.false.i:                                  ; preds = %if.end
-  %result.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 27
-  %4 = load i32, ptr %result.i, align 8, !tbaa !22
-  %cmp.not.i = icmp eq i32 %4, 0
-  br i1 %cmp.not.i, label %if.end.i, label %if.end2
-
-if.end.i:                                         ; preds = %lor.lhs.false.i
-  %directInput.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 19
-  %5 = load i32, ptr %directInput.i, align 4, !tbaa !18
-  %tobool1.not.i = icmp eq i32 %5, 0
-  br i1 %tobool1.not.i, label %for.cond.preheader.i, label %if.then2.i
-
-for.cond.preheader.i:                             ; preds = %if.end.i
-  %bufferBase.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
-  %blockSize.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
-  %stream.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 13
-  br label %for.cond.i
-
-if.then2.i:                                       ; preds = %if.end.i
-  %sub.i = xor i32 %2, -1
-  %conv.i = zext i32 %sub.i to i64
-  %directInputRem.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 20
-  %6 = load i64, ptr %directInputRem.i, align 8, !tbaa !23
-  %cmp3.i = icmp ult i64 %6, %conv.i
-  %conv7.i = trunc i64 %6 to i32
-  %spec.select.i = select i1 %cmp3.i, i32 %conv7.i, i32 %sub.i
-  %conv9.i = zext i32 %spec.select.i to i64
-  %sub11.i = sub i64 %6, %conv9.i
-  store i64 %sub11.i, ptr %directInputRem.i, align 8, !tbaa !23
-  %add.i = add i32 %spec.select.i, %2
-  store i32 %add.i, ptr %streamPos, align 8, !tbaa !13
-  %cmp14.i = icmp eq i64 %6, %conv9.i
-  br i1 %cmp14.i, label %if.then16.i, label %if.end2
-
-if.then16.i:                                      ; preds = %if.then2.i
-  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
+if.then1:                                         ; preds = %if.end
+  tail call fastcc void @MatchFinder_ReadBlock(ptr noundef nonnull %p)
   br label %if.end2
 
-for.cond.i:                                       ; preds = %cleanup.i, %for.cond.preheader.i
-  %7 = phi i32 [ %3, %for.cond.preheader.i ], [ %16, %cleanup.i ]
-  %8 = phi i32 [ %2, %for.cond.preheader.i ], [ %add42.i, %cleanup.i ]
-  %9 = load ptr, ptr %p, align 8, !tbaa !5
-  %sub21.i = sub i32 %8, %7
-  %idx.ext.i = zext i32 %sub21.i to i64
-  %add.ptr.i = getelementptr inbounds i8, ptr %9, i64 %idx.ext.i
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i) #11
-  %10 = load ptr, ptr %bufferBase.i, align 8, !tbaa !16
-  %11 = load i32, ptr %blockSize.i, align 4, !tbaa !19
-  %idx.ext22.i = zext i32 %11 to i64
-  %add.ptr23.i = getelementptr inbounds i8, ptr %10, i64 %idx.ext22.i
-  %sub.ptr.lhs.cast.i = ptrtoint ptr %add.ptr23.i to i64
-  %sub.ptr.rhs.cast.i = ptrtoint ptr %add.ptr.i to i64
-  %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
-  store i64 %sub.ptr.sub.i, ptr %size.i, align 8, !tbaa !24
-  %cmp24.i = icmp eq ptr %add.ptr23.i, %add.ptr.i
-  br i1 %cmp24.i, label %cleanup.thread.i, label %if.end27.i
+if.end2:                                          ; preds = %entry, %if.then1, %if.end
+  ret void
+}
 
-if.end27.i:                                       ; preds = %for.cond.i
-  %12 = load ptr, ptr %stream.i, align 8, !tbaa !25
-  %13 = load ptr, ptr %12, align 8, !tbaa !26
-  %call.i = call i32 %13(ptr noundef nonnull %12, ptr noundef %add.ptr.i, ptr noundef nonnull %size.i) #11
-  store i32 %call.i, ptr %result.i, align 8, !tbaa !22
-  %cmp31.not.i = icmp eq i32 %call.i, 0
-  br i1 %cmp31.not.i, label %if.end34.i, label %cleanup.thread.i
+; Function Attrs: nounwind uwtable
+define internal fastcc void @MatchFinder_ReadBlock(ptr nocapture noundef %p) unnamed_addr #5 {
+entry:
+  %size = alloca i64, align 8
+  %streamEndWasReached = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 14
+  %0 = load i32, ptr %streamEndWasReached, align 8, !tbaa !21
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %lor.lhs.false, label %return
 
-if.end34.i:                                       ; preds = %if.end27.i
-  %14 = load i64, ptr %size.i, align 8, !tbaa !24
-  %cmp35.i = icmp eq i64 %14, 0
-  br i1 %cmp35.i, label %if.then37.i, label %cleanup.i
+lor.lhs.false:                                    ; preds = %entry
+  %result = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 27
+  %1 = load i32, ptr %result, align 8, !tbaa !22
+  %cmp.not = icmp eq i32 %1, 0
+  br i1 %cmp.not, label %if.end, label %return
 
-if.then37.i:                                      ; preds = %if.end34.i
+if.end:                                           ; preds = %lor.lhs.false
+  %directInput = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 19
+  %2 = load i32, ptr %directInput, align 4, !tbaa !18
+  %tobool1.not = icmp eq i32 %2, 0
+  %streamPos20 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 3
+  br i1 %tobool1.not, label %for.cond.preheader, label %if.then2
+
+for.cond.preheader:                               ; preds = %if.end
+  %pos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 1
+  %bufferBase = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
+  %blockSize = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
+  %3 = load ptr, ptr %p, align 8, !tbaa !5
+  %4 = load i32, ptr %streamPos20, align 8, !tbaa !13
+  %5 = load i32, ptr %pos, align 8, !tbaa !14
+  %sub2180 = sub i32 %4, %5
+  %idx.ext81 = zext i32 %sub2180 to i64
+  %add.ptr82 = getelementptr inbounds i8, ptr %3, i64 %idx.ext81
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #11
+  %6 = load ptr, ptr %bufferBase, align 8, !tbaa !16
+  %7 = load i32, ptr %blockSize, align 4, !tbaa !19
+  %idx.ext2283 = zext i32 %7 to i64
+  %add.ptr2384 = getelementptr inbounds i8, ptr %6, i64 %idx.ext2283
+  %sub.ptr.lhs.cast85 = ptrtoint ptr %add.ptr2384 to i64
+  %sub.ptr.rhs.cast86 = ptrtoint ptr %add.ptr82 to i64
+  %sub.ptr.sub87 = sub i64 %sub.ptr.lhs.cast85, %sub.ptr.rhs.cast86
+  store i64 %sub.ptr.sub87, ptr %size, align 8, !tbaa !23
+  %cmp2488 = icmp eq ptr %add.ptr2384, %add.ptr82
+  br i1 %cmp2488, label %cleanup.thread, label %if.end27.lr.ph
+
+if.end27.lr.ph:                                   ; preds = %for.cond.preheader
+  %stream = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 13
+  %keepSizeAfter = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 17
+  br label %if.end27
+
+if.then2:                                         ; preds = %if.end
+  %8 = load i32, ptr %streamPos20, align 8, !tbaa !13
+  %sub = xor i32 %8, -1
+  %conv = zext i32 %sub to i64
+  %directInputRem = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 20
+  %9 = load i64, ptr %directInputRem, align 8, !tbaa !24
+  %cmp3 = icmp ult i64 %9, %conv
+  %conv7 = trunc i64 %9 to i32
+  %spec.select = select i1 %cmp3, i32 %conv7, i32 %sub
+  %conv9 = zext i32 %spec.select to i64
+  %sub11 = sub i64 %9, %conv9
+  store i64 %sub11, ptr %directInputRem, align 8, !tbaa !24
+  %add = add i32 %spec.select, %8
+  store i32 %add, ptr %streamPos20, align 8, !tbaa !13
+  %cmp14 = icmp eq i64 %9, %conv9
+  br i1 %cmp14, label %if.then16, label %return
+
+if.then16:                                        ; preds = %if.then2
   store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
-  br label %cleanup.thread.i
+  br label %return
 
-cleanup.thread.i:                                 ; preds = %if.end27.i, %for.cond.i, %if.then37.i
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #11
-  br label %if.end2
+if.end27:                                         ; preds = %if.end27.lr.ph, %cleanup
+  %add.ptr89 = phi ptr [ %add.ptr82, %if.end27.lr.ph ], [ %add.ptr, %cleanup ]
+  %10 = load ptr, ptr %stream, align 8, !tbaa !25
+  %11 = load ptr, ptr %10, align 8, !tbaa !26
+  %call = call i32 %11(ptr noundef nonnull %10, ptr noundef %add.ptr89, ptr noundef nonnull %size) #11
+  store i32 %call, ptr %result, align 8, !tbaa !22
+  %cmp31.not = icmp eq i32 %call, 0
+  br i1 %cmp31.not, label %if.end34, label %cleanup.thread
 
-cleanup.i:                                        ; preds = %if.end34.i
-  %conv40.i = trunc i64 %14 to i32
-  %15 = load i32, ptr %streamPos, align 8, !tbaa !13
-  %add42.i = add i32 %15, %conv40.i
-  store i32 %add42.i, ptr %streamPos, align 8, !tbaa !13
-  %16 = load i32, ptr %pos, align 8, !tbaa !14
-  %sub45.i = sub i32 %add42.i, %16
-  %17 = load i32, ptr %keepSizeAfter, align 4, !tbaa !20
-  %cmp46.not.i = icmp ugt i32 %sub45.i, %17
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #11
-  br i1 %cmp46.not.i, label %if.end2, label %for.cond.i
+if.end34:                                         ; preds = %if.end27
+  %12 = load i64, ptr %size, align 8, !tbaa !23
+  %cmp35 = icmp eq i64 %12, 0
+  br i1 %cmp35, label %if.then37, label %if.end39
 
-if.end2:                                          ; preds = %cleanup.i, %cleanup.thread.i, %if.then16.i, %if.then2.i, %lor.lhs.false.i, %entry, %if.end
+if.then37:                                        ; preds = %if.end34
+  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
+  br label %cleanup.thread
+
+if.end39:                                         ; preds = %if.end34
+  %conv40 = trunc i64 %12 to i32
+  %13 = load i32, ptr %streamPos20, align 8, !tbaa !13
+  %add42 = add i32 %13, %conv40
+  store i32 %add42, ptr %streamPos20, align 8, !tbaa !13
+  %14 = load i32, ptr %pos, align 8, !tbaa !14
+  %sub45 = sub i32 %add42, %14
+  %15 = load i32, ptr %keepSizeAfter, align 4, !tbaa !20
+  %cmp46 = icmp ugt i32 %sub45, %15
+  br i1 %cmp46, label %cleanup.thread, label %cleanup
+
+cleanup.thread:                                   ; preds = %if.end39, %if.end27, %cleanup, %for.cond.preheader, %if.then37
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #11
+  br label %return
+
+cleanup:                                          ; preds = %if.end39
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #11
+  %16 = load ptr, ptr %p, align 8, !tbaa !5
+  %idx.ext = zext i32 %sub45 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %16, i64 %idx.ext
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #11
+  %17 = load ptr, ptr %bufferBase, align 8, !tbaa !16
+  %18 = load i32, ptr %blockSize, align 4, !tbaa !19
+  %idx.ext22 = zext i32 %18 to i64
+  %add.ptr23 = getelementptr inbounds i8, ptr %17, i64 %idx.ext22
+  %sub.ptr.lhs.cast = ptrtoint ptr %add.ptr23 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %add.ptr to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  store i64 %sub.ptr.sub, ptr %size, align 8, !tbaa !23
+  %cmp24 = icmp eq ptr %add.ptr23, %add.ptr
+  br i1 %cmp24, label %cleanup.thread, label %if.end27
+
+return:                                           ; preds = %cleanup.thread, %if.then2, %if.then16, %entry, %lor.lhs.false
   ret void
 }
 
@@ -358,17 +395,17 @@ if.end:                                           ; preds = %entry
   %spec.select = lshr i32 %historySize, %spec.select.v
   %add = add i32 %keepAddBufferAfter, %matchMaxLen
   %add5 = add i32 %add, %keepAddBufferBefore
-  %div151 = lshr i32 %add5, 1
+  %div162 = lshr i32 %add5, 1
   %add8 = add nuw i32 %historySize, 1
   %add9 = add i32 %add8, %keepAddBufferBefore
   %keepSizeBefore = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 16
   store i32 %add9, ptr %keepSizeBefore, align 8, !tbaa !17
   %keepSizeAfter = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 17
   store i32 %add, ptr %keepSizeAfter, align 4, !tbaa !20
-  %add6 = add i32 %add9, 524288
-  %add7 = add i32 %add6, %spec.select
+  %add6 = add nuw nsw i32 %spec.select, 524288
+  %add7 = add i32 %add6, %add9
   %add.i = add i32 %add7, %add
-  %add1.i = add i32 %add.i, %div151
+  %add1.i = add i32 %add.i, %div162
   %directInput.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 19
   %5 = load i32, ptr %directInput.i, align 4, !tbaa !18
   %tobool.not.i = icmp eq i32 %5, 0
@@ -383,17 +420,17 @@ if.end.i:                                         ; preds = %if.end
   %bufferBase.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
   %6 = load ptr, ptr %bufferBase.i, align 8, !tbaa !16
   %cmp.i = icmp eq ptr %6, null
-  br i1 %cmp.i, label %LzInWindow_Create.exit, label %lor.lhs.false.i
+  br i1 %cmp.i, label %LzInWindow_Free.exit.i, label %lor.lhs.false.i
 
 lor.lhs.false.i:                                  ; preds = %if.end.i
   %blockSize3.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
   %7 = load i32, ptr %blockSize3.i, align 4, !tbaa !19
   %cmp4.not.i = icmp eq i32 %7, %add1.i
-  br i1 %cmp4.not.i, label %if.then11, label %LzInWindow_Create.exit
+  br i1 %cmp4.not.i, label %if.then11, label %LzInWindow_Free.exit.i
 
-LzInWindow_Create.exit:                           ; preds = %if.end.i, %lor.lhs.false.i
-  %Free.i.i153 = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
-  %8 = load ptr, ptr %Free.i.i153, align 8, !tbaa !37
+LzInWindow_Free.exit.i:                           ; preds = %lor.lhs.false.i, %if.end.i
+  %Free.i.i151 = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %8 = load ptr, ptr %Free.i.i151, align 8, !tbaa !37
   tail call void %8(ptr noundef %alloc, ptr noundef %6) #11
   store ptr null, ptr %bufferBase.i, align 8, !tbaa !16
   %blockSize6.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
@@ -402,27 +439,27 @@ LzInWindow_Create.exit:                           ; preds = %if.end.i, %lor.lhs.
   %conv.i = zext i32 %add1.i to i64
   %call.i = tail call ptr %9(ptr noundef nonnull %alloc, i64 noundef %conv.i) #11
   store ptr %call.i, ptr %bufferBase.i, align 8, !tbaa !16
-  %.not = icmp eq ptr %call.i, null
-  br i1 %.not, label %LzInWindow_Create.exit.if.end80_crit_edge, label %if.then11
+  %10 = icmp eq ptr %call.i, null
+  br i1 %10, label %LzInWindow_Free.exit.i.if.end80_crit_edge, label %if.then11
 
-LzInWindow_Create.exit.if.end80_crit_edge:        ; preds = %LzInWindow_Create.exit
-  %hash.i.i157.phi.trans.insert = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
-  %.pre = load ptr, ptr %hash.i.i157.phi.trans.insert, align 8, !tbaa !28
+LzInWindow_Free.exit.i.if.end80_crit_edge:        ; preds = %LzInWindow_Free.exit.i
+  %hash.i.i155.phi.trans.insert = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
+  %.pre = load ptr, ptr %hash.i.i155.phi.trans.insert, align 8, !tbaa !28
   br label %if.end80
 
-if.then11:                                        ; preds = %lor.lhs.false.i, %if.then.i, %LzInWindow_Create.exit
+if.then11:                                        ; preds = %if.then.i, %lor.lhs.false.i, %LzInWindow_Free.exit.i
   %matchMaxLen13 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 7
   store i32 %matchMaxLen, ptr %matchMaxLen13, align 8, !tbaa !40
   %fixedHashSize = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 24
   store i32 0, ptr %fixedHashSize, align 4, !tbaa !41
   %numHashBytes = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 18
-  %10 = load i32, ptr %numHashBytes, align 8, !tbaa !31
-  %cmp14 = icmp eq i32 %10, 2
+  %11 = load i32, ptr %numHashBytes, align 8, !tbaa !31
+  %cmp14 = icmp eq i32 %11, 2
   br i1 %cmp14, label %if.end34.thread, label %if.else
 
 if.end34.thread:                                  ; preds = %if.then11
-  %hashMask167 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 10
-  store i32 65535, ptr %hashMask167, align 8, !tbaa !42
+  %hashMask165 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 10
+  store i32 65535, ptr %hashMask165, align 8, !tbaa !42
   br label %if.end52
 
 if.else:                                          ; preds = %if.then11
@@ -433,19 +470,19 @@ if.else:                                          ; preds = %if.then11
   %or18 = or i32 %shr17, %or
   %shr19 = lshr i32 %or18, 4
   %or20 = or i32 %shr19, %or18
-  %11 = lshr i32 %or20, 9
-  %12 = lshr i32 %or20, 1
-  %shr23 = or i32 %12, %11
+  %12 = lshr i32 %or20, 9
+  %13 = lshr i32 %or20, 1
+  %shr23 = or i32 %13, %12
   %or24 = or i32 %shr23, 65535
   %cmp25 = icmp ugt i32 %or24, 16777216
-  %cmp28 = icmp eq i32 %10, 3
+  %cmp28 = icmp eq i32 %11, 3
   %shr31 = lshr i32 %or24, 1
-  %spec.select152 = select i1 %cmp28, i32 16777215, i32 %shr31
-  %hs.0 = select i1 %cmp25, i32 %spec.select152, i32 %or24
+  %spec.select163 = select i1 %cmp28, i32 16777215, i32 %shr31
+  %hs.0 = select i1 %cmp25, i32 %spec.select163, i32 %or24
   %hashMask = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 10
   store i32 %hs.0, ptr %hashMask, align 8, !tbaa !42
   %inc = add nuw nsw i32 %hs.0, 1
-  %cmp36 = icmp ugt i32 %10, 2
+  %cmp36 = icmp ugt i32 %11, 2
   br i1 %cmp36, label %if.end40, label %if.end52
 
 if.end40:                                         ; preds = %if.else
@@ -453,93 +490,92 @@ if.end40:                                         ; preds = %if.else
   br i1 %cmp28, label %if.end52, label %if.end46
 
 if.end46:                                         ; preds = %if.end40
-  %cmp48 = icmp ugt i32 %10, 4
+  %cmp48 = icmp ugt i32 %11, 4
   %spec.store.select = select i1 %cmp48, i32 1115136, i32 66560
   store i32 %spec.store.select, ptr %fixedHashSize, align 4
-  %spec.select177 = select i1 %cmp48, i32 1115136, i32 66560
+  %spec.select175 = select i1 %cmp48, i32 1115136, i32 66560
   br label %if.end52
 
 if.end52:                                         ; preds = %if.end46, %if.else, %if.end34.thread, %if.end40
-  %13 = phi i32 [ 1024, %if.end40 ], [ 0, %if.else ], [ 0, %if.end34.thread ], [ %spec.select177, %if.end46 ]
-  %inc170173176 = phi i32 [ %inc, %if.end40 ], [ %inc, %if.else ], [ 65536, %if.end34.thread ], [ %inc, %if.end46 ]
-  %add54 = add nuw nsw i32 %13, %inc170173176
+  %14 = phi i32 [ 1024, %if.end40 ], [ 0, %if.else ], [ 0, %if.end34.thread ], [ %spec.select175, %if.end46 ]
+  %inc168171174 = phi i32 [ %inc, %if.end40 ], [ %inc, %if.else ], [ 65536, %if.end34.thread ], [ %inc, %if.end46 ]
+  %add54 = add nuw nsw i32 %14, %inc168171174
   %hashSizeSum = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 25
-  %14 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
+  %15 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
   %numSons = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 26
-  %15 = load i32, ptr %numSons, align 4, !tbaa !44
+  %16 = load i32, ptr %numSons, align 4, !tbaa !44
   %historySize56 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 23
   store i32 %historySize, ptr %historySize56, align 8, !tbaa !45
   store i32 %add54, ptr %hashSizeSum, align 8, !tbaa !43
   %cyclicBufferSize = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 6
   store i32 %add8, ptr %cyclicBufferSize, align 4, !tbaa !46
   %btMode = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 21
-  %16 = load i32, ptr %btMode, align 8, !tbaa !30
-  %tobool58.not = icmp ne i32 %16, 0
+  %17 = load i32, ptr %btMode, align 8, !tbaa !30
+  %tobool58.not = icmp ne i32 %17, 0
   %mul = zext i1 %tobool58.not to i32
   %cond = shl i32 %add8, %mul
   store i32 %cond, ptr %numSons, align 4, !tbaa !44
   %add62 = add i32 %cond, %add54
   %hash = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
-  %17 = load ptr, ptr %hash, align 8, !tbaa !28
-  %cmp63.not = icmp ne ptr %17, null
-  %add55 = add i32 %15, %14
+  %18 = load ptr, ptr %hash, align 8, !tbaa !28
+  %cmp63.not = icmp ne ptr %18, null
+  %add55 = add i32 %16, %15
   %cmp64 = icmp eq i32 %add55, %add62
   %or.cond = select i1 %cmp63.not, i1 %cmp64, i1 false
   br i1 %or.cond, label %cleanup81, label %if.end66
 
 if.end66:                                         ; preds = %if.end52
   %Free.i = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
-  %18 = load ptr, ptr %Free.i, align 8, !tbaa !37
-  tail call void %18(ptr noundef %alloc, ptr noundef %17) #11
+  %19 = load ptr, ptr %Free.i, align 8, !tbaa !37
+  tail call void %19(ptr noundef %alloc, ptr noundef %18) #11
   store ptr null, ptr %hash, align 8, !tbaa !28
-  %conv.i154 = zext i32 %add62 to i64
-  %mul.i = shl nuw nsw i64 %conv.i154, 2
-  %19 = load ptr, ptr %alloc, align 8, !tbaa !39
-  %call.i155 = tail call ptr %19(ptr noundef nonnull %alloc, i64 noundef %mul.i) #11
-  store ptr %call.i155, ptr %hash, align 8, !tbaa !28
-  %cmp70.not = icmp eq ptr %call.i155, null
+  %conv.i152 = zext i32 %add62 to i64
+  %mul.i = shl nuw nsw i64 %conv.i152, 2
+  %20 = load ptr, ptr %alloc, align 8, !tbaa !39
+  %call.i153 = tail call ptr %20(ptr noundef nonnull %alloc, i64 noundef %mul.i) #11
+  store ptr %call.i153, ptr %hash, align 8, !tbaa !28
+  %cmp70.not = icmp eq ptr %call.i153, null
   br i1 %cmp70.not, label %if.end80, label %if.then71
 
 if.then71:                                        ; preds = %if.end66
-  %20 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
-  %idx.ext = zext i32 %20 to i64
-  %add.ptr = getelementptr inbounds i32, ptr %call.i155, i64 %idx.ext
+  %21 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
+  %idx.ext = zext i32 %21 to i64
+  %add.ptr = getelementptr inbounds i32, ptr %call.i153, i64 %idx.ext
   %son = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   store ptr %add.ptr, ptr %son, align 8, !tbaa !47
   br label %cleanup81
 
-if.end80:                                         ; preds = %LzInWindow_Create.exit.if.end80_crit_edge, %if.end66
-  %21 = phi ptr [ %.pre, %LzInWindow_Create.exit.if.end80_crit_edge ], [ null, %if.end66 ]
-  %Free.i.i156 = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
-  %22 = load ptr, ptr %Free.i.i156, align 8, !tbaa !37
-  %hash.i.i157 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
-  tail call void %22(ptr noundef nonnull %alloc, ptr noundef %21) #11
-  store ptr null, ptr %hash.i.i157, align 8, !tbaa !28
-  %23 = load i32, ptr %directInput.i, align 4, !tbaa !18
-  %tobool.not.i.i159 = icmp eq i32 %23, 0
-  br i1 %tobool.not.i.i159, label %if.then.i.i161, label %cleanup81
+if.end80:                                         ; preds = %LzInWindow_Free.exit.i.if.end80_crit_edge, %if.end66
+  %22 = phi ptr [ %.pre, %LzInWindow_Free.exit.i.if.end80_crit_edge ], [ null, %if.end66 ]
+  %Free.i.i154 = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %23 = load ptr, ptr %Free.i.i154, align 8, !tbaa !37
+  %hash.i.i155 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
+  tail call void %23(ptr noundef nonnull %alloc, ptr noundef %22) #11
+  store ptr null, ptr %hash.i.i155, align 8, !tbaa !28
+  %24 = load i32, ptr %directInput.i, align 4, !tbaa !18
+  %tobool.not.i.i157 = icmp eq i32 %24, 0
+  br i1 %tobool.not.i.i157, label %if.then.i.i159, label %cleanup81
 
-if.then.i.i161:                                   ; preds = %if.end80
-  %24 = load ptr, ptr %Free.i.i156, align 8, !tbaa !37
-  %bufferBase.i.i160 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
-  %25 = load ptr, ptr %bufferBase.i.i160, align 8, !tbaa !16
-  tail call void %24(ptr noundef nonnull %alloc, ptr noundef %25) #11
-  store ptr null, ptr %bufferBase.i.i160, align 8, !tbaa !16
+if.then.i.i159:                                   ; preds = %if.end80
+  %25 = load ptr, ptr %Free.i.i154, align 8, !tbaa !37
+  %bufferBase.i.i158 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
+  %26 = load ptr, ptr %bufferBase.i.i158, align 8, !tbaa !16
+  tail call void %25(ptr noundef nonnull %alloc, ptr noundef %26) #11
+  store ptr null, ptr %bufferBase.i.i158, align 8, !tbaa !16
   br label %cleanup81
 
-cleanup81:                                        ; preds = %if.then.i.i161, %if.end80, %if.then.i.i, %if.then, %if.then71, %if.end52
-  %retval.1 = phi i32 [ 1, %if.end52 ], [ 1, %if.then71 ], [ 0, %if.then ], [ 0, %if.then.i.i ], [ 0, %if.end80 ], [ 0, %if.then.i.i161 ]
+cleanup81:                                        ; preds = %if.then71, %if.end52, %if.then.i.i159, %if.end80, %if.then.i.i, %if.then
+  %retval.1 = phi i32 [ 0, %if.then ], [ 0, %if.then.i.i ], [ 0, %if.end80 ], [ 0, %if.then.i.i159 ], [ 1, %if.end52 ], [ 1, %if.then71 ]
   ret i32 %retval.1
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @MatchFinder_Init(ptr nocapture noundef %p) #5 {
 entry:
-  %size.i = alloca i64, align 8
   %hashSizeSum = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 25
   %0 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
-  %cmp19.not = icmp eq i32 %0, 0
-  br i1 %cmp19.not, label %if.end.i, label %for.body.lr.ph
+  %cmp14.not = icmp eq i32 %0, 0
+  br i1 %cmp14.not, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %hash = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
@@ -554,9 +590,9 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %2 = load i32, ptr %hashSizeSum, align 8, !tbaa !43
   %3 = zext i32 %2 to i64
   %cmp = icmp ult i64 %indvars.iv.next, %3
-  br i1 %cmp, label %for.body, label %if.end.i, !llvm.loop !48
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !48
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.end:                                          ; preds = %for.body, %entry
   %cyclicBufferPos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 5
   store i32 0, ptr %cyclicBufferPos, align 8, !tbaa !49
   %bufferBase = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
@@ -572,116 +608,31 @@ if.end.i:                                         ; preds = %for.body, %entry
   store i32 0, ptr %result, align 8, !tbaa !22
   %streamEndWasReached = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 14
   store i32 0, ptr %streamEndWasReached, align 8, !tbaa !21
-  %directInput.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 19
-  %6 = load i32, ptr %directInput.i, align 4, !tbaa !18
-  %tobool1.not.i = icmp eq i32 %6, 0
-  br i1 %tobool1.not.i, label %for.cond.preheader.i, label %if.then2.i
-
-for.cond.preheader.i:                             ; preds = %if.end.i
-  %blockSize.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
-  %stream.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 13
+  tail call fastcc void @MatchFinder_ReadBlock(ptr noundef nonnull %p)
+  %6 = load i32, ptr %pos, align 8, !tbaa !14
+  %sub.i = xor i32 %6, -1
+  %7 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
+  %8 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
+  %sub1.i = sub i32 %7, %8
+  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %sub1.i, i32 %sub.i)
+  %9 = load i32, ptr %streamPos, align 8, !tbaa !13
+  %sub3.i = sub i32 %9, %6
   %keepSizeAfter.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 17
-  br label %for.cond.i
-
-if.then2.i:                                       ; preds = %if.end.i
-  %sub.i = xor i32 %5, -1
-  %conv.i = zext i32 %sub.i to i64
-  %directInputRem.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 20
-  %7 = load i64, ptr %directInputRem.i, align 8, !tbaa !23
-  %cmp3.i = icmp ult i64 %7, %conv.i
-  %conv7.i = trunc i64 %7 to i32
-  %spec.select.i = select i1 %cmp3.i, i32 %conv7.i, i32 %sub.i
-  %conv9.i = zext i32 %spec.select.i to i64
-  %sub11.i = sub i64 %7, %conv9.i
-  store i64 %sub11.i, ptr %directInputRem.i, align 8, !tbaa !23
-  %add.i = add i32 %spec.select.i, %5
-  store i32 %add.i, ptr %streamPos, align 8, !tbaa !13
-  %cmp14.i = icmp eq i64 %7, %conv9.i
-  br i1 %cmp14.i, label %if.then16.i, label %MatchFinder_ReadBlock.exit
-
-if.then16.i:                                      ; preds = %if.then2.i
-  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
-  br label %MatchFinder_ReadBlock.exit
-
-for.cond.i:                                       ; preds = %cleanup.i, %for.cond.preheader.i
-  %8 = phi i32 [ %5, %for.cond.preheader.i ], [ %17, %cleanup.i ]
-  %9 = phi i32 [ %5, %for.cond.preheader.i ], [ %add42.i, %cleanup.i ]
-  %10 = load ptr, ptr %p, align 8, !tbaa !5
-  %sub21.i = sub i32 %9, %8
-  %idx.ext.i = zext i32 %sub21.i to i64
-  %add.ptr.i = getelementptr inbounds i8, ptr %10, i64 %idx.ext.i
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i) #11
-  %11 = load ptr, ptr %bufferBase, align 8, !tbaa !16
-  %12 = load i32, ptr %blockSize.i, align 4, !tbaa !19
-  %idx.ext22.i = zext i32 %12 to i64
-  %add.ptr23.i = getelementptr inbounds i8, ptr %11, i64 %idx.ext22.i
-  %sub.ptr.lhs.cast.i = ptrtoint ptr %add.ptr23.i to i64
-  %sub.ptr.rhs.cast.i = ptrtoint ptr %add.ptr.i to i64
-  %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
-  store i64 %sub.ptr.sub.i, ptr %size.i, align 8, !tbaa !24
-  %cmp24.i = icmp eq ptr %add.ptr23.i, %add.ptr.i
-  br i1 %cmp24.i, label %cleanup.thread.i, label %if.end27.i
-
-if.end27.i:                                       ; preds = %for.cond.i
-  %13 = load ptr, ptr %stream.i, align 8, !tbaa !25
-  %14 = load ptr, ptr %13, align 8, !tbaa !26
-  %call.i = call i32 %14(ptr noundef nonnull %13, ptr noundef %add.ptr.i, ptr noundef nonnull %size.i) #11
-  store i32 %call.i, ptr %result, align 8, !tbaa !22
-  %cmp31.not.i = icmp eq i32 %call.i, 0
-  br i1 %cmp31.not.i, label %if.end34.i, label %cleanup.thread.i
-
-if.end34.i:                                       ; preds = %if.end27.i
-  %15 = load i64, ptr %size.i, align 8, !tbaa !24
-  %cmp35.i = icmp eq i64 %15, 0
-  br i1 %cmp35.i, label %if.then37.i, label %cleanup.i
-
-if.then37.i:                                      ; preds = %if.end34.i
-  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
-  br label %cleanup.thread.i
-
-cleanup.thread.i:                                 ; preds = %if.end27.i, %for.cond.i, %if.then37.i
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #11
-  %.pre = load i32, ptr %pos, align 8, !tbaa !14
-  %.pre22 = load i32, ptr %streamPos, align 8, !tbaa !13
-  br label %MatchFinder_ReadBlock.exit
-
-cleanup.i:                                        ; preds = %if.end34.i
-  %conv40.i = trunc i64 %15 to i32
-  %16 = load i32, ptr %streamPos, align 8, !tbaa !13
-  %add42.i = add i32 %16, %conv40.i
-  store i32 %add42.i, ptr %streamPos, align 8, !tbaa !13
-  %17 = load i32, ptr %pos, align 8, !tbaa !14
-  %sub45.i = sub i32 %add42.i, %17
-  %18 = load i32, ptr %keepSizeAfter.i, align 4, !tbaa !20
-  %cmp46.not.i = icmp ugt i32 %sub45.i, %18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #11
-  br i1 %cmp46.not.i, label %MatchFinder_ReadBlock.exit, label %for.cond.i
-
-MatchFinder_ReadBlock.exit:                       ; preds = %cleanup.i, %if.then2.i, %if.then16.i, %cleanup.thread.i
-  %19 = phi i32 [ %add.i, %if.then2.i ], [ %add.i, %if.then16.i ], [ %.pre22, %cleanup.thread.i ], [ %add42.i, %cleanup.i ]
-  %20 = phi i32 [ %5, %if.then2.i ], [ %5, %if.then16.i ], [ %.pre, %cleanup.thread.i ], [ %17, %cleanup.i ]
-  %sub.i15 = xor i32 %20, -1
-  %21 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
-  %22 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
-  %sub1.i = sub i32 %21, %22
-  %spec.select.i16 = call i32 @llvm.umin.i32(i32 %sub1.i, i32 %sub.i15)
-  %sub3.i = sub i32 %19, %20
-  %keepSizeAfter.i17 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 17
-  %23 = load i32, ptr %keepSizeAfter.i17, align 4, !tbaa !20
-  %cmp4.not.i = icmp ugt i32 %sub3.i, %23
-  %cmp6.not.i = icmp eq i32 %19, %20
-  %spec.store.select.i = select i1 %cmp6.not.i, i32 %sub3.i, i32 1
-  %sub10.i = sub i32 %sub3.i, %23
+  %10 = load i32, ptr %keepSizeAfter.i, align 4, !tbaa !20
+  %cmp4.not.i = icmp ugt i32 %sub3.i, %10
+  %cmp6.not.i = icmp ne i32 %9, %6
+  %spec.store.select.i = zext i1 %cmp6.not.i to i32
+  %sub10.i = sub i32 %sub3.i, %10
   %limit2.0.i = select i1 %cmp4.not.i, i32 %sub10.i, i32 %spec.store.select.i
-  %limit.1.i = call i32 @llvm.umin.i32(i32 %limit2.0.i, i32 %spec.select.i16)
+  %limit.1.i = tail call i32 @llvm.umin.i32(i32 %limit2.0.i, i32 %spec.select.i)
   %matchMaxLen.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 7
-  %24 = load i32, ptr %matchMaxLen.i, align 8, !tbaa !40
-  %lenLimit.0.i = call i32 @llvm.umin.i32(i32 %sub3.i, i32 %24)
+  %11 = load i32, ptr %matchMaxLen.i, align 8, !tbaa !40
+  %lenLimit.0.i = tail call i32 @llvm.umin.i32(i32 %sub3.i, i32 %11)
   %lenLimit22.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 4
   store i32 %lenLimit.0.i, ptr %lenLimit22.i, align 4, !tbaa !50
-  %add.i18 = add i32 %limit.1.i, %20
+  %add.i = add i32 %limit.1.i, %6
   %posLimit.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 2
-  store i32 %add.i18, ptr %posLimit.i, align 4, !tbaa !51
+  store i32 %add.i, ptr %posLimit.i, align 4, !tbaa !51
   ret void
 }
 
@@ -747,41 +698,42 @@ entry:
   %idx.ext = zext i32 %shl to i64
   %add.ptr = getelementptr inbounds i32, ptr %son, i64 %idx.ext
   %add.ptr1 = getelementptr inbounds i32, ptr %add.ptr, i64 1
-  %sub149 = sub i32 %pos, %curMatch
-  %cmp151 = icmp ne i32 %cutValue, 0
-  %cmp5.not152 = icmp ult i32 %sub149, %_cyclicBufferSize
-  %or.cond153 = and i1 %cmp151, %cmp5.not152
-  br i1 %or.cond153, label %if.end, label %if.then
+  %sub148 = sub i32 %pos, %curMatch
+  %cmp150 = icmp ne i32 %cutValue, 0
+  %cmp5.not151 = icmp ult i32 %sub148, %_cyclicBufferSize
+  %or.cond152 = and i1 %cmp150, %cmp5.not151
+  br i1 %or.cond152, label %if.end, label %if.then
 
 if.then:                                          ; preds = %cleanup75, %entry
   %distances.addr.0.lcssa = phi ptr [ %distances, %entry ], [ %distances.addr.1, %cleanup75 ]
   %ptr0.0.lcssa = phi ptr [ %add.ptr1, %entry ], [ %ptr0.1, %cleanup75 ]
   %ptr1.0.lcssa = phi ptr [ %add.ptr, %entry ], [ %ptr1.1, %cleanup75 ]
   store i32 0, ptr %ptr1.0.lcssa, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa, align 4, !tbaa !15
   br label %cleanup78
 
 if.end:                                           ; preds = %entry, %cleanup75
-  %dec162.in = phi i32 [ %dec162, %cleanup75 ], [ %cutValue, %entry ]
-  %sub161 = phi i32 [ %sub, %cleanup75 ], [ %sub149, %entry ]
-  %curMatch.addr.0160 = phi i32 [ %curMatch.addr.1, %cleanup75 ], [ %curMatch, %entry ]
-  %len1.0159 = phi i32 [ %len1.1, %cleanup75 ], [ 0, %entry ]
-  %len0.0158 = phi i32 [ %len0.1, %cleanup75 ], [ 0, %entry ]
-  %ptr1.0157 = phi ptr [ %ptr1.1, %cleanup75 ], [ %add.ptr, %entry ]
-  %ptr0.0156 = phi ptr [ %ptr0.1, %cleanup75 ], [ %add.ptr1, %entry ]
-  %maxLen.addr.0155 = phi i32 [ %maxLen.addr.1, %cleanup75 ], [ %maxLen, %entry ]
-  %distances.addr.0154 = phi ptr [ %distances.addr.1, %cleanup75 ], [ %distances, %entry ]
-  %dec162 = add i32 %dec162.in, -1
-  %sub6 = sub i32 %_cyclicBufferPos, %sub161
-  %cmp7 = icmp ugt i32 %sub161, %_cyclicBufferPos
+  %dec161.in = phi i32 [ %dec161, %cleanup75 ], [ %cutValue, %entry ]
+  %sub160 = phi i32 [ %sub, %cleanup75 ], [ %sub148, %entry ]
+  %curMatch.addr.0159 = phi i32 [ %curMatch.addr.1, %cleanup75 ], [ %curMatch, %entry ]
+  %len1.0158 = phi i32 [ %len1.1, %cleanup75 ], [ 0, %entry ]
+  %len0.0157 = phi i32 [ %len0.1, %cleanup75 ], [ 0, %entry ]
+  %ptr1.0156 = phi ptr [ %ptr1.1, %cleanup75 ], [ %add.ptr, %entry ]
+  %ptr0.0155 = phi ptr [ %ptr0.1, %cleanup75 ], [ %add.ptr1, %entry ]
+  %maxLen.addr.0154 = phi i32 [ %maxLen.addr.1, %cleanup75 ], [ %maxLen, %entry ]
+  %distances.addr.0153 = phi ptr [ %distances.addr.1, %cleanup75 ], [ %distances, %entry ]
+  %dec161 = add i32 %dec161.in, -1
+  %sub6 = sub i32 %_cyclicBufferPos, %sub160
+  %cmp7 = icmp ugt i32 %sub160, %_cyclicBufferPos
   %cond = select i1 %cmp7, i32 %_cyclicBufferSize, i32 0
   %add = add i32 %sub6, %cond
   %shl8 = shl i32 %add, 1
   %idx.ext9 = zext i32 %shl8 to i64
   %add.ptr10 = getelementptr inbounds i32, ptr %son, i64 %idx.ext9
-  %idx.ext11 = zext i32 %sub161 to i64
+  %idx.ext11 = zext i32 %sub160 to i64
   %idx.neg = sub nsw i64 0, %idx.ext11
   %add.ptr12 = getelementptr inbounds i8, ptr %cur, i64 %idx.neg
-  %cond17 = tail call i32 @llvm.umin.i32(i32 %len0.0158, i32 %len1.0159)
+  %cond17 = tail call i32 @llvm.umin.i32(i32 %len0.0157, i32 %len1.0158)
   %idxprom = zext i32 %cond17 to i64
   %arrayidx = getelementptr inbounds i8, ptr %add.ptr12, i64 %idxprom
   %0 = load i8, ptr %arrayidx, align 1, !tbaa !12
@@ -821,28 +773,29 @@ while.body:                                       ; preds = %while.cond
 
 if.end48:                                         ; preds = %while.cond, %while.body, %land.lhs.true, %if.then23
   %len.1 = phi i32 [ %inc, %land.lhs.true ], [ %lenLimit, %if.then23 ], [ %lenLimit, %while.cond ], [ %inc35, %while.body ]
-  %cmp49 = icmp ult i32 %maxLen.addr.0155, %len.1
+  %cmp49 = icmp ult i32 %maxLen.addr.0154, %len.1
   br i1 %cmp49, label %if.then51, label %if.end61
 
 if.then51:                                        ; preds = %if.end48
-  %incdec.ptr = getelementptr inbounds i32, ptr %distances.addr.0154, i64 1
-  store i32 %len.1, ptr %distances.addr.0154, align 4, !tbaa !15
-  %sub52 = add i32 %sub161, -1
-  %incdec.ptr53 = getelementptr inbounds i32, ptr %distances.addr.0154, i64 2
+  %incdec.ptr = getelementptr inbounds i32, ptr %distances.addr.0153, i64 1
+  store i32 %len.1, ptr %distances.addr.0153, align 4, !tbaa !15
+  %sub52 = add i32 %sub160, -1
+  %incdec.ptr53 = getelementptr inbounds i32, ptr %distances.addr.0153, i64 2
   store i32 %sub52, ptr %incdec.ptr, align 4, !tbaa !15
   %cmp54 = icmp eq i32 %len.1, %lenLimit
   br i1 %cmp54, label %if.then56, label %if.end61
 
 if.then56:                                        ; preds = %if.then51
   %6 = load i32, ptr %add.ptr10, align 4, !tbaa !15
-  store i32 %6, ptr %ptr1.0157, align 4, !tbaa !15
+  store i32 %6, ptr %ptr1.0156, align 4, !tbaa !15
   %arrayidx58 = getelementptr inbounds i32, ptr %add.ptr10, i64 1
   %7 = load i32, ptr %arrayidx58, align 4, !tbaa !15
+  store i32 %7, ptr %ptr0.0155, align 4, !tbaa !15
   br label %cleanup78
 
 if.end61:                                         ; preds = %if.end48, %if.then51, %if.end
-  %distances.addr.1 = phi ptr [ %incdec.ptr53, %if.then51 ], [ %distances.addr.0154, %if.end48 ], [ %distances.addr.0154, %if.end ]
-  %maxLen.addr.1 = phi i32 [ %len.1, %if.then51 ], [ %maxLen.addr.0155, %if.end48 ], [ %maxLen.addr.0155, %if.end ]
+  %distances.addr.1 = phi ptr [ %incdec.ptr53, %if.then51 ], [ %distances.addr.0153, %if.end48 ], [ %distances.addr.0153, %if.end ]
+  %maxLen.addr.1 = phi i32 [ %len.1, %if.then51 ], [ %maxLen.addr.0154, %if.end48 ], [ %maxLen.addr.0154, %if.end ]
   %len.2 = phi i32 [ %len.1, %if.then51 ], [ %len.1, %if.end48 ], [ %cond17, %if.end ]
   %idxprom62 = zext i32 %len.2 to i64
   %arrayidx63 = getelementptr inbounds i8, ptr %add.ptr12, i64 %idxprom62
@@ -853,32 +806,29 @@ if.end61:                                         ; preds = %if.end48, %if.then5
   br i1 %cmp68, label %if.then70, label %if.else
 
 if.then70:                                        ; preds = %if.end61
-  store i32 %curMatch.addr.0160, ptr %ptr1.0157, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159, ptr %ptr1.0156, align 4, !tbaa !15
   %add.ptr71 = getelementptr inbounds i32, ptr %add.ptr10, i64 1
   br label %cleanup75
 
 if.else:                                          ; preds = %if.end61
-  store i32 %curMatch.addr.0160, ptr %ptr0.0156, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159, ptr %ptr0.0155, align 4, !tbaa !15
   br label %cleanup75
 
 cleanup75:                                        ; preds = %if.then70, %if.else
-  %ptr0.1 = phi ptr [ %ptr0.0156, %if.then70 ], [ %add.ptr10, %if.else ]
-  %ptr1.1 = phi ptr [ %add.ptr71, %if.then70 ], [ %ptr1.0157, %if.else ]
-  %len0.1 = phi i32 [ %len0.0158, %if.then70 ], [ %len.2, %if.else ]
-  %len1.1 = phi i32 [ %len.2, %if.then70 ], [ %len1.0159, %if.else ]
+  %ptr0.1 = phi ptr [ %ptr0.0155, %if.then70 ], [ %add.ptr10, %if.else ]
+  %ptr1.1 = phi ptr [ %add.ptr71, %if.then70 ], [ %ptr1.0156, %if.else ]
+  %len0.1 = phi i32 [ %len0.0157, %if.then70 ], [ %len.2, %if.else ]
+  %len1.1 = phi i32 [ %len.2, %if.then70 ], [ %len1.0158, %if.else ]
   %curMatch.addr.1.in = phi ptr [ %add.ptr71, %if.then70 ], [ %add.ptr10, %if.else ]
   %curMatch.addr.1 = load i32, ptr %curMatch.addr.1.in, align 4, !tbaa !15
   %sub = sub i32 %pos, %curMatch.addr.1
-  %cmp = icmp ne i32 %dec162, 0
+  %cmp = icmp ne i32 %dec161, 0
   %cmp5.not = icmp ult i32 %sub, %_cyclicBufferSize
   %or.cond = select i1 %cmp, i1 %cmp5.not, i1 false
   br i1 %or.cond, label %if.end, label %if.then
 
 cleanup78:                                        ; preds = %if.then, %if.then56
-  %ptr0.0147 = phi ptr [ %ptr0.0.lcssa, %if.then ], [ %ptr0.0156, %if.then56 ]
-  %storemerge = phi i32 [ 0, %if.then ], [ %7, %if.then56 ]
-  %retval.2.ph = phi ptr [ %distances.addr.0.lcssa, %if.then ], [ %incdec.ptr53, %if.then56 ]
-  store i32 %storemerge, ptr %ptr0.0147, align 4, !tbaa !15
+  %retval.2.ph = phi ptr [ %incdec.ptr53, %if.then56 ], [ %distances.addr.0.lcssa, %if.then ]
   ret ptr %retval.2.ph
 }
 
@@ -944,41 +894,42 @@ if.end:                                           ; preds = %entry
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %14, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub149.i = sub i32 %13, %11
-  %cmp151.i = icmp ne i32 %17, 0
-  %cmp5.not152.i = icmp ult i32 %sub149.i, %16
-  %or.cond153.i = and i1 %cmp5.not152.i, %cmp151.i
-  br i1 %or.cond153.i, label %if.end.i, label %if.then.i49
+  %sub148.i = sub i32 %13, %11
+  %cmp150.i = icmp ne i32 %17, 0
+  %cmp5.not151.i = icmp ult i32 %sub148.i, %16
+  %or.cond152.i = and i1 %cmp5.not151.i, %cmp150.i
+  br i1 %or.cond152.i, label %if.end.i, label %if.then.i49
 
 if.then.i49:                                      ; preds = %cleanup75.i, %if.end
   %distances.addr.0.lcssa.i = phi ptr [ %distances, %if.end ], [ %distances.addr.1.i, %cleanup75.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup75.i ]
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup75.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup75.i
-  %dec162.in.i = phi i32 [ %dec162.i, %cleanup75.i ], [ %17, %if.end ]
-  %sub161.i = phi i32 [ %sub.i, %cleanup75.i ], [ %sub149.i, %if.end ]
-  %curMatch.addr.0160.i = phi i32 [ %curMatch.addr.1.i, %cleanup75.i ], [ %11, %if.end ]
-  %len1.0159.i = phi i32 [ %len1.1.i, %cleanup75.i ], [ 0, %if.end ]
-  %len0.0158.i = phi i32 [ %len0.1.i, %cleanup75.i ], [ 0, %if.end ]
-  %ptr1.0157.i = phi ptr [ %ptr1.1.i, %cleanup75.i ], [ %add.ptr.i, %if.end ]
-  %ptr0.0156.i = phi ptr [ %ptr0.1.i, %cleanup75.i ], [ %add.ptr1.i, %if.end ]
-  %maxLen.addr.0155.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ 2, %if.end ]
-  %distances.addr.0154.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %distances, %if.end ]
-  %dec162.i = add i32 %dec162.in.i, -1
-  %sub6.i = sub i32 %15, %sub161.i
-  %cmp7.i = icmp ult i32 %15, %sub161.i
+  %dec161.in.i = phi i32 [ %dec161.i, %cleanup75.i ], [ %17, %if.end ]
+  %sub160.i = phi i32 [ %sub.i, %cleanup75.i ], [ %sub148.i, %if.end ]
+  %curMatch.addr.0159.i = phi i32 [ %curMatch.addr.1.i, %cleanup75.i ], [ %11, %if.end ]
+  %len1.0158.i = phi i32 [ %len1.1.i, %cleanup75.i ], [ 0, %if.end ]
+  %len0.0157.i = phi i32 [ %len0.1.i, %cleanup75.i ], [ 0, %if.end ]
+  %ptr1.0156.i = phi ptr [ %ptr1.1.i, %cleanup75.i ], [ %add.ptr.i, %if.end ]
+  %ptr0.0155.i = phi ptr [ %ptr0.1.i, %cleanup75.i ], [ %add.ptr1.i, %if.end ]
+  %maxLen.addr.0154.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ 2, %if.end ]
+  %distances.addr.0153.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %distances, %if.end ]
+  %dec161.i = add i32 %dec161.in.i, -1
+  %sub6.i = sub i32 %15, %sub160.i
+  %cmp7.i = icmp ult i32 %15, %sub160.i
   %cond.i = select i1 %cmp7.i, i32 %16, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %14, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub161.i to i64
+  %idx.ext11.i = zext i32 %sub160.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0158.i, i32 %len1.0159.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0157.i, i32 %len1.0158.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %18 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -1018,28 +969,29 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.end48.i:                                       ; preds = %while.body.i, %while.cond.i, %land.lhs.true.i, %if.then23.i
   %len.1.i = phi i32 [ %inc.i50, %land.lhs.true.i ], [ %0, %if.then23.i ], [ %inc35.i, %while.body.i ], [ %0, %while.cond.i ]
-  %cmp49.i = icmp ult i32 %maxLen.addr.0155.i, %len.1.i
+  %cmp49.i = icmp ult i32 %maxLen.addr.0154.i, %len.1.i
   br i1 %cmp49.i, label %if.then51.i, label %if.end61.i
 
 if.then51.i:                                      ; preds = %if.end48.i
-  %incdec.ptr.i51 = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 1
-  store i32 %len.1.i, ptr %distances.addr.0154.i, align 4, !tbaa !15
-  %sub52.i = add i32 %sub161.i, -1
-  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 2
+  %incdec.ptr.i51 = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 1
+  store i32 %len.1.i, ptr %distances.addr.0153.i, align 4, !tbaa !15
+  %sub52.i = add i32 %sub160.i, -1
+  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 2
   store i32 %sub52.i, ptr %incdec.ptr.i51, align 4, !tbaa !15
   %cmp54.i = icmp eq i32 %len.1.i, %0
   br i1 %cmp54.i, label %if.then56.i, label %if.end61.i
 
 if.then56.i:                                      ; preds = %if.then51.i
   %24 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %24, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %24, ptr %ptr1.0156.i, align 4, !tbaa !15
   %arrayidx58.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %25 = load i32, ptr %arrayidx58.i, align 4, !tbaa !15
+  store i32 %25, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end61.i:                                       ; preds = %if.then51.i, %if.end48.i, %if.end.i
-  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i ], [ %distances.addr.0154.i, %if.end48.i ], [ %distances.addr.0154.i, %if.end.i ]
-  %maxLen.addr.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %maxLen.addr.0155.i, %if.end48.i ], [ %maxLen.addr.0155.i, %if.end.i ]
+  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i ], [ %distances.addr.0153.i, %if.end48.i ], [ %distances.addr.0153.i, %if.end.i ]
+  %maxLen.addr.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %maxLen.addr.0154.i, %if.end48.i ], [ %maxLen.addr.0154.i, %if.end.i ]
   %len.2.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len.1.i, %if.end48.i ], [ %cond17.i, %if.end.i ]
   %idxprom62.i = zext i32 %len.2.i to i64
   %arrayidx63.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom62.i
@@ -1050,32 +1002,29 @@ if.end61.i:                                       ; preds = %if.then51.i, %if.en
   br i1 %cmp68.i, label %if.then70.i, label %if.else.i
 
 if.then70.i:                                      ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr1.0156.i, align 4, !tbaa !15
   %add.ptr71.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup75.i
 
 if.else.i:                                        ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr0.0156.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %cleanup75.i
 
 cleanup75.i:                                      ; preds = %if.else.i, %if.then70.i
-  %ptr0.1.i = phi ptr [ %ptr0.0156.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
-  %ptr1.1.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0157.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0158.i, %if.then70.i ], [ %len.2.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0159.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0155.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0156.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0157.i, %if.then70.i ], [ %len.2.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0158.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %13, %curMatch.addr.1.i
-  %cmp.i52 = icmp ne i32 %dec162.i, 0
+  %cmp.i52 = icmp ne i32 %dec161.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %16
   %or.cond.i = select i1 %cmp.i52, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i49
 
 GetMatchesSpec1.exit:                             ; preds = %if.then.i49, %if.then56.i
-  %ptr0.0147.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i49 ], [ %ptr0.0156.i, %if.then56.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i49 ], [ %25, %if.then56.i ]
-  %retval.2.ph.i = phi ptr [ %distances.addr.0.lcssa.i, %if.then.i49 ], [ %incdec.ptr53.i, %if.then56.i ]
-  store i32 %storemerge.i, ptr %ptr0.0147.i, align 4, !tbaa !15
+  %retval.2.ph.i = phi ptr [ %incdec.ptr53.i, %if.then56.i ], [ %distances.addr.0.lcssa.i, %if.then.i49 ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.2.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -1098,15 +1047,14 @@ cleanup.sink.split:                               ; preds = %GetMatchesSpec1.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %GetMatchesSpec1.exit
-  %retval.0 = phi i32 [ %conv13, %GetMatchesSpec1.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %GetMatchesSpec1.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ %conv13, %GetMatchesSpec1.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @MatchFinder_CheckLimits(ptr nocapture noundef %p) unnamed_addr #5 {
 entry:
-  %size.i.i = alloca i64, align 8
   %pos = getelementptr %struct._CMatchFinder, ptr %p, i64 0, i32 1
   %0 = load i32, ptr %pos, align 8, !tbaa !14
   %cmp = icmp eq i32 %0, -1
@@ -1136,8 +1084,8 @@ vector.ph:                                        ; preds = %for.body.preheader.
   %n.vec = and i64 %wide.trip.count.i.i, 4294967288
   %broadcast.splatinsert = insertelement <4 x i32> poison, i32 %and.i.i, i64 0
   %broadcast.splat = shufflevector <4 x i32> %broadcast.splatinsert, <4 x i32> poison, <4 x i32> zeroinitializer
-  %broadcast.splatinsert24 = insertelement <4 x i32> poison, i32 %and.i.i, i64 0
-  %broadcast.splat25 = shufflevector <4 x i32> %broadcast.splatinsert24, <4 x i32> poison, <4 x i32> zeroinitializer
+  %broadcast.splatinsert23 = insertelement <4 x i32> poison, i32 %and.i.i, i64 0
+  %broadcast.splat24 = shufflevector <4 x i32> %broadcast.splatinsert23, <4 x i32> poison, <4 x i32> zeroinitializer
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
@@ -1145,9 +1093,9 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %5 = getelementptr inbounds i32, ptr %2, i64 %index
   %wide.load = load <4 x i32>, ptr %5, align 4, !tbaa !15
   %6 = getelementptr inbounds i32, ptr %5, i64 4
-  %wide.load23 = load <4 x i32>, ptr %6, align 4, !tbaa !15
+  %wide.load22 = load <4 x i32>, ptr %6, align 4, !tbaa !15
   %7 = tail call <4 x i32> @llvm.usub.sat.v4i32(<4 x i32> %wide.load, <4 x i32> %broadcast.splat)
-  %8 = tail call <4 x i32> @llvm.usub.sat.v4i32(<4 x i32> %wide.load23, <4 x i32> %broadcast.splat25)
+  %8 = tail call <4 x i32> @llvm.usub.sat.v4i32(<4 x i32> %wide.load22, <4 x i32> %broadcast.splat24)
   store <4 x i32> %7, ptr %5, align 4, !tbaa !15
   store <4 x i32> %8, ptr %6, align 4, !tbaa !15
   %index.next = add nuw i64 %index, 8
@@ -1208,9 +1156,9 @@ if.then3:                                         ; preds = %land.lhs.true
   %directInput.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 19
   %20 = load i32, ptr %directInput.i.i, align 4, !tbaa !18
   %tobool.not.i.i = icmp eq i32 %20, 0
-  br i1 %tobool.not.i.i, label %MatchFinder_NeedMove.exit.i, label %lor.lhs.false.i.i
+  br i1 %tobool.not.i.i, label %if.end.i.i, label %MatchFinder_CheckAndMoveAndRead.exit
 
-MatchFinder_NeedMove.exit.i:                      ; preds = %if.then3
+if.end.i.i:                                       ; preds = %if.then3
   %bufferBase.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
   %21 = load ptr, ptr %bufferBase.i.i, align 8, !tbaa !16
   %blockSize.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
@@ -1222,16 +1170,17 @@ MatchFinder_NeedMove.exit.i:                      ; preds = %if.then3
   %sub.ptr.rhs.cast.i.i = ptrtoint ptr %23 to i64
   %sub.ptr.sub.i.i = sub i64 %sub.ptr.lhs.cast.i.i, %sub.ptr.rhs.cast.i.i
   %conv.i.i = zext i32 %18 to i64
-  %cmp.i.not.i = icmp ugt i64 %sub.ptr.sub.i.i, %conv.i.i
-  br i1 %cmp.i.not.i, label %lor.lhs.false.i.i, label %if.end.i
+  %cmp.i.i = icmp ugt i64 %sub.ptr.sub.i.i, %conv.i.i
+  br i1 %cmp.i.i, label %MatchFinder_CheckAndMoveAndRead.exit, label %if.then.i
 
-if.end.i:                                         ; preds = %MatchFinder_NeedMove.exit.i
+if.then.i:                                        ; preds = %if.end.i.i
   %keepSizeBefore.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 16
   %24 = load i32, ptr %keepSizeBefore.i.i, align 8, !tbaa !17
   %idx.ext.i4.i = zext i32 %24 to i64
   %idx.neg.i.i = sub nsw i64 0, %idx.ext.i4.i
   %add.ptr.i5.i = getelementptr inbounds i8, ptr %23, i64 %idx.neg.i.i
-  %add.i.i = add i32 %18, %24
+  %sub.i.i20 = add i32 %19, %24
+  %add.i.i = sub i32 %sub.i.i20, %16
   %conv.i6.i = zext i32 %add.i.i to i64
   tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %21, ptr align 1 %add.ptr.i5.i, i64 %conv.i6.i, i1 false)
   %25 = load ptr, ptr %bufferBase.i.i, align 8, !tbaa !16
@@ -1239,108 +1188,18 @@ if.end.i:                                         ; preds = %MatchFinder_NeedMov
   %idx.ext4.i.i = zext i32 %26 to i64
   %add.ptr5.i.i = getelementptr inbounds i8, ptr %25, i64 %idx.ext4.i.i
   store ptr %add.ptr5.i.i, ptr %p, align 8, !tbaa !5
-  %.pre = load i32, ptr %streamEndWasReached, align 8, !tbaa !21
-  %27 = icmp eq i32 %.pre, 0
-  br i1 %27, label %lor.lhs.false.i.i, label %if.end4
+  br label %MatchFinder_CheckAndMoveAndRead.exit
 
-lor.lhs.false.i.i:                                ; preds = %if.then3, %MatchFinder_NeedMove.exit.i, %if.end.i
-  %result.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 27
-  %28 = load i32, ptr %result.i.i, align 8, !tbaa !22
-  %cmp.not.i.i = icmp eq i32 %28, 0
-  br i1 %cmp.not.i.i, label %if.end.i9.i, label %if.end4
-
-if.end.i9.i:                                      ; preds = %lor.lhs.false.i.i
-  %29 = load i32, ptr %directInput.i.i, align 4, !tbaa !18
-  %tobool1.not.i.i = icmp eq i32 %29, 0
-  br i1 %tobool1.not.i.i, label %for.cond.preheader.i.i, label %if.then2.i.i
-
-for.cond.preheader.i.i:                           ; preds = %if.end.i9.i
-  %bufferBase.i11.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 12
-  %blockSize.i12.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 15
-  %stream.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 13
-  %.pre.i.i = load i32, ptr %streamPos, align 8, !tbaa !13
-  %.pre80.i.i = load i32, ptr %pos, align 8, !tbaa !14
-  br label %for.cond.i.i
-
-if.then2.i.i:                                     ; preds = %if.end.i9.i
-  %30 = load i32, ptr %streamPos, align 8, !tbaa !13
-  %sub.i14.i = xor i32 %30, -1
-  %conv.i15.i = zext i32 %sub.i14.i to i64
-  %directInputRem.i.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 20
-  %31 = load i64, ptr %directInputRem.i.i, align 8, !tbaa !23
-  %cmp3.i.i = icmp ult i64 %31, %conv.i15.i
-  %conv7.i.i = trunc i64 %31 to i32
-  %spec.select.i.i = select i1 %cmp3.i.i, i32 %conv7.i.i, i32 %sub.i14.i
-  %conv9.i.i = zext i32 %spec.select.i.i to i64
-  %sub11.i.i = sub i64 %31, %conv9.i.i
-  store i64 %sub11.i.i, ptr %directInputRem.i.i, align 8, !tbaa !23
-  %add.i16.i = add i32 %spec.select.i.i, %30
-  store i32 %add.i16.i, ptr %streamPos, align 8, !tbaa !13
-  %cmp14.i.i = icmp eq i64 %31, %conv9.i.i
-  br i1 %cmp14.i.i, label %if.then16.i.i, label %if.end4
-
-if.then16.i.i:                                    ; preds = %if.then2.i.i
-  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
+MatchFinder_CheckAndMoveAndRead.exit:             ; preds = %if.then3, %if.end.i.i, %if.then.i
+  tail call fastcc void @MatchFinder_ReadBlock(ptr noundef nonnull %p)
   br label %if.end4
 
-for.cond.i.i:                                     ; preds = %cleanup.i.i, %for.cond.preheader.i.i
-  %32 = phi i32 [ %.pre80.i.i, %for.cond.preheader.i.i ], [ %41, %cleanup.i.i ]
-  %33 = phi i32 [ %.pre.i.i, %for.cond.preheader.i.i ], [ %add42.i.i, %cleanup.i.i ]
-  %34 = load ptr, ptr %p, align 8, !tbaa !5
-  %sub21.i.i = sub i32 %33, %32
-  %idx.ext.i17.i = zext i32 %sub21.i.i to i64
-  %add.ptr.i18.i = getelementptr inbounds i8, ptr %34, i64 %idx.ext.i17.i
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i.i) #11
-  %35 = load ptr, ptr %bufferBase.i11.i, align 8, !tbaa !16
-  %36 = load i32, ptr %blockSize.i12.i, align 4, !tbaa !19
-  %idx.ext22.i.i = zext i32 %36 to i64
-  %add.ptr23.i.i = getelementptr inbounds i8, ptr %35, i64 %idx.ext22.i.i
-  %sub.ptr.lhs.cast.i19.i = ptrtoint ptr %add.ptr23.i.i to i64
-  %sub.ptr.rhs.cast.i20.i = ptrtoint ptr %add.ptr.i18.i to i64
-  %sub.ptr.sub.i21.i = sub i64 %sub.ptr.lhs.cast.i19.i, %sub.ptr.rhs.cast.i20.i
-  store i64 %sub.ptr.sub.i21.i, ptr %size.i.i, align 8, !tbaa !24
-  %cmp24.i.i = icmp eq ptr %add.ptr23.i.i, %add.ptr.i18.i
-  br i1 %cmp24.i.i, label %cleanup.thread.i.i, label %if.end27.i.i
-
-if.end27.i.i:                                     ; preds = %for.cond.i.i
-  %37 = load ptr, ptr %stream.i.i, align 8, !tbaa !25
-  %38 = load ptr, ptr %37, align 8, !tbaa !26
-  %call.i.i = call i32 %38(ptr noundef nonnull %37, ptr noundef %add.ptr.i18.i, ptr noundef nonnull %size.i.i) #11
-  store i32 %call.i.i, ptr %result.i.i, align 8, !tbaa !22
-  %cmp31.not.i.i = icmp eq i32 %call.i.i, 0
-  br i1 %cmp31.not.i.i, label %if.end34.i.i, label %cleanup.thread.i.i
-
-if.end34.i.i:                                     ; preds = %if.end27.i.i
-  %39 = load i64, ptr %size.i.i, align 8, !tbaa !24
-  %cmp35.i.i = icmp eq i64 %39, 0
-  br i1 %cmp35.i.i, label %if.then37.i.i, label %cleanup.i.i
-
-if.then37.i.i:                                    ; preds = %if.end34.i.i
-  store i32 1, ptr %streamEndWasReached, align 8, !tbaa !21
-  br label %cleanup.thread.i.i
-
-cleanup.thread.i.i:                               ; preds = %if.end27.i.i, %for.cond.i.i, %if.then37.i.i
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i.i) #11
-  br label %if.end4
-
-cleanup.i.i:                                      ; preds = %if.end34.i.i
-  %conv40.i.i = trunc i64 %39 to i32
-  %40 = load i32, ptr %streamPos, align 8, !tbaa !13
-  %add42.i.i = add i32 %40, %conv40.i.i
-  store i32 %add42.i.i, ptr %streamPos, align 8, !tbaa !13
-  %41 = load i32, ptr %pos, align 8, !tbaa !14
-  %sub45.i.i = sub i32 %add42.i.i, %41
-  %42 = load i32, ptr %keepSizeAfter, align 4, !tbaa !20
-  %cmp46.not.i.i = icmp ugt i32 %sub45.i.i, %42
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i.i) #11
-  br i1 %cmp46.not.i.i, label %if.end4, label %for.cond.i.i
-
-if.end4:                                          ; preds = %cleanup.i.i, %cleanup.thread.i.i, %if.then16.i.i, %if.then2.i.i, %lor.lhs.false.i.i, %if.end.i, %land.lhs.true, %if.end
+if.end4:                                          ; preds = %MatchFinder_CheckAndMoveAndRead.exit, %land.lhs.true, %if.end
   %cyclicBufferPos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 5
-  %43 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
+  %27 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %cyclicBufferSize = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 6
-  %44 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
-  %cmp5 = icmp eq i32 %43, %44
+  %28 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
+  %cmp5 = icmp eq i32 %27, %28
   br i1 %cmp5, label %if.then6, label %if.end8
 
 if.then6:                                         ; preds = %if.end4
@@ -1348,28 +1207,28 @@ if.then6:                                         ; preds = %if.end4
   br label %if.end8
 
 if.end8:                                          ; preds = %if.then6, %if.end4
-  %45 = phi i32 [ 0, %if.then6 ], [ %43, %if.end4 ]
-  %46 = load i32, ptr %pos, align 8, !tbaa !14
-  %sub.i = xor i32 %46, -1
-  %sub1.i = sub i32 %44, %45
-  %spec.select.i = call i32 @llvm.umin.i32(i32 %sub1.i, i32 %sub.i)
+  %29 = phi i32 [ 0, %if.then6 ], [ %27, %if.end4 ]
+  %30 = load i32, ptr %pos, align 8, !tbaa !14
+  %sub.i = xor i32 %30, -1
+  %sub1.i = sub i32 %28, %29
+  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %sub1.i, i32 %sub.i)
   %streamPos.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 3
-  %47 = load i32, ptr %streamPos.i, align 8, !tbaa !13
-  %sub3.i = sub i32 %47, %46
+  %31 = load i32, ptr %streamPos.i, align 8, !tbaa !13
+  %sub3.i = sub i32 %31, %30
   %keepSizeAfter.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 17
-  %48 = load i32, ptr %keepSizeAfter.i, align 4, !tbaa !20
-  %cmp4.not.i = icmp ugt i32 %sub3.i, %48
-  %cmp6.not.i = icmp eq i32 %47, %46
-  %spec.store.select.i = select i1 %cmp6.not.i, i32 %sub3.i, i32 1
-  %sub10.i = sub i32 %sub3.i, %48
+  %32 = load i32, ptr %keepSizeAfter.i, align 4, !tbaa !20
+  %cmp4.not.i = icmp ugt i32 %sub3.i, %32
+  %cmp6.not.i = icmp ne i32 %31, %30
+  %spec.store.select.i = zext i1 %cmp6.not.i to i32
+  %sub10.i = sub i32 %sub3.i, %32
   %limit2.0.i = select i1 %cmp4.not.i, i32 %sub10.i, i32 %spec.store.select.i
-  %limit.1.i = call i32 @llvm.umin.i32(i32 %limit2.0.i, i32 %spec.select.i)
+  %limit.1.i = tail call i32 @llvm.umin.i32(i32 %limit2.0.i, i32 %spec.select.i)
   %matchMaxLen.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 7
-  %49 = load i32, ptr %matchMaxLen.i, align 8, !tbaa !40
-  %lenLimit.0.i = call i32 @llvm.umin.i32(i32 %sub3.i, i32 %49)
+  %33 = load i32, ptr %matchMaxLen.i, align 8, !tbaa !40
+  %lenLimit.0.i = tail call i32 @llvm.umin.i32(i32 %sub3.i, i32 %33)
   %lenLimit22.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 4
   store i32 %lenLimit.0.i, ptr %lenLimit22.i, align 4, !tbaa !50
-  %add.i21 = add i32 %limit.1.i, %46
+  %add.i21 = add i32 %limit.1.i, %30
   %posLimit.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 2
   store i32 %add.i21, ptr %posLimit.i, align 4, !tbaa !51
   ret void
@@ -1436,11 +1295,11 @@ if.end:                                           ; preds = %entry
   %idxprom.i = zext i32 %15 to i64
   %arrayidx.i = getelementptr inbounds i32, ptr %14, i64 %idxprom.i
   store i32 %11, ptr %arrayidx.i, align 4, !tbaa !15
-  %sub94.i = sub i32 %13, %11
-  %cmp96.i = icmp ne i32 %17, 0
-  %cmp1.not97.i = icmp ult i32 %sub94.i, %16
-  %or.cond98.i = and i1 %cmp1.not97.i, %cmp96.i
-  br i1 %or.cond98.i, label %if.end.preheader.i, label %Hc_GetMatchesSpec.exit
+  %sub87.i = sub i32 %13, %11
+  %cmp89.i = icmp ne i32 %17, 0
+  %cmp1.not90.i = icmp ult i32 %sub87.i, %16
+  %or.cond91.i = and i1 %cmp1.not90.i, %cmp89.i
+  br i1 %or.cond91.i, label %if.end.preheader.i, label %Hc_GetMatchesSpec.exit
 
 if.end.preheader.i:                               ; preds = %if.end
   %18 = add i32 %0, -1
@@ -1448,22 +1307,22 @@ if.end.preheader.i:                               ; preds = %if.end
   br label %if.end.i
 
 if.end.i:                                         ; preds = %cleanup44.i, %if.end.preheader.i
-  %dec102.in.i = phi i32 [ %dec102.i, %cleanup44.i ], [ %17, %if.end.preheader.i ]
-  %sub101.i = phi i32 [ %sub.i, %cleanup44.i ], [ %sub94.i, %if.end.preheader.i ]
-  %maxLen.addr.0100.i = phi i32 [ %maxLen.addr.5.i, %cleanup44.i ], [ 2, %if.end.preheader.i ]
-  %distances.addr.099.i = phi ptr [ %distances.addr.5.i, %cleanup44.i ], [ %distances, %if.end.preheader.i ]
-  %dec102.i = add i32 %dec102.in.i, -1
-  %idx.ext.i = zext i32 %sub101.i to i64
+  %dec95.in.i = phi i32 [ %dec95.i, %cleanup44.i ], [ %17, %if.end.preheader.i ]
+  %sub94.i = phi i32 [ %sub.i, %cleanup44.i ], [ %sub87.i, %if.end.preheader.i ]
+  %maxLen.addr.093.i = phi i32 [ %maxLen.addr.5.i, %cleanup44.i ], [ 2, %if.end.preheader.i ]
+  %distances.addr.092.i = phi ptr [ %distances.addr.5.i, %cleanup44.i ], [ %distances, %if.end.preheader.i ]
+  %dec95.i = add i32 %dec95.in.i, -1
+  %idx.ext.i = zext i32 %sub94.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i
   %add.ptr.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %sub2.i = sub i32 %15, %sub101.i
-  %cmp3.i = icmp ult i32 %15, %sub101.i
+  %sub2.i = sub i32 %15, %sub94.i
+  %cmp3.i = icmp ult i32 %15, %sub94.i
   %cond.i = select i1 %cmp3.i, i32 %16, i32 0
   %add.i = add i32 %sub2.i, %cond.i
   %idxprom4.i = zext i32 %add.i to i64
   %arrayidx5.i = getelementptr inbounds i32, ptr %14, i64 %idxprom4.i
   %19 = load i32, ptr %arrayidx5.i, align 4, !tbaa !15
-  %idxprom6.i = zext i32 %maxLen.addr.0100.i to i64
+  %idxprom6.i = zext i32 %maxLen.addr.093.i to i64
   %arrayidx7.i = getelementptr inbounds i8, ptr %add.ptr.i, i64 %idxprom6.i
   %20 = load i8, ptr %arrayidx7.i, align 1, !tbaa !12
   %arrayidx9.i = getelementptr inbounds i8, ptr %5, i64 %idxprom6.i
@@ -1490,44 +1349,37 @@ while.body.i:                                     ; preds = %while.cond.i
   %arrayidx24.i = getelementptr inbounds i8, ptr %5, i64 %idxprom20.i
   %25 = load i8, ptr %arrayidx24.i, align 1, !tbaa !12
   %cmp26.not.i = icmp eq i8 %24, %25
-  br i1 %cmp26.not.i, label %while.cond.i, label %while.end.thread.i, !llvm.loop !57
+  br i1 %cmp26.not.i, label %while.cond.i, label %while.end.split.loop.exit.i, !llvm.loop !57
 
-while.end.i:                                      ; preds = %while.cond.i
-  %cmp30.i = icmp ult i32 %maxLen.addr.0100.i, %0
-  br i1 %cmp30.i, label %cleanup.i, label %cleanup44.i
-
-while.end.thread.i:                               ; preds = %while.body.i
+while.end.split.loop.exit.i:                      ; preds = %while.body.i
   %indvars.le.i = trunc i64 %indvars.iv.next.i to i32
-  %cmp3076.i = icmp ult i32 %maxLen.addr.0100.i, %indvars.le.i
-  br i1 %cmp3076.i, label %if.then32.thread.i, label %cleanup44.i
+  br label %while.end.i
 
-if.then32.thread.i:                               ; preds = %while.end.thread.i
-  %incdec.ptr77.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 1
-  store i32 %indvars.le.i, ptr %distances.addr.099.i, align 4, !tbaa !15
-  %sub3378.i = add i32 %sub101.i, -1
-  %incdec.ptr3479.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 2
-  store i32 %sub3378.i, ptr %incdec.ptr77.i, align 4, !tbaa !15
-  br label %cleanup44.i
+while.end.i:                                      ; preds = %while.cond.i, %while.end.split.loop.exit.i
+  %inc.lcssa.i = phi i32 [ %indvars.le.i, %while.end.split.loop.exit.i ], [ %0, %while.cond.i ]
+  %cmp30.i = icmp ult i32 %maxLen.addr.093.i, %inc.lcssa.i
+  br i1 %cmp30.i, label %if.then32.i, label %cleanup44.i
 
-cleanup.i:                                        ; preds = %while.end.i
-  %incdec.ptr.i48 = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 1
-  store i32 %0, ptr %distances.addr.099.i, align 4, !tbaa !15
-  %sub33.i = add i32 %sub101.i, -1
-  %incdec.ptr34.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 2
+if.then32.i:                                      ; preds = %while.end.i
+  %incdec.ptr.i48 = getelementptr inbounds i32, ptr %distances.addr.092.i, i64 1
+  store i32 %inc.lcssa.i, ptr %distances.addr.092.i, align 4, !tbaa !15
+  %sub33.i = add i32 %sub94.i, -1
+  %incdec.ptr34.i = getelementptr inbounds i32, ptr %distances.addr.092.i, i64 2
   store i32 %sub33.i, ptr %incdec.ptr.i48, align 4, !tbaa !15
-  br label %Hc_GetMatchesSpec.exit
+  %cmp35.i = icmp eq i32 %inc.lcssa.i, %0
+  br i1 %cmp35.i, label %Hc_GetMatchesSpec.exit, label %cleanup44.i
 
-cleanup44.i:                                      ; preds = %if.then32.thread.i, %while.end.thread.i, %while.end.i, %land.lhs.true.i, %if.end.i
-  %distances.addr.5.i = phi ptr [ %distances.addr.099.i, %land.lhs.true.i ], [ %distances.addr.099.i, %if.end.i ], [ %incdec.ptr3479.i, %if.then32.thread.i ], [ %distances.addr.099.i, %while.end.thread.i ], [ %distances.addr.099.i, %while.end.i ]
-  %maxLen.addr.5.i = phi i32 [ %maxLen.addr.0100.i, %land.lhs.true.i ], [ %maxLen.addr.0100.i, %if.end.i ], [ %indvars.le.i, %if.then32.thread.i ], [ %maxLen.addr.0100.i, %while.end.thread.i ], [ %maxLen.addr.0100.i, %while.end.i ]
+cleanup44.i:                                      ; preds = %if.then32.i, %while.end.i, %land.lhs.true.i, %if.end.i
+  %distances.addr.5.i = phi ptr [ %distances.addr.092.i, %land.lhs.true.i ], [ %distances.addr.092.i, %if.end.i ], [ %incdec.ptr34.i, %if.then32.i ], [ %distances.addr.092.i, %while.end.i ]
+  %maxLen.addr.5.i = phi i32 [ %maxLen.addr.093.i, %land.lhs.true.i ], [ %maxLen.addr.093.i, %if.end.i ], [ %inc.lcssa.i, %if.then32.i ], [ %maxLen.addr.093.i, %while.end.i ]
   %sub.i = sub i32 %13, %19
-  %cmp.i49 = icmp ne i32 %dec102.i, 0
+  %cmp.i49 = icmp ne i32 %dec95.i, 0
   %cmp1.not.i = icmp ult i32 %sub.i, %16
   %or.cond.i = select i1 %cmp.i49, i1 %cmp1.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %Hc_GetMatchesSpec.exit
 
-Hc_GetMatchesSpec.exit:                           ; preds = %cleanup44.i, %if.end, %cleanup.i
-  %retval.4.ph.i = phi ptr [ %incdec.ptr34.i, %cleanup.i ], [ %distances, %if.end ], [ %distances.addr.5.i, %cleanup44.i ]
+Hc_GetMatchesSpec.exit:                           ; preds = %if.then32.i, %cleanup44.i, %if.end
+  %retval.4.ph.i = phi ptr [ %distances, %if.end ], [ %incdec.ptr34.i, %if.then32.i ], [ %distances.addr.5.i, %cleanup44.i ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.4.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -1550,8 +1402,8 @@ cleanup.sink.split:                               ; preds = %Hc_GetMatchesSpec.e
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %Hc_GetMatchesSpec.exit
-  %retval.0 = phi i32 [ %conv13, %Hc_GetMatchesSpec.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %Hc_GetMatchesSpec.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ %conv13, %Hc_GetMatchesSpec.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -1619,38 +1471,39 @@ if.end:                                           ; preds = %do.body
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %14, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %13, %11
-  %cmp116.i = icmp ne i32 %17, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %16
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i47
+  %sub112.i = sub i32 %13, %11
+  %cmp114.i = icmp ne i32 %17, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %16
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i47
 
 if.then.i47:                                      ; preds = %cleanup56.i, %if.end
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %17, %if.end ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.end ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %11, %if.end ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %15, %sub124.i
-  %cmp7.i = icmp ult i32 %15, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %17, %if.end ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.end ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %11, %if.end ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %15, %sub122.i
+  %cmp7.i = icmp ult i32 %15, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %16, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %14, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %18 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -1676,9 +1529,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %22 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %22, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %22, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %23 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %23, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -1689,31 +1543,28 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %13, %curMatch.addr.1.i
-  %cmp.i49 = icmp ne i32 %dec125.i, 0
+  %cmp.i49 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %16
   %or.cond.i = select i1 %cmp.i49, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i47
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i47, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i47 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i47 ], [ %23, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %26 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc = add i32 %26, 1
   store i32 %inc, ptr %cyclicBufferPos, align 8, !tbaa !49
@@ -1729,7 +1580,7 @@ cleanup.sink.split:                               ; preds = %SkipMatchesSpec.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %SkipMatchesSpec.exit
+cleanup:                                          ; preds = %cleanup.sink.split, %SkipMatchesSpec.exit, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp24.not = icmp eq i32 %dec, 0
   br i1 %cmp24.not, label %do.end, label %do.body, !llvm.loop !59
@@ -1811,7 +1662,7 @@ cleanup.sink.split:                               ; preds = %if.end, %if.then
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %if.end
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp24.not = icmp eq i32 %dec, 0
   br i1 %cmp24.not, label %do.end, label %do.body, !llvm.loop !60
@@ -1986,15 +1837,15 @@ if.end73:                                         ; preds = %land.lhs.true59, %l
   br i1 %cmp74.not, label %if.end109, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %if.end73, %if.end73.thread
-  %delta2.0241 = phi i32 [ %sub25, %if.end73.thread ], [ %sub, %if.end73 ]
-  %maxLen.1240 = phi i32 [ 3, %if.end73.thread ], [ %maxLen.0, %if.end73 ]
-  %offset.1238 = phi i32 [ %add72, %if.end73.thread ], [ %offset.0, %if.end73 ]
-  %conv80 = zext i32 %delta2.0241 to i64
+  %delta2.0233 = phi i32 [ %sub25, %if.end73.thread ], [ %sub, %if.end73 ]
+  %maxLen.1232 = phi i32 [ 3, %if.end73.thread ], [ %maxLen.0, %if.end73 ]
+  %offset.1230 = phi i32 [ %add72, %if.end73.thread ], [ %offset.0, %if.end73 ]
+  %conv80 = zext i32 %delta2.0233 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %maxLen.2230 = phi i32 [ %maxLen.1240, %for.body.lr.ph ], [ %inc, %for.inc ]
-  %conv79 = zext i32 %maxLen.2230 to i64
+  %maxLen.2224 = phi i32 [ %maxLen.1232, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %conv79 = zext i32 %maxLen.2224 to i64
   %sub81 = sub nsw i64 %conv79, %conv80
   %arrayidx82 = getelementptr inbounds i8, ptr %5, i64 %sub81
   %24 = load i8, ptr %arrayidx82, align 1, !tbaa !12
@@ -2004,22 +1855,26 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp87.not, label %for.inc, label %for.end
 
 for.inc:                                          ; preds = %for.body
-  %inc = add i32 %maxLen.2230, 1
+  %inc = add i32 %maxLen.2224, 1
   %cmp77.not = icmp eq i32 %inc, %0
-  br i1 %cmp77.not, label %if.then96, label %for.body, !llvm.loop !68
+  br i1 %cmp77.not, label %for.end.thread, label %for.body, !llvm.loop !68
+
+for.end.thread:                                   ; preds = %for.inc
+  %sub91235 = add nsw i32 %offset.1230, -2
+  %idxprom92236 = zext i32 %sub91235 to i64
+  %arrayidx93237 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92236
+  store i32 %0, ptr %arrayidx93237, align 4, !tbaa !15
+  br label %if.then96
 
 for.end:                                          ; preds = %for.body
-  %sub91 = add nsw i32 %offset.1238, -2
+  %sub91 = add nsw i32 %offset.1230, -2
   %idxprom92 = zext i32 %sub91 to i64
   %arrayidx93 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92
-  store i32 %maxLen.2230, ptr %arrayidx93, align 4, !tbaa !15
-  br label %if.end109
+  store i32 %maxLen.2224, ptr %arrayidx93, align 4, !tbaa !15
+  %cmp94 = icmp eq i32 %maxLen.2224, %0
+  br i1 %cmp94, label %if.then96, label %if.end109
 
-if.then96:                                        ; preds = %for.inc
-  %sub91223 = add nsw i32 %offset.1238, -2
-  %idxprom92224 = zext i32 %sub91223 to i64
-  %arrayidx93225 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92224
-  store i32 %0, ptr %arrayidx93225, align 4, !tbaa !15
+if.then96:                                        ; preds = %for.end.thread, %for.end
   %son = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %26 = load ptr, ptr %son, align 8, !tbaa !47
   %cyclicBufferPos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 5
@@ -2040,8 +1895,8 @@ if.then96:                                        ; preds = %for.inc
   br i1 %cmp104, label %cleanup.sink.split, label %cleanup
 
 if.end109:                                        ; preds = %for.end, %if.end73
-  %offset.1239 = phi i32 [ %offset.1238, %for.end ], [ 0, %if.end73 ]
-  %maxLen.3 = phi i32 [ %maxLen.2230, %for.end ], [ %maxLen.0, %if.end73 ]
+  %offset.1231 = phi i32 [ %offset.1230, %for.end ], [ 0, %if.end73 ]
+  %maxLen.3 = phi i32 [ %maxLen.2224, %for.end ], [ %maxLen.0, %if.end73 ]
   %31 = load i32, ptr %pos, align 8, !tbaa !14
   %son116 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %32 = load ptr, ptr %son116, align 8, !tbaa !47
@@ -2050,16 +1905,16 @@ if.end109:                                        ; preds = %for.end, %if.end73
   %34 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
   %cutValue = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 11
   %35 = load i32, ptr %cutValue, align 4, !tbaa !29
-  %idx.ext119 = zext i32 %offset.1239 to i64
+  %idx.ext119 = zext i32 %offset.1231 to i64
   %add.ptr120 = getelementptr inbounds i32, ptr %distances, i64 %idx.ext119
   %idxprom.i = zext i32 %33 to i64
   %arrayidx.i = getelementptr inbounds i32, ptr %32, i64 %idxprom.i
   store i32 %17, ptr %arrayidx.i, align 4, !tbaa !15
-  %sub94.i = sub i32 %31, %17
-  %cmp96.i = icmp ne i32 %35, 0
-  %cmp1.not97.i = icmp ult i32 %sub94.i, %34
-  %or.cond98.i = and i1 %cmp1.not97.i, %cmp96.i
-  br i1 %or.cond98.i, label %if.end.preheader.i, label %Hc_GetMatchesSpec.exit
+  %sub87.i = sub i32 %31, %17
+  %cmp89.i = icmp ne i32 %35, 0
+  %cmp1.not90.i = icmp ult i32 %sub87.i, %34
+  %or.cond91.i = and i1 %cmp1.not90.i, %cmp89.i
+  br i1 %or.cond91.i, label %if.end.preheader.i, label %Hc_GetMatchesSpec.exit
 
 if.end.preheader.i:                               ; preds = %if.end109
   %spec.store.select = tail call i32 @llvm.umax.i32(i32 %maxLen.3, i32 3)
@@ -2068,22 +1923,22 @@ if.end.preheader.i:                               ; preds = %if.end109
   br label %if.end.i
 
 if.end.i:                                         ; preds = %cleanup44.i, %if.end.preheader.i
-  %dec102.in.i = phi i32 [ %dec102.i, %cleanup44.i ], [ %35, %if.end.preheader.i ]
-  %sub101.i = phi i32 [ %sub.i, %cleanup44.i ], [ %sub94.i, %if.end.preheader.i ]
-  %maxLen.addr.0100.i = phi i32 [ %maxLen.addr.5.i, %cleanup44.i ], [ %spec.store.select, %if.end.preheader.i ]
-  %distances.addr.099.i = phi ptr [ %distances.addr.5.i, %cleanup44.i ], [ %add.ptr120, %if.end.preheader.i ]
-  %dec102.i = add i32 %dec102.in.i, -1
-  %idx.ext.i = zext i32 %sub101.i to i64
+  %dec95.in.i = phi i32 [ %dec95.i, %cleanup44.i ], [ %35, %if.end.preheader.i ]
+  %sub94.i = phi i32 [ %sub.i, %cleanup44.i ], [ %sub87.i, %if.end.preheader.i ]
+  %maxLen.addr.093.i = phi i32 [ %maxLen.addr.5.i, %cleanup44.i ], [ %spec.store.select, %if.end.preheader.i ]
+  %distances.addr.092.i = phi ptr [ %distances.addr.5.i, %cleanup44.i ], [ %add.ptr120, %if.end.preheader.i ]
+  %dec95.i = add i32 %dec95.in.i, -1
+  %idx.ext.i = zext i32 %sub94.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i
   %add.ptr.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %sub2.i = sub i32 %33, %sub101.i
-  %cmp3.i = icmp ult i32 %33, %sub101.i
+  %sub2.i = sub i32 %33, %sub94.i
+  %cmp3.i = icmp ult i32 %33, %sub94.i
   %cond.i = select i1 %cmp3.i, i32 %34, i32 0
   %add.i = add i32 %sub2.i, %cond.i
   %idxprom4.i = zext i32 %add.i to i64
   %arrayidx5.i = getelementptr inbounds i32, ptr %32, i64 %idxprom4.i
   %37 = load i32, ptr %arrayidx5.i, align 4, !tbaa !15
-  %idxprom6.i = zext i32 %maxLen.addr.0100.i to i64
+  %idxprom6.i = zext i32 %maxLen.addr.093.i to i64
   %arrayidx7.i = getelementptr inbounds i8, ptr %add.ptr.i, i64 %idxprom6.i
   %38 = load i8, ptr %arrayidx7.i, align 1, !tbaa !12
   %arrayidx9.i = getelementptr inbounds i8, ptr %5, i64 %idxprom6.i
@@ -2110,44 +1965,37 @@ while.body.i:                                     ; preds = %while.cond.i
   %arrayidx24.i = getelementptr inbounds i8, ptr %5, i64 %idxprom20.i
   %43 = load i8, ptr %arrayidx24.i, align 1, !tbaa !12
   %cmp26.not.i = icmp eq i8 %42, %43
-  br i1 %cmp26.not.i, label %while.cond.i, label %while.end.thread.i, !llvm.loop !57
+  br i1 %cmp26.not.i, label %while.cond.i, label %while.end.split.loop.exit.i, !llvm.loop !57
 
-while.end.i:                                      ; preds = %while.cond.i
-  %cmp30.i = icmp ult i32 %maxLen.addr.0100.i, %0
-  br i1 %cmp30.i, label %cleanup.i, label %cleanup44.i
-
-while.end.thread.i:                               ; preds = %while.body.i
+while.end.split.loop.exit.i:                      ; preds = %while.body.i
   %indvars.le.i = trunc i64 %indvars.iv.next.i to i32
-  %cmp3076.i = icmp ult i32 %maxLen.addr.0100.i, %indvars.le.i
-  br i1 %cmp3076.i, label %if.then32.thread.i, label %cleanup44.i
+  br label %while.end.i
 
-if.then32.thread.i:                               ; preds = %while.end.thread.i
-  %incdec.ptr77.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 1
-  store i32 %indvars.le.i, ptr %distances.addr.099.i, align 4, !tbaa !15
-  %sub3378.i = add i32 %sub101.i, -1
-  %incdec.ptr3479.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 2
-  store i32 %sub3378.i, ptr %incdec.ptr77.i, align 4, !tbaa !15
-  br label %cleanup44.i
+while.end.i:                                      ; preds = %while.cond.i, %while.end.split.loop.exit.i
+  %inc.lcssa.i = phi i32 [ %indvars.le.i, %while.end.split.loop.exit.i ], [ %0, %while.cond.i ]
+  %cmp30.i = icmp ult i32 %maxLen.addr.093.i, %inc.lcssa.i
+  br i1 %cmp30.i, label %if.then32.i, label %cleanup44.i
 
-cleanup.i:                                        ; preds = %while.end.i
-  %incdec.ptr.i221 = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 1
-  store i32 %0, ptr %distances.addr.099.i, align 4, !tbaa !15
-  %sub33.i = add i32 %sub101.i, -1
-  %incdec.ptr34.i = getelementptr inbounds i32, ptr %distances.addr.099.i, i64 2
+if.then32.i:                                      ; preds = %while.end.i
+  %incdec.ptr.i221 = getelementptr inbounds i32, ptr %distances.addr.092.i, i64 1
+  store i32 %inc.lcssa.i, ptr %distances.addr.092.i, align 4, !tbaa !15
+  %sub33.i = add i32 %sub94.i, -1
+  %incdec.ptr34.i = getelementptr inbounds i32, ptr %distances.addr.092.i, i64 2
   store i32 %sub33.i, ptr %incdec.ptr.i221, align 4, !tbaa !15
-  br label %Hc_GetMatchesSpec.exit
+  %cmp35.i = icmp eq i32 %inc.lcssa.i, %0
+  br i1 %cmp35.i, label %Hc_GetMatchesSpec.exit, label %cleanup44.i
 
-cleanup44.i:                                      ; preds = %if.then32.thread.i, %while.end.thread.i, %while.end.i, %land.lhs.true.i, %if.end.i
-  %distances.addr.5.i = phi ptr [ %distances.addr.099.i, %land.lhs.true.i ], [ %distances.addr.099.i, %if.end.i ], [ %incdec.ptr3479.i, %if.then32.thread.i ], [ %distances.addr.099.i, %while.end.thread.i ], [ %distances.addr.099.i, %while.end.i ]
-  %maxLen.addr.5.i = phi i32 [ %maxLen.addr.0100.i, %land.lhs.true.i ], [ %maxLen.addr.0100.i, %if.end.i ], [ %indvars.le.i, %if.then32.thread.i ], [ %maxLen.addr.0100.i, %while.end.thread.i ], [ %maxLen.addr.0100.i, %while.end.i ]
+cleanup44.i:                                      ; preds = %if.then32.i, %while.end.i, %land.lhs.true.i, %if.end.i
+  %distances.addr.5.i = phi ptr [ %distances.addr.092.i, %land.lhs.true.i ], [ %distances.addr.092.i, %if.end.i ], [ %incdec.ptr34.i, %if.then32.i ], [ %distances.addr.092.i, %while.end.i ]
+  %maxLen.addr.5.i = phi i32 [ %maxLen.addr.093.i, %land.lhs.true.i ], [ %maxLen.addr.093.i, %if.end.i ], [ %inc.lcssa.i, %if.then32.i ], [ %maxLen.addr.093.i, %while.end.i ]
   %sub.i = sub i32 %31, %37
-  %cmp.i222 = icmp ne i32 %dec102.i, 0
+  %cmp.i222 = icmp ne i32 %dec95.i, 0
   %cmp1.not.i = icmp ult i32 %sub.i, %34
   %or.cond.i = select i1 %cmp.i222, i1 %cmp1.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %Hc_GetMatchesSpec.exit
 
-Hc_GetMatchesSpec.exit:                           ; preds = %cleanup44.i, %if.end109, %cleanup.i
-  %retval.4.ph.i = phi ptr [ %incdec.ptr34.i, %cleanup.i ], [ %add.ptr120, %if.end109 ], [ %distances.addr.5.i, %cleanup44.i ]
+Hc_GetMatchesSpec.exit:                           ; preds = %if.then32.i, %cleanup44.i, %if.end109
+  %retval.4.ph.i = phi ptr [ %add.ptr120, %if.end109 ], [ %incdec.ptr34.i, %if.then32.i ], [ %distances.addr.5.i, %cleanup44.i ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.4.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -2166,12 +2014,12 @@ Hc_GetMatchesSpec.exit:                           ; preds = %cleanup44.i, %if.en
   br i1 %cmp129, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %Hc_GetMatchesSpec.exit, %if.then96, %if.then
-  %retval.0.ph = phi i32 [ 0, %if.then ], [ %offset.1238, %if.then96 ], [ %conv121, %Hc_GetMatchesSpec.exit ]
+  %retval.0.ph = phi i32 [ 0, %if.then ], [ %offset.1230, %if.then96 ], [ %conv121, %Hc_GetMatchesSpec.exit ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %Hc_GetMatchesSpec.exit, %if.then96
-  %retval.0 = phi i32 [ %offset.1238, %if.then96 ], [ %conv121, %Hc_GetMatchesSpec.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %Hc_GetMatchesSpec.exit, %if.then96, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ %offset.1230, %if.then96 ], [ %conv121, %Hc_GetMatchesSpec.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -2267,7 +2115,7 @@ cleanup.sink.split:                               ; preds = %if.end, %if.then
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %if.end
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp47.not = icmp eq i32 %dec, 0
   br i1 %cmp47.not, label %do.end, label %do.body, !llvm.loop !69
@@ -2282,6 +2130,7 @@ entry:
   %lenLimit1 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 4
   %0 = load i32, ptr %lenLimit1, align 4, !tbaa !50
   %cmp = icmp ult i32 %0, 2
+  %pos.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 1
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
@@ -2292,7 +2141,6 @@ if.then:                                          ; preds = %entry
   %2 = load ptr, ptr %p, align 8, !tbaa !5
   %incdec.ptr.i = getelementptr inbounds i8, ptr %2, i64 1
   store ptr %incdec.ptr.i, ptr %p, align 8, !tbaa !5
-  %pos.i = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 1
   %3 = load i32, ptr %pos.i, align 8, !tbaa !14
   %inc1.i = add i32 %3, 1
   store i32 %inc1.i, ptr %pos.i, align 8, !tbaa !14
@@ -2305,15 +2153,13 @@ if.end:                                           ; preds = %entry
   %5 = load ptr, ptr %p, align 8, !tbaa !5
   %6 = load i16, ptr %5, align 1
   %7 = zext i16 %6 to i64
-  %arrayidx2 = getelementptr inbounds i8, ptr %5, i64 1
   %hash = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 8
   %8 = load ptr, ptr %hash, align 8, !tbaa !28
   %arrayidx4 = getelementptr inbounds i32, ptr %8, i64 %7
   %9 = load i32, ptr %arrayidx4, align 4, !tbaa !15
-  %pos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 1
-  %10 = load i32, ptr %pos, align 8, !tbaa !14
+  %10 = load i32, ptr %pos.i, align 8, !tbaa !14
   store i32 %10, ptr %arrayidx4, align 4, !tbaa !15
-  %11 = load i32, ptr %pos, align 8, !tbaa !14
+  %11 = load i32, ptr %pos.i, align 8, !tbaa !14
   %son = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %12 = load ptr, ptr %son, align 8, !tbaa !47
   %cyclicBufferPos = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 5
@@ -2326,41 +2172,42 @@ if.end:                                           ; preds = %entry
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %12, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub149.i = sub i32 %11, %9
-  %cmp151.i = icmp ne i32 %15, 0
-  %cmp5.not152.i = icmp ult i32 %sub149.i, %14
-  %or.cond153.i = and i1 %cmp5.not152.i, %cmp151.i
-  br i1 %or.cond153.i, label %if.end.i, label %if.then.i44
+  %sub148.i = sub i32 %11, %9
+  %cmp150.i = icmp ne i32 %15, 0
+  %cmp5.not151.i = icmp ult i32 %sub148.i, %14
+  %or.cond152.i = and i1 %cmp5.not151.i, %cmp150.i
+  br i1 %or.cond152.i, label %if.end.i, label %if.then.i44
 
 if.then.i44:                                      ; preds = %cleanup75.i, %if.end
   %distances.addr.0.lcssa.i = phi ptr [ %distances, %if.end ], [ %distances.addr.1.i, %cleanup75.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup75.i ]
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup75.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup75.i
-  %dec162.in.i = phi i32 [ %dec162.i, %cleanup75.i ], [ %15, %if.end ]
-  %sub161.i = phi i32 [ %sub.i, %cleanup75.i ], [ %sub149.i, %if.end ]
-  %curMatch.addr.0160.i = phi i32 [ %curMatch.addr.1.i, %cleanup75.i ], [ %9, %if.end ]
-  %len1.0159.i = phi i32 [ %len1.1.i, %cleanup75.i ], [ 0, %if.end ]
-  %len0.0158.i = phi i32 [ %len0.1.i, %cleanup75.i ], [ 0, %if.end ]
-  %ptr1.0157.i = phi ptr [ %ptr1.1.i, %cleanup75.i ], [ %add.ptr.i, %if.end ]
-  %ptr0.0156.i = phi ptr [ %ptr0.1.i, %cleanup75.i ], [ %add.ptr1.i, %if.end ]
-  %maxLen.addr.0155.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ 1, %if.end ]
-  %distances.addr.0154.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %distances, %if.end ]
-  %dec162.i = add i32 %dec162.in.i, -1
-  %sub6.i = sub i32 %13, %sub161.i
-  %cmp7.i = icmp ult i32 %13, %sub161.i
+  %dec161.in.i = phi i32 [ %dec161.i, %cleanup75.i ], [ %15, %if.end ]
+  %sub160.i = phi i32 [ %sub.i, %cleanup75.i ], [ %sub148.i, %if.end ]
+  %curMatch.addr.0159.i = phi i32 [ %curMatch.addr.1.i, %cleanup75.i ], [ %9, %if.end ]
+  %len1.0158.i = phi i32 [ %len1.1.i, %cleanup75.i ], [ 0, %if.end ]
+  %len0.0157.i = phi i32 [ %len0.1.i, %cleanup75.i ], [ 0, %if.end ]
+  %ptr1.0156.i = phi ptr [ %ptr1.1.i, %cleanup75.i ], [ %add.ptr.i, %if.end ]
+  %ptr0.0155.i = phi ptr [ %ptr0.1.i, %cleanup75.i ], [ %add.ptr1.i, %if.end ]
+  %maxLen.addr.0154.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ 1, %if.end ]
+  %distances.addr.0153.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %distances, %if.end ]
+  %dec161.i = add i32 %dec161.in.i, -1
+  %sub6.i = sub i32 %13, %sub160.i
+  %cmp7.i = icmp ult i32 %13, %sub160.i
   %cond.i = select i1 %cmp7.i, i32 %14, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %12, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub161.i to i64
+  %idx.ext11.i = zext i32 %sub160.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0158.i, i32 %len1.0159.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0157.i, i32 %len1.0158.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %16 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -2400,28 +2247,29 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.end48.i:                                       ; preds = %while.body.i, %while.cond.i, %land.lhs.true.i, %if.then23.i
   %len.1.i = phi i32 [ %inc.i45, %land.lhs.true.i ], [ %0, %if.then23.i ], [ %inc35.i, %while.body.i ], [ %0, %while.cond.i ]
-  %cmp49.i = icmp ult i32 %maxLen.addr.0155.i, %len.1.i
+  %cmp49.i = icmp ult i32 %maxLen.addr.0154.i, %len.1.i
   br i1 %cmp49.i, label %if.then51.i, label %if.end61.i
 
 if.then51.i:                                      ; preds = %if.end48.i
-  %incdec.ptr.i46 = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 1
-  store i32 %len.1.i, ptr %distances.addr.0154.i, align 4, !tbaa !15
-  %sub52.i = add i32 %sub161.i, -1
-  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 2
+  %incdec.ptr.i46 = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 1
+  store i32 %len.1.i, ptr %distances.addr.0153.i, align 4, !tbaa !15
+  %sub52.i = add i32 %sub160.i, -1
+  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 2
   store i32 %sub52.i, ptr %incdec.ptr.i46, align 4, !tbaa !15
   %cmp54.i = icmp eq i32 %len.1.i, %0
   br i1 %cmp54.i, label %if.then56.i, label %if.end61.i
 
 if.then56.i:                                      ; preds = %if.then51.i
   %22 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %22, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %22, ptr %ptr1.0156.i, align 4, !tbaa !15
   %arrayidx58.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %23 = load i32, ptr %arrayidx58.i, align 4, !tbaa !15
+  store i32 %23, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end61.i:                                       ; preds = %if.then51.i, %if.end48.i, %if.end.i
-  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i ], [ %distances.addr.0154.i, %if.end48.i ], [ %distances.addr.0154.i, %if.end.i ]
-  %maxLen.addr.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %maxLen.addr.0155.i, %if.end48.i ], [ %maxLen.addr.0155.i, %if.end.i ]
+  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i ], [ %distances.addr.0153.i, %if.end48.i ], [ %distances.addr.0153.i, %if.end.i ]
+  %maxLen.addr.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %maxLen.addr.0154.i, %if.end48.i ], [ %maxLen.addr.0154.i, %if.end.i ]
   %len.2.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len.1.i, %if.end48.i ], [ %cond17.i, %if.end.i ]
   %idxprom62.i = zext i32 %len.2.i to i64
   %arrayidx63.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom62.i
@@ -2432,32 +2280,29 @@ if.end61.i:                                       ; preds = %if.then51.i, %if.en
   br i1 %cmp68.i, label %if.then70.i, label %if.else.i
 
 if.then70.i:                                      ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr1.0156.i, align 4, !tbaa !15
   %add.ptr71.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup75.i
 
 if.else.i:                                        ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr0.0156.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %cleanup75.i
 
 cleanup75.i:                                      ; preds = %if.else.i, %if.then70.i
-  %ptr0.1.i = phi ptr [ %ptr0.0156.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
-  %ptr1.1.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0157.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0158.i, %if.then70.i ], [ %len.2.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0159.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0155.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0156.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0157.i, %if.then70.i ], [ %len.2.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0158.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %11, %curMatch.addr.1.i
-  %cmp.i47 = icmp ne i32 %dec162.i, 0
+  %cmp.i47 = icmp ne i32 %dec161.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %14
   %or.cond.i = select i1 %cmp.i47, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i44
 
 GetMatchesSpec1.exit:                             ; preds = %if.then.i44, %if.then56.i
-  %ptr0.0147.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i44 ], [ %ptr0.0156.i, %if.then56.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i44 ], [ %23, %if.then56.i ]
-  %retval.2.ph.i = phi ptr [ %distances.addr.0.lcssa.i, %if.then.i44 ], [ %incdec.ptr53.i, %if.then56.i ]
-  store i32 %storemerge.i, ptr %ptr0.0147.i, align 4, !tbaa !15
+  %retval.2.ph.i = phi ptr [ %incdec.ptr53.i, %if.then56.i ], [ %distances.addr.0.lcssa.i, %if.then.i44 ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.2.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -2466,10 +2311,11 @@ GetMatchesSpec1.exit:                             ; preds = %if.then.i44, %if.th
   %27 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc = add i32 %27, 1
   store i32 %inc, ptr %cyclicBufferPos, align 8, !tbaa !49
-  store ptr %arrayidx2, ptr %p, align 8, !tbaa !5
-  %28 = load i32, ptr %pos, align 8, !tbaa !14
+  %incdec.ptr = getelementptr inbounds i8, ptr %5, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !5
+  %28 = load i32, ptr %pos.i, align 8, !tbaa !14
   %inc14 = add i32 %28, 1
-  store i32 %inc14, ptr %pos, align 8, !tbaa !14
+  store i32 %inc14, ptr %pos.i, align 8, !tbaa !14
   %posLimit = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 2
   %29 = load i32, ptr %posLimit, align 4, !tbaa !51
   %cmp15 = icmp eq i32 %inc14, %29
@@ -2480,8 +2326,8 @@ cleanup.sink.split:                               ; preds = %GetMatchesSpec1.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %GetMatchesSpec1.exit
-  %retval.0 = phi i32 [ %conv10, %GetMatchesSpec1.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %GetMatchesSpec1.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ %conv10, %GetMatchesSpec1.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -2522,7 +2368,6 @@ if.end:                                           ; preds = %do.body
   %5 = load ptr, ptr %p, align 8, !tbaa !5
   %6 = load i16, ptr %5, align 1
   %7 = zext i16 %6 to i64
-  %arrayidx2 = getelementptr inbounds i8, ptr %5, i64 1
   %8 = load ptr, ptr %hash, align 8, !tbaa !28
   %arrayidx4 = getelementptr inbounds i32, ptr %8, i64 %7
   %9 = load i32, ptr %arrayidx4, align 4, !tbaa !15
@@ -2537,38 +2382,39 @@ if.end:                                           ; preds = %do.body
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %12, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %11, %9
-  %cmp116.i = icmp ne i32 %15, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %14
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i42
+  %sub112.i = sub i32 %11, %9
+  %cmp114.i = icmp ne i32 %15, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %14
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i42
 
 if.then.i42:                                      ; preds = %cleanup56.i, %if.end
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %15, %if.end ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.end ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %9, %if.end ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %13, %sub124.i
-  %cmp7.i = icmp ult i32 %13, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %15, %if.end ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.end ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %9, %if.end ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %13, %sub122.i
+  %cmp7.i = icmp ult i32 %13, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %14, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %12, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %16 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -2594,9 +2440,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %20 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %20, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %20, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %21 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %21, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -2607,35 +2454,33 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %11, %curMatch.addr.1.i
-  %cmp.i44 = icmp ne i32 %dec125.i, 0
+  %cmp.i44 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %14
   %or.cond.i = select i1 %cmp.i44, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i42
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i42, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i42 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i42 ], [ %21, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %24 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc = add i32 %24, 1
   store i32 %inc, ptr %cyclicBufferPos, align 8, !tbaa !49
-  store ptr %arrayidx2, ptr %p, align 8, !tbaa !5
+  %incdec.ptr = getelementptr inbounds i8, ptr %5, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !5
   %25 = load i32, ptr %pos, align 8, !tbaa !14
   %inc13 = add i32 %25, 1
   store i32 %inc13, ptr %pos, align 8, !tbaa !14
@@ -2647,7 +2492,7 @@ cleanup.sink.split:                               ; preds = %SkipMatchesSpec.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %SkipMatchesSpec.exit
+cleanup:                                          ; preds = %cleanup.sink.split, %SkipMatchesSpec.exit, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp21.not = icmp eq i32 %dec, 0
   br i1 %cmp21.not, label %do.end, label %do.body, !llvm.loop !70
@@ -2729,8 +2574,8 @@ land.lhs.true:                                    ; preds = %if.end
   br i1 %cmp25, label %for.body, label %if.end61
 
 for.body:                                         ; preds = %land.lhs.true, %for.inc
-  %maxLen.0212 = phi i32 [ %inc, %for.inc ], [ 2, %land.lhs.true ]
-  %conv30 = zext i32 %maxLen.0212 to i64
+  %maxLen.0208 = phi i32 [ %inc, %for.inc ], [ 2, %land.lhs.true ]
+  %conv30 = zext i32 %maxLen.0208 to i64
   %sub32 = sub nsw i64 %conv30, %idx.ext
   %arrayidx33 = getelementptr inbounds i8, ptr %5, i64 %sub32
   %18 = load i8, ptr %arrayidx33, align 1, !tbaa !12
@@ -2740,23 +2585,30 @@ for.body:                                         ; preds = %land.lhs.true, %for
   br i1 %cmp38.not, label %for.inc, label %for.end
 
 for.inc:                                          ; preds = %for.body
-  %inc = add nuw i32 %maxLen.0212, 1
+  %inc = add nuw i32 %maxLen.0208, 1
   %cmp28.not = icmp eq i32 %inc, %0
-  br i1 %cmp28.not, label %if.then47, label %for.body, !llvm.loop !71
+  br i1 %cmp28.not, label %for.end.thread, label %for.body, !llvm.loop !71
+
+for.end.thread:                                   ; preds = %for.inc
+  store i32 %0, ptr %distances, align 4, !tbaa !15
+  %sub43219 = add i32 %sub, -1
+  %arrayidx44220 = getelementptr inbounds i32, ptr %distances, i64 1
+  store i32 %sub43219, ptr %arrayidx44220, align 4, !tbaa !15
+  br label %if.then47
 
 for.end:                                          ; preds = %for.body
-  store i32 %maxLen.0212, ptr %distances, align 4, !tbaa !15
+  store i32 %maxLen.0208, ptr %distances, align 4, !tbaa !15
   %sub43 = add i32 %sub, -1
   %arrayidx44 = getelementptr inbounds i32, ptr %distances, i64 1
   store i32 %sub43, ptr %arrayidx44, align 4, !tbaa !15
+  %cmp45 = icmp eq i32 %maxLen.0208, %0
+  br i1 %cmp45, label %if.then47, label %for.end.if.end61_crit_edge
+
+for.end.if.end61_crit_edge:                       ; preds = %for.end
   %.pre = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
   br label %if.end61
 
-if.then47:                                        ; preds = %for.inc
-  store i32 %0, ptr %distances, align 4, !tbaa !15
-  %sub43200 = add i32 %sub, -1
-  %arrayidx44201 = getelementptr inbounds i32, ptr %distances, i64 1
-  store i32 %sub43200, ptr %arrayidx44201, align 4, !tbaa !15
+if.then47:                                        ; preds = %for.end.thread, %for.end
   %20 = load i32, ptr %pos, align 8, !tbaa !14
   %son = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %21 = load ptr, ptr %son, align 8, !tbaa !47
@@ -2769,38 +2621,39 @@ if.then47:                                        ; preds = %for.inc
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %21, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %20, %14
-  %cmp116.i = icmp ne i32 %24, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %23
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i150
+  %sub112.i = sub i32 %20, %14
+  %cmp114.i = icmp ne i32 %24, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %23
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i150
 
 if.then.i150:                                     ; preds = %cleanup56.i, %if.then47
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.then47 ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.then47 ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.then47, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %24, %if.then47 ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.then47 ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %14, %if.then47 ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.then47 ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.then47 ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.then47 ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.then47 ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %22, %sub124.i
-  %cmp7.i = icmp ult i32 %22, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %24, %if.then47 ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.then47 ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %14, %if.then47 ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.then47 ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.then47 ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.then47 ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.then47 ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %22, %sub122.i
+  %cmp7.i = icmp ult i32 %22, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %23, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %21, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %25 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -2826,9 +2679,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %29 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %29, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %29, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %30 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %30, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -2839,31 +2693,28 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %20, %curMatch.addr.1.i
-  %cmp.i152 = icmp ne i32 %dec125.i, 0
+  %cmp.i152 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %23
   %or.cond.i = select i1 %cmp.i152, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i150
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i150, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i150 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i150 ], [ %30, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %33 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc52 = add i32 %33, 1
   store i32 %inc52, ptr %cyclicBufferPos, align 8, !tbaa !49
@@ -2876,10 +2727,10 @@ SkipMatchesSpec.exit:                             ; preds = %if.then.i150, %if.t
   %cmp56 = icmp eq i32 %inc55, %35
   br i1 %cmp56, label %cleanup.sink.split, label %cleanup
 
-if.end61:                                         ; preds = %for.end, %land.lhs.true, %if.end
-  %36 = phi i32 [ %.pre, %for.end ], [ %15, %land.lhs.true ], [ %15, %if.end ]
-  %offset.0 = phi i64 [ 2, %for.end ], [ 0, %land.lhs.true ], [ 0, %if.end ]
-  %maxLen.1 = phi i32 [ %maxLen.0212, %for.end ], [ 2, %land.lhs.true ], [ 2, %if.end ]
+if.end61:                                         ; preds = %for.end.if.end61_crit_edge, %land.lhs.true, %if.end
+  %36 = phi i32 [ %.pre, %for.end.if.end61_crit_edge ], [ %15, %land.lhs.true ], [ %15, %if.end ]
+  %offset.0 = phi i64 [ 2, %for.end.if.end61_crit_edge ], [ 0, %land.lhs.true ], [ 0, %if.end ]
+  %maxLen.1 = phi i32 [ %maxLen.0208, %for.end.if.end61_crit_edge ], [ 2, %land.lhs.true ], [ 2, %if.end ]
   %37 = load i32, ptr %pos, align 8, !tbaa !14
   %son64 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %38 = load ptr, ptr %son64, align 8, !tbaa !47
@@ -2892,41 +2743,42 @@ if.end61:                                         ; preds = %for.end, %land.lhs.
   %idx.ext.i154 = zext i32 %shl.i153 to i64
   %add.ptr.i155 = getelementptr inbounds i32, ptr %38, i64 %idx.ext.i154
   %add.ptr1.i156 = getelementptr inbounds i32, ptr %add.ptr.i155, i64 1
-  %sub149.i = sub i32 %37, %14
-  %cmp151.i = icmp ne i32 %40, 0
-  %cmp5.not152.i = icmp ult i32 %sub149.i, %36
-  %or.cond153.i = and i1 %cmp5.not152.i, %cmp151.i
-  br i1 %or.cond153.i, label %if.end.i175, label %if.then.i159
+  %sub148.i = sub i32 %37, %14
+  %cmp150.i = icmp ne i32 %40, 0
+  %cmp5.not151.i = icmp ult i32 %sub148.i, %36
+  %or.cond152.i = and i1 %cmp5.not151.i, %cmp150.i
+  br i1 %or.cond152.i, label %if.end.i175, label %if.then.i159
 
 if.then.i159:                                     ; preds = %cleanup75.i, %if.end61
   %distances.addr.0.lcssa.i = phi ptr [ %add.ptr69, %if.end61 ], [ %distances.addr.1.i, %cleanup75.i ]
   %ptr0.0.lcssa.i157 = phi ptr [ %add.ptr1.i156, %if.end61 ], [ %ptr0.1.i189, %cleanup75.i ]
   %ptr1.0.lcssa.i158 = phi ptr [ %add.ptr.i155, %if.end61 ], [ %ptr1.1.i190, %cleanup75.i ]
   store i32 0, ptr %ptr1.0.lcssa.i158, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i157, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end.i175:                                      ; preds = %if.end61, %cleanup75.i
-  %dec162.in.i = phi i32 [ %dec162.i, %cleanup75.i ], [ %40, %if.end61 ]
-  %sub161.i = phi i32 [ %sub.i195, %cleanup75.i ], [ %sub149.i, %if.end61 ]
-  %curMatch.addr.0160.i = phi i32 [ %curMatch.addr.1.i194, %cleanup75.i ], [ %14, %if.end61 ]
-  %len1.0159.i = phi i32 [ %len1.1.i192, %cleanup75.i ], [ 0, %if.end61 ]
-  %len0.0158.i = phi i32 [ %len0.1.i191, %cleanup75.i ], [ 0, %if.end61 ]
-  %ptr1.0157.i = phi ptr [ %ptr1.1.i190, %cleanup75.i ], [ %add.ptr.i155, %if.end61 ]
-  %ptr0.0156.i = phi ptr [ %ptr0.1.i189, %cleanup75.i ], [ %add.ptr1.i156, %if.end61 ]
-  %maxLen.addr.0155.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ %maxLen.1, %if.end61 ]
-  %distances.addr.0154.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %add.ptr69, %if.end61 ]
-  %dec162.i = add i32 %dec162.in.i, -1
-  %sub6.i160 = sub i32 %39, %sub161.i
-  %cmp7.i161 = icmp ult i32 %39, %sub161.i
+  %dec161.in.i = phi i32 [ %dec161.i, %cleanup75.i ], [ %40, %if.end61 ]
+  %sub160.i = phi i32 [ %sub.i195, %cleanup75.i ], [ %sub148.i, %if.end61 ]
+  %curMatch.addr.0159.i = phi i32 [ %curMatch.addr.1.i194, %cleanup75.i ], [ %14, %if.end61 ]
+  %len1.0158.i = phi i32 [ %len1.1.i192, %cleanup75.i ], [ 0, %if.end61 ]
+  %len0.0157.i = phi i32 [ %len0.1.i191, %cleanup75.i ], [ 0, %if.end61 ]
+  %ptr1.0156.i = phi ptr [ %ptr1.1.i190, %cleanup75.i ], [ %add.ptr.i155, %if.end61 ]
+  %ptr0.0155.i = phi ptr [ %ptr0.1.i189, %cleanup75.i ], [ %add.ptr1.i156, %if.end61 ]
+  %maxLen.addr.0154.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ %maxLen.1, %if.end61 ]
+  %distances.addr.0153.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %add.ptr69, %if.end61 ]
+  %dec161.i = add i32 %dec161.in.i, -1
+  %sub6.i160 = sub i32 %39, %sub160.i
+  %cmp7.i161 = icmp ult i32 %39, %sub160.i
   %cond.i162 = select i1 %cmp7.i161, i32 %36, i32 0
   %add.i163 = add i32 %sub6.i160, %cond.i162
   %shl8.i164 = shl i32 %add.i163, 1
   %idx.ext9.i165 = zext i32 %shl8.i164 to i64
   %add.ptr10.i166 = getelementptr inbounds i32, ptr %38, i64 %idx.ext9.i165
-  %idx.ext11.i167 = zext i32 %sub161.i to i64
+  %idx.ext11.i167 = zext i32 %sub160.i to i64
   %idx.neg.i168 = sub nsw i64 0, %idx.ext11.i167
   %add.ptr12.i169 = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i168
-  %cond17.i170 = tail call i32 @llvm.umin.i32(i32 %len0.0158.i, i32 %len1.0159.i)
+  %cond17.i170 = tail call i32 @llvm.umin.i32(i32 %len0.0157.i, i32 %len1.0158.i)
   %idxprom.i171 = zext i32 %cond17.i170 to i64
   %arrayidx.i172 = getelementptr inbounds i8, ptr %add.ptr12.i169, i64 %idxprom.i171
   %41 = load i8, ptr %arrayidx.i172, align 1, !tbaa !12
@@ -2966,28 +2818,29 @@ while.body.i183:                                  ; preds = %while.cond.i182
 
 if.end48.i:                                       ; preds = %while.body.i183, %while.cond.i182, %land.lhs.true.i, %if.then23.i
   %len.1.i184 = phi i32 [ %inc.i176, %land.lhs.true.i ], [ %0, %if.then23.i ], [ %inc35.i, %while.body.i183 ], [ %0, %while.cond.i182 ]
-  %cmp49.i185 = icmp ult i32 %maxLen.addr.0155.i, %len.1.i184
+  %cmp49.i185 = icmp ult i32 %maxLen.addr.0154.i, %len.1.i184
   br i1 %cmp49.i185, label %if.then51.i187, label %if.end61.i
 
 if.then51.i187:                                   ; preds = %if.end48.i
-  %incdec.ptr.i186 = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 1
-  store i32 %len.1.i184, ptr %distances.addr.0154.i, align 4, !tbaa !15
-  %sub52.i = add i32 %sub161.i, -1
-  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 2
+  %incdec.ptr.i186 = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 1
+  store i32 %len.1.i184, ptr %distances.addr.0153.i, align 4, !tbaa !15
+  %sub52.i = add i32 %sub160.i, -1
+  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 2
   store i32 %sub52.i, ptr %incdec.ptr.i186, align 4, !tbaa !15
   %cmp54.i = icmp eq i32 %len.1.i184, %0
   br i1 %cmp54.i, label %if.then56.i, label %if.end61.i
 
 if.then56.i:                                      ; preds = %if.then51.i187
   %47 = load i32, ptr %add.ptr10.i166, align 4, !tbaa !15
-  store i32 %47, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %47, ptr %ptr1.0156.i, align 4, !tbaa !15
   %arrayidx58.i = getelementptr inbounds i32, ptr %add.ptr10.i166, i64 1
   %48 = load i32, ptr %arrayidx58.i, align 4, !tbaa !15
+  store i32 %48, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end61.i:                                       ; preds = %if.then51.i187, %if.end48.i, %if.end.i175
-  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i187 ], [ %distances.addr.0154.i, %if.end48.i ], [ %distances.addr.0154.i, %if.end.i175 ]
-  %maxLen.addr.1.i = phi i32 [ %len.1.i184, %if.then51.i187 ], [ %maxLen.addr.0155.i, %if.end48.i ], [ %maxLen.addr.0155.i, %if.end.i175 ]
+  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i187 ], [ %distances.addr.0153.i, %if.end48.i ], [ %distances.addr.0153.i, %if.end.i175 ]
+  %maxLen.addr.1.i = phi i32 [ %len.1.i184, %if.then51.i187 ], [ %maxLen.addr.0154.i, %if.end48.i ], [ %maxLen.addr.0154.i, %if.end.i175 ]
   %len.2.i = phi i32 [ %len.1.i184, %if.then51.i187 ], [ %len.1.i184, %if.end48.i ], [ %cond17.i170, %if.end.i175 ]
   %idxprom62.i = zext i32 %len.2.i to i64
   %arrayidx63.i = getelementptr inbounds i8, ptr %add.ptr12.i169, i64 %idxprom62.i
@@ -2998,32 +2851,29 @@ if.end61.i:                                       ; preds = %if.then51.i187, %if
   br i1 %cmp68.i, label %if.then70.i, label %if.else.i188
 
 if.then70.i:                                      ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr1.0156.i, align 4, !tbaa !15
   %add.ptr71.i = getelementptr inbounds i32, ptr %add.ptr10.i166, i64 1
   br label %cleanup75.i
 
 if.else.i188:                                     ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr0.0156.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %cleanup75.i
 
 cleanup75.i:                                      ; preds = %if.else.i188, %if.then70.i
-  %ptr0.1.i189 = phi ptr [ %ptr0.0156.i, %if.then70.i ], [ %add.ptr10.i166, %if.else.i188 ]
-  %ptr1.1.i190 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0157.i, %if.else.i188 ]
-  %len0.1.i191 = phi i32 [ %len0.0158.i, %if.then70.i ], [ %len.2.i, %if.else.i188 ]
-  %len1.1.i192 = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0159.i, %if.else.i188 ]
+  %ptr0.1.i189 = phi ptr [ %ptr0.0155.i, %if.then70.i ], [ %add.ptr10.i166, %if.else.i188 ]
+  %ptr1.1.i190 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0156.i, %if.else.i188 ]
+  %len0.1.i191 = phi i32 [ %len0.0157.i, %if.then70.i ], [ %len.2.i, %if.else.i188 ]
+  %len1.1.i192 = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0158.i, %if.else.i188 ]
   %curMatch.addr.1.in.i193 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %add.ptr10.i166, %if.else.i188 ]
   %curMatch.addr.1.i194 = load i32, ptr %curMatch.addr.1.in.i193, align 4, !tbaa !15
   %sub.i195 = sub i32 %37, %curMatch.addr.1.i194
-  %cmp.i196 = icmp ne i32 %dec162.i, 0
+  %cmp.i196 = icmp ne i32 %dec161.i, 0
   %cmp5.not.i197 = icmp ult i32 %sub.i195, %36
   %or.cond.i198 = select i1 %cmp.i196, i1 %cmp5.not.i197, i1 false
   br i1 %or.cond.i198, label %if.end.i175, label %if.then.i159
 
 GetMatchesSpec1.exit:                             ; preds = %if.then.i159, %if.then56.i
-  %ptr0.0147.i = phi ptr [ %ptr0.0.lcssa.i157, %if.then.i159 ], [ %ptr0.0156.i, %if.then56.i ]
-  %storemerge.i199 = phi i32 [ 0, %if.then.i159 ], [ %48, %if.then56.i ]
-  %retval.2.ph.i = phi ptr [ %distances.addr.0.lcssa.i, %if.then.i159 ], [ %incdec.ptr53.i, %if.then56.i ]
-  store i32 %storemerge.i199, ptr %ptr0.0147.i, align 4, !tbaa !15
+  %retval.2.ph.i = phi ptr [ %incdec.ptr53.i, %if.then56.i ], [ %distances.addr.0.lcssa.i, %if.then.i159 ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.2.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -3046,8 +2896,8 @@ cleanup.sink.split:                               ; preds = %GetMatchesSpec1.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %GetMatchesSpec1.exit, %SkipMatchesSpec.exit
-  %retval.0 = phi i32 [ 2, %SkipMatchesSpec.exit ], [ %conv70, %GetMatchesSpec1.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %GetMatchesSpec1.exit, %SkipMatchesSpec.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ 2, %SkipMatchesSpec.exit ], [ %conv70, %GetMatchesSpec1.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -3122,38 +2972,39 @@ if.end:                                           ; preds = %do.body
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %15, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %14, %12
-  %cmp116.i = icmp ne i32 %18, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %17
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i57
+  %sub112.i = sub i32 %14, %12
+  %cmp114.i = icmp ne i32 %18, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %17
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i57
 
 if.then.i57:                                      ; preds = %cleanup56.i, %if.end
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %18, %if.end ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.end ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %12, %if.end ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %16, %sub124.i
-  %cmp7.i = icmp ult i32 %16, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %18, %if.end ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.end ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %12, %if.end ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %16, %sub122.i
+  %cmp7.i = icmp ult i32 %16, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %17, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %15, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %19 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -3179,9 +3030,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %23 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %23, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %23, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %24 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %24, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -3192,31 +3044,28 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %14, %curMatch.addr.1.i
-  %cmp.i59 = icmp ne i32 %dec125.i, 0
+  %cmp.i59 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %17
   %or.cond.i = select i1 %cmp.i59, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i57
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i57, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i57 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i57 ], [ %24, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %27 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc = add i32 %27, 1
   store i32 %inc, ptr %cyclicBufferPos, align 8, !tbaa !49
@@ -3232,7 +3081,7 @@ cleanup.sink.split:                               ; preds = %SkipMatchesSpec.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %SkipMatchesSpec.exit
+cleanup:                                          ; preds = %cleanup.sink.split, %SkipMatchesSpec.exit, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp31.not = icmp eq i32 %dec, 0
   br i1 %cmp31.not, label %do.end, label %do.body, !llvm.loop !72
@@ -3368,15 +3217,15 @@ if.end73:                                         ; preds = %land.lhs.true59, %l
   br i1 %cmp74.not, label %if.end110, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %if.end73, %if.end73.thread
-  %delta2.0308 = phi i32 [ %sub25, %if.end73.thread ], [ %sub, %if.end73 ]
-  %maxLen.1307 = phi i32 [ 3, %if.end73.thread ], [ %maxLen.0, %if.end73 ]
-  %offset.1305 = phi i32 [ %add72, %if.end73.thread ], [ %offset.0, %if.end73 ]
-  %conv80 = zext i32 %delta2.0308 to i64
+  %delta2.0303 = phi i32 [ %sub25, %if.end73.thread ], [ %sub, %if.end73 ]
+  %maxLen.1302 = phi i32 [ 3, %if.end73.thread ], [ %maxLen.0, %if.end73 ]
+  %offset.1300 = phi i32 [ %add72, %if.end73.thread ], [ %offset.0, %if.end73 ]
+  %conv80 = zext i32 %delta2.0303 to i64
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %maxLen.2291 = phi i32 [ %maxLen.1307, %for.body.lr.ph ], [ %inc, %for.inc ]
-  %conv79 = zext i32 %maxLen.2291 to i64
+  %maxLen.2286 = phi i32 [ %maxLen.1302, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %conv79 = zext i32 %maxLen.2286 to i64
   %sub81 = sub nsw i64 %conv79, %conv80
   %arrayidx82 = getelementptr inbounds i8, ptr %5, i64 %sub81
   %24 = load i8, ptr %arrayidx82, align 1, !tbaa !12
@@ -3386,22 +3235,26 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp87.not, label %for.inc, label %for.end
 
 for.inc:                                          ; preds = %for.body
-  %inc = add i32 %maxLen.2291, 1
+  %inc = add i32 %maxLen.2286, 1
   %cmp77.not = icmp eq i32 %inc, %0
-  br i1 %cmp77.not, label %if.then96, label %for.body, !llvm.loop !73
+  br i1 %cmp77.not, label %for.end.thread, label %for.body, !llvm.loop !73
+
+for.end.thread:                                   ; preds = %for.inc
+  %sub91305 = add nsw i32 %offset.1300, -2
+  %idxprom92306 = zext i32 %sub91305 to i64
+  %arrayidx93307 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92306
+  store i32 %0, ptr %arrayidx93307, align 4, !tbaa !15
+  br label %if.then96
 
 for.end:                                          ; preds = %for.body
-  %sub91 = add nsw i32 %offset.1305, -2
+  %sub91 = add nsw i32 %offset.1300, -2
   %idxprom92 = zext i32 %sub91 to i64
   %arrayidx93 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92
-  store i32 %maxLen.2291, ptr %arrayidx93, align 4, !tbaa !15
-  br label %if.end110
+  store i32 %maxLen.2286, ptr %arrayidx93, align 4, !tbaa !15
+  %cmp94 = icmp eq i32 %maxLen.2286, %0
+  br i1 %cmp94, label %if.then96, label %if.end110
 
-if.then96:                                        ; preds = %for.inc
-  %sub91278 = add nsw i32 %offset.1305, -2
-  %idxprom92279 = zext i32 %sub91278 to i64
-  %arrayidx93280 = getelementptr inbounds i32, ptr %distances, i64 %idxprom92279
-  store i32 %0, ptr %arrayidx93280, align 4, !tbaa !15
+if.then96:                                        ; preds = %for.end.thread, %for.end
   %26 = load i32, ptr %pos, align 8, !tbaa !14
   %son = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %27 = load ptr, ptr %son, align 8, !tbaa !47
@@ -3414,38 +3267,39 @@ if.then96:                                        ; preds = %for.inc
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %27, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %26, %17
-  %cmp116.i = icmp ne i32 %30, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %29
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i228
+  %sub112.i = sub i32 %26, %17
+  %cmp114.i = icmp ne i32 %30, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %29
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i228
 
 if.then.i228:                                     ; preds = %cleanup56.i, %if.then96
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.then96 ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.then96 ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.then96, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %30, %if.then96 ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.then96 ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %17, %if.then96 ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.then96 ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.then96 ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.then96 ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.then96 ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %28, %sub124.i
-  %cmp7.i = icmp ult i32 %28, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %30, %if.then96 ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.then96 ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %17, %if.then96 ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.then96 ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.then96 ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.then96 ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.then96 ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %28, %sub122.i
+  %cmp7.i = icmp ult i32 %28, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %29, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %27, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %31 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -3471,9 +3325,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %35 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %35, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %35, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %36 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %36, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -3484,31 +3339,28 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %26, %curMatch.addr.1.i
-  %cmp.i230 = icmp ne i32 %dec125.i, 0
+  %cmp.i230 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %29
   %or.cond.i = select i1 %cmp.i230, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i228
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i228, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i228 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i228 ], [ %36, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %39 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc101 = add i32 %39, 1
   store i32 %inc101, ptr %cyclicBufferPos, align 8, !tbaa !49
@@ -3522,8 +3374,8 @@ SkipMatchesSpec.exit:                             ; preds = %if.then.i228, %if.t
   br i1 %cmp105, label %cleanup.sink.split, label %cleanup
 
 if.end110:                                        ; preds = %for.end, %if.end73
-  %offset.1306 = phi i32 [ %offset.1305, %for.end ], [ 0, %if.end73 ]
-  %maxLen.3 = phi i32 [ %maxLen.2291, %for.end ], [ %maxLen.0, %if.end73 ]
+  %offset.1301 = phi i32 [ %offset.1300, %for.end ], [ 0, %if.end73 ]
+  %maxLen.3 = phi i32 [ %maxLen.2286, %for.end ], [ %maxLen.0, %if.end73 ]
   %42 = load i32, ptr %pos, align 8, !tbaa !14
   %son117 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 9
   %43 = load ptr, ptr %son117, align 8, !tbaa !47
@@ -3532,17 +3384,17 @@ if.end110:                                        ; preds = %for.end, %if.end73
   %45 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !46
   %cutValue120 = getelementptr inbounds %struct._CMatchFinder, ptr %p, i64 0, i32 11
   %46 = load i32, ptr %cutValue120, align 4, !tbaa !29
-  %idx.ext121 = zext i32 %offset.1306 to i64
+  %idx.ext121 = zext i32 %offset.1301 to i64
   %add.ptr122 = getelementptr inbounds i32, ptr %distances, i64 %idx.ext121
   %shl.i231 = shl i32 %44, 1
   %idx.ext.i232 = zext i32 %shl.i231 to i64
   %add.ptr.i233 = getelementptr inbounds i32, ptr %43, i64 %idx.ext.i232
   %add.ptr1.i234 = getelementptr inbounds i32, ptr %add.ptr.i233, i64 1
-  %sub149.i = sub i32 %42, %17
-  %cmp151.i = icmp ne i32 %46, 0
-  %cmp5.not152.i = icmp ult i32 %sub149.i, %45
-  %or.cond153.i = and i1 %cmp5.not152.i, %cmp151.i
-  br i1 %or.cond153.i, label %if.end.i253.preheader, label %if.then.i237
+  %sub148.i = sub i32 %42, %17
+  %cmp150.i = icmp ne i32 %46, 0
+  %cmp5.not151.i = icmp ult i32 %sub148.i, %45
+  %or.cond152.i = and i1 %cmp5.not151.i, %cmp150.i
+  br i1 %or.cond152.i, label %if.end.i253.preheader, label %if.then.i237
 
 if.end.i253.preheader:                            ; preds = %if.end110
   %spec.store.select = tail call i32 @llvm.umax.i32(i32 %maxLen.3, i32 3)
@@ -3553,30 +3405,31 @@ if.then.i237:                                     ; preds = %cleanup75.i, %if.en
   %ptr0.0.lcssa.i235 = phi ptr [ %add.ptr1.i234, %if.end110 ], [ %ptr0.1.i267, %cleanup75.i ]
   %ptr1.0.lcssa.i236 = phi ptr [ %add.ptr.i233, %if.end110 ], [ %ptr1.1.i268, %cleanup75.i ]
   store i32 0, ptr %ptr1.0.lcssa.i236, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i235, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end.i253:                                      ; preds = %if.end.i253.preheader, %cleanup75.i
-  %dec162.in.i = phi i32 [ %dec162.i, %cleanup75.i ], [ %46, %if.end.i253.preheader ]
-  %sub161.i = phi i32 [ %sub.i273, %cleanup75.i ], [ %sub149.i, %if.end.i253.preheader ]
-  %curMatch.addr.0160.i = phi i32 [ %curMatch.addr.1.i272, %cleanup75.i ], [ %17, %if.end.i253.preheader ]
-  %len1.0159.i = phi i32 [ %len1.1.i270, %cleanup75.i ], [ 0, %if.end.i253.preheader ]
-  %len0.0158.i = phi i32 [ %len0.1.i269, %cleanup75.i ], [ 0, %if.end.i253.preheader ]
-  %ptr1.0157.i = phi ptr [ %ptr1.1.i268, %cleanup75.i ], [ %add.ptr.i233, %if.end.i253.preheader ]
-  %ptr0.0156.i = phi ptr [ %ptr0.1.i267, %cleanup75.i ], [ %add.ptr1.i234, %if.end.i253.preheader ]
-  %maxLen.addr.0155.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ %spec.store.select, %if.end.i253.preheader ]
-  %distances.addr.0154.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %add.ptr122, %if.end.i253.preheader ]
-  %dec162.i = add i32 %dec162.in.i, -1
-  %sub6.i238 = sub i32 %44, %sub161.i
-  %cmp7.i239 = icmp ult i32 %44, %sub161.i
+  %dec161.in.i = phi i32 [ %dec161.i, %cleanup75.i ], [ %46, %if.end.i253.preheader ]
+  %sub160.i = phi i32 [ %sub.i273, %cleanup75.i ], [ %sub148.i, %if.end.i253.preheader ]
+  %curMatch.addr.0159.i = phi i32 [ %curMatch.addr.1.i272, %cleanup75.i ], [ %17, %if.end.i253.preheader ]
+  %len1.0158.i = phi i32 [ %len1.1.i270, %cleanup75.i ], [ 0, %if.end.i253.preheader ]
+  %len0.0157.i = phi i32 [ %len0.1.i269, %cleanup75.i ], [ 0, %if.end.i253.preheader ]
+  %ptr1.0156.i = phi ptr [ %ptr1.1.i268, %cleanup75.i ], [ %add.ptr.i233, %if.end.i253.preheader ]
+  %ptr0.0155.i = phi ptr [ %ptr0.1.i267, %cleanup75.i ], [ %add.ptr1.i234, %if.end.i253.preheader ]
+  %maxLen.addr.0154.i = phi i32 [ %maxLen.addr.1.i, %cleanup75.i ], [ %spec.store.select, %if.end.i253.preheader ]
+  %distances.addr.0153.i = phi ptr [ %distances.addr.1.i, %cleanup75.i ], [ %add.ptr122, %if.end.i253.preheader ]
+  %dec161.i = add i32 %dec161.in.i, -1
+  %sub6.i238 = sub i32 %44, %sub160.i
+  %cmp7.i239 = icmp ult i32 %44, %sub160.i
   %cond.i240 = select i1 %cmp7.i239, i32 %45, i32 0
   %add.i241 = add i32 %sub6.i238, %cond.i240
   %shl8.i242 = shl i32 %add.i241, 1
   %idx.ext9.i243 = zext i32 %shl8.i242 to i64
   %add.ptr10.i244 = getelementptr inbounds i32, ptr %43, i64 %idx.ext9.i243
-  %idx.ext11.i245 = zext i32 %sub161.i to i64
+  %idx.ext11.i245 = zext i32 %sub160.i to i64
   %idx.neg.i246 = sub nsw i64 0, %idx.ext11.i245
   %add.ptr12.i247 = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i246
-  %cond17.i248 = tail call i32 @llvm.umin.i32(i32 %len0.0158.i, i32 %len1.0159.i)
+  %cond17.i248 = tail call i32 @llvm.umin.i32(i32 %len0.0157.i, i32 %len1.0158.i)
   %idxprom.i249 = zext i32 %cond17.i248 to i64
   %arrayidx.i250 = getelementptr inbounds i8, ptr %add.ptr12.i247, i64 %idxprom.i249
   %47 = load i8, ptr %arrayidx.i250, align 1, !tbaa !12
@@ -3616,28 +3469,29 @@ while.body.i261:                                  ; preds = %while.cond.i260
 
 if.end48.i:                                       ; preds = %while.body.i261, %while.cond.i260, %land.lhs.true.i, %if.then23.i
   %len.1.i262 = phi i32 [ %inc.i254, %land.lhs.true.i ], [ %0, %if.then23.i ], [ %inc35.i, %while.body.i261 ], [ %0, %while.cond.i260 ]
-  %cmp49.i263 = icmp ult i32 %maxLen.addr.0155.i, %len.1.i262
+  %cmp49.i263 = icmp ult i32 %maxLen.addr.0154.i, %len.1.i262
   br i1 %cmp49.i263, label %if.then51.i265, label %if.end61.i
 
 if.then51.i265:                                   ; preds = %if.end48.i
-  %incdec.ptr.i264 = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 1
-  store i32 %len.1.i262, ptr %distances.addr.0154.i, align 4, !tbaa !15
-  %sub52.i = add i32 %sub161.i, -1
-  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0154.i, i64 2
+  %incdec.ptr.i264 = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 1
+  store i32 %len.1.i262, ptr %distances.addr.0153.i, align 4, !tbaa !15
+  %sub52.i = add i32 %sub160.i, -1
+  %incdec.ptr53.i = getelementptr inbounds i32, ptr %distances.addr.0153.i, i64 2
   store i32 %sub52.i, ptr %incdec.ptr.i264, align 4, !tbaa !15
   %cmp54.i = icmp eq i32 %len.1.i262, %0
   br i1 %cmp54.i, label %if.then56.i, label %if.end61.i
 
 if.then56.i:                                      ; preds = %if.then51.i265
   %53 = load i32, ptr %add.ptr10.i244, align 4, !tbaa !15
-  store i32 %53, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %53, ptr %ptr1.0156.i, align 4, !tbaa !15
   %arrayidx58.i = getelementptr inbounds i32, ptr %add.ptr10.i244, i64 1
   %54 = load i32, ptr %arrayidx58.i, align 4, !tbaa !15
+  store i32 %54, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %GetMatchesSpec1.exit
 
 if.end61.i:                                       ; preds = %if.then51.i265, %if.end48.i, %if.end.i253
-  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i265 ], [ %distances.addr.0154.i, %if.end48.i ], [ %distances.addr.0154.i, %if.end.i253 ]
-  %maxLen.addr.1.i = phi i32 [ %len.1.i262, %if.then51.i265 ], [ %maxLen.addr.0155.i, %if.end48.i ], [ %maxLen.addr.0155.i, %if.end.i253 ]
+  %distances.addr.1.i = phi ptr [ %incdec.ptr53.i, %if.then51.i265 ], [ %distances.addr.0153.i, %if.end48.i ], [ %distances.addr.0153.i, %if.end.i253 ]
+  %maxLen.addr.1.i = phi i32 [ %len.1.i262, %if.then51.i265 ], [ %maxLen.addr.0154.i, %if.end48.i ], [ %maxLen.addr.0154.i, %if.end.i253 ]
   %len.2.i = phi i32 [ %len.1.i262, %if.then51.i265 ], [ %len.1.i262, %if.end48.i ], [ %cond17.i248, %if.end.i253 ]
   %idxprom62.i = zext i32 %len.2.i to i64
   %arrayidx63.i = getelementptr inbounds i8, ptr %add.ptr12.i247, i64 %idxprom62.i
@@ -3648,32 +3502,29 @@ if.end61.i:                                       ; preds = %if.then51.i265, %if
   br i1 %cmp68.i, label %if.then70.i, label %if.else.i266
 
 if.then70.i:                                      ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr1.0157.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr1.0156.i, align 4, !tbaa !15
   %add.ptr71.i = getelementptr inbounds i32, ptr %add.ptr10.i244, i64 1
   br label %cleanup75.i
 
 if.else.i266:                                     ; preds = %if.end61.i
-  store i32 %curMatch.addr.0160.i, ptr %ptr0.0156.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0159.i, ptr %ptr0.0155.i, align 4, !tbaa !15
   br label %cleanup75.i
 
 cleanup75.i:                                      ; preds = %if.else.i266, %if.then70.i
-  %ptr0.1.i267 = phi ptr [ %ptr0.0156.i, %if.then70.i ], [ %add.ptr10.i244, %if.else.i266 ]
-  %ptr1.1.i268 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0157.i, %if.else.i266 ]
-  %len0.1.i269 = phi i32 [ %len0.0158.i, %if.then70.i ], [ %len.2.i, %if.else.i266 ]
-  %len1.1.i270 = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0159.i, %if.else.i266 ]
+  %ptr0.1.i267 = phi ptr [ %ptr0.0155.i, %if.then70.i ], [ %add.ptr10.i244, %if.else.i266 ]
+  %ptr1.1.i268 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %ptr1.0156.i, %if.else.i266 ]
+  %len0.1.i269 = phi i32 [ %len0.0157.i, %if.then70.i ], [ %len.2.i, %if.else.i266 ]
+  %len1.1.i270 = phi i32 [ %len.2.i, %if.then70.i ], [ %len1.0158.i, %if.else.i266 ]
   %curMatch.addr.1.in.i271 = phi ptr [ %add.ptr71.i, %if.then70.i ], [ %add.ptr10.i244, %if.else.i266 ]
   %curMatch.addr.1.i272 = load i32, ptr %curMatch.addr.1.in.i271, align 4, !tbaa !15
   %sub.i273 = sub i32 %42, %curMatch.addr.1.i272
-  %cmp.i274 = icmp ne i32 %dec162.i, 0
+  %cmp.i274 = icmp ne i32 %dec161.i, 0
   %cmp5.not.i275 = icmp ult i32 %sub.i273, %45
   %or.cond.i276 = select i1 %cmp.i274, i1 %cmp5.not.i275, i1 false
   br i1 %or.cond.i276, label %if.end.i253, label %if.then.i237
 
 GetMatchesSpec1.exit:                             ; preds = %if.then.i237, %if.then56.i
-  %ptr0.0147.i = phi ptr [ %ptr0.0.lcssa.i235, %if.then.i237 ], [ %ptr0.0156.i, %if.then56.i ]
-  %storemerge.i277 = phi i32 [ 0, %if.then.i237 ], [ %54, %if.then56.i ]
-  %retval.2.ph.i = phi ptr [ %distances.addr.0.lcssa.i, %if.then.i237 ], [ %incdec.ptr53.i, %if.then56.i ]
-  store i32 %storemerge.i277, ptr %ptr0.0147.i, align 4, !tbaa !15
+  %retval.2.ph.i = phi ptr [ %incdec.ptr53.i, %if.then56.i ], [ %distances.addr.0.lcssa.i, %if.then.i237 ]
   %sub.ptr.lhs.cast = ptrtoint ptr %retval.2.ph.i to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
@@ -3692,12 +3543,12 @@ GetMatchesSpec1.exit:                             ; preds = %if.then.i237, %if.t
   br i1 %cmp131, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %GetMatchesSpec1.exit, %SkipMatchesSpec.exit, %if.then
-  %retval.0.ph = phi i32 [ 0, %if.then ], [ %offset.1305, %SkipMatchesSpec.exit ], [ %conv123, %GetMatchesSpec1.exit ]
+  %retval.0.ph = phi i32 [ 0, %if.then ], [ %offset.1300, %SkipMatchesSpec.exit ], [ %conv123, %GetMatchesSpec1.exit ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %GetMatchesSpec1.exit, %SkipMatchesSpec.exit
-  %retval.0 = phi i32 [ %offset.1305, %SkipMatchesSpec.exit ], [ %conv123, %GetMatchesSpec1.exit ], [ 0, %if.then ], [ %retval.0.ph, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %GetMatchesSpec1.exit, %SkipMatchesSpec.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ %offset.1300, %SkipMatchesSpec.exit ], [ %conv123, %GetMatchesSpec1.exit ], [ %retval.0.ph, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -3785,38 +3636,39 @@ if.end:                                           ; preds = %do.body
   %idx.ext.i = zext i32 %shl.i to i64
   %add.ptr.i = getelementptr inbounds i32, ptr %18, i64 %idx.ext.i
   %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 1
-  %sub114.i = sub i32 %17, %14
-  %cmp116.i = icmp ne i32 %21, 0
-  %cmp5.not117.i = icmp ult i32 %sub114.i, %20
-  %or.cond118.i = and i1 %cmp5.not117.i, %cmp116.i
-  br i1 %or.cond118.i, label %if.end.i, label %if.then.i80
+  %sub112.i = sub i32 %17, %14
+  %cmp114.i = icmp ne i32 %21, 0
+  %cmp5.not115.i = icmp ult i32 %sub112.i, %20
+  %or.cond116.i = and i1 %cmp5.not115.i, %cmp114.i
+  br i1 %or.cond116.i, label %if.end.i, label %if.then.i80
 
 if.then.i80:                                      ; preds = %cleanup56.i, %if.end
   %ptr1.0.lcssa.i = phi ptr [ %add.ptr.i, %if.end ], [ %ptr1.1.i, %cleanup56.i ]
   %ptr0.0.lcssa.i = phi ptr [ %add.ptr1.i, %if.end ], [ %ptr0.1.i, %cleanup56.i ]
   store i32 0, ptr %ptr1.0.lcssa.i, align 4, !tbaa !15
+  store i32 0, ptr %ptr0.0.lcssa.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end.i:                                         ; preds = %if.end, %cleanup56.i
-  %dec125.in.i = phi i32 [ %dec125.i, %cleanup56.i ], [ %21, %if.end ]
-  %sub124.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub114.i, %if.end ]
-  %curMatch.addr.0123.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %14, %if.end ]
-  %ptr0.0122.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
-  %len1.0121.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %len0.0120.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
-  %ptr1.0119.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
-  %dec125.i = add i32 %dec125.in.i, -1
-  %sub6.i = sub i32 %19, %sub124.i
-  %cmp7.i = icmp ult i32 %19, %sub124.i
+  %dec123.in.i = phi i32 [ %dec123.i, %cleanup56.i ], [ %21, %if.end ]
+  %sub122.i = phi i32 [ %sub.i, %cleanup56.i ], [ %sub112.i, %if.end ]
+  %curMatch.addr.0121.i = phi i32 [ %curMatch.addr.1.i, %cleanup56.i ], [ %14, %if.end ]
+  %ptr0.0120.i = phi ptr [ %ptr0.1.i, %cleanup56.i ], [ %add.ptr1.i, %if.end ]
+  %len1.0119.i = phi i32 [ %len1.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %len0.0118.i = phi i32 [ %len0.1.i, %cleanup56.i ], [ 0, %if.end ]
+  %ptr1.0117.i = phi ptr [ %ptr1.1.i, %cleanup56.i ], [ %add.ptr.i, %if.end ]
+  %dec123.i = add i32 %dec123.in.i, -1
+  %sub6.i = sub i32 %19, %sub122.i
+  %cmp7.i = icmp ult i32 %19, %sub122.i
   %cond.i = select i1 %cmp7.i, i32 %20, i32 0
   %add.i = add i32 %sub6.i, %cond.i
   %shl8.i = shl i32 %add.i, 1
   %idx.ext9.i = zext i32 %shl8.i to i64
   %add.ptr10.i = getelementptr inbounds i32, ptr %18, i64 %idx.ext9.i
-  %idx.ext11.i = zext i32 %sub124.i to i64
+  %idx.ext11.i = zext i32 %sub122.i to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext11.i
   %add.ptr12.i = getelementptr inbounds i8, ptr %5, i64 %idx.neg.i
-  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0120.i, i32 %len1.0121.i)
+  %cond17.i = tail call i32 @llvm.umin.i32(i32 %len0.0118.i, i32 %len1.0119.i)
   %idxprom.i = zext i32 %cond17.i to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %add.ptr12.i, i64 %idxprom.i
   %22 = load i8, ptr %arrayidx.i, align 1, !tbaa !12
@@ -3842,9 +3694,10 @@ while.body.i:                                     ; preds = %while.cond.i
 
 if.then38.i:                                      ; preds = %while.cond.i
   %26 = load i32, ptr %add.ptr10.i, align 4, !tbaa !15
-  store i32 %26, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %26, ptr %ptr1.0117.i, align 4, !tbaa !15
   %arrayidx40.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   %27 = load i32, ptr %arrayidx40.i, align 4, !tbaa !15
+  store i32 %27, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %SkipMatchesSpec.exit
 
 if.end42.i:                                       ; preds = %while.body.i, %if.end.i
@@ -3855,31 +3708,28 @@ if.end42.i:                                       ; preds = %while.body.i, %if.e
   br i1 %cmp49.i, label %if.then51.i, label %if.else.i
 
 if.then51.i:                                      ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr1.0119.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr1.0117.i, align 4, !tbaa !15
   %add.ptr52.i = getelementptr inbounds i32, ptr %add.ptr10.i, i64 1
   br label %cleanup56.i
 
 if.else.i:                                        ; preds = %if.end42.i
-  store i32 %curMatch.addr.0123.i, ptr %ptr0.0122.i, align 4, !tbaa !15
+  store i32 %curMatch.addr.0121.i, ptr %ptr0.0120.i, align 4, !tbaa !15
   br label %cleanup56.i
 
 cleanup56.i:                                      ; preds = %if.else.i, %if.then51.i
-  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0119.i, %if.else.i ]
-  %len0.1.i = phi i32 [ %len0.0120.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
-  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0121.i, %if.else.i ]
-  %ptr0.1.i = phi ptr [ %ptr0.0122.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
+  %ptr1.1.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %ptr1.0117.i, %if.else.i ]
+  %len0.1.i = phi i32 [ %len0.0118.i, %if.then51.i ], [ %len.1.i, %if.else.i ]
+  %len1.1.i = phi i32 [ %len.1.i, %if.then51.i ], [ %len1.0119.i, %if.else.i ]
+  %ptr0.1.i = phi ptr [ %ptr0.0120.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.in.i = phi ptr [ %add.ptr52.i, %if.then51.i ], [ %add.ptr10.i, %if.else.i ]
   %curMatch.addr.1.i = load i32, ptr %curMatch.addr.1.in.i, align 4, !tbaa !15
   %sub.i = sub i32 %17, %curMatch.addr.1.i
-  %cmp.i82 = icmp ne i32 %dec125.i, 0
+  %cmp.i82 = icmp ne i32 %dec123.i, 0
   %cmp5.not.i = icmp ult i32 %sub.i, %20
   %or.cond.i = select i1 %cmp.i82, i1 %cmp5.not.i, i1 false
   br i1 %or.cond.i, label %if.end.i, label %if.then.i80
 
 SkipMatchesSpec.exit:                             ; preds = %if.then.i80, %if.then38.i
-  %ptr0.0112.i = phi ptr [ %ptr0.0.lcssa.i, %if.then.i80 ], [ %ptr0.0122.i, %if.then38.i ]
-  %storemerge.i = phi i32 [ 0, %if.then.i80 ], [ %27, %if.then38.i ]
-  store i32 %storemerge.i, ptr %ptr0.0112.i, align 4, !tbaa !15
   %30 = load i32, ptr %cyclicBufferPos, align 8, !tbaa !49
   %inc = add i32 %30, 1
   store i32 %inc, ptr %cyclicBufferPos, align 8, !tbaa !49
@@ -3895,7 +3745,7 @@ cleanup.sink.split:                               ; preds = %SkipMatchesSpec.exi
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %p)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then, %SkipMatchesSpec.exit
+cleanup:                                          ; preds = %cleanup.sink.split, %SkipMatchesSpec.exit, %if.then
   %dec = add i32 %num.addr.0, -1
   %cmp48.not = icmp eq i32 %dec, 0
   br i1 %cmp48.not, label %do.end, label %do.body, !llvm.loop !74
@@ -3908,10 +3758,10 @@ do.end:                                           ; preds = %cleanup
 declare i32 @llvm.umin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #10
+declare i32 @llvm.usub.sat.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #10
+declare i32 @llvm.umax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.usub.sat.v4i32(<4 x i32>, <4 x i32>) #10
@@ -3955,8 +3805,8 @@ attributes #11 = { nounwind }
 !20 = !{!6, !10, i64 92}
 !21 = !{!6, !10, i64 80}
 !22 = !{!6, !10, i64 136}
-!23 = !{!6, !11, i64 104}
-!24 = !{!11, !11, i64 0}
+!23 = !{!11, !11, i64 0}
+!24 = !{!6, !11, i64 104}
 !25 = !{!6, !7, i64 72}
 !26 = !{!27, !7, i64 0}
 !27 = !{!"", !7, i64 0}

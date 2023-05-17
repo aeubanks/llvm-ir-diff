@@ -244,8 +244,8 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #1
 define dso_local ptr @bmh_search(ptr noundef readonly %string, i32 noundef %stringlen) local_unnamed_addr #2 {
 entry:
   %0 = load i32, ptr @patlen, align 4, !tbaa !9
-  %1 = xor i32 %stringlen, -1
-  %sub1 = add i32 %0, %1
+  %sub = add nsw i32 %0, -1
+  %sub1 = sub nsw i32 %sub, %stringlen
   %cmp = icmp sgt i32 %sub1, -1
   br i1 %cmp, label %cleanup, label %if.end
 
@@ -253,21 +253,20 @@ if.end:                                           ; preds = %entry
   %idx.ext = sext i32 %stringlen to i64
   %add.ptr = getelementptr inbounds i8, ptr %string, i64 %idx.ext
   %sub5 = sub nsw i32 32767, %stringlen
-  %sub10 = add i32 %0, -1
-  %2 = load ptr, ptr @pat, align 8
-  %3 = load i32, ptr @skip2, align 4
-  %4 = zext i32 %sub10 to i64
+  %1 = load ptr, ptr @pat, align 8
+  %2 = load i32, ptr @skip2, align 4
+  %3 = zext i32 %sub to i64
   br label %while.cond
 
 while.cond:                                       ; preds = %while.cond.backedge, %if.end
   %i.1 = phi i32 [ %sub1, %if.end ], [ %i.1.be, %while.cond.backedge ]
   %idxprom = sext i32 %i.1 to i64
   %arrayidx = getelementptr inbounds i8, ptr %add.ptr, i64 %idxprom
-  %5 = load i8, ptr %arrayidx, align 1, !tbaa !11
-  %idxprom2 = zext i8 %5 to i64
+  %4 = load i8, ptr %arrayidx, align 1, !tbaa !11
+  %idxprom2 = zext i8 %4 to i64
   %arrayidx3 = getelementptr inbounds [256 x i32], ptr @skip, i64 0, i64 %idxprom2
-  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !9
-  %add = add nsw i32 %6, %i.1
+  %5 = load i32, ptr %arrayidx3, align 4, !tbaa !9
+  %add = add nsw i32 %5, %i.1
   %cmp4 = icmp slt i32 %add, 0
   br i1 %cmp4, label %while.cond.backedge, label %while.end
 
@@ -281,30 +280,30 @@ while.end:                                        ; preds = %while.cond
 
 if.end8:                                          ; preds = %while.end
   %sub9 = add nsw i32 %add, -32767
-  %sub11 = sub nsw i32 %sub9, %sub10
+  %sub11 = sub nsw i32 %sub9, %sub
   %idx.ext12 = sext i32 %sub11 to i64
   %add.ptr13 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext12
   br label %while.cond14
 
 while.cond14:                                     ; preds = %land.rhs, %if.end8
-  %indvars.iv = phi i64 [ %8, %land.rhs ], [ %4, %if.end8 ]
-  %7 = trunc i64 %indvars.iv to i32
-  %cmp15 = icmp sgt i32 %7, 0
+  %indvars.iv = phi i64 [ %7, %land.rhs ], [ %3, %if.end8 ]
+  %6 = trunc i64 %indvars.iv to i32
+  %cmp15 = icmp sgt i32 %6, 0
   br i1 %cmp15, label %land.rhs, label %cleanup
 
 land.rhs:                                         ; preds = %while.cond14
-  %8 = add nsw i64 %indvars.iv, -1
-  %arrayidx17 = getelementptr inbounds i8, ptr %add.ptr13, i64 %8
-  %9 = load i8, ptr %arrayidx17, align 1, !tbaa !11
-  %conv = sext i8 %9 to i32
-  %arrayidx19 = getelementptr inbounds i8, ptr %2, i64 %8
-  %10 = load i8, ptr %arrayidx19, align 1, !tbaa !11
-  %conv20 = zext i8 %10 to i32
+  %7 = add nsw i64 %indvars.iv, -1
+  %arrayidx17 = getelementptr inbounds i8, ptr %add.ptr13, i64 %7
+  %8 = load i8, ptr %arrayidx17, align 1, !tbaa !11
+  %conv = sext i8 %8 to i32
+  %arrayidx19 = getelementptr inbounds i8, ptr %1, i64 %7
+  %9 = load i8, ptr %arrayidx19, align 1, !tbaa !11
+  %conv20 = zext i8 %9 to i32
   %cmp21 = icmp eq i32 %conv, %conv20
   br i1 %cmp21, label %while.cond14, label %if.end28, !llvm.loop !19
 
 if.end28:                                         ; preds = %land.rhs
-  %add29 = add nsw i32 %3, %sub9
+  %add29 = add nsw i32 %2, %sub9
   %cmp30 = icmp sgt i32 %add29, -1
   br i1 %cmp30, label %cleanup, label %while.cond.backedge
 

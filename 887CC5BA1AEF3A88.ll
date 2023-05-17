@@ -44,10 +44,10 @@ entry:
   br label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %entry, %sw.epilog.i
-  %j.066.i = phi i32 [ %j.2.i, %sw.epilog.i ], [ 1, %entry ]
-  %incdec.ptr315965.i = phi ptr [ %incdec.ptr31.i, %sw.epilog.i ], [ getelementptr inbounds ([4 x ptr], ptr @g, i64 0, i64 1), %entry ]
-  %dec306164.i = phi i32 [ %dec30.i, %sw.epilog.i ], [ 3, %entry ]
-  %0 = load ptr, ptr %incdec.ptr315965.i, align 8, !tbaa !5
+  %j.062.i = phi i32 [ %j.2.i, %sw.epilog.i ], [ 1, %entry ]
+  %incdec.ptr315561.i = phi ptr [ %incdec.ptr31.i, %sw.epilog.i ], [ getelementptr inbounds ([4 x ptr], ptr @g, i64 0, i64 1), %entry ]
+  %dec305760.i = phi i32 [ %dec30.i, %sw.epilog.i ], [ 3, %entry ]
+  %0 = load ptr, ptr %incdec.ptr315561.i, align 8, !tbaa !5
   %1 = load i8, ptr %0, align 1, !tbaa !11
   %cmp2.i = icmp eq i8 %1, 45
   br i1 %cmp2.i, label %while.body.i, label %while.end.i
@@ -55,6 +55,7 @@ land.rhs.i:                                       ; preds = %entry, %sw.epilog.i
 while.body.i:                                     ; preds = %land.rhs.i
   %arrayidx5.i = getelementptr inbounds i8, ptr %0, i64 1
   %2 = load i8, ptr %arrayidx5.i, align 1, !tbaa !11
+  %conv6.i = sext i8 %2 to i32
   %cmp7.not.i = icmp eq i8 %2, 0
   br i1 %cmp7.not.i, label %sw.epilog.i, label %land.lhs.true.i
 
@@ -69,15 +70,14 @@ if.then.i:                                        ; preds = %land.lhs.true.i
   unreachable
 
 if.end.i:                                         ; preds = %land.lhs.true.i
-  %conv16.i = sext i8 %2 to i32
-  switch i32 %conv16.i, label %sw.epilog.i [
+  switch i32 %conv6.i, label %sw.epilog.i [
     i32 117, label %sw.bb.i
     i32 80, label %sw.bb21.i
     i32 45, label %sw.bb22.i
   ]
 
 sw.bb.i:                                          ; preds = %if.end.i
-  %arrayidx17.i = getelementptr inbounds ptr, ptr %incdec.ptr315965.i, i64 1
+  %arrayidx17.i = getelementptr inbounds ptr, ptr %incdec.ptr315561.i, i64 1
   %4 = load ptr, ptr %arrayidx17.i, align 8, !tbaa !5
   %tobool.not.i = icmp eq ptr %4, null
   br i1 %tobool.not.i, label %if.then18.i, label %if.end19.i
@@ -88,35 +88,35 @@ if.then18.i:                                      ; preds = %sw.bb.i
 
 if.end19.i:                                       ; preds = %sw.bb.i
   store ptr %arrayidx17.i, ptr getelementptr inbounds (%struct.T, ptr @t, i64 0, i32 2), align 8, !tbaa !12
-  %dec.i = add nsw i32 %dec306164.i, -1
+  %dec.i = add nsw i32 %dec305760.i, -1
   br label %sw.epilog.i
 
 sw.bb21.i:                                        ; preds = %if.end.i
-  %or.i = or i32 %j.066.i, 4096
+  %or.i = or i32 %j.062.i, 4096
   br label %sw.epilog.i
 
 sw.bb22.i:                                        ; preds = %if.end.i
-  %dec23.i = add nsw i32 %dec306164.i, -1
+  %dec23.i = add nsw i32 %dec305760.i, -1
   store i32 %dec23.i, ptr @d, align 4, !tbaa !9
-  %incdec.ptr24.i = getelementptr inbounds ptr, ptr %incdec.ptr315965.i, i64 1
+  %incdec.ptr24.i = getelementptr inbounds ptr, ptr %incdec.ptr315561.i, i64 1
   store ptr %incdec.ptr24.i, ptr @e, align 8, !tbaa !5
-  %cmp25.i = icmp eq i32 %j.066.i, 1
-  %spec.select.i = select i1 %cmp25.i, i32 1537, i32 %j.066.i
+  %cmp25.i = icmp eq i32 %j.062.i, 1
+  %spec.select.i = select i1 %cmp25.i, i32 1537, i32 %j.062.i
   br label %setup2.exit
 
 sw.epilog.i:                                      ; preds = %sw.bb21.i, %if.end19.i, %if.end.i, %while.body.i
-  %dec3062.i = phi i32 [ %dec306164.i, %if.end.i ], [ %dec306164.i, %sw.bb21.i ], [ %dec.i, %if.end19.i ], [ %dec306164.i, %while.body.i ]
-  %incdec.ptr3160.i = phi ptr [ %incdec.ptr315965.i, %if.end.i ], [ %incdec.ptr315965.i, %sw.bb21.i ], [ %arrayidx17.i, %if.end19.i ], [ %incdec.ptr315965.i, %while.body.i ]
-  %j.2.i = phi i32 [ %j.066.i, %if.end.i ], [ %or.i, %sw.bb21.i ], [ %j.066.i, %if.end19.i ], [ %j.066.i, %while.body.i ]
-  %dec30.i = add nsw i32 %dec3062.i, -1
+  %dec3058.i = phi i32 [ %dec305760.i, %if.end.i ], [ %dec305760.i, %sw.bb21.i ], [ %dec.i, %if.end19.i ], [ %dec305760.i, %while.body.i ]
+  %incdec.ptr3156.i = phi ptr [ %incdec.ptr315561.i, %if.end.i ], [ %incdec.ptr315561.i, %sw.bb21.i ], [ %arrayidx17.i, %if.end19.i ], [ %incdec.ptr315561.i, %while.body.i ]
+  %j.2.i = phi i32 [ %j.062.i, %if.end.i ], [ %or.i, %sw.bb21.i ], [ %j.062.i, %if.end19.i ], [ %j.062.i, %while.body.i ]
+  %dec30.i = add nsw i32 %dec3058.i, -1
   store i32 %dec30.i, ptr @d, align 4, !tbaa !9
-  %incdec.ptr31.i = getelementptr inbounds ptr, ptr %incdec.ptr3160.i, i64 1
+  %incdec.ptr31.i = getelementptr inbounds ptr, ptr %incdec.ptr3156.i, i64 1
   store ptr %incdec.ptr31.i, ptr @e, align 8, !tbaa !5
-  %cmp.i = icmp sgt i32 %dec3062.i, 1
+  %cmp.i = icmp sgt i32 %dec3058.i, 1
   br i1 %cmp.i, label %land.rhs.i, label %setup2.exit, !llvm.loop !14
 
 while.end.i:                                      ; preds = %land.rhs.i
-  %and.i = and i32 %j.066.i, 1
+  %and.i = and i32 %j.062.i, 1
   %tobool35.not.i = icmp eq i32 %and.i, 0
   br i1 %tobool35.not.i, label %if.then36.i, label %setup2.exit
 
@@ -125,36 +125,39 @@ if.then36.i:                                      ; preds = %while.end.i
   unreachable
 
 setup2.exit:                                      ; preds = %sw.epilog.i, %sw.bb22.i, %while.end.i
-  %5 = phi i32 [ %dec23.i, %sw.bb22.i ], [ %dec306164.i, %while.end.i ], [ %dec30.i, %sw.epilog.i ]
-  %6 = phi ptr [ %incdec.ptr24.i, %sw.bb22.i ], [ %incdec.ptr315965.i, %while.end.i ], [ %incdec.ptr31.i, %sw.epilog.i ]
-  %retval.0.i = phi i32 [ %spec.select.i, %sw.bb22.i ], [ %j.066.i, %while.end.i ], [ %j.2.i, %sw.epilog.i ]
+  %5 = phi i32 [ %dec23.i, %sw.bb22.i ], [ %dec305760.i, %while.end.i ], [ %dec30.i, %sw.epilog.i ]
+  %6 = phi ptr [ %incdec.ptr24.i, %sw.bb22.i ], [ %incdec.ptr315561.i, %while.end.i ], [ %incdec.ptr31.i, %sw.epilog.i ]
+  %retval.0.i = phi i32 [ %spec.select.i, %sw.bb22.i ], [ %j.062.i, %while.end.i ], [ %j.2.i, %sw.epilog.i ]
   store ptr @.str.4, ptr @t, align 8, !tbaa !16
   %and.i4 = and i32 %retval.0.i, 512
   %tobool2.not.i = icmp eq i32 %and.i4, 0
-  br i1 %tobool2.not.i, label %setup1.exit, label %if.then6.i
+  br i1 %tobool2.not.i, label %setup1.exit, label %if.then3.i
 
-if.then6.i:                                       ; preds = %setup2.exit
+if.then3.i:                                       ; preds = %setup2.exit
   %inc.i = add nsw i32 %5, 1
   store i32 %inc.i, ptr @d, align 4, !tbaa !9
   store ptr @f, ptr @e, align 8, !tbaa !5
   store ptr @.str.4, ptr @f, align 16, !tbaa !5
-  br label %for.cond.i
+  %7 = load ptr, ptr %6, align 8, !tbaa !5
+  store ptr %7, ptr getelementptr inbounds ([16 x ptr], ptr @f, i64 0, i64 1), align 8, !tbaa !5
+  %tobool8.not13.i = icmp eq ptr %7, null
+  br i1 %tobool8.not13.i, label %setup1.exit, label %for.inc.i
 
-for.cond.i:                                       ; preds = %for.cond.i, %if.then6.i
-  %.pn.i = phi ptr [ @f, %if.then6.i ], [ %h.0.i, %for.cond.i ]
-  %i.0.i = phi ptr [ %6, %if.then6.i ], [ %incdec.ptr.i, %for.cond.i ]
-  %h.0.i = getelementptr inbounds ptr, ptr %.pn.i, i64 1
-  %7 = load ptr, ptr %i.0.i, align 8, !tbaa !5
-  store ptr %7, ptr %h.0.i, align 8, !tbaa !5
-  %tobool8.not.i = icmp eq ptr %7, null
-  %incdec.ptr.i = getelementptr inbounds ptr, ptr %i.0.i, i64 1
-  br i1 %tobool8.not.i, label %setup1.exit, label %for.cond.i, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then3.i, %for.inc.i
+  %i.015.i = phi ptr [ %incdec.ptr.i, %for.inc.i ], [ %6, %if.then3.i ]
+  %h.014.i = phi ptr [ %incdec.ptr9.i, %for.inc.i ], [ getelementptr inbounds ([16 x ptr], ptr @f, i64 0, i64 1), %if.then3.i ]
+  %incdec.ptr.i = getelementptr inbounds ptr, ptr %i.015.i, i64 1
+  %incdec.ptr9.i = getelementptr inbounds ptr, ptr %h.014.i, i64 1
+  %8 = load ptr, ptr %incdec.ptr.i, align 8, !tbaa !5
+  store ptr %8, ptr %incdec.ptr9.i, align 8, !tbaa !5
+  %tobool8.not.i = icmp eq ptr %8, null
+  br i1 %tobool8.not.i, label %setup1.exit, label %for.inc.i, !llvm.loop !17
 
-setup1.exit:                                      ; preds = %for.cond.i, %setup2.exit
+setup1.exit:                                      ; preds = %for.inc.i, %setup2.exit, %if.then3.i
   %and = and i32 %retval.0.i, 1024
   %tobool = icmp eq i32 %and, 0
-  %8 = load i32, ptr getelementptr inbounds ([5 x i32], ptr @a, i64 0, i64 4), align 16
-  %tobool2 = icmp ne i32 %8, 0
+  %9 = load i32, ptr getelementptr inbounds ([5 x i32], ptr @a, i64 0, i64 4), align 16
+  %tobool2 = icmp ne i32 %9, 0
   %or.cond = select i1 %tobool, i1 true, i1 %tobool2
   br i1 %or.cond, label %if.end, label %if.then
 

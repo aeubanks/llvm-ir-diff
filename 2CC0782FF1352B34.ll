@@ -47,9 +47,9 @@ entry:
   %tobool4 = icmp ne i16 %c.promoted, 0
   %2 = select i1 %tobool.not, i1 %tobool4, i1 false
   %3 = load i32, ptr @i, align 4, !tbaa !12
-  %cmp7 = icmp slt i32 %3, 1
+  %cmp7 = icmp sgt i32 %3, 0
   %tobool10.not = xor i1 %2, %cmp7
-  br i1 %tobool10.not, label %lor.end, label %lor.rhs
+  br i1 %tobool10.not, label %lor.rhs, label %lor.end
 
 lor.rhs:                                          ; preds = %entry
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -65,9 +65,9 @@ lor.end:                                          ; preds = %lor.rhs, %entry
   %tobool.not.1 = icmp ne i32 %5, 0
   %tobool4.1 = icmp ne i16 %6, 0
   %7 = select i1 %tobool.not.1, i1 %tobool4.1, i1 false
-  %cmp7.1 = icmp slt i32 %4, 1
+  %cmp7.1 = icmp sgt i32 %4, 0
   %tobool10.not.1 = xor i1 %7, %cmp7.1
-  br i1 %tobool10.not.1, label %lor.end.1, label %lor.rhs.1
+  br i1 %tobool10.not.1, label %lor.rhs.1, label %lor.end.1
 
 lor.rhs.1:                                        ; preds = %lor.end
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -83,9 +83,9 @@ lor.end.1:                                        ; preds = %lor.rhs.1, %lor.end
   %tobool.not.2 = icmp ne i32 %9, 0
   %tobool4.2 = icmp ne i16 %10, 0
   %11 = select i1 %tobool.not.2, i1 %tobool4.2, i1 false
-  %cmp7.2 = icmp slt i32 %8, 1
+  %cmp7.2 = icmp sgt i32 %8, 0
   %tobool10.not.2 = xor i1 %11, %cmp7.2
-  br i1 %tobool10.not.2, label %lor.end.2, label %lor.rhs.2
+  br i1 %tobool10.not.2, label %lor.rhs.2, label %lor.end.2
 
 lor.rhs.2:                                        ; preds = %lor.end.1
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -98,14 +98,15 @@ lor.end.2:                                        ; preds = %lor.rhs.2, %lor.end
   %12 = phi i32 [ %.pre22, %lor.rhs.2 ], [ %8, %lor.end.1 ]
   %13 = phi i32 [ %.pre21, %lor.rhs.2 ], [ %9, %lor.end.1 ]
   %14 = phi i16 [ 1, %lor.rhs.2 ], [ %10, %lor.end.1 ]
-  %lor.ext.2 = zext i1 %tobool10.not.2 to i32
+  %15 = xor i1 %tobool10.not.2, true
+  %lor.ext.2 = zext i1 %15 to i32
   store i32 %lor.ext.2, ptr @g, align 4, !tbaa !12
   %tobool.not.3 = icmp ne i32 %13, 0
   %tobool4.3 = icmp ne i16 %14, 0
-  %15 = select i1 %tobool.not.3, i1 %tobool4.3, i1 false
-  %cmp7.3 = icmp slt i32 %12, 1
-  %tobool10.not.3 = xor i1 %15, %cmp7.3
-  br i1 %tobool10.not.3, label %lor.end.3, label %lor.rhs.3
+  %16 = select i1 %tobool.not.3, i1 %tobool4.3, i1 false
+  %cmp7.3 = icmp sgt i32 %12, 0
+  %tobool10.not.3 = xor i1 %16, %cmp7.3
+  br i1 %tobool10.not.3, label %lor.rhs.3, label %lor.end.3
 
 lor.rhs.3:                                        ; preds = %lor.end.2
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -115,15 +116,15 @@ lor.rhs.3:                                        ; preds = %lor.end.2
   br label %lor.end.3
 
 lor.end.3:                                        ; preds = %lor.rhs.3, %lor.end.2
-  %16 = phi i32 [ %.pre24, %lor.rhs.3 ], [ %12, %lor.end.2 ]
-  %17 = phi i32 [ %.pre23, %lor.rhs.3 ], [ %13, %lor.end.2 ]
-  %18 = phi i16 [ 1, %lor.rhs.3 ], [ %14, %lor.end.2 ]
-  %tobool.not.4 = icmp ne i32 %17, 0
-  %tobool4.4 = icmp ne i16 %18, 0
-  %19 = select i1 %tobool.not.4, i1 %tobool4.4, i1 false
-  %cmp7.4 = icmp slt i32 %16, 1
-  %tobool10.not.4 = xor i1 %19, %cmp7.4
-  br i1 %tobool10.not.4, label %lor.end.4, label %lor.rhs.4
+  %17 = phi i32 [ %.pre24, %lor.rhs.3 ], [ %12, %lor.end.2 ]
+  %18 = phi i32 [ %.pre23, %lor.rhs.3 ], [ %13, %lor.end.2 ]
+  %19 = phi i16 [ 1, %lor.rhs.3 ], [ %14, %lor.end.2 ]
+  %tobool.not.4 = icmp ne i32 %18, 0
+  %tobool4.4 = icmp ne i16 %19, 0
+  %20 = select i1 %tobool.not.4, i1 %tobool4.4, i1 false
+  %cmp7.4 = icmp sgt i32 %17, 0
+  %tobool10.not.4 = xor i1 %20, %cmp7.4
+  br i1 %tobool10.not.4, label %lor.rhs.4, label %lor.end.4
 
 lor.rhs.4:                                        ; preds = %lor.end.3
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -133,15 +134,15 @@ lor.rhs.4:                                        ; preds = %lor.end.3
   br label %lor.end.4
 
 lor.end.4:                                        ; preds = %lor.rhs.4, %lor.end.3
-  %20 = phi i32 [ %.pre26, %lor.rhs.4 ], [ %16, %lor.end.3 ]
-  %21 = phi i32 [ %.pre25, %lor.rhs.4 ], [ %17, %lor.end.3 ]
-  %22 = phi i16 [ 1, %lor.rhs.4 ], [ %18, %lor.end.3 ]
-  %tobool.not.5 = icmp ne i32 %21, 0
-  %tobool4.5 = icmp ne i16 %22, 0
-  %23 = select i1 %tobool.not.5, i1 %tobool4.5, i1 false
-  %cmp7.5 = icmp slt i32 %20, 1
-  %tobool10.not.5 = xor i1 %23, %cmp7.5
-  br i1 %tobool10.not.5, label %lor.end.5, label %lor.rhs.5
+  %21 = phi i32 [ %.pre26, %lor.rhs.4 ], [ %17, %lor.end.3 ]
+  %22 = phi i32 [ %.pre25, %lor.rhs.4 ], [ %18, %lor.end.3 ]
+  %23 = phi i16 [ 1, %lor.rhs.4 ], [ %19, %lor.end.3 ]
+  %tobool.not.5 = icmp ne i32 %22, 0
+  %tobool4.5 = icmp ne i16 %23, 0
+  %24 = select i1 %tobool.not.5, i1 %tobool4.5, i1 false
+  %cmp7.5 = icmp sgt i32 %21, 0
+  %tobool10.not.5 = xor i1 %24, %cmp7.5
+  br i1 %tobool10.not.5, label %lor.rhs.5, label %lor.end.5
 
 lor.rhs.5:                                        ; preds = %lor.end.4
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -151,15 +152,15 @@ lor.rhs.5:                                        ; preds = %lor.end.4
   br label %lor.end.5
 
 lor.end.5:                                        ; preds = %lor.rhs.5, %lor.end.4
-  %24 = phi i32 [ %.pre28, %lor.rhs.5 ], [ %20, %lor.end.4 ]
-  %25 = phi i32 [ %.pre27, %lor.rhs.5 ], [ %21, %lor.end.4 ]
-  %26 = phi i16 [ 1, %lor.rhs.5 ], [ %22, %lor.end.4 ]
-  %tobool.not.6 = icmp ne i32 %25, 0
-  %tobool4.6 = icmp ne i16 %26, 0
-  %27 = select i1 %tobool.not.6, i1 %tobool4.6, i1 false
-  %cmp7.6 = icmp slt i32 %24, 1
-  %tobool10.not.6 = xor i1 %27, %cmp7.6
-  br i1 %tobool10.not.6, label %lor.end.6, label %lor.rhs.6
+  %25 = phi i32 [ %.pre28, %lor.rhs.5 ], [ %21, %lor.end.4 ]
+  %26 = phi i32 [ %.pre27, %lor.rhs.5 ], [ %22, %lor.end.4 ]
+  %27 = phi i16 [ 1, %lor.rhs.5 ], [ %23, %lor.end.4 ]
+  %tobool.not.6 = icmp ne i32 %26, 0
+  %tobool4.6 = icmp ne i16 %27, 0
+  %28 = select i1 %tobool.not.6, i1 %tobool4.6, i1 false
+  %cmp7.6 = icmp sgt i32 %25, 0
+  %tobool10.not.6 = xor i1 %28, %cmp7.6
+  br i1 %tobool10.not.6, label %lor.rhs.6, label %lor.end.6
 
 lor.rhs.6:                                        ; preds = %lor.end.5
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -169,16 +170,16 @@ lor.rhs.6:                                        ; preds = %lor.end.5
   br label %lor.end.6
 
 lor.end.6:                                        ; preds = %lor.rhs.6, %lor.end.5
-  %28 = phi i32 [ %.pre30, %lor.rhs.6 ], [ %24, %lor.end.5 ]
-  %29 = phi i32 [ %.pre29, %lor.rhs.6 ], [ %25, %lor.end.5 ]
-  %30 = phi i16 [ 1, %lor.rhs.6 ], [ %26, %lor.end.5 ]
-  %31 = load i32, ptr @a, align 4, !tbaa !12
-  %tobool.not.7 = icmp ne i32 %29, 0
-  %tobool4.7 = icmp ne i16 %30, 0
-  %32 = select i1 %tobool.not.7, i1 %tobool4.7, i1 false
-  %cmp7.7 = icmp slt i32 %28, 1
-  %tobool10.not.7 = xor i1 %32, %cmp7.7
-  br i1 %tobool10.not.7, label %lor.end.7, label %lor.rhs.7
+  %29 = phi i32 [ %.pre30, %lor.rhs.6 ], [ %25, %lor.end.5 ]
+  %30 = phi i32 [ %.pre29, %lor.rhs.6 ], [ %26, %lor.end.5 ]
+  %31 = phi i16 [ 1, %lor.rhs.6 ], [ %27, %lor.end.5 ]
+  %32 = load i32, ptr @a, align 4, !tbaa !12
+  %tobool.not.7 = icmp ne i32 %30, 0
+  %tobool4.7 = icmp ne i16 %31, 0
+  %33 = select i1 %tobool.not.7, i1 %tobool4.7, i1 false
+  %cmp7.7 = icmp sgt i32 %29, 0
+  %tobool10.not.7 = xor i1 %33, %cmp7.7
+  br i1 %tobool10.not.7, label %lor.rhs.7, label %lor.end.7
 
 lor.rhs.7:                                        ; preds = %lor.end.6
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -186,10 +187,11 @@ lor.rhs.7:                                        ; preds = %lor.end.6
   br label %lor.end.7
 
 lor.end.7:                                        ; preds = %lor.rhs.7, %lor.end.6
-  %lor.ext.7 = zext i1 %tobool10.not.7 to i32
+  %34 = xor i1 %tobool10.not.7, true
+  %lor.ext.7 = zext i1 %34 to i32
   store i32 %lor.ext.7, ptr @g, align 4, !tbaa !12
-  %conv2.le = trunc i32 %31 to i16
-  %conv5.le = zext i1 %32 to i8
+  %conv2.le = trunc i32 %32 to i16
+  %conv5.le = zext i1 %33 to i8
   store i8 -30, ptr @b, align 1, !tbaa !14
   store i16 %conv2.le, ptr @h, align 2, !tbaa !6
   store i8 %conv5.le, ptr @e, align 1, !tbaa !14

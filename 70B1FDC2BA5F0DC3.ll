@@ -11204,33 +11204,6 @@ entry:
   %cmp23 = icmp sgt i32 %0, 0
   br i1 %cmp23, label %vector.ph, label %for.cond.cleanup
 
-vector.ph:                                        ; preds = %entry, %for.cond.cleanup3
-  %nl.024 = phi i32 [ %inc12, %for.cond.cleanup3 ], [ 0, %entry ]
-  %x.0.pre = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
-  %vector.recur.init = insertelement <2 x double> poison, double %x.0.pre, i64 1
-  br label %vector.body
-
-vector.body:                                      ; preds = %vector.body, %vector.ph
-  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %vector.recur = phi <2 x double> [ %vector.recur.init, %vector.ph ], [ %wide.load27, %vector.body ]
-  %1 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %index
-  %wide.load = load <2 x double>, ptr %1, align 32, !tbaa !5
-  %2 = getelementptr inbounds double, ptr %1, i64 2
-  %wide.load27 = load <2 x double>, ptr %2, align 16, !tbaa !5
-  %3 = shufflevector <2 x double> %vector.recur, <2 x double> %wide.load, <2 x i32> <i32 1, i32 2>
-  %4 = shufflevector <2 x double> %wide.load, <2 x double> %wide.load27, <2 x i32> <i32 1, i32 2>
-  %5 = fadd <2 x double> %3, %wide.load
-  %6 = fadd <2 x double> %4, %wide.load27
-  %7 = fmul <2 x double> %5, <double 5.000000e-01, double 5.000000e-01>
-  %8 = fmul <2 x double> %6, <double 5.000000e-01, double 5.000000e-01>
-  %9 = getelementptr inbounds double, ptr @global_data, i64 %index
-  store <2 x double> %7, ptr %9, align 32, !tbaa !5
-  %10 = getelementptr inbounds double, ptr %9, i64 2
-  store <2 x double> %8, ptr %10, align 16, !tbaa !5
-  %index.next = add nuw i64 %index, 4
-  %11 = icmp eq i64 %index.next, 32000
-  br i1 %11, label %for.cond.cleanup3, label %vector.body, !llvm.loop !371
-
 for.cond.cleanup:                                 ; preds = %for.cond.cleanup3, %entry
   %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.143, double noundef 0.000000e+00)
   br label %for.body.i
@@ -11239,38 +11212,65 @@ for.body.i:                                       ; preds = %for.body.i, %for.co
   %indvars.iv.i = phi i64 [ 0, %for.cond.cleanup ], [ %indvars.iv.next.i.4, %for.body.i ]
   %suma.0192.i = phi double [ 0.000000e+00, %for.cond.cleanup ], [ %add.i.4, %for.body.i ]
   %arrayidx.i = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.i
-  %12 = load double, ptr %arrayidx.i, align 8, !tbaa !5
-  %add.i = fadd double %suma.0192.i, %12
+  %1 = load double, ptr %arrayidx.i, align 8, !tbaa !5
+  %add.i = fadd double %suma.0192.i, %1
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %arrayidx.i.1 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i
-  %13 = load double, ptr %arrayidx.i.1, align 8, !tbaa !5
-  %add.i.1 = fadd double %add.i, %13
+  %2 = load double, ptr %arrayidx.i.1, align 8, !tbaa !5
+  %add.i.1 = fadd double %add.i, %2
   %indvars.iv.next.i.1 = add nuw nsw i64 %indvars.iv.i, 2
   %arrayidx.i.2 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.1
-  %14 = load double, ptr %arrayidx.i.2, align 8, !tbaa !5
-  %add.i.2 = fadd double %add.i.1, %14
+  %3 = load double, ptr %arrayidx.i.2, align 8, !tbaa !5
+  %add.i.2 = fadd double %add.i.1, %3
   %indvars.iv.next.i.2 = add nuw nsw i64 %indvars.iv.i, 3
   %arrayidx.i.3 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.2
-  %15 = load double, ptr %arrayidx.i.3, align 8, !tbaa !5
-  %add.i.3 = fadd double %add.i.2, %15
+  %4 = load double, ptr %arrayidx.i.3, align 8, !tbaa !5
+  %add.i.3 = fadd double %add.i.2, %4
   %indvars.iv.next.i.3 = add nuw nsw i64 %indvars.iv.i, 4
   %arrayidx.i.4 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.3
-  %16 = load double, ptr %arrayidx.i.4, align 8, !tbaa !5
-  %add.i.4 = fadd double %add.i.3, %16
+  %5 = load double, ptr %arrayidx.i.4, align 8, !tbaa !5
+  %add.i.4 = fadd double %add.i.3, %5
   %indvars.iv.next.i.4 = add nuw nsw i64 %indvars.iv.i, 5
   %exitcond.not.i.4 = icmp eq i64 %indvars.iv.next.i.4, 32000
   br i1 %exitcond.not.i.4, label %for.cond18.preheader.i.preheader, label %for.body.i
 
 for.cond18.preheader.i.preheader:                 ; preds = %for.body.i
-  %17 = load i32, ptr @digits, align 4, !tbaa !17
-  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %17, double noundef %add.i.4)
+  %6 = load i32, ptr @digits, align 4, !tbaa !17
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %6, double noundef %add.i.4)
   ret i32 0
+
+vector.ph:                                        ; preds = %entry, %for.cond.cleanup3
+  %nl.024 = phi i32 [ %inc12, %for.cond.cleanup3 ], [ 0, %entry ]
+  %7 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
+  %vector.recur.init = insertelement <2 x double> poison, double %7, i64 1
+  br label %vector.body
+
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %vector.recur = phi <2 x double> [ %vector.recur.init, %vector.ph ], [ %wide.load26, %vector.body ]
+  %8 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %index
+  %wide.load = load <2 x double>, ptr %8, align 32, !tbaa !5
+  %9 = getelementptr inbounds double, ptr %8, i64 2
+  %wide.load26 = load <2 x double>, ptr %9, align 16, !tbaa !5
+  %10 = shufflevector <2 x double> %vector.recur, <2 x double> %wide.load, <2 x i32> <i32 1, i32 2>
+  %11 = shufflevector <2 x double> %wide.load, <2 x double> %wide.load26, <2 x i32> <i32 1, i32 2>
+  %12 = fadd <2 x double> %10, %wide.load
+  %13 = fadd <2 x double> %11, %wide.load26
+  %14 = fmul <2 x double> %12, <double 5.000000e-01, double 5.000000e-01>
+  %15 = fmul <2 x double> %13, <double 5.000000e-01, double 5.000000e-01>
+  %16 = getelementptr inbounds double, ptr @global_data, i64 %index
+  store <2 x double> %14, ptr %16, align 32, !tbaa !5
+  %17 = getelementptr inbounds double, ptr %16, i64 2
+  store <2 x double> %15, ptr %17, align 16, !tbaa !5
+  %index.next = add nuw i64 %index, 4
+  %18 = icmp eq i64 %index.next, 32000
+  br i1 %18, label %for.cond.cleanup3, label %vector.body, !llvm.loop !371
 
 for.cond.cleanup3:                                ; preds = %vector.body
   %call10 = tail call i32 @dummy(ptr noundef nonnull @global_data, ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 8, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 11, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 14, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 17, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 20, i64 0, i64 0), double noundef 0.000000e+00) #16
   %inc12 = add nuw nsw i32 %nl.024, 1
-  %18 = load i32, ptr @ntimes, align 4, !tbaa !17
-  %mul = shl nsw i32 %18, 2
+  %19 = load i32, ptr @ntimes, align 4, !tbaa !17
+  %mul = shl nsw i32 %19, 2
   %cmp = icmp slt i32 %inc12, %mul
   br i1 %cmp, label %vector.ph, label %for.cond.cleanup
 }
@@ -11320,42 +11320,42 @@ for.cond18.preheader.i.preheader:                 ; preds = %for.body.i
 
 vector.ph:                                        ; preds = %entry, %for.cond.cleanup3
   %nl.025 = phi i32 [ %inc12, %for.cond.cleanup3 ], [ 0, %entry ]
-  %x.0.pre = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
   %7 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31998), align 16, !tbaa !5
-  %vector.recur.init = insertelement <2 x double> poison, double %x.0.pre, i64 1
-  %vector.recur.init28 = insertelement <2 x double> poison, double %7, i64 1
+  %8 = load double, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 31999), align 8, !tbaa !5
+  %vector.recur.init = insertelement <2 x double> poison, double %7, i64 1
+  %vector.recur.init27 = insertelement <2 x double> poison, double %8, i64 1
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %vector.recur = phi <2 x double> [ %vector.recur.init, %vector.ph ], [ %wide.load30, %vector.body ]
-  %vector.recur29 = phi <2 x double> [ %vector.recur.init28, %vector.ph ], [ %11, %vector.body ]
-  %8 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %index
-  %wide.load = load <2 x double>, ptr %8, align 32, !tbaa !5
-  %9 = getelementptr inbounds double, ptr %8, i64 2
-  %wide.load30 = load <2 x double>, ptr %9, align 16, !tbaa !5
-  %10 = shufflevector <2 x double> %vector.recur, <2 x double> %wide.load, <2 x i32> <i32 1, i32 2>
-  %11 = shufflevector <2 x double> %wide.load, <2 x double> %wide.load30, <2 x i32> <i32 1, i32 2>
-  %12 = shufflevector <2 x double> %vector.recur29, <2 x double> %10, <2 x i32> <i32 1, i32 2>
-  %13 = fadd <2 x double> %10, %wide.load
-  %14 = fadd <2 x double> %11, %wide.load30
-  %15 = fadd <2 x double> %12, %13
-  %16 = fadd <2 x double> %wide.load, %14
-  %17 = fmul <2 x double> %15, <double 3.330000e-01, double 3.330000e-01>
+  %vector.recur = phi <2 x double> [ %vector.recur.init, %vector.ph ], [ %12, %vector.body ]
+  %vector.recur28 = phi <2 x double> [ %vector.recur.init27, %vector.ph ], [ %wide.load29, %vector.body ]
+  %9 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %index
+  %wide.load = load <2 x double>, ptr %9, align 32, !tbaa !5
+  %10 = getelementptr inbounds double, ptr %9, i64 2
+  %wide.load29 = load <2 x double>, ptr %10, align 16, !tbaa !5
+  %11 = shufflevector <2 x double> %vector.recur28, <2 x double> %wide.load, <2 x i32> <i32 1, i32 2>
+  %12 = shufflevector <2 x double> %wide.load, <2 x double> %wide.load29, <2 x i32> <i32 1, i32 2>
+  %13 = shufflevector <2 x double> %vector.recur, <2 x double> %11, <2 x i32> <i32 1, i32 2>
+  %14 = fadd <2 x double> %11, %wide.load
+  %15 = fadd <2 x double> %12, %wide.load29
+  %16 = fadd <2 x double> %13, %14
+  %17 = fadd <2 x double> %wide.load, %15
   %18 = fmul <2 x double> %16, <double 3.330000e-01, double 3.330000e-01>
-  %19 = getelementptr inbounds double, ptr @global_data, i64 %index
-  store <2 x double> %17, ptr %19, align 32, !tbaa !5
-  %20 = getelementptr inbounds double, ptr %19, i64 2
-  store <2 x double> %18, ptr %20, align 16, !tbaa !5
+  %19 = fmul <2 x double> %17, <double 3.330000e-01, double 3.330000e-01>
+  %20 = getelementptr inbounds double, ptr @global_data, i64 %index
+  store <2 x double> %18, ptr %20, align 32, !tbaa !5
+  %21 = getelementptr inbounds double, ptr %20, i64 2
+  store <2 x double> %19, ptr %21, align 16, !tbaa !5
   %index.next = add nuw i64 %index, 4
-  %21 = icmp eq i64 %index.next, 32000
-  br i1 %21, label %for.cond.cleanup3, label %vector.body, !llvm.loop !372
+  %22 = icmp eq i64 %index.next, 32000
+  br i1 %22, label %for.cond.cleanup3, label %vector.body, !llvm.loop !372
 
 for.cond.cleanup3:                                ; preds = %vector.body
   %call10 = tail call i32 @dummy(ptr noundef nonnull @global_data, ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 8, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 11, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 14, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 17, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 20, i64 0, i64 0), double noundef 0.000000e+00) #16
   %inc12 = add nuw nsw i32 %nl.025, 1
-  %22 = load i32, ptr @ntimes, align 4, !tbaa !17
-  %cmp = icmp slt i32 %inc12, %22
+  %23 = load i32, ptr @ntimes, align 4, !tbaa !17
+  %cmp = icmp slt i32 %inc12, %23
   br i1 %cmp, label %vector.ph, label %for.cond.cleanup
 }
 
@@ -12153,20 +12153,20 @@ if.end7:                                          ; preds = %if.end.thread, %if.
 ; Function Attrs: mustprogress nofree nounwind willreturn
 declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #11
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #12
+declare i32 @llvm.smin.i32(i32, i32) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #13
 
 attributes #0 = { nofree norecurse nosync nounwind memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -12180,9 +12180,9 @@ attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable wi
 attributes #9 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 

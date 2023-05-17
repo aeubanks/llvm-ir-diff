@@ -13,9 +13,9 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %.pr = load i16, ptr @b, align 2
   %cmp14 = icmp slt i16 %.pr, 2
-  br i1 %cmp14, label %if.end.lr.ph, label %for.end12
+  br i1 %cmp14, label %for.body.lr.ph, label %for.end12
 
-if.end.lr.ph:                                     ; preds = %entry
+for.body.lr.ph:                                   ; preds = %entry
   store i32 0, ptr @a, align 4, !tbaa !5
   %0 = load i32, ptr @d, align 4, !tbaa !5
   %.fr = freeze i32 %0
@@ -24,16 +24,16 @@ if.end.lr.ph:                                     ; preds = %entry
   %.pr13.fr = freeze i32 %.pr13
   %tobool9.not = icmp eq i32 %.pr13.fr, 0
   %or.cond = or i1 %tobool.not, %tobool9.not
-  br i1 %or.cond, label %for.end12.sink.split, label %if.end.preheader, !llvm.loop !9
+  br i1 %or.cond, label %for.end12.sink.split, label %for.body.preheader, !llvm.loop !9
 
-if.end.preheader:                                 ; preds = %if.end.lr.ph
+for.body.preheader:                               ; preds = %for.body.lr.ph
   %1 = sub i16 0, %.pr
   %2 = sub i16 1, %.pr
   %3 = tail call i16 @llvm.umin.i16(i16 %1, i16 %2)
   %min.iters.check = icmp ult i16 %3, 16
-  br i1 %min.iters.check, label %if.end.preheader20, label %vector.ph
+  br i1 %min.iters.check, label %for.body.preheader20, label %vector.ph
 
-vector.ph:                                        ; preds = %if.end.preheader
+vector.ph:                                        ; preds = %for.body.preheader
   %umin = zext i16 %3 to i32
   %4 = add nuw nsw i32 %umin, 1
   %n.mod.vf = and i32 %4, 15
@@ -52,31 +52,31 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %index.next = add nuw i32 %index, 16
   %10 = add i16 %8, 16
   %11 = icmp eq i32 %index.next, %n.vec
-  br i1 %11, label %if.end.preheader20.loopexit, label %vector.body, !llvm.loop !11
+  br i1 %11, label %for.body.preheader20.loopexit, label %vector.body, !llvm.loop !11
 
-if.end.preheader20.loopexit:                      ; preds = %vector.body
+for.body.preheader20.loopexit:                    ; preds = %vector.body
   store i16 %9, ptr @b, align 2, !tbaa !14
-  br label %if.end.preheader20
+  br label %for.body.preheader20
 
-if.end.preheader20:                               ; preds = %if.end.preheader20.loopexit, %if.end.preheader
-  %.ph = phi i16 [ %.pr, %if.end.preheader ], [ %ind.end, %if.end.preheader20.loopexit ]
-  br label %if.end
+for.body.preheader20:                             ; preds = %for.body.preheader20.loopexit, %for.body.preheader
+  %.ph = phi i16 [ %.pr, %for.body.preheader ], [ %ind.end, %for.body.preheader20.loopexit ]
+  br label %for.body
 
-if.end:                                           ; preds = %if.end.preheader20, %for.inc
-  %12 = phi i16 [ %inc, %for.inc ], [ %.ph, %if.end.preheader20 ]
+for.body:                                         ; preds = %for.body.preheader20, %for.inc
+  %12 = phi i16 [ %inc, %for.inc ], [ %.ph, %for.body.preheader20 ]
   %tobool6.not = icmp eq i16 %12, 0
   br i1 %tobool6.not, label %for.cond8, label %for.inc
 
-for.cond8:                                        ; preds = %if.end, %for.cond8
+for.cond8:                                        ; preds = %for.body, %for.cond8
   br label %for.cond8
 
-for.inc:                                          ; preds = %if.end
+for.inc:                                          ; preds = %for.body
   %inc = add nsw i16 %12, 1
   store i16 %inc, ptr @b, align 2, !tbaa !14
   %exitcond.not = icmp eq i16 %inc, 2
-  br i1 %exitcond.not, label %for.end12, label %if.end, !llvm.loop !16
+  br i1 %exitcond.not, label %for.end12, label %for.body, !llvm.loop !16
 
-for.end12.sink.split:                             ; preds = %if.end.lr.ph
+for.end12.sink.split:                             ; preds = %for.body.lr.ph
   store i16 2, ptr @b, align 2, !tbaa !14
   br label %for.end12
 

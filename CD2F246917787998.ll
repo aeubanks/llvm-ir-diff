@@ -394,26 +394,26 @@ if.end196:                                        ; preds = %if.else192
   %50 = load ptr, ptr %pbuildchar, align 8, !tbaa !5
   %type_attrs197 = getelementptr inbounds %struct.ref_s, ptr %50, i64 0, i32 1
   %51 = load i16, ptr %type_attrs197, align 8, !tbaa !9
-  %52 = lshr i16 %51, 2
-  %53 = and i16 %52, 63
-  %shr200 = zext i16 %53 to i32
+  %conv198 = zext i16 %51 to i32
+  %and199 = lshr i32 %conv198, 2
+  %shr200 = and i32 %and199, 63
   switch i32 %shr200, label %cleanup267 [
     i32 0, label %sw.epilog203
     i32 10, label %sw.epilog203
   ]
 
 sw.epilog203:                                     ; preds = %if.end196, %if.end196
-  %54 = and i16 %51, 3
-  %tobool.not = icmp eq i16 %54, 3
+  %not = and i32 %conv198, 3
+  %tobool.not = icmp eq i32 %not, 3
   br i1 %tobool.not, label %if.end209, label %cleanup267
 
 if.end209:                                        ; preds = %cleanup, %sw.epilog203
   %unique_id.3 = phi i64 [ %unique_id.1, %cleanup ], [ %unique_id.0, %sw.epilog203 ]
   %lenIV.2 = phi i32 [ %lenIV.0, %cleanup ], [ undef, %sw.epilog203 ]
   %call210 = call i32 @dict_lookup(ptr noundef nonnull %op, ptr noundef nonnull %op, ptr noundef nonnull @name_FID, ptr noundef nonnull %pfid) #6
-  %55 = load i16, ptr %type_attrs, align 8, !tbaa !9
-  %56 = and i16 %55, 256
-  %tobool214.not = icmp eq i16 %56, 0
+  %52 = load i16, ptr %type_attrs, align 8, !tbaa !9
+  %53 = and i16 %52, 256
+  %tobool214.not = icmp eq i16 %53, 0
   br i1 %tobool214.not, label %if.else249, label %if.then215
 
 if.then215:                                       ; preds = %if.end209
@@ -443,17 +443,17 @@ if.end228:                                        ; preds = %lor.lhs.false223
 cleanup245:                                       ; preds = %if.end228
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %call224, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !14
   %BuildChar = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 1
-  %57 = load ptr, ptr %pbuildchar, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %BuildChar, ptr noundef nonnull align 8 dereferenceable(16) %57, i64 16, i1 false), !tbaa.struct !14
+  %54 = load ptr, ptr %pbuildchar, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %BuildChar, ptr noundef nonnull align 8 dereferenceable(16) %54, i64 16, i1 false), !tbaa.struct !14
   %Encoding = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 2
-  %58 = load ptr, ptr %pencoding, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Encoding, ptr noundef nonnull align 8 dereferenceable(16) %58, i64 16, i1 false), !tbaa.struct !14
+  %55 = load ptr, ptr %pencoding, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Encoding, ptr noundef nonnull align 8 dereferenceable(16) %55, i64 16, i1 false), !tbaa.struct !14
   %CharStrings = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 3
-  %59 = load ptr, ptr %pcharstrings, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %CharStrings, ptr noundef nonnull align 8 dereferenceable(16) %59, i64 16, i1 false), !tbaa.struct !14
+  %56 = load ptr, ptr %pcharstrings, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %CharStrings, ptr noundef nonnull align 8 dereferenceable(16) %56, i64 16, i1 false), !tbaa.struct !14
   %Subrs = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 4
-  %60 = load ptr, ptr %psubrs, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Subrs, ptr noundef nonnull align 8 dereferenceable(16) %60, i64 16, i1 false), !tbaa.struct !14
+  %57 = load ptr, ptr %psubrs, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Subrs, ptr noundef nonnull align 8 dereferenceable(16) %57, i64 16, i1 false), !tbaa.struct !14
   %type1_data = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 5
   store ptr @z1_subr_proc, ptr %type1_data, align 8, !tbaa !20
   %pop_proc = getelementptr inbounds %struct.font_data_s, ptr %call224, i64 0, i32 5, i32 1
@@ -464,21 +464,21 @@ cleanup245:                                       ; preds = %if.end228
   store i32 %lenIV.2, ptr %lenIV237, align 8, !tbaa !26
   %base = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 2
   store ptr %call220, ptr %base, align 8, !tbaa !27
-  %61 = load ptr, ptr @ifont_dir, align 8, !tbaa !5
+  %58 = load ptr, ptr @ifont_dir, align 8, !tbaa !5
   %dir = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 3
-  store ptr %61, ptr %dir, align 8, !tbaa !30
+  store ptr %58, ptr %dir, align 8, !tbaa !30
   %client_data = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 4
   store ptr %call224, ptr %client_data, align 8, !tbaa !31
   %matrix = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 5
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %matrix, ptr noundef nonnull align 8 dereferenceable(96) %mat, i64 96, i1 false), !tbaa.struct !32
-  %62 = load ptr, ptr %ptype, align 8, !tbaa !5
-  %63 = load i64, ptr %62, align 8, !tbaa !12
-  %conv239 = trunc i64 %63 to i32
+  %59 = load ptr, ptr %ptype, align 8, !tbaa !5
+  %60 = load i64, ptr %59, align 8, !tbaa !12
+  %conv239 = trunc i64 %60 to i32
   %font_type = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 6
   store i32 %conv239, ptr %font_type, align 8, !tbaa !33
   %xmin = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 7
-  %64 = load <4 x float>, ptr %bbox, align 16, !tbaa !18
-  store <4 x float> %64, ptr %xmin, align 4, !tbaa !18
+  %61 = load <4 x float>, ptr %bbox, align 16, !tbaa !18
+  store <4 x float> %61, ptr %xmin, align 4, !tbaa !18
   %build_char_proc = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 13
   store ptr @gs_no_build_char_proc, ptr %build_char_proc, align 8, !tbaa !34
   %paint_type243 = getelementptr inbounds %struct.gs_font_s, ptr %call220, i64 0, i32 11
@@ -493,19 +493,19 @@ if.else249:                                       ; preds = %if.end209
   br i1 %cmp250, label %cleanup267, label %if.end254
 
 if.end254:                                        ; preds = %cleanup245, %if.else249
-  %65 = phi i16 [ %.pre, %cleanup245 ], [ %55, %if.else249 ]
-  %66 = and i16 %65, -257
-  store i16 %66, ptr %type_attrs, align 8, !tbaa !9
-  %67 = load ptr, ptr %pFontDirectory, align 8, !tbaa !5
+  %62 = phi i16 [ %.pre, %cleanup245 ], [ %52, %if.else249 ]
+  %63 = and i16 %62, -257
+  store i16 %63, ptr %type_attrs, align 8, !tbaa !9
+  %64 = load ptr, ptr %pFontDirectory, align 8, !tbaa !5
   %add.ptr259 = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
-  %call260 = call i32 @dict_put(ptr noundef %67, ptr noundef nonnull %add.ptr259, ptr noundef nonnull %op) #6
+  %call260 = call i32 @dict_put(ptr noundef %64, ptr noundef nonnull %add.ptr259, ptr noundef nonnull %op) #6
   %cmp261 = icmp slt i32 %call260, 0
   br i1 %cmp261, label %cleanup267, label %if.end264
 
 if.end264:                                        ; preds = %if.end254
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr259, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !14
-  %68 = load ptr, ptr @osp, align 8, !tbaa !5
-  %add.ptr266 = getelementptr inbounds %struct.ref_s, ptr %68, i64 -1
+  %65 = load ptr, ptr @osp, align 8, !tbaa !5
+  %add.ptr266 = getelementptr inbounds %struct.ref_s, ptr %65, i64 -1
   store ptr %add.ptr266, ptr @osp, align 8, !tbaa !5
   br label %cleanup267
 
@@ -629,8 +629,8 @@ if.end5.i:                                        ; preds = %if.end.i
   %cmp6.i = icmp eq ptr %3, null
   br i1 %cmp6.i, label %font_param.exit.thread, label %lor.lhs.false
 
-font_param.exit.thread:                           ; preds = %entry, %if.end.i, %if.end5.i
-  %retval.0.i.ph = phi i32 [ %call.i, %if.end.i ], [ -20, %entry ], [ -10, %if.end5.i ]
+font_param.exit.thread:                           ; preds = %if.end.i, %entry, %if.end5.i
+  %retval.0.i.ph = phi i32 [ -20, %entry ], [ %call.i, %if.end.i ], [ -10, %if.end5.i ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pid.i) #6
   br label %cleanup
 
@@ -737,8 +737,8 @@ if.end5.i:                                        ; preds = %if.end.i
   %cmp6.i = icmp eq ptr %3, null
   br i1 %cmp6.i, label %font_param.exit.thread, label %lor.lhs.false
 
-font_param.exit.thread:                           ; preds = %entry, %if.end.i, %if.end5.i
-  %retval.0.i.ph = phi i32 [ %call.i, %if.end.i ], [ -20, %entry ], [ -10, %if.end5.i ]
+font_param.exit.thread:                           ; preds = %if.end.i, %entry, %if.end5.i
+  %retval.0.i.ph = phi i32 [ -20, %entry ], [ %call.i, %if.end.i ], [ -10, %if.end5.i ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pid.i) #6
   br label %cleanup
 

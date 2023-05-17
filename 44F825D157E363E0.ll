@@ -15,7 +15,7 @@ declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-lor.lhs.false:
+if.end:
   tail call void @exit(i32 noundef 0) #2
   unreachable
 }

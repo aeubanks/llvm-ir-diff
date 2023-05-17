@@ -85,7 +85,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-RenderBox_setStyle.exit:
+if.end33:
   %bf.load = load i16, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
   %bf.clear5 = and i16 %bf.load, -89
   store ptr @RenderBox_isTableCell, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 3), align 8, !tbaa !5

@@ -12,7 +12,7 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @cli_rebuildpe(ptr nocapture noundef readonly %buffer, ptr nocapture noundef readonly %sections, i32 noundef %sects, i32 noundef %base, i32 noundef %ep, i32 noundef %ResRva, i32 noundef %ResSize, i32 noundef %file) local_unnamed_addr #0 {
 entry:
-  %mul = mul nsw i32 %sects, 40
+  %mul = mul i32 %sects, 40
   %add = add nsw i32 %mul, 456
   %div = sdiv i32 %add, 512
   %0 = and i32 %add, 511

@@ -175,44 +175,44 @@ _Z25FftConvolve16x16xRZHalideP15halide_buffer_tS0_S0_.exit: ; preds = %"assert s
   %38 = icmp eq ptr %37, null
   %39 = load i64, ptr %2, align 8
   %40 = icmp eq i64 %39, 0
-  %or.cond = select i1 %38, i1 %40, i1 false
-  br i1 %or.cond, label %true_bb, label %false_bb
+  %41 = select i1 %38, i1 %40, i1 false
+  br i1 %41, label %true_bb, label %false_bb
 
 true_bb:                                          ; preds = %"assert succeeded6"
   %t9653 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str, ptr nonnull %2, ptr %input) #4
-  %41 = icmp eq i32 %t9653, 0
-  br i1 %41, label %after_bb, label %destructor_block, !prof !21
+  %42 = icmp eq i32 %t9653, 0
+  br i1 %42, label %after_bb, label %destructor_block, !prof !21
 
 false_bb:                                         ; preds = %"assert succeeded6"
   %t9654 = call i32 @halide_downgrade_buffer_t_device_fields(ptr null, ptr nonnull @str, ptr nonnull %2, ptr %input) #4
-  %42 = icmp eq i32 %t9654, 0
-  br i1 %42, label %after_bb, label %destructor_block, !prof !21
+  %43 = icmp eq i32 %t9654, 0
+  br i1 %43, label %after_bb, label %destructor_block, !prof !21
 
 after_bb:                                         ; preds = %false_bb, %true_bb
-  %43 = load ptr, ptr %10, align 8, !tbaa !27
-  %44 = icmp eq ptr %43, null
-  %45 = load i64, ptr %1, align 8
-  %46 = icmp eq i64 %45, 0
-  %or.cond6 = select i1 %44, i1 %46, i1 false
-  br i1 %or.cond6, label %true_bb11, label %false_bb12
+  %44 = load ptr, ptr %10, align 8, !tbaa !27
+  %45 = icmp eq ptr %44, null
+  %46 = load i64, ptr %1, align 8
+  %47 = icmp eq i64 %46, 0
+  %48 = select i1 %45, i1 %47, i1 false
+  br i1 %48, label %true_bb11, label %false_bb12
 
 true_bb11:                                        ; preds = %after_bb
   %t9657 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str.2, ptr nonnull %1, ptr %kernel) #4
-  %47 = icmp eq i32 %t9657, 0
-  br i1 %47, label %after_bb13, label %destructor_block, !prof !21
+  %49 = icmp eq i32 %t9657, 0
+  br i1 %49, label %after_bb13, label %destructor_block, !prof !21
 
 false_bb12:                                       ; preds = %after_bb
   %t9658 = call i32 @halide_downgrade_buffer_t_device_fields(ptr null, ptr nonnull @str.2, ptr nonnull %1, ptr %kernel) #4
-  %48 = icmp eq i32 %t9658, 0
-  br i1 %48, label %after_bb13, label %destructor_block, !prof !21
+  %50 = icmp eq i32 %t9658, 0
+  br i1 %50, label %after_bb13, label %destructor_block, !prof !21
 
 after_bb13:                                       ; preds = %false_bb12, %true_bb11
-  %49 = load ptr, ptr %17, align 8, !tbaa !27
-  %50 = icmp eq ptr %49, null
-  %51 = load i64, ptr %0, align 8
-  %52 = icmp eq i64 %51, 0
-  %or.cond8 = select i1 %50, i1 %52, i1 false
-  br i1 %or.cond8, label %true_bb18, label %false_bb19
+  %51 = load ptr, ptr %17, align 8, !tbaa !27
+  %52 = icmp eq ptr %51, null
+  %53 = load i64, ptr %0, align 8
+  %54 = icmp eq i64 %53, 0
+  %55 = select i1 %52, i1 %54, i1 false
+  br i1 %55, label %true_bb18, label %false_bb19
 
 true_bb18:                                        ; preds = %after_bb13
   %t9661 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str.3, ptr nonnull %0, ptr %"result$3") #4

@@ -43,8 +43,8 @@ entry:
   %bf.set.i = xor i64 %0, -8690468286197432320
   store i64 %bf.set.i, ptr @tmp, align 8, !tbaa.struct !5
   %1 = load i64, ptr @tmp2, align 8
-  %bf.set.i57 = xor i64 %1, 2381903268435576
-  store i64 %bf.set.i57, ptr @tmp2, align 8, !tbaa.struct !10
+  %bf.set.i54 = xor i64 %1, 2381903268435576
+  store i64 %bf.set.i54, ptr @tmp2, align 8, !tbaa.struct !10
   %bf.shl = shl i64 %0, 52
   %bf.ashr = ashr exact i64 %bf.shl, 52
   %2 = and i64 %bf.ashr, 4294967295
@@ -62,10 +62,10 @@ if.end:                                           ; preds = %entry
   %bf.ashr10 = ashr i64 %1, 52
   %3 = and i64 %bf.ashr10, 4294967295
   %cmp12.not = icmp eq i64 %3, 291
-  %bf.shl16.mask = and i64 %bf.set.i57, 4503599627370495
+  %bf.shl16.mask = and i64 %bf.set.i54, 4503599627370495
   %cmp18.not = icmp eq i64 %bf.shl16.mask, 2626808268586421
-  %or.cond54 = select i1 %cmp12.not, i1 %cmp18.not, i1 false
-  br i1 %or.cond54, label %if.end21, label %if.then20
+  %or.cond57 = select i1 %cmp12.not, i1 %cmp18.not, i1 false
+  br i1 %or.cond57, label %if.end21, label %if.then20
 
 if.then20:                                        ; preds = %if.end
   tail call void @abort() #3
@@ -73,19 +73,19 @@ if.then20:                                        ; preds = %if.end
 
 if.end21:                                         ; preds = %if.end
   %4 = load i64, ptr @tmp3, align 8
-  %bf.set.i58 = xor i64 %4, -4345234143098716160
-  store i64 %bf.set.i58, ptr @tmp3, align 8, !tbaa.struct !5
+  %bf.set.i55 = xor i64 %4, -4345234143098716160
+  store i64 %bf.set.i55, ptr @tmp3, align 8, !tbaa.struct !5
   %5 = load i64, ptr @tmp4, align 8
-  %bf.set.i59 = xor i64 %5, 6885502895806072
-  store i64 %bf.set.i59, ptr @tmp4, align 8, !tbaa.struct !10
+  %bf.set.i56 = xor i64 %5, 6885502895806072
+  store i64 %bf.set.i56, ptr @tmp4, align 8, !tbaa.struct !10
   %bf.shl29 = shl i64 %4, 53
   %bf.ashr30 = ashr exact i64 %bf.shl29, 53
   %6 = and i64 %bf.ashr30, 4294967295
   %cmp32.not = icmp eq i64 %6, 291
-  %bf.ashr36.mask = and i64 %bf.set.i58, -2048
+  %bf.ashr36.mask = and i64 %bf.set.i55, -2048
   %cmp37.not = icmp eq i64 %bf.ashr36.mask, -3725223934242340864
-  %or.cond55 = and i1 %cmp37.not, %cmp32.not
-  br i1 %or.cond55, label %if.end40, label %if.then39
+  %or.cond58 = and i1 %cmp37.not, %cmp32.not
+  br i1 %or.cond58, label %if.end40, label %if.then39
 
 if.then39:                                        ; preds = %if.end21
   tail call void @abort() #3
@@ -95,10 +95,10 @@ if.end40:                                         ; preds = %if.end21
   %bf.ashr42 = ashr i64 %5, 53
   %7 = and i64 %bf.ashr42, 4294967295
   %cmp44.not = icmp eq i64 %7, 291
-  %bf.shl48.mask = and i64 %bf.set.i59, 9007199254740991
+  %bf.shl48.mask = and i64 %bf.set.i56, 9007199254740991
   %cmp50.not = icmp eq i64 %bf.shl48.mask, 7188242255599224
-  %or.cond56 = select i1 %cmp44.not, i1 %cmp50.not, i1 false
-  br i1 %or.cond56, label %if.end53, label %if.then52
+  %or.cond59 = select i1 %cmp44.not, i1 %cmp50.not, i1 false
+  br i1 %or.cond59, label %if.end53, label %if.then52
 
 if.then52:                                        ; preds = %if.end40
   tail call void @abort() #3

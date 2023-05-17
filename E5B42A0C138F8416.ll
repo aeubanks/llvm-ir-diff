@@ -20,7 +20,7 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end:
+entry:
   %a = alloca i16, align 2
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %a) #4
   store i16 -256, ptr %a, align 2, !tbaa !5

@@ -178,18 +178,18 @@ _ZN8NWindows4NCOM12CPropVariant12InternalCopyEPK14tagPROPVARIANT.exit: ; preds =
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN8NWindows4NCOM12CPropVariantC2EPw(ptr noundef nonnull align 8 dereferenceable(16) %this, ptr noundef %bstrSrc) unnamed_addr #0 align 2 {
-_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i.i:
+entry:
   store i16 0, ptr %this, align 8, !tbaa !5
   %call.i.i.i.i.i = tail call i32 @VariantClear(ptr noundef nonnull %this)
   %cmp.i.i.i = icmp slt i32 %call.i.i.i.i.i, 0
   br i1 %cmp.i.i.i, label %if.then.i.i.i, label %_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i.i
 
-if.then.i.i.i:                                    ; preds = %_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i.i
+if.then.i.i.i:                                    ; preds = %entry
   %0 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %this, i64 0, i32 4
   store i32 %call.i.i.i.i.i, ptr %0, align 8, !tbaa !12
   br label %_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i.i
 
-_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i.i: ; preds = %if.then.i.i.i, %_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i.i
+_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i.i: ; preds = %if.then.i.i.i, %entry
   store i16 8, ptr %this, align 8, !tbaa !5
   %wReserved1.i.i = getelementptr inbounds %struct.tagPROPVARIANT, ptr %this, i64 0, i32 1
   store i16 0, ptr %wReserved1.i.i, align 2, !tbaa !13
@@ -268,18 +268,18 @@ _ZN8NWindows4NCOM12CPropVariantaSEPKw.exit:       ; preds = %_ZN8NWindows4NCOM12
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN8NWindows4NCOM12CPropVariantC2EPKw(ptr noundef nonnull align 8 dereferenceable(16) %this, ptr noundef %lpszSrc) unnamed_addr #0 align 2 {
-_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i:
+entry:
   store i16 0, ptr %this, align 8, !tbaa !5
   %call.i.i.i.i = tail call i32 @VariantClear(ptr noundef nonnull %this)
   %cmp.i.i = icmp slt i32 %call.i.i.i.i, 0
   br i1 %cmp.i.i, label %if.then.i.i, label %_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i
 
-if.then.i.i:                                      ; preds = %_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i
+if.then.i.i:                                      ; preds = %entry
   %0 = getelementptr inbounds %struct.tagPROPVARIANT, ptr %this, i64 0, i32 4
   store i32 %call.i.i.i.i, ptr %0, align 8, !tbaa !12
   br label %_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i
 
-_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i: ; preds = %if.then.i.i, %_ZN8NWindows4NCOM12CPropVariant5ClearEv.exit.i.i
+_ZN8NWindows4NCOM12CPropVariant13InternalClearEv.exit.i: ; preds = %if.then.i.i, %entry
   store i16 8, ptr %this, align 8, !tbaa !5
   %wReserved1.i = getelementptr inbounds %struct.tagPROPVARIANT, ptr %this, i64 0, i32 1
   store i16 0, ptr %wReserved1.i, align 2, !tbaa !13

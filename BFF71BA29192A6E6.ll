@@ -115,14 +115,14 @@ if.then38:                                        ; preds = %entry
 
 if.end43:                                         ; preds = %if.then38, %if.end34
   %.pr = load i32, ptr %global_state, align 4, !tbaa !5
-  %17 = icmp eq i32 %.pr, 204
-  br i1 %17, label %if.end.i, label %if.then.i
+  %cmp.not.i = icmp eq i32 %.pr, 204
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
 if.then.i:                                        ; preds = %if.end43
   %master.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 73
-  %18 = load ptr, ptr %master.i, align 8, !tbaa !32
-  %19 = load ptr, ptr %18, align 8, !tbaa !33
-  tail call void %19(ptr noundef nonnull %cinfo) #4
+  %17 = load ptr, ptr %master.i, align 8, !tbaa !32
+  %18 = load ptr, ptr %17, align 8, !tbaa !33
+  tail call void %18(ptr noundef nonnull %cinfo) #4
   %output_scanline.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 33
   store i32 0, ptr %output_scanline.i, align 8, !tbaa !35
   store i32 204, ptr %global_state, align 4, !tbaa !5
@@ -130,10 +130,10 @@ if.then.i:                                        ; preds = %if.end43
 
 if.end.i:                                         ; preds = %entry, %if.then.i, %if.end43
   %master2.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 73
-  %20 = load ptr, ptr %master2.i, align 8, !tbaa !32
-  %is_dummy_pass58.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %20, i64 0, i32 2
-  %21 = load i32, ptr %is_dummy_pass58.i, align 8, !tbaa !36
-  %tobool.not59.i = icmp eq i32 %21, 0
+  %19 = load ptr, ptr %master2.i, align 8, !tbaa !32
+  %is_dummy_pass58.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %19, i64 0, i32 2
+  %20 = load i32, ptr %is_dummy_pass58.i, align 8, !tbaa !36
+  %tobool.not59.i = icmp eq i32 %20, 0
   br i1 %tobool.not59.i, label %while.end27.i, label %while.cond3.preheader.lr.ph.i
 
 while.cond3.preheader.lr.ph.i:                    ; preds = %if.end.i
@@ -145,61 +145,61 @@ while.cond3.preheader.lr.ph.i:                    ; preds = %if.end.i
   br label %while.cond3.i
 
 while.cond3.i:                                    ; preds = %while.cond3.i.backedge, %while.cond3.preheader.lr.ph.i
-  %22 = phi i32 [ %.pre.pre.i, %while.cond3.preheader.lr.ph.i ], [ %.be, %while.cond3.i.backedge ]
-  %23 = load i32, ptr %output_height.i, align 4, !tbaa !37
-  %cmp5.i = icmp ult i32 %22, %23
+  %21 = phi i32 [ %.pre.pre.i, %while.cond3.preheader.lr.ph.i ], [ %.be, %while.cond3.i.backedge ]
+  %22 = load i32, ptr %output_height.i, align 4, !tbaa !37
+  %cmp5.i = icmp ult i32 %21, %22
   br i1 %cmp5.i, label %while.body6.i, label %while.end.i
 
 while.body6.i:                                    ; preds = %while.cond3.i
-  %24 = load ptr, ptr %progress.i, align 8, !tbaa !17
-  %cmp7.not.i = icmp eq ptr %24, null
+  %23 = load ptr, ptr %progress.i, align 8, !tbaa !17
+  %cmp7.not.i = icmp eq ptr %23, null
   br i1 %cmp7.not.i, label %if.end15.i, label %if.then8.i
 
 if.then8.i:                                       ; preds = %while.body6.i
-  %conv.i = zext i32 %22 to i64
-  %pass_counter.i = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %24, i64 0, i32 1
+  %conv.i = zext i32 %21 to i64
+  %pass_counter.i = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %23, i64 0, i32 1
   store i64 %conv.i, ptr %pass_counter.i, align 8, !tbaa !22
-  %conv12.i = zext i32 %23 to i64
-  %pass_limit.i = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %24, i64 0, i32 2
+  %conv12.i = zext i32 %22 to i64
+  %pass_limit.i = getelementptr inbounds %struct.jpeg_progress_mgr, ptr %23, i64 0, i32 2
   store i64 %conv12.i, ptr %pass_limit.i, align 8, !tbaa !23
-  %25 = load ptr, ptr %24, align 8, !tbaa !18
-  tail call void %25(ptr noundef nonnull %cinfo) #4
+  %24 = load ptr, ptr %23, align 8, !tbaa !18
+  tail call void %24(ptr noundef nonnull %cinfo) #4
   %.pre60.i = load i32, ptr %output_scanline4.i, align 8, !tbaa !35
   br label %if.end15.i
 
 if.end15.i:                                       ; preds = %if.then8.i, %while.body6.i
-  %26 = phi i32 [ %.pre60.i, %if.then8.i ], [ %22, %while.body6.i ]
-  %27 = load ptr, ptr %main.i, align 8, !tbaa !38
-  %process_data.i = getelementptr inbounds %struct.jpeg_d_main_controller, ptr %27, i64 0, i32 1
-  %28 = load ptr, ptr %process_data.i, align 8, !tbaa !39
-  tail call void %28(ptr noundef nonnull %cinfo, ptr noundef null, ptr noundef nonnull %output_scanline4.i, i32 noundef 0) #4
-  %29 = load i32, ptr %output_scanline4.i, align 8, !tbaa !35
-  %cmp19.not.i = icmp eq i32 %29, %26
+  %25 = phi i32 [ %.pre60.i, %if.then8.i ], [ %21, %while.body6.i ]
+  %26 = load ptr, ptr %main.i, align 8, !tbaa !38
+  %process_data.i = getelementptr inbounds %struct.jpeg_d_main_controller, ptr %26, i64 0, i32 1
+  %27 = load ptr, ptr %process_data.i, align 8, !tbaa !39
+  tail call void %27(ptr noundef nonnull %cinfo, ptr noundef null, ptr noundef nonnull %output_scanline4.i, i32 noundef 0) #4
+  %28 = load i32, ptr %output_scanline4.i, align 8, !tbaa !35
+  %cmp19.not.i = icmp eq i32 %28, %25
   br i1 %cmp19.not.i, label %return, label %while.cond3.i.backedge
 
 while.cond3.i.backedge:                           ; preds = %if.end15.i, %while.end.i
-  %.be = phi i32 [ %29, %if.end15.i ], [ 0, %while.end.i ]
+  %.be = phi i32 [ %28, %if.end15.i ], [ 0, %while.end.i ]
   br label %while.cond3.i, !llvm.loop !41
 
 while.end.i:                                      ; preds = %while.cond3.i
-  %30 = load ptr, ptr %master2.i, align 8, !tbaa !32
-  %finish_output_pass.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %30, i64 0, i32 1
-  %31 = load ptr, ptr %finish_output_pass.i, align 8, !tbaa !43
-  tail call void %31(ptr noundef nonnull %cinfo) #4
-  %32 = load ptr, ptr %master2.i, align 8, !tbaa !32
-  %33 = load ptr, ptr %32, align 8, !tbaa !33
-  tail call void %33(ptr noundef nonnull %cinfo) #4
+  %29 = load ptr, ptr %master2.i, align 8, !tbaa !32
+  %finish_output_pass.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %29, i64 0, i32 1
+  %30 = load ptr, ptr %finish_output_pass.i, align 8, !tbaa !43
+  tail call void %30(ptr noundef nonnull %cinfo) #4
+  %31 = load ptr, ptr %master2.i, align 8, !tbaa !32
+  %32 = load ptr, ptr %31, align 8, !tbaa !33
+  tail call void %32(ptr noundef nonnull %cinfo) #4
   store i32 0, ptr %output_scanline4.i, align 8, !tbaa !35
-  %34 = load ptr, ptr %master2.i, align 8, !tbaa !32
-  %is_dummy_pass.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %34, i64 0, i32 2
-  %35 = load i32, ptr %is_dummy_pass.i, align 8, !tbaa !36
-  %tobool.not.i = icmp eq i32 %35, 0
+  %33 = load ptr, ptr %master2.i, align 8, !tbaa !32
+  %is_dummy_pass.i = getelementptr inbounds %struct.jpeg_decomp_master, ptr %33, i64 0, i32 2
+  %34 = load i32, ptr %is_dummy_pass.i, align 8, !tbaa !36
+  %tobool.not.i = icmp eq i32 %34, 0
   br i1 %tobool.not.i, label %while.end27.i, label %while.cond3.i.backedge
 
 while.end27.i:                                    ; preds = %while.end.i, %if.end.i
   %raw_data_out.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 15
-  %36 = load i32, ptr %raw_data_out.i, align 4, !tbaa !44
-  %tobool28.not.i = icmp eq i32 %36, 0
+  %35 = load i32, ptr %raw_data_out.i, align 4, !tbaa !44
+  %tobool28.not.i = icmp eq i32 %35, 0
   %cond.i = select i1 %tobool28.not.i, i32 205, i32 206
   br label %return.sink.split
 
@@ -525,11 +525,13 @@ define dso_local i32 @jpeg_finish_output(ptr noundef %cinfo) local_unnamed_addr 
 entry:
   %global_state = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 4
   %0 = load i32, ptr %global_state, align 4, !tbaa !5
-  %.off = add i32 %0, -205
-  %switch = icmp ult i32 %.off, 2
-  br i1 %switch, label %land.lhs.true, label %if.else
+  switch i32 %0, label %if.then6 [
+    i32 205, label %land.lhs.true
+    i32 206, label %land.lhs.true
+    i32 208, label %if.end10
+  ]
 
-land.lhs.true:                                    ; preds = %entry
+land.lhs.true:                                    ; preds = %entry, %entry
   %buffered_image = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 14
   %1 = load i32, ptr %buffered_image, align 8, !tbaa !13
   %tobool.not = icmp eq i32 %1, 0
@@ -544,11 +546,7 @@ if.then:                                          ; preds = %land.lhs.true
   store i32 208, ptr %global_state, align 4, !tbaa !5
   br label %if.end10
 
-if.else:                                          ; preds = %entry
-  %cmp5.not = icmp eq i32 %0, 208
-  br i1 %cmp5.not, label %if.end10, label %if.then6
-
-if.then6:                                         ; preds = %land.lhs.true, %if.else
+if.then6:                                         ; preds = %land.lhs.true, %entry
   %4 = load ptr, ptr %cinfo, align 8, !tbaa !27
   %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 5
   store i32 18, ptr %msg_code, align 8, !tbaa !28
@@ -559,7 +557,7 @@ if.then6:                                         ; preds = %land.lhs.true, %if.
   tail call void %6(ptr noundef nonnull %cinfo) #4
   br label %if.end10
 
-if.end10:                                         ; preds = %if.else, %if.then6, %if.then
+if.end10:                                         ; preds = %entry, %if.then6, %if.then
   %input_scan_number = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 34
   %output_scan_number = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 36
   %inputctl = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 77

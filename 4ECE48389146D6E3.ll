@@ -229,9 +229,9 @@ if.then2:                                         ; preds = %if.end
 
 if.end5:                                          ; preds = %if.end
   %cmp6 = icmp slt i32 %n, 0
-  br i1 %cmp6, label %if.then8, label %if.end10
+  br i1 %cmp6, label %if.end11.i, label %if.end10
 
-if.then8:                                         ; preds = %if.end5
+if.end11.i:                                       ; preds = %if.end5
   %sub9 = sub nsw i32 0, %n
   %sh_prom12.i = zext i32 %sub9 to i64
   %shr.i = ashr i64 %a, %sh_prom12.i
@@ -242,8 +242,8 @@ if.end10:                                         ; preds = %if.end5
   %shl = shl i64 %a, %sh_prom
   br label %return
 
-return:                                           ; preds = %if.then8, %entry, %if.end10, %if.then2
-  %retval.0 = phi i64 [ %a.lobit.neg, %if.then2 ], [ %shl, %if.end10 ], [ 0, %entry ], [ %shr.i, %if.then8 ]
+return:                                           ; preds = %if.end11.i, %entry, %if.end10, %if.then2
+  %retval.0 = phi i64 [ %a.lobit.neg, %if.then2 ], [ %shl, %if.end10 ], [ 0, %entry ], [ %shr.i, %if.end11.i ]
   ret i64 %retval.0
 }
 
@@ -297,9 +297,9 @@ if.then2:                                         ; preds = %if.end
 
 if.end6:                                          ; preds = %if.end
   %cmp7 = icmp slt i32 %n, 0
-  br i1 %cmp7, label %if.then9, label %if.end11
+  br i1 %cmp7, label %if.end14.i, label %if.end11
 
-if.then9:                                         ; preds = %if.end6
+if.end14.i:                                       ; preds = %if.end6
   %sub10 = sub nsw i32 0, %n
   %conv15.i = sext i16 %a to i32
   %shr.i = ashr i32 %conv15.i, %sub10
@@ -312,8 +312,8 @@ if.end11:                                         ; preds = %if.end6
   %conv13 = trunc i32 %shl to i16
   br label %return
 
-return:                                           ; preds = %if.then9, %entry, %if.end11, %if.then2
-  %retval.0 = phi i16 [ %0, %if.then2 ], [ %conv13, %if.end11 ], [ 0, %entry ], [ %conv16.i, %if.then9 ]
+return:                                           ; preds = %if.end14.i, %entry, %if.end11, %if.then2
+  %retval.0 = phi i16 [ %0, %if.then2 ], [ %conv13, %if.end11 ], [ 0, %entry ], [ %conv16.i, %if.end14.i ]
   ret i16 %retval.0
 }
 

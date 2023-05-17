@@ -205,13 +205,13 @@ do.body:                                          ; preds = %if.end66, %if.end29
   br i1 %tobool35.not, label %if.then36, label %if.end66
 
 if.then36:                                        ; preds = %do.body
-  %6 = or i16 %1, -32768
-  store i16 %6, ptr %type_attrs9, align 8, !tbaa !5
+  %or = or i16 %1, -32768
+  store i16 %or, ptr %type_attrs9, align 8, !tbaa !5
   store ptr %ptr.0, ptr %op, align 8, !tbaa !10
   %add.ptr45 = getelementptr inbounds %struct.ref_s, ptr %op, i64 1
   store ptr %add.ptr45, ptr @osp, align 8, !tbaa !18
-  %7 = load ptr, ptr @ostop, align 8, !tbaa !18
-  %cmp46 = icmp ugt ptr %add.ptr45, %7
+  %6 = load ptr, ptr @ostop, align 8, !tbaa !18
+  %cmp46 = icmp ugt ptr %add.ptr45, %6
   br i1 %cmp46, label %if.then48, label %if.end50
 
 if.then48:                                        ; preds = %if.then36
@@ -220,9 +220,9 @@ if.then48:                                        ; preds = %if.then36
 
 if.end50:                                         ; preds = %if.then36
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %add.ptr45, ptr noundef nonnull align 8 dereferenceable(16) %add.ptr, i64 16, i1 false), !tbaa.struct !12
-  %8 = load ptr, ptr %add.ptr45, align 8, !tbaa !10
+  %7 = load ptr, ptr %add.ptr45, align 8, !tbaa !10
   %sub.ptr.lhs.cast = ptrtoint ptr %ptr.0 to i64
-  %sub.ptr.rhs.cast = ptrtoint ptr %8 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %7 to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
   %conv52 = trunc i64 %sub.ptr.sub to i16
   %size53 = getelementptr inbounds %struct.ref_s, ptr %op, i64 1, i32 2
@@ -233,8 +233,8 @@ if.end50:                                         ; preds = %if.then36
   store i16 %conv56, ptr %size23, align 2, !tbaa !11
   %add.ptr58 = getelementptr inbounds %struct.ref_s, ptr %op, i64 2
   store ptr %add.ptr58, ptr @osp, align 8, !tbaa !18
-  %9 = load ptr, ptr @ostop, align 8, !tbaa !18
-  %cmp59 = icmp ugt ptr %add.ptr58, %9
+  %8 = load ptr, ptr @ostop, align 8, !tbaa !18
+  %cmp59 = icmp ugt ptr %add.ptr58, %8
   br i1 %cmp59, label %if.then61, label %if.end63
 
 if.then61:                                        ; preds = %if.end50

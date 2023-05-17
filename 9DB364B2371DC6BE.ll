@@ -81,7 +81,7 @@ if.then:                                          ; preds = %entry
   unreachable
 
 if.end:                                           ; preds = %entry
-  %call3.i40 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.1, i64 noundef 305419896) #7
+  %call3.i36 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.1, i64 noundef 305419896) #7
   %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(9) @.str.3, ptr noundef nonnull dereferenceable(9) %buf, i64 9)
   %tobool9.not = icmp eq i32 %bcmp, 0
   br i1 %tobool9.not, label %if.end11, label %if.then10
@@ -92,8 +92,8 @@ if.then10:                                        ; preds = %if.end
 
 if.end11:                                         ; preds = %if.end
   %call.i = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str, i64 noundef 2864434397, i64 noundef 305419896) #7
-  %bcmp37 = call i32 @bcmp(ptr noundef nonnull dereferenceable(17) @.str.4, ptr noundef nonnull dereferenceable(17) %buf, i64 17)
-  %tobool17.not = icmp eq i32 %bcmp37, 0
+  %bcmp40 = call i32 @bcmp(ptr noundef nonnull dereferenceable(17) @.str.4, ptr noundef nonnull dereferenceable(17) %buf, i64 17)
+  %tobool17.not = icmp eq i32 %bcmp40, 0
   br i1 %tobool17.not, label %if.end19, label %if.then18
 
 if.then18:                                        ; preds = %if.end11
@@ -101,9 +101,9 @@ if.then18:                                        ; preds = %if.end11
   unreachable
 
 if.end19:                                         ; preds = %if.end11
-  %call.i41 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str, i64 noundef 4294967295, i64 noundef 4294967295) #7
-  %bcmp38 = call i32 @bcmp(ptr noundef nonnull dereferenceable(17) @.str.5, ptr noundef nonnull dereferenceable(17) %buf, i64 17)
-  %tobool25.not = icmp eq i32 %bcmp38, 0
+  %call.i37 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str, i64 noundef 4294967295, i64 noundef 4294967295) #7
+  %bcmp41 = call i32 @bcmp(ptr noundef nonnull dereferenceable(17) @.str.5, ptr noundef nonnull dereferenceable(17) %buf, i64 17)
+  %tobool25.not = icmp eq i32 %bcmp41, 0
   br i1 %tobool25.not, label %if.end27, label %if.then26
 
 if.then26:                                        ; preds = %if.end19
@@ -111,9 +111,9 @@ if.then26:                                        ; preds = %if.end19
   unreachable
 
 if.end27:                                         ; preds = %if.end19
-  %call3.i42 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.1, i64 noundef 2864434397) #7
-  %bcmp39 = call i32 @bcmp(ptr noundef nonnull dereferenceable(9) @.str.6, ptr noundef nonnull dereferenceable(9) %buf, i64 9)
-  %tobool33.not = icmp eq i32 %bcmp39, 0
+  %call3.i38 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.1, i64 noundef 2864434397) #7
+  %bcmp42 = call i32 @bcmp(ptr noundef nonnull dereferenceable(9) @.str.6, ptr noundef nonnull dereferenceable(9) %buf, i64 9)
+  %tobool33.not = icmp eq i32 %bcmp42, 0
   br i1 %tobool33.not, label %if.end35, label %if.then34
 
 if.then34:                                        ; preds = %if.end27

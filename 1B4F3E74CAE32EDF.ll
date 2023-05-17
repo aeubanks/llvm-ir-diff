@@ -182,16 +182,16 @@ ht_create.exit:                                   ; preds = %while.cond.i
   %sext.i = shl i64 %1, 32
   %conv7.i = ashr exact i64 %sext.i, 32
   %call8.i = tail call noalias ptr @calloc(i64 noundef %conv7.i, i64 noundef 8) #15
-  %cmp2.not70 = icmp slt i32 %cond, 1
-  br i1 %cmp2.not70, label %for.end15, label %for.body
+  %cmp2.not72 = icmp slt i32 %cond, 1
+  br i1 %cmp2.not72, label %for.end15, label %for.body
 
 for.cond6.preheader:                              ; preds = %ht_find_new.exit
-  %cmp772 = icmp sgt i32 %cond, 0
-  br i1 %cmp772, label %for.body8, label %for.end15
+  %cmp774 = icmp sgt i32 %cond, 0
+  br i1 %cmp774, label %for.body8, label %for.end15
 
 for.body:                                         ; preds = %ht_create.exit, %ht_find_new.exit
-  %i.071 = phi i32 [ %inc, %ht_find_new.exit ], [ 1, %ht_create.exit ]
-  %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %i.071) #14
+  %i.073 = phi i32 [ %inc, %ht_find_new.exit ], [ 1, %ht_create.exit ]
+  %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %i.073) #14
   %2 = load i8, ptr %buf, align 16, !tbaa !26
   %tobool.not6.i.i = icmp eq i8 %2, 0
   br i1 %tobool.not6.i.i, label %ht_hashcode.exit.i, label %for.body.i.i
@@ -293,15 +293,15 @@ ht_node_create.exit34.i:                          ; preds = %if.end.i30.i
 ht_find_new.exit:                                 ; preds = %while.body.i, %ht_node_create.exit.i, %ht_node_create.exit34.i
   %retval.0.i = phi ptr [ %call.i.i, %ht_node_create.exit.i ], [ %call.i25.i, %ht_node_create.exit34.i ], [ %node.039.i, %while.body.i ]
   %val = getelementptr inbounds %struct.ht_node, ptr %retval.0.i, i64 0, i32 1
-  store i32 %i.071, ptr %val, align 8, !tbaa !11
-  %inc = add nuw i32 %i.071, 1
-  %exitcond.not = icmp eq i32 %i.071, %cond
+  store i32 %i.073, ptr %val, align 8, !tbaa !11
+  %inc = add nuw i32 %i.073, 1
+  %exitcond.not = icmp eq i32 %i.073, %cond
   br i1 %exitcond.not, label %for.cond6.preheader, label %for.body, !llvm.loop !29
 
-for.body8:                                        ; preds = %for.cond6.preheader, %ht_find.exit
-  %i.174 = phi i32 [ %dec, %ht_find.exit ], [ %cond, %for.cond6.preheader ]
-  %c.073 = phi i32 [ %spec.select, %ht_find.exit ], [ 0, %for.cond6.preheader ]
-  %call10 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %i.174) #14
+for.body8:                                        ; preds = %for.cond6.preheader, %for.cond6
+  %i.176 = phi i32 [ %dec, %for.cond6 ], [ %cond, %for.cond6.preheader ]
+  %c.075 = phi i32 [ %10, %for.cond6 ], [ 0, %for.cond6.preheader ]
+  %call10 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %i.176) #14
   %6 = load i8, ptr %buf, align 16, !tbaa !26
   %tobool.not6.i.i35 = icmp eq i8 %6, 0
   br i1 %tobool.not6.i.i35, label %ht_hashcode.exit.i51, label %for.body.i.i43
@@ -326,7 +326,7 @@ ht_hashcode.exit.i51:                             ; preds = %for.body.i.i43, %fo
   %arrayidx.i50 = getelementptr inbounds ptr, ptr %call8.i, i64 %idxprom.i49
   %node.09.i = load ptr, ptr %arrayidx.i50, align 8, !tbaa !23
   %tobool.not10.i = icmp eq ptr %node.09.i, null
-  br i1 %tobool.not10.i, label %ht_find.exit, label %while.body.i54
+  br i1 %tobool.not10.i, label %for.cond6, label %while.body.i54
 
 while.body.i54:                                   ; preds = %ht_hashcode.exit.i51, %if.end.i58
   %node.011.i = phi ptr [ %node.0.i56, %if.end.i58 ], [ %node.09.i, %ht_hashcode.exit.i51 ]
@@ -339,41 +339,44 @@ if.end.i58:                                       ; preds = %while.body.i54
   %next.i55 = getelementptr inbounds %struct.ht_node, ptr %node.011.i, i64 0, i32 2
   %node.0.i56 = load ptr, ptr %next.i55, align 8, !tbaa !23
   %tobool.not.i57 = icmp eq ptr %node.0.i56, null
-  br i1 %tobool.not.i57, label %ht_find.exit, label %while.body.i54, !llvm.loop !30
+  br i1 %tobool.not.i57, label %for.cond6, label %while.body.i54, !llvm.loop !30
 
-ht_find.exit:                                     ; preds = %while.body.i54, %if.end.i58, %ht_hashcode.exit.i51
-  %node.0.lcssa.i = phi i32 [ 0, %ht_hashcode.exit.i51 ], [ 1, %while.body.i54 ], [ 0, %if.end.i58 ]
-  %spec.select = add nuw nsw i32 %node.0.lcssa.i, %c.073
-  %dec = add nsw i32 %i.174, -1
-  %cmp7 = icmp sgt i32 %i.174, 1
+ht_find.exit:                                     ; preds = %while.body.i54
+  %inc13 = add nsw i32 %c.075, 1
+  br label %for.cond6
+
+for.cond6:                                        ; preds = %if.end.i58, %ht_hashcode.exit.i51, %ht_find.exit
+  %10 = phi i32 [ %inc13, %ht_find.exit ], [ %c.075, %ht_hashcode.exit.i51 ], [ %c.075, %if.end.i58 ]
+  %dec = add nsw i32 %i.176, -1
+  %cmp7 = icmp sgt i32 %i.176, 1
   br i1 %cmp7, label %for.body8, label %for.end15, !llvm.loop !31
 
-for.end15:                                        ; preds = %ht_find.exit, %ht_create.exit, %for.cond6.preheader
-  %c.0.lcssa = phi i32 [ 0, %for.cond6.preheader ], [ 0, %ht_create.exit ], [ %spec.select, %ht_find.exit ]
+for.end15:                                        ; preds = %for.cond6, %ht_create.exit, %for.cond6.preheader
+  %c.0.lcssa = phi i32 [ 0, %for.cond6.preheader ], [ 0, %ht_create.exit ], [ %10, %for.cond6 ]
   %cmp13.i = icmp sgt i32 %conv4.i, 0
   br i1 %cmp13.i, label %for.body.i, label %ht_destroy.exit
 
 for.body.i:                                       ; preds = %for.end15, %for.inc.i
   %indvars.iv.i60 = phi i64 [ %indvars.iv.next.i64, %for.inc.i ], [ 0, %for.end15 ]
   %arrayidx.i61 = getelementptr inbounds ptr, ptr %call8.i, i64 %indvars.iv.i60
-  %10 = load ptr, ptr %arrayidx.i61, align 8, !tbaa !23
-  %tobool.not11.i = icmp eq ptr %10, null
+  %11 = load ptr, ptr %arrayidx.i61, align 8, !tbaa !23
+  %tobool.not11.i = icmp eq ptr %11, null
   br i1 %tobool.not11.i, label %for.inc.i, label %while.body.i63
 
 while.body.i63:                                   ; preds = %for.body.i, %while.body.i63
-  %next.012.i = phi ptr [ %11, %while.body.i63 ], [ %10, %for.body.i ]
+  %next.012.i = phi ptr [ %12, %while.body.i63 ], [ %11, %for.body.i ]
   %next1.i = getelementptr inbounds %struct.ht_node, ptr %next.012.i, i64 0, i32 2
-  %11 = load ptr, ptr %next1.i, align 8, !tbaa !12
-  %12 = load ptr, ptr %next.012.i, align 8, !tbaa !5
-  tail call void @free(ptr noundef %12) #14
+  %12 = load ptr, ptr %next1.i, align 8, !tbaa !12
+  %13 = load ptr, ptr %next.012.i, align 8, !tbaa !5
+  tail call void @free(ptr noundef %13) #14
   tail call void @free(ptr noundef nonnull %next.012.i) #14
-  %tobool.not.i62 = icmp eq ptr %11, null
+  %tobool.not.i62 = icmp eq ptr %12, null
   br i1 %tobool.not.i62, label %for.inc.i, label %while.body.i63, !llvm.loop !24
 
 for.inc.i:                                        ; preds = %while.body.i63, %for.body.i
   %indvars.iv.next.i64 = add nuw nsw i64 %indvars.iv.i60, 1
-  %exitcond76.not = icmp eq i64 %indvars.iv.next.i64, %conv7.i
-  br i1 %exitcond76.not, label %ht_destroy.exit, label %for.body.i, !llvm.loop !25
+  %exitcond79.not = icmp eq i64 %indvars.iv.next.i64, %conv7.i
+  br i1 %exitcond79.not, label %ht_destroy.exit, label %for.body.i, !llvm.loop !25
 
 ht_destroy.exit:                                  ; preds = %for.inc.i, %for.end15
   tail call void @free(ptr noundef %call8.i) #14

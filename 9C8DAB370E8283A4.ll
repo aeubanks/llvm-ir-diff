@@ -67,6 +67,7 @@ entry:
   call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %charMask) #4
   %0 = load ptr, ptr %p, align 8, !tbaa !18
   %1 = load i8, ptr %0, align 4, !tbaa !19
+  %conv = zext i8 %1 to i32
   %cmp.not = icmp eq i8 %1, 0
   br i1 %cmp.not, label %if.else, label %if.then
 
@@ -147,12 +148,11 @@ RangeDec_Decode.exit:                             ; preds = %lor.rhs.i
 if.end:                                           ; preds = %if.then
   %PrevSuccess = getelementptr inbounds %struct.CPpmd8, ptr %p, i64 0, i32 5
   store i32 0, ptr %PrevSuccess, align 8, !tbaa !30
-  %conv14 = zext i8 %1 to i32
   br label %do.body
 
 do.body:                                          ; preds = %do.cond, %if.end
   %hiCnt.0 = phi i32 [ %conv5, %if.end ], [ %add, %do.cond ]
-  %i.0 = phi i32 [ %conv14, %if.end ], [ %dec, %do.cond ]
+  %i.0 = phi i32 [ %conv, %if.end ], [ %dec, %do.cond ]
   %s.0 = phi ptr [ %add.ptr, %if.end ], [ %incdec.ptr, %do.cond ]
   %incdec.ptr = getelementptr inbounds %struct.CPpmd_State, ptr %s.0, i64 1
   %Freq15 = getelementptr inbounds %struct.CPpmd_State, ptr %s.0, i64 1, i32 1
@@ -451,7 +451,7 @@ if.end131:                                        ; preds = %if.else
   store i32 %add.i526, ptr %Low.i525, align 8, !tbaa !5
   %sub.i528 = sub i32 %55, %mul.i524
   store i32 %sub.i528, ptr %Code, align 4, !tbaa !14
-  %mul2.i529 = mul i32 %sub134, %shr111
+  %mul2.i529 = mul i32 %shr111, %sub134
   store i32 %mul2.i529, ptr %Range, align 8, !tbaa !13
   %Stream.i530 = getelementptr inbounds %struct.CPpmd8, ptr %p, i64 0, i32 21
   br label %while.cond.i534
@@ -589,7 +589,7 @@ do.body226:                                       ; preds = %do.body226, %do.end
   br i1 %cmp241.not, label %do.end243, label %do.body226, !llvm.loop !45
 
 do.end243:                                        ; preds = %do.body226
-  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef nonnull %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
+  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
   %92 = load i32, ptr %freqSum, align 4, !tbaa !46
   %add245 = add i32 %92, %add235
   store i32 %add245, ptr %freqSum, align 4, !tbaa !46
@@ -662,6 +662,7 @@ while.body.critedge.i575:                         ; preds = %land.rhs.i568, %whi
 RangeDec_Decode.exit576:                          ; preds = %lor.rhs.i565
   %Shift = getelementptr inbounds %struct.CPpmd_See, ptr %call244, i64 0, i32 1
   %105 = load i8, ptr %Shift, align 1, !tbaa !48
+  %conv267 = zext i8 %105 to i32
   %cmp268 = icmp ult i8 %105, 7
   br i1 %cmp268, label %land.lhs.true, label %if.end283
 
@@ -679,8 +680,7 @@ if.then274:                                       ; preds = %land.lhs.true
   store i16 %shl, ptr %call244, align 1, !tbaa !50
   %inc278 = add nuw nsw i8 %105, 1
   store i8 %inc278, ptr %Shift, align 1, !tbaa !48
-  %conv279 = zext i8 %105 to i32
-  %shl280 = shl nuw nsw i32 3, %conv279
+  %shl280 = shl i32 3, %conv267
   %conv281 = trunc i32 %shl280 to i8
   store i8 %conv281, ptr %Count, align 1, !tbaa !49
   br label %if.end283

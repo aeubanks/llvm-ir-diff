@@ -96,9 +96,9 @@ while.cond:                                       ; preds = %if.end29, %while.co
   %3 = add i8 %2, -48
   %or.cond336 = icmp ult i8 %3, 10
   %cmp48 = icmp eq i8 %2, 46
-  %or.cond340 = or i1 %cmp48, %or.cond336
+  %or.cond337 = or i1 %cmp48, %or.cond336
   %incdec.ptr50 = getelementptr inbounds i8, ptr %str.1, i64 1
-  br i1 %or.cond340, label %while.cond, label %while.end, !llvm.loop !13
+  br i1 %or.cond337, label %while.cond, label %while.end, !llvm.loop !13
 
 while.end:                                        ; preds = %while.cond
   switch i8 %2, label %sw.default [
@@ -217,12 +217,12 @@ while.cond142.while.cond150thread-pre-split_crit_edge: ; preds = %while.body146
   br label %while.cond150thread-pre-split
 
 while.cond150thread-pre-split:                    ; preds = %while.cond142.while.cond150thread-pre-split_crit_edge, %if.end141
-  %.pr338 = phi float [ %conv148, %while.cond142.while.cond150thread-pre-split_crit_edge ], [ %.pr, %if.end141 ]
-  %cmp152343 = fcmp olt float %.pr338, -1.800000e+02
+  %.pr339 = phi float [ %conv148, %while.cond142.while.cond150thread-pre-split_crit_edge ], [ %.pr, %if.end141 ]
+  %cmp152343 = fcmp olt float %.pr339, -1.800000e+02
   br i1 %cmp152343, label %while.body154, label %while.end157
 
 while.body154:                                    ; preds = %while.cond150thread-pre-split, %while.body154
-  %22 = phi float [ %conv156, %while.body154 ], [ %.pr338, %while.cond150thread-pre-split ]
+  %22 = phi float [ %conv156, %while.body154 ], [ %.pr339, %while.cond150thread-pre-split ]
   %conv156 = fadd float %22, 3.600000e+02
   %cmp152 = fcmp olt float %conv156, -1.800000e+02
   br i1 %cmp152, label %while.body154, label %while.cond150.while.end157_crit_edge, !llvm.loop !21
@@ -232,11 +232,11 @@ while.cond150.while.end157_crit_edge:             ; preds = %while.body154
   br label %while.end157
 
 while.end157:                                     ; preds = %while.cond150.while.end157_crit_edge, %while.cond150thread-pre-split
-  %.lcssa = phi float [ %conv156, %while.cond150.while.end157_crit_edge ], [ %.pr338, %while.cond150thread-pre-split ]
+  %.lcssa = phi float [ %conv156, %while.cond150.while.end157_crit_edge ], [ %.pr339, %while.cond150thread-pre-split ]
   %cmp159 = fcmp ult float %.lcssa, -1.800000e+02
   %cmp163 = fcmp ugt float %.lcssa, 1.800000e+02
-  %or.cond337 = or i1 %cmp159, %cmp163
-  br i1 %or.cond337, label %if.then165, label %if.end167
+  %or.cond338 = or i1 %cmp159, %cmp163
+  br i1 %or.cond338, label %if.then165, label %if.end167
 
 if.then165:                                       ; preds = %while.end157
   %23 = load ptr, ptr @no_fpos, align 8, !tbaa !22
@@ -378,11 +378,11 @@ if.else246:                                       ; preds = %if.then235
 
 if.end250:                                        ; preds = %if.else246, %if.then241
   %incdec.ptr251 = getelementptr inbounds i8, ptr %str.2, i64 1
-  %.pr339 = load i8, ptr %incdec.ptr251, align 1, !tbaa !12
+  %.pr340 = load i8, ptr %incdec.ptr251, align 1, !tbaa !12
   br label %if.end252
 
 if.end252:                                        ; preds = %if.end250, %sw.epilog231
-  %29 = phi i8 [ %.pr339, %if.end250 ], [ %28, %sw.epilog231 ]
+  %29 = phi i8 [ %.pr340, %if.end250 ], [ %28, %sw.epilog231 ]
   %cmp254.not = icmp eq i8 %29, 0
   br i1 %cmp254.not, label %cleanup, label %if.then256
 

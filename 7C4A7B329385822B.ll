@@ -9,7 +9,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.then:
+entry:
   store i8 1, ptr @entry, align 1, !tbaa !5
   store i8 0, ptr getelementptr inbounds (%union.iso_directory_record, ptr @entry, i64 0, i32 0, i64 1), align 1, !tbaa !5
   tail call void @exit(i32 noundef 0) #3

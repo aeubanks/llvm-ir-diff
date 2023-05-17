@@ -66,6 +66,7 @@ entry:
   call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %charMask) #4
   %0 = load ptr, ptr %p, align 8, !tbaa !16
   %1 = load i8, ptr %0, align 4, !tbaa !17
+  %conv = zext i8 %1 to i32
   %cmp.not = icmp eq i8 %1, 0
   br i1 %cmp.not, label %if.else, label %if.then
 
@@ -142,11 +143,10 @@ if.end:                                           ; preds = %if.then
   %Freq10 = getelementptr inbounds %struct.CPpmd_State, ptr %add.ptr, i64 0, i32 1
   %15 = load i8, ptr %Freq10, align 1, !tbaa !23
   %conv11 = zext i8 %15 to i32
-  %conv14 = zext i8 %1 to i32
   br label %do.body
 
 do.body:                                          ; preds = %if.end26, %if.end
-  %i.0 = phi i32 [ %conv14, %if.end ], [ %dec, %if.end26 ]
+  %i.0 = phi i32 [ %conv, %if.end ], [ %dec, %if.end26 ]
   %sum.0 = phi i32 [ %conv11, %if.end ], [ %add, %if.end26 ]
   %s.0 = phi ptr [ %add.ptr, %if.end ], [ %incdec.ptr, %if.end26 ]
   %incdec.ptr = getelementptr inbounds %struct.CPpmd_State, ptr %s.0, i64 1
@@ -224,12 +224,12 @@ for.cond.preheader:                               ; preds = %if.end26
   %idxprom57 = zext i8 %16 to i64
   %arrayidx58 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom57
   store i8 0, ptr %arrayidx58, align 1, !tbaa !5
-  %xtraiter = and i32 %conv14, 3
+  %xtraiter = and i32 %conv, 3
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %do.body62.prol.loopexit, label %do.body62.prol
 
 do.body62.prol:                                   ; preds = %for.cond.preheader, %do.body62.prol
-  %i.1.prol = phi i32 [ %dec69.prol, %do.body62.prol ], [ %conv14, %for.cond.preheader ]
+  %i.1.prol = phi i32 [ %dec69.prol, %do.body62.prol ], [ %conv, %for.cond.preheader ]
   %s.1.prol = phi ptr [ %incdec.ptr64.prol, %do.body62.prol ], [ %incdec.ptr, %for.cond.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %do.body62.prol ], [ 0, %for.cond.preheader ]
   %incdec.ptr64.prol = getelementptr inbounds %struct.CPpmd_State, ptr %s.1.prol, i64 -1
@@ -243,7 +243,7 @@ do.body62.prol:                                   ; preds = %for.cond.preheader,
   br i1 %prol.iter.cmp.not, label %do.body62.prol.loopexit, label %do.body62.prol, !llvm.loop !33
 
 do.body62.prol.loopexit:                          ; preds = %do.body62.prol, %for.cond.preheader
-  %i.1.unr = phi i32 [ %conv14, %for.cond.preheader ], [ %dec69.prol, %do.body62.prol ]
+  %i.1.unr = phi i32 [ %conv, %for.cond.preheader ], [ %dec69.prol, %do.body62.prol ]
   %s.1.unr = phi ptr [ %incdec.ptr, %for.cond.preheader ], [ %incdec.ptr64.prol, %do.body62.prol ]
   %28 = icmp ult i8 %1, 4
   br i1 %28, label %do.end71, label %do.body62
@@ -510,13 +510,13 @@ for.cond179:                                      ; preds = %RangeEnc_Encode.exi
   br label %do.body186
 
 do.body186:                                       ; preds = %if.end191, %for.cond179
-  %add.ptr196553 = phi ptr [ %add.ptr196, %if.end191 ], [ %74, %for.cond179 ]
-  %inc551 = phi i32 [ %inc, %if.end191 ], [ %OrderFall.promoted, %for.cond179 ]
-  %inc = add i32 %inc551, 1
-  %Suffix188 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr196553, i64 0, i32 4
+  %add.ptr196554 = phi ptr [ %add.ptr196, %if.end191 ], [ %74, %for.cond179 ]
+  %inc552 = phi i32 [ %inc, %if.end191 ], [ %OrderFall.promoted, %for.cond179 ]
+  %inc = add i32 %inc552, 1
+  %Suffix188 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr196554, i64 0, i32 4
   %76 = load i32, ptr %Suffix188, align 4, !tbaa !36
   %tobool189.not = icmp eq i32 %76, 0
-  br i1 %tobool189.not, label %cleanup293.critedge.loopexit544, label %if.end191
+  br i1 %tobool189.not, label %cleanup293.critedge538.loopexit545, label %if.end191
 
 if.end191:                                        ; preds = %do.body186
   %77 = load ptr, ptr %Base192, align 8, !tbaa !19
@@ -565,8 +565,8 @@ do.body220:                                       ; preds = %do.body220.preheade
   %idxprom225 = zext i8 %85 to i64
   %arrayidx226 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom225
   %86 = load i8, ptr %arrayidx226, align 1, !tbaa !5
-  %and228557 = and i8 %86, %84
-  %and228 = zext i8 %and228557 to i32
+  %and228558 = and i8 %86, %84
+  %and228 = zext i8 %and228558 to i32
   %add229 = add i32 %sum181.1, %and228
   %incdec.ptr230 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.1, i64 1
   %dec232 = add i32 %i182.1, -1
@@ -623,15 +623,16 @@ while.body.critedge.i.i514:                       ; preds = %land.rhs.i.i509, %w
 
 RangeEnc_Encode.exit515:                          ; preds = %lor.rhs.i.i506
   %97 = load i8, ptr %Shift.le, align 1, !tbaa !45
+  %conv238 = zext i8 %97 to i32
   %cmp239 = icmp ult i8 %97, 7
-  br i1 %cmp239, label %land.lhs.true, label %cleanup293.critedge.loopexit
+  br i1 %cmp239, label %land.lhs.true, label %cleanup293.critedge538.loopexit
 
 land.lhs.true:                                    ; preds = %RangeEnc_Encode.exit515
   %98 = load i8, ptr %Count.le, align 1, !tbaa !46
   %dec241 = add i8 %98, -1
   store i8 %dec241, ptr %Count.le, align 1, !tbaa !46
   %cmp243 = icmp eq i8 %dec241, 0
-  br i1 %cmp243, label %if.then245, label %cleanup293.critedge.loopexit
+  br i1 %cmp243, label %if.then245, label %cleanup293.critedge538.loopexit
 
 if.then245:                                       ; preds = %land.lhs.true
   %99 = load i16, ptr %call, align 1, !tbaa !47
@@ -639,11 +640,10 @@ if.then245:                                       ; preds = %land.lhs.true
   store i16 %shl, ptr %call, align 1, !tbaa !47
   %inc249 = add nuw nsw i8 %97, 1
   store i8 %inc249, ptr %Shift.le, align 1, !tbaa !45
-  %conv250 = zext i8 %97 to i32
-  %shl251 = shl nuw nsw i32 3, %conv250
+  %shl251 = shl i32 3, %conv238
   %conv252 = trunc i32 %shl251 to i8
   store i8 %conv252, ptr %Count.le, align 1, !tbaa !46
-  br label %cleanup293.critedge.loopexit
+  br label %cleanup293.critedge538.loopexit
 
 do.cond274:                                       ; preds = %do.body214
   %Freq259 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 0, i32 1
@@ -651,8 +651,8 @@ do.cond274:                                       ; preds = %do.body214
   %idxprom262 = zext i8 %83 to i64
   %arrayidx263 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom262
   %101 = load i8, ptr %arrayidx263, align 1, !tbaa !5
-  %and265555 = and i8 %101, %100
-  %and265 = zext i8 %and265555 to i32
+  %and265556 = and i8 %101, %100
+  %and265 = zext i8 %and265556 to i32
   %add266 = add i32 %sum181.0, %and265
   store i8 0, ptr %arrayidx263, align 1, !tbaa !5
   %incdec.ptr270 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 1
@@ -716,20 +716,20 @@ RangeEnc_Encode.exit537:                          ; preds = %lor.rhs.i.i528
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %escFreq) #4
   br label %for.cond179
 
-cleanup293.critedge.loopexit544:                  ; preds = %do.body186
+cleanup293.critedge538.loopexit545:               ; preds = %do.body186
   store i32 %inc, ptr %OrderFall, align 8, !tbaa !41
-  br label %cleanup293.critedge
+  br label %cleanup293.critedge538
 
-cleanup293.critedge.loopexit:                     ; preds = %if.then245, %land.lhs.true, %RangeEnc_Encode.exit515
+cleanup293.critedge538.loopexit:                  ; preds = %if.then245, %land.lhs.true, %RangeEnc_Encode.exit515
   store ptr %s180.0, ptr %FoundState255, align 8, !tbaa !28
   call void @Ppmd8_Update2(ptr noundef nonnull %p) #4
-  br label %cleanup293.critedge
+  br label %cleanup293.critedge538
 
-cleanup293.critedge:                              ; preds = %cleanup293.critedge.loopexit, %cleanup293.critedge.loopexit544
+cleanup293.critedge538:                           ; preds = %cleanup293.critedge538.loopexit, %cleanup293.critedge538.loopexit545
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %escFreq) #4
   br label %cleanup293
 
-cleanup293:                                       ; preds = %cleanup293.critedge, %RangeEnc_Encode.exit, %RangeEnc_Encode.exit433, %cleanup174
+cleanup293:                                       ; preds = %RangeEnc_Encode.exit433, %RangeEnc_Encode.exit, %cleanup293.critedge538, %cleanup174
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %charMask) #4
   ret void
 }

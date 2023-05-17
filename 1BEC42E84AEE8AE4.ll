@@ -49,9 +49,9 @@ if.end:                                           ; preds = %entry
 if.end6.thread:                                   ; preds = %if.end, %if.end.thread
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 2
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !7
-  %call.i21 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #4
-  %conv.i22 = trunc i64 %call.i21 to i32
-  store i32 %conv.i22, ptr @NumNodes, align 4, !tbaa !11
+  %call.i20 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #4
+  %conv.i21 = trunc i64 %call.i20 to i32
+  store i32 %conv.i21, ptr @NumNodes, align 4, !tbaa !11
   br label %if.end12
 
 if.end6:                                          ; preds = %if.end
@@ -62,8 +62,8 @@ if.end6:                                          ; preds = %if.end
 if.end12:                                         ; preds = %if.end6, %if.end6.thread
   %arrayidx9 = getelementptr inbounds ptr, ptr %argv, i64 1
   %2 = load ptr, ptr %arrayidx9, align 8, !tbaa !7
-  %call.i23 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #4
-  %conv.i24 = trunc i64 %call.i23 to i32
+  %call.i22 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #4
+  %conv.i23 = trunc i64 %call.i22 to i32
   %.pr = load i32, ptr @NumNodes, align 4, !tbaa !11
   %cmp3.i = icmp sgt i32 %.pr, 1
   br i1 %cmp3.i, label %while.body.i, label %mylog.exit
@@ -77,7 +77,7 @@ while.body.i:                                     ; preds = %if.end12, %while.bo
   br i1 %cmp.i, label %while.body.i, label %mylog.exit, !llvm.loop !5
 
 mylog.exit:                                       ; preds = %while.body.i, %if.end6, %if.end12
-  %size.031 = phi i32 [ %conv.i24, %if.end12 ], [ 32, %if.end6 ], [ %conv.i24, %while.body.i ]
+  %size.031 = phi i32 [ %conv.i23, %if.end12 ], [ 32, %if.end6 ], [ %conv.i23, %while.body.i ]
   %3 = phi i32 [ %.pr, %if.end12 ], [ 1, %if.end6 ], [ %.pr, %while.body.i ]
   %j.0.lcssa.i = phi i32 [ 0, %if.end12 ], [ 0, %if.end6 ], [ %inc.i, %while.body.i ]
   store i32 %j.0.lcssa.i, ptr @NDim, align 4, !tbaa !11

@@ -99,8 +99,8 @@ if.else57.us:                                     ; preds = %if.else.us
   %arrayidx70.us = getelementptr inbounds i32, ptr %src, i64 %16
   %17 = load i32, ptr %arrayidx70.us, align 4, !tbaa !5
   %.187.us = tail call i32 @llvm.smin.i32(i32 %15, i32 %17)
-  %spec.select.us = tail call i32 @llvm.smin.i32(i32 %13, i32 %.187.us)
-  %add106.us = add nsw i32 %spec.select.us, %12
+  %cond105.us = tail call i32 @llvm.smin.i32(i32 %13, i32 %.187.us)
+  %add106.us = add nsw i32 %cond105.us, %12
   %arrayidx108.us = getelementptr inbounds i32, ptr %result, i64 %indvars.iv211
   store i32 %add106.us, ptr %arrayidx108.us, align 4, !tbaa !5
   br label %for.inc110.us

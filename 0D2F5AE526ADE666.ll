@@ -25,60 +25,50 @@ if.then:                                          ; preds = %entry
   br label %cleanup
 
 if.end:                                           ; preds = %entry
-  %div143 = lshr i32 %conv, 1
-  %add = add nuw i32 %div143, 1
+  %div200 = lshr i32 %conv, 1
+  %add = add nuw i32 %div200, 1
   %conv2 = zext i32 %add to i64
   %call3 = tail call ptr @cli_calloc(i64 noundef %conv2, i64 noundef 2) #14
   %tobool.not = icmp eq ptr %call3, null
   br i1 %tobool.not, label %cleanup, label %for.cond.preheader
 
 for.cond.preheader:                               ; preds = %if.end
-  %cmp6225.not = icmp eq i32 %conv, 0
-  br i1 %cmp6225.not, label %cleanup, label %for.body
+  %cmp6236.not = icmp eq i32 %conv, 0
+  br i1 %cmp6236.not, label %cleanup, label %for.body
 
 for.body:                                         ; preds = %for.cond.preheader, %if.end99
-  %i.0227 = phi i32 [ %add100, %if.end99 ], [ 0, %for.cond.preheader ]
-  %ptr.0226 = phi ptr [ %incdec.ptr, %if.end99 ], [ %call3, %for.cond.preheader ]
-  %idxprom = zext i32 %i.0227 to i64
+  %i.0238 = phi i32 [ %add100, %if.end99 ], [ 0, %for.cond.preheader ]
+  %ptr.0237 = phi ptr [ %incdec.ptr, %if.end99 ], [ %call3, %for.cond.preheader ]
+  %idxprom = zext i32 %i.0238 to i64
   %arrayidx = getelementptr inbounds i8, ptr %hex, i64 %idxprom
   %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %conv8 = sext i8 %0 to i32
   %cmp9 = icmp eq i8 %0, 63
-  %add11 = or i32 %i.0227, 1
+  %add11 = or i32 %i.0238, 1
   %idxprom12 = zext i32 %add11 to i64
   %arrayidx13 = getelementptr inbounds i8, ptr %hex, i64 %idxprom12
   %1 = load i8, ptr %arrayidx13, align 1, !tbaa !5
+  %cmp15 = icmp eq i8 %1, 63
   br i1 %cmp9, label %land.lhs.true, label %if.else
 
 land.lhs.true:                                    ; preds = %for.body
-  %cmp15 = icmp eq i8 %1, 63
-  br i1 %cmp15, label %if.end99, label %if.else.thread
+  br i1 %cmp15, label %if.end99, label %if.then46
 
 if.else:                                          ; preds = %for.body
-  %conv23 = sext i8 %1 to i32
-  %cmp24 = icmp eq i8 %1, 63
-  br i1 %cmp24, label %if.then26, label %if.else40
-
-if.else.thread:                                   ; preds = %land.lhs.true
-  %arrayidx22230 = getelementptr inbounds i8, ptr %hex, i64 %idxprom12
-  %2 = load i8, ptr %arrayidx22230, align 1, !tbaa !5
-  %conv23231 = sext i8 %2 to i32
-  %cmp24232 = icmp eq i8 %2, 63
-  br i1 %cmp24232, label %if.end.i, label %if.then46
+  br i1 %cmp15, label %if.then26, label %if.else61
 
 if.then26:                                        ; preds = %if.else
-  %conv29 = zext i8 %0 to i32
   %cmp.i = icmp sgt i8 %0, -1
   br i1 %cmp.i, label %if.end.i, label %if.else35
 
-if.end.i:                                         ; preds = %if.else.thread, %if.then26
-  %conv29236 = phi i32 [ %conv29, %if.then26 ], [ 63, %if.else.thread ]
+if.end.i:                                         ; preds = %if.then26
   %call.i = tail call ptr @__ctype_b_loc() #15
-  %3 = load ptr, ptr %call.i, align 8, !tbaa !8
-  %idxprom.i = zext i32 %conv29236 to i64
-  %arrayidx.i = getelementptr inbounds i16, ptr %3, i64 %idxprom.i
-  %4 = load i16, ptr %arrayidx.i, align 2, !tbaa !10
-  %5 = and i16 %4, 2048
-  %tobool.not.i = icmp eq i16 %5, 0
+  %2 = load ptr, ptr %call.i, align 8, !tbaa !8
+  %idxprom.i = zext i32 %conv8 to i64
+  %arrayidx.i = getelementptr inbounds i16, ptr %2, i64 %idxprom.i
+  %3 = load i16, ptr %arrayidx.i, align 2, !tbaa !10
+  %4 = and i16 %3, 2048
+  %tobool.not.i = icmp eq i16 %4, 0
   br i1 %tobool.not.i, label %if.end3.i, label %cli_hex2int.exit
 
 if.end3.i:                                        ; preds = %if.end.i
@@ -86,11 +76,11 @@ if.end3.i:                                        ; preds = %if.end.i
   %.pn.i = load ptr, ptr %call9.i, align 8, !tbaa !8
   %__res.0.in.i = getelementptr inbounds i32, ptr %.pn.i, i64 %idxprom.i
   %__res.0.i = load i32, ptr %__res.0.in.i, align 4, !tbaa !12
-  %6 = add i32 %__res.0.i, -97
-  %or.cond21.i = icmp ult i32 %6, 6
-  br i1 %or.cond21.i, label %cli_hex2int.exit.thread203, label %if.end20.i
+  %5 = add i32 %__res.0.i, -97
+  %or.cond21.i = icmp ult i32 %5, 6
+  br i1 %or.cond21.i, label %cli_hex2int.exit.thread211, label %if.end20.i
 
-cli_hex2int.exit.thread203:                       ; preds = %if.end3.i
+cli_hex2int.exit.thread211:                       ; preds = %if.end3.i
   %sub19.i = add nsw i32 %__res.0.i, -87
   br label %if.then33
 
@@ -99,167 +89,164 @@ if.end20.i:                                       ; preds = %if.end3.i
   br label %if.else35
 
 cli_hex2int.exit:                                 ; preds = %if.end.i
-  %sub.i = add nsw i32 %conv29236, -48
+  %sub.i = add nsw i32 %conv8, -48
   %cmp31 = icmp ugt i8 %0, 47
   br i1 %cmp31, label %if.then33, label %if.else35
 
-if.then33:                                        ; preds = %cli_hex2int.exit.thread203, %cli_hex2int.exit
-  %retval.0.i206 = phi i32 [ %sub19.i, %cli_hex2int.exit.thread203 ], [ %sub.i, %cli_hex2int.exit ]
-  %call30.tr = trunc i32 %retval.0.i206 to i16
-  %7 = shl nuw nsw i16 %call30.tr, 4
-  %conv39 = or i16 %7, 768
+if.then33:                                        ; preds = %cli_hex2int.exit.thread211, %cli_hex2int.exit
+  %retval.0.i214 = phi i32 [ %sub19.i, %cli_hex2int.exit.thread211 ], [ %sub.i, %cli_hex2int.exit ]
+  %retval.0.i.tr = trunc i32 %retval.0.i214 to i16
+  %6 = shl nuw nsw i16 %retval.0.i.tr, 4
+  %conv39 = or i16 %6, 768
   br label %if.end99
 
 if.else35:                                        ; preds = %if.then26, %cli_hex2int.exit, %if.end20.i
   tail call void @free(ptr noundef %call3) #14
   br label %cleanup
 
-if.else40:                                        ; preds = %if.else
-  %conv43 = sext i8 %0 to i32
-  switch i8 %0, label %if.else71 [
-    i8 63, label %if.then46
-    i8 40, label %if.end99
-  ]
+if.then46:                                        ; preds = %land.lhs.true
+  %conv23204 = sext i8 %1 to i32
+  %cmp.i143 = icmp sgt i8 %1, -1
+  br i1 %cmp.i143, label %if.end.i148, label %if.else56
 
-if.then46:                                        ; preds = %if.else.thread, %if.else40
-  %8 = phi i8 [ %1, %if.else40 ], [ %2, %if.else.thread ]
-  %conv23233239 = phi i32 [ %conv23, %if.else40 ], [ %conv23231, %if.else.thread ]
-  %cmp.i144 = icmp sgt i8 %8, -1
-  br i1 %cmp.i144, label %if.end.i149, label %if.else56
+if.end.i148:                                      ; preds = %if.then46
+  %call.i144 = tail call ptr @__ctype_b_loc() #15
+  %7 = load ptr, ptr %call.i144, align 8, !tbaa !8
+  %idxprom.i145 = zext i32 %conv23204 to i64
+  %arrayidx.i146 = getelementptr inbounds i16, ptr %7, i64 %idxprom.i145
+  %8 = load i16, ptr %arrayidx.i146, align 2, !tbaa !10
+  %9 = and i16 %8, 2048
+  %tobool.not.i147 = icmp eq i16 %9, 0
+  br i1 %tobool.not.i147, label %if.end3.i156, label %cli_hex2int.exit161
 
-if.end.i149:                                      ; preds = %if.then46
-  %call.i145 = tail call ptr @__ctype_b_loc() #15
-  %9 = load ptr, ptr %call.i145, align 8, !tbaa !8
-  %idxprom.i146 = zext i32 %conv23233239 to i64
-  %arrayidx.i147 = getelementptr inbounds i16, ptr %9, i64 %idxprom.i146
-  %10 = load i16, ptr %arrayidx.i147, align 2, !tbaa !10
-  %11 = and i16 %10, 2048
-  %tobool.not.i148 = icmp eq i16 %11, 0
-  br i1 %tobool.not.i148, label %if.end3.i157, label %cli_hex2int.exit162
+if.end3.i156:                                     ; preds = %if.end.i148
+  %call9.i151 = tail call ptr @__ctype_tolower_loc() #15
+  %.pn.i152 = load ptr, ptr %call9.i151, align 8, !tbaa !8
+  %__res.0.in.i153 = getelementptr inbounds i32, ptr %.pn.i152, i64 %idxprom.i145
+  %__res.0.i154 = load i32, ptr %__res.0.in.i153, align 4, !tbaa !12
+  %10 = add i32 %__res.0.i154, -97
+  %or.cond21.i155 = icmp ult i32 %10, 6
+  br i1 %or.cond21.i155, label %cli_hex2int.exit161.thread220, label %if.end20.i159
 
-if.end3.i157:                                     ; preds = %if.end.i149
-  %call9.i152 = tail call ptr @__ctype_tolower_loc() #15
-  %.pn.i153 = load ptr, ptr %call9.i152, align 8, !tbaa !8
-  %__res.0.in.i154 = getelementptr inbounds i32, ptr %.pn.i153, i64 %idxprom.i146
-  %__res.0.i155 = load i32, ptr %__res.0.in.i154, align 4, !tbaa !12
-  %12 = add i32 %__res.0.i155, -97
-  %or.cond21.i156 = icmp ult i32 %12, 6
-  br i1 %or.cond21.i156, label %cli_hex2int.exit162.thread209, label %if.end20.i160
-
-cli_hex2int.exit162.thread209:                    ; preds = %if.end3.i157
-  %sub19.i158 = add nsw i32 %__res.0.i155, -87
+cli_hex2int.exit161.thread220:                    ; preds = %if.end3.i156
+  %sub19.i157 = add nsw i32 %__res.0.i154, -87
   br label %if.then54
 
-if.end20.i160:                                    ; preds = %if.end3.i157
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i155) #14
+if.end20.i159:                                    ; preds = %if.end3.i156
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i154) #14
   br label %if.else56
 
-cli_hex2int.exit162:                              ; preds = %if.end.i149
-  %sub.i150 = add nsw i32 %conv23233239, -48
-  %cmp52 = icmp ugt i8 %8, 47
+cli_hex2int.exit161:                              ; preds = %if.end.i148
+  %sub.i149 = add nsw i32 %conv23204, -48
+  %cmp52 = icmp ugt i8 %1, 47
   br i1 %cmp52, label %if.then54, label %if.else56
 
-if.then54:                                        ; preds = %cli_hex2int.exit162.thread209, %cli_hex2int.exit162
-  %retval.0.i161212 = phi i32 [ %sub19.i158, %cli_hex2int.exit162.thread209 ], [ %sub.i150, %cli_hex2int.exit162 ]
-  %13 = trunc i32 %retval.0.i161212 to i16
-  %conv60 = or i16 %13, 1024
+if.then54:                                        ; preds = %cli_hex2int.exit161.thread220, %cli_hex2int.exit161
+  %retval.0.i160223 = phi i32 [ %sub19.i157, %cli_hex2int.exit161.thread220 ], [ %sub.i149, %cli_hex2int.exit161 ]
+  %11 = trunc i32 %retval.0.i160223 to i16
+  %conv60 = or i16 %11, 1024
   br label %if.end99
 
-if.else56:                                        ; preds = %if.then46, %cli_hex2int.exit162, %if.end20.i160
+if.else56:                                        ; preds = %if.then46, %cli_hex2int.exit161, %if.end20.i159
   tail call void @free(ptr noundef %call3) #14
   br label %cleanup
 
-if.else71:                                        ; preds = %if.else40
-  %cmp.i163 = icmp sgt i8 %0, -1
-  br i1 %cmp.i163, label %if.end.i168, label %if.else94
+if.else61:                                        ; preds = %if.else
+  %cmp65 = icmp eq i8 %0, 40
+  br i1 %cmp65, label %if.end99, label %if.else71
 
-if.end.i168:                                      ; preds = %if.else71
-  %call.i164 = tail call ptr @__ctype_b_loc() #15
-  %14 = load ptr, ptr %call.i164, align 8, !tbaa !8
-  %idxprom.i165 = zext i32 %conv43 to i64
-  %arrayidx.i166 = getelementptr inbounds i16, ptr %14, i64 %idxprom.i165
-  %15 = load i16, ptr %arrayidx.i166, align 2, !tbaa !10
-  %16 = and i16 %15, 2048
-  %tobool.not.i167 = icmp eq i16 %16, 0
-  br i1 %tobool.not.i167, label %if.end3.i176, label %cli_hex2int.exit181
+if.else71:                                        ; preds = %if.else61
+  %cmp.i162 = icmp sgt i8 %0, -1
+  br i1 %cmp.i162, label %if.end.i167, label %if.else94
 
-if.end3.i176:                                     ; preds = %if.end.i168
-  %call9.i171 = tail call ptr @__ctype_tolower_loc() #15
-  %.pn.i172 = load ptr, ptr %call9.i171, align 8, !tbaa !8
-  %__res.0.in.i173 = getelementptr inbounds i32, ptr %.pn.i172, i64 %idxprom.i165
-  %__res.0.i174 = load i32, ptr %__res.0.in.i173, align 4, !tbaa !12
-  %17 = add i32 %__res.0.i174, -97
-  %or.cond21.i175 = icmp ult i32 %17, 6
-  br i1 %or.cond21.i175, label %cli_hex2int.exit181.thread215, label %if.end20.i179
+if.end.i167:                                      ; preds = %if.else71
+  %call.i163 = tail call ptr @__ctype_b_loc() #15
+  %12 = load ptr, ptr %call.i163, align 8, !tbaa !8
+  %idxprom.i164 = zext i32 %conv8 to i64
+  %arrayidx.i165 = getelementptr inbounds i16, ptr %12, i64 %idxprom.i164
+  %13 = load i16, ptr %arrayidx.i165, align 2, !tbaa !10
+  %14 = and i16 %13, 2048
+  %tobool.not.i166 = icmp eq i16 %14, 0
+  br i1 %tobool.not.i166, label %if.end3.i175, label %cli_hex2int.exit180
 
-cli_hex2int.exit181.thread215:                    ; preds = %if.end3.i176
-  %sub19.i177 = add nsw i32 %__res.0.i174, -87
+if.end3.i175:                                     ; preds = %if.end.i167
+  %call9.i170 = tail call ptr @__ctype_tolower_loc() #15
+  %.pn.i171 = load ptr, ptr %call9.i170, align 8, !tbaa !8
+  %__res.0.in.i172 = getelementptr inbounds i32, ptr %.pn.i171, i64 %idxprom.i164
+  %__res.0.i173 = load i32, ptr %__res.0.in.i172, align 4, !tbaa !12
+  %15 = add i32 %__res.0.i173, -97
+  %or.cond21.i174 = icmp ult i32 %15, 6
+  br i1 %or.cond21.i174, label %cli_hex2int.exit180.thread226, label %if.end20.i178
+
+cli_hex2int.exit180.thread226:                    ; preds = %if.end3.i175
+  %sub19.i176 = add nsw i32 %__res.0.i173, -87
   br label %if.then78
 
-if.end20.i179:                                    ; preds = %if.end3.i176
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i174) #14
+if.end20.i178:                                    ; preds = %if.end3.i175
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i173) #14
   br label %if.else94
 
-cli_hex2int.exit181:                              ; preds = %if.end.i168
-  %sub.i169 = add nsw i32 %conv43, -48
+cli_hex2int.exit180:                              ; preds = %if.end.i167
+  %sub.i168 = add nsw i32 %conv8, -48
   %cmp76 = icmp ugt i8 %0, 47
   br i1 %cmp76, label %if.then78, label %if.else94
 
-if.then78:                                        ; preds = %cli_hex2int.exit181.thread215, %cli_hex2int.exit181
-  %retval.0.i180218 = phi i32 [ %sub19.i177, %cli_hex2int.exit181.thread215 ], [ %sub.i169, %cli_hex2int.exit181 ]
-  %cmp.i182 = icmp sgt i8 %1, -1
-  br i1 %cmp.i182, label %if.end.i187, label %if.else92
+if.then78:                                        ; preds = %cli_hex2int.exit180.thread226, %cli_hex2int.exit180
+  %retval.0.i179229 = phi i32 [ %sub19.i176, %cli_hex2int.exit180.thread226 ], [ %sub.i168, %cli_hex2int.exit180 ]
+  %conv83 = sext i8 %1 to i32
+  %cmp.i181 = icmp sgt i8 %1, -1
+  br i1 %cmp.i181, label %if.end.i186, label %if.else92
 
-if.end.i187:                                      ; preds = %if.then78
-  %idxprom.i184 = zext i32 %conv23 to i64
-  %arrayidx.i185 = getelementptr inbounds i16, ptr %14, i64 %idxprom.i184
-  %18 = load i16, ptr %arrayidx.i185, align 2, !tbaa !10
-  %19 = and i16 %18, 2048
-  %tobool.not.i186 = icmp eq i16 %19, 0
-  br i1 %tobool.not.i186, label %if.end3.i195, label %cli_hex2int.exit200
+if.end.i186:                                      ; preds = %if.then78
+  %idxprom.i183 = zext i32 %conv83 to i64
+  %arrayidx.i184 = getelementptr inbounds i16, ptr %12, i64 %idxprom.i183
+  %16 = load i16, ptr %arrayidx.i184, align 2, !tbaa !10
+  %17 = and i16 %16, 2048
+  %tobool.not.i185 = icmp eq i16 %17, 0
+  br i1 %tobool.not.i185, label %if.end3.i194, label %cli_hex2int.exit199
 
-if.end3.i195:                                     ; preds = %if.end.i187
-  %call9.i190 = tail call ptr @__ctype_tolower_loc() #15
-  %.pn.i191 = load ptr, ptr %call9.i190, align 8, !tbaa !8
-  %__res.0.in.i192 = getelementptr inbounds i32, ptr %.pn.i191, i64 %idxprom.i184
-  %__res.0.i193 = load i32, ptr %__res.0.in.i192, align 4, !tbaa !12
-  %20 = add i32 %__res.0.i193, -97
-  %or.cond21.i194 = icmp ult i32 %20, 6
-  br i1 %or.cond21.i194, label %cli_hex2int.exit200.thread221, label %if.end20.i198
+if.end3.i194:                                     ; preds = %if.end.i186
+  %call9.i189 = tail call ptr @__ctype_tolower_loc() #15
+  %.pn.i190 = load ptr, ptr %call9.i189, align 8, !tbaa !8
+  %__res.0.in.i191 = getelementptr inbounds i32, ptr %.pn.i190, i64 %idxprom.i183
+  %__res.0.i192 = load i32, ptr %__res.0.in.i191, align 4, !tbaa !12
+  %18 = add i32 %__res.0.i192, -97
+  %or.cond21.i193 = icmp ult i32 %18, 6
+  br i1 %or.cond21.i193, label %cli_hex2int.exit199.thread232, label %if.end20.i197
 
-cli_hex2int.exit200.thread221:                    ; preds = %if.end3.i195
-  %sub19.i196 = add nsw i32 %__res.0.i193, -87
+cli_hex2int.exit199.thread232:                    ; preds = %if.end3.i194
+  %sub19.i195 = add nsw i32 %__res.0.i192, -87
   br label %if.then87
 
-if.end20.i198:                                    ; preds = %if.end3.i195
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i193) #14
+if.end20.i197:                                    ; preds = %if.end3.i194
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i192) #14
   br label %if.else92
 
-cli_hex2int.exit200:                              ; preds = %if.end.i187
-  %sub.i188 = add nsw i32 %conv23, -48
+cli_hex2int.exit199:                              ; preds = %if.end.i186
+  %sub.i187 = add nsw i32 %conv83, -48
   %cmp85 = icmp ugt i8 %1, 47
   br i1 %cmp85, label %if.then87, label %if.else92
 
-if.then87:                                        ; preds = %cli_hex2int.exit200.thread221, %cli_hex2int.exit200
-  %retval.0.i199224 = phi i32 [ %sub19.i196, %cli_hex2int.exit200.thread221 ], [ %sub.i188, %cli_hex2int.exit200 ]
-  %conv88 = shl nuw nsw i32 %retval.0.i180218, 4
-  %add90 = add nuw nsw i32 %retval.0.i199224, %conv88
+if.then87:                                        ; preds = %cli_hex2int.exit199.thread232, %cli_hex2int.exit199
+  %retval.0.i198235 = phi i32 [ %sub19.i195, %cli_hex2int.exit199.thread232 ], [ %sub.i187, %cli_hex2int.exit199 ]
+  %conv88 = shl nuw nsw i32 %retval.0.i179229, 4
+  %add90 = add nuw nsw i32 %retval.0.i198235, %conv88
   %conv91 = trunc i32 %add90 to i16
   br label %if.end99
 
-if.else92:                                        ; preds = %if.then78, %cli_hex2int.exit200, %if.end20.i198
+if.else92:                                        ; preds = %if.then78, %cli_hex2int.exit199, %if.end20.i197
   tail call void @free(ptr noundef %call3) #14
   br label %cleanup
 
-if.else94:                                        ; preds = %if.else71, %cli_hex2int.exit181, %if.end20.i179
+if.else94:                                        ; preds = %if.else71, %cli_hex2int.exit180, %if.end20.i178
   tail call void @free(ptr noundef %call3) #14
   br label %cleanup
 
-if.end99:                                         ; preds = %if.else40, %land.lhs.true, %if.then33, %if.then87, %if.then54
-  %val.0 = phi i16 [ %conv39, %if.then33 ], [ %conv60, %if.then54 ], [ %conv91, %if.then87 ], [ 256, %land.lhs.true ], [ 512, %if.else40 ]
-  %incdec.ptr = getelementptr inbounds i16, ptr %ptr.0226, i64 1
-  store i16 %val.0, ptr %ptr.0226, align 2, !tbaa !10
-  %add100 = add i32 %i.0227, 2
+if.end99:                                         ; preds = %if.else61, %land.lhs.true, %if.then33, %if.then87, %if.then54
+  %val.0 = phi i16 [ %conv39, %if.then33 ], [ %conv60, %if.then54 ], [ %conv91, %if.then87 ], [ 256, %land.lhs.true ], [ 512, %if.else61 ]
+  %incdec.ptr = getelementptr inbounds i16, ptr %ptr.0237, i64 1
+  store i16 %val.0, ptr %ptr.0237, align 2, !tbaa !10
+  %add100 = add i32 %i.0238, 2
   %cmp6 = icmp ult i32 %add100, %conv
   br i1 %cmp6, label %for.body, label %cleanup, !llvm.loop !14
 
@@ -320,7 +307,11 @@ if.end.i:                                         ; preds = %for.body
   %3 = load i16, ptr %arrayidx.i, align 2, !tbaa !10
   %4 = and i16 %3, 2048
   %tobool.not.i = icmp eq i16 %4, 0
-  br i1 %tobool.not.i, label %if.end3.i, label %cli_hex2int.exit
+  br i1 %tobool.not.i, label %if.end3.i, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.end.i
+  %sub.i = add nsw i32 %conv8, -48
+  br label %cli_hex2int.exit
 
 if.end3.i:                                        ; preds = %if.end.i
   %call9.i = tail call ptr @__ctype_tolower_loc() #15
@@ -329,68 +320,68 @@ if.end3.i:                                        ; preds = %if.end.i
   %__res.0.i = load i32, ptr %__res.0.in.i, align 4, !tbaa !12
   %5 = add i32 %__res.0.i, -97
   %or.cond21.i = icmp ult i32 %5, 6
-  br i1 %or.cond21.i, label %cli_hex2int.exit.thread, label %if.end20.i
+  br i1 %or.cond21.i, label %if.then18.i, label %if.end20.i
 
-cli_hex2int.exit.thread:                          ; preds = %if.end3.i
+if.then18.i:                                      ; preds = %if.end3.i
   %sub19.i = add nsw i32 %__res.0.i, -87
-  br label %if.then14
+  br label %cli_hex2int.exit
 
 if.end20.i:                                       ; preds = %if.end3.i
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i) #14
   br label %if.else30
 
-cli_hex2int.exit:                                 ; preds = %if.end.i
-  %sub.i = add nsw i32 %conv8, -48
-  %cmp12 = icmp sgt i8 %1, 47
+cli_hex2int.exit:                                 ; preds = %if.then2.i, %if.then18.i
+  %retval.0.i = phi i32 [ %sub.i, %if.then2.i ], [ %sub19.i, %if.then18.i ]
+  %sext = shl i32 %retval.0.i, 24
+  %cmp12 = icmp sgt i32 %sext, -16777216
   br i1 %cmp12, label %if.then14, label %if.else30
 
-if.then14:                                        ; preds = %cli_hex2int.exit.thread, %cli_hex2int.exit
-  %retval.0.i85 = phi i32 [ %sub19.i, %cli_hex2int.exit.thread ], [ %sub.i, %cli_hex2int.exit ]
+if.then14:                                        ; preds = %cli_hex2int.exit
   %6 = or i64 %indvars.iv, 1
   %arrayidx17 = getelementptr inbounds i8, ptr %hex, i64 %6
   %7 = load i8, ptr %arrayidx17, align 1, !tbaa !5
   %conv18 = sext i8 %7 to i32
-  %cmp.i54 = icmp sgt i8 %7, -1
-  br i1 %cmp.i54, label %if.end.i59, label %if.else
+  %cmp.i53 = icmp sgt i8 %7, -1
+  br i1 %cmp.i53, label %if.end.i58, label %if.else
 
-if.end.i59:                                       ; preds = %if.then14
-  %idxprom.i56 = zext i32 %conv18 to i64
-  %arrayidx.i57 = getelementptr inbounds i16, ptr %2, i64 %idxprom.i56
-  %8 = load i16, ptr %arrayidx.i57, align 2, !tbaa !10
+if.end.i58:                                       ; preds = %if.then14
+  %idxprom.i55 = zext i32 %conv18 to i64
+  %arrayidx.i56 = getelementptr inbounds i16, ptr %2, i64 %idxprom.i55
+  %8 = load i16, ptr %arrayidx.i56, align 2, !tbaa !10
   %9 = and i16 %8, 2048
-  %tobool.not.i58 = icmp eq i16 %9, 0
-  br i1 %tobool.not.i58, label %if.end3.i67, label %if.then2.i61
+  %tobool.not.i57 = icmp eq i16 %9, 0
+  br i1 %tobool.not.i57, label %if.end3.i66, label %if.then2.i60
 
-if.then2.i61:                                     ; preds = %if.end.i59
-  %sub.i60 = add nsw i32 %conv18, -48
-  br label %cli_hex2int.exit72
+if.then2.i60:                                     ; preds = %if.end.i58
+  %sub.i59 = add nsw i32 %conv18, -48
+  br label %cli_hex2int.exit71
 
-if.end3.i67:                                      ; preds = %if.end.i59
-  %call9.i62 = tail call ptr @__ctype_tolower_loc() #15
-  %.pn.i63 = load ptr, ptr %call9.i62, align 8, !tbaa !8
-  %__res.0.in.i64 = getelementptr inbounds i32, ptr %.pn.i63, i64 %idxprom.i56
-  %__res.0.i65 = load i32, ptr %__res.0.in.i64, align 4, !tbaa !12
-  %10 = add i32 %__res.0.i65, -97
-  %or.cond21.i66 = icmp ult i32 %10, 6
-  br i1 %or.cond21.i66, label %if.then18.i69, label %if.end20.i70
+if.end3.i66:                                      ; preds = %if.end.i58
+  %call9.i61 = tail call ptr @__ctype_tolower_loc() #15
+  %.pn.i62 = load ptr, ptr %call9.i61, align 8, !tbaa !8
+  %__res.0.in.i63 = getelementptr inbounds i32, ptr %.pn.i62, i64 %idxprom.i55
+  %__res.0.i64 = load i32, ptr %__res.0.in.i63, align 4, !tbaa !12
+  %10 = add i32 %__res.0.i64, -97
+  %or.cond21.i65 = icmp ult i32 %10, 6
+  br i1 %or.cond21.i65, label %if.then18.i68, label %if.end20.i69
 
-if.then18.i69:                                    ; preds = %if.end3.i67
-  %sub19.i68 = add nsw i32 %__res.0.i65, -87
-  br label %cli_hex2int.exit72
+if.then18.i68:                                    ; preds = %if.end3.i66
+  %sub19.i67 = add nsw i32 %__res.0.i64, -87
+  br label %cli_hex2int.exit71
 
-if.end20.i70:                                     ; preds = %if.end3.i67
-  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i65) #14
+if.end20.i69:                                     ; preds = %if.end3.i66
+  tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.5, i32 noundef %__res.0.i64) #14
   br label %if.else
 
-cli_hex2int.exit72:                               ; preds = %if.then2.i61, %if.then18.i69
-  %retval.0.i71 = phi i32 [ %sub.i60, %if.then2.i61 ], [ %sub19.i68, %if.then18.i69 ]
-  %11 = and i32 %retval.0.i71, 128
+cli_hex2int.exit71:                               ; preds = %if.then2.i60, %if.then18.i68
+  %retval.0.i70 = phi i32 [ %sub.i59, %if.then2.i60 ], [ %sub19.i67, %if.then18.i68 ]
+  %11 = and i32 %retval.0.i70, 128
   %cmp22 = icmp eq i32 %11, 0
   br i1 %cmp22, label %if.then24, label %if.else
 
-if.then24:                                        ; preds = %cli_hex2int.exit72
-  %12 = shl nuw nsw i32 %retval.0.i85, 4
-  %add27 = add nsw i32 %retval.0.i71, %12
+if.then24:                                        ; preds = %cli_hex2int.exit71
+  %12 = lshr exact i32 %sext, 20
+  %add27 = add nsw i32 %retval.0.i70, %12
   %conv28 = trunc i32 %add27 to i8
   %incdec.ptr = getelementptr inbounds i8, ptr %ptr.079, i64 1
   store i8 %conv28, ptr %ptr.079, align 1, !tbaa !5
@@ -399,7 +390,7 @@ if.then24:                                        ; preds = %cli_hex2int.exit72
   %cmp6 = icmp slt i32 %13, %conv
   br i1 %cmp6, label %for.body, label %cleanup, !llvm.loop !16
 
-if.else:                                          ; preds = %if.then14, %cli_hex2int.exit72, %if.end20.i70
+if.else:                                          ; preds = %if.then14, %cli_hex2int.exit71, %if.end20.i69
   tail call void @free(ptr noundef %call3) #14
   br label %cleanup
 

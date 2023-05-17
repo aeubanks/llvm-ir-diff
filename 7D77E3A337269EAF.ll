@@ -16,6 +16,7 @@ if.then:                                          ; preds = %entry
   %call1 = call double @strtod(ptr noundef nonnull %call, ptr noundef nonnull %endptr) #5
   %conv = fptrunc double %call1 to float
   store float %conv, ptr %value, align 4, !tbaa !5
+  %conv2 = fpext float %conv to double
   %cmp3 = fcmp oeq float %conv, 0.000000e+00
   br i1 %cmp3, label %land.lhs.true, label %if.else
 
@@ -32,12 +33,11 @@ land.lhs.true8:                                   ; preds = %land.lhs.true
   br i1 %cmp10, label %if.end26.sink.split, label %if.else
 
 if.else:                                          ; preds = %land.lhs.true8, %land.lhs.true, %if.then
-  %conv13 = fpext float %conv to double
-  %cmp14 = fcmp olt double %conv13, 0xC7EFFFFFE091FF3D
+  %cmp14 = fcmp olt double %conv2, 0xC7EFFFFFE091FF3D
   br i1 %cmp14, label %if.end26.sink.split, label %if.else17
 
 if.else17:                                        ; preds = %if.else
-  %cmp19 = fcmp ogt double %conv13, 0x47EFFFFFE091FF3D
+  %cmp19 = fcmp ogt double %conv2, 0x47EFFFFFE091FF3D
   br i1 %cmp19, label %if.end26.sink.split, label %if.end26
 
 if.end26.sink.split:                              ; preds = %entry, %if.else17, %if.else, %land.lhs.true8

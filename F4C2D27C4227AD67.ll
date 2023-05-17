@@ -385,7 +385,9 @@ if.then186:                                       ; preds = %land.lhs.true181
   %id.val772 = load i32, ptr %49, align 8, !tbaa !18
   %50 = getelementptr i8, ptr %id, i64 32
   %id.val773 = load ptr, ptr %50, align 8, !tbaa !20
-  tail call fastcc void @_ZL2NFPN2kc7impl_IDEPNS_12impl_problemE(i32 %id.val772, ptr %id.val773, ptr noundef %call187)
+  %call.i782 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val773, i32 noundef %id.val772)
+  %call1.i783 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i782, ptr noundef %call187)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i783)
   br label %cleanup542
 
 if.else188:                                       ; preds = %land.lhs.true181, %if.else176
@@ -408,7 +410,9 @@ if.then198:                                       ; preds = %land.lhs.true193
   %id.val770 = load i32, ptr %53, align 8, !tbaa !18
   %54 = getelementptr i8, ptr %id, i64 32
   %id.val771 = load ptr, ptr %54, align 8, !tbaa !20
-  tail call fastcc void @_ZL2NFPN2kc7impl_IDEPNS_12impl_problemE(i32 %id.val770, ptr %id.val771, ptr noundef %call199)
+  %call.i784 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val771, i32 noundef %id.val770)
+  %call1.i785 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i784, ptr noundef %call199)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i785)
   br label %cleanup542
 
 if.else200:                                       ; preds = %land.lhs.true193, %if.else188
@@ -1010,7 +1014,7 @@ if.else503:                                       ; preds = %if.else495
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str, i32 noundef 255, ptr noundef nonnull @.str.1)
   br label %cleanup542
 
-cleanup542:                                       ; preds = %land.lhs.true135, %if.then18, %if.end, %land.lhs.true40, %land.lhs.true75, %if.then174, %if.then198, %if.then222, %if.then246, %if.then270, %if.then294, %if.then318, %if.then342, %if.then366, %if.then390, %if.then409, %if.then428, %if.then444, %if.then460, %if.then476, %if.then492, %if.else503, %if.then500, %if.then484, %if.then468, %if.then452, %if.then436, %if.then420, %if.then402, %if.then378, %if.then354, %if.then330, %if.then306, %if.then282, %if.then258, %if.then234, %if.then210, %if.then186, %land.lhs.true57, %if.then120, %if.else122, %if.then108, %if.then112, %if.then161, %if.then156
+cleanup542:                                       ; preds = %if.then18, %if.end, %land.lhs.true40, %land.lhs.true75, %if.then174, %if.then198, %if.then222, %if.then246, %if.then270, %if.then294, %if.then318, %if.then342, %if.then366, %if.then390, %if.then409, %if.then428, %if.then444, %if.then460, %if.then476, %if.then492, %if.else503, %if.then500, %if.then484, %if.then468, %if.then452, %if.then436, %if.then420, %if.then402, %if.then378, %if.then354, %if.then330, %if.then306, %if.then282, %if.then258, %if.then234, %if.then210, %if.then186, %land.lhs.true57, %if.then120, %if.else122, %if.then108, %if.then112, %land.lhs.true135, %if.then161, %if.then156
   ret void
 }
 
@@ -1200,7 +1204,9 @@ if.then93:                                        ; preds = %if.then91
   %id.val677 = load i32, ptr %29, align 8, !tbaa !18
   %30 = getelementptr i8, ptr %id, i64 32
   %id.val678 = load ptr, ptr %30, align 8, !tbaa !20
-  tail call fastcc void @_ZL2NFPN2kc7impl_IDEPNS_12impl_problemE(i32 %id.val677, ptr %id.val678, ptr noundef %call94)
+  %call.i683 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val678, i32 noundef %id.val677)
+  %call1.i684 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i683, ptr noundef %call94)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i684)
   br label %cleanup461
 
 if.else96:                                        ; preds = %land.lhs.true86, %if.else81
@@ -1223,9 +1229,9 @@ if.then106:                                       ; preds = %land.lhs.true101
   %id.val675 = load i32, ptr %33, align 8, !tbaa !18
   %34 = getelementptr i8, ptr %id, i64 32
   %id.val676 = load ptr, ptr %34, align 8, !tbaa !20
-  %call.i683 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val676, i32 noundef %id.val675)
-  %call1.i684 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i683, ptr noundef %call107)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i684)
+  %call.i685 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val676, i32 noundef %id.val675)
+  %call1.i686 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i685, ptr noundef %call107)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i686)
   br label %cleanup461
 
 if.else108:                                       ; preds = %land.lhs.true101, %if.else96
@@ -1248,7 +1254,9 @@ if.then118:                                       ; preds = %land.lhs.true113
   %id.val673 = load i32, ptr %37, align 8, !tbaa !18
   %38 = getelementptr i8, ptr %id, i64 32
   %id.val674 = load ptr, ptr %38, align 8, !tbaa !20
-  tail call fastcc void @_ZL2NFPN2kc7impl_IDEPNS_12impl_problemE(i32 %id.val673, ptr %id.val674, ptr noundef %call119)
+  %call.i687 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %id.val674, i32 noundef %id.val673)
+  %call1.i688 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call.i687, ptr noundef %call119)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call1.i688)
   br label %cleanup461
 
 if.else120:                                       ; preds = %land.lhs.true113, %if.else108
@@ -2289,35 +2297,35 @@ if.then6:                                         ; preds = %if.else
   %languagenames_1 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %names, i64 0, i32 2
   %3 = load ptr, ptr %languagenames_1, align 8, !tbaa !37
   %call7 = tail call noundef zeroext i1 @_ZN2kc22f_useoccurlanguagenameEPNS_18impl_languagenamesE(ptr noundef %3)
-  %kc_fe_selvar_1.023.i = load ptr, ptr @Thelanguages, align 8, !tbaa !38
-  %vtable24.i = load ptr, ptr %kc_fe_selvar_1.023.i, align 8, !tbaa !5
-  %4 = load ptr, ptr %vtable24.i, align 8
-  %call25.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.023.i)
-  %cmp26.i = icmp eq i32 %call25.i, 165
-  br i1 %cmp26.i, label %while.body.i, label %cleanup.cont7.i
+  %4 = load ptr, ptr @Thelanguages, align 8, !tbaa !38
+  %vtable23.i = load ptr, ptr %4, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable23.i, align 8
+  %call24.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(24) %4)
+  %cmp25.i = icmp eq i32 %call24.i, 165
+  br i1 %cmp25.i, label %while.body.i, label %cleanup.cont7.i
 
-while.cond.i:                                     ; preds = %while.body.i
-  %languagenames_1.i = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.027.i, i64 0, i32 2
-  %kc_fe_selvar_1.0.i = load ptr, ptr %languagenames_1.i, align 8, !tbaa !38
-  %vtable.i = load ptr, ptr %kc_fe_selvar_1.0.i, align 8, !tbaa !5
-  %5 = load ptr, ptr %vtable.i, align 8
-  %call.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0.i)
+while.body.i:                                     ; preds = %if.then6, %cleanup2.i
+  %kc_fe_selvar_1.026.i = phi ptr [ %7, %cleanup2.i ], [ %4, %if.then6 ]
+  %ID_1.i = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.026.i, i64 0, i32 1
+  %6 = load ptr, ptr %ID_1.i, align 8, !tbaa !34
+  %call1.i = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %6)
+  br i1 %call1.i, label %_ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit, label %cleanup2.i
+
+cleanup2.i:                                       ; preds = %while.body.i
+  %languagenames_1.i = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.026.i, i64 0, i32 2
+  %7 = load ptr, ptr %languagenames_1.i, align 8, !tbaa !37
+  %vtable.i = load ptr, ptr %7, align 8, !tbaa !5
+  %8 = load ptr, ptr %vtable.i, align 8
+  %call.i = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(24) %7)
   %cmp.i = icmp eq i32 %call.i, 165
   br i1 %cmp.i, label %while.body.i, label %cleanup.cont7.i
 
-while.body.i:                                     ; preds = %if.then6, %while.cond.i
-  %kc_fe_selvar_1.027.i = phi ptr [ %kc_fe_selvar_1.0.i, %while.cond.i ], [ %kc_fe_selvar_1.023.i, %if.then6 ]
-  %ID_1.i = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.027.i, i64 0, i32 1
-  %6 = load ptr, ptr %ID_1.i, align 8, !tbaa !34
-  %call1.i = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %6)
-  br i1 %call1.i, label %_ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit, label %while.cond.i
-
-cleanup.cont7.i:                                  ; preds = %while.cond.i, %if.then6
+cleanup.cont7.i:                                  ; preds = %cleanup2.i, %if.then6
   %file.i = getelementptr inbounds %"class.kc::impl_ID", ptr %2, i64 0, i32 4
-  %7 = load ptr, ptr %file.i, align 8, !tbaa !20
+  %9 = load ptr, ptr %file.i, align 8, !tbaa !20
   %line.i = getelementptr inbounds %"class.kc::impl_ID", ptr %2, i64 0, i32 3
-  %8 = load i32, ptr %line.i, align 8, !tbaa !18
-  %call8.i = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %7, i32 noundef %8)
+  %10 = load i32, ptr %line.i, align 8, !tbaa !18
+  %call8.i = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %9, i32 noundef %10)
   %call9.i = tail call noundef ptr @_ZN2kc13Problem1S1tIDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.79, ptr noundef %2)
   %call10.i = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call8.i, ptr noundef %call9.i)
   tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call10.i)
@@ -2325,7 +2333,7 @@ cleanup.cont7.i:                                  ; preds = %while.cond.i, %if.t
 
 _ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit:    ; preds = %while.body.i, %cleanup.cont7.i
   %cmp22.i = phi i1 [ false, %cleanup.cont7.i ], [ true, %while.body.i ]
-  %9 = and i1 %call7, %cmp22.i
+  %11 = and i1 %call7, %cmp22.i
   br label %cleanup
 
 if.else9:                                         ; preds = %if.else
@@ -2333,7 +2341,7 @@ if.else9:                                         ; preds = %if.else
   br label %cleanup
 
 cleanup:                                          ; preds = %entry, %if.else9, %_ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit
-  %retval.0 = phi i1 [ %9, %_ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit ], [ false, %if.else9 ], [ true, %entry ]
+  %retval.0 = phi i1 [ %11, %_ZN2kcL17occurlanguagenameEPNS_7impl_IDE.exit ], [ false, %if.else9 ], [ true, %entry ]
   ret i1 %retval.0
 }
 

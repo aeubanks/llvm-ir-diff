@@ -623,8 +623,8 @@ for.body.i:                                       ; preds = %for.inc.i, %entry
   %name.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv.i, i32 3
   %0 = load ptr, ptr %name.i.i, align 8
   %call.i.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %String) #14
-  %cmp.i.not.i = icmp eq i32 %call.i.i, 0
-  br i1 %cmp.i.not.i, label %cleanup.split.loop.exit7.i, label %for.inc.i
+  %cmp.i.i = icmp eq i32 %call.i.i, 0
+  br i1 %cmp.i.i, label %cleanup.split.loop.exit7.i, label %for.inc.i
 
 for.inc.i:                                        ; preds = %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
@@ -652,8 +652,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %name.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv, i32 3
   %0 = load ptr, ptr %name.i, align 8
   %call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %String) #14
-  %cmp.i.not = icmp eq i32 %call.i, 0
-  br i1 %cmp.i.not, label %cleanup.split.loop.exit7, label %for.inc
+  %cmp.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.i, label %cleanup.split.loop.exit7, label %for.inc
 
 for.inc:                                          ; preds = %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
@@ -705,8 +705,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.inc ]
   %type.i.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv, i32 2
   %0 = load i32, ptr %type.i.i.i, align 8
-  %cmp.i.i.not = icmp eq i32 %0, 0
-  br i1 %cmp.i.i.not, label %if.then, label %for.inc
+  %cmp.i.i = icmp eq i32 %0, 0
+  br i1 %cmp.i.i, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
   %1 = trunc i64 %indvars.iv to i32
@@ -733,8 +733,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.inc ]
   %type.i.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv, i32 2
   %0 = load i32, ptr %type.i.i.i, align 8
-  %cmp.i.i.not = icmp eq i32 %0, 2
-  br i1 %cmp.i.i.not, label %if.then, label %for.inc
+  %cmp.i.i = icmp eq i32 %0, 2
+  br i1 %cmp.i.i, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
   %1 = trunc i64 %indvars.iv to i32
@@ -761,8 +761,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.inc ]
   %type.i.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv, i32 2
   %0 = load i32, ptr %type.i.i.i, align 8
-  %cmp.i.i.not = icmp eq i32 %0, 1
-  br i1 %cmp.i.i.not, label %if.then, label %for.inc
+  %cmp.i.i = icmp eq i32 %0, 1
+  br i1 %cmp.i.i, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
   %1 = trunc i64 %indvars.iv to i32
@@ -789,8 +789,8 @@ for.body:                                         ; preds = %entry, %for.inc
   %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.inc ]
   %type.i.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv, i32 2
   %0 = load i32, ptr %type.i.i.i, align 8
-  %cmp.i.i.not = icmp eq i32 %0, 2
-  br i1 %cmp.i.i.not, label %if.then, label %for.inc
+  %cmp.i.i = icmp eq i32 %0, 2
+  br i1 %cmp.i.i, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
   %arrayidx.i.i = getelementptr inbounds i32, ptr @flag_DEFAULTSTORE, i64 %indvars.iv
@@ -819,8 +819,8 @@ for.body.i:                                       ; preds = %for.inc.i, %entry
   %indvars.iv.i = phi i64 [ 0, %entry ], [ %indvars.iv.next.i, %for.inc.i ]
   %type.i.i.i.i = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv.i, i32 2
   %0 = load i32, ptr %type.i.i.i.i, align 8
-  %cmp.i.i.not.i = icmp eq i32 %0, 1
-  br i1 %cmp.i.i.not.i, label %if.then.i, label %for.inc.i
+  %cmp.i.i.i = icmp eq i32 %0, 1
+  br i1 %cmp.i.i.i, label %if.then.i, label %for.inc.i
 
 if.then.i:                                        ; preds = %for.body.i
   %1 = trunc i64 %indvars.iv.i to i32
@@ -838,8 +838,8 @@ for.body.i19:                                     ; preds = %for.inc.i, %for.inc
   %indvars.iv.i16 = phi i64 [ %indvars.iv.next.i22, %for.inc.i24 ], [ 0, %for.inc.i ]
   %type.i.i.i.i17 = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv.i16, i32 2
   %2 = load i32, ptr %type.i.i.i.i17, align 8
-  %cmp.i.i.not.i18 = icmp eq i32 %2, 0
-  br i1 %cmp.i.i.not.i18, label %if.then.i21, label %for.inc.i24
+  %cmp.i.i.i18 = icmp eq i32 %2, 0
+  br i1 %cmp.i.i.i18, label %if.then.i21, label %for.inc.i24
 
 if.then.i21:                                      ; preds = %for.body.i19
   %3 = trunc i64 %indvars.iv.i16 to i32
@@ -857,8 +857,8 @@ for.body.i28:                                     ; preds = %for.inc.i24, %for.i
   %indvars.iv.i25 = phi i64 [ %indvars.iv.next.i30, %for.inc.i32 ], [ 0, %for.inc.i24 ]
   %type.i.i.i.i26 = getelementptr inbounds [96 x %struct.FLAG_PROPERTY], ptr @flag_PROPERTIES, i64 0, i64 %indvars.iv.i25, i32 2
   %4 = load i32, ptr %type.i.i.i.i26, align 8
-  %cmp.i.i.not.i27 = icmp eq i32 %4, 2
-  br i1 %cmp.i.i.not.i27, label %if.then.i29, label %for.inc.i32
+  %cmp.i.i.i27 = icmp eq i32 %4, 2
+  br i1 %cmp.i.i.i27, label %if.then.i29, label %for.inc.i32
 
 if.then.i29:                                      ; preds = %for.body.i28
   %arrayidx.i.i.i = getelementptr inbounds i32, ptr @flag_DEFAULTSTORE, i64 %indvars.iv.i25

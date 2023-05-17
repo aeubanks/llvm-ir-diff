@@ -932,8 +932,8 @@ entry:
 
 if.end:                                           ; preds = %entry
   %0 = load i32, ptr %p, align 8, !tbaa !26
-  %cmp1 = icmp slt i32 %0, 0
-  br i1 %cmp1, label %cond.end, label %land.lhs.true
+  %cmp1 = icmp sgt i32 %0, -1
+  br i1 %cmp1, label %land.lhs.true, label %cond.end
 
 land.lhs.true:                                    ; preds = %if.end
   %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
@@ -981,9 +981,9 @@ if.end10:                                         ; preds = %if.else, %if.then6
   store i32 %dec, ptr %length, align 4, !tbaa !41
   %first_col20 = getelementptr inbounds %struct.sm_row_struct, ptr %cond, i64 0, i32 3
   %8 = load ptr, ptr %first_col20, align 8, !tbaa !38
-  %cmp21 = icmp ne ptr %8, null
-  %brmerge = or i1 %cmp1, %cmp21
-  br i1 %brmerge, label %if.end24, label %land.lhs.true.i
+  %cmp21 = icmp eq ptr %8, null
+  %or.cond = and i1 %cmp1, %cmp21
+  br i1 %or.cond, label %land.lhs.true.i, label %if.end24
 
 land.lhs.true.i:                                  ; preds = %if.end10
   %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
@@ -1090,11 +1090,11 @@ if.end27.i:                                       ; preds = %if.else.i, %if.then
   tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %11) #16
   br label %if.end24
 
-if.end24:                                         ; preds = %if.end10, %if.end27.i, %cond.end.i, %land.lhs.true.i
+if.end24:                                         ; preds = %if.end27.i, %cond.end.i, %land.lhs.true.i, %if.end10
   %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 1
   %25 = load i32, ptr %col_num, align 4, !tbaa !28
-  %cmp25 = icmp slt i32 %25, 0
-  br i1 %cmp25, label %cond.end34, label %land.lhs.true26
+  %cmp25 = icmp sgt i32 %25, -1
+  br i1 %cmp25, label %land.lhs.true26, label %cond.end34
 
 land.lhs.true26:                                  ; preds = %if.end24
   %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
@@ -1143,9 +1143,9 @@ if.end42:                                         ; preds = %if.else38, %if.then
   store i32 %dec53, ptr %length52, align 4, !tbaa !44
   %first_row54 = getelementptr inbounds %struct.sm_col_struct, ptr %cond35, i64 0, i32 3
   %33 = load ptr, ptr %first_row54, align 8, !tbaa !43
-  %cmp55 = icmp ne ptr %33, null
-  %brmerge147 = or i1 %cmp25, %cmp55
-  br i1 %brmerge147, label %if.then59, label %land.lhs.true.i107
+  %cmp55 = icmp eq ptr %33, null
+  %or.cond147 = and i1 %cmp25, %cmp55
+  br i1 %or.cond147, label %land.lhs.true.i107, label %if.then59
 
 land.lhs.true.i107:                               ; preds = %if.end42
   %cols_size.i105 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
@@ -1251,7 +1251,7 @@ if.end27.i146:                                    ; preds = %if.else.i143, %if.t
   tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %36) #16
   br label %if.then59
 
-if.then59:                                        ; preds = %if.end42, %if.end27.i146, %cond.end.i112, %land.lhs.true.i107
+if.then59:                                        ; preds = %if.end42, %land.lhs.true.i107, %cond.end.i112, %if.end27.i146
   tail call void @free(ptr noundef %p) #16
   br label %cleanup
 
@@ -1969,17 +1969,17 @@ entry:
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #12
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #14
+declare i32 @llvm.smax.i32(i32, i32) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1993,9 +1993,9 @@ attributes #8 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem:
 attributes #9 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind allocsize(0) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(1) }

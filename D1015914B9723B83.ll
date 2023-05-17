@@ -10,7 +10,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-if.end:
+entry:
   %0 = load i32, ptr @off, align 4, !tbaa !5
   %idxprom = sext i32 %0 to i64
   %arrayidx = getelementptr inbounds [10 x i32], ptr @a, i64 0, i64 %idxprom

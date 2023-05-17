@@ -25,27 +25,27 @@ entry:
 vector.body:                                      ; preds = %entry
   %wide.load = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !9
   %wide.load73 = load <8 x i16>, ptr %add.ptr, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %0 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load, <8 x i16> %wide.load73)
+  %0 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load73, <8 x i16> %wide.load)
   store <8 x i16> %0, ptr %add.ptr, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %wide.load.1 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !9
   %1 = getelementptr i16, ptr %S, i64 128
   %wide.load73.1 = load <8 x i16>, ptr %1, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %2 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load.1, <8 x i16> %wide.load73.1)
+  %2 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load73.1, <8 x i16> %wide.load.1)
   store <8 x i16> %2, ptr %1, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %wide.load.2 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !9
   %3 = getelementptr i16, ptr %S, i64 136
   %wide.load73.2 = load <8 x i16>, ptr %3, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %4 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load.2, <8 x i16> %wide.load73.2)
+  %4 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load73.2, <8 x i16> %wide.load.2)
   store <8 x i16> %4, ptr %3, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %wide.load.3 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !9
   %5 = getelementptr i16, ptr %S, i64 144
   %wide.load73.3 = load <8 x i16>, ptr %5, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %6 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load.3, <8 x i16> %wide.load73.3)
+  %6 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load73.3, <8 x i16> %wide.load.3)
   store <8 x i16> %6, ptr %5, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %wide.load.4 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !9
   %7 = getelementptr i16, ptr %S, i64 152
   %wide.load73.4 = load <8 x i16>, ptr %7, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %8 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load.4, <8 x i16> %wide.load73.4)
+  %8 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load73.4, <8 x i16> %wide.load.4)
   store <8 x i16> %8, ptr %7, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   br label %for.end
 
@@ -56,7 +56,7 @@ for.body11:                                       ; preds = %entry, %for.body11
   %10 = load i16, ptr %arrayidx, align 2, !tbaa !5
   %arrayidx13 = getelementptr inbounds i16, ptr %add.ptr, i64 %indvars.iv
   %11 = load i16, ptr %arrayidx13, align 2, !tbaa !5
-  %12 = call i16 @llvm.sadd.sat.i16(i16 %10, i16 %11)
+  %12 = call i16 @llvm.sadd.sat.i16(i16 %11, i16 %10)
   store i16 %12, ptr %arrayidx13, align 2, !tbaa !5
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 40
@@ -81,27 +81,27 @@ for.end:                                          ; preds = %for.body11, %vector
 vector.body84:                                    ; preds = %for.end
   %wide.load86 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !17
   %wide.load87 = load <8 x i16>, ptr %add.ptr26, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %13 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load86, <8 x i16> %wide.load87)
+  %13 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load87, <8 x i16> %wide.load86)
   store <8 x i16> %13, ptr %add.ptr26, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %wide.load86.1 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !17
   %14 = getelementptr i16, ptr %S, i64 168
   %wide.load87.1 = load <8 x i16>, ptr %14, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %15 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load86.1, <8 x i16> %wide.load87.1)
+  %15 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load87.1, <8 x i16> %wide.load86.1)
   store <8 x i16> %15, ptr %14, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %wide.load86.2 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !17
   %16 = getelementptr i16, ptr %S, i64 176
   %wide.load87.2 = load <8 x i16>, ptr %16, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %17 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load86.2, <8 x i16> %wide.load87.2)
+  %17 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load87.2, <8 x i16> %wide.load86.2)
   store <8 x i16> %17, ptr %16, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %wide.load86.3 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !17
   %18 = getelementptr i16, ptr %S, i64 184
   %wide.load87.3 = load <8 x i16>, ptr %18, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %19 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load86.3, <8 x i16> %wide.load87.3)
+  %19 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load87.3, <8 x i16> %wide.load86.3)
   store <8 x i16> %19, ptr %18, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %wide.load86.4 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !17
   %20 = getelementptr i16, ptr %S, i64 192
   %wide.load87.4 = load <8 x i16>, ptr %20, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %21 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load86.4, <8 x i16> %wide.load87.4)
+  %21 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load87.4, <8 x i16> %wide.load86.4)
   store <8 x i16> %21, ptr %20, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   br label %for.end.1
 
@@ -112,7 +112,7 @@ for.body11.1:                                     ; preds = %for.end, %for.body1
   %23 = load i16, ptr %arrayidx.1, align 2, !tbaa !5
   %arrayidx13.1 = getelementptr inbounds i16, ptr %add.ptr26, i64 %indvars.iv.1
   %24 = load i16, ptr %arrayidx13.1, align 2, !tbaa !5
-  %25 = call i16 @llvm.sadd.sat.i16(i16 %23, i16 %24)
+  %25 = call i16 @llvm.sadd.sat.i16(i16 %24, i16 %23)
   store i16 %25, ptr %arrayidx13.1, align 2, !tbaa !5
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv.1, 1
   %exitcond.1.not = icmp eq i64 %indvars.iv.next.1, 40
@@ -137,27 +137,27 @@ for.end.1:                                        ; preds = %for.body11.1, %vect
 vector.body99:                                    ; preds = %for.end.1
   %wide.load101 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !23
   %wide.load102 = load <8 x i16>, ptr %add.ptr26.1, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %26 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load101, <8 x i16> %wide.load102)
+  %26 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load102, <8 x i16> %wide.load101)
   store <8 x i16> %26, ptr %add.ptr26.1, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %wide.load101.1 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !23
   %27 = getelementptr i16, ptr %S, i64 208
   %wide.load102.1 = load <8 x i16>, ptr %27, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %28 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load101.1, <8 x i16> %wide.load102.1)
+  %28 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load102.1, <8 x i16> %wide.load101.1)
   store <8 x i16> %28, ptr %27, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %wide.load101.2 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !23
   %29 = getelementptr i16, ptr %S, i64 216
   %wide.load102.2 = load <8 x i16>, ptr %29, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %30 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load101.2, <8 x i16> %wide.load102.2)
+  %30 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load102.2, <8 x i16> %wide.load101.2)
   store <8 x i16> %30, ptr %29, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %wide.load101.3 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !23
   %31 = getelementptr i16, ptr %S, i64 224
   %wide.load102.3 = load <8 x i16>, ptr %31, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %32 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load101.3, <8 x i16> %wide.load102.3)
+  %32 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load102.3, <8 x i16> %wide.load101.3)
   store <8 x i16> %32, ptr %31, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %wide.load101.4 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !23
   %33 = getelementptr i16, ptr %S, i64 232
   %wide.load102.4 = load <8 x i16>, ptr %33, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %34 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load101.4, <8 x i16> %wide.load102.4)
+  %34 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load102.4, <8 x i16> %wide.load101.4)
   store <8 x i16> %34, ptr %33, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   br label %for.end.2
 
@@ -168,7 +168,7 @@ for.body11.2:                                     ; preds = %for.end.1, %for.bod
   %36 = load i16, ptr %arrayidx.2, align 2, !tbaa !5
   %arrayidx13.2 = getelementptr inbounds i16, ptr %add.ptr26.1, i64 %indvars.iv.2
   %37 = load i16, ptr %arrayidx13.2, align 2, !tbaa !5
-  %38 = call i16 @llvm.sadd.sat.i16(i16 %36, i16 %37)
+  %38 = call i16 @llvm.sadd.sat.i16(i16 %37, i16 %36)
   store i16 %38, ptr %arrayidx13.2, align 2, !tbaa !5
   %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv.2, 1
   %exitcond.2.not = icmp eq i64 %indvars.iv.next.2, 40
@@ -193,27 +193,27 @@ for.end.2:                                        ; preds = %for.body11.2, %vect
 vector.body114:                                   ; preds = %for.end.2
   %wide.load116 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !29
   %wide.load117 = load <8 x i16>, ptr %add.ptr26.2, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %39 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load116, <8 x i16> %wide.load117)
+  %39 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load117, <8 x i16> %wide.load116)
   store <8 x i16> %39, ptr %add.ptr26.2, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %wide.load116.1 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !29
   %40 = getelementptr i16, ptr %S, i64 248
   %wide.load117.1 = load <8 x i16>, ptr %40, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %41 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load116.1, <8 x i16> %wide.load117.1)
+  %41 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load117.1, <8 x i16> %wide.load116.1)
   store <8 x i16> %41, ptr %40, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %wide.load116.2 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !29
   %42 = getelementptr i16, ptr %S, i64 256
   %wide.load117.2 = load <8 x i16>, ptr %42, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %43 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load116.2, <8 x i16> %wide.load117.2)
+  %43 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load117.2, <8 x i16> %wide.load116.2)
   store <8 x i16> %43, ptr %42, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %wide.load116.3 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !29
   %44 = getelementptr i16, ptr %S, i64 264
   %wide.load117.3 = load <8 x i16>, ptr %44, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %45 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load116.3, <8 x i16> %wide.load117.3)
+  %45 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load117.3, <8 x i16> %wide.load116.3)
   store <8 x i16> %45, ptr %44, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %wide.load116.4 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !29
   %46 = getelementptr i16, ptr %S, i64 272
   %wide.load117.4 = load <8 x i16>, ptr %46, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %47 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load116.4, <8 x i16> %wide.load117.4)
+  %47 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %wide.load117.4, <8 x i16> %wide.load116.4)
   store <8 x i16> %47, ptr %46, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   br label %for.end.3
 
@@ -224,7 +224,7 @@ for.body11.3:                                     ; preds = %for.end.2, %for.bod
   %49 = load i16, ptr %arrayidx.3, align 2, !tbaa !5
   %arrayidx13.3 = getelementptr inbounds i16, ptr %add.ptr26.2, i64 %indvars.iv.3
   %50 = load i16, ptr %arrayidx13.3, align 2, !tbaa !5
-  %51 = call i16 @llvm.sadd.sat.i16(i16 %49, i16 %50)
+  %51 = call i16 @llvm.sadd.sat.i16(i16 %50, i16 %49)
   store i16 %51, ptr %arrayidx13.3, align 2, !tbaa !5
   %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv.3, 1
   %exitcond.3.not = icmp eq i64 %indvars.iv.next.3, 40

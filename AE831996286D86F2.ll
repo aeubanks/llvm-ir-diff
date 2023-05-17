@@ -207,9 +207,9 @@ invoke.cont:                                      ; preds = %entry
   %call7 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 0, i32 noundef 0) #15
   %call8 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8, ptr noundef %call6)
-          to label %invoke.cont10 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit unwind label %lpad9
 
-invoke.cont10:                                    ; preds = %invoke.cont
+_ZN20intersection_roadletC2EPKcP5light.exit:      ; preds = %invoke.cont
   %l.i = getelementptr inbounds %class.intersection_roadlet, ptr %call8, i64 0, i32 1
   store ptr %call, ptr %l.i, align 8, !tbaa !16
   %arrayidx12 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 0, i64 0
@@ -220,9 +220,9 @@ invoke.cont10:                                    ; preds = %invoke.cont
   %call7.1 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.1, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 0, i32 noundef 1) #15
   %call8.1 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.1, ptr noundef %call6.1)
-          to label %invoke.cont10.1 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.1 unwind label %lpad9
 
-invoke.cont10.1:                                  ; preds = %invoke.cont10
+_ZN20intersection_roadletC2EPKcP5light.exit.1:    ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit
   %l.i.1 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.1, i64 0, i32 1
   store ptr %call, ptr %l.i.1, align 8, !tbaa !16
   %arrayidx12.1 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 0, i64 1
@@ -233,9 +233,9 @@ invoke.cont10.1:                                  ; preds = %invoke.cont10
   %call7.2 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.2, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 0, i32 noundef 2) #15
   %call8.2 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.2, ptr noundef %call6.2)
-          to label %invoke.cont10.2 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.2 unwind label %lpad9
 
-invoke.cont10.2:                                  ; preds = %invoke.cont10.1
+_ZN20intersection_roadletC2EPKcP5light.exit.2:    ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.1
   %l.i.2 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.2, i64 0, i32 1
   store ptr %call, ptr %l.i.2, align 8, !tbaa !16
   %arrayidx12.2 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 0, i64 2
@@ -246,9 +246,9 @@ invoke.cont10.2:                                  ; preds = %invoke.cont10.1
   %call7.3 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.3, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 0, i32 noundef 3) #15
   %call8.3 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.3, ptr noundef %call6.3)
-          to label %invoke.cont10.3 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.3 unwind label %lpad9
 
-invoke.cont10.3:                                  ; preds = %invoke.cont10.2
+_ZN20intersection_roadletC2EPKcP5light.exit.3:    ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2
   %l.i.3 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.3, i64 0, i32 1
   store ptr %call, ptr %l.i.3, align 8, !tbaa !16
   %arrayidx12.3 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 0, i64 3
@@ -259,9 +259,9 @@ invoke.cont10.3:                                  ; preds = %invoke.cont10.2
   %call7.1239 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.1238, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 1, i32 noundef 0) #15
   %call8.1240 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.1240, ptr noundef %call6.1238)
-          to label %invoke.cont10.1243 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.1243 unwind label %lpad9
 
-invoke.cont10.1243:                               ; preds = %invoke.cont10.3
+_ZN20intersection_roadletC2EPKcP5light.exit.1243: ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3
   %l.i.1241 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.1240, i64 0, i32 1
   store ptr %call, ptr %l.i.1241, align 8, !tbaa !16
   %arrayidx12.1242 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 1, i64 0
@@ -272,9 +272,9 @@ invoke.cont10.1243:                               ; preds = %invoke.cont10.3
   %call7.1.1 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.1.1, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 1, i32 noundef 1) #15
   %call8.1.1 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.1.1, ptr noundef %call6.1.1)
-          to label %invoke.cont10.1.1 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.1.1 unwind label %lpad9
 
-invoke.cont10.1.1:                                ; preds = %invoke.cont10.1243
+_ZN20intersection_roadletC2EPKcP5light.exit.1.1:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.1243
   %l.i.1.1 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.1.1, i64 0, i32 1
   store ptr %call, ptr %l.i.1.1, align 8, !tbaa !16
   %arrayidx12.1.1 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 1, i64 1
@@ -285,9 +285,9 @@ invoke.cont10.1.1:                                ; preds = %invoke.cont10.1243
   %call7.2.1 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.2.1, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 1, i32 noundef 2) #15
   %call8.2.1 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.2.1, ptr noundef %call6.2.1)
-          to label %invoke.cont10.2.1 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.2.1 unwind label %lpad9
 
-invoke.cont10.2.1:                                ; preds = %invoke.cont10.1.1
+_ZN20intersection_roadletC2EPKcP5light.exit.2.1:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.1.1
   %l.i.2.1 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.2.1, i64 0, i32 1
   store ptr %call, ptr %l.i.2.1, align 8, !tbaa !16
   %arrayidx12.2.1 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 1, i64 2
@@ -298,9 +298,9 @@ invoke.cont10.2.1:                                ; preds = %invoke.cont10.1.1
   %call7.3.1 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.3.1, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 1, i32 noundef 3) #15
   %call8.3.1 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.3.1, ptr noundef %call6.3.1)
-          to label %invoke.cont10.3.1 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.3.1 unwind label %lpad9
 
-invoke.cont10.3.1:                                ; preds = %invoke.cont10.2.1
+_ZN20intersection_roadletC2EPKcP5light.exit.3.1:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2.1
   %l.i.3.1 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.3.1, i64 0, i32 1
   store ptr %call, ptr %l.i.3.1, align 8, !tbaa !16
   %arrayidx12.3.1 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 1, i64 3
@@ -311,9 +311,9 @@ invoke.cont10.3.1:                                ; preds = %invoke.cont10.2.1
   %call7.2247 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.2246, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 2, i32 noundef 0) #15
   %call8.2248 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.2248, ptr noundef %call6.2246)
-          to label %invoke.cont10.2251 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.2251 unwind label %lpad9
 
-invoke.cont10.2251:                               ; preds = %invoke.cont10.3.1
+_ZN20intersection_roadletC2EPKcP5light.exit.2251: ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3.1
   %l.i.2249 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.2248, i64 0, i32 1
   store ptr %call, ptr %l.i.2249, align 8, !tbaa !16
   %arrayidx12.2250 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 2, i64 0
@@ -324,9 +324,9 @@ invoke.cont10.2251:                               ; preds = %invoke.cont10.3.1
   %call7.1.2 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.1.2, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 2, i32 noundef 1) #15
   %call8.1.2 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.1.2, ptr noundef %call6.1.2)
-          to label %invoke.cont10.1.2 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.1.2 unwind label %lpad9
 
-invoke.cont10.1.2:                                ; preds = %invoke.cont10.2251
+_ZN20intersection_roadletC2EPKcP5light.exit.1.2:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2251
   %l.i.1.2 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.1.2, i64 0, i32 1
   store ptr %call, ptr %l.i.1.2, align 8, !tbaa !16
   %arrayidx12.1.2 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 2, i64 1
@@ -337,9 +337,9 @@ invoke.cont10.1.2:                                ; preds = %invoke.cont10.2251
   %call7.2.2 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.2.2, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 2, i32 noundef 2) #15
   %call8.2.2 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.2.2, ptr noundef %call6.2.2)
-          to label %invoke.cont10.2.2 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.2.2 unwind label %lpad9
 
-invoke.cont10.2.2:                                ; preds = %invoke.cont10.1.2
+_ZN20intersection_roadletC2EPKcP5light.exit.2.2:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.1.2
   %l.i.2.2 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.2.2, i64 0, i32 1
   store ptr %call, ptr %l.i.2.2, align 8, !tbaa !16
   %arrayidx12.2.2 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 2, i64 2
@@ -350,9 +350,9 @@ invoke.cont10.2.2:                                ; preds = %invoke.cont10.1.2
   %call7.3.2 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.3.2, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 2, i32 noundef 3) #15
   %call8.3.2 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.3.2, ptr noundef %call6.3.2)
-          to label %invoke.cont10.3.2 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.3.2 unwind label %lpad9
 
-invoke.cont10.3.2:                                ; preds = %invoke.cont10.2.2
+_ZN20intersection_roadletC2EPKcP5light.exit.3.2:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2.2
   %l.i.3.2 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.3.2, i64 0, i32 1
   store ptr %call, ptr %l.i.3.2, align 8, !tbaa !16
   %arrayidx12.3.2 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 2, i64 3
@@ -363,9 +363,9 @@ invoke.cont10.3.2:                                ; preds = %invoke.cont10.2.2
   %call7.3255 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.3254, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 3, i32 noundef 0) #15
   %call8.3256 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.3256, ptr noundef %call6.3254)
-          to label %invoke.cont10.3259 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.3259 unwind label %lpad9
 
-invoke.cont10.3259:                               ; preds = %invoke.cont10.3.2
+_ZN20intersection_roadletC2EPKcP5light.exit.3259: ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3.2
   %l.i.3257 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.3256, i64 0, i32 1
   store ptr %call, ptr %l.i.3257, align 8, !tbaa !16
   %arrayidx12.3258 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 3, i64 0
@@ -376,9 +376,9 @@ invoke.cont10.3259:                               ; preds = %invoke.cont10.3.2
   %call7.1.3 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.1.3, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 3, i32 noundef 1) #15
   %call8.1.3 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.1.3, ptr noundef %call6.1.3)
-          to label %invoke.cont10.1.3 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.1.3 unwind label %lpad9
 
-invoke.cont10.1.3:                                ; preds = %invoke.cont10.3259
+_ZN20intersection_roadletC2EPKcP5light.exit.1.3:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3259
   %l.i.1.3 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.1.3, i64 0, i32 1
   store ptr %call, ptr %l.i.1.3, align 8, !tbaa !16
   %arrayidx12.1.3 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 3, i64 1
@@ -389,9 +389,9 @@ invoke.cont10.1.3:                                ; preds = %invoke.cont10.3259
   %call7.2.3 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.2.3, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 3, i32 noundef 2) #15
   %call8.2.3 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.2.3, ptr noundef %call6.2.3)
-          to label %invoke.cont10.2.3 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.2.3 unwind label %lpad9
 
-invoke.cont10.2.3:                                ; preds = %invoke.cont10.1.3
+_ZN20intersection_roadletC2EPKcP5light.exit.2.3:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.1.3
   %l.i.2.3 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.2.3, i64 0, i32 1
   store ptr %call, ptr %l.i.2.3, align 8, !tbaa !16
   %arrayidx12.2.3 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 3, i64 2
@@ -402,9 +402,9 @@ invoke.cont10.2.3:                                ; preds = %invoke.cont10.1.3
   %call7.3.3 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call6.3.3, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef %name, i32 noundef 3, i32 noundef 3) #15
   %call8.3.3 = tail call noalias noundef nonnull dereferenceable(152) ptr @_Znwm(i64 noundef 152) #12
   invoke void @_ZN7roadlet4initEPKc(ptr noundef nonnull align 8 dereferenceable(144) %call8.3.3, ptr noundef %call6.3.3)
-          to label %invoke.cont10.3.3 unwind label %lpad9
+          to label %_ZN20intersection_roadletC2EPKcP5light.exit.3.3 unwind label %lpad9
 
-invoke.cont10.3.3:                                ; preds = %invoke.cont10.2.3
+_ZN20intersection_roadletC2EPKcP5light.exit.3.3:  ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2.3
   %l.i.3.3 = getelementptr inbounds %class.intersection_roadlet, ptr %call8.3.3, i64 0, i32 1
   store ptr %call, ptr %l.i.3.3, align 8, !tbaa !16
   %arrayidx12.3.3 = getelementptr inbounds %class.intersection_4x4, ptr %this, i64 0, i32 1, i64 3, i64 3
@@ -584,17 +584,17 @@ lpad:                                             ; preds = %entry
           cleanup
   br label %ehcleanup
 
-lpad9:                                            ; preds = %invoke.cont10.2.3, %invoke.cont10.1.3, %invoke.cont10.3259, %invoke.cont10.3.2, %invoke.cont10.2.2, %invoke.cont10.1.2, %invoke.cont10.2251, %invoke.cont10.3.1, %invoke.cont10.2.1, %invoke.cont10.1.1, %invoke.cont10.1243, %invoke.cont10.3, %invoke.cont10.2, %invoke.cont10.1, %invoke.cont10, %invoke.cont
-  %call8.lcssa = phi ptr [ %call8, %invoke.cont ], [ %call8.1, %invoke.cont10 ], [ %call8.2, %invoke.cont10.1 ], [ %call8.3, %invoke.cont10.2 ], [ %call8.1240, %invoke.cont10.3 ], [ %call8.1.1, %invoke.cont10.1243 ], [ %call8.2.1, %invoke.cont10.1.1 ], [ %call8.3.1, %invoke.cont10.2.1 ], [ %call8.2248, %invoke.cont10.3.1 ], [ %call8.1.2, %invoke.cont10.2251 ], [ %call8.2.2, %invoke.cont10.1.2 ], [ %call8.3.2, %invoke.cont10.2.2 ], [ %call8.3256, %invoke.cont10.3.2 ], [ %call8.1.3, %invoke.cont10.3259 ], [ %call8.2.3, %invoke.cont10.1.3 ], [ %call8.3.3, %invoke.cont10.2.3 ]
+lpad9:                                            ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.2.3, %_ZN20intersection_roadletC2EPKcP5light.exit.1.3, %_ZN20intersection_roadletC2EPKcP5light.exit.3259, %_ZN20intersection_roadletC2EPKcP5light.exit.3.2, %_ZN20intersection_roadletC2EPKcP5light.exit.2.2, %_ZN20intersection_roadletC2EPKcP5light.exit.1.2, %_ZN20intersection_roadletC2EPKcP5light.exit.2251, %_ZN20intersection_roadletC2EPKcP5light.exit.3.1, %_ZN20intersection_roadletC2EPKcP5light.exit.2.1, %_ZN20intersection_roadletC2EPKcP5light.exit.1.1, %_ZN20intersection_roadletC2EPKcP5light.exit.1243, %_ZN20intersection_roadletC2EPKcP5light.exit.3, %_ZN20intersection_roadletC2EPKcP5light.exit.2, %_ZN20intersection_roadletC2EPKcP5light.exit.1, %_ZN20intersection_roadletC2EPKcP5light.exit, %invoke.cont
+  %call8.lcssa = phi ptr [ %call8, %invoke.cont ], [ %call8.1, %_ZN20intersection_roadletC2EPKcP5light.exit ], [ %call8.2, %_ZN20intersection_roadletC2EPKcP5light.exit.1 ], [ %call8.3, %_ZN20intersection_roadletC2EPKcP5light.exit.2 ], [ %call8.1240, %_ZN20intersection_roadletC2EPKcP5light.exit.3 ], [ %call8.1.1, %_ZN20intersection_roadletC2EPKcP5light.exit.1243 ], [ %call8.2.1, %_ZN20intersection_roadletC2EPKcP5light.exit.1.1 ], [ %call8.3.1, %_ZN20intersection_roadletC2EPKcP5light.exit.2.1 ], [ %call8.2248, %_ZN20intersection_roadletC2EPKcP5light.exit.3.1 ], [ %call8.1.2, %_ZN20intersection_roadletC2EPKcP5light.exit.2251 ], [ %call8.2.2, %_ZN20intersection_roadletC2EPKcP5light.exit.1.2 ], [ %call8.3.2, %_ZN20intersection_roadletC2EPKcP5light.exit.2.2 ], [ %call8.3256, %_ZN20intersection_roadletC2EPKcP5light.exit.3.2 ], [ %call8.1.3, %_ZN20intersection_roadletC2EPKcP5light.exit.3259 ], [ %call8.2.3, %_ZN20intersection_roadletC2EPKcP5light.exit.1.3 ], [ %call8.3.3, %_ZN20intersection_roadletC2EPKcP5light.exit.2.3 ]
   %59 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
 
-if.then.i:                                        ; preds = %invoke.cont10.3.3
+if.then.i:                                        ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3.3
   %call1.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call187, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
   br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-if.end.i:                                         ; preds = %invoke.cont10.3.3
+if.end.i:                                         ; preds = %_ZN20intersection_roadletC2EPKcP5light.exit.3.3
   %call2.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call187, i8 noundef signext 10)
   br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 

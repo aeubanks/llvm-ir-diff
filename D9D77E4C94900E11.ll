@@ -35,66 +35,66 @@ entry:
 if.end:                                           ; preds = %entry
   %type_attrs = getelementptr inbounds %struct.ref_s, ptr %op, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !5
-  %1 = lshr i16 %0, 2
-  %2 = and i16 %1, 63
-  %shr = zext i16 %2 to i32
+  %conv = zext i16 %0 to i32
+  %and = lshr i32 %conv, 2
+  %shr = and i32 %and, 63
   switch i32 %shr, label %cleanup [
     i32 0, label %sw.epilog
     i32 10, label %sw.epilog
   ]
 
 sw.epilog:                                        ; preds = %if.end, %if.end
-  %3 = and i16 %0, 3
-  %tobool.not = icmp eq i16 %3, 3
+  %not = and i32 %conv, 3
+  %tobool.not = icmp eq i32 %not, 3
   br i1 %tobool.not, label %if.end5, label %cleanup
 
 if.end5:                                          ; preds = %sw.epilog
-  %4 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
-  %call6 = call ptr @alloc(i32 noundef 1, i32 noundef %4, ptr noundef nonnull @.str) #4
+  %1 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
+  %call6 = call ptr @alloc(i32 noundef 1, i32 noundef %1, ptr noundef nonnull @.str) #4
   %cmp7 = icmp eq ptr %call6, null
   br i1 %cmp7, label %cleanup, label %if.end10
 
 if.end10:                                         ; preds = %if.end5
-  %5 = load ptr, ptr @igs, align 8, !tbaa !12
-  %6 = load float, ptr %fa, align 4, !tbaa !14
-  %conv11 = fpext float %6 to double
+  %2 = load ptr, ptr @igs, align 8, !tbaa !12
+  %3 = load float, ptr %fa, align 4, !tbaa !14
+  %conv11 = fpext float %3 to double
   %arrayidx12 = getelementptr inbounds [2 x float], ptr %fa, i64 0, i64 1
-  %7 = load float, ptr %arrayidx12, align 4, !tbaa !14
-  %conv13 = fpext float %7 to double
-  %call14 = call i32 @gs_screen_init(ptr noundef nonnull %call6, ptr noundef %5, double noundef %conv11, double noundef %conv13) #4
+  %4 = load float, ptr %arrayidx12, align 4, !tbaa !14
+  %conv13 = fpext float %4 to double
+  %call14 = call i32 @gs_screen_init(ptr noundef nonnull %call6, ptr noundef %2, double noundef %conv11, double noundef %conv13) #4
   %cmp15 = icmp slt i32 %call14, 0
   br i1 %cmp15, label %if.then17, label %if.end18
 
 if.then17:                                        ; preds = %if.end10
-  %8 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
-  call void @alloc_free(ptr noundef nonnull %call6, i32 noundef 1, i32 noundef %8, ptr noundef nonnull @.str) #4
+  %5 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
+  call void @alloc_free(ptr noundef nonnull %call6, i32 noundef 1, i32 noundef %5, ptr noundef nonnull @.str) #4
   br label %cleanup
 
 if.end18:                                         ; preds = %if.end10
-  %9 = load ptr, ptr @esp, align 8, !tbaa !12
-  %add.ptr19 = getelementptr inbounds %struct.ref_s, ptr %9, i64 3
-  %10 = load ptr, ptr @estop, align 8, !tbaa !12
-  %cmp20 = icmp ugt ptr %add.ptr19, %10
+  %6 = load ptr, ptr @esp, align 8, !tbaa !12
+  %add.ptr19 = getelementptr inbounds %struct.ref_s, ptr %6, i64 3
+  %7 = load ptr, ptr @estop, align 8, !tbaa !12
+  %cmp20 = icmp ugt ptr %add.ptr19, %7
   br i1 %cmp20, label %cleanup, label %if.end23
 
 if.end23:                                         ; preds = %if.end18
-  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %9, i64 1
+  %incdec.ptr = getelementptr inbounds %struct.ref_s, ptr %6, i64 1
   store i16 0, ptr %incdec.ptr, align 8, !tbaa !16
-  %type_attrs24 = getelementptr inbounds %struct.ref_s, ptr %9, i64 1, i32 1
+  %type_attrs24 = getelementptr inbounds %struct.ref_s, ptr %6, i64 1, i32 1
   store i16 33, ptr %type_attrs24, align 8, !tbaa !5
-  %incdec.ptr25 = getelementptr inbounds %struct.ref_s, ptr %9, i64 2
+  %incdec.ptr25 = getelementptr inbounds %struct.ref_s, ptr %6, i64 2
   store ptr %incdec.ptr25, ptr @esp, align 8, !tbaa !12
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr25, ptr noundef nonnull align 8 dereferenceable(16) %op, i64 16, i1 false), !tbaa.struct !17
   store ptr %add.ptr19, ptr @esp, align 8, !tbaa !12
   store ptr %call6, ptr %add.ptr19, align 8, !tbaa !16
-  %type_attrs28 = getelementptr inbounds %struct.ref_s, ptr %9, i64 3, i32 1
+  %type_attrs28 = getelementptr inbounds %struct.ref_s, ptr %6, i64 3, i32 1
   store i16 52, ptr %type_attrs28, align 8, !tbaa !5
-  %11 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
-  %conv29 = trunc i32 %11 to i16
-  %size = getelementptr inbounds %struct.ref_s, ptr %9, i64 3, i32 2
+  %8 = load i32, ptr @gs_screen_enum_sizeof, align 4, !tbaa !10
+  %conv29 = trunc i32 %8 to i16
+  %size = getelementptr inbounds %struct.ref_s, ptr %6, i64 3, i32 2
   store i16 %conv29, ptr %size, align 2, !tbaa !21
-  %12 = load ptr, ptr @osp, align 8, !tbaa !12
-  %add.ptr30 = getelementptr inbounds %struct.ref_s, ptr %12, i64 -3
+  %9 = load ptr, ptr @osp, align 8, !tbaa !12
+  %add.ptr30 = getelementptr inbounds %struct.ref_s, ptr %9, i64 -3
   store ptr %add.ptr30, ptr @osp, align 8, !tbaa !12
   %add.ptr31 = getelementptr inbounds %struct.ref_s, ptr %op, i64 -3
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pt.i) #4
@@ -108,17 +108,17 @@ if.end.i:                                         ; preds = %if.end23
   br i1 %cmp1.not.i, label %if.end3.i, label %if.then2.i
 
 if.then2.i:                                       ; preds = %if.end.i
-  %13 = load ptr, ptr @esp, align 8, !tbaa !12
-  %arrayidx.i = getelementptr inbounds %struct.ref_s, ptr %13, i64 -1
+  %10 = load ptr, ptr @esp, align 8, !tbaa !12
+  %arrayidx.i = getelementptr inbounds %struct.ref_s, ptr %10, i64 -1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) getelementptr inbounds (%struct.int_state_s, ptr @istate, i64 0, i32 1), ptr noundef nonnull align 8 dereferenceable(16) %arrayidx.i, i64 16, i1 false), !tbaa.struct !17
-  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %13, i64 -3
+  %add.ptr.i = getelementptr inbounds %struct.ref_s, ptr %10, i64 -3
   store ptr %add.ptr.i, ptr @esp, align 8, !tbaa !12
   br label %screen_sample.exit
 
 if.end3.i:                                        ; preds = %if.end.i
   store ptr %add.ptr, ptr @osp, align 8, !tbaa !12
-  %14 = load ptr, ptr @ostop, align 8, !tbaa !12
-  %cmp5.i = icmp ugt ptr %add.ptr, %14
+  %11 = load ptr, ptr @ostop, align 8, !tbaa !12
+  %cmp5.i = icmp ugt ptr %add.ptr, %11
   br i1 %cmp5.i, label %if.then6.i, label %if.end8.i
 
 if.then6.i:                                       ; preds = %if.end3.i
@@ -126,26 +126,26 @@ if.then6.i:                                       ; preds = %if.end3.i
   br label %screen_sample.exit
 
 if.end8.i:                                        ; preds = %if.end3.i
-  %15 = load float, ptr %pt.i, align 4, !tbaa !22
+  %12 = load float, ptr %pt.i, align 4, !tbaa !22
   %add.ptr9.i = getelementptr inbounds %struct.ref_s, ptr %op, i64 -2
-  store float %15, ptr %add.ptr9.i, align 8, !tbaa !16
+  store float %12, ptr %add.ptr9.i, align 8, !tbaa !16
   %type_attrs.i = getelementptr %struct.ref_s, ptr %op, i64 -2, i32 1
   store i16 44, ptr %type_attrs.i, align 8, !tbaa !5
   %y.i = getelementptr inbounds %struct.gs_point_s, ptr %pt.i, i64 0, i32 1
-  %16 = load float, ptr %y.i, align 4, !tbaa !24
-  store float %16, ptr %add.ptr, align 8, !tbaa !16
+  %13 = load float, ptr %y.i, align 4, !tbaa !24
+  store float %13, ptr %add.ptr, align 8, !tbaa !16
   %type_attrs13.i = getelementptr %struct.ref_s, ptr %op, i64 -1, i32 1
   store i16 44, ptr %type_attrs13.i, align 8, !tbaa !5
-  %17 = load ptr, ptr @esp, align 8, !tbaa !12
-  %arrayidx14.i = getelementptr inbounds %struct.ref_s, ptr %17, i64 -1
+  %14 = load ptr, ptr @esp, align 8, !tbaa !12
+  %arrayidx14.i = getelementptr inbounds %struct.ref_s, ptr %14, i64 -1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %proc.i, ptr noundef nonnull align 8 dereferenceable(16) %arrayidx14.i, i64 16, i1 false), !tbaa.struct !17
-  %incdec.ptr.i = getelementptr inbounds %struct.ref_s, ptr %17, i64 1
+  %incdec.ptr.i = getelementptr inbounds %struct.ref_s, ptr %14, i64 1
   store ptr @set_screen_continue, ptr %incdec.ptr.i, align 8, !tbaa !16
-  %type_attrs16.i = getelementptr inbounds %struct.ref_s, ptr %17, i64 1, i32 1
+  %type_attrs16.i = getelementptr inbounds %struct.ref_s, ptr %14, i64 1, i32 1
   store i16 37, ptr %type_attrs16.i, align 8, !tbaa !5
-  %size.i = getelementptr inbounds %struct.ref_s, ptr %17, i64 1, i32 2
+  %size.i = getelementptr inbounds %struct.ref_s, ptr %14, i64 1, i32 2
   store i16 0, ptr %size.i, align 2, !tbaa !21
-  %incdec.ptr17.i = getelementptr inbounds %struct.ref_s, ptr %17, i64 2
+  %incdec.ptr17.i = getelementptr inbounds %struct.ref_s, ptr %14, i64 2
   store ptr %incdec.ptr17.i, ptr @esp, align 8, !tbaa !12
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr17.i, ptr noundef nonnull align 8 dereferenceable(16) %proc.i, i64 16, i1 false), !tbaa.struct !17
   br label %screen_sample.exit

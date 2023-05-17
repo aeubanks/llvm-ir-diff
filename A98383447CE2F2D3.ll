@@ -35,8 +35,8 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @config1() local_unnamed_addr #0 {
 entry:
   %0 = load i32, ptr @numcells, align 4, !tbaa !5
-  %cmp.not112 = icmp slt i32 %0, 1
-  br i1 %cmp.not112, label %for.end22, label %for.body.lr.ph
+  %cmp.not109 = icmp slt i32 %0, 1
+  br i1 %cmp.not109, label %for.end22, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
   %1 = load ptr, ptr @cellarray, align 8, !tbaa !9
@@ -46,7 +46,7 @@ for.body.lr.ph:                                   ; preds = %entry
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc21
   %indvars.iv = phi i64 [ 1, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc21 ]
-  %totalArea.0113 = phi i32 [ 0, %for.body.lr.ph ], [ %totalArea.2, %for.inc21 ]
+  %totalArea.0110 = phi i32 [ 0, %for.body.lr.ph ], [ %totalArea.2, %for.inc21 ]
   %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx, align 8, !tbaa !9
   %numtiles = getelementptr inbounds %struct.cellbox, ptr %3, i64 0, i32 6
@@ -71,35 +71,35 @@ if.then:                                          ; preds = %for.body
   %sub = sub nsw i32 %8, %7
   %sub4 = sub nsw i32 %10, %9
   %mul = mul nsw i32 %sub4, %sub
-  %add = add nsw i32 %mul, %totalArea.0113
+  %add = add nsw i32 %mul, %totalArea.0110
   br label %for.inc21
 
 if.else:                                          ; preds = %for.body
-  %tileptr.0108 = load ptr, ptr %6, align 8, !tbaa !20
-  %cmp10.not109 = icmp eq ptr %tileptr.0108, null
-  br i1 %cmp10.not109, label %for.inc21, label %for.body11
+  %tileptr.0105 = load ptr, ptr %6, align 8, !tbaa !20
+  %cmp10.not106 = icmp eq ptr %tileptr.0105, null
+  br i1 %cmp10.not106, label %for.inc21, label %for.body11
 
 for.body11:                                       ; preds = %if.else, %for.body11
-  %tileptr.0111 = phi ptr [ %tileptr.0, %for.body11 ], [ %tileptr.0108, %if.else ]
-  %totalArea.1110 = phi i32 [ %add19, %for.body11 ], [ %totalArea.0113, %if.else ]
-  %left12 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0111, i64 0, i32 9
+  %tileptr.0108 = phi ptr [ %tileptr.0, %for.body11 ], [ %tileptr.0105, %if.else ]
+  %totalArea.1107 = phi i32 [ %add19, %for.body11 ], [ %totalArea.0110, %if.else ]
+  %left12 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0108, i64 0, i32 9
   %11 = load i32, ptr %left12, align 8, !tbaa !15
-  %right13 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0111, i64 0, i32 10
+  %right13 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0108, i64 0, i32 10
   %12 = load i32, ptr %right13, align 4, !tbaa !17
-  %bottom14 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0111, i64 0, i32 11
+  %bottom14 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0108, i64 0, i32 11
   %13 = load i32, ptr %bottom14, align 8, !tbaa !18
-  %top15 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0111, i64 0, i32 12
+  %top15 = getelementptr inbounds %struct.tilebox, ptr %tileptr.0108, i64 0, i32 12
   %14 = load i32, ptr %top15, align 4, !tbaa !19
   %sub16 = sub nsw i32 %12, %11
   %sub17 = sub nsw i32 %14, %13
   %mul18 = mul nsw i32 %sub17, %sub16
-  %add19 = add nsw i32 %mul18, %totalArea.1110
-  %tileptr.0 = load ptr, ptr %tileptr.0111, align 8, !tbaa !20
+  %add19 = add nsw i32 %mul18, %totalArea.1107
+  %tileptr.0 = load ptr, ptr %tileptr.0108, align 8, !tbaa !20
   %cmp10.not = icmp eq ptr %tileptr.0, null
   br i1 %cmp10.not, label %for.inc21, label %for.body11, !llvm.loop !21
 
 for.inc21:                                        ; preds = %for.body11, %if.else, %if.then
-  %totalArea.2 = phi i32 [ %add, %if.then ], [ %totalArea.0113, %if.else ], [ %add19, %for.body11 ]
+  %totalArea.2 = phi i32 [ %add, %if.then ], [ %totalArea.0110, %if.else ], [ %add19, %for.body11 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end22, label %for.body, !llvm.loop !23
@@ -130,11 +130,11 @@ if.else29:                                        ; preds = %for.end22
   %reass.sub = sub i32 %div34, %18
   %sub36 = add i32 %reass.sub, -2
   %.pre = load i32, ptr @blockr, align 4, !tbaa !5
-  %.pre117 = load i32, ptr @blockt, align 4, !tbaa !5
+  %.pre114 = load i32, ptr @blockt, align 4, !tbaa !5
   br label %if.end37
 
 if.end37:                                         ; preds = %if.else29, %if.then24
-  %19 = phi i32 [ %.pre117, %if.else29 ], [ %add26, %if.then24 ]
+  %19 = phi i32 [ %.pre114, %if.else29 ], [ %add26, %if.then24 ]
   %20 = phi i32 [ %.pre, %if.else29 ], [ %add26, %if.then24 ]
   %storemerge = phi i32 [ %sub36, %if.else29 ], [ %sub28, %if.then24 ]
   store i32 %storemerge, ptr @totChanLen, align 4, !tbaa !5
@@ -168,10 +168,9 @@ if.end37:                                         ; preds = %if.else29, %if.then
   %27 = load i32, ptr @numBinsX, align 4, !tbaa !5
   %div54 = sdiv i32 %sub53, %27
   %mul56 = mul nsw i32 %div54, %27
-  %28 = add i32 %24, %mul56
-  %sub57 = sub i32 %23, %28
+  %sub57.recomposed = srem i32 %sub53, %27
   %div58 = sdiv i32 %27, 2
-  %cmp59.not = icmp sge i32 %sub57, %div58
+  %cmp59.not = icmp sge i32 %sub57.recomposed, %div58
   %inc62 = zext i1 %cmp59.not to i32
   %spec.select = add nsw i32 %div54, %inc62
   store i32 %spec.select, ptr @binWidthX, align 4, !tbaa !5
@@ -179,13 +178,12 @@ if.end37:                                         ; preds = %if.else29, %if.then
   %sub65 = sub i32 %add64, %spec.select
   store i32 %sub65, ptr @binOffsetX, align 4, !tbaa !5
   %sub66 = sub nsw i32 %25, %26
-  %29 = load i32, ptr @numBinsY, align 4, !tbaa !5
-  %div67 = sdiv i32 %sub66, %29
-  %mul69 = mul nsw i32 %div67, %29
-  %30 = add i32 %26, %mul69
-  %sub70 = sub i32 %25, %30
-  %div71 = sdiv i32 %29, 2
-  %cmp72.not = icmp sge i32 %sub70, %div71
+  %28 = load i32, ptr @numBinsY, align 4, !tbaa !5
+  %div67 = sdiv i32 %sub66, %28
+  %mul69 = mul nsw i32 %div67, %28
+  %sub70.recomposed = srem i32 %sub66, %28
+  %div71 = sdiv i32 %28, 2
+  %cmp72.not = icmp sge i32 %sub70.recomposed, %div71
   %inc75 = zext i1 %cmp72.not to i32
   %storemerge103 = add nsw i32 %div67, %inc75
   store i32 %storemerge103, ptr @binWidthY, align 4, !tbaa !5

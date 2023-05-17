@@ -123,7 +123,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local noalias noundef nonnull ptr @_ZN10const_expr5derivEPc(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %var) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
   %value.i = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
@@ -147,7 +147,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local noalias noundef nonnull ptr @_ZN8var_expr5derivEPc(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %var) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
   %value.i = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
@@ -190,9 +190,9 @@ invoke.cont:                                      ; preds = %entry
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
   %2 = load ptr, ptr %vfn, align 8
   %call5 = invoke noundef ptr %2(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %var)
-          to label %invoke.cont6 unwind label %lpad3
+          to label %invoke.cont4 unwind label %lpad3
 
-invoke.cont6:                                     ; preds = %invoke.cont
+invoke.cont4:                                     ; preds = %invoke.cont
   %first.i.i = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 1
   store ptr %0, ptr %first.i.i, align 8, !tbaa !5
   %second.i.i = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 2
@@ -203,33 +203,33 @@ invoke.cont6:                                     ; preds = %invoke.cont
   %call8 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont7 unwind label %lpad
 
-invoke.cont7:                                     ; preds = %invoke.cont6
+invoke.cont7:                                     ; preds = %invoke.cont4
   %3 = load ptr, ptr %second, align 8, !tbaa !23
   %4 = load ptr, ptr %first, align 8, !tbaa !5
   %vtable11 = load ptr, ptr %4, align 8, !tbaa !11
   %vfn12 = getelementptr inbounds ptr, ptr %vtable11, i64 1
   %5 = load ptr, ptr %vfn12, align 8
   %call15 = invoke noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %var)
-          to label %invoke.cont16 unwind label %lpad13
+          to label %invoke.cont14 unwind label %lpad13
 
-invoke.cont16:                                    ; preds = %invoke.cont7
-  %first.i.i21 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 1
-  store ptr %3, ptr %first.i.i21, align 8, !tbaa !5
-  %second.i.i22 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 2
-  store ptr %call15, ptr %second.i.i22, align 8, !tbaa !23
+invoke.cont14:                                    ; preds = %invoke.cont7
+  %first.i.i20 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 1
+  store ptr %3, ptr %first.i.i20, align 8, !tbaa !5
+  %second.i.i21 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 2
+  store ptr %call15, ptr %second.i.i21, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call8, align 8, !tbaa !11
-  %op_name.i23 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 3
-  store i8 42, ptr %op_name.i23, align 8, !tbaa !13
-  %first.i.i24 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 1
-  store ptr %call2, ptr %first.i.i24, align 8, !tbaa !5
-  %second.i.i25 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 2
-  store ptr %call8, ptr %second.i.i25, align 8, !tbaa !23
+  %op_name.i22 = getelementptr inbounds %class.bin_op_expr, ptr %call8, i64 0, i32 3
+  store i8 42, ptr %op_name.i22, align 8, !tbaa !13
+  %first.i.i23 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 1
+  store ptr %call2, ptr %first.i.i23, align 8, !tbaa !5
+  %second.i.i24 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 2
+  store ptr %call8, ptr %second.i.i24, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
-  %op_name.i26 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 3
-  store i8 43, ptr %op_name.i26, align 8, !tbaa !13
+  %op_name.i25 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 3
+  store i8 43, ptr %op_name.i25, align 8, !tbaa !13
   ret ptr %call
 
-lpad:                                             ; preds = %invoke.cont6, %entry
+lpad:                                             ; preds = %invoke.cont4, %entry
   %6 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
@@ -354,9 +354,9 @@ invoke.cont4:                                     ; preds = %invoke.cont
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
   %2 = load ptr, ptr %vfn, align 8
   %call8 = invoke noundef ptr %2(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %var)
-          to label %invoke.cont9 unwind label %lpad6
+          to label %invoke.cont7 unwind label %lpad6
 
-invoke.cont9:                                     ; preds = %invoke.cont4
+invoke.cont7:                                     ; preds = %invoke.cont4
   %first.i.i = getelementptr inbounds %class.bin_op_expr, ptr %call5, i64 0, i32 1
   store ptr %0, ptr %first.i.i, align 8, !tbaa !5
   %second.i.i = getelementptr inbounds %class.bin_op_expr, ptr %call5, i64 0, i32 2
@@ -367,75 +367,75 @@ invoke.cont9:                                     ; preds = %invoke.cont4
   %call11 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont10 unwind label %lpad3
 
-invoke.cont10:                                    ; preds = %invoke.cont9
+invoke.cont10:                                    ; preds = %invoke.cont7
   %call14 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont16 unwind label %lpad12
+          to label %invoke.cont13 unwind label %lpad12
 
-invoke.cont16:                                    ; preds = %invoke.cont10
+invoke.cont13:                                    ; preds = %invoke.cont10
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call14, align 8, !tbaa !11
   %value.i = getelementptr inbounds %class.const_expr, ptr %call14, i64 0, i32 1
   store double -1.000000e+00, ptr %value.i, align 8, !tbaa !24
   %call18 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont17 unwind label %lpad12
 
-invoke.cont17:                                    ; preds = %invoke.cont16
+invoke.cont17:                                    ; preds = %invoke.cont13
   %3 = load ptr, ptr %first, align 8, !tbaa !5
   %4 = load ptr, ptr %second, align 8, !tbaa !23
   %vtable21 = load ptr, ptr %4, align 8, !tbaa !11
   %vfn22 = getelementptr inbounds ptr, ptr %vtable21, i64 1
   %5 = load ptr, ptr %vfn22, align 8
   %call25 = invoke noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %var)
-          to label %invoke.cont27 unwind label %lpad23
+          to label %invoke.cont24 unwind label %lpad23
 
-invoke.cont27:                                    ; preds = %invoke.cont17
-  %first.i.i45 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 1
-  store ptr %3, ptr %first.i.i45, align 8, !tbaa !5
-  %second.i.i46 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 2
-  store ptr %call25, ptr %second.i.i46, align 8, !tbaa !23
+invoke.cont24:                                    ; preds = %invoke.cont17
+  %first.i.i41 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 1
+  store ptr %3, ptr %first.i.i41, align 8, !tbaa !5
+  %second.i.i42 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 2
+  store ptr %call25, ptr %second.i.i42, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call18, align 8, !tbaa !11
-  %op_name.i47 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 3
-  store i8 42, ptr %op_name.i47, align 8, !tbaa !13
-  %first.i.i48 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 1
-  store ptr %call14, ptr %first.i.i48, align 8, !tbaa !5
-  %second.i.i49 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 2
-  store ptr %call18, ptr %second.i.i49, align 8, !tbaa !23
+  %op_name.i43 = getelementptr inbounds %class.bin_op_expr, ptr %call18, i64 0, i32 3
+  store i8 42, ptr %op_name.i43, align 8, !tbaa !13
+  %first.i.i44 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 1
+  store ptr %call14, ptr %first.i.i44, align 8, !tbaa !5
+  %second.i.i45 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 2
+  store ptr %call18, ptr %second.i.i45, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call11, align 8, !tbaa !11
-  %op_name.i50 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 3
-  store i8 42, ptr %op_name.i50, align 8, !tbaa !13
-  %first.i.i51 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 1
-  store ptr %call5, ptr %first.i.i51, align 8, !tbaa !5
-  %second.i.i52 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 2
-  store ptr %call11, ptr %second.i.i52, align 8, !tbaa !23
+  %op_name.i46 = getelementptr inbounds %class.bin_op_expr, ptr %call11, i64 0, i32 3
+  store i8 42, ptr %op_name.i46, align 8, !tbaa !13
+  %first.i.i47 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 1
+  store ptr %call5, ptr %first.i.i47, align 8, !tbaa !5
+  %second.i.i48 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 2
+  store ptr %call11, ptr %second.i.i48, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call2, align 8, !tbaa !11
-  %op_name.i53 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 3
-  store i8 43, ptr %op_name.i53, align 8, !tbaa !13
+  %op_name.i49 = getelementptr inbounds %class.bin_op_expr, ptr %call2, i64 0, i32 3
+  store i8 43, ptr %op_name.i49, align 8, !tbaa !13
   %call31 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-          to label %invoke.cont35 unwind label %lpad
+          to label %invoke.cont30 unwind label %lpad
 
-invoke.cont35:                                    ; preds = %invoke.cont27
+invoke.cont30:                                    ; preds = %invoke.cont24
   %6 = load ptr, ptr %second, align 8, !tbaa !23
-  %first.i.i54 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 1
-  store ptr %6, ptr %first.i.i54, align 8, !tbaa !5
-  %second.i.i55 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 2
-  store ptr %6, ptr %second.i.i55, align 8, !tbaa !23
+  %first.i.i50 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 1
+  store ptr %6, ptr %first.i.i50, align 8, !tbaa !5
+  %second.i.i51 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 2
+  store ptr %6, ptr %second.i.i51, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call31, align 8, !tbaa !11
-  %op_name.i56 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 3
-  store i8 42, ptr %op_name.i56, align 8, !tbaa !13
-  %first.i.i57 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 1
-  store ptr %call2, ptr %first.i.i57, align 8, !tbaa !5
-  %second.i.i58 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 2
-  store ptr %call31, ptr %second.i.i58, align 8, !tbaa !23
+  %op_name.i52 = getelementptr inbounds %class.bin_op_expr, ptr %call31, i64 0, i32 3
+  store i8 42, ptr %op_name.i52, align 8, !tbaa !13
+  %first.i.i53 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 1
+  store ptr %call2, ptr %first.i.i53, align 8, !tbaa !5
+  %second.i.i54 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 2
+  store ptr %call31, ptr %second.i.i54, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV13quotient_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
-  %op_name.i59 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 3
-  store i8 47, ptr %op_name.i59, align 8, !tbaa !13
+  %op_name.i55 = getelementptr inbounds %class.bin_op_expr, ptr %call, i64 0, i32 3
+  store i8 47, ptr %op_name.i55, align 8, !tbaa !13
   ret ptr %call
 
-lpad:                                             ; preds = %invoke.cont27, %entry
+lpad:                                             ; preds = %invoke.cont24, %entry
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup38
 
-lpad3:                                            ; preds = %invoke.cont9, %invoke.cont
+lpad3:                                            ; preds = %invoke.cont7, %invoke.cont
   %8 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup29
@@ -446,7 +446,7 @@ lpad6:                                            ; preds = %invoke.cont4
   tail call void @_ZdlPv(ptr noundef nonnull %call5) #14
   br label %ehcleanup29
 
-lpad12:                                           ; preds = %invoke.cont16, %invoke.cont10
+lpad12:                                           ; preds = %invoke.cont13, %invoke.cont10
   %10 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
@@ -468,9 +468,9 @@ ehcleanup29:                                      ; preds = %ehcleanup, %lpad6, 
   br label %ehcleanup38
 
 ehcleanup38:                                      ; preds = %ehcleanup29, %lpad
-  %.pn41 = phi { ptr, i32 } [ %7, %lpad ], [ %.pn.pn, %ehcleanup29 ]
+  %.pn56 = phi { ptr, i32 } [ %7, %lpad ], [ %.pn.pn, %ehcleanup29 ]
   tail call void @_ZdlPv(ptr noundef nonnull %call) #14
-  resume { ptr, i32 } %.pn41
+  resume { ptr, i32 } %.pn56
 }
 
 ; Function Attrs: norecurse uwtable
@@ -481,13 +481,13 @@ entry:
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %simple) #15
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
-  %value.i68 = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
-  store double 1.234500e+02, ptr %value.i68, align 8, !tbaa !24
+  %value.i67 = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
+  store double 1.234500e+02, ptr %value.i67, align 8, !tbaa !24
   %call6 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8var_expr, i64 0, inrange i32 0, i64 2), ptr %call6, align 8, !tbaa !11
-  %call.i69 = tail call noalias dereferenceable_or_null(2) ptr @strdup(ptr noundef nonnull @.str.3) #15
-  %name.i70 = getelementptr inbounds %class.var_expr, ptr %call6, i64 0, i32 1
-  store ptr %call.i69, ptr %name.i70, align 8, !tbaa !27
+  %call.i68 = tail call noalias dereferenceable_or_null(2) ptr @strdup(ptr noundef nonnull @.str.3) #15
+  %name.i69 = getelementptr inbounds %class.var_expr, ptr %call6, i64 0, i32 1
+  store ptr %call.i68, ptr %name.i69, align 8, !tbaa !27
   %first.i.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 1
   store ptr %call, ptr %first.i.i, align 8, !tbaa !5
   %second.i.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 2
@@ -495,16 +495,16 @@ entry:
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %simple, align 8, !tbaa !11
   %op_name.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 3
   store i8 42, ptr %op_name.i, align 8, !tbaa !13
-  %call1.i71 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 5)
-  %call1.i73 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 30)
-  %call.i7677 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
-  %call1.i79 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 48)
-  %call1.i84 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 6)
-  %call1.i87 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 30)
-  %call.i8990 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 3.000000e+00)
-  %call1.i93 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 48)
-  %call1.i99 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 11)
-  %call1.i.i102 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
+  %call1.i70 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 5)
+  %call1.i72 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 30)
+  %call.i7576 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
+  %call1.i78 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 48)
+  %call1.i83 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 6)
+  %call1.i86 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 30)
+  %call.i8889 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 3.000000e+00)
+  %call1.i92 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 48)
+  %call1.i98 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 11)
+  %call1.i.i101 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
   %vtable.i = load ptr, ptr %call, align 8, !tbaa !11
   %0 = load ptr, ptr %vtable.i, align 8
   tail call void %0(ptr noundef nonnull align 8 dereferenceable(8) %call)
@@ -520,11 +520,11 @@ entry:
   br i1 %cmp.not.i.i, label %if.end.i.i, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
-  %call1.i6.i103 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i.i, i64 noundef 1)
+  %call1.i6.i102 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i.i, i64 noundef 1)
   br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit.i
 
 if.end.i.i:                                       ; preds = %entry
-  %call2.i.i104 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 42)
+  %call2.i.i103 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 42)
   br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit.i
 
 _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit.i: ; preds = %if.then.i.i, %if.end.i.i
@@ -532,24 +532,24 @@ _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit.i: ; preds = %if.then
   %vtable3.i = load ptr, ptr %call6, align 8, !tbaa !11
   %2 = load ptr, ptr %vtable3.i, align 8
   call void %2(ptr noundef nonnull align 8 dereferenceable(8) %call6)
-  %call1.i8.i106 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call1.i108 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.9, i64 noundef 29)
-  %vtable.i111 = load ptr, ptr %call, align 8, !tbaa !11
-  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i111, i64 2
+  %call1.i8.i105 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
+  %call1.i107 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.9, i64 noundef 29)
+  %vtable.i110 = load ptr, ptr %call, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i110, i64 2
   %3 = load ptr, ptr %vfn.i, align 8
-  %call.i112114 = call noundef double %3(ptr noundef nonnull align 8 dereferenceable(8) %call, double noundef 3.000000e+00)
+  %call.i111113 = call noundef double %3(ptr noundef nonnull align 8 dereferenceable(8) %call, double noundef 3.000000e+00)
   %vtable2.i = load ptr, ptr %call6, align 8, !tbaa !11
   %vfn3.i = getelementptr inbounds ptr, ptr %vtable2.i, i64 2
   %4 = load ptr, ptr %vfn3.i, align 8
-  %call4.i115 = call noundef double %4(ptr noundef nonnull align 8 dereferenceable(8) %call6, double noundef 3.000000e+00)
-  %mul.i = fmul double %call.i112114, %call4.i115
-  %call.i116117 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %mul.i)
-  %call1.i120 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 47)
+  %call4.i114 = call noundef double %4(ptr noundef nonnull align 8 dereferenceable(8) %call6, double noundef 3.000000e+00)
+  %mul.i = fmul double %call.i111113, %call4.i114
+  %call.i115116 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %mul.i)
+  %call1.i119 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 47)
   %call51 = call noundef ptr @_ZN9prod_expr5derivEPc(ptr noundef nonnull align 8 dereferenceable(25) %simple, ptr noundef nonnull @.str.3)
   %vtable52 = load ptr, ptr %call51, align 8, !tbaa !11
   %5 = load ptr, ptr %vtable52, align 8
   call void %5(ptr noundef nonnull align 8 dereferenceable(8) %call51)
-  %call1.i123 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 47)
+  %call1.i122 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 47)
   %call58 = call noundef ptr @_ZN9prod_expr5derivEPc(ptr noundef nonnull align 8 dereferenceable(25) %simple, ptr noundef nonnull @.str.2)
   %vtable59 = load ptr, ptr %call58, align 8, !tbaa !11
   %6 = load ptr, ptr %vtable59, align 8

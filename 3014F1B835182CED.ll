@@ -25,7 +25,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-if.end:
+entry:
   ret i32 0
 }
 

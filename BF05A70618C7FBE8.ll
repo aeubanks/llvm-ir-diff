@@ -211,17 +211,17 @@ if.then6:                                         ; preds = %if.end
   br label %cleanup
 
 if.end7:                                          ; preds = %if.end
+  %add3 = add nsw i32 %add2, 1
   store i32 %add, ptr @Glastentry, align 4, !tbaa !5
   %idxprom = sext i32 %add to i64
+  %arrayidx = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom
   %token = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 1
   store i32 %tok, ptr %token, align 8, !tbaa !12
   %add9 = add nsw i32 %1, 1
   %idxprom10 = sext i32 %add9 to i64
   %arrayidx11 = getelementptr inbounds [999 x i8], ptr @Glexemes, i64 0, i64 %idxprom10
-  %arrayidx13 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom
-  store ptr %arrayidx11, ptr %arrayidx13, align 16, !tbaa !9
-  %add15 = add nsw i32 %add2, 1
-  store i32 %add15, ptr @Glastchar, align 4, !tbaa !5
+  store ptr %arrayidx11, ptr %arrayidx, align 16, !tbaa !9
+  store i32 %add3, ptr @Glastchar, align 4, !tbaa !5
   %call19 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %arrayidx11, ptr noundef nonnull dereferenceable(1) %s) #11
   %type22 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 2
   store i32 %type, ptr %type22, align 4, !tbaa !13
@@ -271,17 +271,17 @@ if.then6:                                         ; preds = %if.end
   br label %cleanup
 
 if.end7:                                          ; preds = %if.end
+  %add3 = add nsw i32 %add2, 1
   store i32 %add, ptr @Llastentry, align 4, !tbaa !5
   %idxprom = sext i32 %add to i64
+  %arrayidx = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom
   %token = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom, i32 1
   store i32 %tok, ptr %token, align 8, !tbaa !12
   %add9 = add nsw i32 %1, 1
   %idxprom10 = sext i32 %add9 to i64
   %arrayidx11 = getelementptr inbounds [999 x i8], ptr @Llexemes, i64 0, i64 %idxprom10
-  %arrayidx13 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom
-  store ptr %arrayidx11, ptr %arrayidx13, align 16, !tbaa !9
-  %add15 = add nsw i32 %add2, 1
-  store i32 %add15, ptr @Llastchar, align 4, !tbaa !5
+  store ptr %arrayidx11, ptr %arrayidx, align 16, !tbaa !9
+  store i32 %add3, ptr @Llastchar, align 4, !tbaa !5
   %call19 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %arrayidx11, ptr noundef nonnull dereferenceable(1) %s) #11
   %type22 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom, i32 2
   store i32 %type, ptr %type22, align 4, !tbaa !13

@@ -174,9 +174,9 @@ if.then55:                                        ; preds = %if.else51
   br label %if.end75
 
 if.else61:                                        ; preds = %if.else51
-  %cmp33.not = xor i1 %cmp33, true
-  %brmerge = or i1 %cmp34, %cmp33.not
-  br i1 %brmerge, label %if.else71, label %if.then65
+  %cmp62.not = icmp sge i64 %sizeOfGroupB.0161, %fan
+  %brmerge.not = and i1 %cmp62.not, %cmp33
+  br i1 %brmerge.not, label %if.then65, label %if.else71
 
 if.then65:                                        ; preds = %if.else61
   %next66 = getelementptr inbounds %struct.IndexEntry, ptr %tempA.0158, i64 0, i32 2

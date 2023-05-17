@@ -4026,45 +4026,45 @@ entry:
 
 if.then:                                          ; preds = %entry
   %shl = shl i32 %blocksize_y, 2
-  %cmp324 = icmp sgt i32 %shl, 0
-  br i1 %cmp324, label %for.cond2.preheader.lr.ph, label %cleanup220
+  %cmp325 = icmp sgt i32 %shl, 0
+  br i1 %cmp325, label %for.cond2.preheader.lr.ph, label %cleanup220
 
 for.cond2.preheader.lr.ph:                        ; preds = %if.then
   %mul = shl nsw i32 %blocksize_x, 2
   %sub1 = add nsw i32 %blocksize_x, -4
   %1 = load i32, ptr @img_padded_size_x, align 4, !tbaa !13
   %sub = add nsw i32 %1, -4
-  %cmp3321 = icmp sgt i32 %blocksize_x, 0
+  %cmp3322 = icmp sgt i32 %blocksize_x, 0
   %idx.ext57 = sext i32 %sub to i64
   %idx.ext61 = sext i32 %sub1 to i64
   %idx.ext71 = sext i32 %mul to i64
-  br i1 %cmp3321, label %for.cond2.preheader.us, label %cleanup220
+  br i1 %cmp3322, label %for.cond2.preheader.us, label %cleanup220
 
 for.cond2.preheader.us:                           ; preds = %for.cond2.preheader.lr.ph, %for.cond2.for.end70_crit_edge.us
-  %mcost.0327.us = phi i32 [ %add64.us, %for.cond2.for.end70_crit_edge.us ], [ 0, %for.cond2.preheader.lr.ph ]
-  %src_tmp.0326.us = phi ptr [ %add.ptr72.us, %for.cond2.for.end70_crit_edge.us ], [ %src_pic, %for.cond2.preheader.lr.ph ]
-  %y.0325.us = phi i32 [ %add74.us, %for.cond2.for.end70_crit_edge.us ], [ 0, %for.cond2.preheader.lr.ph ]
-  %add.us = add nsw i32 %y.0325.us, %cand_y2
-  %add9.us = add nsw i32 %y.0325.us, %cand_y1
+  %mcost.0328.us = phi i32 [ %add64.us, %for.cond2.for.end70_crit_edge.us ], [ 0, %for.cond2.preheader.lr.ph ]
+  %src_tmp.0327.us = phi ptr [ %add.ptr72.us, %for.cond2.for.end70_crit_edge.us ], [ %src_pic, %for.cond2.preheader.lr.ph ]
+  %y.0326.us = phi i32 [ %add74.us, %for.cond2.for.end70_crit_edge.us ], [ 0, %for.cond2.preheader.lr.ph ]
+  %add.us = add nsw i32 %y.0326.us, %cand_y2
+  %add9.us = add nsw i32 %y.0326.us, %cand_y1
   br label %for.body4.us
 
 for.cond2.us:                                     ; preds = %for.body4.us
-  %indvars.iv.next345 = add nuw i64 %indvars.iv344, 4
-  %2 = trunc i64 %indvars.iv.next345 to i32
+  %indvars.iv.next346 = add nuw i64 %indvars.iv345, 4
+  %2 = trunc i64 %indvars.iv.next346 to i32
   %cmp3.us = icmp slt i32 %2, %blocksize_x
   br i1 %cmp3.us, label %for.body4.us, label %for.cond2.for.end70_crit_edge.us, !llvm.loop !52
 
 for.body4.us:                                     ; preds = %for.cond2.preheader.us, %for.cond2.us
-  %indvars.iv344 = phi i64 [ 0, %for.cond2.preheader.us ], [ %indvars.iv.next345, %for.cond2.us ]
-  %mcost.1323.us = phi i32 [ %mcost.0327.us, %for.cond2.preheader.us ], [ %add64.us, %for.cond2.us ]
-  %add.ptr.us = getelementptr inbounds i16, ptr %src_tmp.0326.us, i64 %indvars.iv344
+  %indvars.iv345 = phi i64 [ 0, %for.cond2.preheader.us ], [ %indvars.iv.next346, %for.cond2.us ]
+  %mcost.1324.us = phi i32 [ %mcost.0328.us, %for.cond2.preheader.us ], [ %add64.us, %for.cond2.us ]
+  %add.ptr.us = getelementptr inbounds i16, ptr %src_tmp.0327.us, i64 %indvars.iv345
   store ptr %add.ptr.us, ptr @src_line, align 8, !tbaa !5
   %3 = load i32, ptr @bipred2_access_method, align 4, !tbaa !13
   %idxprom.us = sext i32 %3 to i64
   %arrayidx.us = getelementptr inbounds [2 x ptr], ptr @get_line, i64 0, i64 %idxprom.us
   %4 = load ptr, ptr %arrayidx.us, align 8, !tbaa !5
   %5 = load ptr, ptr @ref_pic2_sub, align 8, !tbaa !22
-  %6 = trunc i64 %indvars.iv344 to i32
+  %6 = trunc i64 %indvars.iv345 to i32
   %shl5.us = shl i32 %6, 2
   %add6.us = add nsw i32 %shl5.us, %cand_x2
   %call.us = tail call ptr %4(ptr noundef %5, i32 noundef %add.us, i32 noundef %add6.us) #6
@@ -4076,16 +4076,16 @@ for.body4.us:                                     ; preds = %for.cond2.preheader
   %9 = load ptr, ptr @ref_pic1_sub, align 8, !tbaa !22
   %add11.us = add nsw i32 %shl5.us, %cand_x1
   %call12.us = tail call ptr %8(ptr noundef %9, i32 noundef %add9.us, i32 noundef %add11.us) #6
-  %src_line.promoted.us329 = load ptr, ptr @src_line, align 8, !tbaa !5
-  %ref2_line.promoted.us331 = load ptr, ptr @ref2_line, align 8, !tbaa !5
-  %incdec.ptr46.us = getelementptr inbounds i16, ptr %src_line.promoted.us329, i64 4
+  %src_line.promoted.us330 = load ptr, ptr @src_line, align 8, !tbaa !5
+  %ref2_line.promoted.us332 = load ptr, ptr @ref2_line, align 8, !tbaa !5
+  %incdec.ptr46.us = getelementptr inbounds i16, ptr %src_line.promoted.us330, i64 4
   %incdec.ptr48.us = getelementptr inbounds i16, ptr %call12.us, i64 4
-  %incdec.ptr50.us = getelementptr inbounds i16, ptr %ref2_line.promoted.us331, i64 4
-  %10 = load <4 x i16>, ptr %src_line.promoted.us329, align 2, !tbaa !25
+  %incdec.ptr50.us = getelementptr inbounds i16, ptr %ref2_line.promoted.us332, i64 4
+  %10 = load <4 x i16>, ptr %src_line.promoted.us330, align 2, !tbaa !25
   %11 = zext <4 x i16> %10 to <4 x i32>
   %12 = load <4 x i16>, ptr %call12.us, align 2, !tbaa !25
   %13 = zext <4 x i16> %12 to <4 x i32>
-  %14 = load <4 x i16>, ptr %ref2_line.promoted.us331, align 2, !tbaa !25
+  %14 = load <4 x i16>, ptr %ref2_line.promoted.us332, align 2, !tbaa !25
   %15 = zext <4 x i16> %14 to <4 x i32>
   %16 = add nuw nsw <4 x i32> %13, <i32 1, i32 1, i32 1, i32 1>
   %17 = add nuw nsw <4 x i32> %16, %15
@@ -4150,13 +4150,13 @@ for.body4.us:                                     ; preds = %for.cond2.preheader
   store ptr %add.ptr58.us.3, ptr @ref1_line, align 8, !tbaa !5
   store ptr %add.ptr60.us.3, ptr @ref2_line, align 8, !tbaa !5
   %call63.us = tail call i32 @HadamardSAD4x4(ptr noundef nonnull @diff), !range !18
-  %add64.us = add nsw i32 %call63.us, %mcost.1323.us
+  %add64.us = add nsw i32 %call63.us, %mcost.1324.us
   %cmp65.us = icmp sgt i32 %add64.us, %min_mcost
   br i1 %cmp65.us, label %cleanup220, label %for.cond2.us
 
 for.cond2.for.end70_crit_edge.us:                 ; preds = %for.cond2.us
-  %add.ptr72.us = getelementptr inbounds i16, ptr %src_tmp.0326.us, i64 %idx.ext71
-  %add74.us = add nuw nsw i32 %y.0325.us, 16
+  %add.ptr72.us = getelementptr inbounds i16, ptr %src_tmp.0327.us, i64 %idx.ext71
+  %add74.us = add nuw nsw i32 %y.0326.us, 16
   %cmp.us = icmp slt i32 %add74.us, %shl
   br i1 %cmp.us, label %for.cond2.preheader.us, label %cleanup220, !llvm.loop !53
 
@@ -4494,19 +4494,19 @@ entry:
 
 if.then:                                          ; preds = %entry
   %shl = shl i32 %blocksize_y, 2
-  %cmp502 = icmp sgt i32 %shl, 0
-  br i1 %cmp502, label %for.cond3.preheader.lr.ph, label %cleanup316
+  %cmp503 = icmp sgt i32 %shl, 0
+  br i1 %cmp503, label %for.cond3.preheader.lr.ph, label %cleanup316
 
 for.cond3.preheader.lr.ph:                        ; preds = %if.then
   %mul2 = shl nsw i32 %blocksize_x, 2
   %sub1 = add nsw i32 %blocksize_x, -4
   %3 = load i32, ptr @img_padded_size_x, align 4, !tbaa !13
   %sub = add nsw i32 %3, -4
-  %cmp4499 = icmp sgt i32 %blocksize_x, 0
+  %cmp4500 = icmp sgt i32 %blocksize_x, 0
   %idx.ext90 = sext i32 %sub to i64
   %idx.ext94 = sext i32 %sub1 to i64
   %idx.ext104 = sext i32 %mul2 to i64
-  br i1 %cmp4499, label %for.cond3.preheader.us.preheader, label %cleanup316
+  br i1 %cmp4500, label %for.cond3.preheader.us.preheader, label %cleanup316
 
 for.cond3.preheader.us.preheader:                 ; preds = %for.cond3.preheader.lr.ph
   %4 = insertelement <4 x i32> poison, i32 %mul, i64 0
@@ -4516,30 +4516,30 @@ for.cond3.preheader.us.preheader:                 ; preds = %for.cond3.preheader
   br label %for.cond3.preheader.us
 
 for.cond3.preheader.us:                           ; preds = %for.cond3.preheader.us.preheader, %for.cond3.for.end103_crit_edge.us
-  %mcost.0505.us = phi i32 [ %add97.us, %for.cond3.for.end103_crit_edge.us ], [ 0, %for.cond3.preheader.us.preheader ]
-  %src_tmp.0504.us = phi ptr [ %add.ptr105.us, %for.cond3.for.end103_crit_edge.us ], [ %src_pic, %for.cond3.preheader.us.preheader ]
-  %y.0503.us = phi i32 [ %add107.us, %for.cond3.for.end103_crit_edge.us ], [ 0, %for.cond3.preheader.us.preheader ]
-  %add6.us = add nsw i32 %y.0503.us, %cand_y2
-  %add11.us = add nsw i32 %y.0503.us, %cand_y1
+  %mcost.0506.us = phi i32 [ %add97.us, %for.cond3.for.end103_crit_edge.us ], [ 0, %for.cond3.preheader.us.preheader ]
+  %src_tmp.0505.us = phi ptr [ %add.ptr105.us, %for.cond3.for.end103_crit_edge.us ], [ %src_pic, %for.cond3.preheader.us.preheader ]
+  %y.0504.us = phi i32 [ %add107.us, %for.cond3.for.end103_crit_edge.us ], [ 0, %for.cond3.preheader.us.preheader ]
+  %add6.us = add nsw i32 %y.0504.us, %cand_y2
+  %add11.us = add nsw i32 %y.0504.us, %cand_y1
   br label %for.body5.us
 
 for.cond3.us:                                     ; preds = %for.body5.us
-  %indvars.iv.next523 = add nuw i64 %indvars.iv522, 4
-  %8 = trunc i64 %indvars.iv.next523 to i32
+  %indvars.iv.next524 = add nuw i64 %indvars.iv523, 4
+  %8 = trunc i64 %indvars.iv.next524 to i32
   %cmp4.us = icmp slt i32 %8, %blocksize_x
   br i1 %cmp4.us, label %for.body5.us, label %for.cond3.for.end103_crit_edge.us, !llvm.loop !56
 
 for.body5.us:                                     ; preds = %for.cond3.preheader.us, %for.cond3.us
-  %indvars.iv522 = phi i64 [ 0, %for.cond3.preheader.us ], [ %indvars.iv.next523, %for.cond3.us ]
-  %mcost.1501.us = phi i32 [ %mcost.0505.us, %for.cond3.preheader.us ], [ %add97.us, %for.cond3.us ]
-  %add.ptr.us = getelementptr inbounds i16, ptr %src_tmp.0504.us, i64 %indvars.iv522
+  %indvars.iv523 = phi i64 [ 0, %for.cond3.preheader.us ], [ %indvars.iv.next524, %for.cond3.us ]
+  %mcost.1502.us = phi i32 [ %mcost.0506.us, %for.cond3.preheader.us ], [ %add97.us, %for.cond3.us ]
+  %add.ptr.us = getelementptr inbounds i16, ptr %src_tmp.0505.us, i64 %indvars.iv523
   store ptr %add.ptr.us, ptr @src_line, align 8, !tbaa !5
   %9 = load i32, ptr @bipred2_access_method, align 4, !tbaa !13
   %idxprom.us = sext i32 %9 to i64
   %arrayidx.us = getelementptr inbounds [2 x ptr], ptr @get_line, i64 0, i64 %idxprom.us
   %10 = load ptr, ptr %arrayidx.us, align 8, !tbaa !5
   %11 = load ptr, ptr @ref_pic2_sub, align 8, !tbaa !22
-  %12 = trunc i64 %indvars.iv522 to i32
+  %12 = trunc i64 %indvars.iv523 to i32
   %shl7.us = shl i32 %12, 2
   %add8.us = add nsw i32 %shl7.us, %cand_x2
   %call.us = tail call ptr %10(ptr noundef %11, i32 noundef %add6.us, i32 noundef %add8.us) #6
@@ -4559,17 +4559,17 @@ for.body5.us:                                     ; preds = %for.cond3.preheader
   %max_imgpel_value.us = getelementptr inbounds %struct.ImageParameters, ptr %18, i64 0, i32 156
   %19 = load i16, ptr @offsetBi, align 2, !tbaa !25
   %conv26.us = sext i16 %19 to i32
-  %ref2_line.promoted.us508 = load ptr, ptr @ref2_line, align 8, !tbaa !5
-  %src_line.promoted.us509 = load ptr, ptr @src_line, align 8, !tbaa !5
+  %ref2_line.promoted.us509 = load ptr, ptr @ref2_line, align 8, !tbaa !5
+  %src_line.promoted.us510 = load ptr, ptr @src_line, align 8, !tbaa !5
   %incdec.ptr72.us = getelementptr inbounds i16, ptr %call14.us, i64 4
-  %incdec.ptr76.us = getelementptr inbounds i16, ptr %ref2_line.promoted.us508, i64 4
-  %incdec.ptr86.us = getelementptr inbounds i16, ptr %src_line.promoted.us509, i64 4
+  %incdec.ptr76.us = getelementptr inbounds i16, ptr %ref2_line.promoted.us509, i64 4
+  %incdec.ptr86.us = getelementptr inbounds i16, ptr %src_line.promoted.us510, i64 4
   %20 = load <4 x i16>, ptr %call14.us, align 2, !tbaa !25
   %21 = zext <4 x i16> %20 to <4 x i32>
   %22 = insertelement <4 x i32> poison, i32 %conv.us, i64 0
   %23 = shufflevector <4 x i32> %22, <4 x i32> poison, <4 x i32> zeroinitializer
   %24 = mul nsw <4 x i32> %23, %21
-  %25 = load <4 x i16>, ptr %ref2_line.promoted.us508, align 2, !tbaa !25
+  %25 = load <4 x i16>, ptr %ref2_line.promoted.us509, align 2, !tbaa !25
   %26 = zext <4 x i16> %25 to <4 x i32>
   %27 = insertelement <4 x i32> poison, i32 %conv20.us, i64 0
   %28 = shufflevector <4 x i32> %27, <4 x i32> poison, <4 x i32> zeroinitializer
@@ -4581,7 +4581,7 @@ for.body5.us:                                     ; preds = %for.cond3.preheader
   %34 = shufflevector <4 x i32> %33, <4 x i32> poison, <4 x i32> zeroinitializer
   %35 = add nsw <4 x i32> %32, %34
   %36 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %35, <4 x i32> zeroinitializer)
-  %37 = load <4 x i16>, ptr %src_line.promoted.us509, align 2, !tbaa !25
+  %37 = load <4 x i16>, ptr %src_line.promoted.us510, align 2, !tbaa !25
   %38 = zext <4 x i16> %37 to <4 x i32>
   %add.ptr91.us = getelementptr inbounds i16, ptr %incdec.ptr72.us, i64 %idx.ext90
   %add.ptr93.us = getelementptr inbounds i16, ptr %incdec.ptr76.us, i64 %idx.ext90
@@ -4668,13 +4668,13 @@ for.body5.us:                                     ; preds = %for.cond3.preheader
   store ptr %add.ptr93.us.3, ptr @ref2_line, align 8, !tbaa !5
   store ptr %add.ptr95.us.3, ptr @src_line, align 8, !tbaa !5
   %call96.us = tail call i32 @HadamardSAD4x4(ptr noundef nonnull @diff), !range !18
-  %add97.us = add nsw i32 %call96.us, %mcost.1501.us
+  %add97.us = add nsw i32 %call96.us, %mcost.1502.us
   %cmp98.us = icmp sgt i32 %add97.us, %min_mcost
   br i1 %cmp98.us, label %cleanup316, label %for.cond3.us
 
 for.cond3.for.end103_crit_edge.us:                ; preds = %for.cond3.us
-  %add.ptr105.us = getelementptr inbounds i16, ptr %src_tmp.0504.us, i64 %idx.ext104
-  %add107.us = add nuw nsw i32 %y.0503.us, 16
+  %add.ptr105.us = getelementptr inbounds i16, ptr %src_tmp.0505.us, i64 %idx.ext104
+  %add107.us = add nuw nsw i32 %y.0504.us, 16
   %cmp.us = icmp slt i32 %add107.us, %shl
   br i1 %cmp.us, label %for.cond3.preheader.us, label %cleanup316, !llvm.loop !57
 

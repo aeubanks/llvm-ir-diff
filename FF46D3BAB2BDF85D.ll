@@ -1068,11 +1068,11 @@ if.else7.i:                                       ; preds = %sw.bb7
 if.else9.i:                                       ; preds = %if.else7.i
   %34 = load i32, ptr @repeat_first_field, align 4, !tbaa !14
   %tobool10.not.i = icmp eq i32 %34, 0
-  %.23.i = select i1 %tobool10.not.i, i64 2, i64 3
+  %.24.i = select i1 %tobool10.not.i, i64 2, i64 3
   br label %if.end15.i
 
 if.end15.i:                                       ; preds = %if.else9.i, %if.else7.i, %if.then2.i, %if.then.i47
-  %number_of_frame_center_offsets.0.i = phi i64 [ %..i, %if.then2.i ], [ 1, %if.then.i47 ], [ 1, %if.else7.i ], [ %.23.i, %if.else9.i ]
+  %number_of_frame_center_offsets.0.i = phi i64 [ %..i, %if.then2.i ], [ 1, %if.then.i47 ], [ 1, %if.else7.i ], [ %.24.i, %if.else9.i ]
   br label %for.body.i55
 
 for.body.i55:                                     ; preds = %for.body.i55, %if.end15.i
@@ -1084,7 +1084,7 @@ for.body.i55:                                     ; preds = %for.body.i55, %if.e
   %call17.i = tail call i32 @Get_Bits(i32 noundef 16) #4
   %arrayidx19.i = getelementptr inbounds [3 x i32], ptr @frame_center_vertical_offset, i64 0, i64 %indvars.iv.i49
   store i32 %call17.i, ptr %arrayidx19.i, align 4, !tbaa !14
-  %call.i24.i = tail call i32 @Get_Bits(i32 noundef 1) #4
+  %call.i23.i = tail call i32 @Get_Bits(i32 noundef 1) #4
   %indvars.iv.next.i53 = add nuw nsw i64 %indvars.iv.i49, 1
   %exitcond.not.i54 = icmp eq i64 %indvars.iv.next.i53, %number_of_frame_center_offsets.0.i
   br i1 %exitcond.not.i54, label %sw.epilog, label %for.body.i55, !llvm.loop !43
@@ -1154,7 +1154,7 @@ sw.bb9:                                           ; preds = %if.then
   %sub.i = add nsw i32 %call1.i73, -32768
   %spec.select.i = select i1 %cmp.i74, i32 %sub.i, i32 %call1.i73
   store i32 %spec.select.i, ptr @lower_layer_horizontal_offset, align 4, !tbaa !14
-  %call.i11.i = tail call i32 @Get_Bits(i32 noundef 1) #4
+  %call.i10.i = tail call i32 @Get_Bits(i32 noundef 1) #4
   %call2.i75 = tail call i32 @Get_Bits(i32 noundef 15) #4
   %cmp3.i = icmp sgt i32 %call2.i75, 16383
   %sub5.i = add nsw i32 %call2.i75, -32768

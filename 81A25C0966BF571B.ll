@@ -70,13 +70,13 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then, %entry
   %call.i = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #12
   %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.then.i, label %ercSetErrorConcealment.exit
+  br i1 %cmp.i, label %if.then.i, label %ercOpen.exit
 
 if.then.i:                                        ; preds = %if.end
   tail call void @no_mem_exit(ptr noundef nonnull @.str.1) #11
-  br label %ercSetErrorConcealment.exit
+  br label %ercOpen.exit
 
-ercSetErrorConcealment.exit:                      ; preds = %if.end, %if.then.i
+ercOpen.exit:                                     ; preds = %if.end, %if.then.i
   store i32 0, ptr %call.i, align 8, !tbaa !9
   %yCondition.i = getelementptr inbounds %struct.ercVariables_s, ptr %call.i, i64 0, i32 2
   %prevFrameYCondition.i = getelementptr inbounds %struct.ercVariables_s, ptr %call.i, i64 0, i32 7
@@ -377,17 +377,17 @@ for.body.lr.ph.new:                               ; preds = %for.body.lr.ph
 for.body:                                         ; preds = %for.body, %for.body.lr.ph.new
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph.new ], [ %indvars.iv.next.1, %for.body ]
   %niter = phi i64 [ 0, %for.body.lr.ph.new ], [ %niter.next.1, %for.body ]
+  %arrayidx = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv
   %fCorrupted = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv, i32 2
   store i32 1, ptr %fCorrupted, align 4, !tbaa !19
-  %arrayidx105 = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv
-  store i32 0, ptr %arrayidx105, align 4, !tbaa !21
+  store i32 0, ptr %arrayidx, align 4, !tbaa !21
   %endMBPos = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv, i32 1
   store i32 %sub, ptr %endMBPos, align 4, !tbaa !22
   %indvars.iv.next = or i64 %indvars.iv, 1
+  %arrayidx.1 = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.next
   %fCorrupted.1 = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.next, i32 2
   store i32 1, ptr %fCorrupted.1, align 4, !tbaa !19
-  %arrayidx105.1 = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.next
-  store i32 0, ptr %arrayidx105.1, align 4, !tbaa !21
+  store i32 0, ptr %arrayidx.1, align 4, !tbaa !21
   %endMBPos.1 = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.next, i32 1
   store i32 %sub, ptr %endMBPos.1, align 4, !tbaa !22
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
@@ -401,10 +401,10 @@ for.end.loopexit.unr-lcssa:                       ; preds = %for.body, %for.body
   br i1 %lcmp.mod.not, label %for.end, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.end.loopexit.unr-lcssa
+  %arrayidx.epil = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.unr
   %fCorrupted.epil = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.unr, i32 2
   store i32 1, ptr %fCorrupted.epil, align 4, !tbaa !19
-  %arrayidx105.epil = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.unr
-  store i32 0, ptr %arrayidx105.epil, align 4, !tbaa !21
+  store i32 0, ptr %arrayidx.epil, align 4, !tbaa !21
   %endMBPos.epil = getelementptr inbounds %struct.ercSegment_s, ptr %17, i64 %indvars.iv.unr, i32 1
   store i32 %sub, ptr %endMBPos.epil, align 4, !tbaa !22
   br label %for.end
@@ -444,10 +444,10 @@ if.then:                                          ; preds = %land.lhs.true
   %segments = getelementptr inbounds %struct.ercVariables_s, ptr %errorVar, i64 0, i32 5
   %1 = load ptr, ptr %segments, align 8, !tbaa !15
   %idxprom = sext i32 %segment to i64
+  %arrayidx = getelementptr inbounds %struct.ercSegment_s, ptr %1, i64 %idxprom
   %fCorrupted = getelementptr inbounds %struct.ercSegment_s, ptr %1, i64 %idxprom, i32 2
   store i32 0, ptr %fCorrupted, align 4, !tbaa !19
-  %arrayidx4 = getelementptr inbounds %struct.ercSegment_s, ptr %1, i64 %idxprom
-  store i32 %currMBNum, ptr %arrayidx4, align 4, !tbaa !21
+  store i32 %currMBNum, ptr %arrayidx, align 4, !tbaa !21
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %land.lhs.true, %entry

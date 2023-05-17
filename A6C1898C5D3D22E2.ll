@@ -17,12 +17,12 @@ entry:
   br label %while.cond1.preheader
 
 while.cond1.preheader:                            ; preds = %entry, %if.end
-  %cq.066 = phi ptr [ %name, %entry ], [ %cp.2, %if.end ]
-  %octets.065 = phi i32 [ 0, %entry ], [ %spec.select, %if.end ]
+  %cq.067 = phi ptr [ %name, %entry ], [ %cp.2, %if.end ]
+  %octets.066 = phi i32 [ 0, %entry ], [ %spec.select, %if.end ]
   br label %while.cond1
 
 while.cond1:                                      ; preds = %while.cond1, %while.cond1.preheader
-  %cp.1 = phi ptr [ %incdec.ptr, %while.cond1 ], [ %cq.066, %while.cond1.preheader ]
+  %cp.1 = phi ptr [ %incdec.ptr, %while.cond1 ], [ %cq.067, %while.cond1.preheader ]
   %0 = load i8, ptr %cp.1, align 1, !tbaa !5
   %1 = add i8 %0, -48
   %or.cond63 = icmp ult i8 %1, 10
@@ -30,9 +30,9 @@ while.cond1:                                      ; preds = %while.cond1, %while
   br i1 %or.cond63, label %while.cond1, label %while.end, !llvm.loop !8
 
 while.end:                                        ; preds = %while.cond1
-  %cmp8 = icmp eq ptr %cp.1, %cq.066
+  %cmp8 = icmp eq ptr %cp.1, %cq.067
   %sub.ptr.lhs.cast = ptrtoint ptr %cp.1 to i64
-  %sub.ptr.rhs.cast = ptrtoint ptr %cq.066 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %cq.067 to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
   %cmp10 = icmp sgt i64 %sub.ptr.sub, 3
   %or.cond64 = or i1 %cmp8, %cmp10
@@ -40,17 +40,17 @@ while.end:                                        ; preds = %while.cond1
 
 if.end:                                           ; preds = %while.end
   %cmp13 = icmp eq i8 %0, 46
-  %cmp16 = icmp eq i32 %octets.065, 3
+  %cmp16 = icmp eq i32 %octets.066, 3
   %or.cond = or i1 %cmp16, %cmp13
   %inc = zext i1 %or.cond to i32
-  %spec.select = add nuw nsw i32 %octets.065, %inc
+  %spec.select = add nuw nsw i32 %octets.066, %inc
   %cmp20 = icmp ult i32 %spec.select, 4
   %cp.2.idx = zext i1 %cmp20 to i64
   %cp.2 = getelementptr i8, ptr %cp.1, i64 %cp.2.idx
   br i1 %cmp20, label %while.cond1.preheader, label %while.end25, !llvm.loop !10
 
 while.end25:                                      ; preds = %while.end, %if.end
-  %octets.0.lcssa = phi i32 [ %octets.065, %while.end ], [ %spec.select, %if.end ]
+  %octets.0.lcssa = phi i32 [ %octets.066, %while.end ], [ %spec.select, %if.end ]
   %cp.3 = phi ptr [ %cp.1, %while.end ], [ %cp.2, %if.end ]
   %cmp26 = icmp eq i32 %octets.0.lcssa, 4
   br i1 %cmp26, label %land.lhs.true, label %if.end43
@@ -86,12 +86,12 @@ entry:
   br label %while.cond1.preheader.i
 
 while.cond1.preheader.i:                          ; preds = %if.end.i, %entry
-  %cq.066.i = phi ptr [ @main.addr, %entry ], [ %cp.2.i, %if.end.i ]
-  %octets.065.i = phi i32 [ 0, %entry ], [ %spec.select.i, %if.end.i ]
+  %cq.067.i = phi ptr [ @main.addr, %entry ], [ %cp.2.i, %if.end.i ]
+  %octets.066.i = phi i32 [ 0, %entry ], [ %spec.select.i, %if.end.i ]
   br label %while.cond1.i
 
 while.cond1.i:                                    ; preds = %while.cond1.i, %while.cond1.preheader.i
-  %cp.1.i = phi ptr [ %incdec.ptr.i, %while.cond1.i ], [ %cq.066.i, %while.cond1.preheader.i ]
+  %cp.1.i = phi ptr [ %incdec.ptr.i, %while.cond1.i ], [ %cq.067.i, %while.cond1.preheader.i ]
   %0 = load i8, ptr %cp.1.i, align 1, !tbaa !5
   %1 = add i8 %0, -48
   %or.cond63.i = icmp ult i8 %1, 10
@@ -99,9 +99,9 @@ while.cond1.i:                                    ; preds = %while.cond1.i, %whi
   br i1 %or.cond63.i, label %while.cond1.i, label %while.end.i, !llvm.loop !8
 
 while.end.i:                                      ; preds = %while.cond1.i
-  %cmp8.i = icmp eq ptr %cp.1.i, %cq.066.i
+  %cmp8.i = icmp eq ptr %cp.1.i, %cq.067.i
   %sub.ptr.lhs.cast.i = ptrtoint ptr %cp.1.i to i64
-  %sub.ptr.rhs.cast.i = ptrtoint ptr %cq.066.i to i64
+  %sub.ptr.rhs.cast.i = ptrtoint ptr %cq.067.i to i64
   %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
   %cmp10.i = icmp sgt i64 %sub.ptr.sub.i, 3
   %or.cond64.i = or i1 %cmp8.i, %cmp10.i
@@ -109,41 +109,41 @@ while.end.i:                                      ; preds = %while.cond1.i
 
 if.end.i:                                         ; preds = %while.end.i
   %cmp13.i = icmp eq i8 %0, 46
-  %cmp16.i = icmp eq i32 %octets.065.i, 3
+  %cmp16.i = icmp eq i32 %octets.066.i, 3
   %or.cond.i = or i1 %cmp16.i, %cmp13.i
   %inc.i = zext i1 %or.cond.i to i32
-  %spec.select.i = add nuw nsw i32 %octets.065.i, %inc.i
+  %spec.select.i = add nuw nsw i32 %octets.066.i, %inc.i
   %cmp20.i = icmp ult i32 %spec.select.i, 4
   %cp.2.idx.i = zext i1 %cmp20.i to i64
   %cp.2.i = getelementptr i8, ptr %cp.1.i, i64 %cp.2.idx.i
   br i1 %cmp20.i, label %while.cond1.preheader.i, label %while.end25.i, !llvm.loop !10
 
 while.end25.i:                                    ; preds = %if.end.i, %while.end.i
-  %octets.0.lcssa.i = phi i32 [ %octets.065.i, %while.end.i ], [ %spec.select.i, %if.end.i ]
+  %octets.0.lcssa.i = phi i32 [ %octets.066.i, %while.end.i ], [ %spec.select.i, %if.end.i ]
   %cp.3.i = phi ptr [ %cp.1.i, %while.end.i ], [ %cp.2.i, %if.end.i ]
   %cmp26.i = icmp eq i32 %octets.0.lcssa.i, 4
-  br i1 %cmp26.i, label %land.lhs.true.i, label %if.then
+  br i1 %cmp26.i, label %land.lhs.true.i, label %if.then.critedge
 
 land.lhs.true.i:                                  ; preds = %while.end25.i
   %2 = load i8, ptr %cp.3.i, align 1, !tbaa !5
-  switch i8 %2, label %if.then [
+  switch i8 %2, label %if.then.critedge [
     i8 58, label %if.then39.i
-    i8 0, label %if.end
+    i8 0, label %if.end41.i
   ]
 
 if.then39.i:                                      ; preds = %land.lhs.true.i
   %incdec.ptr40.i = getelementptr inbounds i8, ptr %cp.3.i, i64 1
   store i8 0, ptr %cp.3.i, align 1, !tbaa !5
-  br label %if.end
+  br label %if.end41.i
 
-if.then:                                          ; preds = %land.lhs.true.i, %while.end25.i
-  tail call void @abort() #6
-  unreachable
-
-if.end:                                           ; preds = %if.then39.i, %land.lhs.true.i
+if.end41.i:                                       ; preds = %if.then39.i, %land.lhs.true.i
   %cp.4.i = phi ptr [ %incdec.ptr40.i, %if.then39.i ], [ %cp.3.i, %land.lhs.true.i ]
   %call42.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @main.addr, ptr noundef nonnull dereferenceable(1) %cp.4.i) #5
   ret i32 0
+
+if.then.critedge:                                 ; preds = %land.lhs.true.i, %while.end25.i
+  tail call void @abort() #6
+  unreachable
 }
 
 ; Function Attrs: noreturn

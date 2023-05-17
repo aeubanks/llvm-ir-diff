@@ -88,7 +88,7 @@ $_ZTI21btNodeOverlapCallback = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN20btMultiSapBroadphaseC2EiP22btOverlappingPairCache(ptr noundef nonnull align 8 dereferenceable(120) %this, i32 %0, ptr noundef %pairCache) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont3:
+entry:
   store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV20btMultiSapBroadphase, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_sapBroadphases = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1
   %m_ownsMemory.i.i = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 6
@@ -108,18 +108,18 @@ invoke.cont3:
   %m_invalidPair = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 7
   store i32 0, ptr %m_invalidPair, align 8, !tbaa !25
   %m_multiSapProxies = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9
-  %m_ownsMemory.i.i26 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 6
-  store i8 1, ptr %m_ownsMemory.i.i26, align 8, !tbaa !26
-  %m_data.i.i27 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 5
-  store ptr null, ptr %m_data.i.i27, align 8, !tbaa !27
-  %m_size.i.i28 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 2
-  store i32 0, ptr %m_size.i.i28, align 4, !tbaa !28
-  %m_capacity.i.i29 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 3
-  store i32 0, ptr %m_capacity.i.i29, align 8, !tbaa !29
+  %m_ownsMemory.i.i23 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i23, align 8, !tbaa !26
+  %m_data.i.i24 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 5
+  store ptr null, ptr %m_data.i.i24, align 8, !tbaa !27
+  %m_size.i.i25 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 2
+  store i32 0, ptr %m_size.i.i25, align 4, !tbaa !28
+  %m_capacity.i.i26 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 3
+  store i32 0, ptr %m_capacity.i.i26, align 8, !tbaa !29
   %tobool.not = icmp eq ptr %pairCache, null
   br i1 %tobool.not, label %if.then, label %if.end
 
-if.then:                                          ; preds = %invoke.cont3
+if.then:                                          ; preds = %entry
   store i8 1, ptr %m_ownsPairCache, align 8, !tbaa !24
   %call = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 64, i32 noundef 16)
           to label %invoke.cont7 unwind label %lpad6
@@ -137,7 +137,7 @@ lpad6:                                            ; preds = %invoke.cont7, %if.t
           cleanup
   br label %ehcleanup
 
-if.end:                                           ; preds = %invoke.cont8, %invoke.cont3
+if.end:                                           ; preds = %invoke.cont8, %entry
   %call13 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 8, i32 noundef 16)
           to label %invoke.cont12 unwind label %lpad11
 
@@ -295,39 +295,39 @@ if.end:                                           ; preds = %invoke.cont, %entry
   %6 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !31
   %tobool2.not.i.i.i = icmp eq i8 %6, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %invoke.cont5, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEED2Ev.exit, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %if.end
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %5)
-          to label %invoke.cont5 unwind label %lpad4
+          to label %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEED2Ev.exit unwind label %lpad4
 
-invoke.cont5:                                     ; preds = %if.end, %if.then3.i.i.i
+_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEED2Ev.exit: ; preds = %if.then3.i.i.i, %if.end
   %m_size.i.i.i = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !26
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !27
   store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !28
   %m_capacity.i.i.i = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !29
-  %m_data.i.i.i18 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 5
-  %7 = load ptr, ptr %m_data.i.i.i18, align 8, !tbaa !15
-  %tobool.not.i.i.i19 = icmp eq ptr %7, null
-  %m_ownsMemory.i.i.i20 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 6
-  %8 = load i8, ptr %m_ownsMemory.i.i.i20, align 8, !range !31
-  %tobool2.not.i.i.i21 = icmp eq i8 %8, 0
-  %or.cond.i.i22 = select i1 %tobool.not.i.i.i19, i1 true, i1 %tobool2.not.i.i.i21
-  br i1 %or.cond.i.i22, label %invoke.cont9, label %if.then3.i.i.i23
+  %m_data.i.i.i15 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 5
+  %7 = load ptr, ptr %m_data.i.i.i15, align 8, !tbaa !15
+  %tobool.not.i.i.i16 = icmp eq ptr %7, null
+  %m_ownsMemory.i.i.i17 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 6
+  %8 = load i8, ptr %m_ownsMemory.i.i.i17, align 8, !range !31
+  %tobool2.not.i.i.i18 = icmp eq i8 %8, 0
+  %or.cond.i.i19 = select i1 %tobool.not.i.i.i16, i1 true, i1 %tobool2.not.i.i.i18
+  br i1 %or.cond.i.i19, label %_ZN20btAlignedObjectArrayIP21btBroadphaseInterfaceED2Ev.exit, label %if.then3.i.i.i20
 
-if.then3.i.i.i23:                                 ; preds = %invoke.cont5
+if.then3.i.i.i20:                                 ; preds = %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEED2Ev.exit
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %7)
-  br label %invoke.cont9
+  br label %_ZN20btAlignedObjectArrayIP21btBroadphaseInterfaceED2Ev.exit
 
-invoke.cont9:                                     ; preds = %if.then3.i.i.i23, %invoke.cont5
-  %m_size.i.i.i24 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 2
-  store i8 1, ptr %m_ownsMemory.i.i.i20, align 8, !tbaa !8
-  store ptr null, ptr %m_data.i.i.i18, align 8, !tbaa !15
-  store i32 0, ptr %m_size.i.i.i24, align 4, !tbaa !16
-  %m_capacity.i.i.i25 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 3
-  store i32 0, ptr %m_capacity.i.i.i25, align 8, !tbaa !17
+_ZN20btAlignedObjectArrayIP21btBroadphaseInterfaceED2Ev.exit: ; preds = %if.then3.i.i.i20, %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEED2Ev.exit
+  %m_size.i.i.i21 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i17, align 8, !tbaa !8
+  store ptr null, ptr %m_data.i.i.i15, align 8, !tbaa !15
+  store i32 0, ptr %m_size.i.i.i21, align 4, !tbaa !16
+  %m_capacity.i.i.i22 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i22, align 8, !tbaa !17
   ret void
 
 lpad4:                                            ; preds = %if.then3.i.i.i
@@ -592,7 +592,7 @@ declare void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull align 8 d
 
 ; Function Attrs: uwtable
 define dso_local noundef ptr @_ZN20btMultiSapBroadphase11createProxyERK9btVector3S2_iPvssP12btDispatcherS3_(ptr noundef nonnull align 8 dereferenceable(120) %this, ptr noundef nonnull align 4 dereferenceable(16) %aabbMin, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax, i32 noundef %shapeType, ptr noundef %userPtr, i16 noundef signext %collisionFilterGroup, i16 noundef signext %collisionFilterMask, ptr noundef %dispatcher, ptr nocapture readnone %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 136, i32 noundef 16)
   store ptr %userPtr, ptr %call, align 8, !tbaa !46
   %m_collisionFilterGroup.i.i = getelementptr inbounds %struct.btBroadphaseProxy, ptr %call, i64 0, i32 1
@@ -627,7 +627,7 @@ invoke.cont:
   %cmp.i = icmp eq i32 %1, %2
   br i1 %cmp.i, label %if.then.i, label %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE9push_backERKS2_.exit
 
-if.then.i:                                        ; preds = %invoke.cont
+if.then.i:                                        ; preds = %entry
   %tobool.not.i.i = icmp eq i32 %1, 0
   %mul.i.i = shl nsw i32 %1, 1
   %cond.i.i = select i1 %tobool.not.i.i, i32 1, i32 %mul.i.i
@@ -733,8 +733,8 @@ _ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE10deallocat
   store i32 %cond.i.i, ptr %m_capacity.i.i, align 8, !tbaa !29
   br label %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE9push_backERKS2_.exit
 
-_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE9push_backERKS2_.exit: ; preds = %invoke.cont, %if.then.i, %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE10deallocateEv.exit.i.i
-  %17 = phi i32 [ %.pre7.i, %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE10deallocateEv.exit.i.i ], [ %1, %if.then.i ], [ %1, %invoke.cont ]
+_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE9push_backERKS2_.exit: ; preds = %entry, %if.then.i, %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE10deallocateEv.exit.i.i
+  %17 = phi i32 [ %.pre7.i, %_ZN20btAlignedObjectArrayIPN20btMultiSapBroadphase15btMultiSapProxyEE10deallocateEv.exit.i.i ], [ %1, %if.then.i ], [ %1, %entry ]
   %m_data.i = getelementptr inbounds %class.btMultiSapBroadphase, ptr %this, i64 0, i32 9, i32 5
   %18 = load ptr, ptr %m_data.i, align 8, !tbaa !27
   %idxprom.i = sext i32 %17 to i64
@@ -1012,8 +1012,8 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then, %entry
   %m_size.i = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %proxy, i64 0, i32 2, i32 2
   %1 = load i32, ptr %m_size.i, align 4, !tbaa !58
-  %cmp108 = icmp sgt i32 %1, 0
-  br i1 %cmp108, label %for.body.lr.ph, label %for.end58
+  %cmp107 = icmp sgt i32 %1, 0
+  br i1 %cmp107, label %for.body.lr.ph, label %for.end58
 
 for.body.lr.ph:                                   ; preds = %if.end
   %m_data.i = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %proxy, i64 0, i32 2, i32 5
@@ -1028,11 +1028,11 @@ for.body.lr.ph:                                   ; preds = %if.end
   br label %for.body
 
 for.cond40.preheader:                             ; preds = %if.end36
-  %cmp44110 = icmp sgt i32 %28, 0
-  br i1 %cmp44110, label %for.body45.lr.ph, label %for.end58
+  %cmp44109 = icmp sgt i32 %28, 0
+  br i1 %cmp44109, label %for.body45.lr.ph, label %for.end58
 
 for.body45.lr.ph:                                 ; preds = %for.cond40.preheader
-  %m_data.i104 = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %proxy, i64 0, i32 2, i32 5
+  %m_data.i101 = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %proxy, i64 0, i32 2, i32 5
   br label %for.body45
 
 for.body:                                         ; preds = %for.body.lr.ph, %if.end36
@@ -1089,18 +1089,18 @@ lor.lhs.false21.i:                                ; preds = %cond.end15.i
   %16 = load float, ptr %arrayidx.i48.i, align 4, !tbaa !34
   %17 = load float, ptr %arrayidx.i49.i, align 4, !tbaa !34
   %cmp24.i = fcmp uge float %16, %17
-  %brmerge.not = and i1 %cond16.i, %cmp24.i
+  %brmerge.not = and i1 %cmp24.i, %cond16.i
   br i1 %brmerge.not, label %lor.lhs.false21.i.if.end36_crit_edge, label %if.then19
 
 lor.lhs.false21.i.if.end36_crit_edge:             ; preds = %lor.lhs.false21.i
   %.pre = load i32, ptr %m_size.i, align 4, !tbaa !58
-  %.pre116 = sext i32 %.pre to i64
+  %.pre115 = sext i32 %.pre to i64
   br label %if.end36
 
 if.then19:                                        ; preds = %lor.lhs.false21.i, %cond.end15.i
   %18 = load ptr, ptr %m_data.i, align 8, !tbaa !57
-  %arrayidx.i97 = getelementptr inbounds ptr, ptr %18, i64 %indvars.iv
-  %19 = load ptr, ptr %arrayidx.i97, align 8, !tbaa !33
+  %arrayidx.i94 = getelementptr inbounds ptr, ptr %18, i64 %indvars.iv
+  %19 = load ptr, ptr %arrayidx.i94, align 8, !tbaa !33
   %20 = load ptr, ptr %19, align 8, !tbaa !64
   %m_childBroadphase24 = getelementptr inbounds %"struct.btMultiSapBroadphase::btBridgeProxy", ptr %19, i64 0, i32 1
   %21 = load ptr, ptr %m_childBroadphase24, align 8, !tbaa !66
@@ -1111,12 +1111,12 @@ if.then19:                                        ; preds = %lor.lhs.false21.i, 
   %23 = load i32, ptr %m_size.i, align 4, !tbaa !58
   %sub = add nsw i32 %23, -1
   %24 = load ptr, ptr %m_data.i, align 8, !tbaa !57
-  %arrayidx.i101 = getelementptr inbounds ptr, ptr %24, i64 %indvars.iv
-  %25 = load ptr, ptr %arrayidx.i101, align 8, !tbaa !33
+  %arrayidx.i98 = getelementptr inbounds ptr, ptr %24, i64 %indvars.iv
+  %25 = load ptr, ptr %arrayidx.i98, align 8, !tbaa !33
   %idxprom3.i = sext i32 %sub to i64
   %arrayidx4.i = getelementptr inbounds ptr, ptr %24, i64 %idxprom3.i
   %26 = load ptr, ptr %arrayidx4.i, align 8, !tbaa !33
-  store ptr %26, ptr %arrayidx.i101, align 8, !tbaa !33
+  store ptr %26, ptr %arrayidx.i98, align 8, !tbaa !33
   %27 = load ptr, ptr %m_data.i, align 8, !tbaa !57
   %arrayidx10.i = getelementptr inbounds ptr, ptr %27, i64 %idxprom3.i
   store ptr %25, ptr %arrayidx10.i, align 8, !tbaa !33
@@ -1124,7 +1124,7 @@ if.then19:                                        ; preds = %lor.lhs.false21.i, 
   br label %if.end36
 
 if.end36:                                         ; preds = %lor.lhs.false21.i.if.end36_crit_edge, %if.then19
-  %.pre-phi = phi i64 [ %.pre116, %lor.lhs.false21.i.if.end36_crit_edge ], [ %idxprom3.i, %if.then19 ]
+  %.pre-phi = phi i64 [ %.pre115, %lor.lhs.false21.i.if.end36_crit_edge ], [ %idxprom3.i, %if.then19 ]
   %28 = phi i32 [ %.pre, %lor.lhs.false21.i.if.end36_crit_edge ], [ %sub, %if.then19 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %worldAabbMax) #16
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %worldAabbMin) #16
@@ -1133,10 +1133,10 @@ if.end36:                                         ; preds = %lor.lhs.false21.i.i
   br i1 %cmp, label %for.body, label %for.cond40.preheader
 
 for.body45:                                       ; preds = %for.body45.lr.ph, %for.body45
-  %indvars.iv113 = phi i64 [ 0, %for.body45.lr.ph ], [ %indvars.iv.next114, %for.body45 ]
-  %29 = load ptr, ptr %m_data.i104, align 8, !tbaa !57
-  %arrayidx.i106 = getelementptr inbounds ptr, ptr %29, i64 %indvars.iv113
-  %30 = load ptr, ptr %arrayidx.i106, align 8, !tbaa !33
+  %indvars.iv112 = phi i64 [ 0, %for.body45.lr.ph ], [ %indvars.iv.next113, %for.body45 ]
+  %29 = load ptr, ptr %m_data.i101, align 8, !tbaa !57
+  %arrayidx.i103 = getelementptr inbounds ptr, ptr %29, i64 %indvars.iv112
+  %30 = load ptr, ptr %arrayidx.i103, align 8, !tbaa !33
   %m_childBroadphase50 = getelementptr inbounds %"struct.btMultiSapBroadphase::btBridgeProxy", ptr %30, i64 0, i32 1
   %31 = load ptr, ptr %m_childBroadphase50, align 8, !tbaa !66
   %32 = load ptr, ptr %30, align 8, !tbaa !64
@@ -1144,10 +1144,10 @@ for.body45:                                       ; preds = %for.body45.lr.ph, %
   %vfn53 = getelementptr inbounds ptr, ptr %vtable52, i64 4
   %33 = load ptr, ptr %vfn53, align 8
   call void %33(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef %32, ptr noundef nonnull align 4 dereferenceable(16) %aabbMin, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax, ptr noundef %dispatcher)
-  %indvars.iv.next114 = add nuw nsw i64 %indvars.iv113, 1
+  %indvars.iv.next113 = add nuw nsw i64 %indvars.iv112, 1
   %34 = load i32, ptr %m_size.i, align 4, !tbaa !58
   %35 = sext i32 %34 to i64
-  %cmp44 = icmp slt i64 %indvars.iv.next114, %35
+  %cmp44 = icmp slt i64 %indvars.iv.next113, %35
   br i1 %cmp44, label %for.body45, label %for.end58
 
 for.end58:                                        ; preds = %for.body45, %if.end, %for.cond40.preheader
@@ -1329,7 +1329,7 @@ lor.lhs.false21.i.i:                              ; preds = %cond.end15.i.i
   %arrayidx.i49.i.i = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %20, i64 0, i32 3, i32 0, i64 1
   %32 = load float, ptr %arrayidx.i49.i.i, align 4, !tbaa !34
   %cmp24.i.i = fcmp uge float %31, %32
-  %or.cond.not = and i1 %cond16.i.i, %cmp24.i.i
+  %or.cond.not = and i1 %cmp24.i.i, %cond16.i.i
   br i1 %or.cond.not, label %if.end64, label %if.then55
 
 if.then55:                                        ; preds = %cond.end15.i.i, %lor.lhs.false21.i.i, %cond.end40
@@ -1803,27 +1803,27 @@ land.lhs.true29.i:                                ; preds = %lor.lhs.false.i
   %cmp30.i = icmp eq ptr %cond9.i, %cond25.i
   br i1 %cmp30.i, label %land.rhs.i, label %while.cond5.preheader
 
-while.cond5.preheader:                            ; preds = %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit, %land.rhs.i, %land.lhs.true29.i
-  %12 = trunc i64 %indvars.iv to i32
-  %13 = sext i32 %j.0 to i64
-  br label %while.cond5
-
 land.rhs.i:                                       ; preds = %land.lhs.true29.i
   %m_algorithm.i43 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv, i32 2
-  %14 = load ptr, ptr %m_algorithm.i43, align 8, !tbaa !79
-  %cmp32.i = icmp ugt ptr %14, %3
+  %12 = load ptr, ptr %m_algorithm.i43, align 8, !tbaa !79
+  %cmp32.i = icmp ugt ptr %12, %3
   br i1 %cmp32.i, label %while.body, label %while.cond5.preheader
+
+while.cond5.preheader:                            ; preds = %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit, %land.lhs.true29.i, %land.rhs.i
+  %13 = trunc i64 %indvars.iv to i32
+  %14 = sext i32 %j.0 to i64
+  br label %while.cond5
 
 _ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit: ; preds = %lor.lhs.false.i
   br i1 %or.cond.i, label %while.body, label %while.cond5.preheader
 
-while.body:                                       ; preds = %cond.end24.i, %land.rhs.i, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit
+while.body:                                       ; preds = %land.rhs.i, %cond.end24.i, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit
   %indvars.iv.next = add i64 %indvars.iv, 1
   br label %while.cond
 
 while.cond5:                                      ; preds = %while.cond5.preheader, %while.body10
-  %indvars.iv86 = phi i64 [ %13, %while.cond5.preheader ], [ %indvars.iv.next87, %while.body10 ]
-  %arrayidx8 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86
+  %indvars.iv84 = phi i64 [ %14, %while.cond5.preheader ], [ %indvars.iv.next85, %while.body10 ]
+  %arrayidx8 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv84
   br i1 %tobool11.not.i, label %cond.end.i50, label %cond.true.i46
 
 cond.true.i46:                                    ; preds = %while.cond5
@@ -1851,7 +1851,7 @@ cond.true12.i57:                                  ; preds = %cond.end8.i55
 
 cond.end16.i61:                                   ; preds = %cond.true12.i57, %cond.end8.i55
   %cond17.i58 = phi ptr [ %18, %cond.true12.i57 ], [ null, %cond.end8.i55 ]
-  %m_pProxy118.i59 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86, i32 1
+  %m_pProxy118.i59 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv84, i32 1
   %19 = load ptr, ptr %m_pProxy118.i59, align 8, !tbaa !83
   %tobool19.not.i60 = icmp eq ptr %19, null
   br i1 %tobool19.not.i60, label %cond.end24.i66, label %cond.true20.i63
@@ -1879,7 +1879,7 @@ land.lhs.true29.i74:                              ; preds = %lor.lhs.false.i72
   br i1 %cmp30.i73, label %land.rhs.i78, label %while.end11
 
 land.rhs.i78:                                     ; preds = %land.lhs.true29.i74
-  %m_algorithm31.i76 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv86, i32 2
+  %m_algorithm31.i76 = getelementptr inbounds %struct.btBroadphasePair, ptr %4, i64 %indvars.iv84, i32 2
   %21 = load ptr, ptr %m_algorithm31.i76, align 8, !tbaa !79
   %cmp32.i77 = icmp ugt ptr %3, %21
   br i1 %cmp32.i77, label %while.body10, label %while.end11
@@ -1887,13 +1887,13 @@ land.rhs.i78:                                     ; preds = %land.lhs.true29.i74
 _ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79: ; preds = %lor.lhs.false.i72
   br i1 %or.cond.i69, label %while.body10, label %while.end11
 
-while.body10:                                     ; preds = %cond.end24.i66, %land.rhs.i78, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
-  %indvars.iv.next87 = add i64 %indvars.iv86, -1
+while.body10:                                     ; preds = %land.rhs.i78, %cond.end24.i66, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
+  %indvars.iv.next85 = add i64 %indvars.iv84, -1
   br label %while.cond5
 
-while.end11:                                      ; preds = %land.lhs.true29.i74, %land.rhs.i78, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
-  %22 = trunc i64 %indvars.iv86 to i32
-  %cmp.not = icmp sgt i32 %12, %22
+while.end11:                                      ; preds = %land.rhs.i78, %land.lhs.true29.i74, %_ZN37btMultiSapBroadphasePairSortPredicateclERK16btBroadphasePairS2_.exit79
+  %22 = trunc i64 %indvars.iv84 to i32
+  %cmp.not = icmp sgt i32 %13, %22
   br i1 %cmp.not, label %do.cond, label %if.then
 
 if.then:                                          ; preds = %while.end11
@@ -1901,18 +1901,18 @@ if.then:                                          ; preds = %while.end11
   %23 = load <2 x ptr>, ptr %m_algorithm4.i.i, align 8, !tbaa !42
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %arrayidx4, ptr noundef nonnull align 8 dereferenceable(32) %arrayidx8, i64 32, i1 false), !tbaa.struct !84
   %24 = load ptr, ptr %m_data, align 8, !tbaa !77
-  %arrayidx10.i = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %indvars.iv86
+  %arrayidx10.i = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %indvars.iv84
   store ptr %6, ptr %arrayidx10.i, align 8, !tbaa.struct !84
   %temp.sroa.4.0.arrayidx10.sroa_idx.i = getelementptr inbounds i8, ptr %arrayidx10.i, i64 8
   store ptr %8, ptr %temp.sroa.4.0.arrayidx10.sroa_idx.i, align 8, !tbaa.struct !85
   %temp.sroa.5.0.arrayidx10.sroa_idx.i = getelementptr inbounds i8, ptr %arrayidx10.i, i64 16
   store <2 x ptr> %23, ptr %temp.sroa.5.0.arrayidx10.sroa_idx.i, align 8
-  %inc12 = add nsw i32 %12, 1
+  %inc12 = add nsw i32 %13, 1
   %dec13 = add nsw i32 %22, -1
   br label %do.cond
 
 do.cond:                                          ; preds = %while.end11, %if.then
-  %i.2 = phi i32 [ %inc12, %if.then ], [ %12, %while.end11 ]
+  %i.2 = phi i32 [ %inc12, %if.then ], [ %13, %while.end11 ]
   %j.2 = phi i32 [ %dec13, %if.then ], [ %22, %while.end11 ]
   %cmp14.not = icmp sgt i32 %i.2, %j.2
   br i1 %cmp14.not, label %do.end, label %do.body

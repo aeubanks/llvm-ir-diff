@@ -30,13 +30,13 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then, %entry
   %1 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
   %tobool2.not = icmp eq ptr %1, null
-  br i1 %tobool2.not, label %if.then3, label %invoke.cont
+  br i1 %tobool2.not, label %if.then3, label %if.end4
 
 if.then3:                                         ; preds = %if.end
   tail call void @_Z15initJumpLookupsv()
-  br label %invoke.cont
+  br label %if.end4
 
-invoke.cont:                                      ; preds = %if.end, %if.then3
+if.end4:                                          ; preds = %if.then3, %if.end
   %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
   %next.i = getelementptr inbounds %class.GameList, ptr %call, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next.i, i8 0, i64 16, i1 false)
@@ -120,26 +120,26 @@ define dso_local void @_ZN12HexxagonGame5resetEv(ptr nocapture noundef nonnull a
 entry:
   %curr.i = getelementptr inbounds %class.HexxagonGame, ptr %this, i64 0, i32 2
   %curr.i.promoted = load ptr, ptr %curr.i, align 8, !tbaa !12
-  %prev.i7 = getelementptr inbounds %class.GameList, ptr %curr.i.promoted, i64 0, i32 2
-  %0 = load ptr, ptr %prev.i7, align 8, !tbaa !18
-  %tobool.not.i8 = icmp eq ptr %0, null
-  br i1 %tobool.not.i8, label %while.end, label %_ZN12HexxagonGame4prevEv.exit.preheader
+  %prev.i5 = getelementptr inbounds %class.GameList, ptr %curr.i.promoted, i64 0, i32 2
+  %0 = load ptr, ptr %prev.i5, align 8, !tbaa !18
+  %tobool.not.i.not6 = icmp eq ptr %0, null
+  br i1 %tobool.not.i.not6, label %while.end, label %if.then.i.preheader
 
-_ZN12HexxagonGame4prevEv.exit.preheader:          ; preds = %entry
+if.then.i.preheader:                              ; preds = %entry
   %this.promoted = load i32, ptr %this, align 8, !tbaa !13
-  br label %_ZN12HexxagonGame4prevEv.exit
+  br label %if.then.i
 
-_ZN12HexxagonGame4prevEv.exit:                    ; preds = %_ZN12HexxagonGame4prevEv.exit.preheader, %_ZN12HexxagonGame4prevEv.exit
-  %1 = phi ptr [ %2, %_ZN12HexxagonGame4prevEv.exit ], [ %0, %_ZN12HexxagonGame4prevEv.exit.preheader ]
-  %conv.i69 = phi i32 [ %conv.i, %_ZN12HexxagonGame4prevEv.exit ], [ %this.promoted, %_ZN12HexxagonGame4prevEv.exit.preheader ]
-  %tobool2.not.i = icmp eq i32 %conv.i69, 0
+if.then.i:                                        ; preds = %if.then.i.preheader, %if.then.i
+  %1 = phi ptr [ %2, %if.then.i ], [ %0, %if.then.i.preheader ]
+  %conv.i47 = phi i32 [ %conv.i, %if.then.i ], [ %this.promoted, %if.then.i.preheader ]
+  %tobool2.not.i = icmp eq i32 %conv.i47, 0
   %conv.i = zext i1 %tobool2.not.i to i32
   %prev.i = getelementptr inbounds %class.GameList, ptr %1, i64 0, i32 2
   %2 = load ptr, ptr %prev.i, align 8, !tbaa !18
-  %tobool.not.i = icmp eq ptr %2, null
-  br i1 %tobool.not.i, label %while.cond.while.end_crit_edge, label %_ZN12HexxagonGame4prevEv.exit, !llvm.loop !19
+  %tobool.not.i.not = icmp eq ptr %2, null
+  br i1 %tobool.not.i.not, label %while.cond.while.end_crit_edge, label %if.then.i, !llvm.loop !19
 
-while.cond.while.end_crit_edge:                   ; preds = %_ZN12HexxagonGame4prevEv.exit
+while.cond.while.end_crit_edge:                   ; preds = %if.then.i
   store i32 %conv.i, ptr %this, align 8, !tbaa !13
   store ptr %1, ptr %curr.i, align 8, !tbaa !12
   br label %while.end
@@ -201,7 +201,7 @@ while.end:                                        ; preds = %while.end.loopexit,
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_ZN12HexxagonGame9applyMoveER12HexxagonMove(ptr nocapture noundef nonnull align 8 dereferenceable(24) %this, ptr noundef nonnull align 1 %move) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %tmp3 = alloca %class.HexxagonBoard, align 4
   %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
   %curr = getelementptr inbounds %class.HexxagonGame, ptr %this, i64 0, i32 2
@@ -215,9 +215,9 @@ invoke.cont:
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %tmp3) #15
   %call4 = call noundef i32 @_ZN13HexxagonBoard9applyMoveER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %call, ptr noundef nonnull align 1 %move)
   %tobool.not = icmp eq i32 %call4, 0
-  br i1 %tobool.not, label %_ZN12HexxagonGame4nextEv.exit, label %delete.notnull
+  br i1 %tobool.not, label %if.then, label %delete.notnull
 
-_ZN12HexxagonGame4nextEv.exit:                    ; preds = %invoke.cont
+if.then:                                          ; preds = %entry
   %1 = load ptr, ptr %curr, align 8, !tbaa !12
   %next = getelementptr inbounds %class.GameList, ptr %1, i64 0, i32 1
   store ptr %call, ptr %next, align 8, !tbaa !14
@@ -228,11 +228,11 @@ _ZN12HexxagonGame4nextEv.exit:                    ; preds = %invoke.cont
   store ptr %call, ptr %curr, align 8, !tbaa !12
   br label %if.end
 
-delete.notnull:                                   ; preds = %invoke.cont
+delete.notnull:                                   ; preds = %entry
   call void @_ZdlPv(ptr noundef nonnull %call) #14
   br label %if.end
 
-if.end:                                           ; preds = %delete.notnull, %_ZN12HexxagonGame4nextEv.exit
+if.end:                                           ; preds = %delete.notnull, %if.then
   ret i32 %call4
 }
 
@@ -242,7 +242,7 @@ declare noundef i32 @_ZN13HexxagonBoard9applyMoveER12HexxagonMove(ptr noundef no
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr nocapture noundef nonnull align 8 dereferenceable(24) %this, i32 noundef %depth, ptr noundef %callback, i32 noundef %maxtime) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %tmp3 = alloca %class.HexxagonBoard, align 4
   %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
   %curr = getelementptr inbounds %class.HexxagonGame, ptr %this, i64 0, i32 2
@@ -256,9 +256,9 @@ invoke.cont:
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %tmp3) #15
   %call4 = call noundef i32 @_ZN13HexxagonBoard12computerMoveEiPFvvEi(ptr noundef nonnull align 4 dereferenceable(16) %call, i32 noundef %depth, ptr noundef %callback, i32 noundef %maxtime)
   %tobool.not = icmp eq i32 %call4, 0
-  br i1 %tobool.not, label %_ZN12HexxagonGame4nextEv.exit, label %delete.notnull
+  br i1 %tobool.not, label %if.then, label %delete.notnull
 
-_ZN12HexxagonGame4nextEv.exit:                    ; preds = %invoke.cont
+if.then:                                          ; preds = %entry
   %1 = load ptr, ptr %curr, align 8, !tbaa !12
   %next = getelementptr inbounds %class.GameList, ptr %1, i64 0, i32 1
   store ptr %call, ptr %next, align 8, !tbaa !14
@@ -269,11 +269,11 @@ _ZN12HexxagonGame4nextEv.exit:                    ; preds = %invoke.cont
   store ptr %call, ptr %curr, align 8, !tbaa !12
   br label %if.end
 
-delete.notnull:                                   ; preds = %invoke.cont
+delete.notnull:                                   ; preds = %entry
   call void @_ZdlPv(ptr noundef nonnull %call) #14
   br label %if.end
 
-if.end:                                           ; preds = %delete.notnull, %_ZN12HexxagonGame4nextEv.exit
+if.end:                                           ; preds = %delete.notnull, %if.then
   ret i32 %call4
 }
 
@@ -350,8 +350,8 @@ if.end16:                                         ; preds = %if.end11
   br i1 %tobool.not9.i, label %_ZN12HexxagonGame11destroyRestEv.exit.thread, label %delete.notnull.i
 
 _ZN12HexxagonGame11destroyRestEv.exit.thread:     ; preds = %if.end16
-  %next4.i89 = getelementptr inbounds %class.GameList, ptr %1, i64 0, i32 1
-  store ptr null, ptr %next4.i89, align 8, !tbaa !14
+  %next4.i88 = getelementptr inbounds %class.GameList, ptr %1, i64 0, i32 1
+  store ptr null, ptr %next4.i88, align 8, !tbaa !14
   br label %delete.notnull
 
 delete.notnull.i:                                 ; preds = %if.end16, %delete.notnull.i
@@ -381,29 +381,29 @@ delete.end:                                       ; preds = %delete.notnull, %_Z
   br label %while.cond
 
 while.cond:                                       ; preds = %cleanup, %delete.end
-  %dec87 = phi i64 [ %conv18, %delete.end ], [ %dec86, %cleanup ]
+  %dec86 = phi i64 [ %conv18, %delete.end ], [ %dec85, %cleanup ]
   %retval.0 = phi i32 [ undef, %delete.end ], [ %retval.1, %cleanup ]
-  %tobool21.not = icmp eq i64 %dec87, 0
+  %tobool21.not = icmp eq i64 %dec86, 0
   br i1 %tobool21.not, label %cleanup42.sink.split, label %while.body
 
 while.body:                                       ; preds = %while.cond
   %3 = load ptr, ptr %first, align 8, !tbaa !9
   %cmp23 = icmp eq ptr %3, null
   %call25 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-  br i1 %cmp23, label %invoke.cont, label %_ZN12HexxagonGame4nextEv.exit
+  br i1 %cmp23, label %if.then24, label %if.then.i
 
-invoke.cont:                                      ; preds = %while.body
+if.then24:                                        ; preds = %while.body
   %next.i = getelementptr inbounds %class.GameList, ptr %call25, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next.i, i8 0, i64 16, i1 false)
   store ptr %call25, ptr %first, align 8, !tbaa !9
   br label %if.end34
 
-_ZN12HexxagonGame4nextEv.exit:                    ; preds = %while.body
+if.then.i:                                        ; preds = %while.body
   %4 = load ptr, ptr %curr, align 8, !tbaa !12
-  %prev.i61 = getelementptr inbounds %class.GameList, ptr %call25, i64 0, i32 2
-  store ptr %4, ptr %prev.i61, align 8, !tbaa !18
-  %next.i62 = getelementptr inbounds %class.GameList, ptr %call25, i64 0, i32 1
-  store ptr null, ptr %next.i62, align 8, !tbaa !14
+  %prev.i60 = getelementptr inbounds %class.GameList, ptr %call25, i64 0, i32 2
+  store ptr %4, ptr %prev.i60, align 8, !tbaa !18
+  %next.i61 = getelementptr inbounds %class.GameList, ptr %call25, i64 0, i32 1
+  store ptr null, ptr %next.i61, align 8, !tbaa !14
   %next = getelementptr inbounds %class.GameList, ptr %4, i64 0, i32 1
   store ptr %call25, ptr %next, align 8, !tbaa !14
   %5 = load i32, ptr %this, align 8, !tbaa !13
@@ -412,7 +412,7 @@ _ZN12HexxagonGame4nextEv.exit:                    ; preds = %while.body
   store i32 %conv.i, ptr %this, align 8, !tbaa !13
   br label %if.end34
 
-if.end34:                                         ; preds = %_ZN12HexxagonGame4nextEv.exit, %invoke.cont
+if.end34:                                         ; preds = %if.then.i, %if.then24
   store ptr %call25, ptr %curr, align 8, !tbaa !12
   %call35 = tail call noundef i32 @_ZN13HexxagonBoard12readFromFileEP8_IO_FILE(ptr noundef nonnull align 4 dereferenceable(16) %call25, ptr noundef nonnull %call)
   %tobool36.not = icmp eq i32 %call35, 0
@@ -420,51 +420,51 @@ if.end34:                                         ; preds = %_ZN12HexxagonGame4n
 
 if.then37:                                        ; preds = %if.end34
   %6 = load ptr, ptr %curr, align 8, !tbaa !12
-  %prev.i67 = getelementptr inbounds %class.GameList, ptr %6, i64 0, i32 2
-  %7 = load ptr, ptr %prev.i67, align 8, !tbaa !18
-  %tobool.not.i68 = icmp eq ptr %7, null
-  br i1 %tobool.not.i68, label %_ZN12HexxagonGame4prevEv.exit, label %if.then.i71
+  %prev.i66 = getelementptr inbounds %class.GameList, ptr %6, i64 0, i32 2
+  %7 = load ptr, ptr %prev.i66, align 8, !tbaa !18
+  %tobool.not.i67 = icmp eq ptr %7, null
+  br i1 %tobool.not.i67, label %_ZN12HexxagonGame4prevEv.exit, label %if.then.i70
 
-if.then.i71:                                      ; preds = %if.then37
+if.then.i70:                                      ; preds = %if.then37
   %8 = load i32, ptr %this, align 8, !tbaa !13
-  %tobool2.not.i69 = icmp eq i32 %8, 0
-  %conv.i70 = zext i1 %tobool2.not.i69 to i32
-  store i32 %conv.i70, ptr %this, align 8, !tbaa !13
+  %tobool2.not.i68 = icmp eq i32 %8, 0
+  %conv.i69 = zext i1 %tobool2.not.i68 to i32
+  store i32 %conv.i69, ptr %this, align 8, !tbaa !13
   store ptr %7, ptr %curr, align 8, !tbaa !12
   br label %_ZN12HexxagonGame4prevEv.exit
 
-_ZN12HexxagonGame4prevEv.exit:                    ; preds = %if.then37, %if.then.i71
-  %9 = phi ptr [ %6, %if.then37 ], [ %7, %if.then.i71 ]
-  %step.0.in7.i74 = getelementptr inbounds %class.GameList, ptr %9, i64 0, i32 1
-  %step.08.i75 = load ptr, ptr %step.0.in7.i74, align 8, !tbaa !14
-  %tobool.not9.i76 = icmp eq ptr %step.08.i75, null
-  br i1 %tobool.not9.i76, label %_ZN12HexxagonGame11destroyRestEv.exit85, label %delete.notnull.i81
+_ZN12HexxagonGame4prevEv.exit:                    ; preds = %if.then37, %if.then.i70
+  %9 = phi ptr [ %6, %if.then37 ], [ %7, %if.then.i70 ]
+  %step.0.in7.i73 = getelementptr inbounds %class.GameList, ptr %9, i64 0, i32 1
+  %step.08.i74 = load ptr, ptr %step.0.in7.i73, align 8, !tbaa !14
+  %tobool.not9.i75 = icmp eq ptr %step.08.i74, null
+  br i1 %tobool.not9.i75, label %_ZN12HexxagonGame11destroyRestEv.exit84, label %delete.notnull.i80
 
-delete.notnull.i81:                               ; preds = %_ZN12HexxagonGame4prevEv.exit, %delete.notnull.i81
-  %step.010.i77 = phi ptr [ %step.0.i79, %delete.notnull.i81 ], [ %step.08.i75, %_ZN12HexxagonGame4prevEv.exit ]
-  tail call void @_ZdlPv(ptr noundef nonnull %step.010.i77) #14
-  %step.0.in.i78 = getelementptr inbounds %class.GameList, ptr %step.010.i77, i64 0, i32 1
-  %step.0.i79 = load ptr, ptr %step.0.in.i78, align 8, !tbaa !14
-  %tobool.not.i80 = icmp eq ptr %step.0.i79, null
-  br i1 %tobool.not.i80, label %while.end.loopexit.i83, label %delete.notnull.i81, !llvm.loop !21
+delete.notnull.i80:                               ; preds = %_ZN12HexxagonGame4prevEv.exit, %delete.notnull.i80
+  %step.010.i76 = phi ptr [ %step.0.i78, %delete.notnull.i80 ], [ %step.08.i74, %_ZN12HexxagonGame4prevEv.exit ]
+  tail call void @_ZdlPv(ptr noundef nonnull %step.010.i76) #14
+  %step.0.in.i77 = getelementptr inbounds %class.GameList, ptr %step.010.i76, i64 0, i32 1
+  %step.0.i78 = load ptr, ptr %step.0.in.i77, align 8, !tbaa !14
+  %tobool.not.i79 = icmp eq ptr %step.0.i78, null
+  br i1 %tobool.not.i79, label %while.end.loopexit.i82, label %delete.notnull.i80, !llvm.loop !21
 
-while.end.loopexit.i83:                           ; preds = %delete.notnull.i81
-  %.pre.i82 = load ptr, ptr %curr, align 8, !tbaa !12
-  br label %_ZN12HexxagonGame11destroyRestEv.exit85
+while.end.loopexit.i82:                           ; preds = %delete.notnull.i80
+  %.pre.i81 = load ptr, ptr %curr, align 8, !tbaa !12
+  br label %_ZN12HexxagonGame11destroyRestEv.exit84
 
-_ZN12HexxagonGame11destroyRestEv.exit85:          ; preds = %_ZN12HexxagonGame4prevEv.exit, %while.end.loopexit.i83
-  %10 = phi ptr [ %.pre.i82, %while.end.loopexit.i83 ], [ %9, %_ZN12HexxagonGame4prevEv.exit ]
-  %next4.i84 = getelementptr inbounds %class.GameList, ptr %10, i64 0, i32 1
-  store ptr null, ptr %next4.i84, align 8, !tbaa !14
+_ZN12HexxagonGame11destroyRestEv.exit84:          ; preds = %_ZN12HexxagonGame4prevEv.exit, %while.end.loopexit.i82
+  %10 = phi ptr [ %.pre.i81, %while.end.loopexit.i82 ], [ %9, %_ZN12HexxagonGame4prevEv.exit ]
+  %next4.i83 = getelementptr inbounds %class.GameList, ptr %10, i64 0, i32 1
+  store ptr null, ptr %next4.i83, align 8, !tbaa !14
   br label %cleanup
 
 if.end39:                                         ; preds = %if.end34
-  %dec = add nsw i64 %dec87, -1
+  %dec = add nsw i64 %dec86, -1
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end39, %_ZN12HexxagonGame11destroyRestEv.exit85
-  %dec86 = phi i64 [ %dec87, %_ZN12HexxagonGame11destroyRestEv.exit85 ], [ %dec, %if.end39 ]
-  %retval.1 = phi i32 [ %call35, %_ZN12HexxagonGame11destroyRestEv.exit85 ], [ %retval.0, %if.end39 ]
+cleanup:                                          ; preds = %if.end39, %_ZN12HexxagonGame11destroyRestEv.exit84
+  %dec85 = phi i64 [ %dec86, %_ZN12HexxagonGame11destroyRestEv.exit84 ], [ %dec, %if.end39 ]
+  %retval.1 = phi i32 [ %call35, %_ZN12HexxagonGame11destroyRestEv.exit84 ], [ %retval.0, %if.end39 ]
   br i1 %tobool36.not, label %while.cond, label %cleanup42, !llvm.loop !25
 
 cleanup42.sink.split:                             ; preds = %while.cond, %if.end11
@@ -538,9 +538,9 @@ _ZN12HexxagonGame8noBoardsEv.exit:                ; preds = %while.body.i, %if.e
   store i64 %conv, ptr %no, align 8, !tbaa !23
   %call8 = call i64 @fwrite(ptr noundef nonnull %no, i64 noundef 8, i64 noundef 1, ptr noundef nonnull %call)
   %cmp9.not = icmp eq i64 %call8, 1
-  br i1 %cmp9.not, label %while.cond.preheader, label %cleanup20
+  br i1 %cmp9.not, label %if.end12, label %cleanup20
 
-while.cond.preheader:                             ; preds = %_ZN12HexxagonGame8noBoardsEv.exit
+if.end12:                                         ; preds = %_ZN12HexxagonGame8noBoardsEv.exit
   %step.031 = load ptr, ptr %first.i, align 8, !tbaa !5
   %tobool13.not32 = icmp eq ptr %step.031, null
   br i1 %tobool13.not32, label %cleanup20, label %while.body
@@ -551,14 +551,14 @@ while.cond:                                       ; preds = %while.body
   %tobool13.not = icmp eq ptr %step.0, null
   br i1 %tobool13.not, label %cleanup20, label %while.body, !llvm.loop !26
 
-while.body:                                       ; preds = %while.cond.preheader, %while.cond
-  %step.033 = phi ptr [ %step.0, %while.cond ], [ %step.031, %while.cond.preheader ]
+while.body:                                       ; preds = %if.end12, %while.cond
+  %step.033 = phi ptr [ %step.0, %while.cond ], [ %step.031, %if.end12 ]
   %call14 = tail call noundef i32 @_ZN13HexxagonBoard11writeToFileEP8_IO_FILE(ptr noundef nonnull align 4 dereferenceable(16) %step.033, ptr noundef nonnull %call)
   %tobool15.not = icmp eq i32 %call14, 0
   br i1 %tobool15.not, label %while.cond, label %cleanup20
 
-cleanup20:                                        ; preds = %while.cond, %while.body, %while.cond.preheader, %_ZN12HexxagonGame8noBoardsEv.exit
-  %retval.1 = phi i32 [ -2, %_ZN12HexxagonGame8noBoardsEv.exit ], [ 0, %while.cond.preheader ], [ -2, %while.body ], [ 0, %while.cond ]
+cleanup20:                                        ; preds = %while.cond, %while.body, %if.end12, %_ZN12HexxagonGame8noBoardsEv.exit
+  %retval.1 = phi i32 [ -2, %_ZN12HexxagonGame8noBoardsEv.exit ], [ 0, %if.end12 ], [ -2, %while.body ], [ 0, %while.cond ]
   %call17 = tail call i32 @fclose(ptr noundef nonnull %call)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %no) #15
   br label %cleanup21
@@ -573,14 +573,14 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 
 declare noundef i32 @_ZN13HexxagonBoard11writeToFileEP8_IO_FILE(ptr noundef nonnull align 4 dereferenceable(16), ptr noundef) local_unnamed_addr #1
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #10
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.bswap.i32(i32) #11
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
 
 attributes #0 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -592,9 +592,9 @@ attributes #6 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #13 = { builtin allocsize(0) }
 attributes #14 = { builtin nounwind }
 attributes #15 = { nounwind }

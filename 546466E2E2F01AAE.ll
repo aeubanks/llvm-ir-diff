@@ -70,7 +70,7 @@ entry:
   %add13 = add nsw i32 %call12, %20
   %call14 = tail call i32 @usoftnet(ptr noundef %1) #3
   %add15 = add nsw i32 %add13, %call14
-  %add16 = add nsw i32 %add15, %add
+  %add16 = add i32 %add15, %add
   %21 = load i32, ptr @funccost, align 4, !tbaa !16
   %22 = load i32, ptr @penalty, align 4, !tbaa !16
   %add17 = add nsw i32 %22, %21

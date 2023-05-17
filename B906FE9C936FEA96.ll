@@ -25,8 +25,8 @@ for.cond.outer.split.us.lr.ph.split.us.split.us:  ; preds = %for.cond.outer.spli
   br i1 %cmp.i.us.us.us52, label %if.then.i, label %f1.exit.us.us.us.preheader
 
 f1.exit.us.us.us.preheader:                       ; preds = %for.cond.outer.split.us.lr.ph.split.us.split.us
-  %cmp1.i.not.us.us.us62 = icmp eq i32 %f1.beenhere.promoted41, 1
-  br i1 %cmp1.i.not.us.us.us62, label %if.then, label %if.end.us.us.us.preheader
+  %cmp1.i.us.us.us62 = icmp eq i32 %f1.beenhere.promoted41, 1
+  br i1 %cmp1.i.us.us.us62, label %if.then, label %if.end.us.us.us.preheader
 
 if.end.us.us.us.preheader:                        ; preds = %f1.exit.us.us.us.preheader
   %0 = load i32, ptr %p, align 8, !tbaa !9
@@ -37,8 +37,8 @@ if.end8.us.us:                                    ; preds = %if.end.us.us.us
   %sext.us.us = shl i32 %d.addr.0.ph44.us.us5364, 16
   %conv13.us.us = ashr exact i32 %sext.us.us, 16
   %inc.i.us.us.us = add nsw i32 %inc.i.us.us.us5563, 1
-  %cmp1.i.not.us.us.us = icmp eq i32 %inc.i.us.us.us5563, 1
-  br i1 %cmp1.i.not.us.us.us, label %if.then.loopexit, label %if.end.us.us.us
+  %cmp1.i.us.us.us = icmp eq i32 %inc.i.us.us.us5563, 1
+  br i1 %cmp1.i.us.us.us, label %if.then.loopexit, label %if.end.us.us.us
 
 if.end.us.us.us:                                  ; preds = %if.end.us.us.us.preheader, %if.end8.us.us
   %d.addr.0.ph44.us.us5364 = phi i32 [ %conv13.us.us, %if.end8.us.us ], [ %d, %if.end.us.us.us.preheader ]
@@ -50,8 +50,8 @@ for.cond.outer.split.us:                          ; preds = %for.cond.outer.spli
   br i1 %cmp.i.us.us.us52, label %if.then.i, label %f1.exit.us
 
 f1.exit.us:                                       ; preds = %for.cond.outer.split.us
-  %cmp1.i.not.us = icmp eq i32 %f1.beenhere.promoted41, 1
-  br i1 %cmp1.i.not.us, label %if.then, label %if.end.us
+  %cmp1.i.us = icmp eq i32 %f1.beenhere.promoted41, 1
+  br i1 %cmp1.i.us, label %if.then, label %if.end.us
 
 if.end.us:                                        ; preds = %f1.exit.us
   store i32 %inc.i.us.us.us51, ptr @f1.beenhere, align 4, !tbaa !5
@@ -139,8 +139,8 @@ entry:
   br i1 %cmp.i.us.us.us52.i, label %if.then.i.i, label %f1.exit.us.us.us.i.preheader
 
 f1.exit.us.us.us.i.preheader:                     ; preds = %entry
-  %cmp1.i.not.us.us.us.i12.not = icmp eq i32 %f1.beenhere.promoted41.i, 1
-  br i1 %cmp1.i.not.us.us.us.i12.not, label %if.then, label %if.end
+  %cmp1.i.us.us.us.i12.not = icmp eq i32 %f1.beenhere.promoted41.i, 1
+  br i1 %cmp1.i.us.us.us.i12.not, label %if.then, label %if.end
 
 if.then.i.i:                                      ; preds = %entry
   %inc.i.us.us.us51.i = add nuw nsw i32 %f1.beenhere.promoted41.i, 1

@@ -79,9 +79,9 @@ entry:
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr getelementptr inbounds ([256 x i32], ptr @a, i64 0, i64 248), align 16, !tbaa !9
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr getelementptr inbounds ([256 x i32], ptr @a, i64 0, i64 252), align 16, !tbaa !9
   %cmp.not = icmp eq i32 %call, 0
-  br i1 %cmp.not, label %if.end26, label %if.then.i45
+  br i1 %cmp.not, label %if.end26, label %if.then.i
 
-if.then.i45:                                      ; preds = %entry
+if.then.i:                                        ; preds = %entry
   %1 = load i32, ptr @b, align 4, !tbaa !9
   %and.i = and i32 %1, 1
   %idxprom.i = zext i32 %and.i to i64
@@ -118,7 +118,7 @@ if.then.i45:                                      ; preds = %entry
   store i32 %13, ptr @b, align 4, !tbaa !9
   br label %if.end26
 
-if.end26:                                         ; preds = %if.then.i45, %entry
+if.end26:                                         ; preds = %if.then.i, %entry
   ret i32 0
 }
 

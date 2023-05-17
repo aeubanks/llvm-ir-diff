@@ -284,6 +284,7 @@ entry:
 
 if.end:                                           ; preds = %entry
   %0 = load float, ptr %args, align 4, !tbaa !9
+  %conv = fpext float %0 to double
   %cmp1 = fcmp oeq float %0, 0.000000e+00
   %arrayidx3 = getelementptr inbounds [2 x float], ptr %args, i64 0, i64 1
   %1 = load float, ptr %arrayidx3, align 4
@@ -302,8 +303,7 @@ land.lhs.true13:                                  ; preds = %if.end8
   br i1 %cmp17, label %cleanup, label %if.end20
 
 if.end20:                                         ; preds = %if.end8, %land.lhs.true13
-  %conv22 = fpext float %0 to double
-  %call25 = call double @pow(double noundef %conv22, double noundef %conv15) #8
+  %call25 = call double @pow(double noundef %conv, double noundef %conv15) #8
   %conv26 = fptrunc double %call25 to float
   %add.ptr = getelementptr inbounds %struct.ref_s, ptr %op, i64 -1
   store float %conv26, ptr %add.ptr, align 8, !tbaa !11

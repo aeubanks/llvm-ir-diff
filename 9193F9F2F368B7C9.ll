@@ -11,7 +11,7 @@ entry:
   %and1 = and i32 %call, 128
   %tobool.not = icmp eq i32 %and1, 0
   %masksel = select i1 %tobool.not, i32 0, i32 -256
-  %spec.select = or i32 %masksel, %and
+  %spec.select = or i32 %and, %masksel
   ret i32 %spec.select
 }
 
@@ -119,12 +119,13 @@ entry:
   %shl.i = and i32 %and2.i, 65280
   %add.i = or i32 %and.i, %shl.i
   %call.i4 = tail call i32 @getc(ptr noundef %fp)
+  %and.i5 = and i32 %call.i4, 255
   %call1.i6 = tail call i32 @getc(ptr noundef %fp)
-  %0 = shl i32 %call1.i6, 24
-  %and.i5 = shl i32 %call.i4, 16
-  %1 = and i32 %and.i5, 16711680
-  %and2 = or i32 %0, %1
-  %add = or i32 %and2, %add.i
+  %and2.i7 = shl i32 %call1.i6, 8
+  %shl.i8 = and i32 %and2.i7, 65280
+  %add.i9 = or i32 %shl.i8, %and.i5
+  %shl = shl nuw i32 %add.i9, 16
+  %add = or i32 %shl, %add.i
   ret i32 %add
 }
 
@@ -133,17 +134,18 @@ define dso_local i32 @Read32BitsHighLow(ptr nocapture noundef %fp) local_unnamed
 entry:
   %call.i = tail call i32 @getc(ptr noundef %fp)
   %call1.i = tail call i32 @getc(ptr noundef %fp)
+  %and2.i = and i32 %call1.i, 255
+  %and.i = shl i32 %call.i, 8
+  %shl.i = and i32 %and.i, 65280
+  %add.i = or i32 %shl.i, %and2.i
   %call.i4 = tail call i32 @getc(ptr noundef %fp)
   %call1.i5 = tail call i32 @getc(ptr noundef %fp)
   %and2.i6 = and i32 %call1.i5, 255
   %and.i7 = shl i32 %call.i4, 8
   %shl.i8 = and i32 %and.i7, 65280
   %add.i9 = or i32 %shl.i8, %and2.i6
-  %0 = shl i32 %call.i, 24
-  %and2.i = shl i32 %call1.i, 16
-  %1 = and i32 %and2.i, 16711680
-  %and = or i32 %1, %0
-  %add = or i32 %add.i9, %and
+  %shl = shl nuw i32 %add.i, 16
+  %add = or i32 %add.i9, %shl
   ret i32 %add
 }
 
@@ -156,10 +158,10 @@ entry:
   %1 = and i32 %0, 255
   %call2.i = tail call i32 @putc(i32 noundef %1, ptr noundef %fp)
   %2 = lshr i32 %i, 16
-  %and.i8 = and i32 %2, 255
-  %call.i9 = tail call i32 @putc(i32 noundef %and.i8, ptr noundef %fp)
+  %and.i7 = and i32 %2, 255
+  %call.i8 = tail call i32 @putc(i32 noundef %and.i7, ptr noundef %fp)
   %3 = lshr i32 %i, 24
-  %call2.i11 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
+  %call2.i10 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
   ret void
 }
 
@@ -172,10 +174,10 @@ entry:
   %1 = and i32 %0, 255
   %call2.i = tail call i32 @putc(i32 noundef %1, ptr noundef %fp)
   %2 = lshr i32 %i, 16
-  %and.i8 = and i32 %2, 255
-  %call.i9 = tail call i32 @putc(i32 noundef %and.i8, ptr noundef %fp)
+  %and.i7 = and i32 %2, 255
+  %call.i8 = tail call i32 @putc(i32 noundef %and.i7, ptr noundef %fp)
   %3 = lshr i32 %i, 24
-  %call2.i11 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
+  %call2.i10 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
   ret void
 }
 
@@ -188,10 +190,10 @@ entry:
   %and1.i = and i32 %0, 255
   %call2.i = tail call i32 @putc(i32 noundef %and1.i, ptr noundef %fp)
   %2 = lshr i32 %i, 8
-  %3 = and i32 %2, 255
-  %call.i9 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
-  %and1.i10 = and i32 %i, 255
-  %call2.i11 = tail call i32 @putc(i32 noundef %and1.i10, ptr noundef %fp)
+  %and.i7 = and i32 %2, 255
+  %call.i8 = tail call i32 @putc(i32 noundef %and.i7, ptr noundef %fp)
+  %and1.i9 = and i32 %i, 255
+  %call2.i10 = tail call i32 @putc(i32 noundef %and1.i9, ptr noundef %fp)
   ret void
 }
 

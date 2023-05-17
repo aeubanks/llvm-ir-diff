@@ -94,53 +94,53 @@ entry:
   %idxprom.i = sext i32 %i to i64
   %arrayidx.i = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %idxprom.i
   %0 = load ptr, ptr %arrayidx.i, align 8, !tbaa !5
-  %tobool.not.i = icmp eq ptr %0, null
-  br i1 %tobool.not.i, label %if.end.i, label %cleanup
+  %tobool.not.i.not = icmp eq ptr %0, null
+  br i1 %tobool.not.i.not, label %if.end.i, label %cleanup
 
 if.end.i:                                         ; preds = %entry
   %arrayidx2.i = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %idxprom.i
   %1 = load i32, ptr %arrayidx2.i, align 4, !tbaa !9
   %tobool3.not.i = icmp eq i32 %1, 0
-  br i1 %tobool3.not.i, label %ctype.exit, label %cleanup
+  br i1 %tobool3.not.i, label %if.end5.i, label %cleanup
 
-ctype.exit:                                       ; preds = %if.end.i
+if.end5.i:                                        ; preds = %if.end.i
   %arrayidx7.i = getelementptr inbounds [0 x i32], ptr @stynum, i64 0, i64 %idxprom.i
   %2 = load i32, ptr %arrayidx7.i, align 4, !tbaa !9
   %idxprom8.i = sext i32 %2 to i64
   %idxprom10.i = sext i32 %c to i64
   %arrayidx11.i = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i, i64 %idxprom10.i
   %3 = load i32, ptr %arrayidx11.i, align 4, !tbaa !9
-  %cmp.not = icmp eq i32 %3, 115
-  br i1 %cmp.not, label %if.end, label %cleanup
+  %4 = icmp eq i32 %3, 115
+  br i1 %4, label %if.end, label %cleanup
 
-if.end:                                           ; preds = %ctype.exit
+if.end:                                           ; preds = %if.end5.i
   %inc = add nsw i32 %c, 1
-  %4 = load i32, ptr @ncol, align 4, !tbaa !9
-  %cmp1 = icmp slt i32 %inc, %4
-  br i1 %cmp1, label %ctype.exit28, label %for.inc.us.preheader
+  %5 = load i32, ptr @ncol, align 4, !tbaa !9
+  %cmp1.not = icmp slt i32 %inc, %5
+  br i1 %cmp1.not, label %if.end5.i26, label %for.inc.us.preheader
 
-ctype.exit28:                                     ; preds = %if.end
+if.end5.i26:                                      ; preds = %if.end
   %idxprom10.i24 = sext i32 %inc to i64
   %arrayidx11.i25 = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i, i64 %idxprom10.i24
-  %5 = load i32, ptr %arrayidx11.i25, align 4, !tbaa !9
-  %cmp3 = icmp eq i32 %5, 115
-  br i1 %cmp3, label %cleanup, label %for.inc.us.preheader
+  %6 = load i32, ptr %arrayidx11.i25, align 4, !tbaa !9
+  %7 = icmp eq i32 %6, 115
+  br i1 %7, label %cleanup, label %for.inc.us.preheader
 
-for.inc.us.preheader:                             ; preds = %ctype.exit28, %if.end
+for.inc.us.preheader:                             ; preds = %if.end, %if.end5.i26
   br label %for.inc.us
 
 for.inc.us:                                       ; preds = %for.inc.us.preheader, %for.inc.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc.us ], [ %idxprom10.i, %for.inc.us.preheader ]
-  %k.048.us55 = phi i32 [ %inc8.us, %for.inc.us ], [ 0, %for.inc.us.preheader ]
-  %inc8.us = add nuw nsw i32 %k.048.us55, 1
+  %k.044.us51 = phi i32 [ %inc8.us, %for.inc.us ], [ 0, %for.inc.us.preheader ]
+  %inc8.us = add nuw nsw i32 %k.044.us51, 1
   %indvars.iv.next = add i64 %indvars.iv, -1
   %arrayidx11.i38.us = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i, i64 %indvars.iv.next
-  %6 = load i32, ptr %arrayidx11.i38.us, align 4, !tbaa !9
-  %cmp7.us = icmp eq i32 %6, 115
+  %8 = load i32, ptr %arrayidx11.i38.us, align 4, !tbaa !9
+  %cmp7.us = icmp eq i32 %8, 115
   br i1 %cmp7.us, label %for.inc.us, label %cleanup
 
-cleanup:                                          ; preds = %for.inc.us, %if.end.i, %entry, %ctype.exit28, %ctype.exit
-  %retval.0 = phi i32 [ 0, %ctype.exit ], [ 0, %ctype.exit28 ], [ 0, %entry ], [ 0, %if.end.i ], [ %inc8.us, %for.inc.us ]
+cleanup:                                          ; preds = %for.inc.us, %entry, %if.end.i, %if.end5.i26, %if.end5.i
+  %retval.0 = phi i32 [ 0, %if.end5.i ], [ 0, %if.end5.i26 ], [ 0, %if.end.i ], [ 0, %entry ], [ %inc8.us, %for.inc.us ]
   ret i32 %retval.0
 }
 
@@ -259,9 +259,10 @@ cleanup:                                          ; preds = %for.body, %for.inc,
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @thish(i32 noundef %i, i32 noundef %c) local_unnamed_addr #5 {
 entry:
-  %0 = or i32 %c, %i
-  %or.cond.not73 = icmp sgt i32 %0, -1
-  br i1 %or.cond.not73, label %if.end3.lr.ph, label %cleanup
+  %cmp1 = icmp slt i32 %i, 0
+  %0 = or i32 %i, %c
+  %or.cond74.not = icmp sgt i32 %0, -1
+  br i1 %or.cond74.not, label %if.end3.lr.ph, label %cleanup.loopexit
 
 if.end3.lr.ph:                                    ; preds = %entry
   %idxprom.i = zext i32 %i to i64
@@ -275,57 +276,78 @@ if.end3.lr.ph:                                    ; preds = %entry
   br i1 %tobool.not.i, label %if.end3.lr.ph.split.us, label %if.end3.lr.ph.split
 
 if.end3.lr.ph.split.us:                           ; preds = %if.end3.lr.ph
-  br i1 %tobool3.not.i.us, label %if.end3.lr.ph.split.us.split.us, label %cleanup
+  br i1 %tobool3.not.i.us, label %if.end3.lr.ph.split.us.split.us, label %cleanup.loopexit
 
 if.end3.lr.ph.split.us.split.us:                  ; preds = %if.end3.lr.ph.split.us
   %3 = load i32, ptr %arrayidx7.i, align 4, !tbaa !9
   %idxprom8.i.us.us = sext i32 %3 to i64
-  br label %if.end3.us.us
+  %idxprom10.i.us.us.us = zext i32 %c to i64
+  br i1 %cmp1, label %if.end3.us.us.us, label %if.end3.us.us
 
-if.end3.us.us:                                    ; preds = %if.then19.us.us, %if.end3.lr.ph.split.us.split.us
-  %c.tr74.us.us = phi i32 [ %c, %if.end3.lr.ph.split.us.split.us ], [ %sub.us.us, %if.then19.us.us ]
-  %idxprom10.i.us.us = zext i32 %c.tr74.us.us to i64
-  %arrayidx11.i.us.us = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i.us.us, i64 %idxprom10.i.us.us
-  %4 = load i32, ptr %arrayidx11.i.us.us, align 4, !tbaa !9
+if.end3.us.us.us:                                 ; preds = %if.end3.lr.ph.split.us.split.us
+  %arrayidx11.i.us.us.us = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i.us.us, i64 %idxprom10.i.us.us.us
+  %4 = load i32, ptr %arrayidx11.i.us.us.us, align 4, !tbaa !9
   switch i32 %4, label %if.end24 [
     i32 95, label %cleanup.loopexit
     i32 45, label %cleanup.loopexit
-    i32 61, label %cleanup.loopexit120
-    i32 94, label %cleanup
+    i32 61, label %cleanup
+    i32 94, label %if.then12
+    i32 115, label %cleanup.loopexit.fold.split
+    i32 0, label %if.end17.cleanup.loopexit_crit_edge
+  ]
+
+if.end3.us.us:                                    ; preds = %if.end3.lr.ph.split.us.split.us, %if.then19.us.us
+  %indvars.iv = phi i64 [ %indvars.iv.next, %if.then19.us.us ], [ %idxprom10.i.us.us.us, %if.end3.lr.ph.split.us.split.us ]
+  %arrayidx11.i.us.us = getelementptr inbounds [100 x [20 x i32]], ptr @style, i64 0, i64 %idxprom8.i.us.us, i64 %indvars.iv
+  %5 = load i32, ptr %arrayidx11.i.us.us, align 4, !tbaa !9
+  switch i32 %5, label %if.end24.loopexit [
+    i32 95, label %cleanup.loopexit
+    i32 45, label %cleanup.loopexit
+    i32 61, label %cleanup
+    i32 94, label %if.then12
     i32 115, label %if.then19.us.us
     i32 0, label %if.end17.cleanup.loopexit_crit_edge
   ]
 
 if.then19.us.us:                                  ; preds = %if.end3.us.us
-  %sub.us.us = add nsw i32 %c.tr74.us.us, -1
-  %5 = or i32 %sub.us.us, %i
-  %or.cond.not.us.us = icmp sgt i32 %5, -1
-  br i1 %or.cond.not.us.us, label %if.end3.us.us, label %cleanup.loopexit
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
+  %6 = trunc i64 %indvars.iv to i32
+  %cmp.us.us = icmp slt i32 %6, 1
+  br i1 %cmp.us.us, label %cleanup.loopexit, label %if.end3.us.us
 
 if.end3.lr.ph.split:                              ; preds = %if.end3.lr.ph
-  br i1 %tobool3.not.i.us, label %if.end17.cleanup.loopexit_crit_edge, label %cleanup
+  br i1 %tobool3.not.i.us, label %if.end17.cleanup.loopexit_crit_edge, label %cleanup.loopexit
 
-if.end24:                                         ; preds = %if.end3.us.us
+if.then12:                                        ; preds = %if.end3.us.us, %if.end3.us.us.us
+  br label %cleanup
+
+if.end24.loopexit:                                ; preds = %if.end3.us.us
+  %.pre = and i64 %indvars.iv, 4294967295
+  br label %if.end24
+
+if.end24:                                         ; preds = %if.end3.us.us.us, %if.end24.loopexit
+  %idxprom27.pre-phi = phi i64 [ %.pre, %if.end24.loopexit ], [ %idxprom10.i.us.us.us, %if.end3.us.us.us ]
+  %.us-phi131 = phi i32 [ %5, %if.end24.loopexit ], [ %4, %if.end3.us.us.us ]
   %arrayidx26 = getelementptr inbounds [0 x ptr], ptr @table, i64 0, i64 %idxprom.i
-  %6 = load ptr, ptr %arrayidx26, align 8, !tbaa !5
-  %cmp29 = icmp eq i32 %4, 97
-  %rcol = getelementptr inbounds %struct.colstr, ptr %6, i64 %idxprom10.i.us.us, i32 1
-  %arrayidx28 = getelementptr inbounds %struct.colstr, ptr %6, i64 %idxprom10.i.us.us
+  %7 = load ptr, ptr %arrayidx26, align 8, !tbaa !5
+  %cmp29 = icmp eq i32 %.us-phi131, 97
+  %rcol = getelementptr inbounds %struct.colstr, ptr %7, i64 %idxprom27.pre-phi, i32 1
+  %arrayidx28 = getelementptr inbounds %struct.colstr, ptr %7, i64 %idxprom27.pre-phi
   %cond.in = select i1 %cmp29, ptr %rcol, ptr %arrayidx28
   %cond = load ptr, ptr %cond.in, align 8, !tbaa !5
   %cmp30 = icmp eq ptr %cond, null
   br i1 %cmp30, label %cleanup, label %lor.lhs.false31
 
 lor.lhs.false31:                                  ; preds = %if.end24
-  %7 = ptrtoint ptr %cond to i64
-  %8 = trunc i64 %7 to i32
-  %call32 = tail call i32 @point(i32 noundef %8) #9
+  %8 = ptrtoint ptr %cond to i64
+  %9 = trunc i64 %8 to i32
+  %call32 = tail call i32 @point(i32 noundef %9) #9
   %tobool33.not = icmp eq i32 %call32, 0
   br i1 %tobool33.not, label %if.end37, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %lor.lhs.false31
-  %9 = load i8, ptr %cond, align 1, !tbaa !14
-  %cmp34 = icmp eq i8 %9, 0
+  %10 = load i8, ptr %cond, align 1, !tbaa !14
+  %cmp34 = icmp eq i8 %10, 0
   br i1 %cmp34, label %cleanup, label %if.end37
 
 if.end37:                                         ; preds = %land.lhs.true, %lor.lhs.false31
@@ -337,18 +359,18 @@ if.end41:                                         ; preds = %if.end37
   %call42 = tail call i32 @barent(ptr noundef nonnull %cond) #9
   br label %cleanup
 
-if.end17.cleanup.loopexit_crit_edge:              ; preds = %if.end3.us.us, %if.end3.lr.ph.split
+if.end17.cleanup.loopexit_crit_edge:              ; preds = %if.end3.us.us, %if.end3.us.us.us, %if.end3.lr.ph.split
+  br label %cleanup.loopexit
+
+cleanup.loopexit.fold.split:                      ; preds = %if.end3.us.us.us
+  br label %cleanup.loopexit
+
+cleanup.loopexit:                                 ; preds = %if.then19.us.us, %if.end3.us.us, %if.end3.us.us, %if.end3.us.us.us, %if.end3.us.us.us, %cleanup.loopexit.fold.split, %if.end3.lr.ph.split.us, %if.end3.lr.ph.split, %if.end17.cleanup.loopexit_crit_edge, %entry
+  %retval.0.ph = phi i32 [ 1, %if.end17.cleanup.loopexit_crit_edge ], [ 0, %entry ], [ 45, %if.end3.us.us.us ], [ 45, %if.end3.us.us.us ], [ %2, %if.end3.lr.ph.split ], [ %2, %if.end3.lr.ph.split.us ], [ 0, %cleanup.loopexit.fold.split ], [ 45, %if.end3.us.us ], [ 45, %if.end3.us.us ], [ 0, %if.then19.us.us ]
   br label %cleanup
 
-cleanup.loopexit:                                 ; preds = %if.then19.us.us, %if.end3.us.us, %if.end3.us.us
-  %retval.0.ph = phi i32 [ 0, %if.then19.us.us ], [ 45, %if.end3.us.us ], [ 45, %if.end3.us.us ]
-  br label %cleanup
-
-cleanup.loopexit120:                              ; preds = %if.end3.us.us
-  br label %cleanup
-
-cleanup:                                          ; preds = %if.end3.us.us, %cleanup.loopexit120, %cleanup.loopexit, %entry, %if.end17.cleanup.loopexit_crit_edge, %if.end3.lr.ph.split, %if.end3.lr.ph.split.us, %if.end41, %if.end37, %if.end24, %land.lhs.true
-  %retval.0 = phi i32 [ 1, %land.lhs.true ], [ 1, %if.end24 ], [ 1, %if.end37 ], [ %call42, %if.end41 ], [ 1, %if.end17.cleanup.loopexit_crit_edge ], [ 0, %entry ], [ %2, %if.end3.lr.ph.split ], [ %2, %if.end3.lr.ph.split.us ], [ %retval.0.ph, %cleanup.loopexit ], [ %4, %cleanup.loopexit120 ], [ 1, %if.end3.us.us ]
+cleanup:                                          ; preds = %if.end3.us.us, %if.end3.us.us.us, %cleanup.loopexit, %if.end41, %if.end37, %if.end24, %land.lhs.true, %if.then12
+  %retval.0 = phi i32 [ 1, %if.then12 ], [ 1, %land.lhs.true ], [ 1, %if.end24 ], [ 1, %if.end37 ], [ %call42, %if.end41 ], [ %retval.0.ph, %cleanup.loopexit ], [ %4, %if.end3.us.us.us ], [ %5, %if.end3.us.us ]
   ret i32 %retval.0
 }
 

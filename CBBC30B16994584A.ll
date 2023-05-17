@@ -240,203 +240,203 @@ entry:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(1) %call3, i8 0, i64 %3, i1 false), !tbaa !13
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(1) %call9, i8 0, i64 %3, i1 false), !tbaa !13
   %4 = add i64 %1, 1
-  %umax128 = tail call i64 @llvm.umax.i64(i64 %4, i64 1)
-  %5 = shl nuw i64 %umax128, 3
+  %umax130 = tail call i64 @llvm.umax.i64(i64 %4, i64 1)
+  %5 = shl nuw i64 %umax130, 3
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(1) %call6, i8 0, i64 %5, i1 false), !tbaa !13
-  %cmp20.not116 = icmp eq i64 %0, 0
-  br i1 %cmp20.not116, label %for.end58, label %for.cond22.preheader.lr.ph
+  %cmp20.not118 = icmp eq i64 %0, 0
+  br i1 %cmp20.not118, label %for.cond59.preheader, label %for.cond22.preheader.lr.ph
 
 for.cond22.preheader.lr.ph:                       ; preds = %entry
-  %cmp23.not110 = icmp eq i64 %1, 0
+  %cmp23.not112 = icmp eq i64 %1, 0
   %6 = load ptr, ptr @BOT, align 8
   %7 = load ptr, ptr @TOP, align 8
-  %umax129 = tail call i64 @llvm.umax.i64(i64 %2, i64 2)
+  %umax131 = tail call i64 @llvm.umax.i64(i64 %2, i64 2)
   br label %for.cond22.preheader
 
 for.cond22.preheader:                             ; preds = %for.cond22.preheader.lr.ph, %for.inc56
-  %which.0117 = phi i64 [ 1, %for.cond22.preheader.lr.ph ], [ %inc57, %for.inc56 ]
-  br i1 %cmp23.not110, label %for.end45, label %for.body24
+  %which.0119 = phi i64 [ 1, %for.cond22.preheader.lr.ph ], [ %inc57, %for.inc56 ]
+  br i1 %cmp23.not112, label %for.end45, label %for.body24
 
-for.body24:                                       ; preds = %for.cond22.preheader, %for.inc30
-  %col.0111 = phi i64 [ %inc31, %for.inc30 ], [ 1, %for.cond22.preheader ]
-  %arrayidx25 = getelementptr inbounds i64, ptr %6, i64 %col.0111
-  %8 = load i64, ptr %arrayidx25, align 8, !tbaa !13
-  %cmp26 = icmp eq i64 %8, %which.0117
-  br i1 %cmp26, label %if.then, label %lor.lhs.false
+for.cond59.preheader:                             ; preds = %for.inc56, %entry
+  %cmp60.not121 = icmp eq i64 %1, 0
+  br i1 %cmp60.not121, label %for.end69, label %for.body61.preheader
 
-lor.lhs.false:                                    ; preds = %for.body24
-  %arrayidx27 = getelementptr inbounds i64, ptr %7, i64 %col.0111
-  %9 = load i64, ptr %arrayidx27, align 8, !tbaa !13
-  %cmp28 = icmp eq i64 %9, %which.0117
-  br i1 %cmp28, label %if.then, label %for.inc30
-
-if.then:                                          ; preds = %lor.lhs.false, %for.body24
-  %arrayidx29 = getelementptr inbounds i64, ptr %call, i64 %which.0117
-  store i64 %col.0111, ptr %arrayidx29, align 8, !tbaa !13
-  br label %for.end32
-
-for.inc30:                                        ; preds = %lor.lhs.false
-  %inc31 = add i64 %col.0111, 1
-  %cmp23.not = icmp ugt i64 %inc31, %1
-  br i1 %cmp23.not, label %for.end32, label %for.body24, !llvm.loop !16
-
-for.end32:                                        ; preds = %for.inc30, %if.then
-  br i1 %cmp23.not110, label %for.end45, label %for.body35
-
-for.body35:                                       ; preds = %for.end32, %for.inc44
-  %col.1113 = phi i64 [ %dec, %for.inc44 ], [ %1, %for.end32 ]
-  %arrayidx36 = getelementptr inbounds i64, ptr %6, i64 %col.1113
-  %10 = load i64, ptr %arrayidx36, align 8, !tbaa !13
-  %cmp37 = icmp eq i64 %10, %which.0117
-  br i1 %cmp37, label %if.then41, label %lor.lhs.false38
-
-lor.lhs.false38:                                  ; preds = %for.body35
-  %arrayidx39 = getelementptr inbounds i64, ptr %7, i64 %col.1113
-  %11 = load i64, ptr %arrayidx39, align 8, !tbaa !13
-  %cmp40 = icmp eq i64 %11, %which.0117
-  br i1 %cmp40, label %if.then41, label %for.inc44
-
-if.then41:                                        ; preds = %lor.lhs.false38, %for.body35
-  %arrayidx42 = getelementptr inbounds i64, ptr %call3, i64 %which.0117
-  store i64 %col.1113, ptr %arrayidx42, align 8, !tbaa !13
-  br label %for.end45
-
-for.inc44:                                        ; preds = %lor.lhs.false38
-  %dec = add i64 %col.1113, -1
-  %cmp34.not = icmp eq i64 %dec, 0
-  br i1 %cmp34.not, label %for.end45, label %for.body35, !llvm.loop !17
-
-for.end45:                                        ; preds = %for.inc44, %for.cond22.preheader, %for.end32, %if.then41
-  %arrayidx46 = getelementptr inbounds i64, ptr %call, i64 %which.0117
-  %12 = load i64, ptr %arrayidx46, align 8, !tbaa !13
-  %arrayidx48 = getelementptr inbounds i64, ptr %call3, i64 %which.0117
-  %13 = load i64, ptr %arrayidx48, align 8, !tbaa !13
-  %cmp49.not114 = icmp ugt i64 %12, %13
-  br i1 %cmp49.not114, label %for.inc56, label %for.body50.preheader
-
-for.body50.preheader:                             ; preds = %for.end45
-  %14 = add i64 %12, 1
-  %15 = add i64 %13, 1
-  %umax134 = tail call i64 @llvm.umax.i64(i64 %14, i64 %15)
-  %16 = sub i64 %umax134, %12
-  %min.iters.check = icmp ult i64 %16, 4
-  br i1 %min.iters.check, label %for.body50.preheader136, label %vector.ph
-
-vector.ph:                                        ; preds = %for.body50.preheader
-  %n.vec = and i64 %16, -4
-  %ind.end = add i64 %12, %n.vec
-  br label %vector.body
-
-vector.body:                                      ; preds = %vector.body, %vector.ph
-  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %offset.idx = add i64 %12, %index
-  %17 = getelementptr inbounds i64, ptr %call6, i64 %offset.idx
-  %wide.load = load <2 x i64>, ptr %17, align 8, !tbaa !13
-  %18 = getelementptr inbounds i64, ptr %17, i64 2
-  %wide.load135 = load <2 x i64>, ptr %18, align 8, !tbaa !13
-  %19 = add <2 x i64> %wide.load, <i64 1, i64 1>
-  %20 = add <2 x i64> %wide.load135, <i64 1, i64 1>
-  store <2 x i64> %19, ptr %17, align 8, !tbaa !13
-  store <2 x i64> %20, ptr %18, align 8, !tbaa !13
-  %index.next = add nuw i64 %index, 4
-  %21 = icmp eq i64 %index.next, %n.vec
-  br i1 %21, label %middle.block, label %vector.body, !llvm.loop !18
-
-middle.block:                                     ; preds = %vector.body
-  %cmp.n = icmp eq i64 %16, %n.vec
-  br i1 %cmp.n, label %for.inc56, label %for.body50.preheader136
-
-for.body50.preheader136:                          ; preds = %for.body50.preheader, %middle.block
-  %col.2115.ph = phi i64 [ %12, %for.body50.preheader ], [ %ind.end, %middle.block ]
-  br label %for.body50
-
-for.body50:                                       ; preds = %for.body50.preheader136, %for.body50
-  %col.2115 = phi i64 [ %inc54, %for.body50 ], [ %col.2115.ph, %for.body50.preheader136 ]
-  %arrayidx51 = getelementptr inbounds i64, ptr %call6, i64 %col.2115
-  %22 = load i64, ptr %arrayidx51, align 8, !tbaa !13
-  %inc52 = add i64 %22, 1
-  store i64 %inc52, ptr %arrayidx51, align 8, !tbaa !13
-  %inc54 = add i64 %col.2115, 1
-  %cmp49.not = icmp ugt i64 %inc54, %13
-  br i1 %cmp49.not, label %for.inc56, label %for.body50, !llvm.loop !21
-
-for.inc56:                                        ; preds = %for.body50, %middle.block, %for.end45
-  %inc57 = add nuw i64 %which.0117, 1
-  %exitcond = icmp eq i64 %inc57, %umax129
-  br i1 %exitcond, label %for.end58, label %for.cond22.preheader, !llvm.loop !22
-
-for.end58:                                        ; preds = %for.inc56, %entry
-  %cmp60.not119 = icmp eq i64 %1, 0
-  br i1 %cmp60.not119, label %for.end69, label %for.body61.preheader
-
-for.body61.preheader:                             ; preds = %for.end58
+for.body61.preheader:                             ; preds = %for.cond59.preheader
   %xtraiter = and i64 %1, 3
-  %23 = icmp ult i64 %1, 4
-  br i1 %23, label %for.end69.loopexit.unr-lcssa, label %for.body61.preheader.new
+  %8 = icmp ult i64 %1, 4
+  br i1 %8, label %for.end69.loopexit.unr-lcssa, label %for.body61.preheader.new
 
 for.body61.preheader.new:                         ; preds = %for.body61.preheader
   %unroll_iter = and i64 %1, -4
   br label %for.body61
 
+for.body24:                                       ; preds = %for.cond22.preheader, %for.inc30
+  %col.0113 = phi i64 [ %inc31, %for.inc30 ], [ 1, %for.cond22.preheader ]
+  %arrayidx25 = getelementptr inbounds i64, ptr %6, i64 %col.0113
+  %9 = load i64, ptr %arrayidx25, align 8, !tbaa !13
+  %cmp26 = icmp eq i64 %9, %which.0119
+  br i1 %cmp26, label %if.then, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %for.body24
+  %arrayidx27 = getelementptr inbounds i64, ptr %7, i64 %col.0113
+  %10 = load i64, ptr %arrayidx27, align 8, !tbaa !13
+  %cmp28 = icmp eq i64 %10, %which.0119
+  br i1 %cmp28, label %if.then, label %for.inc30
+
+if.then:                                          ; preds = %lor.lhs.false, %for.body24
+  %arrayidx29 = getelementptr inbounds i64, ptr %call, i64 %which.0119
+  store i64 %col.0113, ptr %arrayidx29, align 8, !tbaa !13
+  br label %for.end32
+
+for.inc30:                                        ; preds = %lor.lhs.false
+  %inc31 = add i64 %col.0113, 1
+  %cmp23.not = icmp ugt i64 %inc31, %1
+  br i1 %cmp23.not, label %for.end32, label %for.body24, !llvm.loop !16
+
+for.end32:                                        ; preds = %for.inc30, %if.then
+  br i1 %cmp23.not112, label %for.end45, label %for.body35
+
+for.body35:                                       ; preds = %for.end32, %for.inc44
+  %col.1115 = phi i64 [ %dec, %for.inc44 ], [ %1, %for.end32 ]
+  %arrayidx36 = getelementptr inbounds i64, ptr %6, i64 %col.1115
+  %11 = load i64, ptr %arrayidx36, align 8, !tbaa !13
+  %cmp37 = icmp eq i64 %11, %which.0119
+  br i1 %cmp37, label %if.then41, label %lor.lhs.false38
+
+lor.lhs.false38:                                  ; preds = %for.body35
+  %arrayidx39 = getelementptr inbounds i64, ptr %7, i64 %col.1115
+  %12 = load i64, ptr %arrayidx39, align 8, !tbaa !13
+  %cmp40 = icmp eq i64 %12, %which.0119
+  br i1 %cmp40, label %if.then41, label %for.inc44
+
+if.then41:                                        ; preds = %lor.lhs.false38, %for.body35
+  %arrayidx42 = getelementptr inbounds i64, ptr %call3, i64 %which.0119
+  store i64 %col.1115, ptr %arrayidx42, align 8, !tbaa !13
+  br label %for.end45
+
+for.inc44:                                        ; preds = %lor.lhs.false38
+  %dec = add i64 %col.1115, -1
+  %cmp34.not = icmp eq i64 %dec, 0
+  br i1 %cmp34.not, label %for.end45, label %for.body35, !llvm.loop !17
+
+for.end45:                                        ; preds = %for.inc44, %for.cond22.preheader, %for.end32, %if.then41
+  %arrayidx46 = getelementptr inbounds i64, ptr %call, i64 %which.0119
+  %13 = load i64, ptr %arrayidx46, align 8, !tbaa !13
+  %arrayidx48 = getelementptr inbounds i64, ptr %call3, i64 %which.0119
+  %14 = load i64, ptr %arrayidx48, align 8, !tbaa !13
+  %cmp49.not116 = icmp ugt i64 %13, %14
+  br i1 %cmp49.not116, label %for.inc56, label %for.body50.preheader
+
+for.body50.preheader:                             ; preds = %for.end45
+  %15 = add i64 %13, 1
+  %16 = add i64 %14, 1
+  %umax136 = tail call i64 @llvm.umax.i64(i64 %15, i64 %16)
+  %17 = sub i64 %umax136, %13
+  %min.iters.check = icmp ult i64 %17, 4
+  br i1 %min.iters.check, label %for.body50.preheader138, label %vector.ph
+
+vector.ph:                                        ; preds = %for.body50.preheader
+  %n.vec = and i64 %17, -4
+  %ind.end = add i64 %13, %n.vec
+  br label %vector.body
+
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %offset.idx = add i64 %13, %index
+  %18 = getelementptr inbounds i64, ptr %call6, i64 %offset.idx
+  %wide.load = load <2 x i64>, ptr %18, align 8, !tbaa !13
+  %19 = getelementptr inbounds i64, ptr %18, i64 2
+  %wide.load137 = load <2 x i64>, ptr %19, align 8, !tbaa !13
+  %20 = add <2 x i64> %wide.load, <i64 1, i64 1>
+  %21 = add <2 x i64> %wide.load137, <i64 1, i64 1>
+  store <2 x i64> %20, ptr %18, align 8, !tbaa !13
+  store <2 x i64> %21, ptr %19, align 8, !tbaa !13
+  %index.next = add nuw i64 %index, 4
+  %22 = icmp eq i64 %index.next, %n.vec
+  br i1 %22, label %middle.block, label %vector.body, !llvm.loop !18
+
+middle.block:                                     ; preds = %vector.body
+  %cmp.n = icmp eq i64 %17, %n.vec
+  br i1 %cmp.n, label %for.inc56, label %for.body50.preheader138
+
+for.body50.preheader138:                          ; preds = %for.body50.preheader, %middle.block
+  %col.2117.ph = phi i64 [ %13, %for.body50.preheader ], [ %ind.end, %middle.block ]
+  br label %for.body50
+
+for.body50:                                       ; preds = %for.body50.preheader138, %for.body50
+  %col.2117 = phi i64 [ %inc54, %for.body50 ], [ %col.2117.ph, %for.body50.preheader138 ]
+  %arrayidx51 = getelementptr inbounds i64, ptr %call6, i64 %col.2117
+  %23 = load i64, ptr %arrayidx51, align 8, !tbaa !13
+  %inc52 = add i64 %23, 1
+  store i64 %inc52, ptr %arrayidx51, align 8, !tbaa !13
+  %inc54 = add i64 %col.2117, 1
+  %cmp49.not = icmp ugt i64 %inc54, %14
+  br i1 %cmp49.not, label %for.inc56, label %for.body50, !llvm.loop !21
+
+for.inc56:                                        ; preds = %for.body50, %middle.block, %for.end45
+  %inc57 = add nuw i64 %which.0119, 1
+  %exitcond = icmp eq i64 %inc57, %umax131
+  br i1 %exitcond, label %for.cond59.preheader, label %for.cond22.preheader, !llvm.loop !22
+
 for.body61:                                       ; preds = %for.body61, %for.body61.preheader.new
-  %boundColumn.0122 = phi i64 [ undef, %for.body61.preheader.new ], [ %spec.select105.3, %for.body61 ]
-  %bound.0121 = phi i64 [ 0, %for.body61.preheader.new ], [ %spec.select.3, %for.body61 ]
-  %col.3120 = phi i64 [ %1, %for.body61.preheader.new ], [ %dec68.3, %for.body61 ]
+  %boundColumn.0124 = phi i64 [ undef, %for.body61.preheader.new ], [ %spec.select105.3, %for.body61 ]
+  %bound.0123 = phi i64 [ 0, %for.body61.preheader.new ], [ %spec.select.3, %for.body61 ]
+  %col.3122 = phi i64 [ %1, %for.body61.preheader.new ], [ %dec68.3, %for.body61 ]
   %niter = phi i64 [ 0, %for.body61.preheader.new ], [ %niter.next.3, %for.body61 ]
-  %arrayidx62 = getelementptr inbounds i64, ptr %call6, i64 %col.3120
+  %arrayidx62 = getelementptr inbounds i64, ptr %call6, i64 %col.3122
   %24 = load i64, ptr %arrayidx62, align 8, !tbaa !13
-  %cmp63 = icmp ugt i64 %24, %bound.0121
-  %spec.select = tail call i64 @llvm.umax.i64(i64 %24, i64 %bound.0121)
-  %spec.select105 = select i1 %cmp63, i64 %col.3120, i64 %boundColumn.0122
-  %dec68 = add i64 %col.3120, -1
+  %cmp63 = icmp ugt i64 %24, %bound.0123
+  %spec.select = tail call i64 @llvm.umax.i64(i64 %24, i64 %bound.0123)
+  %spec.select105 = select i1 %cmp63, i64 %col.3122, i64 %boundColumn.0124
+  %dec68 = add i64 %col.3122, -1
   %arrayidx62.1 = getelementptr inbounds i64, ptr %call6, i64 %dec68
   %25 = load i64, ptr %arrayidx62.1, align 8, !tbaa !13
   %cmp63.1 = icmp ugt i64 %25, %spec.select
   %spec.select.1 = tail call i64 @llvm.umax.i64(i64 %25, i64 %spec.select)
   %spec.select105.1 = select i1 %cmp63.1, i64 %dec68, i64 %spec.select105
-  %dec68.1 = add i64 %col.3120, -2
+  %dec68.1 = add i64 %col.3122, -2
   %arrayidx62.2 = getelementptr inbounds i64, ptr %call6, i64 %dec68.1
   %26 = load i64, ptr %arrayidx62.2, align 8, !tbaa !13
   %cmp63.2 = icmp ugt i64 %26, %spec.select.1
   %spec.select.2 = tail call i64 @llvm.umax.i64(i64 %26, i64 %spec.select.1)
   %spec.select105.2 = select i1 %cmp63.2, i64 %dec68.1, i64 %spec.select105.1
-  %dec68.2 = add i64 %col.3120, -3
+  %dec68.2 = add i64 %col.3122, -3
   %arrayidx62.3 = getelementptr inbounds i64, ptr %call6, i64 %dec68.2
   %27 = load i64, ptr %arrayidx62.3, align 8, !tbaa !13
   %cmp63.3 = icmp ugt i64 %27, %spec.select.2
   %spec.select.3 = tail call i64 @llvm.umax.i64(i64 %27, i64 %spec.select.2)
   %spec.select105.3 = select i1 %cmp63.3, i64 %dec68.2, i64 %spec.select105.2
-  %dec68.3 = add i64 %col.3120, -4
+  %dec68.3 = add i64 %col.3122, -4
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
   br i1 %niter.ncmp.3, label %for.end69.loopexit.unr-lcssa, label %for.body61, !llvm.loop !23
 
 for.end69.loopexit.unr-lcssa:                     ; preds = %for.body61, %for.body61.preheader
   %spec.select.lcssa.ph = phi i64 [ undef, %for.body61.preheader ], [ %spec.select.3, %for.body61 ]
-  %boundColumn.0122.unr = phi i64 [ undef, %for.body61.preheader ], [ %spec.select105.3, %for.body61 ]
-  %bound.0121.unr = phi i64 [ 0, %for.body61.preheader ], [ %spec.select.3, %for.body61 ]
-  %col.3120.unr = phi i64 [ %1, %for.body61.preheader ], [ %dec68.3, %for.body61 ]
+  %boundColumn.0124.unr = phi i64 [ undef, %for.body61.preheader ], [ %spec.select105.3, %for.body61 ]
+  %bound.0123.unr = phi i64 [ 0, %for.body61.preheader ], [ %spec.select.3, %for.body61 ]
+  %col.3122.unr = phi i64 [ %1, %for.body61.preheader ], [ %dec68.3, %for.body61 ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.end69, label %for.body61.epil
 
 for.body61.epil:                                  ; preds = %for.end69.loopexit.unr-lcssa, %for.body61.epil
-  %boundColumn.0122.epil = phi i64 [ %spec.select105.epil, %for.body61.epil ], [ %boundColumn.0122.unr, %for.end69.loopexit.unr-lcssa ]
-  %bound.0121.epil = phi i64 [ %spec.select.epil, %for.body61.epil ], [ %bound.0121.unr, %for.end69.loopexit.unr-lcssa ]
-  %col.3120.epil = phi i64 [ %dec68.epil, %for.body61.epil ], [ %col.3120.unr, %for.end69.loopexit.unr-lcssa ]
+  %boundColumn.0124.epil = phi i64 [ %spec.select105.epil, %for.body61.epil ], [ %boundColumn.0124.unr, %for.end69.loopexit.unr-lcssa ]
+  %bound.0123.epil = phi i64 [ %spec.select.epil, %for.body61.epil ], [ %bound.0123.unr, %for.end69.loopexit.unr-lcssa ]
+  %col.3122.epil = phi i64 [ %dec68.epil, %for.body61.epil ], [ %col.3122.unr, %for.end69.loopexit.unr-lcssa ]
   %epil.iter = phi i64 [ %epil.iter.next, %for.body61.epil ], [ 0, %for.end69.loopexit.unr-lcssa ]
-  %arrayidx62.epil = getelementptr inbounds i64, ptr %call6, i64 %col.3120.epil
+  %arrayidx62.epil = getelementptr inbounds i64, ptr %call6, i64 %col.3122.epil
   %28 = load i64, ptr %arrayidx62.epil, align 8, !tbaa !13
-  %cmp63.epil = icmp ugt i64 %28, %bound.0121.epil
-  %spec.select.epil = tail call i64 @llvm.umax.i64(i64 %28, i64 %bound.0121.epil)
-  %spec.select105.epil = select i1 %cmp63.epil, i64 %col.3120.epil, i64 %boundColumn.0122.epil
-  %dec68.epil = add i64 %col.3120.epil, -1
+  %cmp63.epil = icmp ugt i64 %28, %bound.0123.epil
+  %spec.select.epil = tail call i64 @llvm.umax.i64(i64 %28, i64 %bound.0123.epil)
+  %spec.select105.epil = select i1 %cmp63.epil, i64 %col.3122.epil, i64 %boundColumn.0124.epil
+  %dec68.epil = add i64 %col.3122.epil, -1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
   br i1 %epil.iter.cmp.not, label %for.end69, label %for.body61.epil, !llvm.loop !24
 
-for.end69:                                        ; preds = %for.end69.loopexit.unr-lcssa, %for.body61.epil, %for.end58
-  %bound.0.lcssa = phi i64 [ 0, %for.end58 ], [ %spec.select.lcssa.ph, %for.end69.loopexit.unr-lcssa ], [ %spec.select.epil, %for.body61.epil ]
-  %boundColumn.0.lcssa = phi i64 [ undef, %for.end58 ], [ %boundColumn.0122.unr, %for.end69.loopexit.unr-lcssa ], [ %spec.select105.epil, %for.body61.epil ]
+for.end69:                                        ; preds = %for.end69.loopexit.unr-lcssa, %for.body61.epil, %for.cond59.preheader
+  %bound.0.lcssa = phi i64 [ 0, %for.cond59.preheader ], [ %spec.select.lcssa.ph, %for.end69.loopexit.unr-lcssa ], [ %spec.select.epil, %for.body61.epil ]
+  %boundColumn.0.lcssa = phi i64 [ undef, %for.cond59.preheader ], [ %boundColumn.0124.unr, %for.end69.loopexit.unr-lcssa ], [ %spec.select105.epil, %for.body61.epil ]
   store i64 %bound.0.lcssa, ptr @channelTracks, align 8, !tbaa !13
   store i64 %bound.0.lcssa, ptr @channelDensity, align 8, !tbaa !13
   store i64 %boundColumn.0.lcssa, ptr @channelDensityColumn, align 8, !tbaa !13

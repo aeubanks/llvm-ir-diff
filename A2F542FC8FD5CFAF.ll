@@ -450,7 +450,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_ZN9NCompress10CopyStreamEP19ISequentialInStreamP20ISequentialOutStreamP21ICompressProgressInfo(ptr noundef %inStream, ptr noundef %outStream, ptr noundef %progress) local_unnamed_addr #7 personality ptr @__gxx_personality_v0 {
-invoke.cont:
+entry:
   %call = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #14
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   %1 = getelementptr inbounds i8, ptr %call, i64 16
@@ -460,13 +460,13 @@ invoke.cont:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_buffer.i, i8 0, i64 16, i1 false)
   store i32 1, ptr %1, align 8, !tbaa !21
   %call5 = invoke noundef i32 @_ZN9NCompress10CCopyCoder4CodeEP19ISequentialInStreamP20ISequentialOutStreamPKyS6_P21ICompressProgressInfo(ptr noundef nonnull align 8 dereferenceable(8) %call, ptr noundef %inStream, ptr noundef %outStream, ptr poison, ptr noundef null, ptr noundef %progress)
-          to label %if.then.i unwind label %if.then.i15
+          to label %if.then.i unwind label %lpad1
 
-if.then.i:                                        ; preds = %invoke.cont
-  %vtable.i8 = load ptr, ptr %call, align 8, !tbaa !5
-  %vfn.i9 = getelementptr inbounds ptr, ptr %vtable.i8, i64 2
-  %2 = load ptr, ptr %vfn.i9, align 8
-  %call.i10 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %call)
+if.then.i:                                        ; preds = %entry
+  %vtable.i7 = load ptr, ptr %call, align 8, !tbaa !5
+  %vfn.i8 = getelementptr inbounds ptr, ptr %vtable.i7, i64 2
+  %2 = load ptr, ptr %vfn.i8, align 8
+  %call.i9 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %call)
           to label %_ZN9CMyComPtrI14ICompressCoderED2Ev.exit unwind label %terminate.lpad.i
 
 terminate.lpad.i:                                 ; preds = %if.then.i
@@ -479,23 +479,23 @@ terminate.lpad.i:                                 ; preds = %if.then.i
 _ZN9CMyComPtrI14ICompressCoderED2Ev.exit:         ; preds = %if.then.i
   ret i32 %call5
 
-if.then.i15:                                      ; preds = %invoke.cont
+lpad1:                                            ; preds = %entry
   %5 = landingpad { ptr, i32 }
           cleanup
-  %vtable.i12 = load ptr, ptr %call, align 8, !tbaa !5
-  %vfn.i13 = getelementptr inbounds ptr, ptr %vtable.i12, i64 2
-  %6 = load ptr, ptr %vfn.i13, align 8
-  %call.i14 = invoke noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %call)
-          to label %ehcleanup unwind label %terminate.lpad.i16
+  %vtable.i11 = load ptr, ptr %call, align 8, !tbaa !5
+  %vfn.i12 = getelementptr inbounds ptr, ptr %vtable.i11, i64 2
+  %6 = load ptr, ptr %vfn.i12, align 8
+  %call.i13 = invoke noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %call)
+          to label %ehcleanup unwind label %terminate.lpad.i15
 
-terminate.lpad.i16:                               ; preds = %if.then.i15
+terminate.lpad.i15:                               ; preds = %lpad1
   %7 = landingpad { ptr, i32 }
           catch ptr null
   %8 = extractvalue { ptr, i32 } %7, 0
   tail call void @__clang_call_terminate(ptr %8) #11
   unreachable
 
-ehcleanup:                                        ; preds = %if.then.i15
+ehcleanup:                                        ; preds = %lpad1
   resume { ptr, i32 } %5
 }
 
@@ -606,16 +606,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !22
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !22
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
+  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %if.end
 
-_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+for.cond.14.i:                                    ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !22
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !22
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
+if.end:                                           ; preds = %entry, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %for.cond.6.i, %for.cond.7.i, %for.cond.8.i, %for.cond.9.i, %for.cond.10.i, %for.cond.11.i, %for.cond.12.i, %for.cond.13.i, %for.cond.14.i
   %32 = load i8, ptr @IID_ICompressGetInStreamProcessedSize, align 4, !tbaa !22
   %cmp4.not.i13 = icmp eq i8 %0, %32
   br i1 %cmp4.not.i13, label %for.cond.i16, label %return
@@ -716,16 +716,16 @@ for.cond.13.i55:                                  ; preds = %for.cond.12.i52
   %59 = load i8, ptr %arrayidx.14.i53, align 2, !tbaa !22
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetInStreamProcessedSize, i64 0, i32 3, i64 6), align 2, !tbaa !22
   %cmp4.not.14.i54 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i54, label %_ZeqRK4GUIDS1_.exit61, label %return
+  br i1 %cmp4.not.14.i54, label %for.cond.14.i59, label %return
 
-_ZeqRK4GUIDS1_.exit61:                            ; preds = %for.cond.13.i55
+for.cond.14.i59:                                  ; preds = %for.cond.13.i55
   %arrayidx.15.i56 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i56, align 1, !tbaa !22
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetInStreamProcessedSize, i64 0, i32 3, i64 7), align 1, !tbaa !22
   %cmp4.not.15.i57.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i57.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit61, %_ZeqRK4GUIDS1_.exit
+return.sink.split:                                ; preds = %for.cond.14.i59, %for.cond.14.i
   %add.ptr6 = getelementptr inbounds i8, ptr %this, i64 8
   store ptr %add.ptr6, ptr %outObject, align 8, !tbaa !23
   %vtable7 = load ptr, ptr %this, align 8, !tbaa !5
@@ -734,8 +734,8 @@ return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit
   %call9 = tail call noundef i32 %63(ptr noundef nonnull align 8 dereferenceable(40) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end, %_ZeqRK4GUIDS1_.exit61
-  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit61 ], [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.14.i59, %for.cond.13.i55, %for.cond.12.i52, %for.cond.11.i49, %for.cond.10.i46, %for.cond.9.i43, %for.cond.8.i40, %for.cond.7.i37, %for.cond.6.i34, %for.cond.5.i31, %for.cond.4.i28, %for.cond.3.i25, %for.cond.2.i22, %for.cond.1.i19, %for.cond.i16, %if.end
+  %retval.0 = phi i32 [ -2147467262, %if.end ], [ -2147467262, %for.cond.i16 ], [ -2147467262, %for.cond.1.i19 ], [ -2147467262, %for.cond.2.i22 ], [ -2147467262, %for.cond.3.i25 ], [ -2147467262, %for.cond.4.i28 ], [ -2147467262, %for.cond.5.i31 ], [ -2147467262, %for.cond.6.i34 ], [ -2147467262, %for.cond.7.i37 ], [ -2147467262, %for.cond.8.i40 ], [ -2147467262, %for.cond.9.i43 ], [ -2147467262, %for.cond.10.i46 ], [ -2147467262, %for.cond.11.i49 ], [ -2147467262, %for.cond.12.i52 ], [ -2147467262, %for.cond.13.i55 ], [ -2147467262, %for.cond.14.i59 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

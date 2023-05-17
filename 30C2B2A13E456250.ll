@@ -1065,8 +1065,8 @@ entry:
   %10 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8, !tbaa !28
   %arrayidx8 = getelementptr inbounds i32, ptr %10, i64 %idxprom
   %11 = load i32, ptr %arrayidx8, align 4, !tbaa !14
-  %cmp.not102 = icmp slt i32 %2, %11
-  br i1 %cmp.not102, label %for.cond37.preheader, label %for.body.preheader
+  %cmp.not101 = icmp slt i32 %2, %11
+  br i1 %cmp.not101, label %for.cond37.preheader, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %12 = add i32 %2, 1
@@ -1080,20 +1080,20 @@ for.body.preheader.new:                           ; preds = %for.body.preheader
   br label %for.body
 
 for.body:                                         ; preds = %for.body, %for.body.preheader.new
-  %i.0104 = phi i32 [ %11, %for.body.preheader.new ], [ %inc12.1, %for.body ]
-  %halfbit.0103 = phi i32 [ 0, %for.body.preheader.new ], [ %spec.select.1, %for.body ]
+  %i.0103 = phi i32 [ %11, %for.body.preheader.new ], [ %inc12.1, %for.body ]
+  %halfbit.0102 = phi i32 [ 0, %for.body.preheader.new ], [ %spec.select.1, %for.body ]
   %niter = phi i32 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]
-  %shr = ashr i32 %i.0104, 5
+  %shr = ashr i32 %i.0103, 5
   %add = add nsw i32 %shr, 1
   %idxprom9 = sext i32 %add to i64
   %arrayidx10 = getelementptr inbounds i32, ptr %3, i64 %idxprom9
   %15 = load i32, ptr %arrayidx10, align 4, !tbaa !14
-  %and = and i32 %i.0104, 31
+  %and = and i32 %i.0103, 31
   %16 = xor i32 %15, -1
   %17 = lshr i32 %16, %and
   %inc = and i32 %17, 1
-  %spec.select = add nuw nsw i32 %inc, %halfbit.0103
-  %inc12 = add i32 %i.0104, 1
+  %spec.select = add nuw nsw i32 %halfbit.0102, %inc
+  %inc12 = add i32 %i.0103, 1
   %shr.1 = ashr i32 %inc12, 5
   %add.1 = add nsw i32 %shr.1, 1
   %idxprom9.1 = sext i32 %add.1 to i64
@@ -1103,62 +1103,62 @@ for.body:                                         ; preds = %for.body, %for.body
   %19 = xor i32 %18, -1
   %20 = lshr i32 %19, %and.1
   %inc.1 = and i32 %20, 1
-  %spec.select.1 = add nuw nsw i32 %inc.1, %spec.select
-  %inc12.1 = add i32 %i.0104, 2
+  %spec.select.1 = add nuw nsw i32 %spec.select, %inc.1
+  %inc12.1 = add i32 %i.0103, 2
   %niter.next.1 = add i32 %niter, 2
   %niter.ncmp.1 = icmp eq i32 %niter.next.1, %unroll_iter
   br i1 %niter.ncmp.1, label %for.end.unr-lcssa, label %for.body
 
 for.end.unr-lcssa:                                ; preds = %for.body, %for.body.preheader
   %spec.select.lcssa.ph = phi i32 [ undef, %for.body.preheader ], [ %spec.select.1, %for.body ]
-  %i.0104.unr = phi i32 [ %11, %for.body.preheader ], [ %inc12.1, %for.body ]
-  %halfbit.0103.unr = phi i32 [ 0, %for.body.preheader ], [ %spec.select.1, %for.body ]
+  %i.0103.unr = phi i32 [ %11, %for.body.preheader ], [ %inc12.1, %for.body ]
+  %halfbit.0102.unr = phi i32 [ 0, %for.body.preheader ], [ %spec.select.1, %for.body ]
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.end, label %for.body.epil
 
 for.body.epil:                                    ; preds = %for.end.unr-lcssa
-  %shr.epil = ashr i32 %i.0104.unr, 5
+  %shr.epil = ashr i32 %i.0103.unr, 5
   %add.epil = add nsw i32 %shr.epil, 1
   %idxprom9.epil = sext i32 %add.epil to i64
   %arrayidx10.epil = getelementptr inbounds i32, ptr %3, i64 %idxprom9.epil
   %21 = load i32, ptr %arrayidx10.epil, align 4, !tbaa !14
-  %and.epil = and i32 %i.0104.unr, 31
+  %and.epil = and i32 %i.0103.unr, 31
   %22 = xor i32 %21, -1
   %23 = lshr i32 %22, %and.epil
   %inc.epil = and i32 %23, 1
-  %spec.select.epil = add nuw nsw i32 %inc.epil, %halfbit.0103.unr
+  %spec.select.epil = add nuw nsw i32 %halfbit.0102.unr, %inc.epil
   br label %for.end
 
 for.end:                                          ; preds = %for.end.unr-lcssa, %for.body.epil
   %spec.select.lcssa = phi i32 [ %spec.select.lcssa.ph, %for.end.unr-lcssa ], [ %spec.select.epil, %for.body.epil ]
-  %cmp16105.not = icmp ult i32 %spec.select.lcssa, 2
-  br i1 %cmp16105.not, label %for.cond37.preheader, label %for.body17.preheader
+  %cmp16104 = icmp ugt i32 %spec.select.lcssa, 1
+  br i1 %cmp16104, label %for.body17.preheader, label %for.cond37.preheader
 
 for.body17.preheader:                             ; preds = %for.end
-  %div101 = lshr i32 %spec.select.lcssa, 1
+  %div113114 = lshr i32 %spec.select.lcssa, 1
   br label %for.body17
 
 for.cond37.preheader:                             ; preds = %for.inc34, %entry, %for.end
   %i.1.lcssa = phi i32 [ %11, %for.end ], [ %11, %entry ], [ %inc35, %for.inc34 ]
-  %cmp38.not109 = icmp sgt i32 %i.1.lcssa, %2
-  br i1 %cmp38.not109, label %for.end59, label %for.body39
+  %cmp38.not108 = icmp sgt i32 %i.1.lcssa, %2
+  br i1 %cmp38.not108, label %for.end59, label %for.body39
 
 for.body17:                                       ; preds = %for.body17.preheader, %for.inc34
-  %i.1107 = phi i32 [ %inc35, %for.inc34 ], [ %11, %for.body17.preheader ]
-  %halfbit.2106 = phi i32 [ %halfbit.3, %for.inc34 ], [ %div101, %for.body17.preheader ]
-  %shr18 = ashr i32 %i.1107, 5
+  %i.1106 = phi i32 [ %inc35, %for.inc34 ], [ %11, %for.body17.preheader ]
+  %halfbit.2105 = phi i32 [ %halfbit.3, %for.inc34 ], [ %div113114, %for.body17.preheader ]
+  %shr18 = ashr i32 %i.1106, 5
   %add19 = add nsw i32 %shr18, 1
   %idxprom20 = sext i32 %add19 to i64
   %arrayidx21 = getelementptr inbounds i32, ptr %3, i64 %idxprom20
   %24 = load i32, ptr %arrayidx21, align 4, !tbaa !14
-  %and22 = and i32 %i.1107, 31
+  %and22 = and i32 %i.1106, 31
   %shl23 = shl nuw i32 1, %and22
   %and24 = and i32 %24, %shl23
   %tobool25.not = icmp eq i32 %and24, 0
   br i1 %tobool25.not, label %if.then26, label %for.inc34
 
 if.then26:                                        ; preds = %for.body17
-  %dec = add nsw i32 %halfbit.2106, -1
+  %dec = add nsw i32 %halfbit.2105, -1
   %arrayidx32 = getelementptr inbounds i32, ptr %cleft, i64 %idxprom20
   %25 = load i32, ptr %arrayidx32, align 4, !tbaa !14
   %or = or i32 %25, %shl23
@@ -1166,19 +1166,19 @@ if.then26:                                        ; preds = %for.body17
   br label %for.inc34
 
 for.inc34:                                        ; preds = %for.body17, %if.then26
-  %halfbit.3 = phi i32 [ %halfbit.2106, %for.body17 ], [ %dec, %if.then26 ]
-  %inc35 = add nsw i32 %i.1107, 1
+  %halfbit.3 = phi i32 [ %halfbit.2105, %for.body17 ], [ %dec, %if.then26 ]
+  %inc35 = add nsw i32 %i.1106, 1
   %cmp16 = icmp sgt i32 %halfbit.3, 0
   br i1 %cmp16, label %for.body17, label %for.cond37.preheader
 
 for.body39:                                       ; preds = %for.cond37.preheader, %for.inc57
-  %i.2110 = phi i32 [ %inc58, %for.inc57 ], [ %i.1.lcssa, %for.cond37.preheader ]
-  %shr40 = ashr i32 %i.2110, 5
+  %i.2109 = phi i32 [ %inc58, %for.inc57 ], [ %i.1.lcssa, %for.cond37.preheader ]
+  %shr40 = ashr i32 %i.2109, 5
   %add41 = add nsw i32 %shr40, 1
   %idxprom42 = sext i32 %add41 to i64
   %arrayidx43 = getelementptr inbounds i32, ptr %3, i64 %idxprom42
   %26 = load i32, ptr %arrayidx43, align 4, !tbaa !14
-  %and44 = and i32 %i.2110, 31
+  %and44 = and i32 %i.2109, 31
   %shl45 = shl nuw i32 1, %and44
   %and46 = and i32 %26, %shl45
   %tobool47.not = icmp eq i32 %and46, 0
@@ -1192,9 +1192,9 @@ if.then48:                                        ; preds = %for.body39
   br label %for.inc57
 
 for.inc57:                                        ; preds = %for.body39, %if.then48
-  %inc58 = add i32 %i.2110, 1
-  %exitcond111.not = icmp eq i32 %i.2110, %2
-  br i1 %exitcond111.not, label %for.end59, label %for.body39
+  %inc58 = add i32 %i.2109, 1
+  %exitcond110.not = icmp eq i32 %i.2109, %2
+  br i1 %exitcond110.not, label %for.end59, label %for.body39
 
 for.end59:                                        ; preds = %for.inc57, %for.cond37.preheader
   %28 = load i32, ptr @debug, align 4, !tbaa !14

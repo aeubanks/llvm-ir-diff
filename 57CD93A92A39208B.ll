@@ -372,11 +372,11 @@ declare i32 @CHAR_TO_DIGIT(...) local_unnamed_addr #4
 ; Function Attrs: nounwind uwtable
 define dso_local void @REAL_CODE(ptr nocapture noundef readonly %OP_CODE, i32 noundef %EXTENDED, ptr noundef %ARGUMENTS, i32 noundef %LOCATION, ptr noundef %SYM_TAB, ptr noundef %OBJECT_STREAM, ptr nocapture noundef %LISTING_STREAM, ptr nocapture noundef writeonly %ERROR) local_unnamed_addr #0 {
 entry:
-  %NUM_STR.i649 = alloca [8 x i8], align 1
-  %NUM_STR.i579 = alloca [8 x i8], align 1
-  %NUM_STR.i441 = alloca [8 x i8], align 1
-  %NUM_STR.i413 = alloca [8 x i8], align 1
-  %NUM_STR.i338 = alloca [8 x i8], align 1
+  %NUM_STR.i648 = alloca [8 x i8], align 1
+  %NUM_STR.i578 = alloca [8 x i8], align 1
+  %NUM_STR.i440 = alloca [8 x i8], align 1
+  %NUM_STR.i412 = alloca [8 x i8], align 1
+  %NUM_STR.i337 = alloca [8 x i8], align 1
   %NUM_STR.i = alloca [8 x i8], align 1
   %ARGUMENTS.addr = alloca ptr, align 8
   %INSTRUCT_CODE = alloca [33 x i8], align 16
@@ -465,8 +465,8 @@ if.then:                                          ; preds = %SET_BITS_TO.exit
   %..i = select i1 %or.cond.i, i8 48, i8 55
   %conv17.i = add i8 %..i, %15
   store i8 %conv17.i, ptr %NUM_STR.i, align 1
-  %arrayidx.i293.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %16 = load i8, ptr %arrayidx.i293.1, align 4, !tbaa !11
+  %arrayidx.i292.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %16 = load i8, ptr %arrayidx.i292.1, align 4, !tbaa !11
   %conv.i.1 = sext i8 %16 to i32
   %call7.i.1 = tail call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i.1, i32 noundef 2) #16
   %arrayidx.1.i.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
@@ -522,42 +522,42 @@ if.then13:                                        ; preds = %if.end
 
 if.then16:                                        ; preds = %if.then13
   %28 = add i8 %27, -48
-  %or.cond291 = icmp ult i8 %28, 5
-  br i1 %or.cond291, label %if.then23, label %if.else
+  %or.cond681 = icmp ult i8 %28, 5
+  br i1 %or.cond681, label %if.then23, label %if.else
 
 if.then23:                                        ; preds = %if.then16
   %conv17 = zext i8 %27 to i32
   %sub = add nsw i32 %conv17, -48
-  %ldexp.i295 = call double @ldexp(double 1.000000e+00, i32 3) #16
-  %conv3.i296 = fptosi double %ldexp.i295 to i32
-  %cmp429.i297 = icmp sgt i32 %conv3.i296, 0
-  br i1 %cmp429.i297, label %for.body.i309, label %for.end.i312
+  %ldexp.i294 = call double @ldexp(double 1.000000e+00, i32 3) #16
+  %conv3.i295 = fptosi double %ldexp.i294 to i32
+  %cmp429.i296 = icmp sgt i32 %conv3.i295, 0
+  br i1 %cmp429.i296, label %for.body.i308, label %for.end.i311
 
-for.body.i309:                                    ; preds = %if.then23, %for.body.i309
-  %indvars.iv.i299 = phi i64 [ %indvars.iv.next.i306, %for.body.i309 ], [ 11, %if.then23 ]
-  %VALUE.addr.032.i300 = phi i32 [ %div.i302, %for.body.i309 ], [ %sub, %if.then23 ]
-  %I.030.i301 = phi i32 [ %div1227.i307, %for.body.i309 ], [ %conv3.i296, %if.then23 ]
-  %div.i302 = sdiv i32 %VALUE.addr.032.i300, 2
-  %29 = shl i32 %div.i302, 25
-  %30 = shl i32 %VALUE.addr.032.i300, 24
-  %sext.i303 = sub i32 %30, %29
-  %31 = lshr exact i32 %sext.i303, 24
+for.body.i308:                                    ; preds = %if.then23, %for.body.i308
+  %indvars.iv.i298 = phi i64 [ %indvars.iv.next.i305, %for.body.i308 ], [ 11, %if.then23 ]
+  %VALUE.addr.032.i299 = phi i32 [ %div.i301, %for.body.i308 ], [ %sub, %if.then23 ]
+  %I.030.i300 = phi i32 [ %div1227.i306, %for.body.i308 ], [ %conv3.i295, %if.then23 ]
+  %div.i301 = sdiv i32 %VALUE.addr.032.i299, 2
+  %29 = shl i32 %div.i301, 25
+  %30 = shl i32 %VALUE.addr.032.i299, 24
+  %sext.i302 = sub i32 %30, %29
+  %31 = lshr exact i32 %sext.i302, 24
   %32 = trunc i32 %31 to i8
-  %conv11.i304 = add i8 %32, 48
-  %arrayidx.i305 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i299
-  store i8 %conv11.i304, ptr %arrayidx.i305, align 1, !tbaa !11
-  %indvars.iv.next.i306 = add nsw i64 %indvars.iv.i299, -1
-  %div1227.i307 = lshr i32 %I.030.i301, 1
-  %cmp4.not.i308 = icmp ult i32 %I.030.i301, 2
-  br i1 %cmp4.not.i308, label %for.end.i312, label %for.body.i309, !llvm.loop !15
+  %conv11.i303 = add i8 %32, 48
+  %arrayidx.i304 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i298
+  store i8 %conv11.i303, ptr %arrayidx.i304, align 1, !tbaa !11
+  %indvars.iv.next.i305 = add nsw i64 %indvars.iv.i298, -1
+  %div1227.i306 = lshr i32 %I.030.i300, 1
+  %cmp4.not.i307 = icmp ult i32 %I.030.i300, 2
+  br i1 %cmp4.not.i307, label %for.end.i311, label %for.body.i308, !llvm.loop !15
 
-for.end.i312:                                     ; preds = %for.body.i309, %if.then23
-  %VALUE.addr.0.lcssa.i310 = phi i32 [ %sub, %if.then23 ], [ %div.i302, %for.body.i309 ]
-  %cmp13.not.i311 = icmp eq i32 %VALUE.addr.0.lcssa.i310, 0
-  br i1 %cmp13.not.i311, label %if.end26, label %if.end17.sink.split.i314
+for.end.i311:                                     ; preds = %for.body.i308, %if.then23
+  %VALUE.addr.0.lcssa.i309 = phi i32 [ %sub, %if.then23 ], [ %div.i301, %for.body.i308 ]
+  %cmp13.not.i310 = icmp eq i32 %VALUE.addr.0.lcssa.i309, 0
+  br i1 %cmp13.not.i310, label %if.end26, label %if.end17.sink.split.i313
 
-if.end17.sink.split.i314:                         ; preds = %for.end.i312
-  %puts.i313 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.end17.sink.split.i313:                         ; preds = %for.end.i311
+  %puts.i312 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end26
 
 if.else:                                          ; preds = %if.then16
@@ -565,15 +565,15 @@ if.else:                                          ; preds = %if.then16
   store i32 1, ptr %ERROR, align 4, !tbaa !12
   br label %if.end26
 
-if.end26:                                         ; preds = %if.end17.sink.split.i314, %for.end.i312, %if.else
+if.end26:                                         ; preds = %if.end17.sink.split.i313, %for.end.i311, %if.else
   %33 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %incdec.ptr = getelementptr inbounds i8, ptr %33, i64 1
   store ptr %incdec.ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   br label %if.end92
 
 if.else27:                                        ; preds = %if.then13
-  %conv.i316 = sext i8 %27 to i32
-  switch i32 %conv.i316, label %if.then31 [
+  %conv.i315 = sext i8 %27 to i32
+  switch i32 %conv.i315, label %if.then31 [
     i32 65, label %if.else33
     i32 88, label %sw.bb1.i
     i32 76, label %sw.bb2.i
@@ -624,44 +624,44 @@ if.else33:                                        ; preds = %sw.bb8.i, %sw.bb7.i
   %VAL.0.i.ph = phi i32 [ %spec.select23.i, %sw.bb4.i ], [ 0, %if.else27 ], [ 1, %sw.bb1.i ], [ 2, %sw.bb2.i ], [ 3, %sw.bb3.i ], [ 5, %sw.bb7.i ], [ 8, %sw.bb8.i ]
   %incdec.ptr17.i683 = getelementptr inbounds i8, ptr %.ph, i64 1
   store ptr %incdec.ptr17.i683, ptr %ARGUMENTS.addr, align 8, !tbaa !5
-  %ldexp.i317 = call double @ldexp(double 1.000000e+00, i32 3) #16
-  %conv3.i318 = fptosi double %ldexp.i317 to i32
-  %cmp429.i319 = icmp sgt i32 %conv3.i318, 0
-  br i1 %cmp429.i319, label %for.body.i331, label %for.end.i334
+  %ldexp.i316 = call double @ldexp(double 1.000000e+00, i32 3) #16
+  %conv3.i317 = fptosi double %ldexp.i316 to i32
+  %cmp429.i318 = icmp sgt i32 %conv3.i317, 0
+  br i1 %cmp429.i318, label %for.body.i330, label %for.end.i333
 
-for.body.i331:                                    ; preds = %if.else33, %for.body.i331
-  %indvars.iv.i321 = phi i64 [ %indvars.iv.next.i328, %for.body.i331 ], [ 11, %if.else33 ]
-  %VALUE.addr.032.i322 = phi i32 [ %div.i324705, %for.body.i331 ], [ %VAL.0.i.ph, %if.else33 ]
-  %I.030.i323 = phi i32 [ %div1227.i329, %for.body.i331 ], [ %conv3.i318, %if.else33 ]
-  %div.i324705 = lshr i32 %VALUE.addr.032.i322, 1
-  %37 = shl nuw nsw i32 %div.i324705, 25
-  %38 = shl nuw nsw i32 %VALUE.addr.032.i322, 24
-  %sext.i325 = sub nsw i32 %38, %37
-  %39 = lshr exact i32 %sext.i325, 24
+for.body.i330:                                    ; preds = %if.else33, %for.body.i330
+  %indvars.iv.i320 = phi i64 [ %indvars.iv.next.i327, %for.body.i330 ], [ 11, %if.else33 ]
+  %VALUE.addr.032.i321 = phi i32 [ %div.i323705, %for.body.i330 ], [ %VAL.0.i.ph, %if.else33 ]
+  %I.030.i322 = phi i32 [ %div1227.i328, %for.body.i330 ], [ %conv3.i317, %if.else33 ]
+  %div.i323705 = lshr i32 %VALUE.addr.032.i321, 1
+  %37 = shl nuw nsw i32 %div.i323705, 25
+  %38 = shl nuw nsw i32 %VALUE.addr.032.i321, 24
+  %sext.i324 = sub nsw i32 %38, %37
+  %39 = lshr exact i32 %sext.i324, 24
   %40 = trunc i32 %39 to i8
-  %conv11.i326 = add i8 %40, 48
-  %arrayidx.i327 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i321
-  store i8 %conv11.i326, ptr %arrayidx.i327, align 1, !tbaa !11
-  %indvars.iv.next.i328 = add nsw i64 %indvars.iv.i321, -1
-  %div1227.i329 = lshr i32 %I.030.i323, 1
-  %cmp4.not.i330 = icmp ult i32 %I.030.i323, 2
-  br i1 %cmp4.not.i330, label %for.end.i334, label %for.body.i331, !llvm.loop !15
+  %conv11.i325 = add i8 %40, 48
+  %arrayidx.i326 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i320
+  store i8 %conv11.i325, ptr %arrayidx.i326, align 1, !tbaa !11
+  %indvars.iv.next.i327 = add nsw i64 %indvars.iv.i320, -1
+  %div1227.i328 = lshr i32 %I.030.i322, 1
+  %cmp4.not.i329 = icmp ult i32 %I.030.i322, 2
+  br i1 %cmp4.not.i329, label %for.end.i333, label %for.body.i330, !llvm.loop !15
 
-for.end.i334:                                     ; preds = %for.body.i331, %if.else33
-  %VALUE.addr.0.lcssa.i332 = phi i32 [ %VAL.0.i.ph, %if.else33 ], [ %div.i324705, %for.body.i331 ]
-  %cmp13.not.i333 = icmp eq i32 %VALUE.addr.0.lcssa.i332, 0
-  br i1 %cmp13.not.i333, label %SET_BITS_TO.exit337, label %if.end17.sink.split.i336
+for.end.i333:                                     ; preds = %for.body.i330, %if.else33
+  %VALUE.addr.0.lcssa.i331 = phi i32 [ %VAL.0.i.ph, %if.else33 ], [ %div.i323705, %for.body.i330 ]
+  %cmp13.not.i332 = icmp eq i32 %VALUE.addr.0.lcssa.i331, 0
+  br i1 %cmp13.not.i332, label %SET_BITS_TO.exit336, label %if.end17.sink.split.i335
 
-if.end17.sink.split.i336:                         ; preds = %for.end.i334
-  %puts.i335 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit337
+if.end17.sink.split.i335:                         ; preds = %for.end.i333
+  %puts.i334 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit336
 
-SET_BITS_TO.exit337:                              ; preds = %for.end.i334, %if.end17.sink.split.i336
+SET_BITS_TO.exit336:                              ; preds = %for.end.i333, %if.end17.sink.split.i335
   %41 = load i32, ptr %OPERAND, align 8, !tbaa !21
   %cmp36.not = icmp eq i32 %41, 1
   br i1 %cmp36.not, label %if.end92, label %if.then38
 
-if.then38:                                        ; preds = %SET_BITS_TO.exit337
+if.then38:                                        ; preds = %SET_BITS_TO.exit336
   %42 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %43 = load i8, ptr %42, align 1, !tbaa !11
   %cmp40.not = icmp eq i8 %43, 44
@@ -748,7 +748,7 @@ if.else85:                                        ; preds = %if.else80
   call void @SET_BITS_TO(i32 noundef 12, i32 noundef 15, i32 noundef %call81, ptr noundef nonnull %INSTRUCT_CODE)
   br label %if.end92
 
-if.end92:                                         ; preds = %if.then31, %if.then42, %if.then84, %if.else85, %if.then55, %if.else76, %if.then75, %SET_BITS_TO.exit337, %if.end26
+if.end92:                                         ; preds = %if.then31, %if.then42, %if.then84, %if.else85, %if.then55, %if.else76, %if.then75, %SET_BITS_TO.exit336, %if.end26
   %53 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %54 = load i8, ptr %53, align 1, !tbaa !11
   %conv93 = sext i8 %54 to i32
@@ -770,126 +770,126 @@ if.then99:                                        ; preds = %land.lhs.true95
   br label %if.end100
 
 if.end100:                                        ; preds = %if.then99, %land.lhs.true95, %if.end92
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i338) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i337) #16
   %57 = load i8, ptr %INSTRUCT_CODE, align 16, !tbaa !11
-  %conv.i341 = sext i8 %57 to i32
-  %call7.i342 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i341, i32 noundef 2) #16
-  %arrayidx.1.i343 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
-  %58 = load i8, ptr %arrayidx.1.i343, align 1, !tbaa !11
-  %conv.1.i344 = sext i8 %58 to i32
-  %call7.1.i345 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i344, i32 noundef 2) #16
-  %59 = shl i32 %call7.i342, 2
-  %60 = shl i32 %call7.1.i345, 1
-  %mul5.2.i346 = add i32 %60, %59
-  %arrayidx.2.i347 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
-  %61 = load i8, ptr %arrayidx.2.i347, align 2, !tbaa !11
-  %conv.2.i348 = sext i8 %61 to i32
-  %call7.2.i349 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i348, i32 noundef 2) #16
-  %add8.2.i350 = add nsw i32 %mul5.2.i346, %call7.2.i349
-  %mul5.3.i351 = shl nsw i32 %add8.2.i350, 1
-  %arrayidx.3.i352 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
-  %62 = load i8, ptr %arrayidx.3.i352, align 1, !tbaa !11
-  %conv.3.i353 = sext i8 %62 to i32
-  %call7.3.i354 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i353, i32 noundef 2) #16
-  %add8.3.i355 = add nsw i32 %call7.3.i354, %mul5.3.i351
-  %or.cond.i356 = icmp ult i32 %add8.3.i355, 10
-  %63 = trunc i32 %add8.3.i355 to i8
-  %..i357 = select i1 %or.cond.i356, i8 48, i8 55
-  %conv17.i358 = add i8 %..i357, %63
-  store i8 %conv17.i358, ptr %NUM_STR.i338, align 1
-  %arrayidx.i340.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %64 = load i8, ptr %arrayidx.i340.1, align 4, !tbaa !11
-  %conv.i341.1 = sext i8 %64 to i32
-  %call7.i342.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i341.1, i32 noundef 2) #16
-  %arrayidx.1.i343.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
-  %65 = load i8, ptr %arrayidx.1.i343.1, align 1, !tbaa !11
-  %conv.1.i344.1 = sext i8 %65 to i32
-  %call7.1.i345.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i344.1, i32 noundef 2) #16
-  %66 = shl i32 %call7.i342.1, 2
-  %67 = shl i32 %call7.1.i345.1, 1
-  %mul5.2.i346.1 = add i32 %67, %66
-  %arrayidx.2.i347.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  %68 = load i8, ptr %arrayidx.2.i347.1, align 2, !tbaa !11
-  %conv.2.i348.1 = sext i8 %68 to i32
-  %call7.2.i349.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i348.1, i32 noundef 2) #16
-  %add8.2.i350.1 = add nsw i32 %mul5.2.i346.1, %call7.2.i349.1
-  %mul5.3.i351.1 = shl nsw i32 %add8.2.i350.1, 1
-  %arrayidx.3.i352.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  %69 = load i8, ptr %arrayidx.3.i352.1, align 1, !tbaa !11
-  %conv.3.i353.1 = sext i8 %69 to i32
-  %call7.3.i354.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i353.1, i32 noundef 2) #16
-  %add8.3.i355.1 = add nsw i32 %call7.3.i354.1, %mul5.3.i351.1
-  %or.cond.i356.1 = icmp ult i32 %add8.3.i355.1, 10
-  %70 = trunc i32 %add8.3.i355.1 to i8
-  %..i357.1 = select i1 %or.cond.i356.1, i8 48, i8 55
-  %conv17.i358.1 = add i8 %..i357.1, %70
-  %71 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i338, i64 0, i64 1
-  store i8 %conv17.i358.1, ptr %71, align 1
-  %arrayidx.i340.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  %72 = load i8, ptr %arrayidx.i340.2, align 8, !tbaa !11
-  %conv.i341.2 = sext i8 %72 to i32
-  %call7.i342.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i341.2, i32 noundef 2) #16
-  %arrayidx.1.i343.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
-  %73 = load i8, ptr %arrayidx.1.i343.2, align 1, !tbaa !11
-  %conv.1.i344.2 = sext i8 %73 to i32
-  %call7.1.i345.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i344.2, i32 noundef 2) #16
-  %74 = shl i32 %call7.i342.2, 2
-  %75 = shl i32 %call7.1.i345.2, 1
-  %mul5.2.i346.2 = add i32 %75, %74
-  %arrayidx.2.i347.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  %76 = load i8, ptr %arrayidx.2.i347.2, align 2, !tbaa !11
-  %conv.2.i348.2 = sext i8 %76 to i32
-  %call7.2.i349.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i348.2, i32 noundef 2) #16
-  %add8.2.i350.2 = add nsw i32 %mul5.2.i346.2, %call7.2.i349.2
-  %mul5.3.i351.2 = shl nsw i32 %add8.2.i350.2, 1
-  %arrayidx.3.i352.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
-  %77 = load i8, ptr %arrayidx.3.i352.2, align 1, !tbaa !11
-  %conv.3.i353.2 = sext i8 %77 to i32
-  %call7.3.i354.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i353.2, i32 noundef 2) #16
-  %add8.3.i355.2 = add nsw i32 %call7.3.i354.2, %mul5.3.i351.2
-  %or.cond.i356.2 = icmp ult i32 %add8.3.i355.2, 10
-  %78 = trunc i32 %add8.3.i355.2 to i8
-  %..i357.2 = select i1 %or.cond.i356.2, i8 48, i8 55
-  %conv17.i358.2 = add i8 %..i357.2, %78
-  %79 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i338, i64 0, i64 2
-  store i8 %conv17.i358.2, ptr %79, align 1
-  %arrayidx.i340.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
-  %80 = load i8, ptr %arrayidx.i340.3, align 4, !tbaa !11
-  %conv.i341.3 = sext i8 %80 to i32
-  %call7.i342.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i341.3, i32 noundef 2) #16
-  %arrayidx.1.i343.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
-  %81 = load i8, ptr %arrayidx.1.i343.3, align 1, !tbaa !11
-  %conv.1.i344.3 = sext i8 %81 to i32
-  %call7.1.i345.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i344.3, i32 noundef 2) #16
-  %82 = shl i32 %call7.i342.3, 2
-  %83 = shl i32 %call7.1.i345.3, 1
-  %mul5.2.i346.3 = add i32 %83, %82
-  %arrayidx.2.i347.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
-  %84 = load i8, ptr %arrayidx.2.i347.3, align 2, !tbaa !11
-  %conv.2.i348.3 = sext i8 %84 to i32
-  %call7.2.i349.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i348.3, i32 noundef 2) #16
-  %add8.2.i350.3 = add nsw i32 %mul5.2.i346.3, %call7.2.i349.3
-  %mul5.3.i351.3 = shl nsw i32 %add8.2.i350.3, 1
-  %arrayidx.3.i352.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
-  %85 = load i8, ptr %arrayidx.3.i352.3, align 1, !tbaa !11
-  %conv.3.i353.3 = sext i8 %85 to i32
-  %call7.3.i354.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i353.3, i32 noundef 2) #16
-  %add8.3.i355.3 = add nsw i32 %call7.3.i354.3, %mul5.3.i351.3
-  %or.cond.i356.3 = icmp ult i32 %add8.3.i355.3, 10
-  %86 = trunc i32 %add8.3.i355.3 to i8
-  %..i357.3 = select i1 %or.cond.i356.3, i8 48, i8 55
-  %conv17.i358.3 = add i8 %..i357.3, %86
-  %87 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i338, i64 0, i64 3
-  store i8 %conv17.i358.3, ptr %87, align 1
-  %arrayidx31.i362 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i338, i64 0, i64 4
-  store i8 0, ptr %arrayidx31.i362, align 1, !tbaa !11
-  %fputs.i363 = call i32 @fputs(ptr nonnull %NUM_STR.i338, ptr %LISTING_STREAM)
-  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i338, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
-  %fputc.i366 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  %fputc.i366.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  %fputc.i366.2 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  %fputc.i366.3 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i338) #16
+  %conv.i340 = sext i8 %57 to i32
+  %call7.i341 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i340, i32 noundef 2) #16
+  %arrayidx.1.i342 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
+  %58 = load i8, ptr %arrayidx.1.i342, align 1, !tbaa !11
+  %conv.1.i343 = sext i8 %58 to i32
+  %call7.1.i344 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i343, i32 noundef 2) #16
+  %59 = shl i32 %call7.i341, 2
+  %60 = shl i32 %call7.1.i344, 1
+  %mul5.2.i345 = add i32 %60, %59
+  %arrayidx.2.i346 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
+  %61 = load i8, ptr %arrayidx.2.i346, align 2, !tbaa !11
+  %conv.2.i347 = sext i8 %61 to i32
+  %call7.2.i348 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i347, i32 noundef 2) #16
+  %add8.2.i349 = add nsw i32 %mul5.2.i345, %call7.2.i348
+  %mul5.3.i350 = shl nsw i32 %add8.2.i349, 1
+  %arrayidx.3.i351 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
+  %62 = load i8, ptr %arrayidx.3.i351, align 1, !tbaa !11
+  %conv.3.i352 = sext i8 %62 to i32
+  %call7.3.i353 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i352, i32 noundef 2) #16
+  %add8.3.i354 = add nsw i32 %call7.3.i353, %mul5.3.i350
+  %or.cond.i355 = icmp ult i32 %add8.3.i354, 10
+  %63 = trunc i32 %add8.3.i354 to i8
+  %..i356 = select i1 %or.cond.i355, i8 48, i8 55
+  %conv17.i357 = add i8 %..i356, %63
+  store i8 %conv17.i357, ptr %NUM_STR.i337, align 1
+  %arrayidx.i339.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %64 = load i8, ptr %arrayidx.i339.1, align 4, !tbaa !11
+  %conv.i340.1 = sext i8 %64 to i32
+  %call7.i341.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i340.1, i32 noundef 2) #16
+  %arrayidx.1.i342.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
+  %65 = load i8, ptr %arrayidx.1.i342.1, align 1, !tbaa !11
+  %conv.1.i343.1 = sext i8 %65 to i32
+  %call7.1.i344.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i343.1, i32 noundef 2) #16
+  %66 = shl i32 %call7.i341.1, 2
+  %67 = shl i32 %call7.1.i344.1, 1
+  %mul5.2.i345.1 = add i32 %67, %66
+  %arrayidx.2.i346.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  %68 = load i8, ptr %arrayidx.2.i346.1, align 2, !tbaa !11
+  %conv.2.i347.1 = sext i8 %68 to i32
+  %call7.2.i348.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i347.1, i32 noundef 2) #16
+  %add8.2.i349.1 = add nsw i32 %mul5.2.i345.1, %call7.2.i348.1
+  %mul5.3.i350.1 = shl nsw i32 %add8.2.i349.1, 1
+  %arrayidx.3.i351.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  %69 = load i8, ptr %arrayidx.3.i351.1, align 1, !tbaa !11
+  %conv.3.i352.1 = sext i8 %69 to i32
+  %call7.3.i353.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i352.1, i32 noundef 2) #16
+  %add8.3.i354.1 = add nsw i32 %call7.3.i353.1, %mul5.3.i350.1
+  %or.cond.i355.1 = icmp ult i32 %add8.3.i354.1, 10
+  %70 = trunc i32 %add8.3.i354.1 to i8
+  %..i356.1 = select i1 %or.cond.i355.1, i8 48, i8 55
+  %conv17.i357.1 = add i8 %..i356.1, %70
+  %71 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i337, i64 0, i64 1
+  store i8 %conv17.i357.1, ptr %71, align 1
+  %arrayidx.i339.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  %72 = load i8, ptr %arrayidx.i339.2, align 8, !tbaa !11
+  %conv.i340.2 = sext i8 %72 to i32
+  %call7.i341.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i340.2, i32 noundef 2) #16
+  %arrayidx.1.i342.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
+  %73 = load i8, ptr %arrayidx.1.i342.2, align 1, !tbaa !11
+  %conv.1.i343.2 = sext i8 %73 to i32
+  %call7.1.i344.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i343.2, i32 noundef 2) #16
+  %74 = shl i32 %call7.i341.2, 2
+  %75 = shl i32 %call7.1.i344.2, 1
+  %mul5.2.i345.2 = add i32 %75, %74
+  %arrayidx.2.i346.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  %76 = load i8, ptr %arrayidx.2.i346.2, align 2, !tbaa !11
+  %conv.2.i347.2 = sext i8 %76 to i32
+  %call7.2.i348.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i347.2, i32 noundef 2) #16
+  %add8.2.i349.2 = add nsw i32 %mul5.2.i345.2, %call7.2.i348.2
+  %mul5.3.i350.2 = shl nsw i32 %add8.2.i349.2, 1
+  %arrayidx.3.i351.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
+  %77 = load i8, ptr %arrayidx.3.i351.2, align 1, !tbaa !11
+  %conv.3.i352.2 = sext i8 %77 to i32
+  %call7.3.i353.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i352.2, i32 noundef 2) #16
+  %add8.3.i354.2 = add nsw i32 %call7.3.i353.2, %mul5.3.i350.2
+  %or.cond.i355.2 = icmp ult i32 %add8.3.i354.2, 10
+  %78 = trunc i32 %add8.3.i354.2 to i8
+  %..i356.2 = select i1 %or.cond.i355.2, i8 48, i8 55
+  %conv17.i357.2 = add i8 %..i356.2, %78
+  %79 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i337, i64 0, i64 2
+  store i8 %conv17.i357.2, ptr %79, align 1
+  %arrayidx.i339.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
+  %80 = load i8, ptr %arrayidx.i339.3, align 4, !tbaa !11
+  %conv.i340.3 = sext i8 %80 to i32
+  %call7.i341.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i340.3, i32 noundef 2) #16
+  %arrayidx.1.i342.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
+  %81 = load i8, ptr %arrayidx.1.i342.3, align 1, !tbaa !11
+  %conv.1.i343.3 = sext i8 %81 to i32
+  %call7.1.i344.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i343.3, i32 noundef 2) #16
+  %82 = shl i32 %call7.i341.3, 2
+  %83 = shl i32 %call7.1.i344.3, 1
+  %mul5.2.i345.3 = add i32 %83, %82
+  %arrayidx.2.i346.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
+  %84 = load i8, ptr %arrayidx.2.i346.3, align 2, !tbaa !11
+  %conv.2.i347.3 = sext i8 %84 to i32
+  %call7.2.i348.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i347.3, i32 noundef 2) #16
+  %add8.2.i349.3 = add nsw i32 %mul5.2.i345.3, %call7.2.i348.3
+  %mul5.3.i350.3 = shl nsw i32 %add8.2.i349.3, 1
+  %arrayidx.3.i351.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
+  %85 = load i8, ptr %arrayidx.3.i351.3, align 1, !tbaa !11
+  %conv.3.i352.3 = sext i8 %85 to i32
+  %call7.3.i353.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i352.3, i32 noundef 2) #16
+  %add8.3.i354.3 = add nsw i32 %call7.3.i353.3, %mul5.3.i350.3
+  %or.cond.i355.3 = icmp ult i32 %add8.3.i354.3, 10
+  %86 = trunc i32 %add8.3.i354.3 to i8
+  %..i356.3 = select i1 %or.cond.i355.3, i8 48, i8 55
+  %conv17.i357.3 = add i8 %..i356.3, %86
+  %87 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i337, i64 0, i64 3
+  store i8 %conv17.i357.3, ptr %87, align 1
+  %arrayidx31.i361 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i337, i64 0, i64 4
+  store i8 0, ptr %arrayidx31.i361, align 1, !tbaa !11
+  %fputs.i362 = call i32 @fputs(ptr nonnull %NUM_STR.i337, ptr %LISTING_STREAM)
+  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i337, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
+  %fputc.i365 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  %fputc.i365.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  %fputc.i365.2 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  %fputc.i365.3 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i337) #16
   %.pre = load i32, ptr %FORMAT, align 8, !tbaa !20
   br label %if.end102
 
@@ -901,486 +901,486 @@ if.end102:                                        ; preds = %if.end100, %if.end
 if.then106:                                       ; preds = %if.end102
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %WHAT_KIND) #16
   store i32 0, ptr %WHAT_KIND, align 4, !tbaa !12
-  %ldexp.i371 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %conv3.i372 = fptosi double %ldexp.i371 to i32
-  %cmp429.i373 = icmp sgt i32 %conv3.i372, 0
-  br i1 %cmp429.i373, label %for.body.i385, label %for.end.i388
+  %ldexp.i370 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %conv3.i371 = fptosi double %ldexp.i370 to i32
+  %cmp429.i372 = icmp sgt i32 %conv3.i371, 0
+  br i1 %cmp429.i372, label %for.body.i384, label %for.end.i387
 
-for.body.i385:                                    ; preds = %if.then106, %for.body.i385
-  %indvars.iv.i375 = phi i64 [ %indvars.iv.next.i382, %for.body.i385 ], [ 11, %if.then106 ]
-  %VALUE.addr.032.i376 = phi i32 [ %div.i378, %for.body.i385 ], [ %EXTENDED, %if.then106 ]
-  %I.030.i377 = phi i32 [ %div1227.i383, %for.body.i385 ], [ %conv3.i372, %if.then106 ]
-  %div.i378 = sdiv i32 %VALUE.addr.032.i376, 2
-  %89 = shl i32 %div.i378, 25
-  %90 = shl i32 %VALUE.addr.032.i376, 24
-  %sext.i379 = sub i32 %90, %89
-  %91 = lshr exact i32 %sext.i379, 24
+for.body.i384:                                    ; preds = %if.then106, %for.body.i384
+  %indvars.iv.i374 = phi i64 [ %indvars.iv.next.i381, %for.body.i384 ], [ 11, %if.then106 ]
+  %VALUE.addr.032.i375 = phi i32 [ %div.i377, %for.body.i384 ], [ %EXTENDED, %if.then106 ]
+  %I.030.i376 = phi i32 [ %div1227.i382, %for.body.i384 ], [ %conv3.i371, %if.then106 ]
+  %div.i377 = sdiv i32 %VALUE.addr.032.i375, 2
+  %89 = shl i32 %div.i377, 25
+  %90 = shl i32 %VALUE.addr.032.i375, 24
+  %sext.i378 = sub i32 %90, %89
+  %91 = lshr exact i32 %sext.i378, 24
   %92 = trunc i32 %91 to i8
-  %conv11.i380 = add i8 %92, 48
-  %arrayidx.i381 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i375
-  store i8 %conv11.i380, ptr %arrayidx.i381, align 1, !tbaa !11
-  %indvars.iv.next.i382 = add nsw i64 %indvars.iv.i375, -1
-  %div1227.i383 = lshr i32 %I.030.i377, 1
-  %cmp4.not.i384 = icmp ult i32 %I.030.i377, 2
-  br i1 %cmp4.not.i384, label %for.end.i388, label %for.body.i385, !llvm.loop !15
+  %conv11.i379 = add i8 %92, 48
+  %arrayidx.i380 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i374
+  store i8 %conv11.i379, ptr %arrayidx.i380, align 1, !tbaa !11
+  %indvars.iv.next.i381 = add nsw i64 %indvars.iv.i374, -1
+  %div1227.i382 = lshr i32 %I.030.i376, 1
+  %cmp4.not.i383 = icmp ult i32 %I.030.i376, 2
+  br i1 %cmp4.not.i383, label %for.end.i387, label %for.body.i384, !llvm.loop !15
 
-for.end.i388:                                     ; preds = %for.body.i385, %if.then106
-  %VALUE.addr.0.lcssa.i386 = phi i32 [ %EXTENDED, %if.then106 ], [ %div.i378, %for.body.i385 ]
-  %cmp13.not.i387 = icmp eq i32 %VALUE.addr.0.lcssa.i386, 0
-  br i1 %cmp13.not.i387, label %SET_BITS_TO.exit391, label %if.end17.sink.split.i390
+for.end.i387:                                     ; preds = %for.body.i384, %if.then106
+  %VALUE.addr.0.lcssa.i385 = phi i32 [ %EXTENDED, %if.then106 ], [ %div.i377, %for.body.i384 ]
+  %cmp13.not.i386 = icmp eq i32 %VALUE.addr.0.lcssa.i385, 0
+  br i1 %cmp13.not.i386, label %SET_BITS_TO.exit390, label %if.end17.sink.split.i389
 
-if.end17.sink.split.i390:                         ; preds = %for.end.i388
-  %puts.i389 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit391
+if.end17.sink.split.i389:                         ; preds = %for.end.i387
+  %puts.i388 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit390
 
-SET_BITS_TO.exit391:                              ; preds = %for.end.i388, %if.end17.sink.split.i390
+SET_BITS_TO.exit390:                              ; preds = %for.end.i387, %if.end17.sink.split.i389
   %OPERAND108 = getelementptr inbounds %struct.OP_ENTRY, ptr %OP_CODE, i64 0, i32 3
   %93 = load i32, ptr %OPERAND108, align 8, !tbaa !21
   %cmp109 = icmp eq i32 %93, 0
   br i1 %cmp109, label %if.then111, label %if.else119
 
-if.then111:                                       ; preds = %SET_BITS_TO.exit391
-  %ldexp.i392 = call double @ldexp(double 1.000000e+00, i32 1) #16
-  %conv3.i393 = fptosi double %ldexp.i392 to i32
-  %cmp429.i394 = icmp sgt i32 %conv3.i393, 0
-  br i1 %cmp429.i394, label %for.body.i406, label %if.end17.sink.split.i411
+if.then111:                                       ; preds = %SET_BITS_TO.exit390
+  %ldexp.i391 = call double @ldexp(double 1.000000e+00, i32 1) #16
+  %conv3.i392 = fptosi double %ldexp.i391 to i32
+  %cmp429.i393 = icmp sgt i32 %conv3.i392, 0
+  br i1 %cmp429.i393, label %for.body.i405, label %if.end17.sink.split.i410
 
-for.body.i406:                                    ; preds = %if.then111, %for.body.i406
-  %indvars.iv.i396 = phi i64 [ %indvars.iv.next.i403, %for.body.i406 ], [ 7, %if.then111 ]
-  %VALUE.addr.032.i397 = phi i32 [ %div.i399704, %for.body.i406 ], [ 3, %if.then111 ]
-  %I.030.i398 = phi i32 [ %div1227.i404, %for.body.i406 ], [ %conv3.i393, %if.then111 ]
-  %div.i399704 = lshr i32 %VALUE.addr.032.i397, 1
-  %94 = shl nuw nsw i32 %div.i399704, 25
-  %95 = shl nuw nsw i32 %VALUE.addr.032.i397, 24
-  %sext.i400 = sub nsw i32 %95, %94
-  %96 = lshr exact i32 %sext.i400, 24
+for.body.i405:                                    ; preds = %if.then111, %for.body.i405
+  %indvars.iv.i395 = phi i64 [ %indvars.iv.next.i402, %for.body.i405 ], [ 7, %if.then111 ]
+  %VALUE.addr.032.i396 = phi i32 [ %div.i398704, %for.body.i405 ], [ 3, %if.then111 ]
+  %I.030.i397 = phi i32 [ %div1227.i403, %for.body.i405 ], [ %conv3.i392, %if.then111 ]
+  %div.i398704 = lshr i32 %VALUE.addr.032.i396, 1
+  %94 = shl nuw nsw i32 %div.i398704, 25
+  %95 = shl nuw nsw i32 %VALUE.addr.032.i396, 24
+  %sext.i399 = sub nsw i32 %95, %94
+  %96 = lshr exact i32 %sext.i399, 24
   %97 = trunc i32 %96 to i8
-  %conv11.i401 = add i8 %97, 48
-  %arrayidx.i402 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i396
-  store i8 %conv11.i401, ptr %arrayidx.i402, align 1, !tbaa !11
-  %indvars.iv.next.i403 = add nsw i64 %indvars.iv.i396, -1
-  %div1227.i404 = lshr i32 %I.030.i398, 1
-  %cmp4.not.i405 = icmp ult i32 %I.030.i398, 2
-  br i1 %cmp4.not.i405, label %for.end.i409, label %for.body.i406, !llvm.loop !15
+  %conv11.i400 = add i8 %97, 48
+  %arrayidx.i401 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i395
+  store i8 %conv11.i400, ptr %arrayidx.i401, align 1, !tbaa !11
+  %indvars.iv.next.i402 = add nsw i64 %indvars.iv.i395, -1
+  %div1227.i403 = lshr i32 %I.030.i397, 1
+  %cmp4.not.i404 = icmp ult i32 %I.030.i397, 2
+  br i1 %cmp4.not.i404, label %for.end.i408, label %for.body.i405, !llvm.loop !15
 
-for.end.i409:                                     ; preds = %for.body.i406
-  %cmp13.not.i408 = icmp ult i32 %VALUE.addr.032.i397, 2
-  br i1 %cmp13.not.i408, label %SET_BITS_TO.exit412, label %if.end17.sink.split.i411
+for.end.i408:                                     ; preds = %for.body.i405
+  %cmp13.not.i407 = icmp ult i32 %VALUE.addr.032.i396, 2
+  br i1 %cmp13.not.i407, label %SET_BITS_TO.exit411, label %if.end17.sink.split.i410
 
-if.end17.sink.split.i411:                         ; preds = %if.then111, %for.end.i409
-  %puts.i410 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit412
+if.end17.sink.split.i410:                         ; preds = %if.then111, %for.end.i408
+  %puts.i409 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit411
 
-SET_BITS_TO.exit412:                              ; preds = %for.end.i409, %if.end17.sink.split.i411
+SET_BITS_TO.exit411:                              ; preds = %for.end.i408, %if.end17.sink.split.i410
   %tobool113.not = icmp eq i32 %EXTENDED, 0
-  %arrayidx.1.i446 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
-  %arrayidx.2.i450 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
-  %arrayidx.3.i455 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
+  %arrayidx.1.i445 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
+  %arrayidx.2.i449 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
+  %arrayidx.3.i454 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
   br i1 %tobool113.not, label %if.else116, label %if.then114
 
-if.then114:                                       ; preds = %SET_BITS_TO.exit412
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i413) #16
+if.then114:                                       ; preds = %SET_BITS_TO.exit411
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i412) #16
   %98 = load i8, ptr %INSTRUCT_CODE, align 16, !tbaa !11
-  %conv.i416 = sext i8 %98 to i32
-  %call7.i417 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416, i32 noundef 2) #16
-  %99 = load i8, ptr %arrayidx.1.i446, align 1, !tbaa !11
-  %conv.1.i419 = sext i8 %99 to i32
-  %call7.1.i420 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419, i32 noundef 2) #16
-  %100 = shl i32 %call7.i417, 2
-  %101 = shl i32 %call7.1.i420, 1
-  %mul5.2.i421 = add i32 %101, %100
-  %102 = load i8, ptr %arrayidx.2.i450, align 2, !tbaa !11
-  %conv.2.i423 = sext i8 %102 to i32
-  %call7.2.i424 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423, i32 noundef 2) #16
-  %add8.2.i425 = add nsw i32 %mul5.2.i421, %call7.2.i424
-  %mul5.3.i426 = shl nsw i32 %add8.2.i425, 1
-  %103 = load i8, ptr %arrayidx.3.i455, align 1, !tbaa !11
-  %conv.3.i428 = sext i8 %103 to i32
-  %call7.3.i429 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428, i32 noundef 2) #16
-  %add8.3.i430 = add nsw i32 %call7.3.i429, %mul5.3.i426
-  %or.cond.i431 = icmp ult i32 %add8.3.i430, 10
-  %104 = trunc i32 %add8.3.i430 to i8
-  %..i432 = select i1 %or.cond.i431, i8 48, i8 55
-  %conv17.i433 = add i8 %..i432, %104
-  store i8 %conv17.i433, ptr %NUM_STR.i413, align 1
-  %arrayidx.i415.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %105 = load i8, ptr %arrayidx.i415.1, align 4, !tbaa !11
-  %conv.i416.1 = sext i8 %105 to i32
-  %call7.i417.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.1, i32 noundef 2) #16
-  %arrayidx.1.i418.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
-  %106 = load i8, ptr %arrayidx.1.i418.1, align 1, !tbaa !11
-  %conv.1.i419.1 = sext i8 %106 to i32
-  %call7.1.i420.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.1, i32 noundef 2) #16
-  %107 = shl i32 %call7.i417.1, 2
-  %108 = shl i32 %call7.1.i420.1, 1
-  %mul5.2.i421.1 = add i32 %108, %107
-  %arrayidx.2.i422.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  %109 = load i8, ptr %arrayidx.2.i422.1, align 2, !tbaa !11
-  %conv.2.i423.1 = sext i8 %109 to i32
-  %call7.2.i424.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.1, i32 noundef 2) #16
-  %add8.2.i425.1 = add nsw i32 %mul5.2.i421.1, %call7.2.i424.1
-  %mul5.3.i426.1 = shl nsw i32 %add8.2.i425.1, 1
-  %arrayidx.3.i427.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  %110 = load i8, ptr %arrayidx.3.i427.1, align 1, !tbaa !11
-  %conv.3.i428.1 = sext i8 %110 to i32
-  %call7.3.i429.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.1, i32 noundef 2) #16
-  %add8.3.i430.1 = add nsw i32 %call7.3.i429.1, %mul5.3.i426.1
-  %or.cond.i431.1 = icmp ult i32 %add8.3.i430.1, 10
-  %111 = trunc i32 %add8.3.i430.1 to i8
-  %..i432.1 = select i1 %or.cond.i431.1, i8 48, i8 55
-  %conv17.i433.1 = add i8 %..i432.1, %111
-  %112 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 1
-  store i8 %conv17.i433.1, ptr %112, align 1
-  %arrayidx.i415.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  %113 = load i8, ptr %arrayidx.i415.2, align 8, !tbaa !11
-  %conv.i416.2 = sext i8 %113 to i32
-  %call7.i417.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.2, i32 noundef 2) #16
-  %arrayidx.1.i418.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
-  %114 = load i8, ptr %arrayidx.1.i418.2, align 1, !tbaa !11
-  %conv.1.i419.2 = sext i8 %114 to i32
-  %call7.1.i420.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.2, i32 noundef 2) #16
-  %115 = shl i32 %call7.i417.2, 2
-  %116 = shl i32 %call7.1.i420.2, 1
-  %mul5.2.i421.2 = add i32 %116, %115
-  %arrayidx.2.i422.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  %117 = load i8, ptr %arrayidx.2.i422.2, align 2, !tbaa !11
-  %conv.2.i423.2 = sext i8 %117 to i32
-  %call7.2.i424.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.2, i32 noundef 2) #16
-  %add8.2.i425.2 = add nsw i32 %mul5.2.i421.2, %call7.2.i424.2
-  %mul5.3.i426.2 = shl nsw i32 %add8.2.i425.2, 1
-  %arrayidx.3.i427.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
-  %118 = load i8, ptr %arrayidx.3.i427.2, align 1, !tbaa !11
-  %conv.3.i428.2 = sext i8 %118 to i32
-  %call7.3.i429.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.2, i32 noundef 2) #16
-  %add8.3.i430.2 = add nsw i32 %call7.3.i429.2, %mul5.3.i426.2
-  %or.cond.i431.2 = icmp ult i32 %add8.3.i430.2, 10
-  %119 = trunc i32 %add8.3.i430.2 to i8
-  %..i432.2 = select i1 %or.cond.i431.2, i8 48, i8 55
-  %conv17.i433.2 = add i8 %..i432.2, %119
-  %120 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 2
-  store i8 %conv17.i433.2, ptr %120, align 1
-  %arrayidx.i415.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
-  %121 = load i8, ptr %arrayidx.i415.3, align 4, !tbaa !11
-  %conv.i416.3 = sext i8 %121 to i32
-  %call7.i417.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.3, i32 noundef 2) #16
-  %arrayidx.1.i418.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
-  %122 = load i8, ptr %arrayidx.1.i418.3, align 1, !tbaa !11
-  %conv.1.i419.3 = sext i8 %122 to i32
-  %call7.1.i420.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.3, i32 noundef 2) #16
-  %123 = shl i32 %call7.i417.3, 2
-  %124 = shl i32 %call7.1.i420.3, 1
-  %mul5.2.i421.3 = add i32 %124, %123
-  %arrayidx.2.i422.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
-  %125 = load i8, ptr %arrayidx.2.i422.3, align 2, !tbaa !11
-  %conv.2.i423.3 = sext i8 %125 to i32
-  %call7.2.i424.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.3, i32 noundef 2) #16
-  %add8.2.i425.3 = add nsw i32 %mul5.2.i421.3, %call7.2.i424.3
-  %mul5.3.i426.3 = shl nsw i32 %add8.2.i425.3, 1
-  %arrayidx.3.i427.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
-  %126 = load i8, ptr %arrayidx.3.i427.3, align 1, !tbaa !11
-  %conv.3.i428.3 = sext i8 %126 to i32
-  %call7.3.i429.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.3, i32 noundef 2) #16
-  %add8.3.i430.3 = add nsw i32 %call7.3.i429.3, %mul5.3.i426.3
-  %or.cond.i431.3 = icmp ult i32 %add8.3.i430.3, 10
-  %127 = trunc i32 %add8.3.i430.3 to i8
-  %..i432.3 = select i1 %or.cond.i431.3, i8 48, i8 55
-  %conv17.i433.3 = add i8 %..i432.3, %127
-  %128 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 3
-  store i8 %conv17.i433.3, ptr %128, align 1
-  %arrayidx.i415.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
-  %129 = load i8, ptr %arrayidx.i415.4, align 16, !tbaa !11
-  %conv.i416.4 = sext i8 %129 to i32
-  %call7.i417.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.4, i32 noundef 2) #16
-  %arrayidx.1.i418.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
-  %130 = load i8, ptr %arrayidx.1.i418.4, align 1, !tbaa !11
-  %conv.1.i419.4 = sext i8 %130 to i32
-  %call7.1.i420.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.4, i32 noundef 2) #16
-  %131 = shl i32 %call7.i417.4, 2
-  %132 = shl i32 %call7.1.i420.4, 1
-  %mul5.2.i421.4 = add i32 %132, %131
-  %arrayidx.2.i422.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
-  %133 = load i8, ptr %arrayidx.2.i422.4, align 2, !tbaa !11
-  %conv.2.i423.4 = sext i8 %133 to i32
-  %call7.2.i424.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.4, i32 noundef 2) #16
-  %add8.2.i425.4 = add nsw i32 %mul5.2.i421.4, %call7.2.i424.4
-  %mul5.3.i426.4 = shl nsw i32 %add8.2.i425.4, 1
-  %arrayidx.3.i427.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
-  %134 = load i8, ptr %arrayidx.3.i427.4, align 1, !tbaa !11
-  %conv.3.i428.4 = sext i8 %134 to i32
-  %call7.3.i429.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.4, i32 noundef 2) #16
-  %add8.3.i430.4 = add nsw i32 %call7.3.i429.4, %mul5.3.i426.4
-  %or.cond.i431.4 = icmp ult i32 %add8.3.i430.4, 10
-  %135 = trunc i32 %add8.3.i430.4 to i8
-  %..i432.4 = select i1 %or.cond.i431.4, i8 48, i8 55
-  %conv17.i433.4 = add i8 %..i432.4, %135
-  %136 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 4
-  store i8 %conv17.i433.4, ptr %136, align 1
-  %arrayidx.i415.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
-  %137 = load i8, ptr %arrayidx.i415.5, align 4, !tbaa !11
-  %conv.i416.5 = sext i8 %137 to i32
-  %call7.i417.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.5, i32 noundef 2) #16
-  %arrayidx.1.i418.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
-  %138 = load i8, ptr %arrayidx.1.i418.5, align 1, !tbaa !11
-  %conv.1.i419.5 = sext i8 %138 to i32
-  %call7.1.i420.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.5, i32 noundef 2) #16
-  %139 = shl i32 %call7.i417.5, 2
-  %140 = shl i32 %call7.1.i420.5, 1
-  %mul5.2.i421.5 = add i32 %140, %139
-  %arrayidx.2.i422.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
-  %141 = load i8, ptr %arrayidx.2.i422.5, align 2, !tbaa !11
-  %conv.2.i423.5 = sext i8 %141 to i32
-  %call7.2.i424.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.5, i32 noundef 2) #16
-  %add8.2.i425.5 = add nsw i32 %mul5.2.i421.5, %call7.2.i424.5
-  %mul5.3.i426.5 = shl nsw i32 %add8.2.i425.5, 1
-  %arrayidx.3.i427.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
-  %142 = load i8, ptr %arrayidx.3.i427.5, align 1, !tbaa !11
-  %conv.3.i428.5 = sext i8 %142 to i32
-  %call7.3.i429.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.5, i32 noundef 2) #16
-  %add8.3.i430.5 = add nsw i32 %call7.3.i429.5, %mul5.3.i426.5
-  %or.cond.i431.5 = icmp ult i32 %add8.3.i430.5, 10
-  %143 = trunc i32 %add8.3.i430.5 to i8
-  %..i432.5 = select i1 %or.cond.i431.5, i8 48, i8 55
-  %conv17.i433.5 = add i8 %..i432.5, %143
-  %144 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 5
-  store i8 %conv17.i433.5, ptr %144, align 1
-  %arrayidx.i415.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 24
-  %145 = load i8, ptr %arrayidx.i415.6, align 8, !tbaa !11
-  %conv.i416.6 = sext i8 %145 to i32
-  %call7.i417.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.6, i32 noundef 2) #16
-  %arrayidx.1.i418.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 25
-  %146 = load i8, ptr %arrayidx.1.i418.6, align 1, !tbaa !11
-  %conv.1.i419.6 = sext i8 %146 to i32
-  %call7.1.i420.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.6, i32 noundef 2) #16
-  %147 = shl i32 %call7.i417.6, 2
-  %148 = shl i32 %call7.1.i420.6, 1
-  %mul5.2.i421.6 = add i32 %148, %147
-  %arrayidx.2.i422.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 26
-  %149 = load i8, ptr %arrayidx.2.i422.6, align 2, !tbaa !11
-  %conv.2.i423.6 = sext i8 %149 to i32
-  %call7.2.i424.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.6, i32 noundef 2) #16
-  %add8.2.i425.6 = add nsw i32 %mul5.2.i421.6, %call7.2.i424.6
-  %mul5.3.i426.6 = shl nsw i32 %add8.2.i425.6, 1
-  %arrayidx.3.i427.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 27
-  %150 = load i8, ptr %arrayidx.3.i427.6, align 1, !tbaa !11
-  %conv.3.i428.6 = sext i8 %150 to i32
-  %call7.3.i429.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.6, i32 noundef 2) #16
-  %add8.3.i430.6 = add nsw i32 %call7.3.i429.6, %mul5.3.i426.6
-  %or.cond.i431.6 = icmp ult i32 %add8.3.i430.6, 10
-  %151 = trunc i32 %add8.3.i430.6 to i8
-  %..i432.6 = select i1 %or.cond.i431.6, i8 48, i8 55
-  %conv17.i433.6 = add i8 %..i432.6, %151
-  %152 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 6
-  store i8 %conv17.i433.6, ptr %152, align 1
-  %arrayidx.i415.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 28
-  %153 = load i8, ptr %arrayidx.i415.7, align 4, !tbaa !11
-  %conv.i416.7 = sext i8 %153 to i32
-  %call7.i417.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i416.7, i32 noundef 2) #16
-  %arrayidx.1.i418.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 29
-  %154 = load i8, ptr %arrayidx.1.i418.7, align 1, !tbaa !11
-  %conv.1.i419.7 = sext i8 %154 to i32
-  %call7.1.i420.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i419.7, i32 noundef 2) #16
-  %155 = shl i32 %call7.i417.7, 2
-  %156 = shl i32 %call7.1.i420.7, 1
-  %mul5.2.i421.7 = add i32 %156, %155
-  %arrayidx.2.i422.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 30
-  %157 = load i8, ptr %arrayidx.2.i422.7, align 2, !tbaa !11
-  %conv.2.i423.7 = sext i8 %157 to i32
-  %call7.2.i424.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i423.7, i32 noundef 2) #16
-  %add8.2.i425.7 = add nsw i32 %mul5.2.i421.7, %call7.2.i424.7
-  %mul5.3.i426.7 = shl nsw i32 %add8.2.i425.7, 1
-  %arrayidx.3.i427.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 31
-  %158 = load i8, ptr %arrayidx.3.i427.7, align 1, !tbaa !11
-  %conv.3.i428.7 = sext i8 %158 to i32
-  %call7.3.i429.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i428.7, i32 noundef 2) #16
-  %add8.3.i430.7 = add nsw i32 %call7.3.i429.7, %mul5.3.i426.7
-  %or.cond.i431.7 = icmp ult i32 %add8.3.i430.7, 10
-  %159 = trunc i32 %add8.3.i430.7 to i8
-  %..i432.7 = select i1 %or.cond.i431.7, i8 48, i8 55
-  %conv17.i433.7 = add i8 %..i432.7, %159
-  %160 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 7
-  store i8 %conv17.i433.7, ptr %160, align 1
-  %arrayidx31.i437 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i413, i64 0, i64 8
-  store i8 0, ptr %arrayidx31.i437, align 1, !tbaa !11
-  %fputs.i438 = call i32 @fputs(ptr nonnull %NUM_STR.i413, ptr %LISTING_STREAM)
-  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i413, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i413) #16
+  %conv.i415 = sext i8 %98 to i32
+  %call7.i416 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415, i32 noundef 2) #16
+  %99 = load i8, ptr %arrayidx.1.i445, align 1, !tbaa !11
+  %conv.1.i418 = sext i8 %99 to i32
+  %call7.1.i419 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418, i32 noundef 2) #16
+  %100 = shl i32 %call7.i416, 2
+  %101 = shl i32 %call7.1.i419, 1
+  %mul5.2.i420 = add i32 %101, %100
+  %102 = load i8, ptr %arrayidx.2.i449, align 2, !tbaa !11
+  %conv.2.i422 = sext i8 %102 to i32
+  %call7.2.i423 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422, i32 noundef 2) #16
+  %add8.2.i424 = add nsw i32 %mul5.2.i420, %call7.2.i423
+  %mul5.3.i425 = shl nsw i32 %add8.2.i424, 1
+  %103 = load i8, ptr %arrayidx.3.i454, align 1, !tbaa !11
+  %conv.3.i427 = sext i8 %103 to i32
+  %call7.3.i428 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427, i32 noundef 2) #16
+  %add8.3.i429 = add nsw i32 %call7.3.i428, %mul5.3.i425
+  %or.cond.i430 = icmp ult i32 %add8.3.i429, 10
+  %104 = trunc i32 %add8.3.i429 to i8
+  %..i431 = select i1 %or.cond.i430, i8 48, i8 55
+  %conv17.i432 = add i8 %..i431, %104
+  store i8 %conv17.i432, ptr %NUM_STR.i412, align 1
+  %arrayidx.i414.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %105 = load i8, ptr %arrayidx.i414.1, align 4, !tbaa !11
+  %conv.i415.1 = sext i8 %105 to i32
+  %call7.i416.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.1, i32 noundef 2) #16
+  %arrayidx.1.i417.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
+  %106 = load i8, ptr %arrayidx.1.i417.1, align 1, !tbaa !11
+  %conv.1.i418.1 = sext i8 %106 to i32
+  %call7.1.i419.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.1, i32 noundef 2) #16
+  %107 = shl i32 %call7.i416.1, 2
+  %108 = shl i32 %call7.1.i419.1, 1
+  %mul5.2.i420.1 = add i32 %108, %107
+  %arrayidx.2.i421.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  %109 = load i8, ptr %arrayidx.2.i421.1, align 2, !tbaa !11
+  %conv.2.i422.1 = sext i8 %109 to i32
+  %call7.2.i423.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.1, i32 noundef 2) #16
+  %add8.2.i424.1 = add nsw i32 %mul5.2.i420.1, %call7.2.i423.1
+  %mul5.3.i425.1 = shl nsw i32 %add8.2.i424.1, 1
+  %arrayidx.3.i426.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  %110 = load i8, ptr %arrayidx.3.i426.1, align 1, !tbaa !11
+  %conv.3.i427.1 = sext i8 %110 to i32
+  %call7.3.i428.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.1, i32 noundef 2) #16
+  %add8.3.i429.1 = add nsw i32 %call7.3.i428.1, %mul5.3.i425.1
+  %or.cond.i430.1 = icmp ult i32 %add8.3.i429.1, 10
+  %111 = trunc i32 %add8.3.i429.1 to i8
+  %..i431.1 = select i1 %or.cond.i430.1, i8 48, i8 55
+  %conv17.i432.1 = add i8 %..i431.1, %111
+  %112 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 1
+  store i8 %conv17.i432.1, ptr %112, align 1
+  %arrayidx.i414.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  %113 = load i8, ptr %arrayidx.i414.2, align 8, !tbaa !11
+  %conv.i415.2 = sext i8 %113 to i32
+  %call7.i416.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.2, i32 noundef 2) #16
+  %arrayidx.1.i417.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
+  %114 = load i8, ptr %arrayidx.1.i417.2, align 1, !tbaa !11
+  %conv.1.i418.2 = sext i8 %114 to i32
+  %call7.1.i419.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.2, i32 noundef 2) #16
+  %115 = shl i32 %call7.i416.2, 2
+  %116 = shl i32 %call7.1.i419.2, 1
+  %mul5.2.i420.2 = add i32 %116, %115
+  %arrayidx.2.i421.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  %117 = load i8, ptr %arrayidx.2.i421.2, align 2, !tbaa !11
+  %conv.2.i422.2 = sext i8 %117 to i32
+  %call7.2.i423.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.2, i32 noundef 2) #16
+  %add8.2.i424.2 = add nsw i32 %mul5.2.i420.2, %call7.2.i423.2
+  %mul5.3.i425.2 = shl nsw i32 %add8.2.i424.2, 1
+  %arrayidx.3.i426.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
+  %118 = load i8, ptr %arrayidx.3.i426.2, align 1, !tbaa !11
+  %conv.3.i427.2 = sext i8 %118 to i32
+  %call7.3.i428.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.2, i32 noundef 2) #16
+  %add8.3.i429.2 = add nsw i32 %call7.3.i428.2, %mul5.3.i425.2
+  %or.cond.i430.2 = icmp ult i32 %add8.3.i429.2, 10
+  %119 = trunc i32 %add8.3.i429.2 to i8
+  %..i431.2 = select i1 %or.cond.i430.2, i8 48, i8 55
+  %conv17.i432.2 = add i8 %..i431.2, %119
+  %120 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 2
+  store i8 %conv17.i432.2, ptr %120, align 1
+  %arrayidx.i414.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
+  %121 = load i8, ptr %arrayidx.i414.3, align 4, !tbaa !11
+  %conv.i415.3 = sext i8 %121 to i32
+  %call7.i416.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.3, i32 noundef 2) #16
+  %arrayidx.1.i417.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
+  %122 = load i8, ptr %arrayidx.1.i417.3, align 1, !tbaa !11
+  %conv.1.i418.3 = sext i8 %122 to i32
+  %call7.1.i419.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.3, i32 noundef 2) #16
+  %123 = shl i32 %call7.i416.3, 2
+  %124 = shl i32 %call7.1.i419.3, 1
+  %mul5.2.i420.3 = add i32 %124, %123
+  %arrayidx.2.i421.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
+  %125 = load i8, ptr %arrayidx.2.i421.3, align 2, !tbaa !11
+  %conv.2.i422.3 = sext i8 %125 to i32
+  %call7.2.i423.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.3, i32 noundef 2) #16
+  %add8.2.i424.3 = add nsw i32 %mul5.2.i420.3, %call7.2.i423.3
+  %mul5.3.i425.3 = shl nsw i32 %add8.2.i424.3, 1
+  %arrayidx.3.i426.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
+  %126 = load i8, ptr %arrayidx.3.i426.3, align 1, !tbaa !11
+  %conv.3.i427.3 = sext i8 %126 to i32
+  %call7.3.i428.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.3, i32 noundef 2) #16
+  %add8.3.i429.3 = add nsw i32 %call7.3.i428.3, %mul5.3.i425.3
+  %or.cond.i430.3 = icmp ult i32 %add8.3.i429.3, 10
+  %127 = trunc i32 %add8.3.i429.3 to i8
+  %..i431.3 = select i1 %or.cond.i430.3, i8 48, i8 55
+  %conv17.i432.3 = add i8 %..i431.3, %127
+  %128 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 3
+  store i8 %conv17.i432.3, ptr %128, align 1
+  %arrayidx.i414.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
+  %129 = load i8, ptr %arrayidx.i414.4, align 16, !tbaa !11
+  %conv.i415.4 = sext i8 %129 to i32
+  %call7.i416.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.4, i32 noundef 2) #16
+  %arrayidx.1.i417.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
+  %130 = load i8, ptr %arrayidx.1.i417.4, align 1, !tbaa !11
+  %conv.1.i418.4 = sext i8 %130 to i32
+  %call7.1.i419.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.4, i32 noundef 2) #16
+  %131 = shl i32 %call7.i416.4, 2
+  %132 = shl i32 %call7.1.i419.4, 1
+  %mul5.2.i420.4 = add i32 %132, %131
+  %arrayidx.2.i421.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
+  %133 = load i8, ptr %arrayidx.2.i421.4, align 2, !tbaa !11
+  %conv.2.i422.4 = sext i8 %133 to i32
+  %call7.2.i423.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.4, i32 noundef 2) #16
+  %add8.2.i424.4 = add nsw i32 %mul5.2.i420.4, %call7.2.i423.4
+  %mul5.3.i425.4 = shl nsw i32 %add8.2.i424.4, 1
+  %arrayidx.3.i426.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
+  %134 = load i8, ptr %arrayidx.3.i426.4, align 1, !tbaa !11
+  %conv.3.i427.4 = sext i8 %134 to i32
+  %call7.3.i428.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.4, i32 noundef 2) #16
+  %add8.3.i429.4 = add nsw i32 %call7.3.i428.4, %mul5.3.i425.4
+  %or.cond.i430.4 = icmp ult i32 %add8.3.i429.4, 10
+  %135 = trunc i32 %add8.3.i429.4 to i8
+  %..i431.4 = select i1 %or.cond.i430.4, i8 48, i8 55
+  %conv17.i432.4 = add i8 %..i431.4, %135
+  %136 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 4
+  store i8 %conv17.i432.4, ptr %136, align 1
+  %arrayidx.i414.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
+  %137 = load i8, ptr %arrayidx.i414.5, align 4, !tbaa !11
+  %conv.i415.5 = sext i8 %137 to i32
+  %call7.i416.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.5, i32 noundef 2) #16
+  %arrayidx.1.i417.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
+  %138 = load i8, ptr %arrayidx.1.i417.5, align 1, !tbaa !11
+  %conv.1.i418.5 = sext i8 %138 to i32
+  %call7.1.i419.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.5, i32 noundef 2) #16
+  %139 = shl i32 %call7.i416.5, 2
+  %140 = shl i32 %call7.1.i419.5, 1
+  %mul5.2.i420.5 = add i32 %140, %139
+  %arrayidx.2.i421.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
+  %141 = load i8, ptr %arrayidx.2.i421.5, align 2, !tbaa !11
+  %conv.2.i422.5 = sext i8 %141 to i32
+  %call7.2.i423.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.5, i32 noundef 2) #16
+  %add8.2.i424.5 = add nsw i32 %mul5.2.i420.5, %call7.2.i423.5
+  %mul5.3.i425.5 = shl nsw i32 %add8.2.i424.5, 1
+  %arrayidx.3.i426.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
+  %142 = load i8, ptr %arrayidx.3.i426.5, align 1, !tbaa !11
+  %conv.3.i427.5 = sext i8 %142 to i32
+  %call7.3.i428.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.5, i32 noundef 2) #16
+  %add8.3.i429.5 = add nsw i32 %call7.3.i428.5, %mul5.3.i425.5
+  %or.cond.i430.5 = icmp ult i32 %add8.3.i429.5, 10
+  %143 = trunc i32 %add8.3.i429.5 to i8
+  %..i431.5 = select i1 %or.cond.i430.5, i8 48, i8 55
+  %conv17.i432.5 = add i8 %..i431.5, %143
+  %144 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 5
+  store i8 %conv17.i432.5, ptr %144, align 1
+  %arrayidx.i414.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 24
+  %145 = load i8, ptr %arrayidx.i414.6, align 8, !tbaa !11
+  %conv.i415.6 = sext i8 %145 to i32
+  %call7.i416.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.6, i32 noundef 2) #16
+  %arrayidx.1.i417.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 25
+  %146 = load i8, ptr %arrayidx.1.i417.6, align 1, !tbaa !11
+  %conv.1.i418.6 = sext i8 %146 to i32
+  %call7.1.i419.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.6, i32 noundef 2) #16
+  %147 = shl i32 %call7.i416.6, 2
+  %148 = shl i32 %call7.1.i419.6, 1
+  %mul5.2.i420.6 = add i32 %148, %147
+  %arrayidx.2.i421.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 26
+  %149 = load i8, ptr %arrayidx.2.i421.6, align 2, !tbaa !11
+  %conv.2.i422.6 = sext i8 %149 to i32
+  %call7.2.i423.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.6, i32 noundef 2) #16
+  %add8.2.i424.6 = add nsw i32 %mul5.2.i420.6, %call7.2.i423.6
+  %mul5.3.i425.6 = shl nsw i32 %add8.2.i424.6, 1
+  %arrayidx.3.i426.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 27
+  %150 = load i8, ptr %arrayidx.3.i426.6, align 1, !tbaa !11
+  %conv.3.i427.6 = sext i8 %150 to i32
+  %call7.3.i428.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.6, i32 noundef 2) #16
+  %add8.3.i429.6 = add nsw i32 %call7.3.i428.6, %mul5.3.i425.6
+  %or.cond.i430.6 = icmp ult i32 %add8.3.i429.6, 10
+  %151 = trunc i32 %add8.3.i429.6 to i8
+  %..i431.6 = select i1 %or.cond.i430.6, i8 48, i8 55
+  %conv17.i432.6 = add i8 %..i431.6, %151
+  %152 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 6
+  store i8 %conv17.i432.6, ptr %152, align 1
+  %arrayidx.i414.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 28
+  %153 = load i8, ptr %arrayidx.i414.7, align 4, !tbaa !11
+  %conv.i415.7 = sext i8 %153 to i32
+  %call7.i416.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i415.7, i32 noundef 2) #16
+  %arrayidx.1.i417.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 29
+  %154 = load i8, ptr %arrayidx.1.i417.7, align 1, !tbaa !11
+  %conv.1.i418.7 = sext i8 %154 to i32
+  %call7.1.i419.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i418.7, i32 noundef 2) #16
+  %155 = shl i32 %call7.i416.7, 2
+  %156 = shl i32 %call7.1.i419.7, 1
+  %mul5.2.i420.7 = add i32 %156, %155
+  %arrayidx.2.i421.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 30
+  %157 = load i8, ptr %arrayidx.2.i421.7, align 2, !tbaa !11
+  %conv.2.i422.7 = sext i8 %157 to i32
+  %call7.2.i423.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i422.7, i32 noundef 2) #16
+  %add8.2.i424.7 = add nsw i32 %mul5.2.i420.7, %call7.2.i423.7
+  %mul5.3.i425.7 = shl nsw i32 %add8.2.i424.7, 1
+  %arrayidx.3.i426.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 31
+  %158 = load i8, ptr %arrayidx.3.i426.7, align 1, !tbaa !11
+  %conv.3.i427.7 = sext i8 %158 to i32
+  %call7.3.i428.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i427.7, i32 noundef 2) #16
+  %add8.3.i429.7 = add nsw i32 %call7.3.i428.7, %mul5.3.i425.7
+  %or.cond.i430.7 = icmp ult i32 %add8.3.i429.7, 10
+  %159 = trunc i32 %add8.3.i429.7 to i8
+  %..i431.7 = select i1 %or.cond.i430.7, i8 48, i8 55
+  %conv17.i432.7 = add i8 %..i431.7, %159
+  %160 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 7
+  store i8 %conv17.i432.7, ptr %160, align 1
+  %arrayidx31.i436 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i412, i64 0, i64 8
+  store i8 0, ptr %arrayidx31.i436, align 1, !tbaa !11
+  %fputs.i437 = call i32 @fputs(ptr nonnull %NUM_STR.i412, ptr %LISTING_STREAM)
+  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i412, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i412) #16
   br label %if.end225
 
-if.else116:                                       ; preds = %SET_BITS_TO.exit412
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i441) #16
+if.else116:                                       ; preds = %SET_BITS_TO.exit411
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i440) #16
   %161 = load i8, ptr %INSTRUCT_CODE, align 16, !tbaa !11
-  %conv.i444 = sext i8 %161 to i32
-  %call7.i445 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444, i32 noundef 2) #16
-  %162 = load i8, ptr %arrayidx.1.i446, align 1, !tbaa !11
-  %conv.1.i447 = sext i8 %162 to i32
-  %call7.1.i448 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447, i32 noundef 2) #16
-  %163 = shl i32 %call7.i445, 2
-  %164 = shl i32 %call7.1.i448, 1
-  %mul5.2.i449 = add i32 %164, %163
-  %165 = load i8, ptr %arrayidx.2.i450, align 2, !tbaa !11
-  %conv.2.i451 = sext i8 %165 to i32
-  %call7.2.i452 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451, i32 noundef 2) #16
-  %add8.2.i453 = add nsw i32 %mul5.2.i449, %call7.2.i452
-  %mul5.3.i454 = shl nsw i32 %add8.2.i453, 1
-  %166 = load i8, ptr %arrayidx.3.i455, align 1, !tbaa !11
-  %conv.3.i456 = sext i8 %166 to i32
-  %call7.3.i457 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456, i32 noundef 2) #16
-  %add8.3.i458 = add nsw i32 %call7.3.i457, %mul5.3.i454
-  %or.cond.i459 = icmp ult i32 %add8.3.i458, 10
-  %167 = trunc i32 %add8.3.i458 to i8
-  %..i460 = select i1 %or.cond.i459, i8 48, i8 55
-  %conv17.i461 = add i8 %..i460, %167
-  store i8 %conv17.i461, ptr %NUM_STR.i441, align 1
-  %arrayidx.i443.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %168 = load i8, ptr %arrayidx.i443.1, align 4, !tbaa !11
-  %conv.i444.1 = sext i8 %168 to i32
-  %call7.i445.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444.1, i32 noundef 2) #16
-  %arrayidx.1.i446.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
-  %169 = load i8, ptr %arrayidx.1.i446.1, align 1, !tbaa !11
-  %conv.1.i447.1 = sext i8 %169 to i32
-  %call7.1.i448.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447.1, i32 noundef 2) #16
-  %170 = shl i32 %call7.i445.1, 2
-  %171 = shl i32 %call7.1.i448.1, 1
-  %mul5.2.i449.1 = add i32 %171, %170
-  %arrayidx.2.i450.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  %172 = load i8, ptr %arrayidx.2.i450.1, align 2, !tbaa !11
-  %conv.2.i451.1 = sext i8 %172 to i32
-  %call7.2.i452.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451.1, i32 noundef 2) #16
-  %add8.2.i453.1 = add nsw i32 %mul5.2.i449.1, %call7.2.i452.1
-  %mul5.3.i454.1 = shl nsw i32 %add8.2.i453.1, 1
-  %arrayidx.3.i455.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  %173 = load i8, ptr %arrayidx.3.i455.1, align 1, !tbaa !11
-  %conv.3.i456.1 = sext i8 %173 to i32
-  %call7.3.i457.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456.1, i32 noundef 2) #16
-  %add8.3.i458.1 = add nsw i32 %call7.3.i457.1, %mul5.3.i454.1
-  %or.cond.i459.1 = icmp ult i32 %add8.3.i458.1, 10
-  %174 = trunc i32 %add8.3.i458.1 to i8
-  %..i460.1 = select i1 %or.cond.i459.1, i8 48, i8 55
-  %conv17.i461.1 = add i8 %..i460.1, %174
-  %175 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 1
-  store i8 %conv17.i461.1, ptr %175, align 1
-  %arrayidx.i443.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  %176 = load i8, ptr %arrayidx.i443.2, align 8, !tbaa !11
-  %conv.i444.2 = sext i8 %176 to i32
-  %call7.i445.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444.2, i32 noundef 2) #16
-  %arrayidx.1.i446.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
-  %177 = load i8, ptr %arrayidx.1.i446.2, align 1, !tbaa !11
-  %conv.1.i447.2 = sext i8 %177 to i32
-  %call7.1.i448.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447.2, i32 noundef 2) #16
-  %178 = shl i32 %call7.i445.2, 2
-  %179 = shl i32 %call7.1.i448.2, 1
-  %mul5.2.i449.2 = add i32 %179, %178
-  %arrayidx.2.i450.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  %180 = load i8, ptr %arrayidx.2.i450.2, align 2, !tbaa !11
-  %conv.2.i451.2 = sext i8 %180 to i32
-  %call7.2.i452.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451.2, i32 noundef 2) #16
-  %add8.2.i453.2 = add nsw i32 %mul5.2.i449.2, %call7.2.i452.2
-  %mul5.3.i454.2 = shl nsw i32 %add8.2.i453.2, 1
-  %arrayidx.3.i455.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
-  %181 = load i8, ptr %arrayidx.3.i455.2, align 1, !tbaa !11
-  %conv.3.i456.2 = sext i8 %181 to i32
-  %call7.3.i457.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456.2, i32 noundef 2) #16
-  %add8.3.i458.2 = add nsw i32 %call7.3.i457.2, %mul5.3.i454.2
-  %or.cond.i459.2 = icmp ult i32 %add8.3.i458.2, 10
-  %182 = trunc i32 %add8.3.i458.2 to i8
-  %..i460.2 = select i1 %or.cond.i459.2, i8 48, i8 55
-  %conv17.i461.2 = add i8 %..i460.2, %182
-  %183 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 2
-  store i8 %conv17.i461.2, ptr %183, align 1
-  %arrayidx.i443.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
-  %184 = load i8, ptr %arrayidx.i443.3, align 4, !tbaa !11
-  %conv.i444.3 = sext i8 %184 to i32
-  %call7.i445.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444.3, i32 noundef 2) #16
-  %arrayidx.1.i446.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
-  %185 = load i8, ptr %arrayidx.1.i446.3, align 1, !tbaa !11
-  %conv.1.i447.3 = sext i8 %185 to i32
-  %call7.1.i448.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447.3, i32 noundef 2) #16
-  %186 = shl i32 %call7.i445.3, 2
-  %187 = shl i32 %call7.1.i448.3, 1
-  %mul5.2.i449.3 = add i32 %187, %186
-  %arrayidx.2.i450.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
-  %188 = load i8, ptr %arrayidx.2.i450.3, align 2, !tbaa !11
-  %conv.2.i451.3 = sext i8 %188 to i32
-  %call7.2.i452.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451.3, i32 noundef 2) #16
-  %add8.2.i453.3 = add nsw i32 %mul5.2.i449.3, %call7.2.i452.3
-  %mul5.3.i454.3 = shl nsw i32 %add8.2.i453.3, 1
-  %arrayidx.3.i455.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
-  %189 = load i8, ptr %arrayidx.3.i455.3, align 1, !tbaa !11
-  %conv.3.i456.3 = sext i8 %189 to i32
-  %call7.3.i457.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456.3, i32 noundef 2) #16
-  %add8.3.i458.3 = add nsw i32 %call7.3.i457.3, %mul5.3.i454.3
-  %or.cond.i459.3 = icmp ult i32 %add8.3.i458.3, 10
-  %190 = trunc i32 %add8.3.i458.3 to i8
-  %..i460.3 = select i1 %or.cond.i459.3, i8 48, i8 55
-  %conv17.i461.3 = add i8 %..i460.3, %190
-  %191 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 3
-  store i8 %conv17.i461.3, ptr %191, align 1
-  %arrayidx.i443.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
-  %192 = load i8, ptr %arrayidx.i443.4, align 16, !tbaa !11
-  %conv.i444.4 = sext i8 %192 to i32
-  %call7.i445.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444.4, i32 noundef 2) #16
-  %arrayidx.1.i446.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
-  %193 = load i8, ptr %arrayidx.1.i446.4, align 1, !tbaa !11
-  %conv.1.i447.4 = sext i8 %193 to i32
-  %call7.1.i448.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447.4, i32 noundef 2) #16
-  %194 = shl i32 %call7.i445.4, 2
-  %195 = shl i32 %call7.1.i448.4, 1
-  %mul5.2.i449.4 = add i32 %195, %194
-  %arrayidx.2.i450.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
-  %196 = load i8, ptr %arrayidx.2.i450.4, align 2, !tbaa !11
-  %conv.2.i451.4 = sext i8 %196 to i32
-  %call7.2.i452.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451.4, i32 noundef 2) #16
-  %add8.2.i453.4 = add nsw i32 %mul5.2.i449.4, %call7.2.i452.4
-  %mul5.3.i454.4 = shl nsw i32 %add8.2.i453.4, 1
-  %arrayidx.3.i455.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
-  %197 = load i8, ptr %arrayidx.3.i455.4, align 1, !tbaa !11
-  %conv.3.i456.4 = sext i8 %197 to i32
-  %call7.3.i457.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456.4, i32 noundef 2) #16
-  %add8.3.i458.4 = add nsw i32 %call7.3.i457.4, %mul5.3.i454.4
-  %or.cond.i459.4 = icmp ult i32 %add8.3.i458.4, 10
-  %198 = trunc i32 %add8.3.i458.4 to i8
-  %..i460.4 = select i1 %or.cond.i459.4, i8 48, i8 55
-  %conv17.i461.4 = add i8 %..i460.4, %198
-  %199 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 4
-  store i8 %conv17.i461.4, ptr %199, align 1
-  %arrayidx.i443.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
-  %200 = load i8, ptr %arrayidx.i443.5, align 4, !tbaa !11
-  %conv.i444.5 = sext i8 %200 to i32
-  %call7.i445.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i444.5, i32 noundef 2) #16
-  %arrayidx.1.i446.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
-  %201 = load i8, ptr %arrayidx.1.i446.5, align 1, !tbaa !11
-  %conv.1.i447.5 = sext i8 %201 to i32
-  %call7.1.i448.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i447.5, i32 noundef 2) #16
-  %202 = shl i32 %call7.i445.5, 2
-  %203 = shl i32 %call7.1.i448.5, 1
-  %mul5.2.i449.5 = add i32 %203, %202
-  %arrayidx.2.i450.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
-  %204 = load i8, ptr %arrayidx.2.i450.5, align 2, !tbaa !11
-  %conv.2.i451.5 = sext i8 %204 to i32
-  %call7.2.i452.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i451.5, i32 noundef 2) #16
-  %add8.2.i453.5 = add nsw i32 %mul5.2.i449.5, %call7.2.i452.5
-  %mul5.3.i454.5 = shl nsw i32 %add8.2.i453.5, 1
-  %arrayidx.3.i455.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
-  %205 = load i8, ptr %arrayidx.3.i455.5, align 1, !tbaa !11
-  %conv.3.i456.5 = sext i8 %205 to i32
-  %call7.3.i457.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i456.5, i32 noundef 2) #16
-  %add8.3.i458.5 = add nsw i32 %call7.3.i457.5, %mul5.3.i454.5
-  %or.cond.i459.5 = icmp ult i32 %add8.3.i458.5, 10
-  %206 = trunc i32 %add8.3.i458.5 to i8
-  %..i460.5 = select i1 %or.cond.i459.5, i8 48, i8 55
-  %conv17.i461.5 = add i8 %..i460.5, %206
-  %207 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 5
-  store i8 %conv17.i461.5, ptr %207, align 1
-  %arrayidx31.i465 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i441, i64 0, i64 6
-  store i8 0, ptr %arrayidx31.i465, align 1, !tbaa !11
-  %fputs.i466 = call i32 @fputs(ptr nonnull %NUM_STR.i441, ptr %LISTING_STREAM)
-  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i441, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
-  %fputc.i469 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  %fputc.i469.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i441) #16
+  %conv.i443 = sext i8 %161 to i32
+  %call7.i444 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443, i32 noundef 2) #16
+  %162 = load i8, ptr %arrayidx.1.i445, align 1, !tbaa !11
+  %conv.1.i446 = sext i8 %162 to i32
+  %call7.1.i447 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446, i32 noundef 2) #16
+  %163 = shl i32 %call7.i444, 2
+  %164 = shl i32 %call7.1.i447, 1
+  %mul5.2.i448 = add i32 %164, %163
+  %165 = load i8, ptr %arrayidx.2.i449, align 2, !tbaa !11
+  %conv.2.i450 = sext i8 %165 to i32
+  %call7.2.i451 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450, i32 noundef 2) #16
+  %add8.2.i452 = add nsw i32 %mul5.2.i448, %call7.2.i451
+  %mul5.3.i453 = shl nsw i32 %add8.2.i452, 1
+  %166 = load i8, ptr %arrayidx.3.i454, align 1, !tbaa !11
+  %conv.3.i455 = sext i8 %166 to i32
+  %call7.3.i456 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455, i32 noundef 2) #16
+  %add8.3.i457 = add nsw i32 %call7.3.i456, %mul5.3.i453
+  %or.cond.i458 = icmp ult i32 %add8.3.i457, 10
+  %167 = trunc i32 %add8.3.i457 to i8
+  %..i459 = select i1 %or.cond.i458, i8 48, i8 55
+  %conv17.i460 = add i8 %..i459, %167
+  store i8 %conv17.i460, ptr %NUM_STR.i440, align 1
+  %arrayidx.i442.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %168 = load i8, ptr %arrayidx.i442.1, align 4, !tbaa !11
+  %conv.i443.1 = sext i8 %168 to i32
+  %call7.i444.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443.1, i32 noundef 2) #16
+  %arrayidx.1.i445.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
+  %169 = load i8, ptr %arrayidx.1.i445.1, align 1, !tbaa !11
+  %conv.1.i446.1 = sext i8 %169 to i32
+  %call7.1.i447.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446.1, i32 noundef 2) #16
+  %170 = shl i32 %call7.i444.1, 2
+  %171 = shl i32 %call7.1.i447.1, 1
+  %mul5.2.i448.1 = add i32 %171, %170
+  %arrayidx.2.i449.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  %172 = load i8, ptr %arrayidx.2.i449.1, align 2, !tbaa !11
+  %conv.2.i450.1 = sext i8 %172 to i32
+  %call7.2.i451.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450.1, i32 noundef 2) #16
+  %add8.2.i452.1 = add nsw i32 %mul5.2.i448.1, %call7.2.i451.1
+  %mul5.3.i453.1 = shl nsw i32 %add8.2.i452.1, 1
+  %arrayidx.3.i454.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  %173 = load i8, ptr %arrayidx.3.i454.1, align 1, !tbaa !11
+  %conv.3.i455.1 = sext i8 %173 to i32
+  %call7.3.i456.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455.1, i32 noundef 2) #16
+  %add8.3.i457.1 = add nsw i32 %call7.3.i456.1, %mul5.3.i453.1
+  %or.cond.i458.1 = icmp ult i32 %add8.3.i457.1, 10
+  %174 = trunc i32 %add8.3.i457.1 to i8
+  %..i459.1 = select i1 %or.cond.i458.1, i8 48, i8 55
+  %conv17.i460.1 = add i8 %..i459.1, %174
+  %175 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 1
+  store i8 %conv17.i460.1, ptr %175, align 1
+  %arrayidx.i442.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  %176 = load i8, ptr %arrayidx.i442.2, align 8, !tbaa !11
+  %conv.i443.2 = sext i8 %176 to i32
+  %call7.i444.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443.2, i32 noundef 2) #16
+  %arrayidx.1.i445.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
+  %177 = load i8, ptr %arrayidx.1.i445.2, align 1, !tbaa !11
+  %conv.1.i446.2 = sext i8 %177 to i32
+  %call7.1.i447.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446.2, i32 noundef 2) #16
+  %178 = shl i32 %call7.i444.2, 2
+  %179 = shl i32 %call7.1.i447.2, 1
+  %mul5.2.i448.2 = add i32 %179, %178
+  %arrayidx.2.i449.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  %180 = load i8, ptr %arrayidx.2.i449.2, align 2, !tbaa !11
+  %conv.2.i450.2 = sext i8 %180 to i32
+  %call7.2.i451.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450.2, i32 noundef 2) #16
+  %add8.2.i452.2 = add nsw i32 %mul5.2.i448.2, %call7.2.i451.2
+  %mul5.3.i453.2 = shl nsw i32 %add8.2.i452.2, 1
+  %arrayidx.3.i454.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
+  %181 = load i8, ptr %arrayidx.3.i454.2, align 1, !tbaa !11
+  %conv.3.i455.2 = sext i8 %181 to i32
+  %call7.3.i456.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455.2, i32 noundef 2) #16
+  %add8.3.i457.2 = add nsw i32 %call7.3.i456.2, %mul5.3.i453.2
+  %or.cond.i458.2 = icmp ult i32 %add8.3.i457.2, 10
+  %182 = trunc i32 %add8.3.i457.2 to i8
+  %..i459.2 = select i1 %or.cond.i458.2, i8 48, i8 55
+  %conv17.i460.2 = add i8 %..i459.2, %182
+  %183 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 2
+  store i8 %conv17.i460.2, ptr %183, align 1
+  %arrayidx.i442.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
+  %184 = load i8, ptr %arrayidx.i442.3, align 4, !tbaa !11
+  %conv.i443.3 = sext i8 %184 to i32
+  %call7.i444.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443.3, i32 noundef 2) #16
+  %arrayidx.1.i445.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
+  %185 = load i8, ptr %arrayidx.1.i445.3, align 1, !tbaa !11
+  %conv.1.i446.3 = sext i8 %185 to i32
+  %call7.1.i447.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446.3, i32 noundef 2) #16
+  %186 = shl i32 %call7.i444.3, 2
+  %187 = shl i32 %call7.1.i447.3, 1
+  %mul5.2.i448.3 = add i32 %187, %186
+  %arrayidx.2.i449.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
+  %188 = load i8, ptr %arrayidx.2.i449.3, align 2, !tbaa !11
+  %conv.2.i450.3 = sext i8 %188 to i32
+  %call7.2.i451.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450.3, i32 noundef 2) #16
+  %add8.2.i452.3 = add nsw i32 %mul5.2.i448.3, %call7.2.i451.3
+  %mul5.3.i453.3 = shl nsw i32 %add8.2.i452.3, 1
+  %arrayidx.3.i454.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
+  %189 = load i8, ptr %arrayidx.3.i454.3, align 1, !tbaa !11
+  %conv.3.i455.3 = sext i8 %189 to i32
+  %call7.3.i456.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455.3, i32 noundef 2) #16
+  %add8.3.i457.3 = add nsw i32 %call7.3.i456.3, %mul5.3.i453.3
+  %or.cond.i458.3 = icmp ult i32 %add8.3.i457.3, 10
+  %190 = trunc i32 %add8.3.i457.3 to i8
+  %..i459.3 = select i1 %or.cond.i458.3, i8 48, i8 55
+  %conv17.i460.3 = add i8 %..i459.3, %190
+  %191 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 3
+  store i8 %conv17.i460.3, ptr %191, align 1
+  %arrayidx.i442.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
+  %192 = load i8, ptr %arrayidx.i442.4, align 16, !tbaa !11
+  %conv.i443.4 = sext i8 %192 to i32
+  %call7.i444.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443.4, i32 noundef 2) #16
+  %arrayidx.1.i445.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
+  %193 = load i8, ptr %arrayidx.1.i445.4, align 1, !tbaa !11
+  %conv.1.i446.4 = sext i8 %193 to i32
+  %call7.1.i447.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446.4, i32 noundef 2) #16
+  %194 = shl i32 %call7.i444.4, 2
+  %195 = shl i32 %call7.1.i447.4, 1
+  %mul5.2.i448.4 = add i32 %195, %194
+  %arrayidx.2.i449.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
+  %196 = load i8, ptr %arrayidx.2.i449.4, align 2, !tbaa !11
+  %conv.2.i450.4 = sext i8 %196 to i32
+  %call7.2.i451.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450.4, i32 noundef 2) #16
+  %add8.2.i452.4 = add nsw i32 %mul5.2.i448.4, %call7.2.i451.4
+  %mul5.3.i453.4 = shl nsw i32 %add8.2.i452.4, 1
+  %arrayidx.3.i454.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
+  %197 = load i8, ptr %arrayidx.3.i454.4, align 1, !tbaa !11
+  %conv.3.i455.4 = sext i8 %197 to i32
+  %call7.3.i456.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455.4, i32 noundef 2) #16
+  %add8.3.i457.4 = add nsw i32 %call7.3.i456.4, %mul5.3.i453.4
+  %or.cond.i458.4 = icmp ult i32 %add8.3.i457.4, 10
+  %198 = trunc i32 %add8.3.i457.4 to i8
+  %..i459.4 = select i1 %or.cond.i458.4, i8 48, i8 55
+  %conv17.i460.4 = add i8 %..i459.4, %198
+  %199 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 4
+  store i8 %conv17.i460.4, ptr %199, align 1
+  %arrayidx.i442.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
+  %200 = load i8, ptr %arrayidx.i442.5, align 4, !tbaa !11
+  %conv.i443.5 = sext i8 %200 to i32
+  %call7.i444.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i443.5, i32 noundef 2) #16
+  %arrayidx.1.i445.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
+  %201 = load i8, ptr %arrayidx.1.i445.5, align 1, !tbaa !11
+  %conv.1.i446.5 = sext i8 %201 to i32
+  %call7.1.i447.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i446.5, i32 noundef 2) #16
+  %202 = shl i32 %call7.i444.5, 2
+  %203 = shl i32 %call7.1.i447.5, 1
+  %mul5.2.i448.5 = add i32 %203, %202
+  %arrayidx.2.i449.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
+  %204 = load i8, ptr %arrayidx.2.i449.5, align 2, !tbaa !11
+  %conv.2.i450.5 = sext i8 %204 to i32
+  %call7.2.i451.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i450.5, i32 noundef 2) #16
+  %add8.2.i452.5 = add nsw i32 %mul5.2.i448.5, %call7.2.i451.5
+  %mul5.3.i453.5 = shl nsw i32 %add8.2.i452.5, 1
+  %arrayidx.3.i454.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
+  %205 = load i8, ptr %arrayidx.3.i454.5, align 1, !tbaa !11
+  %conv.3.i455.5 = sext i8 %205 to i32
+  %call7.3.i456.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i455.5, i32 noundef 2) #16
+  %add8.3.i457.5 = add nsw i32 %call7.3.i456.5, %mul5.3.i453.5
+  %or.cond.i458.5 = icmp ult i32 %add8.3.i457.5, 10
+  %206 = trunc i32 %add8.3.i457.5 to i8
+  %..i459.5 = select i1 %or.cond.i458.5, i8 48, i8 55
+  %conv17.i460.5 = add i8 %..i459.5, %206
+  %207 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 5
+  store i8 %conv17.i460.5, ptr %207, align 1
+  %arrayidx31.i464 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i440, i64 0, i64 6
+  store i8 0, ptr %arrayidx31.i464, align 1, !tbaa !11
+  %fputs.i465 = call i32 @fputs(ptr nonnull %NUM_STR.i440, ptr %LISTING_STREAM)
+  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i440, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
+  %fputc.i468 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  %fputc.i468.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i440) #16
   br label %if.end225
 
-if.else119:                                       ; preds = %SET_BITS_TO.exit391
+if.else119:                                       ; preds = %SET_BITS_TO.exit390
   %208 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %209 = load i8, ptr %208, align 1, !tbaa !11
   %conv120 = sext i8 %209 to i32
@@ -1390,102 +1390,102 @@ if.else119:                                       ; preds = %SET_BITS_TO.exit391
   ]
 
 sw.bb:                                            ; preds = %if.else119
-  %ldexp.i474 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %conv3.i475 = fptosi double %ldexp.i474 to i32
-  %cmp429.i476 = icmp sgt i32 %conv3.i475, 0
-  br i1 %cmp429.i476, label %for.body.i488.peel, label %if.end17.sink.split.i493
+  %ldexp.i473 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %conv3.i474 = fptosi double %ldexp.i473 to i32
+  %cmp429.i475 = icmp sgt i32 %conv3.i474, 0
+  br i1 %cmp429.i475, label %for.body.i487.peel, label %if.end17.sink.split.i492
 
-for.body.i488.peel:                               ; preds = %sw.bb
-  %arrayidx.i484.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  store i8 49, ptr %arrayidx.i484.peel, align 2, !tbaa !11
-  %cmp4.not.i487.peel = icmp ult i32 %conv3.i475, 2
-  br i1 %cmp4.not.i487.peel, label %SET_BITS_TO.exit494, label %for.body.i488
+for.body.i487.peel:                               ; preds = %sw.bb
+  %arrayidx.i483.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  store i8 49, ptr %arrayidx.i483.peel, align 2, !tbaa !11
+  %cmp4.not.i486.peel = icmp ult i32 %conv3.i474, 2
+  br i1 %cmp4.not.i486.peel, label %SET_BITS_TO.exit493, label %for.body.i487
 
-for.body.i488:                                    ; preds = %for.body.i488.peel, %for.body.i488
-  %indvars.iv.i478 = phi i64 [ %indvars.iv.next.i485, %for.body.i488 ], [ 5, %for.body.i488.peel ]
-  %I.030.i480.in = phi i32 [ %I.030.i480, %for.body.i488 ], [ %conv3.i475, %for.body.i488.peel ]
-  %I.030.i480 = lshr i32 %I.030.i480.in, 1
-  %arrayidx.i484 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i478
-  store i8 48, ptr %arrayidx.i484, align 1, !tbaa !11
-  %indvars.iv.next.i485 = add nsw i64 %indvars.iv.i478, -1
-  %cmp4.not.i487 = icmp ult i32 %I.030.i480.in, 4
-  br i1 %cmp4.not.i487, label %SET_BITS_TO.exit494, label %for.body.i488, !llvm.loop !23
+for.body.i487:                                    ; preds = %for.body.i487.peel, %for.body.i487
+  %indvars.iv.i477 = phi i64 [ %indvars.iv.next.i484, %for.body.i487 ], [ 5, %for.body.i487.peel ]
+  %I.030.i479.in = phi i32 [ %I.030.i479, %for.body.i487 ], [ %conv3.i474, %for.body.i487.peel ]
+  %I.030.i479 = lshr i32 %I.030.i479.in, 1
+  %arrayidx.i483 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i477
+  store i8 48, ptr %arrayidx.i483, align 1, !tbaa !11
+  %indvars.iv.next.i484 = add nsw i64 %indvars.iv.i477, -1
+  %cmp4.not.i486 = icmp ult i32 %I.030.i479.in, 4
+  br i1 %cmp4.not.i486, label %SET_BITS_TO.exit493, label %for.body.i487, !llvm.loop !23
 
-if.end17.sink.split.i493:                         ; preds = %sw.bb
-  %puts.i492 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit494
+if.end17.sink.split.i492:                         ; preds = %sw.bb
+  %puts.i491 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit493
 
-SET_BITS_TO.exit494:                              ; preds = %for.body.i488.peel, %for.body.i488, %if.end17.sink.split.i493
+SET_BITS_TO.exit493:                              ; preds = %for.body.i487.peel, %for.body.i487, %if.end17.sink.split.i492
   %210 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %incdec.ptr122 = getelementptr inbounds i8, ptr %210, i64 1
   store ptr %incdec.ptr122, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   br label %sw.epilog
 
 sw.bb123:                                         ; preds = %if.else119
-  %ldexp.i495 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %conv3.i496 = fptosi double %ldexp.i495 to i32
-  %cmp429.i497 = icmp sgt i32 %conv3.i496, 0
-  br i1 %cmp429.i497, label %for.body.i509.peel, label %if.end17.sink.split.i514
+  %ldexp.i494 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %conv3.i495 = fptosi double %ldexp.i494 to i32
+  %cmp429.i496 = icmp sgt i32 %conv3.i495, 0
+  br i1 %cmp429.i496, label %for.body.i508.peel, label %if.end17.sink.split.i513
 
-for.body.i509.peel:                               ; preds = %sw.bb123
-  %arrayidx.i505.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  store i8 49, ptr %arrayidx.i505.peel, align 1, !tbaa !11
-  %cmp4.not.i508.peel = icmp ult i32 %conv3.i496, 2
-  br i1 %cmp4.not.i508.peel, label %SET_BITS_TO.exit515, label %for.body.i509
+for.body.i508.peel:                               ; preds = %sw.bb123
+  %arrayidx.i504.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  store i8 49, ptr %arrayidx.i504.peel, align 1, !tbaa !11
+  %cmp4.not.i507.peel = icmp ult i32 %conv3.i495, 2
+  br i1 %cmp4.not.i507.peel, label %SET_BITS_TO.exit514, label %for.body.i508
 
-for.body.i509:                                    ; preds = %for.body.i509.peel, %for.body.i509
-  %indvars.iv.i499 = phi i64 [ %indvars.iv.next.i506, %for.body.i509 ], [ 6, %for.body.i509.peel ]
-  %I.030.i501.in = phi i32 [ %I.030.i501, %for.body.i509 ], [ %conv3.i496, %for.body.i509.peel ]
-  %I.030.i501 = lshr i32 %I.030.i501.in, 1
-  %arrayidx.i505 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i499
-  store i8 48, ptr %arrayidx.i505, align 1, !tbaa !11
-  %indvars.iv.next.i506 = add nsw i64 %indvars.iv.i499, -1
-  %cmp4.not.i508 = icmp ult i32 %I.030.i501.in, 4
-  br i1 %cmp4.not.i508, label %SET_BITS_TO.exit515, label %for.body.i509, !llvm.loop !25
+for.body.i508:                                    ; preds = %for.body.i508.peel, %for.body.i508
+  %indvars.iv.i498 = phi i64 [ %indvars.iv.next.i505, %for.body.i508 ], [ 6, %for.body.i508.peel ]
+  %I.030.i500.in = phi i32 [ %I.030.i500, %for.body.i508 ], [ %conv3.i495, %for.body.i508.peel ]
+  %I.030.i500 = lshr i32 %I.030.i500.in, 1
+  %arrayidx.i504 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i498
+  store i8 48, ptr %arrayidx.i504, align 1, !tbaa !11
+  %indvars.iv.next.i505 = add nsw i64 %indvars.iv.i498, -1
+  %cmp4.not.i507 = icmp ult i32 %I.030.i500.in, 4
+  br i1 %cmp4.not.i507, label %SET_BITS_TO.exit514, label %for.body.i508, !llvm.loop !25
 
-if.end17.sink.split.i514:                         ; preds = %sw.bb123
-  %puts.i513 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit515
+if.end17.sink.split.i513:                         ; preds = %sw.bb123
+  %puts.i512 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit514
 
-SET_BITS_TO.exit515:                              ; preds = %for.body.i509.peel, %for.body.i509, %if.end17.sink.split.i514
+SET_BITS_TO.exit514:                              ; preds = %for.body.i508.peel, %for.body.i508, %if.end17.sink.split.i513
   %211 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %incdec.ptr125 = getelementptr inbounds i8, ptr %211, i64 1
   store ptr %incdec.ptr125, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   br label %sw.epilog
 
 sw.default:                                       ; preds = %if.else119
-  %ldexp.i516 = call double @ldexp(double 1.000000e+00, i32 1) #16
-  %conv3.i517 = fptosi double %ldexp.i516 to i32
-  %cmp429.i518 = icmp sgt i32 %conv3.i517, 0
-  br i1 %cmp429.i518, label %for.body.i530, label %if.end17.sink.split.i535
+  %ldexp.i515 = call double @ldexp(double 1.000000e+00, i32 1) #16
+  %conv3.i516 = fptosi double %ldexp.i515 to i32
+  %cmp429.i517 = icmp sgt i32 %conv3.i516, 0
+  br i1 %cmp429.i517, label %for.body.i529, label %if.end17.sink.split.i534
 
-for.body.i530:                                    ; preds = %sw.default, %for.body.i530
-  %indvars.iv.i520 = phi i64 [ %indvars.iv.next.i527, %for.body.i530 ], [ 7, %sw.default ]
-  %VALUE.addr.032.i521 = phi i32 [ %div.i523703, %for.body.i530 ], [ 3, %sw.default ]
-  %I.030.i522 = phi i32 [ %div1227.i528, %for.body.i530 ], [ %conv3.i517, %sw.default ]
-  %div.i523703 = lshr i32 %VALUE.addr.032.i521, 1
-  %212 = shl nuw nsw i32 %div.i523703, 25
-  %213 = shl nuw nsw i32 %VALUE.addr.032.i521, 24
-  %sext.i524 = sub nsw i32 %213, %212
-  %214 = lshr exact i32 %sext.i524, 24
+for.body.i529:                                    ; preds = %sw.default, %for.body.i529
+  %indvars.iv.i519 = phi i64 [ %indvars.iv.next.i526, %for.body.i529 ], [ 7, %sw.default ]
+  %VALUE.addr.032.i520 = phi i32 [ %div.i522703, %for.body.i529 ], [ 3, %sw.default ]
+  %I.030.i521 = phi i32 [ %div1227.i527, %for.body.i529 ], [ %conv3.i516, %sw.default ]
+  %div.i522703 = lshr i32 %VALUE.addr.032.i520, 1
+  %212 = shl nuw nsw i32 %div.i522703, 25
+  %213 = shl nuw nsw i32 %VALUE.addr.032.i520, 24
+  %sext.i523 = sub nsw i32 %213, %212
+  %214 = lshr exact i32 %sext.i523, 24
   %215 = trunc i32 %214 to i8
-  %conv11.i525 = add i8 %215, 48
-  %arrayidx.i526 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i520
-  store i8 %conv11.i525, ptr %arrayidx.i526, align 1, !tbaa !11
-  %indvars.iv.next.i527 = add nsw i64 %indvars.iv.i520, -1
-  %div1227.i528 = lshr i32 %I.030.i522, 1
-  %cmp4.not.i529 = icmp ult i32 %I.030.i522, 2
-  br i1 %cmp4.not.i529, label %for.end.i533, label %for.body.i530, !llvm.loop !15
+  %conv11.i524 = add i8 %215, 48
+  %arrayidx.i525 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i519
+  store i8 %conv11.i524, ptr %arrayidx.i525, align 1, !tbaa !11
+  %indvars.iv.next.i526 = add nsw i64 %indvars.iv.i519, -1
+  %div1227.i527 = lshr i32 %I.030.i521, 1
+  %cmp4.not.i528 = icmp ult i32 %I.030.i521, 2
+  br i1 %cmp4.not.i528, label %for.end.i532, label %for.body.i529, !llvm.loop !15
 
-for.end.i533:                                     ; preds = %for.body.i530
-  %cmp13.not.i532 = icmp ult i32 %VALUE.addr.032.i521, 2
-  br i1 %cmp13.not.i532, label %sw.epilog, label %if.end17.sink.split.i535
+for.end.i532:                                     ; preds = %for.body.i529
+  %cmp13.not.i531 = icmp ult i32 %VALUE.addr.032.i520, 2
+  br i1 %cmp13.not.i531, label %sw.epilog, label %if.end17.sink.split.i534
 
-if.end17.sink.split.i535:                         ; preds = %sw.default, %for.end.i533
-  %puts.i534 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.end17.sink.split.i534:                         ; preds = %sw.default, %for.end.i532
+  %puts.i533 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %if.end17.sink.split.i535, %for.end.i533, %SET_BITS_TO.exit515, %SET_BITS_TO.exit494
+sw.epilog:                                        ; preds = %if.end17.sink.split.i534, %for.end.i532, %SET_BITS_TO.exit514, %SET_BITS_TO.exit493
   %add127 = add nsw i32 %LOCATION, 1
   %call128 = call i32 (ptr, i32, i32, ptr, ptr, ...) @GET_EXPRESSION(ptr noundef nonnull %ARGUMENTS.addr, i32 noundef 21, i32 noundef %add127, ptr noundef %SYM_TAB, ptr noundef nonnull %WHAT_KIND) #16
   %216 = load ptr, ptr @ERROR_REC_BUF, align 8, !tbaa !26
@@ -1511,32 +1511,32 @@ land.lhs.true136:                                 ; preds = %if.end132
 if.then140:                                       ; preds = %land.lhs.true136
   %add.ptr141 = getelementptr inbounds i8, ptr %217, i64 2
   store ptr %add.ptr141, ptr %ARGUMENTS.addr, align 8, !tbaa !5
-  %ldexp.i537 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %conv3.i538 = fptosi double %ldexp.i537 to i32
-  %cmp429.i539 = icmp sgt i32 %conv3.i538, 0
-  br i1 %cmp429.i539, label %for.body.i551.peel, label %if.end17.sink.split.i556
+  %ldexp.i536 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %conv3.i537 = fptosi double %ldexp.i536 to i32
+  %cmp429.i538 = icmp sgt i32 %conv3.i537, 0
+  br i1 %cmp429.i538, label %for.body.i550.peel, label %if.end17.sink.split.i555
 
-for.body.i551.peel:                               ; preds = %if.then140
-  %arrayidx.i547.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  store i8 49, ptr %arrayidx.i547.peel, align 8, !tbaa !11
-  %cmp4.not.i550.peel = icmp ult i32 %conv3.i538, 2
-  br i1 %cmp4.not.i550.peel, label %if.end143, label %for.body.i551
+for.body.i550.peel:                               ; preds = %if.then140
+  %arrayidx.i546.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  store i8 49, ptr %arrayidx.i546.peel, align 8, !tbaa !11
+  %cmp4.not.i549.peel = icmp ult i32 %conv3.i537, 2
+  br i1 %cmp4.not.i549.peel, label %if.end143, label %for.body.i550
 
-for.body.i551:                                    ; preds = %for.body.i551.peel, %for.body.i551
-  %indvars.iv.i541 = phi i64 [ %indvars.iv.next.i548, %for.body.i551 ], [ 7, %for.body.i551.peel ]
-  %I.030.i543.in = phi i32 [ %I.030.i543, %for.body.i551 ], [ %conv3.i538, %for.body.i551.peel ]
-  %I.030.i543 = lshr i32 %I.030.i543.in, 1
-  %arrayidx.i547 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i541
-  store i8 48, ptr %arrayidx.i547, align 1, !tbaa !11
-  %indvars.iv.next.i548 = add nsw i64 %indvars.iv.i541, -1
-  %cmp4.not.i550 = icmp ult i32 %I.030.i543.in, 4
-  br i1 %cmp4.not.i550, label %if.end143, label %for.body.i551, !llvm.loop !28
+for.body.i550:                                    ; preds = %for.body.i550.peel, %for.body.i550
+  %indvars.iv.i540 = phi i64 [ %indvars.iv.next.i547, %for.body.i550 ], [ 7, %for.body.i550.peel ]
+  %I.030.i542.in = phi i32 [ %I.030.i542, %for.body.i550 ], [ %conv3.i537, %for.body.i550.peel ]
+  %I.030.i542 = lshr i32 %I.030.i542.in, 1
+  %arrayidx.i546 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i540
+  store i8 48, ptr %arrayidx.i546, align 1, !tbaa !11
+  %indvars.iv.next.i547 = add nsw i64 %indvars.iv.i540, -1
+  %cmp4.not.i549 = icmp ult i32 %I.030.i542.in, 4
+  br i1 %cmp4.not.i549, label %if.end143, label %for.body.i550, !llvm.loop !28
 
-if.end17.sink.split.i556:                         ; preds = %if.then140
-  %puts.i555 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.end17.sink.split.i555:                         ; preds = %if.then140
+  %puts.i554 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end143
 
-if.end143:                                        ; preds = %for.body.i551.peel, %for.body.i551, %if.end17.sink.split.i556, %land.lhs.true136, %if.end132
+if.end143:                                        ; preds = %for.body.i550.peel, %for.body.i550, %if.end17.sink.split.i555, %land.lhs.true136, %if.end132
   %tobool144.not = icmp eq i32 %EXTENDED, 0
   br i1 %tobool144.not, label %if.else162, label %if.then145
 
@@ -1558,267 +1558,267 @@ if.then153:                                       ; preds = %if.then145
   br label %if.end159
 
 if.end159:                                        ; preds = %if.then153, %if.then145
-  %ldexp.i558 = call double @ldexp(double 1.000000e+00, i32 19) #16
-  %conv3.i559 = fptosi double %ldexp.i558 to i32
-  %cmp429.i560 = icmp sgt i32 %conv3.i559, 0
-  br i1 %cmp429.i560, label %for.body.i572, label %for.end.i575
+  %ldexp.i557 = call double @ldexp(double 1.000000e+00, i32 19) #16
+  %conv3.i558 = fptosi double %ldexp.i557 to i32
+  %cmp429.i559 = icmp sgt i32 %conv3.i558, 0
+  br i1 %cmp429.i559, label %for.body.i571, label %for.end.i574
 
-for.body.i572:                                    ; preds = %if.end159, %for.body.i572
-  %indvars.iv.i562 = phi i64 [ %indvars.iv.next.i569, %for.body.i572 ], [ 31, %if.end159 ]
-  %VALUE.addr.032.i563 = phi i32 [ %div.i565, %for.body.i572 ], [ %spec.select, %if.end159 ]
-  %I.030.i564 = phi i32 [ %div1227.i570, %for.body.i572 ], [ %conv3.i559, %if.end159 ]
-  %div.i565 = sdiv i32 %VALUE.addr.032.i563, 2
-  %221 = shl i32 %div.i565, 25
-  %222 = shl i32 %VALUE.addr.032.i563, 24
-  %sext.i566 = sub i32 %222, %221
-  %223 = lshr exact i32 %sext.i566, 24
+for.body.i571:                                    ; preds = %if.end159, %for.body.i571
+  %indvars.iv.i561 = phi i64 [ %indvars.iv.next.i568, %for.body.i571 ], [ 31, %if.end159 ]
+  %VALUE.addr.032.i562 = phi i32 [ %div.i564, %for.body.i571 ], [ %spec.select, %if.end159 ]
+  %I.030.i563 = phi i32 [ %div1227.i569, %for.body.i571 ], [ %conv3.i558, %if.end159 ]
+  %div.i564 = sdiv i32 %VALUE.addr.032.i562, 2
+  %221 = shl i32 %div.i564, 25
+  %222 = shl i32 %VALUE.addr.032.i562, 24
+  %sext.i565 = sub i32 %222, %221
+  %223 = lshr exact i32 %sext.i565, 24
   %224 = trunc i32 %223 to i8
-  %conv11.i567 = add i8 %224, 48
-  %arrayidx.i568 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i562
-  store i8 %conv11.i567, ptr %arrayidx.i568, align 1, !tbaa !11
-  %indvars.iv.next.i569 = add nsw i64 %indvars.iv.i562, -1
-  %div1227.i570 = lshr i32 %I.030.i564, 1
-  %cmp4.not.i571 = icmp ult i32 %I.030.i564, 2
-  br i1 %cmp4.not.i571, label %for.end.i575, label %for.body.i572, !llvm.loop !15
+  %conv11.i566 = add i8 %224, 48
+  %arrayidx.i567 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i561
+  store i8 %conv11.i566, ptr %arrayidx.i567, align 1, !tbaa !11
+  %indvars.iv.next.i568 = add nsw i64 %indvars.iv.i561, -1
+  %div1227.i569 = lshr i32 %I.030.i563, 1
+  %cmp4.not.i570 = icmp ult i32 %I.030.i563, 2
+  br i1 %cmp4.not.i570, label %for.end.i574, label %for.body.i571, !llvm.loop !15
 
-for.end.i575:                                     ; preds = %for.body.i572, %if.end159
-  %VALUE.addr.0.lcssa.i573 = phi i32 [ %spec.select, %if.end159 ], [ %div.i565, %for.body.i572 ]
-  %cmp13.not.i574 = icmp eq i32 %VALUE.addr.0.lcssa.i573, 0
-  br i1 %cmp13.not.i574, label %SET_BITS_TO.exit578, label %if.end17.sink.split.i577
+for.end.i574:                                     ; preds = %for.body.i571, %if.end159
+  %VALUE.addr.0.lcssa.i572 = phi i32 [ %spec.select, %if.end159 ], [ %div.i564, %for.body.i571 ]
+  %cmp13.not.i573 = icmp eq i32 %VALUE.addr.0.lcssa.i572, 0
+  br i1 %cmp13.not.i573, label %SET_BITS_TO.exit577, label %if.end17.sink.split.i576
 
-if.end17.sink.split.i577:                         ; preds = %for.end.i575
-  %puts.i576 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit578
+if.end17.sink.split.i576:                         ; preds = %for.end.i574
+  %puts.i575 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit577
 
-SET_BITS_TO.exit578:                              ; preds = %for.end.i575, %if.end17.sink.split.i577
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i579) #16
+SET_BITS_TO.exit577:                              ; preds = %for.end.i574, %if.end17.sink.split.i576
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i578) #16
   %225 = load i8, ptr %INSTRUCT_CODE, align 16, !tbaa !11
-  %conv.i582 = sext i8 %225 to i32
-  %call7.i583 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582, i32 noundef 2) #16
-  %arrayidx.1.i584 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
-  %226 = load i8, ptr %arrayidx.1.i584, align 1, !tbaa !11
-  %conv.1.i585 = sext i8 %226 to i32
-  %call7.1.i586 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585, i32 noundef 2) #16
-  %227 = shl i32 %call7.i583, 2
-  %228 = shl i32 %call7.1.i586, 1
-  %mul5.2.i587 = add i32 %228, %227
-  %arrayidx.2.i588 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
-  %229 = load i8, ptr %arrayidx.2.i588, align 2, !tbaa !11
-  %conv.2.i589 = sext i8 %229 to i32
-  %call7.2.i590 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589, i32 noundef 2) #16
-  %add8.2.i591 = add nsw i32 %mul5.2.i587, %call7.2.i590
-  %mul5.3.i592 = shl nsw i32 %add8.2.i591, 1
-  %arrayidx.3.i593 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
-  %230 = load i8, ptr %arrayidx.3.i593, align 1, !tbaa !11
-  %conv.3.i594 = sext i8 %230 to i32
-  %call7.3.i595 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594, i32 noundef 2) #16
-  %add8.3.i596 = add nsw i32 %call7.3.i595, %mul5.3.i592
-  %or.cond.i597 = icmp ult i32 %add8.3.i596, 10
-  %231 = trunc i32 %add8.3.i596 to i8
-  %..i598 = select i1 %or.cond.i597, i8 48, i8 55
-  %conv17.i599 = add i8 %..i598, %231
-  store i8 %conv17.i599, ptr %NUM_STR.i579, align 1
-  %arrayidx.i581.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %232 = load i8, ptr %arrayidx.i581.1, align 4, !tbaa !11
-  %conv.i582.1 = sext i8 %232 to i32
-  %call7.i583.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.1, i32 noundef 2) #16
-  %arrayidx.1.i584.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
-  %233 = load i8, ptr %arrayidx.1.i584.1, align 1, !tbaa !11
-  %conv.1.i585.1 = sext i8 %233 to i32
-  %call7.1.i586.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.1, i32 noundef 2) #16
-  %234 = shl i32 %call7.i583.1, 2
-  %235 = shl i32 %call7.1.i586.1, 1
-  %mul5.2.i587.1 = add i32 %235, %234
-  %arrayidx.2.i588.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  %236 = load i8, ptr %arrayidx.2.i588.1, align 2, !tbaa !11
-  %conv.2.i589.1 = sext i8 %236 to i32
-  %call7.2.i590.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.1, i32 noundef 2) #16
-  %add8.2.i591.1 = add nsw i32 %mul5.2.i587.1, %call7.2.i590.1
-  %mul5.3.i592.1 = shl nsw i32 %add8.2.i591.1, 1
-  %arrayidx.3.i593.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  %237 = load i8, ptr %arrayidx.3.i593.1, align 1, !tbaa !11
-  %conv.3.i594.1 = sext i8 %237 to i32
-  %call7.3.i595.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.1, i32 noundef 2) #16
-  %add8.3.i596.1 = add nsw i32 %call7.3.i595.1, %mul5.3.i592.1
-  %or.cond.i597.1 = icmp ult i32 %add8.3.i596.1, 10
-  %238 = trunc i32 %add8.3.i596.1 to i8
-  %..i598.1 = select i1 %or.cond.i597.1, i8 48, i8 55
-  %conv17.i599.1 = add i8 %..i598.1, %238
-  %239 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 1
-  store i8 %conv17.i599.1, ptr %239, align 1
-  %arrayidx.i581.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  %240 = load i8, ptr %arrayidx.i581.2, align 8, !tbaa !11
-  %conv.i582.2 = sext i8 %240 to i32
-  %call7.i583.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.2, i32 noundef 2) #16
-  %arrayidx.1.i584.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
-  %241 = load i8, ptr %arrayidx.1.i584.2, align 1, !tbaa !11
-  %conv.1.i585.2 = sext i8 %241 to i32
-  %call7.1.i586.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.2, i32 noundef 2) #16
-  %242 = shl i32 %call7.i583.2, 2
-  %243 = shl i32 %call7.1.i586.2, 1
-  %mul5.2.i587.2 = add i32 %243, %242
-  %arrayidx.2.i588.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  %244 = load i8, ptr %arrayidx.2.i588.2, align 2, !tbaa !11
-  %conv.2.i589.2 = sext i8 %244 to i32
-  %call7.2.i590.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.2, i32 noundef 2) #16
-  %add8.2.i591.2 = add nsw i32 %mul5.2.i587.2, %call7.2.i590.2
-  %mul5.3.i592.2 = shl nsw i32 %add8.2.i591.2, 1
-  %arrayidx.3.i593.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
-  %245 = load i8, ptr %arrayidx.3.i593.2, align 1, !tbaa !11
-  %conv.3.i594.2 = sext i8 %245 to i32
-  %call7.3.i595.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.2, i32 noundef 2) #16
-  %add8.3.i596.2 = add nsw i32 %call7.3.i595.2, %mul5.3.i592.2
-  %or.cond.i597.2 = icmp ult i32 %add8.3.i596.2, 10
-  %246 = trunc i32 %add8.3.i596.2 to i8
-  %..i598.2 = select i1 %or.cond.i597.2, i8 48, i8 55
-  %conv17.i599.2 = add i8 %..i598.2, %246
-  %247 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 2
-  store i8 %conv17.i599.2, ptr %247, align 1
-  %arrayidx.i581.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
-  %248 = load i8, ptr %arrayidx.i581.3, align 4, !tbaa !11
-  %conv.i582.3 = sext i8 %248 to i32
-  %call7.i583.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.3, i32 noundef 2) #16
-  %arrayidx.1.i584.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
-  %249 = load i8, ptr %arrayidx.1.i584.3, align 1, !tbaa !11
-  %conv.1.i585.3 = sext i8 %249 to i32
-  %call7.1.i586.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.3, i32 noundef 2) #16
-  %250 = shl i32 %call7.i583.3, 2
-  %251 = shl i32 %call7.1.i586.3, 1
-  %mul5.2.i587.3 = add i32 %251, %250
-  %arrayidx.2.i588.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
-  %252 = load i8, ptr %arrayidx.2.i588.3, align 2, !tbaa !11
-  %conv.2.i589.3 = sext i8 %252 to i32
-  %call7.2.i590.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.3, i32 noundef 2) #16
-  %add8.2.i591.3 = add nsw i32 %mul5.2.i587.3, %call7.2.i590.3
-  %mul5.3.i592.3 = shl nsw i32 %add8.2.i591.3, 1
-  %arrayidx.3.i593.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
-  %253 = load i8, ptr %arrayidx.3.i593.3, align 1, !tbaa !11
-  %conv.3.i594.3 = sext i8 %253 to i32
-  %call7.3.i595.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.3, i32 noundef 2) #16
-  %add8.3.i596.3 = add nsw i32 %call7.3.i595.3, %mul5.3.i592.3
-  %or.cond.i597.3 = icmp ult i32 %add8.3.i596.3, 10
-  %254 = trunc i32 %add8.3.i596.3 to i8
-  %..i598.3 = select i1 %or.cond.i597.3, i8 48, i8 55
-  %conv17.i599.3 = add i8 %..i598.3, %254
-  %255 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 3
-  store i8 %conv17.i599.3, ptr %255, align 1
-  %arrayidx.i581.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
-  %256 = load i8, ptr %arrayidx.i581.4, align 16, !tbaa !11
-  %conv.i582.4 = sext i8 %256 to i32
-  %call7.i583.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.4, i32 noundef 2) #16
-  %arrayidx.1.i584.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
-  %257 = load i8, ptr %arrayidx.1.i584.4, align 1, !tbaa !11
-  %conv.1.i585.4 = sext i8 %257 to i32
-  %call7.1.i586.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.4, i32 noundef 2) #16
-  %258 = shl i32 %call7.i583.4, 2
-  %259 = shl i32 %call7.1.i586.4, 1
-  %mul5.2.i587.4 = add i32 %259, %258
-  %arrayidx.2.i588.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
-  %260 = load i8, ptr %arrayidx.2.i588.4, align 2, !tbaa !11
-  %conv.2.i589.4 = sext i8 %260 to i32
-  %call7.2.i590.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.4, i32 noundef 2) #16
-  %add8.2.i591.4 = add nsw i32 %mul5.2.i587.4, %call7.2.i590.4
-  %mul5.3.i592.4 = shl nsw i32 %add8.2.i591.4, 1
-  %arrayidx.3.i593.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
-  %261 = load i8, ptr %arrayidx.3.i593.4, align 1, !tbaa !11
-  %conv.3.i594.4 = sext i8 %261 to i32
-  %call7.3.i595.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.4, i32 noundef 2) #16
-  %add8.3.i596.4 = add nsw i32 %call7.3.i595.4, %mul5.3.i592.4
-  %or.cond.i597.4 = icmp ult i32 %add8.3.i596.4, 10
-  %262 = trunc i32 %add8.3.i596.4 to i8
-  %..i598.4 = select i1 %or.cond.i597.4, i8 48, i8 55
-  %conv17.i599.4 = add i8 %..i598.4, %262
-  %263 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 4
-  store i8 %conv17.i599.4, ptr %263, align 1
-  %arrayidx.i581.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
-  %264 = load i8, ptr %arrayidx.i581.5, align 4, !tbaa !11
-  %conv.i582.5 = sext i8 %264 to i32
-  %call7.i583.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.5, i32 noundef 2) #16
-  %arrayidx.1.i584.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
-  %265 = load i8, ptr %arrayidx.1.i584.5, align 1, !tbaa !11
-  %conv.1.i585.5 = sext i8 %265 to i32
-  %call7.1.i586.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.5, i32 noundef 2) #16
-  %266 = shl i32 %call7.i583.5, 2
-  %267 = shl i32 %call7.1.i586.5, 1
-  %mul5.2.i587.5 = add i32 %267, %266
-  %arrayidx.2.i588.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
-  %268 = load i8, ptr %arrayidx.2.i588.5, align 2, !tbaa !11
-  %conv.2.i589.5 = sext i8 %268 to i32
-  %call7.2.i590.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.5, i32 noundef 2) #16
-  %add8.2.i591.5 = add nsw i32 %mul5.2.i587.5, %call7.2.i590.5
-  %mul5.3.i592.5 = shl nsw i32 %add8.2.i591.5, 1
-  %arrayidx.3.i593.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
-  %269 = load i8, ptr %arrayidx.3.i593.5, align 1, !tbaa !11
-  %conv.3.i594.5 = sext i8 %269 to i32
-  %call7.3.i595.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.5, i32 noundef 2) #16
-  %add8.3.i596.5 = add nsw i32 %call7.3.i595.5, %mul5.3.i592.5
-  %or.cond.i597.5 = icmp ult i32 %add8.3.i596.5, 10
-  %270 = trunc i32 %add8.3.i596.5 to i8
-  %..i598.5 = select i1 %or.cond.i597.5, i8 48, i8 55
-  %conv17.i599.5 = add i8 %..i598.5, %270
-  %271 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 5
-  store i8 %conv17.i599.5, ptr %271, align 1
-  %arrayidx.i581.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 24
-  %272 = load i8, ptr %arrayidx.i581.6, align 8, !tbaa !11
-  %conv.i582.6 = sext i8 %272 to i32
-  %call7.i583.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.6, i32 noundef 2) #16
-  %arrayidx.1.i584.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 25
-  %273 = load i8, ptr %arrayidx.1.i584.6, align 1, !tbaa !11
-  %conv.1.i585.6 = sext i8 %273 to i32
-  %call7.1.i586.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.6, i32 noundef 2) #16
-  %274 = shl i32 %call7.i583.6, 2
-  %275 = shl i32 %call7.1.i586.6, 1
-  %mul5.2.i587.6 = add i32 %275, %274
-  %arrayidx.2.i588.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 26
-  %276 = load i8, ptr %arrayidx.2.i588.6, align 2, !tbaa !11
-  %conv.2.i589.6 = sext i8 %276 to i32
-  %call7.2.i590.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.6, i32 noundef 2) #16
-  %add8.2.i591.6 = add nsw i32 %mul5.2.i587.6, %call7.2.i590.6
-  %mul5.3.i592.6 = shl nsw i32 %add8.2.i591.6, 1
-  %arrayidx.3.i593.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 27
-  %277 = load i8, ptr %arrayidx.3.i593.6, align 1, !tbaa !11
-  %conv.3.i594.6 = sext i8 %277 to i32
-  %call7.3.i595.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.6, i32 noundef 2) #16
-  %add8.3.i596.6 = add nsw i32 %call7.3.i595.6, %mul5.3.i592.6
-  %or.cond.i597.6 = icmp ult i32 %add8.3.i596.6, 10
-  %278 = trunc i32 %add8.3.i596.6 to i8
-  %..i598.6 = select i1 %or.cond.i597.6, i8 48, i8 55
-  %conv17.i599.6 = add i8 %..i598.6, %278
-  %279 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 6
-  store i8 %conv17.i599.6, ptr %279, align 1
-  %arrayidx.i581.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 28
-  %280 = load i8, ptr %arrayidx.i581.7, align 4, !tbaa !11
-  %conv.i582.7 = sext i8 %280 to i32
-  %call7.i583.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i582.7, i32 noundef 2) #16
-  %arrayidx.1.i584.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 29
-  %281 = load i8, ptr %arrayidx.1.i584.7, align 1, !tbaa !11
-  %conv.1.i585.7 = sext i8 %281 to i32
-  %call7.1.i586.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i585.7, i32 noundef 2) #16
-  %282 = shl i32 %call7.i583.7, 2
-  %283 = shl i32 %call7.1.i586.7, 1
-  %mul5.2.i587.7 = add i32 %283, %282
-  %arrayidx.2.i588.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 30
-  %284 = load i8, ptr %arrayidx.2.i588.7, align 2, !tbaa !11
-  %conv.2.i589.7 = sext i8 %284 to i32
-  %call7.2.i590.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i589.7, i32 noundef 2) #16
-  %add8.2.i591.7 = add nsw i32 %mul5.2.i587.7, %call7.2.i590.7
-  %mul5.3.i592.7 = shl nsw i32 %add8.2.i591.7, 1
-  %arrayidx.3.i593.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 31
-  %285 = load i8, ptr %arrayidx.3.i593.7, align 1, !tbaa !11
-  %conv.3.i594.7 = sext i8 %285 to i32
-  %call7.3.i595.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i594.7, i32 noundef 2) #16
-  %add8.3.i596.7 = add nsw i32 %call7.3.i595.7, %mul5.3.i592.7
-  %or.cond.i597.7 = icmp ult i32 %add8.3.i596.7, 10
-  %286 = trunc i32 %add8.3.i596.7 to i8
-  %..i598.7 = select i1 %or.cond.i597.7, i8 48, i8 55
-  %conv17.i599.7 = add i8 %..i598.7, %286
-  %287 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 7
-  store i8 %conv17.i599.7, ptr %287, align 1
-  %arrayidx31.i603 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i579, i64 0, i64 8
-  store i8 0, ptr %arrayidx31.i603, align 1, !tbaa !11
-  %fputs.i604 = call i32 @fputs(ptr nonnull %NUM_STR.i579, ptr %LISTING_STREAM)
-  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i579, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i579) #16
+  %conv.i581 = sext i8 %225 to i32
+  %call7.i582 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581, i32 noundef 2) #16
+  %arrayidx.1.i583 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
+  %226 = load i8, ptr %arrayidx.1.i583, align 1, !tbaa !11
+  %conv.1.i584 = sext i8 %226 to i32
+  %call7.1.i585 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584, i32 noundef 2) #16
+  %227 = shl i32 %call7.i582, 2
+  %228 = shl i32 %call7.1.i585, 1
+  %mul5.2.i586 = add i32 %228, %227
+  %arrayidx.2.i587 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
+  %229 = load i8, ptr %arrayidx.2.i587, align 2, !tbaa !11
+  %conv.2.i588 = sext i8 %229 to i32
+  %call7.2.i589 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588, i32 noundef 2) #16
+  %add8.2.i590 = add nsw i32 %mul5.2.i586, %call7.2.i589
+  %mul5.3.i591 = shl nsw i32 %add8.2.i590, 1
+  %arrayidx.3.i592 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
+  %230 = load i8, ptr %arrayidx.3.i592, align 1, !tbaa !11
+  %conv.3.i593 = sext i8 %230 to i32
+  %call7.3.i594 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593, i32 noundef 2) #16
+  %add8.3.i595 = add nsw i32 %call7.3.i594, %mul5.3.i591
+  %or.cond.i596 = icmp ult i32 %add8.3.i595, 10
+  %231 = trunc i32 %add8.3.i595 to i8
+  %..i597 = select i1 %or.cond.i596, i8 48, i8 55
+  %conv17.i598 = add i8 %..i597, %231
+  store i8 %conv17.i598, ptr %NUM_STR.i578, align 1
+  %arrayidx.i580.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %232 = load i8, ptr %arrayidx.i580.1, align 4, !tbaa !11
+  %conv.i581.1 = sext i8 %232 to i32
+  %call7.i582.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.1, i32 noundef 2) #16
+  %arrayidx.1.i583.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
+  %233 = load i8, ptr %arrayidx.1.i583.1, align 1, !tbaa !11
+  %conv.1.i584.1 = sext i8 %233 to i32
+  %call7.1.i585.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.1, i32 noundef 2) #16
+  %234 = shl i32 %call7.i582.1, 2
+  %235 = shl i32 %call7.1.i585.1, 1
+  %mul5.2.i586.1 = add i32 %235, %234
+  %arrayidx.2.i587.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  %236 = load i8, ptr %arrayidx.2.i587.1, align 2, !tbaa !11
+  %conv.2.i588.1 = sext i8 %236 to i32
+  %call7.2.i589.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.1, i32 noundef 2) #16
+  %add8.2.i590.1 = add nsw i32 %mul5.2.i586.1, %call7.2.i589.1
+  %mul5.3.i591.1 = shl nsw i32 %add8.2.i590.1, 1
+  %arrayidx.3.i592.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  %237 = load i8, ptr %arrayidx.3.i592.1, align 1, !tbaa !11
+  %conv.3.i593.1 = sext i8 %237 to i32
+  %call7.3.i594.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.1, i32 noundef 2) #16
+  %add8.3.i595.1 = add nsw i32 %call7.3.i594.1, %mul5.3.i591.1
+  %or.cond.i596.1 = icmp ult i32 %add8.3.i595.1, 10
+  %238 = trunc i32 %add8.3.i595.1 to i8
+  %..i597.1 = select i1 %or.cond.i596.1, i8 48, i8 55
+  %conv17.i598.1 = add i8 %..i597.1, %238
+  %239 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 1
+  store i8 %conv17.i598.1, ptr %239, align 1
+  %arrayidx.i580.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  %240 = load i8, ptr %arrayidx.i580.2, align 8, !tbaa !11
+  %conv.i581.2 = sext i8 %240 to i32
+  %call7.i582.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.2, i32 noundef 2) #16
+  %arrayidx.1.i583.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
+  %241 = load i8, ptr %arrayidx.1.i583.2, align 1, !tbaa !11
+  %conv.1.i584.2 = sext i8 %241 to i32
+  %call7.1.i585.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.2, i32 noundef 2) #16
+  %242 = shl i32 %call7.i582.2, 2
+  %243 = shl i32 %call7.1.i585.2, 1
+  %mul5.2.i586.2 = add i32 %243, %242
+  %arrayidx.2.i587.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  %244 = load i8, ptr %arrayidx.2.i587.2, align 2, !tbaa !11
+  %conv.2.i588.2 = sext i8 %244 to i32
+  %call7.2.i589.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.2, i32 noundef 2) #16
+  %add8.2.i590.2 = add nsw i32 %mul5.2.i586.2, %call7.2.i589.2
+  %mul5.3.i591.2 = shl nsw i32 %add8.2.i590.2, 1
+  %arrayidx.3.i592.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
+  %245 = load i8, ptr %arrayidx.3.i592.2, align 1, !tbaa !11
+  %conv.3.i593.2 = sext i8 %245 to i32
+  %call7.3.i594.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.2, i32 noundef 2) #16
+  %add8.3.i595.2 = add nsw i32 %call7.3.i594.2, %mul5.3.i591.2
+  %or.cond.i596.2 = icmp ult i32 %add8.3.i595.2, 10
+  %246 = trunc i32 %add8.3.i595.2 to i8
+  %..i597.2 = select i1 %or.cond.i596.2, i8 48, i8 55
+  %conv17.i598.2 = add i8 %..i597.2, %246
+  %247 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 2
+  store i8 %conv17.i598.2, ptr %247, align 1
+  %arrayidx.i580.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
+  %248 = load i8, ptr %arrayidx.i580.3, align 4, !tbaa !11
+  %conv.i581.3 = sext i8 %248 to i32
+  %call7.i582.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.3, i32 noundef 2) #16
+  %arrayidx.1.i583.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
+  %249 = load i8, ptr %arrayidx.1.i583.3, align 1, !tbaa !11
+  %conv.1.i584.3 = sext i8 %249 to i32
+  %call7.1.i585.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.3, i32 noundef 2) #16
+  %250 = shl i32 %call7.i582.3, 2
+  %251 = shl i32 %call7.1.i585.3, 1
+  %mul5.2.i586.3 = add i32 %251, %250
+  %arrayidx.2.i587.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
+  %252 = load i8, ptr %arrayidx.2.i587.3, align 2, !tbaa !11
+  %conv.2.i588.3 = sext i8 %252 to i32
+  %call7.2.i589.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.3, i32 noundef 2) #16
+  %add8.2.i590.3 = add nsw i32 %mul5.2.i586.3, %call7.2.i589.3
+  %mul5.3.i591.3 = shl nsw i32 %add8.2.i590.3, 1
+  %arrayidx.3.i592.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
+  %253 = load i8, ptr %arrayidx.3.i592.3, align 1, !tbaa !11
+  %conv.3.i593.3 = sext i8 %253 to i32
+  %call7.3.i594.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.3, i32 noundef 2) #16
+  %add8.3.i595.3 = add nsw i32 %call7.3.i594.3, %mul5.3.i591.3
+  %or.cond.i596.3 = icmp ult i32 %add8.3.i595.3, 10
+  %254 = trunc i32 %add8.3.i595.3 to i8
+  %..i597.3 = select i1 %or.cond.i596.3, i8 48, i8 55
+  %conv17.i598.3 = add i8 %..i597.3, %254
+  %255 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 3
+  store i8 %conv17.i598.3, ptr %255, align 1
+  %arrayidx.i580.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
+  %256 = load i8, ptr %arrayidx.i580.4, align 16, !tbaa !11
+  %conv.i581.4 = sext i8 %256 to i32
+  %call7.i582.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.4, i32 noundef 2) #16
+  %arrayidx.1.i583.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
+  %257 = load i8, ptr %arrayidx.1.i583.4, align 1, !tbaa !11
+  %conv.1.i584.4 = sext i8 %257 to i32
+  %call7.1.i585.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.4, i32 noundef 2) #16
+  %258 = shl i32 %call7.i582.4, 2
+  %259 = shl i32 %call7.1.i585.4, 1
+  %mul5.2.i586.4 = add i32 %259, %258
+  %arrayidx.2.i587.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
+  %260 = load i8, ptr %arrayidx.2.i587.4, align 2, !tbaa !11
+  %conv.2.i588.4 = sext i8 %260 to i32
+  %call7.2.i589.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.4, i32 noundef 2) #16
+  %add8.2.i590.4 = add nsw i32 %mul5.2.i586.4, %call7.2.i589.4
+  %mul5.3.i591.4 = shl nsw i32 %add8.2.i590.4, 1
+  %arrayidx.3.i592.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
+  %261 = load i8, ptr %arrayidx.3.i592.4, align 1, !tbaa !11
+  %conv.3.i593.4 = sext i8 %261 to i32
+  %call7.3.i594.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.4, i32 noundef 2) #16
+  %add8.3.i595.4 = add nsw i32 %call7.3.i594.4, %mul5.3.i591.4
+  %or.cond.i596.4 = icmp ult i32 %add8.3.i595.4, 10
+  %262 = trunc i32 %add8.3.i595.4 to i8
+  %..i597.4 = select i1 %or.cond.i596.4, i8 48, i8 55
+  %conv17.i598.4 = add i8 %..i597.4, %262
+  %263 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 4
+  store i8 %conv17.i598.4, ptr %263, align 1
+  %arrayidx.i580.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
+  %264 = load i8, ptr %arrayidx.i580.5, align 4, !tbaa !11
+  %conv.i581.5 = sext i8 %264 to i32
+  %call7.i582.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.5, i32 noundef 2) #16
+  %arrayidx.1.i583.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
+  %265 = load i8, ptr %arrayidx.1.i583.5, align 1, !tbaa !11
+  %conv.1.i584.5 = sext i8 %265 to i32
+  %call7.1.i585.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.5, i32 noundef 2) #16
+  %266 = shl i32 %call7.i582.5, 2
+  %267 = shl i32 %call7.1.i585.5, 1
+  %mul5.2.i586.5 = add i32 %267, %266
+  %arrayidx.2.i587.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
+  %268 = load i8, ptr %arrayidx.2.i587.5, align 2, !tbaa !11
+  %conv.2.i588.5 = sext i8 %268 to i32
+  %call7.2.i589.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.5, i32 noundef 2) #16
+  %add8.2.i590.5 = add nsw i32 %mul5.2.i586.5, %call7.2.i589.5
+  %mul5.3.i591.5 = shl nsw i32 %add8.2.i590.5, 1
+  %arrayidx.3.i592.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
+  %269 = load i8, ptr %arrayidx.3.i592.5, align 1, !tbaa !11
+  %conv.3.i593.5 = sext i8 %269 to i32
+  %call7.3.i594.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.5, i32 noundef 2) #16
+  %add8.3.i595.5 = add nsw i32 %call7.3.i594.5, %mul5.3.i591.5
+  %or.cond.i596.5 = icmp ult i32 %add8.3.i595.5, 10
+  %270 = trunc i32 %add8.3.i595.5 to i8
+  %..i597.5 = select i1 %or.cond.i596.5, i8 48, i8 55
+  %conv17.i598.5 = add i8 %..i597.5, %270
+  %271 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 5
+  store i8 %conv17.i598.5, ptr %271, align 1
+  %arrayidx.i580.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 24
+  %272 = load i8, ptr %arrayidx.i580.6, align 8, !tbaa !11
+  %conv.i581.6 = sext i8 %272 to i32
+  %call7.i582.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.6, i32 noundef 2) #16
+  %arrayidx.1.i583.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 25
+  %273 = load i8, ptr %arrayidx.1.i583.6, align 1, !tbaa !11
+  %conv.1.i584.6 = sext i8 %273 to i32
+  %call7.1.i585.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.6, i32 noundef 2) #16
+  %274 = shl i32 %call7.i582.6, 2
+  %275 = shl i32 %call7.1.i585.6, 1
+  %mul5.2.i586.6 = add i32 %275, %274
+  %arrayidx.2.i587.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 26
+  %276 = load i8, ptr %arrayidx.2.i587.6, align 2, !tbaa !11
+  %conv.2.i588.6 = sext i8 %276 to i32
+  %call7.2.i589.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.6, i32 noundef 2) #16
+  %add8.2.i590.6 = add nsw i32 %mul5.2.i586.6, %call7.2.i589.6
+  %mul5.3.i591.6 = shl nsw i32 %add8.2.i590.6, 1
+  %arrayidx.3.i592.6 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 27
+  %277 = load i8, ptr %arrayidx.3.i592.6, align 1, !tbaa !11
+  %conv.3.i593.6 = sext i8 %277 to i32
+  %call7.3.i594.6 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.6, i32 noundef 2) #16
+  %add8.3.i595.6 = add nsw i32 %call7.3.i594.6, %mul5.3.i591.6
+  %or.cond.i596.6 = icmp ult i32 %add8.3.i595.6, 10
+  %278 = trunc i32 %add8.3.i595.6 to i8
+  %..i597.6 = select i1 %or.cond.i596.6, i8 48, i8 55
+  %conv17.i598.6 = add i8 %..i597.6, %278
+  %279 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 6
+  store i8 %conv17.i598.6, ptr %279, align 1
+  %arrayidx.i580.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 28
+  %280 = load i8, ptr %arrayidx.i580.7, align 4, !tbaa !11
+  %conv.i581.7 = sext i8 %280 to i32
+  %call7.i582.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i581.7, i32 noundef 2) #16
+  %arrayidx.1.i583.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 29
+  %281 = load i8, ptr %arrayidx.1.i583.7, align 1, !tbaa !11
+  %conv.1.i584.7 = sext i8 %281 to i32
+  %call7.1.i585.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i584.7, i32 noundef 2) #16
+  %282 = shl i32 %call7.i582.7, 2
+  %283 = shl i32 %call7.1.i585.7, 1
+  %mul5.2.i586.7 = add i32 %283, %282
+  %arrayidx.2.i587.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 30
+  %284 = load i8, ptr %arrayidx.2.i587.7, align 2, !tbaa !11
+  %conv.2.i588.7 = sext i8 %284 to i32
+  %call7.2.i589.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i588.7, i32 noundef 2) #16
+  %add8.2.i590.7 = add nsw i32 %mul5.2.i586.7, %call7.2.i589.7
+  %mul5.3.i591.7 = shl nsw i32 %add8.2.i590.7, 1
+  %arrayidx.3.i592.7 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 31
+  %285 = load i8, ptr %arrayidx.3.i592.7, align 1, !tbaa !11
+  %conv.3.i593.7 = sext i8 %285 to i32
+  %call7.3.i594.7 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i593.7, i32 noundef 2) #16
+  %add8.3.i595.7 = add nsw i32 %call7.3.i594.7, %mul5.3.i591.7
+  %or.cond.i596.7 = icmp ult i32 %add8.3.i595.7, 10
+  %286 = trunc i32 %add8.3.i595.7 to i8
+  %..i597.7 = select i1 %or.cond.i596.7, i8 48, i8 55
+  %conv17.i598.7 = add i8 %..i597.7, %286
+  %287 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 7
+  store i8 %conv17.i598.7, ptr %287, align 1
+  %arrayidx31.i602 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i578, i64 0, i64 8
+  store i8 0, ptr %arrayidx31.i602, align 1, !tbaa !11
+  %fputs.i603 = call i32 @fputs(ptr nonnull %NUM_STR.i578, ptr %LISTING_STREAM)
+  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i578, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i578) #16
   call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %MOD_REC) #16
   br label %if.end215
 
@@ -1837,9 +1837,9 @@ if.end166:                                        ; preds = %if.then165, %if.els
   %289 = phi i32 [ %.pr696, %if.then165 ], [ %288, %if.else162 ]
   %VALUE.1 = phi i32 [ 0, %if.then165 ], [ %call128, %if.else162 ]
   %cmp167 = icmp eq i32 %289, 2
-  %add170 = add nsw i32 %LOCATION, 3
-  %sub171 = select i1 %cmp167, i32 %add170, i32 0
-  %VALUE.2 = sub nsw i32 %VALUE.1, %sub171
+  %reass.sub = sub i32 %VALUE.1, %LOCATION
+  %sub171 = add i32 %reass.sub, -3
+  %VALUE.2 = select i1 %cmp167, i32 %sub171, i32 %VALUE.1
   %cmp176 = icmp sgt i32 %VALUE.2, 2047
   %or.cond228 = select i1 %cmp167, i1 %cmp176, i1 false
   br i1 %or.cond228, label %if.end207.sink.split, label %lor.lhs.false178
@@ -1871,247 +1871,247 @@ if.end207.sink.split:                             ; preds = %if.end166, %lor.lhs
 
 if.end207:                                        ; preds = %if.end207.sink.split, %if.then193, %if.end190
   %VALUE.4 = phi i32 [ %add194, %if.then193 ], [ %VALUE.2, %if.end190 ], [ 0, %if.end207.sink.split ]
-  %ldexp.i607 = call double @ldexp(double 1.000000e+00, i32 11) #16
-  %conv3.i608 = fptosi double %ldexp.i607 to i32
-  %cmp429.i609 = icmp sgt i32 %conv3.i608, 0
-  br i1 %cmp429.i609, label %for.body.i621, label %for.end.i624
+  %ldexp.i606 = call double @ldexp(double 1.000000e+00, i32 11) #16
+  %conv3.i607 = fptosi double %ldexp.i606 to i32
+  %cmp429.i608 = icmp sgt i32 %conv3.i607, 0
+  br i1 %cmp429.i608, label %for.body.i620, label %for.end.i623
 
-for.body.i621:                                    ; preds = %if.end207, %for.body.i621
-  %indvars.iv.i611 = phi i64 [ %indvars.iv.next.i618, %for.body.i621 ], [ 23, %if.end207 ]
-  %VALUE.addr.032.i612 = phi i32 [ %div.i614, %for.body.i621 ], [ %VALUE.4, %if.end207 ]
-  %I.030.i613 = phi i32 [ %div1227.i619, %for.body.i621 ], [ %conv3.i608, %if.end207 ]
-  %div.i614 = sdiv i32 %VALUE.addr.032.i612, 2
-  %290 = shl i32 %div.i614, 25
-  %291 = shl i32 %VALUE.addr.032.i612, 24
-  %sext.i615 = sub i32 %291, %290
-  %292 = lshr exact i32 %sext.i615, 24
+for.body.i620:                                    ; preds = %if.end207, %for.body.i620
+  %indvars.iv.i610 = phi i64 [ %indvars.iv.next.i617, %for.body.i620 ], [ 23, %if.end207 ]
+  %VALUE.addr.032.i611 = phi i32 [ %div.i613, %for.body.i620 ], [ %VALUE.4, %if.end207 ]
+  %I.030.i612 = phi i32 [ %div1227.i618, %for.body.i620 ], [ %conv3.i607, %if.end207 ]
+  %div.i613 = sdiv i32 %VALUE.addr.032.i611, 2
+  %290 = shl i32 %div.i613, 25
+  %291 = shl i32 %VALUE.addr.032.i611, 24
+  %sext.i614 = sub i32 %291, %290
+  %292 = lshr exact i32 %sext.i614, 24
   %293 = trunc i32 %292 to i8
-  %conv11.i616 = add i8 %293, 48
-  %arrayidx.i617 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i611
-  store i8 %conv11.i616, ptr %arrayidx.i617, align 1, !tbaa !11
-  %indvars.iv.next.i618 = add nsw i64 %indvars.iv.i611, -1
-  %div1227.i619 = lshr i32 %I.030.i613, 1
-  %cmp4.not.i620 = icmp ult i32 %I.030.i613, 2
-  br i1 %cmp4.not.i620, label %for.end.i624, label %for.body.i621, !llvm.loop !15
+  %conv11.i615 = add i8 %293, 48
+  %arrayidx.i616 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i610
+  store i8 %conv11.i615, ptr %arrayidx.i616, align 1, !tbaa !11
+  %indvars.iv.next.i617 = add nsw i64 %indvars.iv.i610, -1
+  %div1227.i618 = lshr i32 %I.030.i612, 1
+  %cmp4.not.i619 = icmp ult i32 %I.030.i612, 2
+  br i1 %cmp4.not.i619, label %for.end.i623, label %for.body.i620, !llvm.loop !15
 
-for.end.i624:                                     ; preds = %for.body.i621, %if.end207
-  %VALUE.addr.0.lcssa.i622 = phi i32 [ %VALUE.4, %if.end207 ], [ %div.i614, %for.body.i621 ]
-  %cmp13.not.i623 = icmp eq i32 %VALUE.addr.0.lcssa.i622, 0
-  br i1 %cmp13.not.i623, label %SET_BITS_TO.exit627, label %if.end17.sink.split.i626
+for.end.i623:                                     ; preds = %for.body.i620, %if.end207
+  %VALUE.addr.0.lcssa.i621 = phi i32 [ %VALUE.4, %if.end207 ], [ %div.i613, %for.body.i620 ]
+  %cmp13.not.i622 = icmp eq i32 %VALUE.addr.0.lcssa.i621, 0
+  br i1 %cmp13.not.i622, label %SET_BITS_TO.exit626, label %if.end17.sink.split.i625
 
-if.end17.sink.split.i626:                         ; preds = %for.end.i624
-  %puts.i625 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %SET_BITS_TO.exit627
+if.end17.sink.split.i625:                         ; preds = %for.end.i623
+  %puts.i624 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %SET_BITS_TO.exit626
 
-SET_BITS_TO.exit627:                              ; preds = %for.end.i624, %if.end17.sink.split.i626
+SET_BITS_TO.exit626:                              ; preds = %for.end.i623, %if.end17.sink.split.i625
   %294 = load i32, ptr %WHAT_KIND, align 4, !tbaa !12
   %cmp209 = icmp eq i32 %294, 2
   br i1 %cmp209, label %if.then211, label %if.end213
 
-if.then211:                                       ; preds = %SET_BITS_TO.exit627
-  %ldexp.i628 = call double @ldexp(double 1.000000e+00, i32 0) #16
-  %conv3.i629 = fptosi double %ldexp.i628 to i32
-  %cmp429.i630 = icmp sgt i32 %conv3.i629, 0
-  br i1 %cmp429.i630, label %for.body.i642.peel, label %if.end17.sink.split.i647
+if.then211:                                       ; preds = %SET_BITS_TO.exit626
+  %ldexp.i627 = call double @ldexp(double 1.000000e+00, i32 0) #16
+  %conv3.i628 = fptosi double %ldexp.i627 to i32
+  %cmp429.i629 = icmp sgt i32 %conv3.i628, 0
+  br i1 %cmp429.i629, label %for.body.i641.peel, label %if.end17.sink.split.i646
 
-for.body.i642.peel:                               ; preds = %if.then211
-  %arrayidx.i638.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  store i8 49, ptr %arrayidx.i638.peel, align 2, !tbaa !11
-  %cmp4.not.i641.peel = icmp ult i32 %conv3.i629, 2
-  br i1 %cmp4.not.i641.peel, label %if.end213, label %for.body.i642
+for.body.i641.peel:                               ; preds = %if.then211
+  %arrayidx.i637.peel = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  store i8 49, ptr %arrayidx.i637.peel, align 2, !tbaa !11
+  %cmp4.not.i640.peel = icmp ult i32 %conv3.i628, 2
+  br i1 %cmp4.not.i640.peel, label %if.end213, label %for.body.i641
 
-for.body.i642:                                    ; preds = %for.body.i642.peel, %for.body.i642
-  %indvars.iv.i632 = phi i64 [ %indvars.iv.next.i639, %for.body.i642 ], [ 9, %for.body.i642.peel ]
-  %I.030.i634.in = phi i32 [ %I.030.i634, %for.body.i642 ], [ %conv3.i629, %for.body.i642.peel ]
-  %I.030.i634 = lshr i32 %I.030.i634.in, 1
-  %arrayidx.i638 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i632
-  store i8 48, ptr %arrayidx.i638, align 1, !tbaa !11
-  %indvars.iv.next.i639 = add nsw i64 %indvars.iv.i632, -1
-  %cmp4.not.i641 = icmp ult i32 %I.030.i634.in, 4
-  br i1 %cmp4.not.i641, label %if.end213, label %for.body.i642, !llvm.loop !29
+for.body.i641:                                    ; preds = %for.body.i641.peel, %for.body.i641
+  %indvars.iv.i631 = phi i64 [ %indvars.iv.next.i638, %for.body.i641 ], [ 9, %for.body.i641.peel ]
+  %I.030.i633.in = phi i32 [ %I.030.i633, %for.body.i641 ], [ %conv3.i628, %for.body.i641.peel ]
+  %I.030.i633 = lshr i32 %I.030.i633.in, 1
+  %arrayidx.i637 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 %indvars.iv.i631
+  store i8 48, ptr %arrayidx.i637, align 1, !tbaa !11
+  %indvars.iv.next.i638 = add nsw i64 %indvars.iv.i631, -1
+  %cmp4.not.i640 = icmp ult i32 %I.030.i633.in, 4
+  br i1 %cmp4.not.i640, label %if.end213, label %for.body.i641, !llvm.loop !29
 
-if.end17.sink.split.i647:                         ; preds = %if.then211
-  %puts.i646 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.end17.sink.split.i646:                         ; preds = %if.then211
+  %puts.i645 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end213
 
-if.end213:                                        ; preds = %for.body.i642.peel, %for.body.i642, %if.end17.sink.split.i647, %SET_BITS_TO.exit627
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i649) #16
+if.end213:                                        ; preds = %for.body.i641.peel, %for.body.i641, %if.end17.sink.split.i646, %SET_BITS_TO.exit626
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %NUM_STR.i648) #16
   %295 = load i8, ptr %INSTRUCT_CODE, align 16, !tbaa !11
-  %conv.i652 = sext i8 %295 to i32
-  %call7.i653 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652, i32 noundef 2) #16
-  %arrayidx.1.i654 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
-  %296 = load i8, ptr %arrayidx.1.i654, align 1, !tbaa !11
-  %conv.1.i655 = sext i8 %296 to i32
-  %call7.1.i656 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655, i32 noundef 2) #16
-  %297 = shl i32 %call7.i653, 2
-  %298 = shl i32 %call7.1.i656, 1
-  %mul5.2.i657 = add i32 %298, %297
-  %arrayidx.2.i658 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
-  %299 = load i8, ptr %arrayidx.2.i658, align 2, !tbaa !11
-  %conv.2.i659 = sext i8 %299 to i32
-  %call7.2.i660 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659, i32 noundef 2) #16
-  %add8.2.i661 = add nsw i32 %mul5.2.i657, %call7.2.i660
-  %mul5.3.i662 = shl nsw i32 %add8.2.i661, 1
-  %arrayidx.3.i663 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
-  %300 = load i8, ptr %arrayidx.3.i663, align 1, !tbaa !11
-  %conv.3.i664 = sext i8 %300 to i32
-  %call7.3.i665 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664, i32 noundef 2) #16
-  %add8.3.i666 = add nsw i32 %call7.3.i665, %mul5.3.i662
-  %or.cond.i667 = icmp ult i32 %add8.3.i666, 10
-  %301 = trunc i32 %add8.3.i666 to i8
-  %..i668 = select i1 %or.cond.i667, i8 48, i8 55
-  %conv17.i669 = add i8 %..i668, %301
-  store i8 %conv17.i669, ptr %NUM_STR.i649, align 1
-  %arrayidx.i651.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
-  %302 = load i8, ptr %arrayidx.i651.1, align 4, !tbaa !11
-  %conv.i652.1 = sext i8 %302 to i32
-  %call7.i653.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652.1, i32 noundef 2) #16
-  %arrayidx.1.i654.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
-  %303 = load i8, ptr %arrayidx.1.i654.1, align 1, !tbaa !11
-  %conv.1.i655.1 = sext i8 %303 to i32
-  %call7.1.i656.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655.1, i32 noundef 2) #16
-  %304 = shl i32 %call7.i653.1, 2
-  %305 = shl i32 %call7.1.i656.1, 1
-  %mul5.2.i657.1 = add i32 %305, %304
-  %arrayidx.2.i658.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
-  %306 = load i8, ptr %arrayidx.2.i658.1, align 2, !tbaa !11
-  %conv.2.i659.1 = sext i8 %306 to i32
-  %call7.2.i660.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659.1, i32 noundef 2) #16
-  %add8.2.i661.1 = add nsw i32 %mul5.2.i657.1, %call7.2.i660.1
-  %mul5.3.i662.1 = shl nsw i32 %add8.2.i661.1, 1
-  %arrayidx.3.i663.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
-  %307 = load i8, ptr %arrayidx.3.i663.1, align 1, !tbaa !11
-  %conv.3.i664.1 = sext i8 %307 to i32
-  %call7.3.i665.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664.1, i32 noundef 2) #16
-  %add8.3.i666.1 = add nsw i32 %call7.3.i665.1, %mul5.3.i662.1
-  %or.cond.i667.1 = icmp ult i32 %add8.3.i666.1, 10
-  %308 = trunc i32 %add8.3.i666.1 to i8
-  %..i668.1 = select i1 %or.cond.i667.1, i8 48, i8 55
-  %conv17.i669.1 = add i8 %..i668.1, %308
-  %309 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 1
-  store i8 %conv17.i669.1, ptr %309, align 1
-  %arrayidx.i651.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
-  %310 = load i8, ptr %arrayidx.i651.2, align 8, !tbaa !11
-  %conv.i652.2 = sext i8 %310 to i32
-  %call7.i653.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652.2, i32 noundef 2) #16
-  %arrayidx.1.i654.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
-  %311 = load i8, ptr %arrayidx.1.i654.2, align 1, !tbaa !11
-  %conv.1.i655.2 = sext i8 %311 to i32
-  %call7.1.i656.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655.2, i32 noundef 2) #16
-  %312 = shl i32 %call7.i653.2, 2
-  %313 = shl i32 %call7.1.i656.2, 1
-  %mul5.2.i657.2 = add i32 %313, %312
-  %arrayidx.2.i658.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
-  %314 = load i8, ptr %arrayidx.2.i658.2, align 2, !tbaa !11
-  %conv.2.i659.2 = sext i8 %314 to i32
-  %call7.2.i660.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659.2, i32 noundef 2) #16
-  %add8.2.i661.2 = add nsw i32 %mul5.2.i657.2, %call7.2.i660.2
-  %mul5.3.i662.2 = shl nsw i32 %add8.2.i661.2, 1
-  %arrayidx.3.i663.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
-  %315 = load i8, ptr %arrayidx.3.i663.2, align 1, !tbaa !11
-  %conv.3.i664.2 = sext i8 %315 to i32
-  %call7.3.i665.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664.2, i32 noundef 2) #16
-  %add8.3.i666.2 = add nsw i32 %call7.3.i665.2, %mul5.3.i662.2
-  %or.cond.i667.2 = icmp ult i32 %add8.3.i666.2, 10
-  %316 = trunc i32 %add8.3.i666.2 to i8
-  %..i668.2 = select i1 %or.cond.i667.2, i8 48, i8 55
-  %conv17.i669.2 = add i8 %..i668.2, %316
-  %317 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 2
-  store i8 %conv17.i669.2, ptr %317, align 1
-  %arrayidx.i651.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
-  %318 = load i8, ptr %arrayidx.i651.3, align 4, !tbaa !11
-  %conv.i652.3 = sext i8 %318 to i32
-  %call7.i653.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652.3, i32 noundef 2) #16
-  %arrayidx.1.i654.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
-  %319 = load i8, ptr %arrayidx.1.i654.3, align 1, !tbaa !11
-  %conv.1.i655.3 = sext i8 %319 to i32
-  %call7.1.i656.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655.3, i32 noundef 2) #16
-  %320 = shl i32 %call7.i653.3, 2
-  %321 = shl i32 %call7.1.i656.3, 1
-  %mul5.2.i657.3 = add i32 %321, %320
-  %arrayidx.2.i658.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
-  %322 = load i8, ptr %arrayidx.2.i658.3, align 2, !tbaa !11
-  %conv.2.i659.3 = sext i8 %322 to i32
-  %call7.2.i660.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659.3, i32 noundef 2) #16
-  %add8.2.i661.3 = add nsw i32 %mul5.2.i657.3, %call7.2.i660.3
-  %mul5.3.i662.3 = shl nsw i32 %add8.2.i661.3, 1
-  %arrayidx.3.i663.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
-  %323 = load i8, ptr %arrayidx.3.i663.3, align 1, !tbaa !11
-  %conv.3.i664.3 = sext i8 %323 to i32
-  %call7.3.i665.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664.3, i32 noundef 2) #16
-  %add8.3.i666.3 = add nsw i32 %call7.3.i665.3, %mul5.3.i662.3
-  %or.cond.i667.3 = icmp ult i32 %add8.3.i666.3, 10
-  %324 = trunc i32 %add8.3.i666.3 to i8
-  %..i668.3 = select i1 %or.cond.i667.3, i8 48, i8 55
-  %conv17.i669.3 = add i8 %..i668.3, %324
-  %325 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 3
-  store i8 %conv17.i669.3, ptr %325, align 1
-  %arrayidx.i651.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
-  %326 = load i8, ptr %arrayidx.i651.4, align 16, !tbaa !11
-  %conv.i652.4 = sext i8 %326 to i32
-  %call7.i653.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652.4, i32 noundef 2) #16
-  %arrayidx.1.i654.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
-  %327 = load i8, ptr %arrayidx.1.i654.4, align 1, !tbaa !11
-  %conv.1.i655.4 = sext i8 %327 to i32
-  %call7.1.i656.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655.4, i32 noundef 2) #16
-  %328 = shl i32 %call7.i653.4, 2
-  %329 = shl i32 %call7.1.i656.4, 1
-  %mul5.2.i657.4 = add i32 %329, %328
-  %arrayidx.2.i658.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
-  %330 = load i8, ptr %arrayidx.2.i658.4, align 2, !tbaa !11
-  %conv.2.i659.4 = sext i8 %330 to i32
-  %call7.2.i660.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659.4, i32 noundef 2) #16
-  %add8.2.i661.4 = add nsw i32 %mul5.2.i657.4, %call7.2.i660.4
-  %mul5.3.i662.4 = shl nsw i32 %add8.2.i661.4, 1
-  %arrayidx.3.i663.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
-  %331 = load i8, ptr %arrayidx.3.i663.4, align 1, !tbaa !11
-  %conv.3.i664.4 = sext i8 %331 to i32
-  %call7.3.i665.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664.4, i32 noundef 2) #16
-  %add8.3.i666.4 = add nsw i32 %call7.3.i665.4, %mul5.3.i662.4
-  %or.cond.i667.4 = icmp ult i32 %add8.3.i666.4, 10
-  %332 = trunc i32 %add8.3.i666.4 to i8
-  %..i668.4 = select i1 %or.cond.i667.4, i8 48, i8 55
-  %conv17.i669.4 = add i8 %..i668.4, %332
-  %333 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 4
-  store i8 %conv17.i669.4, ptr %333, align 1
-  %arrayidx.i651.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
-  %334 = load i8, ptr %arrayidx.i651.5, align 4, !tbaa !11
-  %conv.i652.5 = sext i8 %334 to i32
-  %call7.i653.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i652.5, i32 noundef 2) #16
-  %arrayidx.1.i654.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
-  %335 = load i8, ptr %arrayidx.1.i654.5, align 1, !tbaa !11
-  %conv.1.i655.5 = sext i8 %335 to i32
-  %call7.1.i656.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i655.5, i32 noundef 2) #16
-  %336 = shl i32 %call7.i653.5, 2
-  %337 = shl i32 %call7.1.i656.5, 1
-  %mul5.2.i657.5 = add i32 %337, %336
-  %arrayidx.2.i658.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
-  %338 = load i8, ptr %arrayidx.2.i658.5, align 2, !tbaa !11
-  %conv.2.i659.5 = sext i8 %338 to i32
-  %call7.2.i660.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i659.5, i32 noundef 2) #16
-  %add8.2.i661.5 = add nsw i32 %mul5.2.i657.5, %call7.2.i660.5
-  %mul5.3.i662.5 = shl nsw i32 %add8.2.i661.5, 1
-  %arrayidx.3.i663.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
-  %339 = load i8, ptr %arrayidx.3.i663.5, align 1, !tbaa !11
-  %conv.3.i664.5 = sext i8 %339 to i32
-  %call7.3.i665.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i664.5, i32 noundef 2) #16
-  %add8.3.i666.5 = add nsw i32 %call7.3.i665.5, %mul5.3.i662.5
-  %or.cond.i667.5 = icmp ult i32 %add8.3.i666.5, 10
-  %340 = trunc i32 %add8.3.i666.5 to i8
-  %..i668.5 = select i1 %or.cond.i667.5, i8 48, i8 55
-  %conv17.i669.5 = add i8 %..i668.5, %340
-  %341 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 5
-  store i8 %conv17.i669.5, ptr %341, align 1
-  %arrayidx31.i673 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i649, i64 0, i64 6
-  store i8 0, ptr %arrayidx31.i673, align 1, !tbaa !11
-  %fputs.i674 = call i32 @fputs(ptr nonnull %NUM_STR.i649, ptr %LISTING_STREAM)
-  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i649, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
-  %fputc.i677 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  %fputc.i677.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i649) #16
+  %conv.i651 = sext i8 %295 to i32
+  %call7.i652 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651, i32 noundef 2) #16
+  %arrayidx.1.i653 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 1
+  %296 = load i8, ptr %arrayidx.1.i653, align 1, !tbaa !11
+  %conv.1.i654 = sext i8 %296 to i32
+  %call7.1.i655 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654, i32 noundef 2) #16
+  %297 = shl i32 %call7.i652, 2
+  %298 = shl i32 %call7.1.i655, 1
+  %mul5.2.i656 = add i32 %298, %297
+  %arrayidx.2.i657 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 2
+  %299 = load i8, ptr %arrayidx.2.i657, align 2, !tbaa !11
+  %conv.2.i658 = sext i8 %299 to i32
+  %call7.2.i659 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658, i32 noundef 2) #16
+  %add8.2.i660 = add nsw i32 %mul5.2.i656, %call7.2.i659
+  %mul5.3.i661 = shl nsw i32 %add8.2.i660, 1
+  %arrayidx.3.i662 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 3
+  %300 = load i8, ptr %arrayidx.3.i662, align 1, !tbaa !11
+  %conv.3.i663 = sext i8 %300 to i32
+  %call7.3.i664 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663, i32 noundef 2) #16
+  %add8.3.i665 = add nsw i32 %call7.3.i664, %mul5.3.i661
+  %or.cond.i666 = icmp ult i32 %add8.3.i665, 10
+  %301 = trunc i32 %add8.3.i665 to i8
+  %..i667 = select i1 %or.cond.i666, i8 48, i8 55
+  %conv17.i668 = add i8 %..i667, %301
+  store i8 %conv17.i668, ptr %NUM_STR.i648, align 1
+  %arrayidx.i650.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 4
+  %302 = load i8, ptr %arrayidx.i650.1, align 4, !tbaa !11
+  %conv.i651.1 = sext i8 %302 to i32
+  %call7.i652.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651.1, i32 noundef 2) #16
+  %arrayidx.1.i653.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 5
+  %303 = load i8, ptr %arrayidx.1.i653.1, align 1, !tbaa !11
+  %conv.1.i654.1 = sext i8 %303 to i32
+  %call7.1.i655.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654.1, i32 noundef 2) #16
+  %304 = shl i32 %call7.i652.1, 2
+  %305 = shl i32 %call7.1.i655.1, 1
+  %mul5.2.i656.1 = add i32 %305, %304
+  %arrayidx.2.i657.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 6
+  %306 = load i8, ptr %arrayidx.2.i657.1, align 2, !tbaa !11
+  %conv.2.i658.1 = sext i8 %306 to i32
+  %call7.2.i659.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658.1, i32 noundef 2) #16
+  %add8.2.i660.1 = add nsw i32 %mul5.2.i656.1, %call7.2.i659.1
+  %mul5.3.i661.1 = shl nsw i32 %add8.2.i660.1, 1
+  %arrayidx.3.i662.1 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 7
+  %307 = load i8, ptr %arrayidx.3.i662.1, align 1, !tbaa !11
+  %conv.3.i663.1 = sext i8 %307 to i32
+  %call7.3.i664.1 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663.1, i32 noundef 2) #16
+  %add8.3.i665.1 = add nsw i32 %call7.3.i664.1, %mul5.3.i661.1
+  %or.cond.i666.1 = icmp ult i32 %add8.3.i665.1, 10
+  %308 = trunc i32 %add8.3.i665.1 to i8
+  %..i667.1 = select i1 %or.cond.i666.1, i8 48, i8 55
+  %conv17.i668.1 = add i8 %..i667.1, %308
+  %309 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 1
+  store i8 %conv17.i668.1, ptr %309, align 1
+  %arrayidx.i650.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 8
+  %310 = load i8, ptr %arrayidx.i650.2, align 8, !tbaa !11
+  %conv.i651.2 = sext i8 %310 to i32
+  %call7.i652.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651.2, i32 noundef 2) #16
+  %arrayidx.1.i653.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 9
+  %311 = load i8, ptr %arrayidx.1.i653.2, align 1, !tbaa !11
+  %conv.1.i654.2 = sext i8 %311 to i32
+  %call7.1.i655.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654.2, i32 noundef 2) #16
+  %312 = shl i32 %call7.i652.2, 2
+  %313 = shl i32 %call7.1.i655.2, 1
+  %mul5.2.i656.2 = add i32 %313, %312
+  %arrayidx.2.i657.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 10
+  %314 = load i8, ptr %arrayidx.2.i657.2, align 2, !tbaa !11
+  %conv.2.i658.2 = sext i8 %314 to i32
+  %call7.2.i659.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658.2, i32 noundef 2) #16
+  %add8.2.i660.2 = add nsw i32 %mul5.2.i656.2, %call7.2.i659.2
+  %mul5.3.i661.2 = shl nsw i32 %add8.2.i660.2, 1
+  %arrayidx.3.i662.2 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 11
+  %315 = load i8, ptr %arrayidx.3.i662.2, align 1, !tbaa !11
+  %conv.3.i663.2 = sext i8 %315 to i32
+  %call7.3.i664.2 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663.2, i32 noundef 2) #16
+  %add8.3.i665.2 = add nsw i32 %call7.3.i664.2, %mul5.3.i661.2
+  %or.cond.i666.2 = icmp ult i32 %add8.3.i665.2, 10
+  %316 = trunc i32 %add8.3.i665.2 to i8
+  %..i667.2 = select i1 %or.cond.i666.2, i8 48, i8 55
+  %conv17.i668.2 = add i8 %..i667.2, %316
+  %317 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 2
+  store i8 %conv17.i668.2, ptr %317, align 1
+  %arrayidx.i650.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 12
+  %318 = load i8, ptr %arrayidx.i650.3, align 4, !tbaa !11
+  %conv.i651.3 = sext i8 %318 to i32
+  %call7.i652.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651.3, i32 noundef 2) #16
+  %arrayidx.1.i653.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 13
+  %319 = load i8, ptr %arrayidx.1.i653.3, align 1, !tbaa !11
+  %conv.1.i654.3 = sext i8 %319 to i32
+  %call7.1.i655.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654.3, i32 noundef 2) #16
+  %320 = shl i32 %call7.i652.3, 2
+  %321 = shl i32 %call7.1.i655.3, 1
+  %mul5.2.i656.3 = add i32 %321, %320
+  %arrayidx.2.i657.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 14
+  %322 = load i8, ptr %arrayidx.2.i657.3, align 2, !tbaa !11
+  %conv.2.i658.3 = sext i8 %322 to i32
+  %call7.2.i659.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658.3, i32 noundef 2) #16
+  %add8.2.i660.3 = add nsw i32 %mul5.2.i656.3, %call7.2.i659.3
+  %mul5.3.i661.3 = shl nsw i32 %add8.2.i660.3, 1
+  %arrayidx.3.i662.3 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 15
+  %323 = load i8, ptr %arrayidx.3.i662.3, align 1, !tbaa !11
+  %conv.3.i663.3 = sext i8 %323 to i32
+  %call7.3.i664.3 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663.3, i32 noundef 2) #16
+  %add8.3.i665.3 = add nsw i32 %call7.3.i664.3, %mul5.3.i661.3
+  %or.cond.i666.3 = icmp ult i32 %add8.3.i665.3, 10
+  %324 = trunc i32 %add8.3.i665.3 to i8
+  %..i667.3 = select i1 %or.cond.i666.3, i8 48, i8 55
+  %conv17.i668.3 = add i8 %..i667.3, %324
+  %325 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 3
+  store i8 %conv17.i668.3, ptr %325, align 1
+  %arrayidx.i650.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 16
+  %326 = load i8, ptr %arrayidx.i650.4, align 16, !tbaa !11
+  %conv.i651.4 = sext i8 %326 to i32
+  %call7.i652.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651.4, i32 noundef 2) #16
+  %arrayidx.1.i653.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 17
+  %327 = load i8, ptr %arrayidx.1.i653.4, align 1, !tbaa !11
+  %conv.1.i654.4 = sext i8 %327 to i32
+  %call7.1.i655.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654.4, i32 noundef 2) #16
+  %328 = shl i32 %call7.i652.4, 2
+  %329 = shl i32 %call7.1.i655.4, 1
+  %mul5.2.i656.4 = add i32 %329, %328
+  %arrayidx.2.i657.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 18
+  %330 = load i8, ptr %arrayidx.2.i657.4, align 2, !tbaa !11
+  %conv.2.i658.4 = sext i8 %330 to i32
+  %call7.2.i659.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658.4, i32 noundef 2) #16
+  %add8.2.i660.4 = add nsw i32 %mul5.2.i656.4, %call7.2.i659.4
+  %mul5.3.i661.4 = shl nsw i32 %add8.2.i660.4, 1
+  %arrayidx.3.i662.4 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 19
+  %331 = load i8, ptr %arrayidx.3.i662.4, align 1, !tbaa !11
+  %conv.3.i663.4 = sext i8 %331 to i32
+  %call7.3.i664.4 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663.4, i32 noundef 2) #16
+  %add8.3.i665.4 = add nsw i32 %call7.3.i664.4, %mul5.3.i661.4
+  %or.cond.i666.4 = icmp ult i32 %add8.3.i665.4, 10
+  %332 = trunc i32 %add8.3.i665.4 to i8
+  %..i667.4 = select i1 %or.cond.i666.4, i8 48, i8 55
+  %conv17.i668.4 = add i8 %..i667.4, %332
+  %333 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 4
+  store i8 %conv17.i668.4, ptr %333, align 1
+  %arrayidx.i650.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 20
+  %334 = load i8, ptr %arrayidx.i650.5, align 4, !tbaa !11
+  %conv.i651.5 = sext i8 %334 to i32
+  %call7.i652.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.i651.5, i32 noundef 2) #16
+  %arrayidx.1.i653.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 21
+  %335 = load i8, ptr %arrayidx.1.i653.5, align 1, !tbaa !11
+  %conv.1.i654.5 = sext i8 %335 to i32
+  %call7.1.i655.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.1.i654.5, i32 noundef 2) #16
+  %336 = shl i32 %call7.i652.5, 2
+  %337 = shl i32 %call7.1.i655.5, 1
+  %mul5.2.i656.5 = add i32 %337, %336
+  %arrayidx.2.i657.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 22
+  %338 = load i8, ptr %arrayidx.2.i657.5, align 2, !tbaa !11
+  %conv.2.i658.5 = sext i8 %338 to i32
+  %call7.2.i659.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.2.i658.5, i32 noundef 2) #16
+  %add8.2.i660.5 = add nsw i32 %mul5.2.i656.5, %call7.2.i659.5
+  %mul5.3.i661.5 = shl nsw i32 %add8.2.i660.5, 1
+  %arrayidx.3.i662.5 = getelementptr inbounds i8, ptr %INSTRUCT_CODE, i64 23
+  %339 = load i8, ptr %arrayidx.3.i662.5, align 1, !tbaa !11
+  %conv.3.i663.5 = sext i8 %339 to i32
+  %call7.3.i664.5 = call i32 (i32, i32, ...) @CHAR_TO_DIGIT(i32 noundef %conv.3.i663.5, i32 noundef 2) #16
+  %add8.3.i665.5 = add nsw i32 %call7.3.i664.5, %mul5.3.i661.5
+  %or.cond.i666.5 = icmp ult i32 %add8.3.i665.5, 10
+  %340 = trunc i32 %add8.3.i665.5 to i8
+  %..i667.5 = select i1 %or.cond.i666.5, i8 48, i8 55
+  %conv17.i668.5 = add i8 %..i667.5, %340
+  %341 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 5
+  store i8 %conv17.i668.5, ptr %341, align 1
+  %arrayidx31.i672 = getelementptr inbounds [8 x i8], ptr %NUM_STR.i648, i64 0, i64 6
+  store i8 0, ptr %arrayidx31.i672, align 1, !tbaa !11
+  %fputs.i673 = call i32 @fputs(ptr nonnull %NUM_STR.i648, ptr %LISTING_STREAM)
+  call void (ptr, i32, ptr, ...) @ADD_TO_TEXT_RECORD(ptr noundef nonnull %NUM_STR.i648, i32 noundef %LOCATION, ptr noundef %OBJECT_STREAM) #16
+  %fputc.i676 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  %fputc.i676.1 = call i32 @fputc(i32 32, ptr %LISTING_STREAM)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %NUM_STR.i648) #16
   br label %if.end215
 
-if.end215:                                        ; preds = %if.end213, %SET_BITS_TO.exit578
+if.end215:                                        ; preds = %if.end213, %SET_BITS_TO.exit577
   %342 = load ptr, ptr %ARGUMENTS.addr, align 8, !tbaa !5
   %343 = load i8, ptr %342, align 1, !tbaa !11
   %conv216 = sext i8 %343 to i32
@@ -2354,11 +2354,11 @@ declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2373,8 +2373,8 @@ attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #10 = { nofree nounwind }
 attributes #11 = { nofree willreturn }
 attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }

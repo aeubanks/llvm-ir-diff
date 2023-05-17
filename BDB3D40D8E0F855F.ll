@@ -29,6 +29,7 @@ tailrecurse:                                      ; preds = %land.lhs.true171, %
 if.then:                                          ; preds = %tailrecurse
   %arrayidx6 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %idxprom3, i64 %indvars.iv
   %1 = load i8, ptr %arrayidx6, align 1, !tbaa !5
+  %conv = zext i8 %1 to i32
   %cmp7 = icmp eq i8 %1, 0
   br i1 %cmp7, label %land.lhs.true, label %if.else
 
@@ -46,8 +47,7 @@ if.then15:                                        ; preds = %land.lhs.true
   br label %if.end40
 
 if.else:                                          ; preds = %land.lhs.true, %if.then
-  %conv26 = zext i8 %1 to i32
-  %cmp27 = icmp eq i32 %conv26, %color
+  %cmp27 = icmp eq i32 %conv, %color
   br i1 %cmp27, label %land.lhs.true29, label %if.end40
 
 land.lhs.true29:                                  ; preds = %if.else
@@ -67,6 +67,7 @@ if.end40:                                         ; preds = %if.then15, %if.then
 if.then43:                                        ; preds = %tailrecurse, %if.end40
   %arrayidx47 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %idxprom44, i64 %indvars.iv
   %6 = load i8, ptr %arrayidx47, align 1, !tbaa !5
+  %conv48 = zext i8 %6 to i32
   %cmp49 = icmp eq i8 %6, 0
   br i1 %cmp49, label %land.lhs.true51, label %if.else66
 
@@ -84,8 +85,7 @@ if.then59:                                        ; preds = %land.lhs.true51
   br label %if.end87
 
 if.else66:                                        ; preds = %land.lhs.true51, %if.then43
-  %conv72 = zext i8 %6 to i32
-  %cmp73 = icmp eq i32 %conv72, %color
+  %cmp73 = icmp eq i32 %conv48, %color
   br i1 %cmp73, label %land.lhs.true75, label %if.end87
 
 land.lhs.true75:                                  ; preds = %if.else66
@@ -107,6 +107,7 @@ if.then90:                                        ; preds = %if.end87
   %12 = add nsw i64 %indvars.iv, -1
   %arrayidx95 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %idxprom, i64 %12
   %13 = load i8, ptr %arrayidx95, align 1, !tbaa !5
+  %conv96 = zext i8 %13 to i32
   %cmp97 = icmp eq i8 %13, 0
   br i1 %cmp97, label %land.lhs.true99, label %if.else114
 
@@ -124,8 +125,7 @@ if.then107:                                       ; preds = %land.lhs.true99
   br label %if.end135
 
 if.else114:                                       ; preds = %land.lhs.true99, %if.then90
-  %conv120 = zext i8 %13 to i32
-  %cmp121 = icmp eq i32 %conv120, %color
+  %cmp121 = icmp eq i32 %conv96, %color
   br i1 %cmp121, label %land.lhs.true123, label %if.end135
 
 land.lhs.true123:                                 ; preds = %if.else114
@@ -147,6 +147,7 @@ if.then138:                                       ; preds = %if.end87, %if.end13
   %indvars.iv.next = add i64 %indvars.iv, 1
   %arrayidx143 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %idxprom, i64 %indvars.iv.next
   %19 = load i8, ptr %arrayidx143, align 1, !tbaa !5
+  %conv144 = zext i8 %19 to i32
   %cmp145 = icmp eq i8 %19, 0
   br i1 %cmp145, label %land.lhs.true147, label %if.else162
 
@@ -164,8 +165,7 @@ if.then155:                                       ; preds = %land.lhs.true147
   br label %if.end183
 
 if.else162:                                       ; preds = %land.lhs.true147, %if.then138
-  %conv168 = zext i8 %19 to i32
-  %cmp169 = icmp eq i32 %conv168, %color
+  %cmp169 = icmp eq i32 %conv144, %color
   br i1 %cmp169, label %land.lhs.true171, label %if.end183
 
 land.lhs.true171:                                 ; preds = %if.else162

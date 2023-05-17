@@ -134,7 +134,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @hypre_SeqVectorRead(ptr nocapture noundef readonly %file_name) local_unnamed_addr #0 {
-hypre_SeqVectorInitialize.exit:
+entry:
   %size = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %size) #13
   %call = tail call noalias ptr @fopen(ptr noundef %file_name, ptr noundef nonnull @.str)
@@ -160,8 +160,8 @@ hypre_SeqVectorInitialize.exit:
   %cmp15 = icmp sgt i32 %1, 0
   br i1 %cmp15, label %for.body, label %for.end
 
-for.body:                                         ; preds = %hypre_SeqVectorInitialize.exit, %for.body
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %hypre_SeqVectorInitialize.exit ]
+for.body:                                         ; preds = %entry, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %entry ]
   %arrayidx = getelementptr inbounds double, ptr %call.i14, i64 %indvars.iv
   %call5 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.2, ptr noundef %arrayidx) #13
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
@@ -170,7 +170,7 @@ for.body:                                         ; preds = %hypre_SeqVectorInit
   %cmp = icmp slt i64 %indvars.iv.next, %3
   br i1 %cmp, label %for.body, label %for.end, !llvm.loop !18
 
-for.end:                                          ; preds = %for.body, %hypre_SeqVectorInitialize.exit
+for.end:                                          ; preds = %for.body, %entry
   %call6 = call i32 @fclose(ptr noundef %call)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %size) #13
   ret ptr %call.i
@@ -435,7 +435,7 @@ for.end:                                          ; preds = %for.body.prol.loope
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @hypre_SeqVectorCloneDeep(ptr nocapture noundef readonly %x) local_unnamed_addr #0 {
-if.end.i:
+entry:
   %size1 = getelementptr inbounds %struct.hypre_Vector, ptr %x, i64 0, i32 1
   %0 = load i32, ptr %size1, align 8, !tbaa !11
   %num_vectors2 = getelementptr inbounds %struct.hypre_Vector, ptr %x, i64 0, i32 3
@@ -469,17 +469,17 @@ if.end.i:
     i32 1, label %if.then7.i
   ]
 
-if.then7.i:                                       ; preds = %if.end.i
+if.then7.i:                                       ; preds = %entry
   br label %if.end12.sink.split.i
 
-if.end12.sink.split.i:                            ; preds = %if.then7.i, %if.end.i
-  %.sink25.i = phi i32 [ 1, %if.then7.i ], [ %0, %if.end.i ]
-  %.sink.i = phi i32 [ %1, %if.then7.i ], [ 1, %if.end.i ]
+if.end12.sink.split.i:                            ; preds = %if.then7.i, %entry
+  %.sink25.i = phi i32 [ 1, %if.then7.i ], [ %0, %entry ]
+  %.sink.i = phi i32 [ %1, %if.then7.i ], [ 1, %entry ]
   store i32 %.sink25.i, ptr %vecstride4, align 8, !tbaa !15
   store i32 %.sink.i, ptr %idxstride5, align 4, !tbaa !16
   br label %hypre_SeqVectorInitialize.exit
 
-hypre_SeqVectorInitialize.exit:                   ; preds = %if.end.i, %if.end12.sink.split.i
+hypre_SeqVectorInitialize.exit:                   ; preds = %entry, %if.end12.sink.split.i
   %8 = load ptr, ptr %x, align 8, !tbaa !5
   %9 = load i32, ptr %size1, align 8, !tbaa !11
   %10 = load i32, ptr %num_vectors2, align 8, !tbaa !12
